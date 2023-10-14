@@ -9,17 +9,13 @@
           "name": "payer",
           "isMut": true,
           "isSigner": true,
-          "docs": [
-            "anyone can init"
-          ]
+          "docs": ["anyone can init"]
         },
         {
           "name": "project",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "Allow only one ABC per project. That is why the project_token_mint is not part of the seeds."
-          ]
+          "docs": ["Allow only one ABC per project. That is why the project_token_mint is not part of the seeds."]
         },
         {
           "name": "projectTokenMint",
@@ -30,10 +26,7 @@
           "name": "projectTokenTreasury",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The treasury account of the project.",
-            "The project community can vote on how to use the funds."
-          ]
+          "docs": ["The treasury account of the project.", "The project community can vote on how to use the funds."]
         },
         {
           "name": "systemProgram",
@@ -109,19 +102,13 @@
           "name": "quoteTreasury",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The treasury account of the project.",
-            "The project community can vote on how to use the funds."
-          ]
+          "docs": ["The treasury account of the project.", "The project community can vote on how to use the funds."]
         },
         {
           "name": "quoteAbcReserve",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The ABC reserve.",
-            "Can not be touched by the project community. Is used to allow project token redeem."
-          ]
+          "docs": ["The ABC reserve.", "Can not be touched by the project community. Is used to allow project token redeem."]
         },
         {
           "name": "systemProgram",
@@ -182,43 +169,31 @@
           "name": "quoteTokenMint",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "TODO: probably not the best practice: project.abc.clone()"
-          ]
+          "docs": ["TODO: probably not the best practice: project.abc.clone()"]
         },
         {
           "name": "quoteTreasury",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The treasury account of the project.",
-            "The project community can vote on how to use the funds."
-          ]
+          "docs": ["The treasury account of the project.", "The project community can vote on how to use the funds."]
         },
         {
           "name": "quoteAbcReserve",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The ABC reserve.",
-            "Can not be touched by the project community. Is used to allow project token redeem."
-          ]
+          "docs": ["The ABC reserve.", "Can not be touched by the project community. Is used to allow project token redeem."]
         },
         {
           "name": "userProjectTokenAccount",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "No need to force it to be an associated token account."
-          ]
+          "docs": ["No need to force it to be an associated token account."]
         },
         {
           "name": "userQuoteTokenAccount",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "No need to force it to be an associated token account."
-          ]
+          "docs": ["No need to force it to be an associated token account."]
         },
         {
           "name": "systemProgram",
@@ -274,34 +249,25 @@
           "name": "quoteTokenMint",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "TODO: probably not the best practice: project.abc.clone()"
-          ]
+          "docs": ["TODO: probably not the best practice: project.abc.clone()"]
         },
         {
           "name": "quoteAbcReserve",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "The ABC reserve.",
-            "Can not be touched by the project community. Is used to allow project token redeem."
-          ]
+          "docs": ["The ABC reserve.", "Can not be touched by the project community. Is used to allow project token redeem."]
         },
         {
           "name": "userProjectTokenAccount",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "No need to force it to be an associated token account."
-          ]
+          "docs": ["No need to force it to be an associated token account."]
         },
         {
           "name": "userQuoteTokenAccount",
           "isMut": true,
           "isSigner": false,
-          "docs": [
-            "No need to force it to be an associated token account."
-          ]
+          "docs": ["No need to force it to be an associated token account."]
         },
         {
           "name": "systemProgram",
@@ -368,14 +334,9 @@
           },
           {
             "name": "bump",
-            "docs": [
-              "Bump of the config"
-            ],
+            "docs": ["Bump of the config"],
             "type": {
-              "array": [
-                "u8",
-                1
-              ]
+              "array": ["u8", 1]
             }
           }
         ]
@@ -390,25 +351,17 @@
         "fields": [
           {
             "name": "constantMint",
-            "docs": [
-              "Q32_32",
-              "Unit: [quote / pt] quote currency lamports per project token lamport"
-            ],
+            "docs": ["Q32_32", "Unit: [quote / pt] quote currency lamports per project token lamport"],
             "type": "u64"
           },
           {
             "name": "constantRedeem",
-            "docs": [
-              "Q32_32",
-              "Unit: [quote / pt] quote currency lamports per project token lamport"
-            ],
+            "docs": ["Q32_32", "Unit: [quote / pt] quote currency lamports per project token lamport"],
             "type": "u64"
           },
           {
             "name": "quoteTokenMint",
-            "docs": [
-              "The mint of the token that is used to price the project token"
-            ],
+            "docs": ["The mint of the token that is used to price the project token"],
             "type": "publicKey"
           }
         ]

@@ -1,38 +1,383 @@
-.App {
+/* Google Fonts We are using */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+/* Universal Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: .4s ease;
+}
+.overflow-hidden > * {
+  transition: .0s ease;
+  overflow: visible !important;
+}
+:root {
+  --primary: #FF5E1A;
+  --primaryhover: #b84210;
+  --red: #DF2040;
+  --green: #40BF6A;
+  --blue: #132743;
+}
+.transformscale>*{
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.fw-100 {
+  font-weight: 100 !important;
+}
+
+.fw-200 {
+  font-weight: 200 !important;
+}
+
+.fw-300 {
+  font-weight: 300 !important;
+}
+
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+.fw-600 {
+  font-weight: 600 !important;
+}
+
+.fw-700 {
+  font-weight: 700 !important;
+}
+
+.fw-800 {
+  font-weight: 800 !important;
+}
+
+.fw-900 {
+  font-weight: 900 !important;
+}
+
+.fw-1000 {
+  font-weight: 1000 !important;
+}
+
+body {
+  font-family: 'Audiowide', sans-serif;
+  background-image: url('../src/assets/images/background.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: max-content;
+}
+
+.helvetica {
+  font-family: Helvetica !important;
+}
+
+.text__primary {
+  color: var(--primary) !important;
+}
+
+.bg__blue {
+  background: var(--blue);
+}
+
+.text__red {
+  color: var(--red);
+}
+
+.text__green {
+  color: var(--green);
+}
+
+.connect__btn {
+  background-color: var(--primary);
+  padding: 8px 25px;
   text-align: center;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid var(--primary);
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.connect__btn:hover {
+  background-color: var(--primaryhover);
+  border: 1px solid var(--primaryhover);
+  transform: translateY(-5px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.connect__btn2 {
+  background-color: var(--primary);
+  padding: 6px 10px;
+  text-align: center;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid var(--primary);
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.connect__btn2:hover {
+  background-color: var(--primaryhover);
+  border: 1px solid var(--primaryhover);
+  transform: translateY(-2px);
+}
+
+.bg__pink {
+  background-color: #FFBDBD !important;
+}
+
+.banner__home h5 {
+  line-height: 25px;
+}
+
+.kittyimg {
+  margin-left: -30px;
+}
+
+.kittyimg:hover {
+  transform: translateY(-5px);
+}
+
+.card__project {
+  width: 100%;
+  border-radius: 24px;
+  background: var(--blue);
+
+}
+
+.brandimg {
+  width: 55px;
+}
+
+footer {
+  background-color: #071220;
+}
+
+.swapbtn {
+  position: absolute;
+  top: 40%;
+}
+
+.wallet {
+  padding: 5px 8px;
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: #fff;
+  border-radius: 40px;
+}
+
+.socialimg {
+  border: 1px solid var(--primary);
+  padding: 5px;
+  width: 45px;
+  height: 45px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  text-decoration: none !important;
+  border-radius: 50%;
 }
 
-.App-link {
-  color: #61dafb;
+.footerkit{
+  position: absolute;
+
+  top: 0%;
+  z-index: -1 !important;
+}
+footer:hover .footerkit{
+  top: -62%;
+}
+.socialimg:hover {
+  background-color: var(--primary);
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.socialimg:hover img {
+  filter: brightness(.3);
+
+}
+
+#registermodal .modal-content {
+  background-color: #0E1E34 !important;
+}
+
+.bg__solana {
+  background-color: #1D314C;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+.bg__solana:hover {
+  background-color: #1D314C !important;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+.bg__solana:focus {
+  background-color: #1D314C !important;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+.dropdown-menu {
+  background-color: #1D314C !important;
+
+}
+
+.dropdown-menu>* {
+  background-color: #1D314C !important;
+  color: #fff !important;
+
+}
+
+
+
+.controla {
+  background-color: #1D314C !important;
+  border: #1D314C !important;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 0px 15px; */
+  width: 70%;
+  margin: auto;
+
+}
+
+.tabs .tab {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 20px;
+}
+
+.tabs .active {
+  background-color: var(--primary);
+  border: none;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+  padding: 5px 20px;
+}
+
+.swapc {
+  height: 489px;
+  border-radius: 20px;
+  background: #132743;
+  padding: 20px 40px;
+}
+
+.swapc .swapdiv {
+  border-radius: 9px;
+  background: #1D314C;
+}
+
+.swapdiv input {
+  width: 13.5ch;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: visible;
+}
+
+.nofocus:focus {
+  box-shadow: none;
+  outline: none;
+}
+.chartheight{
+  height: 250px;
+}
+footer a:hover {
+  color: var(--primary) !important;
+}
+footer a:hover h5{
+  color: var(--primary) !important;
+}
+@media (min-width:1366px) {
+
+  #registermodal {
+    max-width: 350px !important;
   }
-  to {
-    transform: rotate(360deg);
+}
+@media (min-width:1366px) {
+
+  #registermodal {
+    max-width: 350px !important;
+  }
+}
+@media (min-height:1830px) {
+
+  body{
+    height: 100vh;
+    position: relative;
+  }
+  footer.position-relative{
+    bottom: 0 !important;
+    width: 100vw;
+    position: absolute !important;
+  }
+
+}
+
+@media (max-width:991px) {
+  .kittyimg {
+    margin-left: 0px;
+  }
+  .chartheight{
+    height: 200px;
+  }
+  header .connect__btn {
+    background-color: var(--primary);
+    padding: 8px 15px;
+    text-align: center;
+    color: #fff;
+    border-radius: 30px;
+    border: 1px solid var(--primary);
+
+  }
+
+  .swapdiv input {
+    width: 80px;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    /* gap: 0px 15px; */
+    width: 70%;
+    margin: auto;
+
+  }
+
+  .tabs .tab {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px 15px;
+  }
+
+  .tabs .active {
+    background-color: var(--primary);
+    border: none;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    padding: 5px 15px;
+  }
+  .swapc {
+    height: max-content;
+    border-radius: 20px;
+    background: #132743;
+    padding: 20px 40px;
+  }
+  .swapbtn {
+    position: absolute;
+    top: 42%;
   }
 }
