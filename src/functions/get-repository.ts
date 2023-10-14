@@ -1,6 +1,7 @@
 interface Repo {
   organization: Organization;
 }
+
 interface Organization {
   avatar_url: string;
 }

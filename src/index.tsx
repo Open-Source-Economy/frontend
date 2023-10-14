@@ -5,30 +5,30 @@ import reportWebVitals from "./reportWebVitals";
 import Swap from "./pages/Swap";
 import Donate from "./pages/Donate";
 import Home from "./pages/Home";
-import {createBrowserRouter, RouterProvider,} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home/>,
-    },
-    {
-        path: "/swap",
-        element: <Swap/>,
-    },
-    {
-        path: "/donate",
-        element: <Donate/>,
-    },
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/swap",
+    element: <Swap />,
+  },
+  {
+    path: "/donate",
+    element: <Donate />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>,
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

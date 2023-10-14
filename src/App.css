@@ -1,25 +1,25 @@
 /* Google Fonts We are using */
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
 
 /* Universal Styling */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: .4s ease;
+  transition: 0.4s ease;
 }
 .overflow-hidden > * {
-  transition: .0s ease;
+  transition: 0s ease;
   overflow: visible !important;
 }
 :root {
-  --primary: #FF5E1A;
+  --primary: #ff5e1a;
   --primaryhover: #b84210;
-  --red: #DF2040;
-  --green: #40BF6A;
+  --red: #df2040;
+  --green: #40bf6a;
   --blue: #132743;
 }
-.transformscale>*{
+.transformscale > * {
   font-family: Arial, Helvetica, sans-serif !important;
 }
 
@@ -64,8 +64,8 @@
 }
 
 body {
-  font-family: 'Audiowide', sans-serif;
-  background-image: url('../src/assets/images/background.png');
+  font-family: "Audiowide", sans-serif;
+  background-image: url("../src/assets/images/background.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: max-content;
@@ -98,7 +98,6 @@ body {
   color: #fff;
   border-radius: 30px;
   border: 1px solid var(--primary);
-
 }
 
 .connect__btn:hover {
@@ -114,7 +113,6 @@ body {
   color: #fff;
   border-radius: 30px;
   border: 1px solid var(--primary);
-
 }
 
 .connect__btn2:hover {
@@ -124,7 +122,7 @@ body {
 }
 
 .bg__pink {
-  background-color: #FFBDBD !important;
+  background-color: #ffbdbd !important;
 }
 
 .banner__home h5 {
@@ -143,7 +141,6 @@ body {
   width: 100%;
   border-radius: 24px;
   background: var(--blue);
-
 }
 
 .brandimg {
@@ -179,66 +176,60 @@ footer {
   border-radius: 50%;
 }
 
-.footerkit{
+.footerkit {
   position: absolute;
 
   top: 0%;
   z-index: -1 !important;
 }
-footer:hover .footerkit{
+footer:hover .footerkit {
   top: -62%;
 }
 .socialimg:hover {
   background-color: var(--primary);
-
 }
 
 .socialimg:hover img {
-  filter: brightness(.3);
-
+  filter: brightness(0.3);
 }
 
 #registermodal .modal-content {
-  background-color: #0E1E34 !important;
+  background-color: #0e1e34 !important;
 }
 
 .bg__solana {
-  background-color: #1D314C;
+  background-color: #1d314c;
   border: none;
   padding: 5px 15px;
   border-radius: 30px;
 }
 
 .bg__solana:hover {
-  background-color: #1D314C !important;
+  background-color: #1d314c !important;
   border: none;
   padding: 5px 15px;
   border-radius: 30px;
 }
 
 .bg__solana:focus {
-  background-color: #1D314C !important;
+  background-color: #1d314c !important;
   border: none;
   padding: 5px 15px;
   border-radius: 30px;
 }
 
 .dropdown-menu {
-  background-color: #1D314C !important;
-
+  background-color: #1d314c !important;
 }
 
-.dropdown-menu>* {
-  background-color: #1D314C !important;
+.dropdown-menu > * {
+  background-color: #1d314c !important;
   color: #fff !important;
-
 }
-
-
 
 .controla {
-  background-color: #1D314C !important;
-  border: #1D314C !important;
+  background-color: #1d314c !important;
+  border: #1d314c !important;
 }
 
 .tabs {
@@ -247,7 +238,6 @@ footer:hover .footerkit{
   /* gap: 0px 15px; */
   width: 70%;
   margin: auto;
-
 }
 
 .tabs .tab {
@@ -276,7 +266,7 @@ footer:hover .footerkit{
 
 .swapc .swapdiv {
   border-radius: 9px;
-  background: #1D314C;
+  background: #1d314c;
 }
 
 .swapdiv input {
@@ -289,46 +279,42 @@ footer:hover .footerkit{
   box-shadow: none;
   outline: none;
 }
-.chartheight{
+.chartheight {
   height: 250px;
 }
 footer a:hover {
   color: var(--primary) !important;
 }
-footer a:hover h5{
+footer a:hover h5 {
   color: var(--primary) !important;
 }
-@media (min-width:1366px) {
-
+@media (min-width: 1366px) {
   #registermodal {
     max-width: 350px !important;
   }
 }
-@media (min-width:1366px) {
-
+@media (min-width: 1366px) {
   #registermodal {
     max-width: 350px !important;
   }
 }
-@media (min-height:1830px) {
-
-  body{
+@media (min-height: 1830px) {
+  body {
     height: 100vh;
     position: relative;
   }
-  footer.position-relative{
+  footer.position-relative {
     bottom: 0 !important;
     width: 100vw;
     position: absolute !important;
   }
-
 }
 
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .kittyimg {
     margin-left: 0px;
   }
-  .chartheight{
+  .chartheight {
     height: 200px;
   }
   header .connect__btn {
@@ -338,7 +324,6 @@ footer a:hover h5{
     color: #fff;
     border-radius: 30px;
     border: 1px solid var(--primary);
-
   }
 
   .swapdiv input {
@@ -351,7 +336,6 @@ footer a:hover h5{
     /* gap: 0px 15px; */
     width: 70%;
     margin: auto;
-
   }
 
   .tabs .tab {

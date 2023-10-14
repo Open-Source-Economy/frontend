@@ -1,18 +1,12 @@
-import {useState} from 'react'
+import { useState } from "react";
 
 function RegisterNewProject() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  return (
-      <>
-
-      </>
-  )
+  return <></>;
 }
 
-export default RegisterNewProject
-
-
+export default RegisterNewProject;
 
 // import { useAnchorWallet } from "@solana/wallet-adapter-react";
 // import React, { useContext, useState } from "react";

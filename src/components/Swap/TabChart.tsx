@@ -1,11 +1,11 @@
-import {useState} from 'react'
-import ProjectPageChart from '../Elements/ProjectPageChart'
+import { useState } from "react";
+import ProjectPageChart from "../Elements/ProjectPageChart";
 
 const TabChart = () => {
-    const [active, setActive] = useState("tab-1")
-    return (
-        <>
-            {/* <div className="tabs ">
+  const [active, setActive] = useState("tab-1");
+  return (
+    <>
+      {/* <div className="tabs ">
                 <button className={active == "tab-1" ? "active" : "tab"} onClick={() => { setActive("tab-1") }}>
                     24h
                 </button>
@@ -22,12 +22,12 @@ const TabChart = () => {
                     All
                 </button>
             </div> */}
-            <div className="d-flex justify-content-center">
-                <div className="w-100">
-                    <ProjectPageChart/>
-                </div>
-            </div>
-            {/* <div className="d-flex justify-content-center mt-4">
+      <div className="d-flex justify-content-center">
+        <div className="w-100">
+          <ProjectPageChart />
+        </div>
+      </div>
+      {/* <div className="d-flex justify-content-center mt-4">
                 {
                     active == "tab-1" ?
                         // <img src={Chart} className='img-fluid' alt="" />
@@ -50,9 +50,8 @@ const TabChart = () => {
 
                 }
             </div> */}
+    </>
+  );
+};
 
-        </>
-    )
-}
-
-export default TabChart
+export default TabChart;

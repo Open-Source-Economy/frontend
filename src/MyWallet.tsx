@@ -1,5 +1,5 @@
-import {WalletDisconnectButton, WalletModalProvider, WalletMultiButton} from "@solana/wallet-adapter-react-ui";
-import {useAnchorWallet} from "@solana/wallet-adapter-react";
+import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 const MyWallet = () => {
   const wallet = useAnchorWallet();
