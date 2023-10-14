@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
 import data from "../Elements/ChartData";
-import xMoneyImg from "../../assets/images/xmon.png";
+import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 
 interface CardProps {
-  brand: string;
-  caps: string;
+  name: string;
+  tokenCode: string;
   tagline: string;
-  marketvalue: string;
-  decreasevalue: string;
-  increasevalue: string;
-  brandimg: string;
+  price: number;
+  quoteCurrency: string;
+  changeValue: number;
+  logo: string;
 }
 
 const Card: React.FC<CardProps> = props => {
@@ -19,6 +19,7 @@ const Card: React.FC<CardProps> = props => {
   useEffect(() => {
     setChartData(data); // set the chart data i pass same data and all chart you make exmple 4 cahrt you make 4 state and import data from api and pass here example setChart1Data(YourData)
   }, []);
+
   return (
     <>
       <div className="card__project">
@@ -26,22 +27,26 @@ const Card: React.FC<CardProps> = props => {
           <div className="row mx-0 align-items-center flex-md-row gap-lg-0 gap-3">
             <div className=" col-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-8">
               <div className="d-flex gap-4 align-items-center">
-                <img src={props.brandimg} className="brandimg" alt="" />
+                <img src={props.logo} className="brandimg" alt="" />
                 <div>
                   <h5 className="helvetica text-white fw-700">
-                    {props.brand} <span className="text-uppercase fs-6"> {props.caps}</span>
+                    {props.name} <span className="text-uppercase fs-6"> ({props.tokenCode})</span>
                   </h5>
-                  <p className="text-white helvetica mb-0">{props.tagline}</p>
+                  {/* TODO: if cut, add "..." */}
+                  <p className="text-white helvetica mb-0">{getFirstSentenceOrFirstNWordsFromValue(props.tagline, 10)}</p>
                 </div>
               </div>
             </div>
             <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
               <div className="text-start">
-                <h5 className="mb-2 text-white helvetica"> {props.marketvalue} </h5>
-                {props.decreasevalue ? (
-                  <h5 className=" mb-0 fw-500 text__red helvetica">▼{props.decreasevalue}</h5>
+                <h5 className="mb-2 text-white helvetica">
+                  {" "}
+                  {props.quoteCurrency} {props.price}{" "}
+                </h5>
+                {props.changeValue < 0 ? (
+                  <h5 className=" mb-0 fw-500 text__red helvetica">▼ {props.changeValue}</h5>
                 ) : (
-                  <h5 className=" mb-0 fw-500 text__green helvetica">▲{props.increasevalue}</h5>
+                  <h5 className=" mb-0 fw-500 text__green helvetica">▲ {props.changeValue}</h5>
                 )}
               </div>
             </div>
@@ -50,13 +55,13 @@ const Card: React.FC<CardProps> = props => {
         {/* <img src={Chartimg} className='w-100' alt="" /> */}
         <div className="chartheight">
           <Chart
-            desc="The solution to make Open-Source as Competitive as Closed Source"
+            desc={props.tagline}
             chatData={chartData}
-            title="xMoney"
-            smTitle="UTK"
-            imgd={xMoneyImg}
-            price={0.5227}
-            profitPrice={-4.17}
+            title={props.name}
+            smTitle={props.tokenCode}
+            imgd={props.logo}
+            price={props.price}
+            profitPrice={props.changeValue}
           />
         </div>
       </div>

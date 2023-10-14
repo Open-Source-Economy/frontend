@@ -23,20 +23,20 @@ const Footer = () => {
               </p>
             </Link>
             <div className="d-flex gap-lg-5 gap-3 align-items-center">
-              <Link to="/" className="socialimg">
+              <Link to="https://www.linkedin.com/company/open-source-economy/" className="socialimg" target="_blank">
                 <img src={facebook} alt="" />
               </Link>
-              <Link to="/" className="socialimg">
+              <Link to="/" className="socialimg" target="_blank">
                 <img src={discord} alt="" />
               </Link>
 
-              <Link to="/" className="socialimg">
+              <Link to="https://twitter.com/OS_Economy" className="socialimg" target="_blank">
                 <img src={elon} alt="" />
               </Link>
             </div>
             <div>
-              <a href="mailto:lauraine@opensource.com" className="text-decoration-none text-reset">
-                <h5 className="text-white mb-0">lauriane@opensource.com</h5>
+              <a href="mailto:lauraine@open-source-economy.com" className="text-decoration-none text-reset">
+                <h5 className="text-white mb-0">lauriane@open-source-economy.com</h5>
               </a>
             </div>
           </div>

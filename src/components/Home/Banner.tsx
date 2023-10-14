@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 import kittyimg from "../../assets/images/kitty.png";
-import frame from "../../assets/images/Frame.png";
+import { ClientContext } from "../../App";
+import RegisterNewProject from "./RegisterNewProject";
 
 const Banner = () => {
-  const [show, setShow] = useState(false);
-  const [error, setError] = useState(false);
+  const client = useContext(ClientContext);
+  const walletAddress = client?.context.provider.wallet.publicKey.toString();
 
-  const handleClose = () => (error ? setShow(false) : setError(true));
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <>
       <section className="banner__home">
@@ -37,30 +41,7 @@ const Banner = () => {
 
       <Modal show={show} onHide={handleClose} centered id="registermodal" size="sm">
         <Modal.Body>
-          <div className="px-lg-1 py-3">
-            <h5 className="text-white text-center">Register Your Project</h5>
-            <label htmlFor="" className="helvetica mt-4  pt-3 text-white small d-block">
-              Owner
-            </label>
-            <input type="text" className="form-control controla text-white" />
-            <label htmlFor="" className="helvetica mt-3 text-white small d-block">
-              Repository
-            </label>
-            <input type="text" className="form-control controla text-white" />
-            {error ? (
-              <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
-                <img src={frame} className=" img-fluid" alt="" />
-                <div className="text__red helvetica fw-600 small">The project does not exist</div>
-              </div>
-            ) : (
-              <div className="d-block mt-0 pt-0"></div>
-            )}
-            <div className="d-block mt-4 pt-3">
-              <button onClick={handleClose} className="connect__btn w-100">
-                Submit
-              </button>
-            </div>
-          </div>
+          <RegisterNewProject onSuccess={handleClose} />
         </Modal.Body>
       </Modal>
     </>

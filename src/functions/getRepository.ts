@@ -1,8 +1,11 @@
-interface Repo {
+export interface Repo {
+  name: string;
+  full_name: string;
+  description: string;
   organization: Organization;
 }
 
-interface Organization {
+export interface Organization {
   avatar_url: string;
 }
 
@@ -11,7 +14,8 @@ export async function getRepository(owner: string, repository: string): Promise<
     const response = await fetch(`https://api.github.com/repos/${owner.trim()}/${repository.trim()}`, {
       method: "GET",
       headers: {
-        Authorization: `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`, // TODO: for now is marked as unsecured
+        Authorization: "Token " + ``, // TODO: yeah I know... for now is marked as unsecured
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
     if (response.ok) {
