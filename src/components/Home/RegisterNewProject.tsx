@@ -6,7 +6,7 @@ import { web3 } from "@project-serum/anchor";
 import * as ose from "@open-source-economy/poc";
 
 interface RegisterNewProjectProps {
-  onSuccess: () => void;
+  onRegisteringNewProject: () => void;
 }
 
 const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
@@ -31,7 +31,7 @@ const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
         const params: ose.InitializeParams = await client.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
         await client.initialize(params);
 
-        props.onSuccess();
+        props.onRegisteringNewProject();
       } catch (e) {
         if (e instanceof Error) {
           // specific for WalletError ?

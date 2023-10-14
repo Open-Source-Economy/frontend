@@ -3,9 +3,7 @@ import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import MyWallet from "../../MyWallet";
 
-interface HeaderProps {
-  isLogged: boolean;
-}
+interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = props => {
   return (

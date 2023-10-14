@@ -7,7 +7,7 @@ import Footer from "../components/Layout/Footer";
 const Swap = () => {
   return (
     <>
-      <Header isLogged={true} />
+      <Header/>
       <BannerSwap />
       <SwapChart />
       <div className="mt-5 pt-lg-5"></div>

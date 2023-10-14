@@ -1,17 +1,20 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 import kittyimg from "../../assets/images/kitty.png";
 import { ClientContext } from "../../App";
 import RegisterNewProject from "./RegisterNewProject";
 
-const Banner = () => {
-  const client = useContext(ClientContext);
-  const walletAddress = client?.context.provider.wallet.publicKey.toString();
-
+interface BannerProps {
+  onRegisteringNewProject: () => void;
+}
+const Banner: React.FC<BannerProps> = props => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
+  const onHide = () => setShow(false);
+  const onRegisteringNewProject = () => {
+    props.onRegisteringNewProject();
+    onHide();
+  };
   const handleShow = () => setShow(true);
 
   return (
@@ -39,9 +42,9 @@ const Banner = () => {
         </div>
       </section>
 
-      <Modal show={show} onHide={handleClose} centered id="registermodal" size="sm">
+      <Modal show={show} onHide={onHide} centered id="registermodal" size="sm">
         <Modal.Body>
-          <RegisterNewProject onSuccess={handleClose} />
+          <RegisterNewProject onRegisteringNewProject={onRegisteringNewProject} />
         </Modal.Body>
       </Modal>
     </>

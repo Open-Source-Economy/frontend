@@ -1,19 +1,14 @@
 import Card from "../Elements/Card";
-import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ConnectionContext, Project } from "../../App";
-import { getAllValidGitHubProject, Repo } from "../../functions";
+import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {Project} from "../../App";
+import {Repo} from "../../functions";
+import {ProjectContext} from "../../pages/Home";
+
 
 const Projects = () => {
-  const connection = useContext(ConnectionContext);
 
-  const [projects, setProjects] = useState<(Project & Repo)[]>();
-
-  useEffect(() => {
-    if (connection) {
-      getAllValidGitHubProject(connection).then(projects => setProjects(projects)); // TODO: handle error
-    }
-  }, []);
+  const projects = useContext(ProjectContext);
 
   return (
     <>
@@ -22,7 +17,7 @@ const Projects = () => {
 
         <div className="row mx-0" style={{ gap: "30px 0px" }}>
           <></>
-          {(projects || []).map((project: Project & Repo) => {
+          {projects.map((project: Project & Repo) => {
             return (
               <div className="col-lg-6">
                 <Link to={`/swap/${project.owner}/${project.repository}`} className="text-decoration-none">
