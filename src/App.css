@@ -365,3 +365,7 @@ footer a:hover h5 {
     top: 42%;
   }
 }
+
+#projects {
+  min-height: 50vh;
+}

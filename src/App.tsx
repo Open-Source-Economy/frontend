@@ -58,8 +58,6 @@ function App() {
 
   return (
     <div className="main">
-      <p className="sign">Sign in With Solana</p>
-      <br />
       <div>
         <ConnectionContext.Provider value={connection}>
           <ClientContext.Provider value={client}>

@@ -12,7 +12,7 @@ const Projects = () => {
 
   return (
     <>
-      <section className="container mt-5 pt-lg-5">
+      <section className="container mt-5 pt-lg-5" id="projects">
         <h1 className="text-center text-white mb-5 pb-lg-4 pt-3 ">Projects</h1>
 
         <div className="row mx-0" style={{ gap: "30px 0px" }}>
@@ -20,7 +20,11 @@ const Projects = () => {
           {projects.map((project: Project & Repo) => {
             return (
               <div className="col-lg-6">
-                <Link to={`/swap/${project.owner}/${project.repository}`} className="text-decoration-none">
+                <Link
+                    to={`/swap/${project.owner}/${project.repository}`}
+                    className="text-decoration-none"
+                    state={{project: project}}
+                >
                   <Card
                     logo={project.organization.avatar_url}
                     name={project.full_name}
