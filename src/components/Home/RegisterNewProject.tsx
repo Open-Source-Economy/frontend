@@ -72,10 +72,9 @@ const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
                 Register
               </button>
             )) || (
-              <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
-                <img src={frame} className=" img-fluid" alt="" />
-                <div className="text__red helvetica fw-600 small"> Please connect your wallet</div>
-              </div>
+              <button disabled className="connect__btn w-100 bg-secondary border-0">
+                Connect wallet
+              </button>
             )}
           </div>
         </div>

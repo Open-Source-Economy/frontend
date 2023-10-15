@@ -1,4 +1,10 @@
-const data = [
+export type ChatPointData = {
+  days: string;
+  timestamp: string;
+  price: number;
+};
+
+const data: ChatPointData[] = [
   { days: "Mon 13", timestamp: "2023-10-12T04:00:00", price: 1000 },
   { days: "Tue 13", timestamp: "2023-10-12T03:00:00", price: 2000 },
   { days: "Wed 13", timestamp: "2023-10-12T00:00:00", price: 2400 },

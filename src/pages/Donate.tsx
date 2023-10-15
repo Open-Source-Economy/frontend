@@ -7,7 +7,7 @@ import Footer from "../components/Layout/Footer";
 const Donate = () => {
   return (
     <>
-      <Header/>
+      <Header />
       <BannerSwap />
       <SwapChart2 />
       <div className="mt-5 pt-lg-5"></div>

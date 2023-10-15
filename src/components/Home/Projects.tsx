@@ -1,13 +1,11 @@
 import Card from "../Elements/Card";
-import {Link} from "react-router-dom";
-import {useContext} from "react";
-import {Project} from "../../App";
-import {Repo} from "../../functions";
-import {ProjectContext} from "../../pages/Home";
-
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Project } from "../../App";
+import { Repo } from "../../functions";
+import { ProjectContext } from "../../pages/Home";
 
 const Projects = () => {
-
   const projects = useContext(ProjectContext);
 
   return (
@@ -20,19 +18,13 @@ const Projects = () => {
           {projects.map((project: Project & Repo) => {
             return (
               <div className="col-lg-6">
-                <Link
-                    to={`/swap/${project.owner}/${project.repository}`}
-                    className="text-decoration-none"
-                    state={{project: project}}
-                >
+                <Link to={`/swap/${project.owner}/${project.repository}`} className="text-decoration-none" state={{ project: project }}>
                   <Card
                     logo={project.organization.avatar_url}
                     name={project.full_name}
                     tokenCode={project.name.slice(0, 3).toUpperCase()}
                     tagline={project.description}
-                    price={0.05227}
                     quoteCurrency="$"
-                    changeValue={-4.17}
                   />
                 </Link>
               </div>
