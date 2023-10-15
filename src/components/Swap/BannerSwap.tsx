@@ -30,14 +30,14 @@ const BannerSwap: React.FC<BannerSwapProps> = props => {
               <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
                 {/* TODO: refactor this Card */}
                 <div className="text-lg-end text-start">
-                  <h5 className="mb-2 text-white helvetica">{props.chartData.price && ` ${props.quoteCurrency} ${props.chartData.price} `}</h5>
+                  <h5 className="mb-2 text-white helvetica">{props.chartData.price && ` ${props.quoteCurrency} ${props.chartData.price.toFixed(2)} `}</h5>
                   {props.chartData.changeValue &&
                     (props.chartData.changeValue! < 0 ? (
                       <h5 className=" mb-0 fw-500 text__red helvetica">
-                        ▼ -{props.chartData.changeValue}% <span className="text-white">(Week)</span>{" "}
+                        ▼ -{props.chartData.changeValue.toFixed(2)}% <span className="text-white">(Week)</span>{" "}
                       </h5>
                     ) : (
-                      <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{props.chartData.changeValue}%</h5>
+                      <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{props.chartData.changeValue.toFixed(2)}%</h5>
                     ))}
                 </div>
               </div>

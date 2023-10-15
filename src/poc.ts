@@ -204,6 +204,11 @@ export type Poc = {
           name: "tokenProgram";
           isMut: false;
           isSigner: false;
+        },
+        {
+          name: "associatedTokenProgram";
+          isMut: false;
+          isSigner: false;
         }
       ];
       args: [
@@ -219,7 +224,63 @@ export type Poc = {
     },
     {
       name: "donate";
-      accounts: [];
+      accounts: [
+        {
+          name: "user";
+          isMut: true;
+          isSigner: true;
+        },
+        {
+          name: "project";
+          isMut: false;
+          isSigner: false;
+        },
+        {
+          name: "projectTokenMint";
+          isMut: true;
+          isSigner: false;
+        },
+        {
+          name: "quoteTokenMint";
+          isMut: true;
+          isSigner: false;
+          docs: ["TODO: probably not the best practice: project.abc.clone()"];
+        },
+        {
+          name: "projectTokenTreasury";
+          isMut: true;
+          isSigner: false;
+          docs: ["The treasury account of the project.", "The project community can vote on how to use the funds."];
+        },
+        {
+          name: "quoteTreasury";
+          isMut: true;
+          isSigner: false;
+          docs: ["The treasury account of the project.", "The project community can vote on how to use the funds."];
+        },
+        {
+          name: "quoteAbcReserve";
+          isMut: true;
+          isSigner: false;
+          docs: ["The ABC reserve.", "Can not be touched by the project community. Is used to allow project token redeem."];
+        },
+        {
+          name: "userQuoteTokenAccount";
+          isMut: true;
+          isSigner: false;
+          docs: ["No need to force it to be an associated token account."];
+        },
+        {
+          name: "systemProgram";
+          isMut: false;
+          isSigner: false;
+        },
+        {
+          name: "tokenProgram";
+          isMut: false;
+          isSigner: false;
+        }
+      ];
       args: [
         {
           name: "quoteAmount";
@@ -614,6 +675,11 @@ export const IDL: Poc = {
           isMut: false,
           isSigner: false,
         },
+        {
+          name: "associatedTokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
       ],
       args: [
         {
@@ -628,7 +694,63 @@ export const IDL: Poc = {
     },
     {
       name: "donate",
-      accounts: [],
+      accounts: [
+        {
+          name: "user",
+          isMut: true,
+          isSigner: true,
+        },
+        {
+          name: "project",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "projectTokenMint",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "quoteTokenMint",
+          isMut: true,
+          isSigner: false,
+          docs: ["TODO: probably not the best practice: project.abc.clone()"],
+        },
+        {
+          name: "projectTokenTreasury",
+          isMut: true,
+          isSigner: false,
+          docs: ["The treasury account of the project.", "The project community can vote on how to use the funds."],
+        },
+        {
+          name: "quoteTreasury",
+          isMut: true,
+          isSigner: false,
+          docs: ["The treasury account of the project.", "The project community can vote on how to use the funds."],
+        },
+        {
+          name: "quoteAbcReserve",
+          isMut: true,
+          isSigner: false,
+          docs: ["The ABC reserve.", "Can not be touched by the project community. Is used to allow project token redeem."],
+        },
+        {
+          name: "userQuoteTokenAccount",
+          isMut: true,
+          isSigner: false,
+          docs: ["No need to force it to be an associated token account."],
+        },
+        {
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
+      ],
       args: [
         {
           name: "quoteAmount",

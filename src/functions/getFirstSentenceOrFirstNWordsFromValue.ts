@@ -10,7 +10,11 @@ export function getFirstSentenceOrFirstNWordsFromValue(value: string, N: number)
   // Get first sentence
   index = value.indexOf(".");
   if (index !== -1) {
-    return value.substring(0, index + 1);
+    return value
+      .substring(0, index + 1)
+      .split(" ")
+      .slice(0, N)
+      .join(" ");
   } else {
     // Return first N words of remaining value
     return value.split(" ").slice(0, N).join(" ") + " ...";

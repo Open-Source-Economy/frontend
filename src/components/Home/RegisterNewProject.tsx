@@ -1,9 +1,16 @@
 import React, { useContext, useState } from "react";
-import { ClientContext } from "../../App";
+import { ClientContext, quoteTokenMint } from "../../App";
 import { getRepository } from "../../functions";
 import frame from "../../assets/images/Frame.png";
 import { web3 } from "@project-serum/anchor";
 import * as ose from "@open-source-economy/poc";
+import { Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { getMinimumBalanceForRentExemptMint, MINT_SIZE } from "@solana/spl-token/src/state/mint";
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token/src/constants";
+import { MathUtils } from "@open-source-economy/poc";
+import { BN } from "@coral-xyz/anchor";
+import { Decimal } from "decimal.js";
+import { SetUpAbcParams } from "@open-source-economy/poc/dist/sdk/src/params/set-up-abc";
 
 interface RegisterNewProjectProps {
   onRegisteringNewProject: () => void;
@@ -24,12 +31,18 @@ const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
       /* create the program interface combining the idl, program ID, and provider */
       try {
         setLoading(true);
+
         // verify that the repository exists
         await getRepository(newOwner, newRepository);
 
+        const constantMint: BN = MathUtils.toX32(new Decimal(0.01));
+        const constantRedeem: BN = MathUtils.toX32(new Decimal(0.09));
+
         const projectTokenKeyPair = web3.Keypair.generate();
-        const params: ose.InitializeParams = await client.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
-        await client.initialize(params);
+        const initializeParams: ose.InitializeParams = await client.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
+        const setUpAbcParams: ose.SetUpAbcParams = await client.paramsBuilder.setUpAbc(newOwner, newRepository, constantMint, constantRedeem, quoteTokenMint);
+
+        await client.initializeAndSetUpAbc(initializeParams, setUpAbcParams);
 
         props.onRegisteringNewProject();
       } catch (e) {
@@ -61,7 +74,10 @@ const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
           {error ? (
             <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
               <img src={frame} className=" img-fluid" alt="" />
-              <div className="text__red helvetica fw-600 small">The project does not exist</div>
+              <div className="text__red helvetica fw-600 small">
+                {error}
+                {/*The project does not exist*/}
+              </div>
             </div>
           ) : (
             <div className="d-block mt-0 pt-0"></div>

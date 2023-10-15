@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
-import data from "../Elements/ChartData";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 import { ChartData } from "../../model";
+import { data } from "./ChartData";
 
 interface CardProps {
   name: string;
@@ -16,7 +16,7 @@ const Card: React.FC<CardProps> = props => {
   const [chartData, setChartData] = useState<ChartData>(new ChartData([]));
 
   useEffect(() => {
-    setChartData(new ChartData(data));
+    setChartData(data(props.name));
   }, []);
 
   return (
@@ -38,12 +38,12 @@ const Card: React.FC<CardProps> = props => {
             <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
               <div className="text-start">
                 {/* TODO: refactor this BannerSwap */}
-                <h5 className="mb-2 text-white helvetica">{chartData.price && ` ${props.quoteCurrency} ${chartData.price} `}</h5>
+                <h5 className="mb-2 text-white helvetica">{chartData.price && ` ${props.quoteCurrency} ${chartData.price.toFixed(2)} `}</h5>
                 {chartData.changeValue &&
                   (chartData.changeValue! < 0 ? (
-                    <h5 className=" mb-0 fw-500 text__red helvetica">▼ -{chartData.changeValue}%</h5>
+                    <h5 className=" mb-0 fw-500 text__red helvetica">▼ {chartData.changeValue.toFixed(2)}%</h5>
                   ) : (
-                    <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{chartData.changeValue}%</h5>
+                    <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{chartData.changeValue.toFixed(2)}%</h5>
                   ))}
               </div>
             </div>

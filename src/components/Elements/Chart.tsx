@@ -1,6 +1,5 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 import { useEffect, useState } from "react";
-import data from "./ChartData";
 import { ChartPointData } from "../../model";
 
 type propsType = {
@@ -19,7 +18,7 @@ const Chart = ({ chatData }: propsType) => {
   }
 
   useEffect(() => {
-    setGraphData(filterDataForLastWeek(data));
+    setGraphData(filterDataForLastWeek(chatData));
   }, [chatData]);
 
   return (

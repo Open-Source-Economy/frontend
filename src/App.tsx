@@ -25,6 +25,9 @@ export const PROGRAM_KEY = new PublicKey(idl.metadata.address);
 export const ClientContext = createContext<ose.Client | undefined>(undefined);
 export const ConnectionContext = createContext<Connection | undefined>(undefined);
 
+// https://everlastingsong.github.io/nebula/
+export const quoteTokenMint = new PublicKey("BRjpCHtyQLNCo8gqRUr8jtdAj5AjPYQaoqbvcZiHok1k");
+
 export const oseCoder = new BorshAccountsCoder(IDL as Idl);
 
 function App() {
