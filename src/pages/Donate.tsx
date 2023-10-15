@@ -8,7 +8,7 @@ const Donate = () => {
   return (
     <>
       <Header />
-      <BannerSwap />
+      {/*<BannerSwap />*/}
       <SwapChart2 />
       <div className="mt-5 pt-lg-5"></div>
       <Footer />

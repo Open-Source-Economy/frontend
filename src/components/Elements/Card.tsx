@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
-import data, { ChatPointData } from "../Elements/ChartData";
+import data from "../Elements/ChartData";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
+import { ChartData } from "../../model";
 
 interface CardProps {
   name: string;
@@ -12,30 +13,11 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = props => {
-  const [chartData, setChartData] = useState<ChatPointData[]>([]);
-  const [price, setPrice] = useState<number>();
-  const [changeValue, setChangeValue] = useState<number>();
+  const [chartData, setChartData] = useState<ChartData>(new ChartData([]));
 
   useEffect(() => {
-    setChartData(data);
-    const price = getPrice(data);
-    if (price) {
-      setPrice(price);
-    }
-
-    const changeValue = getChangeValue(data);
-    if (changeValue) {
-      setChangeValue(changeValue);
-    }
+    setChartData(new ChartData(data));
   }, []);
-
-  function getPrice(data: ChatPointData[]): number | null {
-    return data.length > 0 ? data[data.length - 1].price : null;
-  }
-
-  function getChangeValue(data: ChatPointData[]): number | null {
-    return data.length > 1 ? ((data[data.length - 1].price - data[0].price) / data[0].price) * 100 : null;
-  }
 
   return (
     <>
@@ -55,12 +37,13 @@ const Card: React.FC<CardProps> = props => {
             </div>
             <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
               <div className="text-start">
-                <h5 className="mb-2 text-white helvetica">{price && ` ${props.quoteCurrency} ${price} `}</h5>
-                {changeValue &&
-                  (changeValue! < 0 ? (
-                    <h5 className=" mb-0 fw-500 text__red helvetica">▼ -{changeValue}%</h5>
+                {/* TODO: refactor this BannerSwap */}
+                <h5 className="mb-2 text-white helvetica">{chartData.price && ` ${props.quoteCurrency} ${chartData.price} `}</h5>
+                {chartData.changeValue &&
+                  (chartData.changeValue! < 0 ? (
+                    <h5 className=" mb-0 fw-500 text__red helvetica">▼ -{chartData.changeValue}%</h5>
                   ) : (
-                    <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{changeValue}%</h5>
+                    <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{chartData.changeValue}%</h5>
                   ))}
               </div>
             </div>
@@ -68,7 +51,7 @@ const Card: React.FC<CardProps> = props => {
         </div>
 
         <div className="chartheight">
-          <Chart chatData={chartData} />
+          <Chart chatData={chartData.points} />
         </div>
       </div>
     </>

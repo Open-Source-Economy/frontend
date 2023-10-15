@@ -1,10 +1,10 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
-import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import data, { ChatPointData } from "./ChartData";
+import data from "./ChartData";
+import { ChartPointData } from "../../model";
 
 type propsType = {
-  chatData: ChatPointData[];
+  chatData: ChartPointData[];
 };
 
 const Chart = ({ chatData }: propsType) => {
@@ -21,6 +21,7 @@ const Chart = ({ chatData }: propsType) => {
   useEffect(() => {
     setGraphData(filterDataForLastWeek(data));
   }, [chatData]);
+
   return (
     <div className="overflow-hidden" style={{ width: "100%", height: "100%", borderRadius: "20px", backgroundColor: "#132743" }}>
       <ResponsiveContainer width="100%" height="100%">

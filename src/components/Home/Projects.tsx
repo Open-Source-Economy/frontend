@@ -1,12 +1,11 @@
 import Card from "../Elements/Card";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { Project } from "../../App";
-import { Repo } from "../../functions";
-import { ProjectContext } from "../../pages/Home";
+import { ProjectsContext } from "../../pages/Home";
+import { ValidRepository } from "../../model";
 
 const Projects = () => {
-  const projects = useContext(ProjectContext);
+  const projects = useContext(ProjectsContext);
 
   return (
     <>
@@ -15,15 +14,15 @@ const Projects = () => {
 
         <div className="row mx-0" style={{ gap: "30px 0px" }}>
           <></>
-          {projects.map((project: Project & Repo) => {
+          {projects.map((project: ValidRepository) => {
             return (
               <div className="col-lg-6">
-                <Link to={`/swap/${project.owner}/${project.repository}`} className="text-decoration-none" state={{ project: project }}>
+                <Link to={`/swap/${project.onChainData.owner}/${project.onChainData.repository}`} className="text-decoration-none" state={{ project: project }}>
                   <Card
-                    logo={project.organization.avatar_url}
-                    name={project.full_name}
-                    tokenCode={project.name.slice(0, 3).toUpperCase()}
-                    tagline={project.description}
+                    logo={project.githubData.organization.avatar_url}
+                    name={project.githubData.full_name}
+                    tokenCode={project.tokenCode}
+                    tagline={project.githubData.description}
                     quoteCurrency="$"
                   />
                 </Link>

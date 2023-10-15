@@ -1,6 +1,7 @@
 import { AccountInfo, Connection, GetProgramAccountsResponse } from "@solana/web3.js";
-import { oseCoder, PROGRAM_KEY, Project } from "../App";
+import { oseCoder, PROGRAM_KEY } from "../App";
 import { Buffer } from "buffer";
+import { Project } from "../model";
 
 export async function getAllProject(connection: Connection): Promise<Project[]> {
   const accounts: GetProgramAccountsResponse | undefined = await connection?.getProgramAccounts(PROGRAM_KEY);

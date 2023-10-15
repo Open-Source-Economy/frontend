@@ -1,9 +1,9 @@
 import { Connection } from "@solana/web3.js";
-import { Project } from "../App";
-import { getRepository, Repo } from "./getRepository";
+import { getRepository } from "./getRepository";
 import { getAllProject } from "./getAllProject";
+import { Project, Repo, ValidRepository } from "../model";
 
-export async function getAllValidGitHubProject(connection: Connection): Promise<(Project & Repo)[]> {
+export async function getAllValidGitHubProjects(connection: Connection): Promise<ValidRepository[]> {
   const projects = await getAllProject(connection);
   const tuples: { project: Project; repo: Repo | undefined }[] = await Promise.all(
     projects.map(project => {
@@ -16,5 +16,5 @@ export async function getAllValidGitHubProject(connection: Connection): Promise<
     })
   );
 
-  return tuples.filter(({ project, repo }) => repo !== undefined).map(({ project, repo }) => ({ ...project, ...repo } as Project & Repo));
+  return tuples.filter(({ project, repo }) => repo !== undefined).map(({ project, repo }) => new ValidRepository(repo as Repo, project));
 }

@@ -1,10 +1,6 @@
-export type ChatPointData = {
-  days: string;
-  timestamp: string;
-  price: number;
-};
+import { ChartPointData } from "../../model";
 
-const data: ChatPointData[] = [
+const data: ChartPointData[] = [
   { days: "Mon 13", timestamp: "2023-10-12T04:00:00", price: 1000 },
   { days: "Tue 13", timestamp: "2023-10-12T03:00:00", price: 2000 },
   { days: "Wed 13", timestamp: "2023-10-12T00:00:00", price: 2400 },

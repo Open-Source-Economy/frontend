@@ -15,7 +15,6 @@ import Home from "./pages/Home";
 import Swap from "./pages/Swap";
 import Donate from "./pages/Donate";
 
-export type Project = IdlAccounts<Poc>["project"];
 export type ABC = IdlTypes<Poc>["ABC"];
 
 window.Buffer = buffer.Buffer;

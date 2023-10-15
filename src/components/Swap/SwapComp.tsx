@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import Solana from "../../assets/images/solana.png";
-import xmom from "../../assets/images/xmon.png";
 import swapbtn from "../../assets/images/swapbtn.png";
 import kitty2 from "../../assets/images/kitty2.png";
 import { Modal } from "react-bootstrap";
@@ -126,7 +125,7 @@ const SwapComp = () => {
               </div>
               <div>
                 <div className="d-flex gap-3 align-items-center mb-4 pb-2">
-                  <img src={xmom} alt="" />
+                  <img src={"xmom"} alt="" />
                   <h1 className="helvetica text-white text-uppercase mb-0">Sol</h1>
                 </div>
                 {swap ? (

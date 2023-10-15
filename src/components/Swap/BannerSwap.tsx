@@ -1,7 +1,15 @@
 import * as React from "react";
-import xmoney from "../../assets/images/xmon.png";
+import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
+import { ChartData, ValidRepository } from "../../model";
 
-const BannerSwap = () => {
+interface BannerSwapProps {
+  project: ValidRepository;
+  chartData: ChartData;
+  quoteCurrency: string;
+  logo: string;
+}
+
+const BannerSwap: React.FC<BannerSwapProps> = props => {
   return (
     <>
       <div className="container">
@@ -10,21 +18,27 @@ const BannerSwap = () => {
             <div className="row mx-0 align-items-center gap-lg-0 gap-3 flex-md-row flex-column">
               <div className=" col-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-8">
                 <div className="d-flex gap-4 align-items-center">
-                  <img src={xmoney} className="brandimg" alt="" />
+                  <img src={props.logo} className="brandimg" alt="" />
                   <div>
                     <h5 className="helvetica text-white fw-700">
-                      xMoney <span className="text-uppercase fs-6"> UTK</span>
+                      {props.project.githubData.full_name} <span className="text-uppercase fs-6"> {props.project.tokenCode}</span>
                     </h5>
-                    <p className="text-white helvetica mb-0">The solution to make Open-Source as Competitive as Closed Source.</p>
+                    <p className="text-white helvetica mb-0">{getFirstSentenceOrFirstNWordsFromValue(props.project.githubData.description, 10)}</p>
                   </div>
                 </div>
               </div>
               <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
+                {/* TODO: refactor this Card */}
                 <div className="text-lg-end text-start">
-                  <h5 className="mb-2 text-white helvetica"> $0.05227 </h5>
-                  <h5 className=" mb-0 fw-500 text__red helvetica">
-                    ▼-4.17 <span className="text-white">(Week)</span>
-                  </h5>
+                  <h5 className="mb-2 text-white helvetica">{props.chartData.price && ` ${props.quoteCurrency} ${props.chartData.price} `}</h5>
+                  {props.chartData.changeValue &&
+                    (props.chartData.changeValue! < 0 ? (
+                      <h5 className=" mb-0 fw-500 text__red helvetica">
+                        ▼ -{props.chartData.changeValue}% <span className="text-white">(Week)</span>{" "}
+                      </h5>
+                    ) : (
+                      <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{props.chartData.changeValue}%</h5>
+                    ))}
                 </div>
               </div>
             </div>
