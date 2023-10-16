@@ -37,8 +37,6 @@ const Swap = () => {
 
       <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
         <img src={frame} className=" img-fluid" alt="" />
-        <div className="text__red helvetica fw-600 small">Please, be sure to be connected to the Solana Devnet.</div>
-        <br />
         <div className="text__red helvetica fw-600 small">
           Please, get some devUSDC{" "}
           <a href={"https://everlastingsong.github.io/nebula/"} target="_blank">

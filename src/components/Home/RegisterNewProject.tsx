@@ -35,8 +35,8 @@ const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
         // verify that the repository exists
         await getRepository(newOwner, newRepository);
 
-        const constantMint: BN = MathUtils.toX32(new Decimal(0.01));
-        const constantRedeem: BN = MathUtils.toX32(new Decimal(0.09));
+        const constantMint: BN = MathUtils.toX32(new Decimal(0.0001));
+        const constantRedeem: BN = MathUtils.toX32(new Decimal(0.00008));
 
         const projectTokenKeyPair = web3.Keypair.generate();
         const initializeParams: ose.InitializeParams = await client.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);

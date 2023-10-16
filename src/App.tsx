@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { createContext, useMemo } from "react";
-import { Connection, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { BorshAccountsCoder, Idl, IdlAccounts, IdlTypes } from "@coral-xyz/anchor";
 import idl from "./idl.json";
@@ -14,6 +14,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Swap from "./pages/Swap";
 import Donate from "./pages/Donate";
+import frame from "./assets/images/Frame.png";
 
 export type ABC = IdlTypes<Poc>["ABC"];
 
