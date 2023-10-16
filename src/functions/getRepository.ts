@@ -5,7 +5,7 @@ export async function getRepository(owner: string, repository: string): Promise<
     const response = await fetch(`https://api.github.com/repos/${owner.trim()}/${repository.trim()}`, {
       method: "GET",
       headers: {
-        Authorization: "Token " + `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`, // TODO: yeah I know... for now is marked as unsecured
+        Authorization: "Token " + process.env.REACT_APP_GITHUB_TOKEN,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
