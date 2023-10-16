@@ -1,8 +1,14 @@
 import * as React from "react";
 import TabChart from "./TabChart";
 import SwapComp from "./SwapComp";
+import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
+import { ChartData, ValidRepository } from "../../model";
 
-const SwapChart = () => {
+interface SwapChartProps {
+  setReloadBalance: () => void;
+}
+
+const SwapChart: React.FC<SwapChartProps> = props => {
   return (
     <>
       <section className="swapchart">
@@ -12,7 +18,7 @@ const SwapChart = () => {
               <TabChart />
             </div>
             <div className="col-lg-6">
-              <SwapComp />
+              <SwapComp setReloadBalance={props.setReloadBalance} />
             </div>
           </div>
         </div>

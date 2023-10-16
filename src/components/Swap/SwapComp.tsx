@@ -9,7 +9,9 @@ import { BN } from "@coral-xyz/anchor";
 import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
 import { ClientContext } from "../../App";
 
-interface SwapCompProps {}
+interface SwapCompProps {
+  setReloadBalance: () => void;
+}
 
 const SwapComp: React.FC<SwapCompProps> = props => {
   const client = useContext(ClientContext);
@@ -34,6 +36,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
+    props.setReloadBalance();
     setReload(reload => !reload);
     setInputSellValue(0);
     setInputBuyValue(0);
@@ -86,7 +89,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
     try {
       if (buyProjectToken && inputSellValue) {
         // number of decimal are hardcoded to 6 for now
-        const quoteAmount: BN = new BN(inputSellValue).mul(new BN(1_000_000)); // TODO: to make a variable lamports
+        const quoteAmount: BN = new BN(inputSellValue * 1_000_000); // TODO: to make a variable lamports
         const params = await client!.paramsBuilder.donate(project?.onChainData!, quoteAmount);
         await client!.donate(params);
 
@@ -147,16 +150,23 @@ const SwapComp: React.FC<SwapCompProps> = props => {
   }, [buyProjectToken]);
 
   const onSellInputChange = (value: number | undefined) => {
-    setInputSellValue(value);
-    if (buyProjectToken) {
-      const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(value));
-      setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber() / 1_000); // TODO: I forgot in the back to take into account the number of decimals
-      setMinimumBuyAmount(mintData.minProjectTokenMinted.toNumber() / 1_000);
-    } else {
-      const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(value! * 1_000_000_000));
-      console.log(redeemData.expectedQuoteAmount.toString());
-      setInputBuyValue(redeemData.expectedQuoteAmount.toNumber() / 1_000_000);
-      setMinimumBuyAmount(redeemData.minQuoteAmount.toNumber() / 1_000_000);
+    try {
+      if (value && value > 0) {
+        setInputSellValue(value);
+        if (buyProjectToken && value) {
+          const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(value! * 1_000));
+          setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber()); // TODO: I forgot in the back to take into account the number of decimals
+          setMinimumBuyAmount(mintData.minProjectTokenMinted.toNumber());
+        } else if (value) {
+          const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(value! * 1_000_000_000));
+          setInputBuyValue(redeemData.expectedQuoteAmount.toNumber() / 1_000_000);
+          setMinimumBuyAmount(redeemData.minQuoteAmount.toNumber() / 1_000_000);
+        }
+      } else {
+        setInputSellValue(0);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
   const handleSellInputChange = (event: ChangeEvent<HTMLInputElement>) => {

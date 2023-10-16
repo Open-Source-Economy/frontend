@@ -14,6 +14,7 @@ import Solana from "../assets/images/solana.png";
 import frame from "../assets/images/Frame.png";
 
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);
+export const ReloadContext = createContext<number>(0);
 
 const Swap = () => {
   const { owner, repository } = useParams();
@@ -21,6 +22,7 @@ const Swap = () => {
 
   const [project, setProject] = useState<ValidRepository>();
   const [projectNotFound, setProjectNotFound] = useState<boolean>();
+  const [reloadBalance, setReloadBalance] = useState<number>(0);
 
   useEffect(() => {
     if (connection && owner && repository) {
@@ -47,10 +49,17 @@ const Swap = () => {
       </div>
 
       {project && (
-        <ProjectContext.Provider value={project}>
-          <BannerSwap project={project!} chartData={data(project.githubData.full_name)} quoteCurrency="$" logo={project!.githubData.organization.avatar_url} />
-          <SwapChart />
-        </ProjectContext.Provider>
+        <ReloadContext.Provider value={reloadBalance}>
+          <ProjectContext.Provider value={project}>
+            <BannerSwap
+              project={project!}
+              chartData={data(project.githubData.full_name)}
+              quoteCurrency="$"
+              logo={project!.githubData.organization.avatar_url}
+            />
+            <SwapChart setReloadBalance={() => setReloadBalance(reloadBalance + 1)} />
+          </ProjectContext.Provider>
+        </ReloadContext.Provider>
       )}
 
       {projectNotFound && (

@@ -10,7 +10,6 @@ export async function getAllValidGitHubProjects(connection: Connection): Promise
       return getRepository(project.owner, project.repository)
         .catch(() => undefined)
         .then(repo => {
-          console.log("project");
           return { project: project, repo: repo };
         });
     })
