@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { createContext, useMemo } from "react";
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
-import { BorshAccountsCoder, Idl, IdlAccounts, IdlTypes } from "@coral-xyz/anchor";
+import { BorshAccountsCoder, Idl, IdlTypes } from "@coral-xyz/anchor";
 import idl from "./idl.json";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { ConnectionProvider, useAnchorWallet, useConnection, WalletProvider } from "@solana/wallet-adapter-react";
@@ -13,8 +13,6 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Swap from "./pages/Swap";
-import Donate from "./pages/Donate";
-import frame from "./assets/images/Frame.png";
 
 export type ABC = IdlTypes<Poc>["ABC"];
 
@@ -52,10 +50,6 @@ function App() {
     {
       path: "/swap/:owner/:repository",
       element: <Swap />,
-    },
-    {
-      path: "/donate",
-      element: <Donate />,
     },
   ]);
 

@@ -1,4 +1,4 @@
-import {Organization, Repo} from "../model";
+import { Organization, Repo } from "../model";
 
 export async function getRepository(owner: string, repository: string): Promise<Repo> {
   try {
@@ -14,16 +14,11 @@ export async function getRepository(owner: string, repository: string): Promise<
 
       var organization;
       if (json.organization) {
-        organization = new Organization(json.organization.avatar_url ? json.organization.avatar_url : "")
+        organization = new Organization(json.organization.avatar_url ? json.organization.avatar_url : "");
       } else {
-        organization = new Organization("")
+        organization = new Organization("");
       }
-      return new Repo(
-          json.name ? json.name : "",
-          json.full_name ? json.full_name : "",
-          json.description ? json.description : "",
-          organization
-      )
+      return new Repo(json.name ? json.name : "", json.full_name ? json.full_name : "", json.description ? json.description : "", organization);
     } else {
       return Promise.reject(new Error("No project exist on GitHub.com with this owner and repository ")); // TODO: improve error handling
     }

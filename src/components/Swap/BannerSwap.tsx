@@ -21,7 +21,7 @@ const BannerSwap: React.FC<BannerSwapProps> = props => {
                   <img src={props.logo} className="brandimg" alt="" />
                   <div>
                     <h5 className="helvetica text-white fw-700">
-                      {props.project.githubData.full_name} <span className="text-uppercase fs-6"> {props.project.tokenCode}</span>
+                      {props.project.githubData.full_name} <span className="text-uppercase fs-6"> ({props.project.tokenCode})</span>
                     </h5>
                     <p className="text-white helvetica mb-0">{getFirstSentenceOrFirstNWordsFromValue(props.project.githubData.description, 10)}</p>
                   </div>
