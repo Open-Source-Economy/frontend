@@ -1,9 +1,12 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./style.css";
+import { ChartData, ChartPointData, ValidRepository } from "../../model";
+import { data } from "./ChartData";
+import { ProjectContext } from "../../pages/Swap";
 
 // chart data -----
-const twintyFourHourseData = [
+const twentyFourHoursData = [
   { days: "Mon 12", timestamp: "2023-10-12T00:00:00", price: 2000 },
   { days: "Tue 13", timestamp: "2023-10-12T04:00:00", price: 5000 },
   { days: "Wed 19", timestamp: "2023-10-12T03:00:00", price: 4000 },
@@ -68,33 +71,42 @@ const allData = [
   { timestamp: "2023-10-12T01:00:00", price: 7000 },
   { timestamp: "2023-10-12T01:00:00", price: 7000 },
   { timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { days: "2023", timestamp: "2023-10-12T00:00:00", price: 7200 },
   { timestamp: "2022-10-10T00:00:00", price: 9000 },
 ];
 
 const ProjectPageChart = () => {
-  const [click, setClick] = useState("All");
+  const [click, setClick] = useState("24h");
   const [minnPrice, setMinPrice] = useState(0);
   const [maxxPrice, setMixPrice] = useState(100);
   const [active, setActive] = useState("tab-1");
+  const [filteredData, setFilteredData] = useState<ChartData>(new ChartData([]));
+
+  const project = useContext(ProjectContext);
+
   useEffect(() => {
     const minPrice = Math.min(...allData.map((item: any) => item.price));
     const maxPrice = Math.max(...allData.map((item: any) => item.price));
+  }, []);
+
+  useEffect(() => {
+    if (click === "24h") {
+      setFilteredData(data(project!.githubData.full_name));
+    } else if (click === "1W") {
+      setFilteredData(new ChartData(oneWeakData));
+    } else if (click === "1M") {
+      setFilteredData(new ChartData(lastMonthData));
+    } else {
+      setFilteredData(new ChartData(oneYearAgoData));
+    }
+
+    const prices: number[] = filteredData.points.map((item: ChartPointData) => item.price);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
 
     setMinPrice(minPrice);
     setMixPrice(maxPrice);
-  }, []);
+  }, [click]);
 
-  let filteredData: any;
-  if (click === "24H") {
-    filteredData = twintyFourHourseData;
-  } else if (click === "1W") {
-    filteredData = oneWeakData;
-  } else if (click === "1M") {
-    filteredData = lastMonthData;
-  } else if (click === "1Y") {
-    filteredData = oneYearAgoData;
-  }
   // TODO: lolo
   // if (filteredData) {
   //     useEffect(() => {
@@ -125,7 +137,7 @@ const ProjectPageChart = () => {
       <div className="overflow-hidden pt-lg-5 mt-lg-5" style={{ width: "100%", height: "500px" }}>
         {/* -------- Buttons ---  */}
         <div className="flex relative sm:absolute top-0 mx-auto w-full left-[50px] xsm:left-[100px] sm:left-[130px] lg:left-[120px] xl:left-[136px] gap-[1rem] sm:gap-[3rem] md:gap-[5rem] xl:gap-[7rem] items-start">
-          {/* <button onClick={() => setClick("24H")} className={`${click == "24H" ? "bg-[#FF5E1A]" : ""} px-[10px] text-[13px] xsm:text-[16px] rounded-[10px] py-1 text-white font-normal  font-mono`}>24H</button> */}
+          {/* <button onClick={() => setClick("24h")} className={`${click == "24h" ? "bg-[#FF5E1A]" : ""} px-[10px] text-[13px] xsm:text-[16px] rounded-[10px] py-1 text-white font-normal  font-mono`}>24h</button> */}
           {/* <button onClick={() => setClick("1W")} className={`${click == "1W" ? "bg-[#FF5E1A]" : ""} px-[10px] text-[13px] xsm:text-[16px] rounded-[10px] py-1 text-white font-normal  font-mono`}>1W</button>
                     <button onClick={() => setClick("1M")} className={`${click == "1M" ? "bg-[#FF5E1A]" : ""} px-[10px] text-[13px] xsm:text-[16px] rounded-[10px] py-1 text-white font-normal  font-mono`}>1M</button>
                     <button onClick={() => setClick("1Y")} className={`${click == "1Y" ? "bg-[#FF5E1A]" : ""} px-[10px] text-[13px] xsm:text-[16px] rounded-[10px] py-1 text-white font-normal  font-mono`}>1Y</button>
@@ -136,7 +148,7 @@ const ProjectPageChart = () => {
             className={active == "tab-1" ? "active" : "tab"}
             onClick={() => {
               setActive("tab-1");
-              setClick("24H");
+              setClick("24h");
             }}
           >
             24h
@@ -183,7 +195,7 @@ const ProjectPageChart = () => {
           <AreaChart
             width={500}
             height={400}
-            data={filteredData}
+            data={filteredData.points}
             margin={{
               top: 10,
               right: 0,

@@ -25,7 +25,14 @@ const SwapComp: React.FC<SwapCompProps> = props => {
   const [quoteTokenCode, setQuoteTokenCode] = useState<string>("devUSDC");
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setReload(reload => !reload);
+    setInputSellValue(0);
+    setInputBuyValue(0);
+    setMinimumBuyAmount(0);
+    setShow(false);
+  };
+  const [reload, setReload] = useState<boolean>(true);
 
   const [balanceProjectToken, setBalanceProjectToken] = useState<number>();
   const [balanceQuoteToken, setBalanceQuoteToken] = useState<number>();
@@ -62,13 +69,15 @@ const SwapComp: React.FC<SwapCompProps> = props => {
       // }
 
       if (buyProjectToken && inputSellValue) {
-        const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue));
+        // number of decimal are hardcoded to 6 for now
+        const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue).mul(new BN(1_000_000))); // TODO: to make a variable lamports
         const params = await client!.paramsBuilder.mintProjectToken(project?.onChainData!, mintData.minProjectTokenMinted, mintData.quoteAmount);
         await client!.mintProjectToken(params);
 
         setShow(true);
       } else if (inputSellValue) {
-        const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue));
+        // number of decimal are hardcoded to 9 for now
+        const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue).mul(new BN(1_000_000_000))); // TODO: to make a variable lamports
         const params = await client!.paramsBuilder.redeemProjectToken(project?.onChainData!, redeemData.projectTokenAmount, redeemData.minQuoteAmount);
         await client!.redeemProjectToken(params);
 
@@ -86,6 +95,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
           client
             ?.getAssociatedTokenAmount(project!.onChainData.abc!.quoteTokenMint)
             .then((balance: BN) => {
+              // number of decimal are hardcoded to 6 for now
               return balance.toNumber() / 1_000_000; // TODO: to make a variable lamports
             })
             .then(balance => {
@@ -102,7 +112,8 @@ const SwapComp: React.FC<SwapCompProps> = props => {
           client
             ?.getAssociatedTokenAmount(project!.onChainData.projectTokenMint)
             .then((balance: BN) => {
-              return balance.toNumber() / 1_000_000; // TODO: to make a variable lamports
+              // number of decimal are hardcoded to 9 for now
+              return balance.toNumber() / 1_000_000_000; // TODO: to make a variable lamports
             })
             .then(balance => {
               setBalanceProjectToken(balance);
@@ -117,7 +128,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
     } catch (e) {
       console.log(`error getting balances: `, e);
     }
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     setInputBuyValue(inputSellValue);
@@ -130,12 +141,13 @@ const SwapComp: React.FC<SwapCompProps> = props => {
     setInputSellValue(value);
     if (buyProjectToken) {
       const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(value));
-      setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber());
-      setMinimumBuyAmount(mintData.minProjectTokenMinted.toNumber());
+      setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber() / 1_000); // TODO: I forgot in the back to take into account the number of decimals
+      setMinimumBuyAmount(mintData.minProjectTokenMinted.toNumber() / 1_000);
     } else {
-      const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(value));
-      setInputBuyValue(redeemData.expectedQuoteAmount.toNumber());
-      setMinimumBuyAmount(redeemData.minQuoteAmount.toNumber());
+      const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(value! * 1_000_000_000));
+      console.log(redeemData.expectedQuoteAmount.toString());
+      setInputBuyValue(redeemData.expectedQuoteAmount.toNumber() / 1_000_000);
+      setMinimumBuyAmount(redeemData.minQuoteAmount.toNumber() / 1_000_000);
     }
   };
   const handleSellInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -174,7 +186,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
                 <h1 className="helvetica text-white mb-0">{buyProjectToken ? quoteTokenCode : project?.tokenCode}</h1>
               </div>
               <p className="text-white text-end mb-0 helvetica fw-600">
-                Balance: {buyProjectToken ? balanceQuoteToken : balanceProjectToken}{" "}
+                Balance: {(buyProjectToken ? balanceQuoteToken : balanceProjectToken)?.toFixed(3)}{" "}
                 <button
                   className="text__primary bg-transparent nofocus  border-0"
                   onClick={() => {
@@ -211,7 +223,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
                 <img src={buyProjectToken ? project?.githubData.organization.avatar_url : quoteTokenLogo} alt="" className="brandimg" />
                 <h1 className="helvetica text-white  mb-0">{buyProjectToken ? project?.tokenCode : quoteTokenCode}</h1>
               </div>
-              <p className="text-white text-end mb-0 helvetica fw-600">Balance: {buyProjectToken ? balanceProjectToken : balanceQuoteToken}</p>
+              <p className="text-white text-end mb-0 helvetica fw-600">Balance: {(buyProjectToken ? balanceProjectToken : balanceQuoteToken)?.toFixed(3)}</p>
             </div>
           </div>
         </div>
@@ -254,7 +266,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
             <p className="text-white helvetica mb-0">
               Your Holding &nbsp; - &nbsp;{" "}
               <span className="text__primary fw-bold">
-                {buyProjectToken ? balanceQuoteToken : balanceProjectToken} {buyProjectToken ? quoteTokenCode : project?.tokenCode}
+                {(buyProjectToken ? balanceQuoteToken : balanceProjectToken)?.toFixed(3)} {buyProjectToken ? quoteTokenCode : project?.tokenCode}
               </span>
             </p>
           </div>
