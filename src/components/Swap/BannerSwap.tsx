@@ -3,10 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 import { ChartData, ValidRepository } from "../../model";
 import { BN } from "@coral-xyz/anchor";
-import { ConnectionContext, PROGRAM_KEY } from "../../routes";
+import { PROGRAM_KEY } from "../../routes";
 import { ProjectContext, ReloadContext } from "../../routes";
 import { programPda } from "@open-source-economy/poc";
 import { getAccount } from "@solana/spl-token";
+import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 
 interface BannerSwapProps {
   project: ValidRepository;
@@ -17,7 +18,7 @@ interface BannerSwapProps {
 
 export const BannerSwap: React.FC<BannerSwapProps> = props => {
   const project = useContext(ProjectContext);
-  const connection = useContext(ConnectionContext);
+  const { connection }: ConnectionContextState = useConnection();
   const reloadBalance = useContext(ReloadContext);
   const [balanceProjectToken, setBalanceProjectToken] = useState<number>(0);
   const [balanceQuoteToken, setBalanceQuoteToken] = useState<number>(0);

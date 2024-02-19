@@ -5,18 +5,18 @@ import { BannerSwap } from "../../../components";
 import { SwapChart } from "../../../components";
 import { Footer } from "../../../components";
 import { ValidRepository } from "../../../model";
-import { ConnectionContext } from "../../OSEProvider";
 import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
 import { useParams } from "react-router-dom";
 import { data } from "../../../components";
 import frame from "../../../assets/images/Frame.png";
+import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);
 export const ReloadContext = createContext<number>(0);
 
 export const Swap = () => {
   const { owner, repository } = useParams();
-  const connection = useContext(ConnectionContext);
+  const { connection }: ConnectionContextState = useConnection();
 
   const [project, setProject] = useState<ValidRepository>();
   const [projectNotFound, setProjectNotFound] = useState<boolean>();

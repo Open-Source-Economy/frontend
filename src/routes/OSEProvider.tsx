@@ -19,7 +19,6 @@ window.Buffer = buffer.Buffer;
 // For web3 connection
 export const PROGRAM_KEY: PublicKey = new PublicKey(idl.metadata.address);
 export const ClientContext = createContext<ose.Client | undefined>(undefined);
-export const ConnectionContext = createContext<Connection | undefined>(undefined);
 
 // TODO: move
 // https://everlastingsong.github.io/nebula/
@@ -42,11 +41,9 @@ export const OSEProvider = () => {
   return (
     <div className="main">
       <div>
-        <ConnectionContext.Provider value={connection}>
-          <ClientContext.Provider value={client}>
-            <Routes />
-          </ClientContext.Provider>
-        </ConnectionContext.Provider>
+        <ClientContext.Provider value={client}>
+          <Routes />
+        </ClientContext.Provider>
       </div>
     </div>
   );

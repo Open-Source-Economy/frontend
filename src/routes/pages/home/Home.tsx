@@ -4,15 +4,15 @@ import { Header } from "../../../components";
 import { Banner } from "../../../components";
 import { Projects } from "../../../components";
 import { Footer } from "../../../components";
-import { ConnectionContext } from "../../OSEProvider";
 import { getAllValidGitHubProjects } from "../../../functions";
 import { ValidRepository } from "../../../model";
 import frame from "../../../assets/images/Frame.png";
+import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 
 export const ProjectsContext = createContext<ValidRepository[]>([]);
 
 export const Home = () => {
-  const connection = useContext(ConnectionContext);
+  const { connection }: ConnectionContextState = useConnection();
 
   const [loadProject, setLoadProject] = useState<number>(0);
   const [projects, setProjects] = useState<ValidRepository[]>();
