@@ -1,10 +1,10 @@
-import Card from "../Elements/Card";
+import { Card } from "../Elements";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { ProjectsContext } from "../../routes/pages/home/Home";
+import { ProjectsContext } from "../../routes";
 import { ValidRepository } from "../../model";
 
-const Projects = () => {
+export const Projects = () => {
   const projects = useContext(ProjectsContext);
 
   return (
@@ -34,5 +34,3 @@ const Projects = () => {
     </>
   );
 };
-
-export default Projects;

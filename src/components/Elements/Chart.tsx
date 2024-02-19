@@ -6,7 +6,7 @@ type propsType = {
   chatData: ChartPointData[];
 };
 
-const Chart = ({ chatData }: propsType) => {
+export const Chart = ({ chatData }: propsType) => {
   const [grapData, setGraphData] = useState([]);
 
   function filterDataForLastWeek(data: any): any {
@@ -57,5 +57,3 @@ const Chart = ({ chatData }: propsType) => {
     </div>
   );
 };
-
-export default Chart;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Chart from "./Chart";
+import { Chart } from "./Chart";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 import { ChartData } from "../../model";
 import { data } from "./ChartData";
@@ -12,7 +12,7 @@ interface CardProps {
   logo: string;
 }
 
-const Card: React.FC<CardProps> = props => {
+export const Card: React.FC<CardProps> = props => {
   const [chartData, setChartData] = useState<ChartData>(new ChartData([]));
 
   useEffect(() => {
@@ -57,5 +57,3 @@ const Card: React.FC<CardProps> = props => {
     </>
   );
 };
-
-export default Card;

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ClientContext, quoteTokenMint } from "../../routes/OSEProvider";
+import { ClientContext, quoteTokenMint } from "../../routes";
 import { getRepository } from "../../functions";
 import frame from "../../assets/images/Frame.png";
 import { web3 } from "@project-serum/anchor";
@@ -12,7 +12,7 @@ interface RegisterNewProjectProps {
   onRegisteringNewProject: () => void;
 }
 
-const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
+export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
   const client = useContext(ClientContext);
   const walletAddress = client?.context.provider.wallet.publicKey.toString();
 

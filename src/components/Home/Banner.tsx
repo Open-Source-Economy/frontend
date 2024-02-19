@@ -7,7 +7,8 @@ import RegisterNewProject from "./RegisterNewProject";
 interface BannerProps {
   onRegisteringNewProject: () => void;
 }
-const Banner: React.FC<BannerProps> = props => {
+
+export const Banner: React.FC<BannerProps> = props => {
   const [show, setShow] = useState(false);
   const onHide = () => setShow(false);
   const onRegisteringNewProject = () => {
@@ -49,5 +50,3 @@ const Banner: React.FC<BannerProps> = props => {
     </>
   );
 };
-
-export default Banner;

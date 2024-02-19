@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import "./style.css";
 import { ChartData, ChartPointData } from "../../model";
 import { data } from "./ChartData";
-import { ProjectContext } from "../../routes/pages/swap/Swap";
+import { ProjectContext } from "../../routes";
 
 // chart data -----
 const twentyFourHoursData = [
@@ -74,7 +74,7 @@ const allData = [
   { timestamp: "2022-10-10T00:00:00", price: 9000 },
 ];
 
-const ProjectPageChart = () => {
+export const ProjectPageChart = () => {
   const [click, setClick] = useState("24h");
   const [minnPrice, setMinPrice] = useState(0);
   const [maxxPrice, setMixPrice] = useState(100);
@@ -245,5 +245,3 @@ const ProjectPageChart = () => {
     </div>
   );
 };
-
-export default ProjectPageChart;

@@ -6,7 +6,7 @@ import elon from "../../assets/images/socials/x.png";
 import kittyfooter from "../../assets/images/footerkit.png";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <>
       <footer className="position-relative ">
@@ -45,5 +45,3 @@ const Footer = () => {
     </>
   );
 };
-
-export default Footer;

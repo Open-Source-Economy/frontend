@@ -1,4 +1,3 @@
-import "../App.css";
 import React, { useMemo } from "react";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";

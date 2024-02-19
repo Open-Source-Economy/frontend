@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 import { ChartData, ValidRepository } from "../../model";
 import { BN } from "@coral-xyz/anchor";
-import { ConnectionContext, PROGRAM_KEY } from "../../routes/OSEProvider";
-import { ProjectContext, ReloadContext } from "../../routes/pages/swap/Swap";
+import { ConnectionContext, PROGRAM_KEY } from "../../routes";
+import { ProjectContext, ReloadContext } from "../../routes";
 import { programPda } from "@open-source-economy/poc";
 import { getAccount } from "@solana/spl-token";
 
@@ -15,7 +15,7 @@ interface BannerSwapProps {
   logo: string;
 }
 
-const BannerSwap: React.FC<BannerSwapProps> = props => {
+export const BannerSwap: React.FC<BannerSwapProps> = props => {
   const project = useContext(ProjectContext);
   const connection = useContext(ConnectionContext);
   const reloadBalance = useContext(ReloadContext);
@@ -107,5 +107,3 @@ const BannerSwap: React.FC<BannerSwapProps> = props => {
     </>
   );
 };
-
-export default BannerSwap;

@@ -1,14 +1,14 @@
 import * as React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import Header from "../../../components/Layout/Header";
-import BannerSwap from "../../../components/Swap/BannerSwap";
-import SwapChart from "../../../components/Swap/SwapChart";
-import Footer from "../../../components/Layout/Footer";
+import { Header } from "../../../components";
+import { BannerSwap } from "../../../components";
+import { SwapChart } from "../../../components";
+import { Footer } from "../../../components";
 import { ValidRepository } from "../../../model";
 import { ConnectionContext } from "../../OSEProvider";
 import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
 import { useParams } from "react-router-dom";
-import { data } from "../../../components/Elements/ChartData";
+import { data } from "../../../components";
 import frame from "../../../assets/images/Frame.png";
 
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);

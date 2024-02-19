@@ -1,12 +1,12 @@
 import * as React from "react";
-import TabChart from "./TabChart";
-import SwapComp from "./SwapComp";
+import { TabChart } from "./TabChart";
+import { SwapComp } from "./SwapComp";
 
 interface SwapChartProps {
   setReloadBalance: () => void;
 }
 
-const SwapChart: React.FC<SwapChartProps> = props => {
+export const SwapChart: React.FC<SwapChartProps> = props => {
   return (
     <>
       <section className="swapchart">
@@ -24,5 +24,3 @@ const SwapChart: React.FC<SwapChartProps> = props => {
     </>
   );
 };
-
-export default SwapChart;

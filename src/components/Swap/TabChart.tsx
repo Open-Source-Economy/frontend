@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ProjectPageChart from "../Elements/ProjectPageChart";
+import { ProjectPageChart } from "../Elements";
 
-const TabChart = () => {
+export const TabChart = () => {
   const [active, setActive] = useState("tab-1");
   return (
     <>
@@ -53,5 +53,3 @@ const TabChart = () => {
     </>
   );
 };
-
-export default TabChart;

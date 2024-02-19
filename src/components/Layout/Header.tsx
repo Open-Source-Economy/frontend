@@ -5,7 +5,7 @@ import Wallet from "../Wallet";
 
 interface HeaderProps {}
 
-const Header: React.FC<HeaderProps> = props => {
+export const Header: React.FC<HeaderProps> = props => {
   return (
     <>
       <header>
@@ -29,5 +29,3 @@ const Header: React.FC<HeaderProps> = props => {
     </>
   );
 };
-
-export default Header;

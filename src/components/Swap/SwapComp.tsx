@@ -3,17 +3,17 @@ import USDC from "../../assets/images/usd-logo.png";
 import swapbtn from "../../assets/images/swapbtn.png";
 import kitty2 from "../../assets/images/kitty2.png";
 import { Modal } from "react-bootstrap";
-import { ProjectContext } from "../../routes/pages/swap/Swap";
+import { ProjectContext } from "../../routes";
 import { AbcUtils, MintData } from "@open-source-economy/poc";
 import { BN } from "@coral-xyz/anchor";
 import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
-import { ClientContext } from "../../routes/OSEProvider";
+import { ClientContext } from "../../routes";
 
 interface SwapCompProps {
   setReloadBalance: () => void;
 }
 
-const SwapComp: React.FC<SwapCompProps> = props => {
+export const SwapComp: React.FC<SwapCompProps> = props => {
   const client = useContext(ClientContext);
   const project = useContext(ProjectContext);
 
@@ -348,5 +348,3 @@ const SwapComp: React.FC<SwapCompProps> = props => {
     </>
   );
 };
-
-export default SwapComp;
