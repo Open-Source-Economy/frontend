@@ -1,9 +1,6 @@
 import * as React from "react";
-import { createContext, useContext, useEffect, useState } from "react";
-import { Header } from "../../../components";
-import { Banner } from "../../../components";
-import { Projects } from "../../../components";
-import { Footer } from "../../../components";
+import { createContext, useEffect, useState } from "react";
+import { Banner, Footer, Header, Projects } from "../../../components";
 import { getAllValidGitHubProjects } from "../../../functions";
 import { ValidRepository } from "../../../model";
 import frame from "../../../assets/images/Frame.png";

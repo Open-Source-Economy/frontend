@@ -1,5 +1,5 @@
 import { AccountInfo, Connection, GetProgramAccountsResponse, PublicKey } from "@solana/web3.js";
-import { oseCoder, PROGRAM_KEY } from "../routes/OSEProvider";
+import { oseCoder, PROGRAM_KEY } from "../hooks/oseClient/OseClientProvider";
 import { Buffer } from "buffer";
 import { Project } from "../model";
 

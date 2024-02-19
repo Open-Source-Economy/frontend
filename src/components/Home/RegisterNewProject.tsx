@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { ClientContext, quoteTokenMint } from "../../routes";
+import React, { useState } from "react";
+import { quoteTokenMint, useOseClient } from "../../routes";
 import { getRepository } from "../../functions";
 import frame from "../../assets/images/Frame.png";
 import { web3 } from "@project-serum/anchor";
@@ -13,8 +13,8 @@ interface RegisterNewProjectProps {
 }
 
 export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
-  const client = useContext(ClientContext);
-  const walletAddress = client?.context.provider.wallet.publicKey.toString();
+  const { oseClient } = useOseClient();
+  const walletAddress = oseClient?.context.provider.wallet.publicKey.toString();
 
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
   const [newRepository, setNewRepository] = useState("");
 
   async function initialize() {
-    if (client) {
+    if (oseClient) {
       /* create the program interface combining the idl, program ID, and provider */
       try {
         setLoading(true);
@@ -35,10 +35,16 @@ export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
         const constantRedeem: BN = MathUtils.toX32(new Decimal(0.00008));
 
         const projectTokenKeyPair = web3.Keypair.generate();
-        const initializeParams: ose.InitializeParams = await client.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
-        const setUpAbcParams: ose.SetUpAbcParams = await client.paramsBuilder.setUpAbc(newOwner, newRepository, constantMint, constantRedeem, quoteTokenMint);
+        const initializeParams: ose.InitializeParams = await oseClient.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
+        const setUpAbcParams: ose.SetUpAbcParams = await oseClient.paramsBuilder.setUpAbc(
+          newOwner,
+          newRepository,
+          constantMint,
+          constantRedeem,
+          quoteTokenMint
+        );
 
-        await client.initializeAndSetUpAbc(initializeParams, setUpAbcParams);
+        await oseClient.initializeAndSetUpAbc(initializeParams, setUpAbcParams);
 
         props.onRegisteringNewProject();
       } catch (e) {

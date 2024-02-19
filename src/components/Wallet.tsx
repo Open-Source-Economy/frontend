@@ -1,12 +1,12 @@
 import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import React, { useContext } from "react";
-import { ClientContext } from "../routes";
+import React from "react";
+import { useOseClient } from "../routes";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
 const Wallet = () => {
-  const client = useContext(ClientContext);
-  const walletAddress = client?.context.provider.wallet.publicKey.toString();
+  const { oseClient } = useOseClient();
+  const walletAddress = oseClient?.context.provider.wallet.publicKey.toString();
 
   return (
     <>

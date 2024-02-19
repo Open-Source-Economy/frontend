@@ -15,5 +15,11 @@ export const Routes = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <div className="main">
+      <div>
+        <RouterProvider router={router} />
+      </div>
+    </div>
+  );
 };

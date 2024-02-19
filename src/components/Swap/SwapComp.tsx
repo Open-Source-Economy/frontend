@@ -3,18 +3,17 @@ import USDC from "../../assets/images/usd-logo.png";
 import swapbtn from "../../assets/images/swapbtn.png";
 import kitty2 from "../../assets/images/kitty2.png";
 import { Modal } from "react-bootstrap";
-import { ProjectContext } from "../../routes";
+import { ProjectContext, useOseClient } from "../../routes";
 import { AbcUtils, MintData } from "@open-source-economy/poc";
 import { BN } from "@coral-xyz/anchor";
 import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
-import { ClientContext } from "../../routes";
 
 interface SwapCompProps {
   setReloadBalance: () => void;
 }
 
 export const SwapComp: React.FC<SwapCompProps> = props => {
-  const client = useContext(ClientContext);
+  const { oseClient } = useOseClient();
   const project = useContext(ProjectContext);
 
   // @ts-ignore
@@ -68,15 +67,15 @@ export const SwapComp: React.FC<SwapCompProps> = props => {
       if (buyProjectToken && inputSellValue) {
         // number of decimal are hardcoded to 6 for now
         const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue * 1_000_000)); // TODO: to make a variable lamports
-        const params = await client!.paramsBuilder.mintProjectToken(project?.onChainData!, mintData.minProjectTokenMinted, mintData.quoteAmount);
-        await client!.mintProjectToken(params);
+        const params = await oseClient!.paramsBuilder.mintProjectToken(project?.onChainData!, mintData.minProjectTokenMinted, mintData.quoteAmount);
+        await oseClient!.mintProjectToken(params);
 
         setShow(true);
       } else if (inputSellValue) {
         // number of decimal are hardcoded to 9 for now
         const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue * 1_000_000_000)); // TODO: to make a variable lamports
-        const params = await client!.paramsBuilder.redeemProjectToken(project?.onChainData!, redeemData.projectTokenAmount, redeemData.minQuoteAmount);
-        await client!.redeemProjectToken(params);
+        const params = await oseClient!.paramsBuilder.redeemProjectToken(project?.onChainData!, redeemData.projectTokenAmount, redeemData.minQuoteAmount);
+        await oseClient!.redeemProjectToken(params);
 
         setShow(true);
       }
@@ -90,8 +89,8 @@ export const SwapComp: React.FC<SwapCompProps> = props => {
       if (buyProjectToken && inputSellValue) {
         // number of decimal are hardcoded to 6 for now
         const quoteAmount: BN = new BN(inputSellValue * 1_000_000); // TODO: to make a variable lamports
-        const params = await client!.paramsBuilder.donate(project?.onChainData!, quoteAmount);
-        await client!.donate(params);
+        const params = await oseClient!.paramsBuilder.donate(project?.onChainData!, quoteAmount);
+        await oseClient!.donate(params);
 
         setShow(true);
       }
@@ -104,7 +103,7 @@ export const SwapComp: React.FC<SwapCompProps> = props => {
     try {
       const getBalanceQuoteToken = async () => {
         if (project!.onChainData.abc) {
-          client
+          oseClient
             ?.getAssociatedTokenAmount(project!.onChainData.abc!.quoteTokenMint)
             .then((balance: BN) => {
               // number of decimal are hardcoded to 6 for now
@@ -121,7 +120,7 @@ export const SwapComp: React.FC<SwapCompProps> = props => {
 
       const getBalanceProjectToken = async () => {
         if (project) {
-          client
+          oseClient
             ?.getAssociatedTokenAmount(project!.onChainData.projectTokenMint)
             .then((balance: BN) => {
               // number of decimal are hardcoded to 9 for now

@@ -1,3 +1,3 @@
 export * from "./pages";
-export * from "./OSEProvider";
-export * from "./Web3Provider";
+export * from "../hooks/oseClient/OseClientProvider";
+export * from "../hooks/oseClient/useOseClient";

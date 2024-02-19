@@ -1,13 +1,9 @@
 import * as React from "react";
-import { createContext, useContext, useEffect, useState } from "react";
-import { Header } from "../../../components";
-import { BannerSwap } from "../../../components";
-import { SwapChart } from "../../../components";
-import { Footer } from "../../../components";
+import { createContext, useEffect, useState } from "react";
+import { BannerSwap, data, Footer, Header, SwapChart } from "../../../components";
 import { ValidRepository } from "../../../model";
 import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
 import { useParams } from "react-router-dom";
-import { data } from "../../../components";
 import frame from "../../../assets/images/Frame.png";
 import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 
