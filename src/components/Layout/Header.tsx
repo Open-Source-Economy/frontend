@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import MyWallet from "../../MyWallet";
+import Wallet from "../Wallet";
 
 interface HeaderProps {}
 
@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = props => {
               </div>
             </Link>
 
-            <MyWallet />
+            <Wallet />
           </div>
         </nav>
       </header>

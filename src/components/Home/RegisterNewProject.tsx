@@ -1,16 +1,12 @@
 import React, { useContext, useState } from "react";
-import { ClientContext, quoteTokenMint } from "../../App";
+import { ClientContext, quoteTokenMint } from "../../routes/OSEProvider";
 import { getRepository } from "../../functions";
 import frame from "../../assets/images/Frame.png";
 import { web3 } from "@project-serum/anchor";
 import * as ose from "@open-source-economy/poc";
-import { Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-import { getMinimumBalanceForRentExemptMint, MINT_SIZE } from "@solana/spl-token/src/state/mint";
-import { TOKEN_PROGRAM_ID } from "@solana/spl-token/src/constants";
 import { MathUtils } from "@open-source-economy/poc";
 import { BN } from "@coral-xyz/anchor";
 import { Decimal } from "decimal.js";
-import { SetUpAbcParams } from "@open-source-economy/poc/dist/sdk/src/params/set-up-abc";
 
 interface RegisterNewProjectProps {
   onRegisteringNewProject: () => void;

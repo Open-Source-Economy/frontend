@@ -3,11 +3,11 @@ import USDC from "../../assets/images/usd-logo.png";
 import swapbtn from "../../assets/images/swapbtn.png";
 import kitty2 from "../../assets/images/kitty2.png";
 import { Modal } from "react-bootstrap";
-import { ProjectContext } from "../../pages/Swap";
+import { ProjectContext } from "../../routes/pages/swap/Swap";
 import { AbcUtils, MintData } from "@open-source-economy/poc";
 import { BN } from "@coral-xyz/anchor";
 import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
-import { ClientContext } from "../../App";
+import { ClientContext } from "../../routes/OSEProvider";
 
 interface SwapCompProps {
   setReloadBalance: () => void;
@@ -155,7 +155,7 @@ const SwapComp: React.FC<SwapCompProps> = props => {
         setInputSellValue(value);
         if (buyProjectToken && value) {
           const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(value! * 1_000_000));
-          setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber()  / 1_000_000_000); // TODO: I forgot in the back to take into account the number of decimals
+          setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber() / 1_000_000_000); // TODO: I forgot in the back to take into account the number of decimals
           setMinimumBuyAmount(mintData.minProjectTokenMinted.toNumber() / 1_000_000_000);
         } else if (value) {
           const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(value! * 1_000_000_000));

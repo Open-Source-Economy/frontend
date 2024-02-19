@@ -1,13 +1,13 @@
 import * as React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import Header from "../components/Layout/Header";
-import Banner from "../components/Home/Banner";
-import Projects from "../components/Home/Projects";
-import Footer from "../components/Layout/Footer";
-import { ConnectionContext } from "../App";
-import { getAllValidGitHubProjects } from "../functions";
-import { ValidRepository } from "../model";
-import frame from "../assets/images/Frame.png";
+import Header from "../../../components/Layout/Header";
+import Banner from "../../../components/Home/Banner";
+import Projects from "../../../components/Home/Projects";
+import Footer from "../../../components/Layout/Footer";
+import { ConnectionContext } from "../../OSEProvider";
+import { getAllValidGitHubProjects } from "../../../functions";
+import { ValidRepository } from "../../../model";
+import frame from "../../../assets/images/Frame.png";
 
 export const ProjectsContext = createContext<ValidRepository[]>([]);
 

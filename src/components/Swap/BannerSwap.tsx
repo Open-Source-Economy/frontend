@@ -1,12 +1,12 @@
 import * as React from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
 import { ChartData, ValidRepository } from "../../model";
-import { useContext, useEffect, useState } from "react";
 import { BN } from "@coral-xyz/anchor";
-import { ClientContext, ConnectionContext, PROGRAM_KEY } from "../../App";
-import { ProjectContext, ReloadContext } from "../../pages/Swap";
+import { ConnectionContext, PROGRAM_KEY } from "../../routes/OSEProvider";
+import { ProjectContext, ReloadContext } from "../../routes/pages/swap/Swap";
 import { programPda } from "@open-source-economy/poc";
-import { getAccount, NATIVE_MINT } from "@solana/spl-token";
+import { getAccount } from "@solana/spl-token";
 
 interface BannerSwapProps {
   project: ValidRepository;

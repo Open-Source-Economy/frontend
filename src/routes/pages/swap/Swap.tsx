@@ -1,17 +1,15 @@
 import * as React from "react";
-import Header from "../components/Layout/Header";
-import BannerSwap from "../components/Swap/BannerSwap";
-import SwapChart from "../components/Swap/SwapChart";
-import Footer from "../components/Layout/Footer";
 import { createContext, useContext, useEffect, useState } from "react";
-import { ChartData, ValidRepository } from "../model";
-import { ConnectionContext } from "../App";
-import { getAllValidGitHubProjects } from "../functions";
-import { getValidGitHubProject } from "../functions/getValidGitHubProject";
+import Header from "../../../components/Layout/Header";
+import BannerSwap from "../../../components/Swap/BannerSwap";
+import SwapChart from "../../../components/Swap/SwapChart";
+import Footer from "../../../components/Layout/Footer";
+import { ValidRepository } from "../../../model";
+import { ConnectionContext } from "../../OSEProvider";
+import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
 import { useParams } from "react-router-dom";
-import { data } from "../components/Elements/ChartData";
-import Solana from "../assets/images/solana.png";
-import frame from "../assets/images/Frame.png";
+import { data } from "../../../components/Elements/ChartData";
+import frame from "../../../assets/images/Frame.png";
 
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);
 export const ReloadContext = createContext<number>(0);

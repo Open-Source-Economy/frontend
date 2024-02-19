@@ -1,5 +1,5 @@
 import { AccountInfo, Connection } from "@solana/web3.js";
-import { oseCoder, PROGRAM_KEY } from "../App";
+import { oseCoder, PROGRAM_KEY } from "../routes/OSEProvider";
 import { Buffer } from "buffer";
 import { Project } from "../model";
 import { programPda } from "@open-source-economy/poc";

@@ -1,9 +1,9 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useContext, useEffect, useState } from "react";
 import "./style.css";
-import { ChartData, ChartPointData, ValidRepository } from "../../model";
+import { ChartData, ChartPointData } from "../../model";
 import { data } from "./ChartData";
-import { ProjectContext } from "../../pages/Swap";
+import { ProjectContext } from "../../routes/pages/swap/Swap";
 
 // chart data -----
 const twentyFourHoursData = [

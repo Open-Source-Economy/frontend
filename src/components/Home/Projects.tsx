@@ -1,7 +1,7 @@
 import Card from "../Elements/Card";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { ProjectsContext } from "../../pages/Home";
+import { ProjectsContext } from "../../routes/pages/home/Home";
 import { ValidRepository } from "../../model";
 
 const Projects = () => {

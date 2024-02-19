@@ -281,3 +281,5 @@ I installed all dependencies to solve the problem discussed. Do we really need a
 Could use: https://github.com/viaprotocol/web3-wallets/
 
 Displaying README.md.
+
+Naming convention: adopt https://github.com/airbnb/javascript/tree/master/react

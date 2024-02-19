@@ -1,5 +1,5 @@
 import { AccountInfo, Connection, GetProgramAccountsResponse, PublicKey } from "@solana/web3.js";
-import { oseCoder, PROGRAM_KEY } from "../App";
+import { oseCoder, PROGRAM_KEY } from "../routes/OSEProvider";
 import { Buffer } from "buffer";
 import { Project } from "../model";
 
@@ -28,6 +28,4 @@ export async function getAllProject(connection: Connection): Promise<Project[]> 
     const project: Project = oseCoder.decode("project", accountData);
     return project;
   });
-
-  return [];
 }

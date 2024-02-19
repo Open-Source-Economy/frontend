@@ -1,8 +1,6 @@
 import * as React from "react";
 import TabChart from "./TabChart";
 import SwapComp from "./SwapComp";
-import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
-import { ChartData, ValidRepository } from "../../model";
 
 interface SwapChartProps {
   setReloadBalance: () => void;
