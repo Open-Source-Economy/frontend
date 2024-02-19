@@ -1,10 +1,11 @@
 import * as React from "react";
 import { createContext, useEffect, useState } from "react";
-import { Banner, Footer, Header, Projects } from "../../../components";
+import { Banner, Projects } from "../../../components";
 import { getAllValidGitHubProjects } from "../../../functions";
 import { ValidRepository } from "../../../model";
 import frame from "../../../assets/images/Frame.png";
 import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
+import { PageWrapper } from "../PageWrapper";
 
 export const ProjectsContext = createContext<ValidRepository[]>([]);
 
@@ -22,10 +23,7 @@ export const Home = () => {
   }, [loadProject]);
 
   return (
-    <>
-      <Header />
-      <div style={{ height: "50px" }}></div>
-
+    <PageWrapper>
       <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
         <img src={frame} className=" img-fluid" alt="" />
         <div className="text__red helvetica fw-600 small">Please, be sure to be connected to the Solana Devnet.</div>
@@ -36,10 +34,6 @@ export const Home = () => {
       <ProjectsContext.Provider value={projects ?? []}>
         <Projects />
       </ProjectsContext.Provider>
-
-      <div style={{ height: "150px" }}></div>
-
-      <Footer />
-    </>
+    </PageWrapper>
   );
 };

@@ -1,11 +1,12 @@
 import * as React from "react";
 import { createContext, useEffect, useState } from "react";
-import { BannerSwap, data, Footer, Header, SwapChart } from "../../../components";
+import { BannerSwap, data, SwapChart } from "../../../components";
 import { ValidRepository } from "../../../model";
 import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
 import { useParams } from "react-router-dom";
 import frame from "../../../assets/images/Frame.png";
 import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
+import { PageWrapper } from "../PageWrapper";
 
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);
 export const ReloadContext = createContext<number>(0);
@@ -27,10 +28,7 @@ export const Swap = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div style={{ height: "50px" }}></div>
-
+    <PageWrapper>
       <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
         <img src={frame} className=" img-fluid" alt="" />
         <div className="text__red helvetica fw-600 small">
@@ -66,9 +64,6 @@ export const Swap = () => {
           <div style={{ height: "550px" }}></div>
         </>
       )}
-      <div className="mt-5 pt-lg-5"></div>
-      <div style={{ height: "250px" }}></div>
-      <Footer />
-    </>
+    </PageWrapper>
   );
 };

@@ -1,11 +1,11 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import Wallet from "../Wallet";
+import Wallet from "../../components/Wallet";
 
 interface HeaderProps {}
 
-export const Header: React.FC<HeaderProps> = props => {
+export function Header({}: HeaderProps) {
   return (
     <>
       <header>
@@ -28,4 +28,4 @@ export const Header: React.FC<HeaderProps> = props => {
       </header>
     </>
   );
-};
+}

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import React from "react";
 import { Home, Swap } from "./pages";
+import { PageWrapper } from "./pages/PageWrapper";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -15,11 +15,5 @@ export const Routes = () => {
     },
   ]);
 
-  return (
-    <div className="main">
-      <div>
-        <RouterProvider router={router} />
-      </div>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
