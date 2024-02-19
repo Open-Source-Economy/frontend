@@ -14,7 +14,7 @@ import frame from "../../../assets/images/Frame.png";
 export const ProjectContext = createContext<ValidRepository | undefined>(undefined);
 export const ReloadContext = createContext<number>(0);
 
-const Swap = () => {
+export const Swap = () => {
   const { owner, repository } = useParams();
   const connection = useContext(ConnectionContext);
 
@@ -76,5 +76,3 @@ const Swap = () => {
     </>
   );
 };
-
-export default Swap;

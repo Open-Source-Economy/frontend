@@ -11,7 +11,7 @@ import frame from "../../../assets/images/Frame.png";
 
 export const ProjectsContext = createContext<ValidRepository[]>([]);
 
-const Home = () => {
+export const Home = () => {
   const connection = useContext(ConnectionContext);
 
   const [loadProject, setLoadProject] = useState<number>(0);
@@ -42,5 +42,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;

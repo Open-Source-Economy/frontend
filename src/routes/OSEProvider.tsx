@@ -51,5 +51,3 @@ export const OSEProvider = () => {
     </div>
   );
 };
-
-export default OSEProvider;

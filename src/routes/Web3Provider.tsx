@@ -5,7 +5,7 @@ import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { OSEProvider } from "./OSEProvider";
 
-const Web3Provider = () => {
+export const Web3Provider = () => {
   const network = WalletAdapterNetwork.Devnet; // TODO: change to be connected to wallet settings
   const endpoint = "https://rough-ancient-putty.solana-devnet.quiknode.pro/c79ba7f15437ae8ae9eb58a1b5bf13f1b01785e9/"; // TODO: hide
   const wallets = useMemo(
@@ -25,5 +25,3 @@ const Web3Provider = () => {
     </ConnectionProvider>
   );
 };
-
-export default Web3Provider;

@@ -1,6 +1,6 @@
 import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import React, { useContext } from "react";
-import { ClientContext } from "../routes/OSEProvider";
+import { ClientContext } from "../routes";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
