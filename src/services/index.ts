@@ -1,4 +1,4 @@
-export * from "./getAllProject";
+export * from "./onchain";
 export * from "./getAllValidGitHubProjects";
 export * from "./getFirstSentenceOrFirstNWordsFromValue";
-export * from "./getRepository";
+export * from "./github";

@@ -1,19 +1,17 @@
 import * as React from "react";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Banner, Projects } from "../../../components";
-import { getAllValidGitHubProjects } from "../../../functions";
+import { getAllValidGitHubProjects } from "../../../services";
 import { ValidRepository } from "../../../model";
 import frame from "../../../assets/images/Frame.png";
 import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 import { PageWrapper } from "../PageWrapper";
 
-export const ProjectsContext = createContext<ValidRepository[]>([]);
-
 export const Home = () => {
   const { connection }: ConnectionContextState = useConnection();
 
   const [loadProject, setLoadProject] = useState<number>(0);
-  const [projects, setProjects] = useState<ValidRepository[]>();
+  const [projects, setProjects] = useState<ValidRepository[]>([]);
 
   useEffect(() => {
     if (connection) {
@@ -24,6 +22,7 @@ export const Home = () => {
 
   return (
     <PageWrapper>
+
       <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
         <img src={frame} className=" img-fluid" alt="" />
         <div className="text__red helvetica fw-600 small">Please, be sure to be connected to the Solana Devnet.</div>
@@ -31,9 +30,8 @@ export const Home = () => {
 
       <Banner onRegisteringNewProject={() => setLoadProject(loadProject + 1)} />
 
-      <ProjectsContext.Provider value={projects ?? []}>
-        <Projects />
-      </ProjectsContext.Provider>
+      <Projects projects={projects}/>
+
     </PageWrapper>
   );
 };

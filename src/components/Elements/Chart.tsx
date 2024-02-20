@@ -1,33 +1,19 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 import { useEffect, useState } from "react";
-import { ChartPointData } from "../../model";
+import { ChartDataPoint } from "../../model";
 
-type propsType = {
-  chatData: ChartPointData[];
-};
+interface ChartProps {
+  chartData: ChartDataPoint[];
+}
 
-export const Chart = ({ chatData }: propsType) => {
-  const [grapData, setGraphData] = useState([]);
-
-  function filterDataForLastWeek(data: any): any {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    return data.filter((item: any) => {
-      return new Date(item.timestamp) >= oneWeekAgo;
-    });
-  }
-
-  useEffect(() => {
-    setGraphData(filterDataForLastWeek(chatData));
-  }, [chatData]);
-
+export function Chart({ chartData }: ChartProps) {
   return (
     <div className="overflow-hidden" style={{ width: "100%", height: "100%", borderRadius: "20px", backgroundColor: "#132743" }}>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={500}
           height={400}
-          data={grapData}
+          data={chartData}
           margin={{
             top: 10,
             right: 0,
@@ -41,6 +27,7 @@ export const Chart = ({ chatData }: propsType) => {
               <stop offset="95%" stopColor="#8c422c" stopOpacity={0} />
             </linearGradient>
           </defs>
+
           <Area animationDuration={0} isAnimationActive={false} type="monotone" dataKey="price" stroke="#ff5e1a" fillOpacity={1} fill="url(#chartColor)" />
           <Tooltip
             contentStyle={{
@@ -56,4 +43,4 @@ export const Chart = ({ chatData }: propsType) => {
       </ResponsiveContainer>
     </div>
   );
-};
+}

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { getFirstSentenceOrFirstNWordsFromValue } from "../../functions";
+import { getFirstSentenceOrFirstNWordsFromValue } from "../../services";
 import { ChartData, ValidRepository } from "../../model";
 import { BN } from "@coral-xyz/anchor";
 import { PROGRAM_KEY } from "../../routes";
@@ -56,6 +56,7 @@ export const BannerSwap: React.FC<BannerSwapProps> = props => {
         <div className="row mx-0 justify-content-center pt-5  mt-3 mt-lg-5">
           <div className="col-lg-7">
             <div className="row mx-0 align-items-center gap-lg-0 gap-3 flex-md-row flex-column">
+
               <div className=" col-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-8">
                 <div className="d-flex gap-4 align-items-center">
                   <img src={props.logo} className="brandimg" alt="" />
@@ -67,20 +68,8 @@ export const BannerSwap: React.FC<BannerSwapProps> = props => {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
-                {/* TODO: refactor this Card */}
-                <div className="text-lg-end text-start">
-                  <h5 className="mb-2 text-white helvetica">{props.chartData.price && ` ${props.quoteCurrency} ${props.chartData.price.toFixed(2)} `}</h5>
-                  {props.chartData.changeValue &&
-                    (props.chartData.changeValue! < 0 ? (
-                      <h5 className=" mb-0 fw-500 text__red helvetica">
-                        ▼ -{props.chartData.changeValue.toFixed(2)}% <span className="text-white">(Week)</span>{" "}
-                      </h5>
-                    ) : (
-                      <h5 className=" mb-0 fw-500 text__green helvetica">▲ +{props.chartData.changeValue.toFixed(2)}%</h5>
-                    ))}
-                </div>
-              </div>
+
+              {/*PriceAndChange*/}
             </div>
           </div>
         </div>

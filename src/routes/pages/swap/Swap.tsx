@@ -2,7 +2,7 @@ import * as React from "react";
 import { createContext, useEffect, useState } from "react";
 import { BannerSwap, data, SwapChart } from "../../../components";
 import { ValidRepository } from "../../../model";
-import { getValidGitHubProject } from "../../../functions/getValidGitHubProject";
+import { getValidGitHubProject } from "../../../services/getValidGitHubProject";
 import { useParams } from "react-router-dom";
 import frame from "../../../assets/images/Frame.png";
 import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
@@ -29,6 +29,7 @@ export const Swap = () => {
 
   return (
     <PageWrapper>
+
       <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
         <img src={frame} className=" img-fluid" alt="" />
         <div className="text__red helvetica fw-600 small">
@@ -43,13 +44,16 @@ export const Swap = () => {
       {project && (
         <ReloadContext.Provider value={reloadBalance}>
           <ProjectContext.Provider value={project}>
+
             <BannerSwap
               project={project!}
               chartData={data(project.githubData.full_name)}
               quoteCurrency="$"
               logo={project!.githubData.organization.avatar_url}
             />
-            <SwapChart setReloadBalance={() => setReloadBalance(reloadBalance + 1)} />
+
+            {/*<SwapChart setReloadBalance={() => setReloadBalance(reloadBalance + 1)} />*/}
+
           </ProjectContext.Provider>
         </ReloadContext.Provider>
       )}
@@ -64,6 +68,7 @@ export const Swap = () => {
           <div style={{ height: "550px" }}></div>
         </>
       )}
+
     </PageWrapper>
   );
 };

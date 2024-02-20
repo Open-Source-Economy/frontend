@@ -1,77 +1,77 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useContext, useEffect, useState } from "react";
 import "./style.css";
-import { ChartData, ChartPointData } from "../../model";
+import { ChartData, ChartDataPoint } from "../../model";
 import { data } from "./ChartData";
 import { ProjectContext } from "../../routes";
 
 // chart data -----
 const twentyFourHoursData = [
-  { days: "Mon 12", timestamp: "2023-10-12T00:00:00", price: 2000 },
-  { days: "Tue 13", timestamp: "2023-10-12T04:00:00", price: 5000 },
-  { days: "Wed 19", timestamp: "2023-10-12T03:00:00", price: 4000 },
-  { days: "Thu 20", timestamp: "2023-10-12T02:00:00", price: 3000 },
-  { days: "Fri 13", timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { days: "Sat 13", timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { days: "Sun 13", timestamp: "2023-10-12T01:00:00", price: 7000 },
+  { days: "Mon 12", timestamp: new Date("2023-10-12T00:00:00"), price: 2000 },
+  { days: "Tue 13", timestamp: new Date("2023-10-12T04:00:00"), price: 5000 },
+  { days: "Wed 19", timestamp: new Date("2023-10-12T03:00:00"), price: 4000 },
+  { days: "Thu 20", timestamp: new Date("2023-10-12T02:00:00"), price: 3000 },
+  { days: "Fri 13", timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
+  { days: "Sat 13", timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
+  { days: "Sun 13", timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
 ];
 const oneWeakData = [
-  { days: "Mon 13", timestamp: "2023-10-12T04:00:00", price: 1000 },
-  { days: "Tue 13", timestamp: "2023-10-12T03:00:00", price: 2000 },
-  { days: "Wed 13", timestamp: "2023-10-12T00:00:00", price: 2400 },
-  { days: "Thu 13", timestamp: "2023-10-12T02:00:00", price: 3000 },
-  { days: "Fri 13", timestamp: "2023-10-12T00:00:00", price: 4000 },
-  { days: "Sat 13", timestamp: "2023-10-12T00:00:00", price: 7200 },
-  { days: "Sun 13", timestamp: "2023-10-12T00:00:00", price: 7000 },
+  { days: "Mon 13", timestamp: new Date("2023-10-12T04:00:00"), price: 1000 },
+  { days: "Tue 13", timestamp: new Date("2023-10-12T03:00:00"), price: 2000 },
+  { days: "Wed 13", timestamp: new Date("2023-10-12T00:00:00"), price: 2400 },
+  { days: "Thu 13", timestamp: new Date("2023-10-12T02:00:00"), price: 3000 },
+  { days: "Fri 13", timestamp: new Date("2023-10-12T00:00:00"), price: 4000 },
+  { days: "Sat 13", timestamp: new Date("2023-10-12T00:00:00"), price: 7200 },
+  { days: "Sun 13", timestamp: new Date("2023-10-12T00:00:00"), price: 7000 },
 ];
 
 const lastMonthData = [
-  { days: "Mon 13", timestamp: "2023-10-10T00:00:00", price: 1000 },
-  { days: "Tue 13", timestamp: "2023-10-10T00:00:00", price: 1500 },
-  { days: "Wed 23", timestamp: "2023-10-11T00:00:00", price: 2000 },
-  { days: "Thu 13", timestamp: "2023-10-10T00:00:00", price: 1500 },
-  { days: "Fri 19", timestamp: "2023-10-12T00:00:00", price: 3000 },
-  { days: "Sat 13", timestamp: "2023-10-10T00:00:00", price: 4000 },
-  { days: "Sun 17", timestamp: "2023-10-10T00:00:00", price: 5000 },
+  { days: "Mon 13", timestamp: new Date("2023-10-10T00:00:00"), price: 1000 },
+  { days: "Tue 13", timestamp: new Date("2023-10-10T00:00:00"), price: 1500 },
+  { days: "Wed 23", timestamp: new Date("2023-10-11T00:00:00"), price: 2000 },
+  { days: "Thu 13", timestamp: new Date("2023-10-10T00:00:00"), price: 1500 },
+  { days: "Fri 19", timestamp: new Date("2023-10-12T00:00:00"), price: 3000 },
+  { days: "Sat 13", timestamp: new Date("2023-10-10T00:00:00"), price: 4000 },
+  { days: "Sun 17", timestamp: new Date("2023-10-10T00:00:00"), price: 5000 },
 ];
 const oneYearAgoData = [
-  { days: "Mon 13", timestamp: "2022-10-10T00:00:00", price: 300 },
-  { days: "Tue 19", timestamp: "2022-10-12T00:00:00", price: 2000 },
-  { days: "Wed 23", timestamp: "2022-10-11T00:00:00", price: 6000 },
-  { days: "Thu 17", timestamp: "2022-10-10T00:00:00", price: 9000 },
-  { days: "Fri 13", timestamp: "2022-10-10T00:00:00", price: 5000 },
-  { days: "Sat 13", timestamp: "2022-10-10T00:00:00", price: 6000 },
-  { days: "Sun 13", timestamp: "2022-10-10T00:00:00", price: 7000 },
+  { days: "Mon 13", timestamp: new Date("2022-10-10T00:00:00"), price: 300 },
+  { days: "Tue 19", timestamp: new Date("2022-10-12T00:00:00"), price: 2000 },
+  { days: "Wed 23", timestamp: new Date("2022-10-11T00:00:00"), price: 6000 },
+  { days: "Thu 17", timestamp: new Date("2022-10-10T00:00:00"), price: 9000 },
+  { days: "Fri 13", timestamp: new Date("2022-10-10T00:00:00"), price: 5000 },
+  { days: "Sat 13", timestamp: new Date("2022-10-10T00:00:00"), price: 6000 },
+  { days: "Sun 13", timestamp: new Date("2022-10-10T00:00:00"), price: 7000 },
 ];
 
 const allData = [
-  { timestamp: "2022-10-10T00:00:00", price: 300 },
-  { days: "2021", timestamp: "2023-10-10T00:00:00", price: 1000 },
-  { timestamp: "2023-10-12T04:00:00", price: 1000 },
-  { timestamp: "2023-10-10T00:00:00", price: 1500 },
-  { timestamp: "2023-10-10T00:00:00", price: 1500 },
-  { timestamp: "2022-10-12T00:00:00", price: 2000 },
-  { timestamp: "2023-10-11T00:00:00", price: 2000 },
-  { timestamp: "2023-10-12T03:00:00", price: 2000 },
-  { timestamp: "2023-10-12T00:00:00", price: 2000 },
-  { timestamp: "2023-10-12T00:00:00", price: 2400 },
-  { timestamp: "2023-10-12T00:00:00", price: 3000 },
-  { timestamp: "2023-10-12T02:00:00", price: 3000 },
-  { timestamp: "2023-10-12T02:00:00", price: 3000 },
-  { timestamp: "2023-10-12T00:00:00", price: 4000 },
-  { timestamp: "2023-10-10T00:00:00", price: 4000 },
-  { timestamp: "2023-10-12T03:00:00", price: 4000 },
-  { timestamp: "2022-10-10T00:00:00", price: 5000 },
-  { timestamp: "2023-10-10T00:00:00", price: 5000 },
-  { timestamp: "2023-10-12T04:00:00", price: 5000 },
-  { timestamp: "2022-10-11T00:00:00", price: 6000 },
-  { timestamp: "2022-10-10T00:00:00", price: 6000 },
-  { timestamp: "2023-10-12T00:00:00", price: 7000 },
-  { timestamp: "2022-10-10T00:00:00", price: 7000 },
-  { timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { timestamp: "2023-10-12T01:00:00", price: 7000 },
-  { timestamp: "2022-10-10T00:00:00", price: 9000 },
+  { timestamp: new Date("2022-10-10T00:00:00"), price: 300 },
+  { days: "2021", timestamp: new Date("2023-10-10T00:00:00"), price: 1000 },
+  { timestamp: new Date("2023-10-12T04:00:00"), price: 1000 },
+  { timestamp: new Date("2023-10-10T00:00:00"), price: 1500 },
+  { timestamp: new Date("2023-10-10T00:00:00"), price: 1500 },
+  { timestamp: new Date("2022-10-12T00:00:00"), price: 2000 },
+  { timestamp: new Date("2023-10-11T00:00:00"), price: 2000 },
+  { timestamp: new Date("2023-10-12T03:00:00"), price: 2000 },
+  { timestamp: new Date("2023-10-12T00:00:00"), price: 2000 },
+  { timestamp: new Date("2023-10-12T00:00:00"), price: 2400 },
+  { timestamp: new Date("2023-10-12T00:00:00"), price: 3000 },
+  { timestamp: new Date("2023-10-12T02:00:00"), price: 3000 },
+  { timestamp: new Date("2023-10-12T02:00:00"), price: 3000 },
+  { timestamp: new Date("2023-10-12T00:00:00"), price: 4000 },
+  { timestamp: new Date("2023-10-10T00:00:00"), price: 4000 },
+  { timestamp: new Date("2023-10-12T03:00:00"), price: 4000 },
+  { timestamp: new Date("2022-10-10T00:00:00"), price: 5000 },
+  { timestamp: new Date("2023-10-10T00:00:00"), price: 5000 },
+  { timestamp: new Date("2023-10-12T04:00:00"), price: 5000 },
+  { timestamp: new Date("2022-10-11T00:00:00"), price: 6000 },
+  { timestamp: new Date("2022-10-10T00:00:00"), price: 6000 },
+  { timestamp: new Date("2023-10-12T00:00:00"), price: 7000 },
+  { timestamp: new Date("2022-10-10T00:00:00"), price: 7000 },
+  { timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
+  { timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
+  { timestamp: new Date("2023-10-12T01:00:00"), price: 7000 },
+  { timestamp: new Date("2022-10-10T00:00:00"), price: 9000 },
 ];
 
 export const ProjectPageChart = () => {
@@ -79,7 +79,7 @@ export const ProjectPageChart = () => {
   const [minnPrice, setMinPrice] = useState(0);
   const [maxxPrice, setMixPrice] = useState(100);
   const [active, setActive] = useState("tab-1");
-  const [filteredData, setFilteredData] = useState<ChartData>(new ChartData([]));
+  const [filteredData, setFilteredData] = useState<ChartData>(new ChartData([], "$"));
 
   const project = useContext(ProjectContext);
 
@@ -92,14 +92,14 @@ export const ProjectPageChart = () => {
     if (click === "24h") {
       setFilteredData(data(project!.githubData.full_name));
     } else if (click === "1W") {
-      setFilteredData(new ChartData(oneWeakData));
+      setFilteredData(new ChartData(oneWeakData, "$"));
     } else if (click === "1M") {
-      setFilteredData(new ChartData(lastMonthData));
+      setFilteredData(new ChartData(lastMonthData, "$"));
     } else {
-      setFilteredData(new ChartData(oneYearAgoData));
+      setFilteredData(new ChartData(oneYearAgoData, "$"));
     }
 
-    const prices: number[] = filteredData.points.map((item: ChartPointData) => item.price);
+    const prices: number[] = filteredData.points.map((item: ChartDataPoint) => item.price);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
 

@@ -1,4 +1,4 @@
-export class Repo {
+export class Repository {
   name: string;
   full_name: string;
   description: string;
