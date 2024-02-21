@@ -1,5 +1,5 @@
-import { Footer, Header } from "../../views";
 import { ReactNode } from "react";
+import { Footer, Header } from "../layout";
 
 export interface PageWrapperProps {
   children: ReactNode;

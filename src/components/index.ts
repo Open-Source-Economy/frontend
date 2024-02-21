@@ -1,4 +1,3 @@
-export * from "./Elements";
-export * from "./Home";
-export * from "./Swap";
 export * from "./Wallet";
+export * from "./PriceAndChange";
+export * from "./ProjectHeader";

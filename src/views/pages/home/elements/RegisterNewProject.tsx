@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { quoteTokenMint, useOseClient } from "../../routes";
-import { getRepository } from "../../services";
-import frame from "../../assets/images/Frame.png";
+import { quoteTokenMint, useOseClient } from "../../../index";
+import { getRepository } from "../../../../services";
+import frame from "../../../../assets/images/Frame.png";
 import { web3 } from "@project-serum/anchor";
 import * as ose from "@open-source-economy/poc";
 import { MathUtils } from "@open-source-economy/poc";

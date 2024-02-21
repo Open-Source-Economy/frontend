@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-import kittyimg from "../../assets/images/kitty.png";
+import kittyimg from "../../../../assets/images/kitty.png";
 import RegisterNewProject from "./RegisterNewProject";
 
 interface BannerProps {

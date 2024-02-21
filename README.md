@@ -11,7 +11,7 @@ If you run the project locally, you will need to create an `.env` file at the ro
 REACT_APP_GITHUB_TOKEN
 ```
 
-And then run `npm start` to start the project.
+`npm install` And then run `npm start` to start the project.
 
 The backend is deployed on Solana DevNet, so you will need to connect to it to interact with the smart contracts.
 

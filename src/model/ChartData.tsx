@@ -1,4 +1,4 @@
-import { ChartData, ChartDataPoint } from "../../model";
+import { ChartData, ChartDataPoint } from "./index";
 
 const data1: ChartDataPoint[] = [
   { days: "Mon 13", timestamp: new Date("2023-10-12T04:00:00"), price: 55 },

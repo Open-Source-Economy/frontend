@@ -1,0 +1,27 @@
+import { Modal } from "react-bootstrap";
+import kitty2 from "../../../../assets/images/kitty2.png";
+import React from "react";
+
+interface SuccessModalProps {
+  show: boolean;
+  handleClose: () => void;
+}
+
+export function SuccessModal({ show, handleClose }: SuccessModalProps) {
+  return (
+    <Modal show={show} onHide={handleClose} centered id="registermodal" size="sm">
+      <Modal.Body>
+        <div className="px-lg-1 py-3">
+          <h5 className="text-white text-center">Donated Successfully</h5>
+          <img src={kitty2} className="img-fluid mt-4 pt-3" alt="" />
+
+          <div className="d-block mt-4 pt-3">
+            <button onClick={handleClose} className="connect__btn w-100">
+              Done
+            </button>
+          </div>
+        </div>
+      </Modal.Body>
+    </Modal>
+  );
+}

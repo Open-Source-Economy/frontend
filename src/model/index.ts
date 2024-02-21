@@ -1,4 +1,6 @@
 export * from "./github";
 export * from "./onchain";
+export * from "./server";
 export * from "./ValidRepository";
-export * from "./server/ChartDataPoint";
+export * from "./ChartData";
+export * from "./Token";

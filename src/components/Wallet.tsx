@@ -1,6 +1,6 @@
 import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import React from "react";
-import { useOseClient } from "../routes";
+import { useOseClient } from "../views";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 

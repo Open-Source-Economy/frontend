@@ -1,10 +1,10 @@
 import "./App.css";
 import React, { useMemo } from "react";
-import { OseClientProvider } from "./routes";
+import { OseClientProvider } from "./views";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
-import { Routes } from "./routes/Routes";
+import { Routes } from "./views/Routes";
 
 const App = () => {
   const network = WalletAdapterNetwork.Devnet; // TODO: change to be connected to wallet settings

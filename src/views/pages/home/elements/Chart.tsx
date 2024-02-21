@@ -1,6 +1,6 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 import { useEffect, useState } from "react";
-import { ChartDataPoint } from "../../model";
+import { ChartDataPoint } from "../../../../model";
 
 interface ChartProps {
   chartData: ChartDataPoint[];
