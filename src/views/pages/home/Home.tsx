@@ -1,35 +1,49 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { getAllValidGitHubProjects } from "../../../services";
-import { ValidRepository } from "../../../model";
-import frame from "../../../assets/images/Frame.png";
-import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
+import React from "react";
+import { Footer, Header } from "../../layout";
+import { Link } from "react-router-dom";
+import Crypto from "../../../assets/images/crypto.png";
 import { PageWrapper } from "../PageWrapper";
-import { Banner, Projects } from "./elements";
 
-export const Home = () => {
-  const { connection }: ConnectionContextState = useConnection();
+interface HomeProps {}
 
-  const [loadProject, setLoadProject] = useState<number>(0);
-  const [projects, setProjects] = useState<ValidRepository[]>([]);
-
-  useEffect(() => {
-    if (connection) {
-      const waitBeforeReload = loadProject > 0 ? 1000 : 0; // Blockchain is slow, wait 1 second before reload projects
-      new Promise(resolve => setTimeout(resolve, waitBeforeReload)).then(() => getAllValidGitHubProjects(connection)).then(projects => setProjects(projects)); // TODO: handle error
-    }
-  }, [loadProject]);
-
+export function Home(props: HomeProps) {
   return (
     <PageWrapper>
-      <div className="bg__pink py-2 rounded mt-4 d-flex gap-2 align-items-center px-2">
-        <img src={frame} className=" img-fluid" alt="" />
-        <div className="text__red helvetica fw-600 small">Please, be sure to be connected to the Solana Devnet.</div>
-      </div>
+      <section className="banner__home" style={{ height: "100vh" }}>
+        <div className="container mt-5 pt-lg-5 pt-3">
+          <h1 className="text-center text-white">
+            Open Source <span className="text__primary">Economy</span>
+          </h1>
 
-      <Banner onRegisteringNewProject={() => setLoadProject(loadProject + 1)} />
-
-      <Projects projects={projects} />
+          <h5 className="text-center text-white helvetica fw-400 mt-4 h6 ">The solution to make Open-Source as Competitive as Closed Source.</h5>
+          <div className="d-flex justify-content-center align-items-lg-end align-items-center flex-wrap flex-lg-row flex-column-reverse mb-5  gap-lg-0 gap-3 mt-5">
+            <div className="c-card  justify-content-center  align-items-center flex-wrap flex-lg-row flex-column-reverse">
+              <div>
+                <Link to="/invest" className="connect__btns text-decoration-none">
+                  {" "}
+                  Maintainers
+                </Link>
+              </div>
+              <div>
+                <Link to="/issues" className="connect__btns text-decoration-none">
+                  {" "}
+                  Fund an issue
+                </Link>
+              </div>
+              <div>
+                <Link to="/invest" className="connect__btns text-decoration-none">
+                  {" "}
+                  Invest / Donate
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-5">
+            <img src={Crypto} className="crypto-img img-fluid" alt="" />
+          </div>
+        </div>
+      </section>
+      <div style={{ height: "150px" }}></div>
     </PageWrapper>
   );
-};
+}

@@ -2,6 +2,9 @@ import React from "react";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import Wallet from "../../components/Wallet";
+import { Dropdown } from "react-bootstrap";
+import solicon3 from "../../assets/images/solicon3.png";
+import pfp from "../../assets/images/pfp.png";
 
 interface HeaderProps {}
 

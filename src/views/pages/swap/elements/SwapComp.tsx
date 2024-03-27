@@ -5,9 +5,9 @@ import { RepositoryContext, useOseClient } from "../../../index";
 import { AbcUtils, MintData } from "@open-source-economy/poc";
 import { BN } from "@coral-xyz/anchor";
 import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
-import { SuccessModal } from "./SuccessModal";
+import { SuccessModal } from "../../../../components/modal/SuccessModal";
 import { getProjectTokenBalance, getQuoteTokenBalance } from "../../../../services";
-import { Tab, TabPanel } from "./TabPanel";
+import { Tab, TabPanel } from "../../../../components/TabPanel";
 import { UserHolding } from "./UserHolding";
 import { AmountInput } from "./AmountInput";
 import { Token } from "../../../../model";
@@ -20,7 +20,7 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   const { oseClient } = useOseClient();
   const repository = useContext(RepositoryContext);
   // @ts-ignore
-  const abcUtils: AbcUtils = new AbcUtils(repository!.onChainData.abc);
+  const abcUtils: AbcUtils = undefined; // new AbcUtils(repository!.onChainData.abc);
 
   class ExchangeSide {
     sell: Token;
@@ -39,7 +39,7 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
     }
   }
   const tokenLogo = new Map<Token, string>([
-    [Token.Project, repository?.githubData.organization.avatar_url || ""],
+    [Token.Project, repository?.githubData.organization.avatarUrl || ""],
     [Token.Quote, USDC],
   ]);
 
@@ -50,9 +50,9 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
 
   // --- Tab ---
 
-  const [activeTab, setActiveTab] = useState<Tab>(Tab.Swap);
+  const [activeTab, setActiveTab] = useState<Tab>(Tab.One);
   useEffect(() => {
-    if (activeTab === Tab.Donate) {
+    if (activeTab === Tab.Two) {
       // when we click on donate, we want to reset the input fields to be the quote token
       setExchangeSide(new ExchangeSide(Token.Quote, Token.Project));
       setInputSellValue(undefined);
@@ -64,13 +64,12 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   // --- Modal ---
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const handleCloseSuccessModal = () => {
+  const closeSuccessModalCallback = () => {
     reloadAmountCollected();
     setLoadUserBalances(!loadUserBalances);
     setInputSellValue(undefined);
     setInputBuyValue(undefined);
     setMinimumReceivedAmount(0);
-    setShowSuccessModal(false);
   };
 
   // --- Exchange side ---
@@ -149,7 +148,7 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   }, [inputSellValue]);
 
   async function swapOrDonate() {
-    if (activeTab === Tab.Swap) {
+    if (activeTab === Tab.One) {
       await swap();
     } else {
       await donate();
@@ -198,15 +197,15 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
       <div className="swapc">
         <div className="d-flex justify-content-between flex-lg-nowrap flex-wrap">
           <div className="d-flex gap-4 align-items-center">
-            <TabPanel tab={Tab.Swap} index={activeTab} setActiveTab={setActiveTab}>
+            <TabPanel tab={Tab.One} index={activeTab} setActiveTab={setActiveTab}>
               Swap
             </TabPanel>
 
-            <TabPanel tab={Tab.Donate} index={activeTab} setActiveTab={setActiveTab}>
+            <TabPanel tab={Tab.Two} index={activeTab} setActiveTab={setActiveTab}>
               Donate
             </TabPanel>
           </div>
-          <UserHolding token={exchangeSide.sell} userBalances={userBalances} tokenCode={tokenCode} />
+          <UserHolding userBalance={userBalances.get(exchangeSide.sell) || 0} tokenCode={tokenCode.get(exchangeSide.sell) || ""} />
         </div>
 
         <div className="mt-3 d-flex flex-column gap-1 align-items-center position-relative">
@@ -215,14 +214,13 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
             type="number"
             value={inputSellValue}
             onChange={(event: ChangeEvent<HTMLInputElement>) => setInputSellValue(event.target.valueAsNumber)}
-            token={exchangeSide.sell}
-            tokenLogo={tokenLogo}
-            tokenCode={tokenCode}
-            userBalances={userBalances}
+            tokenLogo={tokenLogo.get(exchangeSide.sell) || ""}
+            tokenCode={tokenCode.get(exchangeSide.sell) || ""}
+            userBalances={userBalances.get(exchangeSide.sell) || 0}
             onMaxClick={() => setInputSellValue(userBalances.get(exchangeSide.sell))}
           />
 
-          {activeTab === Tab.Swap && (
+          {activeTab === Tab.One && (
             <>
               <button onClick={() => setExchangeSide(exchangeSide.swap())} className="swapbtn bg-transparent border-0 nofocus">
                 <img src={swapbtn} alt="" />
@@ -233,17 +231,16 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
                 type="text"
                 disabled={true}
                 value={inputBuyValue}
-                token={exchangeSide.buy}
-                tokenLogo={tokenLogo}
-                tokenCode={tokenCode}
-                userBalances={userBalances}
+                tokenLogo={tokenLogo.get(exchangeSide.buy) || ""}
+                tokenCode={tokenCode.get(exchangeSide.buy) || ""}
+                userBalances={userBalances.get(exchangeSide.buy) || 0}
               />
             </>
           )}
         </div>
 
         <p className="text-center mt-3">
-          {activeTab === Tab.Swap && (
+          {activeTab === Tab.One && (
             <span className="text-center text-white-50 helvetica">
               Minimum received {minimumReceivedAmount} {tokenCode.get(exchangeSide.buy) || ""}
             </span>
@@ -252,7 +249,7 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
 
         {(inputSellValue || 0) <= (userBalances.get(exchangeSide.sell) || 0) ? (
           <button onClick={swapOrDonate} className="connect__btn w-100">
-            {activeTab === Tab.Swap ? "Swap" : "Donate"}
+            {activeTab === Tab.One ? "Swap" : "Donate"}
           </button>
         ) : (
           <button disabled className="connect__btn bg-secondary border-0 w-100">
@@ -261,7 +258,7 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
         )}
       </div>
 
-      <SuccessModal show={showSuccessModal} handleClose={handleCloseSuccessModal} />
+      <SuccessModal title={"Donated Successfully"} show={showSuccessModal} setShow={setShowSuccessModal} closeCallback={closeSuccessModalCallback} />
     </>
   );
 }

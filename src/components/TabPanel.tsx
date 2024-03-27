@@ -1,8 +1,8 @@
 import React from "react";
 
 export enum Tab {
-  Swap = 1,
-  Donate = 2,
+  One = 1,
+  Two = 2,
 }
 
 interface TabPanelProps {

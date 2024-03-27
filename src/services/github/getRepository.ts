@@ -1,8 +1,8 @@
-import { Organization, Repository } from "../../model";
+import { Repository } from "../../model";
 
-export async function getRepository(owner: string, repository: string): Promise<Repository> {
+export async function getRepository(owner: string, repo: string): Promise<Repository> {
   try {
-    const response = await fetch(`https://api.github.com/repos/${owner.trim()}/${repository.trim()}`, {
+    const response: Response = await fetch(`https://api.github.com/repos/${owner.trim()}/${repo.trim()}`, {
       method: "GET",
       headers: {
         Authorization: "Token " + process.env.REACT_APP_GITHUB_TOKEN,
@@ -11,14 +11,12 @@ export async function getRepository(owner: string, repository: string): Promise<
     });
     if (response.ok) {
       const json = await response.json();
-
-      let organization;
-      if (json.organization) {
-        organization = new Organization(json.organization.avatar_url ? json.organization.avatar_url : "");
+      const repo: Repository | Error = Repository.fromJson(json);
+      if (repo instanceof Error) {
+        return Promise.reject(repo);
       } else {
-        organization = new Organization("");
+        return repo;
       }
-      return new Repository(json.name ? json.name : "", json.full_name ? json.full_name : "", json.description ? json.description : "", organization);
     } else {
       return Promise.reject(new Error("No project exist on GitHub.com with this owner and repository ")); // TODO: improve error handling
     }

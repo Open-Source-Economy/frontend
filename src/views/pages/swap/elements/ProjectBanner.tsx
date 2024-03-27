@@ -14,7 +14,7 @@ export function ProjectBanner({ repository }: ProjectBannerProps) {
         <div className="row mx-0 align-items-center gap-lg-0 gap-3 flex-md-row flex-column">
           <div className=" col-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-8">
             <ProjectHeader
-              logo={repository.githubData.organization.avatar_url}
+              logo={repository.githubData.organization.avatarUrl}
               name={repository.githubData.full_name}
               tokenCode={repository.tokenCode}
               tagline={repository.githubData.description}

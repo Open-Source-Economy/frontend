@@ -1,18 +1,15 @@
 import React from "react";
 
-import { Token } from "../../../../model/Token";
-
-interface LogoProps {
-  token: Token;
-  tokenLogo: Map<Token, string>;
-  tokenCode: Map<Token, string>;
+interface TokenSymbolProps {
+  tokenLogo: string;
+  tokenCode: string;
 }
 
-export function TokenSymbol({ token, tokenLogo, tokenCode }: LogoProps) {
+export function TokenSymbol(props: TokenSymbolProps) {
   return (
     <>
-      <img src={tokenLogo.get(token) || ""} alt="" className="brandimg" />
-      <h1 className="helvetica text-white mb-0">{tokenCode.get(token) || ""}</h1>
+      <img src={props.tokenLogo || ""} alt="" className="brandimg" />
+      <h1 className="helvetica text-white mb-0">{props.tokenCode || ""}</h1>
     </>
   );
 }
