@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import { quoteTokenMint, useOseClient } from "../../../index";
-import { getRepository } from "../../../../services";
+import { useOseClient } from "../../../index";
 import frame from "../../../../assets/images/Frame.png";
-import { web3 } from "@project-serum/anchor";
-import * as ose from "@open-source-economy/poc";
-import { MathUtils } from "@open-source-economy/poc";
-import { BN } from "@coral-xyz/anchor";
-import { Decimal } from "decimal.js";
 
 interface RegisterNewProjectProps {
   onRegisteringNewProject: () => void;
@@ -14,7 +8,7 @@ interface RegisterNewProjectProps {
 
 export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
   const { oseClient } = useOseClient();
-  const walletAddress = oseClient?.context.provider.wallet.publicKey.toString();
+  // const walletAddress = oseClient?.context.provider.wallet.publicKey.toString();
 
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
@@ -26,27 +20,27 @@ export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
     if (oseClient) {
       /* create the program interface combining the idl, program ID, and provider */
       try {
-        setLoading(true);
-
-        // verify that the repository exists
-        await getRepository(newOwner, newRepository);
-
-        const constantMint: BN = MathUtils.toX32(new Decimal(0.0001));
-        const constantRedeem: BN = MathUtils.toX32(new Decimal(0.00008));
-
-        const projectTokenKeyPair = web3.Keypair.generate();
-        const initializeParams: ose.InitializeParams = await oseClient.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
-        const setUpAbcParams: ose.SetUpAbcParams = await oseClient.paramsBuilder.setUpAbc(
-          newOwner,
-          newRepository,
-          constantMint,
-          constantRedeem,
-          quoteTokenMint
-        );
-
-        await oseClient.initializeAndSetUpAbc(initializeParams, setUpAbcParams);
-
-        props.onRegisteringNewProject();
+        // setLoading(true);
+        //
+        // // verify that the repository exists
+        // await getRepository(newOwner, newRepository);
+        //
+        // const constantMint: BN = MathUtils.toX32(new Decimal(0.0001));
+        // const constantRedeem: BN = MathUtils.toX32(new Decimal(0.00008));
+        //
+        // const projectTokenKeyPair = web3.Keypair.generate();
+        // const initializeParams: ose.InitializeParams = await oseClient.paramsBuilder.initialize(newOwner, newRepository, projectTokenKeyPair);
+        // const setUpAbcParams: ose.SetUpAbcParams = await oseClient.paramsBuilder.setUpAbc(
+        //   newOwner,
+        //   newRepository,
+        //   constantMint,
+        //   constantRedeem,
+        //   quoteTokenMint
+        // );
+        //
+        // await oseClient.initializeAndSetUpAbc(initializeParams, setUpAbcParams);
+        //
+        // props.onRegisteringNewProject();
       } catch (e) {
         if (e instanceof Error) {
           // specific for WalletError ?
@@ -85,15 +79,15 @@ export const RegisterNewProject: React.FC<RegisterNewProjectProps> = props => {
             <div className="d-block mt-0 pt-0"></div>
           )}
           <div className="d-block mt-4 pt-3">
-            {(walletAddress && (
-              <button onClick={initialize} className="connect__btn w-100">
-                Register
-              </button>
-            )) || (
-              <button disabled className="connect__btn w-100 bg-secondary border-0">
-                Connect wallet
-              </button>
-            )}
+            {/*{(walletAddress && (*/}
+            {/*  <button onClick={initialize} className="connect__btn w-100">*/}
+            {/*    Register*/}
+            {/*  </button>*/}
+            {/*)) || (*/}
+            {/*  <button disabled className="connect__btn w-100 bg-secondary border-0">*/}
+            {/*    Connect wallet*/}
+            {/*  </button>*/}
+            {/*)}*/}
           </div>
         </div>
       }

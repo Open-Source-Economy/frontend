@@ -2,11 +2,10 @@ import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import USDC from "../../../../assets/images/usd-logo.png";
 import swapbtn from "../../../../assets/images/swapbtn.png";
 import { RepositoryContext, useOseClient } from "../../../index";
-import { AbcUtils, MintData } from "@open-source-economy/poc";
-import { BN } from "@coral-xyz/anchor";
-import { RedeemData } from "@open-source-economy/poc/dist/sdk/src/abc-utils";
+// import {AbcUtils, MintData} from "@open-source-economy/poc";
+// import {BN} from "@coral-xyz/anchor";
+// import {RedeemData} from "@open-source-economy/poc/dist/sdk/src/abc-utils";
 import { SuccessModal } from "../../../../components/modal/SuccessModal";
-import { getProjectTokenBalance, getQuoteTokenBalance } from "../../../../services";
 import { Tab, TabPanel } from "../../../../components/TabPanel";
 import { UserHolding } from "./UserHolding";
 import { AmountInput } from "./AmountInput";
@@ -86,19 +85,19 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
     new Map<Token, number>([
       [Token.Project, 0],
       [Token.Quote, 0],
-    ])
+    ]),
   );
 
   const [loadUserBalances, setLoadUserBalances] = useState<boolean>(true);
 
   useEffect(() => {
     try {
-      if (repository && repository.onChainData.abc) {
-        getQuoteTokenBalance(oseClient, repository!.onChainData.abc!)
-          .then(userBalance => setUserBalances(new Map(userBalances).set(Token.Quote, userBalance)))
-          .catch(e => {
-            userBalances.set(Token.Project, 0); // user account can not be created yet
-          });
+      if (repository /* && repository.onChainData.abc*/) {
+        // getQuoteTokenBalance(oseClient, repository!.onChainData.abc!)
+        //   .then(userBalance => setUserBalances(new Map(userBalances).set(Token.Quote, userBalance)))
+        //   .catch(e => {
+        //     userBalances.set(Token.Project, 0); // user account can not be created yet
+        //   });
       }
     } catch (e) {
       console.log(e);
@@ -108,11 +107,11 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   useEffect(() => {
     try {
       if (repository) {
-        getProjectTokenBalance(oseClient, repository!.onChainData)
-          .then(userBalance => setUserBalances(new Map(userBalances).set(Token.Project, userBalance)))
-          .catch(e => {
-            userBalances.set(Token.Quote, 0); // user account can not be created yet
-          });
+        // getProjectTokenBalance(oseClient, repository!.onChainData)
+        //   .then(userBalance => setUserBalances(new Map(userBalances).set(Token.Project, userBalance)))
+        //   .catch(e => {
+        //     userBalances.set(Token.Quote, 0); // user account can not be created yet
+        //   });
       }
     } catch (e) {
       console.log(e);
@@ -128,15 +127,15 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   useEffect(() => {
     try {
       if (inputSellValue && inputSellValue > 0) {
-        if (exchangeSide.sell == Token.Quote && inputSellValue) {
-          const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue! * 1_000_000));
-          setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber() / 1_000_000_000); // TODO: I forgot in the back to take into account the number of decimals
-          setMinimumReceivedAmount(mintData.minProjectTokenMinted.toNumber() / 1_000_000_000);
-        } else if (inputSellValue) {
-          const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue! * 1_000_000_000));
-          setInputBuyValue(redeemData.expectedQuoteAmount.toNumber() / 1_000_000);
-          setMinimumReceivedAmount(redeemData.minQuoteAmount.toNumber() / 1_000_000);
-        }
+        // if (exchangeSide.sell == Token.Quote && inputSellValue) {
+        //   const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue! * 1_000_000));
+        //   setInputBuyValue(mintData.expectedProjectTokenMinted.toNumber() / 1_000_000_000); // TODO: I forgot in the back to take into account the number of decimals
+        //   setMinimumReceivedAmount(mintData.minProjectTokenMinted.toNumber() / 1_000_000_000);
+        // } else if (inputSellValue) {
+        //   const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue! * 1_000_000_000));
+        //   setInputBuyValue(redeemData.expectedQuoteAmount.toNumber() / 1_000_000);
+        //   setMinimumReceivedAmount(redeemData.minQuoteAmount.toNumber() / 1_000_000);
+        // }
       } else {
         setInputSellValue(undefined);
         setInputBuyValue(undefined);
@@ -158,17 +157,17 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   async function swap() {
     try {
       if (exchangeSide.sell == Token.Quote && inputSellValue) {
-        // number of decimal are hardcoded to 6 for now
-        const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue * 1_000_000)); // TODO: to make a variable lamports
-        const params = await oseClient!.paramsBuilder.mintProjectToken(repository!.onChainData, mintData.minProjectTokenMinted, mintData.quoteAmount);
-        await oseClient!.mintProjectToken(params);
+        // // number of decimal are hardcoded to 6 for now
+        // const mintData: MintData = abcUtils.getMintDataFromQuote(new BN(inputSellValue * 1_000_000)); // TODO: to make a variable lamports
+        // const params = await oseClient!.paramsBuilder.mintProjectToken(repository!.onChainData, mintData.minProjectTokenMinted, mintData.quoteAmount);
+        // await oseClient!.mintProjectToken(params);
 
         setShowSuccessModal(true);
       } else if (inputSellValue) {
-        // number of decimal are hardcoded to 9 for now
-        const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue * 1_000_000_000)); // TODO: to make a variable lamports
-        const params = await oseClient!.paramsBuilder.redeemProjectToken(repository!.onChainData!, redeemData.projectTokenAmount, redeemData.minQuoteAmount);
-        await oseClient!.redeemProjectToken(params);
+        // // number of decimal are hardcoded to 9 for now
+        // const redeemData: RedeemData = abcUtils.getRedeemDataFromProjectToken(new BN(inputSellValue * 1_000_000_000)); // TODO: to make a variable lamports
+        // const params = await oseClient!.paramsBuilder.redeemProjectToken(repository!.onChainData!, redeemData.projectTokenAmount, redeemData.minQuoteAmount);
+        // await oseClient!.redeemProjectToken(params);
 
         setShowSuccessModal(true);
       }
@@ -180,10 +179,10 @@ export function SwapComp({ reloadAmountCollected }: SwapCompProps) {
   async function donate() {
     try {
       if (exchangeSide.sell == Token.Quote && inputSellValue) {
-        // number of decimal are hardcoded to 6 for now
-        const quoteAmount: BN = new BN(inputSellValue * 1_000_000); // TODO: to make a variable lamports
-        const params = await oseClient!.paramsBuilder.donate(repository!.onChainData!, quoteAmount);
-        await oseClient!.donate(params);
+        // // number of decimal are hardcoded to 6 for now
+        // const quoteAmount: BN = new BN(inputSellValue * 1_000_000); // TODO: to make a variable lamports
+        // const params = await oseClient!.paramsBuilder.donate(repository!.onChainData!, quoteAmount);
+        // await oseClient!.donate(params);
 
         setShowSuccessModal(true);
       }

@@ -1,11 +1,7 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { ValidRepository } from "../../../../model";
-import { BN } from "@coral-xyz/anchor";
-import { PROGRAM_KEY, RepositoryContext, ReloadAmountCollectedContext } from "../../../index";
-import { programPda } from "@open-source-economy/poc";
-import { getAccount } from "@solana/spl-token";
-import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
+import { ReloadAmountCollectedContext, RepositoryContext } from "../Swap";
 
 interface BannerSwapProps {
   repository: ValidRepository;
@@ -13,33 +9,33 @@ interface BannerSwapProps {
 
 export function BannerSwap({ repository }: BannerSwapProps) {
   const project = useContext(RepositoryContext);
-  const { connection }: ConnectionContextState = useConnection();
+  // const { connection }: ConnectionContextState = useConnection();
   const reloadAmountCollected = useContext(ReloadAmountCollectedContext);
   const [balanceProjectToken, setBalanceProjectToken] = useState<number>(0);
   const [balanceQuoteToken, setBalanceQuoteToken] = useState<number>(0);
 
   useEffect(() => {
     try {
-      const getBalanceQuoteToken = async () => {
-        const pubKey = programPda.treasury(
-          project?.onChainData.owner!,
-          project?.onChainData.repository!,
-          project!.onChainData.abc!.quoteTokenMint,
-          PROGRAM_KEY
-        );
-        const balance: BN = await getAccount(connection!, pubKey).then(_ => new BN(_.amount.toString()));
-
-        setBalanceQuoteToken(balance.toNumber() / 1_000_000); // TODO: to make a variable lamports
-      };
-
-      const getBalanceProjectToken = async () => {
-        const pubKey = programPda.treasury(project?.onChainData.owner!, project?.onChainData.repository!, project!.onChainData.projectTokenMint, PROGRAM_KEY);
-        const balance: BN = await getAccount(connection!, pubKey).then(_ => new BN(_.amount.toString()));
-
-        setBalanceProjectToken(balance.toNumber() / 1_000_000_000); // TODO: to make a variable lamports
-      };
-
-      getBalanceQuoteToken().then(() => getBalanceProjectToken());
+      // const getBalanceQuoteToken = async () => {
+      //   const pubKey = programPda.treasury(
+      //     project?.onChainData.owner!,
+      //     project?.onChainData.repository!,
+      //     project!.onChainData.abc!.quoteTokenMint,
+      //     PROGRAM_KEY
+      //   );
+      //   const balance: BN = await getAccount(connection!, pubKey).then(_ => new BN(_.amount.toString()));
+      //
+      //   setBalanceQuoteToken(balance.toNumber() / 1_000_000); // TODO: to make a variable lamports
+      // };
+      //
+      // const getBalanceProjectToken = async () => {
+      //   const pubKey = programPda.treasury(project?.onChainData.owner!, project?.onChainData.repository!, project!.onChainData.projectTokenMint, PROGRAM_KEY);
+      //   const balance: BN = await getAccount(connection!, pubKey).then(_ => new BN(_.amount.toString()));
+      //
+      //   setBalanceProjectToken(balance.toNumber() / 1_000_000_000); // TODO: to make a variable lamports
+      // };
+      //
+      // getBalanceQuoteToken().then(() => getBalanceProjectToken());
     } catch (e) {
       console.log(`error getting balances: `, e);
     }

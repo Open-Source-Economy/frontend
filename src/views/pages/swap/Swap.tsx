@@ -4,7 +4,6 @@ import { ValidRepository } from "../../../model";
 import { getValidGitHubProject } from "../../../services/getValidGitHubProject";
 import { useParams } from "react-router-dom";
 import frame from "../../../assets/images/Frame.png";
-import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 import { PageWrapper } from "../PageWrapper";
 import { ProjectBanner } from "./elements/ProjectBanner";
 import { BannerSwap, SwapChart } from "./elements";
@@ -14,17 +13,16 @@ export const ReloadAmountCollectedContext = createContext<number>(0);
 
 export const Swap = () => {
   const { owner, repository } = useParams();
-  const { connection }: ConnectionContextState = useConnection();
 
   const [project, setProject] = useState<ValidRepository>();
   const [projectNotFound, setProjectNotFound] = useState<boolean>();
   const [reloadAmountCollected, setReloadAmountCollected] = useState<number>(0);
 
   useEffect(() => {
-    if (connection && owner && repository) {
-      getValidGitHubProject(connection, owner, repository)
-        .then(project => setProject(project))
-        .catch(err => setProjectNotFound(true));
+    if (owner && repository) {
+      // getValidGitHubProject(connection, owner, repository)
+      //   .then(project => setProject(project))
+      //   .catch(err => setProjectNotFound(true));
     }
   }, []);
 

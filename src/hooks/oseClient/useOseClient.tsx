@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-import * as ose from "@open-source-economy/poc";
+import { OseSDK } from "../../services/onchain/OseSDK";
 
 export interface OseClientContextState {
-  oseClient: ose.Client;
+  oseClient: OseSDK | null;
 }
 
 export const OseClientContext = createContext<OseClientContextState>({} as OseClientContextState);

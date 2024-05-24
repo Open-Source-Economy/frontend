@@ -3,11 +3,14 @@ import { PageWrapper } from "../PageWrapper";
 import { IssueCard } from "../../../components/issue";
 import * as model from "../../../model";
 import { useParams } from "react-router-dom";
-import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
-import { getIssue, getRepository } from "../../../services";
+import * as github from "../../../services/github";
 import USDC from "../../../assets/images/usd-logo.png";
-import { CryptoPayment, DisclaimerModal, FiatPayment, RegisterModal } from "./elements";
+import { CryptoPayment, FiatPayment } from "./elements";
 import { Tab, TabPanel } from "../../../components";
+
+import Web3 from "web3";
+import { RegisteredSubscription } from "web3-eth";
+import { OseSDK } from "../../../services/onchain/OseSDK";
 
 interface IssueProps {}
 
@@ -15,24 +18,24 @@ export function Issue({}: IssueProps) {
   const { owner, repo, number } = useParams();
   const numberSafe = number && !isNaN(Number(number)) ? Number(number) : undefined;
 
-  const { connection }: ConnectionContextState = useConnection();
-
   const [repository, setRepository] = useState<model.Repository>();
   const [issue, setIssue] = useState<model.Issue>();
   const [issueStatus, setIssueStatus] = useState<model.IssueStatus>();
+
+  const [oseSDK, setOseSDK] = useState<OseSDK | undefined>();
 
   useEffect(() => {
     // TODO: not to re-ask GitHub when you come from a previous page
     (async () => {
       if (owner && repo && numberSafe) {
         // TODO: Call probably no needed if coming from a page when it was already loaded
-        const repository: model.Repository | undefined = await getRepository(owner, repo).catch(error => {
+        const repository: model.Repository | undefined = await github.getRepository(owner, repo).catch(error => {
           console.log(error);
           return undefined;
         });
 
         // TODO: Call probably no needed if coming from a page when it was already loaded
-        const issue: model.Issue | undefined = await getIssue(owner, repo, numberSafe).catch(error => {
+        const issue: model.Issue | undefined = await github.getIssue(owner, repo, numberSafe).catch(error => {
           console.log(error);
           return undefined;
         });
@@ -40,8 +43,10 @@ export function Issue({}: IssueProps) {
         if (repository && issue) {
           setRepository(repository);
           setIssue(issue);
+          // setOseSDK(sdk);
 
-          const amountCollected = 30; // TODO: get from backend
+          // TODO: error handling
+          const amountCollected = 30; //await sdk.getIssueFundingAmount({ owner, repository: repo, number: numberSafe });
 
           if (issue.closedAt) {
             setIssueStatus(new model.Closed(amountCollected));

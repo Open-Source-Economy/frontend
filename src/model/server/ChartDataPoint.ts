@@ -22,7 +22,7 @@ export class ChartData {
       this.points.filter((item: any) => {
         return new item.timestamp() >= timestamp;
       }),
-      this.quoteCurrency
+      this.quoteCurrency,
     );
   }
 

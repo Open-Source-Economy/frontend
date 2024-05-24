@@ -1,5 +1,11 @@
 import { User } from "./User";
 
+export type IssueId = {
+  owner: string;
+  repository: string;
+  number: number;
+};
+
 export class Issue {
   number: number;
   title: string;
@@ -58,7 +64,7 @@ export class Issue {
         new Date(json.created_at), // TODO: can throw an error?
         json.closed_at ? new Date(json.closed_at) : null, // TODO: can throw an error?
         user,
-        json.body
+        json.body,
       );
     }
   }

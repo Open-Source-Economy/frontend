@@ -1,6 +1,6 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useEffect, useState } from "react";
-import "../../../../components/Elements/style.css";
+import "../../../../components/elements/style.css";
 import { ChartData, ChartDataPoint } from "../../../../model";
 
 // chart data -----

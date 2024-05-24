@@ -3,20 +3,18 @@ import { useEffect, useState } from "react";
 import { getAllValidGitHubProjects } from "../../../services";
 import { ValidRepository } from "../../../model";
 import frame from "../../../assets/images/Frame.png";
-import { ConnectionContextState, useConnection } from "@solana/wallet-adapter-react";
 import { PageWrapper } from "../PageWrapper";
 import { Banner, Projects } from "./elements";
 
 export const Invest = () => {
-  const { connection }: ConnectionContextState = useConnection();
-
   const [loadProject, setLoadProject] = useState<number>(0);
   const [projects, setProjects] = useState<ValidRepository[]>([]);
 
   useEffect(() => {
-    if (connection) {
+    if (true) {
+      // TODO: lolo
       const waitBeforeReload = loadProject > 0 ? 1000 : 0; // Blockchain is slow, wait 1 second before reload projects
-      new Promise(resolve => setTimeout(resolve, waitBeforeReload)).then(() => getAllValidGitHubProjects(connection)).then(projects => setProjects(projects)); // TODO: handle error
+      new Promise(resolve => setTimeout(resolve, waitBeforeReload)).then(() => getAllValidGitHubProjects()).then(projects => setProjects(projects)); // TODO: handle error
     }
   }, [loadProject]);
 

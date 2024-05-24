@@ -42,7 +42,7 @@ export type Poc = {
           name: "associatedTokenProgram";
           isMut: false;
           isSigner: false;
-        }
+        },
       ];
       args: [
         {
@@ -56,7 +56,7 @@ export type Poc = {
         {
           name: "projectBump";
           type: "u8";
-        }
+        },
       ];
     },
     {
@@ -80,7 +80,7 @@ export type Poc = {
         "",
         "# Not in the poc:",
         "Who has the rights to set up the parameters ? One maintainer ? Anyone with default settings ?",
-        "Can they modify them later ? Yes"
+        "Can they modify them later ? Yes",
       ];
       accounts: [
         {
@@ -124,7 +124,7 @@ export type Poc = {
           name: "associatedTokenProgram";
           isMut: false;
           isSigner: false;
-        }
+        },
       ];
       args: [
         {
@@ -134,7 +134,7 @@ export type Poc = {
         {
           name: "constantRedeem";
           type: "u64";
-        }
+        },
       ];
     },
     {
@@ -147,7 +147,7 @@ export type Poc = {
         "# Arguments",
         "",
         "* `min_project_token_amount` - the minimum project token to receive",
-        "* `quote_amount` - the amount of quote currency to send"
+        "* `quote_amount` - the amount of quote currency to send",
       ];
       accounts: [
         {
@@ -209,7 +209,7 @@ export type Poc = {
           name: "associatedTokenProgram";
           isMut: false;
           isSigner: false;
-        }
+        },
       ];
       args: [
         {
@@ -219,7 +219,7 @@ export type Poc = {
         {
           name: "quoteAmount";
           type: "u64";
-        }
+        },
       ];
     },
     {
@@ -279,13 +279,13 @@ export type Poc = {
           name: "tokenProgram";
           isMut: false;
           isSigner: false;
-        }
+        },
       ];
       args: [
         {
           name: "quoteAmount";
           type: "u64";
-        }
+        },
       ];
     },
     {
@@ -339,7 +339,7 @@ export type Poc = {
           name: "tokenProgram";
           isMut: false;
           isSigner: false;
-        }
+        },
       ];
       args: [
         {
@@ -349,7 +349,7 @@ export type Poc = {
         {
           name: "minQuoteAmount";
           type: "u64";
-        }
+        },
       ];
     },
     {
@@ -359,9 +359,9 @@ export type Poc = {
         {
           name: "issueNumber";
           type: "u64";
-        }
+        },
       ];
-    }
+    },
   ];
   accounts: [
     {
@@ -399,10 +399,10 @@ export type Poc = {
             type: {
               array: ["u8", 1];
             };
-          }
+          },
         ];
       };
-    }
+    },
   ];
   types: [
     {
@@ -424,10 +424,10 @@ export type Poc = {
             name: "quoteTokenMint";
             docs: ["The mint of the token that is used to price the project token"];
             type: "publicKey";
-          }
+          },
         ];
       };
-    }
+    },
   ];
   errors: [
     {
@@ -464,7 +464,7 @@ export type Poc = {
       code: 6006;
       name: "MinimumMintAmountNotReached";
       msg: "The minimum amount is not reached.";
-    }
+    },
   ];
 };
 

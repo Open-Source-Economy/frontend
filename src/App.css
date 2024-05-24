@@ -298,6 +298,28 @@ body {
   border: 1px solid var(--primary);
 }
 
+.connect__btns_1{
+  background-color: #ffffff;
+  color: #ff5e1a;
+  padding: 12px 45px;
+  text-align: center;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+}
+
+.connect__btns:hover {
+  background-color: var(--primaryhover);
+  border: 1px solid var(--primaryhover);
+  transform: translateY(-5px);
+}
+
+.connect__btns_1:hover {
+  background-color: var(--primaryhover);
+  border: 1px solid var(--primaryhover);
+  transform: translateY(-5px);
+  color: white;
+}
+
 .to-body {
   padding: 20px 40px !important;
 }
@@ -316,12 +338,6 @@ body {
   border: 1px solid var(--primaryhover);
   transform: translateY(-5px);
   color: white;
-}
-
-.connect__btns:hover {
-  background-color: var(--primaryhover);
-  border: 1px solid var(--primaryhover);
-  transform: translateY(-5px);
 }
 
 .track-btn {
@@ -346,6 +362,7 @@ body {
   border-radius: 30px;
   border: 1px solid var(--primary);
 }
+
 .connect__btn:hover {
   cursor: pointer;
 }
