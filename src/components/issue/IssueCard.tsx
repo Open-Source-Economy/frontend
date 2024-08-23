@@ -4,7 +4,7 @@ import * as model from "../../model";
 import * as components from "./index";
 
 interface IssueProps {
-  issueFindName: model.IssueFindName;
+  financialIssue: model.FinancialIssue;
   displaySeeMore: boolean;
   displayActionButtons: boolean;
 }
@@ -14,20 +14,20 @@ export function IssueCard(props: IssueProps) {
     <>
       <div className="top d-flex gap-3 mb-5 flex-wrap">
         {/*<div className="top d-flex gap-3 mb-5 flex-lg-nowrap flex-wrap"> for full page*/}
-        <components.Repository owner={props.issueFindName.owner} repo={props.issueFindName.repository} />
+        <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
       </div>
 
-      <components.Collect issueStatus={props.issueFindName.status} />
+      <components.Collect issueStatus={props.financialIssue.status} />
 
-      <components.Issue issue={props.issueFindName.issue} />
+      <components.Issue issue={props.financialIssue.issue} />
 
       {props.displaySeeMore && (
-        <Link to={props.issueFindName.issue.htmlUrl} target="_blank" className="helvetica text__primary text-decoration-none c_links">
+        <Link to={props.financialIssue.issue.htmlUrl} target="_blank" className="helvetica text__primary text-decoration-none c_links">
           See More
         </Link>
       )}
 
-      {!(props.issueFindName.status instanceof model.Closed) && props.displayActionButtons && (
+      {!(props.financialIssue.status instanceof model.Closed) && props.displayActionButtons && (
         <div className="text-center d-flex">
           <Link to="/Issu2" className="connect__btn helvetica fw-700 fs-5 text-decoration-none w-100">
             Fund the issue

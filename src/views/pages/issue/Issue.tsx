@@ -5,7 +5,7 @@ import * as model from "../../../model";
 import { useParams } from "react-router-dom";
 import { Tab, TabPanel } from "../../../components";
 import { FiatPayment } from "./elements";
-import { getIssueFindName } from "../../../services/HelperToRemove";
+import { getFinancialIssue } from "../../../services/HelperToRemove";
 
 interface IssueProps {}
 
@@ -13,15 +13,15 @@ export function Issue({}: IssueProps) {
   const { ownerParam, repoParam, numberParam } = useParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
-  const [issueFindName, setIssueFindName] = useState<model.IssueFindName>();
+  const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue>();
 
   useEffect(() => {
     // TODO: not to re-ask GitHub when you come from a previous page
     (async () => {
       if (ownerParam && repoParam && number) {
         try {
-          const issueFindName = await getIssueFindName(ownerParam, repoParam, number);
-          setIssueFindName(issueFindName);
+          const financialIssue = await getFinancialIssue(ownerParam, repoParam, number);
+          setFinancialIssue(financialIssue);
         } catch (error) {
           console.log(error);
         }
@@ -42,7 +42,7 @@ export function Issue({}: IssueProps) {
           <div className="row d-flex justify-content-center gy-5 mt-5">
             <div className="col-lg-6">
               <div className="native-card">
-                {issueFindName && <IssueCard issueFindName={issueFindName} displayActionButtons={false} displaySeeMore={true} />}
+                {financialIssue && <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />}
               </div>
             </div>
 

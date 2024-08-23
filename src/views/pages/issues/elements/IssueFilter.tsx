@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { SelectFilter } from "../../../../components";
-import * as model from "../../../../model/IssueFindName";
+import * as model from "../../../../model/FinancialIssue";
 
 interface IssueFilterProps {
-  issueFindNames: model.IssueFindName[];
-  setFilteredIssueFindNames: (issueFindNames: model.IssueFindName[]) => void;
+  financialIssues: model.FinancialIssue[];
+  setFilteredFinancialIssues: (financialIssues: model.FinancialIssue[]) => void;
 }
 
 export function IssueFilter(props: IssueFilterProps) {
@@ -19,8 +19,8 @@ export function IssueFilter(props: IssueFilterProps) {
     return temp;
   }
 
-  const owners = toSelectOptions(props.issueFindNames.map(issueFindName => issueFindName.owner?.name));
-  const repositories = toSelectOptions(props.issueFindNames.map(issueFindName => issueFindName.repository?.name));
+  const owners = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.owner?.name));
+  const repositories = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.repository?.name));
 
   const [selectedOwner, setSelectedOwner] = React.useState(all);
   const [selectedRepository, setSelectedRepository] = React.useState(all);
@@ -32,20 +32,20 @@ export function IssueFilter(props: IssueFilterProps) {
   }, [selectedOwner, selectedRepository, selectedStatus, searchTerm]);
 
   const handleChangeOnFilter = () => {
-    const filtered = props.issueFindNames.filter(issueFindName => {
+    const filtered = props.financialIssues.filter(financialIssue => {
       return (
-        (issueFindName.owner?.name === selectedOwner || selectedOwner === all) &&
-        (issueFindName.repository?.name === selectedRepository || selectedRepository === all) &&
-        // (issueFindName.status === selectedStatus || selectedStatus === all) &&
+        (financialIssue.owner?.name === selectedOwner || selectedOwner === all) &&
+        (financialIssue.repository?.name === selectedRepository || selectedRepository === all) &&
+        // (financialIssue.status === selectedStatus || selectedStatus === all) &&
         (searchTerm === "" ||
-          issueFindName.owner?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          issueFindName.repository?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          issueFindName.issue?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          issueFindName.issue?.id?.number.toString().includes(searchTerm))
+          financialIssue.owner?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          financialIssue.repository?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          financialIssue.issue?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          financialIssue.issue?.id?.number.toString().includes(searchTerm))
       );
     });
 
-    props.setFilteredIssueFindNames(filtered);
+    props.setFilteredFinancialIssues(filtered);
   };
 
   return (

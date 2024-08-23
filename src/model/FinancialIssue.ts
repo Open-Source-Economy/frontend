@@ -1,6 +1,6 @@
 import * as model from "./index";
 
-export class IssueFindName {
+export class FinancialIssue {
   public owner: model.Owner;
   public repository: model.Repository;
   public issue: model.Issue;

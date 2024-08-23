@@ -4,17 +4,17 @@ import { EnterGitHubIssue, IssueFilter } from "./elements";
 import * as model from "../../../model";
 import { PageWrapper } from "../PageWrapper";
 import { IssueCard } from "../../../components/issue";
-import { getIssueFindName } from "../../../services/HelperToRemove";
+import { getFinancialIssue } from "../../../services/HelperToRemove";
 
 interface IssuesProps {}
 
 export function Issues(props: IssuesProps) {
-  const [issueFindNames, setIssueFindNames] = useState<model.IssueFindName[]>([]);
-  const [filteredIssueFindNames, setFilteredIssueFindNames] = useState<model.IssueFindName[]>([]);
+  const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
+  const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
 
   useEffect(() => {
     (async () => {
-      const temp: model.IssueFindName[] = [];
+      const temp: model.FinancialIssue[] = [];
 
       type IssueId = [string, string, number];
       // TODO: Remove this hardcoded data
@@ -26,11 +26,11 @@ export function Issues(props: IssuesProps) {
       ];
       try {
         for (const [owner, repo, number] of hardcodedData) {
-          const issueFindName = await getIssueFindName(owner, repo, number);
-          temp.push(issueFindName);
+          const financialIssue = await getFinancialIssue(owner, repo, number);
+          temp.push(financialIssue);
         }
-        setIssueFindNames(temp);
-        setFilteredIssueFindNames(temp);
+        setFinancialIssues(temp);
+        setFilteredFinancialIssues(temp);
       } catch (error) {
         console.log(error);
       }
@@ -48,16 +48,16 @@ export function Issues(props: IssuesProps) {
 
           <div className="row justify-content-center d-flex justify-content-center align-items-lg-end align-items-center flex-wrap flex-lg-row flex-column-reverse mb-5  gap-lg-0 gap-3 mt-5">
             <div className="col-lg-8">
-              <IssueFilter issueFindNames={issueFindNames} setFilteredIssueFindNames={setFilteredIssueFindNames} />
+              <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
             </div>
           </div>
 
           {/* BUG: child in a list should have a unique "key" prop. */}
           <div className="row d-flex justify-content-center gy-5">
-            {filteredIssueFindNames.map(issueFindNames => (
-              <div className="col-lg-7" key={issueFindNames.id()}>
+            {filteredFinancialIssues.map(financialIssues => (
+              <div className="col-lg-7" key={financialIssues.id()}>
                 <div className="native-card">
-                  <IssueCard issueFindName={issueFindNames} displayActionButtons={true} displaySeeMore={false} />
+                  <IssueCard financialIssue={financialIssues} displayActionButtons={true} displaySeeMore={false} />
                 </div>
               </div>
             ))}
