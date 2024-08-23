@@ -1,39 +1,107 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { SelectFilter } from "../../../../components";
+import * as model from "../../../../model/IssueFindName";
 
-interface IssueFilterProps {}
+interface IssueFilterProps {
+  issueFindNames: model.IssueFindName[];
+  setFilteredIssueFindNames: (issueFindNames: model.IssueFindName[]) => void;
+}
 
-export function IssueFilter({}: IssueFilterProps) {
+export function IssueFilter(props: IssueFilterProps) {
+  const all = "All";
+  function toSelectOptions(stringArray: string[]): string[] {
+    const temp = Array.from(
+      new Set(
+        stringArray.filter(name => name), // Remove any undefined, null, or empty string values
+      ),
+    ).sort(); // Sort the resulting array of names alphabetically
+    temp.unshift(all);
+    return temp;
+  }
+
+  const owners = toSelectOptions(props.issueFindNames.map(issueFindName => issueFindName.owner?.name));
+  const repositories = toSelectOptions(props.issueFindNames.map(issueFindName => issueFindName.repository?.name));
+
+  const [selectedOwner, setSelectedOwner] = React.useState(all);
+  const [selectedRepository, setSelectedRepository] = React.useState(all);
+  const [selectedStatus, setSelectedStatus] = React.useState(all);
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  useEffect(() => {
+    handleChangeOnFilter();
+  }, [selectedOwner, selectedRepository, selectedStatus, searchTerm]);
+
+  const handleChangeOnFilter = () => {
+    const filtered = props.issueFindNames.filter(issueFindName => {
+      return (
+        (issueFindName.owner?.name === selectedOwner || selectedOwner === all) &&
+        (issueFindName.repository?.name === selectedRepository || selectedRepository === all) &&
+        // (issueFindName.status === selectedStatus || selectedStatus === all) &&
+        (searchTerm === "" ||
+          issueFindName.owner?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          issueFindName.repository?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          issueFindName.issue?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          issueFindName.issue?.id?.number.toString().includes(searchTerm))
+      );
+    });
+
+    props.setFilteredIssueFindNames(filtered);
+  };
+
   return (
     <form action="#" className="filter-form">
       <div className="row justify-content-center align-items-center gy-4">
         <div className="col-lg-3">
-          <select className="form-select c-select" id="ddlProducts" aria-label="Default select example">
-            <option selected>All Categories</option>
-            <option value="1">Accountability</option>
-            <option value="2">Data</option>
-          </select>
+          <SelectFilter
+            ariaLabel="Onwer"
+            labelValues={owners.map(ownerName => ({
+              value: ownerName,
+              label: ownerName,
+            }))}
+            onFilterChange={value => {
+              setSelectedOwner(value);
+            }}
+          />
         </div>
+
         <div className="col-lg-3">
-          <select className="form-select c-select" aria-label="Default select example">
-            <option selected>Sort By</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <SelectFilter
+            ariaLabel="Repository"
+            labelValues={repositories.map(ownerName => ({
+              value: ownerName,
+              label: ownerName,
+            }))}
+            onFilterChange={value => {
+              setSelectedRepository(value);
+              handleChangeOnFilter();
+            }}
+          />
         </div>
+
+        {/*TODO*/}
         <div className="col-lg-3">
-          <select className="form-select c-select" aria-label="Default select example">
-            <option selected>Open</option>
-            <option value="1" selected>
-              One
-            </option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <SelectFilter
+            ariaLabel="Status"
+            labelValues={[
+              { value: "all", label: "All Categories" },
+              { value: "accountability", label: "Accountability" },
+              { value: "data", label: "Data" },
+            ]}
+            onFilterChange={() => {}}
+          />
         </div>
+
         <div className="col-lg-3">
           <div className="input-group search-c">
-            <input className="form-control border-end-0 border-0 focus-ring helvetica  color-70" type="search" placeholder="Search" id="example-search-input" />
+            <input
+              className="form-control border-end-0 border-0 focus-ring helvetica  color-70"
+              type="search"
+              placeholder="Search"
+              id="example-search-input"
+              onChange={e => {
+                setSearchTerm(e.target.value);
+              }}
+            />
             <span className="input-group-append d-flex justify-content-center ">
               <button className="btn btn-outline-secondary border-0 ms-n5" type="button">
                 <i className="fa fa-search"></i>

@@ -1,2 +1,1 @@
-export * from "./getRepository";
-export * from "./getIssue";
+export * from "./GithubAPI";

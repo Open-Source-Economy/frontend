@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
-import { Invest, Swap, Home, Issues, Issue, Authenticate } from "./pages";
+import { Issue, Issues } from "./pages";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -9,7 +9,7 @@ export const Routes = () => {
       element: <Issues />,
     },
     {
-      path: "/:owner/:repo/issues/:number",
+      path: "/:ownerParam/:repoParam/issues/:numberParam",
       element: <Issue />,
     },
     // {

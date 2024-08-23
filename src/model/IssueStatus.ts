@@ -1,3 +1,4 @@
+// TODO: lolo to clean
 export abstract class IssueStatus {
   amountCollected: number;
   currencySymbol: string = "€";
