@@ -1,6 +1,6 @@
 import { DbSchema } from "./DbSchema";
 
-// node -r ts-node/register tsc --env-file=.env src/appwrite/migrations/run.ts
+// node -r ts-node --env-file=.env src/appwrite/migrations/run.ts
 // Test
 const schema = new DbSchema("46cc731e03276ea92202", "My DB Test");
 
