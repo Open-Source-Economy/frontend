@@ -5,8 +5,9 @@ import { DbSchema } from "./DbSchema";
 const schema = new DbSchema("46cc731e03276ea92202", "My DB Test");
 
 async function migrate() {
-  await schema.createDatabase();
-  await schema.createRepository();
+  Promise.resolve("is runing")
+  // await schema.createDatabase();
+  // await schema.createRepository();
 }
 
 migrate()
