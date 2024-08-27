@@ -37,8 +37,8 @@ export class DbSchema {
 
     const collectionId = process.env.REACT_APP_APP_WRITE_REPOSITORY_COLLECTION_ID;
 
-     https://appwrite.io/docs/references/cloud/server-nodejs/databases#databasesCreateCollection
-    await this.databases.createCollection(
+    //appwrite.io/docs/references/cloud/server-nodejs/databases#databasesCreateCollection
+    https: await this.databases.createCollection(
       this.databaseId,
       collectionId,
       "Repository",

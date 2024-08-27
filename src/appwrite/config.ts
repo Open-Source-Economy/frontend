@@ -1,4 +1,4 @@
-import { Client, Databases } from "appwrite";
+import { Client, Databases } from "node-appwrite";
 
 export function getClient(): Client {
   if (!process.env.REACT_APP_APP_WRITE_ENDPOINT) {
