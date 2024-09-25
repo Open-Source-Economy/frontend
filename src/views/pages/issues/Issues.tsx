@@ -4,11 +4,12 @@ import { EnterGitHubIssue, IssueFilter } from "./elements";
 import * as model from "../../../model";
 import { PageWrapper } from "../PageWrapper";
 import { IssueCard } from "../../../components/issue";
-import { getFinancialIssue } from "../../../services/HelperToRemove";
+import { getBackendAPI } from "../../../services/BackendAPI";
 
 interface IssuesProps {}
 
 export function Issues(props: IssuesProps) {
+  const backendAPI = getBackendAPI();
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
 
@@ -26,7 +27,7 @@ export function Issues(props: IssuesProps) {
       ];
       try {
         for (const [owner, repo, number] of hardcodedData) {
-          const financialIssue = await getFinancialIssue(owner, repo, number);
+          const financialIssue = await backendAPI.getFinancialIssue(owner, repo, number);
           temp.push(financialIssue);
         }
         setFinancialIssues(temp);

@@ -19,7 +19,7 @@ export function IssueCard(props: IssueProps) {
 
       <components.Collect issueStatus={props.financialIssue.status} />
 
-      <components.Issue issue={props.financialIssue.issue} />
+      <components.Issue issue={props.financialIssue.issue} openBy={props.financialIssue.openBy} />
 
       {props.displaySeeMore && (
         <Link to={props.financialIssue.issue.htmlUrl} target="_blank" className="helvetica text__primary text-decoration-none c_links">

@@ -5,11 +5,13 @@ import * as model from "../../../model";
 import { useParams } from "react-router-dom";
 import { Tab, TabPanel } from "../../../components";
 import { FiatPayment } from "./elements";
-import { getFinancialIssue } from "../../../services/HelperToRemove";
+import { getBackendAPI } from "../../../services/BackendAPI";
 
 interface IssueProps {}
 
 export function Issue({}: IssueProps) {
+  const backendAPI = getBackendAPI();
+
   const { ownerParam, repoParam, numberParam } = useParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
@@ -20,7 +22,7 @@ export function Issue({}: IssueProps) {
     (async () => {
       if (ownerParam && repoParam && number) {
         try {
-          const financialIssue = await getFinancialIssue(ownerParam, repoParam, number);
+          const financialIssue = await backendAPI.getFinancialIssue(ownerParam, repoParam, number);
           setFinancialIssue(financialIssue);
         } catch (error) {
           console.log(error);
