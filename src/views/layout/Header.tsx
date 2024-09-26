@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import { useAuth } from "../pages/authenticate/AuthContext";
+import { useAuth } from "../pages/app/authenticate/AuthContext";
 
 interface HeaderProps {}
 

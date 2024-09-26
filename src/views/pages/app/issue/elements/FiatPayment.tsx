@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CheckInputHandle, EmailInput, NumberInput, SuccessModal } from "../../../../components";
+import { CheckInputHandle, EmailInput, NumberInput, SuccessModal } from "../../../../../components";
 
 interface FiatPaymentProps {}
 

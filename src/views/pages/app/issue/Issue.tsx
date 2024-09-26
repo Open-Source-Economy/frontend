@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PageWrapper } from "../PageWrapper";
-import { IssueCard } from "../../../components/issue";
-import * as model from "../../../model";
+import { PageWrapper } from "../../PageWrapper";
+import { IssueCard } from "../../../../components/issue";
+import * as model from "../../../../model";
 import { useParams } from "react-router-dom";
-import { Tab, TabPanel } from "../../../components";
+import { Tab, TabPanel } from "../../../../components";
 import { FiatPayment } from "./elements";
-import { getBackendAPI } from "../../../services/BackendAPI";
+import { getBackendAPI } from "../../../../services/BackendAPI";
 
 interface IssueProps {}
 

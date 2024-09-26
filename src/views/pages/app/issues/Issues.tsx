@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
 
-import * as model from "../../../model";
-import { PageWrapper } from "../PageWrapper";
-import { IssueCard } from "../../../components/issue";
-import { getBackendAPI } from "../../../services/BackendAPI";
+import * as model from "../../../../model";
+import { PageWrapper } from "../../PageWrapper";
+import { IssueCard } from "../../../../components/issue";
+import { getBackendAPI } from "../../../../services/BackendAPI";
 
 interface IssuesProps {}
 

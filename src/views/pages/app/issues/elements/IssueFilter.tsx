@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { SelectFilter } from "../../../../components";
-import * as model from "../../../../model/FinancialIssue";
+import { SelectFilter } from "../../../../../components";
+import * as model from "../../../../../model/FinancialIssue";
 
 interface IssueFilterProps {
   financialIssues: model.FinancialIssue[];

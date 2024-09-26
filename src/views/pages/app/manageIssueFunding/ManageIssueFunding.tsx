@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { PageWrapper } from "../PageWrapper";
+import { PageWrapper } from "../../PageWrapper";
 import { Modal } from "react-bootstrap";
-import Blob from "../../../assets/images/blob.png";
-import Sol from "../../../assets/images/SOL.png";
-import Lady from "../../../assets/images/lady.png";
-import Code from "../../../assets/images/code.png";
-import Sad from "../../../assets/images/sad.png";
-import Ose from "../../../assets/images/ose.png";
-import Crypto from "../../../assets/images/crypto.png";
-import Hero from "../../../assets/images/hero.png";
-import Money from "../../../assets/images/money.png";
-import User from "../../../assets/images/git-user.png";
+import Blob from "../../../../assets/images/blob.png";
+import Sol from "../../../../assets/images/SOL.png";
+import Lady from "../../../../assets/images/lady.png";
+import Code from "../../../../assets/images/code.png";
+import Sad from "../../../../assets/images/sad.png";
+import Ose from "../../../../assets/images/ose.png";
+import Crypto from "../../../../assets/images/crypto.png";
+import Hero from "../../../../assets/images/hero.png";
+import Money from "../../../../assets/images/money.png";
+import User from "../../../../assets/images/git-user.png";
 
 interface ManageIssueFundingProps {}
 

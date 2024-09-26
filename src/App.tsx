@@ -2,9 +2,9 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Authenticate, AuthenticateType, Issue, Issues } from "./views";
-import { ManageIssueFunding } from "./views/pages/manageIssueFunding";
+import { ManageIssueFunding } from "./views/pages/app/manageIssueFunding";
 import { PrivateRoutes, UnAuthRoutes } from "./views/layout/PrivateRoutes";
-import { AuthProvider } from "./views/pages/authenticate/AuthProvider";
+import { AuthProvider } from "./views/pages/app/authenticate/AuthProvider";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";

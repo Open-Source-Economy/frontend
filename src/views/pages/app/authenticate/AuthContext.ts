@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-import { LoginInfo, RegisterInfo } from "../../../services/AuthBackendAPI";
-import { User } from "../../../model";
-import { ApiError } from "../../../ultils/error/ApiError";
+import { LoginInfo, RegisterInfo } from "../../../../services/AuthBackendAPI";
+import { User } from "../../../../model";
+import { ApiError } from "../../../../ultils/error/ApiError";
 
 export interface AuthContextState {
   loading: boolean;
