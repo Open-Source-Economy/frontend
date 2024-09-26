@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 interface IssueProps {
   issue: model.Issue;
+  openBy: model.UserOwner;
 }
 
 export function Issue(props: IssueProps) {
@@ -20,11 +21,11 @@ export function Issue(props: IssueProps) {
         </li>
 
         <li className="list-group-item">
-          <Link to={props.issue.openBy.htmlUrl} target="_blank" className="">
-            <img className="user-photo" src={props.issue.openBy.avatarUrl} alt="" />
+          <Link to={props.openBy.htmlUrl} target="_blank" className="">
+            <img className="user-photo" src={props.openBy.avatarUrl} alt="" />
           </Link>
-          <Link to={props.issue.openBy.htmlUrl} target="_blank" className="text-decoration-none helvetica color-70 c_links">
-            @{props.issue.openBy.name}
+          <Link to={props.openBy.htmlUrl} target="_blank" className="text-decoration-none helvetica color-70 c_links">
+            @{props.openBy.name}
           </Link>
         </li>
 

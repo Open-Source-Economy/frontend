@@ -1,4 +1,6 @@
 export * from "./error";
+export * from "./ManageFundRecipient";
+export * from "./getFirstSentenceOrFirstNWordsFromValue";
 
 // TODO: remove
 export const formatBalance = (rawBalance: string) => {

@@ -3,3 +3,7 @@ export * from "./Repository";
 export * from "./Owner";
 export * from "./Issue";
 export * from "./FinancialIssue";
+export * from "./Company";
+export * from "./User";
+export * from "./CompanyAddress";
+export * from "./stripe";
