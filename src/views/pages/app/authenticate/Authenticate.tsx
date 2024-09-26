@@ -53,19 +53,10 @@ export function Authenticate(props: AuthenticateProps) {
       return (
       <div className="login pt-12 pb-24">
         <div className="flex items-center justify-center  flex-col">
-          <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">
-            Sign in{" "}
-          </h1>
-          <form
-              action=""
-              className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
-          >
+          <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">Sign in </h1>
+          <form action="" className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]">
             <Link to={"/"}>
-              <img
-                  src={logo}
-                  className="w-[310px] h-[55px] object-cover"
-                  alt=""
-              />
+              <img src={logo} className="w-[310px] h-[55px] object-cover" alt="" />
             </Link>
 
             <button className="bg-[#202F45] rounded-lg flex items-center justify-center mt-12 px-5 py-[12px] sm:w-[90%] lg:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]">
@@ -79,14 +70,14 @@ export function Authenticate(props: AuthenticateProps) {
             </div>
             <div className="mt-6 flex items-center justify-center gap-3 flex-col">
               <input
-                  type="email"
-                  placeholder="Email"
-                  className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
+                type="email"
+                placeholder="Email"
+                className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
               />
               <input
-                  type="password"
-                  placeholder="Password"
-                  className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
+                type="password"
+                placeholder="Password"
+                className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
               />
             </div>
             <div className="flex items-start justify-center gap-3 px-4 mt-4">
@@ -119,20 +110,15 @@ export function Authenticate(props: AuthenticateProps) {
             `}</style>
             </div>
             <div className="flex  justify-center items-center gap-3 mt-5">
-              <button className="px-[20px] sm:px-14  button  py-3 rounded-3 cursor-pointer">
-                Sign Up
-              </button>
+              <button className="px-[20px] sm:px-14  button  py-3 rounded-3 cursor-pointer">Sign Up</button>
               <Link to={"/payment"}>
-                <button className="sm:px-14 px-[20px]  py-3  findbutton cursor-pointer">
-                  Sign In
-                </button>
+                <button className="sm:px-14 px-[20px]  py-3  findbutton cursor-pointer">Sign In</button>
               </Link>
             </div>
           </form>
         </div>
       </div>
       );
-
     </PageWrapper>
   );
 }

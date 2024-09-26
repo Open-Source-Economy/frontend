@@ -1,16 +1,16 @@
-import React, {ReactNode} from "react";
-import {Footer, Header} from "../layout";
+import React, { ReactNode } from "react";
+import { Footer, Header } from "../layout";
 
 export interface PageWrapperProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-export function PageWrapper({children}: PageWrapperProps) {
-    return (
-        <>
-            <Header/>
-            {children}
-            <Footer/>
-        </>
-    );
+export function PageWrapper({ children }: PageWrapperProps) {
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
 }

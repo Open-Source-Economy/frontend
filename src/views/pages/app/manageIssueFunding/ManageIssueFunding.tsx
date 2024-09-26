@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {PageWrapper} from "../../PageWrapper";
-import {Modal} from "react-bootstrap";
+import React, { useState } from "react";
+import { PageWrapper } from "../../PageWrapper";
+import { Modal } from "react-bootstrap";
 
 import Blob from "../../../../assets/old/images/blob.png";
 import Sol from "../../../../assets/old/images/SOL.png";
