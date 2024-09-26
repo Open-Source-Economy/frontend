@@ -1,42 +1,100 @@
-import React from "react";
-import logo from "../../assets/images/logo.png";
-import { Link } from "react-router-dom";
-import { useAuth } from "../pages/app/authenticate/AuthContext";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "./Header.css";
+import logo from "../../assets/logo.svg";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import {SocialMedia} from "../../components/socialMedia/SocialMedia";
+import {Link} from "react-router-dom";
 
 interface HeaderProps {}
 
 export function Header({}: HeaderProps) {
-  const auth = useAuth();
+    // Defining the Header functional component
+    useEffect(() => {
+        // useEffect hook to initialize AOS
+        AOS.init({
+            duration: 1000, // Animation duration in milliseconds
+            once: false, // Animation should trigger every time the element scrolls into view
+            mirror: false, // Animation should not mirror while scrolling past
+        });
+    }, []);
 
-  const handleLogout = () => {
-    auth.logout(); // Assuming `logout` is a function provided by `useAuth`
-  };
-
-  return (
-    <>
-      <header>
-        <nav className="container pt-4">
-          <div className="d-flex justify-content-between flex-lg-nowrap flex-wrap gap-lg-0 gap-3">
-            {/* Logo */}
-            <Link to="/" className="text-decoration-none">
-              <div className="d-flex gap-3 align-items-center">
-                <img src={logo} className="logo" alt="" />
-                <p className="logofont text-center text-white mb-0">
-                  Open Source <br />
-                  <span className="text__primary">Economy</span>
-                </p>
-              </div>
-            </Link>
-
-            {/* Logout button */}
-            {auth.user && (
-              <button className="btn btn-danger" onClick={handleLogout}>
-                Logout
-              </button>
-            )}
-          </div>
-        </nav>
-      </header>
-    </>
-  );
+    return (
+        <div data-aos="fade-down">
+            {" "}
+            {/* Applying AOS fade-down animation to the entire div */}
+            <div className="icons_section d-flex align-items-end justify-content-end pt-4 pb-3 container-fluid gap-3 iconnav">
+                <SocialMedia />
+            </div>
+            <div className="">
+                {["lg"].map(
+                    (
+                        expand // Map over an array to create a Navbar component
+                    ) => (
+                        <Navbar key={expand} expand={expand} className="pt-3">
+                            {" "}
+                            {/* Navbar with expand prop */}
+                            <Container fluid className="navbar">
+                                {" "}
+                                {/* Fluid container for Navbar */}
+                                <Navbar.Brand href="#">
+                                    {" "}
+                                    <Link to={"/"}>
+                                        <img className="logo" src={logo} alt="Logo" />{" "}
+                                    </Link>
+                                    {/* Logo image */}
+                                </Navbar.Brand>
+                                <Navbar.Toggle
+                                    aria-controls={`offcanvasNavbar-expand-${expand}`}
+                                />{" "}
+                                {/* Toggle button for collapsing Navbar */}
+                                <Navbar.Offcanvas
+                                    id={`offcanvasNavbar-expand-${expand}`}
+                                    aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+                                    placement="start bg"
+                                    className="d-none d-lg-block"
+                                >
+                                    {/* Offcanvas component for Navbar menu */}
+                                    <Offcanvas.Header closeButton>
+                                        {" "}
+                                        {/* Header with close button */}
+                                        <Offcanvas.Title
+                                            id={`offcanvasNavbarLabel-expand-${expand}`}
+                                        >
+                                            <Navbar.Brand href="#">
+                                                {" "}
+                                                <img className="logo" src={logo} alt="Logo" />{" "}
+                                                {/* Logo image */}
+                                            </Navbar.Brand>
+                                        </Offcanvas.Title>
+                                    </Offcanvas.Header>
+                                    <Offcanvas.Body>
+                                        {" "}
+                                        <Nav className="justify-content-end align-items-lg-center text-white gap-md-5 gap-3 flex-grow-1">
+                                            <Link to="/login">
+                                                <Nav.Link>Blog</Nav.Link>
+                                            </Link>
+                                            <Nav.Link href="">MISSION</Nav.Link>
+                                            <Nav.Link href="" className="me-md-4">
+                                                JOBS
+                                            </Nav.Link>{" "}
+                                            <Link to={'/login'}>
+                                                <button className="button px-3 py-3 rounded-3">
+                                                    WHITE PAPER
+                                                </button>{" "}
+                                            </Link>
+                                        </Nav>
+                                    </Offcanvas.Body>
+                                </Navbar.Offcanvas>
+                            </Container>
+                        </Navbar>
+                    )
+                )}
+            </div>
+        </div>
+    );
 }

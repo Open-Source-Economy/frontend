@@ -1,47 +1,58 @@
-import * as React from "react";
-import logo from "../../assets/images/logo.png";
-import discord from "../../assets/images/socials/discord.png";
-import facebook from "../../assets/images/socials/facebook.png";
-import elon from "../../assets/images/socials/x.png";
-import kittyfooter from "../../assets/images/footerkit.png";
-import { Link } from "react-router-dom";
+import * as React from "react"; // Import React and useEffect for AOS
+import {useEffect} from "react";
+import logo from "../../assets/logo.svg"; // Importing logo image
+import "./Footer.css";
+import {SocialMedia} from "../../components/socialMedia/SocialMedia";
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS CSS
 
 export const Footer = () => {
-  return (
-    <>
-      <footer className="position-relative ">
-        <div className="d-flex justify-content-center">
-          <img src={kittyfooter} className="footerkit" alt="" />
-        </div>
-        <div className="container py-4">
-          <div className="d-flex justify-content-lg-between justify-content-center align-items-center flex-wrap gap-lg-0 gap-4">
-            <Link to="/" className="d-flex gap-3 align-items-center text-decoration-none">
-              <img src={logo} className="logo" alt="" />
-              <p className="logofont text-center text-white mb-0">
-                Open Source <br />
-                <span className="text__primary">Economy</span>
-              </p>
-            </Link>
-            <div className="d-flex gap-lg-5 gap-3 align-items-center">
-              <Link to="https://www.linkedin.com/company/open-source-economy/" className="socialimg" target="_blank">
-                <img src={facebook} alt="" />
-              </Link>
-              <Link to="/" className="socialimg" target="_blank">
-                <img src={discord} alt="" />
-              </Link>
+  // Defining the Footer functional component
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration in milliseconds
+      once: false, // Whether animation should happen only once - while scrolling down
+      mirror: false, // Whether elements should animate out while scrolling past them
+    });
+  }, []);
 
-              <Link to="https://twitter.com/OS_Economy" className="socialimg" target="_blank">
-                <img src={elon} alt="" />
-              </Link>
-            </div>
-            <div>
-              <a href="mailto:lauraine@open-source-economy.com" className="text-decoration-none text-reset">
-                <h5 className="text-white mb-0">lauriane@open-source-economy.com</h5>
-              </a>
+  return (
+      <div className="bg-2">
+        <div className="bg-1">
+          <div className="boxlayers">
+            <div className="container footer px-md-5">
+              <div className="row">
+                <div
+                    className="col-md-6 pt-4"
+                    data-aos="fade-right" // AOS animation for fading in from the right
+                >
+                  <a href="/" className="">
+                    <img src={logo} className="img-fluid footerlogo" alt="Logo" />
+                  </a>
+                  <div className="d-flex align-items-center gap-3 mt-4">
+                    <SocialMedia />
+                  </div>
+                </div>
+                <div
+                    className="col-md-6 pt-4"
+                    data-aos="fade-left" // AOS animation for fading in from the left
+                >
+                  <div className="d-flex flex-column align-items-md-end justify-content-md-end">
+                    <h1 className="footer-h1-text">Stay Tuned!</h1>
+                    <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">
+                      <input
+                          type="email"
+                          className=""
+                          placeholder="Enter your email"
+                      />
+                      <button className="footerbtn">Join now</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </footer>
-    </>
+      </div>
   );
 };

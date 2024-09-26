@@ -1,0 +1,120 @@
+/* for sec1 css */
+.sec_1 {
+    padding: 122px 118px;
+}
+
+.sec_1 .sec1-h1 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 77px;
+
+}
+
+
+
+/* for mobile screen media query */
+@media (max-width : 500px) {
+    .sec_1 .sec1-h1 {
+        font-size: 32px;
+        line-height: 47px;
+
+    }
+
+    .sec_1 img {
+        height: 100%;
+    }
+
+    .sec_1 {
+        padding: 10px;
+        height: 100%;
+        background: none;
+    }
+
+}
+.sec1img{
+    display: none;
+}
+/* for tab screen media query */
+@media (max-width : 822px) {
+    .sec1img{
+        display: block;
+    }
+
+}
+/* for tab screen media query */
+@media (min-width : 501px) and (max-width : 768px) {
+    .sec_1 {
+        padding: 30px;
+        height: 100%;
+        background: none;
+    }
+
+    .sec_1 .sec1-h1 {
+        font-size: 40px;
+        line-height: 56px;
+
+    }
+}
+/* for tab screen media query */
+@media (min-width : 769px) and (max-width : 1200px) {
+    .sec_1 .sec1-h1 {
+        font-size: 40px;
+        line-height: 56px;
+
+    }
+}
+
+
+/* for tab screen media query */
+@media (min-width : 769px) and (max-width : 991px) {
+    .sec_1 {
+        padding: 30px 70px;
+        height: 100%;
+        background: none;
+    }
+}
+
+/* for laptop screen media query */
+@media (min-width : 992px) and (max-width : 1200px) {
+    .sec_1 {
+        padding: 30px 70px;
+        height: 410px;
+        background-size: 69%;
+        background-position-x: 412px;
+        background-position-y: -10px;
+
+    }
+}
+
+/* for large screen media query */
+@media (min-width : 1200px) and (max-width : 1500px) {
+    .sec_1 {
+        padding: 40px 70px;
+        height: 410px;
+        background-size: 64%;
+        background-position-x: 548px;
+        background-position-y: -58px;
+    }
+
+    .sec_1 h1 {
+        font-size: 50px !important;
+        line-height: 66px !important;
+    }
+}
+
+@media (min-width : 3001px) and (max-width : 9500px) {
+    .sec_1 {
+        padding: 40px 70px;
+        height: 410px;
+        background-size: 64%;
+        background-position-x: 548px;
+        background-position-y: -58px;
+    }
+
+    .sec_1 h1 {
+        font-size: 50px !important;
+        line-height: 66px !important;
+    }
+}
+

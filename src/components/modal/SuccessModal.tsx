@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import kitty2 from "../../assets/images/kitty2.png";
+import kitty2 from "../../assets/old/images/kitty2.png";
 import React from "react";
 
 interface SuccessModalProps {

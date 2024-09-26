@@ -77,8 +77,7 @@ export function IssueFilter(props: IssueFilterProps) {
             }}
           />
         </div>
-
-        {/*TODO*/}
+        
         <div className="col-lg-3">
           <SelectFilter
             ariaLabel="Status"

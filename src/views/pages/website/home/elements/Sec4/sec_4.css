@@ -1,0 +1,159 @@
+/* for sec4 css*/
+.sec_4 .texth1 {
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 90px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
+
+.videohide {
+    display: none;
+}
+
+.video-img {
+    width: 360px;
+    border-radius: 30px;
+    display: block;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+
+}
+
+.videobox {
+    background-color: #14233A;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 92%;
+    height: 60%;
+    background-color: rgb(0, 0, 0, 0.5);
+    border-radius: 30px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.hide {
+    opacity: 0 !important;
+}
+
+.videobox:hover .overlay {
+    opacity: 1;
+}
+
+.videobox .video-h1-text {
+    color: rgba(252, 254, 253, 1);
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 31.5px;
+    text-align: center;
+}
+
+.videobox .video-h2-text {
+    color: rgba(252, 254, 253, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.75px;
+    text-align: center;
+    transition: all 1s ease-in-out;
+    cursor: pointer;
+}
+
+.videobox .video-h2-text:hover {
+    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.videoplaybtn {
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 99;
+}
+
+.playbtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: all 0.6s ease;
+    width: 50px;
+    height: 50px;
+}
+
+.playbtn img {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.playbtn .sec3play {
+    opacity: 0;
+}
+
+.playbtn:hover .playbtn {
+    display: none;
+}
+
+.playbtn:hover .sec3play {
+    opacity: 1;
+}
+
+.bgimage {
+    background: url(/src/assets/Group258.svg);
+    background-position: top;
+    background-size: 90%;
+    background-position-y: -337px;
+    padding: 120px 0px 120px 0px;
+    background-repeat: no-repeat;
+}
+
+/* for mobile and tap screen media query */
+@media (max-width : 600px) {
+    .bgimage {
+        background: none !important;
+        padding: 10px;
+    }
+
+    .sec_4 .texth1 {
+        font-size: 32px;
+        line-height: 50px;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .video-img {
+        width: 300px;
+    }
+
+}
+
+/* for tab screen media query */
+@media (max-width : 1024px) {
+    .bgimage {
+        background: url(/src/assets/Group258.svg);
+        background-position: top;
+        background-size: 100%;
+        background-position-y: -142px;
+        padding: 120px 0px 120px 0px;
+        background-repeat: no-repeat;
+    }
+
+
+
+}

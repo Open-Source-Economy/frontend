@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import mascot from "../../../../../assets/images/crypto.png";
+import mascot from "../../../../../assets/old/images/crypto.png";
 
 interface DisclaimerModalProps {
   show: boolean;

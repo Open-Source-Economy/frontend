@@ -1,0 +1,156 @@
+/* for home page css */
+.boxlayer {
+    background: url(/src/assets/Group289.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 110%;
+    background-position-y: -210px;
+    background-position-x: 109px;
+}
+
+.bg-1 {
+    background: url(/src/assets/bg-1.png);
+    background-position: left;
+    background-size: cover;
+}
+
+.bg-2 {
+    background: url(/src/assets/bg-2.svg);
+    background-position: right;
+    background-size: cover;
+}
+
+.sec3bg1 {
+    background: url(/src/assets/playvideobg.png);
+    background-size: 95%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    padding: 100px;
+
+}
+
+@media (max-width : 1100px) {
+    .bg-1 {
+        background: none;
+    }
+    .bg-2,
+    .sec3bg1 {
+        background: none;
+        padding: 10px;
+    }
+}
+
+/* for laptop screen media query */
+@media (min-width : 822px) and (max-width : 1250px) {
+    .boxlayer {
+        background: url(/src/assets/Group289.png);
+        background-repeat: no-repeat;
+        background-position: top right;
+        background-size: 110%;
+        background-position-y: -126px;
+        background-position-x: 109px;
+    }
+}
+
+/* for tab screen media query */
+@media (max-width : 822px) {
+    .boxlayer {
+        background: none !important;
+    }
+}
+
+
+/* for large screen media query */
+@media (min-width : 1700px) and (max-width : 1800px) {
+    .boxlayer {
+        background-position: top right;
+        background-size: 99%;
+        background-position-y: -238px;
+        background-position-x: 281px;
+    }
+
+}
+
+@media (min-width : 1801px) and (max-width : 2200px) {
+    .boxlayer {
+        background-position: top right;
+        background-size: 86%;
+        background-position-y: -238px;
+        background-position-x: 281px;
+    }
+
+    .sec3bg1 {
+        background-size: 89% !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-x: 71px;
+        padding: 165px;
+    }
+
+}
+@media (min-width : 2201px) and (max-width : 2500px) {
+    .boxlayer {
+        background-size: 86%;
+        background-position-y: -238px;
+        background-position-x: 281px;
+    }
+    .sec3bg1 {
+        background-size: 75% !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-x: 251px;
+        padding: 110px;
+
+    }
+
+}
+
+@media (min-width : 2501px) and (max-width : 2900px) {
+    .boxlayer {
+        background-size: 79%;
+        background-position-y: -318px;
+        background-position-x: 389px;
+    }
+
+    .sec3bg1 {
+        background-size: 61% !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-x: 495px;
+        padding: 100px;
+    }
+
+}
+@media (min-width : 2901px) and (max-width : 3500px) {
+    .boxlayer {
+        background-size: 79%;
+        background-position-y: -318px;
+        background-position-x: 389px;
+    }
+
+    .sec3bg1 {
+        background-size: 55% !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-x: 675px;
+        padding: 130px;
+    }
+
+}
+@media (min-width : 3501px) and (max-width : 4500px) {
+    .boxlayer {
+        background-size: 67%;
+        background-position-y: -362px;
+        background-position-x: 709px;
+    }
+
+    .sec3bg1 {
+        background-size: 50% !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-x: 905px;
+        padding: 150px;
+    }
+
+}

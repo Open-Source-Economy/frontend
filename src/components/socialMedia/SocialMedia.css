@@ -1,0 +1,28 @@
+/* for svg icon css */
+svg{
+    cursor: pointer;
+}
+.svgicon path {
+    transition: fill 1s ease;
+    cursor: pointer;
+}
+
+.svgicon:hover path:first-child {
+    cursor: pointer;
+    fill: url(#gradient1-hover);
+}
+
+.svgicon:hover path:last-child {
+    cursor: pointer;
+    fill: #0E1F35; 
+}
+
+.svgicon-2 path {
+    transition: fill 0.3s ease;
+    cursor: pointer;
+}
+
+.svgicon-2:hover path {
+    fill: url(#gradient1-hover);
+    cursor: pointer;
+}

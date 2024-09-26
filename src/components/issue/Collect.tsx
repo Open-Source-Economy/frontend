@@ -1,6 +1,6 @@
 import React from "react";
 import * as model from "../../model";
-import Sol from "../../assets/images/SOL.png";
+import Sol from "../../../../assets/old/images/SOL.png";
 import { Link } from "react-router-dom";
 
 interface CollectProps {

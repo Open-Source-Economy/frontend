@@ -1,0 +1,235 @@
+/* for sec2 css */
+.box {
+    background: rgba(20, 35, 58, 1);
+    border-radius: 50px;
+    width: 630px;
+    height: 332px;
+    cursor: pointer;
+    /* Smooth transition */
+}
+
+.box1,
+.box2,
+.box3 {
+    transition: all 1s ease-in-out;
+}
+
+.box1:hover {
+    box-shadow: 0 -2px 45px rgba(255, 126, 75, 0.6);
+
+}
+
+.box2:hover {
+    box-shadow: 0 -2px 45px rgba(255, 81, 140, 0.6);
+
+}
+
+.box3 {
+    position: relative;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.box3:hover {
+    box-shadow: 0 -2px 45px rgba(255, 81, 140, 0.6);
+}
+
+.text-content {
+    transition: opacity 0.1s ease-in-out;
+}
+
+.image-content img {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.box3:hover .text-content {
+    opacity: 0;
+
+}
+
+.box3:hover .image-content img {
+    opacity: 1;
+
+}
+.box3::before {
+    content: "Coming Soon";
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 1);
+    font-size: 45px;
+    width: 50%;
+    font-weight: 400;
+    line-height: 46.8px;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.box3:hover::before {
+    opacity: 1;
+}
+
+
+.box3:hover {
+    box-shadow: 0 -2px 45px rgba(94, 48, 156, 0.6);
+
+}
+
+.box .boxh1-text {
+    color: rgba(255, 255, 255, 1);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 46.8px;
+}
+
+.box .boxh2-text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.5px;
+    text-align: left;
+    color: rgba(255, 255, 255, 1);
+}
+
+.boximg {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.btn-1 {
+    border: 2px solid rgba(255, 126, 75, 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18.48px;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.3s ease-in;
+}
+
+.btn-1:hover {
+    background-color: rgba(255, 126, 75, 100%);
+}
+
+.btn-2 {
+    border: 2px solid rgba(255, 81, 140, 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18.48px;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.3s ease-in;
+
+}
+
+.btn-2:hover {
+    background-color: rgba(255, 81, 140, 100%);
+}
+
+.starimg {
+    position: absolute;
+    top: 60px;
+    left: 18px;
+}
+
+.starimg img {
+    width: 45px;
+    height: 45px;
+    transition: all 0.5s ease-in;
+}
+
+.box1:hover .starimg img {
+    transform: rotate(30deg);
+    scale: 1.2;
+}
+
+.starimg2 {
+    position: absolute;
+    bottom: -5px;
+    left: 32%;
+}
+
+.starimg2 img {
+    width: 40px;
+    height: 40px;
+    transition: all 0.5s ease-in;
+}
+
+.box3:hover .starimg2 img {
+    transform: rotate(60deg);
+    scale: 1.2;
+}
+
+.starimg3 {
+    position: absolute;
+    top: 40px;
+    left: 85px;
+}
+
+.starimg3 img {
+    width: 50px;
+    height: 50px;
+    transition: all 0.5s ease-in;
+}
+
+.box2:hover .starimg3 img {
+    transform: rotate(60deg);
+    scale: 1.2;
+}
+
+/* for mobile screen media query */
+@media (max-width : 500px) {
+    .box .boxh1-text {
+        color: rgba(255, 255, 255, 1);
+        font-size: 28px;
+    }
+
+    .box .boxh2-text {
+        font-size: 15px;
+    }
+
+    .boximg {
+        width: 150px;
+        height: 150px;
+    }
+
+    .starimg {
+        position: absolute;
+        top: 54px;
+        left: 13px;
+    }
+
+
+}
+/* for tab screen media query */
+@media (max-width : 768px) {
+    .box3::before {
+        top: 30%;
+        width: 100%;
+        left: 57%;
+        font-size: 28px;
+
+    }
+
+    .box .boxh2-text {
+        font-size: 16px;
+    }
+
+    .box {
+        height: 100%;
+        width: 90% !important;
+    }
+
+}
+
+/* for desktop screen media query */
+@media (max-width : 1500px) {
+    .box {
+        width: 610px;
+    }
+
+    .box .boxh2-text {
+        font-size: 14px;
+    }
+}
