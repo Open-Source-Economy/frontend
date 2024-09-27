@@ -6,7 +6,7 @@ import sec2icon2 from "../../../../../../assets/sec2img3.png";
 import sec2icon3 from "../../../../../../assets/sec2img2.png";
 import startimg from "../../../../../../assets/star.png";
 import "./Sec2.css";
-import { Link } from "react-router-dom";
+import { ButtonAudience, ButtonType, LinkButton } from "../../../../../../components";
 
 const Sec2 = () => {
   // Defining the Sec2 functional component
@@ -34,9 +34,16 @@ const Sec2 = () => {
               {" "}
               Stop begging for donations! <br /> Fund your future. Have a Say
             </h2>
-            <Link to={"/developer"}>
-              <button className="mt-4 btn-1 px-3 py-3">DEVELOPERS</button>{" "}
-            </Link>
+            <div className="mt-3">
+              <LinkButton
+                to="/developer"
+                buttonProps={{
+                  type: ButtonType.SECONDARY,
+                  audience: ButtonAudience.DEVELOPER,
+                  holder: "DEVELOPERS",
+                }}
+              />
+            </div>
           </div>
           <div className="position-relative">
             <img className="boximg h-100" src={sec2icon1} alt="Get Paid Icon" />{" "}
@@ -57,9 +64,17 @@ const Sec2 = () => {
               {" "}
               Forget the far west! Secure your <br /> platform, secure your business.
             </h2>
-            <Link to={"/user"}>
-              <button className="mt-3 btn-2 px-3 py-3">OPEN SOURCE USERS</button>{" "}
-            </Link>
+
+            <div className="mt-3">
+              <LinkButton
+                to="/user"
+                buttonProps={{
+                  type: ButtonType.SECONDARY,
+                  audience: ButtonAudience.USER,
+                  holder: "OPEN SOURCE USERS",
+                }}
+              />
+            </div>
             {/* Button with padding and margin-top */}
           </div>
           <div className="position-relative">

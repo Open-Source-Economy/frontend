@@ -15,7 +15,6 @@
     content: '';
     position: absolute;
     top: 0;
-
     left: 0;
     right: 0;
     bottom: 0;
@@ -30,4 +29,79 @@
     border-image: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
     border-image-slice: 1;
     background: transparent;
+}
+
+
+.btn-1 {
+    border: 2px solid rgba(255, 126, 75, 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18.48px;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.3s ease-in;
+}
+
+.btn-1:hover {
+    background-color: rgba(255, 126, 75, 100%);
+}
+
+.btn-2 {
+    border: 2px solid rgba(255, 81, 140, 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18.48px;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.3s ease-in;
+
+}
+
+.btn-2:hover {
+    background-color: rgba(255, 81, 140, 100%);
+}
+
+.button {
+    position: relative;
+    background: none;
+    border: none;
+    /* Remove the default border */
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.75px;
+    color: rgba(255, 255, 255, 1);
+    transition: all 0.5s ease-in;
+
+    z-index: 1;
+    /* Ensure the button content is on top */
+    overflow: hidden;
+    /* Hide the pseudo-element overflow */
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 7px;
+    /* Apply the border-radius to the pseudo-element */
+    padding: 2px;
+    /* Adjust the border thickness */
+    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
+    -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+    /* Place the pseudo-element behind the button content */
+}
+
+.button:hover {
+    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
 }

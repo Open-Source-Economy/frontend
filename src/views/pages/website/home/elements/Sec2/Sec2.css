@@ -96,36 +96,7 @@
     object-fit: cover;
 }
 
-.btn-1 {
-    border: 2px solid rgba(255, 126, 75, 100%);
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18.48px;
-    border-radius: 6px;
-    background: transparent;
-    transition: all 0.3s ease-in;
-}
 
-.btn-1:hover {
-    background-color: rgba(255, 126, 75, 100%);
-}
-
-.btn-2 {
-    border: 2px solid rgba(255, 81, 140, 100%);
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18.48px;
-    border-radius: 6px;
-    background: transparent;
-    transition: all 0.3s ease-in;
-
-}
-
-.btn-2:hover {
-    background-color: rgba(255, 81, 140, 100%);
-}
 
 .starimg {
     position: absolute;

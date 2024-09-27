@@ -3,7 +3,7 @@ import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for anim
 import "aos/dist/aos.css"; // Importing the AOS CSS file for animation styling
 import "./Sec1.css"; // Importing custom CSS specific to this component
 import img from "../../../../../../assets/Frame.svg";
-import { ButtonFindName } from "../../../../../../components/elements/button/ButtonFindName";
+import { Button, ButtonAudience, ButtonType, LinkButton } from "../../../../../../components/elements/button/Button";
 
 const Sec1 = () => {
   // Defining the Sec1 functional component
@@ -24,7 +24,16 @@ const Sec1 = () => {
           <h1 className="sec1-h1 text-slate-600">
             Building the <br /> foundation of <br /> open source 3.0
           </h1>
-          <ButtonFindName />
+          <div className="mt-3">
+            <LinkButton
+              to="/developer"
+              buttonProps={{
+                type: ButtonType.PRIMARY,
+                audience: ButtonAudience.ALL,
+                holder: "GET STARTED",
+              }}
+            />
+          </div>
         </div>
         <div className="col-lg-6 mt-4 mt-md-0 sec1img">
           <img src={img} className="img-fluid" alt="" />

@@ -9,6 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
 import { Link } from "react-router-dom";
+import { ButtonAudience, ButtonType, ExternalLinkButton, LinkButton } from "../../components";
 
 interface HeaderProps {}
 
@@ -76,9 +77,14 @@ export function Header({}: HeaderProps) {
                       <Nav.Link href="" className="me-md-4">
                         JOBS
                       </Nav.Link>{" "}
-                      <a href="/white-paper" target="_blank" rel="noopener noreferrer">
-                        <button className="button px-3 py-3 rounded-3">WHITE PAPER</button>{" "}
-                      </a>
+                      <ExternalLinkButton
+                        href="/white-paper"
+                        buttonProps={{
+                          type: ButtonType.SECONDARY,
+                          audience: ButtonAudience.ALL,
+                          holder: "WHITE PAPER",
+                        }}
+                      />
                     </Nav>
                   </Offcanvas.Body>
                 </Navbar.Offcanvas>
