@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import img1 from "../../../../assets/devimg.png";
-import img2 from "../../../../assets/sec2img3.png";
-import img3 from "../../../../assets/userimg2.png";
 import bg2 from "../../../../assets/bgimg.png";
-import img4 from "../../../../assets/userimg1.png";
-import star from "../../../../assets/star.png";
 import bg from "../../../../assets/bg.png";
-import btn from "../../../../assets/btn.png";
-import bgtext from "../../../../assets/developerbannertext.png";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PageWrapper } from "../../PageWrapper";
+import { Solution, SolutionProps } from "./elements/Solution";
+import { Problem } from "./elements/Problem";
 
-interface DeveloperProps {}
+export interface UserDeveloperProps {
+  primaryProblemsSrc: string;
+  secondaryProblemsSrc: string;
+  solutions: SolutionProps[];
+}
 
-export function User(props: DeveloperProps) {
+export function UserDeveloper(props: UserDeveloperProps) {
   const [bgSize, setBgSize] = useState("70%");
   const [bgSize2, setBgSize2] = useState("60%");
   const [isOpenDropdown1, setIsOpenDropdown1] = useState(false);
@@ -70,6 +70,7 @@ export function User(props: DeveloperProps) {
       easing: "ease-in-out",
     });
   }, []);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 2500 && window.innerWidth <= 7000) {
@@ -88,74 +89,14 @@ export function User(props: DeveloperProps) {
     // Cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setPageLoaded(true);
-    }, 2000);
-
-    // Handle scroll event
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setHasScrolled(true);
-      } else {
-        setHasScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <PageWrapper>
       <div className="">
         <div className="flex flex-col lg:my-20 my-8 items-center justify-center text-center px-4 md:px-8 lg:px-16">
-          <h1 data-aos="fade-down" data-aos-duration="25000" className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px]  text-white">
-            Does using open source give
-            <br />
-            you a headache?
-          </h1>
-
-          <div className="relative">
-            <div data-aos="fade-up" data-aos-duration="55000">
-              <img src={img1} alt="" className="md:w-[65%] px-5 mx-auto h-full" />
-            </div>
-            <img id="bgImage" src={bgtext} alt="Background" className={`animated-image ${pageLoaded ? (hasScrolled ? "fade-down" : "fade-left") : ""}`} />
-            {/* TODO: to clean */}
-            <style>{`
-              .animated-image {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                position: absolute;
-                top: -10px;
-                left: 0;
-                right: 0;
-                transition: transform 3s ease, opacity 1s ease;
-                opacity: 0;
-                transform: translateX(5%);
-              }
-
-              .fade-left {
-                opacity: 1;
-                transform: translateX(0%);
-              }
-
-              .fade-down {
-                opacity: 0;
-                transform: translateY(20%);
-              }
-            `}</style>
-            <img src={btn} alt="" className="w-[100%] object-contain h-full absolute top-0 left-0 right-0" />
-          </div>
+          <Problem primaryProblemsSrc={props.primaryProblemsSrc} secondaryProblemsSrc={props.secondaryProblemsSrc} />
         </div>
+
         <div
           className="bg-no-repeat bg-bottom "
           data-aos="fade-in"
@@ -171,6 +112,7 @@ export function User(props: DeveloperProps) {
               <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] ">Here’s our solution.</span>
             </h1>
           </div>
+
           <div>
             <div
               style={{
@@ -180,88 +122,21 @@ export function User(props: DeveloperProps) {
               }}
               className=" bg-no-repeat py-5 "
             >
-              <div data-aos="fade-in" data-aos-duration="35000" className="px-4 mt-12 flex flex-col justify-center items-center gap-16">
-                <div data-aos="fade-in" data-aos-duration="35000" className="flex flex-wrap  items-center justify-center gap-12">
-                  <div
-                    data-aos="fade-in"
-                    data-aos-duration="35000"
-                    className="bg-[#14233A] relative cursor-pointer rounded-[30px] py-[14px] px-[35px] lg:py-[40px] lg:px-[48px] xl:py-[25px] xl:px-[55px]  transition-shadow duration-300 hover:shadow-xl group"
-                  >
-                    <img src={img2} className="" alt="" />
-                    <img
-                      src={star}
-                      className="absolute top-[55px] left-[140px] w-[50px] md:top-[100px] md:left-[220px] md:w-[70px] object-cover transition-transform duration-300 group-hover:rotate-90"
-                      alt=""
-                    />
-                  </div>
-                  <div data-aos="fade-in" data-aos-duration="35000" className="px-2">
-                    <h4 className="text-gray-300 text-[14px] xl:text-[18px]">AVAILABLE</h4>
-                    <h1 className="text-[rgba(255,81,140,1)] mt-2 text:xl lg:text-4xl xl:text-5xl">Get Support</h1>
-                    <h2 className="md:text-lg xl:text-[20px] text-md mt-3 text-gray-300">From Those Who Know</h2>
-                    <ul className="px-3 mt-[30px]">
-                      <li className="list-disc xl:text-[18px] text-[14px] text-gray-300">Get technical support</li>
-                      <li className="list-disc xl:text-[18px] text-[14px] text-gray-300">Discuss your features & needs</li>
-                      <li className="list-disc xl:text-[18px] text-[14px] text-gray-300">Share your requests. </li>
-                    </ul>
-                    <h3 className="md:text-[14px] xl:text-[18px] text-gray-300 text-[15px] leading-6 mt-9">
-                      All from the very same guys who coded it. <br /> They are the experts!
-                    </h3>
-                  </div>
-                </div>
-                <div className=" flex flex-wrap items-center justify-center  gap-12">
-                  <div
-                    data-aos="fade-in"
-                    data-aos-duration="35000"
-                    className="bg-[#14233A] relative cursor-pointer rounded-[30px] py-[14px] px-[35px] lg:py-[40px] lg:px-[48px] xl:py-[25px] xl:px-[75px]  transition-shadow duration-300 hover:shadow-xl group"
-                  >
-                    <img src={img3} className="" alt="" />
-                    <img
-                      src={star}
-                      className="absolute top-[55px] left-[155px] w-[40px] object-cover transition-transform duration-300 group-hover:rotate-90 hover:scale-105"
-                      alt=""
-                    />
-                  </div>
-                  <div data-aos="fade-in" data-aos-duration="35000" className="px-2">
-                    <h4 className="text-gray-300 text-[14px] xl:text-[18px]">COMING SOON</h4>
-                    <h1 className="text-[rgba(255,81,140,1)] mt-4 text:xl lg:text-4xl xl:text-5xl">Have a Say</h1>
-                    <h2 className="md:text-lg text-md mt-3 text-gray-300">Forget the Far West!</h2>
-                    <h3 className="text-[12px] xl:text-[15px]  text-gray-300 mt-12">
-                      Be part of a clear, transparent, and decentralized <br /> governance.
-                    </h3>
-                    <h3 className="text-[12px] xl:text-[15px]  text-gray-300 leading-6 mt-10">
-                      Shape the evolution and future of projects that <br /> matter to you.
-                    </h3>
-                  </div>
-                </div>
-                <div className="flex flex-wrap items-center justify-center mb-24  gap-12">
-                  <div
-                    data-aos="fade-in"
-                    data-aos-duration="35000"
-                    className="bg-[#14233A]  relative cursor-pointer rounded-[30px] py-[14px] px-[35px] lg:py-[40px] lg:px-[48px] xl:py-[25px] xl:px-[55px] transition-shadow duration-300 hover:shadow-xl group"
-                  >
-                    <img src={img4} className="" alt="" />
-                    <img
-                      src={star}
-                      className="absolute top-16 left-[220px] w-[70px] object-cover transition-transform duration-300 group-hover:rotate-90"
-                      alt=""
-                    />
-                  </div>
-                  <div data-aos="fade-in" data-aos-duration="35000" className="px-2">
-                    <h4 className="text-gray-300 text-[14px] xl:text-[18px] ">COMING SOON</h4>
-                    <h1 className="text-[rgba(255,81,140,1)] mt-4 text:xl lg:text-4xl xl:text-4xl">Fund Your Future</h1>
-                    <h2 className="md:text-lg text-md mt-3 text-gray-300 font-lighter">
-                      Secure your platform,
-                      <br /> Secure your business.
-                    </h2>
-                    <h3 className="text-[13px] xl:text-[16px]   text-gray-300 leading-6 mt-9">
-                      Support, invest, or donate to projects shaping <br /> your future.
-                    </h3>
-                    <h3 className="text-[13px] xl:text-[16px]  text-gray-300  leading-6 mt-9">Become confident in using open source.</h3>
-                  </div>
-                </div>
+              <div data-aos="fade-in" data-aos-duration="35000" className="px-4 mt-12 flex flex-col justify-center items-center max-w-full">
+                {props.solutions.map((solution, index) => (
+                  <Solution
+                    key={index}
+                    image={solution.image}
+                    starPosition={solution.starPosition}
+                    title={solution.title}
+                    subTitle={solution.subTitle}
+                    text={solution.text}
+                  />
+                ))}
               </div>
             </div>
           </div>
+
           <div className="lg:py-96 md:py-16" data-aos="fade-in" data-aos-duration="25000">
             <h1
               data-aos="fade-in"
@@ -368,9 +243,6 @@ export function User(props: DeveloperProps) {
                   />
                 </div>
                 <div data-aos="fade-in" className="flex items-center justify-center">
-                  {/* <button className="px-6 py-3 mt-3 text-white font-bold rounded-lg border-1 border-transparent bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] transition-all duration-300 ease-in-out hover:bg-transparent hover:border hover:text-white">
-                    SUBMIT
-                  </button> */}
                   <button className="px-6 py-3 mt-5 findbutton">SUBMIT</button>
                 </div>
               </div>

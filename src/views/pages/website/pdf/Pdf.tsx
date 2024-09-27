@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { PDFDocument } from "pdf-lib";
 
 interface PdfProps {}
 

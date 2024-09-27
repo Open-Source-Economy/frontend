@@ -2,12 +2,9 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Authenticate, AuthenticateType, Home, Issue, Issues, Pdf } from "./views";
+import { Authenticate, AuthenticateType, AuthProvider, developerProps, Home, Issue, Issues, Pdf, UserDeveloper, userProps } from "./views";
 import { ManageIssueFunding } from "./views/pages/app/manageIssueFunding";
 import { PrivateRoutes, UnAuthRoutes } from "./views/layout/PrivateRoutes";
-import { AuthProvider } from "./views/pages/app/authenticate/AuthProvider";
-import { Developer } from "./views/pages/website/developper/Developer";
-import { User } from "./views/pages/website/user/User";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -22,8 +19,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/white-paper" element={<Pdf />} />
 
-            <Route path="/developer" element={<Developer />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
+            <Route path="/user" element={<UserDeveloper {...userProps} />} />
 
             <Route path="/issues" element={<Issues />} />
 

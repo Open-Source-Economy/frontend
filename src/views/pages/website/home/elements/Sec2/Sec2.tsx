@@ -2,7 +2,7 @@ import React, { useEffect } from "react"; // Importing React and the useEffect h
 import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for animations
 import "aos/dist/aos.css"; // Importing AOS CSS for animation styling
 import sec2icon1 from "../../../../../../assets/sec2img.png";
-import sec2icon2 from "../../../../../../assets/sec2img3.png";
+import sec2icon2 from "../../../../../../assets/icon/sec2img3.png";
 import sec2icon3 from "../../../../../../assets/sec2img2.png";
 import startimg from "../../../../../../assets/star.png";
 import "./Sec2.css";
