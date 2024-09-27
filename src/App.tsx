@@ -2,7 +2,7 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Authenticate, AuthenticateType, Home, Issue, Issues } from "./views";
+import { Authenticate, AuthenticateType, Home, Issue, Issues, Pdf } from "./views";
 import { ManageIssueFunding } from "./views/pages/app/manageIssueFunding";
 import { PrivateRoutes, UnAuthRoutes } from "./views/layout/PrivateRoutes";
 import { AuthProvider } from "./views/pages/app/authenticate/AuthProvider";
@@ -20,6 +20,8 @@ const App = () => {
         <Routes>
           <Route element={<UnAuthRoutes />}>
             <Route path="/" element={<Home />} />
+            <Route path="/white-paper" element={<Pdf />} />
+
             <Route path="/developer" element={<Developer />} />
             <Route path="/user" element={<User />} />
 

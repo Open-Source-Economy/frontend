@@ -76,9 +76,9 @@ export function Header({}: HeaderProps) {
                       <Nav.Link href="" className="me-md-4">
                         JOBS
                       </Nav.Link>{" "}
-                      <Link to={"/login"}>
+                      <a href="/white-paper" target="_blank" rel="noopener noreferrer">
                         <button className="button px-3 py-3 rounded-3">WHITE PAPER</button>{" "}
-                      </Link>
+                      </a>
                     </Nav>
                   </Offcanvas.Body>
                 </Navbar.Offcanvas>
