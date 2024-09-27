@@ -1,7 +1,6 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import { User } from "../model";
 import { API_URL, handleError } from "./index";
-import { StatusCodes } from "http-status-codes";
 import { ApiError } from "../ultils/error/ApiError";
 
 export interface LoginInfo {

@@ -1,7 +1,5 @@
 import React from "react";
 import * as model from "../../model";
-import Sol from "../../../../assets/old/images/SOL.png";
-import { Link } from "react-router-dom";
 
 interface CollectProps {
   issueStatus: model.IssueStatus;

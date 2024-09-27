@@ -1,5 +1,3 @@
-import { CompanyId } from "./Company";
-
 export class UserId {
   id: number;
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import { ApiError } from "../../../../ultils/error/ApiError";
 import logo from "../../../../assets/logo.png";
 import github from "../../../../assets/github.png";
 

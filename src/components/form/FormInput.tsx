@@ -10,7 +10,7 @@ interface FormInputProps {
 }
 
 export function FormInput(props: FormInputProps) {
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, _] = useState(true);
 
   return (
     <>
