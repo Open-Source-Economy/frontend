@@ -9,7 +9,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
 import { Link } from "react-router-dom";
-import { ButtonAudience, ButtonType, ExternalLinkButton, LinkButton } from "../../components";
+import { ButtonType, ExternalLinkButton } from "../../components";
+import { Audience } from "../Audience";
 
 interface HeaderProps {}
 
@@ -81,7 +82,7 @@ export function Header({}: HeaderProps) {
                         href="/white-paper"
                         buttonProps={{
                           type: ButtonType.SECONDARY,
-                          audience: ButtonAudience.ALL,
+                          audience: Audience.ALL,
                           holder: "WHITE PAPER",
                         }}
                       />

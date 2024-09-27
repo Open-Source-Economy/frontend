@@ -3,7 +3,8 @@ import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for anim
 import "aos/dist/aos.css"; // Importing the AOS CSS file for animation styling
 import "./Sec1.css"; // Importing custom CSS specific to this component
 import img from "../../../../../../assets/Frame.svg";
-import { Button, ButtonAudience, ButtonType, LinkButton } from "../../../../../../components/elements/button/Button";
+import { ButtonType, LinkButton } from "../../../../../../components";
+import { Audience } from "../../../../../Audience";
 
 const Sec1 = () => {
   // Defining the Sec1 functional component
@@ -29,7 +30,7 @@ const Sec1 = () => {
               to="/developer"
               buttonProps={{
                 type: ButtonType.PRIMARY,
-                audience: ButtonAudience.ALL,
+                audience: Audience.ALL,
                 holder: "GET STARTED",
               }}
             />

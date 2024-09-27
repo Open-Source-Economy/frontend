@@ -6,7 +6,7 @@
 }
 
 body {
-  background: rgba(14, 31, 53, 1);
+  background: #0e1f35;
   color: #fff;
   font-family: "Michroma", sans-serif;
   font-weight: 400;
@@ -19,7 +19,7 @@ html {
 }
 
 .bg {
-  background: rgba(14, 31, 53, 1);
+  background: #0e1f35;
 }
 
 .message::placeholder {

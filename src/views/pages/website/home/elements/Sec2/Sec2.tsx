@@ -6,7 +6,8 @@ import sec2icon2 from "../../../../../../assets/icon/sec2img3.png";
 import sec2icon3 from "../../../../../../assets/sec2img2.png";
 import startimg from "../../../../../../assets/star.png";
 import "./Sec2.css";
-import { ButtonAudience, ButtonType, LinkButton } from "../../../../../../components";
+import { ButtonType, LinkButton } from "../../../../../../components";
+import { Audience } from "../../../../../Audience";
 
 const Sec2 = () => {
   // Defining the Sec2 functional component
@@ -39,7 +40,7 @@ const Sec2 = () => {
                 to="/developer"
                 buttonProps={{
                   type: ButtonType.SECONDARY,
-                  audience: ButtonAudience.DEVELOPER,
+                  audience: Audience.DEVELOPER,
                   holder: "DEVELOPERS",
                 }}
               />
@@ -70,7 +71,7 @@ const Sec2 = () => {
                 to="/user"
                 buttonProps={{
                   type: ButtonType.SECONDARY,
-                  audience: ButtonAudience.USER,
+                  audience: Audience.USER,
                   holder: "OPEN SOURCE USERS",
                 }}
               />

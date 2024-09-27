@@ -7,8 +7,10 @@ import "aos/dist/aos.css";
 import { PageWrapper } from "../../PageWrapper";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { Problem } from "./elements/Problem";
+import { Audience } from "../../../Audience";
 
 export interface UserDeveloperProps {
+  audience: Audience;
   primaryProblemsSrc: string;
   secondaryProblemsSrc: string;
   solutions: SolutionProps[];
@@ -124,14 +126,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
             >
               <div data-aos="fade-in" data-aos-duration="35000" className="px-4 mt-12 flex flex-col justify-center items-center max-w-full">
                 {props.solutions.map((solution, index) => (
-                  <Solution
-                    key={index}
-                    image={solution.image}
-                    starPosition={solution.starPosition}
-                    title={solution.title}
-                    subTitle={solution.subTitle}
-                    text={solution.text}
-                  />
+                  <Solution key={index} {...solution} />
                 ))}
               </div>
             </div>
@@ -145,6 +140,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
             >
               The future of open source is here <br /> <span className="lg:text-[20px] md:text-[15px] xl:text-[50px] text-[14px]">JOIN THE MOVEMENT.</span>
             </h1>
+            {/*TODO: to refactor*/}
             <h1
               data-aos="fade-in"
               data-aos-duration="25000"

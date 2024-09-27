@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { LoginInfo, RegisterInfo } from "../../../../services/AuthBackendAPI";
+import { LoginInfo, RegisterInfo } from "../../../../services";
 import { User } from "../../../../model";
 import { ApiError } from "../../../../ultils/error/ApiError";
 

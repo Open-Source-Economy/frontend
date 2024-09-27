@@ -33,7 +33,7 @@
 
 
 .btn-1 {
-    border: 2px solid rgba(255, 126, 75, 100%);
+    border: 2px solid #ff7e4b;
     color: #ffffff;
     font-size: 13px;
     font-weight: 400;
@@ -44,11 +44,11 @@
 }
 
 .btn-1:hover {
-    background-color: rgba(255, 126, 75, 100%);
+    background-color: #ff7e4b;
 }
 
 .btn-2 {
-    border: 2px solid rgba(255, 81, 140, 100%);
+    border: 2px solid #ff518c;
     color: #ffffff;
     font-size: 13px;
     font-weight: 400;
@@ -60,7 +60,7 @@
 }
 
 .btn-2:hover {
-    background-color: rgba(255, 81, 140, 100%);
+    background-color: #ff518c;
 }
 
 .button {
