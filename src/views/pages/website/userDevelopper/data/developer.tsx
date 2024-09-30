@@ -64,6 +64,13 @@ const solution3: SolutionProps = {
 
 export const developerProps: UserDeveloperProps = {
   audience,
+  problemTitle: (
+    <>
+      As an open source dev
+      <br />
+      are you experiencing....
+    </>
+  ),
   primaryProblemsSrc: primaryProblemsSrc,
   secondaryProblemsSrc: secondaryProblemsSrc,
   solutions: [solution1, solution2, solution3],

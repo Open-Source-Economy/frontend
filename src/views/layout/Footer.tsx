@@ -33,17 +33,18 @@ export const Footer = () => {
                   <SocialMedia />
                 </div>
               </div>
+
               <div
                 className="col-md-6 pt-4"
                 data-aos="fade-left" // AOS animation for fading in from the left
               >
-                <div className="d-flex flex-column align-items-md-end justify-content-md-end">
-                  <h1 className="footer-h1-text">Stay Tuned!</h1>
-                  <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">
-                    <input type="email" className="" placeholder="Enter your email" />
-                    <button className="footerbtn">Join now</button>
-                  </div>
-                </div>
+                {/*<div className="d-flex flex-column align-items-md-end justify-content-md-end">*/}
+                {/*  <h1 className="footer-h1-text">Stay Tuned!</h1>*/}
+                {/*  <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">*/}
+                {/*    <input type="email" className="" placeholder="Enter your email" />*/}
+                {/*    <button className="footerbtn">Join now</button>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
               </div>
             </div>
           </div>

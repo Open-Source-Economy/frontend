@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import img1 from "../../../../../assets/devimg.png";
 
 interface ProblemProps {
-  primaryProblemsSrc: string;
-  secondaryProblemsSrc: string;
+  title: string | ReactNode;
+  primarySrc: string;
+  secondarySrc: string;
 }
 
 export function Problem(props: ProblemProps) {
@@ -35,9 +36,7 @@ export function Problem(props: ProblemProps) {
   return (
     <>
       <h1 data-aos="fade-down" data-aos-duration="25000" className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px]  text-white">
-        Does using open source give
-        <br />
-        you a headache?
+        {props.title}
       </h1>
 
       <div className="relative">
@@ -47,7 +46,7 @@ export function Problem(props: ProblemProps) {
 
         <img
           id="bgImage"
-          src={props.secondaryProblemsSrc}
+          src={props.secondarySrc}
           alt="Background"
           className={`animated-image ${pageLoaded ? (hasScrolled ? "fade-down" : "fade-left") : ""}`}
         />
@@ -77,7 +76,7 @@ export function Problem(props: ProblemProps) {
                 transform: translateY(20%);
               }
             `}</style>
-        <img src={props.primaryProblemsSrc} alt="" className="w-[100%] object-contain h-full absolute top-0 left-0 right-0" />
+        <img src={props.primarySrc} alt="" className="w-[100%] object-contain h-full absolute top-0 left-0 right-0" />
       </div>
     </>
   );

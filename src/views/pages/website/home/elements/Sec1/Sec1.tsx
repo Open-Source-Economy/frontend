@@ -26,14 +26,14 @@ const Sec1 = () => {
             Building the <br /> foundation of <br /> open source 3.0
           </h1>
           <div className="mt-3">
-            <LinkButton
-              to="/developer"
-              buttonProps={{
-                type: ButtonType.PRIMARY,
-                audience: Audience.ALL,
-                holder: "GET STARTED",
-              }}
-            />
+            {/*  <LinkButton*/}
+            {/*    to="/developer"*/}
+            {/*    buttonProps={{*/}
+            {/*      type: ButtonType.PRIMARY,*/}
+            {/*      audience: Audience.ALL,*/}
+            {/*      holder: "GET STARTED",*/}
+            {/*    }}*/}
+            {/*  />*/}
           </div>
         </div>
         <div className="col-lg-6 mt-4 mt-md-0 sec1img">

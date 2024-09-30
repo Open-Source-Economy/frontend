@@ -74,6 +74,13 @@ const solution3 = {
 
 export const userProps: UserDeveloperProps = {
   audience,
+  problemTitle: (
+    <>
+      Does using open source give
+      <br />
+      you a headache?
+    </>
+  ),
   primaryProblemsSrc,
   secondaryProblemsSrc,
   solutions: [solution1, solution2, solution3],

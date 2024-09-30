@@ -15,9 +15,8 @@ import { Audience } from "../Audience";
 interface HeaderProps {}
 
 export function Header({}: HeaderProps) {
-  // Defining the Header functional component
   useEffect(() => {
-    // useEffect hook to initialize AOS
+    // Animation
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
       once: false, // Animation should trigger every time the element scrolls into view
@@ -68,16 +67,18 @@ export function Header({}: HeaderProps) {
                       </Navbar.Brand>
                     </Offcanvas.Title>
                   </Offcanvas.Header>
+
                   <Offcanvas.Body>
                     {" "}
                     <Nav className="justify-content-end align-items-lg-center text-white gap-md-5 gap-3 flex-grow-1">
-                      <Link to="/login">
-                        <Nav.Link>Blog</Nav.Link>
-                      </Link>
-                      <Nav.Link href="">MISSION</Nav.Link>
-                      <Nav.Link href="" className="me-md-4">
-                        JOBS
-                      </Nav.Link>{" "}
+                      <a href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
+                        Blog
+                      </a>
+                      {/*<Nav.Link href="">MISSION</Nav.Link>*/}
+                      {/*<Nav.Link href="" className="me-md-4">*/}
+                      {/*  JOBS*/}
+                      {/*</Nav.Link>{" "}*/}
+
                       <ExternalLinkButton
                         href="/white-paper"
                         buttonProps={{
