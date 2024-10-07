@@ -8,10 +8,17 @@
 body {
   background: #0e1f35;
   color: #fff;
-  font-family: "Michroma", sans-serif;
-  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
   font-style: normal;
   overflow-x: hidden !important;
+}
+
+.michroma {
+  font-family: "Michroma", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
 }
 
 html {

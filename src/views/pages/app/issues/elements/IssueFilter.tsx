@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { SelectFilter } from "../../../../../components";
 import * as model from "../../../../../model/FinancialIssue";
+import search from "src/assets/search.png";
 
 interface IssueFilterProps {
   financialIssues: model.FinancialIssue[];
@@ -19,8 +20,8 @@ export function IssueFilter(props: IssueFilterProps) {
     return temp;
   }
 
-  const owners = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.owner?.name));
-  const repositories = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.repository?.name));
+  const owners = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.owner.id.login));
+  const repositories = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.repository.id.name));
 
   const [selectedOwner, setSelectedOwner] = React.useState(all);
   const [selectedRepository, setSelectedRepository] = React.useState(all);
@@ -34,12 +35,12 @@ export function IssueFilter(props: IssueFilterProps) {
   const handleChangeOnFilter = () => {
     const filtered = props.financialIssues.filter(financialIssue => {
       return (
-        (financialIssue.owner?.name === selectedOwner || selectedOwner === all) &&
-        (financialIssue.repository?.name === selectedRepository || selectedRepository === all) &&
+        (financialIssue.owner.id.login === selectedOwner || selectedOwner === all) &&
+        (financialIssue.repository.id.name === selectedRepository || selectedRepository === all) &&
         // (financialIssue.status === selectedStatus || selectedStatus === all) &&
         (searchTerm === "" ||
-          financialIssue.owner?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          financialIssue.repository?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          financialIssue.owner.id.login.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          financialIssue.repository.id.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           financialIssue.issue?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           financialIssue.issue?.id?.number.toString().includes(searchTerm))
       );
@@ -49,66 +50,54 @@ export function IssueFilter(props: IssueFilterProps) {
   };
 
   return (
-    <form action="#" className="filter-form">
-      <div className="row justify-content-center align-items-center gy-4">
-        <div className="col-lg-3">
-          <SelectFilter
-            ariaLabel="Onwer"
-            labelValues={owners.map(ownerName => ({
-              value: ownerName,
-              label: ownerName,
-            }))}
-            onFilterChange={value => {
-              setSelectedOwner(value);
+    <>
+      <div className="grid sm:grid-cols-2 w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
+        <SelectFilter
+          ariaLabel="Onwer"
+          labelValues={owners.map(ownerName => ({
+            value: ownerName,
+            label: ownerName,
+          }))}
+          onFilterChange={value => {
+            setSelectedOwner(value);
+          }}
+        />
+
+        <SelectFilter
+          ariaLabel="Repository"
+          labelValues={repositories.map(ownerName => ({
+            value: ownerName,
+            label: ownerName,
+          }))}
+          onFilterChange={value => {
+            setSelectedRepository(value);
+            handleChangeOnFilter();
+          }}
+        />
+
+        <SelectFilter
+          ariaLabel="Status"
+          labelValues={[
+            { value: "all", label: "All Categories" },
+            { value: "accountability", label: "Accountability" },
+            { value: "data", label: "Data" },
+          ]}
+          onFilterChange={() => {}}
+        />
+
+        <div className="relative border-1 border-[#8693A4] w-100 rounded-[9px] outline-none bg-transparent p-3 lg:w-[196px]">
+          <input
+            className="outline-none text-lg bg-transparent lg:w-[140px] w-100"
+            placeholder="Search"
+            onChange={e => {
+              setSearchTerm(e.target.value);
             }}
           />
-        </div>
-
-        <div className="col-lg-3">
-          <SelectFilter
-            ariaLabel="Repository"
-            labelValues={repositories.map(ownerName => ({
-              value: ownerName,
-              label: ownerName,
-            }))}
-            onFilterChange={value => {
-              setSelectedRepository(value);
-              handleChangeOnFilter();
-            }}
-          />
-        </div>
-
-        <div className="col-lg-3">
-          <SelectFilter
-            ariaLabel="Status"
-            labelValues={[
-              { value: "all", label: "All Categories" },
-              { value: "accountability", label: "Accountability" },
-              { value: "data", label: "Data" },
-            ]}
-            onFilterChange={() => {}}
-          />
-        </div>
-
-        <div className="col-lg-3">
-          <div className="input-group search-c">
-            <input
-              className="form-control border-end-0 border-0 focus-ring helvetica  color-70"
-              type="search"
-              placeholder="Search"
-              id="example-search-input"
-              onChange={e => {
-                setSearchTerm(e.target.value);
-              }}
-            />
-            <span className="input-group-append d-flex justify-content-center ">
-              <button className="btn btn-outline-secondary border-0 ms-n5" type="button">
-                <i className="fa fa-search"></i>
-              </button>
-            </span>
+          <div>
+            <img src={search} className="w-[18px] h-[18px] absolute top-5 right-3" alt="" />
           </div>
         </div>
       </div>
-    </form>
+    </>
   );
 }

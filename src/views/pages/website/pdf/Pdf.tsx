@@ -7,5 +7,5 @@ export function Pdf(props: PdfProps) {
     window.location.href = "/white-paper.pdf";
   }, []);
 
-  return null; // This component doesn't need to render anything
+  return null;
 }

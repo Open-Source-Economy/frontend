@@ -1,9 +1,7 @@
 import React from "react";
-import Sec3 from "./elements/Sec3/Sec3";
 import Sec2 from "./elements/Sec2/Sec2";
 import Sec1 from "./elements/Sec1/Sec1";
 import { PageWrapper } from "../../PageWrapper";
-import Sec4 from "./elements/Sec4/Sec4";
 import "./Home.css";
 
 interface HomeProps {}

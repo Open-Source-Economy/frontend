@@ -1,6 +1,6 @@
-import { CompanyAddressId } from "./CompanyAddress";
+import { UserId } from "./user";
+import { AddressId } from "./Address";
 import { ValidationError, Validator } from "./utils";
-import { UserId } from "./User";
 
 export class CompanyId {
   id: number;
@@ -19,9 +19,9 @@ export class Company {
   taxId: string | null;
   name: string | null;
   contactPersonId: UserId | null;
-  addressId: CompanyAddressId | null;
+  addressId: AddressId | null;
 
-  constructor(id: CompanyId, taxId: string | null, name: string | null, contactPersonId: UserId | null = null, addressId: CompanyAddressId | null = null) {
+  constructor(id: CompanyId, taxId: string | null, name: string | null, contactPersonId: UserId | null = null, addressId: AddressId | null = null) {
     this.id = id;
     this.taxId = taxId;
     this.name = name;
@@ -47,7 +47,7 @@ export class Company {
       row.tax_id,
       row.name,
       row.contact_person_id ? new UserId(row.contact_person_id) : null,
-      row.address_id ? new CompanyAddressId(row.address_id) : null,
+      row.address_id ? new AddressId(row.address_id) : null,
     );
   }
 }

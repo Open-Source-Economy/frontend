@@ -7,7 +7,6 @@ import { PageWrapper } from "../../PageWrapper";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { Problem } from "./elements/Problem";
 import { Audience } from "../../../Audience";
-import { InterestForm } from "./elements/InterestForm";
 
 export interface UserDeveloperProps {
   audience: Audience;

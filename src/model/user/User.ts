@@ -1,6 +1,6 @@
 import { LocalUser } from "./LocalUser";
-import { ThirdPartyUser } from "./ThirdPartyUser";
-import { Owner } from "../Owner";
+import { GithubData, ThirdPartyUser } from "./ThirdPartyUser";
+import { Owner } from "../github/Owner";
 import { ValidationError, Validator } from "../utils";
 
 export class UserId {
@@ -30,10 +30,26 @@ export class User implements Express.User {
     this.role = role;
   }
 
+  email(): string | null {
+    if (this.data instanceof LocalUser) {
+      return this.data.email;
+    } else {
+      return this.data.email() ?? null;
+    }
+  }
+
+  githubData(): GithubData | null {
+    if (this.data instanceof ThirdPartyUser) {
+      return this.data.providerData;
+    } else {
+      return null;
+    }
+  }
+
   static fromRaw(row: any, owner: Owner | null = null): User | ValidationError {
     const validator = new Validator(row);
-    validator.requiredNumber("id");
-    validator.requiredString("role");
+    const id = validator.requiredNumber("id");
+    const role = validator.requiredEnum("role", Object.values(UserRole) as UserRole[]);
 
     const error = validator.getFirstError();
     if (error) {
@@ -54,13 +70,11 @@ export class User implements Express.User {
       return user;
     }
 
-    validator.requiredEnum("role", UserRole);
-
     const enumError = validator.getFirstError();
     if (enumError) {
       return enumError;
     }
 
-    return new User(new UserId(row.id), user, row.role as UserRole);
+    return new User(new UserId(id), user, role);
   }
 }

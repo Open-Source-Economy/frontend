@@ -27,3 +27,4 @@ export async function handleError<T>(call: () => Promise<AxiosResponse<T, any>>,
 }
 
 export * from "./AuthBackendAPI";
+export * from "./BackendAPI";

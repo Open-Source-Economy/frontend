@@ -2,6 +2,7 @@ import { ValidationError, Validator } from "../utils";
 import { StripeInvoiceId } from "./StripeInvoice";
 import { StripeCustomerId } from "./StripeCustomer";
 import { StripeProductId } from "./StripeProduct";
+import { StripePriceId } from "./StripePrice";
 
 export class StripeInvoiceLineId {
   id: string;
@@ -31,7 +32,7 @@ export class StripeInvoiceLine {
   invoiceId: StripeInvoiceId;
   customerId: StripeCustomerId;
   productId: StripeProductId;
-  priceId: string;
+  priceId: StripePriceId;
   quantity: number;
 
   constructor(
@@ -39,7 +40,7 @@ export class StripeInvoiceLine {
     invoiceId: StripeInvoiceId,
     customerId: StripeCustomerId,
     productId: StripeProductId,
-    priceId: string,
+    priceId: StripePriceId,
     quantity: number, // TODO: should be a positive integer
   ) {
     this.stripeId = stripeId;
@@ -68,7 +69,7 @@ export class StripeInvoiceLine {
       new StripeInvoiceId(json.invoice),
       customerId,
       new StripeProductId(json.price.product),
-      json.price.id,
+      new StripePriceId(json.price.id),
       json.quantity,
     );
   }
@@ -91,7 +92,7 @@ export class StripeInvoiceLine {
       new StripeInvoiceId(row.invoice_id),
       new StripeCustomerId(row.customer_id),
       new StripeProductId(row.product_id),
-      row.price_id,
+      new StripePriceId(row.price_id),
       row.quantity,
     );
   }

@@ -1,81 +1,56 @@
 import React from "react";
-import * as model from "../../model";
+import dow from "src/assets/dow.png";
+import { ManagedIssueState } from "src/model";
 
 interface CollectProps {
-  issueStatus: model.IssueStatus;
+  amountCollected: number;
+  amountRequested?: number;
+  state?: ManagedIssueState;
 }
 
-// TODO: to refactor
 export function Collect(props: CollectProps) {
-  if (props.issueStatus instanceof model.CollectApproved) {
+  function renderAmountText(amount: number, state?: ManagedIssueState) {
     return (
       <>
-        {/*TODO when implemented on the back-end*/}
-        {/*<div className="top d-flex align-items-center gap-3">*/}
-        {/*  <img src={props.issueStatus.currencyLogo} alt="" className="currency-image" />*/}
-        {/*  <div className="text-box">*/}
-        {/*    <p className="m-0 helvetica fs-4 text-white">*/}
-        {/*      {props.issueStatus.amountCollected}{" "}*/}
-        {/*      <span className="fw-bold color-70">*/}
-        {/*        / {props.issueStatus.goalAmount} {props.issueStatus.currencySymbol} collected*/}
-        {/*      </span>*/}
-        {/*    </p>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*<div className="bar my-3"></div>*/}
-        {/*<p className="fs-6 helvetica color-70">Collect approved by at least one maintainer</p>*/}
+        <span className="michroma text-[#FF7E4B]">{amount}</span> <span className="text-[#FF7E4B]">DoW</span>{" "}
+        {state === ManagedIssueState.REJECTED ? "refunded" : state === ManagedIssueState.SOLVED ? "for open source!" : "collected"}
       </>
     );
-  } else if (props.issueStatus instanceof model.CollectToBeApproved) {
-    return (
-      <>
-        <div className="top d-flex align-items-center gap-4">
-          <div className="text-box">
-            <p className="m-0 helvetica fs-4 text-white">
-              {props.issueStatus.amountCollected} {props.issueStatus.currencySymbol} collected
-            </p>
-          </div>
-        </div>
-        <p className=" fs-6 helvetica color-70" style={{ fontStyle: "italic" }}>
-          Collect needs to be approved by at least one maintainer
-        </p>
-        {/*<div className="text-center d-flex my-3">*/}
-        {/*  <Link to="/this" className="register-btn helvetica fw-700 fs-5 text-decoration-none w-100">*/}
-        {/*    Register as Maintainer{" "}*/}
-        {/*  </Link>*/}
-        {/*</div>*/}
-      </>
-    );
-  } else if (props.issueStatus instanceof model.Closed) {
-    return (
-      <>
-        <div className="top d-flex align-items-center gap-4">
-          <div className="text-box">
-            <p className="m-0 helvetica fs-4 text-white">
-              {props.issueStatus.amountCollected} {props.issueStatus.currencySymbol} collected
-            </p>
-          </div>
-        </div>
-        <p className=" fs-6 helvetica color-70" style={{ fontStyle: "italic" }}>
-          Closed
-        </p>
-        {/*<div className="top d-flex align-items-center gap-4">*/}
-        {/*  <img src={props.issueStatus.currencyLogo} alt="" className="currency-image" />*/}
-        {/*  <div className="text-box">*/}
-        {/*    <p className="m-0 helvetica fs-4 text-white">*/}
-        {/*      {props.issueStatus.amountCollected}*/}
-        {/*      {props.issueStatus.goalAmount && (*/}
-        {/*        <span className="fw-bold color-70">*/}
-        {/*          / {props.issueStatus.goalAmount} {props.issueStatus.currencySymbol} collected*/}
-        {/*        </span>*/}
-        {/*      )}*/}
-        {/*    </p>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*<div className="bar2 my-3"></div>*/}
-      </>
-    );
-  } else {
-    return <></>;
   }
+
+  const widthPercentage = props.amountRequested
+    ? Math.min((props.amountCollected / props.amountRequested) * 100, 100) // Calculate width percentage
+    : 0; // Set to 0 if amountRequested is undefined or 0
+
+  return (
+    <>
+      <div>
+        <div className="flex items-center gap-3">
+          <img className="w-[38px] h-[30px]" src={dow} alt="" />
+          <p className="text-[20px]">
+            {props.state === ManagedIssueState.REJECTED && renderAmountText(props.amountCollected, props.state)}
+            {props.state === ManagedIssueState.SOLVED && renderAmountText(props.amountCollected, props.state)}
+            {props.state === ManagedIssueState.OPEN && props.amountRequested && (
+              <>
+                <span className="michroma">{props.amountCollected}</span> <span className="text-[#8693A4] michroma">/</span>{" "}
+                <span className="text-[#FF7E4B] michroma">{props.amountRequested} DoW</span> requested
+              </>
+            )}
+            {props.state === undefined && renderAmountText(props.amountCollected, undefined)}
+          </p>
+        </div>
+
+        {props.state === ManagedIssueState.OPEN && props.amountRequested ? (
+          <div className="w-[100%] md:w-[400px] mt-3 bg-[rgba(255,255,255,10%)] rounded-full h-2">
+            <div
+              className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] h-2 rounded-full"
+              style={{ width: `${widthPercentage}%` }} // Dynamically set the width
+            ></div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
 }

@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import * as model from "../../model";
 import * as components from "./index";
+import person from "src/assets/personicon.png";
+import { Approved } from "src/components/issue/Approved";
+import { Action } from "src/components/issue/Action";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
@@ -12,28 +14,38 @@ interface IssueProps {
 export function IssueCard(props: IssueProps) {
   return (
     <>
-      <div className="top d-flex gap-3 mb-5 flex-wrap">
-        {/*<div className="top d-flex gap-3 mb-5 flex-lg-nowrap flex-wrap"> for full page*/}
-        <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
-      </div>
+      <div className={`pt-5 w-[90%] mx-auto ${props.financialIssue.isClosed() ? "opacity-40" : ""} `}>
+        <div className="padding sm:py-9 sm:px-10   flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
+          <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
 
-      <components.Collect issueStatus={props.financialIssue.status} />
-
-      <components.Issue issue={props.financialIssue.issue} openBy={props.financialIssue.openBy} />
-
-      {props.displaySeeMore && (
-        <Link to={props.financialIssue.issue.htmlUrl} target="_blank" className="helvetica text__primary text-decoration-none c_links">
-          See More
-        </Link>
-      )}
-
-      {!(props.financialIssue.status instanceof model.Closed) && props.displayActionButtons && (
-        <div className="text-center d-flex">
-          <Link to="/Issu2" className="connect__btn helvetica fw-700 fs-5 text-decoration-none w-100">
-            Fund the issue
-          </Link>
+          <div>
+            <img className="w-[52px] h-[52px]" src={person} alt="" />
+          </div>
         </div>
-      )}
+
+        <div className="padding sm:py-7 sm:px-10   bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
+          <components.Issue issue={props.financialIssue.issue} />
+
+          <div className="flex flex-wrap items-center gap-3 justify-between mt-12">
+            <div>
+              <components.Collect
+                amountCollected={props.financialIssue.amountCollected()}
+                amountRequested={props.financialIssue.amountRequested()}
+                state={props.financialIssue.managedIssue?.state}
+              />
+              <Approved managedIssue={props.financialIssue.managedIssue} />
+            </div>
+
+            <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">
+              <Action
+                issue={props.financialIssue.issue}
+                state={props.financialIssue.managedIssue?.state}
+                successfullyFunded={props.financialIssue.successfullyFunded()}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

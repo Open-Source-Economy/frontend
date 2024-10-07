@@ -49,7 +49,6 @@ export function Authenticate(props: AuthenticateProps) {
 
   return (
     <PageWrapper>
-      return (
       <div className="login pt-12 pb-24">
         <div className="flex items-center justify-center  flex-col">
           <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">Sign in </h1>
@@ -117,7 +116,6 @@ export function Authenticate(props: AuthenticateProps) {
           </form>
         </div>
       </div>
-      );
     </PageWrapper>
   );
 }

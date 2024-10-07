@@ -1,6 +1,5 @@
 import { UserId, UserRole } from "./User";
-import { LocalUser } from "./LocalUser";
-import { ThirdPartyUser } from "./ThirdPartyUser";
+import { LocalUser, ThirdPartyUser } from "src/model";
 
 declare global {
   namespace Express {
@@ -8,6 +7,7 @@ declare global {
       id: UserId;
       data: LocalUser | ThirdPartyUser;
       role: UserRole;
+      email(): string | null;
     }
   }
 }

@@ -1,32 +1,37 @@
-import { ValidationError, Validator } from "./utils";
+import { ValidationError, Validator } from "../utils";
 
 export class OwnerId {
-  id: number;
+  login: string;
+  githubId?: number;
 
-  constructor(id: number) {
-    this.id = id;
+  constructor(login: string, id?: number) {
+    this.login = login;
+    this.githubId = id;
   }
 
   static fromGithubApi(json: any): OwnerId | ValidationError {
-    const validator = new Validator(json);
-    validator.requiredNumber("id");
-    const error = validator.getFirstError();
-    if (error) {
-      return error;
-    }
-
-    return new OwnerId(json.id);
+    return OwnerId.fromAny(json, "login", "id");
   }
 
-  static fromBackend(json: any): OwnerId | ValidationError {
-    const validator = new Validator(json);
-    validator.requiredNumber("github_id");
+  static fromBackendPrimaryKey(row: any): OwnerId | ValidationError {
+    return OwnerId.fromAny(row, "github_login", "github_id");
+  }
+
+  static fromBackendForeignKey(row: any): OwnerId | ValidationError {
+    return OwnerId.fromAny(row, "github_owner_login", "github_owner_id");
+  }
+
+  private static fromAny(data: any, loginKey: string, idKey: string): OwnerId | ValidationError {
+    const validator = new Validator(data);
+    const login = validator.requiredString(loginKey);
+    const id = validator.requiredNumber(idKey);
+
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new OwnerId(json.github_id);
+    return new OwnerId(login, id);
   }
 }
 
@@ -38,16 +43,14 @@ export enum OwnerType {
 export class Owner {
   id: OwnerId;
   type: OwnerType;
-  name: string;
   htmlUrl: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 
-  constructor(id: OwnerId, type: OwnerType, name: string, url: string, avatar_url: string) {
+  constructor(id: OwnerId, type: OwnerType, htmlUrl: string, avatarUrl?: string) {
     this.id = id;
     this.type = type;
-    this.name = name;
-    this.htmlUrl = url;
-    this.avatarUrl = avatar_url;
+    this.htmlUrl = htmlUrl;
+    this.avatarUrl = avatarUrl;
   }
 
   // For Organization
@@ -59,13 +62,10 @@ export class Owner {
   // Example: https://api.github.com/users/laurianemollier
   static fromGithubApi(json: any): Owner | ValidationError {
     const validator = new Validator(json);
-    validator.requiredNumber("id");
-    validator.requiredString("login");
-    validator.requiredString("type");
-    validator.requiredString("html_url");
-    validator.requiredString("avatar_url");
-    validator.optionalString("type");
-    validator.requiredEnum("type", OwnerType);
+
+    const htmlUrl = validator.requiredString("html_url");
+    const avatarUrl = validator.optionalString("avatar_url");
+    const type = validator.requiredEnum<OwnerType>("type", Object.values(OwnerType) as OwnerType[]);
 
     const error = validator.getFirstError();
     if (error) {
@@ -77,30 +77,27 @@ export class Owner {
       return ownerId;
     }
 
-    return new Owner(ownerId, OwnerType[json.type as keyof typeof OwnerType], json.login, json.html_url, json.avatar_url);
+    return new Owner(ownerId, type, htmlUrl, avatarUrl);
   }
 
   static fromBackend(json: any): Owner | ValidationError {
     const validator = new Validator(json);
-    validator.requiredNumber("github_id");
-    validator.requiredString("github_login");
-    validator.requiredString("github_type");
-    validator.requiredString("github_html_url");
-    validator.requiredString("github_avatar_url");
-    validator.optionalString("github_type");
-    validator.requiredEnum("github_type", OwnerType);
+    // @ts-ignore
+    const type: OwnerType = validator.requiredEnum<OwnerType>("github_type", Object.values(OwnerType) as OwnerType[]);
+    const htmlUrl = validator.requiredString("github_html_url");
+    const avatarUrl = validator.requiredString("github_avatar_url");
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    const ownerId = OwnerId.fromBackend(json);
+    const ownerId = OwnerId.fromBackendPrimaryKey(json);
     if (ownerId instanceof ValidationError) {
       return ownerId;
     }
 
-    return new Owner(ownerId, OwnerType[json.github_type as keyof typeof OwnerType], json.github_login, json.github_html_url, json.github_avatar_url);
+    return new Owner(ownerId, type, htmlUrl, avatarUrl);
   }
 }
 

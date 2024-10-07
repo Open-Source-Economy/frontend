@@ -10,6 +10,10 @@ const ownerParam = "ownerParam";
 const repoParam = "repoParam";
 const numberParam = "numberParam";
 
+export function issuePath(owner: string, repo: string, number: number) {
+  return `/${owner}/${repo}/issues/${number}`;
+}
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +27,7 @@ const App = () => {
             <Route path="/user" element={<UserDeveloper {...userProps} />} />
 
             <Route path="/issues" element={<Issues />} />
+            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}`} element={<Issue />} />
 
             <Route path="/sign-in" element={<Authenticate type={AuthenticateType.SignIn} />} />
             <Route path="/sign-up-as-company" element={<Authenticate type={AuthenticateType.SignUpAsCompany} />} />
@@ -30,7 +35,6 @@ const App = () => {
           </Route>
 
           <Route element={<PrivateRoutes />}>
-            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}`} element={<Issue />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage-funding`} element={<ManageIssueFunding />} />
           </Route>
         </Routes>

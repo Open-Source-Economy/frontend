@@ -1,11 +1,16 @@
 import { FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
+import { BackendAPIMock } from "src/__tests__/__mocks__";
 
 export function getBackendAPI(): BackendAPI {
-  return new BackendAPIImpl();
+  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+    return new BackendAPIMock();
+  } else {
+    return new BackendAPIImpl();
+  }
 }
 
-interface BackendAPI {
+export interface BackendAPI {
   /**
    * Funds a specific issue.
    *
@@ -58,6 +63,8 @@ interface BackendAPI {
   getIssueFundingAmount(issueId: IssueId): Promise<number>;
 
   getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue>;
+
+  getFinancialIssues(): Promise<FinancialIssue[]>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -90,6 +97,10 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
+    return Promise.resolve(undefined as any);
+  }
+
+  async getFinancialIssues(): Promise<FinancialIssue[]> {
     return Promise.resolve(undefined as any);
   }
 }

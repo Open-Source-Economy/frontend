@@ -1,4 +1,4 @@
-import { Owner } from "../Owner";
+import { Owner } from "../github/Owner";
 import { ValidationError, Validator } from "../utils";
 
 export class ThirdPartyUserId {
@@ -55,6 +55,12 @@ export class ThirdPartyUser {
     this.id = id;
     this.emails = emails;
     this.providerData = providerData;
+  }
+
+  email(): string | null {
+    if (this.emails.length > 0) {
+      return this.emails[0].value;
+    } else return null;
   }
 
   static fromJson(json: any): ThirdPartyUser | ValidationError {
