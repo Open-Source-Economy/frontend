@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react"; // Importing React, useEffec
 import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for animations
 import "aos/dist/aos.css"; // Importing AOS CSS for animation styling
 import "./sec_4.css"; // Importing custom CSS specific to this component
-import vector from "../../../../../../assets/playbtn.svg";
-import hover from "../../../../../../assets/playbtnhover.png";
-import videoimg from "../../../../../../assets/videoframe_16852.png"; // Importing the video thumbnail image asset
+import vector from "src/assets/playbtn.svg";
+import hover from "src/assets/playbtnhover.png";
+import videoimg from "src/assets/videoframe_16852.png"; // Importing the video thumbnail image asset
 
 // Array of video data, including video source URLs and alt text for thumbnails
 const videoData = [

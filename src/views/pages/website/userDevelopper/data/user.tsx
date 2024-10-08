@@ -1,11 +1,11 @@
 import React from "react";
-import img2 from "../../../../../assets/icon/sec2img3.png";
-import img3 from "../../../../../assets/icon/userimg2.png";
-import img4 from "../../../../../assets/icon/userimg1.png";
+import img2 from "src/assets/icon/sec2img3.png";
+import img3 from "src/assets/icon/userimg2.png";
+import img4 from "src/assets/icon/userimg1.png";
 import "aos/dist/aos.css";
 import { SolutionProps } from "../elements/Solution";
-import primaryProblemsSrc from "../../../../../assets/btn.png";
-import secondaryProblemsSrc from "../../../../../assets/developerbannertext.png";
+import primaryProblemsSrc from "src/assets/btn.png";
+import secondaryProblemsSrc from "src/assets/developerbannertext.png";
 import { UserDeveloperProps } from "../UserDeveloper";
 import { Audience } from "../../../../Audience";
 

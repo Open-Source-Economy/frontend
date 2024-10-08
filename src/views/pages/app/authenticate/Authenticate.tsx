@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import logo from "../../../../assets/logo.png";
-import github from "../../../../assets/github.png";
+import logo from "src/assets/logo.png";
+import github from "src/assets/github.png";
 
 export enum AuthenticateType {
   SignIn,

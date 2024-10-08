@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import bg2 from "../../../../assets/bgimg.png";
-import bg from "../../../../assets/bg.png";
+import bg2 from "src/assets/bgimg.png";
+import bg from "src/assets/bg.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PageWrapper } from "../../PageWrapper";

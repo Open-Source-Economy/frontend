@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import img1 from "../../../../../assets/devimg.png";
+import img1 from "src/assets/devimg.png";
 
 interface ProblemProps {
   title: string | ReactNode;

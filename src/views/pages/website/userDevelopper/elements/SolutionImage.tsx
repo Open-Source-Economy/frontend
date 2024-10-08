@@ -1,5 +1,5 @@
 import React from "react";
-import star from "../../../../../assets/star.png";
+import star from "src/assets/star.png";
 
 interface SolutionImageProps {
   image: string;

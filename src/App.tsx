@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Authenticate, AuthenticateType, AuthProvider, developerProps, Home, Issue, Issues, Pdf, UserDeveloper, userProps } from "./views";
 import { ManageIssueFunding } from "./views/pages/app/manageIssueFunding";
 import { PrivateRoutes, UnAuthRoutes } from "./views/layout/PrivateRoutes";
+import { FundAnIssue } from "src/views/pages/app/fundAnIssue";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -28,6 +29,8 @@ const App = () => {
 
             <Route path="/issues" element={<Issues />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}`} element={<Issue />} />
+
+            <Route path="/fund-an-issue" element={<FundAnIssue />} />
 
             <Route path="/sign-in" element={<Authenticate type={AuthenticateType.SignIn} />} />
             <Route path="/sign-up-as-company" element={<Authenticate type={AuthenticateType.SignUpAsCompany} />} />

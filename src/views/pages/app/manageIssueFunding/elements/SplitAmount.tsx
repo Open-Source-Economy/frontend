@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Sol from "../../../../../assets/old/images/SOL.png";
-import Hero from "../../../../../assets/old/images/hero.png";
-import Money from "../../../../../assets/old/images/money.png";
-import User from "../../../../../assets/old/images/git-user.png";
+import Sol from "src/assets/old/images/SOL.png";
+import Hero from "src/assets/old/images/hero.png";
+import Money from "src/assets/old/images/money.png";
+import User from "src/assets/old/images/git-user.png";
 
 interface SplitAmountProps {}
 

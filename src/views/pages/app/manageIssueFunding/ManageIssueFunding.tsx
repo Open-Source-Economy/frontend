@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { Modal } from "react-bootstrap";
 
-import Blob from "../../../../assets/old/images/blob.png";
-import Sol from "../../../../assets/old/images/SOL.png";
-import Lady from "../../../../assets/old/images/lady.png";
-import Code from "../../../../assets/old/images/code.png";
-import Sad from "../../../../assets/old/images/sad.png";
-import Ose from "../../../../assets/old/images/ose.png";
-import Crypto from "../../../../assets/old/images/crypto.png";
+import Blob from "src/assets/old/images/blob.png";
+import Sol from "src/assets/old/images/SOL.png";
+import Lady from "src/assets/old/images/lady.png";
+import Code from "src/assets/old/images/code.png";
+import Sad from "src/assets/old/images/sad.png";
+import Ose from "src/assets/old/images/ose.png";
+import Crypto from "src/assets/old/images/crypto.png";
 
 interface ManageIssueFundingProps {}
 
@@ -24,7 +24,6 @@ export function ManageIssueFunding({}: ManageIssueFundingProps) {
   const handleClose3 = () => setShow3(false);
 
   const handleClick2 = () => {
-    // Update both show and show3 states simultaneously
     setShow(false);
     setShow2(true);
   };

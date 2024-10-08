@@ -1,11 +1,11 @@
 // data.js
 
 import React from "react";
-import img2 from "../../../../../assets/developerimg1.png";
-import img3 from "../../../../../assets/developerimg2.png";
-import img4 from "../../../../../assets/sec2img.png";
-import primaryProblemsSrc from "../../../../../assets/btn2.png";
-import secondaryProblemsSrc from "../../../../../assets/userbannertext.png";
+import img2 from "src/assets/developerimg1.png";
+import img3 from "src/assets/developerimg2.png";
+import img4 from "src/assets/sec2img.png";
+import primaryProblemsSrc from "src/assets/btn2.png";
+import secondaryProblemsSrc from "src/assets/userbannertext.png";
 import { SolutionProps } from "../elements/Solution";
 import { UserDeveloperProps } from "../UserDeveloper";
 import { Audience } from "../../../../Audience";

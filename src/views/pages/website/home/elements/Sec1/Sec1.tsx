@@ -2,7 +2,7 @@ import React, { useEffect } from "react"; // Importing React and the useEffect h
 import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for animations
 import "aos/dist/aos.css"; // Importing the AOS CSS file for animation styling
 import "./Sec1.css"; // Importing custom CSS specific to this component
-import img from "../../../../../../assets/Frame.svg";
+import img from "src/assets/Frame.svg";
 
 const Sec1 = () => {
   // Defining the Sec1 functional component
