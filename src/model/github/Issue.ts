@@ -1,6 +1,6 @@
 import { OwnerId } from "./Owner";
 import { RepositoryId } from "./Repository";
-import { ValidationError, Validator } from "../utils";
+import { ValidationError, Validator } from "../error";
 
 export class IssueId {
   repositoryId: RepositoryId;

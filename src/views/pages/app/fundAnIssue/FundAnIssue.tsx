@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import bgimage from "src/assets/Group258.svg";
 import img1 from "src/assets/issueimg1.png";
 import person from "src/assets/personicon.png";

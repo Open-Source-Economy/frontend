@@ -68,9 +68,9 @@ export class BackendAPIMock implements BackendAPI {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
-          financialIssue = new FinancialIssue(owner, repository, issue, owner, managedIssue);
+          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue);
         } else {
-          financialIssue = new FinancialIssue(owner, repository, issue, owner, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -79,7 +79,7 @@ export class BackendAPIMock implements BackendAPI {
   }
 }
 
-const userId = new UserId(141809342);
+const userId = new UserId("141809342");
 const ownerId = new OwnerId("Open-Source-Economy", 141809657);
 const repositoryId = new RepositoryId(ownerId, "frontend", 701996033);
 const issueId = new IssueId(repositoryId, 3, 2538344642);
@@ -100,10 +100,10 @@ const issue = new Issue(
 
 const thirdPartyUser = new ThirdPartyUser(Provider.Github, new ThirdPartyUserId("141809342"), [new Email("email", null)], new GithubData(owner));
 
-const user = new User(userId, thirdPartyUser, UserRole.user);
+const user = new User(userId, thirdPartyUser, UserRole.USER);
 
 function issueFunding(amount: number): IssueFunding {
-  return new IssueFunding(new IssueFundingId(Math.random()), issueId, userId, amount);
+  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
 }
 
 function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
@@ -112,10 +112,10 @@ function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
   for (const visibility of Object.values(ContributorVisibility)) {
     for (const state of Object.values(ManagedIssueState)) {
       const managedIssue: ManagedIssue = {
-        id: new ManagedIssueId(Math.random()),
+        id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
-        requestedDowAmount,
-        managerId: user,
+        requestedDowAmount: requestedDowAmount,
+        managerId: userId,
         contributorVisibility: visibility,
         state: state,
       };

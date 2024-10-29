@@ -4,8 +4,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Authenticate, AuthenticateType, AuthProvider, developerProps, Home, Issue, Issues, Pdf, UserDeveloper, userProps } from "./views";
 import { ManageIssueFunding } from "./views/pages/app/manageIssueFunding";
-import { PrivateRoutes, UnAuthRoutes } from "./views/layout/PrivateRoutes";
+import { SuperAdminRoutes, UnAuthRoutes, UserRoutes } from "./views/layout/UserRoutes";
 import { FundAnIssue } from "src/views/pages/app/fundAnIssue";
+import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -37,7 +38,12 @@ const App = () => {
             <Route path="/sign-up-as-contributor" element={<Authenticate type={AuthenticateType.SignUpAsContributor} />} />
           </Route>
 
-          <Route element={<PrivateRoutes />}>
+          <Route element={<SuperAdminRoutes />}>
+            <Route path={`/invite-company-user`} element={<ManageIssueFunding />} />
+            <Route path={`/create-company`} element={<CreateCompany />} />
+          </Route>
+
+          <Route element={<UserRoutes />}>
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage-funding`} element={<ManageIssueFunding />} />
           </Route>
         </Routes>

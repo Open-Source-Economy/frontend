@@ -48,6 +48,12 @@ class EnumValidationError extends ValidationError {
   }
 }
 
+class DateValidationError extends FieldValidationError {
+  constructor(path: string | string[], value: any, data: any) {
+    super(path, value, data, "Date");
+  }
+}
+
 export class Validator {
   private data: any;
   private errors: FieldValidationError[] = [];
@@ -130,10 +136,13 @@ export class Validator {
     }
   }
 
-  requiredBoolean(path: string | string[]): void {
+  // @ts-ignore
+  requiredBoolean(path: string | string[]): boolean {
     const value = this.getValue(path);
     if (typeof value !== "boolean") {
       this.errors.push(new BooleanValidationError(path, value, this.data));
+    } else {
+      return value;
     }
   }
 
@@ -183,5 +192,19 @@ export class Validator {
     } else {
       return value;
     }
+  }
+
+  // @ts-ignore
+  requiredDate(path: string | string[]): Date {
+    const value = this.getValue(path);
+
+    if (typeof value === "object") {
+      const date = new Date(value);
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+
+    this.errors.push(new DateValidationError(path, value, this.data));
   }
 }

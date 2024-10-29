@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from "../utils";
+import { ValidationError, Validator } from "../error";
 import { StripeInvoiceId } from "./StripeInvoice";
 import { StripeCustomerId } from "./StripeCustomer";
 import { StripeProductId } from "./StripeProduct";

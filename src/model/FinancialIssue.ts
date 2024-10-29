@@ -1,34 +1,31 @@
 import * as model from "./index";
-import { StripeProduct } from "./index";
 
 export class FinancialIssue {
   public owner: model.Owner;
   public repository: model.Repository;
   public issue: model.Issue;
-  public openBy?: model.Owner;
+  public issueManager?: model.User;
   public managedIssue?: model.ManagedIssue;
   public issueFundings?: model.IssueFunding[];
-  public product?: StripeProduct;
 
   constructor(
     owner: model.Owner,
     repository: model.Repository,
     issue: model.Issue,
-    openBy: model.Owner,
+    issueManager?: model.User,
     managedIssue?: model.ManagedIssue,
     issueFundings?: model.IssueFunding[],
-    product?: StripeProduct,
   ) {
     this.owner = owner;
     this.repository = repository;
     this.issue = issue;
-    this.openBy = openBy;
+    this.issueManager = issueManager;
     this.managedIssue = managedIssue;
     this.issueFundings = issueFundings;
-    this.product = product;
   }
 
   public amountCollected(): number {
+    // @ts-ignore
     return this.issueFundings?.reduce((acc, funding) => acc + funding.dowAmount, 0) ?? 0;
   }
 

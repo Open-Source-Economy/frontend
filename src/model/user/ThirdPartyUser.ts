@@ -1,5 +1,5 @@
 import { Owner } from "../github/Owner";
-import { ValidationError, Validator } from "../utils";
+import { ValidationError, Validator } from "../error";
 
 export class ThirdPartyUserId {
   id: string;

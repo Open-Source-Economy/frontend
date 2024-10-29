@@ -1,5 +1,5 @@
-import { ValidationError, Validator } from "./utils";
-import { IssueId, User } from "./index";
+import { ValidationError, Validator } from "./error";
+import { IssueId, UserId } from "./index";
 
 export enum ContributorVisibility {
   PUBLIC = "public",
@@ -13,10 +13,10 @@ export enum ManagedIssueState {
 }
 
 export class ManagedIssueId {
-  id: number;
+  uuid: string;
 
-  constructor(id: number) {
-    this.id = id;
+  constructor(uuid: string) {
+    this.uuid = uuid;
   }
 }
 
@@ -24,7 +24,7 @@ export class ManagedIssue {
   id: ManagedIssueId;
   githubIssueId: IssueId;
   requestedDowAmount: number;
-  managerId: User;
+  managerId: UserId;
   contributorVisibility: ContributorVisibility;
   state: ManagedIssueState;
 
@@ -32,7 +32,7 @@ export class ManagedIssue {
     id: ManagedIssueId,
     githubIssueId: IssueId,
     requestedDowAmount: number,
-    managerId: User,
+    managerId: UserId, // TODO: need to change to User
     contributorVisibility: ContributorVisibility,
     state: ManagedIssueState,
   ) {
@@ -51,9 +51,9 @@ export class ManagedIssue {
     }
 
     const validator = new Validator(row);
-    const id = validator.requiredNumber("id");
+    const id = validator.requiredString("id");
     const requestedDowAmount = validator.requiredNumber("requested_dow_amount");
-    const managerId = validator.requiredNumber("manager_id");
+    const managerId = validator.requiredString("manager_id");
     const contributorVisibility = validator.requiredEnum("contributor_visibility", Object.values(ContributorVisibility) as ContributorVisibility[]);
     const state = validator.requiredEnum("state", Object.values(ManagedIssueState) as ManagedIssueState[]);
 
@@ -62,14 +62,6 @@ export class ManagedIssue {
       return error;
     }
 
-    return new ManagedIssue(
-      new ManagedIssueId(id),
-      githubIssueId,
-      requestedDowAmount,
-      // @ts-ignore
-      managerId,
-      contributorVisibility,
-      state,
-    );
+    return new ManagedIssue(new ManagedIssueId(id), githubIssueId, requestedDowAmount, new UserId(managerId), contributorVisibility, state);
   }
 }

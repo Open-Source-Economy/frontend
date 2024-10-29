@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from "../utils";
+import { ValidationError, Validator } from "../error";
 import { UserId } from "../user";
 
 export class StripeCustomerId {
@@ -37,7 +37,7 @@ export class StripeCustomer {
   static fromStripeApi(json: any): StripeCustomer | ValidationError {
     const validator = new Validator(json);
     const id = validator.requiredString("id");
-    const userId = validator.requiredNumber("user_id");
+    const userId = validator.requiredString("user_id");
 
     const error = validator.getFirstError();
     if (error) {
@@ -50,7 +50,7 @@ export class StripeCustomer {
   static fromBackend(row: any): StripeCustomer | ValidationError {
     const validator = new Validator(row);
     const id = validator.requiredString("stripe_id");
-    const userId = validator.requiredNumber("user_id");
+    const userId = validator.requiredString("user_id");
 
     const error = validator.getFirstError();
     if (error) {

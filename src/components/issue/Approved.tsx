@@ -5,11 +5,12 @@ import { ExternalLink } from "src/components";
 
 interface ApprovedProps {
   managedIssue?: model.ManagedIssue;
+  manager?: model.User;
 }
 
 export function Approved(props: ApprovedProps) {
   const state = props.managedIssue?.state;
-  const githubOwner = props.managedIssue?.managerId.githubData()?.owner;
+  const githubOwner = props.manager?.githubData()?.owner;
 
   let text = "";
   if (state === ManagedIssueState.OPEN) {

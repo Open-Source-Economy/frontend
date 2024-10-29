@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
 
-import * as model from "../../../../model";
+import * as model from "src/model";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { getBackendAPI } from "src/services";

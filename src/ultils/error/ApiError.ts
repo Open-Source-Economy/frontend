@@ -1,9 +1,13 @@
-export class ApiError extends Error {
-  status?: number;
+import { StatusCodes } from "http-status-codes";
 
-  constructor(status?: number, message?: string) {
+export class ApiError extends Error {
+  statusCode: StatusCodes;
+  message: string;
+  stack = "";
+
+  constructor(statusCode: StatusCodes, message?: string) {
     super(message);
-    this.name = "ApiError";
-    this.status = status;
+    this.statusCode = statusCode;
+    this.message = message ?? "";
   }
 }

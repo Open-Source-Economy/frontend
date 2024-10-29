@@ -1,8 +1,9 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
-import { getAuthBackendAPI, LoginInfo, RegisterInfo } from "../../../../services";
-import { User } from "../../../../model";
-import { ApiError } from "../../../../ultils/error/ApiError";
+import { getAuthBackendAPI } from "src/services";
+import { User } from "src/model";
+import { ApiError } from "src/ultils/error/ApiError";
+import { LoginBodyParams, LoginQueryParams, RegisterBodyParams, RegisterQueryParams } from "src/dtos/auth";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -24,9 +25,9 @@ export function AuthProvider(props: AuthProviderProps) {
   const checkUserStatus = async () => {
     setLoading(true);
     try {
-      const user = await auth.checkUserStatus();
-      if (user instanceof User) setUser(user);
-      else setApiError(user);
+      const statusResponse = await auth.checkUserStatus();
+      if (statusResponse instanceof ApiError) setApiError(statusResponse);
+      else setUser(statusResponse.user);
     } catch (error) {
       console.error(error);
       setUnknownError(error);
@@ -35,12 +36,12 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const login = async (loginInfo: LoginInfo) => {
+  const login = async (body: LoginBodyParams, query: LoginQueryParams) => {
     setLoading(true);
     try {
-      const user = await auth.login(loginInfo);
-      if (user instanceof User) setUser(user);
-      else setApiError(user);
+      const loginResponse = await auth.login(body, query);
+      if (loginResponse instanceof ApiError) setApiError(loginResponse);
+      else setUser(loginResponse.user);
     } catch (error) {
       console.error(error);
       setUnknownError(error);
@@ -49,12 +50,12 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const register = async (registerInfo: RegisterInfo) => {
+  const register = async (body: RegisterBodyParams, query: RegisterQueryParams) => {
     setLoading(true);
     try {
-      const user = await auth.register(registerInfo);
-      if (user instanceof User) setUser(user);
-      else setApiError(user);
+      const registerResponse = await auth.register(body, query);
+      if (registerResponse instanceof ApiError) setApiError(registerResponse);
+      else setUser(registerResponse.user);
     } catch (error) {
       console.error(error);
       setUnknownError(error);

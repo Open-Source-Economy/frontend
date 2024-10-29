@@ -1,22 +1,23 @@
 import { LocalUser } from "./LocalUser";
 import { GithubData, ThirdPartyUser } from "./ThirdPartyUser";
-import { Owner } from "../github/Owner";
-import { ValidationError, Validator } from "../utils";
+import { Owner } from "../github";
+import { ValidationError, Validator } from "../error";
 
 export class UserId {
-  id: number;
+  uuid: string;
 
-  constructor(id: number) {
-    this.id = id;
+  constructor(uuid: string) {
+    this.uuid = uuid;
   }
 
   toString(): string {
-    return this.id.toString();
+    return this.uuid;
   }
 }
 
 export enum UserRole {
-  user = "user",
+  SUPER_ADMIN = "super_admin",
+  USER = "user",
 }
 
 export class User implements Express.User {
@@ -48,7 +49,7 @@ export class User implements Express.User {
 
   static fromRaw(row: any, owner: Owner | null = null): User | ValidationError {
     const validator = new Validator(row);
-    const id = validator.requiredNumber("id");
+    const id = validator.requiredString("id");
     const role = validator.requiredEnum("role", Object.values(UserRole) as UserRole[]);
 
     const error = validator.getFirstError();

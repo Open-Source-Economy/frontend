@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { SelectFilter } from "../../../../../components";
-import * as model from "../../../../../model/FinancialIssue";
+import { SelectFilter } from "src/components";
+import * as model from "src/model/FinancialIssue";
 import search from "src/assets/search.png";
 
 interface IssueFilterProps {

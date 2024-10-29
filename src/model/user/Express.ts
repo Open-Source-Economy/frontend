@@ -1,5 +1,6 @@
 import { UserId, UserRole } from "./User";
-import { LocalUser, ThirdPartyUser } from "src/model";
+import { LocalUser } from "./LocalUser";
+import { ThirdPartyUser } from "./ThirdPartyUser";
 
 declare global {
   namespace Express {

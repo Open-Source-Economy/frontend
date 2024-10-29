@@ -56,8 +56,6 @@ export interface BackendAPI {
   // TODO: maybe internal to the backend?
   updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void>;
 
-  // TODO: can we store data from GitHub API?
-
   /* Getters */
 
   getIssueFundingAmount(issueId: IssueId): Promise<number>;
