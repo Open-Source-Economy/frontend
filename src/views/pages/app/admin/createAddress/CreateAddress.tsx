@@ -55,6 +55,7 @@ export function CreateAddress(props: CreateAddressProps) {
         setPostalCode("");
         setCountry("");
       }
+      setError(null);
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
     }
@@ -64,7 +65,11 @@ export function CreateAddress(props: CreateAddressProps) {
     <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
-          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Create an Address</h1>
+          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">
+            Admin
+            <br />
+            <span className="text-[#FF7E4B]">Create an Address</span>
+          </h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
               onSubmit={handleSubmit}
@@ -126,7 +131,7 @@ export function CreateAddress(props: CreateAddressProps) {
               </button>
             </form>
 
-            {createdAddressId && <h2 className="text-white text-[30px] font-medium mt-5">{`Created Address Id: ${createdAddressId}`}</h2>}
+            {createdAddressId && <h2 className="text-white text-[30px] font-medium mt-5">{`Created Address Id: ${createdAddressId.uuid.toString()}`}</h2>}
 
             {error && <p className="text-red-500 mt-3">Error: {error}</p>}
           </div>

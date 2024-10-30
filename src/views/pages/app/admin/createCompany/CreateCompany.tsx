@@ -11,9 +11,9 @@ export function CreateCompany(props: CreateCompanyProps) {
   const adminBackendAPI = getAdminBackendAPI();
 
   const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState<string>("");
-  const [taxId, setTaxId] = useState<string>("");
-  const [addressId, setAddressId] = useState<string>("");
+  const [name, setName] = useState<string | null>(null);
+  const [taxId, setTaxId] = useState<string | null>(null);
+  const [addressId, setAddressId] = useState<string | null>(null);
   const [createdCompanyId, setCreatedCompanyId] = useState<CompanyId | null>(null);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +29,11 @@ export function CreateCompany(props: CreateCompanyProps) {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if (name === null) {
+      setError("name is required");
+      event.preventDefault();
+      return;
+    }
     event.preventDefault();
     const body: CreateCompanyBodyParams = {
       taxId,
@@ -43,6 +48,7 @@ export function CreateCompany(props: CreateCompanyProps) {
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);
       } else {
+        setError(null);
         setCreatedCompanyId(result.createdCompanyId);
       }
     } catch (error) {
@@ -64,7 +70,7 @@ export function CreateCompany(props: CreateCompanyProps) {
                 type="text"
                 placeholder="Name"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={name}
+                value={name ?? ""}
                 onChange={handleNameChange}
                 required
               />
@@ -73,16 +79,15 @@ export function CreateCompany(props: CreateCompanyProps) {
                 type="text"
                 placeholder="Tax Id"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={taxId}
+                value={taxId ?? ""}
                 onChange={handleTaxIdChange}
-                required
               />
 
               <input
                 type="text"
                 placeholder="Address Id"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={addressId}
+                value={addressId ?? ""}
                 onChange={handleAddressIdChange}
               />
 
@@ -91,7 +96,7 @@ export function CreateCompany(props: CreateCompanyProps) {
               </button>
             </form>
 
-            {createdCompanyId && <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId}`}</h2>}
+            {createdCompanyId && <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId.uuid}`}</h2>}
 
             {error && <p className="text-red-500 mt-3">Error: {error}</p>}
           </div>

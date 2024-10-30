@@ -1,17 +1,61 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
+import { CreateCompanyBodyParams, CreateCompanyQueryParams, SendCompanyAdminInviteBodyParams, SendCompanyAdminInviteQueryParams } from "src/dtos";
+import { AddressId, Company, CompanyId, CompanyUserRole } from "src/model";
+import { ApiError } from "src/ultils/error/ApiError";
+import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 
 interface InviteCompanyUserProps {}
 
 export function InviteCompanyUser(props: InviteCompanyUserProps) {
-  const [email, setEmail] = useState("");
+  const adminBackendAPI = getAdminBackendAPI();
+
+  const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const [companyId, setCompanyId] = useState<CompanyId | null>(null);
+
+  const [success, setSuccess] = useState<boolean | null>(null);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
+  const handleCompanyIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanyId(new CompanyId(event.target.value));
+  };
+
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (email === null) {
+      setError("Email is required");
+      return;
+    }
+
+    if (companyId === null) {
+      setError("companyId is required");
+      return;
+    }
+    const body: SendCompanyAdminInviteBodyParams = {
+      userEmail: email,
+      companyId: companyId,
+      companyUserRole: CompanyUserRole.ADMIN,
+    };
+
+    const query: SendCompanyAdminInviteQueryParams = {};
+
+    try {
+      const result = await adminBackendAPI.sendCompanyAdminInvite(body, query);
+      if (result instanceof ApiError) {
+        setError(`${result.statusCode}: ${result.message}`);
+      } else {
+        setError(null);
+        setEmail(null);
+        setCompanyId(null);
+        setSuccess(true);
+      }
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An unknown error occurred");
+    }
   };
 
   return (
@@ -28,17 +72,28 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
                 type="email"
                 placeholder="Email"
                 className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
-                value={email}
+                value={email ?? ""}
                 onChange={handleEmailChange}
                 required
               />
 
+              <input
+                type="text"
+                placeholder="Company Id"
+                className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
+                value={companyId?.uuid ?? ""}
+                onChange={handleCompanyIdChange}
+                required
+              />
+
               <button type="submit" className="sm:px-14 px-[20px]  py-3  findbutton cursor-pointer">
-                Sign In
+                Invite user
               </button>
             </form>
 
-            <h2 className="text-white text-[30px] font-medium"></h2>
+            {error && <p className="text-red-500 mt-3">Error: {error}</p>}
+
+            <h2 className="text-white text-[30px] font-medium">{success ? `Success` : ""}</h2>
           </div>
         </div>
       </div>

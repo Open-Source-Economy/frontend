@@ -2,7 +2,7 @@ import { AddressId, CompanyId } from "../model";
 
 export interface CreateCompanyBodyParams {
   taxId: string | null;
-  name: string | null;
+  name: string;
   addressId: AddressId | null;
 }
 

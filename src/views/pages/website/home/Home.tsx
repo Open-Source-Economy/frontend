@@ -8,21 +8,21 @@ interface HomeProps {}
 
 export function Home(props: HomeProps) {
   return (
-    // <PageWrapper>
-    <div className="boxlayer mt-md-5 mt-4 ">
-      <div className="container">
-        <Sec1 />
+    <PageWrapper>
+      <div className="boxlayer mt-md-5 mt-4 ">
+        <div className="container">
+          <Sec1 />
+        </div>
+        <Sec2 />
+        {/*<div>*/}
+        {/*  <div className="sec3bg1">*/}
+        {/*    <div className="sec3bg2">*/}
+        {/*      <Sec3 />*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*  <Sec4 />*/}
+        {/*</div>*/}
       </div>
-      <Sec2 />
-      {/*<div>*/}
-      {/*  <div className="sec3bg1">*/}
-      {/*    <div className="sec3bg2">*/}
-      {/*      <Sec3 />*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*  <Sec4 />*/}
-      {/*</div>*/}
-    </div>
-    // </PageWrapper>
+    </PageWrapper>
   );
 }

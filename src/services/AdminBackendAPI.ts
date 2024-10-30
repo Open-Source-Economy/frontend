@@ -27,7 +27,7 @@ export interface AdminBackendAPI {
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
   async createAddress(body: CreateAddressBodyParams, query: CreateAddressQueryParams): Promise<CreateAddressResponse | ApiError> {
-    return await handleError<CreateAddressResponse>(() => axios.get(`${API_URL}/admin/address`, { withCredentials: true }), "createAddress");
+    return await handleError<CreateAddressResponse>(() => axios.post(`${API_URL}/admin/address`, body, { withCredentials: true }), "createAddress");
   }
 
   async createCompany(body: CreateCompanyBodyParams, query: CreateCompanyQueryParams): Promise<CreateCompanyResponse | ApiError> {

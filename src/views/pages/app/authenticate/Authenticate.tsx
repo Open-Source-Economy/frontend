@@ -136,7 +136,7 @@ export function Authenticate(props: AuthenticateProps) {
             </div>
             <div className="flex  justify-center items-center gap-3 mt-5">
               {/*TODO: lolo*/}
-              <Link to={"/payment"}>
+              <Link to={"/sign-up"}>
                 <button className="px-[20px] sm:px-14  button  py-3 rounded-3 cursor-pointer" disabled={auth.loading}>
                   Sign Up
                 </button>
