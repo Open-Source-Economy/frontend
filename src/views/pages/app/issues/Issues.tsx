@@ -11,8 +11,11 @@ interface IssuesProps {}
 
 export function Issues(props: IssuesProps) {
   const backendAPI = getBackendAPI();
+
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -21,7 +24,10 @@ export function Issues(props: IssuesProps) {
         setFinancialIssues(financialIssues);
         setFilteredFinancialIssues(financialIssues);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching financial issues:", error);
+        setError("Failed to load issues. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -46,11 +52,18 @@ export function Issues(props: IssuesProps) {
             <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
 
             <div className="mt-5">
-              {filteredFinancialIssues.map(financialIssues => (
-                <div key={financialIssues.id()}>
-                  <IssueCard financialIssue={financialIssues} displayActionButtons={true} displaySeeMore={false} />
-                </div>
-              ))}
+              {isLoading ? (
+                // TODO: improve the design of the loading state
+                <p>Loading issues...</p>
+              ) : error ? (
+                // TODO: improve the design
+                <p className="text-red-500">{error}</p>
+              ) : (filteredFinancialIssues || []).length > 0 ? (
+                filteredFinancialIssues.map(issue => <IssueCard key={issue.id()} financialIssue={issue} displayActionButtons displaySeeMore={false} />)
+              ) : (
+                // TODO: improve the design
+                <p>No issues found.</p>
+              )}
             </div>
           </div>
         </section>

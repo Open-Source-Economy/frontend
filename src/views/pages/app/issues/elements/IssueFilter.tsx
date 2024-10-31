@@ -20,8 +20,8 @@ export function IssueFilter(props: IssueFilterProps) {
     return temp;
   }
 
-  const owners = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.owner.id.login));
-  const repositories = toSelectOptions(props.financialIssues.map(financialIssue => financialIssue.repository.id.name));
+  const owners = toSelectOptions((props.financialIssues || []).map(financialIssue => financialIssue.owner.id.login));
+  const repositories = toSelectOptions((props.financialIssues || []).map(financialIssue => financialIssue.repository.id.name));
 
   const [selectedOwner, setSelectedOwner] = React.useState(all);
   const [selectedRepository, setSelectedRepository] = React.useState(all);
