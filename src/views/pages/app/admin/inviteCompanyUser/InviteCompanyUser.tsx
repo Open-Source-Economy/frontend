@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { CreateCompanyBodyParams, CreateCompanyQueryParams, SendCompanyAdminInviteBodyParams, SendCompanyAdminInviteQueryParams } from "src/dtos";
-import { AddressId, Company, CompanyId, CompanyUserRole } from "src/model";
+import { SendCompanyAdminInviteBodyParams, SendCompanyAdminInviteQueryParams } from "src/dtos";
+import { CompanyId, CompanyUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 

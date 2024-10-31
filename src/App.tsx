@@ -37,9 +37,7 @@ const App = () => {
           <Route path="/logout" element={<Logout />} />
           <Route element={<AuthRoutes />}>
             <Route path="/sign-in" element={<Authenticate type={AuthenticateType.SignIn} />} />
-            <Route path="/sign-up" element={<Authenticate type={AuthenticateType.SignUpAsCompany} />} />
-            <Route path="/sign-up-as-company" element={<Authenticate type={AuthenticateType.SignUpAsCompany} />} />
-            <Route path="/sign-up-as-contributor" element={<Authenticate type={AuthenticateType.SignUpAsContributor} />} />
+            <Route path="/sign-up" element={<Authenticate type={AuthenticateType.SignUp} />} />
           </Route>
 
           <Route element={<SuperAdminRoutes />}>

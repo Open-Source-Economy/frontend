@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { ApiError } from "src/ultils/error/ApiError";
-import { LoginBodyParams, LoginQueryParams, RegisterBodyParams, RegisterQueryParams } from "src/dtos/auth";
+import {
+  GetCompanyUserInviteInfoBodyParams,
+  GetCompanyUserInviteInfoQueryParams,
+  LoginBodyParams,
+  LoginQueryParams,
+  RegisterBodyParams,
+  RegisterQueryParams,
+} from "src/dtos/auth";
+import { getAuthBackendAPI } from "src/services";
+import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 
 export enum AuthenticateType {
   SignIn,
-  SignUpAsContributor,
-  SignUpAsCompany,
+  SignUp,
 }
 
 interface AuthenticateProps {
@@ -19,13 +27,21 @@ interface AuthenticateProps {
 
 export function Authenticate(props: AuthenticateProps) {
   const auth = useAuth();
+  const authAPI = getAuthBackendAPI();
+  const location = useLocation();
 
+  const params = new URLSearchParams(location.search);
+  const projectToken: string | null = params.get("project_token");
+  const companyToken = params.get("company_token");
+
+  const [name, setName] = useState<string | null>(null);
   const [email, setEmail] = useState("");
+  const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    // Any side effects or cleanup can be handled here
-  }, []);
+    if (companyToken) fetchCompanyUserInviteInfo(companyToken);
+  }, [companyToken]);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -37,7 +53,6 @@ export function Authenticate(props: AuthenticateProps) {
 
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (props.type === AuthenticateType.SignIn) {
       const body: LoginBodyParams = {
         email: email,
@@ -59,6 +74,21 @@ export function Authenticate(props: AuthenticateProps) {
     await auth.loginWithGitHub();
   };
 
+  const fetchCompanyUserInviteInfo = async (companyToken: string) => {
+    try {
+      const body: GetCompanyUserInviteInfoBodyParams = {};
+      const query: GetCompanyUserInviteInfoQueryParams = {
+        token: companyToken,
+      };
+      const inviteInfo = await authAPI.getCompanyUserInviteInfo(body, query);
+      setName(inviteInfo.userName ?? null);
+      setEmail(inviteInfo.userEmail);
+      setIsEmailPredefined(true);
+    } catch (error) {
+      console.error(error); // TODO: display the error
+    }
+  };
+
   return (
     <PageWrapper>
       <div className="login pt-12 pb-24">
@@ -69,29 +99,35 @@ export function Authenticate(props: AuthenticateProps) {
             className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
           >
             <Link to={"/"}>
-              <img src={logo} className="w-[310px] h-[55px] object-cover" alt="" />
+              <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
             </Link>
 
-            <button
-              className="bg-[#202F45] rounded-lg flex items-center justify-center mt-12 px-5 py-[12px] sm:w-[90%] lg:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
-              onClick={handleLogInWithGithub}
-            >
-              <img src={github} className="w-[21px] h-[21px]" alt="" />
-              <h3 className="text-base text-[#ffffff]">Sign in with Github</h3>
-            </button>
-            <div className="flex items-center justify-center gap-3 mt-6">
-              <hr className="bg-[rgba(255, 255, 255, 0.7)] w-[100px] sm:w-[170px] h-[2px] mt-[5px]" />
-              <h3 className="text-base text-[#ffffff]">Or</h3>
-              <hr className="bg-[rgba(255, 255, 255, 0.7)] w-[100px] sm:w-[170px] h-[2px] mt-[5px]" />
-            </div>
-            <div className="mt-6 flex items-center justify-center gap-3 flex-col">
+            {!isEmailPredefined && (
+              <>
+                <button
+                  className="bg-[#202F45] rounded-lg flex items-center justify-center px-5 py-[12px] sm:w-[90%] lg:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
+                  onClick={handleLogInWithGithub}
+                >
+                  <img src={github} className="w-[21px] h-[21px]" alt="" />
+                  <h3 className="text-base text-[#ffffff]">Sign in with Github</h3>
+                </button>
+                <div className="flex items-center justify-center gap-3 mt-6 mb-6">
+                  <hr className="bg-[rgba(255, 255, 255, 0.7)] w-[100px] sm:w-[170px] h-[2px] mt-[5px]" />
+                  <h3 className="text-base text-[#ffffff]">Or</h3>
+                  <hr className="bg-[rgba(255, 255, 255, 0.7)] w-[100px] sm:w-[170px] h-[2px] mt-[5px]" />
+                </div>
+              </>
+            )}
+
+            <div className="flex items-center justify-center gap-3 flex-col">
               <input
                 type="email"
                 placeholder="Email"
-                className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
+                className={`${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                 value={email}
                 onChange={handleEmailChange}
                 required
+                disabled={isEmailPredefined}
               />
               <input
                 type="password"
@@ -102,48 +138,23 @@ export function Authenticate(props: AuthenticateProps) {
                 required
               />
             </div>
-            {/* TODO */}
-            <div className="flex items-start justify-center gap-3 px-4 mt-4">
-              <input type="checkbox" id="customCheckbox" className="customCheckbox" />
-              <p className="text-[12px] leading-6 text-[#ffffff]">
-                By placing an order you agree with the{" "}
-                <a href="javascript:void(0)" className="gradient-text fw-bold hover-effect">
-                  Terms of Use
-                </a>{" "}
-                and{" "}
-                <a href="javascript:void(0)" className="gradient-text fw-bold hover-effect">
-                  Terms of Sales
-                </a>
-              </p>
 
-              {auth.error instanceof ApiError && <div className="alert alert-danger mt-3">{auth.error.message}</div>}
+            {/*TODO: incorporate it*/}
+            {/*<TermsAgreement />*/}
 
-              <style>{`
-              .gradient-text {
-                background: linear-gradient(90deg, #ff7e4b, #ff518c);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-              }
-              .hover-effect {
-                border-bottom: 1px solid transparent; /* Set a transparent border to allow border-image to show */
-                transition: border-bottom 0.3s ease;
-              }
-              .hover-effect:hover {
-                border-image: linear-gradient(90deg, #ff7e4b, #ff518c);
-                border-image-slice: 1;
-              }
-            `}</style>
-            </div>
+            {/*TODO: display error*/}
+            {/*{auth.error instanceof ApiError && <div className="alert alert-danger mt-3">{auth.error.message}</div>}*/}
+
             <div className="flex  justify-center items-center gap-3 mt-5">
-              {/*TODO: lolo*/}
-              <Link to={"/sign-up"}>
+              {/*TODO: should be the generic button */}
+              <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
                 <button className="px-[20px] sm:px-14  button  py-3 rounded-3 cursor-pointer" disabled={auth.loading}>
-                  Sign Up
+                  {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
                 </button>
               </Link>
 
-              <button type="submit" className="sm:px-14 px-[20px]  py-3  findbutton cursor-pointer" disabled={auth.loading}>
-                {auth.loading ? "Signing In..." : "Sign In"}
+              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={auth.loading}>
+                {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
               </button>
             </div>
           </form>
