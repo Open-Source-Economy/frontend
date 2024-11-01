@@ -9,7 +9,7 @@ import bgimage from "src/assets/Group258.svg";
 
 interface IssueProps {}
 
-export function Issue({}: IssueProps) {
+export function FundIssue({}: IssueProps) {
   const backendAPI = getBackendAPI();
 
   const { ownerParam, repoParam, numberParam } = useParams();

@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import bg from "/src/assets/paymentbg.png";
-import img1 from "/src/assets/paymentimg1.png";
-import clock from "/src/assets/sand-clock.png";
-import couponimg from "/src/assets/codeimg.png";
-import down from "/src/assets/arrowdown.png";
-import up from "/src/assets/arrowup.png";
-import danger from "/src/assets/danger.png";
+import bg from "src/assets/paymentbg.png";
+import img1 from "src/assets/paymentimg1.png";
+import clock from "src/assets/sand-clock.png";
+import couponimg from "src/assets/codeimg.png";
+import down from "src/assets/arrowdown.png";
+import up from "src/assets/arrowup.png";
+import danger from "src/assets/danger.png";
 
 interface PaymentProps {}
 

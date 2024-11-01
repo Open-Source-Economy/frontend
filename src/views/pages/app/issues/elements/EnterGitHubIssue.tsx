@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { issuePath } from "src/App";
+import { fundIssuePath } from "src/App";
 import { useNavigate } from "react-router-dom";
 
 interface EnterGitHubIssueProps {}
@@ -34,7 +34,7 @@ export function EnterGitHubIssue({}: EnterGitHubIssueProps) {
         setIsValidUrl(true);
         const { owner, repo, number } = issueInfo;
         // You can use owner, repo, and number here as needed
-        navigate(issuePath(owner, repo, parseInt(number)));
+        navigate(fundIssuePath(owner, repo, parseInt(number)));
       } else {
         setIsValidUrl(false);
       }

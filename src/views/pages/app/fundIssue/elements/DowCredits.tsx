@@ -21,8 +21,9 @@ export function DowCredits(props: DowCreditsProps) {
   const increment = () => {
     setCounter(counter + DOW_INCREMENT);
   };
+
   const decrement = () => {
-    setCounter(counter - DOW_INCREMENT);
+    if (counter > 0) setCounter(counter - DOW_INCREMENT);
   };
 
   const fundIssue = () => {
@@ -53,9 +54,7 @@ export function DowCredits(props: DowCreditsProps) {
                 <img
                   src={down}
                   className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
-                  onClick={() => {
-                    if (counter > 0) decrement();
-                  }}
+                  onClick={decrement}
                   alt=""
                   style={{
                     pointerEvents: counter === 0 ? "none" : "auto",

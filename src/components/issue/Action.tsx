@@ -2,7 +2,7 @@ import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
 import { ButtonSize, ButtonType, ExternalLinkButton, LinkButton } from "src/components";
 import { Audience } from "src/views";
-import { issuePath } from "src/App";
+import { fundIssuePath } from "src/App";
 
 interface ActionProps {
   issue: Issue;
@@ -15,7 +15,7 @@ export function Action(props: ActionProps) {
     return (
       <>
         <LinkButton
-          to={issuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}
+          to={fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}
           buttonProps={{
             type: props.successfullyFunded ? ButtonType.SECONDARY : ButtonType.PRIMARY,
             size: ButtonSize.MEDIUM,
