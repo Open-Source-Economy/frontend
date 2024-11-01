@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { IssueCard } from "../../../../components/issue";
+import { IssueCard } from "src/components/issue";
 import * as model from "src/model";
 import { useParams } from "react-router-dom";
-import { Tab, TabPanel } from "../../../../components";
-import { FiatPayment } from "./elements";
+import { DowCredits, DisclaimerModal } from "./elements";
 import { getBackendAPI } from "src/services/BackendAPI";
+import bgimage from "src/assets/Group258.svg";
 
 interface IssueProps {}
 
@@ -16,6 +16,7 @@ export function Issue({}: IssueProps) {
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
   const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue>();
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     // TODO: not to re-ask GitHub when you come from a previous page
@@ -31,43 +32,38 @@ export function Issue({}: IssueProps) {
     })();
   }, []);
 
-  const [activeTab, setActiveTab] = useState<Tab>(Tab.One);
-
   return (
     <PageWrapper>
-      <section>
-        <div className="container mt-5 pt-lg-5 pt-3">
-          <h1 className="text-center text-white">
-            Fund this <span className="text__primary">Issue</span>
+      <div className="flex flex-col items-center justify-center pb-52">
+        {/*TODO: clean */}
+        <div
+          className="mt-20 py-5 px-3"
+          style={{
+            backgroundImage: `url(${bgimage})`,
+            backgroundPosition: "top",
+            backgroundPositionY: "-310px",
+            backgroundSize: "1200px",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          {/*TODO: factorize the title with other page title*/}
+          <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
+            Fund an <span className="text-[#FF7E4B]">Issue</span>
           </h1>
 
-          <div className="row d-flex justify-content-center gy-5 mt-5">
-            <div className="col-lg-6">
-              <div className="native-card">
-                {financialIssue && <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />}
-              </div>
+          <div className="pt-24 flex justify-center flex-wrap gap-4">
+            <div className="xl:w-[600px] md:w-[590px] w-full">
+              {financialIssue && <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />}
             </div>
 
-            <div className="col-lg-6">
-              <div className="native-card">
-                <div className="d-flex justify-content-between flex-lg-nowrap flex-wrap">
-                  <div className="d-flex gap-4 align-items-center">
-                    <TabPanel tab={Tab.One} index={activeTab} setActiveTab={setActiveTab}>
-                      Credit Card
-                    </TabPanel>
-
-                    <TabPanel tab={Tab.Two} index={activeTab} setActiveTab={setActiveTab}>
-                      Crypto
-                    </TabPanel>
-                  </div>
-                </div>
-
-                {activeTab === Tab.One && <FiatPayment />}
-              </div>
+            <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
+              <DowCredits onCreditsSuccess={() => setModal(true)} />
             </div>
+
+            {modal && <DisclaimerModal show={modal} setShow={setModal} />}
           </div>
         </div>
-      </section>
+      </div>
     </PageWrapper>
   );
 }

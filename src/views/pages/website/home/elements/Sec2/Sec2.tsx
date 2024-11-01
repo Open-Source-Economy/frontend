@@ -6,7 +6,7 @@ import sec2icon2 from "src/assets/icon/sec2img3.png";
 import sec2icon3 from "src/assets/sec2img2.png";
 import startimg from "src/assets/star.png";
 import "./Sec2.css";
-import { ButtonType, LinkButton } from "../../../../../../components";
+import { ButtonType, LinkButton } from "src/components";
 import { Audience } from "../../../../../Audience";
 
 const Sec2 = () => {

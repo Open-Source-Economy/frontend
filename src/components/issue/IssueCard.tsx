@@ -36,13 +36,15 @@ export function IssueCard(props: IssueProps) {
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
             </div>
 
-            <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">
-              <Action
-                issue={props.financialIssue.issue}
-                state={props.financialIssue.managedIssue?.state}
-                successfullyFunded={props.financialIssue.successfullyFunded()}
-              />
-            </div>
+            {props.displayActionButtons && (
+              <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">
+                <Action
+                  issue={props.financialIssue.issue}
+                  state={props.financialIssue.managedIssue?.state}
+                  successfullyFunded={props.financialIssue.successfullyFunded()}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,3 +1,2 @@
 export * from "./DisclaimerModal";
-export * from "./RegisterModal";
-export * from "./FiatPayment";
+export * from "./DowCredits";
