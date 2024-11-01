@@ -7,3 +7,7 @@ export interface CreateManualInvoiceBodyParams {
   paid: boolean;
   dowAmount: number;
 }
+
+export interface CreateManualInvoiceQueryParams {}
+
+export interface CreateManualInvoiceResponse {}

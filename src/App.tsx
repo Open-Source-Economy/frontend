@@ -9,6 +9,7 @@ import { FundAnIssue } from "src/views/pages/app/fundAnIssue";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
+import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -44,6 +45,7 @@ const App = () => {
             <Route path={`/admin/invite-company-user`} element={<InviteCompanyUser />} />
             <Route path={`/admin/create-company`} element={<CreateCompany />} />
             <Route path={`/admin/create-address`} element={<CreateAddress />} />
+            <Route path={`/admin/create-manual-invoice`} element={<CreateManualInvoice />} />
           </Route>
 
           <Route element={<UserRoutes />}>

@@ -5,6 +5,9 @@ import {
   CreateCompanyBodyParams,
   CreateCompanyQueryParams,
   CreateCompanyResponse,
+  CreateManualInvoiceBodyParams,
+  CreateManualInvoiceQueryParams,
+  CreateManualInvoiceResponse,
   SendCompanyAdminInviteBodyParams,
   SendCompanyAdminInviteQueryParams,
   SendCompanyAdminInviteResponse,
@@ -23,6 +26,8 @@ export interface AdminBackendAPI {
   createCompany(body: CreateCompanyBodyParams, query: CreateCompanyQueryParams): Promise<CreateCompanyResponse | ApiError>;
 
   sendCompanyAdminInvite(body: SendCompanyAdminInviteBodyParams, query: SendCompanyAdminInviteQueryParams): Promise<SendCompanyAdminInviteResponse | ApiError>;
+
+  createManualInvoice(body: CreateManualInvoiceBodyParams, query: CreateManualInvoiceQueryParams): Promise<CreateManualInvoiceResponse | ApiError>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -41,6 +46,13 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<SendCompanyAdminInviteResponse>(
       () => axios.post(`${API_URL}/admin/company/admin-invite`, body, { withCredentials: true }),
       "sendCompanyAdminInvite",
+    );
+  }
+
+  async createManualInvoice(body: CreateManualInvoiceBodyParams, query: CreateManualInvoiceQueryParams): Promise<CreateManualInvoiceResponse | ApiError> {
+    return await handleError<CreateManualInvoiceResponse>(
+      () => axios.post(`${API_URL}/admin/company/create-manual-invoice`, body, { withCredentials: true }),
+      "createManualInvoice",
     );
   }
 }
