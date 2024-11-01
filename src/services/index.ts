@@ -13,14 +13,14 @@ if (!process.env.REACT_APP_OSE_API_API_VERSION) {
 
 export const API_URL = `${process.env.REACT_APP_OSE_API_BASE_URL}/${process.env.REACT_APP_OSE_API_API_VERSION}`;
 
-export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T | ApiError> {
+export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T> {
   try {
     const response: AxiosResponse<ResponseBody<T>, any> = await call();
     return response.data.success!;
   } catch (err) {
     if (err instanceof AxiosError) {
-      console.error(`Error when ${name}:`, err);
-      return new ApiError(err.response?.status as StatusCodes, err.response?.statusText ?? "");
+      console.error(`Error on ${name}:`, err);
+      throw new ApiError(err.response?.status as StatusCodes, err.response?.statusText ?? "");
     } else {
       console.error(`Unexpected error during ${name}:`, err);
       throw err; // Re-throw unexpected errors

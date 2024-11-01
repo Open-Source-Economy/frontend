@@ -1,4 +1,4 @@
-import { FinancialIssue, IssueId, UserId } from "../model";
+import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__tests__/__mocks__";
 
@@ -11,6 +11,14 @@ export function getBackendAPI(): BackendAPI {
 }
 
 export interface BackendAPI {
+  /* Getters */
+
+  getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue>;
+
+  getFinancialIssues(): Promise<FinancialIssue[]>;
+
+  getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number>;
+
   /**
    * Funds a specific issue.
    *
@@ -51,30 +59,24 @@ export interface BackendAPI {
   // TODO: dust remaining?
   splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void>;
 
-  login(): Promise<void>;
-
   // TODO: maybe internal to the backend?
   updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void>;
-
-  /* Getters */
-
-  getIssueFundingAmount(issueId: IssueId): Promise<number>;
-
-  getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue>;
-
-  getFinancialIssues(): Promise<FinancialIssue[]>;
 }
 
 class BackendAPIImpl implements BackendAPI {
+  async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
+    return Promise.resolve(undefined as any);
+  }
+
+  async getFinancialIssues(): Promise<FinancialIssue[]> {
+    return Promise.resolve(undefined as any);
+  }
+
+  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number> {
+    return Promise.resolve(undefined as any);
+  }
+
   async fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async getIssueFundingAmount(issueId: IssueId): Promise<number> {
-    return Promise.resolve(0);
-  }
-
-  async login(): Promise<void> {
     return Promise.resolve(undefined);
   }
 
@@ -92,13 +94,5 @@ class BackendAPIImpl implements BackendAPI {
 
   async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void> {
     return Promise.resolve(undefined);
-  }
-
-  async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
-    return Promise.resolve(undefined as any);
-  }
-
-  async getFinancialIssues(): Promise<FinancialIssue[]> {
-    return Promise.resolve(undefined as any);
   }
 }

@@ -20,38 +20,38 @@ export function getAuthBackendAPI(): AuthBackendAPI {
 
 // TODO: change to not return an ApiError
 interface AuthBackendAPI {
-  checkUserStatus(): Promise<StatusResponse | ApiError>;
+  checkUserStatus(): Promise<StatusResponse>;
 
-  login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse | ApiError>;
+  login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse>;
 
-  register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse | ApiError>;
+  register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse>;
 
   loginWithGitHub(success?: string, failure?: string): Promise<void>;
 
-  deleteSession(): Promise<void | ApiError>;
+  deleteSession(): Promise<void>;
 
   getCompanyUserInviteInfo(body: GetCompanyUserInviteInfoBodyParams, query: GetCompanyUserInviteInfoQueryParams): Promise<GetCompanyUserInviteInfoResponse>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
-  async checkUserStatus(): Promise<StatusResponse | ApiError> {
+  async checkUserStatus(): Promise<StatusResponse> {
     return handleError<StatusResponse>(() => axios.get(`${API_URL}/auth/status`, { withCredentials: true }), "checkUserStatus");
   }
 
-  async login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse | ApiError> {
-    return await handleError(() => axios.post(`${API_URL}/auth/login`, body, { withCredentials: true }), "login");
+  async login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse> {
+    return handleError(() => axios.post(`${API_URL}/auth/login`, body, { withCredentials: true }), "login");
   }
 
-  async register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse | ApiError> {
-    return await handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
+  async register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse> {
+    return handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
   }
 
   async loginWithGitHub(): Promise<void> {
     window.location.href = `${API_URL}/auth/github`;
   }
 
-  async deleteSession(): Promise<void | ApiError> {
-    return await handleError(() => axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
+  async deleteSession(): Promise<void> {
+    return handleError(() => axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
   }
 
   async getCompanyUserInviteInfo(
@@ -60,15 +60,9 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   ): Promise<GetCompanyUserInviteInfoResponse> {
     // TODO: make that generic for all the params
     const queryParams = `token=${encodeURIComponent(query.token)}`;
-    // TODO: change
-    const result = await handleError<GetCompanyUserInviteInfoResponse>(
+    return handleError<GetCompanyUserInviteInfoResponse>(
       () => axios.get(`${API_URL}/auth/company-user-invite-info?${queryParams}`, { withCredentials: true }),
       "getCompanyUserInviteInfo",
     );
-    if (result instanceof ApiError) {
-      throw result;
-    } else {
-      return result;
-    }
   }
 }

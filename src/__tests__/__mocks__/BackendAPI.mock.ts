@@ -1,4 +1,5 @@
 import {
+  CompanyId,
   ContributorVisibility,
   Email,
   FinancialIssue,
@@ -26,34 +27,6 @@ import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
 
 export class BackendAPIMock implements BackendAPI {
-  async fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async getIssueFundingAmount(issueId: IssueId): Promise<number> {
-    return Promise.resolve(0);
-  }
-
-  async login(): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async requestFunding(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
   async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
     const financialIssues = await this.getFinancialIssues();
     return financialIssues[0];
@@ -76,6 +49,34 @@ export class BackendAPIMock implements BackendAPI {
       }
     }
     return financialIssues;
+  }
+
+  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number> {
+    return Promise.resolve(2);
+  }
+
+  async fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  async login(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  async requestFunding(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void> {
+    return Promise.resolve(undefined);
   }
 }
 
