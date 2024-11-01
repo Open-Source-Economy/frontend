@@ -1,6 +1,6 @@
 import { AddressId } from "../model";
 
-export interface CreateAddressBodyParams {
+export interface CreateAddressBody {
   name?: string;
   line1?: string;
   line2?: string;
@@ -10,7 +10,7 @@ export interface CreateAddressBodyParams {
   country?: string;
 }
 
-export interface CreateAddressQueryParams {}
+export interface CreateAddressQuery {}
 
 export interface CreateAddressResponse {
   createdAddressId: AddressId;

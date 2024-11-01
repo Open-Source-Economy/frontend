@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateManualInvoiceBodyParams, CreateManualInvoiceQueryParams } from "src/dtos";
+import { CreateManualInvoiceBody, CreateManualInvoiceQuery } from "src/dtos";
 import { CompanyId, UserId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
@@ -40,7 +40,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
       return;
     }
 
-    const body: CreateManualInvoiceBodyParams = {
+    const body: CreateManualInvoiceBody = {
       number: invoiceNumber!, // TODO: do something else ugly here
       companyId: companyId !== null ? new CompanyId(companyId) : undefined,
       userId: userId !== null ? new UserId(userId) : undefined,
@@ -48,7 +48,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
       dowAmount: dowAmount!,
     };
 
-    const query: CreateManualInvoiceQueryParams = {};
+    const query: CreateManualInvoiceQuery = {};
 
     try {
       const result = await adminBackendAPI.createManualInvoice(body, query);

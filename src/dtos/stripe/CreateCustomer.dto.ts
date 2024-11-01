@@ -1,3 +1,3 @@
-export interface CreateCustomerBodyParams {
+export interface CreateCustomerBody {
   countryCode?: string;
 }

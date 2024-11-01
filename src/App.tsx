@@ -3,7 +3,7 @@ import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Authenticate, AuthenticateType, AuthProvider, developerProps, Home, FundIssue, Issues, Pdf, UserDeveloper, userProps } from "./views";
-import { AuthRoutes, Logout, SuperAdminRoutes, UserRoutes } from "./views/layout/UserRoutes";
+import { UnAuthRoutes, Logout, SuperAdminRoutes, AuthRoutes } from "./views/layout/AuthRoutes";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
@@ -38,7 +38,7 @@ const App = () => {
           <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
 
           <Route path="/logout" element={<Logout />} />
-          <Route element={<AuthRoutes />}>
+          <Route element={<UnAuthRoutes />}>
             <Route path="/sign-in" element={<Authenticate type={AuthenticateType.SignIn} />} />
             <Route path="/sign-up" element={<Authenticate type={AuthenticateType.SignUp} />} />
           </Route>
@@ -50,7 +50,7 @@ const App = () => {
             <Route path={`/admin/create-manual-invoice`} element={<CreateManualInvoice />} />
           </Route>
 
-          <Route element={<UserRoutes />}>
+          <Route element={<AuthRoutes />}>
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage-funding`} element={<ManageIssue />} />
           </Route>
         </Routes>

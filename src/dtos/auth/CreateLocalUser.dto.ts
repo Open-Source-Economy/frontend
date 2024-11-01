@@ -1,6 +1,6 @@
 import { UserRole } from "../../model";
 
-export interface CreateLocalUserBodyParams {
+export interface CreateLocalUserBody {
   name?: string;
   email: string;
   password: string;

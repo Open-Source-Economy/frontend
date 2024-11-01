@@ -1,14 +1,13 @@
-import { User } from "../../model";
+import { AuthInfo } from "./AuthInfo.dto";
 
-export interface RegisterBodyParams {
+export interface RegisterBody {
+  name: string | null;
   email: string;
   password: string;
 }
 
-export interface RegisterQueryParams {
+export interface RegisterQuery {
   companyToken?: string;
 }
 
-export interface RegisterResponse {
-  user: User;
-}
+export interface RegisterResponse extends AuthInfo {}

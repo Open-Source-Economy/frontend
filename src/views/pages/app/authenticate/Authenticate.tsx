@@ -4,17 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
-import { ApiError } from "src/ultils/error/ApiError";
-import {
-  GetCompanyUserInviteInfoBodyParams,
-  GetCompanyUserInviteInfoQueryParams,
-  LoginBodyParams,
-  LoginQueryParams,
-  RegisterBodyParams,
-  RegisterQueryParams,
-} from "src/dtos/auth";
+import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
-import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 
 export enum AuthenticateType {
   SignIn,
@@ -54,18 +45,19 @@ export function Authenticate(props: AuthenticateProps) {
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (props.type === AuthenticateType.SignIn) {
-      const body: LoginBodyParams = {
+      const body: LoginBody = {
         email: email,
         password: password,
       };
-      const query: LoginQueryParams = {};
+      const query: LoginQuery = {};
       auth.login(body, query);
     } else {
-      const body: RegisterBodyParams = {
+      const body: RegisterBody = {
+        name: name,
         email: email,
         password: password,
       };
-      const query: RegisterQueryParams = {};
+      const query: RegisterQuery = {};
       auth.register(body, query);
     }
   };
@@ -76,11 +68,10 @@ export function Authenticate(props: AuthenticateProps) {
 
   const fetchCompanyUserInviteInfo = async (companyToken: string) => {
     try {
-      const body: GetCompanyUserInviteInfoBodyParams = {};
-      const query: GetCompanyUserInviteInfoQueryParams = {
+      const query: GetCompanyUserInviteInfoQuery = {
         token: companyToken,
       };
-      const inviteInfo = await authAPI.getCompanyUserInviteInfo(body, query);
+      const inviteInfo = await authAPI.getCompanyUserInviteInfo(query);
       setName(inviteInfo.userName ?? null);
       setEmail(inviteInfo.userEmail);
       setIsEmailPredefined(true);

@@ -1,7 +1,7 @@
 import { StripeCustomerId } from "../../model";
 import { PriceItem } from "./index";
 
-export interface CreatePaymentIntentBodyParams {
+export interface CreatePaymentIntentBody {
   stripeCustomerId: StripeCustomerId;
   priceItems: PriceItem[];
 }

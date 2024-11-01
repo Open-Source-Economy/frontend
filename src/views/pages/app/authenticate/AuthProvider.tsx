@@ -1,8 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
-import { User } from "src/model";
-import { LoginBodyParams, LoginQueryParams, RegisterBodyParams, RegisterQueryParams } from "src/dtos/auth";
+import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -12,7 +11,7 @@ export function AuthProvider(props: AuthProviderProps) {
   const auth = getAuthBackendAPI();
 
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
   const [apiError, setApiError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const statusResponse = await auth.checkUserStatus();
-      setUser(statusResponse.user);
+      setAuthInfo(statusResponse);
     } catch (error: any) {
       setApiError(error);
     } finally {
@@ -32,11 +31,11 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const login = async (body: LoginBodyParams, query: LoginQueryParams) => {
+  const login = async (body: LoginBody, query: LoginQuery) => {
     setLoading(true);
     try {
       const loginResponse = await auth.login(body, query);
-      setUser(loginResponse.user);
+      setAuthInfo(loginResponse);
     } catch (error: any) {
       setApiError(error);
     } finally {
@@ -44,11 +43,11 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const register = async (body: RegisterBodyParams, query: RegisterQueryParams) => {
+  const register = async (body: RegisterBody, query: RegisterQuery) => {
     setLoading(true);
     try {
       const registerResponse = await auth.register(body, query);
-      setUser(registerResponse.user);
+      setAuthInfo(registerResponse);
     } catch (error: any) {
       setApiError(error);
     } finally {
@@ -70,7 +69,7 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const result = await auth.deleteSession();
-      setUser(null);
+      setAuthInfo(null);
     } catch (error: any) {
       setApiError(error);
     } finally {
@@ -80,7 +79,7 @@ export function AuthProvider(props: AuthProviderProps) {
 
   const state: AuthContextState = {
     loading: loading,
-    user: user,
+    authInfo: authInfo,
     error: apiError,
     login,
     logout,

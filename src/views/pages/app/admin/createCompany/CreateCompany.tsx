@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateCompanyBodyParams, CreateCompanyQueryParams } from "src/dtos";
+import { CreateCompanyBody, CreateCompanyQuery } from "src/dtos";
 import { AddressId, CompanyId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
@@ -35,13 +35,13 @@ export function CreateCompany(props: CreateCompanyProps) {
       return;
     }
     event.preventDefault();
-    const body: CreateCompanyBodyParams = {
+    const body: CreateCompanyBody = {
       taxId,
       name,
       addressId: addressId ? new AddressId(addressId) : null,
     };
 
-    const query: CreateCompanyQueryParams = {};
+    const query: CreateCompanyQuery = {};
 
     try {
       const result = await adminBackendAPI.createCompany(body, query);

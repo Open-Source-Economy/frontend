@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { SendCompanyAdminInviteBodyParams, SendCompanyAdminInviteQueryParams } from "src/dtos";
+import { SendCompanyAdminInviteBody, SendCompanyAdminInviteQuery } from "src/dtos";
 import { CompanyId, CompanyUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
@@ -11,10 +11,15 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
   const adminBackendAPI = getAdminBackendAPI();
 
   const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [companyId, setCompanyId] = useState<CompanyId | null>(null);
 
   const [success, setSuccess] = useState<boolean | null>(null);
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -35,13 +40,14 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
       setError("companyId is required");
       return;
     }
-    const body: SendCompanyAdminInviteBodyParams = {
+    const body: SendCompanyAdminInviteBody = {
+      userName: name,
       userEmail: email,
       companyId: companyId,
       companyUserRole: CompanyUserRole.ADMIN,
     };
 
-    const query: SendCompanyAdminInviteQueryParams = {};
+    const query: SendCompanyAdminInviteQuery = {};
 
     try {
       const result = await adminBackendAPI.sendCompanyAdminInvite(body, query);
@@ -49,6 +55,7 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
         setError(`${result.statusCode}: ${result.message}`);
       } else {
         setError(null);
+        setName(null);
         setEmail(null);
         setCompanyId(null);
         setSuccess(true);
@@ -68,6 +75,15 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
               onSubmit={handleLocalAuthentication}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
+              <input
+                type="text"
+                placeholder="Company User Name"
+                className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
+                value={name ?? ""}
+                onChange={handleNameChange}
+                required
+              />
+
               <input
                 type="email"
                 placeholder="Email"

@@ -1,11 +1,12 @@
 import { CompanyId, CompanyUserRole } from "../model";
 
-export interface SendCompanyAdminInviteBodyParams {
+export interface SendCompanyAdminInviteBody {
+  userName: string | null;
   userEmail: string;
   companyId: CompanyId;
   companyUserRole: CompanyUserRole;
 }
 
-export interface SendCompanyAdminInviteQueryParams {}
+export interface SendCompanyAdminInviteQuery {}
 
 export interface SendCompanyAdminInviteResponse {}

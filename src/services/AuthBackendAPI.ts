@@ -1,16 +1,14 @@
 import axios from "axios";
 import { API_URL, handleError } from "./index";
-import { ApiError } from "src/ultils/error/ApiError";
 import { StatusResponse } from "src/dtos/auth/Status.dto";
 import {
-  GetCompanyUserInviteInfoBodyParams,
-  GetCompanyUserInviteInfoQueryParams,
+  GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
-  LoginBodyParams,
-  LoginQueryParams,
+  LoginBody,
+  LoginQuery,
   LoginResponse,
-  RegisterBodyParams,
-  RegisterQueryParams,
+  RegisterBody,
+  RegisterQuery,
   RegisterResponse,
 } from "src/dtos/auth";
 
@@ -22,15 +20,15 @@ export function getAuthBackendAPI(): AuthBackendAPI {
 interface AuthBackendAPI {
   checkUserStatus(): Promise<StatusResponse>;
 
-  login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse>;
+  login(body: LoginBody, query: LoginQuery): Promise<LoginResponse>;
 
-  register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse>;
+  register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse>;
 
   loginWithGitHub(success?: string, failure?: string): Promise<void>;
 
   deleteSession(): Promise<void>;
 
-  getCompanyUserInviteInfo(body: GetCompanyUserInviteInfoBodyParams, query: GetCompanyUserInviteInfoQueryParams): Promise<GetCompanyUserInviteInfoResponse>;
+  getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
@@ -38,11 +36,11 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     return handleError<StatusResponse>(() => axios.get(`${API_URL}/auth/status`, { withCredentials: true }), "checkUserStatus");
   }
 
-  async login(body: LoginBodyParams, query: LoginQueryParams): Promise<LoginResponse> {
+  async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse> {
     return handleError(() => axios.post(`${API_URL}/auth/login`, body, { withCredentials: true }), "login");
   }
 
-  async register(body: RegisterBodyParams, query: RegisterQueryParams): Promise<RegisterResponse> {
+  async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse> {
     return handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
   }
 
@@ -54,10 +52,7 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     return handleError(() => axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
   }
 
-  async getCompanyUserInviteInfo(
-    body: GetCompanyUserInviteInfoBodyParams,
-    query: GetCompanyUserInviteInfoQueryParams,
-  ): Promise<GetCompanyUserInviteInfoResponse> {
+  async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse> {
     // TODO: make that generic for all the params
     const queryParams = `token=${encodeURIComponent(query.token)}`;
     return handleError<GetCompanyUserInviteInfoResponse>(

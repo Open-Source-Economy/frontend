@@ -1,10 +1,8 @@
-export interface GetCompanyUserInviteInfoBodyParams {}
-
-export interface GetCompanyUserInviteInfoQueryParams {
+export interface GetCompanyUserInviteInfoQuery {
   token: string;
 }
 
 export interface GetCompanyUserInviteInfoResponse {
-  userName?: string;
+  userName: string | null;
   userEmail: string;
 }

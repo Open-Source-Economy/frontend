@@ -1,12 +1,11 @@
 import { User } from "../../model";
+import { AuthInfo } from "./AuthInfo.dto";
 
-export interface LoginBodyParams {
+export interface LoginBody {
   email: string;
   password: string;
 }
 
-export interface LoginQueryParams {}
+export interface LoginQuery {}
 
-export interface LoginResponse {
-  user: User;
-}
+export interface LoginResponse extends AuthInfo {}

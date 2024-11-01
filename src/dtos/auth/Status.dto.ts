@@ -1,9 +1,7 @@
-import { User } from "../../model";
+import { AuthInfo } from "./AuthInfo.dto";
 
-export interface StatusBodyParams {}
+export interface StatusBody {}
 
-export interface StatusQueryParams {}
+export interface StatusQuery {}
 
-export interface StatusResponse {
-  user: User | null;
-}
+export interface StatusResponse extends AuthInfo {}

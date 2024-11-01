@@ -1,11 +1,11 @@
 import { CompanyId } from "../../model";
 
-export interface FundIssueBodyParams {
+export interface FundIssueBody {
   companyId?: CompanyId;
   dowAmount: number;
 }
 
-export interface FundIssueQueryParams {
+export interface FundIssueQuery {
   owner: string;
   repo: string;
   number: number;

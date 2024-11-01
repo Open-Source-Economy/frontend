@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateAddressBodyParams, CreateAddressQueryParams } from "src/dtos";
+import { CreateAddressBody, CreateAddressQuery } from "src/dtos";
 import { AddressId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
@@ -28,7 +28,7 @@ export function CreateAddress(props: CreateAddressProps) {
     event.preventDefault();
     setError(null);
 
-    const body: CreateAddressBodyParams = {
+    const body: CreateAddressBody = {
       name: name || undefined,
       line1: line1 || undefined,
       line2: line2 || undefined,
@@ -38,7 +38,7 @@ export function CreateAddress(props: CreateAddressProps) {
       country: country || undefined,
     };
 
-    const query: CreateAddressQueryParams = {};
+    const query: CreateAddressQuery = {};
 
     try {
       const result = await adminBackendAPI.createAddress(body, query);
