@@ -13,6 +13,18 @@ export class IssueId {
     this.githubId = githubId;
   }
 
+  toString(): string {
+    return `${this.repositoryId.ownerLogin()}/${this.repositoryId.name}/${this.number}`;
+  }
+
+  ownerLogin(): string {
+    return this.repositoryId.ownerLogin();
+  }
+
+  repositoryName(): string {
+    return this.repositoryId.name;
+  }
+
   static fromGithubApi(repositoryId: RepositoryId, json: any): IssueId | ValidationError {
     const validator = new Validator(json);
     const number = validator.requiredNumber("number");
@@ -34,13 +46,20 @@ export class IssueId {
     return IssueId.fromAny(row, "github_issue_number", "github_issue_id");
   }
 
-  static fromAny(row: any, numberKey: string, idKey: string): IssueId | ValidationError {
-    const repositoryId = RepositoryId.fromBackendForeignKey(row);
+  static fromAny(data: any, numberKey: string, idKey: string): IssueId | ValidationError {
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
+    const repositoryId = RepositoryId.fromBackendForeignKey(json);
     if (repositoryId instanceof ValidationError) {
       return repositoryId;
     }
 
-    const validator = new Validator(row);
+    const validator = new Validator(json);
     const number = validator.requiredNumber(numberKey);
     const id = validator.requiredNumber(idKey);
 
@@ -72,7 +91,18 @@ export class Issue {
     this.body = body;
   }
 
-  static fromGithubApi(repositoryId: RepositoryId, json: any): Issue | ValidationError {
+  setRepositoryId(id: RepositoryId): void {
+    this.id = new IssueId(id, this.id.number, this.id.githubId);
+  }
+
+  static fromGithubApi(repositoryId: RepositoryId, data: any): Issue | ValidationError {
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
     const validator = new Validator(json);
     const id = validator.requiredNumber("id");
     const number = validator.requiredNumber("number");

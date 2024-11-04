@@ -1,3 +1,5 @@
+import Decimal from "decimal.js";
+
 export class ValidationError extends Error {
   constructor(message: string, data: any) {
     super(`${message}. Received: ${JSON.stringify(data, null, 2)}`);
@@ -130,6 +132,27 @@ export class Validator {
     }
 
     if (typeof value !== "number" || isNaN(value)) {
+      this.errors.push(new NumberValidationError(path, value, this.data));
+    } else {
+      return value;
+    }
+  }
+
+  // TODO: lolo
+  // @ts-ignore
+  requiredDecimal(path: string | string[]): Decimal {
+    let value = this.getValue(path);
+
+    if (typeof value === "string") {
+      // Use Decimal.js to parse the string
+      value = new Decimal(value);
+    } else if (typeof value === "number") {
+      // Convert number to Decimal.js
+      value = new Decimal(value);
+    }
+
+    // Check if the value is a valid Decimal.js instance
+    if (!(value instanceof Decimal) || isNaN(value.toNumber())) {
       this.errors.push(new NumberValidationError(path, value, this.data));
     } else {
       return value;

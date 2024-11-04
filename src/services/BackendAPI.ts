@@ -1,6 +1,9 @@
 import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__tests__/__mocks__";
+import { FundIssueBody, FundIssueQuery, GetIssueQuery, GetIssueResponse } from "src/dtos";
+import { API_URL, handleError } from "src/services/index";
+import axios from "axios";
 
 export function getBackendAPI(): BackendAPI {
   if (process.env.REACT_APP_USE_MOCK_API === "true") {
@@ -13,18 +16,14 @@ export function getBackendAPI(): BackendAPI {
 export interface BackendAPI {
   /* Getters */
 
-  getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue>;
+  getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue>;
 
   getFinancialIssues(): Promise<FinancialIssue[]>;
 
-  getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number>;
+  getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal>;
 
   /**
    * Funds a specific issue.
-   *
-   * @param userId The id of the user who wants to fund the issue.
-   * @param issueId The id of the issue to be funded.
-   * @param amount The amount to be funded, unit: DoW.
    * @returns
    *
    * @throws {Error} If the issue is closed.
@@ -32,7 +31,7 @@ export interface BackendAPI {
    * @throws {Error} If the amount is not a positive number.
    * @throws {Error} If there are insufficient funds.
    */
-  fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void>;
+  fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void>;
 
   /**
    * Request or approve funding for an issue.
@@ -64,20 +63,27 @@ export interface BackendAPI {
 }
 
 class BackendAPIImpl implements BackendAPI {
-  async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
-    return Promise.resolve(undefined as any);
+  async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
+    const response = await handleError<GetIssueResponse>(
+      () => axios.get(`${API_URL}/github/${query.owner}/${query.repo}/issues/${query.number}`, { withCredentials: true }),
+      "getFinancialIssue",
+    );
+    return response.issue;
   }
 
   async getFinancialIssues(): Promise<FinancialIssue[]> {
     return Promise.resolve(undefined as any);
   }
 
-  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number> {
+  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal> {
     return Promise.resolve(undefined as any);
   }
 
-  async fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
-    return Promise.resolve(undefined);
+  async fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void> {
+    return handleError(
+      () => axios.post(`${API_URL}/github/${query.owner}/${query.repo}/issues/${query.number}/fund`, body, { withCredentials: true }),
+      "fundIssue",
+    );
   }
 
   async rejectFunding(userId: UserId, issueId: IssueId): Promise<void> {

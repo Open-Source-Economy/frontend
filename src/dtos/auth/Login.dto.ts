@@ -1,4 +1,3 @@
-import { User } from "../../model";
 import { AuthInfo } from "./AuthInfo.dto";
 
 export interface LoginBody {

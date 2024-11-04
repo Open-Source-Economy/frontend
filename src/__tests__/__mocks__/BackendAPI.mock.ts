@@ -25,9 +25,10 @@ import {
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
+import { FundIssueBody, FundIssueQuery, GetIssueQuery } from "src/dtos";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(ownerParam: string, repoParam: string, number: number): Promise<FinancialIssue> {
+  async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
     const financialIssues = await this.getFinancialIssues();
     return financialIssues[0];
   }
@@ -51,11 +52,11 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<number> {
-    return Promise.resolve(2);
+  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal> {
+    return Promise.resolve(new Decimal(2));
   }
 
-  async fundIssue(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
+  async fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void> {
     return Promise.resolve(undefined);
   }
 

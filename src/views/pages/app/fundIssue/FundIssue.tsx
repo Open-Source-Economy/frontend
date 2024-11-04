@@ -3,9 +3,10 @@ import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import * as model from "src/model";
 import { useParams } from "react-router-dom";
-import { DowCredits, DisclaimerModal } from "./elements";
+import { DisclaimerModal, DowFunding } from "./elements";
 import { getBackendAPI } from "src/services/BackendAPI";
 import bgimage from "src/assets/Group258.svg";
+import { GetIssueQuery } from "src/dtos";
 
 interface IssueProps {}
 
@@ -15,21 +16,29 @@ export function FundIssue({}: IssueProps) {
   const { ownerParam, repoParam, numberParam } = useParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
-  const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue>();
+  const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue | null>(null);
   const [modal, setModal] = useState(false);
+  const [error, setError] = useState<string | null>(null); // TODO: display the error
+
+  const getFinancialIssue = async () => {
+    if (ownerParam && repoParam && number) {
+      try {
+        const query: GetIssueQuery = {
+          owner: ownerParam,
+          repo: repoParam,
+          number: number,
+        };
+        const financialIssue = await backendAPI.getFinancialIssue(query);
+        setFinancialIssue(financialIssue);
+      } catch (error) {
+        console.error("Error fetching financial isssue:", error);
+        if (!error) setError(error instanceof Error ? error.message : "An unknown error occurred");
+      }
+    }
+  };
 
   useEffect(() => {
-    // TODO: not to re-ask GitHub when you come from a previous page
-    (async () => {
-      if (ownerParam && repoParam && number) {
-        try {
-          const financialIssue = await backendAPI.getFinancialIssue(ownerParam, repoParam, number);
-          setFinancialIssue(financialIssue);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    })();
+    getFinancialIssue();
   }, []);
 
   return (
@@ -46,22 +55,23 @@ export function FundIssue({}: IssueProps) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          {/*TODO: factorize the title with other page title*/}
           <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
             Fund an <span className="text-[#FF7E4B]">Issue</span>
           </h1>
 
-          <div className="pt-24 flex justify-center flex-wrap gap-4">
-            <div className="xl:w-[600px] md:w-[590px] w-full">
-              {financialIssue && <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />}
-            </div>
+          {financialIssue && (
+            <div className="pt-24 flex justify-center flex-wrap gap-4">
+              <div className="xl:w-[600px] md:w-[590px] w-full">
+                <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />
+              </div>
 
-            <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
-              <DowCredits onCreditsSuccess={() => setModal(true)} />
-            </div>
+              <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
+                <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
+              </div>
 
-            {modal && <DisclaimerModal show={modal} setShow={setModal} />}
-          </div>
+              {modal && <DisclaimerModal show={modal} setShow={setModal} closeCallback={() => window.location.reload()} />}
+            </div>
+          )}
         </div>
       </div>
     </PageWrapper>

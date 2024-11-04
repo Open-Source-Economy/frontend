@@ -7,9 +7,7 @@ interface RegisterModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
 
-  acceptCallback?: () => void;
   closeCallback?: () => void;
-  rejectCallback?: () => void;
 }
 
 export function DisclaimerModal(props: RegisterModalProps) {

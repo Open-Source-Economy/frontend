@@ -1,5 +1,6 @@
 import { ValidationError, Validator } from "./error";
 import { CompanyId, UserId } from "./index";
+import Decimal from "decimal.js";
 
 export class ManualInvoiceId {
   uuid: string;
@@ -19,9 +20,9 @@ export class ManualInvoice {
   companyId?: CompanyId;
   userId?: UserId;
   paid: boolean;
-  dowAmount: number;
+  dowAmount: Decimal;
 
-  constructor(id: ManualInvoiceId, number: number, companyId: CompanyId | undefined, userId: UserId | undefined, paid: boolean, dowAmount: number) {
+  constructor(id: ManualInvoiceId, number: number, companyId: CompanyId | undefined, userId: UserId | undefined, paid: boolean, dowAmount: Decimal) {
     this.id = id;
     this.number = number;
     this.companyId = companyId;
@@ -37,7 +38,7 @@ export class ManualInvoice {
     const companyId = validator.optionalString("company_id");
     const userId = validator.optionalString("user_id");
     const paid = validator.requiredBoolean("paid");
-    const dowAmount = validator.requiredNumber("dow_amount");
+    const dowAmount = validator.requiredDecimal("dow_amount");
 
     const error = validator.getFirstError();
     if (error) {

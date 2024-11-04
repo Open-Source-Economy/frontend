@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
 
 import * as model from "src/model";
+import { FinancialIssue } from "src/model";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { getBackendAPI } from "src/services";
@@ -59,7 +60,9 @@ export function Issues(props: IssuesProps) {
                 // TODO: improve the design
                 <p className="text-red-500">{error}</p>
               ) : (filteredFinancialIssues || []).length > 0 ? (
-                filteredFinancialIssues.map(issue => <IssueCard key={issue.id()} financialIssue={issue} displayActionButtons displaySeeMore={false} />)
+                filteredFinancialIssues.map(issue => (
+                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} displayActionButtons displaySeeMore={false} />
+                ))
               ) : (
                 // TODO: improve the design
                 <p>No issues found.</p>

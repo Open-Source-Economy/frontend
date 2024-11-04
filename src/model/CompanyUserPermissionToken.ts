@@ -21,14 +21,24 @@ export class CompanyUserPermissionTokenId {
 
 export class CompanyUserPermissionToken {
   id: CompanyUserPermissionTokenId;
+  userName: string | null;
   userEmail: string;
   token: string;
   companyId: CompanyId;
   companyUserRole: CompanyUserRole;
   expiresAt: Date;
 
-  constructor(id: CompanyUserPermissionTokenId, userEmail: string, token: string, companyId: CompanyId, companyUserRole: CompanyUserRole, expiresAt: Date) {
+  constructor(
+    id: CompanyUserPermissionTokenId,
+    userName: string | null,
+    userEmail: string,
+    token: string,
+    companyId: CompanyId,
+    companyUserRole: CompanyUserRole,
+    expiresAt: Date,
+  ) {
     this.id = id;
+    this.userName = userName;
     this.userEmail = userEmail;
     this.token = token;
     this.companyId = companyId;
@@ -39,6 +49,7 @@ export class CompanyUserPermissionToken {
   static fromBackend(row: any): CompanyUserPermissionToken | ValidationError {
     const validator = new Validator(row);
     const id = validator.requiredString("id");
+    const userName = validator.optionalString("user_name");
     const userEmail = validator.requiredString("user_email");
     const token = validator.requiredString("token");
     const companyId = validator.requiredString("company_id");
@@ -50,6 +61,14 @@ export class CompanyUserPermissionToken {
       return error;
     }
 
-    return new CompanyUserPermissionToken(new CompanyUserPermissionTokenId(id), userEmail, token, new CompanyId(companyId), companyUserRole, expiresAt);
+    return new CompanyUserPermissionToken(
+      new CompanyUserPermissionTokenId(id),
+      userName ?? null,
+      userEmail,
+      token,
+      new CompanyId(companyId),
+      companyUserRole,
+      expiresAt,
+    );
   }
 }

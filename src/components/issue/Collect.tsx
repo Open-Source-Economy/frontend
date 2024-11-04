@@ -1,25 +1,26 @@
 import React from "react";
 import dow from "src/assets/dow.png";
 import { ManagedIssueState } from "src/model";
+import Decimal from "decimal.js";
 
 interface CollectProps {
-  amountCollected: number;
-  amountRequested?: number;
+  amountCollected: Decimal;
+  amountRequested?: Decimal;
   state?: ManagedIssueState;
 }
 
 export function Collect(props: CollectProps) {
-  function renderAmountText(amount: number, state?: ManagedIssueState) {
+  function renderAmountText(amount: Decimal, state?: ManagedIssueState) {
     return (
       <>
-        <span className="michroma text-[#FF7E4B]">{amount}</span> <span className="text-[#FF7E4B]">DoW</span>{" "}
+        <span className="michroma text-[#FF7E4B]">{amount.toString()}</span> <span className="text-[#FF7E4B]">DoW</span>{" "}
         {state === ManagedIssueState.REJECTED ? "refunded" : state === ManagedIssueState.SOLVED ? "for open source!" : "collected"}
       </>
     );
   }
 
   const widthPercentage = props.amountRequested
-    ? Math.min((props.amountCollected / props.amountRequested) * 100, 100) // Calculate width percentage
+    ? Math.min(props.amountCollected.div(props.amountRequested).mul(100).toNumber(), 100) // Calculate width percentage
     : 0; // Set to 0 if amountRequested is undefined or 0
 
   return (
@@ -32,8 +33,8 @@ export function Collect(props: CollectProps) {
             {props.state === ManagedIssueState.SOLVED && renderAmountText(props.amountCollected, props.state)}
             {props.state === ManagedIssueState.OPEN && props.amountRequested && (
               <>
-                <span className="michroma">{props.amountCollected}</span> <span className="text-[#8693A4] michroma">/</span>{" "}
-                <span className="text-[#FF7E4B] michroma">{props.amountRequested} DoW</span> requested
+                <span className="michroma">{props.amountCollected.toString()}</span> <span className="text-[#8693A4] michroma">/</span>{" "}
+                <span className="text-[#FF7E4B] michroma">{props.amountRequested?.toString()} DoW</span> requested
               </>
             )}
             {props.state === undefined && renderAmountText(props.amountCollected, undefined)}

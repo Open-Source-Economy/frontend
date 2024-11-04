@@ -22,7 +22,14 @@ export class OwnerId {
   }
 
   private static fromAny(data: any, loginKey: string, idKey: string): OwnerId | ValidationError {
-    const validator = new Validator(data);
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
+    const validator = new Validator(json);
     const login = validator.requiredString(loginKey);
     const id = validator.requiredNumber(idKey);
 
@@ -60,7 +67,14 @@ export class Owner {
   // For User
   // Github API: https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
   // Example: https://api.github.com/users/laurianemollier
-  static fromGithubApi(json: any): Owner | ValidationError {
+  static fromGithubApi(data: any): Owner | ValidationError {
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
     const validator = new Validator(json);
 
     const htmlUrl = validator.requiredString("html_url");

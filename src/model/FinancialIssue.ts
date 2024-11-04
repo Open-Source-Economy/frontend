@@ -1,20 +1,21 @@
 import * as model from "./index";
+import Decimal from "decimal.js";
 
 export class FinancialIssue {
   public owner: model.Owner;
   public repository: model.Repository;
   public issue: model.Issue;
-  public issueManager?: model.User;
-  public managedIssue?: model.ManagedIssue;
-  public issueFundings?: model.IssueFunding[];
+  public issueManager: model.User | null;
+  public managedIssue: model.ManagedIssue | null;
+  public issueFundings: model.IssueFunding[];
 
   constructor(
     owner: model.Owner,
     repository: model.Repository,
     issue: model.Issue,
-    issueManager?: model.User,
-    managedIssue?: model.ManagedIssue,
-    issueFundings?: model.IssueFunding[],
+    issueManager: model.User | null,
+    managedIssue: model.ManagedIssue | null,
+    issueFundings: model.IssueFunding[],
   ) {
     this.owner = owner;
     this.repository = repository;
@@ -24,24 +25,34 @@ export class FinancialIssue {
     this.issueFundings = issueFundings;
   }
 
-  public amountCollected(): number {
+  // TODO: Why static? Because in the frontend the parsing of the object does not work.
+  //   async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
+  //     const response = await handleError<GetIssueResponse>(
+  //       () => axios.get(`${API_URL}/github/${query.owner}/${query.repo}/issues/${query.number}`, { withCredentials: true }),
+  //       "getFinancialIssue",
+  //     );
+  //     response.issue.isClosed(); // ERROR
+  //     return response.issue;
+  //   }
+
+  static amountCollected(m: FinancialIssue): Decimal {
     // @ts-ignore
-    return this.issueFundings?.reduce((acc, funding) => acc + funding.dowAmount, 0) ?? 0;
+    return m.issueFundings?.reduce((acc, funding) => acc.plus(funding.dowAmount), new Decimal(0)) ?? new Decimal(0);
   }
 
-  public amountRequested(): number | undefined {
-    return this.managedIssue?.requestedDowAmount;
+  static amountRequested(m: FinancialIssue): Decimal | undefined {
+    return m.managedIssue?.requestedDowAmount;
   }
 
-  public successfullyFunded(): boolean {
-    return this.amountCollected() >= (this.amountRequested() ?? 0);
+  static successfullyFunded(m: FinancialIssue): boolean {
+    return FinancialIssue.amountCollected(m).greaterThanOrEqualTo(FinancialIssue.amountRequested(m) ?? new Decimal(0));
   }
 
-  public isClosed(): boolean {
-    return this.managedIssue?.state === model.ManagedIssueState.REJECTED || this.managedIssue?.state === model.ManagedIssueState.SOLVED;
+  static isClosed(m: FinancialIssue): boolean {
+    return m.managedIssue?.state === model.ManagedIssueState.REJECTED || m.managedIssue?.state === model.ManagedIssueState.SOLVED;
   }
 
-  public id(): string {
-    return `${this.owner.id}/${this.repository.id}/${this.issue.id.number}`;
+  static id(m: FinancialIssue): string {
+    return `${m.owner.id}/${m.repository.id}/${m.issue.id.number}`;
   }
 }

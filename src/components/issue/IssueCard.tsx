@@ -1,5 +1,6 @@
 import React from "react";
 import * as model from "../../model";
+import { FinancialIssue } from "../../model";
 import * as components from "./index";
 import person from "src/assets/personicon.png";
 import { Approved } from "src/components/issue/Approved";
@@ -14,7 +15,7 @@ interface IssueProps {
 export function IssueCard(props: IssueProps) {
   return (
     <>
-      <div className={`pt-5 w-[90%] mx-auto ${props.financialIssue.isClosed() ? "opacity-40" : ""} `}>
+      <div className={`pt-5 w-[90%] mx-auto ${FinancialIssue.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
         <div className="padding sm:py-9 sm:px-10   flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
 
@@ -29,8 +30,8 @@ export function IssueCard(props: IssueProps) {
           <div className="flex flex-wrap items-center gap-3 justify-between mt-12">
             <div>
               <components.Collect
-                amountCollected={props.financialIssue.amountCollected()}
-                amountRequested={props.financialIssue.amountRequested()}
+                amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
+                amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
                 state={props.financialIssue.managedIssue?.state}
               />
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
@@ -41,7 +42,7 @@ export function IssueCard(props: IssueProps) {
                 <Action
                   issue={props.financialIssue.issue}
                   state={props.financialIssue.managedIssue?.state}
-                  successfullyFunded={props.financialIssue.successfullyFunded()}
+                  successfullyFunded={FinancialIssue.successfullyFunded(props.financialIssue)}
                 />
               </div>
             )}

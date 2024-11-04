@@ -1,8 +1,9 @@
 import { CompanyId } from "../../model";
+import Decimal from "decimal.js";
 
 export interface FundIssueBody {
   companyId?: CompanyId;
-  dowAmount: number;
+  dowAmount: Decimal;
 }
 
 export interface FundIssueQuery {

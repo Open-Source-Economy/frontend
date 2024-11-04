@@ -12,11 +12,25 @@ export class RepositoryId {
     this.githubId = githubId;
   }
 
-  static fromGithubApi(json: any): RepositoryId | ValidationError {
+  ownerLogin(): string {
+    return this.ownerId.login;
+  }
+
+  static fromGithubApi(data: any): RepositoryId | ValidationError {
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
     const validator = new Validator(json);
     const name = validator.requiredString("name");
     const id = validator.optionalNumber("id");
 
+    if (!json.owner) {
+      return new ValidationError("Owner field is missing in the JSON response.", json);
+    }
     const ownerId = OwnerId.fromGithubApi(json.owner);
     if (ownerId instanceof ValidationError) {
       return ownerId;
@@ -77,7 +91,14 @@ export class Repository {
   // This does not work: https://api.github.com/repos/141809657/701996033
   // But that works: https://api.github.com/repositories/701996033
   // See discussion: https://github.com/octokit/octokit.rb/issues/483
-  static fromGithubApi(json: any): Repository | ValidationError {
+  static fromGithubApi(data: any): Repository | ValidationError {
+    let json: any;
+    if (typeof data === "object") {
+      json = data;
+    } else if (typeof data === "string") {
+      json = JSON.parse(data);
+    }
+
     const repositoryId = RepositoryId.fromGithubApi(json);
     if (repositoryId instanceof ValidationError) {
       return repositoryId;

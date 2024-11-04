@@ -4,8 +4,8 @@ import { ManagedIssueState } from "src/model";
 import { ExternalLink } from "src/components";
 
 interface ApprovedProps {
-  managedIssue?: model.ManagedIssue;
-  manager?: model.User;
+  managedIssue: model.ManagedIssue | null;
+  manager: model.User | null;
 }
 
 export function Approved(props: ApprovedProps) {
