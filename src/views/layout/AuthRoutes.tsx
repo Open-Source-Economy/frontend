@@ -6,13 +6,21 @@ import { UserRole } from "src/model";
 export function AuthRoutes() {
   const auth = useAuth();
 
-  return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-in" />;
+  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+    return <Outlet />;
+  } else {
+    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-in" />;
+  }
 }
 
 export function UnAuthRoutes() {
   const auth = useAuth();
 
-  return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+    return <Outlet />;
+  } else {
+    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+  }
 }
 
 export function SuperAdminRoutes() {
@@ -20,7 +28,11 @@ export function SuperAdminRoutes() {
 
   const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
 
-  return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-in" />;
+  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+    return <Outlet />;
+  } else {
+    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-in" />;
+  }
 }
 
 export function Logout() {

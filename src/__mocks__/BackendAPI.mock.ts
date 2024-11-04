@@ -1,31 +1,19 @@
 import {
   CompanyId,
   ContributorVisibility,
-  Email,
   FinancialIssue,
-  GithubData,
-  Issue,
   IssueFunding,
   IssueFundingId,
   IssueId,
   ManagedIssue,
   ManagedIssueId,
   ManagedIssueState,
-  Owner,
-  OwnerId,
-  OwnerType,
-  Provider,
-  Repository,
-  RepositoryId,
-  ThirdPartyUser,
-  ThirdPartyUserId,
-  User,
   UserId,
-  UserRole,
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
 import { FundIssueBody, FundIssueQuery, GetIssueQuery } from "src/dtos";
+import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
@@ -42,7 +30,7 @@ export class BackendAPIMock implements BackendAPI {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
-          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue);
+          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, []);
         } else {
           financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
         }
@@ -81,31 +69,8 @@ export class BackendAPIMock implements BackendAPI {
   }
 }
 
-const userId = new UserId("141809342");
-const ownerId = new OwnerId("Open-Source-Economy", 141809657);
-const repositoryId = new RepositoryId(ownerId, "frontend", 701996033);
-const issueId = new IssueId(repositoryId, 3, 2538344642);
-
-const owner = new Owner(ownerId, OwnerType.Organization, "https://github.com/Open-Source-Economy", "https://avatars.githubusercontent.com/u/141809657?v=4");
-
-const repository = new Repository(repositoryId, "https://github.com/Open-Source-Economy/frontend", undefined);
-
-const issue = new Issue(
-  issueId,
-  "Test issue - to be added in our unit tests",
-  "https://github.com/Open-Source-Economy/frontend/issues/3",
-  new Date("2024-09-20T09:34:07Z"),
-  null,
-  new OwnerId("LaurianeOSE", 141809342),
-  undefined,
-);
-
-const thirdPartyUser = new ThirdPartyUser(Provider.Github, new ThirdPartyUserId("141809342"), [new Email("email", null)], new GithubData(owner));
-
-const user = new User(userId, thirdPartyUser, UserRole.USER);
-
 function issueFunding(amount: number): IssueFunding {
-  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
+  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, new Decimal(amount));
 }
 
 function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
@@ -116,7 +81,7 @@ function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
       const managedIssue: ManagedIssue = {
         id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
-        requestedDowAmount: requestedDowAmount,
+        requestedDowAmount: new Decimal(requestedDowAmount),
         managerId: userId,
         contributorVisibility: visibility,
         state: state,

@@ -1,6 +1,6 @@
 import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
-import { BackendAPIMock } from "src/__tests__/__mocks__";
+import { BackendAPIMock } from "src/__mocks__";
 import { FundIssueBody, FundIssueQuery, GetIssueQuery, GetIssueResponse } from "src/dtos";
 import { API_URL, handleError } from "src/services/index";
 import axios from "axios";

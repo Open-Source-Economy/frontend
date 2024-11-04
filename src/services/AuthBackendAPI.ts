@@ -11,13 +11,18 @@ import {
   RegisterQuery,
   RegisterResponse,
 } from "src/dtos/auth";
+import { AuthBackendAPIMock } from "src/__mocks__";
 
 export function getAuthBackendAPI(): AuthBackendAPI {
-  return new AuthBackendAPIImpl();
+  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+    return new AuthBackendAPIMock();
+  } else {
+    return new AuthBackendAPIImpl();
+  }
 }
 
 // TODO: change to not return an ApiError
-interface AuthBackendAPI {
+export interface AuthBackendAPI {
   checkUserStatus(): Promise<StatusResponse>;
 
   login(body: LoginBody, query: LoginQuery): Promise<LoginResponse>;
