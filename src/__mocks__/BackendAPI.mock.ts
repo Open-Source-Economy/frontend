@@ -1,5 +1,4 @@
 import {
-  CompanyId,
   ContributorVisibility,
   FinancialIssue,
   IssueFunding,

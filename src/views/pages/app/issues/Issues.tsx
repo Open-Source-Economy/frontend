@@ -63,9 +63,7 @@ export function Issues(props: IssuesProps) {
                 // TODO: improve the design
                 <p className="text-red-500">{error}</p>
               ) : (filteredFinancialIssues || []).length > 0 ? (
-                filteredFinancialIssues.map(issue => (
-                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} displayActionButtons={true} displaySeeMore={false} />
-                ))
+                filteredFinancialIssues.map(issue => <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} displayActionButtons={true} />)
               ) : (
                 // TODO: improve the design
                 <p>No issues found.</p>

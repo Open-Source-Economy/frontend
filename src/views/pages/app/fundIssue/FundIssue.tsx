@@ -1,46 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
-import * as model from "src/model";
-import { useParams } from "react-router-dom";
 import { DisclaimerModal, DowFunding } from "./elements";
-import { getBackendAPI } from "src/services/BackendAPI";
 import bgimage from "src/assets/Group258.svg";
-import { GetIssueParams, GetIssueQuery } from "src/dtos";
+import { useFinancialIssue } from "src/views/hooks";
 
-interface IssueProps {}
+interface FundIssueProps {}
 
-export function FundIssue({}: IssueProps) {
-  const backendAPI = getBackendAPI();
-
-  const { ownerParam, repoParam, numberParam } = useParams();
-  const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
-
-  const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue | null>(null);
+export function FundIssue({}: FundIssueProps) {
+  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue();
   const [modal, setModal] = useState(false);
-  const [error, setError] = useState<string | null>(null); // TODO: display the error
-
-  const getFinancialIssue = async () => {
-    if (ownerParam && repoParam && number) {
-      try {
-        const params: GetIssueParams = {
-          owner: ownerParam,
-          repo: repoParam,
-          number: number,
-        };
-        const query: GetIssueQuery = {};
-        const financialIssue = await backendAPI.getFinancialIssue(params, query);
-        setFinancialIssue(financialIssue);
-      } catch (error) {
-        console.error("Error fetching financial isssue:", error);
-        if (!error) setError(error instanceof Error ? error.message : "An unknown error occurred");
-      }
-    }
-  };
-
-  useEffect(() => {
-    getFinancialIssue();
-  }, []);
 
   return (
     <PageWrapper>
@@ -63,7 +32,7 @@ export function FundIssue({}: IssueProps) {
           {financialIssue && (
             <div className="pt-24 flex justify-center flex-wrap gap-4">
               <div className="xl:w-[600px] md:w-[590px] w-full">
-                <IssueCard financialIssue={financialIssue} displayActionButtons={false} displaySeeMore={true} />
+                <IssueCard financialIssue={financialIssue} displaySeeMore={true} />
               </div>
 
               <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">

@@ -3,18 +3,16 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 import bgimage from "src/assets/Group258.svg";
 import bgimage2 from "src/assets/issuebg2.png";
 import bgimage3 from "src/assets/issuebg3.png";
-import img1 from "src/assets/issueimg1.png";
-import person from "src/assets/personicon.png";
-import dow from "src/assets/dow.png";
 import cat from "src/assets/catimg.png";
 import check from "src/assets/checkmark.png";
 import down from "src/assets/arrowdown.png";
 import up from "src/assets/arrowup.png";
+import { IssueCard } from "src/components/issue";
+import { useFinancialIssue } from "src/views/hooks/useFinancialIssue";
 
 interface ManageIssueProps {}
 
 export function ManageIssue(props: ManageIssueProps) {
-  const [isToggled, setIsToggled] = useState(false); // Start with 'Public' as true
   const [activeTab, setActiveTab] = useState("tab1"); // Default active tab
 
   const [counter, setcounter] = useState(10);
@@ -34,14 +32,13 @@ export function ManageIssue(props: ManageIssueProps) {
     setcounter(counter - 1);
   };
 
-  const toggleSwitch = () => {
-    setIsToggled(!isToggled); // Toggle the state
-  };
-
   // Function to handle tab click
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+
+  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue();
+  const [modal, setModal] = useState(false);
 
   return (
     <PageWrapper>
@@ -79,60 +76,12 @@ export function ManageIssue(props: ManageIssueProps) {
                 </h1>
                 <div className="flex flex-wrap justify-center items-start gap-5 md:py-24">
                   <div>
-                    <div className="xl:w-[670px] md:w-[590px] w-full">
-                      <div className="padding sm:py-9 sm:px-10 montserrat flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl">
-                        <div className="flex items-center gap-3">
-                          <img className="w-[55px] h-[55px] cursor-pointer hover:underline" src={img1} alt="" />
-                          <h2 className="text-2xl text-[#8693A4] cursor-pointer">
-                            <span className="hover:underline">apache</span>{" "}
-                            <span className="text-white ">
-                              / <span className="hover:underline">pekko</span>
-                            </span>
-                          </h2>
-                        </div>
-                        <div>
-                          <img className="w-[52px] h-[52px]" src={person} alt="" />
-                        </div>
+                    {financialIssue && (
+                      <div className="xl:w-[670px] md:w-[590px] w-full">
+                        <IssueCard financialIssue={financialIssue} displayPrivatePublicToggle={true} />
                       </div>
-                      <div className="padding montserrat sm:py-7 sm:px-10 bg-[rgba(20,35,58,60%)] rounded-bl-3xl rounded-br-3xl">
-                        <h1 className="text-lg cursor-pointer hover:underline transition-all duration-500 ease-in-out">
-                          There is a problem in the display of the home page
-                        </h1>
-                        <h2 className="text-[rgba(255,255,255,70%)] cursor-pointer text-xl mt-1">
-                          <span className="hover:underline ">#3949</span>{" "}
-                          <span className="hover:underline text-[12px] cursor-pointer">updated on 14 Jul 2024</span>
-                        </h2>
-                        <div className="flex flex-wrap items-center gap-3 justify-between mt-12">
-                          <div>
-                            <div className="flex items-center gap-3">
-                              <img className="w-[38px] h-[30px] cursor-pointer " src={dow} alt="" />
-                              <h3 className="text-[20px] cursor-pointer ">
-                                <span className="michroma">4.5</span> <span className="text-[#FF7E4B] michroma">DoW</span> refunded
-                              </h3>
-                            </div>
-                            <h2 className="text-base cursor-pointer text-[#8693A4] mt-2">
-                              <span className="hover:underline">octonato</span> closed the issue
-                            </h2>
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-3">
-                              <h2 className={` ${isToggled ? "text-white" : "text-gray-600"}`}>Private</h2>
-                              <div
-                                className="relative inline-flex items-center cursor-pointer bg-[rgba(255,255,255,10%)] rounded-full w-11 h-6"
-                                onClick={toggleSwitch}
-                              >
-                                <span
-                                  className={`absolute w-8 h-8 left-[-10px] bg-[#FF7E4B] rounded-full shadow transform transition-transform duration-300 ${
-                                    isToggled ? "translate-x-[-1px]" : "translate-x-full"
-                                  }`}
-                                />
-                              </div>
-                              <h2 className={` ${isToggled ? "text-gray-600" : "text-white"}`}>Public</h2>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    )}
+
                     <div className="padding sm:py-10 sm:pe-10 sm:px-24  text-center md:justify-between justify-center flex flex-wrap items-start  xl:w-[670px] md:w-[590px] w-full bg-[#14233A] mt-4 rounded-3xl">
                       <div className="flex flex-col gap-5">
                         <h1 className="text-[18px]">The community is here!</h1>
@@ -148,6 +97,7 @@ export function ManageIssue(props: ManageIssueProps) {
                       </div>
                     </div>
                   </div>
+
                   <div>
                     <div className="padding sm:py-10 sm:px-10 text-center md:justify-between flex flex-col items-start xl:w-[670px] md:w-[590px] w-full bg-[#14233A] rounded-3xl">
                       <div className="relative p-[2px] mx-auto md:mx-0">

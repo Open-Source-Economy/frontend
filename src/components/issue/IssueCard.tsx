@@ -2,14 +2,16 @@ import React from "react";
 import * as model from "../../model";
 import { FinancialIssue } from "../../model";
 import * as components from "./index";
+import { PrivatePublicToggled } from "./index";
 import person from "src/assets/personicon.png";
 import { Approved } from "src/components/issue/Approved";
 import { Action } from "src/components/issue/Action";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
-  displaySeeMore: boolean;
-  displayActionButtons: boolean;
+  displaySeeMore?: boolean;
+  displayActionButtons?: boolean;
+  displayPrivatePublicToggle?: boolean;
 }
 
 export function IssueCard(props: IssueProps) {
@@ -36,6 +38,14 @@ export function IssueCard(props: IssueProps) {
               />
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
             </div>
+
+            {props.displayPrivatePublicToggle && (
+              <div>
+                <div className="flex items-center gap-3">
+                  <PrivatePublicToggled />
+                </div>
+              </div>
+            )}
 
             {props.displayActionButtons && (
               <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">

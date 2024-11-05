@@ -1,4 +1,4 @@
-import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
+import { FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
 import {
