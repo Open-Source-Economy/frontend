@@ -12,11 +12,12 @@ import {
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
-import { FundIssueBody, FundIssueQuery, GetIssueQuery } from "src/dtos";
+import { FundIssueBody, FundIssueParams, FundIssueQuery, GetIssueParams, GetIssueQuery } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
+import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue> {
     const financialIssues = await this.getFinancialIssues();
     return financialIssues[0];
   }
@@ -40,11 +41,11 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal> {
+  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal> {
     return Promise.resolve(new Decimal(2));
   }
 
-  async fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void> {
+  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void> {
     return Promise.resolve(undefined);
   }
 

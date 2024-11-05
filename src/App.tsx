@@ -34,8 +34,6 @@ const App = () => {
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
 
           <Route path="/issues" element={<Issues />} />
-          <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
-          <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
 
           <Route path="/logout" element={<Logout />} />
           <Route element={<UnAuthRoutes />}>
@@ -51,7 +49,8 @@ const App = () => {
           </Route>
 
           <Route element={<AuthRoutes />}>
-            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage-funding`} element={<ManageIssue />} />
+            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
+            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
           </Route>
         </Routes>
       </AuthProvider>

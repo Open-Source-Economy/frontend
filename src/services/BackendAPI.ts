@@ -1,9 +1,10 @@
 import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
-import { FundIssueBody, FundIssueQuery, GetIssueQuery, GetIssueResponse } from "src/dtos";
+import { FundIssueBody, FundIssueParams, FundIssueQuery, GetAvailableDowResponse, GetIssueParams, GetIssueQuery, GetIssueResponse } from "src/dtos";
 import { API_URL, handleError } from "src/services/index";
 import axios from "axios";
+import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 
 export function getBackendAPI(): BackendAPI {
   if (process.env.REACT_APP_USE_MOCK_API === "true") {
@@ -16,11 +17,11 @@ export function getBackendAPI(): BackendAPI {
 export interface BackendAPI {
   /* Getters */
 
-  getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue>;
+  getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue>;
 
   getFinancialIssues(): Promise<FinancialIssue[]>;
 
-  getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal>;
+  getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal>;
 
   /**
    * Funds a specific issue.
@@ -31,7 +32,7 @@ export interface BackendAPI {
    * @throws {Error} If the amount is not a positive number.
    * @throws {Error} If there are insufficient funds.
    */
-  fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void>;
+  fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void>;
 
   /**
    * Request or approve funding for an issue.
@@ -63,9 +64,9 @@ export interface BackendAPI {
 }
 
 class BackendAPIImpl implements BackendAPI {
-  async getFinancialIssue(query: GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue> {
     const response = await handleError<GetIssueResponse>(
-      () => axios.get(`${API_URL}/github/${query.owner}/${query.repo}/issues/${query.number}`, { withCredentials: true }),
+      () => axios.get(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
     return response.issue;
@@ -75,13 +76,21 @@ class BackendAPIImpl implements BackendAPI {
     return Promise.resolve(undefined as any);
   }
 
-  async getAvailableDoWs(userId: UserId, companyId?: CompanyId): Promise<Decimal> {
-    return Promise.resolve(undefined as any);
+  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal> {
+    let queryParams = "";
+    if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
+
+    const response = await handleError<GetAvailableDowResponse>(
+      () => axios.get(`${API_URL}/user/available-dow?${queryParams}`, { withCredentials: true }),
+      "getAvailableDow",
+    );
+
+    return new Decimal(response.dowAmount);
   }
 
-  async fundIssue(body: FundIssueBody, query: FundIssueQuery): Promise<void> {
+  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void> {
     return handleError(
-      () => axios.post(`${API_URL}/github/${query.owner}/${query.repo}/issues/${query.number}/fund`, body, { withCredentials: true }),
+      () => axios.post(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}/fund`, body, { withCredentials: true }),
       "fundIssue",
     );
   }

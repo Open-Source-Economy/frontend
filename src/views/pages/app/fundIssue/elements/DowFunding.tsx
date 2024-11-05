@@ -6,7 +6,8 @@ import { getBackendAPI } from "src/services";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Decimal from "decimal.js";
 import { IssueId } from "src/model";
-import { FundIssueBody, FundIssueQuery } from "src/dtos";
+import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
+import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;
@@ -43,17 +44,18 @@ export function DowFunding(props: DowFundingProps) {
     if (!counter) {
       setError("Please enter a valid amount.");
     } else if (counter.lessThanOrEqualTo(availableDoWAmount)) {
-      const body: FundIssueBody = {
-        companyId: auth.authInfo?.company?.id,
-        dowAmount: counter,
-      };
-      const query: FundIssueQuery = {
-        owner: props.issueId.ownerLogin(),
-        repo: props.issueId.repositoryName(),
+      const params: FundIssueParams = {
+        owner: props.issueId.repositoryId.ownerId.login,
+        repo: props.issueId.repositoryId.name,
         number: props.issueId.number,
       };
+      const body: FundIssueBody = {
+        companyId: auth.authInfo?.company?.id.uuid,
+        dowAmount: counter.toString(),
+      };
+      const query: FundIssueQuery = {};
       try {
-        await backendAPI.fundIssue(body, query);
+        await backendAPI.fundIssue(params, body, query);
         //   TODO: reload
         // display success message
         props.onIssueFundingSuccess();
@@ -66,8 +68,11 @@ export function DowFunding(props: DowFundingProps) {
 
   const getAvailableDoWs = async () => {
     try {
-      const dowAmount = await backendAPI.getAvailableDoWs(userId, auth.authInfo?.company?.id);
-      console.log("dowAmount", dowAmount);
+      const params: GetAvailableDowParams = {};
+      const query: GetAvailableDowQuery = {
+        companyId: auth.authInfo?.company?.id.uuid,
+      };
+      const dowAmount = await backendAPI.getAvailableDow(params, query);
       setAvailableDoWAmount(dowAmount);
     } catch (error) {
       console.error("Error fetching available DoWs:", error);
@@ -80,7 +85,8 @@ export function DowFunding(props: DowFundingProps) {
   }, []);
 
   useEffect(() => {
-    if (!counter) setEnoughFund(true);
+    if (availableDoWAmount.isZero()) setEnoughFund(false);
+    else if (!counter) setEnoughFund(true);
     else setEnoughFund(counter.lessThanOrEqualTo(availableDoWAmount));
   }, [counter, availableDoWAmount]);
 
@@ -88,7 +94,7 @@ export function DowFunding(props: DowFundingProps) {
     <>
       <h2 className="text-end montserrat text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
-        {/*<span className="text-[#FF518C] cursor-pointer hover:underline">{availableDoWAmount.} DoW</span>*/}
+        <span className="text-[#FF518C] cursor-pointer hover:underline">{availableDoWAmount.toNumber()} DoW</span>
       </h2>
       <div className="mt-4 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
         <div className="flex items-center gap-4 justify-between">

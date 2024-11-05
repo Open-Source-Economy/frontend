@@ -57,7 +57,9 @@ export function Authenticate(props: AuthenticateProps) {
         email: email,
         password: password,
       };
-      const query: RegisterQuery = {};
+      const query: RegisterQuery = {
+        companyToken: companyToken ?? undefined,
+      };
       auth.register(body, query);
     }
   };

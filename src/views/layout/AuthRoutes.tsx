@@ -9,7 +9,7 @@ export function AuthRoutes() {
   if (process.env.REACT_APP_USE_MOCK_API === "true") {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-in" />;
+    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -31,7 +31,7 @@ export function SuperAdminRoutes() {
   if (process.env.REACT_APP_USE_MOCK_API === "true") {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-in" />;
+    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { DisclaimerModal, DowFunding } from "./elements";
 import { getBackendAPI } from "src/services/BackendAPI";
 import bgimage from "src/assets/Group258.svg";
-import { GetIssueQuery } from "src/dtos";
+import { GetIssueParams, GetIssueQuery } from "src/dtos";
 
 interface IssueProps {}
 
@@ -23,12 +23,13 @@ export function FundIssue({}: IssueProps) {
   const getFinancialIssue = async () => {
     if (ownerParam && repoParam && number) {
       try {
-        const query: GetIssueQuery = {
+        const params: GetIssueParams = {
           owner: ownerParam,
           repo: repoParam,
           number: number,
         };
-        const financialIssue = await backendAPI.getFinancialIssue(query);
+        const query: GetIssueQuery = {};
+        const financialIssue = await backendAPI.getFinancialIssue(params, query);
         setFinancialIssue(financialIssue);
       } catch (error) {
         console.error("Error fetching financial isssue:", error);

@@ -46,7 +46,12 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   }
 
   async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse> {
-    return handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
+    if (query.companyToken) {
+      const queryParams = `companyToken=${encodeURIComponent(query.companyToken)}`;
+      return handleError(() => axios.post(`${API_URL}/auth/register-as-company?${queryParams}`, body, { withCredentials: true }), "register-as-company");
+    } else {
+      return handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
+    }
   }
 
   async loginWithGitHub(): Promise<void> {
