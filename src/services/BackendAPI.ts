@@ -1,7 +1,17 @@
 import { CompanyId, FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
-import { FundIssueBody, FundIssueParams, FundIssueQuery, GetAvailableDowResponse, GetIssueParams, GetIssueQuery, GetIssueResponse } from "src/dtos";
+import {
+  FundIssueBody,
+  FundIssueParams,
+  FundIssueQuery,
+  GetAvailableDowResponse,
+  GetIssueParams,
+  GetIssueQuery,
+  GetIssueResponse,
+  GetIssuesParams,
+  GetIssuesResponse,
+} from "src/dtos";
 import { API_URL, handleError } from "src/services/index";
 import axios from "axios";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
@@ -19,7 +29,7 @@ export interface BackendAPI {
 
   getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue>;
 
-  getFinancialIssues(): Promise<FinancialIssue[]>;
+  getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[]>;
 
   getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal>;
 
@@ -72,8 +82,9 @@ class BackendAPIImpl implements BackendAPI {
     return response.issue;
   }
 
-  async getFinancialIssues(): Promise<FinancialIssue[]> {
-    return Promise.resolve(undefined as any);
+  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[]> {
+    const response = await handleError<GetIssuesResponse>(() => axios.get(`${API_URL}/github/issues`, { withCredentials: true }), "getFinancialIssues");
+    return response.issues;
   }
 
   async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal> {

@@ -11,18 +11,24 @@ interface ActionProps {
 }
 
 export function Action(props: ActionProps) {
-  if (props.state === ManagedIssueState.OPEN) {
+  const actOnIssueButton = (
+    <LinkButton
+      to={fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}
+      buttonProps={{
+        type: props.successfullyFunded ? ButtonType.SECONDARY : ButtonType.PRIMARY,
+        size: ButtonSize.MEDIUM,
+        audience: Audience.DEVELOPER,
+        holder: "ACT ON ISSUE",
+      }}
+    />
+  );
+
+  if (!props.state) {
+    return actOnIssueButton;
+  } else if (props.state === ManagedIssueState.OPEN) {
     return (
       <>
-        <LinkButton
-          to={fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}
-          buttonProps={{
-            type: props.successfullyFunded ? ButtonType.SECONDARY : ButtonType.PRIMARY,
-            size: ButtonSize.MEDIUM,
-            audience: Audience.DEVELOPER,
-            holder: "ACT ON ISSUE",
-          }}
-        />
+        {actOnIssueButton}
 
         {props.successfullyFunded && (
           <ExternalLinkButton

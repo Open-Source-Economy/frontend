@@ -7,6 +7,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
+import { GetIssueQuery, GetIssuesParams } from "src/dtos";
 
 interface IssuesProps {}
 
@@ -21,7 +22,9 @@ export function Issues(props: IssuesProps) {
   useEffect(() => {
     (async () => {
       try {
-        const financialIssues = await backendAPI.getFinancialIssues();
+        const params: GetIssuesParams = {};
+        const query: GetIssueQuery = {};
+        const financialIssues = await backendAPI.getFinancialIssues(params, query);
         setFinancialIssues(financialIssues);
         setFilteredFinancialIssues(financialIssues);
       } catch (error) {
@@ -61,7 +64,7 @@ export function Issues(props: IssuesProps) {
                 <p className="text-red-500">{error}</p>
               ) : (filteredFinancialIssues || []).length > 0 ? (
                 filteredFinancialIssues.map(issue => (
-                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} displayActionButtons displaySeeMore={false} />
+                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} displayActionButtons={true} displaySeeMore={false} />
                 ))
               ) : (
                 // TODO: improve the design

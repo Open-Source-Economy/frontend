@@ -12,17 +12,17 @@ import {
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
-import { FundIssueBody, FundIssueParams, FundIssueQuery, GetIssueParams, GetIssueQuery } from "src/dtos";
+import { FundIssueBody, FundIssueParams, FundIssueQuery, GetIssueParams, GetIssueQuery, GetIssuesParams } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue> {
-    const financialIssues = await this.getFinancialIssues();
+    const financialIssues = await this.getFinancialIssues({}, {});
     return financialIssues[0];
   }
 
-  async getFinancialIssues(): Promise<FinancialIssue[]> {
+  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[]> {
     const financialIssues: FinancialIssue[] = [];
 
     const requestedDowAmount = 12;
