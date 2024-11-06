@@ -3,33 +3,34 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 import bgimage from "src/assets/Group258.svg";
 import bgimage2 from "src/assets/issuebg2.png";
 import bgimage3 from "src/assets/issuebg3.png";
-import cat from "src/assets/catimg.png";
 import check from "src/assets/checkmark.png";
 import down from "src/assets/arrowdown.png";
 import up from "src/assets/arrowup.png";
 import { IssueCard } from "src/components/issue";
 import { useFinancialIssue } from "src/views/hooks/useFinancialIssue";
+import { SolveIssueOnGithub } from "src/views/pages/app/manageIssue/elements/SolveIssueOnGithub";
+import { FinancialIssue } from "src/model";
 
 interface ManageIssueProps {}
 
 export function ManageIssue(props: ManageIssueProps) {
   const [activeTab, setActiveTab] = useState("tab1"); // Default active tab
 
-  const [counter, setcounter] = useState(10);
+  const [counter, setCounter] = useState(10);
   const [inputValue, setInputValue] = useState(10);
   const inputRef = useRef(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setInputValue(value);
-    setcounter(value);
+    setCounter(value);
   };
 
   const increment = () => {
-    setcounter(counter + 1);
+    setCounter(counter + 1);
   };
   const decrement = () => {
-    setcounter(counter - 1);
+    setCounter(counter - 1);
   };
 
   // Function to handle tab click
@@ -38,7 +39,6 @@ export function ManageIssue(props: ManageIssueProps) {
   };
 
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue();
-  const [modal, setModal] = useState(false);
 
   return (
     <PageWrapper>
@@ -82,20 +82,7 @@ export function ManageIssue(props: ManageIssueProps) {
                       </div>
                     )}
 
-                    <div className="padding sm:py-10 sm:pe-10 sm:px-24  text-center md:justify-between justify-center flex flex-wrap items-start  xl:w-[670px] md:w-[590px] w-full bg-[#14233A] mt-4 rounded-3xl">
-                      <div className="flex flex-col gap-5">
-                        <h1 className="text-[18px]">The community is here!</h1>
-                        <h2 className="text-[18px] montserrat">
-                          They support you! <br /> It is now time to solve the issue!
-                        </h2>
-                        <button className="border-1 border-[#FF518C] rounded-md p-3 text-[13px] hover:bg-[#FF518C] transition-all duration-500">
-                          Solve the issue on GitHub
-                        </button>
-                      </div>
-                      <div className="">
-                        <img src={cat} className="w-[160px] h-[210px] mt-3 mt-md-0" alt="" />
-                      </div>
-                    </div>
+                    {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
                   <div>

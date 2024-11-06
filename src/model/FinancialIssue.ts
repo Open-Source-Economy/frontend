@@ -45,7 +45,9 @@ export class FinancialIssue {
   }
 
   static successfullyFunded(m: FinancialIssue): boolean {
-    return FinancialIssue.amountCollected(m).greaterThanOrEqualTo(FinancialIssue.amountRequested(m) ?? new Decimal(0));
+    const amountRequested = FinancialIssue.amountRequested(m);
+    if (amountRequested === undefined) return false;
+    else return FinancialIssue.amountCollected(m).greaterThanOrEqualTo(amountRequested);
   }
 
   static isClosed(m: FinancialIssue): boolean {

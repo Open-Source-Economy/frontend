@@ -1,5 +1,5 @@
 import React from "react";
-import * as model from "../../model";
+import * as model from "src/model";
 import { ExternalLink } from "src/components";
 
 interface RepositoryProps {

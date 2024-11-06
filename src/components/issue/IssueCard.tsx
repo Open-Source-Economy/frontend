@@ -1,6 +1,6 @@
 import React from "react";
-import * as model from "../../model";
-import { FinancialIssue } from "../../model";
+import * as model from "src/model";
+import { FinancialIssue } from "src/model";
 import * as components from "./index";
 import { PrivatePublicToggled } from "./index";
 import person from "src/assets/personicon.png";

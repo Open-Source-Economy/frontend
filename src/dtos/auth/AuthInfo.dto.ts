@@ -1,4 +1,4 @@
-import { Company, CompanyUserRole, User } from "../../model";
+import { Company, CompanyUserRole, User } from "src/model";
 
 export interface AuthInfo {
   user: User | null;
