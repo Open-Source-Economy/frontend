@@ -11,7 +11,17 @@ import {
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
-import { FundIssueBody, FundIssueParams, FundIssueQuery, GetIssueParams, GetIssueQuery, GetIssuesParams } from "src/dtos";
+import {
+  FundIssueBody,
+  FundIssueParams,
+  FundIssueQuery,
+  GetIssueParams,
+  GetIssueQuery,
+  GetIssuesParams,
+  RequestIssueFundingBody,
+  RequestIssueFundingParams,
+  RequestIssueFundingQuery,
+} from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 
@@ -56,7 +66,7 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
+  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void> {
     return Promise.resolve(undefined);
   }
 

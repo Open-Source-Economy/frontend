@@ -1,13 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import up from "src/assets/arrowup.png";
 import down from "src/assets/arrowdown.png";
-import { DOW_INCREMENT } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Decimal from "decimal.js";
 import { IssueId } from "src/model";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
+import { useDowCounter } from "src/views/hooks";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;
@@ -18,27 +18,10 @@ export function DowFunding(props: DowFundingProps) {
   const auth = useAuth();
   const backendAPI = getBackendAPI();
 
-  const userId = auth.authInfo?.user?.id!; // Should be loaded from the auth context
-
+  const { counter, handleInputChange, increment, decrement } = useDowCounter();
   const [availableDoWAmount, setAvailableDoWAmount] = useState<Decimal>(new Decimal(0));
-  const [counter, setCounter] = useState<Decimal | null>(null);
   const [enoughFund, setEnoughFund] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    setCounter(new Decimal(value));
-  };
-
-  const increment = () => {
-    if (counter) setCounter(counter.plus(DOW_INCREMENT));
-    else setCounter(new Decimal(DOW_INCREMENT));
-  };
-
-  const decrement = () => {
-    if (counter && counter.isPositive()) setCounter(counter.minus(DOW_INCREMENT));
-    else setCounter(new Decimal(DOW_INCREMENT));
-  };
 
   const fundIssue = async () => {
     if (!counter) {
@@ -100,10 +83,11 @@ export function DowFunding(props: DowFundingProps) {
         <div className="flex items-center gap-4 justify-between">
           <div>
             <h2 className="text-[#A1A7B0] text-lg">Fund</h2>
+
+            {/*TODO: this part could be refactored with CounterInput*/}
             <div className="d-flex items-center gap-3 mt-1">
               <input
                 type="number"
-                step={DOW_INCREMENT}
                 value={counter ? counter.toNumber() : undefined}
                 placeholder="0.0"
                 onChange={handleInputChange}
@@ -111,7 +95,7 @@ export function DowFunding(props: DowFundingProps) {
               />
 
               <div className="d-flex flex-col gap-2">
-                <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={() => increment()} alt="" />
+                <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" />
                 <img
                   src={down}
                   className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -152,6 +136,9 @@ export function DowFunding(props: DowFundingProps) {
           GET MORE DoW
         </button>
       </div>
+
+      {/*TODO: style */}
+      <p>{error}</p>
     </>
   );
 }

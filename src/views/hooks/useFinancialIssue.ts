@@ -1,25 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { GetIssueParams, GetIssueQuery } from "src/dtos";
-import { useParams } from "react-router-dom";
 import * as model from "src/model";
 
-export function useFinancialIssue() {
+export function useFinancialIssue(issueId: model.IssueId | null) {
   const backendAPI = getBackendAPI();
-
-  const { ownerParam, repoParam, numberParam } = useParams();
-  const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
   const [financialIssue, setFinancialIssue] = useState<model.FinancialIssue | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const getFinancialIssue = async () => {
-    if (ownerParam && repoParam && number) {
+    if (issueId) {
       try {
         const params: GetIssueParams = {
-          owner: ownerParam,
-          repo: repoParam,
-          number: number,
+          owner: issueId.repositoryId.ownerId.login,
+          repo: issueId.repositoryId.name,
+          number: issueId.number,
         };
         const query: GetIssueQuery = {};
         const financialIssue = await backendAPI.getFinancialIssue(params, query);
@@ -30,10 +26,6 @@ export function useFinancialIssue() {
       }
     }
   };
-
-  useEffect(() => {
-    getFinancialIssue();
-  }, [ownerParam, repoParam, number]);
 
   return { financialIssue, error, reloadFinancialIssue: getFinancialIssue };
 }

@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { StatusCodes } from "http-status-codes";
-import { ResponseBody } from "src/dtos/ResponseBody.dto";
+import { ErrorResponse, ResponseBody } from "src/dtos/ResponseBody.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 
 if (!process.env.REACT_APP_OSE_API_BASE_URL) {
@@ -20,7 +20,8 @@ export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseB
   } catch (err) {
     if (err instanceof AxiosError) {
       console.error(`Error on ${name}:`, err);
-      throw new ApiError(err.response?.status as StatusCodes, err.response?.statusText ?? "");
+      const errorResponse = err.response?.data as ErrorResponse | undefined;
+      throw new ApiError(err.response?.status as StatusCodes, err.response?.statusText ?? "", errorResponse?.message);
     } else {
       console.error(`Unexpected error during ${name}:`, err);
       throw err; // Re-throw unexpected errors

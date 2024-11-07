@@ -11,6 +11,9 @@ import {
   GetIssueResponse,
   GetIssuesParams,
   GetIssuesResponse,
+  RequestIssueFundingBody,
+  RequestIssueFundingParams,
+  RequestIssueFundingQuery,
 } from "src/dtos";
 import { API_URL, handleError } from "src/services/index";
 import axios from "axios";
@@ -46,17 +49,13 @@ export interface BackendAPI {
 
   /**
    * Request or approve funding for an issue.
-   * @param userId
-   * @param issueId
-   * @param amount
-   * @returns
    *
    * @throws {Error} If the issue is already got requested funding.
    * @throws {Error} If the issue is closed.
    * @throws {Error} If the userId or issueId is invalid or not found.
    * @throws {Error} If the amount is not a positive number.
    */
-  requestFunding(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void>;
+  requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void>;
 
   /**
    * Reject funding for an issue.
@@ -110,8 +109,11 @@ class BackendAPIImpl implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(userId: UserId, issueId: IssueId, amount: Decimal): Promise<void> {
-    return Promise.resolve(undefined);
+  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void> {
+    return handleError(
+      () => axios.post(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}/request-funding`, body, { withCredentials: true }),
+      "requestFunding",
+    );
   }
 
   async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void> {

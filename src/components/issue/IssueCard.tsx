@@ -26,7 +26,7 @@ export function IssueCard(props: IssueProps) {
           </div>
         </div>
 
-        <div className="padding sm:py-7 sm:px-10   bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
+        <div className="padding sm:py-7 sm:px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
           <components.Issue issue={props.financialIssue.issue} />
 
           <div className="flex flex-wrap items-center gap-3 justify-between mt-12">
@@ -39,13 +39,14 @@ export function IssueCard(props: IssueProps) {
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
             </div>
 
-            {props.displayPrivatePublicToggle && (
-              <div>
-                <div className="flex items-center gap-3">
-                  <PrivatePublicToggled />
-                </div>
-              </div>
-            )}
+            {/*TODO*/}
+            {/*{props.displayPrivatePublicToggle && (*/}
+            {/*  <div>*/}
+            {/*    <div className="flex items-center gap-3">*/}
+            {/*      <PrivatePublicToggled />*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*)}*/}
 
             {props.displayActionButtons && (
               <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">

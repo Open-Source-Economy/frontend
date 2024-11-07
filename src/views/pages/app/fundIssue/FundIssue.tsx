@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
-import { useFinancialIssue } from "src/views/hooks";
+import { getIssueIdFromParams, useFinancialIssue } from "src/views/hooks";
 
 interface FundIssueProps {}
 
 export function FundIssue({}: FundIssueProps) {
-  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue();
+  const issueId = getIssueIdFromParams();
+  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
   const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    reloadFinancialIssue();
+  }, []);
 
   return (
     <PageWrapper>
