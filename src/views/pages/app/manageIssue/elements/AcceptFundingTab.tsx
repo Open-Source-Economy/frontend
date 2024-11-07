@@ -1,7 +1,7 @@
 import React from "react";
 import { CounterInput } from "src/views/pages/app/manageIssue/elements/CounterInput";
 import check from "src/assets/checkmark.png";
-import { getIssueIdFromParams, useDowCounter } from "src/views/hooks";
+import { useIssueIdFromParams, useDowCounter } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
 
@@ -10,7 +10,7 @@ interface AcceptFundingTabProps {}
 export function AcceptFundingTab(props: AcceptFundingTabProps) {
   const backendAPI = getBackendAPI();
 
-  const issueId = getIssueIdFromParams();
+  const issueId = useIssueIdFromParams();
 
   const { counter, handleInputChange, increment, decrement } = useDowCounter();
   const [error, setError] = React.useState<string | null>(null);

@@ -10,12 +10,12 @@ import { FinancialIssue } from "src/model";
 import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
-import { getIssueIdFromParams } from "src/views/hooks";
+import { useIssueIdFromParams } from "src/views/hooks";
 
 interface ManageIssueProps {}
 
 export function ManageIssue(props: ManageIssueProps) {
-  const issueId = getIssueIdFromParams();
+  const issueId = useIssueIdFromParams();
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
 
   useEffect(() => {
