@@ -20,9 +20,9 @@ export function SolveIssueOnGithub(props: SolveIssueOnGithubProps) {
           <ExternalLinkButton
             href={props.issue.htmlUrl}
             buttonProps={{
+              htmlButtonProps: { children: "Solve the issue on GitHub" },
               type: ButtonType.SECONDARY,
               audience: Audience.DEVELOPER,
-              holder: "Solve the issue on GitHub",
             }}
           />
 

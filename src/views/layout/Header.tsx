@@ -76,9 +76,9 @@ export function Header({}: HeaderProps) {
                     <ExternalLinkButton
                       href="/white-paper"
                       buttonProps={{
+                        htmlButtonProps: { children: "WHITE PAPER" },
                         type: ButtonType.SECONDARY,
                         audience: Audience.ALL,
-                        holder: "WHITE PAPER",
                       }}
                     />
                   </Nav>

@@ -3,8 +3,9 @@ import AOS from "aos"; // Importing the AOS (Animate On Scroll) library for anim
 import "aos/dist/aos.css"; // Importing the AOS CSS file for animation styling
 import "./Sec1.css"; // Importing custom CSS specific to this component
 import img from "src/assets/Frame.svg";
-import { ButtonType, LinkButton } from "src/components";
+import { ButtonSize, ButtonType, LinkButton } from "src/components";
 import { Audience } from "src/views";
+import { fundIssuePath } from "src/App";
 
 const Sec1 = () => {
   // Defining the Sec1 functional component
@@ -27,11 +28,11 @@ const Sec1 = () => {
           </h1>
           <div className="mt-3">
             <LinkButton
-              to="/issues"
+              linkProps={{ to: "/issues" }}
               buttonProps={{
+                htmlButtonProps: { children: "GET STARTED" },
                 type: ButtonType.PRIMARY,
                 audience: Audience.ALL,
-                holder: "GET STARTED",
               }}
             />
           </div>

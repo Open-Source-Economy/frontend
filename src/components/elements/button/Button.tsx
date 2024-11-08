@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import "./FindoutmoreButton.css";
-import { Link, To } from "react-router-dom";
+import { Link, LinkProps, To } from "react-router-dom";
 import { Audience } from "src/views";
 
 // TODO: refactor
@@ -17,23 +17,17 @@ export enum ButtonSize {
   LARGE = "large",
 }
 
-export enum ButtonState {
-  ACTIVE = "active",
-  DISABLED = "disabled",
-}
-
 interface ButtonProps {
+  htmlButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>;
   type: ButtonType;
   size?: ButtonSize;
-  state?: ButtonState;
   audience: Audience;
-  holder: string;
 }
 
 export function Button(props: ButtonProps) {
   let className = ""; // Initialize an empty string
 
-  // TODO: refactor the classe to have all the possible values
+  // TODO: refactor the class to have all the possible values
   if (props.audience === Audience.ALL && props.type === ButtonType.PRIMARY) {
     className = "findbutton";
   } else if (props.audience === Audience.ALL && props.type === ButtonType.SECONDARY) {
@@ -49,20 +43,24 @@ export function Button(props: ButtonProps) {
   } else if (props.size === ButtonSize.MEDIUM) {
     className += " px-5 py-3";
   } else if (props.size === ButtonSize.LARGE) {
-    className += " ";
+    className += "TODO";
   }
 
-  return <button className={`rounded-3 ${className}`}>{props.holder}</button>;
+  return (
+    <button className={`${className} ${props.htmlButtonProps.className}`} {...props.htmlButtonProps}>
+      {props.htmlButtonProps.children}
+    </button>
+  );
 }
 
 interface LinkButtonProps {
-  to: To;
+  linkProps: LinkProps & React.RefAttributes<HTMLAnchorElement>;
   buttonProps: ButtonProps;
 }
 
 export function LinkButton(props: LinkButtonProps) {
   return (
-    <Link to={props.to}>
+    <Link to={props.linkProps.to}>
       <Button {...props.buttonProps} />
     </Link>
   );

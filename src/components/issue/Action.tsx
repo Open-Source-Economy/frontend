@@ -13,12 +13,12 @@ interface ActionProps {
 export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <LinkButton
-      to={fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}
+      linkProps={{ to: fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number) }}
       buttonProps={{
+        htmlButtonProps: { children: "ACT ON ISSUE" },
         type: props.successfullyFunded ? ButtonType.SECONDARY : ButtonType.PRIMARY,
-        size: ButtonSize.MEDIUM,
         audience: Audience.DEVELOPER,
-        holder: "ACT ON ISSUE",
+        size: ButtonSize.MEDIUM,
       }}
     />
   );
@@ -34,10 +34,10 @@ export function Action(props: ActionProps) {
           <ExternalLinkButton
             href={props.issue.htmlUrl}
             buttonProps={{
+              htmlButtonProps: { children: "ACT ON GITHUB" },
               type: props.successfullyFunded ? ButtonType.PRIMARY : ButtonType.SECONDARY,
               size: ButtonSize.MEDIUM,
               audience: Audience.DEVELOPER,
-              holder: "ACT ON GITHUB",
             }}
           />
         )}
