@@ -7,6 +7,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { Problem } from "./elements/Problem";
 import { Audience } from "../../../Audience";
+import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -96,7 +97,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
               The future of open source is here <br /> <span className="lg:text-[20px] md:text-[15px] xl:text-[50px] text-[14px]">JOIN THE MOVEMENT.</span>
             </h1>
 
-            {/*<InterestForm/>*/}
+            <InterestForm />
           </div>
         </div>
       </div>
