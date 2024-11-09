@@ -35,7 +35,7 @@ export function Problem(props: ProblemProps) {
 
   return (
     <>
-      <h1 data-aos="fade-down" data-aos-duration="25000" className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px]  text-white">
+      <h1 data-aos="fade-down" data-aos-duration="25000" className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px] text-white ff_michroma">
         {props.title}
       </h1>
 

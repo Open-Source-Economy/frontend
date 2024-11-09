@@ -65,7 +65,7 @@ export function Header({}: HeaderProps) {
                   {" "}
                   <Nav className="justify-content-end align-items-lg-center text-white gap-md-5 gap-3 flex-grow-1">
                     {/*  TODO: use class for that*/}
-                    <a href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
+                    <a className="ff_michroma" href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
                       Blog
                     </a>
                     {/*<Nav.Link href="">MISSION</Nav.Link>*/}

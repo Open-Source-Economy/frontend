@@ -73,7 +73,7 @@ interface ExternalLinkButtonProps {
 
 export function ExternalLinkButton(props: ExternalLinkButtonProps) {
   return (
-    <a href={props.href} target="_blank" rel="noopener noreferrer">
+    <a className="ff_michroma" href={props.href} target="_blank" rel="noopener noreferrer">
       <Button {...props.buttonProps} />
     </a>
   );
@@ -86,7 +86,7 @@ interface ExternalLinkProps {
 
 export function ExternalLink(props: ExternalLinkProps) {
   return (
-    <a href={props.href} target="_blank" rel="noopener noreferrer" className="cursor-pointer hover:underline">
+    <a href={props.href} target="_blank" rel="noopener noreferrer" className="cursor-pointer hover:underline ff_michroma">
       {props.children}
     </a>
   );

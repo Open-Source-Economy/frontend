@@ -22,8 +22,8 @@ export function Solution(props: SolutionProps) {
       <div className="" data-aos="fade-in" data-aos-duration="35000">
         <div className="px-2">
           {props.comingSoon && <h4 className="text-gray-300 text-[14px] xl:text-[18px]">COMING SOON</h4>}
-          <h4 className={`${textColorVariants[props.audience]} mt-2 text-xl lg:text-4xl xl:text-5xl`}>{props.title}</h4>
-          <h5 className="md:text-lg xl:text-[20px] text-md mt-3 text-gray-300">{props.subTitle}</h5>
+          <h4 className={`${textColorVariants[props.audience]} mt-2 text-xl lg:text-4xl xl:text-5xl ff_michroma`}>{props.title}</h4>
+          <h5 className="md:text-lg xl:text-[20px] text-md mt-3 text-gray-300 ff_michroma">{props.subTitle}</h5>
           <p className={"text-[12px] xl:text-[15px] text-gray-300 mt-6"}>{props.text}</p>
         </div>
       </div>

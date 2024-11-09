@@ -65,7 +65,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
           }}
         >
           <div data-aos="fade-in" className="2xl:px-20 lg:px-52 container">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] xl:leading-[75px] leading-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] xl:leading-[75px] leading-4 ff_michroma">
               No BS. <br />
               <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] ">Here’s our solution.</span>
             </h1>
@@ -92,9 +92,9 @@ export function UserDeveloper(props: UserDeveloperProps) {
             <h1
               data-aos="fade-in"
               data-aos-duration="25000"
-              className="text-center lg:text-[29px] lg:leading-[90px] md:text-[19px] xl:text-[65px] text-[17px] "
+              className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl ff_michroma !leading-normal text-center px-3 md:px-0"
             >
-              The future of open source is here <br /> <span className="lg:text-[20px] md:text-[15px] xl:text-[50px] text-[14px]">JOIN THE MOVEMENT.</span>
+              The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.{" "}
             </h1>
 
             <InterestForm />

@@ -36,7 +36,7 @@ export function InterestForm(props: InterestFormProps) {
       <h1
         data-aos="fade-in"
         data-aos-duration="25000"
-        className="text-center text-3xl md:text-4xl lg:text-6xl lg:mt-32 md:mt-22 xl:mt-96 mt-14"
+        className="text-center text-3xl md:text-4xl lg:text-6xl lg:mt-32 md:mt-22 xl:mt-96 mt-14 ff_michroma leading-[120%]"
         style={{
           background: "linear-gradient(90deg, #66319B 0%, #FF518C 50%, #FF7E4B 100%)",
           WebkitBackgroundClip: "text",
@@ -53,16 +53,16 @@ export function InterestForm(props: InterestFormProps) {
             name=""
             id=""
             placeholder="Your Email*"
-            className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100"
+            className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100 ff_michroma"
           />
           <div className="flex align-items-center mt-3 gap-2">
             <input type="checkbox" name="" id="" />
-            <h2 className="text-[15px] text-[rgba(252,254,253,27%)]">Sign up for news & updates</h2>
+            <h2 className="text-[15px] text-[rgba(252,254,253,27%)] ff_michroma">Sign up for news & updates</h2>
           </div>
           <div className="mt-5 relative inline-block text-left w-100">
             <button
               onClick={toggleDropdown1}
-              className="flex text-left items-center justify-between  border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100"
+              className="flex text-left items-center justify-between  border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
             >
               {selectedOption1}
               <svg
@@ -95,7 +95,7 @@ export function InterestForm(props: InterestFormProps) {
             <div className="mt-5 relative inline-block text-left w-100">
               <button
                 onClick={toggleDropdown2}
-                className="flex items-center text-left justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100"
+                className="flex items-center text-left justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
               >
                 {selectedOption2}
                 <svg
@@ -124,15 +124,15 @@ export function InterestForm(props: InterestFormProps) {
             )}
           </div>
           <div data-aos="fade-in" className="mt-5 ">
-            <h1 className=" text-[23px]">Message</h1>
+            <h1 className=" text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
             <input
               placeholder="Share your motivation..."
               type="text"
-              className="mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-[14px] lg:pb-48 pb-20 md:pb-32 outline-none text-[#fff] w-100"
+              className="mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-[14px] lg:pb-48 pb-20 md:pb-32 outline-none text-[#fff] w-100 placeholder:!text-white placeholder:!opacity-100 ff_michroma"
             />
           </div>
           <div data-aos="fade-in" className="flex items-center justify-center">
-            <button className="px-6 py-3 mt-5 findbutton">SUBMIT</button>
+            <button className="px-6 py-3 mt-5 findbutton ff_michroma">SUBMIT</button>
           </div>
         </div>
       </div>
