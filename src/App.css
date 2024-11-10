@@ -131,3 +131,32 @@ input[type="number"] {
   cursor: pointer;
   /* Remove any border if there is one */
 }
+.group-text-bg {
+  position: relative;
+  width: 100%;
+}
+.group-text-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("./assets/group-text.png");
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: 100% 100%;
+}
+.deving-bg::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  left: -15%;
+  background-image: url("./assets/deving-bg.webp");
+  z-index: -1;
+  width: 131%;
+  height: 170%;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.3;
+}
