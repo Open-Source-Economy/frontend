@@ -18,7 +18,7 @@ const NoBsCards = () => {
                   className="object-contain lg:max-w-[280px] max-w-28 sm:max-w-[150px] max-h-[170px] w-full lg:max-h-[200px]"
                 />
               </div>
-              <div className="flex flex-col justify-evenly  lg:max-w-[633px] sm:max-w-[500px] w-full">
+              <div className="flex flex-col justify-evenly lg:max-w-[633px] sm:max-w-[500px] w-full ">
                 <div>
                   <h3 className="text-primary-developer xl:text-[45px] lg:text-3xl sm:text-2xl text-xl leading-[130%] ff_michroma">{feature.title}</h3>
                   <p className="text-white 2xl:text-[28px] xl:text-xl sm:text-lg text-base leading-[130%] font-medium ff_michroma mt-4">{feature.subtitle}</p>
@@ -31,7 +31,7 @@ const NoBsCards = () => {
                       </p>
                     ))}
                   </div>
-                  <p className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] ff_michroma h-full">
+                  <p className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] ff_michroma h-full !mt-10">
                     {feature.subTitle2}
                   </p>
                 </div>

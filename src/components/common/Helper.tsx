@@ -44,9 +44,8 @@ export const features = [
       <div key="desc-2" className="flex items-center">
         .<p className="ml-3">Attract financial backers.</p>
       </div>,
-      "And bring your vision to life!",
     ],
-    subTitle2: "",
+    subTitle2: "And bring your vision to life!",
     imgPath: img3,
   },
 ];
