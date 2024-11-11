@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const TheFuture: React.FC = () => {
   const headingTextRef = useRef(null);
   const registerText = useRef(null);
+  const formWrapper = useRef(null);
   useEffect(() => {
     gsap.fromTo(
       headingTextRef.current,
@@ -46,6 +47,24 @@ const TheFuture: React.FC = () => {
         },
       }
     );
+
+    gsap.fromTo(
+      formWrapper.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".form-wrapper",
+          start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
+          end: "top 70%", // Ends the animation when the element reaches the center of the viewport
+          scrub: 2, // Smoothly scrubs the animation with the scroll
+          markers: true,
+        },
+      }
+    );
   }, []);
   return (
     <section id="feature" className="max-w-[1387px] w-full mx-auto !px-4 ">
@@ -66,17 +85,21 @@ const TheFuture: React.FC = () => {
         </h4>
       </div>
 
-      <div className="mx-auto flex flex-col  lg:px-42 2xl:px-64 md:px-32 sm:px-10">
+      <form ref={formWrapper} className="form-wrapper mx-auto flex flex-col lg:px-42 2xl:px-64 md:px-32 sm:px-10">
         <div>
-          <input type="email" placeholder="Your Email*" className="email common-layout ff_michroma" />
-
-          <div className="flex align-items-center mt-3 gap-2">
-            <input type="checkbox" />
-            <h2 className="sm:text-[15px] text-xs text-[#fcfefd45] leading-[100%] ff_michroma">Sign up for news & updates</h2>
-          </div>
+          <input type="email" placeholder="Your Email*" required className="email common-layout ff_michroma" />
+          <label className="flex align-items-center mt-3 gap-2 agreecheckbox">
+            <input className="w-5 h-5" type="checkbox" />
+            <p className="sm:text-[15px] text-xs text-[#fcfefd45] leading-[100%] ff_michroma">Sign up for news & updates</p>
+          </label>
 
           <div className="lg:mt-14 md:mt-12 sm:mt-10 mt-8">
-            <FutureDropDown options={dropdownOptions.profile} defaultValue="Your Profile" onChange={value => console.log("Profile selected:", value)} />
+            <FutureDropDown
+              options={dropdownOptions.profile}
+              defaultValue="Your Profile"
+              required
+              onChange={value => console.log("Profile selected:", value)}
+            />
           </div>
 
           <div className="lg:mt-[72px] md:mt-14 sm:mt-10 mt-8">
@@ -86,20 +109,24 @@ const TheFuture: React.FC = () => {
               onChange={value => console.log("Project option selected:", value)}
             />
           </div>
+
           <div className="md:mt-[33px] mt-6">
             <h1 className="text-sm md:text-[16px] lg:text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
             <input
               placeholder="Share your motivation..."
               type="text"
+              required
               className="!mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-sm xl:pb-[199px] lg:pb-32 md:pb-20 sm:pb-16 pb-14 outline-none text-[#fff] w-100 placeholder:!text-white placeholder:!opacity-100 ff_michroma"
             />
           </div>
 
           <div className="flex items-center justify-center">
-            <button className="px-6 md:py-3 py-2 md:mt-5 mt-4 findbutton ff_michroma">SUBMIT</button>
+            <button type="submit" className="px-6 md:py-3 py-2 md:mt-5 mt-4 button ff_michroma">
+              SUBMIT
+            </button>
           </div>
         </div>
-      </div>
+      </form>
     </section>
   );
 };

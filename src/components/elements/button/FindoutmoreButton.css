@@ -1,107 +1,112 @@
 .findbutton {
-    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 1);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22.75px;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    transition: all 1s ease-in;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.75px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 1s ease-in;
 }
 
 .findbutton::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 6px;
-    border: 3px solid transparent;
-    border-image: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
-    border-image-slice: 1;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-image-slice: 1;
+  pointer-events: none;
 }
 
 .findbutton:hover {
-    border-image: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
-    border-image-slice: 1;
-    background: transparent;
+  border-image: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-image-slice: 1;
+  background: transparent;
 }
 
-
 .btn-1 {
-    border: 2px solid #ff7e4b;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18.48px;
-    border-radius: 6px;
-    background: transparent;
-    transition: all 0.3s ease-in;
+  border: 2px solid #ff7e4b;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.48px;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.3s ease-in;
 }
 
 .btn-1:hover {
-    background-color: #ff7e4b;
+  background-color: #ff7e4b;
 }
 
 .btn-2 {
-    border: 2px solid #ff518c;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18.48px;
-    border-radius: 6px;
-    background: transparent;
-    transition: all 0.3s ease-in;
-
+  border: 2px solid #ff518c;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.48px;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.3s ease-in;
 }
 
 .btn-2:hover {
-    background-color: #ff518c;
+  background-color: #ff518c;
 }
 
 .button {
-    position: relative;
-    background: none;
-    border: none;
-    /* Remove the default border */
-    border-radius: 7px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22.75px;
-    color: rgba(255, 255, 255, 1);
-    transition: all 0.5s ease-in;
+  position: relative;
+  background: none;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.75px;
+  color: rgba(255, 255, 255, 1);
+  z-index: 1;
+  overflow: hidden;
+}
 
-    z-index: 1;
-    /* Ensure the button content is on top */
-    overflow: hidden;
-    /* Hide the pseudo-element overflow */
+.button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  transition: left 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.button:hover::after {
+  left: 0;
 }
 
 .button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 7px;
-    /* Apply the border-radius to the pseudo-element */
-    padding: 2px;
-    /* Adjust the border thickness */
-    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
-    -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: -1;
-    /* Place the pseudo-element behind the button content */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 7px;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
 }
 
-.button:hover {
-    background: linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%);
+.findbutton:hover {
+  border-image: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-image-slice: 1;
+  background: transparent;
 }
