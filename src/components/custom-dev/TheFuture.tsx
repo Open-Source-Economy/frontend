@@ -7,11 +7,25 @@ const TheFuture: React.FC = () => {
   return (
     <section className="max-w-[1387px] w-full mx-auto !px-4 ">
       <div className="w-full the-future-bg relative max-w-[1023px] mx-auto 2xl:pt-[341px] xl:pt-[300px] lg:pt-[250px] md:pt-[200px] sm:pt-[150px] pt-20 pb-14 lg:pb-44">
-        <h3 className="text-white leading-[113.115%] ff-michroma xl:text-[61px] lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-center">
+        <h3
+          data-aos="fade-in"
+          data-aos-duration="25000"
+          className="text-white leading-[113.115%] ff-michroma xl:text-[61px] lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-center"
+        >
           The future of open source is here
         </h3>
-        <p className="text-white leading-[113.115%] ff_michroma xl:text-5xl lg:text-4xl md:text=3xl sm:text-2xl text-xl text-center mt-4">JOIN THE MOVEMENT.</p>
-        <h4 className="gradient-text-future 2xl:text-[74px] xl:text-6xl lg:text-5xl md:text-4xl text-3xl text-center 2xl:mt-[189px] xl:mt-40 lg:mt-36 md:mt-32 sm:mt-28 mt-16">
+        <p
+          data-aos="fade-in"
+          data-aos-duration="25000"
+          className="text-white leading-[113.115%] ff_michroma xl:text-5xl lg:text-4xl md:text=3xl sm:text-2xl text-xl text-center mt-4"
+        >
+          JOIN THE MOVEMENT.
+        </p>
+        <h4
+          data-aos="fade-in"
+          data-aos-duration="25000"
+          className="gradient-text-future 2xl:text-[74px] xl:text-6xl lg:text-5xl md:text-4xl text-3xl text-center 2xl:mt-[189px] xl:mt-40 lg:mt-36 md:mt-32 sm:mt-28 mt-16"
+        >
           Register your <br /> interest now.
         </h4>
       </div>
