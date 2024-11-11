@@ -25,7 +25,6 @@ const TheFuture: React.FC = () => {
           start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
           end: "top 70%", // Ends the animation when the element reaches the center of the viewport
           scrub: 2, // Smoothly scrubs the animation with the scroll
-          markers: true,
         },
       }
     );
@@ -43,7 +42,6 @@ const TheFuture: React.FC = () => {
           start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
           end: "top 70%", // Ends the animation when the element reaches the center of the viewport
           scrub: 2, // Smoothly scrubs the animation with the scroll
-          markers: true,
         },
       }
     );
@@ -61,7 +59,6 @@ const TheFuture: React.FC = () => {
           start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
           end: "top 70%", // Ends the animation when the element reaches the center of the viewport
           scrub: 2, // Smoothly scrubs the animation with the scroll
-          markers: true,
         },
       }
     );
