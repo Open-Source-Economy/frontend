@@ -1,64 +1,22 @@
 import React from "react";
-import img1 from "src/assets/get-paid.webp";
-import img2 from "src/assets/heavy-say.webp";
-import img3 from "src/assets/fund.webp";
+import { features } from "../common/Helper";
 
 const NoBsCards = () => {
-  const features = [
-    {
-      id: 1,
-      title: "Get Paid",
-      subtitle: "Earn, Don't Burn",
-      description: ["Gain tokens for your involvement.", "Get a stake in your project's success"],
-      imgPath: img1,
-    },
-    {
-      id: 2,
-      title: "Have a Say",
-      subtitle: "Forget the Far West!",
-      description: ["The deeper your insights, the stronger your influence."],
-      imgPath: img2,
-    },
-    {
-      id: 3,
-      title: "Fund Your Future",
-      subtitle: "Stop begging for donations!",
-      description: [
-        <div className="flex items-center">
-          .<p className="ml-3">Easily set up new revenue streams.</p>
-        </div>,
-        <div className="flex items-center">
-          .<p className="ml-3">Attract financial backers.</p>
-        </div>,
-        "And bring your vision to life!",
-      ],
-      imgPath: img3,
-    },
-  ];
-
   return (
     <section className="max-w-[1470px] mx-auto w-full !px-4">
-      <h2 data-aos="fade-in" className="xl:text-[74px] lg:text-6xl md:text-5xl sm:text-4xl text-3xl text-white leading-[104.054%] ff_michroma">
-        No Bs
-      </h2>
-      <p data-aos="fade-in" className="xl:text-[51px] lg:text-4xl md:text-3xl sm:text-2xl text-xl text-white leading-[104.054%] ff_michroma mt-3">
-        Here’s our solution
-      </p>
+      <h2 className="xl:text-[74px] lg:text-6xl md:text-5xl sm:text-4xl text-3xl text-white leading-[104.054%] ff_michroma">No Bs</h2>
+      <p className="xl:text-[51px] lg:text-4xl md:text-3xl sm:text-2xl text-xl text-white leading-[104.054%] ff_michroma mt-3">Here’s our solution</p>
       <div className="xl:space-y-[101px] lg:space-y-20 space-y-12 lg:mt-[147px] md:mt-[120px] sm:mt-20 mt-14 max-w-[1181px] w-full mx-auto ">
         {features.map(feature => (
           <div key={feature.id} className="flex sm:flex-row flex-col items-center justify-between gap-4 lg:gap-10 xl:gap-[93px]">
-            <div
-              data-aos="fade-up"
-              data-aos-duration="55000"
-              className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-20 py-14 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] rounded-[50px] gap-6  flex items-center justify-center"
-            >
+            <div className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-20 py-14 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] rounded-[50px] gap-6  flex items-center justify-center">
               <img
                 src={feature.imgPath}
                 alt={feature.title}
                 className="object-contain lg:max-w-[280px] max-w-28 sm:max-w-[150px] max-h-[170px] w-full lg:max-h-[200px]"
               />
             </div>
-            <div data-aos="fade-up" data-aos-duration="55000" className="flex flex-col justify-center xl:mb-[70px] lg:max-w-[633px] sm:max-w-[500px] w-full">
+            <div className="flex flex-col justify-center xl:mb-[70px] lg:max-w-[633px] sm:max-w-[500px] w-full">
               <h3 className="text-primary-developer xl:text-[45px] lg:text-3xl sm:text-2xl text-xl leading-[130%] ff_michroma">{feature.title}</h3>
               <p className="text-white 2xl:text-[28px] xl:text-xl sm:text-lg text-base leading-[130%] font-medium ff_michroma mt-2">{feature.subtitle}</p>
               <div className="lg:mt-[35px] mt-4 space-y-1">

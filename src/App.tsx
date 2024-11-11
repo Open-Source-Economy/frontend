@@ -10,6 +10,7 @@ import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/I
 import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
 import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import CustomDeveloperPage from "./views/pages/app/custom-dev/CustomDeveloperPage";
+import UserPage from "./views/pages/app/custom-dev/UserPage";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -30,6 +31,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dev" element={<CustomDeveloperPage />} />
+          <Route path="/user-dev" element={<UserPage />} />
           <Route path="/white-paper" element={<Pdf />} />
 
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
