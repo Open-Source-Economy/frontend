@@ -23,13 +23,15 @@ export const features = [
     subtitle: "Earn, Don't Burn",
     description: ["Gain tokens for your involvement.", "Get a stake in your project's success"],
     imgPath: img1,
+    subTitle2: "",
   },
   {
     id: 2,
     title: "Have a Say",
     subtitle: "Forget the Far West!",
-    description: ["The deeper your insights, the stronger your influence."],
+    description: [""],
     imgPath: img2,
+    subTitle2: "The deeper your insights, the stronger your influence.",
   },
   {
     id: 3,
@@ -44,6 +46,7 @@ export const features = [
       </div>,
       "And bring your vision to life!",
     ],
+    subTitle2: "",
     imgPath: img3,
   },
 ];
