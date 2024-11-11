@@ -173,6 +173,7 @@ input[type="number"] {
   background-position: center;
   background-size: 100% 100%;
   opacity: 0.3;
+  pointer-events: none;
 }
 .the-future-bg::before {
   content: "";
@@ -250,12 +251,4 @@ input[type="number"] {
 .agreecheckbox input[type="checkbox"]:checked {
   background-color: #ff7e4b;
   border-radius: 4px !important;
-}
-.svgicon-custom {
-  background-color: white;
-
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 24px;
-  height: 24px;
 }

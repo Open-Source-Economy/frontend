@@ -3,29 +3,40 @@ import { useEffect } from "react";
 import logo from "../../assets/logo.svg"; // Importing logo image
 import "./Footer.css";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
+import gsap from "gsap";
 
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 export const Footer = () => {
+  const footerWrapper = React.useRef(null);
   // Defining the Footer functional component
   useEffect(() => {
-    AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: false, // Whether animation should happen only once - while scrolling down
-      mirror: false, // Whether elements should animate out while scrolling past them
-    });
+    gsap.fromTo(
+      footerWrapper.current,
+      { x: -200, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".footer.container",
+          start: "center bottom", // Starts the animation when the element is at the bottom of the viewport
+          end: "bottom bottom", // Ends the animation when the element reaches the center of the viewport
+          scrub: 2, // Smoothly scrubs the animation with the scroll
+        },
+      }
+    );
   }, []);
 
   return (
-    <div className="bg-2">
+    <div className="bg-2 ">
       <div className="bg-1">
-        <div className="boxlayers">
-          <div className="container footer px-md-5">
+        <div className="boxlayers ">
+          <div ref={footerWrapper} className="container  footer px-md-5">
             <div className="row">
-              <div
-                className="col-md-6 pt-4"
-                data-aos="fade-right" // AOS animation for fading in from the right
-              >
+              <div className="col-md-6 pt-4">
                 <a href="/" className="">
                   <img src={logo} className="img-fluid footerlogo" alt="Logo" />
                 </a>
@@ -34,10 +45,7 @@ export const Footer = () => {
                 </div>
               </div>
 
-              <div
-                className="col-md-6 pt-4"
-                data-aos="fade-left" // AOS animation for fading in from the left
-              >
+              <div className="col-md-6 pt-4">
                 {/*<div className="d-flex flex-column align-items-md-end justify-content-md-end">*/}
                 {/*  <h1 className="footer-h1-text">Stay Tuned!</h1>*/}
                 {/*  <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">*/}
