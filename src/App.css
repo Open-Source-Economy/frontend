@@ -173,6 +173,7 @@ input[type="number"] {
   background-position: center;
   background-size: 100% 100%;
   opacity: 0.3;
+  pointer-events: none;
 }
 .the-future-bg::before {
   content: "";

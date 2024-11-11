@@ -1,36 +1,72 @@
 // TheFuture.tsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FutureDropDown } from "../common/FutureDropDown";
 import { dropdownOptions } from "../common/Helper";
+import gsap from "gsap";
 
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 const TheFuture: React.FC = () => {
+  const headingTextRef = useRef(null);
+  const registerText = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      headingTextRef.current,
+      { y: 170, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".feature-text-heading",
+          start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
+          end: "top 70%", // Ends the animation when the element reaches the center of the viewport
+          scrub: 2, // Smoothly scrubs the animation with the scroll
+          markers: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      registerText.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".register-text",
+          start: "top 80%", // Starts the animation when the element is at the bottom of the viewport
+          end: "top 70%", // Ends the animation when the element reaches the center of the viewport
+          scrub: 2, // Smoothly scrubs the animation with the scroll
+          markers: true,
+        },
+      }
+    );
+  }, []);
   return (
-    <section className="max-w-[1387px] w-full mx-auto !px-4 ">
+    <section id="feature" className="max-w-[1387px] w-full mx-auto !px-4 ">
       <div className="w-full the-future-bg relative max-w-[1023px] mx-auto 2xl:pt-[341px] xl:pt-[300px] lg:pt-[250px] md:pt-[200px] sm:pt-[150px] pt-20 pb-14 lg:pb-44">
-        <h3
-          data-aos="fade-in"
-          data-aos-duration="25000"
-          className="text-white leading-[113.115%] ff-michroma xl:text-[61px] lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-center"
-        >
-          The future of open source is here
-        </h3>
-        <p
-          data-aos="fade-in"
-          data-aos-duration="25000"
-          className="text-white leading-[113.115%] ff_michroma xl:text-5xl lg:text-4xl md:text=3xl sm:text-2xl text-xl text-center mt-4"
-        >
-          JOIN THE MOVEMENT.
-        </p>
+        <div ref={headingTextRef} className="feature-text-heading">
+          <h3 className="text-white leading-[113.115%] ff-michroma xl:text-[61px] lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-center">
+            The future of open source is here
+          </h3>
+          <p className="text-white leading-[113.115%] ff_michroma xl:text-5xl lg:text-4xl md:text=3xl sm:text-2xl text-xl text-center mt-4">
+            JOIN THE MOVEMENT.
+          </p>
+        </div>
         <h4
-          data-aos="fade-in"
-          data-aos-duration="25000"
-          className="gradient-text-future 2xl:text-[74px] xl:text-6xl lg:text-5xl md:text-4xl text-3xl text-center 2xl:mt-[189px] xl:mt-40 lg:mt-36 md:mt-32 sm:mt-28 mt-16"
+          ref={registerText}
+          className="register-text gradient-text-future 2xl:text-[74px] xl:text-6xl lg:text-5xl md:text-4xl text-3xl text-center 2xl:mt-[189px] xl:mt-40 lg:mt-36 md:mt-32 sm:mt-28 mt-16"
         >
           Register your <br /> interest now.
         </h4>
       </div>
 
-      <div data-aos="fade-in" className="mx-auto flex flex-col  lg:px-42 2xl:px-64 md:px-32 sm:px-10">
+      <div className="mx-auto flex flex-col  lg:px-42 2xl:px-64 md:px-32 sm:px-10">
         <div>
           <input type="email" placeholder="Your Email*" className="email common-layout ff_michroma" />
 
@@ -50,7 +86,7 @@ const TheFuture: React.FC = () => {
               onChange={value => console.log("Project option selected:", value)}
             />
           </div>
-          <div data-aos="fade-in" className="md:mt-[33px] mt-6">
+          <div className="md:mt-[33px] mt-6">
             <h1 className="text-sm md:text-[16px] lg:text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
             <input
               placeholder="Share your motivation..."
@@ -59,7 +95,7 @@ const TheFuture: React.FC = () => {
             />
           </div>
 
-          <div data-aos="fade-in" className="flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <button className="px-6 md:py-3 py-2 md:mt-5 mt-4 findbutton ff_michroma">SUBMIT</button>
           </div>
         </div>

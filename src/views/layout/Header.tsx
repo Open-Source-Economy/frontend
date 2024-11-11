@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useEffect, useRef } from "react";
+
 import "./Header.css";
 import logo from "../../assets/logo.svg";
 import Container from "react-bootstrap/Container";
@@ -10,23 +9,35 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
 import { ButtonType, ExternalLinkButton } from "../../components";
 import { Audience } from "../Audience";
-
+import { gsap } from "gsap";
 interface HeaderProps {}
 
 export function Header({}: HeaderProps) {
+  const boxRef = useRef(null);
+
   useEffect(() => {
-    // Animation
-    AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: false, // Animation should trigger every time the element scrolls into view
-      mirror: false, // Animation should not mirror while scrolling past
-    });
-  }, []);
+    if (boxRef.current) {
+      gsap.fromTo(
+        boxRef.current,
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+        }
+      );
+      gsap.fromTo(
+        boxRef.current,
+        { y: -300, delay: 1 },
+        {
+          y: 0,
+          duration: 1.8,
+          ease: "power3.out",
+        }
+      );
+    }
+  }, [boxRef.current]);
 
   return (
-    <div data-aos="fade-down">
-      {" "}
-      {/* Applying AOS fade-down animation to the entire div */}
+    <div style={{ visibility: "hidden" }} ref={boxRef}>
       <div className="icons_section d-flex align-items-end justify-content-end pt-4 pb-3 container-fluid gap-3 iconnav">
         <SocialMedia />
       </div>

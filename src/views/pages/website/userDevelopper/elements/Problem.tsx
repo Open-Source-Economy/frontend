@@ -8,48 +8,19 @@ interface ProblemProps {
 }
 
 export function Problem(props: ProblemProps) {
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [pageLoaded, setPageLoaded] = useState(false);
-
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setPageLoaded(true);
-    }, 2000);
-
     // Handle scroll event
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setHasScrolled(true);
-      } else {
-        setHasScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   return (
     <>
-      <h1 data-aos="fade-down" data-aos-duration="25000" className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px] text-white ff_michroma">
-        {props.title}
-      </h1>
-
+      <h1 className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px] text-white ff_michroma">{props.title}</h1>
       <div className="relative">
-        <div data-aos="fade-up" data-aos-duration="55000">
+        <div>
           <img src={img1} alt="" className="md:w-[65%] px-5 mx-auto h-full" />
         </div>
 
-        <img
-          id="bgImage"
-          src={props.secondarySrc}
-          alt="Background"
-          className={`animated-image ${pageLoaded ? (hasScrolled ? "fade-down" : "fade-left") : ""}`}
-        />
+        <img id="bgImage" src={props.secondarySrc} alt="Background" className={`animated-image `} />
 
         {/* TODO: to clean */}
         <style>{`
@@ -66,15 +37,7 @@ export function Problem(props: ProblemProps) {
                 transform: translateX(5%);
               }
 
-              .fade-left {
-                opacity: 1;
-                transform: translateX(0%);
-              }
-
-              .fade-down {
-                opacity: 0;
-                transform: translateY(20%);
-              }
+              
             `}</style>
         <img src={props.primarySrc} alt="" className="w-[100%] object-contain h-full absolute top-0 left-0 right-0" />
       </div>
