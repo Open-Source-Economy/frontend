@@ -145,20 +145,20 @@ input[type="number"] {
   width: 100%;
   height: 100%;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .group-text-user-bg::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -25%;
+  left: 0px;
   background-image: url("./assets/group-text-user-bg.png");
   z-index: -1;
   width: 100%;
   height: 100%;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 100% 109%;
   background-repeat: no-repeat;
 }
 .deving-bg::before {
@@ -197,4 +197,57 @@ input[type="number"] {
   font-style: normal;
   font-weight: 400;
   line-height: 108.451%;
+}
+.link-hover-text {
+  position: relative;
+  background: linear-gradient(to left, transparent 50%, white 50%);
+  background-size: 500% 100%;
+  background-position: 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.5s ease-in-out !important;
+}
+
+.link-hover-text:hover {
+  background: var(--Gradient-Main, linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-position: -100%;
+}
+.agreecheckbox input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  appearance: none;
+}
+.agreecheckbox input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  border-radius: 4px !important;
+  background-color: #ff7e4b;
+}
+.agreecheckbox input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2.5px;
+  left: 6.5px;
+  overflow: hidden;
+}
+.agreecheckbox input[type="checkbox"]:checked {
+  background-color: #ff7e4b;
+  border-radius: 4px !important;
 }

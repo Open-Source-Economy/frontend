@@ -9,7 +9,7 @@ interface CustomDevHeroProps {
 
 const CustomDevHero: React.FC<CustomDevHeroProps> = ({ heading, className, imgPath, headingClassName }) => {
   return (
-    <section className="2xl:mt-[104px] xl:mt-20 lg:mt-16 mt-14 2xl:mb-[269px] xl:mb-[240px] lg:mb-[200px] md:mb-[150px] mb-[100px] w-full max-w-[1740px] !px-4 mx-auto">
+    <section className="2xl:mt-[104px] xl:mt-20 lg:mt-16 mt-14 2xl:mb-[269px] xl:mb-[240px] lg:mb-[200px] md:mb-[150px] mb-[100px] w-full max-w-[1913px] !px-4 mx-auto">
       <h1
         className={`2xl:text-[54px] xl:text-5xl md:text-4xl sm:text-3xl text-2xl leading-[138%] text-white text-center mx-auto ff_michroma ${headingClassName}`}
       >
