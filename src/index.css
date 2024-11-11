@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .common-layout {
+    @apply flex text-left items-center justify-between border-b border-[#fff] bg-transparent text-[16px] lg:text-[23px] pb-3 outline-none text-[#FCFEFD] w-full;
+  }
+}
