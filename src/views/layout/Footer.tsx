@@ -25,7 +25,6 @@ export const Footer = () => {
           start: "center bottom", // Starts the animation when the element is at the bottom of the viewport
           end: "bottom bottom", // Ends the animation when the element reaches the center of the viewport
           scrub: 2, // Smoothly scrubs the animation with the scroll
-          markers: true,
         },
       }
     );

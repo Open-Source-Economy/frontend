@@ -1,11 +1,12 @@
 // CustomDeveloperPage.tsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import TheFuture from "src/components/custom-dev/TheFuture";
 import CustomDevHero from "src/components/common/CustomDevHero";
 import deving from "../../../../assets/deving-2.webp";
 import NoBsUser from "src/components/custom-dev/NoBsUser";
 import headache from "../../../../assets/headache-bg.webp";
+
 const UserPage: React.FC = () => {
   return (
     <PageWrapper>
