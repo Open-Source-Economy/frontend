@@ -26,12 +26,12 @@ const NoBsCards = () => {
                 <div className="lg:mt-[35px] mt-4 space-y-1 flex flex-col justify-between ">
                   <div>
                     {feature.description.map((item, index) => (
-                      <p key={index} className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] ff_michroma">
+                      <p key={index} className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] font-montserrat">
                         {item}
                       </p>
                     ))}
                   </div>
-                  <p className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] ff_michroma h-full !mt-10">
+                  <p className="text-white 2xl:!text-[21px] xl:text-lg lg:text-base sm:text-sm text-xs leading-[150%] font-montserrat h-full !mt-10">
                     {feature.subTitle2}
                   </p>
                 </div>
