@@ -53,7 +53,7 @@ const NoBsUser = () => {
       <div className="xl:space-y-[101px] lg:space-y-20 space-y-12 lg:mt-[147px] md:mt-[120px] sm:mt-20 mt-14 max-w-[1181px] w-full mx-auto">
         {userFeatures.map(feature => (
           <div key={feature.id} className={`flex sm:flex-row flex-col justify-between gap-4 lg:gap-10 xl:gap-[93px] feature-${feature.id}`}>
-            <div className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-14 py-10 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] rounded-[50px] gap-6 flex items-center justify-center max-h-[424px]">
+            <div className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-14 py-10 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] xl:rounded-[50px] sm:rounded-[30px] rounded-2xl gap-6 flex items-center justify-center max-h-[424px]">
               <img src={feature.imgPath} alt={feature.title} className="object-cover" />
             </div>
             <div className="flex flex-col justify-center lg:max-w-[633px] sm:max-w-[500px] w-full">

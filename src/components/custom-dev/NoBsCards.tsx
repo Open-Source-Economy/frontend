@@ -56,7 +56,7 @@ const NoBsCards = () => {
         <div className="xl:space-y-[101px] lg:space-y-20 space-y-12 lg:mt-[147px] md:mt-[120px] sm:mt-20 mt-14 max-w-[1181px] w-full mx-auto ">
           {features.map(feature => (
             <div key={feature.id} className={`flex sm:flex-row flex-col justify-between gap-4 lg:gap-10 xl:gap-[93px] feature-${feature.id}`}>
-              <div className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-20 py-14 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] rounded-[50px] gap-6  flex items-center justify-center">
+              <div className="lg:px-[63px] md:px-12 px-6 xl:py-28 lg:py-24 md:py-20 py-14 lg:max-w-[456px] sm:max-w-[350px] w-full shadow-c2 bg-[#14233A] xl:rounded-[50px] sm:rounded-[30px] rounded-2xl gap-6  flex items-center justify-center">
                 <img
                   src={feature.imgPath}
                   alt={feature.title}

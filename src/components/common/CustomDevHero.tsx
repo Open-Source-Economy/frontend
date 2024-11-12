@@ -6,9 +6,10 @@ interface CustomDevHeroProps {
   className: string;
   headingClassName: string;
   imgPath: string;
+  bgImgPath: string;
 }
 
-const CustomDevHero: React.FC<CustomDevHeroProps> = ({ heading, className, imgPath, headingClassName }) => {
+const CustomDevHero: React.FC<CustomDevHeroProps> = ({ heading, className, imgPath, headingClassName, bgImgPath }) => {
   const mainText = useRef(null);
   const mainImage = useRef(null);
   useEffect(() => {
@@ -82,7 +83,8 @@ const CustomDevHero: React.FC<CustomDevHeroProps> = ({ heading, className, imgPa
       >
         {heading}
       </h1>
-      <div className={`w-full relative ${className}`}>
+      <div className="w-full relative">
+        <img className={`object-cover w-full  ${className}`} src={bgImgPath} alt="imgPath" />
         <div className="flex items-center w-full justify-between xl:mt-[95px] mt-16 max-w-[1220px] mx-auto gap-6">
           <div ref={mainImage} className="relative w-full flex items-center justify-center deving-bg">
             <img className="w-full object-cover" src={imgPath} alt="deving" />
