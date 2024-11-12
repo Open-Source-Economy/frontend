@@ -95,7 +95,7 @@ Code inline: `eoueheorrt` and the line continues
 ### Font
 And **bold**, *italics*, and even *italics and later **bold***. Even ~~strikethrough~~. [A link to Showdown](https://showdownjs.com/) to somewhere.
 
-I need to highlight these ***very important words***.
+I need`some code`to highlight these ***very important words***.
 
 ### Definition
 
