@@ -33,6 +33,7 @@ export default {
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        michroma: ["michroma", "sans-serif"],
       },
     },
   },
