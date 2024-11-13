@@ -10,22 +10,20 @@ export interface SolutionProps {
   title: string;
   subTitle: string | ReactNode;
   text: ReactNode;
+  comming: ReactNode;
 }
 
 export function Solution(props: SolutionProps) {
   return (
-    <div data-aos="fade-in" data-aos-duration="35000" className="grid grid-cols-1 md:grid-cols-2 max-w-full mb-24 gap-12 items-center ml-4 md:mr-40">
-      <div className="justify-self-end">
+    <div className="flex sm:flex-row flex-col justify-between 2xl:mb-[101px] xl:mb-20 md:mb-16 mb-8 md:gap-12 gap-6 items-center w-full lg:max-w-[1181px] md:max-w-[768px] max-w-[640px] mx-auto">
+      <div className="2xl:max-w-[456px] sm:max-w-[400px] w-full ">
         <SolutionImage image={props.image} starPosition={props.starPosition} />
       </div>
-
-      <div className="" data-aos="fade-in" data-aos-duration="35000">
-        <div className="px-2">
-          {props.comingSoon && <h4 className="text-gray-300 text-[14px] xl:text-[18px]">COMING SOON</h4>}
-          <h4 className={`${textColorVariants[props.audience]} text-xl lg:text-4xl xl:text-[45px] ff_michroma`}>{props.title}</h4>
-          <h5 className="md:text-lg xl:text-[20px] 2xl:text-[28px] text-md mt-4 text-gray-300 ff_michroma">{props.subTitle}</h5>
-          <p className={"text-[12px] xl:text-[15px] 2xl:text-[21px] text-white mt-[35px] leading-[150%] "}>{props.text}</p>
-        </div>
+      <div className=" 2xl:max-w-[633px] max-w-[550px] w-full">
+        <div className="text-gray-300 text-[14px] xl:text-[18px]">{props.comming}</div>
+        <h4 className={`${textColorVariants[props.audience]} text-xl md:text-3xl lg:text-4xl xl:text-[45px] ff_michroma`}>{props.title}</h4>
+        <h5 className="md:text-lg xl:text-[20px] 2xl:text-[28px] text-base !mt-4 text-gray-300 ff_michroma leading-[130%]">{props.subTitle}</h5>
+        <p className={"text-[12px] xl:text-[15px] 2xl:text-[21px] text-white leading-[150%] font-montserrat"}>{props.text}</p>
       </div>
     </div>
   );

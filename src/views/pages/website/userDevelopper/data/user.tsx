@@ -17,6 +17,7 @@ const solution1 = {
   starPosition: "top-[55px] left-[140px] w-[50px] md:top-[100px] md:left-[220px] md:w-[70px]",
   title: "Get Support",
   subTitle: "From Those Who Know",
+  comming: <p className="mb-2">AVAILABLE</p>,
   text: (
     <>
       <ul className="px-10">
@@ -26,7 +27,6 @@ const solution1 = {
       </ul>
 
       <p className="mt-6">
-        {" "}
         All from the very same guys who coded it. <br /> They are the experts!
       </p>
     </>
@@ -39,6 +39,7 @@ const solution2 = {
   starPosition: "top-[55px] left-[155px] w-[40px]",
   comingSoon: true,
   title: "Have a Say",
+  comming: <p className="!pb-2.5 flex">COMING SOON</p>,
   subTitle: "Forget the Far West!",
   text: (
     <>
@@ -57,6 +58,7 @@ const solution3 = {
   image: img4,
   starPosition: "top-16 left-[220px] w-[70px]",
   title: "Fund Your Future",
+  comming: <p className="!mb-2.5 flex">COMING SOON</p>,
   subTitle: (
     <>
       Secure your platform, <br /> Secure your business.
@@ -81,6 +83,30 @@ export const userProps: UserDeveloperProps = {
       you a headache?
     </>
   ),
+  subtittle1: (
+    <>
+      As an open source dev
+      <br />
+      are you experiencing....
+    </>
+  ),
+  subtittle2: (
+    <>
+      As an open source dev
+      <br />
+      are you experiencing....
+    </>
+  ),
+  subtittle3: (
+    <>
+      As an open source dev
+      <br />
+      are you experiencing....
+    </>
+  ),
+  bgTextImg: img4,
+  mainBg: img4,
+  cartoonImg: img4,
   primaryProblemsSrc,
   secondaryProblemsSrc,
   solutions: [solution1, solution2, solution3],

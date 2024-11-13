@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 interface InterestFormProps {}
 
+const profileOptions = ["Your Profile", "Profile 1", "Profile 2", "Profile 3"];
+
+const projectOptions = ["In which open source project? (if applicable)", "Project 1", "Project 2", "Project 3"];
+
 export function InterestForm(props: InterestFormProps) {
   const [isOpenDropdown1, setIsOpenDropdown1] = useState(false);
-  const [selectedOption1, setSelectedOption1] = useState("Your Profile");
-
+  const [selectedOption1, setSelectedOption1] = useState(profileOptions[0]);
   const [isOpenDropdown2, setIsOpenDropdown2] = useState(false);
-  const [selectedOption2, setSelectedOption2] = useState("In which open source project? (if applicable)");
+  const [selectedOption2, setSelectedOption2] = useState(projectOptions[0]);
+
+  // Create refs for the dropdown containers
+  const dropdown1Ref = useRef<HTMLDivElement>(null);
+  const dropdown2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Handle click outside
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdown1Ref.current && !dropdown1Ref.current.contains(event.target as Node)) {
+        setIsOpenDropdown1(false);
+      }
+      if (dropdown2Ref.current && !dropdown2Ref.current.contains(event.target as Node)) {
+        setIsOpenDropdown2(false);
+      }
+    }
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Toggle functions for each dropdown
   const toggleDropdown1 = () => {
@@ -34,9 +61,7 @@ export function InterestForm(props: InterestFormProps) {
   return (
     <>
       <h1
-        data-aos="fade-in"
-        data-aos-duration="25000"
-        className="text-center text-3xl md:text-4xl lg:text-6xl lg:mt-32 md:mt-22 xl:mt-96 mt-14 ff_michroma leading-[120%]"
+        className="text-center text-3xl md:text-4xl lg:text-6xl lg:mt-32 md:mt-22 xl:mt-[186px] mt-14 ff_michroma leading-[120%]"
         style={{
           background: "linear-gradient(90deg, #66319B 0%, #FF518C 50%, #FF7E4B 100%)",
           WebkitBackgroundClip: "text",
@@ -46,27 +71,30 @@ export function InterestForm(props: InterestFormProps) {
         Register your <br /> interest now.
       </h1>
 
-      <div data-aos="fade-in" className="container mx-auto flex flex-col pt-14 lg:pt-44  lg:px-42 2xl:px-64 md:px-32 sm:px-10">
+      <div className="container mx-auto flex flex-col pt-14 lg:pt-[105px] lg:px-20 2xl:px-64 md:px-32 sm:px-10">
         <div>
           <input
             type="email"
-            name=""
-            id=""
             placeholder="Your Email*"
             className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100 ff_michroma"
           />
-          <div className="flex align-items-center mt-3 gap-2">
-            <input type="checkbox" name="" id="" />
+
+          <label className="flex align-items-center mt-3 gap-2 agreecheckbox">
+            <input className="w-4 h-4" type="checkbox" />
             <h2 className="text-[15px] text-[rgba(252,254,253,27%)] ff_michroma">Sign up for news & updates</h2>
-          </div>
-          <div className="mt-5 relative inline-block text-left w-100">
+          </label>
+
+          {/* First Dropdown */}
+          <div ref={dropdown1Ref} className="mt-5 relative inline-block text-left w-100">
             <button
               onClick={toggleDropdown1}
-              className="flex text-left items-center justify-between  border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
+              className="flex text-left items-center justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
             >
               {selectedOption1}
               <svg
-                className="w-8 h-8 p-1 ml-2 border border-[#fff] rounded-full text-[#fff]"
+                className={`w-8 h-8 p-1 ml-2 border border-[#fff] rounded-full text-[#fff] transform transition-transform duration-200 ${
+                  isOpenDropdown1 ? "rotate-180" : ""
+                }`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -77,29 +105,32 @@ export function InterestForm(props: InterestFormProps) {
             </button>
 
             {isOpenDropdown1 && (
-              <div className="absolute z-[999] top-12 cursor-pointer left-0  mb-2 w-48 bg-[#0e1f35] border border-gray-300 rounded-md shadow-lg">
+              <div className="absolute z-[999] top-12 cursor-pointer left-0 mb-2 w-full bg-[#0e1f35] border border-gray-300 rounded-md shadow-lg">
                 <div className="p-2">
-                  <h1 onClick={() => handleSelect1("Profile 1")} className="block px-4 py-2 text-white ">
-                    Profile 1
-                  </h1>
-                  <h1 onClick={() => handleSelect1("Profile 2")} className="block px-4 py-2 text-white ">
-                    Profile 2
-                  </h1>
-                  <h1 onClick={() => handleSelect1("Profile 3")} className="block px-4 py-2 text-white ">
-                    Profile 3
-                  </h1>
+                  {profileOptions.slice(1).map((option, index) => (
+                    <h1
+                      key={index}
+                      onClick={() => handleSelect1(option)}
+                      className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-200"
+                    >
+                      {option}
+                    </h1>
+                  ))}
                 </div>
               </div>
             )}
 
-            <div className="mt-5 relative inline-block text-left w-100">
+            {/* Second Dropdown */}
+            <div ref={dropdown2Ref} className="mt-5 relative inline-block text-left w-100">
               <button
                 onClick={toggleDropdown2}
                 className="flex items-center text-left justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
               >
                 {selectedOption2}
                 <svg
-                  className="w-8 h-8 p-1 ml-2 border border-[#fff] rounded-full text-[#fff]"
+                  className={`w-8 h-8 p-1 ml-2 border border-[#fff] rounded-full text-[#fff] transform transition-transform duration-200 ${
+                    isOpenDropdown2 ? "rotate-180" : ""
+                  }`}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -108,30 +139,37 @@ export function InterestForm(props: InterestFormProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-            </div>
 
-            {isOpenDropdown2 && (
-              <div className="absolute z-50 cursor-pointer left-0 mt-2 w-48 bg-[#0e1f35]  border border-gray-300 rounded-md shadow-lg">
-                <div className="p-2 ">
-                  <h1 onClick={() => handleSelect2("Yes")} className="block px-4 py-2 text-white">
-                    Yes
-                  </h1>
-                  <h1 onClick={() => handleSelect2("No")} className="block px-4 py-2 text-white">
-                    No
-                  </h1>
+              {isOpenDropdown2 && (
+                <div className="absolute z-50 cursor-pointer left-0 mt-2 w-full bg-[#0e1f35] border border-gray-300 rounded-md shadow-lg">
+                  <div className="p-2">
+                    {projectOptions.slice(1).map((option, index) => (
+                      <h1
+                        key={index}
+                        onClick={() => handleSelect2(option)}
+                        className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-200"
+                      >
+                        {option}
+                      </h1>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-          <div data-aos="fade-in" className="mt-5 ">
-            <h1 className=" text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
+
+          {/* Message Input */}
+          <div className="mt-5">
+            <h1 className="text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
             <input
               placeholder="Share your motivation..."
               type="text"
               className="mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-[14px] lg:pb-48 pb-20 md:pb-32 outline-none text-[#fff] w-100 placeholder:!text-white placeholder:!opacity-100 ff_michroma"
             />
           </div>
-          <div data-aos="fade-in" className="flex items-center justify-center">
+
+          {/* Submit Button */}
+          <div className="flex items-center justify-center">
             <button className="px-6 py-3 mt-5 findbutton ff_michroma">SUBMIT</button>
           </div>
         </div>
