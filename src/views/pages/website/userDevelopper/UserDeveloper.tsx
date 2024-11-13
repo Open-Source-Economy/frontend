@@ -52,13 +52,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
   return (
     <PageWrapper>
       <div className="">
-        <div className="flex flex-col lg:mb-20 lg:mt-20 2xl:mt-[104px] my-8 items-center justify-center text-center px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-20 lg:mt-20 2xl:mt-[111px] my-8 items-center justify-center text-center !px-4 ">
           <Problem title={props.problemTitle} primarySrc={props.primaryProblemsSrc} secondarySrc={props.secondaryProblemsSrc} />
         </div>
 
         <div
           className="bg-no-repeat bg-bottom "
-          data-aos="fade-in"
           style={{
             backgroundImage: `url(${bg2})`,
             backgroundPositionY: "center",
