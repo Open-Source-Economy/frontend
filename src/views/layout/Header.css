@@ -43,12 +43,12 @@
 }
 
 .nav-link:hover {
-  background: linear-gradient(90deg, #66319B 0%, #FF518C 50%,#FF7E4B  100%);
+  background: linear-gradient(90deg, #66319b 0%, #ff518c 50%, #ff7e4b 100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
 
-@media (max-width : 500px) {
+@media (max-width: 500px) {
   .logo {
     width: 200px;
   }
@@ -62,7 +62,7 @@
   }
 }
 
-@media (min-width : 501px) and (max-width : 768px) {
+@media (min-width: 501px) and (max-width: 768px) {
   .logo {
     width: 250px;
   }
@@ -76,7 +76,7 @@
   }
 }
 
-@media (min-width : 769px) and (max-width : 1200px) {
+@media (min-width: 769px) and (max-width: 1200px) {
   .logo {
     width: 300px;
   }
@@ -90,4 +90,5 @@
   }
 }
 
-@media (max-width : 992px) {}
+@media (max-width: 992px) {
+}

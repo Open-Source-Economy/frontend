@@ -9,6 +9,7 @@ import { Audience } from "../../../Audience";
 import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
 import rotate1 from "../../../../assets/rotate-bg-1.png";
 import rotate2 from "../../../../assets/rotate-bg-2.png";
+import bgMain from "../../../../assets/sec1bg.png";
 import { UserCondition } from "./elements/UserCondition";
 import { useLocation } from "react-router-dom";
 
@@ -101,14 +102,16 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
           <div>
             <div
-              style={{
-                backgroundImage: `url(${bg})`,
-                backgroundPosition: "right",
-                backgroundSize: bgSize,
-              }}
+              // style={{
+              //   backgroundImage: `url(${bg})`,
+              //   backgroundPosition: "left",
+              //   backgroundSize: bgSize,
+              // }}
+
               className="bg-no-repeat"
             >
-              <div className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full">
+              <div className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
+                <img className="absolute pointer-events-none z-[-10] -left-[40%] top-[-20%]" src={bgMain} alt="" />
                 {props.solutions.map((solution, index) => (
                   <Solution key={index} {...solution} />
                 ))}

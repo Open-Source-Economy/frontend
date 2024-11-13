@@ -1,6 +1,6 @@
 import React from "react";
 import img2 from "src/assets/icon/sec2img3.png";
-import img3 from "src/assets/icon/userimg2.png";
+import img3 from "src/assets/lock.png";
 import img4 from "src/assets/icon/userimg1.png";
 import img1 from "src/assets/source.png";
 import bgText from "src/assets/bg-text-2.png";
@@ -38,7 +38,7 @@ const solution1 = {
 
 const solution2 = {
   audience,
-  image: img3,
+  image: img4,
   starPosition: "top-[55px] left-[155px] w-[40px]",
   comingSoon: true,
   title: "Have a Say",
@@ -58,7 +58,7 @@ const solution2 = {
 
 const solution3 = {
   audience,
-  image: img4,
+  image: img3,
   starPosition: "top-16 left-[220px] w-[70px]",
   title: "Fund Your Future",
   comming: <p className="!mb-2.5 flex">COMING SOON</p>,
@@ -86,15 +86,15 @@ export const userProps: UserDeveloperProps = {
       you a headache?
     </>
   ),
-  subtittle1: <p>Long-lasting project</p>,
-  subtittle2: <p>No technical support</p>,
-  subtittle3: (
+  subtittle1: (
     <p>
       Playground for them
       <br />
       business for me
     </p>
   ),
+  subtittle2: <p>Long-lasting project</p>,
+  subtittle3: <p>No technical support</p>,
   bgTextImg: bgText,
   mainBg: devBg,
   cartoonImg: img1,

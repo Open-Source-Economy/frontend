@@ -110,3 +110,9 @@
   border-image-slice: 1;
   background: transparent;
 }
+
+@media (max-width: 1440px) {
+  .button {
+    font-size: 14px;
+  }
+}
