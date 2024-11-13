@@ -70,13 +70,28 @@ export function Header({}: HeaderProps) {
                 <Offcanvas.Body>
                   <Nav className="justify-content-end align-items-lg-center text-white gap-md-5 gap-3 flex-grow-1">
                     {/*  TODO: use class for that*/}
-                    <a className="ff_michroma link-hover-text" href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
+                    <a
+                      className="ff_michroma link-hover-text 3xl:text-base !text-sm"
+                      href="https://blog.open-source-economy.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Blog
                     </a>
-                    <a className="ff_michroma link-hover-text" href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
+                    <a
+                      className="ff_michroma link-hover-text 3xl:text-base text-sm"
+                      href="https://blog.open-source-economy.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       MISSION
                     </a>
-                    <a className="ff_michroma link-hover-text" href="https://blog.open-source-economy.com/" target="_blank" rel="noopener noreferrer">
+                    <a
+                      className="ff_michroma link-hover-text 3xl:text-base text-sm"
+                      href="https://blog.open-source-economy.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       JOBS
                     </a>
                     {/*<Nav.Link href="">MISSION</Nav.Link>*/}

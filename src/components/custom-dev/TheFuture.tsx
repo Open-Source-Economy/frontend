@@ -64,7 +64,7 @@ const TheFuture: React.FC = () => {
     );
   }, []);
   return (
-    <section id="feature" className="max-w-[1387px] w-full mx-auto !px-4 ">
+    <section id="feature" className="max-w-[1387px] w-full mx-auto !px-4">
       <div className="w-full the-future-bg relative max-w-[1023px] mx-auto 2xl:pt-[341px] xl:pt-[300px] lg:pt-[250px] md:pt-[200px] sm:pt-[150px] pt-20 pb-14 lg:pb-44">
         <div ref={headingTextRef} className="feature-text-heading">
           <h3 className="text-white leading-[113.115%] ff-michroma xl:text-[61px] lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-center">
@@ -85,7 +85,7 @@ const TheFuture: React.FC = () => {
       <form ref={formWrapper} className="form-wrapper mx-auto flex flex-col lg:px-42 2xl:px-64 md:px-32 sm:px-10">
         <div>
           <input type="email" placeholder="Your Email*" required className="email common-layout ff_michroma" />
-          <label className="flex align-items-center mt-3 gap-2 agreecheckbox">
+          <label className="flex align-items-center mt-3 gap-2 agreecheckbox cursor-pointer">
             <input className="w-5 h-5" type="checkbox" />
             <p className="sm:text-[15px] text-xs text-[#fcfefd45] leading-[100%] ff_michroma">Sign up for news & updates</p>
           </label>

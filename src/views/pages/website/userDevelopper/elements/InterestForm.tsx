@@ -79,7 +79,7 @@ export function InterestForm(props: InterestFormProps) {
             className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100 ff_michroma"
           />
 
-          <label className="flex align-items-center mt-3 gap-2 agreecheckbox">
+          <label className="flex align-items-center mt-3 gap-2 agreecheckbox cursor-pointer">
             <input className="w-4 h-4" type="checkbox" />
             <h2 className="text-[15px] text-[rgba(252,254,253,27%)] ff_michroma">Sign up for news & updates</h2>
           </label>

@@ -16,7 +16,7 @@ export interface SolutionProps {
 export function Solution(props: SolutionProps) {
   return (
     <div className="flex sm:flex-row flex-col justify-between 2xl:mb-[101px] xl:mb-20 md:mb-16 mb-8 md:gap-12 gap-6 items-center w-full lg:max-w-[1181px] md:max-w-[768px] max-w-[640px] mx-auto">
-      <div className="2xl:max-w-[456px] sm:max-w-[400px] w-full ">
+      <div className="2xl:max-w-[456px] sm:max-w-[400px] max-h-[424px] w-full ">
         <SolutionImage image={props.image} starPosition={props.starPosition} />
       </div>
       <div className=" 2xl:max-w-[633px] max-w-[550px] w-full">
