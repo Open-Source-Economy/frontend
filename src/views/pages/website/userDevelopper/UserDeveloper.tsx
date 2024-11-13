@@ -9,6 +9,8 @@ import { Audience } from "../../../Audience";
 import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
 import rotate1 from "../../../../assets/rotate-bg-1.png";
 import rotate2 from "../../../../assets/rotate-bg-2.png";
+import { UserCondition } from "./elements/UserCondition";
+import { useLocation } from "react-router-dom";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -27,6 +29,8 @@ export interface UserDeveloperProps {
 
 export function UserDeveloper(props: UserDeveloperProps) {
   const [bgSize, setBgSize] = useState("70%");
+  const location = useLocation();
+  const isDeveloperPath = location.pathname === "/developer";
 
   useEffect(() => {
     AOS.init({
@@ -60,17 +64,31 @@ export function UserDeveloper(props: UserDeveloperProps) {
     <PageWrapper>
       <div className="max-w-[1440px] w-full mx-auto">
         <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-20 lg:mt-20 2xl:mt-[111px] my-8 items-center justify-center text-center !px-4 ">
-          <Problem
-            title={props.problemTitle}
-            subtittle1={props.subtittle1}
-            subtittle2={props.subtittle2}
-            subtittle3={props.subtittle3}
-            bgTextImg={props.bgTextImg}
-            mainBg={props.mainBg}
-            cartoonImg={props.cartoonImg}
-            primarySrc={props.primaryProblemsSrc}
-            secondarySrc={props.secondaryProblemsSrc}
-          />
+          {isDeveloperPath ? (
+            <Problem
+              title={props.problemTitle}
+              subtittle1={props.subtittle1}
+              subtittle2={props.subtittle2}
+              subtittle3={props.subtittle3}
+              bgTextImg={props.bgTextImg}
+              mainBg={props.mainBg}
+              cartoonImg={props.cartoonImg}
+              primarySrc={props.primaryProblemsSrc}
+              secondarySrc={props.secondaryProblemsSrc}
+            />
+          ) : (
+            <UserCondition
+              title={props.problemTitle}
+              subtittle1={props.subtittle1}
+              subtittle2={props.subtittle2}
+              subtittle3={props.subtittle3}
+              bgTextImg={props.bgTextImg}
+              mainBg={props.mainBg}
+              cartoonImg={props.cartoonImg}
+              primarySrc={props.primaryProblemsSrc}
+              secondarySrc={props.secondaryProblemsSrc}
+            />
+          )}
         </div>
 
         <div className="bg-no-repeat  ">
