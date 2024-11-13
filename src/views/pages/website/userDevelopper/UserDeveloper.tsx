@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect, useState } from "react";
-
 import bg from "src/assets/bg.png";
 import AOS from "aos";
 import "aos/dist/aos.css";

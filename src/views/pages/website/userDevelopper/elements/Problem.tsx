@@ -20,7 +20,7 @@ export function Problem(props: ProblemProps) {
 
   return (
     <>
-      <h1 className="text-md md:text-3xl lg:text-4xl xl:text-[60px] xl:leading-[65px] text-white font-michroma relative z-10">{props.title}</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-[54px] xl:leading-[138.889%] text-white font-michroma relative z-10">{props.title}</h1>
       <div className="max-w-[1740px] w-full mx-auto relative ">
         <img className="absolute -z-10 pointer-events-auto object-center h-full bottom-0 right-0" src={props.bgTextImg} alt="bgText" />
         <div className="flex items-center justify-between mx:gap-8 sm:gap-4 gap-3 max-w-[1290px] w-full mx-auto relative pt-14">

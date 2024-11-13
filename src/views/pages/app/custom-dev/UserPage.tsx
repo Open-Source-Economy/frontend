@@ -1,5 +1,5 @@
 // CustomDeveloperPage.tsx
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { PageWrapper } from "../../PageWrapper";
 import TheFuture from "src/components/custom-dev/TheFuture";
 import CustomDevHero from "src/components/common/CustomDevHero";
