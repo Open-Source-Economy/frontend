@@ -1,5 +1,8 @@
 import React, { ReactNode, useEffect } from "react";
-
+interface SubtitleProps {
+  content: string | ReactNode;
+  position?: "left" | "right";
+}
 interface ProblemProps {
   title: string | ReactNode;
   subtittle1: string | ReactNode;

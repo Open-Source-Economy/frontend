@@ -170,7 +170,7 @@ export function InterestForm(props: InterestFormProps) {
 
           {/* Submit Button */}
           <div className="flex items-center justify-center">
-            <button className="px-6 py-3 mt-5 findbutton ff_michroma">SUBMIT</button>
+            <button className="px-6 py-3 mt-5 button ff_michroma">SUBMIT</button>
           </div>
         </div>
       </div>
