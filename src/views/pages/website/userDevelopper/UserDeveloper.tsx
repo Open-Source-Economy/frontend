@@ -110,8 +110,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
               className="bg-no-repeat"
             >
-              <img className="absolute pointer-events-none z-[-10] -left-[40%]" src={bgMain} alt="" />
-              <div className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full">
+              <div className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
+                <img className="absolute pointer-events-none z-[-10] -left-[40%] top-[-20%]" src={bgMain} alt="" />
                 {props.solutions.map((solution, index) => (
                   <Solution key={index} {...solution} />
                 ))}
