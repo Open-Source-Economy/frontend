@@ -117,9 +117,9 @@ export function UserDeveloper(props: UserDeveloperProps) {
           </div>
 
           <div className="2xl:pt-[240px] pb-[228px] relative">
-            <img className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] opacity-[0.3] rotate-[-171.572deg] " src={rotate1} alt="" />
+            <img className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] opacity-[0.3]   animate-subtleRotateMove " src={rotate1} alt="" />
             <img
-              className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] left-[13%] opacity-[0.3] rotate-[9.165deg]"
+              className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
             />
