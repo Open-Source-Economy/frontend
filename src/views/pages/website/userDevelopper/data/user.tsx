@@ -86,10 +86,10 @@ export const userProps: UserDeveloperProps = {
       you a headache?
     </>
   ),
-  subtittle1: <p className="bg-[#FF518C] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">Long-lasting project</p>,
-  subtittle2: <p className="bg-[#FF518C] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">No technical support</p>,
+  subtittle1: <p>Long-lasting project</p>,
+  subtittle2: <p>No technical support</p>,
   subtittle3: (
-    <p className="bg-[#FF518C] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">
+    <p>
       Playground for them
       <br />
       business for me

@@ -62,7 +62,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
   return (
     <PageWrapper>
-      <div className="max-w-[1440px] w-full mx-auto">
+      <div className=" w-full mx-auto">
         <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-20 lg:mt-20 2xl:mt-[111px] my-8 items-center justify-center text-center !px-4 ">
           {isDeveloperPath ? (
             <Problem

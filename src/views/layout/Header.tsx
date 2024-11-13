@@ -38,7 +38,7 @@ export function Header({}: HeaderProps) {
 
   return (
     <div style={{ visibility: "hidden" }} ref={boxRef}>
-      <div className="icons_section d-flex align-items-end justify-content-end pt-4 pb-3 container-fluid gap-3 iconnav">
+      <div className="icons_section d-flex align-items-end justify-content-end !py-[19px] container-fluid gap-3 iconnav">
         <SocialMedia />
       </div>
       <div className="">
