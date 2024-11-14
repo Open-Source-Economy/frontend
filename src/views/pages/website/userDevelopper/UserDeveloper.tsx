@@ -64,7 +64,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
   return (
     <PageWrapper>
       <div className=" w-full mx-auto">
-        <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-20 lg:mt-20 2xl:mt-[111px] my-8 items-center justify-center text-center !px-4 ">
+        <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-28 lg:mt-20 2xl:mt-[111px] mb-20 my-8 items-center justify-center text-center !px-4 ">
           {isDeveloperPath ? (
             <Problem
               title={props.problemTitle}
@@ -120,7 +120,11 @@ export function UserDeveloper(props: UserDeveloperProps) {
           </div>
 
           <div className="2xl:pt-[240px] pb-[228px] relative">
-            <img className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] opacity-[0.3]   animate-subtleRotateMove " src={rotate1} alt="" />
+            <img
+              className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] opacity-[0.3]   animate-subtleRotateMove "
+              src={rotate1}
+              alt=""
+            />
             <img
               className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}

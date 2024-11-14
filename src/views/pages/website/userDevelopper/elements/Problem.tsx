@@ -54,7 +54,7 @@ export function Problem(props: ProblemProps) {
           <img
             src={props.cartoonImg}
             alt="cartoonImg"
-            className="3xl:max-w-[390px] 2xl:max-w-[320px] md:max-w-[300px] mx:max-w-[220px] sm:max-w-[150px] xs:max-w-[120px] max-w-[100px] w-full 3xl:min-h-[550px] mx:min-h-[400px] sm:min-h-[310px] xs:min-h-[250px] min-h-[210px] h-full object-center z-10 relative"
+            className="3xl:max-w-[390px] 2xl:max-w-[320px] md:max-w-[300px] mx:max-w-[220px] sm:max-w-[150px] xs:max-w-[120px] max-w-[100px] w-full 3xl:min-h-[550px] mx:min-h-[400px] sm:min-h-[310px]  xs:min-h-[200px] min-h-[180px] h-full object-center z-10 relative"
           />
 
           <div className="mx:max-w-[319px] w-fit lg:space-y-[194px] mx:space-y-32 space-y-20 h-full relative z-10">

@@ -36,7 +36,7 @@ export function UserCondition(props: ProblemProps) {
           </div>
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma w-full max-w-[636px] ">
             <p className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs text-center max-w-[540px] w-full mx:ml-24 xs:ml-16">No customer support</p>
-            <p className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-sm mb-[60px] lg:mt-[350px] sm:mt-36 mt-20 xl:max-w-[391px] xl:text-center text-end w-full mx-auto">
+            <p className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-sm mb-[60px] 3xl:mt-[350px] 2xl:mt-[300px] sm:mt-36 mt-20 xl:max-w-[391px] xl:text-center text-end w-full mx-auto">
               Security concerns?
             </p>
             <p className="3xl:text-[31px]  md:text-xl sm:text-lg xs:text-base text-sm xl:mt-[150px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full ">
@@ -59,7 +59,7 @@ export function UserCondition(props: ProblemProps) {
           <img
             src={props.cartoonImg}
             alt="cartoonImg"
-            className="3xl:max-w-[390px] 2xl:max-w-[320px] md:max-w-[300px] mx:max-w-[220px] sm:max-w-[150px] xs:max-w-[120px] max-w-[100px] w-full 3xl:min-h-[550px] mx:min-h-[400px] sm:min-h-[310px] xs:min-h-[250px] min-h-[210px] h-full object-center z-10 relative"
+            className="3xl:max-w-[390px] 2xl:max-w-[320px] md:max-w-[300px] mx:max-w-[220px] sm:max-w-[150px] xs:max-w-[120px] max-w-[100px] w-full 3xl:min-h-[550px] mx:min-h-[400px] sm:min-h-[310px] xs:min-h-[200px] min-h-[180px] h-full object-center z-10 relative"
           />
           <div className="flex items-center justify-center xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma mx:max-w-[319px] relative z-10 bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit">
             {props.subtittle1}
