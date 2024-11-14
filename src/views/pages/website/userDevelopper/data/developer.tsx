@@ -74,23 +74,23 @@ export const developerProps: UserDeveloperProps = {
     </>
   ),
   subtittle1: (
-    <p className="bg-[#FF7E4B] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">
+    <>
       No availability <br className="mx:block hidden" /> for community
-    </p>
+    </>
   ),
   subtittle2: (
-    <p className="bg-[#FF7E4B] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">
+    <>
       Others profiting
       <br className="mx:block hidden" />
       off your work
-    </p>
+    </>
   ),
   subtittle3: (
-    <p className="bg-[#FF7E4B] lg:!p-[15px] mx:p-2 p-1 rounded-[10px] max-w-[319px] w-full">
+    <>
       Project struggling
       <br className="mx:block hidden" />
       to survive
-    </p>
+    </>
   ),
   bgTextImg: bgText,
   mainBg: devBg,
