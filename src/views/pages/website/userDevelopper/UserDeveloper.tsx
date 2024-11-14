@@ -111,7 +111,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
               className="bg-no-repeat"
             >
               <div className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
-                <img className="absolute pointer-events-none z-[-10] -left-[40%] top-[-20%]" src={bgMain} alt="" />
+                <img className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" src={bgMain} alt="" />
                 {props.solutions.map((solution, index) => (
                   <Solution key={index} {...solution} />
                 ))}
@@ -119,14 +119,14 @@ export function UserDeveloper(props: UserDeveloperProps) {
             </div>
           </div>
 
-          <div className="2xl:pt-[240px] pb-[228px] relative">
+          <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
             <img
-              className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] opacity-[0.3]   animate-subtleRotateMove "
+              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3]   animate-subtleRotateMove "
               src={rotate1}
               alt=""
             />
             <img
-              className="absolute pointer-events-none z-[-10] max-h-[998px] h-full bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
+              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
             />

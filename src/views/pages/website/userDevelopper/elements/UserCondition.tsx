@@ -104,14 +104,14 @@ export function UserCondition(props: ProblemProps) {
         {props.title}
       </h1>
       <div className="max-w-[1740px] w-full mx-auto relative ">
-        <div className="w-full absolute z-[-10] pointer-events-none flex justify-between mt-14">
+        <div className="w-full absolute z-[-10] pointer-events-none flex justify-between sm:mt-14 mt-8">
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma max-w-[653px] w-full ">
             <p ref={el => (textBlockRefs.current[0] = el!)} className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs max-w-[471px] w-full mx-auto">
               Stable enough?
             </p>
             <p
               ref={el => (textBlockRefs.current[1] = el!)}
-              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base text-sm mx:mt-[170px] mt-20 text-start max-w-[650px] mx-auto"
+              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-sm text-xs mx:mt-[170px] mt-20 text-start max-w-[650px] mx-auto"
             >
               Will my issues be fixed?
             </p>
@@ -123,7 +123,7 @@ export function UserCondition(props: ProblemProps) {
             </p>
             <p
               ref={el => (textBlockRefs.current[3] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs md:mt-36 sm:mt-24 mt-16 max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs md:mt-36 sm:mt-24 mt-16 max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full sm:block hidden"
             >
               No influence <br /> over governance
             </p>
@@ -143,7 +143,7 @@ export function UserCondition(props: ProblemProps) {
             </p>
             <p
               ref={el => (textBlockRefs2.current[2] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-sm xl:mt-[150px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full "
+              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-xs xl:mt-[150px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full "
             >
               No warranties, <br /> no commitment
             </p>
@@ -151,10 +151,10 @@ export function UserCondition(props: ProblemProps) {
         </div>
         <div className="flex items-center justify-between mx:gap-8 sm:gap-4 gap-3 3xl:max-w-[1290px] max-w-[980px] w-full mx-auto relative 3xl:pt-14 pt-20">
           <div ref={el => (subtitlesRef.current[0] = el!)} className="mx:max-w-[319px] w-fit lg:space-y-[194px] mx:space-y-32 space-y-20 h-full relative z-10">
-            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit">
               {props.subtittle2}
             </div>
-            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit">
               {props.subtittle3}
             </div>
           </div>
@@ -167,7 +167,7 @@ export function UserCondition(props: ProblemProps) {
           />
           <div
             ref={el => (subtitlesRef.current[1] = el!)}
-            className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma mx:max-w-[359px] relative z-10 bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] w-fit"
+            className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma mx:max-w-[359px] relative z-10 bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md w-fit"
           >
             {props.subtittle1}
           </div>

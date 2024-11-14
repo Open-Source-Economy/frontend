@@ -33,14 +33,14 @@ export const Footer = () => {
   }, []);
 
   return (
-    <div className="bg-2 z-10">
+    <div className=" z-10">
       <div className="relative ">
         <img className="absolute right-0 bottom-0 w-full -z-10 opacity-[0.5] pointer-events-none" src={footerRightBg} alt="" />
         <img className="absolute left-0 bottom-0 w-full -z-10 mix-blend-lighten  pointer-events-none" src={footerLeft} alt="" />
         <div className="boxlayers ">
-          <div ref={footerWrapper} className="container footer px-md-5">
+          <div ref={footerWrapper} className="container footer px-md-5 ">
             <div className="row relative z-50">
-              <div className="col-md-6 pt-4">
+              <div className="col-md-6">
                 <a href="/" className="">
                   <img src={logo} className="img-fluid footerlogo" alt="Logo" />
                 </a>
@@ -49,7 +49,7 @@ export const Footer = () => {
                 </div>
               </div>
 
-              <div className="col-md-6 pt-4">
+              <div className="col-md-6 pt-4 mb-7 sm:mb-0">
                 <div className="d-flex flex-column align-items-md-end justify-content-md-end">
                   <h1 className="footer-h1-text">Stay Tuned!</h1>
                   <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">

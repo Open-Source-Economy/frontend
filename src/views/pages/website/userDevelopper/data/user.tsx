@@ -24,7 +24,7 @@ const solution1 = {
   comming: <p className="mb-2">AVAILABLE</p>,
   text: (
     <>
-      <ul className="px-10 mt-[35px]">
+      <ul className="px-10 sm:mt-[35px] mt-4">
         <li className={"list-disc"}>Get technical support</li>
         <li className={"list-disc"}>Discuss your features & needs</li>
         <li className={"list-disc"}>Share your requests.</li>
@@ -46,7 +46,7 @@ const solution2 = {
   comming: <p className="!pb-2.5 flex">COMING SOON</p>,
   subTitle: "Forget the Far West!",
   text: (
-    <div className="mt-[45px]">
+    <div className="sm:mt-[45px] mt-4">
       <p>
         Be part of a clear, transparent, and <br /> decentralized governance.
       </p>
@@ -65,7 +65,7 @@ const solution3 = {
   comming: <p className="!mb-2.5 flex">COMING SOON</p>,
   subTitle: (
     <>
-      <p>Secure your platform</p> <p className="!mt-2">Secure your business.</p>
+      <p className="sm:text-start text-center">Secure your platform</p> <p className="!mt-2">Secure your business.</p>
     </>
   ),
   text: (
@@ -73,7 +73,7 @@ const solution3 = {
       <p>
         Support, invest, or donate to projects shaping <br /> your future.
       </p>
-      <p className="mt-6">Become confident in using open source.</p>
+      <p className="sm:mt-6 mt-4">Become confident in using open source.</p>
     </div>
   ),
 } as SolutionProps;

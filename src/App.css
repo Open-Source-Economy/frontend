@@ -121,7 +121,7 @@ input[type="number"] {
   /* Ensure the image fits within the button */
   background-repeat: no-repeat;
   background-position: center;
-  width: 20px;
+  width: 3px;
   /* Adjust the width */
   height: 20px;
   /* Adjust the height */
