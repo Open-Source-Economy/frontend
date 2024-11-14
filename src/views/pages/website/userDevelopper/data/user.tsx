@@ -17,7 +17,7 @@ const audience = Audience.USER;
 const solution1 = {
   audience,
   image: img2,
-  starPosition: "top-[55px] left-[140px] w-[50px] md:top-[100px] md:left-[220px] md:w-[70px]",
+  starPosition: "top-[55px] left-[140px] w-[50px] md:top-[134px] md:left-[233px] md:w-[70px]",
   title: "Get Support",
   subTitle: "From Those Who Know",
   comming: <p className="mb-2">AVAILABLE</p>,
@@ -39,7 +39,7 @@ const solution1 = {
 const solution2 = {
   audience,
   image: img4,
-  starPosition: "top-[55px] left-[155px] w-[40px]",
+  starPosition: "top-[123px] left-[225px] w-[40px]",
   comingSoon: true,
   title: "Have a Say",
   comming: <p className="!pb-2.5 flex">COMING SOON</p>,
