@@ -130,7 +130,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
               src={rotate2}
               alt=""
             />
-            <h1 className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl ff_michroma !leading-normal text-center px-3 md:px-0">
+            <h1 className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] ff_michroma !leading-normal text-center px-3 md:px-0">
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
             <InterestForm />

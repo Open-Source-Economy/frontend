@@ -61,7 +61,7 @@ export function InterestForm(props: InterestFormProps) {
   return (
     <>
       <h1
-        className="text-center text-3xl md:text-4xl lg:text-6xl lg:mt-32 md:mt-22 xl:mt-[186px] mt-14 ff_michroma leading-[120%]"
+        className="text-center text-3xl md:text-4xl lg:text-6xl 3xl:text-[71px] lg:mt-32 md:mt-22 xl:mt-[186px] mt-14 ff_michroma leading-[120%]"
         style={{
           background: "linear-gradient(90deg, #66319B 0%, #FF518C 50%, #FF7E4B 100%)",
           WebkitBackgroundClip: "text",

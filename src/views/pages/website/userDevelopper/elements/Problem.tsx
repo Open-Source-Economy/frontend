@@ -47,7 +47,7 @@ export function Problem(props: ProblemProps) {
           </div>
         </div>
         <div className="flex items-center justify-between mx:gap-8 sm:gap-4 gap-3 3xl:max-w-[1290px] max-w-[980px] w-full mx-auto relative 3xl:pt-14 pt-20">
-          <div className="flex items-center justify-center xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma mx:max-w-[319px] 3xl:min-w-[319px] relative z-10 bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit">
+          <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma mx:max-w-[319px] 3xl:min-w-[319px] relative z-10 bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit">
             {props.subtittle1}
           </div>
           <img className="absolute -z-10 w-full h-[200%] -top-[30%] object-center" src={props.mainBg} alt="mainBg" />
@@ -58,10 +58,10 @@ export function Problem(props: ProblemProps) {
           />
 
           <div className="mx:max-w-[319px] w-fit lg:space-y-[194px] mx:space-y-32 space-y-20 h-full relative z-10">
-            <div className="flex items-center justify-center  xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit 3xl:min-w-[311px]">
+            <div className="flex items-center justify-center  2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit 3xl:min-w-[311px]">
               {props.subtittle2}
             </div>
-            <div className="flex items-center justify-center xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit 3xl:min-w-[311px]">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm xs:text-xs text-[10px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 rounded-[10px] max-w-[319px] w-fit 3xl:min-w-[311px]">
               {props.subtittle3}
             </div>
           </div>
