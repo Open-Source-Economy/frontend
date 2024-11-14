@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import logo from "../../assets/logo.svg"; // Importing logo image
 import "./Footer.css";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
+import footerRightBg from "../../assets/footer-right-bg.png";
+import footerLeft from "../../assets/footer-left-bg.png";
 import gsap from "gsap";
 
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -31,11 +33,13 @@ export const Footer = () => {
   }, []);
 
   return (
-    <div className="bg-2 ">
-      <div className="bg-1">
+    <div className="bg-2 z-10">
+      <div className="relative ">
+        <img className="absolute right-0 bottom-0 w-full -z-10 opacity-[0.5] pointer-events-none" src={footerRightBg} alt="" />
+        <img className="absolute left-0 bottom-0 w-full -z-10 mix-blend-lighten  pointer-events-none" src={footerLeft} alt="" />
         <div className="boxlayers ">
-          <div ref={footerWrapper} className="container  footer px-md-5">
-            <div className="row">
+          <div ref={footerWrapper} className="container footer px-md-5">
+            <div className="row relative z-50">
               <div className="col-md-6 pt-4">
                 <a href="/" className="">
                   <img src={logo} className="img-fluid footerlogo" alt="Logo" />
@@ -46,13 +50,13 @@ export const Footer = () => {
               </div>
 
               <div className="col-md-6 pt-4">
-                {/*<div className="d-flex flex-column align-items-md-end justify-content-md-end">*/}
-                {/*  <h1 className="footer-h1-text">Stay Tuned!</h1>*/}
-                {/*  <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">*/}
-                {/*    <input type="email" className="" placeholder="Enter your email" />*/}
-                {/*    <button className="footerbtn">Join now</button>*/}
-                {/*  </div>*/}
-                {/*</div>*/}
+                <div className="d-flex flex-column align-items-md-end justify-content-md-end">
+                  <h1 className="footer-h1-text">Stay Tuned!</h1>
+                  <div className="input-group mt-2 d-flex align-items-md-end justify-content-md-end">
+                    <input type="email" className="" placeholder="Enter your email" />
+                    <button className="footerbtn ">Join now</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

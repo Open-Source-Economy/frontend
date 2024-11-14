@@ -221,17 +221,20 @@ input[type="number"] {
   position: relative;
   cursor: pointer;
   appearance: none;
+  background-color: white;
+  border-radius: 4px !important;
+  width: 22px;
+  height: 22px;
 }
 .agreecheckbox input[type="checkbox"]:before {
   content: "";
   display: block;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   top: 0;
   left: 0;
   border-radius: 4px !important;
-  background-color: #ff7e4b;
 }
 .agreecheckbox input[type="checkbox"]:checked:after {
   content: "";
@@ -244,11 +247,11 @@ input[type="number"] {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   position: absolute;
-  top: 2.5px;
-  left: 6.5px;
+  top: 3.5px;
+  left: 8px;
   overflow: hidden;
 }
 .agreecheckbox input[type="checkbox"]:checked {
-  background-color: #ff7e4b;
+  background-color: #5e309c;
   border-radius: 4px !important;
 }
