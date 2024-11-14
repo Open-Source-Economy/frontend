@@ -55,7 +55,7 @@ export function Header({}: HeaderProps) {
                 id={`offcanvasNavbar-expand-${expand}`}
                 aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                 placement="start bg"
-                className="d-none d-lg-block"
+                className="d-none d-lg-block sidebar-transition"
               >
                 {/* Offcanvas component for Navbar menu */}
                 <Offcanvas.Header closeButton>

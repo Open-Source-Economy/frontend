@@ -92,3 +92,44 @@
 
 @media (max-width: 992px) {
 }
+.offcanvas {
+  transition: transform 0.4s ease-in-out !important;
+}
+.offcanvas.show {
+  animation: slideIn 0.4s forwards;
+}
+
+.offcanvas.hiding {
+  animation: slideOut 0.4s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Backdrop transition */
+.offcanvas-backdrop {
+  transition: opacity 0.4s ease-in-out !important;
+}
+
+.offcanvas-backdrop.show {
+  opacity: 0.5;
+}
