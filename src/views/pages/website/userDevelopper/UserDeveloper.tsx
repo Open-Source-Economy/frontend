@@ -137,10 +137,11 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scale: 1,
       duration: 1.5,
       ease: "power2.out",
+   
       scrollTrigger: {
         trigger: finalHeadingRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
+        start: "top 20%", 
+        
       }
     });
 
