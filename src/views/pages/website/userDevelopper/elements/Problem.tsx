@@ -66,10 +66,10 @@ export function Problem(props: ProblemProps) {
         .timeline({
           scrollTrigger: {
             trigger: element,
-            start: "top 25%+=50",
-            end: "top 25%-=50",
+            start: "top 20%+=50",
+            end: "top 20%-=50",
             scrub: false,
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none reverse", 
           },
         })
         .to(element, {
@@ -85,8 +85,8 @@ export function Problem(props: ProblemProps) {
         .timeline({
           scrollTrigger: {
             trigger: element,
-            start: "top 25%+=50",
-            end: "top 25%-=50",
+            start: "top 20%+=50",
+            end: "top 20%-=50",
             scrub: false,
             toggleActions: "play none none reverse",
           },
@@ -113,25 +113,25 @@ export function Problem(props: ProblemProps) {
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma max-w-[653px] w-full ">
             <p
               ref={el => (textBlockRefs.current[0] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs max-w-[471px] w-full  mx-auto"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-sm:!-ml-6 max-w-[471px] w-full  mx-auto"
             >
               Financial Struggle
             </p>
             <p
               ref={el => (textBlockRefs.current[1] = el!)}
-              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base text-sm 3xl:mt-[140px] mx:mt-24 mt-20 text-start max-w-[471px] mx-auto"
+              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base text-[10px] 3xl:mt-[140px] mx:mt-24 mt-20 text-start max-w-[471px] mx-auto"
             >
               Lack of resources
             </p>
             <p
               ref={el => (textBlockRefs.current[2] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs 3xl:mt-[130px] mx:mt-36 sm:mt-16 mt-10 mb-[57px] xl:max-w-[471px]  xl:text-center text-start w-full mx-auto"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-sm:leading-3 3xl:mt-[130px] mx:mt-36 sm:mt-16 mt-10 mb-[57px] xl:max-w-[471px]  xl:text-center text-start w-full mx-auto"
             >
               Non-stop complaints from all
             </p>
             <p
               ref={el => (textBlockRefs.current[3] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs md:mt-36 sm:mt-24 mt-16 max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full  sm:block hidden"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-xs md:mt-36 sm:mt-24 mt-16 max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full  sm:block hidden"
             >
               Burnout/Overwhelmed
             </p>
@@ -139,19 +139,19 @@ export function Problem(props: ProblemProps) {
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma w-full max-w-[636px] ">
             <p
               ref={el => (textBlockRefs2.current[0] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs text-center max-w-[540px] w-full mx:ml-24 xs:ml-16"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-sm:!-mt-10 text-center max-w-[540px] w-full mx:ml-24 xs:ml-5"
             >
               Day job to pay the bills
             </p>
             <p
               ref={el => (textBlockRefs2.current[1] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-sm mb-[60px] lg:mt-[200px] sm:mt-36 mt-20 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
+              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-[10px] text-[10px] mb-[60px] lg:mt-[200px] sm:mt-36 mt-20 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
             >
               Coding for free
             </p>
             <p
               ref={el => (textBlockRefs2.current[2] = el!)}
-              className="3xl:text-[31px]  md:text-xl sm:text-lg xs:text-base text-sm xl:mt-[220px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full "
+              className="3xl:text-[31px]  md:text-xl sm:text-lg xs:text-[10px] text-[10px] xl:mt-[220px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full "
             >
               No say in governance
             </p>
@@ -160,7 +160,7 @@ export function Problem(props: ProblemProps) {
         <div className="flex items-center justify-between mx:gap-8 sm:gap-4 gap-3 3xl:max-w-[1290px] max-w-[980px] w-full mx-auto relative 3xl:pt-14 sm:pt-20 pt-14">
           <div
             ref={el => (subtitlesRef.current[0] = el!)}
-            className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma mx:max-w-[319px] 3xl:min-w-[319px] relative z-10 bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit"
+            className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-[8px] xs:text-[8px] text-[8px] font-michroma mx:max-w-[319px] 3xl:min-w-[319px] relative z-10 bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit"
           >
             {props.subtittle1}
           </div>
@@ -172,10 +172,10 @@ export function Problem(props: ProblemProps) {
             className="3xl:max-w-[390px] 2xl:max-w-[320px] md:max-w-[300px] mx:max-w-[220px] sm:max-w-[150px] xs:max-w-[120px] max-w-[100px] w-full 3xl:min-h-[550px] mx:min-h-[400px] sm:min-h-[310px]  xs:min-h-[200px] min-h-[180px] h-full object-center z-10 relative"
           />
           <div ref={el => (subtitlesRef.current[1] = el!)} className="mx:max-w-[319px] w-fit lg:space-y-[194px] mx:space-y-32 space-y-20 h-full relative z-10">
-            <div className="flex items-center justify-center  2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit 3xl:min-w-[311px]">
+            <div className="flex items-center justify-center  2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[8px] text-[8px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit 3xl:min-w-[311px]">
               {props.subtittle2}
             </div>
-            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit 3xl:min-w-[311px]">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[8px] text-[8px] font-michroma bg-[#FF7E4B] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit 3xl:min-w-[311px]">
               {props.subtittle3}
             </div>
           </div>

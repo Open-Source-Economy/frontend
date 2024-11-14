@@ -106,24 +106,24 @@ export function UserCondition(props: ProblemProps) {
       <div className="max-w-[1740px] w-full mx-auto relative ">
         <div className="w-full absolute z-[-10] pointer-events-none flex justify-between sm:mt-14 mt-8">
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma max-w-[653px] w-full ">
-            <p ref={el => (textBlockRefs.current[0] = el!)} className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs max-w-[471px] w-full mx-auto">
+            <p ref={el => (textBlockRefs.current[0] = el!)} className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-w-[471px] w-full mx-auto">
               Stable enough?
             </p>
             <p
               ref={el => (textBlockRefs.current[1] = el!)}
-              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-sm text-xs mx:mt-[170px] mt-20 text-start max-w-[650px] mx-auto"
+              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-[10px] text-[10px] mx:mt-[170px] mt-20 text-start max-w-[650px] mx-auto"
             >
               Will my issues be fixed?
             </p>
             <p
               ref={el => (textBlockRefs.current[2] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs 3xl:mt-[100px] mx:mt-20 sm:mt-16 mt-10 mb-[57px] xl:max-w-[471px] xl:text-center text-start w-full mx-auto"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] 3xl:mt-[100px] mx:mt-20 sm:mt-16 mt-14 mb-[57px] xl:max-w-[471px] xl:text-center text-start w-full mx-auto"
             >
               No eyes on my PR!
             </p>
             <p
               ref={el => (textBlockRefs.current[3] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs md:mt-36 sm:mt-24 mt-16 max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full sm:block hidden"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] md:mt-40 sm:mt-24  max-w-[639px] text-start mx:ml-24 xs:ml-6 w-full sm:block hidden"
             >
               No influence <br /> over governance
             </p>
@@ -131,19 +131,19 @@ export function UserCondition(props: ProblemProps) {
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma w-full max-w-[636px]">
             <p
               ref={el => (textBlockRefs2.current[0] = el!)}
-              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-sm text-xs text-center max-w-[540px] w-full mx:ml-24 xs:ml-16"
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] text-center max-w-[540px] w-full mx:ml-24 xs:ml-16"
             >
               No customer support
             </p>
             <p
               ref={el => (textBlockRefs2.current[1] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-sm mb-[60px] 3xl:mt-[350px] 2xl:mt-[300px] sm:mt-36 mt-20 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
+              className="3xl:text-[31px] md:text-xl sm:text-[10px] xs:text-[10px]  text-[10px] mb-[60px] 3xl:mt-[350px] 2xl:mt-[300px] sm:mt-36 mt-10 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
             >
               Security concerns?
             </p>
             <p
               ref={el => (textBlockRefs2.current[2] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-lg xs:text-base text-xs xl:mt-[150px] mx:mt-20 mt-10 xl:text-start text-end xl:max-w-[471px] w-full "
+              className="3xl:text-[31px] md:text-xl sm:text-[10px] max-sm:leading-3 xs:text-[10px]   text-[10px] xl:mt-[150px] mx:mt-20 mt-[87px] xl:text-start text-end xl:max-w-[471px] w-full "
             >
               No warranties, <br /> no commitment
             </p>

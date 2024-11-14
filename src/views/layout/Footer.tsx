@@ -16,7 +16,7 @@ export const Footer = () => {
   useEffect(() => {
     gsap.fromTo(
       footerWrapper.current,
-      { x: -200, opacity: 0 },
+      { x: 0, opacity: 0 },
       {
         x: 0,
         opacity: 1,
