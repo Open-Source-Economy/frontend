@@ -17,14 +17,13 @@ const audience = Audience.USER;
 const solution1 = {
   audience,
   image: img2,
-  starPosition:
-    "top-[55px] left-[140px] w-[50px] 2xl:top-[134px] xl:top-[110px] xl:top-[100px] lg:top-[112px] md:top-[77px] sm:top-[97px] top-[101px] left-[49%] sm:left-[148px] md:left-[186px] md:left-[184px] xl:left-[207px] 2xl:left-[233px] md:w-[70px]",
+  starPosition: "lg:top-[23%] sm:top-[20%] top-[18%] md:left-[50%] left-[47%] w-[70px]",
   title: "Get Support",
   subTitle: "From Those Who Know",
-  comming: <p className="mb-2">AVAILABLE</p>,
+  comming: <p className="mb-2 sm:text-start  w-full">AVAILABLE</p>,
   text: (
     <>
-      <ul className="px-10 sm:mt-[35px] mt-4">
+      <ul className="px-10 sm:mt-[35px] mt-4 w-fit mx-auto sm:!mx-0 text-start">
         <li className={"list-disc"}>Get technical support</li>
         <li className={"list-disc"}>Discuss your features & needs</li>
         <li className={"list-disc"}>Share your requests.</li>
@@ -40,10 +39,10 @@ const solution1 = {
 const solution2 = {
   audience,
   image: img4,
-  starPosition: "lg:top-[90px] top-[84px] sm:left-[56%] left-[58%] md:left-[217px] lg:left-[225px] w-[40px] w-[70px]",
+  starPosition: "lg:top-[10%] sm:top-[8%] top-[7%] md:left-[49%] left-[49%] w-[70px]",
   comingSoon: true,
   title: "Have a Say",
-  comming: <p className="!pb-2.5 flex">COMING SOON</p>,
+  comming: <p className="!pb-2.5 mb-2 sm:text-start w-full">COMING SOON</p>,
   subTitle: "Forget the Far West!",
   text: (
     <div className="sm:mt-[45px] mt-4">
@@ -60,12 +59,12 @@ const solution2 = {
 const solution3 = {
   audience,
   image: img3,
-  starPosition: "2xl:top-[77px] lg:top-[52px] top-[17px] 2xl:left-[200px] xl:left-[170px] md:left-[151px] sm:left-[120px] left-[43%] w-[70px]",
+  starPosition: "w-[70px] lg:top-[0%] sm:top-[-2%] top-[-4%] md:left-[38%] left-[32%]",
   title: "Fund Your Future",
-  comming: <p className="!mb-2.5 flex">COMING SOON</p>,
+  comming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
   subTitle: (
     <>
-      <p className="sm:text-start text-center">Secure your platform</p> <p className="!mt-2">Secure your business.</p>
+      <p className="sm:!text-start text-center">Secure your platform</p> <p className="!mt-2">Secure your business.</p>
     </>
   ),
   text: (
