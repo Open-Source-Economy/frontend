@@ -54,12 +54,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
     // Initial animations
     gsap.set([solutionHeadingRef.current, solutionsContainerRef.current, finalHeadingRef.current, formContainerRef.current], {
       opacity: 0,
-      y: 50
+      y: 50,
     });
 
     gsap.set([rotate1Ref.current, rotate2Ref.current], {
       opacity: 0,
-      scale: 0.8
+      scale: 0.8,
     });
 
     // Solution heading animation
@@ -71,8 +71,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scrollTrigger: {
         trigger: solutionHeadingRef.current,
         start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
+        toggleActions: "play none none reverse",
+      },
     });
 
     // Solutions container animation
@@ -84,8 +84,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scrollTrigger: {
         trigger: solutionsContainerRef.current,
         start: "top 70%",
-        toggleActions: "play none none reverse"
-      }
+        toggleActions: "play none none reverse",
+      },
     });
 
     // Background main image animation
@@ -100,8 +100,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
         scrollTrigger: {
           trigger: solutionsContainerRef.current,
           start: "top 70%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       }
     );
 
@@ -114,8 +114,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scrollTrigger: {
         trigger: finalHeadingRef.current,
         start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
+        toggleActions: "play none none reverse",
+      },
     });
 
     gsap.to(formContainerRef.current, {
@@ -127,8 +127,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scrollTrigger: {
         trigger: finalHeadingRef.current,
         start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
+        toggleActions: "play none none reverse",
+      },
     });
 
     // Rotating backgrounds animation
@@ -137,14 +137,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
       scale: 1,
       duration: 1.5,
       ease: "power2.out",
-   
+
       scrollTrigger: {
         trigger: finalHeadingRef.current,
-        start: "top 20%", 
-        
-      }
+        start: "top 20%",
+      },
     });
-
   }, []);
 
   useEffect(() => {
@@ -194,29 +192,16 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
         <div className="bg-no-repeat">
           <div className="2xl:px-20 lg:px-52 container">
-            <h1 
-              ref={solutionHeadingRef}
-              className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] ff_michroma"
-            >
+            <h1 ref={solutionHeadingRef} className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] ff_michroma">
               No BS. <br />
-              <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] 2xl:text-[54px]">
-                Here's our solution.
-              </span>
+              <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] 2xl:text-[54px]">Here's our solution.</span>
             </h1>
           </div>
 
           <div>
             <div className="bg-no-repeat">
-              <div 
-                ref={solutionsContainerRef}
-                className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative"
-              >
-                <img 
-                  ref={bgMainRef}
-                  className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" 
-                  src={bgMain} 
-                  alt="" 
-                />
+              <div ref={solutionsContainerRef} className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
+                <img ref={bgMainRef} className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" src={bgMain} alt="" />
                 {props.solutions.map((solution, index) => (
                   <Solution key={index} {...solution} />
                 ))}
@@ -227,17 +212,17 @@ export function UserDeveloper(props: UserDeveloperProps) {
           <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
             <img
               ref={rotate1Ref}
-              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
+              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
               src={rotate1}
               alt=""
             />
             <img
               ref={rotate2Ref}
-              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
+              className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
             />
-            <h1 
+            <h1
               ref={finalHeadingRef}
               className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] ff_michroma !leading-normal text-center px-3 md:px-0"
             >
