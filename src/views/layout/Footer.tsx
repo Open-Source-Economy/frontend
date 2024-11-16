@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import logo from "../../assets/logo.svg"; // Importing logo image
 import "./Footer.css";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
-import footerRightBg from "../../assets/footer-right-bg.png";
-import footerLeft from "../../assets/footer-left-bg.png";
+import footerRightBg from "../../assets/footer-right-bg.webp";
+import footerLeft from "../../assets/footer-left-bg.webp";
 import gsap from "gsap";
 
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -35,8 +35,8 @@ export const Footer = () => {
   return (
     <div className=" z-10">
       <div className="relative ">
-        <img className="absolute right-0 bottom-0 w-full -z-10 opacity-[0.5] pointer-events-none" src={footerRightBg} alt="" />
-        <img className="absolute left-0 bottom-0 w-full -z-10 mix-blend-lighten  pointer-events-none" src={footerLeft} alt="" />
+        <img className="absolute right-0 bottom-0 w-full -z-10 opacity-[0.5] pointer-events-none" src={footerRightBg} alt="" loading="lazy" />
+        <img className="absolute left-0 bottom-0 w-full -z-10 mix-blend-lighten  pointer-events-none" src={footerLeft} alt="" loading="lazy" />
         <div className="boxlayers ">
           <div ref={footerWrapper} className="container footer px-md-5 ">
             <div className="row relative z-50">
@@ -48,7 +48,6 @@ export const Footer = () => {
                   <SocialMedia />
                 </div>
               </div>
-
               <div className="col-md-6 pt-4 mb-7 sm:mb-0">
                 <div className="d-flex flex-column align-items-md-end justify-content-md-end">
                   <h1 className="footer-h1-text">Stay Tuned!</h1>

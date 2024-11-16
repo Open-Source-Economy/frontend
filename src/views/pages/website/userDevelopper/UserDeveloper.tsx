@@ -8,9 +8,9 @@ import { Solution, SolutionProps } from "./elements/Solution";
 import { Problem } from "./elements/Problem";
 import { Audience } from "../../../Audience";
 import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
-import rotate1 from "../../../../assets/rotate-bg-1.png";
-import rotate2 from "../../../../assets/rotate-bg-2.png";
-import bgMain from "../../../../assets/sec1bg.png";
+import rotate1 from "../../../../assets/rotate-bg-1.webp";
+import rotate2 from "../../../../assets/rotate-bg-2.webp";
+import bgMain from "../../../../assets/sec1bg.webp";
 import { UserCondition } from "./elements/UserCondition";
 import { useLocation } from "react-router-dom";
 
@@ -56,8 +56,6 @@ export function UserDeveloper(props: UserDeveloperProps) {
       opacity: 0,
       y: 50,
     });
-
-  
 
     // Solution heading animation
     gsap.to(solutionHeadingRef.current, {
@@ -129,7 +127,6 @@ export function UserDeveloper(props: UserDeveloperProps) {
     });
 
     // Rotating backgrounds animation
-   
   }, []);
 
   useEffect(() => {
@@ -197,12 +194,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
           </div>
 
           <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
-            <img 
+            <img
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
               src={rotate1}
               alt=""
             />
-            <img 
+            <img
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
