@@ -57,10 +57,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
       y: 50,
     });
 
-    gsap.set([rotate1Ref.current, rotate2Ref.current], {
-      opacity: 0,
-      scale: 0.8,
-    });
+  
 
     // Solution heading animation
     gsap.to(solutionHeadingRef.current, {
@@ -132,17 +129,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
     });
 
     // Rotating backgrounds animation
-    gsap.to([rotate1Ref.current, rotate2Ref.current], {
-      opacity: 0.3,
-      scale: 1,
-      duration: 1.5,
-      ease: "power2.out",
-
-      scrollTrigger: {
-        trigger: finalHeadingRef.current,
-        start: "top 20%",
-      },
-    });
+   
   }, []);
 
   useEffect(() => {
@@ -210,14 +197,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
           </div>
 
           <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
-            <img
-              ref={rotate1Ref}
+            <img 
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
               src={rotate1}
               alt=""
             />
-            <img
-              ref={rotate2Ref}
+            <img 
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
