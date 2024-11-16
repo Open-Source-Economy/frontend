@@ -59,7 +59,7 @@ const solution2 = {
 const solution3 = {
   audience,
   image: img3,
-  starPosition: "sm:w-[70px] w-14 lg:top-[0%] sm:top-[-2%] top-[-5%] sm:!top-[-3%] md:left-[38%] left-[28%] sm:left-[32%]",
+  starPosition: "sm:w-[70px] w-14 lg:top-[0%] sm:top-[-2%] top-[-5%]  md:left-[40%] left-[28%] sm:left-[32%]",
   title: "Fund Your Future",
   comming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
   subTitle: (
