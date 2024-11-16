@@ -17,7 +17,7 @@ const audience = Audience.USER;
 const solution1 = {
   audience,
   image: img2,
-  starPosition: "lg:top-[23%] sm:top-[20%] top-[18%] md:left-[50%] left-[47%] w-[70px]",
+  starPosition: "lg:top-[23%] sm:top-[21%] top-[17%] md:left-[50%] left-[46%] sm:left-[49%] sm:w-[70px] w-14",
   title: "Get Support",
   subTitle: "From Those Who Know",
   comming: <p className="mb-2 sm:text-start  w-full">AVAILABLE</p>,
@@ -39,7 +39,7 @@ const solution1 = {
 const solution2 = {
   audience,
   image: img4,
-  starPosition: "lg:top-[10%] sm:top-[8%] top-[7%] md:left-[49%] left-[49%] w-[70px]",
+  starPosition: "lg:top-[10%] sm:top-[8%] top-[1%] sm:top-[7%] md:left-[49%] left-[40%] sm:left-[49%] sm:w-[70px] w-14",
   comingSoon: true,
   title: "Have a Say",
   comming: <p className="!pb-2.5 mb-2 sm:text-start w-full">COMING SOON</p>,
@@ -59,7 +59,7 @@ const solution2 = {
 const solution3 = {
   audience,
   image: img3,
-  starPosition: "w-[70px] lg:top-[0%] sm:top-[-2%] top-[-4%] md:left-[38%] left-[32%]",
+  starPosition: "sm:w-[70px] w-14 lg:top-[0%] sm:top-[-2%] top-[-5%] sm:!top-[-3%] md:left-[38%] left-[28%] sm:left-[32%]",
   title: "Fund Your Future",
   comming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
   subTitle: (

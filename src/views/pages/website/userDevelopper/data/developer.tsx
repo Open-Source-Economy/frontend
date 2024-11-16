@@ -17,7 +17,7 @@ const audience = Audience.DEVELOPER;
 const solution1: SolutionProps = {
   audience,
   image: img2,
-  starPosition: "w-[70px] left-[48%] top-[20%]",
+  starPosition: "sm:w-[70px] w-14 left-[44%] top-[20%] top-[15%] sm:top-[15%]",
   title: "Get Paid",
   subTitle: "Earn, Don’t Burn",
   text: (
@@ -33,7 +33,7 @@ const solution1: SolutionProps = {
 const solution2: SolutionProps = {
   audience,
   image: img3,
-  starPosition: "w-[70px] left-[45%] top-[16%]",
+  starPosition: "sm:w-[70px] w-14 left-[40%] sm:left-[45%] top-[10%] sm:top-[16%]",
   title: "Have a Say",
   subTitle: "Forget the Far West!",
   text: (
@@ -49,7 +49,7 @@ const solution2: SolutionProps = {
 const solution3: SolutionProps = {
   audience,
   image: img4,
-  starPosition: "w-[70px] md:left-[14%] left-[7%] sm:left-[3%] top-[32%]",
+  starPosition: "sm:w-[70px] w-14 2xl:left-[21%] xl:left-[15%] sm:left-[5%] md:left-[13%] left-[-6%] top-[32%]",
   title: "Fund Your Future",
   subTitle: "Stop begging for donations!",
   text: (
