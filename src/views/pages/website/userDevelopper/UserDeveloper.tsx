@@ -1,18 +1,14 @@
-import React, { ReactNode, useEffect, useState, useRef } from "react";
-import bg from "src/assets/bg.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import gsap from "gsap";
-import { PageWrapper } from "../../PageWrapper";
-import { Solution, SolutionProps } from "./elements/Solution";
-import { Problem } from "./elements/Problem";
-import { Audience } from "../../../Audience";
-import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
-import rotate1 from "../../../../assets/rotate-bg-1.webp";
-import rotate2 from "../../../../assets/rotate-bg-2.webp";
-import bgMain from "../../../../assets/sec1bg.webp";
-import { UserCondition } from "./elements/UserCondition";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
+import { Audience } from "../../../Audience";
+import { PageWrapper } from "../../PageWrapper";
+import { Problem } from "./elements/Problem";
+import { Solution, SolutionProps } from "./elements/Solution";
+import { UserCondition } from "./elements/UserCondition";
 
 export interface UserDeveloperProps {
   audience: Audience;
