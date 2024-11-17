@@ -254,3 +254,9 @@ input[type="number"] {
   background-color: #5e309c;
   border-radius: 4px !important;
 }
+
+.box-gradient {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-radius: 50%;
+  filter: blur(70px);
+}

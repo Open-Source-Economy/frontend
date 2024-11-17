@@ -194,16 +194,19 @@ export function UserDeveloper(props: UserDeveloperProps) {
           </div>
 
           <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
-            <img
+            <div className="opacity-40 absolute left-[20%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[700px] h-[400px] animate-subtleRotateMove"></div>
+            <div className="opacity-40 absolute left-[50%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[700px] h-[400px] animate-subtleRotateMove2"></div>
+            {/* <img
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
               src={rotate1}
               alt=""
             />
+
             <img
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] left-[10%] opacity-[0.3] animate-subtleRotateMove2"
               src={rotate2}
               alt=""
-            />
+            /> */}
             <h1
               ref={finalHeadingRef}
               className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] ff_michroma !leading-normal text-center px-3 md:px-0"
