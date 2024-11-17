@@ -42,61 +42,6 @@ export default {
             transform: "translateY(0)",
           },
         },
-        subtleRotateMove: {
-          "0%": {
-            transform: "translate(100px, 0) rotate(0deg)",
-          },
-          "25%": {
-            transform: "translate(100px, 0px) rotate(45deg)",
-          },
-          "50%": {
-            transform: "translate(0px, 0px) rotate(-50deg)",
-          },
-          "70%": {
-            transform: "translate(-200px, 0px) rotate(0deg)",
-          },
-          "85%": {
-            transform: "translate(0px, 0px) rotate(0deg)",
-          },
-          "100%": {
-            transform: "translate(100px, 0px) rotate(0deg)",
-          },
-        },
-        subtleRotateMove2: {
-          "0%": {
-            transform: "translate(0px, 0) rotate(0deg)",
-          },
-          "25%": {
-            transform: "translate(100px, 0px) rotate(45deg)",
-          },
-          "50%": {
-            transform: "translate(0px, 0px) rotate(-20deg)",
-          },
-          "70%": {
-            transform: "translate(-150px, 0px) rotate(0deg)",
-          },
-          "85%": {
-            transform: "translate(0px, 0px) rotate(0deg)",
-          },
-          "100%": {
-            transform: "translate(50px, 0px) rotate(0deg)",
-          },
-          // "0%": {
-          //   transform: "translate(0px, 0) rotate(0deg)",
-          // },
-          // "25%": {
-          //   transform: "translate(0px, 0px) rotate(-18deg)",
-          // },
-          // "50%": {
-          //   transform: "translate(-100px, 0px) rotate(10deg)",
-          // },
-          // "75%": {
-          //   transform: "translate(0px, 0px) rotate(18deg)",
-          // },
-          // "100%": {
-          //   transform: "translate(0, 0) rotate(0deg)",
-          // },
-        },
       },
       animation: {
         slideInDown: "slideInDown 0.5s ease-out",

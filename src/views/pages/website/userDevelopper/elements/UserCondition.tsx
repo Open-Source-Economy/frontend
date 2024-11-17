@@ -163,7 +163,7 @@ export function UserCondition(props: ProblemProps) {
           </div>
           <div
             ref={mainBgRef}
-            className="!opacity-[0.4] absolute left-[50%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
+            className="!opacity-[0.35] absolute left-[50%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
           ></div>
 
           {/* <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] -top-[30%] object-center" src={props.mainBg} alt="mainBg" /> */}
