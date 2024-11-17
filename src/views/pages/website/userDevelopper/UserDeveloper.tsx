@@ -185,7 +185,12 @@ export function UserDeveloper(props: UserDeveloperProps) {
           <div>
             <div className="bg-no-repeat">
               <div ref={solutionsContainerRef} className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
-                <img ref={bgMainRef} className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" src={bgMain} alt="" />
+                {/* <img ref={bgMainRef} className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" src={bgMain} alt="" /> */}
+
+                <div
+                  ref={bgMainRef}
+                  className="!opacity-[0.3] absolute pointer-events-none z-[-10] left-[-20%] xl:top-[-16%] top-[-5%] rotate-180 box-gradient w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
+                ></div>
                 {props.solutions.map((solution, index) => (
                   <Solution key={index} {...solution} />
                 ))}

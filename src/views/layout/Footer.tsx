@@ -1,10 +1,10 @@
-import * as React from "react"; // Import React and useEffect for AOS
+import * as React from "react";
 import { useEffect } from "react";
-import logo from "../../assets/logo.svg"; // Importing logo image
+import logo from "../../assets/logo.svg";
 import "./Footer.css";
 import { SocialMedia } from "../../components/socialMedia/SocialMedia";
-import footerRightBg from "../../assets/footer-right-bg.webp";
-import footerLeft from "../../assets/footer-left-bg.webp";
+import footerRightBg from "../../assets/footer-right-bg-1.webp";
+import footerLeft from "../../assets/footer-left-bg-1.webp";
 import gsap from "gsap";
 
 import ScrollTrigger from "gsap/ScrollTrigger";

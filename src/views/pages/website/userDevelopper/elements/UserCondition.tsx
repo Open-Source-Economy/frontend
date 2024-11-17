@@ -106,7 +106,10 @@ export function UserCondition(props: ProblemProps) {
       <div className="max-w-[1740px] w-full mx-auto relative ">
         <div className="w-full absolute z-[-10] pointer-events-none flex justify-between sm:mt-14 mt-8">
           <div className="text-[#ffffff1a] leading-[204.348%] font-michroma max-w-[653px] w-full ">
-            <p ref={el => (textBlockRefs.current[0] = el!)} className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-w-[471px] w-full mx-auto">
+            <p
+              ref={el => (textBlockRefs.current[0] = el!)}
+              className="3xl:text-[23px] lg:text-lg md:text-base xs:text-[10px] text-[10px] max-w-[471px] w-full mx-auto"
+            >
               Stable enough?
             </p>
             <p
@@ -158,7 +161,12 @@ export function UserCondition(props: ProblemProps) {
               {props.subtittle3}
             </div>
           </div>
-          <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] -top-[30%] object-center" src={props.mainBg} alt="mainBg" />
+          <div
+            ref={mainBgRef}
+            className="!opacity-[0.4] absolute left-[50%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
+          ></div>
+
+          {/* <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] -top-[30%] object-center" src={props.mainBg} alt="mainBg" /> */}
           <img
             ref={cartoonImgRef}
             src={props.cartoonImg}

@@ -69,7 +69,7 @@ export function Problem(props: ProblemProps) {
             start: "top 20%+=50",
             end: "top 20%-=50",
             scrub: false,
-            toggleActions: "play none none reverse", 
+            toggleActions: "play none none reverse",
           },
         })
         .to(element, {

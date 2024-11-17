@@ -260,3 +260,15 @@ input[type="number"] {
   border-radius: 50%;
   filter: blur(70px);
 }
+
+.box-gradient {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #f56a33 100%);
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.footer-gradient {
+  background: linear-gradient(90deg, #5e309c 0%, #66319b 6%, #7e3698 16%, #a43e94 28%, #d9498f 42%, #ff518c 51%, #ff7e4b 100%);
+  border-radius: 50%;
+  filter: blur(70px);
+}
