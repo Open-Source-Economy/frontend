@@ -316,11 +316,11 @@ input[type="number"] {
 }
 
 .element1 {
-  animation: subtleRotateMove 10s infinite;
+  animation: subtleRotateMove 12s infinite;
 }
 
 .element2 {
-  animation: subtleRotateMove2 10s infinite;
+  animation: subtleRotateMove2 12s infinite;
 }
 
 @media (max-width: 640px) {

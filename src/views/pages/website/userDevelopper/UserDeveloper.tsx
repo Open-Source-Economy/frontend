@@ -36,8 +36,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
   const finalHeadingRef = useRef(null);
   const formContainerRef = useRef(null);
   const bgMainRef = useRef(null);
-  const rotate1Ref = useRef(null);
-  const rotate2Ref = useRef(null);
+  // const rotate1Ref = useRef(null);
+  // const rotate2Ref = useRef(null);
 
   useEffect(() => {
     AOS.init({
@@ -139,6 +139,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  console.log(bgSize, "bgSize");
+
   return (
     <PageWrapper>
       <div className="w-full mx-auto">
@@ -194,9 +196,9 @@ export function UserDeveloper(props: UserDeveloperProps) {
             </div>
           </div>
 
-          <div className="2xl:pt-[240px] mt-10 sm:mt-0 xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
-            <div className="opacity-40 absolute left-[0%] lg:left-[20%] top-0 sm:top-[5%] -translate-x-1/2 box-gradient-the-future pointer-events-none z-[-10] w-[300px] h-[150px] lg:w-[700px] lg:h-[400px] 3xl:w-[800px] 3xl:h-[500px]  animate-subtleRotateMove"></div>
-            <div className="opacity-40 absolute left-[40%] lg:left-[50%] top-[8%] sm:top-[15%] -translate-x-1/2 box-gradient-the-future pointer-events-none z-[-10] w-[300px] h-[150px] lg:w-[700px] lg:h-[400px] 3xl:w-[800px] 3xl:h-[500px] animate-subtleRotateMove2"></div>
+          <div className="2xl:pt-[240px] 3xl:pt-[280px] mt-10 sm:mt-0  xl:pb-[228px] lg:pb-[170px] md:pb-[120px] sm:pb-20 pb-14 relative">
+            <div className="opacity-40 absolute left-[0%] lg:left-[20%] top-0 sm:top-[5%] -translate-x-1/2 box-gradient-the-future pointer-events-none z-[-10] w-[300px] h-[150px] lg:w-[700px] lg:h-[400px] 3xl:w-[900px] 3xl:h-[600px]  animate-subtleRotateMove"></div>
+            <div className="opacity-40 absolute left-[40%] lg:left-[50%] top-[8%] sm:top-[10%] -translate-x-1/2 box-gradient-the-future pointer-events-none z-0 w-[300px] h-[150px] lg:w-[700px] lg:h-[400px] 3xl:w-[900px] 3xl:h-[600px] animate-subtleRotateMove2"></div>
             {/* <img
               className="absolute pointer-events-none z-[-10] max-h-[260px] xs:max-h-[450px] sm:max-h-[600px] md:max-h-[998px] xl:max-h-[1300px] 3xl:max-h-[1350px] h-full bottom-[80%] xs:bottom-[70%] sm:bottom-[60%] md:bottom-[48%] opacity-[0.3] animate-subtleRotateMove"
               src={rotate1}
@@ -214,7 +216,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
             >
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
-            <div ref={formContainerRef}>
+            <div ref={formContainerRef} className="3xl:pt-32">
               <InterestForm />
             </div>
           </div>
