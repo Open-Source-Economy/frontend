@@ -4,7 +4,7 @@ import img3 from "src/assets/lock.png";
 import img4 from "src/assets/icon/userimg1.png";
 import img1 from "src/assets/source.png";
 import bgText from "src/assets/bg-text-2.png";
-import devBg from "src/assets/developer-bg.png";
+import devBg from "src/assets/developer-bg.webp";
 import "aos/dist/aos.css";
 import { SolutionProps } from "../elements/Solution";
 import primaryProblemsSrc from "src/assets/btn.png";

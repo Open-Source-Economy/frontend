@@ -61,8 +61,8 @@ export function UserCondition(props: ProblemProps) {
         .timeline({
           scrollTrigger: {
             trigger: element,
-            start: "top 25%+=50",
-            end: "top 25%-=50",
+            start: "top 10%+=50",
+            end: "top 10%-=50",
             scrub: false,
             toggleActions: "play none none reverse",
           },
@@ -80,8 +80,8 @@ export function UserCondition(props: ProblemProps) {
         .timeline({
           scrollTrigger: {
             trigger: element,
-            start: "top 25%+=50",
-            end: "top 25%-=50",
+            start: "top 10%+=50",
+            end: "top 10%-=50",
             scrub: false,
             toggleActions: "play none none reverse",
           },
@@ -114,7 +114,7 @@ export function UserCondition(props: ProblemProps) {
             </p>
             <p
               ref={el => (textBlockRefs.current[1] = el!)}
-              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-[10px] text-[10px] mx:mt-[170px] mt-20 text-start max-w-[650px] mx-auto"
+              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-[10px] text-[10px] mx:mt-[170px] sm:!mt-10 md:mt-unset  text-start max-w-[650px] mx-auto"
             >
               Will my issues be fixed?
             </p>
@@ -140,13 +140,13 @@ export function UserCondition(props: ProblemProps) {
             </p>
             <p
               ref={el => (textBlockRefs2.current[1] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-[10px] xs:text-[10px]  text-[10px] mb-[60px] 3xl:mt-[350px] 2xl:mt-[300px] sm:mt-36 mt-10 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
+              className="3xl:text-[31px] md:text-xl sm:text-[10px] xs:text-[10px]  text-[10px] mb-[60px] 3xl:mt-[350px] 2xl:mt-[300px] sm:mt-20 mt-10 xl:max-w-[391px] xl:text-center text-end w-full mx-auto"
             >
               Security concerns?
             </p>
             <p
               ref={el => (textBlockRefs2.current[2] = el!)}
-              className="3xl:text-[31px] md:text-xl sm:text-[10px] max-sm:leading-3 xs:text-[10px]   text-[10px] xl:mt-[150px] mx:mt-20 mt-[87px] xl:text-start text-end xl:max-w-[471px] w-full "
+              className="3xl:text-[31px] md:text-xl sm:text-[10px] max-sm:leading-3 xs:text-[10px] max-md:leading-4  max-sm:pt-0  max-lg:pt-20  text-[10px] xl:mt-[150px] mx:mt-20 mt-[87px] xl:text-start text-end xl:max-w-[471px] w-full "
             >
               No warranties, <br /> no commitment
             </p>
@@ -154,19 +154,19 @@ export function UserCondition(props: ProblemProps) {
         </div>
         <div className="flex items-center justify-between mx:gap-8 sm:gap-4 gap-3 3xl:max-w-[1290px] max-w-[980px] w-full mx-auto relative 3xl:pt-14 pt-20">
           <div ref={el => (subtitlesRef.current[0] = el!)} className="mx:max-w-[319px] w-fit lg:space-y-[194px] mx:space-y-32 space-y-20 h-full relative z-10">
-            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[450px] w-fit">
               {props.subtittle2}
             </div>
-            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[319px] w-fit">
+            <div className="flex items-center justify-center 2xl:text-[23px] xl:text-lg lg:text-base mx:text-sm sm:text-xs xs:text-[10px] text-[8px] font-michroma bg-[#FF518C] lg:!p-[15px] xs:p-2 p-1 sm:rounded-[10px] rounded-md max-w-[450px] w-fit">
               {props.subtittle3}
             </div>
           </div>
           <div
             ref={mainBgRef}
-            className="!opacity-[0.35] absolute left-[50%] -translate-x-1/2 box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
+            className="!opacity-[0.35] absolute left-[50%] -translate-x-1/2 max-sm:hidden box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
           ></div>
 
-          {/* <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] -top-[30%] object-center" src={props.mainBg} alt="mainBg" /> */}
+          <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] sm:hidden -top-[30%] object-center" src={props.mainBg} alt="mainBg" />
           <img
             ref={cartoonImgRef}
             src={props.cartoonImg}
