@@ -2,7 +2,7 @@
 
 Congratulations, you've stumbled upon Open Source Economy!
 
-[//]: # ([Live website link]&#40;https://frontend-alpha-umber.vercel.app/&#41;)
+[//]: # "[Live website link](https://frontend-alpha-umber.vercel.app/)"
 
 If you run the project locally, you will need to create an `.env` file at the root of the project with the following variables:
 
@@ -12,8 +12,3 @@ REACT_APP_GITHUB_TOKEN
 ```
 
 `npm install` And then run `npm start` to start the project.
-
-
-
-
-

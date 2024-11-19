@@ -8,13 +8,11 @@ interface SolutionImageProps {
 
 export function SolutionImage(props: SolutionImageProps) {
   return (
-    <div
-      data-aos="fade-in"
-      data-aos-duration="35000"
-      className="bg-[#14233A] flex items-center justify-center relative rounded-[30px] py-4 px-4 lg:py-6 lg:px-6 xl:py-4 xl:px-8 transition-shadow duration-300 hover:shadow-xl group w-[250px] md:w-[300px]"
-    >
-      <img src={props.image} className="max-w-full max-h-full" alt="" />
-      <img src={star} className={`absolute object-cover transition-transform duration-300 group-hover:rotate-90 ${props.starPosition}`} alt="" />
+    <div className="bg-[#14233A] flex items-center justify-center relative rounded-[30px] transition-shadow duration-300 hover:shadow-xl group 2xl:h-[424px] lg:h-[370px] sm:h-[250px] sm:w-full sm:max-h-full w-[200px] h-[200px] mx-auto sm:p-12 p-9">
+      <div className=" w-full mx-auto flex items-center justify-center relative">
+        <img src={props.image} className={"object-cover relative sm:max-w-[300px] max-w-[220px] lg:h-[270px] sm:h-[230px] h-[150px]"} alt="" />
+        <img src={star} className={`absolute object-cover transition-transform duration-300 group-hover:rotate-90 ${props.starPosition}`} alt="" />
+      </div>
     </div>
   );
 }
