@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
+import gsap from "gsap";
 import { SolutionImage } from "./SolutionImage";
 import { Audience, textColorVariants } from "../../../../Audience";
 
@@ -10,22 +11,46 @@ export interface SolutionProps {
   title: string;
   subTitle: string | ReactNode;
   text: ReactNode;
+  comming: ReactNode;
 }
 
 export function Solution(props: SolutionProps) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // Set initial state
+    gsap.set(containerRef.current, {
+      opacity: 0,
+      y: 30,
+    });
+
+    // Single animation for the entire container
+    gsap.to(containerRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }, []);
+
   return (
-    <div data-aos="fade-in" data-aos-duration="35000" className="grid grid-cols-1 md:grid-cols-2 max-w-full mb-24 gap-12 items-center ml-4 md:mr-40">
-      <div className="justify-self-end">
+    <div
+      ref={containerRef}
+      className="flex sm:flex-row flex-col justify-between 2xl:mb-[101px] mb-20 gap-6 items-center w-full 3xl:max-w-[1181px] xl:max-w-[1024px] md:max-w-[768px] max-w-[640px] mx-auto"
+    >
+      <div className="2xl:max-w-[456px] sm:max-w-[400px] max-h-[424px] !w-full">
         <SolutionImage image={props.image} starPosition={props.starPosition} />
       </div>
-
-      <div className="" data-aos="fade-in" data-aos-duration="35000">
-        <div className="px-2">
-          {props.comingSoon && <h4 className="text-gray-300 text-[14px] xl:text-[18px]">COMING SOON</h4>}
-          <h4 className={`${textColorVariants[props.audience]} mt-2 text-xl lg:text-4xl xl:text-5xl`}>{props.title}</h4>
-          <h5 className="md:text-lg xl:text-[20px] text-md mt-3 text-gray-300">{props.subTitle}</h5>
-          <p className={"text-[12px] xl:text-[15px] text-gray-300 mt-6"}>{props.text}</p>
-        </div>
+      <div className="2xl:max-w-[633px] max-w-[550px] w-full sm:!text-start text-center">
+        <div className="text-gray-300 text-[14px] xl:text-base max-sm:mx-auto text-center flex justify-center">{props.comming}</div>
+        <h4 className={`${textColorVariants[props.audience]} text-xl md:text-3xl lg:text-4xl xl:text-[45px] ff_michroma`}>{props.title}</h4>
+        <h5 className="md:text-lg xl:text-[20px] 2xl:text-[28px] text-base !mt-4 text-white ff_michroma leading-[130%]">{props.subTitle}</h5>
+        <p className="text-[12px] xl:text-[15px] 2xl:text-[21px] text-white leading-[150%] font-montserrat">{props.text}</p>
       </div>
     </div>
   );

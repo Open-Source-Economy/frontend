@@ -1,0 +1,39 @@
+
+.agreecheckbox input[type="checkbox"] {
+    position: relative;
+    cursor: pointer;
+    appearance: none;
+    background-color: white;
+    border-radius: 4px !important;
+    width: 22px;
+    height: 22px;
+}
+.agreecheckbox input[type="checkbox"]:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 0;
+    left: 0;
+    border-radius: 4px !important;
+}
+.agreecheckbox input[type="checkbox"]:checked:after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 3.5px;
+    left: 8px;
+    overflow: hidden;
+}
+.agreecheckbox input[type="checkbox"]:checked {
+    background-color: #5e309c;
+    border-radius: 4px !important;
+}

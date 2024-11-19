@@ -4,11 +4,15 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import App from "./App";
+import BackToTop from "./components/common/BackToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   // <React.StrictMode>
-  <App />,
+  <>
+    <App />
+    <BackToTop />
+  </>,
   // </React.StrictMode>
 );
 
