@@ -114,7 +114,7 @@ export function UserCondition(props: ProblemProps) {
             </p>
             <p
               ref={el => (textBlockRefs.current[1] = el!)}
-              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-[10px] text-[10px] mx:mt-[170px] sm:!mt-10 md:mt-unset  text-start max-w-[650px] mx-auto"
+              className="3xl:text-[28px] lg:text-xl md:text-lg sm:text-base xs:text-[10px] text-[10px] mx:mt-[170px] sm:!mt-10 md:mt-unset xl:!mt-32  text-start max-w-[650px] mx-auto"
             >
               Will my issues be fixed?
             </p>
@@ -161,12 +161,12 @@ export function UserCondition(props: ProblemProps) {
               {props.subtittle3}
             </div>
           </div>
-          <div
+          {/* <div
             ref={mainBgRef}
             className="!opacity-[0.35] absolute left-[50%] -translate-x-1/2 max-sm:hidden box-gradient pointer-events-none z-[-10] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px]"
-          ></div>
+          ></div> */}
 
-          <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] sm:hidden -top-[30%] object-center" src={props.mainBg} alt="mainBg" />
+          <img ref={mainBgRef} className="absolute -z-10 w-full h-[200%] blur-[70px] -top-[30%] object-center" src={props.mainBg} alt="mainBg" />
           <img
             ref={cartoonImgRef}
             src={props.cartoonImg}

@@ -256,9 +256,65 @@ input[type="number"] {
 }
 
 .box-gradient {
+  /* Standard syntax */
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  
+  /* Webkit (Safari/Chrome) old syntax */
+  background: -webkit-linear-gradient(left, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  
+  /* Mozilla Firefox old syntax */
+  background: -moz-linear-gradient(left, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  
+  /* Opera old syntax */
+  background: -o-linear-gradient(left, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  
+  /* Internet Explorer old syntax */
+  background: -ms-linear-gradient(left, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  
+  /* Fallback for older browsers */
+  background-color: #ff518c;
+  
+  /* Border radius with prefixes */
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
+  
+  /* Blur effect with prefixes */
+  -webkit-filter: blur(70px);
+  -moz-filter: blur(70px);
+  -o-filter: blur(70px);
+  -ms-filter: blur(70px);
   filter: blur(70px);
+  
+  /* Additional Safari blur support */
+  -webkit-backdrop-filter: blur(70px);
+  backdrop-filter: blur(70px);
+  
+  /* Prevent blur overflow */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+  /* Hardware acceleration for smoother gradients */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  
+  /* Prevent color banding */
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Fix for Safari gradient rendering */
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance:none) {
+    .box-gradient {
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+    }
+  }
 }
 
 .box-gradient-the-future {
