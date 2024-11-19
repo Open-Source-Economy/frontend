@@ -1,5 +1,6 @@
 import React from "react";
 import "./SocialMedia.css";
+import { EconomyIcon, EconomyIcon2, EconomyIcon3, EconomyIcon4, EconomyIcon5 } from "../common/icons";
 
 interface SocialMediaProps {}
 
@@ -8,149 +9,49 @@ export function SocialMedia(props: SocialMediaProps) {
   return (
     <>
       {/*code for linear gradient hover on  mastodon svg icon  */}
-      <a href="https://mastodon.social/@OS_Economy" target="_blank" rel="noopener noreferrer">
-        <svg className="svgicon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF7E4B" />
-              <stop offset="100%" stopColor="#FF518C " />
-            </linearGradient>
-
-            <linearGradient id="gradient1-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF518C" />
-              <stop offset="100%" stopColor="#66319B" />
-            </linearGradient>
-
-            <clipPath id="clip0_45_4051">
-              <rect width="25" height="25" fill="white" />
-            </clipPath>
-          </defs>
-          <g clipPath="url(#clip0_45_4051)">
-            <path
-              d="M23.6199 14.9712C23.2775 16.7329 20.553 18.6608 17.4239 19.0345C15.7923 19.2292 14.1857 19.4081 12.4727 19.3295C9.6711 19.2012 7.46046 18.6608 7.46046 18.6608C7.46046 18.9336 7.47728 19.1932 7.51092 19.4361C7.87514 22.2009 10.2525 22.3666 12.5044 22.4438C14.7774 22.5216 16.8012 21.8834 16.8012 21.8834L16.8946 23.9382C16.8946 23.9382 15.3048 24.792 12.4727 24.949C10.911 25.0348 8.97185 24.9097 6.71331 24.3119C1.81493 23.0154 0.972518 17.7939 0.84362 12.4959C0.804332 10.9229 0.82855 9.43967 0.82855 8.19913C0.82855 2.78166 4.37808 1.19372 4.37808 1.19372C6.16785 0.371758 9.23892 0.0261025 12.4316 0H12.5101C15.7028 0.0261025 18.7759 0.371758 20.5655 1.19372C20.5655 1.19372 24.1149 2.78166 24.1149 8.19913C24.1149 8.19913 24.1594 12.1962 23.6199 14.9712Z"
-              fill="#fff"
-            />
-            <path
-              d="M19.9282 8.61946V15.1791H17.3293V8.81226C17.3293 7.47014 16.7646 6.78892 15.6351 6.78892C14.3862 6.78892 13.7603 7.59702 13.7603 9.19492V12.6799H11.1768V9.19492C11.1768 7.59702 10.5508 6.78892 9.3019 6.78892C8.17236 6.78892 7.60766 7.47014 7.60766 8.81226V15.1791H5.00885V8.61946C5.00885 7.27881 5.3502 6.21345 6.03586 5.42527C6.74291 4.63708 7.66888 4.23303 8.81833 4.23303C10.1482 4.23303 11.1553 4.74418 11.8212 5.76662L12.4685 6.85175L13.116 5.76662C13.7817 4.74418 14.7888 4.23303 16.1188 4.23303C17.2681 4.23303 18.1941 4.63708 18.9013 5.42527C19.5868 6.21345 19.9282 7.27881 19.9282 8.61946Z"
-              fill="#0E1F35"
-            />
-          </g>
-        </svg>
+      <a
+        className="hover:scale-125 duration-200 ease-in-out transition-all "
+        href="https://mastodon.social/@OS_Economy"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <EconomyIcon />
       </a>
 
-      <a href="https://x.com/OS_Economy" target="_blank" rel="noopener noreferrer">
+      <a className="hover:scale-125 duration-200 ease-in-out transition-all" href="https://x.com/OS_Economy" target="_blank" rel="noopener noreferrer">
         {/*code for linear gradient hover on  X svg icon  */}
-        <svg width="25" height="25" className="svgicon-2" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF7E4B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <linearGradient id="gradient1-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#66319B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <clipPath id="clip0_45_4051">
-              <rect width="25" height="25" fill="white" />
-            </clipPath>
-          </defs>
-          <g clipPath="url(#clip0_45_4051)">
-            <path
-              d="M13.1067 11.6959L18.5568 19.4915H16.3201L11.8727 13.1303V13.1299L11.2198 12.1961L6.02448 4.76465H8.26121L12.4538 10.7621L13.1067 11.6959Z"
-              fill="white"
-            />
-            <path
-              d="M21.7894 0H2.80439C1.35916 0 0.1875 1.17166 0.1875 2.61689V21.6019C0.1875 23.0471 1.35916 24.2188 2.80439 24.2188H21.7894C23.2346 24.2188 24.4062 23.0471 24.4062 21.6019V2.61689C24.4062 1.17166 23.2346 0 21.7894 0ZM15.635 20.538L11.1345 13.9881L5.49983 20.538H4.04355L10.4879 13.0473L4.04355 3.66834H8.95875L13.2204 9.87067L18.556 3.66834H20.0123L13.8672 10.8116H13.8668L20.5502 20.538H15.635Z"
-              fill="#fff"
-            />
-          </g>
-        </svg>
+        <EconomyIcon2 />
       </a>
 
       {/*code for linear gradient hover on  github svg icon  */}
 
-      <a href="https://github.com/Open-Source-Economy" target="_blank" rel="noopener noreferrer">
-        <svg width="26" height="25" className="svgicon-2" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_45_4051)">
-            <path
-              d="M21.7287 0H4.11506C3.23916 0 2.39915 0.347947 1.7798 0.967296C1.16045 1.58665 0.8125 2.42666 0.8125 3.30256L0.8125 20.9162C0.8125 21.7921 1.16045 22.6321 1.7798 23.2515C2.39915 23.8708 3.23916 24.2188 4.11506 24.2188H21.7287C22.6046 24.2188 23.4446 23.8708 24.064 23.2515C24.6833 22.6321 25.0312 21.7921 25.0312 20.9162V3.30256C25.0312 2.42666 24.6833 1.58665 24.064 0.967296C23.4446 0.347947 22.6046 0 21.7287 0ZM15.2956 19.3406C14.9075 19.4149 14.7754 19.181 14.7754 18.9869C14.7754 18.7448 14.7851 17.9453 14.7851 16.9504C14.7851 16.2527 14.5388 15.7972 14.2745 15.5743C15.9575 15.3913 17.7271 14.7624 17.7271 11.9057C17.7383 11.1641 17.4599 10.4473 16.951 9.90767C17.0267 9.71915 17.2826 8.96231 16.8753 7.93852C16.8753 7.93852 16.2423 7.73899 14.8112 8.70086C13.5719 8.36693 12.2663 8.36693 11.027 8.70086C9.57941 7.73762 8.94505 7.93852 8.94505 7.93852C8.53223 8.96507 8.79368 9.7219 8.87211 9.90767C8.36205 10.4456 8.08253 11.1617 8.09326 11.903C8.09326 14.7514 9.86013 15.3913 11.5334 15.5771C11.259 15.8401 11.0889 16.1934 11.0546 16.572C10.6211 16.7619 9.52437 17.0907 8.85285 15.9541C8.85285 15.9541 8.45379 15.2385 7.6942 15.1876C7.6942 15.1876 6.95526 15.178 7.64054 15.639C7.64054 15.639 8.13867 15.8688 8.48269 16.7261C8.48269 16.7261 8.92716 18.1723 11.0325 17.7251C11.0325 18.3443 11.0408 18.8122 11.0408 18.9897C11.0408 19.1672 10.9032 19.4163 10.5248 19.3461C7.52219 18.3663 5.35352 15.5798 5.35352 12.2938C5.35352 8.18621 8.74001 4.86301 12.9219 4.86301C17.1037 4.86301 20.4902 8.19309 20.4902 12.3006C20.4902 15.5743 18.3243 18.3636 15.2956 19.3406Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF7E4B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <linearGradient id="gradient1-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#66319B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <clipPath id="clip0_45_4051">
-              <rect width="24.2188" height="24.2188" fill="white" transform="translate(0.8125)" />
-            </clipPath>
-          </defs>
-        </svg>
+      <a
+        className="hover:scale-125 duration-200 ease-in-out transition-all"
+        href="https://github.com/Open-Source-Economy"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <EconomyIcon3 />
       </a>
 
-      <a href="https://www.linkedin.com/company/open-source-economy/" target="_blank" rel="noopener noreferrer">
+      <a
+        className="hover:scale-125 duration-200 ease-in-out transition-all"
+        href="https://www.linkedin.com/company/open-source-economy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {/*code for linear gradient hover on  linkedin svg icon  */}
-        <svg width="25" className="svgicon-2" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_45_4051)">
-            <path
-              d="M22.0156 0H2.64062C1.30859 0 0.21875 1.08984 0.21875 2.42188V21.7969C0.21875 23.1289 1.30859 24.2188 2.64062 24.2188H22.0156C23.3477 24.2188 24.4375 23.1289 24.4375 21.7969V2.42188C24.4375 1.08984 23.3477 0 22.0156 0ZM7.48438 20.5859H3.85156V9.6875H7.48438V20.5859ZM5.66797 7.62891C4.45703 7.62891 3.48828 6.66016 3.48828 5.44922C3.48828 4.23828 4.45703 3.26953 5.66797 3.26953C6.87891 3.26953 7.84766 4.23828 7.84766 5.44922C7.84766 6.66016 6.87891 7.62891 5.66797 7.62891ZM20.8047 20.5859H17.1719V14.168C17.1719 13.1993 16.3242 12.3516 15.3555 12.3516C14.3867 12.3516 13.5391 13.1993 13.5391 14.168V20.5859H9.90625V9.6875H13.5391V11.1406C14.1445 10.1719 15.4766 9.44531 16.5664 9.44531C18.8672 9.44531 20.8047 11.3828 20.8047 13.6836V20.5859Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF7E4B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <linearGradient id="gradient1-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#66319B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-
-            <clipPath id="clip0_45_4051">
-              <rect width="24.2188" height="24.2188" fill="white" transform="translate(0.21875)" />
-            </clipPath>
-          </defs>
-        </svg>
+        <EconomyIcon4 />
       </a>
 
-      <a href="https://discord.com/invite/YX88NaYgrP" target="_blank" rel="noopener noreferrer">
+      <a
+        className="hover:scale-125 duration-200 ease-in-out transition-all"
+        href="https://discord.com/invite/YX88NaYgrP"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {/*code for linear gradient hover on  discord svg icon  */}
-        <svg width="26" className="svgicon-2" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_45_4055)">
-            <path
-              d="M4.45636 21.3892H18.8453L18.1581 19.1641L19.802 20.5748L21.3086 21.925L24.0534 24.2188V2.49756C23.9847 1.14736 22.8222 0 21.3812 0L4.46141 0.00302734C3.0214 0.00302734 1.85284 1.15241 1.85284 2.5026V18.8906C1.85284 20.3145 3.01938 21.3892 4.45636 21.3892ZM15.1005 5.7348L15.0672 5.74691L15.0793 5.7348H15.1005ZM7.39995 7.01537C9.24965 5.66921 10.9641 5.73379 10.9641 5.73379L11.1024 5.87002C8.83894 6.4099 7.81267 7.42103 7.81267 7.42103C7.81267 7.42103 8.08715 7.28682 8.56648 7.08197C11.615 5.88314 14.9441 5.96992 18.0259 7.48763C18.0259 7.48763 16.9976 6.54209 14.8734 5.93662L15.0611 5.75195C15.3548 5.75296 16.9088 5.80746 18.5719 7.02344C18.5719 7.02344 20.4327 10.2021 20.4327 14.1074C20.3711 14.0327 19.2782 15.7886 16.4658 15.8492C16.4658 15.8492 15.9895 15.3103 15.6505 14.84C17.2953 14.3678 17.9109 13.4232 17.9109 13.4232C17.371 13.7633 16.8786 13.9651 16.479 14.167C15.8644 14.4374 15.2488 14.5706 14.6343 14.7068C11.724 15.1791 10.0902 14.389 8.5463 13.7623L8.01853 13.4939C8.01853 13.4939 8.63308 14.4384 10.2123 14.9107C9.7976 15.384 9.38689 15.9218 9.38689 15.9218C6.5755 15.8552 5.55024 14.0993 5.55024 14.0993C5.55024 10.188 7.39995 7.01537 7.39995 7.01537Z"
-              fill="white"
-            />
-            <path
-              d="M15.2822 12.8874C15.9996 12.8874 16.5839 12.2819 16.5839 11.5352C16.5839 10.7935 16.0027 10.188 15.2822 10.188V10.191C14.5677 10.191 13.9824 10.7945 13.9804 11.5412C13.9804 12.2819 14.5647 12.8874 15.2822 12.8874Z"
-              fill="white"
-            />
-            <path
-              d="M10.6221 12.8874C11.3396 12.8874 11.9238 12.2819 11.9238 11.5352C11.9238 10.7935 11.3436 10.188 10.6261 10.188L10.6221 10.191C9.90459 10.191 9.32031 10.7945 9.32031 11.5412C9.32031 12.2819 9.90459 12.8874 10.6221 12.8874Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF7E4B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-            <linearGradient id="gradient1-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#66319B" />
-              <stop offset="100%" stopColor="#FF518C" />
-            </linearGradient>
-
-            <clipPath id="clip0_45_4051">
-              <rect width="24.2188" height="24.2188" fill="white" transform="translate(0.21875)" />
-            </clipPath>
-          </defs>
-        </svg>
+        <EconomyIcon5 />
       </a>
     </>
   );
