@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
 import { Button } from "src/components/elements/Button";
+import { STAGE_FLAG } from "src/App";
 
 const HeroSection = () => {
   return (
@@ -14,9 +15,15 @@ const HeroSection = () => {
         </h1>
 
         <Button variant="PRIMARY" size="LARGE" asChild>
-          <Link to="/issues">
-            <span className="relative z-20">FIND OUT MORE</span>
-          </Link>
+          {STAGE_FLAG ? (
+            <Link to="/issues">
+              <span className="relative z-20">FIND OUT MORE</span>
+            </Link>
+          ) : (
+            <Link to="https://15ib806w5yk.typeform.com/to/nHEIOYc3">
+              <span className="relative z-20">REQUEST ACCESS</span>
+            </Link>
+          )}
         </Button>
       </div>
       {/* Right  */}

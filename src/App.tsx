@@ -11,6 +11,8 @@ import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoi
 import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import Fund from "./views/pages/website/Fund/Fund";
 
+export const STAGE_FLAG: boolean = Boolean(process.env.REACT_APP_STAGE);
+
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
 const numberParam = "numberParam";

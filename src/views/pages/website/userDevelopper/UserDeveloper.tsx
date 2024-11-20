@@ -9,6 +9,8 @@ import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
+import * as process from "process";
+import { STAGE_FLAG } from "src/App";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -204,7 +206,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
             <div ref={formContainerRef} className="3xl:pt-32">
-              <InterestForm />
+              {STAGE_FLAG && <InterestForm />}
             </div>
           </div>
         </div>
