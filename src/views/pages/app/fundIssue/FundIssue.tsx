@@ -3,7 +3,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
-import { useIssueIdFromParams, useFinancialIssue } from "src/views/hooks";
+import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
 
 interface FundIssueProps {}
 

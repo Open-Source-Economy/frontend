@@ -2,7 +2,6 @@ import React from "react";
 import * as model from "src/model";
 import { FinancialIssue } from "src/model";
 import * as components from "./index";
-import { PrivatePublicToggled } from "./index";
 import person from "src/assets/personicon.png";
 import { Approved } from "src/components/issue/Approved";
 import { Action } from "src/components/issue/Action";

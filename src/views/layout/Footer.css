@@ -20,15 +20,14 @@
   line-height: 22.5px;
   text-align: left;
   width: 37% !important;
-
 }
 
 .footerbtn {
   position: relative;
-  padding: 12px 16px;
+
   border: none;
   border-radius: 10px;
-  background: linear-gradient(90deg, #5E309C 0%, #66319B 6%, #7E3698 16%, #A43E94 28%, #D9498F 42%, #FF518C 51%, #FF7E4B 100%);
+  background: linear-gradient(90deg, #5e309c 0%, #66319b 6%, #7e3698 16%, #a43e94 28%, #d9498f 42%, #ff518c 51%, #ff7e4b 100%);
   font-size: 15px;
   font-weight: 400;
   line-height: 22.5px;
@@ -42,14 +41,13 @@
 
 .footerbtn:hover {
   cursor: pointer;
-  animation-name: subtle-bounce;
+  /* animation-name: subtle-bounce; */
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
 }
 
 /* Keyframes for subtle bounce */
 @keyframes subtle-bounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -61,7 +59,6 @@
   }
 }
 
-
 .footerbtn::before {
   content: "";
   position: absolute;
@@ -71,12 +68,11 @@
   height: 100%;
   border-radius: 8px;
   border: 3px solid transparent;
-  border-image: linear-gradient(90deg, #5E309C 0%, #66319B 6%, #7E3698 16%, #A43E94 28%, #D9498F 42%, #FF518C 51%, #FF7E4B 100%);
+  border-image: linear-gradient(90deg, #5e309c 0%, #66319b 6%, #7e3698 16%, #a43e94 28%, #d9498f 42%, #ff518c 51%, #ff7e4b 100%);
   border-image-slice: 1;
   pointer-events: none;
   transition: all 0.5s ease-in-out;
 }
-
 
 .footer .footer-h1-text {
   font-size: 29px;
@@ -92,7 +88,7 @@
   background-repeat: no-repeat;
 }
 
-@media (max-width : 500px) {
+@media (max-width: 500px) {
   .input-group input {
     padding: 9px 11px;
     width: 64% !important;
@@ -111,7 +107,7 @@
   }
 }
 
-@media (min-width : 768px) and (max-width : 991px) {
+@media (min-width: 768px) and (max-width: 991px) {
   .input-group input {
     width: 64% !important;
   }
@@ -129,8 +125,7 @@
   }
 }
 
-@media (min-width : 992px) and (max-width : 1200px) {
-
+@media (min-width: 992px) and (max-width: 1200px) {
   .boxlayers {
     background-position-x: 492px;
   }

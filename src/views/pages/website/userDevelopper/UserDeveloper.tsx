@@ -1,7 +1,7 @@
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import gsap from "gsap";
-import { ReactNode, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
 import { Audience } from "src/views";

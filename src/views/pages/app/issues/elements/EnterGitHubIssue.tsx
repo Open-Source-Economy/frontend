@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { fundIssuePath } from "src/App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "src/components/elements/Button";
 
 interface EnterGitHubIssueProps {}
 
@@ -51,13 +52,13 @@ export function EnterGitHubIssue({}: EnterGitHubIssueProps) {
 
   return (
     <>
-      <div className="padding sm:px-5 sm:py-7 md:py-10 md:px-10 w-[90%] mx-auto  mt-8 flex flex-col items-start justify-start bg-[#14233A] rounded-3xl ">
+      <div className="padding mx-auto mt-8 flex w-[90%] flex-col items-start justify-start rounded-3xl bg-[#14233A] sm:px-5 sm:py-7 md:px-10 md:py-10">
         {" "}
-        <h2 className="md:text-2xl sm:text-xl font-medium text-white ">Request funding for a GitHub issue</h2>
-        <p className="text-base mt-1 text-[rgba(255,255,255,70%)] ">Enter a GitHub issue link</p>
+        <h2 className="font-medium text-white sm:text-xl md:text-2xl">Request funding for a GitHub issue</h2>
+        <p className="mt-1 text-base text-[rgba(255,255,255,70%)]">Enter a GitHub issue link</p>
         {/*TODO: it is not a form, it is a link to an other page*/}
         <form className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "items-start" : "items-center"}  gap-4 mt-4`}>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             {" "}
             {/* Added w-full for consistent width */}
             <input
@@ -70,16 +71,26 @@ export function EnterGitHubIssue({}: EnterGitHubIssueProps) {
               }`} // Changed border-1 to border-2 for proper styling
               placeholder="https://github.com/scala-native/scala-native/issues/3851"
             />
-            {!isValidUrl && <p className="text-red-500 mt-2 text-base ">Enter a URL from a GitHub issues page.</p>}{" "}
+            {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
-          <button
+          {/* <button
             type="submit"
-            className="border-1 border-[#FF7E4B] flex mx-auto justify-center items-center hover:border-0 hover:bg-[#FF7E4B] py-[20px] px-[38px] rounded-md transition-all duration-500 ease-in-out"
+            className="border-1 mx-auto flex items-center justify-center rounded-md border-[#FF7E4B] px-[45px] py-[20px] transition-all duration-500 ease-in-out hover:border-0 hover:bg-[#FF7E4B]"
             onClick={goToIssuePage}
             onKeyDown={handleKeyDown}
           >
             Add
-          </button>
+          </button> */}
+          <Button variant="SECONDARY_DEVELOPER" size="MEDIUM" asChild className="w-20" parentClassName="w-max max-w-[214px]">
+            <Link to="/developer">
+              <span className="relative z-20">Add</span>
+            </Link>
+          </Button>
+          {/* <Button variant={"SECONDARY_DEVELOPER"} size="MEDIUM" asChild>
+            <Link to="#">
+              <span className="relative z-20">Add</span>
+            </Link>
+          </Button> */}
         </form>
       </div>
     </>

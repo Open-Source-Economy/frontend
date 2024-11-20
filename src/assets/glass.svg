@@ -1,0 +1,49 @@
+<svg width="80" height="91" viewBox="0 0 80 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_b_2018_1094)">
+        <path d="M0 48C0 25.9086 17.9086 8 40 8C62.0914 8 80 25.9086 80 48V50.1827C80 72.2741 62.0914 90.1827 40 90.1827C17.9086 90.1827 0 72.2741 0 50.1827V48Z"
+              fill="url(#paint0_radial_2018_1094)"/>
+        <path d="M0.5 48C0.5 26.1848 18.1848 8.5 40 8.5C61.8152 8.5 79.5 26.1848 79.5 48V50.1827C79.5 71.9979 61.8152 89.6827 40 89.6827C18.1848 89.6827 0.5 71.998 0.5 50.1827V48Z"
+              stroke="url(#paint1_radial_2018_1094)"/>
+        <path d="M0.5 48C0.5 26.1848 18.1848 8.5 40 8.5C61.8152 8.5 79.5 26.1848 79.5 48V50.1827C79.5 71.9979 61.8152 89.6827 40 89.6827C18.1848 89.6827 0.5 71.998 0.5 50.1827V48Z"
+              stroke="url(#paint2_radial_2018_1094)"/>
+    </g>
+    <g filter="url(#filter1_f_2018_1094)">
+        <ellipse cx="39.744" cy="30.1261" rx="25.3846" ry="16.858" fill="url(#paint3_radial_2018_1094)"
+                 fill-opacity="0.2"/>
+    </g>
+    <defs>
+        <filter id="filter0_b_2018_1094" x="-5" y="3" width="90" height="92.1826" filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feGaussianBlur in="BackgroundImageFix" stdDeviation="2.5"/>
+            <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_2018_1094"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_2018_1094" result="shape"/>
+        </filter>
+        <filter id="filter1_f_2018_1094" x="1.40484" y="0.313532" width="76.6786" height="59.6249"
+                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+            <feGaussianBlur stdDeviation="6.47727" result="effect1_foregroundBlur_2018_1094"/>
+        </filter>
+        <radialGradient id="paint0_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(6.69204 8) rotate(48.7852) scale(121.418 87.9138)">
+            <stop stop-color="white" stop-opacity="0.36"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="paint1_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(-42.5965 16.4075) rotate(35.8401) scale(93.0709 55.465)">
+            <stop stop-color="white"/>
+            <stop offset="1" stop-color="white" stop-opacity="0.06"/>
+        </radialGradient>
+        <radialGradient id="paint2_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(103.421 63.0015) rotate(160.867) scale(67.0497 46.3891)">
+            <stop stop-color="#5E309C"/>
+            <stop offset="1" stop-color="#5E309C" stop-opacity="0.2"/>
+        </radialGradient>
+        <radialGradient id="paint3_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(39.744 13.2681) rotate(90) scale(24.9838 37.625)">
+            <stop stop-color="white"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+</svg>

@@ -1,7 +1,7 @@
 import React from "react";
 import { CounterInput } from "src/views/pages/app/manageIssue/elements/CounterInput";
 import check from "src/assets/checkmark.png";
-import { useIssueIdFromParams, useDowCounter } from "src/views/hooks";
+import { useDowCounter, useIssueIdFromParams } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
 

@@ -12,10 +12,10 @@ body {
   font-style: normal;
   overflow-x: hidden !important;
 }
-
-.ff_michroma {
+.michroma {
   font-family: "Michroma", sans-serif;
   font-optical-sizing: auto;
+  font-weight: 500;
   font-style: normal;
 }
 
@@ -131,8 +131,116 @@ input[type="number"] {
   /* Remove any border if there is one */
 }
 
+.font-mich {
+  font-family: "Michroma", sans-serif;
+}
+.font-most {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.gradient-btn-bg {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  transition: 0.5s ease all;
+}
+
+.gradient-text {
+  -webkit-text-fill-color: white;
+  -webkit-background-clip: text;
+  color: white;
+  width: max-content;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Hover effect: Gradient text */
+.gradient-text:hover {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.box22:hover {
+  box-shadow: 0 -2px 45px rgba(255, 81, 140, 0.6);
+}
+.box11:hover {
+  box-shadow: 0 -2px 45px rgba(255, 126, 75, 0.6);
+}
+
+.box33:hover {
+  box-shadow: 0 -2px 45px rgba(94, 48, 156, 0.6);
+}
+.box-33-333 {
+  max-width: 1318px !important;
+  /* height: 500px; */
+  /* aspect-ratio: 4/8 !important; */
+  /* aspect-ratio: 16/9 !important; */
+  /* aspect-ratio: 1/0.55 !important; */
+  /* background-color: #14233a !important; */
+}
+
+.dig-into-details {
+  max-width: 1318px !important;
+}
+.dig-grid {
+  gap: 40px !important;
+}
+.findbutton-hover:hover {
+  border-image: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  border-image-slice: 1;
+  background: transparent;
+}
+.dig-grid-content {
+  margin-top: 40px !important;
+  margin-bottom: 16px !important;
+}
+.dig-grid-content-btn {
+  margin-top: 20px !important;
+}
+.grid-layer-img {
+  max-width: 1200px;
+}
+
+.gradient-text-btn:hover {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+@media only screen and (max-width: 1580px) {
+  .box-33-333 {
+    max-width: 1150px !important;
+    aspect-ratio: 1/0.55 !important;
+  }
+  .dig-into-details {
+    max-width: 1150px !important;
+  }
+  .dig-grid {
+    gap: 20px !important;
+  }
+  .dig-grid-content {
+    margin-top: 25px !important;
+    margin-bottom: 10px !important;
+  }
+  .dig-grid-content-btn {
+    margin-top: 15px !important;
+  }
+  .grid-layer-img {
+    max-width: 950px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .box-33-333 {
+    max-width: 1150px !important;
+    aspect-ratio: 1/0.6 !important;
+  }
+  .grid-layer-img {
+    max-width: 100%;
+  }
+}
+
+
 /* Fix for Safari gradient rendering */
-@media not all and (min-resolution:.001dpcm) { 
+@media not all and (min-resolution:.001dpcm) {
   @supports (-webkit-appearance:none) {
     .box-gradient {
       -webkit-mask-image: -webkit-radial-gradient(white, black);

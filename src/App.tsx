@@ -9,6 +9,7 @@ import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAdd
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
 import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
 import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
+import Fund from "./views/pages/website/Fund/Fund";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -28,6 +29,8 @@ const App = () => {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/fund" element={<Fund />} />
+
           <Route path="/white-paper" element={<Pdf />} />
 
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
