@@ -1,21 +1,18 @@
 import { ValidationError, Validator } from "../error";
 
 export class LocalUser {
-  name: string | null;
   email: string;
   isEmailVerified: boolean;
-  hashedPassword: string;
+  password: string;
 
-  constructor(name: string | null, email: string, isEmailVerified: boolean, hashedPassword: string) {
-    this.name = name;
+  constructor(email: string, isEmailVerified: boolean, passport: string) {
     this.email = email;
     this.isEmailVerified = isEmailVerified;
-    this.hashedPassword = hashedPassword;
+    this.password = passport;
   }
 
   static fromRaw(row: any): LocalUser | ValidationError {
     const validator = new Validator(row);
-    validator.optionalString("name");
     validator.requiredString("email");
     validator.requiredBoolean("is_email_verified");
     validator.requiredString("hashed_password");
@@ -25,6 +22,6 @@ export class LocalUser {
       return error;
     }
 
-    return new LocalUser(row.name || null, row.email, row.is_email_verified, row.hashed_password);
+    return new LocalUser(row.email, row.is_email_verified, row.hashed_password);
   }
 }

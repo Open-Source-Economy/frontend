@@ -5,6 +5,7 @@ import { CreateManualInvoiceBody, CreateManualInvoiceQuery } from "src/dtos";
 import { CompanyId, UserId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import Decimal from "decimal.js";
+import { BaseURL } from "src/App";
 
 interface CreateManualInvoiceProps {}
 
@@ -70,7 +71,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.APP}>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">

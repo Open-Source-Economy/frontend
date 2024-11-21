@@ -1,5 +1,6 @@
 import { CompanyId, CompanyUserRole } from "../model";
 
+// TODO: should be renamed to SendCompanyRoleInviteBody
 export interface SendCompanyAdminInviteBody {
   userName: string | null;
   userEmail: string;

@@ -4,6 +4,7 @@ import check from "src/assets/checkmark.png";
 import { useDowCounter, useIssueIdFromParams } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
+import { Button } from "src/components";
 
 interface AcceptFundingTabProps {}
 
@@ -59,13 +60,19 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
               I will split fairly the amount collected among <br /> contributors and reviewers
             </h2>
           </div>
-          <button
-            type="submit"
-            disabled={!counter}
-            className="mt-40 flex items-center justify-center mx-auto border-1 border-[#FF518C] hover:bg-[#FF518C] transition-all duration-500 ease-in-out py-3 rounded-md w-[282px]"
-          >
+
+          {/*TODO: Code Nativex fix*/}
+          <Button type="submit" disabled={!counter} audience={"DEVELOPER"} level="SECONDARY" size="MEDIUM">
             Request amount
-          </button>
+          </Button>
+
+          {/*<button*/}
+          {/*  type="submit"*/}
+          {/*  disabled={!counter}*/}
+          {/*  className="mt-40 flex items-center justify-center mx-auto border-1 border-[#FF518C] hover:bg-[#FF518C] transition-all duration-500 ease-in-out py-3 rounded-md w-[282px]"*/}
+          {/*>*/}
+          {/*  Request amount*/}
+          {/*</button>*/}
         </div>
 
         {/*TODO: style*/}

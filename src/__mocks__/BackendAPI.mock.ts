@@ -24,14 +24,16 @@ import {
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
+import { ApiError } from "src/ultils/error/ApiError";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const financialIssues = await this.getFinancialIssues({}, {});
-    return financialIssues[0];
+    if (financialIssues instanceof ApiError) return financialIssues;
+    else return financialIssues[0];
   }
 
-  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[]> {
+  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
     const requestedDowAmount = 12;
@@ -50,31 +52,31 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal> {
+  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError> {
     return Promise.resolve(new Decimal(2));
   }
 
-  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void> {
+  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async login(): Promise<void> {
+  async login(): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void> {
+  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void> {
+  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void> {
+  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void> {
+  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 }

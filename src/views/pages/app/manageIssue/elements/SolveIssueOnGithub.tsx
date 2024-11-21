@@ -1,8 +1,8 @@
 import React from "react";
 import * as model from "src/model";
-import { ButtonType, ExternalLinkButton } from "src/components";
+import { ExternalLink } from "src/components";
 import cat from "src/assets/catimg.png";
-import { Audience } from "src/views";
+import { Button } from "src/components/elements/Button";
 
 interface SolveIssueOnGithubProps {
   issue: model.Issue;
@@ -17,18 +17,11 @@ export function SolveIssueOnGithub(props: SolveIssueOnGithubProps) {
           <h2 className="text-[18px] montserrat">
             They support you! <br /> It is now time to solve the issue!
           </h2>
-          <ExternalLinkButton
-            href={props.issue.htmlUrl}
-            buttonProps={{
-              htmlButtonProps: { children: "Solve the issue on GitHub" },
-              type: ButtonType.SECONDARY,
-              audience: Audience.DEVELOPER,
-            }}
-          />
 
-          {/*<button className="border-1 border-[#FF518C] rounded-md p-3 text-[13px] hover:bg-[#FF518C] transition-all duration-500">*/}
-          {/*    Solve the issue on GitHub*/}
-          {/*</button>*/}
+          {/*TODO: Code Nativex should work with external links too*/}
+          <Button audience={"USER"} level="PRIMARY" asChild>
+            <ExternalLink href={props.issue.htmlUrl}> Solve the issue on GitHub </ExternalLink>
+          </Button>
         </div>
         <div className="">
           <img src={cat} className="w-[160px] h-[210px] mt-3 mt-md-0" alt="" />

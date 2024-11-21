@@ -4,6 +4,7 @@ import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { CreateCompanyBody, CreateCompanyQuery } from "src/dtos";
 import { AddressId, CompanyId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
+import { BaseURL } from "src/App";
 
 interface CreateCompanyProps {}
 
@@ -57,7 +58,7 @@ export function CreateCompany(props: CreateCompanyProps) {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.APP}>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Fund a Company</h1>

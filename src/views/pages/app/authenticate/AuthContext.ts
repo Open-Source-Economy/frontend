@@ -5,7 +5,7 @@ import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "sr
 export interface AuthContextState {
   loading: boolean;
   authInfo: AuthInfo | null;
-  error: ApiError | unknown | null;
+  error: ApiError | null;
   login: (body: LoginBody, query: LoginQuery) => void;
   logout: () => void;
   loginWithGitHub: () => void;

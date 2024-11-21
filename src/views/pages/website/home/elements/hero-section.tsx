@@ -3,6 +3,7 @@ import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
 import { Button } from "src/components/elements/Button";
 import { STAGE_FLAG } from "src/App";
+import { ExternalLink } from "src/components";
 
 const HeroSection = () => {
   return (
@@ -14,15 +15,15 @@ const HeroSection = () => {
           Building the foundation of open source 3.0
         </h1>
 
-        <Button variant="PRIMARY" size="LARGE" asChild>
+        <Button level={"PRIMARY"} size={"LARGE"} asChild>
           {STAGE_FLAG ? (
-            <Link to="/issues">
+            <Link to="/who-are-you">
               <span className="relative z-20">FIND OUT MORE</span>
             </Link>
           ) : (
-            <Link to="https://15ib806w5yk.typeform.com/to/nHEIOYc3">
+            <ExternalLink href="https://15ib806w5yk.typeform.com/to/nHEIOYc3">
               <span className="relative z-20">REQUEST ACCESS</span>
-            </Link>
+            </ExternalLink>
           )}
         </Button>
       </div>

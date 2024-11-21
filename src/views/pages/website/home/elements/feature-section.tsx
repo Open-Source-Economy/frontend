@@ -21,7 +21,7 @@ const FeaturesSection = () => {
               Stop begging for donations! <br /> Fund your future. Have a Say
             </h2>
             <div className="mt-[42px]">
-              <Button variant="SECONDARY_DEVELOPER" size="MEDIUM" asChild>
+              <Button level="SECONDARY_DEVELOPER" size="MEDIUM" asChild>
                 <Link to="/developer">
                   <span className="relative z-20">DEVELOPERS</span>
                 </Link>
@@ -48,7 +48,7 @@ const FeaturesSection = () => {
               Forget the far west! Secure your <br /> platform, secure your business.
             </h2>
             <div className="mt-[42px]">
-              <Button variant="SECONDARY_USER" size="MEDIUM" asChild>
+              <Button level="SECONDARY_USER" size="MEDIUM" asChild>
                 <Link to="/developer">
                   <span className="relative z-20">OPEN SOURCE USERS</span>
                 </Link>

@@ -11,6 +11,8 @@ import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
 import { useIssueIdFromParams } from "src/views/hooks";
+import { Audience } from "src/views";
+import { BaseURL } from "src/App";
 
 interface ManageIssueProps {}
 
@@ -23,7 +25,7 @@ export function ManageIssue(props: ManageIssueProps) {
   }, []);
 
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.APP}>
       <div>
         <BackgroundSection bgImage={bgimage2} position="left 20%">
           <BackgroundSection bgImage={bgimage3} position="right 2%">
@@ -36,7 +38,7 @@ export function ManageIssue(props: ManageIssueProps) {
                   <div>
                     {financialIssue && (
                       <div className="xl:w-[670px] md:w-[590px] w-full">
-                        <IssueCard financialIssue={financialIssue} displayPrivatePublicToggle={true} />
+                        <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displayPrivatePublicToggle={true} />
                       </div>
                     )}
 

@@ -13,6 +13,18 @@ export class IssueId {
     this.githubId = githubId;
   }
 
+  toString(): string {
+    return `${this.repositoryId.ownerLogin()}/${this.repositoryId.name}/${this.number}`;
+  }
+
+  ownerLogin(): string {
+    return this.repositoryId.ownerLogin();
+  }
+
+  repositoryName(): string {
+    return this.repositoryId.name;
+  }
+
   static fromGithubApi(repositoryId: RepositoryId, json: any): IssueId | ValidationError {
     const validator = new Validator(json);
     const number = validator.requiredNumber("number");

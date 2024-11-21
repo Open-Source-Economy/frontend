@@ -11,7 +11,13 @@ export function cn(...inputs: ClassValue[]) {
 
 const buttonVariants = cva("flex items-center w-fit uppercase font-mich relative justify-center", {
   variants: {
-    variant: {
+    audience: {
+      ALL: "",
+      USER: "",
+      DEVELOPER: "",
+      INVESTOR: "",
+    },
+    level: {
       PRIMARY:
         "bg-gradient-to-r from-[#FF7E4B]  via-[#FF518C] to-[#66319B] h-[61px] min-w-[210px] hover:bg-transparent after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md after:opacity-0 after:hover:opacity-100 after:duration-300 rounded-md",
       PRIMARY_DEVELOPER: "!bg-primary-developer  rounded-md  duration-300 border-[2px] !border-primary-developer hover:!bg-transparent",
@@ -34,7 +40,8 @@ const buttonVariants = cva("flex items-center w-fit uppercase font-mich relative
     },
   },
   defaultVariants: {
-    variant: "PRIMARY",
+    level: "PRIMARY",
+    audience: "ALL",
     size: "LARGE",
   },
 });
@@ -44,11 +51,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   parentClassName?: string;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant, size, asChild = false, parentClassName, ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, audience, level, size, asChild = false, parentClassName, ...props }, ref) => {
   const Comp = asChild ? Slot : "button";
   return (
     <div className={cn("relative", parentClassName, "")}>
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp className={cn(buttonVariants({ audience, level, size, className }))} ref={ref} {...props} />
     </div>
   );
 });

@@ -1,4 +1,4 @@
-import { UserRole } from "src/model";
+import { UserRole } from "../../model";
 
 export interface CreateLocalUserBody {
   name?: string;

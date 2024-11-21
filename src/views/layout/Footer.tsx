@@ -1,14 +1,18 @@
 import * as React from "react"; // Import React and useEffect for AOS
 import { useEffect } from "react";
 import "./Footer.css";
-import { SocialMedia } from "../../components/socialMedia/SocialMedia";
+import { SocialMedia } from "src/components/socialMedia/SocialMedia";
 import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
+import "aos/dist/aos.css";
+import { BaseURL, STAGE_FLAG } from "src/App"; // Import AOS CSS
 import backdropSVG2 from "../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../assets/footer-bd-ll.png";
-import { STAGE_FLAG } from "src/App";
 
-export const Footer = () => {
+interface FooterProps {
+  baseURL: BaseURL;
+}
+
+export function Footer(props: FooterProps) {
   // Defining the Footer functional component
   useEffect(() => {
     AOS.init({
@@ -31,7 +35,7 @@ export const Footer = () => {
                 className="col-md-6 pt-4"
                 data-aos="fade-right" // AOS animation for fading in from the right
               >
-                <a href="/" className="">
+                <a href={props.baseURL} className="">
                   <img src="/Logo-svg.svg" className="img-fluid footerlogo" alt="Logo" />
                 </a>
                 <div className="d-flex align-items-center mt-4 gap-3">
@@ -69,4 +73,4 @@ export const Footer = () => {
       </div>
     </div>
   );
-};
+}

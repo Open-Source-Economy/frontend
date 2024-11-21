@@ -11,6 +11,9 @@ import {
   SendCompanyAdminInviteBody,
   SendCompanyAdminInviteQuery,
   SendCompanyAdminInviteResponse,
+  SendRepositoryAdminInviteBody,
+  SendRepositoryAdminInviteQuery,
+  SendRepositoryAdminInviteResponse,
 } from "src/dtos";
 import { API_URL, handleError } from "src/services/index";
 import axios from "axios";
@@ -26,6 +29,8 @@ export interface AdminBackendAPI {
   createCompany(body: CreateCompanyBody, query: CreateCompanyQuery): Promise<CreateCompanyResponse | ApiError>;
 
   sendCompanyAdminInvite(body: SendCompanyAdminInviteBody, query: SendCompanyAdminInviteQuery): Promise<SendCompanyAdminInviteResponse | ApiError>;
+
+  sendRepositoryAdminInvite(body: SendRepositoryAdminInviteBody, query: SendRepositoryAdminInviteQuery): Promise<SendRepositoryAdminInviteResponse | ApiError>;
 
   createManualInvoice(body: CreateManualInvoiceBody, query: CreateManualInvoiceQuery): Promise<CreateManualInvoiceResponse | ApiError>;
 }
@@ -43,6 +48,16 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<SendCompanyAdminInviteResponse>(
       () => axios.post(`${API_URL}/admin/company/admin-invite`, body, { withCredentials: true }),
       "sendCompanyAdminInvite",
+    );
+  }
+
+  async sendRepositoryAdminInvite(
+    body: SendRepositoryAdminInviteBody,
+    query: SendRepositoryAdminInviteQuery,
+  ): Promise<SendRepositoryAdminInviteResponse | ApiError> {
+    return await handleError<SendRepositoryAdminInviteResponse>(
+      () => axios.post(`${API_URL}/admin/repository/admin-invite`, body, { withCredentials: true }),
+      "sendRepositoryAdminInvite",
     );
   }
 

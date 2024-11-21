@@ -2,12 +2,13 @@ import React from "react";
 import * as model from "src/model";
 import { FinancialIssue } from "src/model";
 import * as components from "./index";
-import person from "src/assets/personicon.png";
 import { Approved } from "src/components/issue/Approved";
 import { Action } from "src/components/issue/Action";
+import { Audience } from "src/views";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
+  audience: Audience;
   displaySeeMore?: boolean;
   displayActionButtons?: boolean;
   displayPrivatePublicToggle?: boolean;
@@ -20,9 +21,9 @@ export function IssueCard(props: IssueProps) {
         <div className="padding sm:py-9 sm:px-10   flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
 
-          <div>
-            <img className="w-[52px] h-[52px]" src={person} alt="" />
-          </div>
+          {/*<div>*/}
+          {/*  <img className="w-[52px] h-[52px]" src={person} alt="" />*/}
+          {/*</div>*/}
         </div>
 
         <div className="padding sm:py-7 sm:px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
@@ -51,6 +52,7 @@ export function IssueCard(props: IssueProps) {
               <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">
                 <Action
                   issue={props.financialIssue.issue}
+                  audience={props.audience}
                   state={props.financialIssue.managedIssue?.state}
                   successfullyFunded={FinancialIssue.successfullyFunded(props.financialIssue)}
                 />

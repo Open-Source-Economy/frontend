@@ -62,6 +62,10 @@ const config = {
         secondary: "#0e1f35",
         primaryBg: "#14233A",
       },
+        transitionProperty: {
+            'background': 'background-color',
+            'border': 'border-color',
+        },
       backgroundImage: {
         "gradient-custom": "linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%)",
       },

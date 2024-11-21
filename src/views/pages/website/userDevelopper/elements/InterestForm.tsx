@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./InterestForm.css";
+import { Button } from "src/components/elements/Button";
 
 interface InterestFormProps {}
 
@@ -171,7 +172,9 @@ export function InterestForm(props: InterestFormProps) {
 
           {/* Submit Button */}
           <div className="flex items-center justify-center">
-            <button className="px-6 py-3 mt-5 button ff_michroma">SUBMIT</button>
+            <Button level={"PRIMARY"} size="MEDIUM" asChild>
+              SUBMIT
+            </Button>
           </div>
         </div>
       </div>

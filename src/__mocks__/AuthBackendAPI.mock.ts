@@ -11,10 +11,12 @@ import {
 } from "src/dtos/auth";
 import { AuthBackendAPI } from "src/services";
 import { CompanyUserRole } from "src/model";
-import { company, user } from "src/__mocks__/index";
+import { company, repositoryId, user } from "src/__mocks__/index";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {
-  async checkUserStatus(): Promise<StatusResponse> {
+  async checkUserStatus(): Promise<StatusResponse | ApiError> {
     return {
       user: user,
       company: company,
@@ -22,7 +24,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse> {
+  async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse | ApiError> {
     return {
       user: user,
       company: company,
@@ -30,7 +32,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse> {
+  async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError> {
     return {
       user: user,
       company: company,
@@ -38,18 +40,26 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async loginWithGitHub(success?: string, failure?: string): Promise<void> {
+  async loginWithGitHub(success?: string, failure?: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async deleteSession(): Promise<void> {
+  async deleteSession(): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse> {
+  async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse | ApiError> {
     return {
       userName: "Lauriane",
-      userEmail: "email@gmail.com",
+      userEmail: "lauriane@gmail.com",
+    };
+  }
+
+  async getRepositoryUserInviteInfo(query: GetRepositoryUserInviteInfoQuery): Promise<GetRepositoryUserInviteInfoResponse | ApiError> {
+    return {
+      userName: "Lauriane",
+      userGithubOwnerLogin: "lauriane",
+      repositoryId: repositoryId,
     };
   }
 }

@@ -1,9 +1,9 @@
 import { PageWrapper } from "../../PageWrapper";
-import { DigIntoDetails } from "./elements/dig-into-details/dig-into-details-section";
-import FeaturesSection from "./elements/features/feature-section";
-import HeroSection from "./elements/hero-section/hero-section";
-import VideoSection from "./elements/video-section/video-section";
-import { STAGE_FLAG } from "src/App";
+import { DigIntoDetails } from "./elements/dig-into-details-section";
+import FeaturesSection from "./elements/feature-section";
+import HeroSection from "./elements/hero-section";
+import VideoSection from "./elements/video-section";
+import { BaseURL, STAGE_FLAG } from "src/App";
 import React from "react";
 import { Projetcts } from "src/views/pages/website/home/elements/Projetcts";
 
@@ -11,7 +11,7 @@ interface HomeProps {}
 
 export function Home(props: HomeProps) {
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.WEBSITE}>
       <div className="boxlayer mt-[20px]">
         <HeroSection />
         <FeaturesSection />

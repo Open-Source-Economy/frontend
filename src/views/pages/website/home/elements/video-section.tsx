@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import svgPlay from "src/assets/svg-4.svg";
 import backdropSVG from "src/assets/backdrop.svg";
-import thubmnail from "src/assets/video.jpeg";
 
 const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);

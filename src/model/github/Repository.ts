@@ -26,7 +26,7 @@ export class RepositoryId {
 
     const validator = new Validator(json);
     const name = validator.requiredString("name");
-    const id = validator.optionalNumber("id");
+    const id = validator.requiredNumber("id");
 
     if (!json.owner) {
       return new ValidationError("Owner field is missing in the JSON response.", json);

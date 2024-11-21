@@ -1,11 +1,13 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
-import { fundIssuePath } from "src/App";
+import { fundIssuePath, manageIssuePath } from "src/App";
 import { Button } from "../elements/Button";
 import { Link } from "react-router-dom";
+import { Audience } from "src/views";
 
 interface ActionProps {
   issue: Issue;
+  audience: Audience;
   state?: ManagedIssueState;
   successfullyFunded: boolean;
 }
@@ -13,9 +15,10 @@ interface ActionProps {
 export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
-      <Button variant={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
-        <Link to={fundIssuePath(props.issue.id.repositoryId.ownerId.login, props.issue.id.repositoryId.name, props.issue.id.number)}>
-          <span className="relative z-20">ACT ON ISSUE</span>
+      {/*  TODO: Code Nativex: color dependent on props.audience*/}
+      <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
+        <Link to={props.audience === Audience.DEVELOPER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
+          <span className="relative z-20">{props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}</span>
         </Link>
       </Button>
     </>
@@ -28,9 +31,10 @@ export function Action(props: ActionProps) {
       <>
         {actOnIssueButton}
 
-        {props.successfullyFunded && (
+        {props.successfullyFunded && props.audience === Audience.DEVELOPER && (
           <>
-            <Button variant={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
+            {/*  TODO: Code Nativex: color dependent on props.audience*/}
+            <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
               <Link to={props.issue.htmlUrl}>
                 <span className="relative z-20">ACT ON GITHUB</span>
               </Link>

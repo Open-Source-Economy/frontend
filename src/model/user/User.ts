@@ -22,11 +22,19 @@ export enum UserRole {
 
 export class User implements Express.User {
   id: UserId;
+  name: string | null;
   data: LocalUser | ThirdPartyUser;
   role: UserRole;
 
-  constructor(id: UserId, data: LocalUser | ThirdPartyUser, role: UserRole) {
+  constructor(
+    id: UserId,
+    name: string | null,
+
+    data: LocalUser | ThirdPartyUser,
+    role: UserRole,
+  ) {
     this.id = id;
+    this.name = name;
     this.data = data;
     this.role = role;
   }
@@ -35,7 +43,7 @@ export class User implements Express.User {
     if (this.data instanceof LocalUser) {
       return this.data.email;
     } else {
-      return this.data.email() ?? null;
+      return this.data.email;
     }
   }
 
@@ -50,6 +58,7 @@ export class User implements Express.User {
   static fromRaw(row: any, owner: Owner | null = null): User | ValidationError {
     const validator = new Validator(row);
     const id = validator.requiredString("id");
+    const name = validator.optionalString("name");
     const role = validator.requiredEnum("role", Object.values(UserRole) as UserRole[]);
 
     const error = validator.getFirstError();
@@ -76,6 +85,6 @@ export class User implements Express.User {
       return enumError;
     }
 
-    return new User(new UserId(id), user, role);
+    return new User(new UserId(id), name ?? null, user, role);
   }
 }

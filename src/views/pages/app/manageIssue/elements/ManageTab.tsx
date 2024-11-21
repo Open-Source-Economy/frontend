@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 
+export enum Tab {
+  One,
+  Two,
+}
+
 interface ManageTabProps {
   tab1Title: string;
   tab2Title: string;
@@ -8,11 +13,7 @@ interface ManageTabProps {
 }
 
 export function ManageTab(props: ManageTabProps) {
-  const [activeTab, setActiveTab] = useState("tab1"); // Default active tab
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
+  const [activeTab, setActiveTab] = useState(Tab.One);
 
   return (
     <>
@@ -22,18 +23,18 @@ export function ManageTab(props: ManageTabProps) {
           <div className="bg-[#14233A] rounded-lg flex justify-between items-center relative z-10 p-2">
             <button
               className={`btnpadding  transition-all duration-500 ease-in-out py-3 px-5 focus:outline-none montserrat text-[12px] md:text-lg ${
-                activeTab === "tab1" ? "text-white bg-[#FF518C] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
+                activeTab === Tab.One ? "text-white bg-[#FF518C] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
               }`}
-              onClick={() => handleTabClick("tab1")}
+              onClick={() => setActiveTab(Tab.One)}
             >
               {props.tab1Title}
             </button>
 
             <button
               className={`btnpadding  transition-all duration-500 ease-in-out py-3 px-5 focus:outline-none montserrat text-[12px] md:text-lg ${
-                activeTab === "tab2" ? "text-white bg-[#FF518C] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
+                activeTab === Tab.Two ? "text-white bg-[#FF518C] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
               }`}
-              onClick={() => handleTabClick("tab2")}
+              onClick={() => setActiveTab(Tab.Two)}
             >
               {props.tab2Title}
             </button>
@@ -43,8 +44,8 @@ export function ManageTab(props: ManageTabProps) {
         {/* Tab Content */}
         <div className="mt-5 flex items-center justify-center ">
           <>
-            {activeTab === "tab1" && props.tab1}
-            {activeTab === "tab2" && props.tab2}
+            {activeTab === Tab.One && props.tab1}
+            {activeTab === Tab.Two && props.tab2}
           </>
         </div>
       </div>

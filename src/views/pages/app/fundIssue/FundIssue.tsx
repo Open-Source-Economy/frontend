@@ -4,6 +4,8 @@ import { IssueCard } from "src/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
+import { Audience } from "src/views";
+import { BaseURL } from "src/App";
 
 interface FundIssueProps {}
 
@@ -17,7 +19,7 @@ export function FundIssue({}: FundIssueProps) {
   }, []);
 
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.APP}>
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div
@@ -37,7 +39,7 @@ export function FundIssue({}: FundIssueProps) {
           {financialIssue && (
             <div className="pt-24 flex justify-center flex-wrap gap-4">
               <div className="xl:w-[600px] md:w-[590px] w-full">
-                <IssueCard financialIssue={financialIssue} displaySeeMore={true} />
+                <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
               </div>
 
               <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">

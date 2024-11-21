@@ -7,12 +7,16 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "src/components/elements/Button";
-import { SocialMedia } from "../../components/socialMedia/SocialMedia";
+import { SocialMedia } from "src/components/socialMedia/SocialMedia";
 import "./Header.css";
+import { ExternalLink } from "src/components";
+import { BaseURL } from "src/App";
 
-interface HeaderProps {}
+interface HeaderProps {
+  baseURL: BaseURL;
+}
 
-export function Header({}: HeaderProps) {
+export function Header(props: HeaderProps) {
   useEffect(() => {
     // Animation
     AOS.init({
@@ -44,7 +48,7 @@ export function Header({}: HeaderProps) {
                 {/* Fluid container for Navbar */}
                 <Navbar.Brand href="#">
                   {" "}
-                  <Link to={"/"}>
+                  <Link to={props.baseURL}>
                     <img className="logo" src="/Logo-svg.svg" alt="Logo" /> {/* Logo image */}
                   </Link>
                   {/* Logo image */}
@@ -73,13 +77,12 @@ export function Header({}: HeaderProps) {
                     {" "}
                     <Nav className="justify-content-end align-items-lg-center font-mich flex-grow-1 gap-3">
                       <>
-                        {/*  TODO: lololo*/}
-                        <a href="https://blog.open-source-economy.com/" className="gradient-text mr-8" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink href="https://blog.open-source-economy.com/" className="gradient-text mr-8">
                           Blog
-                        </a>
-                        <Button variant="SECONDARY" size="LARGE" asChild>
+                        </ExternalLink>
+                        <Button level="SECONDARY" size="LARGE" asChild>
                           <Link to="/white-paper">
-                            <span className="relative z-20">WHITE PAPE</span>
+                            <span className="relative z-20">WHITE PAPER</span>
                           </Link>
                         </Button>
                       </>

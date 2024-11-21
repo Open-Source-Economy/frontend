@@ -12,6 +12,8 @@ import {
   RegisterResponse,
 } from "src/dtos/auth";
 import { AuthBackendAPIMock } from "src/__mocks__";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import { ApiError } from "src/ultils/error/ApiError";
 
 export function getAuthBackendAPI(): AuthBackendAPI {
   if (process.env.REACT_APP_USE_MOCK_API === "true") {
@@ -23,51 +25,64 @@ export function getAuthBackendAPI(): AuthBackendAPI {
 
 // TODO: change to not return an ApiError
 export interface AuthBackendAPI {
-  checkUserStatus(): Promise<StatusResponse>;
+  checkUserStatus(): Promise<StatusResponse | ApiError>;
 
-  login(body: LoginBody, query: LoginQuery): Promise<LoginResponse>;
+  login(body: LoginBody, query: LoginQuery): Promise<LoginResponse | ApiError>;
 
-  register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse>;
+  register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError>;
 
-  loginWithGitHub(success?: string, failure?: string): Promise<void>;
+  loginWithGitHub(success?: string, failure?: string): Promise<void | ApiError>;
 
-  deleteSession(): Promise<void>;
+  deleteSession(): Promise<void | ApiError>;
 
-  getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse>;
+  getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse | ApiError>;
+
+  getRepositoryUserInviteInfo(query: GetRepositoryUserInviteInfoQuery): Promise<GetRepositoryUserInviteInfoResponse | ApiError>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
-  async checkUserStatus(): Promise<StatusResponse> {
+  async checkUserStatus(): Promise<StatusResponse | ApiError> {
     return handleError<StatusResponse>(() => axios.get(`${API_URL}/auth/status`, { withCredentials: true }), "checkUserStatus");
   }
 
-  async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse> {
+  async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse | ApiError> {
     return handleError(() => axios.post(`${API_URL}/auth/login`, body, { withCredentials: true }), "login");
   }
 
-  async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse> {
+  async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError> {
     if (query.companyToken) {
       const queryParams = `companyToken=${encodeURIComponent(query.companyToken)}`;
       return handleError(() => axios.post(`${API_URL}/auth/register-as-company?${queryParams}`, body, { withCredentials: true }), "register-as-company");
+    } else if (query.repositoryToken) {
+      const queryParams = `repositoryToken=${encodeURIComponent(query.repositoryToken)}`;
+      return handleError(() => axios.post(`${API_URL}/auth/register-as-maintainer?${queryParams}`, body, { withCredentials: true }), "register-as-maintainer");
     } else {
       return handleError(() => axios.post(`${API_URL}/auth/register`, body, { withCredentials: true }), "register");
     }
   }
 
-  async loginWithGitHub(): Promise<void> {
+  async loginWithGitHub(): Promise<void | ApiError> {
     window.location.href = `${API_URL}/auth/github`;
   }
 
-  async deleteSession(): Promise<void> {
+  async deleteSession(): Promise<void | ApiError> {
     return handleError(() => axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
   }
 
-  async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse> {
+  async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse | ApiError> {
     // TODO: make that generic for all the params
     const queryParams = `token=${encodeURIComponent(query.token)}`;
     return handleError<GetCompanyUserInviteInfoResponse>(
       () => axios.get(`${API_URL}/auth/company-user-invite-info?${queryParams}`, { withCredentials: true }),
       "getCompanyUserInviteInfo",
+    );
+  }
+
+  async getRepositoryUserInviteInfo(query: GetRepositoryUserInviteInfoQuery): Promise<GetRepositoryUserInviteInfoResponse | ApiError> {
+    const queryParams = `token=${encodeURIComponent(query.token)}`;
+    return handleError<GetRepositoryUserInviteInfoResponse>(
+      () => axios.get(`${API_URL}/auth/repository-user-invite-info?${queryParams}`, { withCredentials: true }),
+      "getRepositoryUserInviteInfo",
     );
   }
 }

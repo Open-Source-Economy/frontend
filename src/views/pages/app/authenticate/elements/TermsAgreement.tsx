@@ -9,11 +9,11 @@ export function TermsAgreement(props: TermsAgreementProps) {
       <p className="text-[12px] leading-6 text-[#ffffff]">
         {/*TODO*/}
         By placing an order you agree with the{" "}
-        <a href="javascript:void(0)" className="gradient-text fw-bold hover-effect">
+        <a href="" className="gradient-text fw-bold hover-effect">
           Terms of Use
         </a>{" "}
         and{" "}
-        <a href="javascript:void(0)" className="gradient-text fw-bold hover-effect">
+        <a href="" className="gradient-text fw-bold hover-effect">
           Terms of Sales
         </a>
       </p>

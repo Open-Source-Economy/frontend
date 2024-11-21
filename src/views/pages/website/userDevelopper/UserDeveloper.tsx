@@ -9,8 +9,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
-import * as process from "process";
-import { STAGE_FLAG } from "src/App";
+import { BaseURL, STAGE_FLAG } from "src/App";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -142,7 +141,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
   console.log(bgSize, "bgSize");
 
   return (
-    <PageWrapper>
+    <PageWrapper baseURL={BaseURL.WEBSITE}>
       <div className="w-full mx-auto">
         <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-28 lg:mt-20 2xl:mt-[111px] mb-20 my-8 items-center justify-center text-center !px-4 ">
           {isDeveloperPath ? (

@@ -8,6 +8,9 @@ import { IssueId } from "src/model";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { useDowCounter } from "src/views/hooks";
+import { ApiError } from "src/ultils/error/ApiError";
+import { Button } from "src/components";
+import { Link } from "react-router-dom";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;
@@ -21,7 +24,7 @@ export function DowFunding(props: DowFundingProps) {
   const { counter, handleInputChange, increment, decrement } = useDowCounter();
   const [availableDoWAmount, setAvailableDoWAmount] = useState<Decimal>(new Decimal(0));
   const [enoughFund, setEnoughFund] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ApiError | string | null>(null);
 
   const fundIssue = async () => {
     if (!counter) {
@@ -56,10 +59,10 @@ export function DowFunding(props: DowFundingProps) {
         companyId: auth.authInfo?.company?.id.uuid,
       };
       const dowAmount = await backendAPI.getAvailableDow(params, query);
-      setAvailableDoWAmount(dowAmount);
+      if (dowAmount instanceof ApiError) setError(dowAmount);
+      else setAvailableDoWAmount(dowAmount);
     } catch (error) {
-      console.error("Error fetching available DoWs:", error);
-      setError("Failed to load issues. Please try again later.");
+      setError(ApiError.from(error));
     }
   };
 
@@ -121,24 +124,31 @@ export function DowFunding(props: DowFundingProps) {
         </div>
       </div>
       <div className="mt-5 flex flex-wrap justify-center items-center gap-3">
-        {/*TODO: replace by generic button*/}
-        <button
-          onClick={fundIssue}
-          disabled={!enoughFund}
-          className={`${enoughFund ? "" : "opacity-50"} bg-[#FF7E4B] md:w-[48.5%] w-full text-nowrap text-[12px] py-3 border-1 rounded-md border-[#FF7E4B] hover:bg-transparent transition-all duration-500 ease-in-out`}
-        >
+        {/*TODO: Code Nativex fix*/}
+        <Button onClick={fundIssue} disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
           FUND THE ISSUE
-        </button>
+        </Button>
 
-        <button
-          className={`${enoughFund ? "opacity-50" : ""} border-1 border-[#FF7E4B]  md:w-[48.5%] w-full text-nowrap rounded-md text-[12px] py-3 hover:bg-[#FF7E4B] transition-all duration-500 ease-in-out`}
-        >
+        {/*<button*/}
+        {/*  onClick={fundIssue}*/}
+        {/*  disabled={!enoughFund}*/}
+        {/*  className={`${enoughFund ? "" : "opacity-50"} bg-[#FF7E4B] md:w-[48.5%] w-full text-nowrap text-[12px] py-3 border-1 rounded-md border-[#FF7E4B] hover:bg-transparent transition-all duration-500 ease-in-out`}*/}
+        {/*>*/}
+        {/*  FUND THE ISSUE*/}
+        {/*</button>*/}
+
+        <Button level="SECONDARY_DEVELOPER" className={`${enoughFund ? "opacity-50" : ""}`} size="MEDIUM">
           GET MORE DoW
-        </button>
+        </Button>
+
+        {/*<button*/}
+        {/*  className={`${enoughFund ? "opacity-50" : ""} border-1 border-[#FF7E4B]  md:w-[48.5%] w-full text-nowrap rounded-md text-[12px] py-3 hover:bg-[#FF7E4B] transition-all duration-500 ease-in-out`}*/}
+        {/*>*/}
+        {/*  GET MORE DoW*/}
+        {/*</button>*/}
       </div>
 
-      {/*TODO: style */}
-      <p>{error}</p>
+      {error && <p>{error instanceof ApiError ? error.toString() : error}</p>}
     </>
   );
 }

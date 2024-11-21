@@ -8,6 +8,7 @@ export interface RegisterBody {
 
 export interface RegisterQuery {
   companyToken?: string;
+  repositoryToken?: string;
 }
 
 export interface RegisterResponse extends AuthInfo {}

@@ -1,5 +1,8 @@
 import { ValidationError, Validator } from "../error";
-import { StripeCustomerId, StripeInvoiceId, StripePriceId, StripeProductId } from "src/model";
+import { StripeInvoiceId } from "./StripeInvoice";
+import { StripeCustomerId } from "./StripeCustomer";
+import { StripeProductId } from "./StripeProduct";
+import { StripePriceId } from "./StripePrice";
 
 export class StripeInvoiceLineId {
   id: string;

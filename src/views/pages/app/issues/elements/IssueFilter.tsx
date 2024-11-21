@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { SelectFilter } from "src/components";
 import * as model from "src/model/FinancialIssue";
 import search from "src/assets/search.png";
+import { ManagedIssueState } from "src/model";
+
+enum Status {
+  OPEN = "Open",
+  CLOSED = "Closed",
+}
 
 interface IssueFilterProps {
   financialIssues: model.FinancialIssue[];
@@ -9,8 +15,11 @@ interface IssueFilterProps {
 }
 
 export function IssueFilter(props: IssueFilterProps) {
-  const all = "All";
-  function toSelectOptions(stringArray: string[]): string[] {
+  const allOwner = "Organization";
+  const allRepository = "Repository";
+  const allStatus = "Status";
+
+  function toSelectOptions(all: string, stringArray: string[]): string[] {
     const temp = Array.from(
       new Set(
         stringArray.filter(name => name), // Remove any undefined, null, or empty string values
@@ -20,12 +29,19 @@ export function IssueFilter(props: IssueFilterProps) {
     return temp;
   }
 
-  const owners = toSelectOptions((props.financialIssues || []).map(financialIssue => financialIssue.owner.id.login));
-  const repositories = toSelectOptions((props.financialIssues || []).map(financialIssue => financialIssue.repository.id.name));
+  const owners = toSelectOptions(
+    allOwner,
+    (props.financialIssues || []).map(financialIssue => financialIssue.owner.id.login),
+  );
+  const repositories = toSelectOptions(
+    allRepository,
+    (props.financialIssues || []).map(financialIssue => financialIssue.repository.id.name),
+  );
+  const status = toSelectOptions(allStatus, Object.values(Status) as Status[]);
 
-  const [selectedOwner, setSelectedOwner] = React.useState(all);
-  const [selectedRepository, setSelectedRepository] = React.useState(all);
-  const [selectedStatus, setSelectedStatus] = React.useState(all);
+  const [selectedOwner, setSelectedOwner] = React.useState(allOwner);
+  const [selectedRepository, setSelectedRepository] = React.useState(allRepository);
+  const [selectedStatus, setSelectedStatus] = React.useState(allStatus);
   const [searchTerm, setSearchTerm] = React.useState("");
 
   useEffect(() => {
@@ -33,11 +49,19 @@ export function IssueFilter(props: IssueFilterProps) {
   }, [selectedOwner, selectedRepository, selectedStatus, searchTerm]);
 
   const handleChangeOnFilter = () => {
+    function statusFiltered(financialIssue: model.FinancialIssue): boolean {
+      return (
+        selectedStatus === allStatus ||
+        (selectedStatus === Status.OPEN && (financialIssue.managedIssue === undefined || financialIssue.managedIssue?.state === ManagedIssueState.OPEN)) ||
+        (selectedStatus === Status.CLOSED && financialIssue.managedIssue?.state !== ManagedIssueState.OPEN)
+      );
+    }
+
     const filtered = props.financialIssues.filter(financialIssue => {
       return (
-        (financialIssue.owner.id.login === selectedOwner || selectedOwner === all) &&
-        (financialIssue.repository.id.name === selectedRepository || selectedRepository === all) &&
-        // (financialIssue.status === selectedStatus || selectedStatus === all) &&
+        (financialIssue.owner.id.login === selectedOwner || selectedOwner === allOwner) &&
+        (financialIssue.repository.id.name === selectedRepository || selectedRepository === allRepository) &&
+        statusFiltered(financialIssue) &&
         (searchTerm === "" ||
           financialIssue.owner.id.login.toLowerCase().includes(searchTerm.toLowerCase()) ||
           financialIssue.repository.id.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -51,7 +75,7 @@ export function IssueFilter(props: IssueFilterProps) {
 
   return (
     <>
-      <div className="grid sm:grid-cols-2 w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
+      <div className="grid sm:grid-cols-1 w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
         <SelectFilter
           ariaLabel="Onwer"
           labelValues={owners.map(ownerName => ({
@@ -77,12 +101,11 @@ export function IssueFilter(props: IssueFilterProps) {
 
         <SelectFilter
           ariaLabel="Status"
-          labelValues={[
-            { value: "all", label: "All Categories" },
-            { value: "accountability", label: "Accountability" },
-            { value: "data", label: "Data" },
-          ]}
-          onFilterChange={() => {}}
+          labelValues={status.map(status => ({ value: status, label: status }))}
+          onFilterChange={value => {
+            setSelectedStatus(value);
+            handleChangeOnFilter();
+          }}
         />
 
         <div className="relative border-1 border-[#8693A4] w-100 rounded-[9px] outline-none bg-transparent p-3 lg:w-[196px]">

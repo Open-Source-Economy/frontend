@@ -217,6 +217,17 @@ export class Validator {
     }
   }
 
+  optionalDate(path: string | string[]): Date | undefined {
+    const value = this.getValue(path);
+
+    if (typeof value === "object") {
+      const date = new Date(value);
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+  }
+
   // @ts-ignore
   requiredDate(path: string | string[]): Date {
     const value = this.getValue(path);

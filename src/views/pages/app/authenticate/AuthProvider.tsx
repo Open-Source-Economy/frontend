@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
 import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
+import { ApiError } from "src/ultils/error/ApiError";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ export function AuthProvider(props: AuthProviderProps) {
 
   const [loading, setLoading] = useState(true);
   const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
-  const [apiError, setApiError] = useState<Error | null>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   useEffect(() => {
     setLoading(false);
@@ -23,9 +24,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const statusResponse = await auth.checkUserStatus();
-      setAuthInfo(statusResponse);
-    } catch (error: any) {
-      setApiError(error);
+      if (statusResponse instanceof ApiError) setApiError(statusResponse);
+      else setAuthInfo(statusResponse);
+    } catch (error: unknown) {
+      setApiError(ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -35,9 +37,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const loginResponse = await auth.login(body, query);
-      setAuthInfo(loginResponse);
-    } catch (error: any) {
-      setApiError(error);
+      if (loginResponse instanceof ApiError) setApiError(loginResponse);
+      else setAuthInfo(loginResponse);
+    } catch (error: unknown) {
+      setApiError(ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -47,9 +50,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const registerResponse = await auth.register(body, query);
-      setAuthInfo(registerResponse);
-    } catch (error: any) {
-      setApiError(error);
+      if (registerResponse instanceof ApiError) setApiError(registerResponse);
+      else setAuthInfo(registerResponse);
+    } catch (error: unknown) {
+      setApiError(ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -58,9 +62,10 @@ export function AuthProvider(props: AuthProviderProps) {
   const loginWithGitHub = async () => {
     setLoading(true);
     try {
-      await auth.loginWithGitHub();
-    } catch (error: any) {
-      setApiError(error);
+      const result = await auth.loginWithGitHub();
+      if (result instanceof ApiError) setApiError(result);
+    } catch (error: unknown) {
+      setApiError(ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -69,9 +74,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const result = await auth.deleteSession();
+      if (result instanceof ApiError) setApiError(result);
       setAuthInfo(null);
-    } catch (error: any) {
-      setApiError(error);
+    } catch (error: unknown) {
+      setApiError(ApiError.from(error));
     } finally {
       setLoading(false);
     }

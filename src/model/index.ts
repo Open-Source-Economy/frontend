@@ -8,3 +8,5 @@ export * from "./IssueFunding";
 export * from "./ManagedIssue";
 export * from "./ManualInvoice";
 export * from "./CompanyUserPermissionToken";
+export * from "./RepositoryUserPermissionToken";
+export * from "./UserRepository";
