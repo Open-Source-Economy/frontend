@@ -12,11 +12,18 @@ body {
   font-style: normal;
   overflow-x: hidden !important;
 }
+/*TODO: clean */
 .michroma {
   font-family: "Michroma", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+}
+.font-mich {
+  font-family: "Michroma", sans-serif;
+}
+.font-most {
+  font-family: "Montserrat", sans-serif !important;
 }
 
 html {
@@ -131,12 +138,7 @@ input[type="number"] {
   /* Remove any border if there is one */
 }
 
-.font-mich {
-  font-family: "Michroma", sans-serif;
-}
-.font-most {
-  font-family: "Montserrat", sans-serif !important;
-}
+
 
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);

@@ -1,7 +1,10 @@
 import React from "react";
+import { STAGE_FLAG } from "src/App";
+import { Link } from "react-router-dom";
+import { Button } from "src/components";
 
 export interface CardsProps {
-  ownerLogin: string;
+  ownerLogin?: string;
   repositoryName: string;
   img: string;
   description: string;
@@ -16,20 +19,23 @@ export function Cards(props: CardsProps) {
         </div>
         <div className="max-[860px]:min-h-[150px]">
           <h4 className="font-mich mt-3 text-3xl max-[540px]:!text-2xl">
-            {/*<Link to={"/"} className="text-secondary duration-300 hover:underline">*/}
-            {props.ownerLogin}
-            {/*</Link>*/}/{/*<Link to={"/"} className="duration-300 hover:underline">*/}
+            {/*<Link to={"/"} className="duration-300 hover:underline">*/}
+            {props.ownerLogin && <span className="text-secondary">{props.ownerLogin}/</span>}
+
+            {/*<Link to={"/"} className="duration-300 hover:underline">*/}
             {props.repositoryName}
             {/*</Link>*/}
           </h4>
           <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85 max-[540px]:text-base">{props.description}</p>
         </div>
       </div>
-      {/*<Button variant="SECONDARY_DEVELOPER" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">*/}
-      {/*    <Link to="/developer">*/}
-      {/*        <span className="relative z-20">FUND</span>*/}
-      {/*    </Link>*/}
-      {/*</Button>*/}
+      {STAGE_FLAG && (
+        <Button level="SECONDARY_DEVELOPER" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
+          <Link to="/developer">
+            <span className="relative z-20">FUND</span>
+          </Link>
+        </Button>
+      )}
     </div>
   );
 }

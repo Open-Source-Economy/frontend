@@ -173,7 +173,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
         <div className="bg-no-repeat">
           <div className="2xl:px-20 lg:px-52 container">
-            <h1 ref={solutionHeadingRef} className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] ff_michroma">
+            <h1 ref={solutionHeadingRef} className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] michroma">
               No BS. <br />
               <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] 2xl:text-[54px]">Here's our solution.</span>
             </h1>
@@ -200,7 +200,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
             <div className="opacity-40 absolute left-[40%] lg:left-[50%] top-[8%] sm:top-[10%] -translate-x-1/2 box-gradient-the-future pointer-events-none z-0 w-[300px] h-[150px] lg:w-[700px] lg:h-[400px] 3xl:w-[1000px] 3xl:h-[700px] max-sm:-translate-y-20 animate-subtleRotateMove2"></div>
             <h1
               ref={finalHeadingRef}
-              className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] ff_michroma !leading-normal text-center px-3 pb-[80px] md:pb-[150px] md:px-0"
+              className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] michroma !leading-normal text-center px-3 pb-[80px] md:pb-[150px] md:px-0"
             >
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>

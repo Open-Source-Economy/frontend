@@ -63,7 +63,7 @@ export function InterestForm(props: InterestFormProps) {
   return (
     <>
       <h1
-        className="text-center text-3xl md:text-4xl lg:text-6xl 3xl:text-[71px] lg:mt-32 md:mt-22 xl:mt-[186px] mt-14 ff_michroma leading-[120%]"
+        className="text-center text-3xl md:text-4xl lg:text-6xl 3xl:text-[71px] lg:mt-32 md:mt-22 xl:mt-[186px] mt-14 michroma leading-[120%]"
         style={{
           background: "linear-gradient(90deg, #66319B 0%, #FF518C 50%, #FF7E4B 100%)",
           WebkitBackgroundClip: "text",
@@ -78,19 +78,19 @@ export function InterestForm(props: InterestFormProps) {
           <input
             type="email"
             placeholder="Your Email*"
-            className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100 ff_michroma"
+            className="email border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#fff] w-100 michroma"
           />
 
           <label className="flex align-items-center mt-3 gap-2 agreecheckbox cursor-pointer">
             <input className="w-4 h-4" type="checkbox" />
-            <h2 className="text-[15px] text-[rgba(252,254,253,27%)] ff_michroma">Sign up for news & updates</h2>
+            <h2 className="text-[15px] text-[rgba(252,254,253,27%)] michroma">Sign up for news & updates</h2>
           </label>
 
           {/* First Dropdown */}
           <div ref={dropdown1Ref} className="mt-5 relative inline-block text-left w-100">
             <button
               onClick={toggleDropdown1}
-              className="flex text-left items-center justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
+              className="flex text-left items-center justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 michroma"
             >
               {selectedOption1}
               <svg
@@ -126,7 +126,7 @@ export function InterestForm(props: InterestFormProps) {
             <div ref={dropdown2Ref} className="mt-5 relative inline-block text-left w-100">
               <button
                 onClick={toggleDropdown2}
-                className="flex items-center text-left justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 ff_michroma"
+                className="flex items-center text-left justify-between border-bottom border-[#fff] bg-transparent text-[16px] lg:text-[24px] pb-3 outline-none text-[#FCFEFD] w-100 michroma"
               >
                 {selectedOption2}
                 <svg
@@ -162,11 +162,11 @@ export function InterestForm(props: InterestFormProps) {
 
           {/* Message Input */}
           <div className="mt-5">
-            <h1 className="text-[23px] ff_michroma text-[#FCFEFD45]">Message</h1>
+            <h1 className="text-[23px] michroma text-[#FCFEFD45]">Message</h1>
             <input
               placeholder="Share your motivation..."
               type="text"
-              className="mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-[14px] lg:pb-48 pb-20 md:pb-32 outline-none text-[#fff] w-100 placeholder:!text-white placeholder:!opacity-100 ff_michroma"
+              className="mt-3 message border-bottom border-[#fff] bg-transparent lg:text-[17px] text-[14px] lg:pb-48 pb-20 md:pb-32 outline-none text-[#fff] w-100 placeholder:!text-white placeholder:!opacity-100 michroma"
             />
           </div>
 
