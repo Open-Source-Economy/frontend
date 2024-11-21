@@ -1,11 +1,7 @@
 import { PageWrapper } from "../../PageWrapper";
-import { DigIntoDetails } from "./elements/dig-into-details-section";
-import FeaturesSection from "./elements/feature-section";
-import HeroSection from "./elements/hero-section";
-import VideoSection from "./elements/video-section";
 import { BaseURL, STAGE_FLAG } from "src/App";
 import React from "react";
-import { Projetcts } from "src/views/pages/website/home/elements/Projetcts";
+import { DigIntoDetails, FeaturesSection, HeroSection, VideoSection, Projects } from "src/views/pages/website/home/elements";
 
 interface HomeProps {}
 
@@ -17,7 +13,7 @@ export function Home(props: HomeProps) {
         <FeaturesSection />
         <VideoSection />
         {STAGE_FLAG && <DigIntoDetails />}
-        <Projetcts />
+        <Projects />
       </div>
     </PageWrapper>
   );

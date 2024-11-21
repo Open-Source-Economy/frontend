@@ -5,7 +5,7 @@ import sec2icon3 from "src/assets/sec2img2.png";
 import startimg from "src/assets/star.png";
 import { Button } from "src/components/elements/Button";
 
-const FeaturesSection = () => {
+export const FeaturesSection = () => {
   return (
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">
       <div className="z-[20] flex w-full max-w-[1250px] flex-wrap justify-center gap-6 1500:gap-[30px] min-[1600px]:max-w-[1305px]">
@@ -94,5 +94,3 @@ const FeaturesSection = () => {
     </div>
   );
 };
-
-export default FeaturesSection;

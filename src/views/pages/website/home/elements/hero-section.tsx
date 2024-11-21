@@ -5,7 +5,7 @@ import { Button } from "src/components/elements/Button";
 import { STAGE_FLAG } from "src/App";
 import { ExternalLink } from "src/components";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   return (
     <div className="relative mx-auto mt-[30px] flex w-full max-w-[1920px] flex-col-reverse items-center justify-center gap-[0px] px-[20px] py-[40px] sm:gap-0 lg:flex-row lg:justify-start lg:px-[7%] lg:py-[40px] xl:py-0 xl:pl-[8%] 2xl:pl-[142px]">
       <img src={GridLayerimg} className="grid-layer-img pointer-events-none absolute right-0 top-0 !z-[0]" alt="" />
@@ -38,5 +38,3 @@ const HeroSection = () => {
     </div>
   );
 };
-
-export default HeroSection;

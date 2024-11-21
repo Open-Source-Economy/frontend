@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import backdropSVG from "src/assets/backdrop.svg";
 
-const VideoSection = () => {
+export const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayClick = () => {
@@ -55,5 +55,3 @@ const VideoSection = () => {
     </div>
   );
 };
-
-export default VideoSection;

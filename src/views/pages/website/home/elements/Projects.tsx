@@ -3,7 +3,8 @@ import backdropSVG from "src/assets/backdrop.svg";
 import { Cards, CardsProps } from "src/views/pages/website/home/elements/Cards";
 
 interface ProjectsProps {}
-export function Projetcts(props: ProjectsProps) {
+
+export function Projects(props: ProjectsProps) {
   const cardsProps: CardsProps[] = [
     // https://api.github.com/repos/apache/pekko
     {
