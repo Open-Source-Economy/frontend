@@ -26,6 +26,7 @@ import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepository
 import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
+import {MdConversion} from "src/views/pages/app/mdConversion/MdConversion";
 
 export const STAGE_FLAG: boolean = Boolean(process.env.REACT_APP_STAGE);
 
@@ -51,6 +52,8 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          <Route path="/blog" element={<MdConversion />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
