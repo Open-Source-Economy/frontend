@@ -1,0 +1,261 @@
+/* Import Michroma font */
+@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
+
+/* Container with scoped styles */
+.blog-container-mse {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+  /* max-width: 1024px; */
+  margin: 0 auto;
+  padding: 2rem 10rem;
+}
+
+/* Reset specific elements within the container */
+.blog-container-mse * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Typography - all selectors scoped to the container */
+.blog-container-mse h1,
+.blog-container-mse h2,
+.blog-container-mse h3,
+.blog-container-mse h4,
+.blog-container-mse h5,
+.blog-container-mse h6 {
+  font-family: "Michroma", sans-serif;
+  font-weight: normal;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+.blog-container-mse h1 {
+  font-size: 62px;
+  margin-top: 21px;
+  margin-bottom: 10px;
+}
+.blog-container-mse h2 {
+  font-size: 42px;
+  margin-top: 16px;
+  margin-bottom: 9px;
+}
+.blog-container-mse h3 {
+  font-size: 32px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+.blog-container-mse h4 {
+  font-size: 24px;
+  margin-top: 9px;
+  margin-bottom: 4px;
+}
+.blog-container-mse h5 {
+  font-size: 18px;
+  margin-top: 7px;
+  margin-bottom: 3px;
+}
+.blog-container-mse h6 {
+  font-size: 16px;
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+
+.blog-container-mse p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Lists */
+.blog-container-mse ul,
+.blog-container-mse ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.blog-container-mse ul {
+  list-style-type: disc;
+}
+
+.blog-container-mse ol {
+  list-style-type: decimal;
+}
+
+.blog-container-mse li {
+  margin-bottom: 0.5rem;
+}
+
+/* Nested lists */
+.blog-container-mse li > ul,
+.blog-container-mse li > ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Code blocks */
+.blog-container-mse pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 14px;
+  position: relative;
+}
+
+.blog-container-mse pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'%3E%3C/path%3E%3Crect x='8' y='2' width='8' height='4' rx='1' ry='1'%3E%3C/rect%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.blog-container-mse code {
+  font-family: "Monaco", "Consolas", monospace;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Blockquotes */
+.blog-container-mse blockquote {
+  border-left: 4px solid #4b5563;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Images */
+.blog-container-mse img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* Links */
+.blog-container-mse a {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.blog-container-mse a:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+/* Horizontal rules */
+.blog-container-mse hr {
+  border: 0;
+  height: 1px;
+  background: #4b5563;
+  margin: 2rem 0;
+}
+
+/* Definition lists */
+.blog-container-mse dl {
+  margin: 1rem 0;
+}
+
+.blog-container-mse dt {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.blog-container-mse dd {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Text blocks */
+.blog-container-mse .text-block {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.blog-container-mse .text-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'%3E%3C/path%3E%3Crect x='8' y='2' width='8' height='4' rx='1' ry='1'%3E%3C/rect%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .blog-container-mse h1 {
+    font-size: 48px;
+  }
+  .blog-container-mse h2 {
+    font-size: 36px;
+  }
+  .blog-container-mse h3 {
+    font-size: 28px;
+  }
+  .blog-container-mse h4 {
+    font-size: 22px;
+  }
+  .blog-container-mse h5 {
+    font-size: 16px;
+  }
+  .blog-container-mse h6 {
+    font-size: 14px;
+  }
+
+  .blog-container-mse {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-container-mse h1 {
+    font-size: 36px;
+  }
+  .blog-container-mse h2 {
+    font-size: 30px;
+  }
+  .blog-container-mse h3 {
+    font-size: 24px;
+  }
+  .blog-container-mse h4 {
+    font-size: 20px;
+  }
+  .blog-container-mse h5 {
+    font-size: 16px;
+  }
+  .blog-container-mse h6 {
+    font-size: 14px;
+  }
+
+  .blog-container-mse pre,
+  .blog-container-mse .text-block {
+    padding: 0.75rem;
+  }
+}
