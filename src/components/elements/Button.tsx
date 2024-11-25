@@ -13,27 +13,27 @@ const AUDIENCE_COLORS = {
     primary: "bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]",
     secondary: "bg-transparent border-[#FF7E4B]",
     hoverPrimary:
-      "after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md",
+      "",
     hoverSecondary:
-      "after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md",
+      "",
   },
   USER: {
     primary: "bg-primary-user border-primary-user",
     secondary: "bg-transparent border-primary-user",
-    hoverPrimary: "hover:bg-primary-user/10",
-    hoverSecondary: "hover:bg-primary-user/10",
+    hoverPrimary: "",
+    hoverSecondary: "",
   },
   DEVELOPER: {
     primary: "bg-primary-developer border-primary-developer",
     secondary: "bg-transparent border-primary-developer",
-    hoverPrimary: "hover:bg-primary-developer/10",
-    hoverSecondary: "hover:bg-primary-developer/10",
+    hoverPrimary: "",
+    hoverSecondary: "",
   },
   STAKEHOLDER: {
     primary: "bg-primary-stakeholder border-primary-stakeholder",
     secondary: "bg-transparent border-primary-stakeholder",
-    hoverPrimary: "hover:bg-primary-stakeholder/10",
-    hoverSecondary: "hover:bg-primary-stakeholder/10",
+    hoverPrimary: "",
+    hoverSecondary: "",
   },
 } as const;
 
