@@ -1,7 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -9,41 +8,99 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const buttonVariants = cva("flex items-center w-fit uppercase font-mich relative justify-center", {
+const AUDIENCE_COLORS = {
+  ALL: {
+    primary: "bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]",
+    secondary: "bg-transparent border-[#FF7E4B]",
+    hoverPrimary:
+      "after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md",
+    hoverSecondary:
+      "after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md",
+  },
+  USER: {
+    primary: "bg-primary-user border-primary-user",
+    secondary: "bg-transparent border-primary-user",
+    hoverPrimary: "hover:bg-primary-user/10",
+    hoverSecondary: "hover:bg-primary-user/10",
+  },
+  DEVELOPER: {
+    primary: "bg-primary-developer border-primary-developer",
+    secondary: "bg-transparent border-primary-developer",
+    hoverPrimary: "hover:bg-primary-developer/10",
+    hoverSecondary: "hover:bg-primary-developer/10",
+  },
+  STAKEHOLDER: {
+    primary: "bg-primary-stakeholder border-primary-stakeholder",
+    secondary: "bg-transparent border-primary-stakeholder",
+    hoverPrimary: "hover:bg-primary-stakeholder/10",
+    hoverSecondary: "hover:bg-primary-stakeholder/10",
+  },
+} as const;
+
+const buttonVariants = cva("flex items-center w-fit uppercase font-mich text-white relative justify-center rounded-md border-[2px] duration-300", {
   variants: {
+    size: {
+      SMALL: "h-[40px] px-[19px]",
+      MEDIUM: "h-[55px] px-[19px] text-[13px]",
+      LARGE: "h-[61px] px-[19px] min-w-[210px]",
+    },
+    level: {
+      PRIMARY: "",
+      SECONDARY: "",
+    },
     audience: {
       ALL: "",
       USER: "",
       DEVELOPER: "",
-      INVESTOR: "",
-    },
-    level: {
-      PRIMARY:
-        "bg-gradient-to-r from-[#FF7E4B]  via-[#FF518C] to-[#66319B] h-[61px] min-w-[210px] hover:bg-transparent after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md after:opacity-0 after:hover:opacity-100 after:duration-300 rounded-md",
-      PRIMARY_DEVELOPER: "!bg-primary-developer  rounded-md  duration-300 border-[2px] !border-primary-developer hover:!bg-transparent",
-      PRIMARY_USER:
-        "!bg-primary-user   border-[2px] flex justify-center items-center !border-primary-user font-mich  rounded-md hover:!bg-transparent duration-300",
-      SECONDARY:
-        "bg-gradient-to-r from-[#FF7E4B]  via-[#FF518C] text-white to-[#66319B]  hover:bg-transparent after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:h-[93%] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md after:hover:opacity-0 after:opacity-100 after:duration-300 rounded-md",
-      SECONDARY_DEVELOPER: "hover:!bg-primary-developer  rounded-md  duration-300 border-[2px] !border-primary-developer bg-transparent",
-      SECONDARY_USER:
-        "hover:!bg-primary-user   border-[2px] flex justify-center items-center !border-primary-user font-mich  rounded-md bg-transparent duration-300",
-      SECONDARY_INVESTOR:
-        "hover:!bg-primary-stakeholder  border-[2px] flex justify-center items-center !border-primary-stakeholder font-mich  rounded-md bg-transparent duration-300",
-      PRIMARY_INVESTOR:
-        "!bg-primary-stakeholder  border-[2px] flex justify-center items-center !border-primary-stakeholder font-mich  rounded-md   hover:!bg-transparent duration-300",
-    },
-    size: {
-      SMALL: "!h-[40px] !px-[19px]",
-      MEDIUM: "!h-[55px] !px-[19px] text-[13px]",
-      LARGE: "!h-[61px] px-[19px]",
+      STAKEHOLDER: "",
     },
   },
-  defaultVariants: {
-    level: "PRIMARY",
-    audience: "ALL",
-    size: "LARGE",
-  },
+  compoundVariants: [
+    // ALL audience variants
+    {
+      audience: "ALL",
+      level: "PRIMARY",
+      className: cn(AUDIENCE_COLORS.ALL.primary, AUDIENCE_COLORS.ALL.hoverPrimary),
+    },
+    {
+      audience: "ALL",
+      level: "SECONDARY",
+      className: cn(AUDIENCE_COLORS.ALL.secondary, AUDIENCE_COLORS.ALL.hoverSecondary),
+    },
+    // USER variants
+    {
+      audience: "USER",
+      level: "PRIMARY",
+      className: cn(AUDIENCE_COLORS.USER.primary, AUDIENCE_COLORS.USER.hoverPrimary),
+    },
+    {
+      audience: "USER",
+      level: "SECONDARY",
+      className: cn(AUDIENCE_COLORS.USER.secondary, AUDIENCE_COLORS.USER.hoverSecondary),
+    },
+    // DEVELOPER variants
+    {
+      audience: "DEVELOPER",
+      level: "PRIMARY",
+      className: cn(AUDIENCE_COLORS.DEVELOPER.primary, AUDIENCE_COLORS.DEVELOPER.hoverSecondary),
+    },
+    {
+      audience: "DEVELOPER",
+      level: "SECONDARY",
+      className: cn(AUDIENCE_COLORS.DEVELOPER.secondary, AUDIENCE_COLORS.DEVELOPER.hoverSecondary),
+    },
+    // STAKEHOLDER variants
+    {
+      audience: "STAKEHOLDER",
+      level: "PRIMARY",
+      className: cn(AUDIENCE_COLORS.STAKEHOLDER.primary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
+    },
+    {
+      audience: "STAKEHOLDER",
+      level: "SECONDARY",
+      className: cn(AUDIENCE_COLORS.STAKEHOLDER.secondary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
+    },
+  ],
 });
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -54,11 +111,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, audience, level, size, asChild = false, parentClassName, ...props }, ref) => {
   const Comp = asChild ? Slot : "button";
   return (
-    <div className={cn("relative", parentClassName, "")}>
+    <div className={cn("relative", parentClassName)}>
       <Comp className={cn(buttonVariants({ audience, level, size, className }))} ref={ref} {...props} />
     </div>
   );
 });
+
 Button.displayName = "Button";
 
 export { Button, buttonVariants };

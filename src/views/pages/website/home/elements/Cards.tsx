@@ -30,7 +30,7 @@ export function Cards(props: CardsProps) {
         </div>
       </div>
       {STAGE_FLAG && (
-        <Button level="SECONDARY_DEVELOPER" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
+        <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
           <Link to="/developer">
             <span className="relative z-20">FUND</span>
           </Link>

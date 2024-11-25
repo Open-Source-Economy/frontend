@@ -18,7 +18,6 @@ export function SolveIssueOnGithub(props: SolveIssueOnGithubProps) {
             They support you! <br /> It is now time to solve the issue!
           </h2>
 
-          {/*TODO: Code Nativex should work with external links too*/}
           <Button audience={"USER"} level="PRIMARY" asChild>
             <ExternalLink href={props.issue.htmlUrl}> Solve the issue on GitHub </ExternalLink>
           </Button>

@@ -15,8 +15,7 @@ interface ActionProps {
 export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
-      {/*  TODO: Code Nativex: color dependent on props.audience*/}
-      <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
+      <Button audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
         <Link to={props.audience === Audience.DEVELOPER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
           <span className="relative z-20">{props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}</span>
         </Link>
@@ -33,8 +32,7 @@ export function Action(props: ActionProps) {
 
         {props.successfullyFunded && props.audience === Audience.DEVELOPER && (
           <>
-            {/*  TODO: Code Nativex: color dependent on props.audience*/}
-            <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
+            <Button audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
               <Link to={props.issue.htmlUrl}>
                 <span className="relative z-20">ACT ON GITHUB</span>
               </Link>

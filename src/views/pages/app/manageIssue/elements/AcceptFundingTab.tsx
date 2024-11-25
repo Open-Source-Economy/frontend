@@ -61,7 +61,6 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
             </h2>
           </div>
 
-          {/*TODO: Code Nativex fix*/}
           <Button type="submit" disabled={!counter} audience={"DEVELOPER"} level="SECONDARY" size="MEDIUM">
             Request amount
           </Button>

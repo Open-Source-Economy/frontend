@@ -80,7 +80,7 @@ export function Header(props: HeaderProps) {
                         <ExternalLink href="https://blog.open-source-economy.com/" className="gradient-text mr-8">
                           Blog
                         </ExternalLink>
-                        <Button level="SECONDARY" size="LARGE" asChild>
+                        <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
                           <Link to="/white-paper">
                             <span className="relative z-20">WHITE PAPER</span>
                           </Link>
