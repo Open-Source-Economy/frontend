@@ -82,6 +82,14 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.blog-container-mse ul {
+  list-style-type: disc;
+}
+
+.blog-container-mse ol {
+  list-style-type: decimal;
+}
+
 .blog-container-mse li {
   margin-bottom: 0.5rem;
 }
