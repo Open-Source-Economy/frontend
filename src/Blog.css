@@ -77,14 +77,9 @@
 .blog-container-mse ol {
   margin: 1rem 0;
   padding-left: 1.5rem;
-}
-
-.blog-container-mse ul {
-  list-style-type: disc;
-}
-
-.blog-container-mse ol {
-  list-style-type: decimal;
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
 }
 
 .blog-container-mse li {
