@@ -41,8 +41,10 @@ export function MdConversion(props: MdConversionProps) {
   return (
     <>
       <div className="blog-container-mse">
-        <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
-        {formattedHtml}
+        <div className="blog-container">
+          <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+          {formattedHtml}
+        </div>
       </div>
     </>
   );

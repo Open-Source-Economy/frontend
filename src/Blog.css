@@ -7,12 +7,9 @@
   color: #fff;
   padding: 2rem 10rem;
 }
-
-/* Base reset */
-.blog-container-mse * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.blog-container {
+  max-width: 1440px;
+  margin: auto;
 }
 
 /* Typography */
@@ -71,7 +68,6 @@
   font-size: 18px;
   line-height: 166%;
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 1.5rem;
 }
 
 /* Lists */
@@ -161,19 +157,22 @@
 
 /* Blockquotes */
 .blog-container-mse blockquote {
-  border-left: 4px solid #fff;
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 0 8px 8px 0;
+  border-left: 3px solid #fff;
+  padding: 0 16px;
+  margin: 15px 0;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
 }
 
-.blog-container-mse blockquote p {
-  color: #fff;
-  font-family: Montserrat;
-  font-size: 20px;
+.blog-container-mse blockquote > blockquote {
+  margin: 0;
+  padding: 0 16px;
+  font-size: 18px;
+  opacity: 0.8;
   font-style: normal;
-  font-weight: 500;
-  line-height: 30px; /* 150% */
+  font-weight: 400;
+  line-height: 30px;
 }
 
 /* Images */
@@ -334,6 +333,13 @@
   .blog-container-mse img,
   .blog-container-mse .video-container {
     max-width: 100%;
+  }
+
+  .blog-container-mse pre {
+    padding: 16px;
+  }
+  .blog-container-mse code {
+    font-size: 16px;
   }
 }
 
