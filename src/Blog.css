@@ -4,11 +4,7 @@
 /* Container with scoped styles */
 .blog-container-mse {
   background-color: #0e1f35;
-  color: #f8fafc;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
-  font-size: 16px;
-  margin: 0 auto;
+  color: #fff;
   padding: 2rem 10rem;
 }
 
@@ -34,34 +30,39 @@
   color: #f8fafc;
 }
 
-.blog-container-mse h1 {
+/* .blog-container-mse h1 {
   font-size: 62px;
   margin-top: 21px;
   margin-bottom: 10px;
-}
-.blog-container-mse h2 {
+} */
+.blog-container-mse h1 {
   font-size: 42px;
   margin-top: 16px;
   margin-bottom: 9px;
 }
-.blog-container-mse h3 {
+.blog-container-mse h2 {
   font-size: 32px;
   margin-top: 12px;
   margin-bottom: 6px;
 }
-.blog-container-mse h4 {
+.blog-container-mse h3 {
   font-size: 24px;
   margin-top: 9px;
   margin-bottom: 4px;
 }
-.blog-container-mse h5 {
+.blog-container-mse h4 {
   font-size: 18px;
   margin-top: 7px;
   margin-bottom: 3px;
 }
-.blog-container-mse h6 {
+.blog-container-mse h5 {
   font-size: 16px;
   margin-top: 6px;
+  margin-bottom: 3px;
+}
+.blog-container-mse h6 {
+  font-size: 14px;
+  margin-top: 5px;
   margin-bottom: 3px;
 }
 
@@ -110,22 +111,20 @@
 }
 /* Code blocks */
 .blog-container-mse pre {
-  background-color: #2c405b;
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #1a2a3f;
+  backdrop-filter: blur(4px);
+  padding: 26px 33px 26px 50px;
   margin: 1.5rem 0;
   overflow-x: auto;
-  font-family: "Monaco", "Consolas", monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  color: white;
 }
 
 .blog-container-mse code {
-  font-family: "Monaco", "Consolas", monospace;
-  background-color: #2c405b;
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Tables */
@@ -162,17 +161,19 @@
 
 /* Blockquotes */
 .blog-container-mse blockquote {
-  border-left: 4px solid #4b5563;
+  border-left: 4px solid #fff;
   padding: 1rem 1.5rem;
   margin: 1.5rem 0;
-  background: rgba(255, 255, 255, 0.03);
   border-radius: 0 8px 8px 0;
 }
 
 .blog-container-mse blockquote p {
-  margin-bottom: 0;
-  color: #9ca3af;
-  font-style: italic;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 150% */
 }
 
 /* Images */
@@ -259,6 +260,15 @@
   background-size: 100% 1px;
   background-position: 0 0, 0 100%;
   background-repeat: no-repeat;
+}
+.blog-container-mse pre::after {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' fill='none'%3E%3Crect x='0.75' y='10.75' width='18.5' height='18.5' rx='2.25' fill='%232C405B' stroke='white' stroke-width='1.5'/%3E%3Crect x='10.75' y='0.75' width='18.5' height='18.5' rx='2.25' fill='%232C405B' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E");
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 /* Links */
