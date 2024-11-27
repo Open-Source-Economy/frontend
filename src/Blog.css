@@ -8,7 +8,7 @@
   padding: 2rem 10rem;
 }
 .blog-container {
-  max-width: 1440px;
+  max-width: 900px;
   margin: auto;
 }
 
@@ -70,6 +70,7 @@
   font-size: 18px;
   line-height: 166%;
   font-family: "Montserrat", sans-serif;
+  margin-bottom: 16px;
 }
 
 /* Lists */
@@ -110,7 +111,7 @@
   border-radius: 10px;
   background: #1a2a3f;
   backdrop-filter: blur(4px);
-  padding: 26px 33px 26px 50px;
+  padding: 26px 33px 26px 40px;
   margin: 1.5rem 0;
   overflow-x: auto;
   color: white;
@@ -125,11 +126,24 @@
   cursor: pointer;
   transition: 0.2s;
 }
+.blog-container-mse pre > code {
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
 
 .blog-container-mse code {
   font-size: 18px;
   line-height: 166%;
   font-family: "Montserrat", sans-serif;
+  padding: 4px 16px;
+  border-radius: 10px;
+  background-color: #2c405b;
+  color: #fff;
+  margin: 0 6px;
 }
 
 /* Blockquotes */
@@ -168,7 +182,7 @@
 }
 
 /* ============ Video Container ============ */
-.blog-container-mse .video-container {
+/* .blog-container-mse a img {
   position: relative;
   width: 100%;
   max-width: 450px;
@@ -176,11 +190,18 @@
   border-radius: 30px;
   overflow: hidden;
   background: #000;
+} */
+
+.blog-container-mse a:has(img) {
+  position: relative;
+  display: block;
+  width: fit-content;
 }
 
-.blog-container-mse .video-container img {
-  width: 100%;
-  height: auto;
+.blog-container-mse a img {
+  width: 450px;
+  height: 400px;
+  object-fit: cover;
   margin: 0;
   display: block;
   border-radius: 30px;
@@ -188,11 +209,11 @@
   transition: opacity 0.3s ease;
 }
 
-.blog-container-mse .video-container:hover img {
+.blog-container-mse a:has(img):hover img {
   opacity: 0.6;
 }
 
-.blog-container-mse .video-container::after {
+.blog-container-mse a:has(img)::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -200,27 +221,18 @@
   transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none'%3E%3Cg filter='url(%23filter0_b_1912_1498)'%3E%3Ccircle cx='40' cy='40' r='40' fill='white' fill-opacity='0.26'/%3E%3C/g%3E%3Cpath d='M43.3057 45.5337C39.2795 47.7972 37.2665 48.929 35.7765 48.0459C34.2865 47.1627 34.3129 44.8535 34.3657 40.235L34.3756 39.369C34.4284 34.7505 34.4548 32.4413 35.9646 31.5925C37.4744 30.7436 39.4611 31.9211 43.4344 34.2761L44.1794 34.7177C48.1528 37.0727 50.1394 38.2502 50.1196 39.9821C50.0998 41.7141 48.0867 42.8458 44.0606 45.1093L43.3057 45.5337Z' fill='white'/%3E%3Cdefs%3E%3Cfilter id='filter0_b_1912_1498' x='-10' y='-10' width='100' height='100' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeGaussianBlur in='BackgroundImageFix' stdDeviation='5'/%3E%3CfeComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_1912_1498'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_1912_1498' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 32px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  z-index: 33;
+  background-size: contain;
+  transition: transform 0.3s ease;
 }
-
-.blog-container-mse .video-container:hover::after {
-  background-color: #fff;
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
 /* Links */
 .blog-container-mse a {
-  color: #60a5fa;
-  text-decoration: none;
+  color: #0969da;
+  text-decoration: underline;
   transition: all 0.2s ease;
-  border-bottom: 1px solid transparent;
 }
 
 .blog-container-mse a:hover {
@@ -259,8 +271,7 @@
     font-size: 14px;
   }
 
-  .blog-container-mse img,
-  .blog-container-mse .video-container {
+  .blog-container-mse img {
     max-width: 100%;
   }
   .blog-container-mse pre {
