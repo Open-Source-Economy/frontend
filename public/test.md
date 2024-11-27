@@ -109,7 +109,7 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
-        This is a text block
+    This is a text block
 
 ## Image
 
@@ -123,7 +123,11 @@ To add a link to an image, enclose the Markdown for the image in brackets, and t
 
 ## Video
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=BMwHE8Po-oc)
+---
+
+[![▶️ Watch Video](https://img.youtube.com/vi/gyMwXuJrbJQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=gyMwXuJrbJQ)
+
+---
 
 ## Line Breaks
 
