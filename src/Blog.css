@@ -302,13 +302,13 @@
 /* Media Queries */
 @media (max-width: 1024px) {
   .blog-container-mse {
-    padding: 2rem 5rem;
+    padding: 1.5rem 2rem;
   }
 }
 
 @media (max-width: 768px) {
   .blog-container-mse {
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 16px;
   }
 
   .blog-container-mse h1 {
