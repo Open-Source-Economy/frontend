@@ -137,7 +137,7 @@ export function DowFunding(props: DowFundingProps) {
         {/*  FUND THE ISSUE*/}
         {/*</button>*/}
 
-        <Button level="SECONDARY_DEVELOPER" className={`${enoughFund ? "opacity-50" : ""}`} size="MEDIUM">
+        <Button level="SECONDARY_DEVELOPER" className={`${enoughFund ? "opacity-50 pointer-events-none" : ""}`} size="MEDIUM">
           GET MORE DoW
         </Button>
 

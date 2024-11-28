@@ -54,7 +54,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
             <img src={check} className="w-4 h-4" alt="" />
             <h2 className="montserrat md:text-lg font-normal text-start">I will lead this issue</h2>
           </div>
-          <div className="flex items-start mt-3 gap-3">
+          <div className="flex items-start mt-3 gap-3 mb-10">
             <img src={check} className="w-4 h-4 mt-1" alt="" />
             <h2 className="montserrat md:text-lg font-normal text-start">
               I will split fairly the amount collected among <br /> contributors and reviewers
@@ -63,7 +63,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
 
           {/*TODO: Code Nativex fix*/}
           <Button type="submit" disabled={!counter} audience={"DEVELOPER"} level="SECONDARY" size="MEDIUM">
-            Request amount
+            <span className="z-10 relative"> Request amount</span>
           </Button>
 
           {/*<button*/}

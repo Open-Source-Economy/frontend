@@ -38,11 +38,11 @@ export function FundIssue({}: FundIssueProps) {
 
           {financialIssue && (
             <div className="pt-24 flex justify-center flex-wrap gap-4">
-              <div className="xl:w-[600px] md:w-[590px] w-full">
+              <div className="md:w-[590px] w-full">
                 <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
               </div>
 
-              <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
+              <div className="bg-[#14233A] rounded-3xl padding p-4 md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
                 <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 

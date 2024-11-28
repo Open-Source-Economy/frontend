@@ -34,7 +34,7 @@ export function ManageIssue(props: ManageIssueProps) {
                 <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap justify-center items-start gap-5 md:py-24">
+                <div className="flex flex-wrap 2xl:flex-nowrap justify-center items-start gap-5 md:py-24">
                   <div>
                     {financialIssue && (
                       <div className="xl:w-[670px] md:w-[590px] w-full">
