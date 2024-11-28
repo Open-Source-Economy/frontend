@@ -12,11 +12,15 @@ export function WhoAreYou(props: WhoAreYouProps) {
       <p> What your main role ?</p>
 
       <Button audience="ALL" level="PRIMARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">ALL PRIMARY</Link>
+        <Link to="/request-maintainer-rights">
+          <span className="relative z-20">ALL PRIMARY</span>
+        </Link>
       </Button>
       <hr />
       <Button audience="ALL" level="SECONDARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">ALL SECONDARY</Link>
+        <Link to="/request-maintainer-rights">
+          <span className="relative z-20">ALL SECONDARY</span>
+        </Link>
       </Button>
 
       <hr />
@@ -53,11 +57,15 @@ export function WhoAreYou(props: WhoAreYouProps) {
       <p> disable</p>
 
       <Button disabled={true} audience="ALL" level="PRIMARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">ALL PRIMARY</Link>
+        <Link to="/request-maintainer-rights">
+          <span className="relative z-10">ALL PRIMARY</span>
+        </Link>
       </Button>
       <hr />
       <Button disabled={true} audience="ALL" level="SECONDARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">ALL SECONDARY</Link>
+        <Link to="/request-maintainer-rights">
+          <span className="z-10 relative">ALL SECONDARY</span>
+        </Link>
       </Button>
 
       <hr />
@@ -85,7 +93,7 @@ export function WhoAreYou(props: WhoAreYouProps) {
         <Link to="/fund-issues">STAKEHOLDER PRIMARY</Link>
       </Button>
       <hr />
-      <Button disabled={true} audience="STAKEHOLDER" level="SECONDARY" size="MEDIUM" asChild>
+      <Button disabled audience="STAKEHOLDER" level="SECONDARY" size="MEDIUM" asChild>
         <Link to="/fund-issues">STAKEHOLDER SECONDARY</Link>
       </Button>
 

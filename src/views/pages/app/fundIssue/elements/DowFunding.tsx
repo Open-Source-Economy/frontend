@@ -128,10 +128,9 @@ export function DowFunding(props: DowFundingProps) {
           FUND THE ISSUE
         </Button>
 
-        <Button audience="DEVELOPER" level="SECONDARY" className={`${enoughFund ? "opacity-50" : ""}`} size="MEDIUM">
+        <Button audience="DEVELOPER" level="SECONDARY" className={`${enoughFund ? "opacity-50 pointer-events-none" : ""}`} size="MEDIUM">
           GET MORE DoW
         </Button>
-
       </div>
 
       {error && <p>{error instanceof ApiError ? error.toString() : error}</p>}
