@@ -126,7 +126,14 @@ To add a link to an image, enclose the Markdown for the image in brackets, and t
 
 ---
 
-[![▶️ Watch Video](https://img.youtube.com/vi/gyMwXuJrbJQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=gyMwXuJrbJQ)
+<video controls>
+  <source src="https://videos.pexels.com/video-files/5473795/5473795-uhd_2732_1440_25fps.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+---
+<!-- [![Watch Video](https://img.youtube.com/vi/gyMwXuJrbJQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=gyMwXuJrbJQ) -->
+
+<!-- [![▶️ Watch Video](https://img.youtube.com/vi/gyMwXuJrbJQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=gyMwXuJrbJQ) -->
 
 ---
 
