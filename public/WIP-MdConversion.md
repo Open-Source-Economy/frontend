@@ -1,11 +1,17 @@
-# TITLE
+# Title 1
+
 ## Title 2
+
 ### Title 3
+
 #### Title 4
+
 ##### Title 5
+
 ###### Title 6
 
---- 
+---
+
 # Sample Markdown
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum.
@@ -14,11 +20,12 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
 
 1. First item
 2. Second item
- 
+
    I need to add another paragraph below the second list item
 
-    ###### Title 6
-    Other elements
+   ###### Title 6
+
+   Other elements
 
 3. Third item
 
@@ -30,31 +37,37 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
    Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
 
 3. Third item
-    1. Indented item
 
-       Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
+   1. Indented item
 
-    2. Indented item
+      Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
+
+   2. Indented item
+
 4. Fourth item
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum.
 
 - First item
 
-    Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
+  Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
 
 - Second item
 
 - Third item
-    - Indented item
 
-      Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
-    - Indented item
+  - Indented item
+
+    Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
+
+  - Indented item
+
 - Fourth item
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
---- 
+---
+
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
 ```
@@ -65,8 +78,8 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
 }
 ```
 
-Code inline: `eoueheorrt` and the line continues. And **bold**, *italics*, and even *italics and later **bold***. Even ~~strikethrough~~. [A link to Showdown](https://showdownjs.com/) to somewhere. I need`some code`to highlight these ***very important words***.
-
+Code inline: `eoueheorrt` and the line continues. And **bold**, _italics_, and even _italics_ and later **bold**. Even ~~strikethrough~~ .
+[A link to Showdown](https://showdownjs.com/) to somewhere. I need`some code`to highlight these **_very important words_**.
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
@@ -79,20 +92,17 @@ Second Term
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
 > Blockquote
-> >Blockquote inside a blockquote`
+>
+> > Blockquote inside a blockquote`
 
-
->> Nested blockquote
+> > Nested blockquote
 
 > #### The quarterly results look great!
 >
 > - Revenue was off the chart.
 > - Profits were higher than ever.
-    >
-    >  *Everything* is going according to **plan**.
-> # dkdd
-> ## djhddf
-> ### dkhddf
+>
+>   _Everything_ is going according to **plan**.
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
@@ -100,7 +110,8 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
 
 Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis. Aliquam erat volutpat. Vivamus congue massa ut leo consectetur, sagittis facilisis odio auctor. Sed elementum interdum leo. Praesent laoreet nisl non tortor aliquam commodo. Ut dignissim at diam ac elementum. Vestibulum pellentesque tellus metus, in tempus ex auctor quis.
 
-        This is a text block
+    This is a text block
+
 ## Image
 
 Or an image of bears
@@ -109,12 +120,17 @@ Or an image of bears
 
 To add a link to an image, enclose the Markdown for the image in brackets, and then add the link in parentheses.
 
-[![An old rock in the desert](http://placebear.com/200/200 "Shiprock, New Mexico by Beau Rogers")](https://www.flickr.com/photos/beaurogers/31833779864/in/photolist-Qv3rFw-34mt9F-a9Cmfy-5Ha3Zi-9msKdv-o3hgjr-hWpUte-4WMsJ1-KUQ8N-deshUb-vssBD-6CQci6-8AFCiD-zsJWT-nNfsgB-dPDwZJ-bn9JGn-5HtSXY-6CUhAL-a4UTXB-ugPum-KUPSo-fBLNm-6CUmpy-4WMsc9-8a7D3T-83KJev-6CQ2bK-nNusHJ-a78rQH-nw3NvT-7aq2qf-8wwBso-3nNceh-ugSKP-4mh4kh-bbeeqH-a7biME-q3PtTf-brFpgb-cg38zw-bXMZc-nJPELD-f58Lmo-bXMYG-bz8AAi-bxNtNT-bXMYi-bXMY6-bXMYv)
-
+![bears](http://placebear.com/200/200)
 
 ## Video
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=BMwHE8Po-oc)
+
+
+<video controls>
+  <source src="https://videos.pexels.com/video-files/5473795/5473795-uhd_2732_1440_25fps.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Line Breaks
 
@@ -122,4 +138,4 @@ To add a link to an image, enclose the Markdown for the image in brackets, and t
 
 ---
 
-*** 
+---
