@@ -23,6 +23,16 @@ export function UnAuthRoutes() {
   }
 }
 
+export function StageRoutes() {
+  const auth = useAuth();
+
+  if (process.env.REACT_APP_STAGE === "true") {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/" />; // TODO: add  404 page
+  }
+}
+
 export function SuperAdminRoutes() {
   const auth = useAuth();
 
