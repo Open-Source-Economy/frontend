@@ -1,0 +1,310 @@
+/* Import fonts */
+@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@400;600&display=swap");
+
+/* Container with scoped styles */
+.blog-container-mse {
+  background-color: #0e1f35;
+  color: #fff;
+  padding: 2rem 10rem;
+}
+.blog-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Typography */
+.blog-container-mse h1,
+.blog-container-mse h2,
+.blog-container-mse h3,
+.blog-container-mse h4,
+.blog-container-mse h5,
+.blog-container-mse h6 {
+  font-family: "Michroma", sans-serif;
+  font-weight: normal;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+/* .blog-container-mse h1 {
+  font-size: 62px;
+  margin-top: 21px;
+  margin-bottom: 10px;
+} */
+
+/* ========= HEADINGS STYLE ========== */
+.blog-container-mse h1 {
+  font-size: 42px;
+  margin-top: 16px;
+  margin-bottom: 9px;
+}
+.blog-container-mse h2 {
+  font-size: 32px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+.blog-container-mse h3 {
+  font-size: 24px;
+  margin-top: 9px;
+  margin-bottom: 4px;
+}
+.blog-container-mse h4 {
+  font-size: 18px;
+  margin-top: 7px;
+  margin-bottom: 3px;
+}
+.blog-container-mse h5 {
+  font-size: 16px;
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+.blog-container-mse h6 {
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+/*  ========= Paragraphs STYLE =========== */
+.blog-container-mse p {
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 16px;
+}
+
+/* Lists */
+.blog-container-mse ul,
+.blog-container-mse ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.blog-container-mse ul {
+  list-style-type: disc;
+}
+.blog-container-mse ol {
+  list-style-type: decimal;
+}
+
+.blog-container-mse li {
+  margin-bottom: 0.75rem;
+}
+
+/* Nested lists */
+.blog-container-mse li > ul,
+.blog-container-mse li > ol {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+}
+
+.blog-container-mse hr {
+  background-color: #d9d9d9;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* Code blocks */
+.blog-container-mse pre {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #1a2a3f;
+  backdrop-filter: blur(4px);
+  padding: 26px 33px 26px 40px;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  color: white;
+}
+.blog-container-mse pre::after {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' fill='none'%3E%3Crect x='0.75' y='10.75' width='18.5' height='18.5' rx='2.25' fill='%232C405B' stroke='white' stroke-width='1.5'/%3E%3Crect x='10.75' y='0.75' width='18.5' height='18.5' rx='2.25' fill='%232C405B' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E");
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transform: scale(1);
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.blog-container-mse pre > code {
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-container-mse code {
+  font-size: 18px;
+  line-height: 166%;
+  font-family: "Montserrat", sans-serif;
+  padding: 4px 16px;
+  border-radius: 10px;
+  background-color: #2c405b;
+  color: #fff;
+  margin: 0 6px;
+}
+
+/* Blockquotes */
+.blog-container-mse blockquote {
+  border-left: 3px solid #fff;
+  padding: 0 16px;
+  margin: 15px 0;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.blog-container-mse blockquote > blockquote {
+  margin: 0;
+  padding: 0 16px;
+  font-size: 18px;
+  opacity: 0.8;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+.blog-container-mse blockquote > ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* ========== Images style ============= */
+.blog-container-mse img {
+  max-width: 450px;
+  max-height: 400px;
+  border-radius: 30px;
+  margin: 1.5rem 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ============ Video Container ============ */
+/* .blog-container-mse a img {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 2rem 0;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #000;
+} */
+
+.blog-container-mse video {
+  max-width: 450px;
+  width: 100%;
+  height: 400px;
+  cursor: pointer;
+  object-fit: fill;
+  margin: 0;
+  display: block;
+  border-radius: 30px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.blog-container-mse video:hover {
+  opacity: 0.6;
+}
+
+/* Links */
+.blog-container-mse a {
+  color: #0969da;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+
+.blog-container-mse a:hover {
+  color: #93c5fd;
+  border-bottom-color: currentColor;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .blog-container-mse {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-container-mse {
+    padding: 1.5rem 16px;
+  }
+
+  .blog-container-mse h1 {
+    font-size: 48px;
+  }
+  .blog-container-mse h2 {
+    font-size: 36px;
+  }
+  .blog-container-mse h3 {
+    font-size: 28px;
+  }
+  .blog-container-mse h4 {
+    font-size: 22px;
+  }
+  .blog-container-mse h5 {
+    font-size: 16px;
+  }
+  .blog-container-mse h6 {
+    font-size: 14px;
+  }
+
+  .blog-container-mse img {
+    max-width: 100%;
+    height: auto;
+  }
+  .blog-container-mse video {
+    max-width: 100%;
+    min-height: 300px;
+    height: auto;
+  }
+  .blog-container-mse pre {
+    padding: 16px;
+  }
+  .blog-container-mse code {
+    font-size: 16px;
+  }
+  .blog-container-mse pre::after {
+    transform: scale(0.8);
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-container-mse {
+    padding: 1rem;
+  }
+
+  .blog-container-mse h1 {
+    font-size: 36px;
+  }
+  .blog-container-mse h2 {
+    font-size: 30px;
+  }
+  .blog-container-mse h3 {
+    font-size: 24px;
+  }
+  .blog-container-mse h4 {
+    font-size: 20px;
+  }
+  .blog-container-mse h5 {
+    font-size: 16px;
+  }
+  .blog-container-mse h6 {
+    font-size: 14px;
+  }
+  .blog-container-mse p,
+  .blog-container-mse ul,
+  .blog-container-mse ol {
+    font-size: 16px;
+  }
+  .blog-container-mse pre::after {
+    transform: scale(0.7); /* Makes SVG 20% smaller */
+    top: 12px; /* Adjust position for smaller size */
+    right: 12px;
+  }
+}

@@ -1,5 +1,4 @@
 import "./App.css";
-import "./views/pages/app/mdConversion/Blog.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -17,7 +16,7 @@ import {
   UserDeveloper,
   userProps,
 } from "./views";
-import { AuthRoutes, Logout, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
+import { AuthRoutes, Logout, StageRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
@@ -53,7 +52,9 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/blog" element={<MdConversion />} />
+          <Route element={<StageRoutes />}>
+            <Route path="/blog" element={<MdConversion />} />
+          </Route>
 
           <Route path="/" element={<Home />} />
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />

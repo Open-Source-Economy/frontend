@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Converter } from "showdown";
 import DOMPurify from "dompurify";
 import { html as beautifyHtml } from "js-beautify";
+import "./Blog.css";
 
 interface MdConversionProps {}
 
