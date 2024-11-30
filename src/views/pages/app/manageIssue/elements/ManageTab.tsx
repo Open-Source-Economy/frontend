@@ -17,7 +17,7 @@ export function ManageTab(props: ManageTabProps) {
 
   return (
     <>
-      <div className="padding sm:py-10 sm:px-10 text-center md:justify-between flex flex-col items-start xl:w-[670px] md:w-[590px] w-full bg-[#14233A] rounded-3xl">
+      <div className="padding sm:!py-10 mx-auto !p-4 sm:!px-10 text-center md:justify-between flex flex-col items-start xl:w-[670px] md:w-[590px] w-full bg-[#14233A] rounded-3xl">
         <div className="relative p-[2px] mx-auto md:mx-0">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]" />
           <div className="bg-[#14233A] rounded-lg flex justify-between items-center relative z-10 p-2">

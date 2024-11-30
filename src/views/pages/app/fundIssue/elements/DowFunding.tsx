@@ -96,23 +96,25 @@ export function DowFunding(props: DowFundingProps) {
                 onChange={handleInputChange}
                 className="border-0 outline-none md:text-[33px] text-[20px] md:w-44 sm:w-28 w-20 bg-transparent"
               />
-
-              <div className="d-flex flex-col gap-2">
-                <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" />
-                <img
-                  src={down}
-                  className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
-                  onClick={decrement}
-                  alt=""
-                  style={{
-                    pointerEvents: counter?.isZero() ? "none" : "auto",
-                  }}
-                />
-              </div>
             </div>
           </div>
-          <div>
-            <h2 className="gradient-texts font-bold md:text-[33px] text-[20px] mt-4">DoW</h2>
+          <div
+            className="
+          flex items-center gap-3 mt-4"
+          >
+            <div className="d-flex flex-col gap-2">
+              <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" />
+              <img
+                src={down}
+                className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
+                onClick={decrement}
+                alt=""
+                style={{
+                  pointerEvents: counter?.isZero() ? "none" : "auto",
+                }}
+              />
+            </div>
+            <h2 className="gradient-texts font-bold md:text-[33px] text-[20px]">DoW</h2>
             <style>{`
                     .gradient-texts {
                       background: linear-gradient(90deg, #ff7e4b, #ff518c);
@@ -125,7 +127,7 @@ export function DowFunding(props: DowFundingProps) {
       </div>
       <div className="mt-5 flex flex-wrap justify-center items-center gap-3">
         {/*TODO: Code Nativex fix*/}
-        <Button onClick={fundIssue} disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
+        <Button onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
           FUND THE ISSUE
         </Button>
 

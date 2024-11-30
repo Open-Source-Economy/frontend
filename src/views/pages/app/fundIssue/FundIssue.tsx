@@ -32,7 +32,7 @@ export function FundIssue({}: FundIssueProps) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
+          <h1 className="lg:text-[62px] text-[30px] font-michroma text-center font-medium text-white">
             Fund an <span className="text-[#FF7E4B]">Issue</span>
           </h1>
 
@@ -42,7 +42,7 @@ export function FundIssue({}: FundIssueProps) {
                 <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
               </div>
 
-              <div className="bg-[#14233A] rounded-3xl padding p-4 md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
+              <div className="bg-[#14233A] rounded-3xl padding !p-4 md:!py-12 sm:!px-10 md:w-[590px] xl:w-[595px] w-full">
                 <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 

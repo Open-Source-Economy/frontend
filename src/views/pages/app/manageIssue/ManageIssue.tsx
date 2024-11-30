@@ -29,15 +29,15 @@ export function ManageIssue(props: ManageIssueProps) {
       <div>
         <BackgroundSection bgImage={bgimage2} position="left 20%">
           <BackgroundSection bgImage={bgimage3} position="right 2%">
-            <div className="flex items-center justify-center px-5">
-              <div className="mt-20 py-5 px-3" style={getBackgroundImageStyle(bgimage)}>
-                <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white md:mb-0 mb-5">
+            <div className="flex items-center justify-center w-full">
+              <div className="mt-20 py-5 px-3 w-full" style={getBackgroundImageStyle(bgimage)}>
+                <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap 2xl:flex-nowrap justify-center items-start gap-5 md:py-24">
-                  <div>
+                <div className="flex flex-wrap 2xl:flex-nowrap justify-center w-full items-start gap-5 md:py-24">
+                  <div className="xl:w-[670px] md:w-[600px] w-full">
                     {financialIssue && (
-                      <div className="xl:w-[670px] md:w-[590px] w-full">
+                      <div className=" w-full">
                         <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displayPrivatePublicToggle={true} />
                       </div>
                     )}
@@ -45,7 +45,7 @@ export function ManageIssue(props: ManageIssueProps) {
                     {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
-                  <div>
+                  <div className="w-full ">
                     <ManageTab tab1Title="Accept the funding" tab2Title="Reject the funding" tab1={<AcceptFundingTab />} tab2={<RejectFundingTab />} />
                   </div>
                 </div>
