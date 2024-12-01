@@ -25,6 +25,7 @@ import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepositoryUser";
 import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
+import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 
@@ -77,6 +78,7 @@ const App = () => {
 
           <Route element={<AuthRoutes />}>
             <Route path="/who-are-you" element={<WhoAreYou />} />
+            <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route path="/buy-dows" element={<Payment />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
             <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
