@@ -32,9 +32,16 @@ const VirtuousSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 w-full">
-      <h2 className="text-3xl text-center md:text-4xl font-bold text-white mb-8">A Virtuous Way to Secure Your Business</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="!pt-16 !pb-16 lg:!pb-[220px] w-full">
+      <h2 className="text-3xl text-center md:text-4xl font-bold text-white mb-8">
+        A Virtuous Way to{" "}
+        <span className="relative pb-4">
+          Secure{" "}
+          <span className="absolute w-full h-[6px] left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>{" "}
+        </span>{" "}
+        Your Business
+      </h2>
+      <div className="xl:grid flex justify-center  items-center flex-wrap xl:grid-cols-3 gap-8 w-full !mt-16">
         {cards.map((card, index) => (
           <VirtuousCard key={index} card={card} />
         ))}
