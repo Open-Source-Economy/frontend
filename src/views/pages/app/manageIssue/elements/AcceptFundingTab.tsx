@@ -62,9 +62,12 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
           </div>
 
           {/*TODO: Code Nativex fix*/}
-          <Button type="submit" disabled={!counter} audience={"DEVELOPER"} level="SECONDARY" size="MEDIUM">
-            <span className="z-10 relative"> Request amount</span>
-          </Button>
+          <div className="flex justify-center items-center">
+            {" "}
+            <Button level="SECONDARY_USER" size="MEDIUM" asChild>
+              <span className="z-10 relative"> Request amount</span>
+            </Button>
+          </div>
 
           {/*<button*/}
           {/*  type="submit"*/}
