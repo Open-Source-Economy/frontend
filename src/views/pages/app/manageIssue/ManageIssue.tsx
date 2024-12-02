@@ -34,8 +34,8 @@ export function ManageIssue(props: ManageIssueProps) {
                 <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 md:py-24">
-                  <div className="md:w-[600px] w-full xl:w-1/2">
+                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24">
+                  <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
                       <div className="w-full">
                         <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displayPrivatePublicToggle={true} />
@@ -45,7 +45,7 @@ export function ManageIssue(props: ManageIssueProps) {
                     {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
-                  <div className="xl:w-1/2 w-full sm:w-fit">
+                  <div className="xl:w-1/2 w-full md:w-fit">
                     <ManageTab tab1Title="Accept the funding" tab2Title="Reject the funding" tab1={<AcceptFundingTab />} tab2={<RejectFundingTab />} />
                   </div>
                 </div>

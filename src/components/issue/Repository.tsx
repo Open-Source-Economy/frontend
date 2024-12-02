@@ -11,7 +11,7 @@ export function Repository(props: RepositoryProps) {
   return (
     <>
       <div className="flex items-center gap-3">
-        <img className="w-[55px] h-[55px]" src={props.owner.avatarUrl} alt="" />
+        <img className="sm:w-[55px] h-12 w-12 sm:h-[55px]" src={props.owner.avatarUrl} alt="" />
         <h6 className="text-xl md:text-2xl text-[#8693A4] cursor-pointer">
           <ExternalLink href={props.owner.htmlUrl}>
             <span className="text-decoration-none c_links color-70">
