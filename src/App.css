@@ -138,8 +138,6 @@ input[type="number"] {
   /* Remove any border if there is one */
 }
 
-
-
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
   transition: 0.5s ease all;
@@ -240,10 +238,9 @@ input[type="number"] {
   }
 }
 
-
 /* Fix for Safari gradient rendering */
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) {
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
     .box-gradient {
       -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
@@ -399,4 +396,64 @@ input[type="number"] {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
   border-radius: 50%;
   filter: blur(70px);
+}
+
+.service-card {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(20, 35, 58, 0.79);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ============ SERVICE CARD STYLE ============ */
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+  opacity: 1; /* Show border on hover */
+}
+
+.service-card-content {
+  position: relative; /* Content above the pseudo-elements */
+  z-index: 1;
+}
+
+/* ================ Virtuous CARD STYLE ====================  */
+.virtuous-card {
+  position: relative;
+  z-index: 10;
+  border-radius: 35px;
+  border: 2px solid transparent;
+  background: #14233a;
+  box-shadow: 0px 0px 50px 0px rgba(208, 102, 99, 0.28);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.virtuous-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
