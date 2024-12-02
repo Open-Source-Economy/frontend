@@ -1,4 +1,4 @@
-import { AuthInfo } from "./AuthInfo.dto";
+import { AuthInfo } from "src/dtos";
 
 export interface LoginBody {
   email: string;

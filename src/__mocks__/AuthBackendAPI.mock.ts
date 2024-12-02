@@ -9,11 +9,14 @@ import {
   RegisterResponse,
   StatusResponse,
 } from "src/dtos/auth";
-import { AuthBackendAPI } from "src/services";
-import { CompanyUserRole } from "src/model";
-import { company, repositoryId, user } from "src/__mocks__/index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
-import { ApiError } from "src/ultils/error/ApiError";
+import {AuthBackendAPI} from "src/services";
+import {CompanyUserRole, RepositoryUserRole} from "src/model";
+import {company, repositoryId, user} from "src/__mocks__/index";
+import {
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse
+} from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import {ApiError} from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {
   async checkUserStatus(): Promise<StatusResponse | ApiError> {
@@ -21,6 +24,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
+        repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
     };
   }
 
@@ -29,6 +33,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
+      repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
     };
   }
 
@@ -37,6 +42,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
+      repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
     };
   }
 
