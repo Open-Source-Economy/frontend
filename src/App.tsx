@@ -27,8 +27,6 @@ import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 
-export const STAGE_FLAG: boolean = Boolean(process.env.REACT_APP_STAGE);
-
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
 const numberParam = "numberParam";

@@ -10,7 +10,6 @@ import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAv
 import { useDowCounter } from "src/views/hooks";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Button } from "src/components";
-import { Link } from "react-router-dom";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;

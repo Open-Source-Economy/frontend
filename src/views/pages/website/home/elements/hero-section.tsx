@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
 import { Button } from "src/components/elements/Button";
-import { STAGE_FLAG } from "src/App";
 import { ExternalLink } from "src/components";
+import { config, Env } from "src/ultils";
 
 export const HeroSection = () => {
   return (
@@ -16,12 +16,12 @@ export const HeroSection = () => {
         </h1>
 
         <Button level={"PRIMARY"} size={"LARGE"} asChild>
-          {STAGE_FLAG ? (
+          {config.env !== Env.Production ? (
             <Link to="/who-are-you">
               <span className="relative z-20">FIND OUT MORE</span>
             </Link>
           ) : (
-            <ExternalLink href="https://15ib806w5yk.typeform.com/to/nHEIOYc3">
+            <ExternalLink href="https://15ib806w5yk.typeform.com/to/nHEIOYc3" underline={false}>
               <span className="relative z-20">REQUEST ACCESS</span>
             </ExternalLink>
           )}

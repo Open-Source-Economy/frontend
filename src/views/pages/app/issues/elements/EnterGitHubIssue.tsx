@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fundIssuePath } from "src/App";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "src/model";
 import { Audience } from "src/views";

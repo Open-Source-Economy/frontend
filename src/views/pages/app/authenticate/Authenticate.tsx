@@ -7,7 +7,6 @@ import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
 import { Button } from "src/components";
-import { Audience } from "src/views/Audience";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
