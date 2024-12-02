@@ -45,7 +45,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
   return (
     <>
       <form onSubmit={requestAmount}>
-        <div className="md:px-[75px]">
+        <div className="md:px-[75px] w-full">
           <h1 className="montserrat text-start">Requested Amount</h1>
           <div className="mt-4 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[12px] px-3 w-[100%]">
             <CounterInput value={counter} increment={increment} decrement={decrement} onChange={handleInputChange} />
