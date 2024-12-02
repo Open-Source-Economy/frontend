@@ -34,7 +34,7 @@ export function ManageIssue(props: ManageIssueProps) {
                 <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap 2xl:flex-nowrap justify-center w-full items-start gap-5 md:py-24">
+                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start gap-5 md:py-24">
                   <div className="xl:w-[670px] md:w-[600px] w-full">
                     {financialIssue && (
                       <div className=" w-full">
@@ -45,7 +45,7 @@ export function ManageIssue(props: ManageIssueProps) {
                     {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
-                  <div className="w-full ">
+                  <div>
                     <ManageTab tab1Title="Accept the funding" tab2Title="Reject the funding" tab1={<AcceptFundingTab />} tab2={<RejectFundingTab />} />
                   </div>
                 </div>

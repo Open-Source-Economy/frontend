@@ -18,7 +18,7 @@ export function IssueCard(props: IssueProps) {
   return (
     <>
       <div className={`mx-auto ${FinancialIssue.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
-        <div className="padding sm:!py-9 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
+        <div className="padding sm:!py-7 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
 
           {/*<div>*/}
