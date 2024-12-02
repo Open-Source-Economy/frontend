@@ -33,11 +33,11 @@ const VirtuousSection: React.FC = () => {
 
   return (
     <section className="!pt-16 !pb-16 lg:!pb-[220px] w-full">
-      <h2 className="text-3xl text-center md:text-4xl font-bold text-white mb-8">
-        A Virtuous Way to{" "}
-        <span className="relative pb-4">
+      <h2 className="text-3xl text-center md:text-4xl font-bold max-w-[470px] mx-auto lg:max-w-[800px] text-white mb-8">
+        A Virtuous Way to
+        <span className="relative pb-4 pl-2">
           Secure{" "}
-          <span className="absolute w-full h-[6px] left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>{" "}
+          <span className="absolute w-[80%] h-[6px] left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>{" "}
         </span>{" "}
         Your Business
       </h2>
