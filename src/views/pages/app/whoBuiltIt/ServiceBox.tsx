@@ -20,7 +20,7 @@ const ServiceBox: React.FC<ServiceBoxProps> = ({ data }) => (
     <ul className="mt-8 space-y-6">
       {data.items.map((item, index) => (
         <div key={index} className="flex items-center gap-3 !px-4 xl:!px-10">
-          <img src={check} className="w-7 h-7" alt="checkmark" />
+          <img src={check} className="md:w-7 h-5 w-5 md:h-7" alt="checkmark" />
           <h2 className="montserrat md:text-2xl  font-normal text-start">{item}</h2>
         </div>
       ))}
