@@ -16,7 +16,7 @@ export function RejectFundingTab(props: RejectFundingTabProps) {
           <h2 className="montserrat md:text-lg font-normal text-start">Another maintainer cannot accept to work on it.</h2>
         </div>
 
-        <p>
+        <p className="!mt-5">
           Not implemented yet. <br />
           If you need to reject an issue, send an email to lauriane@open-source-economy.com so that she implement it.
         </p>
