@@ -435,12 +435,11 @@ input[type="number"] {
 .virtuous-card {
   position: relative;
   z-index: 10;
-  border-radius: 35px;
-  border: 2px solid transparent;
   background: #14233a;
   box-shadow: 0px 0px 50px 0px rgba(208, 102, 99, 0.28);
   overflow: hidden;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .virtuous-card::before {
