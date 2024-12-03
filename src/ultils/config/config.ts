@@ -25,7 +25,6 @@ if (error) {
 
 interface ApiConfig {
   url: string;
-  baseUrl: string;
   apiVersion: string;
   useMock: boolean;
 }
@@ -38,8 +37,7 @@ interface Config {
 export const config: Config = {
   env: envVars.REACT_APP_ENV as Env,
   api: {
-    url: `${envVars.REACT_APP_OSE_API_BASE_URL}:${envVars.REACT_APP_OSE_API_API_VERSION}`,
-    baseUrl: envVars.REACT_APP_OSE_API_BASE_URL,
+    url: `${envVars.REACT_APP_OSE_API_BASE_URL}/${envVars.REACT_APP_OSE_API_API_VERSION}`,
     apiVersion: envVars.REACT_APP_OSE_API_API_VERSION,
     useMock: envVars.REACT_APP_OSE_API_USE_MOCK,
   },
