@@ -43,6 +43,8 @@ export interface AuthBackendAPI {
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
   async checkUserStatus(): Promise<StatusResponse | ApiError> {
+    console.log(config.api.url);
+    console.log("config.api.url");
     return handleError<StatusResponse>(() => axios.get(`${config.api.url}/auth/status`, { withCredentials: true }), "checkUserStatus");
   }
 
