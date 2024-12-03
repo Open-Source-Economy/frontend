@@ -29,15 +29,13 @@ export function IssueCard(props: IssueProps) {
         <div className="padding sm:!py-7 !p-4 sm:!px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
           <components.Issue issue={props.financialIssue.issue} />
 
-          <div className="flex flex-wrap items-center gap-3 justify-between mt-12">
-            <div>
-              <components.Collect
-                amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
-                amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
-                state={props.financialIssue.managedIssue?.state}
-              />
-              <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
-            </div>
+          <div className="flex flex-wrap items-center gap-3 justify-between !mt-7 lg:!mt-10 xl:!mt-12">
+            <components.Collect
+              amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
+              amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
+              state={props.financialIssue.managedIssue?.state}
+            />
+            <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
 
             {/*TODO*/}
             {/*{props.displayPrivatePublicToggle && (*/}

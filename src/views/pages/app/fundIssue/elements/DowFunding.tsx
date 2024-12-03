@@ -78,25 +78,24 @@ export function DowFunding(props: DowFundingProps) {
 
   return (
     <>
-      <h2 className="text-end montserrat text-[20px]">
+      <h2 className="text-end montserrat text-base md:text-base lg:text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
         <span className="text-[#FF518C] cursor-pointer hover:underline">{availableDoWAmount.toNumber()} DoW</span>
       </h2>
-      <div className="!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
+      <div className="!mt-5 lg:!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
         <div className="flex items-center gap-4 justify-between">
-          <div>
+          <div className="flex-1">
             <h2 className="text-[#A1A7B0] text-lg">Fund</h2>
 
             {/*TODO: this part could be refactored with CounterInput*/}
-            <div className="d-flex items-center gap-3 mt-1">
-              <input
-                type="number"
-                value={counter ? counter.toNumber() : undefined}
-                placeholder="0.0"
-                onChange={handleInputChange}
-                className="border-0 outline-none md:text-[33px] text-[20px] md:w-44 sm:w-28 w-20 bg-transparent"
-              />
-            </div>
+
+            <input
+              type="number"
+              value={counter ? counter.toNumber() : undefined}
+              placeholder="0.0"
+              onChange={handleInputChange}
+              className="border-0 outline-none md:text-[33px] text-[20px] w-full bg-transparent"
+            />
           </div>
           <div
             className="
@@ -104,7 +103,7 @@ export function DowFunding(props: DowFundingProps) {
           >
             <div className="d-flex flex-col gap-2">
               {/* <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" /> */}
-              <span className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment}>
+              {/* <span className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="27" height="18" viewBox="0 0 27 18" fill="none">
                   <path
                     d="M1.86396 17.3359C0.278298 17.3359 -0.549899 15.2506 0.406713 13.9035L0.548157 13.7258L11.7148 1.03638C12.0353 0.672247 12.4617 0.453503 12.914 0.421185C13.3663 0.388867 13.8134 0.545195 14.1715 0.860847L14.3464 1.03638L25.5131 13.7258L25.6676 13.9246L25.7681 14.0874L25.8686 14.2905L25.9002 14.3666L25.9505 14.5083L26.01 14.7367L26.0286 14.8488L26.0472 14.9757L26.0547 15.0963V15.3458L26.0454 15.4685L26.0286 15.5954L26.01 15.7053L25.9505 15.9338L25.9002 16.0755L25.7699 16.3546L25.649 16.545L25.5131 16.7163L25.3382 16.8918L25.1949 17.006L25.0162 17.1202L24.9492 17.1562L24.8245 17.2133L24.6235 17.2809L24.5249 17.3021L24.4132 17.3232L24.3071 17.3317L1.86396 17.3359Z"
@@ -112,7 +111,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </span> */}
               {/* <img
                 src={down}
                 className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -122,7 +121,7 @@ export function DowFunding(props: DowFundingProps) {
                   pointerEvents: counter?.isZero() ? "none" : "auto",
                 }}
               /> */}
-              <span
+              {/* <span
                 className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
                 style={{
@@ -136,7 +135,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </span> */}
             </div>
             <h2 className="gradient-texts font-bold md:text-[33px] text-[20px]">DoW</h2>
             <style>{`
@@ -149,7 +148,7 @@ export function DowFunding(props: DowFundingProps) {
           </div>
         </div>
       </div>
-      <div className="mt-5 flex flex-wrap justify-center items-center gap-3">
+      <div className="!mt-7  md:!mt-10 xl:!mt-14 flex flex-wrap justify-center items-center gap-3">
         {/*TODO: Code Nativex fix*/}
         <Button onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
           FUND THE ISSUE
@@ -174,7 +173,7 @@ export function DowFunding(props: DowFundingProps) {
         {/*</button>*/}
       </div>
 
-      {error && <p>{error instanceof ApiError ? error.toString() : error}</p>}
+      {error && <p className="!mt-5 text-center">{error instanceof ApiError ? error.toString() : error}</p>}
     </>
   );
 }

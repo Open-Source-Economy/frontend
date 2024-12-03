@@ -23,7 +23,7 @@ export function FundIssue({}: FundIssueProps) {
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div
-          className="mt-20 py-5 px-3"
+          className="!mt-10 md:!mt-20 py-5 px-3"
           style={{
             backgroundImage: `url(${bgimage})`,
             backgroundPosition: "top",
@@ -37,7 +37,7 @@ export function FundIssue({}: FundIssueProps) {
           </h1>
 
           {financialIssue && (
-            <div className="pt-24 flex justify-center flex-wrap gap-4">
+            <div className="pt-16 md:pt-24 flex justify-center flex-wrap gap-4">
               <div className="md:w-[590px] w-full">
                 <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
               </div>

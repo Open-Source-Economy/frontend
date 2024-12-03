@@ -17,7 +17,7 @@ export function ManageTab(props: ManageTabProps) {
 
   return (
     <>
-      <div className="padding sm:!py-10 !p-4 sm:!px-10 text-center justify-center flex flex-col items-start xl:w-[670px] md:max-w-[590px] w-full bg-[#14233A] rounded-3xl">
+      <div className="padding sm:!py-10 !p-4 sm:!px-10 text-center justify-center flex flex-col items-start w-full bg-[#14233A] rounded-3xl">
         <div className="relative p-[2px] w-full">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]" />
           <div className="bg-[#14233A] rounded-lg flex justify-between items-center relative z-10 p-2">
@@ -42,7 +42,7 @@ export function ManageTab(props: ManageTabProps) {
         </div>
 
         {/* Tab Content */}
-        <div className="!mt-5 flex items-center justify-center w-full">
+        <div className="!mt-5 xl:!mt-8 flex items-center justify-center w-full">
           <>
             {activeTab === Tab.One && props.tab1}
             {activeTab === Tab.Two && props.tab2}
