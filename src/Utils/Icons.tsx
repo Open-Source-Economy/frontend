@@ -63,7 +63,7 @@ export const DowIcon = () => {
 };
 
 export const SupportIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="62" height="57" viewBox="0 0 62 57" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 62 57" fill="none">
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -86,7 +86,7 @@ export const SupportIcon = () => (
 );
 
 export const OssDevelopmentIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="78" height="56" viewBox="0 0 78 56" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 78 56" fill="none">
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -145,7 +145,7 @@ export const OssDevelopmentIcon = () => (
 );
 
 export const OperationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 62 62" fill="none">
     <path
       d="M31 38.75C35.2802 38.75 38.75 35.2802 38.75 31C38.75 26.7198 35.2802 23.25 31 23.25C26.7198 23.25 23.25 26.7198 23.25 31C23.25 35.2802 26.7198 38.75 31 38.75Z"
       stroke="white"
@@ -166,7 +166,7 @@ export const OperationIcon = () => (
 );
 
 export const AdvisoryIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="59" viewBox="0 0 64 59" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 64 59" fill="none">
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"

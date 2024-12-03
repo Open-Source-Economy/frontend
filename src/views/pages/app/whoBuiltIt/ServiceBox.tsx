@@ -1,7 +1,6 @@
 // ServiceBox.tsx
 import React from "react";
 import check from "src/assets/checkmark.png";
-import { Button } from "src/components";
 
 type ServiceBoxProps = {
   data: {
@@ -13,24 +12,27 @@ type ServiceBoxProps = {
 };
 
 const ServiceBox: React.FC<ServiceBoxProps> = ({ data }) => (
-  <div className="rounded-2xl service-card  xl:rounded-[35px] sm:min-w-[470px] w-full sm:max-w-[668px] backdrop-blur-[35px] !px-4 !pt-4 !pb-7">
-    <div className="text-xl md:text-2xl xl:text-[35px] flex items-center gap-3 leading-[100%] bg-[#0A1930] !p-4 xl:!p-9 rounded-xl xl:rounded-[25px] font-michroma text-white">
-      <span> {data.icon}</span> <h1>{data.title}</h1>
+  <div className="rounded-2xl group service-card min-[1800px]:rounded-[35px] sm:min-w-[470px] w-full sm:max-w-[668px] backdrop-blur-[35px] !px-4 !pt-4 !pb-7">
+    <div className="flex items-center gap-2.5 md:gap-4 leading-[100%] bg-[#0A1930] !p-4 lg:!p-6 min-[1800px]:!p-9 rounded-xl xl:rounded-[25px] font-michroma text-white">
+      <span className="max-w-11 sm:!max-w-12 lg:!min-h-12 flex justify-center items-center min-h-10 lg:!max-w-14 min-[1800px]:!max-w-[75px] object-cover">
+        {data.icon}
+      </span>
+      <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[28px] min-[1880px]:text-[35px]">{data.title}</h1>
     </div>
-    <ul className="mt-8 space-y-6 ">
+    <ul className="!mt-5 sm:!mt-8 space-y-4 min-[1800px]:space-y-6">
       {data.items.map((item, index) => (
         <div key={index} className="flex items-center gap-3 !px-4 xl:!px-10">
-          <img src={check} className="md:w-7 h-5 w-5 md:h-7" alt="checkmark" />
-          <h2 className="montserrat text-xl md:text-2xl  font-normal text-start">{item}</h2>
+          <img src={check} className="min-[1800px]:w-7 h-5 w-5 min-[1800px]:h-7" alt="checkmark" />
+          <h2 className="montserrat text-base sm:text-xl min-[1800px]:text-2xl font-normal text-start">{item}</h2>
         </div>
       ))}
     </ul>
 
-    <div className="sm:!px-5">
+    <div className="relative !mt-7 min-[1800px]:!mt-12">
       {data.buttonText && (
-        <Button level="PRIMARY" size="LARGE" asChild>
-          <span className="relative z-20 w-full !mt-7  md:!mt-12">{data.buttonText}</span>
-        </Button>
+        <button className="h-11 w-full rounded-md min-[1800px]:h-[61px] min-w-[210px] bg-[#233959] bg-gradient-to-r from-transparent via-transparent to-transparent group-hover:from-[#FF7E4B] group-hover:via-[#FF518C] group-hover:to-[#66319B] transition-all duration-300 min-[1800px]:text-2xl text-base">
+          <span className="relative z-20 w-full text-white">{data.buttonText}</span>
+        </button>
       )}
     </div>
   </div>

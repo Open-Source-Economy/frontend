@@ -457,3 +457,27 @@ input[type="number"] {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+
+.who-built {
+  position: relative;
+}
+
+.who-built::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -5%;
+  background: url("./assets/who-built-bg.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -3;
+  left: 0;
+  display: block;
+}
+
+@media (max-width: 1400px) {
+  .who-built::before {
+    display: none;
+  }
+}
