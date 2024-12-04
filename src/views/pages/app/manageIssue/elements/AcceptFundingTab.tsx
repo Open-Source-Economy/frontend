@@ -50,11 +50,11 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
           <div className="mt-4 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[12px] px-3 w-[100%]">
             <CounterInput value={counter} increment={increment} decrement={decrement} onChange={handleInputChange} />
           </div>
-          <div className="flex items-center gap-3 mt-5">
+          <div className="flex items-center !gap-3  !mt-5">
             <img src={check} className="w-4 h-4" alt="" />
             <h2 className="montserrat md:text-lg font-normal text-start">I will lead this issue</h2>
           </div>
-          <div className="flex items-start mt-3 gap-3 mb-10">
+          <div className="flex items-start mt-3 !gap-3 mb-10">
             <img src={check} className="w-4 h-4 mt-1" alt="" />
             <h2 className="montserrat md:text-lg font-normal text-start">
               I will split fairly the amount collected among <br /> contributors and reviewers

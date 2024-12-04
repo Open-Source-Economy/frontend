@@ -18,7 +18,7 @@ export function IssueCard(props: IssueProps) {
   return (
     <>
       <div className={`mx-auto ${FinancialIssue.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
-        <div className="padding sm:!py-7 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
+        <div className="padding sm:py-9 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
 
           {/*<div>*/}
@@ -26,16 +26,18 @@ export function IssueCard(props: IssueProps) {
           {/*</div>*/}
         </div>
 
-        <div className="padding sm:!py-7 !p-4 sm:!px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
+        <div className="padding sm:py-7 p-4 sm:px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
           <components.Issue issue={props.financialIssue.issue} />
 
-          <div className="flex flex-wrap items-center gap-3 justify-between !mt-7 lg:!mt-10 xl:!mt-12">
-            <components.Collect
-              amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
-              amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
-              state={props.financialIssue.managedIssue?.state}
-            />
-            <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
+          <div className="flex flex-wrap items-center gap-3 justify-between mt-7 lg:!mt-12">
+            <div>
+              <components.Collect
+                amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
+                amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
+                state={props.financialIssue.managedIssue?.state}
+              />
+              <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
+            </div>
 
             {/*TODO*/}
             {/*{props.displayPrivatePublicToggle && (*/}
@@ -47,7 +49,7 @@ export function IssueCard(props: IssueProps) {
             {/*)}*/}
 
             {props.displayActionButtons && (
-              <div className="mar text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-3 mt-md-0 ">
+              <div className="text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-md-0 ">
                 <Action
                   issue={props.financialIssue.issue}
                   audience={props.audience}
