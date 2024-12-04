@@ -60,14 +60,9 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
               I will split fairly the amount collected among <br /> contributors and reviewers
             </h2>
           </div>
-
-          {/*TODO: Code Nativex fix*/}
-          <div className="flex justify-center items-center">
-            {" "}
-            <Button level="SECONDARY_USER" size="MEDIUM" asChild>
-              <span className="z-10 relative"> Request amount</span>
-            </Button>
-          </div>
+            <Button type="submit" disabled={!counter} audience={"DEVELOPER"} level="SECONDARY" size="MEDIUM">
+            Request amount
+          </Button>
 
           {/*<button*/}
           {/*  type="submit"*/}

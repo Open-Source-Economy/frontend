@@ -1,8 +1,8 @@
 export enum Audience {
-  ALL = "all",
-  DEVELOPER = "developer",
-  USER = "user",
-  STAKEHOLDER = "stakeholder",
+  ALL = "ALL",
+  DEVELOPER = "DEVELOPER",
+  USER = "USER",
+  STAKEHOLDER = "STAKEHOLDER",
 }
 
 export const textColorVariants = {

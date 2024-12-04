@@ -148,29 +148,14 @@ export function DowFunding(props: DowFundingProps) {
           </div>
         </div>
       </div>
-      <div className="!mt-7  md:!mt-10 xl:!mt-14 flex flex-wrap justify-center items-center gap-3">
-        {/*TODO: Code Nativex fix*/}
+<div className="!mt-7 md:!mt-10 xl:!mt-14 flex flex-wrap justify-center items-center gap-3">
         <Button onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
           FUND THE ISSUE
         </Button>
 
-        {/*<button*/}
-        {/*  onClick={fundIssue}*/}
-        {/*  disabled={!enoughFund}*/}
-        {/*  className={`${enoughFund ? "" : "opacity-50"} bg-[#FF7E4B] md:w-[48.5%] w-full text-nowrap text-[12px] py-3 border-1 rounded-md border-[#FF7E4B] hover:bg-transparent transition-all duration-500 ease-in-out`}*/}
-        {/*>*/}
-        {/*  FUND THE ISSUE*/}
-        {/*</button>*/}
-
         <Button level="SECONDARY_DEVELOPER" className={`${enoughFund ? "opacity-50 pointer-events-none" : ""}`} size="MEDIUM">
           GET MORE DoW
         </Button>
-
-        {/*<button*/}
-        {/*  className={`${enoughFund ? "opacity-50" : ""} border-1 border-[#FF7E4B]  md:w-[48.5%] w-full text-nowrap rounded-md text-[12px] py-3 hover:bg-[#FF7E4B] transition-all duration-500 ease-in-out`}*/}
-        {/*>*/}
-        {/*  GET MORE DoW*/}
-        {/*</button>*/}
       </div>
 
       {error && <p className="!mt-5 text-center">{error instanceof ApiError ? error.toString() : error}</p>}

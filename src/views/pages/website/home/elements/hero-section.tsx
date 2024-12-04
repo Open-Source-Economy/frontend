@@ -15,7 +15,7 @@ export const HeroSection = () => {
           Building the foundation of open source 3.0
         </h1>
 
-        <Button level={"PRIMARY"} size={"LARGE"} asChild>
+        <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
           {STAGE_FLAG ? (
             <Link to="/who-are-you">
               <span className="relative z-20">FIND OUT MORE</span>

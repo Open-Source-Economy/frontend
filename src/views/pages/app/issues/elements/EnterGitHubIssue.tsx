@@ -79,8 +79,15 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
-          {/*TODO: Code Nativex fix*/}
-          <Button type="submit" onKeyDown={handleKeyDown} level={"SECONDARY_DEVELOPER"} size="MEDIUM" className="w-20" parentClassName="w-max max-w-[214px]">
+          <Button
+            type="submit"
+            onKeyDown={handleKeyDown}
+            audience="DEVELOPER"
+            level={"SECONDARY"}
+            size="MEDIUM"
+            className="w-20"
+            parentClassName="w-max max-w-[214px]"
+          >
             <span className="relative z-20">Add</span>
           </Button>
         </form>
