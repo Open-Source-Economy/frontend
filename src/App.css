@@ -459,6 +459,7 @@ input[type="number"] {
 
 .who-built {
   position: relative;
+  overflow: hidden;
 }
 
 .who-built::before {
@@ -466,9 +467,9 @@ input[type="number"] {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: -5%;
+  top: -7%;
   background: url("./assets/who-built-bg.webp");
-  background-size: cover;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   z-index: -3;
   left: 0;
@@ -478,5 +479,12 @@ input[type="number"] {
 @media (max-width: 1400px) {
   .who-built::before {
     display: none;
+    overflow: hidden;
+  }
+}
+@media (min-width: 1900px) {
+  .who-built::before {
+    background-size: cover;
+    background-position-y: 10%;
   }
 }

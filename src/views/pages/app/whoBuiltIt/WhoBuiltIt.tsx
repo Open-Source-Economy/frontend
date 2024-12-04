@@ -39,7 +39,7 @@ const services = [
 export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
   return (
     <PageWrapper baseURL={BaseURL.APP}>
-      <section className="  who-built">
+      <section className="who-built">
         <div className="max-w-[1164px] min-[1800px]:max-w-[1376px] !px-4 mx-auto flex flex-col items-center">
           {/* ============== MAIN HEADING =========== */}
           <h1 className="!mt-20 relative lg:!mt-32 min-[1800px]:!mt-[141px]  who-built-it-main-heading bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
