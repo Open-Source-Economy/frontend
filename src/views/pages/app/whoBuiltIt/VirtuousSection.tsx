@@ -1,10 +1,6 @@
 import React from "react";
 import VirtuousCard from "./VirtuousCard";
-import nonProfit from "src/assets/non-profit.webp";
-import communitydriven from "src/assets/community-driven.webp";
-import talent from "src/assets/talent.webp";
-// import communityDriven from "src/assets/community-driven.webp";
-// import topTalent from "src/assets/top-talent.webp";
+import { virtuousCard } from "./Helper";
 
 type Card = {
   title: string;
@@ -13,24 +9,6 @@ type Card = {
 };
 
 const VirtuousSection: React.FC = () => {
-  const cards: Card[] = [
-    {
-      title: "100% Non-profit",
-      description: "Every penny fuels open source.",
-      cardIcon: nonProfit,
-    },
-    {
-      title: "Community-Driven",
-      description: "From devs. By devs. For devs.",
-      cardIcon: communitydriven,
-    },
-    {
-      title: "Top Talent, Ethical Impact",
-      description: "Access experts, guarantee fair pay.",
-      cardIcon: talent,
-    },
-  ];
-
   return (
     <section className="!pt-16  !pb-16 lg:!pb-[220px] w-full">
       <h2 className="text-3xl text-center md:text-4xl font-medium  max-w-[386px] md:max-w-[470px] mx-auto lg:max-w-[800px] text-white mb-8">
@@ -42,7 +20,7 @@ const VirtuousSection: React.FC = () => {
         Your Business
       </h2>
       <div className="xl:grid flex justify-center  items-center flex-wrap xl:grid-cols-3 gap-6 w-full !mt-16">
-        {cards.map((card, index) => (
+        {virtuousCard.map((card, index) => (
           <VirtuousCard key={index} card={card} />
         ))}
       </div>
