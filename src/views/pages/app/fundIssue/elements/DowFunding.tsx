@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import up from "src/assets/arrowup.png";
-import down from "src/assets/arrowdown.png";
-import { getBackendAPI } from "src/services";
-import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Decimal from "decimal.js";
-import { IssueId } from "src/model";
+import { useEffect, useState } from "react";
+import { Button } from "src/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
-import { useDowCounter } from "src/views/hooks";
+import { IssueId } from "src/model";
+import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import { Button } from "src/components";
-import { Link } from "react-router-dom";
+import { useDowCounter } from "src/views/hooks";
+import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;
@@ -148,14 +145,18 @@ export function DowFunding(props: DowFundingProps) {
           </div>
         </div>
       </div>
-<div className="!mt-7 md:!mt-10 xl:!mt-14 flex flex-wrap justify-center items-center gap-3">
-        <Button onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY_DEVELOPER" size="MEDIUM">
+      <div className="!mt-7 md:!mt-10 xl:!mt-14 flex flex-wrap justify-center items-center gap-3">
+        <Button onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
           FUND THE ISSUE
         </Button>
 
-        <Button level="SECONDARY_DEVELOPER" className={`${enoughFund ? "opacity-50 pointer-events-none" : ""}`} size="MEDIUM">
+        <Button audience="DEVELOPER" level="SECONDARY" className={`${enoughFund ? "opacity-50 pointer-events-none" : ""}`} size="MEDIUM">
           GET MORE DoW
         </Button>
+
+        {/* <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>
+          <Link to="/fund-issues">USER PRIMARY</Link>
+        </Button> */}
       </div>
 
       {error && <p className="!mt-5 text-center">{error instanceof ApiError ? error.toString() : error}</p>}

@@ -29,7 +29,7 @@ export function IssueCard(props: IssueProps) {
         <div className="padding sm:!py-7 !p-4 sm:!px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
           <components.Issue issue={props.financialIssue.issue} />
 
-          <div className="flex flex-wrap items-center gap-3 justify-between mt-7 lg:!mt-12">
+          <div className="flex flex-wrap items-center  gap-10 sm:gap-3 justify-between mt-7 lg:!mt-12">
             <div>
               <components.Collect
                 amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
@@ -49,7 +49,7 @@ export function IssueCard(props: IssueProps) {
             {/*)}*/}
 
             {props.displayActionButtons && (
-              <div className="text-nowrap  md:ms-0 md:me-0  flex flex-col  justify-center  gap-2 mt-md-0 ">
+              <div className="text-nowrap md:ms-0 md:me-0 flex w-full sm:w-fit flex-col justify-center gap-2 mt-md-0 ">
                 <Action
                   issue={props.financialIssue.issue}
                   audience={props.audience}
