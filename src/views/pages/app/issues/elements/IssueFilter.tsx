@@ -22,8 +22,8 @@ export function IssueFilter(props: IssueFilterProps) {
   function toSelectOptions(all: string, stringArray: string[]): string[] {
     const temp = Array.from(
       new Set(
-        stringArray.filter(name => name), // Remove any undefined, null, or empty string values
-      ),
+        stringArray.filter(name => name) // Remove any undefined, null, or empty string values
+      )
     ).sort(); // Sort the resulting array of names alphabetically
     temp.unshift(all);
     return temp;
@@ -31,11 +31,11 @@ export function IssueFilter(props: IssueFilterProps) {
 
   const owners = toSelectOptions(
     allOwner,
-    (props.financialIssues || []).map(financialIssue => financialIssue.owner.id.login),
+    (props.financialIssues || []).map(financialIssue => financialIssue.owner.id.login)
   );
   const repositories = toSelectOptions(
     allRepository,
-    (props.financialIssues || []).map(financialIssue => financialIssue.repository.id.name),
+    (props.financialIssues || []).map(financialIssue => financialIssue.repository.id.name)
   );
   const status = toSelectOptions(allStatus, Object.values(Status) as Status[]);
 
@@ -75,7 +75,7 @@ export function IssueFilter(props: IssueFilterProps) {
 
   return (
     <>
-      <div className="grid sm:grid-cols-1 w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
+      <div className="grid sm:grid-cols-1 md:w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
         <SelectFilter
           ariaLabel="Onwer"
           labelValues={owners.map(ownerName => ({

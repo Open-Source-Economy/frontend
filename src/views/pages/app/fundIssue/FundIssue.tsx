@@ -23,7 +23,7 @@ export function FundIssue({}: FundIssueProps) {
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div
-          className="mt-20 py-5 px-3"
+          className="!mt-10 md:!mt-20 py-5 px-3"
           style={{
             backgroundImage: `url(${bgimage})`,
             backgroundPosition: "top",
@@ -32,17 +32,17 @@ export function FundIssue({}: FundIssueProps) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
+          <h1 className="lg:text-[62px] text-[30px] font-michroma text-center font-medium text-white">
             Fund an <span className="text-[#FF7E4B]">Issue</span>
           </h1>
 
           {financialIssue && (
-            <div className="pt-24 flex justify-center flex-wrap gap-4">
-              <div className="xl:w-[600px] md:w-[590px] w-full">
+            <div className="pt-16 md:pt-24 flex justify-center flex-wrap gap-4">
+              <div className="md:w-[590px] w-full">
                 <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
               </div>
 
-              <div className="bg-[#14233A] rounded-3xl padding md:py-12 md:px-5 md:w-[590px] xl:w-[595px] w-full">
+              <div className="bg-[#14233A] rounded-3xl padding !p-4 md:!py-12 sm:!px-10 md:w-[590px] xl:w-[595px] w-full">
                 <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 
