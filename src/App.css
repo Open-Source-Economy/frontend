@@ -482,7 +482,7 @@ input[type="number"] {
     overflow: hidden;
   }
 }
-@media (min-width: 1900px) {
+@media (min-width: 2520px) {
   .who-built::before {
     background-size: cover;
     background-position-y: 10%;
