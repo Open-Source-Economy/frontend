@@ -16,7 +16,7 @@ import {
   UserDeveloper,
   userProps,
 } from "./views";
-import { AuthRoutes, Logout, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
+import { AuthRoutes, Logout, StageRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
@@ -26,6 +26,7 @@ import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepository
 import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
+import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -49,6 +50,10 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          <Route element={<StageRoutes />}>
+            <Route path="/blog" element={<MdConversion />} />
+          </Route>
+
           <Route path="/" element={<Home />} />
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
