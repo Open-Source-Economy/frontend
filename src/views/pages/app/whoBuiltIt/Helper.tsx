@@ -39,6 +39,7 @@ export const virtuousCard = [
     title: "Community-Driven",
     description: "From devs. By devs. For devs.",
     cardIcon: communitydriven,
+    border: true,
   },
   {
     title: "Top Talent, Ethical Impact",

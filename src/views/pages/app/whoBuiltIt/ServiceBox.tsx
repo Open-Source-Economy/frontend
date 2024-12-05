@@ -12,7 +12,7 @@ type ServiceBoxProps = {
 };
 
 const ServiceBox: React.FC<ServiceBoxProps> = ({ data }) => (
-  <div className="rounded-2xl group service-card min-[1800px]:rounded-[35px] sm:min-w-[470px] w-full sm:max-w-[668px] backdrop-blur-[35px] !px-4 !pt-4 !pb-7">
+  <div className="rounded-2xl cursor-pointer group service-card min-[1800px]:rounded-[35px] sm:min-w-[470px] w-full sm:max-w-[668px] backdrop-blur-[35px] !px-4 !pt-4 !pb-7">
     <div className="flex items-center gap-2.5 md:gap-4 leading-[100%] bg-[#0A1930] !p-4 lg:!p-6 min-[1800px]:!p-9 rounded-xl xl:rounded-[25px] font-michroma text-white">
       <span className="max-w-11 sm:!max-w-12 lg:!min-h-12 flex justify-center items-center min-h-10 lg:!max-w-14 min-[1800px]:!max-w-[75px] object-cover">
         {data.icon}

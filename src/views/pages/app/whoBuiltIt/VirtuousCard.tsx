@@ -5,12 +5,17 @@ type VirtuousCardProps = {
     title: string;
     description: string;
     cardIcon: string;
+    border?: boolean; // Optional border property
   };
 };
 
 const VirtuousCard: React.FC<VirtuousCardProps> = ({ card }) => {
   return (
-    <div className="virtuous-card max-w-[370px] xl:max-w-[450px] w-full rounded-[35px] p-6 xl:!py-10">
+    <div
+      className={` max-w-[370px] xl:max-w-[450px] duration-300 ease-in-out transition-all cursor-pointer bg-[#14233a] hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] w-full rounded-[35px] p-6 xl:!py-10 ${
+        card.border ? " virtuous-card" : ""
+      }`}
+    >
       <div className="flex justify-center mb-4">
         <img src={card.cardIcon} alt={card.title} className="min-[1800px]:w-[133px] h-24 w-24 xl:w-28 xl:h-28 object-contain min-[1800px]:h-[133px]" />
       </div>
