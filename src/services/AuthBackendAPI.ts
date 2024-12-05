@@ -24,7 +24,6 @@ export function getAuthBackendAPI(): AuthBackendAPI {
   }
 }
 
-// TODO: change to not return an ApiError
 export interface AuthBackendAPI {
   checkUserStatus(): Promise<StatusResponse | ApiError>;
 
