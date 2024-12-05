@@ -68,7 +68,7 @@ export function Issues(props: IssuesProps) {
           <div className=" mt-5 pt-lg-1 pt-3">
             <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
 
-            <div className="mt-5 space-y-5 lg:space-y-[60px] md:w-[90%] mx-auto">
+            <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] md:w-[90%] mx-auto">
               {isLoading ? (
                 // TODO: improve the design of the loading state
                 <p>Loading issues...</p>
