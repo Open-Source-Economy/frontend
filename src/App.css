@@ -419,7 +419,7 @@ input[type="number"] {
   mask-composite: exclude;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .service-card:hover::before {

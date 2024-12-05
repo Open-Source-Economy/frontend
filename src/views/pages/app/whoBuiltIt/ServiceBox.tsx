@@ -30,7 +30,7 @@ const ServiceBox: React.FC<ServiceBoxProps> = ({ data }) => (
 
     <div className="relative !mt-7 lg:!mt-10 min-[1800px]:!mt-12">
       {data.buttonText && (
-        <button className="h-11 w-full rounded-md min-[1800px]:h-[61px] min-w-[210px] bg-[#1a2a3f] bg-gradient-to-r from-transparent via-transparent to-transparent group-hover:from-[#FF7E4B] group-hover:via-[#FF518C] group-hover:to-[#66319B] lg:h-14 transition-all duration-300 lg:text-lg min-[1800px]:text-2xl text-base">
+        <button className="h-11 w-full rounded-md min-[1800px]:h-[61px] min-w-[210px] ease-in-out bg-[#1a2a3f] bg-gradient-to-r from-transparent via-transparent to-transparent group-hover:from-[#FF7E4B] group-hover:via-[#FF518C] group-hover:to-[#66319B] lg:h-14 transition-all duration-300 lg:text-lg min-[1800px]:text-2xl text-base">
           <span className="relative z-20 w-full text-white">{data.buttonText}</span>
         </button>
       )}

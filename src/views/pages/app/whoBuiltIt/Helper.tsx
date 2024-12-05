@@ -34,16 +34,21 @@ export const virtuousCard = [
     title: "100% Non-profit",
     description: "Every penny fuels open source.",
     cardIcon: nonProfit,
+    isborder: false,
+    ishover: true,
   },
   {
     title: "Community-Driven",
     description: "From devs. By devs. For devs.",
     cardIcon: communitydriven,
-    border: true,
+    isborder: true,
+    ishover: true,
   },
   {
     title: "Top Talent, Ethical Impact",
     description: "Access experts, guarantee fair pay.",
     cardIcon: talent,
+    isborder: false,
+    ishover: true,
   },
 ];
