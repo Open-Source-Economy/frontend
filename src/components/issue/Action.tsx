@@ -16,7 +16,7 @@ export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
       <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
-        <Link to={props.audience === Audience.DEVELOPER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
+        <Link to={props.audience === Audience.USER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
           <span className="relative z-20">{props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}</span>
         </Link>
       </Button>
@@ -32,7 +32,14 @@ export function Action(props: ActionProps) {
 
         {props.successfullyFunded && props.audience === Audience.DEVELOPER && (
           <>
-            <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "PRIMARY" : "SECONDARY"} size="MEDIUM" asChild>
+            <Button
+              parentClassName="w-full"
+              className="!w-full"
+              audience={props.audience}
+              level={props.successfullyFunded ? "PRIMARY" : "SECONDARY"}
+              size="MEDIUM"
+              asChild
+            >
               <Link to={props.issue.htmlUrl}>
                 <span className="relative z-20">ACT ON GITHUB</span>
               </Link>

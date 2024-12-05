@@ -6,17 +6,17 @@ interface RejectFundingTabProps {}
 export function RejectFundingTab(props: RejectFundingTabProps) {
   return (
     <>
-      <div className="md:px-[75px]">
-        <div className="flex items-start sm:items-center gap-3">
-          <img src={check} className="w-4 h-4" alt="" />
-          <h2 className="montserrat md:text-lg font-normal text-start">All the amount collected will be refunded</h2>
+      <div className="px-10 md:px-12 xl:px-14 2xl:px-[70px]">
+        <div className="flex items-start  gap-3">
+          <img src={check} className="w-4 h-4 2xl:mt-2" alt="" />
+          <h2 className="font-montserrat xl:text-lg font-normal text-start">All the amount collected will be refunded</h2>
         </div>
         <div className="flex items-start mt-2 gap-3">
-          <img src={check} className="w-4 h-4 mt-1" alt="" />
-          <h2 className="montserrat md:text-lg font-normal text-start">Another maintainer cannot accept to work on it.</h2>
+          <img src={check} className="w-4 h-4 mt-1 2xl:mt-2" alt="" />
+          <h2 className="font-montserrat xl:text-lg font-normal text-start">Another maintainer cannot accept to work on it.</h2>
         </div>
 
-        <p className="!mt-5">
+        <p className="!mt-5 lg:!mt-10">
           Not implemented yet. <br />
           If you need to reject an issue, send an email to lauriane@open-source-economy.com so that she implement it.
         </p>

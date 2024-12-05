@@ -38,7 +38,7 @@ export function ManageIssue(props: ManageIssueProps) {
                   <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
                       <div className="w-full">
-                        <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displayPrivatePublicToggle={true} />
+                        <IssueCard financialIssue={financialIssue} audience={Audience.USER} displayPrivatePublicToggle={true} />
                       </div>
                     )}
 

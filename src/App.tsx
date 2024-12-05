@@ -74,8 +74,8 @@ const App = () => {
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/buy-dows" element={<Payment />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
-            <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
-            <Route path="/manage-issues" element={<Issues audience={Audience.DEVELOPER} />} />
+            <Route path="/fund-issues" element={<Issues audience={Audience.DEVELOPER} />} />
+            <Route path="/manage-issues" element={<Issues audience={Audience.USER} />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
           </Route>

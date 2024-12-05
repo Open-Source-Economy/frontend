@@ -42,7 +42,7 @@ export function ManageTab(props: ManageTabProps) {
         </div>
 
         {/* Tab Content */}
-        <div className="!mt-5 xl:!mt-8 flex items-center justify-center w-full">
+        <div className="!mt-8 xl:!mt-10 3xl:!mt-14 flex items-center justify-center w-full">
           <>
             {activeTab === Tab.One && props.tab1}
             {activeTab === Tab.Two && props.tab2}

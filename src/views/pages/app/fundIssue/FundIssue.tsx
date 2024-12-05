@@ -39,7 +39,7 @@ export function FundIssue({}: FundIssueProps) {
           {financialIssue && (
             <div className="pt-16 md:pt-24 flex justify-center flex-wrap gap-4">
               <div className="md:w-[590px] w-full">
-                <IssueCard financialIssue={financialIssue} audience={Audience.USER} displaySeeMore={true} />
+                <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displaySeeMore={true} />
               </div>
 
               <div className="bg-[#14233A] rounded-3xl padding !p-4 md:!py-12 sm:!px-10 md:w-[590px] xl:w-[595px] w-full">
