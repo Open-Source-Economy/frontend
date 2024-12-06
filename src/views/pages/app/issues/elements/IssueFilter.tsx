@@ -75,7 +75,7 @@ export function IssueFilter(props: IssueFilterProps) {
 
   return (
     <>
-      <div className="grid sm:grid-cols-1 md:w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
+      <div className="grid sm:grid-cols-1 lg:w-[90%] mx-auto lg:grid-cols-4 grid-cols-1 items-center place-items-center justify-center mt-4 gap-2 bg-[#14233A] rounded-3xl md:py-10 md:px-10 padding">
         <SelectFilter
           ariaLabel="Onwer"
           labelValues={owners.map(ownerName => ({
