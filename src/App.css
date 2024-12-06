@@ -138,8 +138,6 @@ input[type="number"] {
   /* Remove any border if there is one */
 }
 
-
-
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
   transition: 0.5s ease all;
@@ -240,10 +238,9 @@ input[type="number"] {
   }
 }
 
-
 /* Fix for Safari gradient rendering */
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) {
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
     .box-gradient {
       -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
@@ -399,4 +396,94 @@ input[type="number"] {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
   border-radius: 50%;
   filter: blur(70px);
+}
+
+.service-card {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(20, 35, 58, 0.79);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ============ SERVICE CARD STYLE ============ */
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.service-card:hover::before {
+  opacity: 1; /* Show border on hover */
+}
+
+.service-card-content {
+  position: relative; /* Content above the pseudo-elements */
+  z-index: 1;
+}
+
+/* ================ Virtuous CARD STYLE ====================  */
+.virtuous-card {
+  position: relative;
+  z-index: 10;
+  background: #14233a;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.virtuous-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.who-built {
+  position: relative;
+  overflow: hidden;
+}
+
+.who-built::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -7%;
+  background: url("./assets/who-built-bg.webp");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: -3;
+  left: 0;
+  display: block;
+}
+
+@media (max-width: 1400px) {
+  .who-built::before {
+    display: none;
+    overflow: hidden;
+  }
+}
+@media (min-width: 2520px) {
+  .who-built::before {
+    background-size: cover;
+    background-position-y: 10%;
+  }
 }
