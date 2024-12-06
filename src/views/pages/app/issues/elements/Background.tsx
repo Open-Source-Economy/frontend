@@ -39,7 +39,7 @@ export function Background(props: BackgroundProps) {
             >
               <div className="flex flex-col items-center justify-center ">
                 <div
-                  className="mt-20 py-5 px-3"
+                  className="mt-20 py-5 px-3 w-full"
                   style={{
                     backgroundImage: `url(${bgimage})`,
                     backgroundPosition: "top",

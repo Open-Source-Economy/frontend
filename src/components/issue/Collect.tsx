@@ -26,9 +26,9 @@ export function Collect(props: CollectProps) {
   return (
     <>
       <div>
-        <div className="flex items-center gap-3">
-          <img className="w-[38px] h-[30px]" src={dow} alt="" />
-          <p className="text-[20px]">
+        <div className="flex items-start sm:items-center gap-3">
+          <img className="w-[38px] h-[30px] mt-1 sm:mt-0" src={dow} alt="" />
+          <p className="text-base md:text-base lg:text-[20px]">
             {props.state === ManagedIssueState.REJECTED && renderAmountText(props.amountCollected, props.state)}
             {props.state === ManagedIssueState.SOLVED && renderAmountText(props.amountCollected, props.state)}
             {props.state === ManagedIssueState.OPEN && props.amountRequested && (
