@@ -12,15 +12,11 @@ export function WhoAreYou(props: WhoAreYouProps) {
       <p> What your main role ?</p>
 
       <Button audience="ALL" level="PRIMARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">
-          <span className="relative z-20">ALL PRIMARY</span>
-        </Link>
+        <Link to="/request-maintainer-rights">ALL PRIMARY</Link>
       </Button>
       <hr />
       <Button audience="ALL" level="SECONDARY" size="MEDIUM" asChild>
-        <Link to="/request-maintainer-rights">
-          <span className="relative z-20">ALL SECONDARY</span>
-        </Link>
+        <Link to="/request-maintainer-rights">ALL SECONDARY</Link>
       </Button>
 
       <hr />

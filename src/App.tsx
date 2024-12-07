@@ -16,7 +16,7 @@ import {
   UserDeveloper,
   userProps,
 } from "./views";
-import { AuthRoutes, Logout, StageRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
+import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
@@ -50,7 +50,7 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route element={<StageRoutes />}>
+          <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
             <Route path="/manage-issues" element={<Issues audience={Audience.DEVELOPER} />} />

@@ -177,13 +177,11 @@ export function Authenticate(props: AuthenticateProps) {
 
               {!isGithubAccountPredefined && (
                 <div className="flex  justify-center items-center gap-3 mt-5">
-                  <Button audience={"ALL"} level={"SECONDARY"}>
-                    <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
-                      {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
-                    </Link>
+                  <Button audience="ALL" level="SECONDARY" size="MEDIUM" asChild>
+                    <Link to="/request-maintainer-rights">{props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}</Link>
                   </Button>
 
-                  <Button type="submit" audience={"ALL"} level={"PRIMARY"}>
+                  <Button type="submit" audience="ALL" level="PRIMARY" size="MEDIUM" asChild>
                     <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
                       {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
                     </Link>

@@ -82,7 +82,7 @@ export function Header(props: HeaderProps) {
                         </ExternalLink>
                         <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
                           <Link to="/white-paper" target="_blank">
-                            <span className="relative z-20">WHITE PAPER</span>
+                            WHITE PAPER
                           </Link>
                         </Button>
                       </>

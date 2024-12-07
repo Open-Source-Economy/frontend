@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
-import { config } from "src/ultils";
+import { config, Env } from "src/ultils";
 
 export function AuthRoutes() {
   const auth = useAuth();
@@ -24,10 +24,8 @@ export function UnAuthRoutes() {
   }
 }
 
-export function StageRoutes() {
-  const auth = useAuth();
-
-  if (process.env.REACT_APP_STAGE === "true") {
+export function NonProdRoutes() {
+  if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
     return <Navigate to="/" />; // TODO: add  404 page
