@@ -10,7 +10,7 @@ import { SolutionProps } from "../elements/Solution";
 import primaryProblemsSrc from "src/assets/btn.png";
 import secondaryProblemsSrc from "src/assets/developerbannertext.png";
 import { UserDeveloperProps } from "src/views";
-import { Audience } from "../../../../Audience"; // not chnage the import to src/, it does not work
+import { Audience } from "../../../../Audience"; // not change the import to src/, it does not work
 
 const audience = Audience.USER;
 

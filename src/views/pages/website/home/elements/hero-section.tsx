@@ -15,7 +15,7 @@ export const HeroSection = () => {
           Building the foundation of open source 3.0
         </h1>
 
-        <Button level={"PRIMARY"} size={"LARGE"} asChild>
+        <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
           {config.env !== Env.Production ? (
             <Link to="/issues">
               <span className="relative z-20">GET STARTED</span>
