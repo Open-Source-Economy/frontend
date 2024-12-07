@@ -11,7 +11,7 @@ export function Issue(props: IssueProps) {
   return (
     <>
       <ExternalLink href={props.issue.htmlUrl}>
-        <h6 className="text-xl cursor-pointer hover:underline transition-all duration-500 ease-in-out">{props.issue.title}</h6>
+        <h6 className="text-base lg:text-lg xl:text-xl cursor-pointer hover:underline transition-all duration-500 ease-in-out">{props.issue.title}</h6>
       </ExternalLink>
 
       <p className="text-[rgba(255,255,255,70%)] text-xl mt-1">
