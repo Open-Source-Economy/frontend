@@ -22,9 +22,7 @@ export const FeaturesSection = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to="/developer">
-                  <span className="relative z-20">DEVELOPERS</span>
-                </Link>
+                <Link to="/developer">DEVELOPERS</Link>
               </Button>
             </div>
           </div>
@@ -49,9 +47,7 @@ export const FeaturesSection = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="USER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to="/user">
-                  <span className="relative z-20">OPEN SOURCE USERS</span>
-                </Link>
+                <Link to="/user">OPEN SOURCE USERS</Link>
               </Button>
             </div>
           </div>

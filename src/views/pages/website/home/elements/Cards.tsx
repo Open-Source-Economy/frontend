@@ -31,9 +31,7 @@ export function Cards(props: CardsProps) {
       </div>
       {config.env !== Env.Production && (
         <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
-          <Link to="/developer">
-            <span className="relative z-20">FUND</span>
-          </Link>
+          <Link to="/developer">FUND</Link>
         </Button>
       )}
     </div>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
 import { fundIssuePath, manageIssuePath } from "src/App";
-import { Button } from "src/components";
+import { Button, ExternalLink } from "src/components";
 import { Link } from "react-router-dom";
-import { Audience } from "src/views";
+import { Audience, textColorVariants } from "src/views";
 
 interface ActionProps {
   issue: Issue;
@@ -16,8 +16,8 @@ export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
       <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
-        <Link to={props.audience === Audience.USER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
-          <span className="relative z-20">{props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}</span>
+        <Link to={props.audience === Audience.USER ? fundIssuePath(props.issue.id) : manageIssuePath(props.issue.id)}>
+          {props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}
         </Link>
       </Button>
     </>
@@ -40,9 +40,7 @@ export function Action(props: ActionProps) {
               size="MEDIUM"
               asChild
             >
-              <Link to={props.issue.htmlUrl}>
-                <span className="relative z-20">ACT ON GITHUB</span>
-              </Link>
+              <ExternalLink href={props.issue.htmlUrl}>ACT ON GITHUB</ExternalLink>
             </Button>
           </>
         )}

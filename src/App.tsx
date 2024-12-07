@@ -27,6 +27,7 @@ import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
+import { IssuesRoute } from "src/views/layout/IssuesRoute";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -42,7 +43,7 @@ export function manageIssuePath(issueId: IssueId) {
 
 export enum BaseURL {
   WEBSITE = "/",
-  APP = "/who-are-you",
+  APP = "/issues",
 }
 
 const App = () => {
@@ -52,8 +53,6 @@ const App = () => {
         <Routes>
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
-            <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
-            <Route path="/manage-issues" element={<Issues audience={Audience.DEVELOPER} />} />
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
@@ -79,7 +78,9 @@ const App = () => {
 
           <Route element={<AuthRoutes />}>
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
-            <Route path="/issues" element={<Issues />} />
+            <Route path="/issues" element={<IssuesRoute />} />
+            <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
+            <Route path="/manage-issues" element={<Issues audience={Audience.DEVELOPER} />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
           </Route>

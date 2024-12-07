@@ -9,32 +9,22 @@ import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
 import { GetIssueQuery, GetIssuesParams } from "src/dtos";
 import { ApiError } from "src/ultils/error/ApiError";
-import { Audience } from "src/views";
+import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 
 interface IssuesProps {
-  audience?: Audience;
+  audience: Audience;
 }
 
 export function Issues(props: IssuesProps) {
   const backendAPI = getBackendAPI();
-
   const auth = useAuth();
-
-  const [audience, setAudience] = useState<Audience | null>(props.audience ?? null);
 
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<ApiError | null>(null);
-
-  useEffect(() => {
-    if (!audience) {
-      if (auth.authInfo?.company !== null) setAudience(Audience.USER);
-      else setAudience(Audience.DEVELOPER);
-    }
-  }, [auth.authInfo]);
 
   useEffect(() => {
     (async () => {
@@ -60,23 +50,23 @@ export function Issues(props: IssuesProps) {
     <PageWrapper baseURL={BaseURL.APP}>
       <Background>
         <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
-          {audience === Audience.DEVELOPER && (
+          {props.audience === Audience.DEVELOPER && (
             <>
-              Issues <span className="text-[#FF7E4B]">on my projects</span>
+              Issues <span className={`${textColorVariants[props.audience]}`}>on my projects</span>
             </>
           )}
-          {audience === Audience.USER && (
+          {props.audience === Audience.USER && (
             <>
-              All <span className="text-[#FF7E4B]">Issues</span>
+              <span className={`${textColorVariants[props.audience]}`}>Fund</span> issues
             </>
           )}
         </h1>
 
-        {audience && <EnterGitHubIssue audience={audience} />}
+        <EnterGitHubIssue audience={props.audience} />
 
         <div className="mt-24">
           <h1 className=" lg:text-[55px] text-[32px]  text-center font-medium text-white">
-            All <span className="text-[#FF7E4B]">Issues</span>
+            All <span className={`${textColorVariants[props.audience]}`}>Issues</span>
           </h1>
         </div>
 
@@ -91,9 +81,9 @@ export function Issues(props: IssuesProps) {
               ) : error ? (
                 // TODO: improve the design
                 <p className="text-red-500">{error.toSting()}</p>
-              ) : (filteredFinancialIssues || []).length > 0 && audience ? (
+              ) : (filteredFinancialIssues || []).length > 0 ? (
                 filteredFinancialIssues.map(issue => (
-                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} audience={audience} displayActionButtons={true} />
+                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
                 ))
               ) : (
                 // TODO: improve the design

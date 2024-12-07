@@ -11,6 +11,7 @@ import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUse
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
+import { config, Env } from "src/ultils";
 
 export enum AuthenticateType {
   SignIn,
@@ -169,7 +170,8 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {/*TODO: incorporate it*/}
-              <TermsAgreement />
+
+              {config.env == Env.Production && <TermsAgreement />}
 
               {/*TODO: display error*/}
               {auth.error && <div className="alert alert-danger mt-3">{auth.error.toSting()}</div>}

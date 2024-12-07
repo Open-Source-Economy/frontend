@@ -82,13 +82,13 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
           <Button
             type="submit"
             onKeyDown={handleKeyDown}
-            audience="DEVELOPER"
+            audience={props.audience}
             level={"SECONDARY"}
             size="MEDIUM"
             className="w-20"
             parentClassName="w-max max-w-[214px]"
           >
-            <span className="relative z-20">Add</span>
+            Add
           </Button>
         </form>
       </div>

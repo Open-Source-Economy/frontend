@@ -17,12 +17,10 @@ export const HeroSection = () => {
 
         <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
           {config.env !== Env.Production ? (
-            <Link to="/issues">
-              <span className="relative z-20">GET STARTED</span>
-            </Link>
+            <Link to="/issues">GET STARTED</Link>
           ) : (
             <ExternalLink href="https://15ib806w5yk.typeform.com/to/nHEIOYc3" underline={false}>
-              <span className="relative z-20">REQUEST ACCESS</span>
+              REQUEST ACCESS
             </ExternalLink>
           )}
         </Button>
