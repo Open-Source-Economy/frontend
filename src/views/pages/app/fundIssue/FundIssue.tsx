@@ -23,7 +23,7 @@ export function FundIssue({}: FundIssueProps) {
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div
-          className="!mt-10 md:!mt-20 py-5"
+          className="!mt-10 md:!mt-20 py-5 px-4"
           style={{
             backgroundImage: `url(${bgimage})`,
             backgroundPosition: "top",
