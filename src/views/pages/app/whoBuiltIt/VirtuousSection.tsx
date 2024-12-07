@@ -1,6 +1,7 @@
 import React from "react";
-import VirtuousCard from "./VirtuousCard";
+import { BlurLinearDonut, DonutIcon } from "src/Utils/Icons";
 import { virtuousCard } from "./Helper";
+import VirtuousCard from "./VirtuousCard";
 
 type Card = {
   title: string;
@@ -10,7 +11,10 @@ type Card = {
 
 const VirtuousSection: React.FC = () => {
   return (
-    <section className="!pt-16  !pb-16 lg:!pb-[220px] w-full">
+    <section className="!pt-16  !pb-16 lg:!pb-[220px] w-full relative">
+      <span className="absolute max-h-[250px] max-w-[100px] xl:max-w-[160px] h-full right-0 sm:right-2 md:right-[10%] -top-5 xl:-top-10">
+        <BlurLinearDonut />
+      </span>
       <h2 className="text-3xl text-center md:text-4xl font-medium  max-w-[386px] md:max-w-[470px] mx-auto lg:max-w-[800px] text-white mb-8">
         A Virtuous Way to
         <span className="relative pb-1.5 lg:!pb-4 pl-3 w-fit">

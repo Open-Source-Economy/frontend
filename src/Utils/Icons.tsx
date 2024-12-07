@@ -61,7 +61,162 @@ export const DowIcon = () => {
     </svg>
   );
 };
-
+export const DonutIcon = () => (
+  <svg width="100%" height="305" viewBox="0 0 285 305" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.2" filter="url(#filter0_i_2232_1984)">
+      <path
+        d="M215.606 107.831C250.159 164.623 232.886 222.855 198.28 243.909C163.673 264.964 104.019 253.536 69.466 196.744C34.9132 139.952 52.1857 81.7201 86.7922 60.6653C121.399 39.6104 181.053 51.0389 215.606 107.831Z"
+        stroke="#90326B"
+        stroke-width="100.304"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_i_2232_1984"
+        x="0.646484"
+        y="0.416992"
+        width="283.779"
+        height="325.74"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+        <feOffset dy="22" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.776471 0 0 0 0 0.784314 0 0 0 0 0.313726 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2232_1984" />
+      </filter>
+    </defs>
+  </svg>
+);
+export const RoundLinearBg = () => (
+  <svg width="758" height="1124" viewBox="0 0 758 1124" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.3">
+      <g filter="url(#filter0_f_2232_1794)">
+        <ellipse
+          cx="174.729"
+          cy="319.192"
+          rx="174.729"
+          ry="319.192"
+          transform="matrix(-0.219678 -0.975573 0.932035 -0.362367 -51.2324 781.891)"
+          fill="url(#paint0_linear_2232_1794)"
+        />
+      </g>
+      <g filter="url(#filter1_f_2232_1794)">
+        <ellipse
+          cx="128.436"
+          cy="371.828"
+          rx="128.436"
+          ry="371.828"
+          transform="matrix(0.683594 -0.729862 0.601633 0.798772 -106.15 358.484)"
+          fill="url(#paint1_linear_2232_1794)"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="filter0_f_2232_1794"
+        x="-342.115"
+        y="39.7461"
+        width="1099.99"
+        height="912.037"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2232_1794" />
+      </filter>
+      <filter
+        id="filter1_f_2232_1794"
+        x="-285.029"
+        y="0.217773"
+        width="980.762"
+        height="1123.06"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2232_1794" />
+      </filter>
+      <linearGradient id="paint0_linear_2232_1794" x1="349.459" y1="319.192" x2="0" y2="319.192" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="0.451" stop-color="#E78031" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_2232_1794" x1="256.873" y1="371.828" x2="0" y2="371.828" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+export const BlurLinearDonut = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 185 212" fill="none">
+    <g opacity="0.05" filter="url(#filter0_i_2241_1366)">
+      <path
+        d="M138.423 77.7597C151.575 99.377 156.341 121.911 154.674 140.135C153.007 158.364 145.37 170.181 135.696 176.067C126.023 181.952 112.017 183.302 95.0619 176.403C78.1113 169.506 60.2901 154.916 47.138 133.298C33.9858 111.681 29.2201 89.1473 30.8871 70.9234C32.5546 52.6943 40.1915 40.8768 49.8649 34.9914C59.5382 29.1061 73.5437 27.7561 90.4992 34.6549C107.45 41.5517 125.271 56.1424 138.423 77.7597Z"
+        stroke="#90326B"
+        stroke-width="60"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_i_2241_1366"
+        x="0.566406"
+        y="0.0117188"
+        width="184.429"
+        height="233.034"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+        <feOffset dy="22" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.776471 0 0 0 0 0.784314 0 0 0 0 0.313726 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2241_1366" />
+      </filter>
+    </defs>
+  </svg>
+);
+export const RightDonutIcon = () => (
+  <svg width="100%" height="100%" viewBox="0 0 214 313" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.2" filter="url(#filter0_i_2232_1983)">
+      <path
+        d="M199.66 118.367C218.545 149.407 225.235 181.53 222.892 207.148C220.548 232.774 209.945 248.382 197.552 255.922C185.159 263.462 166.424 265.704 142.588 256.005C118.76 246.31 93.308 225.603 74.4231 194.563C55.5382 163.523 48.848 131.4 51.1913 105.782C53.5354 80.1558 64.1387 64.5481 76.5313 57.0083C88.9239 49.4686 107.659 47.2265 131.495 56.9248C155.323 66.6197 180.775 87.3276 199.66 118.367Z"
+        stroke="#90326B"
+        stroke-width="100.304"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_i_2232_1983"
+        x="0.588867"
+        y="0.327148"
+        width="272.905"
+        height="334.275"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+        <feOffset dy="22" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.776471 0 0 0 0 0.784314 0 0 0 0 0.313726 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2232_1983" />
+      </filter>
+    </defs>
+  </svg>
+);
 export const SupportIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 62 57" fill="none">
     <path

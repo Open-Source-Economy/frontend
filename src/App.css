@@ -455,35 +455,3 @@ input[type="number"] {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
-
-.who-built {
-  position: relative;
-  overflow: hidden;
-}
-
-.who-built::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: -7%;
-  background: url("./assets/who-built-bg.webp");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  z-index: -3;
-  left: 0;
-  display: block;
-}
-
-@media (max-width: 1400px) {
-  .who-built::before {
-    display: none;
-    overflow: hidden;
-  }
-}
-@media (min-width: 2520px) {
-  .who-built::before {
-    background-size: cover;
-    background-position-y: 10%;
-  }
-}
