@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fundIssuePath } from "src/App";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "src/model";
 import { Audience } from "src/views";
@@ -56,7 +56,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
 
   return (
     <>
-      <div className="padding mx-auto mt-8 flex w-[90%] flex-col items-start justify-start rounded-3xl bg-[#14233A] sm:px-5 sm:py-7 md:px-10 md:py-10">
+      <div className="padding mx-auto mt-8 flex lg:w-[90%] flex-col items-start justify-start rounded-3xl bg-[#14233A] !px-5 py-7 md:!px-10 md:py-10">
         {" "}
         <h2 className="font-medium text-white sm:text-xl md:text-2xl">
           {props.audience === Audience.DEVELOPER && "Request funding for a GitHub issue"}
@@ -64,7 +64,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
         </h2>
         <p className="mt-1 text-base text-[rgba(255,255,255,70%)]">Enter a GitHub issue link</p>
         {/*TODO: it is not a form, it is a link to an other page*/}
-        <form onSubmit={handleSubmit} className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "items-start" : "items-center"}  gap-4 mt-4`}>
+        <form onSubmit={handleSubmit} className={`flex flex-col w-100 sm:flex-row ${!isValidUrl ? "items-start" : "items-center"}  gap-4 mt-4`}>
           <div className="flex w-full flex-col">
             {" "}
             <input
@@ -72,16 +72,23 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
               value={url || ""}
               onChange={e => setUrl(e.target.value)}
               onKeyDown={handleKeyDown}
-              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] ${
+              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] md:text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] ${
                 !isValidUrl ? "border-2 border-red-500" : "border-0"
               }`} // Changed border-1 to border-2 for proper styling
               placeholder="https://github.com/scala-native/scala-native/issues/3851"
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
-          {/*TODO: Code Nativex fix*/}
-          <Button type="submit" onKeyDown={handleKeyDown} level={"SECONDARY_DEVELOPER"} size="MEDIUM" className="w-20" parentClassName="w-max max-w-[214px]">
-            <span className="relative z-20">Add</span>
+          <Button
+            type="submit"
+            onKeyDown={handleKeyDown}
+            audience={props.audience}
+            level={"SECONDARY"}
+            size="MEDIUM"
+            className="w-20"
+            parentClassName="w-max max-w-[214px]"
+          >
+            Add
           </Button>
         </form>
       </div>

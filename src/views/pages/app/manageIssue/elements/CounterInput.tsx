@@ -14,7 +14,7 @@ export function CounterInput(props: CounterInputProps) {
   return (
     <div className="flex items-center gap-4 justify-between">
       <div>
-        <div className="flex items-center gap-3 mt-1">
+        <div className="flex items-center !gap-0.5 mt-1">
           <input
             type="number"
             value={props.value ? props.value.toNumber() : undefined}

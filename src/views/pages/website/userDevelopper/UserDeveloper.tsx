@@ -9,7 +9,8 @@ import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
-import { BaseURL, STAGE_FLAG } from "src/App";
+import { BaseURL } from "src/App";
+import { config, Env } from "src/ultils";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -205,7 +206,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
             <div ref={formContainerRef} className="3xl:pt-32">
-              {STAGE_FLAG && <InterestForm />}
+              {config.env !== Env.Production && <InterestForm />}
             </div>
           </div>
         </div>

@@ -4,9 +4,10 @@ import "./Footer.css";
 import { SocialMedia } from "src/components/socialMedia/SocialMedia";
 import AOS from "aos"; // Import AOS
 import "aos/dist/aos.css";
-import { BaseURL, STAGE_FLAG } from "src/App"; // Import AOS CSS
+import { BaseURL } from "src/App"; // Import AOS CSS
 import backdropSVG2 from "../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../assets/footer-bd-ll.png";
+import { config, Env } from "src/ultils";
 
 interface FooterProps {
   baseURL: BaseURL;
@@ -43,7 +44,7 @@ export function Footer(props: FooterProps) {
                 </div>
               </div>
 
-              {STAGE_FLAG && (
+              {config.env !== Env.Production && (
                 <div
                   className="col-md-6 pt-4"
                   data-aos="fade-left" // AOS animation for fading in from the left

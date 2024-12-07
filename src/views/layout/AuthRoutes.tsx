@@ -2,11 +2,12 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
+import { config, Env } from "src/ultils";
 
 export function AuthRoutes() {
   const auth = useAuth();
 
-  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+  if (config.api.useMock) {
     return <Outlet />;
   } else {
     return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
@@ -16,17 +17,15 @@ export function AuthRoutes() {
 export function UnAuthRoutes() {
   const auth = useAuth();
 
-  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+  if (config.api.useMock) {
     return <Outlet />;
   } else {
     return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
   }
 }
 
-export function StageRoutes() {
-  const auth = useAuth();
-
-  if (process.env.REACT_APP_STAGE === "true") {
+export function NonProdRoutes() {
+  if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
     return <Navigate to="/" />; // TODO: add  404 page
@@ -38,7 +37,7 @@ export function SuperAdminRoutes() {
 
   const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
 
-  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+  if (config.api.useMock) {
     return <Outlet />;
   } else {
     return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;

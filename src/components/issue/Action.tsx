@@ -1,9 +1,9 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
 import { fundIssuePath, manageIssuePath } from "src/App";
-import { Button } from "../elements/Button";
+import { Button, ExternalLink } from "src/components";
 import { Link } from "react-router-dom";
-import { Audience } from "src/views";
+import { Audience, textColorVariants } from "src/views";
 
 interface ActionProps {
   issue: Issue;
@@ -15,10 +15,9 @@ interface ActionProps {
 export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
-      {/*  TODO: Code Nativex: color dependent on props.audience*/}
-      <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
-        <Link to={props.audience === Audience.DEVELOPER ? manageIssuePath(props.issue.id) : fundIssuePath(props.issue.id)}>
-          <span className="relative z-20">{props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}</span>
+      <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
+        <Link to={props.audience === Audience.USER ? fundIssuePath(props.issue.id) : manageIssuePath(props.issue.id)}>
+          {props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}
         </Link>
       </Button>
     </>
@@ -33,11 +32,15 @@ export function Action(props: ActionProps) {
 
         {props.successfullyFunded && props.audience === Audience.DEVELOPER && (
           <>
-            {/*  TODO: Code Nativex: color dependent on props.audience*/}
-            <Button level={props.successfullyFunded ? "SECONDARY_DEVELOPER" : "PRIMARY_DEVELOPER"} size="MEDIUM" asChild>
-              <Link to={props.issue.htmlUrl}>
-                <span className="relative z-20">ACT ON GITHUB</span>
-              </Link>
+            <Button
+              parentClassName="w-full"
+              className="!w-full"
+              audience={props.audience}
+              level={props.successfullyFunded ? "PRIMARY" : "SECONDARY"}
+              size="MEDIUM"
+              asChild
+            >
+              <ExternalLink href={props.issue.htmlUrl}>ACT ON GITHUB</ExternalLink>
             </Button>
           </>
         )}

@@ -15,13 +15,14 @@ import {
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
 } from "src/dtos";
-import { API_URL, handleError } from "src/services/index";
+import { handleError } from "src/services/index";
 import axios from "axios";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
+import { config } from "src/ultils";
 
 export function getBackendAPI(): BackendAPI {
-  if (process.env.REACT_APP_USE_MOCK_API === "true") {
+  if (config.api.useMock) {
     return new BackendAPIMock();
   } else {
     return new BackendAPIImpl();
@@ -76,7 +77,7 @@ export interface BackendAPI {
 class BackendAPIImpl implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const response = await handleError<GetIssueResponse>(
-      () => axios.get(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
 
@@ -85,7 +86,7 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
-    const response = await handleError<GetIssuesResponse>(() => axios.get(`${API_URL}/github/issues`, { withCredentials: true }), "getFinancialIssues");
+    const response = await handleError<GetIssuesResponse>(() => axios.get(`${config.api.url}/github/issues`, { withCredentials: true }), "getFinancialIssues");
     if (response instanceof ApiError) return response;
     else return response.issues;
   }
@@ -95,7 +96,7 @@ class BackendAPIImpl implements BackendAPI {
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
     const response = await handleError<GetAvailableDowResponse>(
-      () => axios.get(`${API_URL}/user/available-dow?${queryParams}`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/user/available-dow?${queryParams}`, { withCredentials: true }),
       "getAvailableDow",
     );
 
@@ -105,7 +106,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}/fund`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}/fund`, body, { withCredentials: true }),
       "fundIssue",
     );
   }
@@ -116,7 +117,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${API_URL}/github/${params.owner}/${params.repo}/issues/${params.number}/request-funding`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}/request-funding`, body, { withCredentials: true }),
       "requestFunding",
     );
   }
