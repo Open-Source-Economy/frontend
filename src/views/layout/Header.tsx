@@ -38,7 +38,7 @@ export function Header(props: HeaderProps) {
       <div className="">
         {["lg"].map(
           (
-            expand, // Map over an array to create a Navbar component
+            expand // Map over an array to create a Navbar component
           ) => (
             <Navbar key={expand} expand={expand} className="pt-3">
               {" "}
@@ -82,7 +82,7 @@ export function Header(props: HeaderProps) {
                             Blog
                           </ExternalLink>
                           <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
-                            <Link to="/white-paper" target="_blank">
+                            <Link to="/white-paper" target="_blank" className="relative z-20">
                               WHITE PAPER
                             </Link>
                           </Button>
@@ -105,7 +105,7 @@ export function Header(props: HeaderProps) {
                 </Navbar.Offcanvas>
               </Container>
             </Navbar>
-          ),
+          )
         )}
       </div>
     </div>
