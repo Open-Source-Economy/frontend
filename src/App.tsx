@@ -56,6 +56,7 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-are-you" element={<WhoAreYou />} />
+            <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
