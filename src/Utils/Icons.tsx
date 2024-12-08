@@ -155,6 +155,12 @@ export const RoundLinearBg = () => (
     </defs>
   </svg>
 );
+export const ListIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 15 15" fill="none">
+    <circle cx="7.5" cy="7.5" r="7.5" fill="white" />
+    <circle cx="7.5" cy="7.5" r="3.5" fill="#132339" />
+  </svg>
+);
 export const BlurLinearDonut = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 185 212" fill="none">
     <g opacity="0.05" filter="url(#filter0_i_2241_1366)">
