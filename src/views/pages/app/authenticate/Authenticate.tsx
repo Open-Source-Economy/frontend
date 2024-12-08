@@ -121,7 +121,7 @@ export function Authenticate(props: AuthenticateProps) {
           <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">{props.type === AuthenticateType.SignIn ? "Sign in" : "Sign up"}</h1>
           <form
             onSubmit={handleLocalAuthentication}
-            className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
+            className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
           >
             <>
               <Link to={"/"}>
@@ -131,7 +131,7 @@ export function Authenticate(props: AuthenticateProps) {
               {!isEmailPredefined && (
                 <>
                   <button
-                    className="bg-[#202F45] rounded-lg flex items-center justify-center px-5 py-[12px] sm:w-[90%] lg:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
+                    className="bg-[#202F45] rounded-lg flex items-center w-full justify-center px-5 py-[12px] sm:w-[90%] lg:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
                     onClick={handleLogInWithGithub}
                   >
                     <img src={github} className="w-[21px] h-[21px]" alt="" />
@@ -148,11 +148,13 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {!isGithubAccountPredefined && (
-                <div className="flex items-center justify-center gap-3 flex-col">
+                <div className="flex items-center w-full justify-center gap-3 flex-col">
                   <input
                     type="email"
                     placeholder="Email"
-                    className={`${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                    className={`${
+                      isEmailPredefined ? "bg-opacity-50 opacity-50" : ""
+                    } w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                     value={email}
                     onChange={handleEmailChange}
                     required
@@ -177,14 +179,14 @@ export function Authenticate(props: AuthenticateProps) {
               {error && <div className="alert alert-danger mt-3">{error.toSting()}</div>}
 
               {!isGithubAccountPredefined && (
-                <div className="flex  justify-center items-center gap-3 mt-5">
-                  <Button audience={"ALL"} level={"SECONDARY"}>
+                <div className="flex  justify-center w-full items-center gap-3 mt-5">
+                  <Button audience={"ALL"} parentClassName="w-1/2" className="min-w-full" level={"SECONDARY"} size="MEDIUM">
                     <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
                       {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
                     </Link>
                   </Button>
 
-                  <Button type="submit" audience={"ALL"} level={"PRIMARY"}>
+                  <Button parentClassName="w-1/2" className="min-w-full" type="submit" audience={"ALL"} level={"PRIMARY"} size="MEDIUM">
                     <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
                       {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
                     </Link>

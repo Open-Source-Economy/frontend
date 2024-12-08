@@ -100,7 +100,7 @@ export function DowFunding(props: DowFundingProps) {
           >
             <div className="d-flex w-10 lg:w-14 flex-col gap-2 lg:!gap-4">
               {/* <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" /> */}
-              <span className="w-full cursor-pointer " onClick={increment}>
+              <button className="w-full cursor-pointer " onClick={increment}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="md:min-w-[22px] lg:w-full sm:max-w-7 md:h-[18px] max-w-5"
@@ -115,7 +115,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </button>
               {/* <img
                 src={down}
                 className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -125,7 +125,7 @@ export function DowFunding(props: DowFundingProps) {
                   pointerEvents: counter?.isZero() ? "none" : "auto",
                 }}
               /> */}
-              <span
+              <button
                 className={`w-full cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
                 style={{
@@ -146,7 +146,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </button>
             </div>
             <h2 className="gradient-texts select-none w-fit leading-[100%] font-bold md:text-[33px] text-[20px]" tabIndex={-1}>
               DoW
