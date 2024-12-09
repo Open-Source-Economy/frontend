@@ -1,5 +1,6 @@
 import "./App.css";
 import "./index.css";
+
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
@@ -25,9 +26,11 @@ import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepositoryUser";
 import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
+import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
+import { Projects } from "./views/pages/app/projects/Projects";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -54,6 +57,8 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-are-you" element={<WhoAreYou />} />
+            <Route path="/who-built-it" element={<WhoBuiltIt />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
