@@ -64,7 +64,10 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
         </h2>
         <p className="mt-1 text-base text-[rgba(255,255,255,70%)]">Enter a GitHub issue link</p>
         {/*TODO: it is not a form, it is a link to an other page*/}
-        <form onSubmit={handleSubmit} className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "items-start" : "items-center"}  gap-4 mt-4`}>
+        <form
+          onSubmit={handleSubmit}
+          className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "1000:items-start  items-center" : "items-center"}  gap-4 mt-4`}
+        >
           <div className="flex w-full flex-col">
             {" "}
             <input
@@ -72,15 +75,22 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
               value={url || ""}
               onChange={e => setUrl(e.target.value)}
               onKeyDown={handleKeyDown}
-              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] ${
-                !isValidUrl ? "border-2 border-red-500" : "border-0"
+              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${
+                !isValidUrl ? " border-red-500" : "border-transparent"
               }`} // Changed border-1 to border-2 for proper styling
               placeholder="https://github.com/scala-native/scala-native/issues/3851"
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
           {/*TODO: Code Nativex fix*/}
-          <Button type="submit" onKeyDown={handleKeyDown} level={"SECONDARY_DEVELOPER"} size="MEDIUM" className="w-20" parentClassName="w-max max-w-[214px]">
+          <Button
+            type="submit"
+            onKeyDown={handleKeyDown}
+            level={"SECONDARY_DEVELOPER"}
+            size="MEDIUM"
+            className="w-20"
+            parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
+          >
             <span className="relative z-20">Add</span>
           </Button>
         </form>
