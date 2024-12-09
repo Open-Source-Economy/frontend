@@ -131,7 +131,7 @@ export function Authenticate(props: AuthenticateProps) {
               {!isEmailPredefined && (
                 <>
                   <button
-                    className="bg-[#202F45] rounded-lg flex items-center w-full justify-center px-5 py-[12px] sm:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
+                    className="bg-[#202F45] rounded-lg flex items-center min-w-full  justify-center px-5 py-[12px] sm:w-[90%] gap-2 hover:bg-transparent hover:border-2 border-2  hover:border-[#202F45] border-[#202F45]"
                     onClick={handleLogInWithGithub}
                   >
                     <img src={github} className="w-[21px] h-[21px]" alt="" />
