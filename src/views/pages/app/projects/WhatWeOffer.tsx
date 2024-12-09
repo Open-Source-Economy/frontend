@@ -31,7 +31,7 @@ export const whatWeOfferData: CardData[] = [
 
 const WhatWeOffer = () => {
   return (
-    <div className="max-w-[1440px] px-5 mx-auto grid place-items-center lg:place-items-start  grid-cols-1 lg:grid-cols-2  !gap-5 2xl:!gap-10">
+    <div className="max-w-[1440px] !px-5 mx-auto grid place-items-center lg:place-items-start  grid-cols-1 lg:grid-cols-2  !gap-5 2xl:!gap-10">
       {whatWeOfferData.map((card, index) => (
         <WhatWeOfferCard key={index} card={card} />
       ))}

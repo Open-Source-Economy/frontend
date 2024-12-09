@@ -38,7 +38,7 @@ const AUDIENCE_COLORS = {
 } as const;
 
 const buttonVariants = cva(
-  "flex items-center w-fit uppercase font-mich text-white relative justify-center rounded-md duration-300 disabled:opacity-75 disabled:cursor-not-allowed",
+  "flex items-center w-fit uppercase  font-mich text-white relative justify-center rounded-md duration-300 disabled:opacity-75 disabled:cursor-not-allowed",
   {
     variants: {
       size: {

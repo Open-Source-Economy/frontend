@@ -1,4 +1,5 @@
 import React from "react";
+import HighLightCard from "./HighLightCard";
 
 interface HighlightCardData {
   title: string;
@@ -49,39 +50,7 @@ const Highlight = () => {
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
           {highlightData.map((card, index) => (
-            <div key={index} className="bg-[#1c2a42] text-white rounded-lg p-6 shadow-lg flex flex-col">
-              {/* Card Title */}
-              <h3 className="text-lg font-bold mb-2">{card.title}</h3>
-              <p className="text-sm text-gray-300 mb-4">{card.description}</p>
-
-              {/* Task List */}
-              <ul className="mb-4">
-                {card.tasks.map((task, idx) => (
-                  <li key={idx} className="flex items-center mb-2">
-                    {/* <CheckCircleIcon className="h-5 w-5 text-pink-500 mr-2" /> */}
-                    <span className="text-sm">{task}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Progress */}
-              <div className="mt-auto">
-                <p className="text-sm text-gray-400 mb-2">
-                  {card.progress} / {card.total} DoW requested
-                </p>
-                <div className="w-full bg-gray-700 rounded-full h-2 mb-4">
-                  <div
-                    className="bg-gradient-to-r from-orange-500 to-purple-500 h-2 rounded-full"
-                    style={{ width: `${(card.progress / card.total) * 100}%` }}
-                  ></div>
-                </div>
-
-                {/* Fund Button */}
-                <button className="w-full py-2 bg-gradient-to-r from-orange-500 to-purple-500 rounded-md text-white font-bold hover:opacity-90 transition">
-                  {card.buttonText}
-                </button>
-              </div>
-            </div>
+            <HighLightCard key={index} card={card} />
           ))}
         </div>
       </div>
