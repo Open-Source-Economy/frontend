@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import faqImage from "src/assets/faq.webp";
+import FaqItem from "./FaqItem";
+
 interface FaqItem {
   title: string;
   content: string;
@@ -28,24 +30,6 @@ const faqData: FaqItem[] = [
   },
 ];
 
-interface FaqItemProps {
-  faq: FaqItem;
-  isOpen: boolean;
-  index: number;
-  onToggle: (index: number) => void;
-}
-
-const FaqItemComponent: React.FC<FaqItemProps> = ({ faq, isOpen, index, onToggle }) => (
-  <div className={`rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? "service-card" : "border-[#1a2b4a] bg-transparent"}`}>
-    <button className="w-full px-6 py-4 flex justify-between items-center text-white" onClick={() => onToggle(index)}>
-      <span className="text-left font-semibold">{faq.title}</span>
-      <span className="text-2xl transform transition-transform">{isOpen ? "−" : "+"}</span>
-    </button>
-
-    {isOpen && <div className="px-6 pb-4 text-gray-300">{faq.content}</div>}
-  </div>
-);
-
 const WhyNeedFunding: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -55,10 +39,9 @@ const WhyNeedFunding: React.FC = () => {
 
   return (
     <div className="p-8">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Left side - Image */}
-        <div className="relative">
-          <div className="w-full max-w-[700px] rounded-full bsolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-50" />
+        <div className="w-full flex justify-center items-center pl-6 pb-[72px] pr-16 pt-7 max-w-[700px] rounded-full !bg-secondary backdrop-blur-[7.5px] shadow-[inset_5px_8px_10px_0px_rgba(255,255,255,0.08)]">
           <img src={faqImage} alt="Team illustration" className="relative z-10" />
         </div>
 
@@ -71,7 +54,7 @@ const WhyNeedFunding: React.FC = () => {
 
           <div className="space-y-4">
             {faqData.map((faq, index) => (
-              <FaqItemComponent key={index} faq={faq} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
+              <FaqItem key={index} faq={faq} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
             ))}
           </div>
 
