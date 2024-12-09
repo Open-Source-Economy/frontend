@@ -41,8 +41,8 @@ export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
           {/* ============== MAIN HEADING =========== */}
           <Hero />
           {/* ============================= SERVICE CARD ===================== */}
-          <Services />
-          <BookACall />
+          {/* <Services /> */}
+          {/* <BookACall /> */}
           {/* ============================= VIRTUOUS SECTION ====================  */}
           <VirtuousSection />
         </div>

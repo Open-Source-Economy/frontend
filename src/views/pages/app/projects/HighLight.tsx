@@ -39,7 +39,7 @@ const highlightData: HighlightCardData[] = [
 
 const Highlight = () => {
   return (
-    <section className="bg-gradient-to-r from-[#0b1120] to-[#1c2a42] py-12">
+    <section className=" py-12">
       <div className="max-w-7xl mx-auto text-center">
         {/* Title */}
         <h2 className="text-white text-4xl font-bold mb-8">Highlight</h2>

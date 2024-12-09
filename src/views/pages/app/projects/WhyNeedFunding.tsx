@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import faqImage from "src/assets/faq.webp";
 interface FaqItem {
   title: string;
   content: string;
@@ -36,9 +36,7 @@ interface FaqItemProps {
 }
 
 const FaqItemComponent: React.FC<FaqItemProps> = ({ faq, isOpen, index, onToggle }) => (
-  <div
-    className={`rounded-xl overflow-hidden border transition-all duration-300 ${isOpen ? "border-gradient bg-[#1a2b4a]" : "border-[#1a2b4a] bg-transparent"}`}
-  >
+  <div className={`rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? "service-card" : "border-[#1a2b4a] bg-transparent"}`}>
     <button className="w-full px-6 py-4 flex justify-between items-center text-white" onClick={() => onToggle(index)}>
       <span className="text-left font-semibold">{faq.title}</span>
       <span className="text-2xl transform transition-transform">{isOpen ? "−" : "+"}</span>
@@ -49,19 +47,19 @@ const FaqItemComponent: React.FC<FaqItemProps> = ({ faq, isOpen, index, onToggle
 );
 
 const WhyNeedFunding: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number): void => {
-    setOpenIndex(openIndex === index ? -1 : index);
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0A1B39] to-[#1F0E3D] p-8">
+    <div className="p-8">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Left side - Image */}
         <div className="relative">
-          <div className="w-full h-[400px] rounded-full bg-[#1a2b4a] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-50" />
-          <img src="/api/placeholder/500/500" alt="Team illustration" className="relative z-10" />
+          <div className="w-full max-w-[700px] rounded-full bsolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-50" />
+          <img src={faqImage} alt="Team illustration" className="relative z-10" />
         </div>
 
         {/* Right side - FAQ */}
@@ -85,14 +83,6 @@ const WhyNeedFunding: React.FC = () => {
           </button>
         </div>
       </div>
-      {/* 
-      <style jsx>{`
-        .border-gradient {
-          background: linear-gradient(to right, #ffffff14, #66666636);
-          background-clip: padding-box;
-          border: 1px solid transparent;
-        }
-      `}</style> */}
     </div>
   );
 };

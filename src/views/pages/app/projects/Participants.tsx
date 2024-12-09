@@ -1,4 +1,13 @@
 import React from "react";
+import ParticipantCard from "./ParticipantCard";
+import participant from "src/assets/participant-1.png";
+import participant2 from "src/assets/participant-2.png";
+import participant3 from "src/assets/participant-3.png";
+import participant4 from "src/assets/participant-4.png";
+import mascot1 from "src/assets/participant-card-1.png";
+import mascot2 from "src/assets/participant-card-2.png";
+import mascot3 from "src/assets/participant-card-3.png";
+import mascot4 from "src/assets/participant-card-4.png";
 
 // Define the participant data interface
 interface Participant {
@@ -6,6 +15,7 @@ interface Participant {
   title: string;
   quote: string;
   image: string;
+  mascot: string;
 }
 
 const participants: Participant[] = [
@@ -13,31 +23,35 @@ const participants: Participant[] = [
     name: "Patrik Nordwall",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: "/path-to-image/patrik.jpg",
+    image: participant,
+    mascot: mascot1,
   },
   {
     name: "Konrad",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: "/path-to-image/konrad.jpg",
+    image: participant2,
+    mascot: mascot2,
   },
   {
     name: "Enno Runne",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: "/path-to-image/enno.jpg",
+    image: participant3,
+    mascot: mascot3,
   },
   {
     name: "Richard Imaoka",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: "/path-to-image/richard.jpg",
+    image: participant4,
+    mascot: mascot4,
   },
 ];
 
 const Participants = () => {
   return (
-    <section className="bg-gradient-to-r from-[#0b1120] to-[#1c2a42] py-12">
+    <section className=" py-12">
       <div className="max-w-7xl mx-auto text-center">
         {/* Title */}
         <h2 className="text-white text-4xl font-bold mb-8">Who is Participating?</h2>
@@ -48,25 +62,13 @@ const Participants = () => {
         {/* Participants List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
           {participants.map((participant, index) => (
-            <div key={index} className="relative bg-gradient-to-b from-[#0d1b2a] to-[#1c364f] rounded-lg p-6 flex flex-col items-center text-white">
-              {/* Participant Image */}
-              <img src={participant.image} alt={participant.name} className="rounded-full w-32 h-32 object-cover mb-4" />
-              {/* Participant Info */}
-              <div className="text-center">
-                <h3 className="text-lg font-semibold">{participant.name}</h3>
-                <p className="text-sm text-gray-300">{participant.title}</p>
-                <p className="mt-2 text-sm italic">"{participant.quote}"</p>
-              </div>
-
-              {/* Badge */}
-              <div className="absolute top-[-20px] bg-blue-700 text-white rounded-full px-4 py-1 text-xs shadow-lg">OSS Full time Thanks to you!</div>
-            </div>
+            <ParticipantCard participant={participant} key={index} />
           ))}
         </div>
 
         {/* View All Button */}
         <div className="mt-8">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-full shadow hover:bg-blue-700 transition">View All</button>
+          <button className="bg-secondary text-white px-6 py-2 rounded-full shadow hover:bg-blue-700 transition">View All</button>
         </div>
       </div>
     </section>
