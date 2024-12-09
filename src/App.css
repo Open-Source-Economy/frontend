@@ -48,7 +48,8 @@ html {
 .customCheckbox {
   appearance: none;
   -webkit-appearance: none;
-  width: 34px;
+  max-width: 24px;
+  min-width: 24px;
   height: 24px;
   border: 2px solid #202f45;
   border-radius: 6px;
@@ -137,8 +138,6 @@ input[type="number"] {
   cursor: pointer;
   /* Remove any border if there is one */
 }
-
-
 
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
@@ -240,10 +239,9 @@ input[type="number"] {
   }
 }
 
-
 /* Fix for Safari gradient rendering */
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) {
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
     .box-gradient {
       -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
