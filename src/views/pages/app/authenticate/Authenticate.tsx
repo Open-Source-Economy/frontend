@@ -173,7 +173,7 @@ export function Authenticate(props: AuthenticateProps) {
 
               {/*TODO: incorporate it*/}
 
-              {config.env == Env.Production && <TermsAgreement />}
+              {config.env === Env.Production && <TermsAgreement />}
 
               {/*TODO: display error*/}
               {auth.error && <div className="alert alert-danger mt-3">{auth.error.toSting()}</div>}
