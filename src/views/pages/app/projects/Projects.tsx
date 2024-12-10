@@ -11,11 +11,13 @@ interface ProjectsProps {}
 export function Projects(props: ProjectsProps) {
   return (
     <PageWrapper baseURL={BaseURL.APP}>
-      <ProjectHero />
-      <WhatWeOffer />
-      <Highlight />
-      <WhyNeedFunding />
-      <Participants />
+      <section className="overflow-hidden">
+        <ProjectHero />
+        <WhatWeOffer />
+        <Highlight />
+        <WhyNeedFunding />
+        <Participants />
+      </section>
     </PageWrapper>
   );
 }

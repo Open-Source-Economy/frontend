@@ -1,52 +1,19 @@
 import React from "react";
 import HighLightCard from "./HighLightCard";
-
-interface HighlightCardData {
-  title: string;
-  description: string;
-  tasks: string[];
-  progress: number; // Current progress
-  total: number; // Total required
-  buttonText: string;
-  isBorder: boolean;
-}
-
-const highlightData: HighlightCardData[] = [
-  {
-    title: "Issue #4563",
-    description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
-    buttonText: "FUND",
-    isBorder: false,
-  },
-  {
-    title: "Cluster Maintenance",
-    description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
-    buttonText: "FUND",
-    isBorder: true,
-  },
-  {
-    title: "Issue #4563",
-    description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
-    buttonText: "FUND",
-    isBorder: false,
-  },
-];
+import highlightLinear from "src/assets/highlight-linear-bg.webp";
+import { highlightData } from "../whoBuiltIt/Helper";
 
 const Highlight = () => {
   return (
-    <section className=" pt-[144px]">
-      <div className="!px-4 lg:!px-0 lg:max-w-[90%] 3xl:max-w-[1440px] mx-auto flex flex-col justify-center items-center">
+    <section className="relative pt-20 md:pt-24 xl:pt-32 3xl:pt-[144px] 2xl:pb-28">
+      {/* ==== LEFT LINEAR BACKGROUND ==== */}
+
+      <div className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rotate-180 -bottom-[15%] opacity-20 blur-[80px] -z-10 w-full left-1/2 -translate-x-1/2 max-h-[700px] rounded-full h-full absolute max-w-[900px]"></div>
+      <img src={highlightLinear} alt="" className="absolute left-[-2%] max-h-[671px] max-w-[781px] h-full w-full -top-[10%] -z-10 pointer-events-none" />
+
+      <div className="!px-4 xl:!px-0 xl:max-w-[90%] 2xl:max-w-[80%] 3xl:max-w-[1440px] mx-auto flex flex-col justify-center items-center">
         {/* Title */}
-        <h2 className="section-heading !pb-5 w-fit relative mb-14">
+        <h2 className="section-heading !pb-5 w-fit relative mb-6 md:mb-8 lg:mb-10 3xl:mb-14">
           Highlight{" "}
           <span className="absolute w-[80%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
         </h2>

@@ -14,8 +14,8 @@ interface FaqItemProps {
 
 const FaqItem: React.FC<FaqItemProps> = ({ faq, isOpen, index, onToggle }) => (
   <div className={`rounded-xl overflow-hidden transition-all bg-primaryBg duration-300 ${isOpen ? "virtuous-card" : ""}`}>
-    <button className="w-full px-6 py-4 flex justify-between items-center" onClick={() => onToggle(index)}>
-      <span className={`${isOpen ? "text-primary-user" : "text-white"} text-lg xl:text-[22px] 3xl:text-[25px] font-michroma`}>{faq.title}</span>
+    <button className="w-full !px-4 sm:!px-6 py-4 flex justify-between sm:items-center" onClick={() => onToggle(index)}>
+      <span className={`${isOpen ? "text-primary-user" : "text-white"} text-lg text-left 2xl:text-[22px] 3xl:text-[25px] font-michroma`}>{faq.title}</span>
       <span className="duration-300 transform transition-transform">{isOpen ? <MinusIcon /> : <PlusIcon />}</span>
     </button>
 
