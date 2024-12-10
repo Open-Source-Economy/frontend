@@ -21,10 +21,10 @@ const Hero = () => {
         <span className="absolute hidden xl:block xl:-left-[6%] 2xl:-left-[10%] top-[4%]  max-w-[200px] 2xl:max-w-[280px]">
           <DonutIcon />
         </span>
-        <h1 className="relative  text-center mx-auto   who-built-it-main-heading bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
+        <h1 className="relative  text-center mx-auto   main-heading bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
           Open Source
         </h1>
-        <h1 className="who-built-it-main-heading max-w-[887px] mx-auto mt-2.5">
+        <h1 className="main-heading max-w-[887px] mx-auto mt-2.5">
           From the Experts{" "}
           <span className="relative block pb-3 lg:pb-5">
             Who Built It
@@ -34,7 +34,9 @@ const Hero = () => {
         <h3 className="text-lg md:text-2xl lg:text-3xl max-w-[80%] mx-auto xl:text-[33px] text-center font-montserrat 3xl:text-[40px] mt-10 sm:mt-12 md:mt-[60px]">
           Need help with an Open Source project?
         </h3>
-        <h5 className="font-montserrat text-sm md:text-xl text-center 3xl:text-2xl opacity-70 !mt-5">We're the experts who build, debug, and maintain it</h5>
+        <h5 className="font-montserrat text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center opacity-70 !mt-5">
+          We're the experts who build, debug, and maintain it
+        </h5>
       </section>
     </>
   );

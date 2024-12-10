@@ -5,10 +5,14 @@ import { SpinningWheel } from "src/Utils/Icons";
 
 const HighLightCard = ({ card }) => {
   return (
-    <div className="!bg-secondary text-white service-card  rounded-[35px] p-6 shadow-lg flex flex-col">
+    <div
+      className={`${
+        card.isBorder ? "virtuous-card" : ""
+      } !bg-secondary text-white rounded-[35px] p-6  flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)]`}
+    >
       {/* Card Title */}
       <h3 className="text-xl lg:text-2xl 2xl:text-3xl 3xl:text-[35px] font-montserrat font-medium mb-2">{card.title}</h3>
-      <p className="text-base lg:text-lg text-left  2xl:text-xl 3xl:text-[22px] font-montserrat opacity-80 mb-4">{card.description}</p>
+      <p className="text-base 2xl:text-lg text-left  3xl:text-[22px] font-montserrat opacity-80 mb-4">{card.description}</p>
 
       {/* Task List */}
       <ul className="mb-4 !space-y-5">
@@ -22,7 +26,7 @@ const HighLightCard = ({ card }) => {
 
       {/* Progress */}
       <div className="mt-auto">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center !mb-7">
           <span className="max-w-5 md:max-w-6 3xl:max-w-8">
             <SpinningWheel />
           </span>
@@ -34,13 +38,11 @@ const HighLightCard = ({ card }) => {
         </div>
 
         <div className="w-full bg-gray-700 rounded-full h-2 mb-4">
-          <div className="bg-gradient-to-r from-orange-500 to-purple-500 h-2 rounded-full" style={{ width: `${(card.progress / card.total) * 100}%` }}></div>
+          <div
+            className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] text-white to-[#66319B] h-2 rounded-full"
+            style={{ width: `${(card.progress / card.total) * 100}%` }}
+          ></div>
         </div>
-
-        {/* Fund Button */}
-        {/* <button className="w-full py-2 bg-gradient-to-r from-orange-500 to-purple-500 rounded-md text-white font-bold hover:opacity-90 transition">
-          {card.buttonText}
-        </button> */}
 
         <div className="relative !mt-7 lg:!mt-10 3xl:!mt-12">
           <Button audience="ALL" parentClassName="w-full" className="w-full cursor-pointer" level="SECONDARY" size="LARGE" asChild>

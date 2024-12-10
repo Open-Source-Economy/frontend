@@ -21,7 +21,7 @@ const VirtuousSection: React.FC = () => {
       <BookACall />
       {/* ============== VIRTUOUS SECTION ============= */}
       <section className="!pt-16  !pb-16 lg:!pb-[220px] w-full  max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto ">
-        <h2 className="text-3xl text-center md:text-4xl font-medium  max-w-[386px] md:max-w-[470px] mx-auto lg:max-w-[800px] text-white mb-8">
+        <h2 className="section-heading max-w-[386px] md:max-w-[470px] mx-auto lg:max-w-[800px]  mb-8">
           A Virtuous Way to
           <span className="relative pb-1.5 lg:!pb-4 pl-3 w-fit">
             Secure{" "}

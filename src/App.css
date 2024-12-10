@@ -425,9 +425,6 @@ input[type="number"] {
 .service-card:hover::before {
   opacity: 1; /* Show border on hover */
 }
-.service-card:active::before {
-  opacity: 1;
-}
 
 .service-card-content {
   position: relative; /* Content above the pseudo-elements */

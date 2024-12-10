@@ -156,6 +156,17 @@ export const RoundLinearBg = () => (
   </svg>
 );
 
+export const MinusIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M4 12H20" stroke="#FF518C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+);
+export const PlusIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M12 4V20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M4 12H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+);
 export const SpinningWheel = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 34 34" fill="none">
     <circle cx="17" cy="16.9976" r="16.5312" stroke="#FF7E4B" stroke-width="0.9375" />

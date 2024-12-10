@@ -1,9 +1,12 @@
 import React from "react";
 import WhatWeOfferCard, { CardData } from "./WhatWeOfferCard";
 import support from "src/assets/support-logo.webp";
+import rightLinear from "src/assets/right-linear-bg.png";
 import development from "src/assets/write-code.webp";
 import advisory from "src/assets/advisory.webp";
+import offerLeftLinear from "src/assets/offer-linear.webp";
 import operation from "src/assets/operation.webp";
+import { Button } from "src/components";
 
 export const whatWeOfferData: CardData[] = [
   {
@@ -31,11 +34,23 @@ export const whatWeOfferData: CardData[] = [
 
 const WhatWeOffer = () => {
   return (
-    <div className="max-w-[1440px] !px-5 mx-auto grid place-items-center lg:place-items-start  grid-cols-1 lg:grid-cols-2  !gap-5 2xl:!gap-10">
-      {whatWeOfferData.map((card, index) => (
-        <WhatWeOfferCard key={index} card={card} />
-      ))}
-    </div>
+    <section className="relative pt-10">
+      <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px]  z-0 top-[20%]" />
+      <img src={offerLeftLinear} alt="" className="absolute max-w-[970px] w-full -z-10 pointer-events-none left-[-2%] -top-[15%] xl:-top-[36%] " />
+      <div className="max-w-[1440px] !px-5 mx-auto relative z-20 ">
+        <div className="grid lg:place-items-start  place-items-center grid-cols-1 lg:grid-cols-2  !gap-5 2xl:!gap-10">
+          {whatWeOfferData.map((card, index) => (
+            <WhatWeOfferCard key={index} card={card} />
+          ))}
+        </div>
+
+        <div className="flex justify-center items-center mt-10 xl:mt-14 3xl:mt-16">
+          <Button audience="ALL" level="PRIMARY" size="LARGE" asChild>
+            <span>Book a Metting</span>
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 };
 

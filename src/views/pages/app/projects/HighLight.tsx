@@ -8,6 +8,7 @@ interface HighlightCardData {
   progress: number; // Current progress
   total: number; // Total required
   buttonText: string;
+  isBorder: boolean;
 }
 
 const highlightData: HighlightCardData[] = [
@@ -18,6 +19,7 @@ const highlightData: HighlightCardData[] = [
     progress: 3.3,
     total: 10,
     buttonText: "FUND",
+    isBorder: false,
   },
   {
     title: "Cluster Maintenance",
@@ -26,6 +28,7 @@ const highlightData: HighlightCardData[] = [
     progress: 3.3,
     total: 10,
     buttonText: "FUND",
+    isBorder: true,
   },
   {
     title: "Issue #4563",
@@ -34,21 +37,22 @@ const highlightData: HighlightCardData[] = [
     progress: 3.3,
     total: 10,
     buttonText: "FUND",
+    isBorder: false,
   },
 ];
 
 const Highlight = () => {
   return (
-    <section className=" py-12">
-      <div className="max-w-7xl mx-auto text-center">
+    <section className=" pt-[144px]">
+      <div className="!px-4 lg:!px-0 lg:max-w-[90%] 3xl:max-w-[1440px] mx-auto flex flex-col justify-center items-center">
         {/* Title */}
-        <h2 className="text-white text-4xl font-bold mb-8">Highlight</h2>
-        <div className="flex justify-center items-center space-x-4 mb-4">
-          <span className="w-10 h-1 bg-gradient-to-r from-orange-500 to-purple-600"></span>
-        </div>
+        <h2 className="section-heading !pb-5 w-fit relative mb-14">
+          Highlight{" "}
+          <span className="absolute w-[80%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+        </h2>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {highlightData.map((card, index) => (
             <HighLightCard key={index} card={card} />
           ))}
