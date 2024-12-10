@@ -60,14 +60,14 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const loginWithGitHub = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const result = await auth.loginWithGitHub();
       if (result instanceof ApiError) setApiError(result);
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
   const logout = async () => {
