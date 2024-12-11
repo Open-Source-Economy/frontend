@@ -29,8 +29,8 @@ import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
-import { Project } from "./views/pages/app/project/Project";
 import { Projects } from "./views/pages/app/projects/Projects";
+import { Project } from "./views/pages/app/project/Project";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -58,7 +58,6 @@ const App = () => {
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route path="/project" element={<Project />} />
-            <Route path="/projects" element={<Projects />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
@@ -66,6 +65,7 @@ const App = () => {
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
           <Route path="/white-paper" element={<Pdf />} />
+          <Route path="/projects" element={<Projects />} />
 
           <Route path="/logout" element={<Logout />} />
           <Route element={<UnAuthRoutes />}>

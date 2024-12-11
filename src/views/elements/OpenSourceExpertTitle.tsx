@@ -1,8 +1,9 @@
 import React from "react";
-import { DonutIcon, RightDonutIcon } from "src/Utils/Icons";
 import whoBuiltHero from "src/assets/Rectangle.png";
 
-const Hero = () => {
+interface OpenSourceExpertTitleProps {}
+
+export function OpenSourceExpertTitle(props: OpenSourceExpertTitleProps) {
   return (
     <>
       {/*/!* =================== RIGHT DONUT =============== *!/*/}
@@ -40,6 +41,4 @@ const Hero = () => {
       </section>
     </>
   );
-};
-
-export default Hero;
+}
