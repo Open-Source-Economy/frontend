@@ -62,7 +62,7 @@ export function AuthProvider(props: AuthProviderProps) {
   const loginWithGitHub = async () => {
     auth.loginWithGitHub();
   };
-  
+
   const logout = async () => {
     setLoading(true);
     try {
