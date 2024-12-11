@@ -18,11 +18,9 @@ import {
   GetIssueParams,
   GetIssueQuery,
   GetIssuesParams,
-  GetOwnerBody,
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
-  GetRepositoryBody,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
@@ -30,7 +28,7 @@ import {
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
 } from "src/dtos";
-import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
+import { issue, issueId, owner, repository, user, userId } from "./index";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
 
@@ -50,9 +48,9 @@ export class BackendAPIMock implements BackendAPI {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
-          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, []);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -96,7 +94,7 @@ export class BackendAPIMock implements BackendAPI {
   async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
     return {
       owner: owner,
-      repository: repository,
+      repository: repository(),
     };
   }
 }

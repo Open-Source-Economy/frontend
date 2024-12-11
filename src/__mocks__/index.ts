@@ -24,17 +24,54 @@ export const ownerId = new OwnerId("Open-Source-Economy", 141809657);
 export const repositoryId = new RepositoryId(ownerId, "frontend", 701996033);
 export const issueId = new IssueId(repositoryId, 3, 2538344642);
 
+function generateRandomText(maxWords: number): string {
+  const words = [
+    "lorem",
+    "ipsum",
+    "dolor",
+    "sit",
+    "amet",
+    "consectetur",
+    "adipiscing",
+    "elit",
+    "sed",
+    "do",
+    "eiusmod",
+    "tempor",
+    "incididunt",
+    "ut",
+    "labore",
+    "et",
+    "dolore",
+    "magna",
+    "aliqua",
+    "ut",
+    "enim",
+    "ad",
+    "minim",
+    "veniam",
+    "quis",
+    "nostrud",
+    "exercitation",
+    "ullamco",
+    "laboris",
+    "nisi",
+  ];
+  const randomLength = Math.floor(Math.random() * maxWords) + 1;
+  return Array.from({ length: randomLength }, () => words[Math.floor(Math.random() * words.length)]).join(" ");
+}
+
 export const owner = new Owner(
   ownerId,
   OwnerType.Organization,
   "https://github.com/Open-Source-Economy",
   "https://avatars.githubusercontent.com/u/141809657?v=4",
 );
-export const repository = new Repository(
-  repositoryId,
-  "https://github.com/Open-Source-Economy/frontend",
-  " iuwgd  dieu fiyqe fguae fguayer feruyfj wryvua g w fuye fguery fuyeru",
-);
+
+export function repository(): Repository {
+  return new Repository(repositoryId, "https://github.com/Open-Source-Economy/frontend", generateRandomText(30));
+}
+
 export const issue = new Issue(
   issueId,
   "Test issue - to be added in our unit tests",
