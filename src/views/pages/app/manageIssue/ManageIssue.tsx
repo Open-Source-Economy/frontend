@@ -34,7 +34,7 @@ export function ManageIssue(props: ManageIssueProps) {
                 <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24 max-w-[1220px] mx-auto min-[1800px]:max-w-[1500px]">
+                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24 max-w-[1220px] mx-auto 3xl:max-w-[1500px]">
                   <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
                       <div className="w-full">
