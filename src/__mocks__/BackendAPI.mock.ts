@@ -18,6 +18,14 @@ import {
   GetIssueParams,
   GetIssueQuery,
   GetIssuesParams,
+  GetOwnerBody,
+  GetOwnerParams,
+  GetOwnerQuery,
+  GetOwnerResponse,
+  GetRepositoryBody,
+  GetRepositoryParams,
+  GetRepositoryQuery,
+  GetRepositoryResponse,
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
@@ -78,6 +86,18 @@ export class BackendAPIMock implements BackendAPI {
 
   async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
+  }
+
+  async getOwner(params: GetOwnerParams, body: GetOwnerBody, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+    return {
+      owner: owner,
+    };
+  }
+  async getRepository(params: GetRepositoryParams, body: GetRepositoryBody, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+    return {
+      owner: owner,
+      repository: repository,
+    };
   }
 }
 

@@ -4,10 +4,10 @@ export interface RequestIssueFundingParams {
   number: number;
 }
 
+export interface RequestIssueFundingResponse {}
+
 export interface RequestIssueFundingBody {
   dowAmount: string;
 }
 
 export interface RequestIssueFundingQuery {}
-
-export interface RequestIssueFundingResponse {}

@@ -30,6 +30,7 @@ import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRi
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { Project } from "./views/pages/app/project/Project";
+import { Projects } from "./views/pages/app/projects/Projects";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -56,7 +57,8 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
-            <Route path="/projects" element={<Project />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
