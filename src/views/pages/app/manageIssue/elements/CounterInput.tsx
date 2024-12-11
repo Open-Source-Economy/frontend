@@ -29,9 +29,10 @@ export function CounterInput(props: CounterInputProps) {
             <button
               className={`md:w-[11px] w-[11px] h-2 cursor-pointer ${props.value?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
               onClick={props.decrement}
+              disabled={props.value?.isZero()}
               type="button"
               style={{
-                pointerEvents: props.value?.isZero() ? "none" : "auto",
+                userSelect: props.value?.isZero() ? "none" : "auto",
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="8" viewBox="0 0 11 8" fill="none">
