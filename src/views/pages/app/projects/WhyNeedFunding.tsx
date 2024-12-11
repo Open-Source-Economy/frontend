@@ -21,17 +21,18 @@ const WhyNeedFunding: React.FC = () => {
         alt=""
         className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] -z-10  max-w-[780px] h-full -bottom-[30%]"
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8  xl:gap-14 items-center !px-4 lg:max-w-[96%]  3xl:max-w-[1659px] mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8  xl:gap-14 items-center !px-4 lg:max-w-[96%] lg:!px-0 3xl:max-w-[1659px] mx-auto">
         {/* Left side - Image */}
-        <div className="w-full flex justify-center items-center p-8 3xl:pl-6 3xl:pb-[72px] 3xl:pr-16 3xl:pt-7 max-w-[749px] max-h-[749px] rounded-full !bg-secondary backdrop-blur-[7.5px] shadow-[inset_5px_8px_10px_0px_rgba(255,255,255,0.08)]">
+        <div className="w-full flex justify-center relative items-center p-8 3xl:pl-6 3xl:pb-[72px] 3xl:pr-16 3xl:pt-7 max-w-[749px] max-h-[749px] rounded-full !bg-secondary backdrop-blur-md shadow-[inset_5px_8px_10px_0px_rgba(255,255,255,0.08)]">
+          <div className="absolute bg-[#9D3C95] w-full h-full max-h-[500px] max-w-[500px] rounded-full opacity-50 blur-[166px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 pointer-events-none"></div>
           <img src={faqImage} alt="Team illustration" className="relative z-10" />
         </div>
 
         {/* Right side - FAQ */}
         <div className="space-y-3 md:space-y-4 xl:space-y-6">
-          <h2 className="section-heading lg:!pb-8 w-fit relative !mb-9">
+          <h2 className="section-heading text-left xl:!pb-8 w-fit relative !mb-5 xl:!mb-9">
             Why do we Need Funding?
-            <span className="absolute w-[30%] h-[6px] hidden lg:block  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+            <span className="absolute w-[34%] h-[6px] hidden xl:block  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </h2>
 
           <div className="space-y-4">
