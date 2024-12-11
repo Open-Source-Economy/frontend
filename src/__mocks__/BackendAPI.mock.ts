@@ -88,12 +88,12 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async getOwner(params: GetOwnerParams, body: GetOwnerBody, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
     return {
       owner: owner,
     };
   }
-  async getRepository(params: GetRepositoryParams, body: GetRepositoryBody, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
     return {
       owner: owner,
       repository: repository,

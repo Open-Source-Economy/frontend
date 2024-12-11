@@ -1,13 +1,6 @@
 import React from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { BaseURL } from "../../../../App";
-import ProjectHero from "../project/ProjectHero";
-import WhatWeOffer from "../project/WhatWeOffer";
-import Highlight from "../project/HighLight";
-import WhyNeedFunding from "../project/WhyNeedFunding";
-import Participants from "../project/Participants";
-import whoBuiltHero from "../../../../assets/Rectangle.png";
-import hero from "../../../../assets/project.webp";
 
 interface ProjectsProps {}
 
@@ -26,8 +19,6 @@ export function Projects(props: ProjectsProps) {
           </span>
         </h5>
       </section>
-
-      <Projects />
     </PageWrapper>
   );
 }

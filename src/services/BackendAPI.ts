@@ -81,9 +81,9 @@ export interface BackendAPI {
   // TODO: maybe internal to the backend?
   updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError>;
 
-  getOwner(params: GetOwnerParams, body: GetOwnerBody, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
+  getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
 
-  getRepository(params: GetRepositoryParams, body: GetRepositoryBody, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
+  getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -142,11 +142,11 @@ class BackendAPIImpl implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async getOwner(params: GetOwnerParams, body: GetOwnerBody, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
-    return handleError(() => axios.post(`${config.api.url}/owners/${params.owner}`, body, { withCredentials: true }), "getOwner");
+  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
   }
 
-  async getRepository(params: GetRepositoryParams, body: GetRepositoryBody, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
-    return handleError(() => axios.post(`${config.api.url}/repos/${params.owner}`, body, { withCredentials: true }), "getRepository");
+  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 }

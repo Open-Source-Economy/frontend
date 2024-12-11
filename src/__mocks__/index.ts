@@ -38,7 +38,7 @@ export const issue = new Issue(
   new Date("2024-09-20T09:34:07Z"),
   null,
   new OwnerId("LaurianeOSE", 141809342),
-  undefined,
+  "noe rfi efier gisrgl l yrfvbisleurgfs;ieur bgf;iear rgfiauerf ",
 );
 
 export const userId = new UserId("141809342");
