@@ -6,9 +6,9 @@ import Participants from "./Participants";
 import Highlight from "./HighLight";
 import WhyNeedFunding from "./WhyNeedFunding";
 
-interface ProjectsProps {}
+interface ProjectProps {}
 
-export function Projects(props: ProjectsProps) {
+export function Project(props: ProjectProps) {
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <section className="overflow-hidden">
