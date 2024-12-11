@@ -1,24 +1,14 @@
 import React, { useEffect } from "react";
 import backdropSVG from "src/assets/backdrop.svg";
 import { Cards } from "src/views/pages/website/home/elements/Cards";
-import { OwnerId, RepositoryId } from "../../../../../model";
-import { getBackendAPI } from "../../../../../services";
 import { useRepositories } from "../../../../hooks";
+import { repositoryIds } from "../../../../data/repositories";
+import { Audience } from "../../../../Audience";
 
 interface ProjectsProps {}
 
 export function Projects(props: ProjectsProps) {
-  const backendAPI = getBackendAPI();
-
-  const repositoryNames: [string, string][] = [
-    ["apache", "pekko"],
-    ["join-the-flock", "flock"],
-    ["kubesphere", "kubesphere"],
-  ];
-
-  const { repositories, error, reloadRepositories } = useRepositories(
-    repositoryNames.map(([owner, repository]) => new RepositoryId(new OwnerId(owner), repository)),
-  );
+  const { repositories, error, reloadRepositories } = useRepositories(repositoryIds);
 
   useEffect(() => {
     reloadRepositories();
@@ -36,7 +26,7 @@ export function Projects(props: ProjectsProps) {
 
             {repositories.map(([owner, repository], index) => (
               <>
-                <Cards key={index} owner={owner} repository={repository} />
+                <Cards key={index} owner={owner} repository={repository} audience={Audience.ALL} />
               </>
             ))}
           </div>

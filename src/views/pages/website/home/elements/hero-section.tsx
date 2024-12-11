@@ -16,7 +16,7 @@ export const HeroSection = () => {
         </h1>
 
         <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
-          <Link to="/issues">GET STARTED</Link>
+          <Link to="/projects">GET STARTED</Link>
         </Button>
       </div>
       {/* Right  */}

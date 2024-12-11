@@ -30,7 +30,11 @@ export const owner = new Owner(
   "https://github.com/Open-Source-Economy",
   "https://avatars.githubusercontent.com/u/141809657?v=4",
 );
-export const repository = new Repository(repositoryId, "https://github.com/Open-Source-Economy/frontend", undefined);
+export const repository = new Repository(
+  repositoryId,
+  "https://github.com/Open-Source-Economy/frontend",
+  " iuwgd  dieu fiyqe fguae fguayer feruyfj wryvua g w fuye fguery fuyeru",
+);
 export const issue = new Issue(
   issueId,
   "Test issue - to be added in our unit tests",
