@@ -1,7 +1,7 @@
 import "./App.css";
 import "./index.css";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Audience,
@@ -31,6 +31,7 @@ import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRi
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { Projects } from "./views/pages/app/projects/Projects";
+import Loader from "./components/common/Loader";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -50,6 +51,22 @@ export enum BaseURL {
 }
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true); // Manage loading state
+
+  useEffect(() => {
+    // Simulate a loading delay or fetch initial app data here
+    const timer = setTimeout(() => {
+      setIsLoading(false); // Stop loading after a delay
+    }, 2000); // Example: 2 seconds delay
+
+    return () => clearTimeout(timer); // Cleanup
+  }, []);
+
+  if (isLoading) {
+    // Display loader while loading
+    return <Loader isFullScreen={true} message="Loading App..." showBackgroundImage={true} />;
+  }
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -59,10 +76,12 @@ const App = () => {
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route path="/projects" element={<Projects />} />
+
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
           <Route path="/" element={<Home />} />
+
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
           <Route path="/white-paper" element={<Pdf />} />
