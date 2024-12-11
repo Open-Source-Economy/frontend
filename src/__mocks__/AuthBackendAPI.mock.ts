@@ -43,9 +43,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async loginWithGitHub(success?: string, failure?: string): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
+  loginWithGitHub(success?: string, failure?: string): void {}
 
   async deleteSession(): Promise<void | ApiError> {
     return Promise.resolve(undefined);
