@@ -58,7 +58,7 @@ const App = () => {
     // Simulate a loading delay or fetch initial app data here
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 50000);
+    }, 2000);
 
     return () => clearTimeout(timer); // Cleanup
   }, []);
