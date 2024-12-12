@@ -57,8 +57,8 @@ const App = () => {
   useEffect(() => {
     // Simulate a loading delay or fetch initial app data here
     const timer = setTimeout(() => {
-      setIsLoading(false); // Stop loading after a delay
-    }, 2000); // Example: 2 seconds delay
+      setIsLoading(false);
+    }, 50000);
 
     return () => clearTimeout(timer); // Cleanup
   }, []);

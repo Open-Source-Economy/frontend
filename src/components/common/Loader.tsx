@@ -40,7 +40,7 @@ const Loader: React.FC<LoaderProps> = ({ isFullScreen = true, message = "Loading
       <img
         src={loader}
         alt="Loading"
-        className={` ${isFullScreen ? "max-w-[80%] lg:max-w-[500px] -mt-20" : "-mt-16 max-w-[90px]"}  z-20 object-cover w-full relative mx-auto`}
+        className={` ${isFullScreen ? "max-w-[80%] sm:max-w-[500px] -mt-14 md:-mt-20" : "-mt-16 max-w-[90px]"}  z-20 object-cover w-full relative mx-auto`}
       />
 
       {/* Loading Message */}
