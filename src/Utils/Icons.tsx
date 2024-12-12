@@ -156,7 +156,7 @@ export const RoundLinearBg = () => (
   </svg>
 );
 export const MascotIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="145" height="190" viewBox="0 0 145 190" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 145 190" fill="none">
     <g clip-path="url(#clip0_2389_2439)">
       <path
         opacity="0.2"

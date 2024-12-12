@@ -11,7 +11,14 @@ interface LoaderProps {
 
 const Loader: React.FC<LoaderProps> = ({ isFullScreen = true, message = "Loading..." }) => {
   return (
-    <div className={`flex flex-col items-center justify-center ${isFullScreen ? "h-screen" : "h-auto"} ${isFullScreen ? "!bg-secondary" : ""} relative`}>
+    <div
+      className={`flex flex-col overflow-hidden relative items-center justify-center ${isFullScreen ? "h-screen" : "h-auto"} ${
+        isFullScreen ? "!bg-secondary" : ""
+      } relative`}
+    >
+      {isFullScreen && (
+        <div className="bg-gradient-to-r from-[#66319B] to-[#FF518C] -right-[30%] bottom-0 absolute max-w-[50%]  w-full rounded-full  max-h-[60%] h-full opacity-25 blur-3xl"></div>
+      )}
       {isFullScreen && (
         <img
           src={whoBuiltHero}
@@ -29,7 +36,7 @@ const Loader: React.FC<LoaderProps> = ({ isFullScreen = true, message = "Loading
       {/* Loader Animation */}
       <img
         src={loader}
-        alt=""
+        alt="Loading"
         className={` ${isFullScreen ? "max-w-[80%] lg:max-w-[500px] -mt-20" : "-mt-16 max-w-[90px]"}  z-20 object-cover w-full relative mx-auto`}
       />
 

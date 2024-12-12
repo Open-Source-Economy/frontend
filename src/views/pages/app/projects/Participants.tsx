@@ -1,6 +1,5 @@
 import React from "react";
 import ParticipantCard from "./ParticipantCard";
-
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.png";
 import faq from "src/assets/faq-bg.webp";

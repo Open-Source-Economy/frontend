@@ -1,5 +1,6 @@
 import { BaseURL } from "src/App";
 import { PageWrapper } from "../../PageWrapper";
+
 import ProjectHero from "./ProjectHero";
 import WhatWeOffer from "./WhatWeOffer";
 import Participants from "./Participants";
