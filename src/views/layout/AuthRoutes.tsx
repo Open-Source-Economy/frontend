@@ -4,23 +4,23 @@ import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
 
-export function AuthRoutes() {
+export function AuthRoutes(props: { redirect: string }) {
   const auth = useAuth();
 
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to={props.redirect} />;
   }
 }
 
-export function UnAuthRoutes() {
+export function UnAuthRoutes(props: { redirect: string }) {
   const auth = useAuth();
 
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to={props.redirect} /> : <Outlet />;
   }
 }
 
@@ -40,14 +40,16 @@ export function SuperAdminRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
+    // TODO: add  404 page
+    // TODO: add redirect "redirect" if it could be admin
+    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />; // TODO: add  404 page
   }
 }
 
-export function Logout() {
+export function Logout(props: { redirect: string }) {
   const auth = useAuth();
 
   auth.logout();
 
-  return auth.loading ? <div>Loading...</div> : <Navigate to="/" />;
+  return auth.loading ? <div>Loading...</div> : <Navigate to={props.redirect} />;
 }

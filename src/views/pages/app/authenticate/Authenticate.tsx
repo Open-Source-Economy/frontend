@@ -115,7 +115,7 @@ export function Authenticate(props: AuthenticateProps) {
   };
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper baseURL={BaseURL.WEBSITE}>
       <div className="login pt-12 pb-24">
         <div className="flex items-center justify-center  flex-col">
           <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">{props.type === AuthenticateType.SignIn ? "Sign in" : "Sign up"}</h1>

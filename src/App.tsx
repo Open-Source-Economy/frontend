@@ -46,7 +46,7 @@ export function manageIssuePath(issueId: IssueId) {
 
 export enum BaseURL {
   WEBSITE = "/",
-  APP = "/issues",
+  APP = "/projects",
 }
 
 const App = () => {
@@ -65,10 +65,9 @@ const App = () => {
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
           <Route path="/white-paper" element={<Pdf />} />
-          <Route path="/projects" element={<Projects />} />
 
-          <Route path="/logout" element={<Logout />} />
-          <Route element={<UnAuthRoutes />}>
+          <Route path="/logout" element={<Logout redirect={BaseURL.WEBSITE} />} />
+          <Route element={<UnAuthRoutes redirect={BaseURL.APP} />}>
             <Route path="/sign-in" element={<Authenticate type={AuthenticateType.SignIn} />} />
             <Route path="/sign-up" element={<Authenticate type={AuthenticateType.SignUp} />} />
           </Route>
@@ -81,7 +80,8 @@ const App = () => {
             <Route path={`/admin/create-manual-invoice`} element={<CreateManualInvoice />} />
           </Route>
 
-          <Route element={<AuthRoutes />}>
+          <Route element={<AuthRoutes redirect="/sign-up" />}>
+            <Route path="/projects" element={<Projects />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
             <Route path="/issues" element={<IssuesRoute />} />
             <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
