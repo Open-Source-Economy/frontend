@@ -20,6 +20,9 @@ const Loader: React.FC<LoaderProps> = ({ isFullScreen = true, message = "Loading
         <div className="bg-gradient-to-r from-[#66319B] to-[#FF518C] -right-[30%] bottom-0 absolute max-w-[50%]  w-full rounded-full  max-h-[60%] h-full opacity-25 blur-3xl"></div>
       )}
       {isFullScreen && (
+        <div className="bg-gradient-to-r  from-[#FF518C] to-[#66319B] -bottom-[30%]  -left-[30%] absolute max-w-[50%]  w-full rounded-full  max-h-[60%] h-full opacity-25 blur-3xl"></div>
+      )}
+      {isFullScreen && (
         <img
           src={whoBuiltHero}
           className="absolute top-1/2 left-1/2 z-0 opacity-30 pointer -translate-x-1/2 select-none -translate-y-1/2 max-w-[800px] w-full max-h-[70%] lg:max-h-[700px] h-full"

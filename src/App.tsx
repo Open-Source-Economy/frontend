@@ -77,7 +77,6 @@ const App = () => {
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route path="/projects" element={<Projects />} />
-
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
