@@ -38,7 +38,7 @@ export function Header(props: HeaderProps) {
       <div className="">
         {["lg"].map(
           (
-            expand, // Map over an array to create a Navbar component
+            expand // Map over an array to create a Navbar component
           ) => (
             <Navbar key={expand} expand={expand} className="pt-3">
               {" "}
@@ -76,23 +76,36 @@ export function Header(props: HeaderProps) {
                   <Offcanvas.Body>
                     {" "}
                     <Nav className="justify-content-end align-items-lg-center font-mich flex-grow-1 gap-3">
-                      <>
-                        <ExternalLink href="https://blog.open-source-economy.com/" className="gradient-text mr-8">
-                          Blog
-                        </ExternalLink>
-                        <Button level="SECONDARY" size="LARGE" asChild>
-                          <Link to="/white-paper">
-                            <span className="relative z-20">WHITE PAPER</span>
+                      {props.baseURL === BaseURL.WEBSITE && (
+                        <>
+                          <ExternalLink href="https://blog.open-source-economy.com/" className="gradient-text mr-8">
+                            Blog
+                          </ExternalLink>
+                          <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
+                            <Link to="/white-paper" target="_blank" className="relative z-20">
+                              WHITE PAPER
+                            </Link>
+                          </Button>
+                        </>
+                      )}
+
+                      {props.baseURL === BaseURL.APP && (
+                        <>
+                          <Link to="/manage-issues" className="gradient-text mr-8">
+                            Maintainer Portals
                           </Link>
-                        </Button>
-                      </>
-                      )
+
+                          <Link to="/fund-issues" className="gradient-text mr-8">
+                            FUND ISSUES
+                          </Link>
+                        </>
+                      )}
                     </Nav>
                   </Offcanvas.Body>
                 </Navbar.Offcanvas>
               </Container>
             </Navbar>
-          ),
+          )
         )}
       </div>
     </div>

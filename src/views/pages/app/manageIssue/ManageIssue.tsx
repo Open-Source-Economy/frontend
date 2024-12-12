@@ -29,23 +29,23 @@ export function ManageIssue(props: ManageIssueProps) {
       <div>
         <BackgroundSection bgImage={bgimage2} position="left 20%">
           <BackgroundSection bgImage={bgimage3} position="right 2%">
-            <div className="flex items-center justify-center px-5">
-              <div className="mt-20 py-5 px-3" style={getBackgroundImageStyle(bgimage)}>
-                <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white md:mb-0 mb-5">
+            <div className="flex items-center justify-center w-full">
+              <div className="sm:mt-20 py-5 px-3 w-full" style={getBackgroundImageStyle(bgimage)}>
+                <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>
-                <div className="flex flex-wrap justify-center items-start gap-5 md:py-24">
-                  <div>
+                <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24 max-w-[1220px] mx-auto 3xl:max-w-[1500px]">
+                  <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
-                      <div className="xl:w-[670px] md:w-[590px] w-full">
-                        <IssueCard financialIssue={financialIssue} audience={Audience.DEVELOPER} displayPrivatePublicToggle={true} />
+                      <div className="w-full">
+                        <IssueCard financialIssue={financialIssue} audience={Audience.USER} displayPrivatePublicToggle={true} />
                       </div>
                     )}
 
                     {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
-                  <div>
+                  <div className="xl:w-1/2 w-full md:w-fit xl:max-w-[700px] md:max-w-[590px] ">
                     <ManageTab tab1Title="Accept the funding" tab2Title="Reject the funding" tab1={<AcceptFundingTab />} tab2={<RejectFundingTab />} />
                   </div>
                 </div>

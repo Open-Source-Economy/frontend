@@ -8,8 +8,8 @@ import bgText from "src/assets/userbannertext.png";
 import secondaryProblemsSrc from "src/assets/userbannertext.png";
 import primaryProblemsSrc from "src/assets/btn2.png";
 import { SolutionProps } from "../elements/Solution";
-import { UserDeveloperProps } from "../UserDeveloper";
-import { Audience } from "../../../../Audience";
+import { UserDeveloperProps } from "src/views";
+import { Audience } from "../../../../Audience"; // Do not change the import to src/, it does not work
 import devBg from "src/assets/developer-bg.png";
 import img1 from "src/assets/source.png";
 

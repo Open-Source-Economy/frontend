@@ -1,7 +1,7 @@
 import React from "react";
-import { STAGE_FLAG } from "src/App";
 import { Link } from "react-router-dom";
 import { Button } from "src/components";
+import { config, Env } from "src/ultils";
 
 export interface CardsProps {
   ownerLogin?: string;
@@ -29,11 +29,9 @@ export function Cards(props: CardsProps) {
           <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85 max-[540px]:text-base">{props.description}</p>
         </div>
       </div>
-      {STAGE_FLAG && (
-        <Button level="SECONDARY_DEVELOPER" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
-          <Link to="/developer">
-            <span className="relative z-20">FUND</span>
-          </Link>
+      {config.env !== Env.Production && (
+        <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
+          <Link to="/developer">FUND</Link>
         </Button>
       )}
     </div>

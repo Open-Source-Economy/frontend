@@ -13,8 +13,8 @@ export const VideoSection = () => {
       <div className="box-33-333 relative z-[100]  flex w-full items-center justify-center rounded-[20px] lg:mx-0 lg:rounded-[50px] ">
         <div className="relative inset-0 lg:w-[1010px] 1600:w-11/12  1600:h-[690px] h-[500px] max-[1024px]:h-max z-[10] aspect-video  flex  w-[96%] max-[540px]:w-[91%] max-[540px]:rounded-[20px] items-center justify-center overflow-hidden  bg-[#14233A]  p-7 rounded-[50px]">
           <iframe
-            className="aspect-video object-cover   z-30 absolute top-0 left-0 w-full h-full "
-            src="https://www.youtube.com/embed/PbtRZ-ML9DI?autoplay=1&si=pRmtC6n-G08zDJsD"
+            className="aspect-video object-cover z-30 absolute top-0 left-0 w-full h-full "
+            src="https://www.youtube.com/embed/PbtRZ-ML9DI"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

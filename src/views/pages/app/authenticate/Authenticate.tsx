@@ -7,11 +7,11 @@ import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
 import { Button } from "src/components";
-import { Audience } from "src/views/Audience";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
+import { config, Env } from "src/ultils";
 
 export enum AuthenticateType {
   SignIn,
@@ -170,24 +170,23 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {/*TODO: incorporate it*/}
-              <TermsAgreement />
+
+              {config.env == Env.Production && <TermsAgreement />}
 
               {/*TODO: display error*/}
               {auth.error && <div className="alert alert-danger mt-3">{auth.error.toSting()}</div>}
               {error && <div className="alert alert-danger mt-3">{error.toSting()}</div>}
 
               {!isGithubAccountPredefined && (
-                <div className="flex  justify-center items-center gap-3 mt-5">
-                  <Button audience={"ALL"} level={"SECONDARY"}>
+                <div className="flex justify-center items-center gap-3 mt-5">
+                  <Button audience="ALL" level="SECONDARY" size="MEDIUM" asChild>
                     <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
                       {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
                     </Link>
                   </Button>
 
-                  <Button type="submit" audience={"ALL"} level={"PRIMARY"}>
-                    <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
-                      {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
-                    </Link>
+                  <Button type="submit" audience="ALL" level="PRIMARY" size="MEDIUM">
+                    {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
                   </Button>
                 </div>
               )}

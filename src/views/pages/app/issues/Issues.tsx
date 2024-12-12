@@ -9,8 +9,9 @@ import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
 import { GetIssueQuery, GetIssuesParams } from "src/dtos";
 import { ApiError } from "src/ultils/error/ApiError";
-import { Audience } from "src/views";
+import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
+import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 
 interface IssuesProps {
   audience: Audience;
@@ -18,6 +19,7 @@ interface IssuesProps {
 
 export function Issues(props: IssuesProps) {
   const backendAPI = getBackendAPI();
+  const auth = useAuth();
 
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
@@ -50,25 +52,29 @@ export function Issues(props: IssuesProps) {
         <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
           {props.audience === Audience.DEVELOPER && (
             <>
-              Issues <span className="text-[#FF7E4B]">on my projects</span>
+              Issues <span className={`${textColorVariants[props.audience]}`}>on my projects</span>
             </>
           )}
-          {/*{props.audience === Audience.USER && (<>All <span className="text-[#FF7E4B]">Issues</span></>)}*/}
+          {props.audience === Audience.USER && (
+            <>
+              <span className={`${textColorVariants[props.audience]}`}>Fund</span> issues
+            </>
+          )}
         </h1>
 
         <EnterGitHubIssue audience={props.audience} />
 
-        <div className="mt-24 ">
+        <div className="mt-24">
           <h1 className=" lg:text-[55px] text-[32px]  text-center font-medium text-white">
-            All <span className="text-[#FF7E4B]">Issues</span>
+            All <span className={`${textColorVariants[props.audience]}`}>Issues</span>
           </h1>
         </div>
 
         <section>
-          <div className="container mt-5 pt-lg-1 pt-3">
+          <div className=" mt-5 pt-lg-1 pt-3">
             <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
 
-            <div className="mt-5">
+            <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] w-full lg:w-[90%] mx-auto">
               {isLoading ? (
                 // TODO: improve the design of the loading state
                 <p>Loading issues...</p>
