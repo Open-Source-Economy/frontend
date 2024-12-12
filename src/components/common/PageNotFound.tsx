@@ -4,6 +4,7 @@ import notFound from "src/assets/404.webp";
 import hero from "src/assets/Rectangle.png";
 import { MascotIcon } from "src/Utils/Icons";
 import faq from "src/assets/faq-bg.webp";
+import { Link } from "react-router-dom";
 const PageNotFound = () => {
   return (
     <div className="flex h-screen justify-center items-center flex-col !bg-secondary relative overflow-hidden">
@@ -27,7 +28,7 @@ const PageNotFound = () => {
           The page you were looking for doesn't exist anymore.
         </h5>
         <Button audience="ALL" level="PRIMARY" size="MEDIUM" className="mt-10" asChild>
-          <span>ALL PRIMARY</span>
+          <Link to="/">Back to Home</Link>
         </Button>
       </div>
     </div>
