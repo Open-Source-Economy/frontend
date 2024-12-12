@@ -5,8 +5,8 @@ import { SocialMedia } from "src/components/socialMedia/SocialMedia";
 import AOS from "aos"; // Import AOS
 import "aos/dist/aos.css";
 import { BaseURL } from "src/App"; // Import AOS CSS
-import backdropSVG2 from "../../assets/footer-bd-rr.png";
-import backdropSVG3 from "../../assets/footer-bd-ll.png";
+import backdropSVG2 from "../../../assets/footer-bd-rr.png";
+import backdropSVG3 from "../../../assets/footer-bd-ll.png";
 import { config, Env } from "src/ultils";
 
 interface FooterProps {
