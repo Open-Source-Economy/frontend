@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import backdropSVG from "src/assets/backdrop.svg";
 import { Cards } from "src/views/pages/website/home/elements/Cards";
-import { useRepositories } from "../../../../hooks";
-import { repositoryIds } from "../../../../data/repositories";
+import { useRepositories } from "src/views/hooks";
+import { repositoryIds } from "src/views/data/repositories";
 import { Audience } from "../../../../Audience";
 
 interface ProjectsProps {}
