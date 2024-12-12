@@ -138,6 +138,9 @@ input[type="number"] {
   cursor: pointer;
   /* Remove any border if there is one */
 }
+.gradient-bg {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+}
 
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
@@ -152,6 +155,13 @@ input[type="number"] {
   transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
+/* Gradient Text normal */
+.gradient-text-normal {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 /* Hover effect: Gradient text */
 .gradient-text:hover {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);

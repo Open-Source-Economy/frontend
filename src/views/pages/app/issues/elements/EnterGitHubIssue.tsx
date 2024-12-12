@@ -83,12 +83,26 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
           {/*TODO: Code Nativex fix*/}
-          <Button
+          {/* <Button
             type="submit"
             onKeyDown={handleKeyDown}
             level={"SECONDARY_DEVELOPER"}
             size="MEDIUM"
             className="w-20"
+            parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
+          >
+            <span className="relative z-20">Add</span>
+          </Button> */}
+
+          {/* New Button added as it was in the file  */}
+          <Button
+            type="submit"
+            onKeyDown={handleKeyDown}
+            className="!w-full"
+            audience={"DEVELOPER"}
+            level={"SECONDARY"}
+            size="MEDIUM"
+            asChild={false}
             parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
           >
             <span className="relative z-20">Add</span>
