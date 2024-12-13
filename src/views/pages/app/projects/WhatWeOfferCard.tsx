@@ -25,13 +25,13 @@ const WhatWeOfferCard = ({ card }: { card: CardData }) => {
         />
       )}
       <div className="!bg-secondary h-full rounded-[20px] 2xl:rounded-[28px] 3xl:rounded-[35px] py-6 sm:py-10 md:py-11 xl:py-[57px] !px-4 md:!px-6 2xl:!px-8">
-        <div className="flex min-[454px]:flex-row  flex-col !gap-5 lg:!gap-8 3xl:!gap-16">
+        <div className="flex min-[454px]:flex-row items-center flex-col !gap-5 lg:!gap-8 3xl:!gap-16">
           <div className="min-w-[50px] max-w-[80px] sm:max-w-[100px] xl:max-w-[120px] 3xl:max-w-[143px]">
             <img src={card.img} alt={card.title} className="w-full object-cover h-auto rounded-md" />
           </div>
-          <div>
+          <div className="w-full text-center sm:text-left ">
             {" "}
-            <h3 className="text-xl md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[32px] font-michroma relative w-fit !pb-5">
+            <h3 className="text-xl md:text-lg w-fit sm:!mx-0 mx-auto lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[32px] font-michroma relative !pb-5">
               {card.title} <span className="absolute bottom-0 left-0 w-full sm:w-[50%] h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
             </h3>
             <ul className="space-y-4 !mt-5">
