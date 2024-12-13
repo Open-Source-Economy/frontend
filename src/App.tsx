@@ -31,6 +31,7 @@ import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
+import PageNotFound from "./components/common/PageNotFound";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -89,6 +90,8 @@ const App = () => {
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
             <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
           </Route>
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
