@@ -16,7 +16,7 @@ export interface CardData {
 
 const WhatWeOfferCard = ({ card }: { card: CardData }) => {
   return (
-    <article className="relative p-[1px] max-w-[500px] xl:max-w-[690px] w-full h-full rounded-[35px] bg-gradient-to-r from-[#FFFFFF14] to-[#66666636]">
+    <article className="relative p-[1px] max-w-[500px]  lg:max-w-[690px] w-full h-full rounded-[35px] bg-gradient-to-r from-[#FFFFFF14] to-[#66666636]">
       {card.comingSoon && (
         <img
           src={comingSoon}
@@ -25,7 +25,7 @@ const WhatWeOfferCard = ({ card }: { card: CardData }) => {
         />
       )}
       <div className="!bg-secondary h-full rounded-[35px] py-6 sm:py-10 md:py-11 xl:py-[57px] !px-4 md:!px-6 2xl:!px-8">
-        <div className="flex flex-col sm:flex-row !gap-5 lg:!gap-8 3xl:!gap-16">
+        <div className="flex min-[454px]:flex-row flex-col !gap-5 lg:!gap-8 3xl:!gap-16">
           <div className="max-w-[100px] xl:max-w-[120px] 3xl:max-w-[143px]">
             <img src={card.img} alt={card.title} className="w-full object-cover h-auto rounded-md" />
           </div>

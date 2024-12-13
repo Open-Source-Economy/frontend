@@ -16,7 +16,11 @@ const ParticipantCard: React.FC<ParticipantCardProps> = ({ participant }) => {
   return (
     <div className="relative  flex flex-col items-center text-white ">
       {/* Participant Image */}
-      <img src={participant.image} alt={participant.name} className="rounded-full 3xl:w-[231px] w-[200px] h-[200px] 3xl:h-[231px] object-cover mb-4" />
+      <img
+        src={participant.image}
+        alt={participant.name}
+        className="rounded-full border border-white 3xl:w-[231px] w-[200px] h-[200px] 3xl:h-[231px] object-cover mb-4"
+      />
       <div className="!bg-secondary text-white rounded-full !pl-6 !pr-3 py-1 justify-between flex">
         <span className="text-sm 3xl:text-base">
           {" "}

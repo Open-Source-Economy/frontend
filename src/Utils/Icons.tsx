@@ -1,12 +1,12 @@
 export const DowIcon = () => {
   return (
     <svg width="57" height="45" viewBox="0 0 87 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40.5566" cy="32.5" r="31.4844" stroke="url(#paint0_linear_2018_957)" stroke-width="2.03125" />
+      <circle cx="40.5566" cy="32.5" r="31.4844" stroke="url(#paint0_linear_2018_957)" strokeWidth="2.03125" />
       <path
         d="M65.3674 22.2232C66.2516 24.3552 66.8689 26.6259 67.1777 28.9936L62.2736 29.6333C62.3957 30.5694 62.459 31.5262 62.459 32.5002C62.459 33.4742 62.3957 34.4309 62.2736 35.3671L67.1777 36.0068C66.8689 38.3744 66.2516 40.6451 65.3674 42.7772L60.799 40.8827C60.0617 42.6606 59.0957 44.3225 57.9364 45.8312L61.8579 48.8447C60.4286 50.7046 58.7612 52.372 56.9013 53.8012L53.8878 49.8797C52.3791 51.0391 50.7173 52.0051 48.9394 52.7424L50.8338 57.3108C48.7017 58.1949 46.431 58.8122 44.0634 59.1211L43.4237 54.217C42.4876 54.3391 41.5308 54.4024 40.5568 54.4024C39.5828 54.4024 38.626 54.3391 37.6899 54.217L37.0502 59.1211C34.6826 58.8122 32.4119 58.1949 30.2798 57.3108L32.1742 52.7424C30.3963 52.0051 28.7345 51.0391 27.2258 49.8797L24.2123 53.8012C22.3524 52.372 20.685 50.7046 19.2558 48.8447L23.1773 45.8312C22.0179 44.3225 21.0519 42.6607 20.3146 40.8827L15.7462 42.7772C14.8621 40.6451 14.2448 38.3744 13.9359 36.0068L18.84 35.3671C18.7179 34.4309 18.6546 33.4742 18.6546 32.5002C18.6546 31.5262 18.7179 30.5694 18.84 29.6333L13.9359 28.9936C14.2447 26.6259 14.8621 24.3552 15.7462 22.2232L20.3146 24.1176C21.0519 22.3397 22.0179 20.6779 23.1773 19.1692L19.2558 16.1556C20.685 14.2958 22.3524 12.6284 24.2123 11.1991L27.2258 15.1206C28.7345 13.9613 30.3963 12.9953 32.1742 12.258L30.2798 7.68957C32.4119 6.80543 34.6826 6.18811 37.0502 5.87927L37.6899 10.7834C38.626 10.6613 39.5828 10.598 40.5568 10.598C41.5308 10.598 42.4876 10.6613 43.4237 10.7834L44.0634 5.87927C46.431 6.18811 48.7017 6.80543 50.8338 7.68957L48.9394 12.258C50.7173 12.9953 52.3791 13.9613 53.8878 15.1206L56.9013 11.1991C58.7612 12.6284 60.4286 14.2957 61.8579 16.1556L57.9364 19.1692C59.0957 20.6778 60.0617 22.3397 60.799 24.1176L65.3674 22.2232Z"
         stroke="url(#paint1_linear_2018_957)"
-        stroke-width="9.89131"
-        stroke-dasharray="7.11 7.11"
+        strokeWidth="9.89131"
+        strokeDasharray="7.11 7.11"
       />
       <g filter="url(#filter0_d_2018_957)">
         <path
@@ -20,7 +20,7 @@ export const DowIcon = () => {
       </g>
       <g filter="url(#filter1_d_2018_957)">
         <circle cx="40.5563" cy="32.5001" r="11.3043" fill="#0E1F35" />
-        <circle cx="40.5563" cy="32.5001" r="9.53804" stroke="white" stroke-width="3.53261" />
+        <circle cx="40.5563" cy="32.5001" r="9.53804" stroke="white" strokeWidth="3.53261" />
       </g>
       <defs>
         <filter
@@ -50,12 +50,12 @@ export const DowIcon = () => {
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2018_957" result="shape" />
         </filter>
         <linearGradient id="paint0_linear_2018_957" x1="25.0744" y1="3.36847e-06" x2="78.1488" y2="19.978" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FF7E4B" />
-          <stop offset="1" stop-color="#FF518C" />
+          <stop stopColor="#FF7E4B" />
+          <stop offset="1" stopColor="#FF518C" />
         </linearGradient>
         <linearGradient id="paint1_linear_2018_957" x1="27.7671" y1="5.65235" x2="71.6112" y2="22.1559" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FF7E4B" />
-          <stop offset="1" stop-color="#FF518C" />
+          <stop stopColor="#FF7E4B" />
+          <stop offset="1" stopColor="#FF518C" />
         </linearGradient>
       </defs>
     </svg>
@@ -67,7 +67,7 @@ export const DonutIcon = () => (
       <path
         d="M215.606 107.831C250.159 164.623 232.886 222.855 198.28 243.909C163.673 264.964 104.019 253.536 69.466 196.744C34.9132 139.952 52.1857 81.7201 86.7922 60.6653C121.399 39.6104 181.053 51.0389 215.606 107.831Z"
         stroke="#90326B"
-        stroke-width="100.304"
+        strokeWidth="100.304"
       />
     </g>
     <defs>
@@ -144,20 +144,20 @@ export const RoundLinearBg = () => (
         <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2232_1794" />
       </filter>
       <linearGradient id="paint0_linear_2232_1794" x1="349.459" y1="319.192" x2="0" y2="319.192" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#AC3556" />
-        <stop offset="0.451" stop-color="#E78031" />
-        <stop offset="1" stop-color="#5935A1" />
+        <stop stopColor="#AC3556" />
+        <stop offset="0.451" stopColor="#E78031" />
+        <stop offset="1" stopColor="#5935A1" />
       </linearGradient>
       <linearGradient id="paint1_linear_2232_1794" x1="256.873" y1="371.828" x2="0" y2="371.828" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#AC3556" />
-        <stop offset="1" stop-color="#5935A1" />
+        <stop stopColor="#AC3556" />
+        <stop offset="1" stopColor="#5935A1" />
       </linearGradient>
     </defs>
   </svg>
 );
 export const MascotIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 145 190" fill="none">
-    <g clip-path="url(#clip0_2389_2439)">
+    <g clipPath="url(#clip0_2389_2439)">
       <path
         opacity="0.2"
         d="M141.071 57.9408C138.441 56.5562 135.33 56.8266 133.026 58.3669C132.889 55.8598 132.605 53.2298 132.15 50.4441C128.952 30.846 120.538 20.244 105.152 17.4583C102.591 14.3203 90.1537 -0.607663 85.9507 0.0150193C82.4868 0.53119 77.6736 12.6325 75.3787 18.9495L48.2266 22.9723C43.7142 17.6631 34.6549 7.6101 31.191 8.12627C27.1341 8.72438 21.2293 25.2173 19.6907 29.7071C4.97587 36.6959 -0.0436933 49.379 3.23965 69.5506C7.32234 94.5972 19.9486 104.937 44.737 103.061C39.5369 110.508 29.9877 114.425 20.937 116.727C18.2124 117.423 14.972 118.407 13.3733 120.791C12.0926 122.708 12.2302 125.387 13.6741 127.19C15.1181 129 17.9116 129.631 20.1979 129.689C27.5467 129.893 34.8784 126.755 40.8778 122.987C41.9092 122.339 43.4305 121.291 45.1324 119.98C44.6424 122.225 44.0752 124.502 43.4993 126.837C41.4536 134.056 36.9154 149.024 48.2524 151.466C48.3899 151.499 48.536 151.523 48.6736 151.556C50.4528 151.933 52.2062 151.794 53.7791 151.261C54.63 152.089 55.6872 152.662 56.8991 152.843C60.3887 153.359 63.7494 150.475 64.4113 146.411C64.5488 145.559 64.5488 144.723 64.4456 143.937C66.4483 144.412 68.4424 144.903 70.4279 145.403C70.4193 146.026 70.3849 146.648 70.3247 147.263C70.1958 148.418 69.9981 149.549 69.6973 150.647C69.3792 151.736 69.0011 152.793 68.5025 153.801C67.5227 155.817 66.1475 157.619 64.4972 159.225C64.0503 159.602 63.6463 160.012 63.1736 160.372L61.7296 161.445L61.0162 161.986C60.7669 162.142 60.5091 162.281 60.2512 162.437L58.7385 163.33C56.6498 164.329 54.5011 165.108 52.2749 165.435C50.0488 165.73 47.7797 165.673 45.5449 165.255C44.4276 165.059 43.3274 164.739 42.253 164.379C41.7287 164.174 41.1958 163.985 40.7059 163.756C40.448 163.649 40.2159 163.535 39.9839 163.412C39.8635 163.354 39.7518 163.297 39.6659 163.248C39.5713 163.199 39.451 163.125 39.4854 163.15C36.7951 161.601 33.2969 162.42 31.6638 164.985C30.0393 167.549 30.8988 170.884 33.5891 172.441C33.9415 172.629 34.1392 172.719 34.3541 172.826C34.5775 172.94 34.7924 173.031 34.9987 173.121C35.4199 173.301 35.8324 173.481 36.245 173.629C37.0615 173.956 37.8953 174.202 38.7204 174.464C40.3878 174.931 42.0639 175.308 43.7915 175.521C47.221 175.972 50.7708 175.882 54.2002 175.21C57.6383 174.514 60.8443 173.162 63.7752 171.515L65.8552 170.147C66.1991 169.917 66.5514 169.688 66.8781 169.45L67.8149 168.672L68.6487 167.975C69.2245 169.262 70.574 170.261 71.6913 171.056C73.3416 172.228 75.0692 173.309 76.9172 174.178C78.2322 174.8 79.6075 175.316 81.0257 175.669C82.3063 175.98 84.1113 176.521 85.3576 175.824C86.5523 175.161 86.475 173.571 86.0968 172.482C89.638 166.566 96.1359 154.858 99.9608 143.814C100.167 143.273 100.365 142.716 100.545 142.126C100.64 141.831 100.717 141.536 100.803 141.241C101.302 139.619 101.74 138.021 102.084 136.473C104.086 127.968 104.886 118.923 104.722 109.976C106.141 109.05 115.664 102.733 124.637 93.4255C132.296 85.4781 138.647 77.0801 144.054 67.7481C146.082 64.2496 144.75 59.8499 141.08 57.9163L141.071 57.9408Z"
@@ -409,76 +409,76 @@ export const MascotIcon = () => (
     </g>
     <defs>
       <linearGradient id="paint0_linear_2389_2439" x1="38.3423" y1="97.3993" x2="100.296" y2="97.3993" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint1_linear_2389_2439" x1="18.2385" y1="23.8155" x2="91.3582" y2="10.2594" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint2_linear_2389_2439" x1="34.6377" y1="21.0553" x2="111.579" y2="8.48866" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint3_linear_2389_2439" x1="133.955" y1="65.8881" x2="272.719" y2="13.7535" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint4_linear_2389_2439" x1="129.958" y1="68.1329" x2="268.731" y2="15.9985" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint5_linear_2389_2439" x1="127.749" y1="63.2985" x2="266.514" y2="11.1728" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint6_linear_2389_2439" x1="127.93" y1="64.847" x2="266.702" y2="12.7125" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint7_linear_2389_2439" x1="7.77799" y1="129.066" x2="88.4809" y2="89.0108" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint8_linear_2389_2439" x1="5.87845" y1="125.231" x2="86.5812" y2="85.1752" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint9_linear_2389_2439" x1="8.64576" y1="130.82" x2="89.3486" y2="90.7642" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint10_linear_2389_2439" x1="7.13298" y1="127.772" x2="87.8451" y2="87.7247" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <linearGradient id="paint11_linear_2389_2439" x1="28.4286" y1="170.421" x2="46.1541" y2="169.694" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFAA67" />
-        <stop offset="0.21" stop-color="#FF7E7A" />
-        <stop offset="0.46" stop-color="#FF518C" />
-        <stop offset="1" stop-color="#5E309C" />
+        <stop stopColor="#FFAA67" />
+        <stop offset="0.21" stopColor="#FF7E7A" />
+        <stop offset="0.46" stopColor="#FF518C" />
+        <stop offset="1" stopColor="#5E309C" />
       </linearGradient>
       <clipPath id="clip0_2389_2439">
         <rect width="145" height="190" fill="white" />
@@ -489,25 +489,25 @@ export const MascotIcon = () => (
 
 export const MinusIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M4 12H20" stroke="#FF518C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M4 12H20" stroke="#FF518C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 export const PlusIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M12 4V20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M4 12H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M12 4V20" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M4 12H20" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 export const SpinningWheel = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 34 34" fill="none">
-    <circle cx="17" cy="16.9976" r="16.5312" stroke="#FF7E4B" stroke-width="0.9375" />
+    <circle cx="17" cy="16.9976" r="16.5312" stroke="#FF7E4B" strokeWidth="0.9375" />
     <path
       d="M29.9779 11.6219C30.4403 12.7372 30.7633 13.9249 30.9248 15.1634L28.6614 15.4586C28.7269 15.9613 28.7609 16.4749 28.7609 16.9976C28.7609 17.5203 28.7269 18.0339 28.6614 18.5365L30.9248 18.8318C30.7633 20.0703 30.4403 21.258 29.9779 22.3733L27.8694 21.4989C27.4734 22.4538 26.9546 23.3462 26.3322 24.1562L28.1421 25.547C27.3945 26.5199 26.5223 27.3921 25.5495 28.1397L24.1586 26.3297C23.3486 26.9522 22.4562 27.471 21.5013 27.8669L22.3757 29.9754C21.2604 30.4379 20.0727 30.7608 18.8342 30.9224L18.539 28.6589C18.0363 28.7245 17.5227 28.7585 17 28.7585C16.4773 28.7585 15.9637 28.7245 15.4611 28.6589L15.1658 30.9224C13.9273 30.7608 12.7396 30.4379 11.6243 29.9754L12.4987 27.8669C11.5438 27.471 10.6514 26.9522 9.84143 26.3297L8.45057 28.1397C7.47771 27.3921 6.60554 26.5199 5.85793 25.547L7.66786 24.1562C7.0454 23.3462 6.52665 22.4538 6.13067 21.4989L4.02217 22.3733C3.55969 21.258 3.23679 20.0703 3.07524 18.8318L5.33868 18.5365C5.27311 18.0339 5.23915 17.5203 5.23915 16.9976C5.23915 16.4749 5.27311 15.9613 5.33868 15.4586L3.07524 15.1634C3.23679 13.9249 3.55969 12.7372 4.02217 11.6219L6.13067 12.4963C6.52665 11.5414 7.0454 10.649 7.66786 9.83899L5.85793 8.44814C6.60554 7.47527 7.47771 6.6031 8.45057 5.85549L9.84143 7.66542C10.6514 7.04296 11.5438 6.52421 12.4987 6.12823L11.6243 4.01973C12.7396 3.55725 13.9273 3.23435 15.1658 3.0728L15.4611 5.33624C15.9637 5.27067 16.4773 5.23671 17 5.23671C17.5227 5.23671 18.0363 5.27067 18.539 5.33624L18.8342 3.0728C20.0727 3.23435 21.2604 3.55725 22.3757 4.01973L21.5013 6.12823C22.4562 6.52421 23.3486 7.04296 24.1586 7.66542L25.5495 5.85549C26.5223 6.6031 27.3945 7.47527 28.1421 8.44813L26.3322 9.83899C26.9546 10.649 27.4734 11.5414 27.8694 12.4963L29.9779 11.6219Z"
       stroke="#FF7E4B"
-      stroke-width="4.56522"
-      stroke-dasharray="3.28 3.28"
+      strokeWidth="4.56522"
+      strokeDasharray="3.28 3.28"
     />
-    <circle cx="16.9995" cy="16.9975" r="5.09783" stroke="#FF7E4B" stroke-width="1.63043" />
+    <circle cx="16.9995" cy="16.9975" r="5.09783" stroke="#FF7E4B" strokeWidth="1.63043" />
   </svg>
 );
 export const ListIcon = () => (
@@ -522,7 +522,7 @@ export const BlurLinearDonut = () => (
       <path
         d="M138.423 77.7597C151.575 99.377 156.341 121.911 154.674 140.135C153.007 158.364 145.37 170.181 135.696 176.067C126.023 181.952 112.017 183.302 95.0619 176.403C78.1113 169.506 60.2901 154.916 47.138 133.298C33.9858 111.681 29.2201 89.1473 30.8871 70.9234C32.5546 52.6943 40.1915 40.8768 49.8649 34.9914C59.5382 29.1061 73.5437 27.7561 90.4992 34.6549C107.45 41.5517 125.271 56.1424 138.423 77.7597Z"
         stroke="#90326B"
-        stroke-width="60"
+        strokeWidth="60"
       />
     </g>
     <defs>
@@ -553,7 +553,7 @@ export const RightDonutIcon = () => (
       <path
         d="M199.66 118.367C218.545 149.407 225.235 181.53 222.892 207.148C220.548 232.774 209.945 248.382 197.552 255.922C185.159 263.462 166.424 265.704 142.588 256.005C118.76 246.31 93.308 225.603 74.4231 194.563C55.5382 163.523 48.848 131.4 51.1913 105.782C53.5354 80.1558 64.1387 64.5481 76.5313 57.0083C88.9239 49.4686 107.659 47.2265 131.495 56.9248C155.323 66.6197 180.775 87.3276 199.66 118.367Z"
         stroke="#90326B"
-        stroke-width="100.304"
+        strokeWidth="100.304"
       />
     </g>
     <defs>
@@ -665,18 +665,18 @@ export const OperationIcon = () => (
     <path
       d="M31 38.75C35.2802 38.75 38.75 35.2802 38.75 31C38.75 26.7198 35.2802 23.25 31 23.25C26.7198 23.25 23.25 26.7198 23.25 31C23.25 35.2802 26.7198 38.75 31 38.75Z"
       stroke="white"
-      stroke-width="3"
+      strokeWidth="3"
       stroke-miterlimit="10"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M5.16699 33.2734V28.7267C5.16699 26.04 7.36283 23.8184 10.0753 23.8184C14.7512 23.8184 16.6628 20.5117 14.312 16.4559C12.9687 14.1309 13.7695 11.1084 16.1203 9.76504L20.5895 7.20754C22.6303 5.99337 25.2653 6.71671 26.4795 8.75754L26.7637 9.24837C29.0887 13.3042 32.912 13.3042 35.2628 9.24837L35.547 8.75754C36.7612 6.71671 39.3962 5.99337 41.437 7.20754L45.9062 9.76504C48.257 11.1084 49.0578 14.1309 47.7145 16.4559C45.3637 20.5117 47.2753 23.8184 51.9512 23.8184C54.6378 23.8184 56.8595 26.0142 56.8595 28.7267V33.2734C56.8595 35.96 54.6637 38.1817 51.9512 38.1817C47.2753 38.1817 45.3637 41.4884 47.7145 45.5442C49.0578 47.895 48.257 50.8917 45.9062 52.235L41.437 54.7925C39.3962 56.0067 36.7612 55.2834 35.547 53.2425L35.2628 52.7517C32.9378 48.6959 29.1145 48.6959 26.7637 52.7517L26.4795 53.2425C25.2653 55.2834 22.6303 56.0067 20.5895 54.7925L16.1203 52.235C13.7695 50.8917 12.9687 47.8692 14.312 45.5442C16.6628 41.4884 14.7512 38.1817 10.0753 38.1817C7.36283 38.1817 5.16699 35.96 5.16699 33.2734Z"
       stroke="white"
-      stroke-width="3"
+      strokeWidth="3"
       stroke-miterlimit="10"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -715,7 +715,7 @@ export const TelephoneIcon = () => (
       d="M7.68465 4.16427L7.21488 3.10729C6.90772 2.41619 6.75414 2.07063 6.52446 1.80618C6.2366 1.47476 5.86139 1.23093 5.44164 1.10249C5.1067 1 4.72854 1 3.97225 1C2.8659 1 2.31272 1 1.84835 1.21267C1.30135 1.46319 0.807344 2.00716 0.610515 2.5757C0.443425 3.05834 0.491293 3.55433 0.587007 4.54631C1.60589 15.1052 7.3948 20.8941 17.9537 21.9129C18.9457 22.0087 19.4418 22.0566 19.9243 21.8895C20.4929 21.6927 21.0368 21.1986 21.2874 20.6517C21.5 20.1872 21.5 19.6341 21.5 18.5278C21.5 17.7714 21.5 17.3933 21.3976 17.0583C21.2691 16.6386 21.0253 16.2634 20.6938 15.9756C20.4295 15.7458 20.0839 15.5923 19.3928 15.2851L18.3358 14.8153C17.5873 14.4827 17.2131 14.3164 16.8329 14.2803C16.4689 14.2456 16.1019 14.2967 15.7613 14.4294C15.4053 14.568 15.0908 14.8301 14.4615 15.3544C13.8352 15.8764 13.5221 16.1374 13.1394 16.2771C12.8001 16.401 12.3517 16.447 11.9944 16.3943C11.5914 16.3349 11.2828 16.17 10.6655 15.8401C8.74515 14.8139 7.68613 13.7549 6.65986 11.8345C6.33001 11.2173 6.16509 10.9086 6.10569 10.5056C6.05304 10.1483 6.09894 9.69983 6.22286 9.36067C6.36265 8.97799 6.62362 8.66483 7.14557 8.03849C7.6699 7.40929 7.93208 7.09468 8.07069 6.73872C8.20334 6.39809 8.25441 6.03113 8.21979 5.66722C8.18361 5.28694 8.01729 4.91272 7.68465 4.16427Z"
       fill="white"
       stroke="white"
-      stroke-linecap="round"
+      strokeLinecap="round"
     />
   </svg>
 );

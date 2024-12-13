@@ -11,7 +11,7 @@ const Highlight = () => {
       <div className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rotate-180 -bottom-[15%] opacity-20 blur-[80px] -z-10 w-full left-1/2 -translate-x-1/2 max-h-[700px] rounded-full h-full absolute max-w-[900px]"></div>
       <img src={highlightLinear} alt="" className="absolute left-[-2%] max-h-[671px] max-w-[781px] h-full w-full -top-[10%] -z-10 pointer-events-none" />
 
-      <div className="!px-4 xl:!px-0 xl:max-w-[90%] 2xl:max-w-[80%] 3xl:max-w-[1440px] mx-auto flex flex-col justify-center items-center">
+      <div className="!px-4 lg:!px-6 xl:!px-0 xl:max-w-[86%]  2xl:max-w-[80%] 3xl:max-w-[1440px] mx-auto flex flex-col justify-center items-center">
         {/* Title */}
         <h2 className="section-heading lg:!pb-5 3xl:!pb-8 w-fit relative mb-6 md:mb-8 lg:mb-10 3xl:mb-14">
           Highlight{" "}
