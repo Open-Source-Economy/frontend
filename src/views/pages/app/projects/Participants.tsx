@@ -10,7 +10,7 @@ import { participants } from "../whoBuiltIt/Helper";
 
 const Participants = () => {
   return (
-    <section className="pb-20 3xl:pb-40 relative">
+    <section className="pb-20 3xl:pb-40 pt-16 relative">
       <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
       <img
         src={faq}
@@ -27,7 +27,7 @@ const Participants = () => {
         </h2>
 
         {/* Participants List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center  lg:grid-cols-4 gap-8">
           {participants.map((participant, index) => (
             <ParticipantCard participant={participant} key={index} />
           ))}

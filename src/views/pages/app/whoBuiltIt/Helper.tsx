@@ -20,6 +20,7 @@ export const participants = [
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
     image: participant,
+    link: "",
     mascot: mascot1,
   },
   {
@@ -28,6 +29,7 @@ export const participants = [
     quote: "Quote of the person that can be a little long",
     image: participant2,
     mascot: mascot2,
+    link: "",
   },
   {
     name: "Enno Runne",
@@ -35,6 +37,7 @@ export const participants = [
     quote: "Quote of the person that can be a little long",
     image: participant3,
     mascot: mascot3,
+    link: "",
   },
   {
     name: "Richard Imaoka",
@@ -42,6 +45,7 @@ export const participants = [
     quote: "Quote of the person that can be a little long",
     image: participant4,
     mascot: mascot4,
+    link: "",
   },
 ];
 export const faqData = [
@@ -75,7 +79,6 @@ export const highlightData = [
     total: 10,
     buttonText: "FUND",
     isBorder: false,
-    isHover: false,
   },
   {
     title: "Cluster Maintenance",
@@ -85,7 +88,6 @@ export const highlightData = [
     total: 10,
     buttonText: "FUND",
     isBorder: true,
-    isHover: true,
   },
   {
     title: "Issue #4563",
@@ -95,7 +97,6 @@ export const highlightData = [
     total: 10,
     buttonText: "FUND",
     isBorder: false,
-    isHover: false,
   },
 ];
 
