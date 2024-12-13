@@ -138,6 +138,9 @@ input[type="number"] {
   cursor: pointer;
   /* Remove any border if there is one */
 }
+.gradient-bg {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+}
 
 .gradient-btn-bg {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
@@ -152,6 +155,13 @@ input[type="number"] {
   transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
+/* Gradient Text normal */
+.gradient-text-normal {
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 /* Hover effect: Gradient text */
 .gradient-text:hover {
   background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
@@ -401,59 +411,59 @@ input[type="number"] {
 
 /* TODO: Star Works: no CSS, to be removed */
 .service-card {
-  position: relative;
-  z-index: 10;
-  background-color: rgba(20, 35, 58, 0.79);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 10;
+    background-color: rgba(20, 35, 58, 0.79);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ============ SERVICE CARD STYLE ============ */
 .service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .service-card:hover::before {
-  opacity: 1; /* Show border on hover */
+    opacity: 1; /* Show border on hover */
 }
 
 .service-card-content {
-  position: relative; /* Content above the pseudo-elements */
-  z-index: 1;
+    position: relative; /* Content above the pseudo-elements */
+    z-index: 1;
 }
 
 /* ================ Virtuous CARD STYLE ====================  */
 .virtuous-card {
-  position: relative;
-  z-index: 10;
-  background: #14233a;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  overflow: hidden;
+    position: relative;
+    z-index: 10;
+    background: #14233a;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .virtuous-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  z-index: -1;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }

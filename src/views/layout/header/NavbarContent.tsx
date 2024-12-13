@@ -11,7 +11,7 @@ interface NavbarContentProps {
 
 export function NavbarContent(props: NavbarContentProps) {
   const auth = useAuth();
-  
+
   return (
     <Nav className="justify-content-end align-items-lg-center font-mich flex-grow-1 gap-3">
       {props.baseURL === BaseURL.WEBSITE && (

@@ -12,6 +12,7 @@ import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsA
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
 import { config, Env } from "src/ultils";
+import { ErrorModal } from "./elements/ErrorModal";
 
 export enum AuthenticateType {
   SignIn,
@@ -32,11 +33,16 @@ export function Authenticate(props: AuthenticateProps) {
   const companyToken: string | null = params.get("company_token");
 
   const [name, setName] = useState<string | null>(null);
+
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [githubLogin, setGithubLogin] = useState("");
+
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
-  const [password, setPassword] = useState("");
+
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
 
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -53,26 +59,46 @@ export function Authenticate(props: AuthenticateProps) {
     setPassword(event.target.value);
   };
 
+  const validateFrom = () => {
+    const validateEmail = (email: string) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const validatePassword = (password: string) => {
+      return password.length >= 6; // TODO: add more password validation
+    };
+
+    setValidEmail(validateEmail(email));
+    setValidPassword(validatePassword(password));
+
+    return validEmail && validPassword;
+  };
+
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (props.type === AuthenticateType.SignIn) {
-      const body: LoginBody = {
-        email: email,
-        password: password,
-      };
-      const query: LoginQuery = {};
-      auth.login(body, query);
-    } else {
-      const body: RegisterBody = {
-        name: name,
-        email: email,
-        password: password,
-      };
-      const query: RegisterQuery = {
-        companyToken: companyToken ?? undefined,
-        repositoryToken: repositoryToken ?? undefined,
-      };
-      auth.register(body, query);
+
+    if (!validateFrom()) return;
+    else {
+      if (props.type === AuthenticateType.SignIn) {
+        const body: LoginBody = {
+          email: email,
+          password: password,
+        };
+        const query: LoginQuery = {};
+        auth.login(body, query);
+      } else {
+        const body: RegisterBody = {
+          name: name,
+          email: email,
+          password: password,
+        };
+        const query: RegisterQuery = {
+          companyToken: companyToken ?? undefined,
+          repositoryToken: repositoryToken ?? undefined,
+        };
+        auth.register(body, query);
+      }
     }
   };
 
@@ -114,14 +140,18 @@ export function Authenticate(props: AuthenticateProps) {
     }
   };
 
+  const [showNetworkErrorModal, setShowNetworkErrorModal] = useState(false);
+
   return (
     <PageWrapper baseURL={BaseURL.WEBSITE}>
-      <div className="login pt-12 pb-24">
+      <ErrorModal showNetworkErrorModal={showNetworkErrorModal} setShowNetworkErrorModal={setShowNetworkErrorModal} />
+
+      <div className="login pt-12 pb-24 min-h-screen flex justify-center items-center">
         <div className="flex items-center justify-center  flex-col">
           <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">{props.type === AuthenticateType.SignIn ? "Sign in" : "Sign up"}</h1>
           <form
             onSubmit={handleLocalAuthentication}
-            className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
+            className="bg-[#14233A] border !border-[rgba(255,_255,_255,_0.2)] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
           >
             <>
               <Link to={"/"}>
@@ -149,25 +179,40 @@ export function Authenticate(props: AuthenticateProps) {
 
               {!isGithubAccountPredefined && (
                 <div className="flex items-center w-full justify-center gap-3 flex-col">
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    className={`${
-                      isEmailPredefined ? "bg-opacity-50 opacity-50" : ""
-                    } w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
-                    value={email}
-                    onChange={handleEmailChange}
-                    required
-                    disabled={isEmailPredefined}
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                  />
+                  {/*Email input*/}
+                  <div className="flex w-full flex-col gap-y-2">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className={`
+                        ${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} " "
+                        ${validEmail ? "border-0" : "!border-red-500 "} " "
+                        w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                      value={email}
+                      onChange={handleEmailChange}
+                      disabled={isEmailPredefined}
+                      required
+                    />
+
+                    {!validEmail && !email && <span className="text-red-500">Please fill in the email field.</span>}
+                    {!validEmail && <span className="text-red-500">Please enter a valid email address.</span>}
+                  </div>
+
+                  {/*Password input*/}
+                  <div className="flex w-full flex-col  gap-y-2">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className={`${
+                        validPassword ? "border-0" : "!border-red-500"
+                      } w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                      value={password}
+                      onChange={handlePasswordChange}
+                      required
+                    />
+                    {!validPassword && !password && <span className="text-red-500">Please fill in the password field.</span>}
+                    {!validPassword && <span className="text-red-500">Your password must be at least 6 characters long.</span>}
+                  </div>
                 </div>
               )}
 
@@ -178,20 +223,39 @@ export function Authenticate(props: AuthenticateProps) {
               {error && <div className="alert alert-danger mt-3">{error.toSting()}</div>}
 
               {!isGithubAccountPredefined && (
-                <div className="flex  justify-center w-full items-center gap-3 mt-5">
-                  <Button audience={"ALL"} parentClassName="w-1/2" className="min-w-full" level={"SECONDARY"} size="MEDIUM">
-                    <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"}>
-                      {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
-                    </Link>
-                  </Button>
-
-                  <Button parentClassName="w-1/2" className="min-w-full" type="submit" audience={"ALL"} level={"PRIMARY"} size="MEDIUM">
+                <div className="flex  justify-center w-full items-center gap-3 mt-4">
+                  <Button
+                    asChild={false}
+                    parentClassName="w-full"
+                    className="min-w-full font-semibold"
+                    type="submit"
+                    audience={"ALL"}
+                    level={"PRIMARY"}
+                    size="MEDIUM"
+                  >
                     {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
                   </Button>
                 </div>
               )}
+
+              {config.env !== Env.Production && (
+                <Link to={"/"} className="gradient-text-normal relative group font-semibold mt-3">
+                  Forgot Password?
+                  <span className="gradient-btn-bg w-full h-[1px] hidden group-hover:block absolute bottom-1 left-0"></span>
+                </Link>
+              )}
             </>
           </form>
+
+          {config.env !== Env.Production && (
+            <p className="font-semibold mt-5">
+              Don't have an account?{" "}
+              <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"} className="gradient-text-normal group relative">
+                {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
+                <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </PageWrapper>
