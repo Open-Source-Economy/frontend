@@ -1,10 +1,10 @@
-import * as React from "react"; // Import React and useEffect for AOS
+import * as React from "react";
 import { useEffect } from "react";
 import "./Footer.css";
 import { SocialMedia } from "src/components/socialMedia/SocialMedia";
-import AOS from "aos"; // Import AOS
+import AOS from "aos";
 import "aos/dist/aos.css";
-import { BaseURL } from "src/App"; // Import AOS CSS
+import { BaseURL } from "src/App";
 import backdropSVG2 from "../../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../../assets/footer-bd-ll.png";
 import { config, Env } from "src/ultils";

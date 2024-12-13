@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from "react";
-import { Footer, Header } from "../layout";
+import { Footer, Header } from "src/views/layout";
 import gsap from "gsap";
 import { BaseURL } from "src/App";
 
