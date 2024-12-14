@@ -32,6 +32,7 @@ export function IssueCard(props: IssueProps) {
           <div className="flex flex-wrap items-center  gap-10 xl:gap-3 justify-between mt-7 lg:!mt-12">
             <div>
               <components.Collect
+                audience={props.audience}
                 amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
                 amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
                 state={props.financialIssue.managedIssue?.state}

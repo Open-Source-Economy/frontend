@@ -4,7 +4,7 @@ interface TermsAgreementProps {}
 
 export function TermsAgreement(props: TermsAgreementProps) {
   return (
-    <div className="flex items-start justify-center gap-3 px-4 mt-4">
+    <div className="flex items-start justify-center gap-3 mt-4">
       <input type="checkbox" id="customCheckbox" className="customCheckbox" />
       <p className="text-[12px] leading-6 text-[#ffffff]">
         {/*TODO*/}

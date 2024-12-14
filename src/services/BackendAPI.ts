@@ -1,4 +1,4 @@
-import { FinancialIssue, IssueId, UserId } from "../model";
+import { FinancialIssue, IssueId, Owner, Repository, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
 import {
@@ -11,11 +11,19 @@ import {
   GetIssueResponse,
   GetIssuesParams,
   GetIssuesResponse,
+  GetOwnerBody,
+  GetOwnerParams,
+  GetOwnerQuery,
+  GetOwnerResponse,
+  GetRepositoryBody,
+  GetRepositoryParams,
+  GetRepositoryQuery,
+  GetRepositoryResponse,
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
 } from "src/dtos";
-import { handleError } from "src/services/index";
+import { handleError } from "./index";
 import axios from "axios";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -72,6 +80,10 @@ export interface BackendAPI {
 
   // TODO: maybe internal to the backend?
   updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError>;
+
+  getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
+
+  getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -128,5 +140,13 @@ class BackendAPIImpl implements BackendAPI {
 
   async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
+  }
+
+  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
+  }
+
+  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 }

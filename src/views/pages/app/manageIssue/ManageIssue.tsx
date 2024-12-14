@@ -30,7 +30,7 @@ export function ManageIssue(props: ManageIssueProps) {
         <BackgroundSection bgImage={bgimage2} position="left 20%">
           <BackgroundSection bgImage={bgimage3} position="right 2%">
             <div className="flex items-center justify-center w-full">
-              <div className="sm:mt-20 py-5 px-3 w-full" style={getBackgroundImageStyle(bgimage)}>
+              <div className="sm:mt-20 py-5 px-4 w-full lg:w-fit" style={getBackgroundImageStyle(bgimage)}>
                 <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
                   Fund an <span className="text-[#FF7E4B]">Issue</span>
                 </h1>

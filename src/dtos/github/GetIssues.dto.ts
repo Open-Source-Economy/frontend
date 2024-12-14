@@ -7,3 +7,5 @@ export interface GetIssuesResponse {
 }
 
 export interface GetIssuesBody {}
+
+export interface GetIssuesQuery {}

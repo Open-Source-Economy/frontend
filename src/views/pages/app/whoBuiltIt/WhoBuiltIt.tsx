@@ -2,6 +2,7 @@ import React from "react";
 import { BaseURL } from "src/App";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import Hero from "./Hero";
+import { OpenSourceExpertTitle } from "src/views/elements";
 import Services from "./Services";
 import leftlinear from "src/assets/left-linear-bg.png";
 import VirtuousSection from "./VirtuousSection";
@@ -24,6 +25,8 @@ export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
         {/* ============================= SERVICE CARD ===================== */}
         {showServices && <Services />}
         {/* ============================= VIRTUOUS SECTION ====================  */}
+        <OpenSourceExpertTitle />
+        {showServices && <Services />}
         {showVirtuousSection && <VirtuousSection />}
       </section>
     </PageWrapper>

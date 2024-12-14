@@ -8,6 +8,7 @@ import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { useDowCounter } from "src/views/hooks";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
+import { Audience } from "src/views";
 
 interface DowFundingProps {
   onIssueFundingSuccess: () => void;
@@ -15,6 +16,7 @@ interface DowFundingProps {
 }
 
 export function DowFunding(props: DowFundingProps) {
+  const audience = Audience.USER;
   const auth = useAuth();
   const backendAPI = getBackendAPI();
 
@@ -99,8 +101,7 @@ export function DowFunding(props: DowFundingProps) {
           flex items-center mt-4"
           >
             <div className="d-flex w-10 lg:w-14 flex-col gap-2 lg:!gap-4">
-              {/* <img src={up} className="md:w-[22px] w-[18px] h-3 cursor-pointer " onClick={increment} alt="" /> */}
-              <span className="w-full cursor-pointer " onClick={increment}>
+              <button className="w-full cursor-pointer " onClick={increment}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="md:min-w-[22px] lg:w-full sm:max-w-7 md:h-[18px] max-w-5"
@@ -115,7 +116,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </button>
               {/* <img
                 src={down}
                 className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -125,7 +126,7 @@ export function DowFunding(props: DowFundingProps) {
                   pointerEvents: counter?.isZero() ? "none" : "auto",
                 }}
               /> */}
-              <span
+              <button
                 className={`w-full cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
                 style={{
@@ -146,7 +147,7 @@ export function DowFunding(props: DowFundingProps) {
                     fill-opacity="0.6"
                   />
                 </svg>
-              </span>
+              </button>
             </div>
             <h2 className="gradient-texts select-none w-fit leading-[100%] font-bold md:text-[33px] text-[20px]" tabIndex={-1}>
               DoW
@@ -163,13 +164,13 @@ export function DowFunding(props: DowFundingProps) {
         </div>
       </div>
       <div className="!mt-10 xl:!mt-14 flex flex-wrap sm:!flex-nowrap justify-center w-full items-center gap-3">
-        <Button parentClassName="w-full" onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
+        <Button parentClassName="w-full" onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY" audience={audience} size="MEDIUM">
           FUND THE ISSUE
         </Button>
 
         <Button
           parentClassName="w-full"
-          audience="DEVELOPER"
+          audience={audience}
           level="SECONDARY"
           className={` w-full ${enoughFund ? "opacity-50 pointer-events-none" : ""}`}
           size="MEDIUM"
