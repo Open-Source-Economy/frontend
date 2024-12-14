@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
 import { Button } from "src/components/elements/Button";
-import { ExternalLink } from "src/components";
-import { config, Env } from "src/ultils";
 
 export const HeroSection = () => {
   return (
@@ -16,13 +14,7 @@ export const HeroSection = () => {
         </h1>
 
         <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
-          {config.env !== Env.Production ? (
-            <Link to="/issues">GET STARTED</Link>
-          ) : (
-            <ExternalLink href="https://15ib806w5yk.typeform.com/to/nHEIOYc3" underline={false}>
-              REQUEST ACCESS
-            </ExternalLink>
-          )}
+          <Link to="/projects">GET STARTED</Link>
         </Button>
       </div>
       {/* Right  */}

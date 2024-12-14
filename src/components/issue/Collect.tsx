@@ -2,8 +2,10 @@ import React from "react";
 import dow from "src/assets/dow.png";
 import { ManagedIssueState } from "src/model";
 import Decimal from "decimal.js";
+import { Audience, textColorVariants } from "src/views";
 
 interface CollectProps {
+  audience: Audience;
   amountCollected: Decimal;
   amountRequested?: Decimal;
   state?: ManagedIssueState;
@@ -28,13 +30,13 @@ export function Collect(props: CollectProps) {
       <div>
         <div className="flex items-start sm:items-center gap-3">
           <img className="w-[38px] h-[30px] mt-1 sm:mt-0" src={dow} alt="" />
-          <p className="text-base md:text-base lg:text-[20px]">
+          <p className="text-base md:text-base lg:text-[20px] michroma">
             {props.state === ManagedIssueState.REJECTED && renderAmountText(props.amountCollected, props.state)}
             {props.state === ManagedIssueState.SOLVED && renderAmountText(props.amountCollected, props.state)}
             {props.state === ManagedIssueState.OPEN && props.amountRequested && (
               <>
-                <span className="michroma">{props.amountCollected.toString()}</span> <span className="text-[#8693A4] michroma">/</span>{" "}
-                <span className="text-[#FF7E4B] michroma">{props.amountRequested?.toString()} DoW</span> requested
+                <span>{props.amountCollected.toString()}</span> <span className="text-[#8693A4] michroma">/</span>{" "}
+                <span className={`${textColorVariants[props.audience]}`}>{props.amountRequested?.toString()} DoW</span> requested
               </>
             )}
             {props.state === undefined && renderAmountText(props.amountCollected, undefined)}

@@ -18,11 +18,17 @@ import {
   GetIssueParams,
   GetIssueQuery,
   GetIssuesParams,
+  GetOwnerParams,
+  GetOwnerQuery,
+  GetOwnerResponse,
+  GetRepositoryParams,
+  GetRepositoryQuery,
+  GetRepositoryResponse,
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
 } from "src/dtos";
-import { issue, issueId, owner, repository, user, userId } from "src/__mocks__/index";
+import { issue, issueId, owner, repository, user, userId } from "./index";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
 
@@ -42,9 +48,9 @@ export class BackendAPIMock implements BackendAPI {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
-          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, []);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository, issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -78,6 +84,18 @@ export class BackendAPIMock implements BackendAPI {
 
   async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
+  }
+
+  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+    return {
+      owner: owner,
+    };
+  }
+  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+    return {
+      owner: owner,
+      repository: repository(),
+    };
   }
 }
 

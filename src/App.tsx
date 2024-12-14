@@ -1,6 +1,5 @@
 import "./App.css";
 import "./index.css";
-
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
@@ -33,6 +32,7 @@ import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { Projects } from "./views/pages/app/projects/Projects";
 import Loader from "./components/common/Loader";
 import PageNotFound from "./components/common/PageNotFound";
+import { Project } from "./views/pages/app/project/Project";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -76,7 +76,7 @@ const App = () => {
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/project" element={<Project />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
@@ -85,6 +85,7 @@ const App = () => {
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
           <Route path="/white-paper" element={<Pdf />} />
+          <Route path="/projects" element={<Projects />} />
 
           <Route path="/logout" element={<Logout />} />
           <Route element={<UnAuthRoutes />}>

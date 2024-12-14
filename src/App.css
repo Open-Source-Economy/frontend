@@ -48,7 +48,8 @@ html {
 .customCheckbox {
   appearance: none;
   -webkit-appearance: none;
-  width: 34px;
+  max-width: 24px;
+  min-width: 24px;
   height: 24px;
   border: 2px solid #202f45;
   border-radius: 6px;

@@ -4,6 +4,8 @@ export interface FundIssueParams {
   number: number;
 }
 
+export interface FundIssueResponse {}
+
 /**
  * The body of the request to fund an issue.
  * @param companyId If provided, the funds will be taken from the company's account. Otherwise, the funds will be taken from the auth user's account.
@@ -15,5 +17,3 @@ export interface FundIssueBody {
 }
 
 export interface FundIssueQuery {}
-
-export interface FundIssueResponse {}

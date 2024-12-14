@@ -6,10 +6,10 @@ import support from "src/assets/support-logo.webp";
 import development from "src/assets/write-code.webp";
 import advisory from "src/assets/advisory.webp";
 import operation from "src/assets/operation.webp";
-import participant from "src/assets/participant-1.png";
-import participant2 from "src/assets/participant-2.png";
-import participant3 from "src/assets/participant-3.png";
-import participant4 from "src/assets/participant-4.png";
+import participant from "src/assets/toRemove/participant-1.png";
+import participant2 from "src/assets/toRemove/participant-2.png";
+import participant3 from "src/assets/toRemove/participant-3.png";
+import participant4 from "src/assets/toRemove/participant-4.png";
 import mascot1 from "src/assets/participant-card-1.png";
 import mascot2 from "src/assets/participant-card-2.png";
 import mascot3 from "src/assets/participant-card-3.png";
@@ -19,28 +19,28 @@ export const participants = [
     name: "Patrik Nordwall",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: participant,
+    image: "https://avatars.githubusercontent.com/u/141809657?v=4",
     mascot: mascot1,
   },
   {
     name: "Konrad",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: participant2,
+    image: "https://avatars.githubusercontent.com/u/6135171?v=4",
     mascot: mascot2,
   },
   {
     name: "Enno Runne",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: participant3,
+    image: "https://avatars.githubusercontent.com/u/6135171?v=4",
     mascot: mascot3,
   },
   {
     name: "Richard Imaoka",
     title: "Akka expert",
     quote: "Quote of the person that can be a little long",
-    image: participant4,
+    image: "https://avatars.githubusercontent.com/u/47359?v=4",
     mascot: mascot4,
   },
 ];
