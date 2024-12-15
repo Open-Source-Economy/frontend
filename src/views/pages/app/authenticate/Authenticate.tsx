@@ -42,7 +42,12 @@ export function Authenticate(props: AuthenticateProps) {
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
 
   const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
+  const [validPassword, setValidPassword] = useState({
+    minLength: true,
+    hasNumber: true,
+    hasSymbol: true,
+    isEmpty: false,
+  });
 
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -55,6 +60,19 @@ export function Authenticate(props: AuthenticateProps) {
     setEmail(event.target.value);
   };
 
+  const validatePassword = (password: string) => {
+    const minLength = 6;
+    const hasNumber = /\d/;
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/;
+
+    setValidPassword({
+      minLength: password.length >= minLength,
+      hasNumber: hasNumber.test(password),
+      hasSymbol: hasSymbol.test(password),
+      isEmpty: password.trim() === "",
+    });
+  };
+
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
@@ -65,12 +83,9 @@ export function Authenticate(props: AuthenticateProps) {
       return emailRegex.test(email);
     };
 
-    const validatePassword = (password: string) => {
-      return password.length >= 6; // TODO: add more password validation
-    };
-
+    validatePassword(password);
     setValidEmail(validateEmail(email));
-    setValidPassword(validatePassword(password));
+    // setValidPassword(validatePassword(password));
 
     return validEmail && validPassword;
   };
@@ -182,7 +197,7 @@ export function Authenticate(props: AuthenticateProps) {
                   {/*Email input*/}
                   <div className="flex w-full flex-col gap-y-2">
                     <input
-                      type="email"
+                      type="text"
                       placeholder="Email"
                       className={`
                         ${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} " "
@@ -191,11 +206,10 @@ export function Authenticate(props: AuthenticateProps) {
                       value={email}
                       onChange={handleEmailChange}
                       disabled={isEmailPredefined}
-                      required
                     />
 
                     {!validEmail && !email && <span className="text-red-500">Please fill in the email field.</span>}
-                    {!validEmail && <span className="text-red-500">Please enter a valid email address.</span>}
+                    {email && !validEmail && <span className="text-red-500">Please enter a valid email address.</span>}
                   </div>
 
                   {/*Password input*/}
@@ -204,14 +218,21 @@ export function Authenticate(props: AuthenticateProps) {
                       type="password"
                       placeholder="Password"
                       className={`${
-                        validPassword ? "border-0" : "!border-red-500"
+                        validPassword.minLength && validPassword.hasNumber && validPassword.hasSymbol ? "border-0" : "!border-red-500 text-red-500"
                       } w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                       value={password}
                       onChange={handlePasswordChange}
-                      required
                     />
-                    {!validPassword && !password && <span className="text-red-500">Please fill in the password field.</span>}
-                    {!validPassword && <span className="text-red-500">Your password must be at least 6 characters long.</span>}
+                    {validPassword.isEmpty && <span className="text-red-500">Please fill in the password field.</span>}
+                    {!validPassword.minLength && !validPassword.isEmpty && (
+                      <span className="text-red-500">Your password must be at least 6 characters long.</span>
+                    )}
+                    {!validPassword.hasNumber && !validPassword.isEmpty && (
+                      <span className="text-red-500">Your password must contain at least one number.</span>
+                    )}
+                    {!validPassword.hasSymbol && !validPassword.isEmpty && (
+                      <span className="text-red-500">Your password must contain at least one special character.</span>
+                    )}
                   </div>
                 </div>
               )}

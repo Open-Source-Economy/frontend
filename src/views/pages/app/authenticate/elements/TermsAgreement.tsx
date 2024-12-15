@@ -1,11 +1,12 @@
 import React from "react";
+import CustomCheckbox from "./CustomCheckBox";
 
 interface TermsAgreementProps {}
 
 export function TermsAgreement(props: TermsAgreementProps) {
   return (
-    <div className="flex items-start justify-center gap-3 mt-4">
-      <input type="checkbox" id="customCheckbox" className="customCheckbox" />
+    <div className="grid grid-flow-col items-start justify-center gap-2 mt-4">
+      <CustomCheckbox />
       <p className="text-[12px] leading-6 text-[#ffffff]">
         {/*TODO*/}
         By placing an order you agree with the{" "}
