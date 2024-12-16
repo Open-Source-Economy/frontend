@@ -3,6 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
+import { PageNotFound } from "../pages/PageNotFound";
+import { BaseURL } from "../../App";
 
 export function AuthRoutes(props: { redirect: string }) {
   const auth = useAuth();
@@ -28,7 +30,7 @@ export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <Navigate to="/" />; // TODO: add  404 page
+    return <PageNotFound home={BaseURL.WEBSITE} />;
   }
 }
 
@@ -40,7 +42,6 @@ export function SuperAdminRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    // TODO: add  404 page
     // TODO: add redirect "redirect" if it could be admin
     return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />; // TODO: add  404 page
   }
