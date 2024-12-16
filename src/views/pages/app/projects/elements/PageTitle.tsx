@@ -1,8 +1,11 @@
 import React from "react";
-import hero from "src/assets/project.webp";
-import whoBuiltHero from "src/assets/Rectangle.png";
+import background from "../../../../../assets/Rectangle.png";
 
-const ProjectHero = () => {
+interface PageTitleProps {
+  logo: string;
+}
+
+export function PageTitle(props: PageTitleProps) {
   return (
     <>
       {" "}
@@ -10,11 +13,16 @@ const ProjectHero = () => {
         {" "}
         {/* ================== HERO LINEAR BG ================== */}
         <img
-          src={whoBuiltHero}
+          src={background}
           alt=""
           className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] object-contain -translate-x-1/2 left-1/2 -z-10 top-[4%] opacity-40 md:opacity-30"
         />
-        <img src={hero} alt="" className="w-16 md:h-20 md:w-20 3xl:max-w-[109px] h-16 3xl:max-h-[109px]" />
+        {/*TODO: Star Works: to be fixed - should word with all those logo:
+         * https://avatars.githubusercontent.com/u/141809657?v=4
+         * https://avatars.githubusercontent.com/u/6135171?v=4
+         * https://avatars.githubusercontent.com/u/47359?v=4
+         */}
+        <img src={props.logo} alt="Logo" className="w-16 rounded-full md:h-20 md:w-20 3xl:max-w-[109px] h-16 3xl:max-h-[109px]" />
         <h1 className="relative text-center mx-auto  main-heading !mt-3">
           Apache/<span className="bg-gradient-to-r from-[#FF518C] to-[#66319B]  text-transparent bg-clip-text">Pekko</span>
         </h1>
@@ -34,6 +42,4 @@ const ProjectHero = () => {
       </section>
     </>
   );
-};
-
-export default ProjectHero;
+}

@@ -7,7 +7,7 @@ const HighLightCard = ({ card }) => {
   return (
     <div
       className={`${card.isBorder ? "virtuous-card" : "border !border-[#2b394d]"}
-cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:rounded-[35px] py-7 !px-4 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] duration-300 ease-linear transition-shadow`}
+cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:rounded-[35px] py-7 !px-4 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 ease-linear transition-shadow`}
     >
       {/* Card Title */}
       <h3 className="text-2xl 2xl:text-3xl 3xl:text-[35px] font-montserrat font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{card.title}</h3>
@@ -29,7 +29,7 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:ro
           <span className="max-w-5 md:max-w-6 3xl:max-w-8">
             <SpinningWheel />
           </span>
-          <p className="font-montserrat text-base md:text-lg lg:text-xl xl:text-2xl 3xl:text-[28px] font-semibold">
+          <p className="font-montserrat text-base md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-[28px] font-semibold">
             {card.progress} /{" "}
             <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent "> {card.total} DoW</span>
             requested

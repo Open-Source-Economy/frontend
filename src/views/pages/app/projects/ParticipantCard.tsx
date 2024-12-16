@@ -21,7 +21,7 @@ const ParticipantCard: React.FC<ParticipantCardProps> = ({ participant }) => {
       <img
         src={participant.image}
         alt={participant.name}
-        className="rounded-full border border-white 3xl:w-[231px] w-24 md:w-28 md:h-28 h-24 xl:w-[200px] xl:h-[200px] 3xl:h-[231px] object-cover mb-2 xl:mb-4"
+        className="rounded-full border border-white 3xl:w-[231px] w-36 h-36 xl:w-[200px] xl:h-[200px] 3xl:h-[231px] object-cover mb-2 xl:mb-4"
       />
       <div className="!bg-secondary text-white rounded-full !pl-6 !pr-3 py-1 justify-between flex">
         <span className="text-xs md:text-sm 3xl:text-base">

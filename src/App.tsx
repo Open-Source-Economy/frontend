@@ -31,7 +31,7 @@ import {
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 // import { Projects } from "./views/pages/website/home/elements";
-import { Projects } from "./views/pages/app/project/Projects";
+import { Projects } from "./views/pages/app/projects/Projects";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
