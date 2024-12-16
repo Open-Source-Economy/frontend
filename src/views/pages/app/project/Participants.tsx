@@ -10,7 +10,7 @@ import { participants } from "../whoBuiltIt/Helper";
 
 const Participants = () => {
   return (
-    <section className="pb-20 3xl:pb-40 pt-16 relative">
+    <section className="pb-20 3xl:pb-40 pt-10 md:pt-16 relative">
       <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
       <img
         src={faq}

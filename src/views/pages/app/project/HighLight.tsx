@@ -5,7 +5,7 @@ import { highlightData } from "../whoBuiltIt/Helper";
 
 const Highlight = () => {
   return (
-    <section className="relative pt-16 md:pt-20 xl:pt-24 3xl:pt-[144px] 2xl:pb-28">
+    <section className="relative pt-10 md:pt-16 3xl:pt-20 pb-10 2xl:pb-28">
       {/* ==== LEFT LINEAR BACKGROUND ==== */}
 
       <div className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rotate-180 -bottom-[15%] opacity-20 blur-[80px] -z-10 w-full left-1/2 -translate-x-1/2 max-h-[700px] rounded-full h-full absolute max-w-[900px]"></div>

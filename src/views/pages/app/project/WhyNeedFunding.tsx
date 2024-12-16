@@ -14,7 +14,7 @@ const WhyNeedFunding: React.FC = () => {
   };
 
   return (
-    <div className="2xl:pt-28 pt-20 md:pb-16 relative">
+    <div className="2xl:pt-28 pt-10 pb-10 md:pb-16 relative">
       <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
       <img
         src={faq}
