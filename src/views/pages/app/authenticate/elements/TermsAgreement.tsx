@@ -1,12 +1,18 @@
 import React from "react";
 import CustomCheckbox from "./CustomCheckBox";
 
-interface TermsAgreementProps {}
+type TermsAgreementProps = {
+  isTermChecked: boolean;
+  termError: boolean;
 
-export function TermsAgreement(props: TermsAgreementProps) {
+  setIsTermChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  setTermError: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function TermsAgreement({ isTermChecked, setIsTermChecked, termError, setTermError }: TermsAgreementProps) {
   return (
     <div className="grid grid-flow-col items-start justify-center gap-2 mt-4">
-      <CustomCheckbox />
+      <CustomCheckbox isTermChecked={isTermChecked} termError={termError} setTermError={setTermError} setIsTermChecked={setIsTermChecked} />
       <p className="text-[12px] leading-6 text-[#ffffff]">
         {/*TODO*/}
         By placing an order you agree with the{" "}

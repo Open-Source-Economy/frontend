@@ -37,6 +37,8 @@ export function Authenticate(props: AuthenticateProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [githubLogin, setGithubLogin] = useState("");
+  const [isTermChecked, setIsTermChecked] = useState(false);
+  const [termError, setTermError] = useState(false);
 
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
@@ -82,6 +84,11 @@ export function Authenticate(props: AuthenticateProps) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
+    if (!isTermChecked) {
+      setTermError(true);
+    } else {
+      setTermError(false);
+    }
 
     validatePassword(password);
     setValidEmail(validateEmail(email));
@@ -237,7 +244,9 @@ export function Authenticate(props: AuthenticateProps) {
                 </div>
               )}
 
-              {config.env !== Env.Production && <TermsAgreement />}
+              {config.env !== Env.Production && (
+                <TermsAgreement isTermChecked={isTermChecked} setIsTermChecked={setIsTermChecked} termError={termError} setTermError={setTermError} />
+              )}
 
               {/*TODO: display error*/}
               {auth.error && <div className="alert alert-danger mt-3">{auth.error.toSting()}</div>}
