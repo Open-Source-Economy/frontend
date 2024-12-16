@@ -57,14 +57,14 @@ const App = () => {
     // Simulate a loading delay or fetch initial app data here
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer); // Cleanup
   }, []);
 
   if (isLoading) {
     // Display loader while loading
-    return <Loader isFullScreen={true} message="Loading App..." showBackgroundImage={true} />;
+    return <Loader isFullScreen={true} message="Loading ..." showBackgroundImage={true} />;
   }
 
   return (

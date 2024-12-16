@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
+import Loader from "src/components/common/Loader";
 
 export function AuthRoutes() {
   const auth = useAuth();
@@ -10,7 +11,7 @@ export function AuthRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <Loader isFullScreen={true} message="Authenticating..." /> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -20,7 +21,7 @@ export function UnAuthRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+    return auth.loading ? <Loader isFullScreen={true} message="Checking authentication..." /> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
   }
 }
 
@@ -28,7 +29,7 @@ export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <Navigate to="/" />; // TODO: add  404 page
+    return <Navigate to="/" />; // TODO: Add 404 page
   }
 }
 
@@ -40,7 +41,7 @@ export function SuperAdminRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <Loader isFullScreen={true} message="Loading Super Admin..." /> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -49,5 +50,5 @@ export function Logout() {
 
   auth.logout();
 
-  return auth.loading ? <div>Loading...</div> : <Navigate to="/" />;
+  return auth.loading ? <Loader isFullScreen={true} message="Logging out..." /> : <Navigate to="/" />;
 }

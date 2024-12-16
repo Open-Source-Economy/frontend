@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
-
 import * as model from "src/model";
 import { FinancialIssue } from "src/model";
 import { PageWrapper } from "../../PageWrapper";
@@ -12,6 +11,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
+import Loader from "src/components/common/Loader";
 
 interface IssuesProps {
   audience: Audience;
@@ -28,6 +28,7 @@ export function Issues(props: IssuesProps) {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       try {
         const params: GetIssuesParams = {};
         const query: GetIssueQuery = {};
@@ -77,7 +78,7 @@ export function Issues(props: IssuesProps) {
             <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] w-full lg:w-[90%] mx-auto">
               {isLoading ? (
                 // TODO: improve the design of the loading state
-                <p>Loading issues...</p>
+                <Loader isFullScreen={false} message="Loading issues..." />
               ) : error ? (
                 // TODO: improve the design
                 <p className="text-red-500">{error.toSting()}</p>

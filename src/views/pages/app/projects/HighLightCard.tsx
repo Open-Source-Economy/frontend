@@ -3,7 +3,19 @@ import check from "src/assets/checkmark.png";
 import { Button } from "src/components";
 import { SpinningWheel } from "src/Utils/Icons";
 
-const HighLightCard = ({ card }) => {
+interface HighLightCardProps {
+  card: {
+    title: string;
+    description: string;
+    tasks: string[];
+    progress: number;
+    total: number;
+    buttonText: string;
+    isBorder?: boolean;
+  };
+}
+
+const HighLightCard: React.FC<HighLightCardProps> = ({ card }) => {
   return (
     <div
       className={`${card.isBorder ? "virtuous-card" : "border !border-[#2b394d]"}
@@ -30,8 +42,7 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:ro
             <SpinningWheel />
           </span>
           <p className="font-montserrat text-base md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-[28px] font-semibold">
-            {card.progress} /{" "}
-            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent "> {card.total} DoW</span>
+            {card.progress} / <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">{card.total} DoW</span>
             requested
           </p>
         </div>
@@ -45,7 +56,7 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:ro
 
         <div className="relative !mt-6 lg:!mt-7 3xl:!mt-10">
           <Button audience="ALL" parentClassName="w-full" className="w-full cursor-pointer" level="SECONDARY" size="LARGE" asChild>
-            <span> {card.buttonText}</span>
+            <span>{card.buttonText}</span>
           </Button>
         </div>
       </div>
