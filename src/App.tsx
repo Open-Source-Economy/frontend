@@ -30,8 +30,8 @@ import {
   userProps,
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
-import { Projects } from "./views/pages/app/projects/Projects";
-import { Project } from "./views/pages/app/project/Project";
+// import { Projects } from "./views/pages/website/home/elements";
+import { Projects } from "./views/pages/app/project/Projects";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -75,7 +75,7 @@ const App = () => {
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-are-you" element={<WhoAreYou />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
-            <Route path="/project" element={<Project />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
@@ -84,7 +84,7 @@ const App = () => {
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
           <Route path="/white-paper" element={<Pdf />} />
-          <Route path="/projects" element={<Projects />} />
+          {/* <Route path="/projects" element={<Projects />} /> */}
 
           <Route path="/logout" element={<Logout />} />
           <Route element={<UnAuthRoutes />}>

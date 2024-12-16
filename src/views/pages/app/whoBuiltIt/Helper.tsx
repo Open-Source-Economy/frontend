@@ -1,19 +1,15 @@
 import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/Utils/Icons";
-import nonProfit from "src/assets/non-profit.webp";
-import communitydriven from "src/assets/community-driven.webp";
-import talent from "src/assets/talent.webp";
-import support from "src/assets/support-logo.webp";
-import development from "src/assets/write-code.webp";
 import advisory from "src/assets/advisory.webp";
+import communitydriven from "src/assets/community-driven.webp";
+import nonProfit from "src/assets/non-profit.webp";
 import operation from "src/assets/operation.webp";
-import participant from "src/assets/toRemove/participant-1.png";
-import participant2 from "src/assets/toRemove/participant-2.png";
-import participant3 from "src/assets/toRemove/participant-3.png";
-import participant4 from "src/assets/toRemove/participant-4.png";
 import mascot1 from "src/assets/participant-card-1.png";
 import mascot2 from "src/assets/participant-card-2.png";
 import mascot3 from "src/assets/participant-card-3.png";
 import mascot4 from "src/assets/participant-card-4.png";
+import support from "src/assets/support-logo.webp";
+import talent from "src/assets/talent.webp";
+import development from "src/assets/write-code.webp";
 export const participants = [
   {
     name: "Patrik Nordwall",
