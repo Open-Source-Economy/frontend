@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
-import Loader from "src/components/common/Loader";
+import Loader from "src/components/common/PageLoader";
 
 export function IssuesRoute() {
   const auth = useAuth();

@@ -1,11 +1,11 @@
 import React from "react";
 import Loading from "./Loading";
 
-interface LoaderProps {
-  message?: string; // The message prop is optional
+interface PageLoaderProps {
+  message?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ message }) => {
+const PageLoader: React.FC<PageLoaderProps> = ({ message }) => {
   return (
     <div className="flex flex-col overflow-hidden relative items-center justify-center h-screen w-full !bg-secondary">
       <div className="bg-gradient-to-r from-[#66319B] to-[#FF518C] -right-[30%] bottom-0 absolute max-w-[50%] w-full rounded-full max-h-[60%] h-full opacity-25 blur-3xl"></div>
@@ -16,4 +16,4 @@ const Loader: React.FC<LoaderProps> = ({ message }) => {
   );
 };
 
-export default Loader;
+export default PageLoader;

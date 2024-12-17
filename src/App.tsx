@@ -14,7 +14,7 @@ import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
-import Loader from "./components/common/Loader";
+import Loader from "./components/common/PageLoader";
 import {
   Audience,
   Authenticate,
@@ -51,10 +51,9 @@ export enum BaseURL {
 }
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true); // Manage loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate a loading delay or fetch initial app data here
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
