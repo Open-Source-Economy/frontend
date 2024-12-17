@@ -17,12 +17,12 @@ const Loading: React.FC<LoadingProps> = ({ message, className = "", textSize = "
     // Page Loading Layout
     <div className="max-w-[800px] w-full flex relative p-3 h-full max-h-[793px] flex-col justify-center items-center">
       <img src={whoBuiltHero} className="absolute opacity-30 pointer-events-none z-0 object-cover w-full sm:block hidden h-full" alt="Background" />
-      <div className="flex justify-center items-center z-10 p-4 flex-col">
-        <MascotIcon className="max-w-20 sm:max-w-36" />
-        <img src={loader} alt="Loading" className="-mt-[6%] sm:-mt-[10%]" />
+      <div className="flex justify-center items-center z-10 500:p-4 flex-col">
+        <MascotIcon className="max-w-20 sm:max-w-28 lg:max-w-36" />
+        <img src={loader} alt="Loading" className="-mt-[8%] sm:-mt-[10%] w-[80%] 400:w-[70%] max-w-[550px] lg:w-full md:-mt-[14%]" />
       </div>
 
-      {message && <h4 className={`${textSize} text-lg sm:text-xl md:text-2xl mt-[5%] sm:mt-[10%] text-center z-10 font-michroma`}>{message}</h4>}
+      {message && <h4 className={`${textSize} text-lg sm:text-xl md:text-2xl mt-[7%] xl:mt-[9%] text-center z-10 font-michroma`}>{message}</h4>}
     </div>
   ) : (
     // Component Loading Layout
