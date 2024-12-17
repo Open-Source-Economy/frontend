@@ -4,9 +4,9 @@ import { BaseURL } from "src/App";
 import { useRepositories } from "src/views/hooks";
 import { Cards } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
-import { OpenSourceExpertTitle } from "src/views/elements";
 import { repositoryIds } from "src/views/data/repositories";
 import backdropSVG from "../../../../assets/backdrop.svg";
+import { OpenSourceExpertTitle } from "./elements";
 
 interface ProjectsProps {}
 

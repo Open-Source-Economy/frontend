@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
+import { PageLoader } from "../../components/common";
 
 export function IssuesRoute() {
   const auth = useAuth();
@@ -27,5 +28,5 @@ export function IssuesRoute() {
     }
   }, [audience, navigate]);
 
-  return <div>Loading...</div>;
+  return <PageLoader />;
 }

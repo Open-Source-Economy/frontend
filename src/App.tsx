@@ -1,8 +1,18 @@
 import "./App.css";
 import "./index.css";
-
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { IssueId } from "src/model";
+import { IssuesRoute } from "src/views/layout/IssuesRoute";
+import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
+import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
+import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
+import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
+import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepositoryUser";
+import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
+import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
+import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
+import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
 import {
   Audience,
   Authenticate,
@@ -18,17 +28,6 @@ import {
   userProps,
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
-import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
-import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
-import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
-import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
-import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
-import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepositoryUser";
-import { IssueId } from "src/model";
-import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
-import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
-import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
-import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";

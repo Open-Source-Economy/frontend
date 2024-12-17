@@ -412,9 +412,7 @@ input[type="number"] {
 /* TODO: Star Works: no CSS, to be removed */
 .service-card {
     position: relative;
-    z-index: 10;
-    background-color: rgba(20, 35, 58, 0.79);
-    overflow: hidden;
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -446,11 +444,9 @@ input[type="number"] {
 /* ================ Virtuous CARD STYLE ====================  */
 .virtuous-card {
     position: relative;
-    z-index: 10;
-    background: #14233a;
-    overflow: hidden;
+
     transition: all 0.3s ease;
-    overflow: hidden;
+
 }
 
 .virtuous-card::before {
