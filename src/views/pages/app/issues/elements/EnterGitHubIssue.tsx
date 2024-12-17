@@ -66,7 +66,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
         {/*TODO: it is not a form, it is a link to an other page*/}
         <form
           onSubmit={handleSubmit}
-          className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "1000:items-start items-center" : "items-center"}  gap-4 mt-4`}
+          className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "1000:items-start  items-center" : "items-center"}  gap-4 mt-4`}
         >
           <div className="flex w-full flex-col">
             {" "}
@@ -85,10 +85,11 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
           <Button
             type="submit"
             onKeyDown={handleKeyDown}
-            audience={props.audience}
+            className="!w-full"
+            audience={"DEVELOPER"}
             level={"SECONDARY"}
             size="MEDIUM"
-            className="w-20"
+            asChild={false}
             parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
           >
             Add
