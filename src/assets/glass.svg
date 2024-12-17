@@ -27,23 +27,23 @@
         </filter>
         <radialGradient id="paint0_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                         gradientTransform="translate(6.69204 8) rotate(48.7852) scale(121.418 87.9138)">
-            <stop stop-color="white" stop-opacity="0.36"/>
-            <stop offset="1" stop-color="white" stop-opacity="0"/>
+            <stop stopColor="white" stop-opacity="0.36"/>
+            <stop offset="1" stopColor="white" stop-opacity="0"/>
         </radialGradient>
         <radialGradient id="paint1_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                         gradientTransform="translate(-42.5965 16.4075) rotate(35.8401) scale(93.0709 55.465)">
-            <stop stop-color="white"/>
-            <stop offset="1" stop-color="white" stop-opacity="0.06"/>
+            <stop stopColor="white"/>
+            <stop offset="1" stopColor="white" stop-opacity="0.06"/>
         </radialGradient>
         <radialGradient id="paint2_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                         gradientTransform="translate(103.421 63.0015) rotate(160.867) scale(67.0497 46.3891)">
-            <stop stop-color="#5E309C"/>
-            <stop offset="1" stop-color="#5E309C" stop-opacity="0.2"/>
+            <stop stopColor="#5E309C"/>
+            <stop offset="1" stopColor="#5E309C" stop-opacity="0.2"/>
         </radialGradient>
         <radialGradient id="paint3_radial_2018_1094" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
                         gradientTransform="translate(39.744 13.2681) rotate(90) scale(24.9838 37.625)">
-            <stop stop-color="white"/>
-            <stop offset="1" stop-color="white" stop-opacity="0"/>
+            <stop stopColor="white"/>
+            <stop offset="1" stopColor="white" stop-opacity="0"/>
         </radialGradient>
     </defs>
 </svg>

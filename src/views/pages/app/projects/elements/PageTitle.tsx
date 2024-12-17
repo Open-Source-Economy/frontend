@@ -22,7 +22,7 @@ export function PageTitle(props: PageTitleProps) {
          * https://avatars.githubusercontent.com/u/6135171?v=4
          * https://avatars.githubusercontent.com/u/47359?v=4
          */}
-        <img src={props.logo} alt="" className="w-16 md:h-20 md:w-20 3xl:max-w-[109px] h-16 3xl:max-h-[109px]" />
+        <img src={props.logo} alt="Logo" className="w-16 rounded-full md:h-20 md:w-20 3xl:max-w-[109px] h-16 3xl:max-h-[109px]" />
         <h1 className="relative text-center mx-auto  main-heading !mt-3">
           Apache/<span className="bg-gradient-to-r from-[#FF518C] to-[#66319B]  text-transparent bg-clip-text">Pekko</span>
         </h1>

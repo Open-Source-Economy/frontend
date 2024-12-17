@@ -3,16 +3,26 @@ import check from "src/assets/checkmark.png";
 import { Button } from "src/components";
 import { SpinningWheel } from "src/Utils/Icons";
 
-const HighLightCard = ({ card }) => {
+interface HighLightCardProps {
+  card: {
+    title: string;
+    description: string;
+    tasks: string[];
+    progress: number;
+    total: number;
+    buttonText: string;
+    isBorder?: boolean;
+  };
+}
+
+const HighLightCard: React.FC<HighLightCardProps> = ({ card }) => {
   return (
     <div
       className={`${card.isBorder ? "virtuous-card" : "border !border-[#2b394d]"}
-      ${
-        card.isHover ? "shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)]" : ""
-      } cursor-pointer !bg-primaryBg text-white rounded-xl xl:rounded-[20px] 2xl:rounded-[28px] 3xl:rounded-[35px] py-7 !px-4 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col`}
+cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:rounded-[35px] py-7 !px-4 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 ease-linear transition-shadow`}
     >
       {/* Card Title */}
-      <h3 className="text-xl lg:text-2xl 2xl:text-3xl 3xl:text-[35px] font-montserrat font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{card.title}</h3>
+      <h3 className="text-2xl 2xl:text-3xl 3xl:text-[35px] font-montserrat font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{card.title}</h3>
       <p className="text-base xl:text-lg 2xl:text-xl text-left  3xl:text-[22px] font-montserrat opacity-80 mb-4 xl:mb-5 3xl:mb-7">{card.description}</p>
 
       {/* Task List */}
@@ -31,9 +41,8 @@ const HighLightCard = ({ card }) => {
           <span className="max-w-5 md:max-w-6 3xl:max-w-8">
             <SpinningWheel />
           </span>
-          <p className="font-montserrat text-base md:text-lg lg:text-xl xl:text-2xl 3xl:text-[28px] font-semibold">
-            {card.progress} /{" "}
-            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent "> {card.total} DoW</span>
+          <p className="font-montserrat text-base md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-[28px] font-semibold">
+            {card.progress} / <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">{card.total} DoW</span>
             requested
           </p>
         </div>
@@ -47,7 +56,7 @@ const HighLightCard = ({ card }) => {
 
         <div className="relative !mt-6 lg:!mt-7 3xl:!mt-10">
           <Button audience="ALL" parentClassName="w-full" className="w-full cursor-pointer" level="SECONDARY" size="LARGE" asChild>
-            <span> {card.buttonText}</span>
+            <span>{card.buttonText}</span>
           </Button>
         </div>
       </div>

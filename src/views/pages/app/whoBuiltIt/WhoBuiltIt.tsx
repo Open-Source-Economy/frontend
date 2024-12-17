@@ -1,6 +1,7 @@
 import React from "react";
 import { BaseURL } from "src/App";
 import { PageWrapper } from "src/views/pages/PageWrapper";
+// import Hero from "./Hero";
 import { OpenSourceExpertTitle } from "src/views/elements";
 import Services from "./Services";
 import leftlinear from "src/assets/left-linear-bg.png";
@@ -19,8 +20,14 @@ export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
       <section className="relative overflow-hidden">
         {showBackground && <img src={leftlinear} alt="" className="absolute opacity-10 pointer-events-none object-cover left-0 z-0 top-[24%] xl:top-[14%]" />}
 
+        {/* ============== MAIN HEADING =========== */}
         <OpenSourceExpertTitle />
+        {/* <Hero /> */}
+        {/* ============================= SERVICE CARD ===================== */}
         {showServices && <Services />}
+        {/* ============================= VIRTUOUS SECTION ====================  */}
+
+        {/* {showServices && <Services />} */}
         {showVirtuousSection && <VirtuousSection />}
       </section>
     </PageWrapper>

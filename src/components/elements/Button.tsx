@@ -103,7 +103,7 @@ const buttonVariants = cva(
         className: cn(AUDIENCE_COLORS.STAKEHOLDER.secondary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
       },
     ],
-  },
+  }
 );
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -120,7 +120,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <Comp
           className={cn(
             buttonVariants({ audience, level, size, className }),
-            disabled && "pointer-events-none opacity-50", // Ensure proper disabled styling
+            disabled && "pointer-events-none opacity-50" // Ensure proper disabled styling
           )}
           ref={ref}
           disabled={disabled} // Pass disabled attribute to the button
@@ -128,7 +128,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         />
       </div>
     );
-  },
+  }
 );
 
 Button.displayName = "Button";

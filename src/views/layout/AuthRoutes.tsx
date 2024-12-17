@@ -4,13 +4,15 @@ import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
 
+import PageLoader from "src/components/common/PageLoader";
+
 export function AuthRoutes() {
   const auth = useAuth();
 
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <PageLoader message="Authenticating user..." /> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -20,7 +22,7 @@ export function UnAuthRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+    return auth.loading ? <PageLoader message="Loading user data..." /> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
   }
 }
 
@@ -28,7 +30,7 @@ export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <Navigate to="/" />; // TODO: add  404 page
+    return <Navigate to="/" />; // TODO: add 404 page
   }
 }
 
@@ -40,7 +42,7 @@ export function SuperAdminRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <div>Loading...</div> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -49,5 +51,5 @@ export function Logout() {
 
   auth.logout();
 
-  return auth.loading ? <div>Loading...</div> : <Navigate to="/" />;
+  return auth.loading ? <PageLoader message="Logging out..." /> : <Navigate to="/" />;
 }
