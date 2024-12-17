@@ -63,8 +63,7 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    // Display loader while loading
-    return <Loader isFullScreen={true} message="Loading ..." showBackgroundImage={true} />;
+    return <Loader message="Loading..." />;
   }
 
   return (

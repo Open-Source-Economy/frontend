@@ -11,29 +11,23 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
-import Loader from "src/components/common/Loader";
-
+import Loading from "src/components/common/Loading";
 interface IssuesProps {
   audience: Audience;
 }
-
 export function Issues(props: IssuesProps) {
   const backendAPI = getBackendAPI();
   const auth = useAuth();
-
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<ApiError | null>(null);
-
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
       try {
         const params: GetIssuesParams = {};
         const query: GetIssueQuery = {};
         const financialIssues = await backendAPI.getFinancialIssues(params, query);
-
         if (financialIssues instanceof ApiError) setError(financialIssues);
         else {
           setFinancialIssues(financialIssues);
@@ -46,7 +40,6 @@ export function Issues(props: IssuesProps) {
       }
     })();
   }, []);
-
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <Background>
@@ -62,23 +55,19 @@ export function Issues(props: IssuesProps) {
             </>
           )}
         </h1>
-
         <EnterGitHubIssue audience={props.audience} />
-
         <div className="mt-24">
           <h1 className=" lg:text-[55px] text-[32px]  text-center font-medium text-white">
             All <span className={`${textColorVariants[props.audience]}`}>Issues</span>
           </h1>
         </div>
-
         <section>
           <div className=" mt-5 pt-lg-1 pt-3">
             <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
-
             <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] w-full lg:w-[90%] mx-auto">
               {isLoading ? (
                 // TODO: improve the design of the loading state
-                <Loader isFullScreen={false} message="Loading issues..." />
+                <Loading type="component" message="Loading data..." height="200px" width="200px" />
               ) : error ? (
                 // TODO: improve the design
                 <p className="text-red-500">{error.toSting()}</p>

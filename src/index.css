@@ -23,10 +23,3 @@
 .michroma {
   font-family: "michroma", sans-serif;
 }
-
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-}

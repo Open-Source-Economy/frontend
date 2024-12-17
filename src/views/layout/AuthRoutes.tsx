@@ -11,7 +11,7 @@ export function AuthRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <Loader isFullScreen={true} message="Authenticating..." /> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <Loader message="Authenticating user..." /> : auth.authInfo?.user ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -21,7 +21,7 @@ export function UnAuthRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <Loader isFullScreen={true} message="Checking authentication..." /> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
+    return auth.loading ? <Loader message="Loading user data..." /> : auth.authInfo?.user ? <Navigate to="/" /> : <Outlet />;
   }
 }
 
@@ -29,7 +29,7 @@ export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <Navigate to="/" />; // TODO: Add 404 page
+    return <Navigate to="/" />; // TODO: add 404 page
   }
 }
 
@@ -41,7 +41,7 @@ export function SuperAdminRoutes() {
   if (config.api.useMock) {
     return <Outlet />;
   } else {
-    return auth.loading ? <Loader isFullScreen={true} message="Loading Super Admin..." /> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
+    return auth.loading ? <Loader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to="/sign-up" />;
   }
 }
 
@@ -50,5 +50,5 @@ export function Logout() {
 
   auth.logout();
 
-  return auth.loading ? <Loader isFullScreen={true} message="Logging out..." /> : <Navigate to="/" />;
+  return auth.loading ? <Loader message="Logging out..." /> : <Navigate to="/" />;
 }

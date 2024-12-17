@@ -28,5 +28,5 @@ export function IssuesRoute() {
     }
   }, [audience, navigate]);
 
-  return <Loader isFullScreen={true} />;
+  return <Loader />;
 }
