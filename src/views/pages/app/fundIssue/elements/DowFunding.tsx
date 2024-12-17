@@ -26,7 +26,7 @@ export function DowFunding(props: DowFundingProps) {
   const [error, setError] = useState<ApiError | string | null>(null);
 
   const fundIssue = async () => {
-    if (!counter) {
+    if (!counter || counter.isZero()) {
       setError("Please enter a valid amount.");
     } else if (counter.lessThanOrEqualTo(availableDoWAmount)) {
       const params: FundIssueParams = {
@@ -117,20 +117,14 @@ export function DowFunding(props: DowFundingProps) {
                   />
                 </svg>
               </button>
-              {/* <img
-                src={down}
-                className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
-                onClick={decrement}
-                alt=""
-                style={{
-                  pointerEvents: counter?.isZero() ? "none" : "auto",
-                }}
-              /> */}
+
               <button
                 className={`w-full cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
+                disabled={counter?.isZero()}
                 style={{
-                  pointerEvents: counter?.isZero() ? "none" : "auto",
+                  // pointerEvents: counter?.isZero() ? "none" : "auto",
+                  userSelect: counter?.isZero() ? "none" : "auto",
                 }}
               >
                 <svg
@@ -163,7 +157,7 @@ export function DowFunding(props: DowFundingProps) {
           </div>
         </div>
       </div>
-      <div className="!mt-10 xl:!mt-14 flex flex-wrap sm:!flex-nowrap justify-center w-full items-center gap-3">
+      <div className="!mt-10 xl:!mt-14 flex flex-wrap sm:!flex-nowrap justify-center w-full items-center gap-3 ">
         <Button parentClassName="w-full" onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY" audience={audience} size="MEDIUM">
           FUND THE ISSUE
         </Button>
