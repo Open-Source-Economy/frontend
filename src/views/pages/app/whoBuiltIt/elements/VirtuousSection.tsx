@@ -14,7 +14,7 @@ const VirtuousSection: React.FC = () => {
         alt=""
         className="absolute pointer-events-none  rotate-12 opacity-20 w-full object-cover -translate-x-1/2 left-1/2 z-0 max-w-[1200px] bottom-0 xl:-bottom-[4%]"
       />{" "}
-      <span className="absolute bottom-[10%] max-w-[671px] w-full opacity-80 left-0">
+      <span className="absolute bottom-[10%] max-w-[671px] -z-10 w-full opacity-90 left-0">
         <RoundLinearBg />
       </span>
       {/* =============== BOOK CALL BUTTON ============ */}
