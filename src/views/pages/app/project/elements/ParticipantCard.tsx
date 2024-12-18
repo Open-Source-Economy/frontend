@@ -16,7 +16,7 @@ interface ParticipantCardProps {
 
 const ParticipantCard: React.FC<ParticipantCardProps> = ({ participant }) => {
   return (
-    <Link to={participant.link} className="relative max-w-[231px] 500:max-w-[294px] flex flex-col items-center text-white ">
+    <Link to={participant.link} className="relative max-w-[250px] 500:max-w-[294px] flex flex-col items-center text-white ">
       {/* Participant Image */}
       <img
         src={participant.image}
