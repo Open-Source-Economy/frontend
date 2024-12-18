@@ -10,7 +10,7 @@ export function OpenSourceExpertTitle(props: OpenSourceExpertTitleProps) {
       {/*<span className="absolute hidden max-w-[200px] xl:block -right-[3%] top-[11%] 2xl:max-w-[240px]">*/}
       {/*  <RightDonutIcon />*/}
       {/*</span>*/}
-      <section className="w-full pt-20 lg:!pt-32 3xl:!pt-[141px] pb-10 max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto">
+      <section className="w-full pt-20 lg:!pt-32 3xl:!pt-[141px] pb-6 lg:pb-10 max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto">
         {/* ================== HERO LINEAR BG ================== */}
         <img
           src={whoBuiltHero}

@@ -11,7 +11,7 @@ const Services = () => {
       <img
         src={rightLinear}
         alt="Right Linear backgroun"
-        className="absolute pointer-events-none object-cover opacity-90 right-0 max-w-[671px]  z-0 top-[24%]"
+        className="absolute pointer-events-none object-cover opacity-90 right-0 max-w-[671px] -z-10 top-[24%]"
       />
       <div className="max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto pb-12 lg:pt-10 grid grid-cols-1 place-items-center w-full lg:grid-cols-2 !gap-5 xl:!gap-8 3xl:!gap-10 xl:px-8">
         {services.map((service, index) => (

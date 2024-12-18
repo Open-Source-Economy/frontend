@@ -35,7 +35,7 @@ const Participants = () => {
         </h2>
 
         {/* Participants List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-12 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-14 sm:gap-8">
           {participants.map((participant, index) => (
             <ParticipantCard participant={participant} key={index} />
           ))}
