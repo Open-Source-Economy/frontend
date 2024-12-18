@@ -21,13 +21,11 @@ export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
 
         {/* ============== MAIN HEADING =========== */}
         <OpenSourceExpertTitle />
-        {/* <Hero /> */}
+
         {/* ============================= SERVICE CARD ===================== */}
         {showServices && <Services />}
         {/* ============================= VIRTUOUS SECTION ====================  */}
-
-        {/* {showServices && <Services />} */}
-        {showVirtuousSection && <VirtuousSection />}
+        {/* {showVirtuousSection && <VirtuousSection />} */}
       </section>
     </PageWrapper>
   );
