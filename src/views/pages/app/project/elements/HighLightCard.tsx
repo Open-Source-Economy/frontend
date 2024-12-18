@@ -23,14 +23,14 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:ro
     >
       {/* Card Title */}
       <h3 className="text-2xl 2xl:text-3xl 3xl:text-[35px] font-montserrat font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{card.title}</h3>
-      <p className="text-base xl:text-lg 2xl:text-xl text-left  3xl:text-[22px] font-montserrat opacity-80 mb-4 xl:mb-5 3xl:mb-7">{card.description}</p>
+      <p className="text-base xl:text-lg text-left 2xl:text-[19px] 3xl:text-[22px] font-montserrat opacity-80 mb-4 xl:mb-5 3xl:mb-7">{card.description}</p>
 
       {/* Task List */}
-      <ul className="!mb-4 xl:!mb-7 3xl:!mb-12 !space-y-5 3xl:!space-y-[30px]">
+      <ul className="!mb-4 xl:!mb-7 2xl:!mb-10 3xl:!mb-12 !space-y-5 3xl:!space-y-[30px]">
         {card.tasks.map((task, index) => (
           <div key={index} className="flex items-center gap-3">
             <img src={check} className="3xl:w-7 h-5 w-5 3xl:h-7" alt="checkmark" />
-            <h2 className="montserrat text-base xl:text-lg 2xl:text-xl 3xl:text-[22px] font-normal text-start">{task}</h2>
+            <h2 className="montserrat text-base xl:text-lg 2xl:text-[19px] 3xl:text-[22px] font-normal text-start">{task}</h2>
           </div>
         ))}
       </ul>
@@ -54,7 +54,7 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] 3xl:ro
           ></div>
         </div>
 
-        <div className="relative !mt-6 lg:!mt-7 3xl:!mt-10">
+        <div className="relative !mt-6 lg:!mt-7 xl:!mt-8 2xl:!mt-10">
           <Button audience="ALL" parentClassName="w-full" className="w-full cursor-pointer" level="SECONDARY" size="LARGE" asChild>
             <span>{card.buttonText}</span>
           </Button>

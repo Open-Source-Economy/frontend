@@ -20,16 +20,16 @@ const VirtuousSection: React.FC = () => {
       {/* =============== BOOK CALL BUTTON ============ */}
       <BookACall />
       {/* ============== VIRTUOUS SECTION ============= */}
-      <section className="!pt-16  !pb-16 lg:!pb-[220px] w-full  max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto ">
-        <h2 className="section-heading max-w-[386px] md:max-w-[470px] mx-auto lg:max-w-[800px]  mb-8">
+      <section className="!pt-16 !pb-16 lg:!pb-[220px] w-full  max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto ">
+        <h2 className="section-heading max-w-[386px] md:max-w-[470px] w-full mx-auto lg:max-w-full mb-8">
           A Virtuous Way to
-          <span className="relative pb-1.5 lg:!pb-4 pl-3 w-fit">
+          <span className="relative pb-1.5 lg:!pb-4 pl-3 lg:w-fit">
             Secure{" "}
             <span className="absolute w-[80%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </span>
           Your Business
         </h2>
-        <div className="xl:grid flex justify-center  items-center flex-wrap xl:grid-cols-3 gap-6 w-full !mt-16">
+        <div className="xl:grid flex justify-center items-center flex-wrap xl:grid-cols-3 gap-6 w-full !mt-12 md:!mt-16">
           {virtuousCard.map((card, index) => (
             <VirtuousCard key={index} card={card} />
           ))}
