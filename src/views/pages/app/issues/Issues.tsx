@@ -12,7 +12,9 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
-
+import catimg from "../../../../assets/Mascot.png";
+import useOnlineStatus from "src/views/hooks/useOnlineStatus";
+import NetworkError from "src/components/common/NetworkError";
 interface IssuesProps {
   audience: Audience;
 }
@@ -46,6 +48,7 @@ export function Issues(props: IssuesProps) {
     })();
   }, []);
 
+  const isOnline = useOnlineStatus();
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <Background>
@@ -75,7 +78,11 @@ export function Issues(props: IssuesProps) {
             <IssueFilter financialIssues={financialIssues} setFilteredFinancialIssues={setFilteredFinancialIssues} />
 
             <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] w-full lg:w-[90%] mx-auto">
-              {isLoading ? (
+              {!isOnline ? (
+                <div className="flex justify-center mt-20">
+                  <NetworkError />
+                </div>
+              ) : isLoading ? (
                 // TODO: improve the design of the loading state
                 <p>Loading issues...</p>
               ) : error ? (
@@ -86,8 +93,10 @@ export function Issues(props: IssuesProps) {
                   <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
                 ))
               ) : (
-                // TODO: improve the design
-                <p>No issues found.</p>
+                <div className="flex justify-center gap-2 sm:text-2xl text-xl items-center font-medium">
+                  <img src={catimg} className="size-20 sm:size-24 object-contain" alt="" />
+                  No issues found!
+                </div>
               )}
             </div>
           </div>
