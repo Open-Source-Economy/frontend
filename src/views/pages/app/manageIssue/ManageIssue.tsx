@@ -13,10 +13,12 @@ import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
 import { useIssueIdFromParams } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
+import { Title } from "../../../../components";
 
 interface ManageIssueProps {}
 
 export function ManageIssue(props: ManageIssueProps) {
+  const audience = Audience.DEVELOPER;
   const issueId = useIssueIdFromParams();
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
 
@@ -31,14 +33,12 @@ export function ManageIssue(props: ManageIssueProps) {
           <BackgroundSection bgImage={bgimage3} position="right 2%">
             <div className="flex items-center justify-center w-full">
               <div className="sm:mt-20 py-5 px-4 w-full lg:w-fit" style={getBackgroundImageStyle(bgimage)}>
-                <h1 className="lg:text-[62px] text-[30px] text-center font-michroma font-medium text-white md:mb-0 mb-5">
-                  Fund an <span className="text-[#FF7E4B]">Issue</span>
-                </h1>
+                <Title audience={audience} whiteText="Manage an " coloredText="Issue" />
                 <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24 max-w-[1220px] mx-auto 3xl:max-w-[1500px]">
                   <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
                       <div className="w-full">
-                        <IssueCard financialIssue={financialIssue} audience={Audience.USER} displayPrivatePublicToggle={true} />
+                        <IssueCard financialIssue={financialIssue} audience={audience} displayPrivatePublicToggle={true} />
                       </div>
                     )}
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fundIssuePath } from "src/App";
+import { fundIssuePath, manageIssuePath } from "src/App";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "src/model";
@@ -39,7 +39,8 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
       const issueId = extractGitHubIssueInfo(url);
       if (issueId) {
         setIsValidUrl(true);
-        navigate(fundIssuePath(issueId));
+        if (props.audience === Audience.DEVELOPER) navigate(manageIssuePath(issueId));
+        else if (props.audience === Audience.USER) navigate(fundIssuePath(issueId));
       } else {
         setIsValidUrl(false);
       }
@@ -77,7 +78,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
               onKeyDown={handleKeyDown}
               className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${
                 !isValidUrl ? " border-red-500" : "border-transparent"
-              }`} // Changed border-1 to border-2 for proper styling
+              }`}
               placeholder="https://github.com/scala-native/scala-native/issues/3851"
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
@@ -89,10 +90,10 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
             audience={"DEVELOPER"}
             level={"SECONDARY"}
             size="MEDIUM"
-            asChild={false}
             parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
           >
-            Add
+            {props.audience === Audience.DEVELOPER && "Request"}
+            {props.audience === Audience.USER && "Fund"}
           </Button>
         </form>
       </div>

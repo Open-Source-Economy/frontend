@@ -6,6 +6,7 @@ import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
 import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
+import { Title } from "../../../../components";
 
 interface FundIssueProps {}
 
@@ -34,9 +35,7 @@ export function FundIssue({}: FundIssueProps) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <h1 className="lg:text-[62px] text-[30px] font-michroma text-center font-medium text-white">
-            Fund an <span className={`${textColorVariants[audience]}`}>Issue</span>
-          </h1>
+          <Title audience={audience} whiteText="Fund an " coloredText="Issue" />
 
           {financialIssue && (
             <div className="pt-16 md:pt-24 flex justify-center flex-wrap gap-4">

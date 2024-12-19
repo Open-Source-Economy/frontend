@@ -117,15 +117,6 @@ export function DowFunding(props: DowFundingProps) {
                   />
                 </svg>
               </button>
-              {/* <img
-                src={down}
-                className={`md:w-[22px] w-[18px] h-3 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
-                onClick={decrement}
-                alt=""
-                style={{
-                  pointerEvents: counter?.isZero() ? "none" : "auto",
-                }}
-              /> */}
               <button
                 className={`w-full cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
@@ -144,7 +135,7 @@ export function DowFunding(props: DowFundingProps) {
                   <path
                     d="M24.1971 0.0258789C25.7827 0.0258789 26.6109 2.11117 25.6543 3.45837L25.5129 3.63602L14.3462 16.3254C14.0257 16.6896 13.5994 16.9083 13.1471 16.9406C12.6948 16.9729 12.2476 16.8166 11.8895 16.501L11.7146 16.3254L0.547932 3.63602L0.393459 3.43722L0.292959 3.27437L0.192459 3.07134L0.16082 2.9952L0.11057 2.8535L0.0510146 2.62509L0.0324031 2.513L0.0137924 2.38611L0.00634766 2.26556V2.016L0.0156534 1.89334L0.0324031 1.76644L0.0510146 1.65647L0.11057 1.42806L0.16082 1.28636L0.291098 1.00719L0.41207 0.816851L0.547932 0.645546L0.722876 0.470008L0.866182 0.355804L1.04485 0.241599L1.11185 0.205646L1.23654 0.148542L1.43754 0.0808664L1.53618 0.0597169L1.64785 0.0385674L1.75393 0.0301084L24.1971 0.0258789Z"
                     fill="white"
-                    fill-opacity="0.6"
+                    fillOpacity="0.6"
                   />
                 </svg>
               </button>
@@ -177,10 +168,6 @@ export function DowFunding(props: DowFundingProps) {
         >
           GET MORE DoW
         </Button>
-
-        {/* <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>
-          <Link to="/fund-issues">USER PRIMARY</Link>
-        </Button> */}
       </div>
 
       {error && <p className="!mt-5 text-center">{error instanceof ApiError ? error.toString() : error}</p>}

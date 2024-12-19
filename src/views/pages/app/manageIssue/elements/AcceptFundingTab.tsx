@@ -64,20 +64,12 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
             disabled={!counter}
             className="w-full"
             parentClassName="max-w-[282px] w-full mx-auto"
-            audience={"USER"}
+            audience={"DEVELOPER"}
             level="SECONDARY"
             size="MEDIUM"
           >
             Request amount
           </Button>
-
-          {/*<button*/}
-          {/*  type="submit"*/}
-          {/*  disabled={!counter}*/}
-          {/*  className="mt-40 flex items-center justify-center mx-auto border-1 border-[#FF518C] hover:bg-[#FF518C] transition-all duration-500 ease-in-out py-3 rounded-md w-[282px]"*/}
-          {/*>*/}
-          {/*  Request amount*/}
-          {/*</button>*/}
         </div>
 
         {/*TODO: style*/}

@@ -44,16 +44,11 @@ export function Issues(props: IssuesProps) {
     <PageWrapper baseURL={BaseURL.APP}>
       <Background>
         <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
-          {props.audience === Audience.DEVELOPER && (
-            <>
-              Issues <span className={`${textColorVariants[props.audience]}`}>on my projects</span>
-            </>
-          )}
-          {props.audience === Audience.USER && (
-            <>
-              <span className={`${textColorVariants[props.audience]}`}>Fund</span> issues
-            </>
-          )}
+          <>
+            {props.audience === Audience.DEVELOPER && "Manage "}
+            {props.audience === Audience.USER && "Fund "}
+            <span className={`${textColorVariants[props.audience]}`}>issues</span>
+          </>
         </h1>
         <EnterGitHubIssue audience={props.audience} />
         <div className="mt-24">
