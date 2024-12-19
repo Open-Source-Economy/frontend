@@ -28,10 +28,15 @@ const ServiceBox: React.FC<ServiceBoxProps> = ({ data }) => (
       ))}
     </ul>
 
-    <div className="relative !mt-7 lg:!mt-10 3xl:!mt-12">
+    <div className="relative !mt-7 lg:!mt-10 3xl:!mt-12 md:!px-4 xl:!px-5">
       {data.buttonText && (
-        <button className="h-11 w-full rounded-md 3xl:h-[61px] min-w-[210px] bg-[#1a2a3f] bg-gradient-to-r from-transparent via-transparent to-transparent group-hover:from-[#FF7E4B] group-hover:via-[#FF518C] group-hover:to-[#66319B] lg:h-14 transition-background ease-linear duration-300 lg:text-lg 3xl:text-2xl text-base">
-          <span className="relative z-20 w-full text-white">{data.buttonText}</span>
+        // <button className="h-11 w-full rounded-[18px] bg-[#1a2a3f] lg:h-14 3xl:h-[61px] min-w-[210px] transition-all ease-linear duration-300 lg:text-lg 3xl:text-2xl text-base group-hover:bg-gradient-custom">
+        //   <span className="relative z-20 w-full text-white">{data.buttonText}</span>
+        // </button>
+
+        <button className="relative w-full min-w-[210px] rounded-xl lg:rounded-[18px] h-14 text-lg 3xl:h-[61px] 3xl:text-2xl before:absolute before:inset-0 before:rounded-[18px] before:transition-opacity before:duration-300 before:ease-linear hover:before:opacity-0 bg-gradient-custom">
+          <span className="absolute inset-0 scale-[101%] rounded-xl lg:rounded-[18px] bg-[#1a2a3f] transition-opacity duration-300 ease-linear group-hover:opacity-0" />
+          <span className="relative z-20 text-white">{data.buttonText}</span>
         </button>
       )}
     </div>

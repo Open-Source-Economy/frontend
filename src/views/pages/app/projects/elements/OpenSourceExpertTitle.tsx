@@ -15,7 +15,7 @@ export function OpenSourceExpertTitle(props: OpenSourceExpertTitleProps) {
         <img
           src={whoBuiltHero}
           alt=""
-          className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] object-cover -translate-x-1/2 left-1/2 z-0 top-[1%] opacity-40 md:opacity-30"
+          className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] object-cover -translate-x-1/2 left-1/2 -z-10 top-[1%] opacity-40 md:opacity-30"
         />
 
         {/*/!* ================== RIGHT DONUT ===================== *!/*/}
