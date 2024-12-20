@@ -51,12 +51,8 @@ export function Footer(props: FooterProps) {
                 >
                   <div className="d-flex flex-column align-items-md-end justify-content-md-end">
                     <h1 className="footer-h1-text font-mich mb-2">Stay Tuned!</h1>
-                    <div className="mt-2 flex h-[56px] justify-between rounded-xl bg-white">
-                      <input
-                        type="email"
-                        className="w-[calc(100%-122px)] border-none bg-transparent pl-3 text-sm text-black outline-none"
-                        placeholder="Enter your email"
-                      />
+                    <div className="mt-2 flex h-[56px] max-w-[434px] w-full lg:min-w-[430px] justify-between rounded-xl bg-white">
+                      <input type="email" className="w-full border-none bg-transparent pl-3 text-sm text-black outline-none" placeholder="Enter your email" />
 
                       {/*TODO: rajaziafat: needs to be re factorized with Button*/}
                       <button
