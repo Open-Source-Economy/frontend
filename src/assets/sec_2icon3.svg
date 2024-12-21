@@ -32,8 +32,8 @@
           fill="url(#paint3_radial_113_456)"/>
     <defs>
         <filter id="filter0_d_113_456" x="54.5231" y="51.3155" width="105.686" height="124.35"
-                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix"/>
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                            result="hardAlpha"/>
             <feOffset dx="3.46"/>
