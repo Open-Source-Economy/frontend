@@ -12,6 +12,10 @@ import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/components/common/Loading";
+import catimg from "../../../../assets/Mascot.png";
+import { ShowApiError } from "../../../../components/common/ShowApiError";
+import { StatusCodes } from "http-status-codes";
+
 interface IssuesProps {
   audience: Audience;
 }
@@ -21,7 +25,8 @@ export function Issues(props: IssuesProps) {
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<ApiError | null>(null);
+  const [error, setError] = useState<ApiError | null>(new ApiError(StatusCodes.BAD_REQUEST, "Loading..."));
+
   useEffect(() => {
     (async () => {
       try {
@@ -40,6 +45,7 @@ export function Issues(props: IssuesProps) {
       }
     })();
   }, []);
+
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <Background>
@@ -63,15 +69,18 @@ export function Issues(props: IssuesProps) {
               {isLoading ? (
                 <Loading type="component" message="Loading data..." height="200px" width="200px" />
               ) : error ? (
-                // TODO: improve the design
-                <p className="text-red-500">{error.toSting()}</p>
+                <div className="mt-20">
+                  <ShowApiError error={error} />
+                </div>
               ) : (filteredFinancialIssues || []).length > 0 ? (
                 filteredFinancialIssues.map(issue => (
                   <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
                 ))
               ) : (
-                // TODO: improve the design
-                <p>No issues found.</p>
+                <div className="flex justify-center gap-2 sm:text-2xl text-xl items-center font-medium">
+                  <img src={catimg} className="size-20 sm:size-24 object-contain" alt="" />
+                  No issues found!
+                </div>
               )}
             </div>
           </div>
