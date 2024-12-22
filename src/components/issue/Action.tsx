@@ -3,7 +3,7 @@ import { Issue, ManagedIssueState } from "src/model";
 import { fundIssuePath, manageIssuePath } from "src/App";
 import { Button, ExternalLink } from "src/components";
 import { Link } from "react-router-dom";
-import { Audience, textColorVariants } from "src/views";
+import { Audience } from "src/views";
 
 interface ActionProps {
   issue: Issue;

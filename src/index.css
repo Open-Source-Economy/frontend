@@ -14,7 +14,7 @@
     @apply text-3xl md:text-4xl !leading-[129%] lg:text-5xl xl:text-[52px] 2xl:text-[55px] 3xl:text-[62px] font-michroma text-center;
   }
   .section-heading {
-    @apply text-[28px] text-white font-montserrat text-center md:text-4xl xl:text-[39px] 2xl:text-[44px] 3xl:text-[50px] font-medium;
+    @apply text-[28px] text-white font-montserrat text-center md:text-4xl leading-normal xl:text-[39px] 2xl:text-[42px] 3xl:text-[50px] font-medium;
   }
 }
 .montserrat {

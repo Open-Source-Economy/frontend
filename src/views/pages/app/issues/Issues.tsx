@@ -12,6 +12,7 @@ import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/components/common/Loading";
+
 interface IssuesProps {
   audience: Audience;
 }

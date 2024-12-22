@@ -5,8 +5,8 @@ import { CompanyId, CompanyUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { BaseURL } from "src/App";
-import { Title } from "../../../../../components";
 import { Audience } from "../../../../Audience";
+import { Title } from "src/components";
 
 interface InviteCompanyUserProps {}
 

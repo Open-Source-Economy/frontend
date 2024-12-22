@@ -1,4 +1,4 @@
-import { FinancialIssue, IssueId, Owner, Repository, UserId } from "../model";
+import { FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
 import {
@@ -11,11 +11,9 @@ import {
   GetIssueResponse,
   GetIssuesParams,
   GetIssuesResponse,
-  GetOwnerBody,
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
-  GetRepositoryBody,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
