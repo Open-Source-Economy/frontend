@@ -31,6 +31,7 @@ import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } fro
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
+import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -57,6 +58,7 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
+            <Route path="/improve-reliability" element={<ImproveReliability />} />
             <Route path="/project" element={<Project />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
