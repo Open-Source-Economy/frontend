@@ -20,7 +20,6 @@ const FundingCampaign: React.FC = () => {
     <section className="text-white p-6 md:p-12">
       <div className="max-w-[1440px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12">
         {/* Left Section */}
-
         <div>
           <h2 className="section-heading lg:!pb-8 w-fit relative">
             Improve Cluster Reliability
@@ -29,13 +28,13 @@ const FundingCampaign: React.FC = () => {
 
           <CustomVideoEmbed videoUrl={videoUrl} autoplay={false} loop={true} muted={false} className="rounded-lg shadow-lg" />
           <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl !my-5">
-            Apache Pekko is an independent open-source project powered by volunteers in their free time.{" "}
+            Apache Pekko is an independent open-source project powered by volunteers in their free time.
           </p>
           <FeatureList />
         </div>
 
         {/* Right Section */}
-        <div className="!bg-secondary py-12 px-7 border !border-[#324053] rounded-[35px] space-y-6">
+        <div className="!bg-secondary max-w-[672px] w-full py-12 px-16 border !border-[#324053] rounded-[35px] space-y-6">
           <Progress currentAmount={currentAmount} targetAmount={targetAmount} backers={backers} daysLeft={daysLeft} />
           <DonationControls
             selectedAmount={selectedAmount}
