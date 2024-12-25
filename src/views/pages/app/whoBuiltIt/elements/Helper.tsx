@@ -10,6 +10,7 @@ import mascot4 from "src/assets/participant-card-4.png";
 import support from "src/assets/support-logo.webp";
 import talent from "src/assets/talent.webp";
 import development from "src/assets/write-code.webp";
+
 export const participants = [
   {
     name: "Patrik Nordwall",

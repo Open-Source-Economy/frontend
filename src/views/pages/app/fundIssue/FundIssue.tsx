@@ -4,9 +4,9 @@ import { IssueCard } from "src/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
-import { Audience, textColorVariants } from "src/views";
+import { Audience } from "src/views";
 import { BaseURL } from "src/App";
-import { Title } from "../../../../components";
+import { Title } from "src/components";
 
 interface FundIssueProps {}
 

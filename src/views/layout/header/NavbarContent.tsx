@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseURL } from "../../../App";
 import { Button, ExternalLink } from "../../../components";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { useAuth } from "../../pages/app/authenticate/AuthContext";
 

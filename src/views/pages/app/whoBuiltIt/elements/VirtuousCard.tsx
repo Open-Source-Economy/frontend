@@ -13,7 +13,7 @@ type VirtuousCardProps = {
 const VirtuousCard: React.FC<VirtuousCardProps> = ({ card }) => {
   return (
     <div
-      className={` max-w-[370px] xl:max-w-[450px] z-20 duration-300 ease-in-out transition-all cursor-pointer bg-primaryBg hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] w-full rounded-[35px] p-6 xl:!py-10 ${
+      className={`max-w-[370px] xl:max-w-[450px] z-20 duration-300 ease-in-out transition-all cursor-pointer bg-primaryBg hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] w-full rounded-2xl xl:rounded-[35px] p-6 xl:!py-10 ${
         card.isborder ? "virtuous-card" : ""
       } ${card.ishover ? "hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] " : ""}`}
     >

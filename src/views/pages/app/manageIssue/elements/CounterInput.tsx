@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
 
 interface CounterInputProps {
   value: Decimal | null;
