@@ -3,6 +3,7 @@ import DonationControls from "./DonationControls";
 import FeatureList from "./FeatureList";
 import Progress from "./Progress";
 import CustomVideoEmbed from "./VideoEmbed";
+import CompanyBanner from "./CompanyBanner";
 
 const FundingCampaign: React.FC = () => {
   const [selectedAmount, setSelectedAmount] = useState<number>(500);
@@ -34,16 +35,19 @@ const FundingCampaign: React.FC = () => {
         </div>
 
         {/* Right Section */}
-        <div className="!bg-secondary max-w-[672px] w-full py-12 px-16 border !border-[#324053] rounded-[35px] space-y-6">
-          <Progress currentAmount={currentAmount} targetAmount={targetAmount} backers={backers} daysLeft={daysLeft} />
-          <DonationControls
-            selectedAmount={selectedAmount}
-            setSelectedAmount={setSelectedAmount}
-            customAmount={customAmount}
-            setCustomAmount={setCustomAmount}
-            donationType={donationType}
-            setDonationType={setDonationType}
-          />
+        <div>
+          <div className="!bg-secondary max-w-[672px] w-full py-12 px-16 border !border-[#324053] rounded-[35px] space-y-6">
+            <Progress currentAmount={currentAmount} targetAmount={targetAmount} backers={backers} daysLeft={daysLeft} />
+            <DonationControls
+              selectedAmount={selectedAmount}
+              setSelectedAmount={setSelectedAmount}
+              customAmount={customAmount}
+              setCustomAmount={setCustomAmount}
+              donationType={donationType}
+              setDonationType={setDonationType}
+            />
+          </div>
+          <CompanyBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />
         </div>
       </div>
     </section>
