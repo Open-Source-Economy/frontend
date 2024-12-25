@@ -1,3 +1,5 @@
+import { Button } from "src/components";
+
 interface DonationControlsProps {
   selectedAmount: number;
   setSelectedAmount: React.Dispatch<React.SetStateAction<number>>;
@@ -26,18 +28,45 @@ const DonationControls: React.FC<DonationControlsProps> = ({
   return (
     <>
       <div className="space-y-4">
-        <button
-          onClick={() => setDonationType("once")}
-          className={`w-full py-3 rounded transition-colors ${donationType === "once" ? "bg-pink-500 hover:bg-pink-600" : "bg-pink-700 hover:bg-pink-800"}`}
-        >
-          Give Once
-        </button>
-        <button
-          onClick={() => setDonationType("monthly")}
-          className={`w-full py-3 rounded transition-colors ${donationType === "monthly" ? "bg-pink-500 hover:bg-pink-600" : "bg-pink-700 hover:bg-pink-800"}`}
-        >
-          Give Monthly
-        </button>
+        <div className="flex gap-5">
+          {/* <button
+            onClick={() => setDonationType("once")}
+            className={`w-full py-3 rounded transition-colors ${donationType === "once" ? "bg-pink-500 hover:bg-pink-600" : "bg-pink-700 hover:bg-pink-800"}`}
+          >
+            Give Once
+          </button> */}
+          <Button
+            onClick={() => setDonationType("once")}
+            parentClassName="w-full"
+            className="!w-full"
+            audience={donationType === "once" ? "ALL" : "USER"}
+            level={donationType === "once" ? "PRIMARY" : "SECONDARY"}
+            size="LARGE"
+            asChild={false}
+          >
+            Give Once
+          </Button>
+          <Button
+            onClick={() => setDonationType("monthly")}
+            parentClassName="w-full"
+            className="!w-full"
+            audience={donationType === "monthly" ? "ALL" : "USER"}
+            level={donationType === "monthly" ? "PRIMARY" : "SECONDARY"}
+            size="LARGE"
+            asChild={false}
+          >
+            Give Monthly
+          </Button>
+
+          {/* <button
+            onClick={() => setDonationType("monthly")}
+            className={`w-full py-3 rounded transition-colors ${
+              donationType === "monthly" ? "bg-pink-500 hover:bg-pink-600" : "bg-pink-700 hover:bg-pink-800"
+            }`}
+          >
+            Give Monthly
+          </button> */}
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
