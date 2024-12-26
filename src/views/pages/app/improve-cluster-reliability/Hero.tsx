@@ -11,7 +11,7 @@ const Hero = () => {
         <img
           src={background}
           alt=""
-          className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] object-contain -translate-x-1/2 left-1/2 -z-10 top-[4%] opacity-40 md:opacity-30"
+          className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] 3xl:max-w-[1020px] object-contain -translate-x-1/2 left-1/2 -z-10 top-[4%] opacity-40 md:opacity-30"
         />
         {/*TODO: Star Works: to be fixed - should word with all those logo:
          * https://avatars.githubusercontent.com/u/141809657?v=4

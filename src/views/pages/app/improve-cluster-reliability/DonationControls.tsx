@@ -90,38 +90,38 @@ const DonationControls: React.FC<DonationControlsProps> = ({
           </Button>
         </div>
 
-        <div className="flex rounded-[15px] py-3 px-[19px] bg-[#3E2946]">
-          <h1 className="text-base 2xl:text-lg 3xl:text-xl lg:max-w-[90%] w-full text-primary-user font-montserrat">
+        <div className="flex rounded-[15px] py-3 !px-4 sm:!px-[19px] bg-[#3E2946]">
+          <h1 className="text-sm sm:text-base 2xl:text-lg 3xl:text-xl lg:max-w-[90%] w-full text-primary-user font-montserrat">
             Giving monthly is an easy, effective way to be a hero for nature 365 days a year!
           </h1>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 !gap-4">
+      <div className="grid grid-cols-2 !gap-4 3xl:!gap-5">
         {amounts.map((amount, index) => (
           <button
             key={index}
             onClick={() => setSelectedAmount(amount.value)}
             className={`${
               selectedAmount === amount.value ? "bg-gradient-custom" : "bg-[#16263B]"
-            } transition-colors font-montserrat text-white py-4 rounded-[13px]`}
+            } transition-colors font-montserrat text-white !p-4 rounded-[13px]`}
             aria-pressed={selectedAmount === amount.value}
           >
-            <div className="text-xl !mb-1 font-bold">
+            <div className="text-base sm:text-lg xl:text-xl !mb-1 font-bold">
               ${amount.value}/{donationType === "monthly" ? "mo" : "once"}
             </div>
-            <div className="text-base">{amount.label}</div>
+            <div className="text-xs sm:text-sm xl:text-base">{amount.label}</div>
           </button>
         ))}
 
         <button className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] rounded-xl flex items-center px-6`}>
-          <span className="text-white text-xl font-medium">$</span>
+          <span className="text-whitetext-base sm:text-lg xl:text-xl font-medium">$</span>
           <input
             type="text"
             value={customAmount}
             onChange={handleCustomAmountChange}
             placeholder="Other/mo"
-            className="bg-transparent text-white text-xl w-full focus:outline-none ml-2 placeholder-gray-400"
+            className="bg-transparent text-white text-base sm:text-lg xl:text-xl w-full focus:outline-none ml-2 placeholder-gray-400"
             aria-label="Custom donation amount"
           />
         </button>

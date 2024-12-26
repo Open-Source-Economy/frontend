@@ -10,7 +10,7 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
   return (
     <>
       {/* Top Bar */}
-      <div className="flex justify-between gap-8 px-8 my-6 3xl:my-8">
+      <div className="flex flex-wrap justify-between gap-3 xl:gap-8 md:px-8 my-6 3xl:my-8">
         <div className="flex items-center gap-2.5">
           <span className="max-w-9">
             {" "}
@@ -28,10 +28,10 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
       </div>
 
       {/* Main Content */}
-      <div className="relative bg-[url('src/assets/company-banner.webp')] bg-cover py-[22px] px-[30px] flex !gap-4 items-center justify-between">
-        <div className="flex flex-col items-center !gap-4">
+      <div className="relative bg-[url('src/assets/company-banner.webp')] bg-cover py-[22px] !px-4 3xl:px-[30px] flex !gap-3 sm:!gap-4 500:flex-row flex-col rounded-[25px] overflow-hidden items-center justify-center">
+        <div className="flex flex-col items-center !gap-2.5">
           <h2 className="text-base 2xl:text-lg font-montserrat text-nowrap 3xl:text-[22px] font-bold">We are looking for</h2>
-          <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] text-white font-semibold py-3 px-6 rounded-[12px] transition-colors">
+          <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] font-semibold py-2 md:py-3 px-6 rounded-[12px] 3xl:text-[22px] 3xl:font-bold">
             {leftButtonText}
           </button>
         </div>
@@ -41,8 +41,8 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
           <MascotIcon />
         </div>
 
-        <div className="flex flex-col items-center !gap-4">
-          <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] text-white font-semibold py-3 px-6 rounded-[12px] transition-colors">
+        <div className="flex flex-col items-center !gap-2.5">
+          <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] font-semibold py-2 md:py-3 px-6 rounded-[12px] 3xl:text-[22px] 3xl:font-bold">
             {rightButtonText}
           </button>
           <p className="text-base 2xl:text-lg font-montserrat text-nowrap 3xl:text-[22px] font-bold">Be one of them!</p>
