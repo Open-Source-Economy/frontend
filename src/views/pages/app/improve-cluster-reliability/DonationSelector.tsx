@@ -11,7 +11,7 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
     onSelect?.(option === "donation");
   };
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full !space-y-2.5 !my-8 3xl:!my-10">
       <div className="flex space-x-4">
         {/* Donation Option */}
         <button
@@ -47,7 +47,7 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
 
       {/* Info Banner */}
       {selectedOption === "receive" && (
-        <div className="bg-[#3E2946] text-white py-3 rounded-[15px] flex justify-center text-lg w-full items-center">
+        <div className="bg-[#3E2946] text-white py-3 rounded-[15px] flex justify-center text-base 3xl:text-lg w-full items-center">
           With DoWs, you can prioritize your needs
           <Link to="#" className="text-primary-user font-semibold pl-2 underline-offset-4 underline transition-colors">
             Learn More
