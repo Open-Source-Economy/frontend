@@ -1,13 +1,16 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/components";
-import { TelephoneIcon } from "src/Utils/Icons";
+import { LeftLinear, TelephoneIcon } from "src/Utils/Icons";
 
 const AQuestion = () => {
   return (
-    <section className="px-4 mt-14 pb-16">
-      {" "}
-      <h2 className="section-heading relative lg:pb-6 max-w-[386px] md:max-w-[470px] w-full mx-auto lg:max-w-full mb-8">
+    <section className="px-4 mt-14 pb-16 relative">
+      <div className="bg-sunset-glow-gradient max-w-[490px] w-full h-full min-h-[906px] max-h-[906px] absolute right-[10%] -top-[60%] blur-[125px] -z-10 opacity-35 shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
+      <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] min-h-[1056px] max-w-[364px] w-full h-full absolute right-[8%] -top-[68%] blur-[125px] -z-0 opacity-50 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-[1057px]"></div>
+      <span className="absolute -left-[10%] -top-[80%] -z-10">
+        <LeftLinear />
+      </span>{" "}
+      <h2 className="section-heading relative z-20 lg:pb-6 max-w-[386px] md:max-w-[470px] w-full mx-auto lg:max-w-full mb-8">
         <span className="absolute w-[10%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
         A question?
       </h2>
@@ -15,7 +18,7 @@ const AQuestion = () => {
         Distributed systems like Pekko are inherently complex. Achieving consistent behavior, preventing cascading failures, and avoiding regressions requires
         specialized expertise and dedicated resources.
       </p>
-      <div className="flex justify-center flex-wrap items-center gap-4 mt-11">
+      <div className="flex justify-center z-20 relative flex-wrap items-center gap-4 mt-11">
         <Button audience="USER" level={"SECONDARY"} size={"LARGE"} asChild>
           <Link to="#">FAQ</Link>
         </Button>{" "}

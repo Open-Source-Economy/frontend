@@ -10,12 +10,12 @@ const WhyDoWeNeedYourHelp = () => {
     { id: 4, text: "Dedication" },
   ];
   return (
-    <section className="3xl:max-w-[1617px] !px-4 xl:max-w-[90%] 2xl:max-w-[1440px]  mx-auto justify-center gap-14 flex items-center xl:flex-row flex-col 3xl:gap-[112px]">
+    <section className="3xl:max-w-[1617px] !px-4 xl:max-w-[90%] 2xl:max-w-[1440px] mx-auto justify-center gap-14 flex items-center xl:flex-row flex-col 3xl:gap-[112px]">
       {/* ======= Left Image ====  */}
-      <div className="max-w-[640px] 3xl:max-w-[666px] xl:w-[47%] w-full ">
-        <img src={needHelp} alt="" className=" object-cover" />
+      <div className="max-w-[640px] 3xl:max-w-[666px] xl:w-[47%] w-full">
+        <img src={needHelp} alt="" className=" object-cover relative z-20" />
       </div>
-      <div className="max-w-[640px] xl:w-1/2 w-full 3xl:max-w-[728px]">
+      <div className="max-w-[640px] xl:w-1/2 w-full 3xl:max-w-[728px] relative z-20">
         <h1 className="text-3xl 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
           <span className="relative pb-3 lg:pb-5">
             Why Do We

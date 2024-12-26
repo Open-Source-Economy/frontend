@@ -98,6 +98,61 @@ export const DowIcon = () => {
     </svg>
   );
 };
+export const LinearBg = () => (
+  <svg width="790" height="1174" viewBox="0 0 790 1174" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.5">
+      <g filter="url(#filter0_f_2667_4121)">
+        <ellipse
+          cx="188.815"
+          cy="344.923"
+          rx="188.815"
+          ry="344.923"
+          transform="matrix(-0.219678 -0.975573 0.932035 -0.362367 294.957 825.135)"
+          fill="url(#paint0_linear_2667_4121)"
+        />
+      </g>
+      <g filter="url(#filter1_f_2667_4121)">
+        <ellipse
+          cx="138.79"
+          cy="401.802"
+          rx="138.79"
+          ry="401.802"
+          transform="matrix(0.683594 -0.729862 0.601633 0.798772 235.61 367.596)"
+          fill="url(#paint1_linear_2667_4121)"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter id="filter0_f_2667_4121" x="0.77832" y="43.3164" width="1148.36" height="945.254" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2667_4121" />
+      </filter>
+      <filter
+        id="filter1_f_2667_4121"
+        x="62.4648"
+        y="0.601562"
+        width="1019.52"
+        height="1173.29"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2667_4121" />
+      </filter>
+      <linearGradient id="paint0_linear_2667_4121" x1="377.631" y1="344.923" x2="0" y2="344.923" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="0.451" stop-color="#E78031" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_2667_4121" x1="277.581" y1="401.802" x2="0" y2="401.802" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
 export const CodeIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 36 36" fill="none">
     <path
@@ -873,5 +928,68 @@ export const OurMissionIcon = () => (
       stroke="white"
       stroke-opacity="0.47"
     />
+  </svg>
+);
+export const LeftLinear = () => (
+  <svg width="946" height="1386" viewBox="0 0 946 1386" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.6">
+      <g opacity="0.3" filter="url(#filter0_f_2670_6908)">
+        <ellipse
+          cx="248.141"
+          cy="453.297"
+          rx="248.141"
+          ry="453.297"
+          transform="matrix(-0.219678 -0.975573 0.932035 -0.362367 -98.9785 1005.55)"
+          fill="url(#paint0_linear_2670_6908)"
+        />
+      </g>
+      <g opacity="0.5" filter="url(#filter1_f_2670_6908)">
+        <ellipse
+          cx="182.398"
+          cy="528.048"
+          rx="182.398"
+          ry="528.048"
+          transform="matrix(0.683594 -0.729862 0.601633 0.798772 -176.971 404.25)"
+          fill="url(#paint1_linear_2670_6908)"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="filter0_f_2670_6908"
+        x="-407.038"
+        y="56.6309"
+        width="1352.08"
+        height="1085.15"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2670_6908" />
+      </filter>
+      <filter
+        id="filter1_f_2670_6908"
+        x="-325.968"
+        y="0.496094"
+        width="1182.75"
+        height="1384.84"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="125" result="effect1_foregroundBlur_2670_6908" />
+      </filter>
+      <linearGradient id="paint0_linear_2670_6908" x1="496.281" y1="453.297" x2="0" y2="453.297" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="0.451" stop-color="#E78031" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_2670_6908" x1="364.796" y1="528.048" x2="0" y2="528.048" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#AC3556" />
+        <stop offset="1" stop-color="#5935A1" />
+      </linearGradient>
+    </defs>
   </svg>
 );

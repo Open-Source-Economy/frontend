@@ -10,7 +10,7 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
   return (
     <>
       {/* Top Bar */}
-      <div className="flex justify-between gap-8 px-8 my-8">
+      <div className="flex justify-between gap-8 px-8 my-6 3xl:my-8">
         <div className="flex items-center gap-2.5">
           <span className="max-w-9">
             {" "}
