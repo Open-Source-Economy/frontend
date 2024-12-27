@@ -9,14 +9,18 @@ interface ShowApiErrorProps {
 }
 
 export function ShowApiError(props: ShowApiErrorProps) {
-  let friendlyMessage: string = props.error.message || "An unexpected error occurred.";
+  let friendlyMessageTitle: string = props.error.message || "An unexpected error occurred.";
+  let friendlyMessage: null | string = null;
+
   // You can adjust these conditions based on how your API sends errors
   if (props.error.statusCode === 401) {
-    friendlyMessage = "Authentication failed: Please check your credentials.";
+    friendlyMessageTitle = "Authentication failed: Please check your credentials.";
+    friendlyMessage = "If you are not registered, please sign up.";
   } else if (props.error.statusCode === 403) {
-    friendlyMessage = "You do not have permission to access this resource.";
+    friendlyMessageTitle = "You do not have permission to access this resource.";
   } else if (props.error.statusCode === 500) {
-    friendlyMessage = "A server error occurred. Please try again later.";
+    friendlyMessageTitle = "A server error occurred. Please try again later.";
+    friendlyMessage = "If the error persists, please send a message to lauriane@open-source-economy.com";
   }
 
   return (
@@ -51,9 +55,11 @@ export function ShowApiError(props: ShowApiErrorProps) {
             </svg>
             <div className="flex gap-1 flex-col">
               <h4 className="text-xl font-medium">
-                {props.error.statusText}: {friendlyMessage}
+                {props.error.statusText}
+                {props.error.statusText ? ": " : ""}
+                {friendlyMessageTitle}
               </h4>
-              <p className="text-red-500">If the error persists, please send a message to lauriane@open-source-economy.com</p>
+              {friendlyMessage && <p className="text-red-500">friendlyMessage</p>}
             </div>
           </div>
           {props.closeError && (
