@@ -87,7 +87,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
             type="submit"
             onKeyDown={handleKeyDown}
             className="!w-full"
-            audience={"DEVELOPER"}
+            audience={props.audience}
             level={"SECONDARY"}
             size="MEDIUM"
             parentClassName={`w-max max-w-[214px] ${!isValidUrl ? " 1000:mt-2" : ""}`}
