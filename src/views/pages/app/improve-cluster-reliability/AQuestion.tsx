@@ -23,7 +23,7 @@ const AQuestion = () => {
           <Link to="#">FAQ</Link>
         </Button>{" "}
         <Button audience="ALL" level="PRIMARY" size="LARGE" icon={<TelephoneIcon />}>
-          Give Monthly
+          Book a Call
         </Button>
       </div>
     </section>
