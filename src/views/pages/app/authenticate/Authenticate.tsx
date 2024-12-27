@@ -189,6 +189,11 @@ export function Authenticate(props: AuthenticateProps) {
     }
   };
 
+  useEffect(() => {
+    if (auth.error) setShowError(true);
+    if (error) setShowError(true);
+  }, [auth.error, error]);
+
   return (
     <PageWrapper baseURL={BaseURL.WEBSITE}>
       <ApiErrorModal error={auth.error ?? error} showError={showError} setShowError={setShowError} />

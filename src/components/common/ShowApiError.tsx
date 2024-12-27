@@ -1,9 +1,11 @@
 import React from "react";
 import { ApiError } from "../../ultils/error/ApiError";
 import cat from "../../assets/catimg.png";
+import { IoCloseOutline } from "react-icons/io5";
 
 interface ShowApiErrorProps {
   error: ApiError;
+  closeError?: () => void;
 }
 
 export function ShowApiError(props: ShowApiErrorProps) {
@@ -18,7 +20,7 @@ export function ShowApiError(props: ShowApiErrorProps) {
   }
 
   return (
-    <div className=" flex justify-center">
+    <div className="flex justify-center">
       <div className="h-[173px] max-w-[600px] relative w-full px-3 sm:px-0">
         <img src={cat} className="size-20 absolute -top-12 z-50 right-6 object-contain" alt="Error Cat" />
         <div className="border !border-[#FF595B] p-4 bg-[#0E1F35] rounded-xl relative">
@@ -54,6 +56,14 @@ export function ShowApiError(props: ShowApiErrorProps) {
               <p className="text-red-500">If the error persists, please send a message to lauriane@open-source-economy.com</p>
             </div>
           </div>
+          {props.closeError && (
+            <div
+              className="size-8 text-xl absolute -top-3 -right-3 rounded-full bg-[#0E1F35] border !border-[#FF595B] grid place-items-center cursor-pointer"
+              onClick={props.closeError} // Close on click
+            >
+              <IoCloseOutline />
+            </div>
+          )}
         </div>
       </div>
     </div>

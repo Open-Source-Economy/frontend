@@ -15,15 +15,9 @@ export function ApiErrorModal(props: ErrorModalProps) {
   else if (!props.showError) return null;
   else {
     return (
-      <>
-        <ShowApiError error={props.error} />
-        <div
-          className="size-8 text-xl absolute -top-3 -right-3 rounded-full bg-[#0E1F35] border !border-[#FF595B] grid place-items-center cursor-pointer"
-          onClick={() => props.setShowError(false)} // Close modal on click
-        >
-          <IoCloseOutline />
-        </div>
-      </>
+      <div className="bg-[#0E1F35]/10 z-40 backdrop-blur-sm flex justify-center items-center fixed top-0 left-0 size-full">
+        <ShowApiError error={props.error} closeError={() => props.setShowError(false)} />
+      </div>
     );
   }
 }

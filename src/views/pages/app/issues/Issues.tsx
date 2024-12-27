@@ -25,7 +25,7 @@ export function Issues(props: IssuesProps) {
   const [financialIssues, setFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<ApiError | null>(new ApiError(StatusCodes.BAD_REQUEST, "Loading..."));
+  const [error, setError] = useState<ApiError | null>(null);
 
   useEffect(() => {
     (async () => {
