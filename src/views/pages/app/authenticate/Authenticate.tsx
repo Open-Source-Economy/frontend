@@ -243,8 +243,8 @@ export function Authenticate(props: AuthenticateProps) {
 						<>
 							<Link to={"/"}>
 								<img
-									src={logo}
-									className="w-[310px] h-[55px] mb-12 object-cover"
+									src="/Logo-svg.svg"
+									className="w-[312px] h-[55px] mb-12 object-cover"
 									alt=""
 								/>
 							</Link>
