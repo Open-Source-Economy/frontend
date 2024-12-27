@@ -332,15 +332,13 @@ export function Authenticate(props: AuthenticateProps) {
             </>
           </form>
 
-          {config.env !== Env.Production && (
-            <p className="font-semibold mt-5">
-              {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-              <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"} className="gradient-text-normal group relative">
-                {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
-                <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
-              </Link>
-            </p>
-          )}
+          <p className="font-semibold mt-5">
+            {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
+            <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"} className="gradient-text-normal group relative">
+              {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
+              <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
+            </Link>
+          </p>
         </div>
       </div>
     </PageWrapper>
