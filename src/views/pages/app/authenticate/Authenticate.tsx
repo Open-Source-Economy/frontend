@@ -242,7 +242,7 @@ export function Authenticate(props: AuthenticateProps) {
                       className={`
                         ${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} " "
                         ${validEmail ? "border-0" : "!border-red-500 "} " "
-                        w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                        w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                       value={email}
                       onChange={handleEmailChange}
                       disabled={isEmailPredefined}
@@ -260,7 +260,7 @@ export function Authenticate(props: AuthenticateProps) {
                       placeholder="Password"
                       className={`${
                         validPassword ? "!border-red-500 text-red-500" : "border-0"
-                      } w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                      } w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                       value={password}
                       onChange={handlePasswordChange}
                       required
@@ -291,7 +291,7 @@ export function Authenticate(props: AuthenticateProps) {
                         placeholder="Confirm Password"
                         className={`
                           ${!validConfirmPassword ? "!border-red-500 text-red-500" : "border-0"}
-                          w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3
+                          w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3
                         `}
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
