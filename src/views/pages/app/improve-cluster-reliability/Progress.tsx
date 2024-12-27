@@ -23,19 +23,19 @@ const Progress: React.FC<ProgressSectionProps> = ({ currentAmount, targetAmount,
         </div>
       </div>
 
-      <h2 className="font-montserrat text-xl 2xl:text-2xl 3xl:text-[28px] font-mdeium ">${currentAmount.toLocaleString()}/mo</h2>
+      <h2 className="font-montserrat text-xl 2xl:text-2xl 3xl:text-[28px] font-mdeium !mt-2.5 3xl:!mt-4">${currentAmount.toLocaleString()}/mo</h2>
       <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
         $ <span className="hidden">{currentAmount.toLocaleString()} </span> pledged of ${targetAmount.toLocaleString()}/mo
       </p>
-      <div className="flex gap-20 !mt-3 3xl:!mt-6">
+      <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
         <div>
-          <h3 className="text-xl 2xl:text-2xl 3xl:text-[25px] font-medium !mb-1.5">{backers.toLocaleString()}</h3>
-          <p className="text-sm xl:text-base 2xl:text-lg 3xl:text-xl font-montserrat opacity-80"> Backers</p>
+          <h3 className="text-xl 2xl:text-[22px] 3xl:text-[25px] font-medium !mb-1.5">{backers.toLocaleString()}</h3>
+          <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80"> Backers</p>
         </div>
 
         <div>
           <h3 className="text-xl 2xl:text-2xl 3xl:text-[25px] font-medium !mb-1.5">{daysLeft}</h3>
-          <p className="text-sm xl:text-base 2xl:text-lg 3xl:text-xl font-montserrat opacity-80">Days to go</p>
+          <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Days to go</p>
         </div>
       </div>
     </>
