@@ -86,7 +86,7 @@ export function Authenticate(props: AuthenticateProps) {
     const validatePassword = (password: string) => {
       const minLength = 6;
       const hasNumber = /\d/;
-      const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/;
+      const hasSymbol = /[!@#$%^&*(),.?";:{}|<>_\-'\+\=\[\]~`\\]/;
 
       const validation: PasswordValidation = {
         minLength: password.length >= minLength,
@@ -120,34 +120,36 @@ export function Authenticate(props: AuthenticateProps) {
       validateConfirmPassword(password, confirmPassword);
       validateTerms(termsChecked);
 
-      return validEmail && validPassword && validConfirmPassword && validTerms;
+      return validEmail && validPassword === null && validConfirmPassword && validTerms;
     }
   };
 
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!validateForm()) return;
-    else {
-      if (props.type === AuthenticateType.SignIn) {
-        const body: LoginBody = {
-          email: email,
-          password: password,
-        };
-        const query: LoginQuery = {};
-        auth.login(body, query);
-      } else {
-        const body: RegisterBody = {
-          name: name,
-          email: email,
-          password: password,
-        };
-        const query: RegisterQuery = {
-          companyToken: companyToken ?? undefined,
-          repositoryToken: repositoryToken ?? undefined,
-        };
-        auth.register(body, query);
-      }
+    if (!validateForm()) {
+      console.log("Form is invalid.");
+      return;
+    } else if (props.type === AuthenticateType.SignIn) {
+      console.log("Logging in...");
+      const body: LoginBody = {
+        email: email,
+        password: password,
+      };
+      const query: LoginQuery = {};
+      auth.login(body, query);
+    } else {
+      console.log("Registering...");
+      const body: RegisterBody = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      const query: RegisterQuery = {
+        companyToken: companyToken ?? undefined,
+        repositoryToken: repositoryToken ?? undefined,
+      };
+      auth.register(body, query);
     }
   };
 
