@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetRepositoryBody, GetRepositoryParams, GetRepositoryQuery } from "src/dtos";
+import { GetRepositoryParams, GetRepositoryQuery } from "src/dtos";
 import { Owner, Repository, RepositoryId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 

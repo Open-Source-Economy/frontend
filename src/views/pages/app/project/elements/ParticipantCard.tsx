@@ -16,12 +16,12 @@ interface ParticipantCardProps {
 
 const ParticipantCard: React.FC<ParticipantCardProps> = ({ participant }) => {
   return (
-    <Link to={participant.link} className="relative max-w-[231px] 500:max-w-[294px] flex flex-col items-center text-white ">
+    <Link to={participant.link} className="relative max-w-[250px] 500:max-w-[294px] flex flex-col items-center text-white ">
       {/* Participant Image */}
       <img
         src={participant.image}
         alt={participant.name}
-        className="rounded-full border border-white 3xl:w-[231px] w-36 h-36 xl:w-[200px] xl:h-[200px] 3xl:h-[231px] object-cover mb-2 xl:mb-4"
+        className="rounded-full border border-white 3xl:w-[231px] w-[150px] h-[150px] xl:w-[200px] xl:h-[200px] 3xl:h-[231px] object-cover mb-2 xl:mb-4"
       />
       <div className="!bg-secondary text-white rounded-full !pl-6 !pr-3 py-1 justify-between flex">
         <span className="text-xs md:text-sm 3xl:text-base">
@@ -36,7 +36,7 @@ const ParticipantCard: React.FC<ParticipantCardProps> = ({ participant }) => {
       </div>
       {/* Participant Info */}
 
-      <h3 className="font-montserrat font-semibold text-xl 2xl:text-2xl 3xl:text-[28px] mt-4 3xl:mt-[18px]">{participant.name}</h3>
+      <h3 className="font-montserrat font-semibold text-xl 2xl:text-2xl 3xl:text-[28px] !mt-4 3xl:!mt-[18px]">{participant.name}</h3>
       <p className="text-[#ADABAF] text-base lg:text-lg font-montserrat font-medium xl:text-xl mt-1 mb-2 3xl:text-[22px]">{participant.title}</p>
       <p className="text-white opacity-80 text-base lg:text-lg font-montserrat xl:text-xl 3xl:text-[22px]">"{participant.quote}"</p>
 
