@@ -13,6 +13,7 @@ export interface CardsProps {
 }
 
 export function Cards(props: CardsProps) {
+  const displayOwner = props.owner.id.login !== props.repository.id.name;
   return (
     <div
       key={props.repository.id.githubId}
@@ -24,11 +25,14 @@ export function Cards(props: CardsProps) {
         </div>
         <div className="max-[860px]:min-h-[150px]">
           <h4 className="font-mich mt-3 text-2xl max-[540px]:!text-1xl">
-            <ExternalLink href={props.owner.htmlUrl} className="duration-300 text-secondary">
-              {props.owner.id.login !== props.repository.id.name && <span>{props.owner.id.login}</span>}
-            </ExternalLink>
-            <span className="text-secondary">/</span>
-
+            {displayOwner && (
+              <>
+                <ExternalLink href={props.owner.htmlUrl} className="duration-300 text-secondary">
+                  <span>{props.owner.id.login}</span>
+                </ExternalLink>
+                <span className="text-secondary">/</span>
+              </>
+            )}
             <ExternalLink href={props.repository.htmlUrl} className="duration-300">
               {props.repository.id.name}
             </ExternalLink>

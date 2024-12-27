@@ -5,5 +5,4 @@ export const repositoryIds: RepositoryId[] = [
   ["join-the-flock", "flock"],
   ["kubesphere", "kubesphere"],
   ["slick", "slick"],
-  ["scala-native", "scala-native"],
 ].map(([owner, repository]) => new RepositoryId(new OwnerId(owner), repository));
