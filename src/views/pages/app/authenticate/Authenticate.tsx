@@ -12,7 +12,7 @@ import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsA
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
 import { config, Env } from "src/ultils";
-import { ErrorModal } from "./elements/ErrorModal";
+import { ApiErrorModal } from "../../../../components/common/ApiErrorModal";
 
 export enum AuthenticateType {
   SignIn,
@@ -191,7 +191,7 @@ export function Authenticate(props: AuthenticateProps) {
 
   return (
     <PageWrapper baseURL={BaseURL.WEBSITE}>
-      <ErrorModal error={auth.error ?? error} showError={showError} setShowError={setShowError} />
+      <ApiErrorModal error={auth.error ?? error} showError={showError} setShowError={setShowError} />
 
       <div className="login pt-12 pb-24 min-h-screen flex justify-center items-center">
         <div className="flex items-center justify-center  flex-col">

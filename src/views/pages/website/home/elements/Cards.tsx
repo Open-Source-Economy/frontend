@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, To } from "react-router-dom";
 import { Button, ExternalLink } from "src/components";
-import { config, Env } from "src/ultils";
 import { Owner, Repository } from "../../../../../model";
 import { Audience } from "../../../../Audience";
 
