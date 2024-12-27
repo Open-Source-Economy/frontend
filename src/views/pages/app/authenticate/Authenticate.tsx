@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
@@ -209,7 +208,7 @@ export function Authenticate(props: AuthenticateProps) {
           >
             <>
               <Link to={"/"}>
-                <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
+                <img src="/Logo-svg.svg" className="w-[312px] h-[55px] mb-12 object-cover" alt="Logo" />
               </Link>
 
               {!isEmailPredefined && (
