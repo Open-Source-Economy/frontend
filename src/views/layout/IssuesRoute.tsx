@@ -12,7 +12,7 @@ export function IssuesRoute() {
 
   useEffect(() => {
     if (!audience) {
-      if (auth.authInfo?.company !== null) {
+      if ((auth.authInfo?.repositories ?? []).length == 0) {
         setAudience(Audience.USER);
       } else {
         setAudience(Audience.DEVELOPER);
