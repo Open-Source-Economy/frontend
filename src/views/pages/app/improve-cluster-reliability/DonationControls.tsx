@@ -97,7 +97,8 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             aria-pressed={selectedAmount === amount.value}
           >
             <div className="text-base sm:text-lg 3xl:text-xl !mb-0.5 3xl:!mb-1 font-bold">
-              ${amount.value}/{donationType === "monthly" ? "mo" : "once"}
+              ${amount.value}
+              {donationType === "monthly" ? "/mo" : ""}
             </div>
             <div className="text-xs sm:text-sm 3xl:text-base">{amount.label}</div>
           </button>

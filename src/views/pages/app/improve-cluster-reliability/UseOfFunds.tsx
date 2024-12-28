@@ -1,6 +1,6 @@
-import React from "react";
-import { CheckIcon, LeftLinear, LinearCenter } from "src/Utils/Icons";
+import { LeftLinear, LinearCenter } from "src/Utils/Icons";
 import useFunds from "src/assets/use-of-funds.webp";
+import ListItem from "./ListItem";
 
 const UseOfFunds = () => {
   const reliableData = [
@@ -10,7 +10,11 @@ const UseOfFunds = () => {
       id: 3,
       text: (
         <>
-          Addressing <span className="bg-gradient-custom text-transparent bg-clip-text inline-block">critical issues </span> (like Issue #578).
+          Addressing{" "}
+          <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#FF518C]  font-bold text-transparent bg-clip-text inline-block">
+            critical issues{" "}
+          </span>{" "}
+          (like Issue #578).
         </>
       ),
     },
@@ -25,8 +29,8 @@ const UseOfFunds = () => {
         <LeftLinear />
       </span>
       <section className="3xl:max-w-[1617px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1440px] mx-auto justify-center gap-14 flex items-center xl:flex-row flex-col-reverse 3xl:gap-[112px]">
-        <div className="max-w-[590px] w-full xl:w-[47%] 3xl:max-w-[700px]">
-          <h1 className="text-3xl 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
+        <div className="max-w-[590px] 2xl:max-w-[580px] w-full xl:w-[47%] 3xl:max-w-[700px]">
+          <h1 className="text-3xl 2xl:text-[34px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
             <span className="relative pb-3 lg:pb-5">
               Use of the
               <span className="absolute sm:block hidden left-0 w-[90%] bottom-0 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
@@ -34,15 +38,10 @@ const UseOfFunds = () => {
             Funds
           </h1>
 
-          <ul className="space-y-4 mt-9">
+          <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9">
             <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl mt-8">Your contribution will help us:</p>
             {reliableData.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 2xl:gap-5 3xl:gap-6 !px-4">
-                <div className="3xl:w-7 h-5 min-w-5 3xl:h-7 mt-1.5">
-                  <CheckIcon />
-                </div>
-                <h2 className="font-montserrat text-base sm:text-xl font-semibold 3xl:text-2xl">{item.text}</h2>
-              </div>
+              <ListItem item={item} key={index} />
             ))}
           </ul>
           <p className="font-montserrat text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">

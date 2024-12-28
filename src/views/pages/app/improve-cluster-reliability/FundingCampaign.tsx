@@ -32,14 +32,14 @@ const FundingCampaign: React.FC = () => {
           {donationType === "once" && (
             <>
               {" "}
-              <h2 className="main-heading text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma pb-4 lg:!pb-7 w-fit relative !mt-3 xl:!mt-4">
+              <h2 className="text-3xl md:text-4xl !leading-[129%] 2xl:text-[45px] 3xl:text-[55px]  text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma pb-4 xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
                 Improve Cluster Reliability
                 <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}
-              <p className="font-montserrat text-center xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 2xl:text-2xl max-w-[650px] 3xl:max-w-[770x] 3xl:text-[30px] !mt-6 xl:!mt-9 3xl:!mt-11">
+              <p className="font-montserrat text-center !leading-[154%] xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 2xl:text-2xl max-w-[650px] 3xl:max-w-[770x] 3xl:text-[30px] !mt-6 xl:!mt-9 3xl:!mt-11">
                 Apache Pekko is an independent open-source project powered by volunteers in their free time.
               </p>
-              <p className="font-montserrat text-base text-center xl:!text-left sm:text-left sm:text-xl font-medium 2xl:text-2xl 3xl:text-[30px] !my-4 xl:!my-6 3xl:!my-8">
+              <p className="font-montserrat text-base text-center xl:!text-left sm:text-left sm:text-xl font-medium 2xl:text-2xl 3xl:text-[30px] !my-4 xl:!my-8">
                 We need your help.{" "}
               </p>
             </>
@@ -47,9 +47,9 @@ const FundingCampaign: React.FC = () => {
           {donationType === "monthly" && (
             <>
               {" "}
-              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma pb-7 lg:!pb-10 w-fit relative !mb-5 !mt-3 xl:!mt-4">
+              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma pb-7 2xl:pb-8 3xl:!pb-10 w-fit relative !mb-3.5 3xl:!mb-5 !mt-2 3xl:!mt-3 xl:!mt-4">
                 Improve Cluster Reliability
-                <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+                <span className="absolute w-[25%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}
               <VideoPlayer />
               <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl !my-5">
