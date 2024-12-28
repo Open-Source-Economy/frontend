@@ -43,7 +43,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
       <div className="!space-y-3 relative z-20 3xl:!space-y-[19px]">
         {features.map(({ icon, heading, text }, index) => (
           <div key={index} className="flex items-start sm:items-center gap-4 px-6 py-3 3xl:py-4 cursor-pointer rounded-2xl xl:rounded-[35px] !bg-primaryBg">
-            <div className="w-16 h-16 min-h-16 min-w-16 sm:w-24 3xl:max-w-[112px] sm:h-24 3xl:max-h-[112px] object-cover">{icon}</div>
+            <div className="w-16 h-16 min-h-16 min-w-16 sm:w-24 3xl:w-[112px] sm:h-24 3xl:h-[112px] object-cover">{icon}</div>
             <div>
               <h2 className="font-montserrat text-lg sm:text-xl font-semibold xl:text-[22px] 3xl:text-2xl">{heading}</h2>
               <span className="h-1 my-2.5 block bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] max-w-[95px]"></span>
@@ -62,9 +62,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
           key={index}
           className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 xl:pb-16 pt-8 xl:pt-12 3xl:pt-[53px] 3xl:!px-14 3xl:pb-20 cursor-pointer rounded-2xl xl:rounded-[35px] bg-primaryBg"
         >
-          <div className="w-20 h-20 min-h-20 min-w-20 sm:w-24 3xl:max-w-[125px] sm:h-24 3xl:max-h-[125px] object-cover !mb-4 2xl:!mb-6 3xl:!mb-[30px]">
-            {icon}
-          </div>
+          <div className="w-20 h-20 min-h-20 min-w-20 sm:w-24 3xl:w-[125px] sm:h-24 3xl:h-[125px] object-cover !mb-4 2xl:!mb-6 3xl:!mb-[30px]">{icon}</div>
           <div className="max-w-[200px] xl:max-w-[210px] 3xl:max-w-[287px] mx-auto text-center">
             <h2 className="font-montserrat text-xl font-semibold xl:text-2xl 2xl:text-[26px] 3xl:text-3xl">{heading}</h2>
             <span className="h-1 my-2.5 2xl:my-4 block bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] max-w-[95px] mx-auto"></span>

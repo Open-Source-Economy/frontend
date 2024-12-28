@@ -23,7 +23,7 @@ const FundingCampaign: React.FC = () => {
       <span className="right-0 absolute bottom-0 -z-10">
         <LinearBg />
       </span>
-      <div className="xl:max-w-[98%] 2xl:max-w-[85%] 3xl:max-w-[1650px] mx-auto flex justify-center xl:!flex-nowrap flex-wrap gap-10 3xl:gap-14">
+      <div className="xl:max-w-[90%] 2xl:max-w-[85%] 3xl:max-w-[1548px] mx-auto flex justify-center xl:justify-between xl:!flex-nowrap flex-wrap gap-7 2xl:gap-10 3xl:gap-14">
         {/* Left Section */}
         <div className="max-w-[800px] relative z-10 w-full 3xl:max-w-[817px] xl:max-w-[770px] mx-auto xl:!mx-0">
           <h4 className="py-2.5 flex justify-center mx-auto xl:!mx-0 items-center rounded-full bg-primary-user text-sm md:text-base lg:text-lg font-montserrat xl:text-[22px] 3xl:text-[25px] max-w-[170px] sm:max-w-[200px] lg:max-w-[270px] 3xl:max-w-[315px] w-full">
@@ -36,7 +36,7 @@ const FundingCampaign: React.FC = () => {
                 Improve Cluster Reliability
                 <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}
-              <p className="font-montserrat text-center !leading-[154%] xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 2xl:text-2xl max-w-[650px] 3xl:max-w-[770x] 3xl:text-[30px] !mt-6 xl:!mt-9 3xl:!mt-11">
+              <p className="font-montserrat text-center !leading-[154%] xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 2xl:text-2xl max-w-[650px] w-full 3xl:max-w-[770px] 3xl:text-[30px] !mt-6 xl:!mt-9 3xl:!mt-11">
                 Apache Pekko is an independent open-source project powered by volunteers in their free time.
               </p>
               <p className="font-montserrat text-base text-center xl:!text-left sm:text-left sm:text-xl font-medium 2xl:text-2xl 3xl:text-[30px] !my-4 xl:!my-8">

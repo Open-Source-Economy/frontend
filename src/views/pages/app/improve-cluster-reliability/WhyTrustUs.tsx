@@ -13,7 +13,7 @@ const WhyTrustUs = () => {
         <div className="max-w-[620px] 2xl:max-w-[700px] 3xl:max-w-[833px] backdrop-blur-[7.5px] w-full !bg-secondary !bg-opacity-45 rounded-full flex justify-center items-center p-10 2xl:p-16 3xl:p-20 shadow-[5px_8px_10px_0px_rgba(255,255,255,0.08)_inset]">
           <img src={trustUs} alt="" className=" object-cover" />
         </div>
-        <div className="max-w-[590px] 3xl:max-w-[700px] w-full">
+        <div className="max-w-[590px] 3xl:max-w-[650px] w-full">
           <h1 className="text-3xl 2xl:text-[34px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
             <span className="relative pb-3 lg:pb-5">
               Why You Can
@@ -22,7 +22,7 @@ const WhyTrustUs = () => {
             Trust Us
           </h1>
 
-          <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl mt-8">
+          <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-12">
             We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open-source and available to
             everyone.
           </p>
