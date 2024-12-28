@@ -14,7 +14,7 @@ const WhyDoWeNeedYourHelp = () => {
     <section className="3xl:max-w-[1617px] !px-4 xl:max-w-[90%] 2xl:max-w-[1380px] mx-auto justify-between gap-10 xl:gap-14 flex items-center xl:flex-row flex-col 3xl:gap-[112px] pb-12 xl:pb-0">
       {/* ======= Left Image ====  */}
       <div className="max-w-[640px] 2xl:max-w-[590px] 3xl:max-w-[666px] xl:w-[47%] w-full relative">
-        <div className="!bg-secondary bg-opacity-30 rounded-full pt-10 w-full h-full absolute max-w-[90%] -top-5 shadow-[5px_8px_10px_0px_rgba(255,255,255,0.08)_inset] -right-7"></div>
+        <div className="!bg-secondary !bg-opacity-35 rounded-full xl:pt-10 w-full h-full absolute max-w-[89%] lg:-top-5 shadow-[5px_8px_10px_0px_rgba(255,255,255,0.08)_inset] right-0 lg:-right-7"></div>
         <img src={needHelp} alt="" className="object-cover relative z-20" />
       </div>
       <div className="max-w-[640px] 2xl:max-w-[600px] xl:w-1/2 w-full 3xl:max-w-[728px] relative z-20">

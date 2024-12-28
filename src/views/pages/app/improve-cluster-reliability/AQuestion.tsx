@@ -4,8 +4,8 @@ import { LeftLinear, TelephoneIcon } from "src/Utils/Icons";
 
 const AQuestion = () => {
   return (
-    <section className="!px-4 mt-14 md:mt-16 xl:mt-20 2xl:mt-24 3xl:mt-[113px] pb-16 relative">
-      <div className="bg-sunset-glow-gradient  max-w-[490px] w-full h-full min-h-[906px] max-h-[906px] absolute right-[10%] top-[80%] lg:-top-[60%] blur-[125px] -z-10 opacity-35 shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
+    <section className="!px-4 pb-16 3xl:pb-24 relative">
+      <div className="bg-sunset-glow-gradient hidden lg:block max-w-[490px] w-full h-full min-h-[906px] max-h-[906px] absolute right-[10%] top-[80%] lg:-top-[60%] blur-[125px] -z-10 opacity-35 shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
       <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] min-h-[1056px] max-w-[364px] w-full h-full absolute right-[8%] top-[80%] lg:-top-[68%] blur-[125px] -z-0 opacity-50 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-[1057px]"></div>
       <span className="absolute -left-[10%] top-[70%] lg:-top-[80%] -z-10">
         <LeftLinear />
@@ -22,7 +22,7 @@ const AQuestion = () => {
         <Button audience="USER" level={"SECONDARY"} size={"LARGE"} asChild>
           <Link to="#">FAQ</Link>
         </Button>{" "}
-        <Button audience="ALL" level="PRIMARY" size="LARGE" icon={<TelephoneIcon />}>
+        <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
           Book a Call
         </Button>
       </div>

@@ -22,13 +22,13 @@ const UseOfFunds = () => {
   ];
   return (
     <div className="relative pb-14 xl:pb-0">
-      <span className="absolute -z-0 -translate-x-1/2 left-1/2 -top-1/2">
+      <span className="hidden  absolute -z-0 -translate-x-1/2 left-1/2 -top-1/2">
         <LinearCenter />
       </span>
       <span className="absolute h-full -left-[5%] -bottom-[25%]">
         <LeftLinear />
       </span>
-      <section className="3xl:max-w-[1617px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1440px] mx-auto justify-center gap-14 flex items-center xl:flex-row flex-col-reverse 3xl:gap-[112px]">
+      <section className="3xl:max-w-[1617px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1370px] mx-auto justify-end gap-14 flex items-center xl:flex-row flex-col-reverse 3xl:gap-[112px]">
         <div className="max-w-[590px] 2xl:max-w-[580px] w-full xl:w-[47%] 3xl:max-w-[700px]">
           <h1 className="text-3xl 2xl:text-[34px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
             <span className="relative pb-3 lg:pb-5">
@@ -51,7 +51,7 @@ const UseOfFunds = () => {
         </div>
 
         {/* ======= Right Image ====  */}
-        <div className="max-w-[590px] 3xl:max-w-[873px] xl:w-1/2  w-full !bg-secondary bg-opacity-30 rounded-full flex justify-center items-center  2xl:pl-4 2xl:pt-14 2xl:pr-24 p-10 2xl:pb-16 shadow-[5px_8px_10px_0px_rgba(255,255,255,0.08)_inset]">
+        <div className="max-w-[590px] 2xl:max-w-[680px] 3xl:max-w-[873px] xl:w-1/2  w-full !bg-secondary !bg-opacity-30 rounded-full flex justify-center items-center  2xl:pl-4 2xl:pt-14 2xl:pr-24 p-10 2xl:pb-16 shadow-[5px_8px_10px_0px_rgba(255,255,255,0.08)_inset]">
           <img src={useFunds} alt="" className=" object-cover" />
         </div>
       </section>

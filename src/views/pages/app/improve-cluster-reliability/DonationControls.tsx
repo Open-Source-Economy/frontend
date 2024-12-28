@@ -52,7 +52,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             <Button
               onClick={() => setDonationType("once")}
               parentClassName="w-full"
-              className="!w-full"
+              className="!w-full !font-montserrat !capitalize"
               audience={donationType === "once" ? "ALL" : "USER"}
               level={donationType === "once" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
@@ -63,7 +63,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             <Button
               onClick={() => setDonationType("monthly")}
               parentClassName="w-full"
-              className="!w-full"
+              className="!w-full !font-montserrat !capitalize"
               audience={donationType === "monthly" ? "ALL" : "USER"}
               level={donationType === "monthly" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
@@ -104,7 +104,9 @@ const DonationControls: React.FC<DonationControlsProps> = ({
           </button>
         ))}
 
-        <button className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] rounded-xl flex items-center px-6`}>
+        <button
+          className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
+        >
           <span className="text-white text-base sm:text-lg 3xl:text-xl font-medium">$</span>
           <input
             type="text"
@@ -118,7 +120,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
       </div>
       <DonationSelector />
 
-      <Button asChild audience="USER" level="PRIMARY" className="w-full overflow-hidden cursor-pointer" size="LARGE">
+      <Button asChild audience="USER" level="PRIMARY" className="w-full !font-bold !font-montserrat !capitalize overflow-hidden cursor-pointer" size="LARGE">
         {" "}
         Donate ${selectedAmount.toLocaleString()} {donationType === "monthly" ? "Monthly" : "Once"}
       </Button>

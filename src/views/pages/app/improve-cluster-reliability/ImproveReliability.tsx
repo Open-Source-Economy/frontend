@@ -7,6 +7,7 @@ import UseOfFunds from "./UseOfFunds";
 import WhyTrustUs from "./WhyTrustUs";
 import AQuestion from "./AQuestion";
 import FundingCampaign from "./FundingCampaign";
+import Participants from "../project/elements/Participants";
 interface ImproveReliabilityProps {}
 export function ImproveReliability(props: ImproveReliabilityProps) {
   return (
@@ -14,6 +15,7 @@ export function ImproveReliability(props: ImproveReliabilityProps) {
       <PageWrapper baseURL={BaseURL.APP}>
         <Hero />
         <FundingCampaign />
+        <Participants viewAll={false} />
         <AQuestion />
         <WhyDoWeNeedYourHelp />
         <UseOfFunds />

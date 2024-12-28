@@ -17,13 +17,13 @@ const FundingCampaign: React.FC = () => {
   const daysLeft = 24;
 
   return (
-    <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 relative">
+    <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 relative xl:pb-14">
       <div className="bg-sunset-glow-gradient max-w-[548px] w-full h-full max-h-[1000px] absolute left-[5%] top-[18%] blur-[125px] -z-10 opacity-35 shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
       <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] max-w-[402px] w-full h-full max-h-[1166px] absolute left-[5%] top-[18%] blur-[125px] -z-0 opacity-45 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-full"></div>
       <span className="right-0 absolute bottom-0 -z-10">
         <LinearBg />
       </span>
-      <div className="xl:max-w-[98%] 2xl:max-w-[85%] 3xl:max-w-[1650px] mx-auto flex justify-center xl:!flex-nowrap flex-wrap-reverse gap-10 3xl:gap-14">
+      <div className="xl:max-w-[98%] 2xl:max-w-[85%] 3xl:max-w-[1650px] mx-auto flex justify-center xl:!flex-nowrap flex-wrap gap-10 3xl:gap-14">
         {/* Left Section */}
         <div className="max-w-[800px] relative z-10 w-full 3xl:max-w-[817px] xl:max-w-[770px] mx-auto xl:!mx-0">
           <h4 className="py-2.5 flex justify-center mx-auto xl:!mx-0 items-center rounded-full bg-primary-user text-sm md:text-base lg:text-lg font-montserrat xl:text-[22px] 3xl:text-[25px] max-w-[170px] sm:max-w-[200px] lg:max-w-[270px] 3xl:max-w-[315px] w-full">
@@ -47,7 +47,7 @@ const FundingCampaign: React.FC = () => {
           {donationType === "monthly" && (
             <>
               {" "}
-              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma pb-7 2xl:pb-8 3xl:!pb-10 w-fit relative !mb-3.5 3xl:!mb-5 !mt-2 3xl:!mt-3 xl:!mt-4">
+              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma pb-7 2xl:pb-8 3xl:!pb-10 w-fit relative mb-4 3xl:!mb-5 !mt-4">
                 Improve Cluster Reliability
                 <span className="absolute w-[25%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}

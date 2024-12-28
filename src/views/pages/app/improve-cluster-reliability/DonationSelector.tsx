@@ -16,7 +16,7 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
         {/* Donation Option */}
         <button
           onClick={() => handleSelect("donation")}
-          className={`flex gap-2 items-center text-base lg:text-lg 3xl:text-xl font-medium font-montserrat flex-1`}
+          className={`flex gap-2 items-center text-nowrap text-base lg:text-lg 3xl:text-xl font-medium font-montserrat flex-1`}
         >
           <div
             className={`w-5 h-5  rounded-full border flex items-center justify-center ${

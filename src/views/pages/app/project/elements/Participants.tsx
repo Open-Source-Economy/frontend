@@ -6,11 +6,13 @@ import faq from "src/assets/faq-bg.webp";
 import { Button } from "src/components";
 import { participants } from "../../whoBuiltIt/elements/Helper";
 
-// Define the participant data interface
+interface Participants {
+  viewAll?: boolean; // Optional prop for controlling the "View All" button
+}
 
-const Participants = () => {
+const Participants = ({ viewAll = true }) => {
   return (
-    <section className="pb-20 3xl:pb-40 pt-10 md:pt-16 relative">
+    <section className="pb-20 3xl:pb-40 pt-16 relative">
       <img
         src={rightLinear}
         alt="right linear Background"
@@ -42,11 +44,13 @@ const Participants = () => {
         </div>
 
         {/* View All Button */}
-        <div className="relative flex justify-center items-center !mt-7 xl:!mt-14 2xl:!mt-16 3xl:!mt-20">
-          <Button audience="ALL" className="cursor-pointer" level="SECONDARY" size="LARGE" asChild>
-            <span> View All</span>
-          </Button>
-        </div>
+        {viewAll && (
+          <div className="relative flex justify-center items-center !mt-7 xl:!mt-14 2xl:!mt-16 3xl:!mt-20">
+            <Button audience="ALL" className="cursor-pointer" level="SECONDARY" size="LARGE" asChild>
+              <span> View All</span>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
