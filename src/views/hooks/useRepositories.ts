@@ -13,7 +13,7 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
 
   const fetchRepositories = async () => {
     setLoading(true);
-		setError(null);
+    setError(null);
 
     try {
       const responses = await Promise.all(
@@ -37,8 +37,8 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
       console.error("Error fetching repositories:", err);
       setError(ApiError.from(err));
     } finally {
-			setLoading(false);
-		}
+      setLoading(false);
+    }
   };
 
   return { repositories, error, loading, reloadRepositories: fetchRepositories };

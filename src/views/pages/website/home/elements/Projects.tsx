@@ -25,21 +25,18 @@ export function Projects(props: ProjectsProps) {
             {error && <div>{error.toSting()}</div>}
 
             {loading ? (
-							<>
-								{Array(6).fill(null).map((_, i) => (
-									<Cards key={i} isLoading />
-								))}
-							</>
-						) : (
-							repositories.map(([owner, repository]) => (
-								<Cards
-									key={`${owner.id.login}-${repository.id.githubId}`}
-									owner={owner}
-									repository={repository}
-									audience={Audience.ALL}
-								/>
-							))
-						)}
+              <>
+                {Array(6)
+                  .fill(null)
+                  .map((_, i) => (
+                    <Cards key={i} isLoading />
+                  ))}
+              </>
+            ) : (
+              repositories.map(([owner, repository]) => (
+                <Cards key={`${owner.id.login}-${repository.id.githubId}`} owner={owner} repository={repository} audience={Audience.ALL} />
+              ))
+            )}
           </div>
         </div>
       </div>
