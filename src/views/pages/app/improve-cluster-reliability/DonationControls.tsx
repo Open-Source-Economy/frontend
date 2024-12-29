@@ -27,7 +27,13 @@ const DonationControls: React.FC<DonationControlsProps> = ({
       setSelectedAmount(parseInt(value, 10));
     }
   };
-
+  const isValidAmount = () => {
+    if (customAmount) {
+      const parsedAmount = parseFloat(customAmount);
+      return !isNaN(parsedAmount) && parsedAmount > 0;
+    }
+    return selectedAmount > 0;
+  };
   const amountsOnce = [
     { value: 25, label: "For individual" },
     { value: 50, label: "For small companies" },
@@ -43,6 +49,18 @@ const DonationControls: React.FC<DonationControlsProps> = ({
     { value: 2000, label: "AMAZING!!!" },
   ];
   const amounts = donationType === "once" ? amountsOnce : amountsMonthly;
+  // Handle predefined amount selection
+  const handleAmountSelect = (amount: number) => {
+    setSelectedAmount(amount);
+    setCustomAmount(""); // Clear custom amount when predefined amount is selected
+  };
+
+  // Handle donation type change
+  const handleDonationTypeChange = (type: "once" | "monthly") => {
+    setDonationType(type);
+    setSelectedAmount(0); // Reset amount when switching donation type
+    setCustomAmount(""); // Reset custom amount when switching donation type
+  };
 
   return (
     <>
@@ -50,7 +68,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
         <div className="relative">
           <div className="flex !flex-wrap sm:!flex-nowrap !gap-5 max-w-[97%] sm:max-w-full">
             <Button
-              onClick={() => setDonationType("once")}
+              onClick={() => handleDonationTypeChange("once")}
               parentClassName="w-full"
               className="!w-full !font-montserrat !capitalize"
               audience={donationType === "once" ? "ALL" : "USER"}
@@ -61,7 +79,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             </Button>
 
             <Button
-              onClick={() => setDonationType("monthly")}
+              onClick={() => handleDonationTypeChange("monthly")}
               parentClassName="w-full"
               className="!w-full !font-montserrat !capitalize"
               audience={donationType === "monthly" ? "ALL" : "USER"}
@@ -90,7 +108,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
         {amounts.map((amount, index) => (
           <button
             key={index}
-            onClick={() => setSelectedAmount(amount.value)}
+            onClick={() => handleAmountSelect(amount.value)}
             className={`${
               selectedAmount === amount.value ? "bg-gradient-custom" : "bg-[#16263B]"
             } transition-colors font-montserrat text-white !p-3 3xl:!p-4 rounded-[13px]`}
@@ -120,9 +138,14 @@ const DonationControls: React.FC<DonationControlsProps> = ({
       </div>
       <DonationSelector />
 
-      <Button asChild audience="USER" level="PRIMARY" className="w-full !font-bold !font-montserrat !capitalize overflow-hidden cursor-pointer" size="LARGE">
-        {" "}
-        Donate ${selectedAmount.toLocaleString()} {donationType === "monthly" ? "Monthly" : "Once"}
+      <Button
+        disabled={!isValidAmount()}
+        audience="USER"
+        level="PRIMARY"
+        className="w-full !font-bold !font-montserrat !capitalize overflow-hidden cursor-pointer mt-4"
+        size="LARGE"
+      >
+        {isValidAmount() ? `Donate $${selectedAmount.toLocaleString()} ${donationType === "monthly" ? "Monthly" : ""}` : "Select an amount to donate"}
       </Button>
     </>
   );

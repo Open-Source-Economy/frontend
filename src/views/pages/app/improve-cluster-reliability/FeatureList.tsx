@@ -56,11 +56,11 @@ const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 500:grid-cols-2 place-items-center gap-3 3xl:gap-4 relative z-20">
+    <div className="grid grid-cols-1 500:grid-cols-2 place-items-center gap-x-3 gap-y-3 xl:!gap-y-6 xl:!gap-x-4 relative z-20">
       {features.map(({ icon, heading, text }, index) => (
         <div
           key={index}
-          className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 xl:pb-16 pt-8 xl:pt-12 3xl:pt-[53px] 3xl:!px-14 3xl:pb-20 cursor-pointer rounded-2xl xl:rounded-[35px] bg-primaryBg"
+          className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 pt-8 xl:pt-12 3xl:pt-[53px] 3xl:!px-14 xl:pb-20 cursor-pointer rounded-2xl xl:rounded-[35px] bg-primaryBg"
         >
           <div className="w-20 h-20 min-h-20 min-w-20 sm:w-24 3xl:w-[125px] sm:h-24 3xl:h-[125px] object-cover !mb-4 2xl:!mb-6 3xl:!mb-[30px]">{icon}</div>
           <div className="max-w-[200px] xl:max-w-[210px] 3xl:max-w-[287px] mx-auto text-center">

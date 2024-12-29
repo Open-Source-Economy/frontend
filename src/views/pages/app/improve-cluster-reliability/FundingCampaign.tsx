@@ -32,7 +32,7 @@ const FundingCampaign: React.FC = () => {
           {donationType === "once" && (
             <>
               {" "}
-              <h2 className="text-3xl md:text-4xl !leading-[129%] 2xl:text-[45px] 3xl:text-[55px]  text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma pb-4 xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
+              <h2 className="text-3xl md:text-4xl !leading-[129%] 2xl:text-[45px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-8 3xl:!pb-10 w-fit relative !mt-3 xl:!mt-4">
                 Improve Cluster Reliability
                 <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}
@@ -47,7 +47,7 @@ const FundingCampaign: React.FC = () => {
           {donationType === "monthly" && (
             <>
               {" "}
-              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma pb-7 2xl:pb-8 3xl:!pb-10 w-fit relative mb-4 3xl:!mb-5 !mt-4">
+              <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-8 3xl:!pb-10 w-fit relative mb-4 3xl:!mb-5 !mt-4">
                 Improve Cluster Reliability
                 <span className="absolute w-[25%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}

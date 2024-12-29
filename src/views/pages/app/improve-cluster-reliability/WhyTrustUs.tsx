@@ -14,7 +14,7 @@ const WhyTrustUs = () => {
           <img src={trustUs} alt="" className=" object-cover" />
         </div>
         <div className="max-w-[590px] 3xl:max-w-[650px] w-full">
-          <h1 className="text-3xl 2xl:text-[34px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
+          <h1 className="text-2xl 2xl:text-[32px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
             <span className="relative pb-3 lg:pb-5">
               Why You Can
               <span className="absolute sm:block hidden left-0 w-[80%] bottom-0 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
