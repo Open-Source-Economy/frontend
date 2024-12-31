@@ -36,7 +36,7 @@ export const NumberInput = forwardRef<CheckInputHandle, NumberInputProps>((props
   };
 
   return (
-    <FormInput label={props.label} errorMessage={"Please enter a valid number."} fontAwesomeClassName={props.fontAwesomeClassName} isValid={isValid}>
+    <FormInput label={props.label} errorMessage={"Please enter a valid number."} /*fontAwesomeClassName={props.fontAwesomeClassName}*/ isValid={isValid}>
       <input type="number" placeholder="0" value={number} onChange={handleChange} />
     </FormInput>
   );

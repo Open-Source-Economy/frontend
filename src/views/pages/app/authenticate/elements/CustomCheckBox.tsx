@@ -2,7 +2,7 @@ import React from "react";
 
 interface CustomCheckBoxProps {
   checked: boolean;
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  setChecked: (checked: boolean) => void;
   isValid: boolean;
 }
 

@@ -6,13 +6,14 @@ import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
-import { Button } from "src/components";
+import { Button, CountrySelect, EmailInput, PasswordInput } from "src/components";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
 import { config, Env } from "src/ultils";
-import { ApiErrorModal } from "../../../../components/common/ApiErrorModal";
+import { ApiErrorModal } from "src/components/common/ApiErrorModal";
+import { FormData, FormValidation, validateForm } from "src/components/form/hooks/validateForm";
 
 export enum AuthenticateType {
   SignIn,
@@ -33,27 +34,23 @@ export function Authenticate(props: AuthenticateProps) {
   const companyToken: string | null = params.get("company_token");
 
   const [name, setName] = useState<string | null>(null);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [githubLogin, setGithubLogin] = useState("");
-  const [termsChecked, setTermsChecked] = useState(false);
+
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    termsChecked: false,
+  });
+  const [validation, setValidation] = useState<FormValidation>({
+    email: true,
+    password: null,
+    confirmPassword: true,
+    terms: true,
+  });
 
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
-
-  const [validEmail, setValidEmail] = useState(true);
-
-  type PasswordValidation = {
-    minLength: boolean;
-    hasNumber: boolean;
-    hasSymbol: boolean;
-    isEmpty: boolean;
-  };
-  const [validPassword, setValidPassword] = useState<PasswordValidation | null>(null);
-  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
-  const [validTerms, setValidTerms] = useState(true);
 
   const [error, setError] = useState<ApiError | null>(null);
   const [showError, setShowError] = useState(false);
@@ -63,78 +60,23 @@ export function Authenticate(props: AuthenticateProps) {
     if (repositoryToken) fetchRepositoryUserInviteInfo(repositoryToken);
   }, []);
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const validateForm = () => {
-    const isSignUp = props.type === AuthenticateType.SignUp;
-
-    const validateEmail = (email: string) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      setValidEmail(emailRegex.test(email));
-    };
-
-    const validatePassword = (password: string) => {
-      const minLength = 6;
-      const hasNumber = /\d/;
-      const hasSymbol = /[!@#$%^&*(),.?";:{}|<>_\-'\+\=\[\]~`\\]/;
-
-      const validation: PasswordValidation = {
-        minLength: password.length >= minLength,
-        hasNumber: hasNumber.test(password),
-        hasSymbol: hasSymbol.test(password),
-        isEmpty: password.trim() === "",
-      };
-
-      const NO_ERROR: PasswordValidation = { minLength: true, hasNumber: true, hasSymbol: true, isEmpty: false };
-      if (JSON.stringify(validation) === JSON.stringify(NO_ERROR)) setValidPassword(null);
-      else setValidPassword(validation);
-    };
-
-    const validateConfirmPassword = (password: string, confirmPassword: string) => {
-      setValidConfirmPassword(password === confirmPassword);
-    };
-
-    const validateTerms = (termsChecked: boolean) => {
-      setValidTerms(termsChecked);
-    };
-
-    // Always validate email for both sign-in and sign-up
-    validateEmail(email);
-
-    // If it's sign-in, we only need to ensure email and password are present
-    if (!isSignUp) {
-      return validEmail && email && password;
-    } else {
-      // If it's sign-up, perform additional validations
-      validatePassword(password);
-      validateConfirmPassword(password, confirmPassword);
-      validateTerms(termsChecked);
-
-      return validEmail && validPassword === null && validConfirmPassword && validTerms;
-    }
+  const handleLogInWithGithub = async () => {
+    auth.loginWithGitHub();
   };
 
   const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const validation = validateForm(props.type, formData);
+    setValidation(validation);
 
-    if (!validateForm()) {
-      console.log("Form is invalid.");
-      return;
-    } else if (props.type === AuthenticateType.SignIn) {
+    const isValid = Object.values(validation).every(v => v === true || v === null);
+    if (!isValid) return;
+
+    if (props.type === AuthenticateType.SignIn) {
       console.log("Logging in...");
       const body: LoginBody = {
-        email: email,
-        password: password,
+        email: formData.email,
+        password: formData.password,
       };
       const query: LoginQuery = {};
       auth.login(body, query);
@@ -142,8 +84,8 @@ export function Authenticate(props: AuthenticateProps) {
       console.log("Registering...");
       const body: RegisterBody = {
         name: name,
-        email: email,
-        password: password,
+        email: formData.email,
+        password: formData.password,
       };
       const query: RegisterQuery = {
         companyToken: companyToken ?? undefined,
@@ -151,10 +93,6 @@ export function Authenticate(props: AuthenticateProps) {
       };
       auth.register(body, query);
     }
-  };
-
-  const handleLogInWithGithub = async () => {
-    auth.loginWithGitHub();
   };
 
   const fetchCompanyUserInviteInfo = async (companyToken: string) => {
@@ -166,7 +104,7 @@ export function Authenticate(props: AuthenticateProps) {
       if (inviteInfo instanceof ApiError) setError(inviteInfo);
       else {
         setName(inviteInfo.userName ?? null);
-        setEmail(inviteInfo.userEmail);
+        setFormData({ ...formData, email: inviteInfo.userEmail });
         setIsEmailPredefined(true);
       }
     } catch (error: unknown) {
@@ -234,77 +172,33 @@ export function Authenticate(props: AuthenticateProps) {
 
               {!isGithubAccountPredefined && (
                 <div className="flex items-center w-full justify-center gap-3 flex-col">
-                  {/*Email input*/}
-                  <div className="flex w-full flex-col gap-y-2">
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className={`
-                        ${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} " "
-                        ${validEmail ? "border-0" : "!border-red-500 "} " "
-                        w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
-                      value={email}
-                      onChange={handleEmailChange}
-                      disabled={isEmailPredefined}
-                      required
-                    />
+                  <EmailInput value={formData.email} onChange={value => setFormData({ ...formData, email: value })} isValid={validation.email} />
 
-                    {!validEmail && !email && <span className="text-red-500">Please fill in the email field.</span>}
-                    {email && !validEmail && <span className="text-red-500">Please enter a valid email address.</span>}
-                  </div>
-
-                  {/*Password input*/}
-                  <div className="flex w-full flex-col  gap-y-2">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      className={`${
-                        validPassword ? "!border-red-500 text-red-500" : "border-0"
-                      } w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
-                      value={password}
-                      onChange={handlePasswordChange}
-                      required
-                    />
-                    {props.type === AuthenticateType.SignUp && validPassword && (
-                      <>
-                        {validPassword.isEmpty ? (
-                          <span className="text-red-500">Please fill in the password field.</span>
-                        ) : (
-                          <span className="text-red-500">
-                            Your password must
-                            {!validPassword.minLength && " be at least 6 characters long"}
-                            {!validPassword.minLength && (!validPassword.hasNumber || !validPassword.hasSymbol) && ","}
-                            {!validPassword.hasNumber && " contain at least one number"}
-                            {!validPassword.hasNumber && !validPassword.hasSymbol && ","}
-                            {!validPassword.hasSymbol && " contain at least one special character"}.
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </div>
+                  <PasswordInput
+                    value={formData.password}
+                    onChange={value => setFormData({ ...formData, password: value })}
+                    validation={validation.password ?? true}
+                    showValidation={props.type === AuthenticateType.SignUp}
+                  />
 
                   {/* Confirm Password input (only for Sign Up) */}
                   {props.type === AuthenticateType.SignUp && (
-                    <div className="flex w-full flex-col gap-y-2">
-                      <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className={`
-                          ${!validConfirmPassword ? "!border-red-500 text-red-500" : "border-0"}
-                          w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3
-                        `}
-                        value={confirmPassword}
-                        onChange={handleConfirmPasswordChange}
-                        required
-                      />
-                      {!validConfirmPassword && <span className="text-red-500">Passwords do not match.</span>}
-                    </div>
+                    <PasswordInput
+                      value={formData.confirmPassword}
+                      onChange={value => setFormData({ ...formData, confirmPassword: value })}
+                      validation={validation.confirmPassword}
+                      isConfirmation={true}
+                    />
                   )}
                 </div>
               )}
 
               {config.env !== Env.Production && props.type === AuthenticateType.SignUp && (
-                <TermsAgreement checked={termsChecked} setChecked={setTermsChecked} isValid={validTerms} />
+                <TermsAgreement
+                  checked={formData.termsChecked}
+                  setChecked={checked => setFormData({ ...formData, termsChecked: checked })}
+                  isValid={validation.terms}
+                />
               )}
 
               {!isGithubAccountPredefined && (

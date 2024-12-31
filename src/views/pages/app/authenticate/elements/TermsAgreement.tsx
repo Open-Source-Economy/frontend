@@ -3,7 +3,7 @@ import { CustomCheckBox } from "./CustomCheckBox";
 
 interface TermsAgreementProps {
   checked: boolean;
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  setChecked: (checked: boolean) => void;
   isValid: boolean;
 }
 
