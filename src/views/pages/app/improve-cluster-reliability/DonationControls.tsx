@@ -70,7 +70,11 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             <Button
               onClick={() => handleDonationTypeChange("once")}
               parentClassName="w-full"
-              className="!w-full !font-montserrat !capitalize"
+              className={`!w-full !font-montserrat !font-medium !capitalize !text-primary-user hover:!text-white ${
+                donationType === "once"
+                  ? "![&:hover]:bg-gradient-to-r ![&:hover]:from-[#FF7E4B] ![&:hover]:via-[#FF518C] ![&:hover]:to-[#66319B] [&:hover]:after:opacity-0 !text-white"
+                  : ""
+              }`}
               audience={donationType === "once" ? "ALL" : "USER"}
               level={donationType === "once" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
@@ -81,7 +85,11 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             <Button
               onClick={() => handleDonationTypeChange("monthly")}
               parentClassName="w-full"
-              className="!w-full !font-montserrat !capitalize"
+              className={`!w-full !font-montserrat !font-medium !capitalize !text-primary-user hover:!text-white ${
+                donationType === "monthly"
+                  ? "![&:hover]:bg-gradient-to-r ![&:hover]:from-[#FF7E4B] ![&:hover]:via-[#FF518C] ![&:hover]:to-[#66319B] [&:hover]:after:opacity-0 !text-white"
+                  : ""
+              }`}
               audience={donationType === "monthly" ? "ALL" : "USER"}
               level={donationType === "monthly" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"

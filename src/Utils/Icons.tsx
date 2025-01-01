@@ -1065,11 +1065,11 @@ export const PointingArrow = () => (
   </svg>
 );
 export const HeartIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="27" viewBox="0 0 26 27" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="27" viewBox="0 0 26 27" fill="currentColor">
     <path
       d="M21.0848 4.827C18.1796 3.045 15.6441 3.76312 14.1209 4.90701C13.4963 5.37604 13.1841 5.61055 13.0003 5.61055C12.8166 5.61055 12.5044 5.37604 11.8797 4.90701C10.3566 3.76312 7.82101 3.045 4.91588 4.827C1.10323 7.16569 0.240522 14.8811 9.03482 21.3904C10.7099 22.6301 11.5474 23.25 13.0003 23.25C14.4533 23.25 15.2908 22.6301 16.9659 21.3904C25.7601 14.8811 24.8974 7.16569 21.0848 4.827Z"
-      fill="white"
-      stroke="white"
+      fill="currentColor"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
     />
