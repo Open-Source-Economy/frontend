@@ -124,11 +124,11 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             } transition-colors font-montserrat text-white !p-3 3xl:!p-4 rounded-[13px]`}
             aria-pressed={selectedAmount === amount.value}
           >
-            <h5 className="text-base sm:text-lg 3xl:text-xl !mb-0.5 3xl:!mb-1 font-bold">
+            <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
               ${amount.value}
               {donationType === "monthly" ? "/mo" : ""}
             </h5>
-            <h6 className="text-xs sm:text-sm 3xl:text-base">{amount.label}</h6>
+            <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{amount.label}</h6>
           </button>
         ))}
 
