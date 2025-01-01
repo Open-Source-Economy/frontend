@@ -131,7 +131,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             value={customAmount}
             onChange={handleCustomAmountChange}
             placeholder="Other/mo"
-            className="bg-transparent text-white text-base sm:text-lg 3xl:text-xl w-full focus:outline-none ml-2 placeholder-gray-400"
+            className="bg-transparent text-white text-base sm:text-lg 3xl:text-xl placeholder:text-sm sm:placeholder:text-lg w-full focus:outline-none ml-2 placeholder-gray-400"
             aria-label="Custom donation amount"
           />
         </button>

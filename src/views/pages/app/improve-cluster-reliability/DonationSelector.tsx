@@ -39,7 +39,10 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
             {selectedOption === "receive" && <div className="w-3 h-3 rounded-full bg-primary-user" />}
           </div>
           I want to receive{" "}
-          <Link to="" className="font-bold underline underline-offset-4">
+          <Link
+            to="/"
+            className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+          >
             DoW
           </Link>
         </button>
@@ -49,7 +52,10 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
       {selectedOption === "receive" && (
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 flex-wrap 3xl:rounded-[15px] flex justify-start text-sm xl:text-base 3xl:text-lg w-full items-center">
           With DoWs, you can prioritize your needs
-          <Link to="#" className="text-primary-user font-semibold underline-offset-4 underline transition-colors">
+          <Link
+            to="#"
+            className="text-primary-user relative font-semibold after:transition-all after:content-[''] after:absolute after:h-0.5 after:bg-primary-user after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:duration-300"
+          >
             Learn More
           </Link>
         </div>
