@@ -118,15 +118,17 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             key={index}
             onClick={() => handleAmountSelect(amount.value)}
             className={`${
-              selectedAmount === amount.value ? "bg-gradient-custom" : "bg-[#16263B]"
+              selectedAmount === amount.value
+                ? "bg-gradient-custom"
+                : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 ease-linear transition-all !border-transparent"
             } transition-colors font-montserrat text-white !p-3 3xl:!p-4 rounded-[13px]`}
             aria-pressed={selectedAmount === amount.value}
           >
-            <div className="text-base sm:text-lg 3xl:text-xl !mb-0.5 3xl:!mb-1 font-bold">
+            <h5 className="text-base sm:text-lg 3xl:text-xl !mb-0.5 3xl:!mb-1 font-bold">
               ${amount.value}
               {donationType === "monthly" ? "/mo" : ""}
-            </div>
-            <div className="text-xs sm:text-sm 3xl:text-base">{amount.label}</div>
+            </h5>
+            <h6 className="text-xs sm:text-sm 3xl:text-base">{amount.label}</h6>
           </button>
         ))}
 
