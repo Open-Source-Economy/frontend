@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
@@ -209,7 +208,7 @@ export function Authenticate(props: AuthenticateProps) {
           >
             <>
               <Link to={"/"}>
-                <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
+                <img src="/Logo-svg.svg" className="w-[312px] h-[55px] mb-12 object-cover" alt="Logo" />
               </Link>
 
               {!isEmailPredefined && (
@@ -242,7 +241,7 @@ export function Authenticate(props: AuthenticateProps) {
                       className={`
                         ${isEmailPredefined ? "bg-opacity-50 opacity-50" : ""} " "
                         ${validEmail ? "border-0" : "!border-red-500 "} " "
-                        w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                        w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                       value={email}
                       onChange={handleEmailChange}
                       disabled={isEmailPredefined}
@@ -260,7 +259,7 @@ export function Authenticate(props: AuthenticateProps) {
                       placeholder="Password"
                       className={`${
                         validPassword ? "!border-red-500 text-red-500" : "border-0"
-                      } w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
+                      } w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3`}
                       value={password}
                       onChange={handlePasswordChange}
                       required
@@ -291,7 +290,7 @@ export function Authenticate(props: AuthenticateProps) {
                         placeholder="Confirm Password"
                         className={`
                           ${!validConfirmPassword ? "!border-red-500 text-red-500" : "border-0"}
-                          w-[100%] sm:w-[400px] border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3
+                          w-full border outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3
                         `}
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}

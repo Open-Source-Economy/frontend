@@ -57,7 +57,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
 
   return (
     <>
-      <div className="padding mx-auto mt-8 flex w-[90%] flex-col items-start justify-start rounded-3xl bg-[#14233A] sm:px-5 sm:py-7 md:px-10 md:py-10">
+      <div className="padding mx-auto mt-8 flex flex-col items-start justify-start rounded-3xl bg-[#14233A] p-6 md:p-10 md:w-[90%]">
         {" "}
         <h2 className="font-medium text-white sm:text-xl md:text-2xl">
           {props.audience === Audience.DEVELOPER && "Request funding for a GitHub issue"}
