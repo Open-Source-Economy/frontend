@@ -1,8 +1,12 @@
 import React from "react";
-import { Link, To } from "react-router-dom";
+import { Link, type To } from "react-router-dom";
 import { Button, ExternalLink } from "src/components";
-import { Owner, Repository } from "../../../../../model";
-import { Audience } from "../../../../Audience";
+import type { Owner, Repository } from "../../../../../model";
+import type { Audience } from "../../../../Audience";
+
+const CARD_BASE_CLASSES =
+  "flex w-[386px] flex-col items-center justify-between gap-y-3 rounded-[40px] bg-[#14233A] py-8 pb-4 pt-4 max-[540px]:w-full max-[490px]:pb-10";
+const LOADING_ELEMENT_CLASS = "bg-gray-700/50 rounded-full";
 
 export interface CardsProps {
   owner?: Owner;
@@ -16,14 +20,14 @@ export interface CardsProps {
 export function Cards(props: CardsProps) {
   if (props.isLoading) {
     return (
-      <div className="flex w-[386px] flex-col items-center justify-between gap-y-3 rounded-[40px] bg-[#14233A] py-8 pb-4 pt-4 max-[540px]:w-full max-[490px]:pb-10 animate-pulse">
+      <div className={`${CARD_BASE_CLASSES} animate-pulse`}>
         <div className="flex flex-col items-center justify-between w-full">
-          <div className="size-[85px] rounded-full bg-gray-700/50" />
+          <div className={`size-[85px] ${LOADING_ELEMENT_CLASS}`} />
           <div className="w-full space-y-3 mt-4">
-            <div className="h-6 bg-gray-700/50 rounded-full w-2/3 mx-auto" />
-            <div className="space-y-2 px-4">
-              <div className="h-4 bg-gray-700/50 rounded-full w-full" />
-              <div className="h-4 bg-gray-700/50 rounded-full w-4/5" />
+            <div className={`h-6 ${LOADING_ELEMENT_CLASS} w-2/3 mx-auto`} />
+            <div className="flex flex-col items-center space-y-2 px-4">
+              <div className={`h-4 ${LOADING_ELEMENT_CLASS} w-full`} />
+              <div className={`h-4 ${LOADING_ELEMENT_CLASS} w-4/5`} />
             </div>
           </div>
         </div>
@@ -35,10 +39,7 @@ export function Cards(props: CardsProps) {
 
   const displayOwner = props.owner.id.login !== props.repository.id.name;
   return (
-    <div
-      key={props.repository.id.githubId}
-      className="flex w-[386px] flex-col items-center justify-between gap-y-3 rounded-[40px] bg-[#14233A] py-8 pb-4 pt-4 max-[540px]:w-full max-[490px]:pb-10"
-    >
+    <div key={props.repository.id.githubId} className={CARD_BASE_CLASSES}>
       <div className="flex flex-col items-center justify-between">
         <div className="grid size-[85px] place-items-center overflow-hidden rounded-full border-2 border-gray-300 bg-[length:100%_100%] p-0">
           <img src={props.owner.avatarUrl} className="size-full object-cover object-center" alt="" />
