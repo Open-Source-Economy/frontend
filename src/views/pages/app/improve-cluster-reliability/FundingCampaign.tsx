@@ -17,9 +17,9 @@ const FundingCampaign: React.FC = () => {
   const daysLeft = 24;
 
   return (
-    <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 relative xl:pb-14">
-      <div className="bg-sunset-glow-gradient max-w-[548px] w-full h-full max-h-[1000px] absolute left-[5%] top-[18%] blur-[125px] -z-10 opacity-35 shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
-      <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] max-w-[402px] w-full h-full max-h-[1166px] absolute left-[5%] top-[18%] blur-[125px] -z-0 opacity-45 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-full"></div>
+    <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 relative xl:pb-14 flex flex-col">
+      <div className="!bg-sunset-glow-gradient max-w-[548px] w-full h-full min-h-[500px] min-w-[260px] max-h-[1000px] absolute left-[5%] top-[18%] blur-[125px] -z-0 opacity-35 !shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
+      <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] max-w-[402px] min-h-[500px] min-w-[270px] w-full h-full max-h-[1166px] absolute left-[5%] top-[18%] blur-[125px] -z-0 opacity-45 shrink-0 pointer-events-none  -rotate-[41.351deg] rounded-full"></div>
       <span className="right-0 absolute bottom-0 -z-10">
         <LinearBg />
       </span>

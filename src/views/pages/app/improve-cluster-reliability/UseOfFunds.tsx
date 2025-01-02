@@ -38,8 +38,8 @@ const UseOfFunds = () => {
             Funds
           </h1>
 
-          <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9">
-            <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-14">Your contribution will help us:</p>
+          <ul className="space-y-4 2xl:space-y-5 mt-8 xl:mt-10 3xl:mt-14 !text-left">
+            <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl">Your contribution will help us:</p>
             {reliableData.map((item, index) => (
               <ListItem item={item} key={index} />
             ))}

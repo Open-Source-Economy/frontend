@@ -26,7 +26,7 @@ const WhyDoWeNeedYourHelp = () => {
         <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8 3xl:!mt-9">
           Apache Pekko is an independent open-source project powered by volunteers in their free time.
         </p>
-        <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9">
+        <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9 !text-left">
           <h3 className="font-montserrat text-base sm:text-xl font-medium 3xl:text-[25px]">Ensuring a reliable Pekko cluster requires:</h3>
           {reliableData.map((item, index) => (
             <ListItem key={index} item={item} />
