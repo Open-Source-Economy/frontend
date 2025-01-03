@@ -1,13 +1,13 @@
 import React from "react";
 import ParticipantCard from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
-import rightLinear from "src/assets/right-linear-bg.png";
+import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
 import { Button } from "src/components";
 import { participants } from "../../whoBuiltIt/elements/Helper";
 
 interface Participants {
-  viewAll?: boolean; // Optional prop for controlling the "View All" button
+  viewAll?: boolean;
 }
 
 const Participants = ({ viewAll = true }) => {
@@ -20,7 +20,7 @@ const Participants = ({ viewAll = true }) => {
       />
       <img
         src={faq}
-        alt="right linear Background"
+        alt="linear Background"
         className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] -z-10  max-w-[780px] h-full bottom-0"
       />
       <img

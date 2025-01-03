@@ -1,5 +1,5 @@
 import React from "react";
-import background from "src/assets/Rectangle.png";
+import background from "src/assets/hero-bg.webp";
 
 const Hero = () => {
   return (

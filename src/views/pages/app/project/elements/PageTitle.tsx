@@ -1,5 +1,5 @@
 import React from "react";
-import background from "../../../../../assets/Rectangle.png";
+import background from "../../../../../assets/hero-bg.webp";
 
 interface PageTitleProps {
   logo: string;

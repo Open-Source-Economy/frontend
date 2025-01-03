@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import faqImage from "src/assets/faq.webp";
 import FaqItem from "./FaqItem";
-import rightLinear from "src/assets/right-linear-bg.png";
+import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
 import faq from "src/assets/faq-bg.webp";
 import { faqData } from "../../whoBuiltIt/elements/Helper";
@@ -15,10 +15,10 @@ const WhyNeedFunding: React.FC = () => {
 
   return (
     <div className="2xl:pt-28 pt-10 md:pt-20 pb-10 md:pb-16 relative">
-      <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
+      <img src={rightLinear} alt="Linear Background" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
       <img
         src={faq}
-        alt=""
+        alt="Linear Background"
         className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] -z-10  max-w-[780px] h-full -bottom-[30%]"
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-14 place-items-center !px-4 xl:!px-0 xl:max-w-[90%] 2xl:max-w-[84%] 3xl:max-w-[1650px] mx-auto">

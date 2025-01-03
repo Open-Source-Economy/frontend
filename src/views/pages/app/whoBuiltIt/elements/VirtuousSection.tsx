@@ -1,5 +1,5 @@
 import React from "react";
-import whoBuiltHero from "src/assets/Rectangle.png";
+import whoBuiltHero from "src/assets/hero-bg.webp";
 import { RoundLinearBg } from "src/Utils/Icons";
 import BookACall from "./BookACall";
 import { virtuousCard } from "./Helper";
