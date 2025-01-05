@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindScrollbar from "tailwind-scrollbar";
 const config = {
   content: ["./public/index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -61,6 +62,7 @@ const config = {
         "primary-stakeholder": "#5e309c",
         secondary: "#0e1f35",
         primaryBg: "#14233A",
+        "primary-buydow": "#5E309C",
       },
       transitionProperty: {
         background: "background-color",
@@ -94,7 +96,7 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindScrollbar],
 };
 
 export default config;

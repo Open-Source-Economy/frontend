@@ -35,6 +35,12 @@ const AUDIENCE_COLORS = {
     hoverPrimary: "hover:bg-transparent transition-all ease-in-out transition-all",
     hoverSecondary: "hover:bg-primary-stakeholder transition-all ease-in-out transition-all",
   },
+  BUYDOW: {
+    primary: "bg-primary-buydow border-primary-buydow border-2",
+    secondary: "border-primary-buydow border-2",
+    hoverPrimary: "hover:bg-transparent transition-all ease-in-out transition-all",
+    hoverSecondary: "hover:bg-primary-buydow transition-all ease-in-out transition-all",
+  },
 } as const;
 
 const buttonVariants = cva(
@@ -55,6 +61,7 @@ const buttonVariants = cva(
         USER: "",
         DEVELOPER: "",
         STAKEHOLDER: "",
+        BUYDOW: "",
       },
     },
     compoundVariants: [
@@ -102,8 +109,19 @@ const buttonVariants = cva(
         level: "SECONDARY",
         className: cn(AUDIENCE_COLORS.STAKEHOLDER.secondary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
       },
+      // BUYDOW variants
+      {
+        audience: "BUYDOW",
+        level: "PRIMARY",
+        className: cn(AUDIENCE_COLORS.BUYDOW.primary, AUDIENCE_COLORS.BUYDOW.hoverPrimary),
+      },
+      {
+        audience: "BUYDOW",
+        level: "SECONDARY",
+        className: cn(AUDIENCE_COLORS.BUYDOW.secondary, AUDIENCE_COLORS.BUYDOW.hoverSecondary),
+      },
     ],
-  },
+  }
 );
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -120,7 +138,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <Comp
           className={cn(
             buttonVariants({ audience, level, size, className }),
-            disabled && "pointer-events-none opacity-50", // Ensure proper disabled styling
+            disabled && "pointer-events-none opacity-50" // Ensure proper disabled styling
           )}
           ref={ref}
           disabled={disabled} // Pass disabled attribute to the button
@@ -128,7 +146,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         />
       </div>
     );
-  },
+  }
 );
 
 Button.displayName = "Button";

@@ -411,55 +411,54 @@ input[type="number"] {
 
 /* TODO: Star Works: no CSS, to be removed */
 .service-card {
-    position: relative;
+  position: relative;
 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ============ SERVICE CARD STYLE ============ */
 .service-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .service-card:hover::before {
-    opacity: 1; /* Show border on hover */
+  opacity: 1; /* Show border on hover */
 }
 
 .service-card-content {
-    position: relative; /* Content above the pseudo-elements */
-    z-index: 1;
+  position: relative; /* Content above the pseudo-elements */
+  z-index: 1;
 }
 
 /* ================ Virtuous CARD STYLE ====================  */
 .virtuous-card {
-    position: relative;
+  position: relative;
 
-    transition: all 0.3s ease;
-
+  transition: all 0.3s ease;
 }
 
 .virtuous-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
