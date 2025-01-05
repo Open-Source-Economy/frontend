@@ -158,7 +158,7 @@ export function NavbarContent(props: NavbarContentProps) {
               <Button audience="BUYDOW" level={"PRIMARY"} size={"LARGE"} asChild>
                 <Link to="/projects">BUY DOW</Link>
               </Button>
-              <div className="relative lg:grid hidden place-items-center  cursor-pointer" ref={ref}>
+              <div className="relative lg:grid hidden place-items-center font-montserrat  cursor-pointer" ref={ref}>
                 <div className="relative group size-16 rounded-full p-[2px]">
                   <div className={`absolute top-0 left-0 size-full  rounded-full group ${showdropdown ? "gradient-bg" : "bg-white "}`}>
                     <div className="absolute top-0 left-0 size-full  rounded-full duration-200  gradient-bg opacity-0 group-hover:!opacity-100"></div>
@@ -180,10 +180,15 @@ export function NavbarContent(props: NavbarContentProps) {
                         <div key={item.title}>
                           {item.divider && <div className="h-px bg-white/5 my-2" aria-hidden="true" />}
                           {item.isButton ? (
-                            <button onClick={item.onClick} className="flex items-center gap-3 px-3 py-2.5  rounded-lg transition-colors w-full text-left group">
+                            <button
+                              onClick={item.onClick}
+                              className="flex text-lg items-center gap-3 px-3 py-2.5  rounded-lg transition-colors w-full text-left group"
+                            >
                               {item.icon}
                               <span
-                                className={`gradient-bg  bg-clip-text  duration-200 ${item?.isGradient ? "text-transparent" : "group-hover:text-transparent"} `}
+                                className={`gradient-bg  bg-clip-text   duration-200 ${
+                                  item?.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"
+                                } `}
                               >
                                 {item.title}
                               </span>
@@ -192,13 +197,13 @@ export function NavbarContent(props: NavbarContentProps) {
                             <Link
                               key={item.title}
                               to={item?.href ?? "/"}
-                              className={`flex duration-300 group  items-center gap-3 px-3 py-2  rounded-lg transition-colors `}
+                              className={`flex duration-300 group text-lg  items-center gap-3 px-3 py-2  rounded-lg transition-colors `}
                             >
                               {item.icon}
                               <span className={`text-base ${item?.isBold ? "font-semibold" : "font-normal"}  `}>
                                 <span
-                                  className={`gradient-bg  bg-clip-text ${
-                                    item?.isGradient ? "text-transparent" : "group-hover:text-transparent"
+                                  className={`gradient-bg  bg-clip-text  ${
+                                    item?.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"
                                   }    duration-200 `}
                                 >
                                   {item.title}
