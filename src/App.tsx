@@ -31,6 +31,8 @@ import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } fro
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
+import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
+import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -47,6 +49,16 @@ export function manageIssuePath(issueId: IssueId) {
 export enum BaseURL {
   WEBSITE = "/",
   APP = "/projects",
+}
+
+export enum AdminPath {
+  HOME = "/admin",
+  INVITE_COMPANY_USER = "/admin/invite-company-user",
+  INVITE_REPOSITORY_USER = "/admin/invite-repository-user",
+  CREATE_COMPANY = "/admin/create-company",
+  CREATE_ADDRESS = "/admin/create-address",
+  CREATE_MANUAL_INVOICE = "/admin/create-manual-invoice",
+  CREATE_PRODUCT_AND_PRICE = "/admin/create-product-and-price",
 }
 
 const App = () => {
@@ -73,11 +85,13 @@ const App = () => {
           </Route>
 
           <Route element={<SuperAdminRoutes />}>
-            <Route path={`/admin/invite-company-user`} element={<InviteCompanyUser />} />
-            <Route path={`/admin/invite-repository-user`} element={<InviteRepositoryUser />} />
-            <Route path={`/admin/create-company`} element={<CreateCompany />} />
-            <Route path={`/admin/create-address`} element={<CreateAddress />} />
-            <Route path={`/admin/create-manual-invoice`} element={<CreateManualInvoice />} />
+            <Route path={AdminPath.HOME} element={<AdminHome />} />
+            <Route path={AdminPath.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
+            <Route path={AdminPath.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
+            <Route path={AdminPath.CREATE_COMPANY} element={<CreateCompany />} />
+            <Route path={AdminPath.CREATE_ADDRESS} element={<CreateAddress />} />
+            <Route path={AdminPath.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
+            <Route path={AdminPath.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
           </Route>
 
           <Route element={<AuthRoutes redirect="/sign-up" />}>

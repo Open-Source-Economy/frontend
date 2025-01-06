@@ -8,6 +8,10 @@ import {
   CreateManualInvoiceBody,
   CreateManualInvoiceQuery,
   CreateManualInvoiceResponse,
+  CreateProductAndPriceBody,
+  CreateProductAndPriceParams,
+  CreateProductAndPriceQuery,
+  CreateProductAndPriceResponse,
   SendCompanyAdminInviteBody,
   SendCompanyAdminInviteQuery,
   SendCompanyAdminInviteResponse,
@@ -34,6 +38,12 @@ export interface AdminBackendAPI {
   sendRepositoryAdminInvite(body: SendRepositoryAdminInviteBody, query: SendRepositoryAdminInviteQuery): Promise<SendRepositoryAdminInviteResponse | ApiError>;
 
   createManualInvoice(body: CreateManualInvoiceBody, query: CreateManualInvoiceQuery): Promise<CreateManualInvoiceResponse | ApiError>;
+
+  createProductAndPrice(
+    body: CreateProductAndPriceBody,
+    params: CreateProductAndPriceParams,
+    query: CreateProductAndPriceQuery,
+  ): Promise<CreateProductAndPriceResponse | ApiError>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -66,6 +76,17 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<CreateManualInvoiceResponse>(
       () => axios.post(`${config.api.url}/admin/company/create-manual-invoice`, body, { withCredentials: true }),
       "createManualInvoice",
+    );
+  }
+
+  async createProductAndPrice(
+    body: CreateProductAndPriceBody,
+    params: CreateProductAndPriceParams,
+    query: CreateProductAndPriceQuery,
+  ): Promise<CreateProductAndPriceResponse | ApiError> {
+    return await handleError<CreateProductAndPriceResponse>(
+      () => axios.post(`${config.api.url}/admin/repository/${params.owner}/${params.repo}/stripe/create-product-and-price`, body, { withCredentials: true }),
+      "createProductAndPrice",
     );
   }
 }
