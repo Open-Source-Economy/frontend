@@ -17,10 +17,10 @@ const WhyDoWeNeedYourHelp = () => {
       </div>
       <div className="max-w-[640px] 2xl:max-w-[600px] w-full 3xl:max-w-[728px] relative z-20">
         <h1 className="text-2xl 2xl:text-[32px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
-          <span className="relative pb-3 lg:pb-5">
+          {/* <span className="relative pb-3 lg:pb-5">
             Why Do We
             <span className="absolute sm:block hidden left-0 w-[90%] bottom-0 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
-          </span>{" "}
+          </span>{" "} */}
           Need Your Help?
         </h1>
         <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8 3xl:!mt-9">

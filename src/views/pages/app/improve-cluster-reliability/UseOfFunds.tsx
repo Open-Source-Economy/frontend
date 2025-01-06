@@ -23,17 +23,17 @@ const UseOfFunds = () => {
   return (
     <div className="relative pb-14 xl:pb-0">
       <span className="hidden xl:block absolute -z-0 -translate-x-1/2 left-1/2 -top-1/2">
-        <LinearCenter />
+        {/* <LinearCenter /> */}
       </span>
       <span className="absolute h-full -left-[5%] -bottom-[25%]">
-        <LeftLinear />
+        {/* <LeftLinear /> */}
       </span>
       <section className="3xl:max-w-[1613px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1370px] mx-auto justify-end gap-14 flex items-center xl:flex-row flex-col-reverse">
         <div className="max-w-[590px] 2xl:max-w-[580px] w-full 3xl:max-w-[700px]">
           <h1 className="text-2xl 2xl:text-[32px] 3xl:text-[40px] font-semibold font-montserrat sm:text-nowrap">
             <span className="relative pb-3 lg:pb-5">
               Use of the
-              <span className="absolute sm:block hidden left-0 w-[90%] bottom-0 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
+              {/* <span className="absolute sm:block hidden left-0 w-[90%] bottom-0 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span> */}
             </span>{" "}
             Funds
           </h1>

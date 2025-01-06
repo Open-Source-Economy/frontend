@@ -13,7 +13,7 @@ interface Participants {
 const Participants = ({ viewAll = true }) => {
   return (
     <section className="pb-20 3xl:pb-40 pt-16 relative">
-      <img
+      {/* <img
         src={rightLinear}
         alt="right linear Background"
         className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]"
@@ -27,13 +27,13 @@ const Participants = ({ viewAll = true }) => {
         src={offerLeftLinear}
         alt="Linear background"
         className="absolute max-w-[670px] w-full -z-10 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
-      />
+      /> */}
 
       <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
         {/* Title */}
         <h2 className="section-heading mx-auto lg:!pb-8 w-fit relative mb-10 md:mb-14">
           Who is Participating?
-          <span className="absolute w-[50%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+          {/* <span className="absolute w-[50%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span> */}
         </h2>
 
         {/* Participants List */}
