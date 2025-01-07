@@ -5,9 +5,9 @@ import { LinearCenter } from "src/Utils/Icons";
 const WhyTrustUs = () => {
   return (
     <div className="relative pb-24 3xl:pb-32">
-      <div className="absolute w-full h-full xl:block hidden -translate-x-1/2 left-1/2 -top-1/2">
+      {/* <div className="absolute w-full h-full xl:block hidden -translate-x-1/2 left-1/2 -top-1/2">
         <LinearCenter />
-      </div>
+      </div> */}
       <section className="3xl:max-w-[1617px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1440px] mx-auto justify-center gap-14 flex items-center xl:flex-row flex-col 3xl:gap-24">
         {/* ======= Left Image ====  */}
 
