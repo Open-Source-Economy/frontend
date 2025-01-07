@@ -153,11 +153,10 @@ export function NavbarContent(props: NavbarContentProps) {
                   SIGN OUT
                 </Link>
               </div>
-              {/* #5E309C */}
-
-              <Button audience="BUYDOW" level={"PRIMARY"} size={"LARGE"} asChild>
+              <Button audience="STAKEHOLDER" level="PRIMARY" size="SMALL" asChild>
                 <Link to="/projects">BUY DOW</Link>
               </Button>
+
               <div className="relative lg:grid hidden place-items-center font-montserrat  cursor-pointer" ref={ref}>
                 <div className="relative group size-16 rounded-full p-[2px]">
                   <div className={`absolute top-0 left-0 size-full  rounded-full group ${showdropdown ? "gradient-bg" : "bg-white "}`}>

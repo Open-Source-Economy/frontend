@@ -62,7 +62,6 @@ const config = {
         "primary-stakeholder": "#5e309c",
         secondary: "#0e1f35",
         primaryBg: "#14233A",
-        "primary-buydow": "#5E309C",
       },
       transitionProperty: {
         background: "background-color",
