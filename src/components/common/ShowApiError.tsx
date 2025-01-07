@@ -59,7 +59,7 @@ export function ShowApiError(props: ShowApiErrorProps) {
                 {props.error.statusText ? ": " : ""}
                 {friendlyMessageTitle}
               </h4>
-              {friendlyMessage && <p className="text-red-500">friendlyMessage</p>}
+              {friendlyMessage && <p className="text-red-500">{friendlyMessage}</p>}
             </div>
           </div>
           {props.closeError && (

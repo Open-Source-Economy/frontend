@@ -1,4 +1,5 @@
 import { AuthenticateType } from "../../../views";
+import isEqual from "lodash/isEqual";
 
 export interface FormData {
   email: string;
@@ -6,6 +7,13 @@ export interface FormData {
   confirmPassword: string;
   termsChecked: boolean;
 }
+
+export const VALID_FORM_VALIDATION: FormValidation = {
+  email: true,
+  password: null,
+  confirmPassword: true,
+  terms: true,
+};
 
 export interface FormValidation {
   email: boolean;
@@ -21,7 +29,7 @@ export interface PasswordValidation {
   isEmpty: boolean;
 }
 
-export const NO_PASSPORT_ERROR = { minLength: true, hasNumber: true, hasSymbol: true, isEmpty: false };
+export const NO_PASSPORT_ERROR: PasswordValidation = { minLength: true, hasNumber: true, hasSymbol: true, isEmpty: false };
 
 export function validateForm(type: AuthenticateType, data: FormData): FormValidation {
   const isSignUp = type === AuthenticateType.SignUp;
@@ -32,30 +40,29 @@ export function validateForm(type: AuthenticateType, data: FormData): FormValida
   };
 
   const validatePassword = (password: string): PasswordValidation | null => {
-    const validation = {
+    const validation: PasswordValidation = {
       minLength: password.length >= 6,
       hasNumber: /\d/.test(password),
       hasSymbol: /[!@#$%^&*(),.?";:{}|<>_\-'\+\=\[\]~`\\]/.test(password),
       isEmpty: password.trim() === "",
     };
 
-    return JSON.stringify(validation) === JSON.stringify(NO_PASSPORT_ERROR) ? null : validation;
+    return isEqual(validation, NO_PASSPORT_ERROR) ? null : validation;
   };
 
   const isEmailValid = validateEmail(data.email);
-  const passwordValidation = validatePassword(data.password);
 
   if (isSignUp) {
     return {
       email: isEmailValid,
-      password: passwordValidation,
+      password: validatePassword(data.password),
       confirmPassword: data.password === data.confirmPassword,
       terms: data.termsChecked || false,
     };
   } else {
     return {
       email: isEmailValid,
-      password: { ...NO_PASSPORT_ERROR, isEmpty: !!passwordValidation?.isEmpty },
+      password: null,
       confirmPassword: true,
       terms: true,
     };
