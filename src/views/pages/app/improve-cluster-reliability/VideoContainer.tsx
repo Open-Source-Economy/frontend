@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-const VideoPlayer = () => {
+interface VideoPlayerProps {}
+
+export function VideoPlayer(props: VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
@@ -13,6 +15,6 @@ const VideoPlayer = () => {
       />
     </div>
   );
-};
+}
 
 export default VideoPlayer;

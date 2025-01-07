@@ -1,7 +1,10 @@
 import needHelp from "src/assets/whyneedhelp.webp";
 import ListItem from "./ListItem";
+import React from "react";
 
-const WhyDoWeNeedYourHelp = () => {
+interface WhyDoWeNeedYourHelpProps {}
+
+export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
   const reliableData = [
     { id: 1, text: "Advanced expertise" },
     { id: 2, text: "Dedicated testing infrastructure" },
@@ -35,6 +38,6 @@ const WhyDoWeNeedYourHelp = () => {
       </div>
     </section>
   );
-};
+}
 
 export default WhyDoWeNeedYourHelp;

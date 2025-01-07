@@ -1,8 +1,9 @@
 import React from "react";
 import trustUs from "src/assets/icon/trustUs.svg";
-import { LinearCenter } from "src/Utils/Icons";
 
-const WhyTrustUs = () => {
+interface WhyTrustUsProps {}
+
+export function WhyTrustUs(props: WhyTrustUsProps) {
   return (
     <div className="relative pb-24 3xl:pb-32">
       {/* <div className="absolute w-full h-full xl:block hidden -translate-x-1/2 left-1/2 -top-1/2">
@@ -31,6 +32,4 @@ const WhyTrustUs = () => {
       </section>
     </div>
   );
-};
-
-export default WhyTrustUs;
+}

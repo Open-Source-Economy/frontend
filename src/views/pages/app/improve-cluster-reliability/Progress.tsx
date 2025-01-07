@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-interface ProgressSectionProps {
+interface ProgressProps {
   currentAmount: number;
   targetAmount: number;
   backers: number;
   daysLeft: number;
 }
 
-const Progress: React.FC<ProgressSectionProps> = ({ currentAmount, targetAmount, backers, daysLeft }) => {
+export function Progress(props: ProgressProps) {
   const [animatedProgress, setAnimatedProgress] = useState(0);
-  const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100);
+  const progressPercentage = Math.min((props.currentAmount / props.targetAmount) * 100, 100);
 
   useEffect(() => {
     // Start with 0 and animate to the target percentage
@@ -38,23 +38,21 @@ const Progress: React.FC<ProgressSectionProps> = ({ currentAmount, targetAmount,
         </div>
       </div>
 
-      <h2 className="font-montserrat text-xl 2xl:text-2xl 3xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">${currentAmount.toLocaleString()}/mo</h2>
+      <h2 className="font-montserrat text-xl 2xl:text-2xl 3xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">${props.currentAmount.toLocaleString()}/mo</h2>
       <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
-        $ <span className="hidden">{currentAmount.toLocaleString()} </span> pledged of ${targetAmount.toLocaleString()}/mo
+        $ <span className="hidden">{props.currentAmount.toLocaleString()} </span> pledged of ${props.targetAmount.toLocaleString()}/mo
       </p>
       <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
         <div>
-          <h3 className="text-xl 2xl:text-[22px] 3xl:text-[25px] font-medium !mb-1.5">{backers.toLocaleString()}</h3>
+          <h3 className="text-xl 2xl:text-[22px] 3xl:text-[25px] font-medium !mb-1.5">{props.backers.toLocaleString()}</h3>
           <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Backers</p>
         </div>
 
         <div>
-          <h3 className="text-xl 2xl:text-2xl 3xl:text-[25px] font-medium !mb-1.5">{daysLeft}</h3>
+          <h3 className="text-xl 2xl:text-2xl 3xl:text-[25px] font-medium !mb-1.5">{props.daysLeft}</h3>
           <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Days to go</p>
         </div>
       </div>
     </>
   );
-};
-
-export default Progress;
+}

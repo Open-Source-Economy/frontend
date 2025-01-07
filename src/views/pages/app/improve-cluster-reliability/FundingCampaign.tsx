@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import CompanyBanner from "./CompanyBanner";
+import { CompanyBanner } from "./CompanyBanner";
 import DonationControls from "./DonationControls";
-import FeatureList from "./FeatureList";
-import Progress from "./Progress";
+import { FeatureList } from "./FeatureList";
+import { Progress } from "./Progress";
 import VideoPlayer from "./VideoContainer";
 import { LinearBg } from "src/Utils/Icons";
 
-const FundingCampaign: React.FC = () => {
+interface FundingCampaignProps {}
+
+export function FundingCampaign(props: FundingCampaignProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(500);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [donationType, setDonationType] = useState<"once" | "monthly">("monthly");
@@ -78,6 +80,4 @@ const FundingCampaign: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default FundingCampaign;
+}

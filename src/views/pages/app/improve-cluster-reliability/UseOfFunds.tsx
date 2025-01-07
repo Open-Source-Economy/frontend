@@ -1,8 +1,10 @@
-import { LeftLinear, LinearCenter } from "src/Utils/Icons";
 import useFunds from "src/assets/icon/useFunds.svg";
 import ListItem from "./ListItem";
+import React from "react";
 
-const UseOfFunds = () => {
+interface UseOfFundsProps {}
+
+export function UseOfFunds(props: UseOfFundsProps) {
   const reliableData = [
     { id: 1, text: "Having the equivalent of 2 full-time developers" },
     { id: 2, text: "Setting up dedicated hardware to reproduce and fix bugs effectively." },
@@ -52,6 +54,4 @@ const UseOfFunds = () => {
       </section>
     </div>
   );
-};
-
-export default UseOfFunds;
+}

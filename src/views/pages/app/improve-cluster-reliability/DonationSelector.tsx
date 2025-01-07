@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 interface DonationSelectorProps {
   onSelect?: (isDonation: boolean) => void;
 }
-const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
+
+export function DonationSelector(props: DonationSelectorProps) {
   const [selectedOption, setSelectedOption] = useState<"donation" | "receive">("donation");
   const handleSelect = (option: "donation" | "receive") => {
     setSelectedOption(option);
-    onSelect?.(option === "donation");
+    props.onSelect?.(option === "donation");
   };
   return (
     <div className="w-full !space-y-2.5 xl:!space-y-3.5 3xl:!space-y-[19px] !my-7 3xl:!my-10">
@@ -62,6 +63,4 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
       )}
     </div>
   );
-};
-
-export default DonationSelector;
+}

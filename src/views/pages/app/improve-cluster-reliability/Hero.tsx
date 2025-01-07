@@ -1,7 +1,9 @@
 import React from "react";
 import background from "src/assets/hero-bg.webp";
 
-const Hero = () => {
+interface HeroProps {}
+
+export function Hero(props: HeroProps) {
   return (
     <>
       {" "}
@@ -30,6 +32,4 @@ const Hero = () => {
       </section>
     </>
   );
-};
-
-export default Hero;
+}

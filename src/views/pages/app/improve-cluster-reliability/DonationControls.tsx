@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "src/components";
-import DonationSelector from "./DonationSelector";
+import { DonationSelector } from "./DonationSelector";
 import { HeartIcon, PointingArrow } from "src/Utils/Icons";
 
 interface DonationControlsProps {
@@ -12,27 +12,20 @@ interface DonationControlsProps {
   setDonationType: React.Dispatch<React.SetStateAction<"once" | "monthly">>;
 }
 
-const DonationControls: React.FC<DonationControlsProps> = ({
-  selectedAmount,
-  setSelectedAmount,
-  customAmount,
-  setCustomAmount,
-  donationType,
-  setDonationType,
-}) => {
+export function DonationControls(props: DonationControlsProps) {
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
-    setCustomAmount(value);
+    props.setCustomAmount(value);
     if (value) {
-      setSelectedAmount(parseInt(value, 10));
+      props.setSelectedAmount(parseInt(value, 10));
     }
   };
   const isValidAmount = () => {
-    if (customAmount) {
-      const parsedAmount = parseFloat(customAmount);
+    if (props.customAmount) {
+      const parsedAmount = parseFloat(props.customAmount);
       return !isNaN(parsedAmount) && parsedAmount > 0;
     }
-    return selectedAmount > 0;
+    return props.selectedAmount > 0;
   };
   const amountsOnce = [
     { value: 25, label: "For individual" },
@@ -48,18 +41,18 @@ const DonationControls: React.FC<DonationControlsProps> = ({
     { value: 1000, label: "For big companies" },
     { value: 2000, label: "AMAZING!!!" },
   ];
-  const amounts = donationType === "once" ? amountsOnce : amountsMonthly;
+  const amounts = props.donationType === "once" ? amountsOnce : amountsMonthly;
   // Handle predefined amount selection
   const handleAmountSelect = (amount: number) => {
-    setSelectedAmount(amount);
-    setCustomAmount(""); // Clear custom amount when predefined amount is selected
+    props.setSelectedAmount(amount);
+    props.setCustomAmount(""); // Clear custom amount when predefined amount is selected
   };
 
   // Handle donation type change
   const handleDonationTypeChange = (type: "once" | "monthly") => {
-    setDonationType(type);
-    setSelectedAmount(0); // Reset amount when switching donation type
-    setCustomAmount(""); // Reset custom amount when switching donation type
+    props.setDonationType(type);
+    props.setSelectedAmount(0); // Reset amount when switching donation type
+    props.setCustomAmount(""); // Reset custom amount when switching donation type
   };
 
   return (
@@ -90,7 +83,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
               Give Monthly
             </Button>
           </div>
-          {donationType === "once" && (
+          {props.donationType === "once" && (
             <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-[80%] z-50 2xl:top-1/2">
               <PointingArrow />
             </span>
@@ -110,27 +103,27 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             key={index}
             onClick={() => handleAmountSelect(amount.value)}
             className={`${
-              selectedAmount === amount.value
+              props.selectedAmount === amount.value
                 ? "bg-gradient-custom"
                 : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 ease-linear transition-all !border-transparent"
             } transition-colors font-montserrat text-white !p-3 3xl:!p-4 rounded-[13px]`}
-            aria-pressed={selectedAmount === amount.value}
+            aria-pressed={props.selectedAmount === amount.value}
           >
             <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
               ${amount.value}
-              {donationType === "monthly" ? "/mo" : ""}
+              {props.donationType === "monthly" ? "/mo" : ""}
             </h5>
             <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{amount.label}</h6>
           </button>
         ))}
 
         <button
-          className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
+          className={`${props.customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
         >
           <span className="text-white text-base sm:text-lg 3xl:text-xl font-medium">$</span>
           <input
             type="text"
-            value={customAmount}
+            value={props.customAmount}
             onChange={handleCustomAmountChange}
             placeholder="Other/mo"
             className="bg-transparent text-white text-base sm:text-lg 3xl:text-xl placeholder:text-sm sm:placeholder:text-lg w-full focus:outline-none ml-2 placeholder-gray-400"
@@ -147,10 +140,12 @@ const DonationControls: React.FC<DonationControlsProps> = ({
         className="w-full !font-bold !font-montserrat !capitalize overflow-hidden cursor-pointer mt-4"
         size="LARGE"
       >
-        {isValidAmount() ? `Donate $${selectedAmount.toLocaleString()} ${donationType === "monthly" ? "Monthly" : ""}` : "Select an amount to donate"}
+        {isValidAmount()
+          ? `Donate $${props.selectedAmount.toLocaleString()} ${props.donationType === "monthly" ? "Monthly" : ""}`
+          : "Select an amount to donate"}
       </Button>
     </>
   );
-};
+}
 
 export default DonationControls;

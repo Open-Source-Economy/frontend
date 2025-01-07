@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "src/components";
 import { LeftLinear, TelephoneIcon } from "src/Utils/Icons";
+import React from "react";
 
-const AQuestion = () => {
+interface AQuestionProps {}
+
+export function AQuestion(props: AQuestionProps) {
   return (
     <section className="!px-4 pb-16 3xl:pb-24 relative flex flex-col">
       <div
-        className="bg-sunset-glow-gradient hidden xl:block 
+        className="bg-sunset-glow-gradient hidden xl:block
        !max-w-[490px] w-full min-h-[600px] h-full 3xl:min-h-[906px] max-h-[906px] absolute -right-10 3xl:right-[1%] -top-[30%] 3xl:-top-[50%] blur-[125px] -z-20 opacity-20 shrink-0 pointer-events-none !-rotate-[120deg] rounded-full"
       ></div>
       <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] min-h-[500px] 3xl:min-h-[906px] max-h-[1056px] min-w-[280px] max-w-[364px] w-full h-full absolute right-[-3%] 3xl:right-[6%] -top-[20%]  3xl:-top-[60%] blur-[125px] -z-0 opacity-50 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-[1057px]"></div>
@@ -31,6 +34,4 @@ const AQuestion = () => {
       </div>
     </section>
   );
-};
-
-export default AQuestion;
+}

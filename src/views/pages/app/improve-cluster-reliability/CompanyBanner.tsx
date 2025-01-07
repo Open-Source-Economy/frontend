@@ -6,7 +6,7 @@ interface CompanyBannerProps {
   rightButtonText: string;
 }
 
-const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $100/mo", rightButtonText = "for 100 Companies" }) => {
+export function CompanyBanner(props: CompanyBannerProps) {
   return (
     <>
       {/* Top Bar */}
@@ -32,7 +32,7 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
         <div className="flex flex-col items-center gap-1.5 3xl:gap-2.5">
           <h2 className="text-base 2xl:text-lg font-montserrat text-nowrap 3xl:text-[22px] font-bold">We are looking for</h2>
           <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] font-semibold py-2 md:py-3 px-6 rounded-[12px] 3xl:text-[22px] 3xl:font-bold">
-            {leftButtonText}
+            {props.leftButtonText}
           </button>
         </div>
 
@@ -43,13 +43,11 @@ const CompanyBanner: React.FC<CompanyBannerProps> = ({ leftButtonText = "Only $1
 
         <div className="flex flex-col items-center !gap-2.5">
           <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] font-semibold py-2 md:py-3 px-6 rounded-[12px] 3xl:text-[22px] 3xl:font-bold">
-            {rightButtonText}
+            {props.rightButtonText}
           </button>
           <p className="text-base 2xl:text-lg font-montserrat text-nowrap 3xl:text-[22px] font-bold">Be one of them!</p>
         </div>
       </div>
     </>
   );
-};
-
-export default CompanyBanner;
+}

@@ -37,8 +37,8 @@ interface FeatureListProps {
   donationType: "once" | "monthly";
 }
 
-const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
-  if (donationType === "monthly") {
+export function FeatureList(props: FeatureListProps) {
+  if (props.donationType === "monthly") {
     return (
       <div className="!space-y-3 relative z-20 3xl:!space-y-[19px]">
         {features.map(({ icon, heading, text }, index) => (
@@ -74,6 +74,4 @@ const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
       ))}
     </div>
   );
-};
-
-export default FeatureList;
+}
