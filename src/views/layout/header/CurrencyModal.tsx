@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
+import { CheckIcon, CloseIcon } from "./Icons";
 
 interface Currency {
   name: string;
@@ -62,12 +63,12 @@ export default function CurrencyModal({ isOpen, onClose, onSelect, selectedCurre
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="fixed inset-0 flex items-center justify-center p-4 overflow-hidden ">
-            <DialogPanel className="mx-auto min-w-[361px] rounded-2xl bg-[#0B1829] shadow-xl">
+          <div className="fixed inset-0 flex items-center justify-center p-4  ">
+            <DialogPanel className="mx-auto min-w-[361px] rounded-2xl  bg-[#0B1829] overflow-x-hidden shadow-xl">
               <div className="flex items-center justify-between mb-1 p-7">
                 <DialogTitle className="text-xl font-medium text-white font-michroma">Choose a currency</DialogTitle>
-                <button onClick={onClose} className=" text-white transition-colors">
-                  <X className="h-6 w-6" />
+                <button onClick={onClose} className=" text-white transition-colors group">
+                  <CloseIcon />
                 </button>
               </div>
 
@@ -76,12 +77,12 @@ export default function CurrencyModal({ isOpen, onClose, onSelect, selectedCurre
                   <button
                     key={currency.code}
                     onClick={() => onSelect(currency)}
-                    className="w-full flex items-center justify-start gap-4 px-3 py-2 hover:bg-white/5  transition-colors group"
+                    className="w-full flex items-center justify-start gap-4 px-3 overflow-hidden py-2  duration-300 hover:bg-white/5  transition-colors group"
                   >
-                    <div className="size-4 grid place-items-center">{selectedCurrency?.code === currency.code && <Check className=" text-white size-5" />}</div>
+                    <div className="size-4 grid place-items-center ">{selectedCurrency?.code === currency.code && <CheckIcon />}</div>
                     <div className="flex flex-col items-start ">
-                      <span className="text-white text-lg">{currency.name}</span>
-                      <span className="text-gray-400">
+                      <span className=" text-lg gradient-bg  bg-clip-text group-hover:text-transparent duration-200">{currency.name}</span>
+                      <span className="text-gray-400 gradient-bg  bg-clip-text group-hover:text-transparent duration-200">
                         {currency.code} - {currency.symbol}
                       </span>
                     </div>

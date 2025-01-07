@@ -43,7 +43,7 @@ export function FundIssueIcon() {
 
 export const FundungHistoryIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="w-6 h-6">
       <defs>
         <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -73,7 +73,7 @@ export const FundungHistoryIcon = () => {
 
 export const OrderIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="group w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="group w-6 h-6">
       <defs>
         <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -121,7 +121,7 @@ export const OrderIcon = () => {
 
 export const BillingIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="group w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="group w-6 h-6">
       <defs>
         <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -148,7 +148,7 @@ export const BillingIcon = () => {
 };
 export const ProfileIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="group w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="group w-6 h-6">
       <defs>
         <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -181,7 +181,7 @@ export const ProfileIcon = () => {
 };
 export const MaintainerIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="group w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="group w-6 h-6">
       <defs>
         <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -207,7 +207,7 @@ export const MaintainerIcon = () => {
 };
 export const LogOutIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="group w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className="group w-6 h-6">
       <defs>
         <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -237,7 +237,7 @@ export const LogOutIcon = () => {
 };
 export const EuroIcon = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className=" w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className=" w-6 h-6">
       <defs>
         <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -259,7 +259,7 @@ export const EuroIcon = () => {
 };
 export const EuroIconTwo = () => {
   return (
-    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" className=" w-6 h-6">
+    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" className=" w-6 h-6">
       <defs>
         <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF7E4B" />
@@ -287,6 +287,48 @@ export const EuroIconTwo = () => {
         className="stroke-current duration-200 group-hover:stroke-[url(#gradient1)]"
         strokeWidth="1.5"
         strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+export const CloseIcon = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <defs>
+        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FF7E4B" />
+          <stop offset="50%" stopColor="#FF518C" />
+          <stop offset="100%" stopColor="#66319B" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M19 5L5 19M5 5L19 19"
+        className="stroke-current duration-200 group-hover:stroke-[url(#gradient1)]"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const CheckIcon = () => {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <defs>
+        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FF7E4B" />
+          <stop offset="50%" stopColor="#FF518C" />
+          <stop offset="100%" stopColor="#66319B" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M3.75 10.5L6.375 13.125L14.25 4.875"
+        className="stroke-current duration-200 group-hover:stroke-[url(#gradient1)]"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
