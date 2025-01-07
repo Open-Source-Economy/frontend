@@ -1,7 +1,5 @@
 import React from "react";
 import { Countries } from "src/views/pages/app/payment/elements/Countries";
-import { FormInput } from "./To-refector/FormInput";
-import { FormEntry } from "./frames/FormEntry";
 import { BaseSelect } from "./frames/BaseSelect";
 
 interface CountrySelectProps {

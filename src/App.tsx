@@ -80,9 +80,9 @@ const App = () => {
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route element={<RepositoryRoutes />}>
               <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+              <Route path={`/:${ownerParam}/:${repoParam}/project`} element={<Project />} />
             </Route>
 
-            <Route path="/project" element={<Project />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 

@@ -1,6 +1,4 @@
 import React from "react";
-import cat from "../../assets/catimg.png";
-import { IoCloseOutline } from "react-icons/io5";
 import { ApiError } from "../../ultils/error/ApiError";
 import { ShowApiError } from "./ShowApiError";
 

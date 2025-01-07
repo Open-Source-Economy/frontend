@@ -3,7 +3,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
-import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
+import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
 import { Title } from "src/components";
@@ -18,9 +18,9 @@ export function FundIssue({}: FundIssueProps) {
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
   const [modal, setModal] = useState(false);
 
-  // useEffect(() => {
-  //   reloadFinancialIssue();
-  // }, []);
+  useEffect(() => {
+    reloadFinancialIssue();
+  }, []);
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>

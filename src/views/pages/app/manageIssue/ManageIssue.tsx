@@ -10,7 +10,6 @@ import { FinancialIssue } from "src/model";
 import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
-import { useIssueIdFromParams } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
 import { Title } from "src/components";
@@ -23,9 +22,9 @@ export function ManageIssue(props: ManageIssueProps) {
   const { issueId } = useIssueContext();
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
 
-  // useEffect(() => {
-  //   reloadFinancialIssue();
-  // }, []);
+  useEffect(() => {
+    reloadFinancialIssue();
+  }, []);
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>

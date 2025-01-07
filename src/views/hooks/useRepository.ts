@@ -7,7 +7,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 export function useRepository(repositoryId: RepositoryId) {
   const backendAPI = getBackendAPI();
 
-  const [repository, setRepository] = useState<[Owner, Repository] | null>(null);
+  const [ownerAndRepository, setOwnerAndRepository] = useState<[Owner, Repository] | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
 
   const fetchRepository = async () => {
@@ -20,7 +20,7 @@ export function useRepository(repositoryId: RepositoryId) {
         setError(response);
         return;
       } else {
-        setRepository([response.owner, response.repository]);
+        setOwnerAndRepository([response.owner, response.repository]);
       }
     } catch (err) {
       console.error("Error fetching repository:", err);
@@ -28,5 +28,10 @@ export function useRepository(repositoryId: RepositoryId) {
     }
   };
 
-  return { repository: repository, error, reloadRepository: fetchRepository };
+  return {
+    owner: ownerAndRepository ? ownerAndRepository[0] : null,
+    repository: ownerAndRepository ? ownerAndRepository[1] : null,
+    error,
+    reloadRepository: fetchRepository,
+  };
 }

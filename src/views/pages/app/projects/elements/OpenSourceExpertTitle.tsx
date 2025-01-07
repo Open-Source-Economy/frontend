@@ -3,25 +3,17 @@ import whoBuiltHero from "src/assets/hero-bg.webp";
 
 interface OpenSourceExpertTitleProps {}
 
+// TODO: refactor to use PageTitle component?
 export function OpenSourceExpertTitle(props: OpenSourceExpertTitleProps) {
   return (
     <>
-      {/*/!* =================== RIGHT DONUT =============== *!/*/}
-      {/*<span className="absolute hidden max-w-[200px] xl:block -right-[3%] top-[11%] 2xl:max-w-[240px]">*/}
-      {/*  <RightDonutIcon />*/}
-      {/*</span>*/}
       <section className="w-full pt-20 lg:!pt-32 3xl:!pt-[141px] pb-6 lg:pb-10 max-w-[1164px] relative 3xl:max-w-[1376px] !px-4 mx-auto">
-        {/* ================== HERO LINEAR BG ================== */}
         <img
           src={whoBuiltHero}
           alt=""
           className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] object-cover -translate-x-1/2 left-1/2 -z-10 top-[1%] opacity-40 md:opacity-30"
         />
 
-        {/*/!* ================== RIGHT DONUT ===================== *!/*/}
-        {/*<span className="absolute hidden xl:block xl:-left-[6%] 2xl:-left-[10%] top-[4%]  max-w-[200px] 2xl:max-w-[280px]">*/}
-        {/*  <DonutIcon />*/}
-        {/*</span>*/}
         <h1 className="relative  text-center mx-auto   main-heading bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
           Open Source
         </h1>

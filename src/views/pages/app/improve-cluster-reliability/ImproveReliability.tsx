@@ -1,5 +1,4 @@
-import React from "react";
-import { Hero } from "./Hero";
+import React, { useEffect } from "react";
 import { BaseURL } from "src/App";
 import { PageWrapper } from "../../PageWrapper";
 import WhyDoWeNeedYourHelp from "./WhyDoWeNeedYourHelp";
@@ -10,21 +9,22 @@ import { FundingCampaign } from "./FundingCampaign";
 import Participants from "../project/elements/Participants";
 import { useRepository } from "../../../hooks";
 import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
+import { PageTitle } from "../project/elements/PageTitle";
 
 interface ImproveReliabilityProps {}
 
 export function ImproveReliability(props: ImproveReliabilityProps) {
   const { repositoryId } = useRepositoryContext();
-  const { repository, error, reloadRepository } = useRepository(repositoryId);
+  const { owner, repository, error, reloadRepository } = useRepository(repositoryId);
 
-  // useEffect(() => {
-  //   reloadRepository();
-  // }, []);
+  useEffect(() => {
+    reloadRepository();
+  }, []);
 
   return (
     <>
       <PageWrapper baseURL={BaseURL.APP}>
-        <Hero />
+        {owner && repository && <PageTitle owner={owner} repository={repository} />}
         <FundingCampaign />
         <Participants viewAll={false} />
         <AQuestion />
