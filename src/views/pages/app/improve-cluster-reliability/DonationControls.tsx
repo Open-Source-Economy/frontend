@@ -91,7 +91,7 @@ const DonationControls: React.FC<DonationControlsProps> = ({
             </Button>
           </div>
           {donationType === "once" && (
-            <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-1/2">
+            <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-[80%] z-50 2xl:top-1/2">
               <PointingArrow />
             </span>
           )}
