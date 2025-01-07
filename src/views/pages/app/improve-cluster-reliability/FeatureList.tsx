@@ -60,9 +60,11 @@ const FeatureList: React.FC<FeatureListProps> = ({ donationType }) => {
       {features.map(({ icon, heading, text }, index) => (
         <div
           key={index}
-          className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 pt-8 xl:pt-12 3xl:pt-[53px] 3xl:!px-14 xl:pb-[74px] 3xl:pb-[84px] cursor-pointer rounded-2xl 3xl:rounded-[35px] bg-primaryBg"
+          className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 pt-8 xl:pt-[53px] 3xl:!px-14 xl:pb-20 1400:pb-[84px] cursor-pointer rounded-2xl 3xl:rounded-[35px] bg-primaryBg"
         >
-          <div className="w-20 h-20 min-h-20 min-w-20 sm:w-24 3xl:w-[125px] sm:h-24 3xl:h-[125px] object-cover !mb-4 2xl:!mb-6 3xl:!mb-[30px]">{icon}</div>
+          <div className="w-20 h-20 min-h-20 min-w-20 sm:w-24 xl:w-[112px] xl:h-[112px] 3xl:w-[125px] sm:h-24 3xl:h-[125px] object-cover !mb-4 2xl:!mb-6 3xl:!mb-[30px]">
+            {icon}
+          </div>
           <div className="max-w-[200px] xl:max-w-[210px] 3xl:max-w-[287px] mx-auto text-center">
             <h2 className="font-montserrat text-xl font-semibold xl:text-2xl 2xl:text-[26px] 3xl:text-3xl">{heading}</h2>
             <span className="h-1 my-2.5 2xl:my-4 3xl:my-[18px] block bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] max-w-[95px] mx-auto"></span>

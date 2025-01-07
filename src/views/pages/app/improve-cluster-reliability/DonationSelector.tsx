@@ -12,11 +12,11 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
   };
   return (
     <div className="w-full !space-y-2.5 xl:!space-y-3.5 3xl:!space-y-[19px] !my-7 3xl:!my-10">
-      <div className="flex flex-wrap !gap-4">
+      <div className="flex flex-wrap !gap-4 xl:!gap-2 2xl:!gap-4">
         {/* Donation Option */}
         <button
           onClick={() => handleSelect("donation")}
-          className={`flex gap-2 items-center text-nowrap text-base lg:text-lg 3xl:text-xl font-medium font-montserrat flex-1`}
+          className={`flex gap-2 items-center text-nowrap text-base 3xl:text-lg 4xl:text-xl font-medium font-montserrat flex-1`}
         >
           <div
             className={`w-5 h-5  rounded-full border flex items-center justify-center ${
@@ -31,7 +31,7 @@ const DonationSelector: React.FC<DonationSelectorProps> = ({ onSelect }) => {
         {/* Receive Option */}
         <button
           onClick={() => handleSelect("receive")}
-          className={`flex gap-2 items-center text-nowrap text-base lg:text-lg 3xl:text-xl font-medium font-montserrat flex-1 `}
+          className={`flex gap-2 items-center text-nowrap text-base 3xl:text-lg 4xl:text-xl font-medium font-montserrat flex-1 `}
         >
           <div
             className={`w-5 h-5 rounded-full border flex items-center justify-center ${selectedOption === "receive" ? "!border-primary-user" : "border-white"}`}
