@@ -15,9 +15,14 @@ import {
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
+  GetAvailableDowParams,
+  GetAvailableDowQuery,
   GetIssueParams,
   GetIssueQuery,
   GetIssuesParams,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
@@ -29,8 +34,8 @@ import {
   RequestIssueFundingQuery,
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
-import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
+import { maintainers } from "../services/data";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -95,6 +100,12 @@ export class BackendAPIMock implements BackendAPI {
     return {
       owner: owner,
       repository: repository(),
+    };
+  }
+
+  async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
+    return {
+      maintainers: maintainers,
     };
   }
 }

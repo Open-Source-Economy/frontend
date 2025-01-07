@@ -3,48 +3,10 @@ import advisory from "src/assets/advisory.webp";
 import communitydriven from "src/assets/community-driven.webp";
 import nonProfit from "src/assets/non-profit.webp";
 import operation from "src/assets/operation.webp";
-import mascot1 from "src/assets/participant-card-1.png";
-import mascot2 from "src/assets/participant-card-2.png";
-import mascot3 from "src/assets/participant-card-3.png";
-import mascot4 from "src/assets/participant-card-4.png";
 import support from "src/assets/support-logo.webp";
 import talent from "src/assets/talent.webp";
 import development from "src/assets/write-code.webp";
 
-export const participants = [
-  {
-    name: "Patrik Nordwall",
-    title: "Akka expert",
-    quote: "Quote of the person that can be a little long",
-    image: "https://avatars.githubusercontent.com/u/141809657?v=4",
-    mascot: mascot1,
-    link: "",
-  },
-  {
-    name: "Konrad",
-    title: "Akka expert",
-    quote: "Quote of the person that can be a little long",
-    image: "https://avatars.githubusercontent.com/u/6135171?v=4",
-    mascot: mascot2,
-    link: "",
-  },
-  {
-    name: "Enno Runne",
-    title: "Akka expert",
-    quote: "Quote of the person that can be a little long",
-    image: "https://avatars.githubusercontent.com/u/6135171?v=4",
-    mascot: mascot3,
-    link: "",
-  },
-  {
-    name: "Richard Imaoka",
-    title: "Akka expert",
-    quote: "Quote of the person that can be a little long",
-    image: "https://avatars.githubusercontent.com/u/47359?v=4",
-    mascot: mascot4,
-    link: "",
-  },
-];
 export const faqData = [
   {
     title: "Open Source should stay Open Source",

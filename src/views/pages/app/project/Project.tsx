@@ -1,19 +1,27 @@
 import { BaseURL } from "src/App";
 import { PageWrapper } from "../../PageWrapper";
 import WhatWeOffer from "src/views/pages/app/project/elements/WhatWeOffer";
-import Participants from "src/views/pages/app/project/elements/Participants";
+import { Maintainers } from "src/views/pages/app/project/elements/Maintainers";
 import Highlight from "src/views/pages/app/project/elements/HighLight";
-import React from "react";
+import React, { useEffect } from "react";
 import { PageTitle } from "./elements/PageTitle";
 import WhyNeedFunding from "./elements/WhyNeedFunding";
 import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
-import { useRepository } from "../../../hooks";
+import { useMaintainers, useRepository } from "../../../hooks";
+import { getBackendAPI } from "../../../../services";
 
 interface ProjectProps {}
 
 export function Project(props: ProjectProps) {
+  const backendAPI = getBackendAPI();
   const { repositoryId } = useRepositoryContext();
   const { owner, repository, error, reloadRepository } = useRepository(repositoryId);
+  const { maintainers, isLoading, maintainersError, reloadMaintainers } = useMaintainers(repositoryId); // TODO: deal with isLoading and maintainersError and error
+
+  useEffect(() => {
+    reloadRepository();
+    reloadMaintainers();
+  }, []);
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>
@@ -22,7 +30,7 @@ export function Project(props: ProjectProps) {
         <WhatWeOffer />
         <Highlight />
         <WhyNeedFunding />
-        <Participants />
+        <Maintainers maintainers={maintainers} />
       </section>
     </PageWrapper>
   );

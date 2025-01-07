@@ -13,7 +13,7 @@ export interface FundIssueResponse {}
  */
 export interface FundIssueBody {
   companyId?: string;
-  dowAmount: string;
+  milliDowAmount: number;
 }
 
 export interface FundIssueQuery {}

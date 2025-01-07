@@ -11,6 +11,9 @@ import {
   GetIssueResponse,
   GetIssuesParams,
   GetIssuesResponse,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
@@ -26,6 +29,8 @@ import axios from "axios";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
+import { StatusCodes } from "http-status-codes";
+import { maintainers } from "./data";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -82,6 +87,8 @@ export interface BackendAPI {
   getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
 
   getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
+
+  getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -146,5 +153,16 @@ class BackendAPIImpl implements BackendAPI {
 
   async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
     return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
+  }
+
+  async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
+    if (params.owner === "apache" && params.repo === "pekko") {
+      return {
+        maintainers: maintainers,
+      };
+    } else {
+      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+      // return handleError(() => axios.get(`${config.api.url}/github/${params.owner}/${params.repo}/maintainers`, { withCredentials: true }), "getMaintainers");
+    }
   }
 }

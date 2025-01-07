@@ -4,3 +4,4 @@ export * from "./useIssueIdFromParams";
 export * from "./useRepositories";
 export * from "./useRepository";
 export * from "./useRepositoryFromParams";
+export * from "./useMaintainers";

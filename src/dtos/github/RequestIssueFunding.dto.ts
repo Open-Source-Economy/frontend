@@ -7,7 +7,7 @@ export interface RequestIssueFundingParams {
 export interface RequestIssueFundingResponse {}
 
 export interface RequestIssueFundingBody {
-  dowAmount: string;
+  milliDowAmount: number;
 }
 
 export interface RequestIssueFundingQuery {}

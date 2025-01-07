@@ -4,7 +4,7 @@ import { BaseURL } from "src/App";
 import { useRepositories } from "src/views/hooks";
 import { Cards2 } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
-import { repositoryIds } from "src/views/data/repositories";
+import { repositoryIds } from "src/services/data/repositories";
 import { OpenSourceExpertTitle } from "./elements";
 
 interface ProjectsProps {}

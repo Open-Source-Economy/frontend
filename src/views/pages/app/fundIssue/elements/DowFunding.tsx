@@ -36,7 +36,7 @@ export function DowFunding(props: DowFundingProps) {
       };
       const body: FundIssueBody = {
         companyId: auth.authInfo?.company?.id.uuid,
-        dowAmount: counter.toString(),
+        milliDowAmount: counter.toNumber(),
       };
       const query: FundIssueQuery = {};
       try {

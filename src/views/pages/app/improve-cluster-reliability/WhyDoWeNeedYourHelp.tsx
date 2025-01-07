@@ -39,5 +39,3 @@ export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
     </section>
   );
 }
-
-export default WhyDoWeNeedYourHelp;

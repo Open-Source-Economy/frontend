@@ -6,17 +6,17 @@ import { Progress } from "./Progress";
 import VideoPlayer from "./VideoContainer";
 import { LinearBg } from "src/Utils/Icons";
 
-interface FundingCampaignProps {}
+interface FundingCampaignProps {
+  currentAmount: number;
+  targetAmount: number;
+  backers: number;
+  daysLeft: number;
+}
 
 export function FundingCampaign(props: FundingCampaignProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(500);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [donationType, setDonationType] = useState<"once" | "monthly">("monthly");
-
-  const currentAmount = 1400;
-  const targetAmount = 10000;
-  const backers = 250;
-  const daysLeft = 24;
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 flex flex-col">
@@ -46,6 +46,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
               </p>
             </>
           )}
+
           {donationType === "monthly" && (
             <>
               {" "}
@@ -65,7 +66,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
-            <Progress currentAmount={currentAmount} targetAmount={targetAmount} backers={backers} daysLeft={daysLeft} />
+            <Progress currentAmount={props.currentAmount} targetAmount={props.targetAmount} backers={props.backers} daysLeft={props.daysLeft} />
             <DonationControls
               selectedAmount={selectedAmount}
               setSelectedAmount={setSelectedAmount}

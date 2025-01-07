@@ -25,7 +25,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
         number: issueId.number,
       };
       const body: RequestIssueFundingBody = {
-        dowAmount: counter.toString(),
+        milliDowAmount: counter.toNumber(),
       };
       const query: RequestIssueFundingQuery = {};
 

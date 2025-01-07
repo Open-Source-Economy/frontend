@@ -1,16 +1,17 @@
 import React from "react";
-import ParticipantCard from "./ParticipantCard";
+import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
 import { Button } from "src/components";
-import { participants } from "../../whoBuiltIt/elements/Helper";
+import { Maintainer } from "../../../../../dtos";
 
-interface Participants {
-  viewAll?: boolean;
+interface MaintainersProps {
+  maintainers: Maintainer[];
+  viewAllButton?: boolean;
 }
 
-const Participants = ({ viewAll = true }) => {
+export function Maintainers(props: MaintainersProps) {
   return (
     <section className="pb-20 3xl:pb-40 pt-16 relative">
       <img
@@ -38,13 +39,13 @@ const Participants = ({ viewAll = true }) => {
 
         {/* Participants List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-14 sm:gap-8">
-          {participants.map((participant, index) => (
-            <ParticipantCard participant={participant} key={index} />
+          {props.maintainers.map((maintainer, index) => (
+            <ParticipantCard maintainer={maintainer} key={index} />
           ))}
         </div>
 
         {/* View All Button */}
-        {viewAll && (
+        {props.viewAllButton && (
           <div className="relative flex justify-center items-center !mt-7 xl:!mt-14 2xl:!mt-16 3xl:!mt-20">
             <Button audience="ALL" className="cursor-pointer" level="SECONDARY" size="LARGE" asChild>
               <span> View All</span>
@@ -54,6 +55,4 @@ const Participants = ({ viewAll = true }) => {
       </div>
     </section>
   );
-};
-
-export default Participants;
+}

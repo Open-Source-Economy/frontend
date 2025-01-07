@@ -1,4 +1,5 @@
 import { ValidationError, Validator } from "../error";
+import { RepositoryId } from "../github";
 
 export class StripeProductId {
   id: string;
@@ -24,48 +25,43 @@ export class StripeProductId {
   }
 }
 
+export enum ProductType {
+  milliDow = "milli_dow",
+  donation = "donation",
+}
+
 export class StripeProduct {
   stripeId: StripeProductId;
-  unit: string;
-  unitAmount: number; // TODO: should be an integer
-  recurring: boolean;
+  repositoryId: RepositoryId | null;
+  type: ProductType;
 
-  constructor(stripeId: StripeProductId, unit: string, unitAmount: number, recurring: boolean) {
+  constructor(stripeId: StripeProductId, repositoryId: RepositoryId | null, type: ProductType) {
     this.stripeId = stripeId;
-    this.unit = unit;
-    this.unitAmount = unitAmount;
-    this.recurring = recurring;
-  }
-
-  // Method to create a StripeProduct from a JSON response from the Stripe API
-  static fromStripeApi(json: any): StripeProduct | ValidationError {
-    const validator = new Validator(json);
-    validator.requiredString("id");
-    validator.requiredString("unit");
-    validator.requiredNumber("unit_amount");
-    validator.requiredBoolean("recurring");
-
-    const error = validator.getFirstError();
-    if (error) {
-      return error;
-    }
-
-    return new StripeProduct(new StripeProductId(json.id), json.unit, json.unit_amount, json.recurring);
+    this.repositoryId = repositoryId;
+    this.type = type;
   }
 
   // Method to create a StripeProduct from a database row
   static fromBackend(row: any): StripeProduct | ValidationError {
     const validator = new Validator(row);
-    validator.requiredString("stripe_id");
-    validator.requiredString("unit");
-    validator.requiredNumber("unit_amount");
-    validator.requiredBoolean("recurring");
+    const stripeId = validator.requiredString("stripe_id");
+    const repositoryId = RepositoryId.fromBackendForeignKey(row);
+
+    const type = validator.requiredEnum("type", Object.values(ProductType) as ProductType[]);
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new StripeProduct(new StripeProductId(row.stripe_id), row.unit, row.unit_amount, row.recurring);
+    // TODO: Implement the optionality properly
+    let repositoryIdValue: RepositoryId | null;
+    if (repositoryId instanceof ValidationError) {
+      repositoryIdValue = null;
+    } else {
+      repositoryIdValue = repositoryId;
+    }
+
+    return new StripeProduct(new StripeProductId(stripeId), repositoryIdValue, type);
   }
 }

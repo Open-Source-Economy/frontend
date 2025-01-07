@@ -1,7 +1,14 @@
 import { ValidationError, Validator } from "../error";
+import { StripeProductId } from "./StripeProduct";
+import { Currency } from "./Currency";
+
+export enum PriceType {
+  RECURRING = "recurring",
+  ONE_TIME = "one_time",
+}
 
 export class StripePriceId {
-  id: string;
+  private readonly id: string;
 
   constructor(id: string) {
     this.id = id;
@@ -26,43 +33,63 @@ export class StripePriceId {
 
 export class StripePrice {
   stripeId: StripePriceId;
-  currency: string;
-  /** The unit amount in cents to be charged */
-  unitAmount: number; // TODO: should be an integer
+  productId: StripeProductId;
+  unitAmount: number; // in cents
+  currency: Currency;
+  active: boolean;
+  type: PriceType;
 
-  constructor(stripeId: StripePriceId, currency: string, unitAmount: number) {
+  constructor(stripeId: StripePriceId, productId: StripeProductId, unitAmount: number, currency: Currency, active: boolean, type: PriceType) {
     this.stripeId = stripeId;
-    this.currency = currency;
+    this.productId = productId;
     this.unitAmount = unitAmount;
+    this.currency = currency;
+    this.active = active;
+    this.type = type;
   }
 
-  // Method to create a StripePrice from a JSON response from the Stripe API
+  /**
+   * Parse a StripePrice from an external Stripe API JSON response if needed.
+   * Adjust field mappings as needed based on Stripe's actual API shape.
+   */
   static fromStripeApi(json: any): StripePrice | ValidationError {
     const validator = new Validator(json);
-    validator.requiredString("id");
-    validator.requiredString("currency");
-    validator.requiredNumber("unit_amount");
 
+    const id = validator.requiredString("id");
+    const product = validator.requiredString("product"); // The "product" field in Stripe's price object
+    const unitAmount = validator.requiredNumber("unit_amount");
+    const currency = validator.requiredEnum("currency", Object.values(Currency) as Currency[]);
+    const active = validator.requiredBoolean("active");
+    let type = PriceType.ONE_TIME;
+    if (json.recurring) {
+      type = PriceType.RECURRING;
+    }
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new StripePrice(new StripePriceId(json.id), json.currency, json.unit_amount);
+    return new StripePrice(new StripePriceId(id), new StripeProductId(product), unitAmount, currency, active, type);
   }
 
-  // Method to create a StripePrice from a database row
+  /**
+   * Parse a StripePrice from a database row.
+   */
   static fromBackend(row: any): StripePrice | ValidationError {
     const validator = new Validator(row);
-    validator.requiredString("stripe_id");
-    validator.requiredString("currency");
-    validator.requiredNumber("unit_amount");
+
+    const id = validator.requiredString("stripe_id");
+    const productId = validator.requiredString("product_id"); // The "product" field in Stripe's price object
+    const unitAmount = validator.requiredNumber("unit_amount");
+    const currency = validator.requiredEnum("currency", Object.values(Currency) as Currency[]);
+    const active = validator.requiredBoolean("active");
+    const type = validator.requiredEnum("type", Object.values(PriceType) as PriceType[]);
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new StripePrice(new StripePriceId(row.stripe_id), row.currency, row.unit_amount);
+    return new StripePrice(new StripePriceId(id), new StripeProductId(productId), unitAmount, currency, active, type);
   }
 }
