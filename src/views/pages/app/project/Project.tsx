@@ -8,12 +8,10 @@ import { PageTitle } from "./elements/PageTitle";
 import WhyNeedFunding from "./elements/WhyNeedFunding";
 import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
 import { useMaintainers, useRepository } from "../../../hooks";
-import { getBackendAPI } from "../../../../services";
 
 interface ProjectProps {}
 
 export function Project(props: ProjectProps) {
-  const backendAPI = getBackendAPI();
   const { repositoryId } = useRepositoryContext();
   const { owner, repository, error, reloadRepository } = useRepository(repositoryId);
   const { maintainers, isLoading, maintainersError, reloadMaintainers } = useMaintainers(repositoryId); // TODO: deal with isLoading and maintainersError and error

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindScrollbar from "tailwind-scrollbar";
 const config = {
   content: ["./public/index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -96,7 +97,7 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindScrollbar],
 };
 
 export default config;
