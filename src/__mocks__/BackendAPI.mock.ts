@@ -35,7 +35,7 @@ import {
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
-import { maintainers } from "../services/data";
+import { pekkoMaintainers } from "../services/data";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -105,7 +105,7 @@ export class BackendAPIMock implements BackendAPI {
 
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     return {
-      maintainers: maintainers,
+      maintainers: pekkoMaintainers,
     };
   }
 }

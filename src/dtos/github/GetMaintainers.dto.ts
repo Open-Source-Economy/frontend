@@ -1,17 +1,21 @@
 // TODO: to implement
 
+import { ReactNode } from "react";
+
 export interface GetMaintainersParams {
   owner: string;
   repo: string;
 }
 
 export interface Maintainer {
-  name: string;
-  title: string;
-  quote: string;
-  image: string;
+  displayName: string;
+  githubUsername: string;
+  githubAvatar: string;
+  githubPage: string;
+  title: ReactNode | string;
+  quote?: string;
   mascot: string;
-  link: string;
+  mascotAlt: ReactNode;
 }
 
 export interface GetMaintainersResponse {
