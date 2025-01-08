@@ -8,8 +8,19 @@ import WhyTrustUs from "./WhyTrustUs";
 import AQuestion from "./AQuestion";
 import FundingCampaign from "./FundingCampaign";
 import Participants from "../project/elements/Participants";
+import { useRepository } from "../../../hooks";
+import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
+
 interface ImproveReliabilityProps {}
+
 export function ImproveReliability(props: ImproveReliabilityProps) {
+  const { repositoryId } = useRepositoryContext();
+  const { repository, error, reloadRepository } = useRepository(repositoryId);
+
+  // useEffect(() => {
+  //   reloadRepository();
+  // }, []);
+
   return (
     <>
       <PageWrapper baseURL={BaseURL.APP}>

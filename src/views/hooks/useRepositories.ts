@@ -4,6 +4,7 @@ import { GetRepositoryParams, GetRepositoryQuery } from "src/dtos";
 import { Owner, Repository, RepositoryId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
+// TODO: optimize this function to fetch all repositories in one request
 export function useRepositories(repositoryIds: RepositoryId[]) {
   const backendAPI = getBackendAPI();
 

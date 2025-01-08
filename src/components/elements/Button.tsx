@@ -103,7 +103,7 @@ const buttonVariants = cva(
         className: cn(AUDIENCE_COLORS.STAKEHOLDER.secondary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
       },
     ],
-  }
+  },
 );
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -136,7 +136,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </Comp>
       </div>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

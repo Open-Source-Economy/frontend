@@ -13,7 +13,11 @@ import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/components/common/Loading";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import catimg from "../../../../assets/Mascot.png";
+=======
+import catimg from "src/assets/Mascot.png";
+>>>>>>> 00121b9 (Refactor issues or repository pages)
 import { ShowApiError } from "../../../../components/common/ShowApiError";
 import { StatusCodes } from "http-status-codes";
 =======

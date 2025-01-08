@@ -7,19 +7,20 @@ import { useFinancialIssue, useIssueIdFromParams } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
 import { Title } from "src/components";
+import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface FundIssueProps {}
 
 export function FundIssue({}: FundIssueProps) {
   const audience = Audience.USER;
 
-  const issueId = useIssueIdFromParams();
+  const { issueId } = useIssueContext();
   const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
   const [modal, setModal] = useState(false);
 
-  useEffect(() => {
-    reloadFinancialIssue();
-  }, []);
+  // useEffect(() => {
+  //   reloadFinancialIssue();
+  // }, []);
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>

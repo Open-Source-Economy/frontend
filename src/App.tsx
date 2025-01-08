@@ -34,9 +34,14 @@ import { PageNotFound } from "./views/pages/PageNotFound";
 <<<<<<< HEAD
 import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
+<<<<<<< HEAD
 =======
 import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
 >>>>>>> 9b1abe0 (add improve-cluster-page)
+=======
+import { IssueRoutes } from "./views/layout/IssueRoutes";
+import { RepositoryRoutes } from "./views/layout/RepositoryRoutes";
+>>>>>>> 00121b9 (Refactor issues or repository pages)
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -73,7 +78,10 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
-            <Route path="/improve-reliability" element={<ImproveReliability />} />
+            <Route element={<RepositoryRoutes />}>
+              <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+            </Route>
+
             <Route path="/project" element={<Project />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
@@ -105,8 +113,10 @@ const App = () => {
             <Route path="/issues" element={<IssuesRoute />} />
             <Route path="/fund-issues" element={<Issues audience={Audience.USER} />} />
             <Route path="/manage-issues" element={<Issues audience={Audience.DEVELOPER} />} />
-            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
-            <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
+            <Route element={<IssueRoutes />}>
+              <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/manage`} element={<ManageIssue />} />
+              <Route path={`/:${ownerParam}/:${repoParam}/issues/:${numberParam}/fund`} element={<FundIssue />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<PageNotFound home={BaseURL.WEBSITE} />} />
