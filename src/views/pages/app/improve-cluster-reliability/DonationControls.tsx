@@ -59,13 +59,15 @@ export function DonationControls(props: DonationControlsProps) {
     <>
       <div className="my-6 2xl:my-7 3xl:my-10">
         <div className="relative">
-          <div className="flex !flex-wrap sm:!flex-nowrap !gap-5 max-w-[97%] sm:max-w-full">
+          <div className="flex !flex-wrap sm:!flex-nowrap !gap-5 xl:!gap-2 max-w-[97%] sm:max-w-full">
             <Button
               onClick={() => handleDonationTypeChange("once")}
               parentClassName="w-full"
-              className={`!w-full !font-montserrat !font-medium !capitalize hover:bg-!transparent !text-primary-user`}
-              audience="USER"
-              level="SECONDARY"
+              className={`!w-full !font-montserrat !font-medium !capitalize !text-base 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl hover:!text-white   ${
+                props.donationType === "once" ? "after:hover:!opacity-0 !border-none !text-white  pointer-events-none" : "!text-primary-user"
+              }`}
+              audience={props.donationType === "once" ? "ALL" : "USER"}
+              level={props.donationType === "once" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
             >
               Give Once
@@ -74,9 +76,11 @@ export function DonationControls(props: DonationControlsProps) {
             <Button
               onClick={() => handleDonationTypeChange("monthly")}
               parentClassName="w-full"
-              className={`!w-full !font-montserrat !font-medium !capitalize after:hover:opacity-0`}
-              audience="ALL"
-              level="PRIMARY"
+              className={`!w-full !font-montserrat !font-medium !capitalize !text-base hover:!text-white 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl  ${
+                props.donationType === "monthly" ? "after:hover:!opacity-0 !border-none !text-white pointer-events-none" : "!text-primary-user"
+              }`}
+              audience={props.donationType === "monthly" ? "ALL" : "USER"}
+              level={props.donationType === "monthly" ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
               icon={<HeartIcon />}
             >
@@ -84,14 +88,14 @@ export function DonationControls(props: DonationControlsProps) {
             </Button>
           </div>
           {props.donationType === "once" && (
-            <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-[80%] z-50 2xl:top-1/2">
+            <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-1/2">
               <PointingArrow />
             </span>
           )}
         </div>
 
-        <div className="flex rounded-[15px] py-3 !px-4 sm:!px-[19px] bg-[#3E2946] max-w-[97%] sm:max-w-full mt-3 3xl:!mt-6">
-          <h1 className="text-sm sm:text-base 1600:text-lg 3xl:text-xl lg:max-w-[90%] w-full text-primary-user font-montserrat">
+        <div className="flex rounded-[15px] py-3 !px-4 sm:!px-[19px] bg-[#3E2946] w-full sm:max-w-full mt-3 3xl:!mt-6">
+          <h1 className="text-sm sm:text-base 1600:text-lg 3xl:text-xl lg:max-w-[90%] 3xl:max-w-[97%] w-full text-primary-user font-montserrat">
             Giving monthly is an easy, effective way to be a hero for nature 365 days a year!
           </h1>
         </div>
@@ -137,7 +141,7 @@ export function DonationControls(props: DonationControlsProps) {
         disabled={!isValidAmount()}
         audience="USER"
         level="PRIMARY"
-        className="w-full !font-bold !font-montserrat !capitalize overflow-hidden cursor-pointer mt-4"
+        className="w-full !font-bold !font-montserrat lg:!text-xl 3xl:!text-2xl 3xl:!h-[70px] !capitalize overflow-hidden cursor-pointer mt-4"
         size="LARGE"
       >
         {isValidAmount()
