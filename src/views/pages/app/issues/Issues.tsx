@@ -12,9 +12,12 @@ import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/components/common/Loading";
+<<<<<<< HEAD
 import catimg from "../../../../assets/Mascot.png";
 import { ShowApiError } from "../../../../components/common/ShowApiError";
 import { StatusCodes } from "http-status-codes";
+=======
+>>>>>>> 4aac0c5 (Fix: who build it and images)
 
 interface IssuesProps {
   audience: Audience;
