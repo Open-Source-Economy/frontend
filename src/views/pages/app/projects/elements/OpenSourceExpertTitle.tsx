@@ -1,5 +1,5 @@
 import React from "react";
-import whoBuiltHero from "src/assets/Rectangle.png";
+import whoBuiltHero from "src/assets/hero-bg.webp";
 
 interface OpenSourceExpertTitleProps {}
 

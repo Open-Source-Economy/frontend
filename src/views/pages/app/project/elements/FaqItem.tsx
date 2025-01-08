@@ -21,7 +21,6 @@ const FaqItem: React.FC<FaqItemProps> = ({ faq, isOpen, index, onToggle }) => (
       <span className="duration-300 transform transition-transform">{isOpen ? <MinusIcon /> : <PlusIcon />}</span>
     </button>
 
-    {/* {isOpen && <div className="px-6 pb-4 text-xl opacity-80">{faq.content}</div>} */}
     <AnimateHeight duration={500} height={isOpen ? "auto" : 0} easing="ease-in-out">
       {" "}
       <div className="!px-4 sm:!px-6 pb-4 text-sm md:text-base xl:text-lg 3xl:text-xl opacity-80">{faq.content}</div>

@@ -1,5 +1,5 @@
 import offerLeftLinear from "src/assets/offer-linear.webp";
-import rightLinear from "src/assets/right-linear-bg.png";
+import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
 import WhatWeOfferCard from "./WhatWeOfferCard";
 import { whatWeOfferData } from "../../whoBuiltIt/elements/Helper";

@@ -1,6 +1,6 @@
 import React from "react";
 import loader from "src/assets/loader.png";
-import whoBuiltHero from "src/assets/Rectangle.png";
+import whoBuiltHero from "src/assets/hero-bg.webp";
 import { MascotIcon } from "src/Utils/Icons";
 
 interface LoadingProps {

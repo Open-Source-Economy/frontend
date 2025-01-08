@@ -1,8 +1,8 @@
 import React from "react";
 import ServiceBox from "./ServiceBox";
-import rightLinear from "src/assets/right-linear-bg.png";
+import rightLinear from "src/assets/right-linear-bg.webp";
 import { services } from "./Helper";
-import leftlinear from "src/assets/left-linear-bg.png";
+import leftlinear from "src/assets/left-linear-bg.webp";
 
 const Services = () => {
   return (
