@@ -31,8 +31,12 @@ import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } fro
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
+<<<<<<< HEAD
 import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
+=======
+import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
+>>>>>>> 9b1abe0 (add improve-cluster-page)
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -69,6 +73,7 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
+            <Route path="/improve-reliability" element={<ImproveReliability />} />
             <Route path="/project" element={<Project />} />
             <Route path="/buy-dows" element={<Payment />} />
           </Route>

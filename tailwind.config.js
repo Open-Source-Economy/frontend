@@ -68,10 +68,12 @@ const config = {
       },
       backgroundImage: {
         "gradient-custom": "linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%)",
+        "sunset-glow-gradient": " linear-gradient(270deg, #AC3556 0%, #E78031 45.1%, #5935A1 100%)",
       },
       boxShadow: {
         "custom-double-left-right": "10px 0px 15px rgba(105, 51, 155, 0.7), -10px 0px 15px rgba(255, 126, 75, 0.7)",
         c2: "1px 4px 37px 0px rgba(11, 24, 41, 0.20)",
+        imgShadow: "5px 8px 10px 0px rgba(255, 255, 255, 0.08) inset",
       },
       keyframes: {
         slideInDown: {

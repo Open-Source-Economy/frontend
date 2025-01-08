@@ -10,7 +10,7 @@ import primaryProblemsSrc from "src/assets/btn2.png";
 import { SolutionProps } from "../elements/Solution";
 import { UserDeveloperProps } from "src/views";
 import { Audience } from "../../../../Audience"; // Do not change the import to src/, it does not work
-import devBg from "src/assets/developer-bg.png";
+import devBg from "src/assets/developer-bg.webp";
 import img1 from "src/assets/source.png";
 
 const audience = Audience.DEVELOPER;
