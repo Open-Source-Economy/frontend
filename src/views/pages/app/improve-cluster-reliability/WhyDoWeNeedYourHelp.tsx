@@ -16,7 +16,7 @@ const WhyDoWeNeedYourHelp = () => {
         <img src={needHelp} alt="" className="object-cover relative z-20" />
       </div>
       <div className="max-w-[640px] 2xl:max-w-[600px] w-full 3xl:max-w-[728px] relative z-20">
-        <h1 className="text-2xl 2xl:text-[32px] 3xl:text-[40px] pb-3 lg:!pb-5 3xl:!pb-7 w-fit relative font-semibold font-montserrat sm:text-nowrap">
+        <h1 className="text-2xl 1400:text-[32px] 3xl:text-[40px] pb-3 lg:!pb-5 3xl:!pb-7 w-fit relative font-semibold font-montserrat sm:text-nowrap">
           <span className="absolute sm:inline hidden left-0 w-[37%] bottom-0 h-1 3xl:h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
           Why Do We Need Your Help?
         </h1>
