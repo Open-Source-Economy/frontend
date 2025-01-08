@@ -25,14 +25,14 @@ const FundingCampaign: React.FC = () => {
       </span>
       <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto flex justify-center xl:justify-between xl:!flex-nowrap flex-wrap gap-7 2xl:gap-10 3xl:gap-14">
         {/* Left Section */}
-        <div className="max-w-[800px] relative z-10 w-full xl:!w-[59%] 3xl:w-[817px] mx-auto xl:!mx-0">
+        <div className="max-w-[800px] relative z-10 w-full xl:!w-[59%] 3xl:max-w-[817px] mx-auto xl:!mx-0">
           <h4 className="py-2.5 flex justify-center mx-auto xl:!mx-0 items-center rounded-full bg-primary-user text-sm md:text-base lg:text-lg font-montserrat 2xl:text-xl 3xl:text-[25px] max-w-[170px] sm:max-w-[200px] lg:max-w-[270px] 3xl:max-w-[315px] w-full">
             Funding Campaign
           </h4>
           {donationType === "once" && (
             <>
               {" "}
-              <h2 className="text-3xl md:text-4xl xl:text-[44px] !leading-[129%] 1300:text-5xl 1600:text-[52px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-6 3xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
+              <h2 className="text-3xl md:text-4xl xl:text-[44px] !leading-[129%] 1300:text-5xl 1700:text-[52px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-6 3xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
                 Improve Cluster Reliability
                 <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
               </h2>{" "}

@@ -31,7 +31,7 @@ const Participants = ({ viewAll = true }) => {
 
       <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
         {/* Title */}
-        <h2 className="section-heading mx-auto lg:!pb-8 w-fit relative mb-10 md:mb-14">
+        <h2 className="section-heading mx-auto lg:!pb-6 3xl:!pb-8 w-fit relative mb-10 md:mb-14">
           Who is Participating?
           <span className="absolute w-[50%] h-1 3xl:h-[6px] hidden lg:inline left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
         </h2>
