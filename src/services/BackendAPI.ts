@@ -115,7 +115,7 @@ class BackendAPIImpl implements BackendAPI {
   async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const response = await handleError<GetIssuesResponse>(
       () => axios.get(`${config.api.url}/github/all-financial-issues`, { withCredentials: true }),
-      "getAllFinancialIssues"
+      "getAllFinancialIssues",
     );
     if (response instanceof ApiError) return response;
     else return response.issues;
@@ -147,7 +147,8 @@ class BackendAPIImpl implements BackendAPI {
 
   async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
+      () =>
+        axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
       "requestFunding",
     );
   }
