@@ -1,5 +1,5 @@
 export * from "./AQuestion";
-export * from "./CompanyBanner";
+export * from "./NonProfitBanner";
 export * from "./summary/FeatureList";
 export * from "./FundingCampaign";
 export * from "./ListItem";

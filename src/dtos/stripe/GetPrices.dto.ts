@@ -14,7 +14,7 @@ export interface Price {
 
 export interface GetPricesResponse {
   // prices: Record<ProductType, Record<Currency, Price[]>>;
-  prices: Record<PriceType, Record<Currency, Record<ProductType, Price>>>;
+  prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
 }
 
 export interface GetPricesBody {}

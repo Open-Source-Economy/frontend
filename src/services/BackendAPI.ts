@@ -17,6 +17,9 @@ import {
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
+  GetPricesParams,
+  GetPricesQuery,
+  GetPricesResponse,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
@@ -89,6 +92,8 @@ export interface BackendAPI {
   getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
 
   getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError>;
+
+  getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -140,11 +145,11 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
@@ -164,5 +169,9 @@ class BackendAPIImpl implements BackendAPI {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
       // return handleError(() => axios.get(`${config.api.url}/github/${params.owner}/${params.repo}/maintainers`, { withCredentials: true }), "getMaintainers");
     }
+  }
+
+  async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError> {
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 }

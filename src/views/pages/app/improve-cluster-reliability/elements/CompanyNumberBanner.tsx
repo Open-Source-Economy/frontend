@@ -1,33 +1,14 @@
 import React from "react";
-import { CodeIcon, DollarSign, MascotIcon } from "src/Utils/Icons";
+import { MascotIcon } from "../../../../../Utils/Icons";
 
-interface CompanyBannerProps {
+interface CompanyNumberBannerProps {
   leftButtonText: string;
   rightButtonText: string;
 }
 
-export function CompanyBanner(props: CompanyBannerProps) {
+export function CompanyNumberBanner(props: CompanyNumberBannerProps) {
   return (
     <>
-      {/* Top Bar */}
-      <div className="flex flex-wrap md:!flex-nowrap justify-between gap-3 xl:gap-8 !px-4 3xl:!px-8 my-6 3xl:my-8">
-        <div className="flex items-center gap-1.5 3xl:gap-2.5">
-          <span className="max-w-6 2xl:max-w-7 3xl:max-w-9">
-            {" "}
-            <DollarSign />
-          </span>
-          <span className="font-michroma text-base 2xl:text-lg 3xl:text-xl text-nowrap">100% not profit</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="max-w-6 2xl:max-w-7 3xl:max-w-9">
-            {" "}
-            <CodeIcon />
-          </span>
-          <span className="font-michroma text-base 2xl:text-lg 3xl:text-xl text-nowrap">100% open source</span>
-        </div>
-      </div>
-
-      {/* Main Content */}
       <div className="relative bg-[url('src/assets/company-banner.webp')] bg-cover py-[22px] !px-4 3xl:px-[30px] flex !gap-3 3xl:!gap-4 500:flex-row flex-col rounded-[25px] overflow-hidden items-center justify-center">
         <div className="flex flex-col items-center gap-1.5 3xl:gap-2.5">
           <h2 className="text-base 1600:text-lg font-montserrat text-nowrap 3xl:text-[22px] font-bold">We are looking for</h2>

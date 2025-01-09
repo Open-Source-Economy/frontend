@@ -1,5 +1,6 @@
 import {
   ContributorVisibility,
+  Currency,
   FinancialIssue,
   IssueFunding,
   IssueFundingId,
@@ -7,6 +8,11 @@ import {
   ManagedIssue,
   ManagedIssueId,
   ManagedIssueState,
+  PriceType,
+  ProductType,
+  StripePrice,
+  StripePriceId,
+  StripeProductId,
   UserId,
 } from "src/model";
 import { BackendAPI } from "src/services";
@@ -26,9 +32,13 @@ import {
   GetOwnerParams,
   GetOwnerQuery,
   GetOwnerResponse,
+  GetPricesParams,
+  GetPricesQuery,
+  GetPricesResponse,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
+  Price,
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
@@ -106,6 +116,53 @@ export class BackendAPIMock implements BackendAPI {
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     return {
       maintainers: pekkoMaintainers,
+    };
+  }
+
+  async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<ApiError | GetPricesResponse> {
+    const stripePrice: StripePrice = {
+      stripeId: new StripePriceId("StripePriceId"),
+      productId: new StripeProductId("StripeProductId"),
+      active: false,
+      currency: Currency.CHF,
+      unitAmount: 20,
+      type: PriceType.ONE_TIME,
+    };
+
+    // Helper function to create a Price object
+    function createPrice(stripePrice: StripePrice): Price {
+      return {
+        totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
+        quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
+        label: "Random label", // Add meaningful labels if needed
+        price: stripePrice,
+      };
+    }
+
+    const prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>> = {} as any;
+
+    for (const priceType of Object.values(PriceType)) {
+      if (!prices[priceType]) {
+        prices[priceType] = {} as any;
+      }
+
+      for (const currency of Object.values(Currency)) {
+        if (!prices[priceType][currency]) {
+          prices[priceType][currency] = {} as any;
+        }
+
+        for (const productType of Object.values(ProductType)) {
+          const priceArray: Price[] = [];
+          for (let i = 0; i < 5; i++) {
+            priceArray.push(createPrice(stripePrice));
+          }
+          prices[priceType][currency][productType] = priceArray;
+        }
+      }
+    }
+
+    return {
+      prices: prices,
     };
   }
 }

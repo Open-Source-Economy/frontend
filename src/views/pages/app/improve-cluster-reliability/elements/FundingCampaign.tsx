@@ -1,23 +1,17 @@
-import React, { useState } from "react";
-import { CompanyBanner } from "./CompanyBanner";
+import React from "react";
+import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
 import { LinearBg } from "src/Utils/Icons";
-import { PriceType } from "src/model";
+import { Currency, RepositoryId } from "src/model";
 import { Summary, SummaryType } from "./summary";
 
 interface FundingCampaignProps {
-  currentAmount: number;
-  targetAmount: number;
-  backers: number;
-  daysLeft: number;
+  repositoryId: RepositoryId;
+  preferredCurrency: Currency;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
-  const [selectedAmount, setSelectedAmount] = useState<number>(500);
-  const [customAmount, setCustomAmount] = useState<string>("");
-  const [donationType, setDonationType] = useState<PriceType>(PriceType.RECURRING);
-
   const summaryType: SummaryType = SummaryType.ONE;
 
   return (
@@ -40,17 +34,10 @@ export function FundingCampaign(props: FundingCampaignProps) {
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
-            <Progress currentAmount={props.currentAmount} targetAmount={props.targetAmount} backers={props.backers} daysLeft={props.daysLeft} />
-            <PaymentControls
-              selectedAmount={selectedAmount}
-              setSelectedAmount={setSelectedAmount}
-              customAmount={customAmount}
-              setCustomAmount={setCustomAmount}
-              donationType={donationType}
-              setDonationType={setDonationType}
-            />
+            <Progress />
+            <PaymentControls repositoryId={props.repositoryId} preferredCurrency={props.preferredCurrency} />
           </div>
-          <CompanyBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />
+          <NonProfitBanner />
         </div>
       </div>
     </section>
