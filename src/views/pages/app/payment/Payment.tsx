@@ -27,8 +27,9 @@ export function Payment(props: PaymentProps) {
   // }, [activeBox]);
 
   return (
-    <div className="py-16 px-3 flex items-center justify-center mx-auto flex-col">
+    <div className="py-16 px-3 flex items-center mx-auto flex-col max-w-[1638px] w-full">
       <div
+        className="w-full"
         style={{
           backgroundImage: `url(${bg})`,
           backgroundPosition: "center",
@@ -38,8 +39,8 @@ export function Payment(props: PaymentProps) {
       >
         <h1 className="text-[45px] sm:text-[45px] md:text-[62px] text-white text-center">Buy DoW</h1>
 
-        <div className=" row items-start justify-center md:mt-24 mt-10 ">
-          <div className="col-lg-7 col-xxl-7">
+        <div className=" flex lg:flex-row flex-col lg:items-start items-center justify-center md:mt-24 mt-10  w-full 3xl:!gap-[109px] 2xl:!gap-20 lg:!gap-16 gap-0 ">
+          <div className="lg:max-w-[805px] w-full">
             <h2 className="text-3xl md:text-4xl text-white text-center">Payment option</h2>
 
             <div className="flex flex-column items-center  flex-xxl-row 2xl:items-end  gap-3 mt-5 ">
@@ -55,7 +56,7 @@ export function Payment(props: PaymentProps) {
               ></PaymentOptions>
             </div>
 
-            <div className="flex w-[340px]  md:w-[85%] gap-2 lg:w-[60%] xl:w-[55%]  mx-auto my-5 items-center justify-between bg-[#14233A] rounded-[30px] p-4 ">
+            <div className="flex w-[340px]  md:w-[85%] gap-2 lg:w-[72%] xl:w-[62%] mx-auto my-5 items-center justify-between bg-[#14233A] rounded-[30px] p-4 ">
               <h2 className="lg:text-[18px] text-sm">
                 What DoWs are <br /> used for?{" "}
               </h2>
