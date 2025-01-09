@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import faqImage from "src/assets/faq.webp";
-import FaqItem from "./FaqItem";
+import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
 import faq from "src/assets/faq-bg.webp";
 import { faqData } from "../../whoBuiltIt/elements/Helper";
 
-const WhyNeedFunding: React.FC = () => {
+interface WhyNeedFundingProps {}
+
+export function WhyNeedFunding(props: WhyNeedFundingProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number): void => {
@@ -50,6 +52,4 @@ const WhyNeedFunding: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default WhyNeedFunding;
+}

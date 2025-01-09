@@ -25,7 +25,7 @@ import {
   Payment,
   Pdf,
   UserDeveloper,
-  userProps
+  userProps,
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";

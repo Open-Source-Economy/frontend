@@ -2,17 +2,21 @@ import React from "react";
 import { Button } from "src/components";
 import { DonationSelector } from "./DonationSelector";
 import { HeartIcon, PointingArrow } from "src/Utils/Icons";
+import { Currency, PriceType, ProductType } from "src/model";
+import { Price } from "src/dtos";
 
-interface DonationControlsProps {
+let pricesd: Record<PriceType, Record<Currency, Record<ProductType, Price>>>;
+
+interface PaymentControlsProps {
   selectedAmount: number;
   setSelectedAmount: React.Dispatch<React.SetStateAction<number>>;
   customAmount: string;
   setCustomAmount: React.Dispatch<React.SetStateAction<string>>;
-  donationType: "once" | "monthly";
-  setDonationType: React.Dispatch<React.SetStateAction<"once" | "monthly">>;
+  donationType: PriceType;
+  setDonationType: React.Dispatch<React.SetStateAction<PriceType>>;
 }
 
-export function DonationControls(props: DonationControlsProps) {
+export function PaymentControls(props: PaymentControlsProps) {
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     props.setCustomAmount(value);
@@ -41,7 +45,7 @@ export function DonationControls(props: DonationControlsProps) {
     { value: 1000, label: "For big companies" },
     { value: 2000, label: "AMAZING!!!" },
   ];
-  const amounts = props.donationType === "once" ? amountsOnce : amountsMonthly;
+  const amounts = props.donationType === PriceType.ONE_TIME ? amountsOnce : amountsMonthly;
   // Handle predefined amount selection
   const handleAmountSelect = (amount: number) => {
     props.setSelectedAmount(amount);
@@ -49,7 +53,7 @@ export function DonationControls(props: DonationControlsProps) {
   };
 
   // Handle donation type change
-  const handleDonationTypeChange = (type: "once" | "monthly") => {
+  const handleDonationTypeChange = (type: PriceType) => {
     props.setDonationType(type);
     props.setSelectedAmount(0); // Reset amount when switching donation type
     props.setCustomAmount(""); // Reset custom amount when switching donation type
@@ -61,33 +65,33 @@ export function DonationControls(props: DonationControlsProps) {
         <div className="relative">
           <div className="flex !flex-wrap sm:!flex-nowrap !gap-5 xl:!gap-2 max-w-[97%] sm:max-w-full">
             <Button
-              onClick={() => handleDonationTypeChange("once")}
+              onClick={() => handleDonationTypeChange(PriceType.ONE_TIME)}
               parentClassName="w-full"
               className={`!w-full !font-montserrat !font-medium !capitalize !text-base 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl hover:!text-white   ${
-                props.donationType === "once" ? "after:hover:!opacity-0 !border-none !text-white  pointer-events-none" : "!text-primary-user"
+                props.donationType === PriceType.ONE_TIME ? "after:hover:!opacity-0 !border-none !text-white  pointer-events-none" : "!text-primary-user"
               }`}
-              audience={props.donationType === "once" ? "ALL" : "USER"}
-              level={props.donationType === "once" ? "PRIMARY" : "SECONDARY"}
+              audience={props.donationType === PriceType.ONE_TIME ? "ALL" : "USER"}
+              level={props.donationType === PriceType.ONE_TIME ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
             >
               Give Once
             </Button>
 
             <Button
-              onClick={() => handleDonationTypeChange("monthly")}
+              onClick={() => handleDonationTypeChange(PriceType.RECURRING)}
               parentClassName="w-full"
               className={`!w-full !font-montserrat !font-medium !capitalize !text-base hover:!text-white 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl  ${
-                props.donationType === "monthly" ? "after:hover:!opacity-0 !border-none !text-white pointer-events-none" : "!text-primary-user"
+                props.donationType === PriceType.RECURRING ? "after:hover:!opacity-0 !border-none !text-white pointer-events-none" : "!text-primary-user"
               }`}
-              audience={props.donationType === "monthly" ? "ALL" : "USER"}
-              level={props.donationType === "monthly" ? "PRIMARY" : "SECONDARY"}
+              audience={props.donationType === PriceType.RECURRING ? "ALL" : "USER"}
+              level={props.donationType === PriceType.RECURRING ? "PRIMARY" : "SECONDARY"}
               size="LARGE"
               icon={<HeartIcon />}
             >
               Give Monthly
             </Button>
           </div>
-          {props.donationType === "once" && (
+          {props.donationType === PriceType.ONE_TIME && (
             <span className="absolute -right-5 sm:-right-8 2xl:-right-10 3xl:-right-11 top-[90%] sm:top-[40%] xl:top-1/2">
               <PointingArrow />
             </span>
@@ -115,7 +119,7 @@ export function DonationControls(props: DonationControlsProps) {
           >
             <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
               ${amount.value}
-              {props.donationType === "monthly" ? "/mo" : ""}
+              {props.donationType === PriceType.RECURRING ? "/mo" : ""}
             </h5>
             <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{amount.label}</h6>
           </button>
@@ -145,11 +149,9 @@ export function DonationControls(props: DonationControlsProps) {
         size="LARGE"
       >
         {isValidAmount()
-          ? `Donate $${props.selectedAmount.toLocaleString()} ${props.donationType === "monthly" ? "Monthly" : ""}`
+          ? `Donate $${props.selectedAmount.toLocaleString()} ${props.donationType === PriceType.RECURRING ? "Monthly" : ""}`
           : "Select an amount to donate"}
       </Button>
     </>
   );
 }
-
-export default DonationControls;

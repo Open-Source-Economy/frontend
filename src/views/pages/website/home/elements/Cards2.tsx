@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, To } from "react-router-dom";
 import { Button, ExternalLink } from "src/components";
-import { Owner, Repository } from "../../../../../model";
+import { Owner, Repository } from "src/model";
 import { Audience } from "../../../../Audience";
 
 export interface Cards2Props {

@@ -1,10 +1,13 @@
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
-import WhatWeOfferCard from "./WhatWeOfferCard";
+import { WhatWeOfferCard } from "./WhatWeOfferCard";
 import { whatWeOfferData } from "../../whoBuiltIt/elements/Helper";
+import React from "react";
 
-const WhatWeOffer = () => {
+interface WhatWeOfferProps {}
+
+export function WhatWeOffer(props: WhatWeOfferProps) {
   return (
     <section className="relative pt-6 xl:pt-10 pb-10 xl:pb-16">
       <img src={rightLinear} alt="" className="absolute pointer-events-none object-cover right-0 max-w-[671px] -z-10 top-[20%]" />
@@ -18,12 +21,10 @@ const WhatWeOffer = () => {
 
         <div className="flex justify-center items-center mt-14 3xl:mt-16">
           <Button audience="ALL" level="PRIMARY" size="LARGE" className="cursor-pointer" asChild>
-            <span>Book a Metting</span>
+            <span>Book a Meeting</span>
           </Button>
         </div>
       </div>
     </section>
   );
-};
-
-export default WhatWeOffer;
+}

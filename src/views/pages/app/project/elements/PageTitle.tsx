@@ -1,6 +1,6 @@
 import React from "react";
 import background from "../../../../../assets/hero-bg.webp";
-import { Owner, Repository } from "../../../../../model";
+import { Owner, Repository } from "src/model";
 import { capitalize } from "lodash";
 
 interface PageTitleProps {

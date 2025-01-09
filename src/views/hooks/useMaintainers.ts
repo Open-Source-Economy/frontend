@@ -36,7 +36,7 @@ export function useMaintainers(repositoryId: RepositoryId) {
   return {
     maintainers,
     isLoading,
-    maintainersError: error,
+    error,
     reloadMaintainers: fetchMaintainers,
   };
 }

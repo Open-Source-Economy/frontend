@@ -1,9 +1,11 @@
 import React from "react";
-import HighLightCard from "./HighLightCard";
+import { HighLightCard } from "./HighLightCard";
 import highlightLinear from "src/assets/highlight-linear-bg.webp";
 import { highlightData } from "../../whoBuiltIt/elements/Helper";
 
-const Highlight: React.FC = () => {
+interface HighlightProps {}
+
+export function Highlight(props: HighlightProps) {
   return (
     <section className="relative pt-10 md:pt-16 3xl:pt-20 pb-10 2xl:pb-28">
       {/* ==== LEFT LINEAR BACKGROUND ==== */}
@@ -31,6 +33,4 @@ const Highlight: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default Highlight;
+}

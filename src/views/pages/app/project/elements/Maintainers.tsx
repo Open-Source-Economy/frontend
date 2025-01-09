@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
 import { Button } from "src/components";
-import { Maintainer } from "../../../../../dtos";
+import { useMaintainers } from "../../../../hooks";
+import { RepositoryId } from "src/model";
 
 interface MaintainersProps {
-  maintainers: Maintainer[];
+  repositoryId: RepositoryId;
   viewAllButton?: boolean;
 }
 
 export function Maintainers(props: MaintainersProps) {
+  const { maintainers, isLoading, error, reloadMaintainers } = useMaintainers(props.repositoryId);
+
+  useEffect(() => {
+    reloadMaintainers();
+  }, []);
+
   return (
     <section className="pb-20 3xl:pb-40 pt-16 relative">
       <img
@@ -39,7 +46,7 @@ export function Maintainers(props: MaintainersProps) {
 
         {/* Participants List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-14 sm:gap-8">
-          {props.maintainers.map((maintainer, index) => (
+          {maintainers.map((maintainer, index) => (
             <ParticipantCard maintainer={maintainer} key={index} />
           ))}
         </div>
@@ -53,6 +60,9 @@ export function Maintainers(props: MaintainersProps) {
           </div>
         )}
       </div>
+
+      {/*TODO: error*/}
+      {error && <div>{error.message}</div>}
     </section>
   );
 }
