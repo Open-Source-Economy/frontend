@@ -4,28 +4,23 @@ import { DonationSelector } from "./DonationSelector";
 import { Currency, PriceType, ProductType, RepositoryId } from "src/model";
 import { Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
-import { usePrices } from "../../../../../hooks";
 import { displayedCurrencies } from "../../../../../data";
 
 interface PaymentControlsProps {
   repositoryId: RepositoryId;
   preferredCurrency: Currency;
+  prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
 }
 
 export function PaymentControls(props: PaymentControlsProps) {
   const displayCustomAmount = true;
 
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
-  const { prices, error, reloadPrices } = usePrices(props.repositoryId);
   const [priceType, setPriceType] = useState<PriceType>(PriceType.RECURRING);
   const [productType, setProductType] = useState<ProductType>(ProductType.donation);
 
   const [selectedPriceIndex, setSelectedPriceIndex] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
-
-  useEffect(() => {
-    reloadPrices();
-  }, []);
 
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -38,24 +33,22 @@ export function PaymentControls(props: PaymentControlsProps) {
   const [selectedPrice, setSelectedPrice] = useState<Price | null>(null);
 
   useEffect(() => {
-    if (prices && selectedPriceIndex !== null) {
-      setSelectedPrice(prices && prices[priceType][props.preferredCurrency][productType][selectedPriceIndex]);
+    if (props.prices && selectedPriceIndex !== null) {
+      setSelectedPrice(props.prices && props.prices[priceType][props.preferredCurrency][productType][selectedPriceIndex]);
     } else {
       setSelectedPrice(null);
     }
-  }, [prices, priceType, props.preferredCurrency, productType, selectedPriceIndex]);
+  }, [props.prices, priceType, props.preferredCurrency, productType, selectedPriceIndex]);
 
   return (
     <>
-      {/*TODO*/}
-      {error && <div className="text-red-500">{error.message}</div>}
       <div className="my-6 2xl:my-7 3xl:my-10">
         <PaymentHeader priceType={priceType} setPriceType={setPriceType} />
       </div>
 
       <div className="grid grid-cols-2 !gap-4 3xl:!gap-5">
-        {prices &&
-          prices[priceType][props.preferredCurrency][productType].map((price: Price, index) => (
+        {props.prices &&
+          props.prices[priceType][props.preferredCurrency][productType].map((price: Price, index) => (
             <button
               key={index}
               onClick={() => setSelectedPriceIndex(index)}

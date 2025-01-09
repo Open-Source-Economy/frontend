@@ -23,6 +23,9 @@ import {
   FundIssueQuery,
   GetAvailableDowParams,
   GetAvailableDowQuery,
+  GetCampaignParams,
+  GetCampaignQuery,
+  GetCampaignResponse,
   GetIssueParams,
   GetIssueQuery,
   GetIssuesParams,
@@ -49,12 +52,12 @@ import { pekkoMaintainers } from "../services/data";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
-    const financialIssues = await this.getFinancialIssues({}, {});
+    const financialIssues = await this.getAllFinancialIssues({}, {});
     if (financialIssues instanceof ApiError) return financialIssues;
     else return financialIssues[0];
   }
 
-  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+  async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
     const requestedDowAmount = 12;
@@ -163,6 +166,28 @@ export class BackendAPIMock implements BackendAPI {
 
     return {
       prices: prices,
+    };
+  }
+
+  async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
+    const response = await this.getPrices({ owner: params.owner, repo: params.repo }, {});
+    if (response instanceof ApiError) return response;
+    return {
+      prices: response.prices,
+      raisedAmount: {
+        [Currency.CHF]: 400,
+        [Currency.EUR]: 400,
+        [Currency.USD]: 400,
+        [Currency.GBP]: 400,
+      },
+      targetAmount: {
+        [Currency.CHF]: 10000,
+        [Currency.EUR]: 10000,
+        [Currency.USD]: 10000,
+        [Currency.GBP]: 10000,
+      },
+      numberOfBackers: 300,
+      numberOfDaysLeft: 333,
     };
   }
 }

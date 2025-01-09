@@ -6,6 +6,9 @@ import {
   FundIssueParams,
   FundIssueQuery,
   GetAvailableDowResponse,
+  GetCampaignParams,
+  GetCampaignQuery,
+  GetCampaignResponse,
   GetIssueParams,
   GetIssueQuery,
   GetIssueResponse,
@@ -48,7 +51,7 @@ export interface BackendAPI {
 
   getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError>;
 
-  getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
+  getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
 
   getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError>;
 
@@ -94,12 +97,14 @@ export interface BackendAPI {
   getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError>;
 
   getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError>;
+
+  getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const response = await handleError<GetIssueResponse>(
-      () => axios.get(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
 
@@ -107,8 +112,11 @@ class BackendAPIImpl implements BackendAPI {
     else return response.issue;
   }
 
-  async getFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
-    const response = await handleError<GetIssuesResponse>(() => axios.get(`${config.api.url}/github/issues`, { withCredentials: true }), "getFinancialIssues");
+  async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+    const response = await handleError<GetIssuesResponse>(
+      () => axios.get(`${config.api.url}/github/all-financial-issues`, { withCredentials: true }),
+      "getAllFinancialIssues"
+    );
     if (response instanceof ApiError) return response;
     else return response.issues;
   }
@@ -128,7 +136,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}/fund`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
       "fundIssue",
     );
   }
@@ -139,7 +147,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${config.api.url}/github/${params.owner}/${params.repo}/issues/${params.number}/request-funding`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
       "requestFunding",
     );
   }
@@ -162,16 +170,16 @@ class BackendAPIImpl implements BackendAPI {
 
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
-      return {
-        maintainers: pekkoMaintainers,
-      };
-    } else {
-      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
-      // return handleError(() => axios.get(`${config.api.url}/github/${params.owner}/${params.repo}/maintainers`, { withCredentials: true }), "getMaintainers");
+      return { maintainers: pekkoMaintainers };
     }
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError> {
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/prices`, { withCredentials: true }), "getPrices");
+  }
+
+  async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/campaigns`, { withCredentials: true }), "getCampaign");
   }
 }

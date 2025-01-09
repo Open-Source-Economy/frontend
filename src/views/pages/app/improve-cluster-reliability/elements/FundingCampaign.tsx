@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
@@ -6,6 +6,7 @@ import { LinearBg } from "src/Utils/Icons";
 import { Currency, RepositoryId } from "src/model";
 import { Summary, SummaryType } from "./summary";
 import { useAuth } from "../../authenticate/AuthContext";
+import { useCampaign } from "../../../../hooks/useCampaign";
 
 interface FundingCampaignProps {
   repositoryId: RepositoryId;
@@ -16,6 +17,12 @@ export function FundingCampaign(props: FundingCampaignProps) {
   const summaryType: SummaryType = SummaryType.ONE;
 
   const preferredCurrency: Currency = auth.authInfo?.user?.preferredCurrency || Currency.EUR;
+
+  const { campaign, error, reloadCampaign } = useCampaign(props.repositoryId);
+
+  useEffect(() => {
+    reloadCampaign();
+  }, []);
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 flex flex-col">
@@ -36,11 +43,24 @@ export function FundingCampaign(props: FundingCampaignProps) {
 
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
-          <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
-            <Progress preferredCurrency={preferredCurrency} />
-            <PaymentControls repositoryId={props.repositoryId} preferredCurrency={preferredCurrency} />
-          </div>
-          <NonProfitBanner />
+          {/*TODO*/}
+          {error && <div className="text-red-500">{error.message}</div>}
+
+          {campaign && (
+            <>
+              <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
+                <Progress
+                  preferredCurrency={preferredCurrency}
+                  raisedAmount={campaign.raisedAmount}
+                  targetAmount={campaign.raisedAmount}
+                  numberOfBackers={campaign.numberOfBackers}
+                  numberOfDaysLeft={campaign.numberOfDaysLeft}
+                />
+                <PaymentControls repositoryId={props.repositoryId} preferredCurrency={preferredCurrency} prices={campaign?.prices} />
+              </div>
+              <NonProfitBanner />
+            </>
+          )}
         </div>
       </div>
     </section>

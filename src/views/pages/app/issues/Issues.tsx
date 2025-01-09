@@ -32,7 +32,7 @@ export function Issues(props: IssuesProps) {
       try {
         const params: GetIssuesParams = {};
         const query: GetIssueQuery = {};
-        const financialIssues = await backendAPI.getFinancialIssues(params, query);
+        const financialIssues = await backendAPI.getAllFinancialIssues(params, query);
         if (financialIssues instanceof ApiError) setError(financialIssues);
         else {
           setFinancialIssues(financialIssues);

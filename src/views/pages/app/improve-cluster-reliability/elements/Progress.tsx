@@ -4,18 +4,17 @@ import { displayedCurrencies } from "../../../../data";
 
 interface ProgressProps {
   preferredCurrency: Currency;
+  raisedAmount: Record<Currency, number>; // in cents, in the currency of the price
+  targetAmount: Record<Currency, number>; // in cents, in the currency of the price
+  numberOfBackers?: number;
+  numberOfDaysLeft?: number;
 }
 
 export function Progress(props: ProgressProps) {
-  const currentAmount: number = 300;
-  const targetAmount: number = 300;
-  const backers: number = 300;
-  const daysLeft: number = 300;
-
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
   const [animatedProgress, setAnimatedProgress] = useState(0);
-  const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100);
+  const progressPercentage = Math.min((props.raisedAmount[props.preferredCurrency] / props.targetAmount[props.preferredCurrency]) * 100, 100);
 
   useEffect(() => {
     // Start with 0 and animate to the target percentage
@@ -46,23 +45,29 @@ export function Progress(props: ProgressProps) {
 
       <h2 className="font-montserrat text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
         {displayedCurrency.symbol}
-        {currentAmount.toLocaleString()}/mo
+        {props.raisedAmount[props.preferredCurrency].toLocaleString()}/mo
       </h2>
       <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
-        <span className="hidden">{currentAmount.toLocaleString()} </span> pledged of {displayedCurrency.symbol}
-        {targetAmount.toLocaleString()}/mo
+        <span className="hidden">{props.raisedAmount[props.preferredCurrency].toLocaleString()} </span> pledged of {displayedCurrency.symbol}
+        {props.targetAmount[props.preferredCurrency].toLocaleString()}/mo
       </p>
-      <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
-        <div>
-          <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{backers.toLocaleString()}</h3>
-          <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Backers</p>
-        </div>
+      {(props.numberOfBackers || props.numberOfDaysLeft) && (
+        <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
+          {props.numberOfBackers && (
+            <div>
+              <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{props.numberOfBackers.toLocaleString()}</h3>
+              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Backers</p>
+            </div>
+          )}
 
-        <div>
-          <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{daysLeft}</h3>
-          <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Days to go</p>
+          {props.numberOfDaysLeft && (
+            <div>
+              <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{props.numberOfDaysLeft}</h3>
+              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Days to go</p>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </>
   );
 }

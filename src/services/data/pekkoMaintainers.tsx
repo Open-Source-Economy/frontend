@@ -12,11 +12,7 @@ const raboof: Maintainer = {
   title: "ex Lightbend Principal Engineer",
   quote: undefined,
   mascot: thankfulCat,
-  mascotAlt: (
-    <>
-      Self-employed & <br /> Apache Foundation
-    </>
-  ),
+  mascotAlt: "Self-employed & Apache Foundation",
 };
 
 const pjfanning: Maintainer = {
@@ -27,7 +23,7 @@ const pjfanning: Maintainer = {
   title: "Pekko Generalist",
   quote: undefined,
   mascot: helloCat,
-  mascotAlt: <>I dedicate my life to Pekko and OSS!</>,
+  mascotAlt: "I dedicate my life to Pekko and OSS!",
 };
 
 const mdedetrich: Maintainer = {
@@ -38,7 +34,7 @@ const mdedetrich: Maintainer = {
   title: "Pekko Stream Expert",
   quote: undefined,
   mascot: happyCat,
-  mascotAlt: <>Only the best for Pekko!</>,
+  mascotAlt: "Only the best for Pekko!",
 };
 
 const jrudolph: Maintainer = {
@@ -49,11 +45,7 @@ const jrudolph: Maintainer = {
   title: "Pekko Cluster Expert",
   quote: undefined,
   mascot: normalCat,
-  mascotAlt: (
-    <>
-      Would love to be <br /> full-time on Pekko!
-    </>
-  ),
+  mascotAlt: " Would love to be full-time on Pekko!",
 };
 
 export const pekkoMaintainers: Maintainer[] = [raboof, pjfanning, mdedetrich, jrudolph];
