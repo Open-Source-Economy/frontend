@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BillingIcon, EuroIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "./Icons";
+import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "./Icons";
 import { Button } from "../../../../components";
 import { useAuth } from "../../../pages/app/authenticate/AuthContext";
 import CurrencyModal from "./CurrencyModal";
@@ -34,10 +34,10 @@ export function AppNavbar(props: AppNavbarProps) {
       isBold: true,
     },
     {
-      title: "EUR",
-      icon: <EuroIcon />,
+      title: selectedCurrency.code,
+      icon: selectedCurrency?.symbol,
       isButton: true,
-      // isGradient: true,
+      isGradient: true,
       divider: true,
       onClick: () => {
         setShowCurrencyModal(!showCurrencyModal);

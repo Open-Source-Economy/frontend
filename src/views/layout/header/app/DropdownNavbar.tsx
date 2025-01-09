@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import catimg from "../../../../assets/header.svg";
 import { Link } from "react-router-dom";
+import { LucideDollarSign } from "lucide-react";
 
 export interface DropdownNavbarItem {
   title: string;
@@ -63,12 +64,13 @@ export function DropdownNavbar(props: DropdownNavbarProps) {
                   {item.divider && <div className="h-px bg-white/5 my-2" aria-hidden="true" />}
                   {item.isButton ? (
                     <button onClick={item.onClick} className="flex text-lg items-center gap-3 px-3 py-2.5  rounded-lg transition-colors w-full text-left group">
-                      {item.icon}
+                      {/* {item.icon} */}
                       <span
-                        className={`gradient-bg  bg-clip-text   duration-200 ${
+                        className={`gradient-bg flex gap-2   bg-clip-text   duration-200 ${
                           item?.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"
                         } `}
                       >
+                        <span className="mr-2 block">{item.icon}</span>
                         {item.title}
                       </span>
                     </button>

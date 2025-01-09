@@ -69,7 +69,6 @@
     "http": "npm:stream-http@3.2.0",
     "https": "npm:https-browserify@1.0.0",
     "stream": "npm:stream-browserify@3.0.0",
-    "tailwind-scrollbar": "^4.0.0-beta.0",
     "tailwindcss": "^3.4.10",
     "util": "npm:util@0.12.5",
     "zlib": "npm:browserify-zlib@0.2.0"
