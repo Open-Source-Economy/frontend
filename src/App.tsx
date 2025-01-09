@@ -25,23 +25,17 @@ import {
   Payment,
   Pdf,
   UserDeveloper,
-  userProps,
+  userProps
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
-<<<<<<< HEAD
 import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
-<<<<<<< HEAD
-=======
 import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
->>>>>>> 9b1abe0 (add improve-cluster-page)
-=======
 import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { RepositoryRoutes } from "./views/layout/RepositoryRoutes";
->>>>>>> 00121b9 (Refactor issues or repository pages)
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
