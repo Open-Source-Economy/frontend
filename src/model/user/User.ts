@@ -2,6 +2,7 @@ import { LocalUser } from "./LocalUser";
 import { GithubData, ThirdPartyUser } from "./ThirdPartyUser";
 import { Owner } from "../github";
 import { ValidationError, Validator } from "../error";
+import { Currency } from "../stripe";
 
 export class UserId {
   uuid: string;
@@ -25,18 +26,14 @@ export class User implements Express.User {
   name: string | null;
   data: LocalUser | ThirdPartyUser;
   role: UserRole;
+  preferredCurrency?: Currency;
 
-  constructor(
-    id: UserId,
-    name: string | null,
-
-    data: LocalUser | ThirdPartyUser,
-    role: UserRole,
-  ) {
+  constructor(id: UserId, name: string | null, data: LocalUser | ThirdPartyUser, role: UserRole, preferredCurrency?: Currency) {
     this.id = id;
     this.name = name;
     this.data = data;
     this.role = role;
+    this.preferredCurrency = preferredCurrency;
   }
 
   email(): string | null {
@@ -60,6 +57,7 @@ export class User implements Express.User {
     const id = validator.requiredString("id");
     const name = validator.optionalString("name");
     const role = validator.requiredEnum("role", Object.values(UserRole) as UserRole[]);
+    const preferredCurrency = validator.optionalEnum("preferred_currency", Object.values(Currency) as Currency[]); // Validate the new field
 
     const error = validator.getFirstError();
     if (error) {
@@ -85,6 +83,6 @@ export class User implements Express.User {
       return enumError;
     }
 
-    return new User(new UserId(id), name ?? null, user, role);
+    return new User(new UserId(id), name ?? null, user, role, preferredCurrency);
   }
 }

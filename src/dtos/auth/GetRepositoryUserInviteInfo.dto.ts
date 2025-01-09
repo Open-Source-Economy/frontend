@@ -1,4 +1,4 @@
-import { RepositoryId } from "../../model";
+import { RepositoryId } from "src/model";
 
 export interface GetRepositoryUserInviteInfoParams {}
 

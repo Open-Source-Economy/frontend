@@ -1,7 +1,7 @@
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { BaseURL } from "src/App";
 import { useRepositoryFromParams } from "../hooks";
-import { IssueId } from "../../model";
+import { IssueId } from "src/model";
 import React from "react";
 import { PageNotFound } from "../pages/PageNotFound";
 

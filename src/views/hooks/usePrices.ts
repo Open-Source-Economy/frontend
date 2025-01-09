@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetIssueParams, GetIssueQuery, GetPricesParams, GetPricesQuery, Price } from "src/dtos";
+import { GetPricesParams, GetPricesQuery, Price } from "src/dtos";
 import * as model from "src/model";
-import { ApiError } from "src/ultils/error/ApiError";
 import { Currency, PriceType, ProductType } from "src/model";
+import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 export function usePrices(repositoryId: model.RepositoryId) {

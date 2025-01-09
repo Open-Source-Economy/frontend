@@ -1,4 +1,4 @@
-import { FinancialIssue } from "../../model";
+import { FinancialIssue } from "src/model";
 
 export interface GetIssuesParams {}
 

@@ -5,14 +5,17 @@ import { Progress } from "./Progress";
 import { LinearBg } from "src/Utils/Icons";
 import { Currency, RepositoryId } from "src/model";
 import { Summary, SummaryType } from "./summary";
+import { useAuth } from "../../authenticate/AuthContext";
 
 interface FundingCampaignProps {
   repositoryId: RepositoryId;
-  preferredCurrency: Currency;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
+  const auth = useAuth();
   const summaryType: SummaryType = SummaryType.ONE;
+
+  const preferredCurrency: Currency = auth.authInfo?.user?.preferredCurrency || Currency.EUR;
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 flex flex-col">
@@ -34,8 +37,8 @@ export function FundingCampaign(props: FundingCampaignProps) {
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
-            <Progress />
-            <PaymentControls repositoryId={props.repositoryId} preferredCurrency={props.preferredCurrency} />
+            <Progress preferredCurrency={preferredCurrency} />
+            <PaymentControls repositoryId={props.repositoryId} preferredCurrency={preferredCurrency} />
           </div>
           <NonProfitBanner />
         </div>

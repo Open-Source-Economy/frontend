@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ExternalLink } from "../../../../components";
+import { Button, ExternalLink } from "src/components";
 import { Link } from "react-router-dom";
 
 interface WebsiteNavbarProps {}

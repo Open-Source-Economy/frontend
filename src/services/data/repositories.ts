@@ -1,4 +1,4 @@
-import { OwnerId, RepositoryId } from "../../model";
+import { OwnerId, RepositoryId } from "src/model";
 
 export const repositoryIds: RepositoryId[] = [
   ["apache", "pekko"],

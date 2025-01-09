@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import catimg from "../../../../assets/header.svg";
 import { Link } from "react-router-dom";
-import { LucideDollarSign } from "lucide-react";
 
 export interface DropdownNavbarItem {
   title: string;

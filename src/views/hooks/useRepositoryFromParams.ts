@@ -1,4 +1,4 @@
-import { OwnerId, RepositoryId } from "../../model";
+import { OwnerId, RepositoryId } from "src/model";
 import { useParams } from "react-router-dom";
 
 export function useRepositoryFromParams(): RepositoryId | null {

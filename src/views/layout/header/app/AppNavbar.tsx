@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "./Icons";
-import { Button } from "../../../../components";
+import { Button } from "src/components";
 import { useAuth } from "../../../pages/app/authenticate/AuthContext";
-import CurrencyModal from "./CurrencyModal";
+import { CurrencyModal } from "./CurrencyModal";
 import { MobileNavbar } from "./MobileNavbar";
 import { DropdownNavbar, DropdownNavbarItem } from "./DropdownNavbar";
+import { Currency } from "src/model";
+import { displayedCurrencies } from "../../../data";
 
 interface AppNavbarProps {}
 
@@ -15,11 +17,7 @@ export function AppNavbar(props: AppNavbarProps) {
   const [showDropdownNavbar, setShowDropdownNavbar] = useState<boolean>(false);
 
   const [showCurrencyModal, setShowCurrencyModal] = useState<boolean>(false);
-  const [selectedCurrency, setSelectedCurrency] = useState({
-    name: "United States Dollar",
-    code: "USD",
-    symbol: "US$",
-  });
+  const [selectedCurrency, setSelectedCurrency] = useState(Currency.USD);
 
   const dropdownNavbarItems: DropdownNavbarItem[] = [
     {
@@ -34,8 +32,8 @@ export function AppNavbar(props: AppNavbarProps) {
       isBold: true,
     },
     {
-      title: selectedCurrency.code,
-      icon: selectedCurrency?.symbol,
+      title: displayedCurrencies[selectedCurrency].code,
+      icon: displayedCurrencies[selectedCurrency].symbol,
       isButton: true,
       isGradient: true,
       divider: true,
@@ -102,7 +100,7 @@ export function AppNavbar(props: AppNavbarProps) {
             onClose={() => setShowCurrencyModal(false)}
             onSelect={currency => {
               setSelectedCurrency(currency);
-              //If you want to close as the  currency is selected
+              // If you want to close as the  currency is selected
               setShowCurrencyModal(false);
             }}
             selectedCurrency={selectedCurrency}

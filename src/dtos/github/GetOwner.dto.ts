@@ -1,4 +1,4 @@
-import { Owner } from "../../model";
+import { Owner } from "src/model";
 
 export interface GetOwnerParams {
   owner: string;

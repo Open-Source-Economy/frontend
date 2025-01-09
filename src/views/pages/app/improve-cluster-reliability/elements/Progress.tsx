@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Currency } from "src/model";
+import { displayedCurrencies } from "../../../../data";
 
-interface ProgressProps {}
+interface ProgressProps {
+  preferredCurrency: Currency;
+}
 
 export function Progress(props: ProgressProps) {
   const currentAmount: number = 300;
   const targetAmount: number = 300;
   const backers: number = 300;
   const daysLeft: number = 300;
+
+  const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
   const [animatedProgress, setAnimatedProgress] = useState(0);
   const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100);
@@ -38,9 +44,13 @@ export function Progress(props: ProgressProps) {
         </div>
       </div>
 
-      <h2 className="font-montserrat text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">${currentAmount.toLocaleString()}/mo</h2>
+      <h2 className="font-montserrat text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
+        {displayedCurrency.symbol}
+        {currentAmount.toLocaleString()}/mo
+      </h2>
       <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
-        $ <span className="hidden">{currentAmount.toLocaleString()} </span> pledged of ${targetAmount.toLocaleString()}/mo
+        <span className="hidden">{currentAmount.toLocaleString()} </span> pledged of {displayedCurrency.symbol}
+        {targetAmount.toLocaleString()}/mo
       </p>
       <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
         <div>
