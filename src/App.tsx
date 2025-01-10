@@ -36,6 +36,7 @@ import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
 import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { RepositoryRoutes } from "./views/layout/RepositoryRoutes";
+import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -78,6 +79,7 @@ const App = () => {
             </Route>
 
             <Route path="/buy-dows" element={<Payment />} />
+            <Route path="/checkout/success" element={<CheckoutSuccess />} />
           </Route>
 
           <Route path="/" element={<Home />} />

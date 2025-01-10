@@ -2,6 +2,10 @@ import { FinancialIssue, IssueId, UserId } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
 import {
+  CheckoutBody,
+  CheckoutParams,
+  CheckoutQuery,
+  CheckoutResponse,
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
@@ -99,6 +103,8 @@ export interface BackendAPI {
   getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError>;
 
   getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError>;
+
+  checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<CheckoutResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -182,5 +188,9 @@ class BackendAPIImpl implements BackendAPI {
 
   async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
     return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/campaigns`, { withCredentials: true }), "getCampaign");
+  }
+
+  async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
+    return handleError(() => axios.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
   }
 }

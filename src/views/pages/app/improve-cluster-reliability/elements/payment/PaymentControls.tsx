@@ -2,25 +2,34 @@ import React, { useEffect, useState } from "react";
 import { Button } from "src/components";
 import { DonationSelector } from "./DonationSelector";
 import { Currency, PriceType, ProductType, RepositoryId } from "src/model";
-import { Price } from "src/dtos";
+import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "../../../../../data";
+import { ApiError } from "../../../../../../ultils/error/ApiError";
+import { getBackendAPI } from "../../../../../../services";
 
 interface PaymentControlsProps {
   repositoryId: RepositoryId;
   preferredCurrency: Currency;
   prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
+  paymentSuccessUrl: string;
+  paymentCancelUrl: string;
 }
 
 export function PaymentControls(props: PaymentControlsProps) {
+  const backendAPI = getBackendAPI();
   const displayCustomAmount = true;
-
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
+
   const [priceType, setPriceType] = useState<PriceType>(PriceType.RECURRING);
   const [productType, setProductType] = useState<ProductType>(ProductType.donation);
 
   const [selectedPriceIndex, setSelectedPriceIndex] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
+  const [selectedPrice, setSelectedPrice] = useState<Price | null>(null);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<ApiError | null>(null);
 
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -30,7 +39,36 @@ export function PaymentControls(props: PaymentControlsProps) {
     }
   };
 
-  const [selectedPrice, setSelectedPrice] = useState<Price | null>(null);
+  const handleCheckout = async () => {
+    if (!selectedPrice) {
+      return;
+    } else {
+      setIsLoading(true);
+      try {
+        const params: CheckoutParams = {};
+        const body: CheckoutBody = {
+          mode: priceType === PriceType.RECURRING ? "subscription" : "payment",
+          priceItems: [
+            {
+              priceId: selectedPrice.price.stripeId,
+              quantity: selectedPrice.quantity,
+            },
+          ],
+          countryCode: null, // TODO: Add country code base on user's location
+          successUrl: props.paymentSuccessUrl,
+          cancelUrl: props.paymentCancelUrl,
+        };
+        const query: CheckoutQuery = {};
+
+        await backendAPI.checkout(params, body, query);
+      } catch (error) {
+        console.error("Failed to initiate checkout:", error);
+        setError(ApiError.from(error));
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   useEffect(() => {
     if (props.prices && selectedPriceIndex !== null) {
@@ -42,6 +80,8 @@ export function PaymentControls(props: PaymentControlsProps) {
 
   return (
     <>
+      {/*TODO*/}
+      {error && <div className="text-red-500">{error.message}</div>}
       <div className="my-6 2xl:my-7 3xl:my-10">
         <PaymentHeader priceType={priceType} setPriceType={setPriceType} />
       </div>
@@ -88,11 +128,12 @@ export function PaymentControls(props: PaymentControlsProps) {
       <DonationSelector productType={productType} setProductType={setProductType} />
 
       <Button
-        disabled={selectedPrice === null}
+        disabled={selectedPrice === null || isLoading}
         audience="USER"
         level="PRIMARY"
-        className="w-full !font-bold !font-montserrat lg:!text-xl 3xl:!text-2xl 3xl:!h-[70px] !capitalize overflow-hidden cursor-pointer mt-4"
         size="LARGE"
+        className="w-full !font-bold !font-montserrat lg:!text-xl 3xl:!text-2xl 3xl:!h-[70px] !capitalize overflow-hidden cursor-pointer mt-4"
+        onClick={handleCheckout}
       >
         {selectedPrice
           ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount} ${priceType === PriceType.RECURRING ? "/mo" : ""}`

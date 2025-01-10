@@ -18,6 +18,10 @@ import {
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
 import {
+  CheckoutBody,
+  CheckoutParams,
+  CheckoutQuery,
+  CheckoutResponse,
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
@@ -189,6 +193,10 @@ export class BackendAPIMock implements BackendAPI {
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
     };
+  }
+
+  async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
+    return {} as CheckoutResponse;
   }
 }
 

@@ -7,12 +7,18 @@ import { Currency, RepositoryId } from "src/model";
 import { Summary, SummaryType } from "./summary";
 import { useAuth } from "../../authenticate/AuthContext";
 import { useCampaign } from "../../../../hooks/useCampaign";
+import { useParams } from "react-router-dom";
 
 interface FundingCampaignProps {
   repositoryId: RepositoryId;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
+  const { checkout_error } = useParams();
+  const checkoutErrorParamName = "checkout_error";
+  const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
+  const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`; // Keep the user on the same page if they cancel
+
   const auth = useAuth();
   const summaryType: SummaryType = SummaryType.ONE;
 
@@ -45,6 +51,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           {/*TODO*/}
           {error && <div className="text-red-500">{error.message}</div>}
+          {checkout_error && <div className="text-red-500">Error in the checkout</div>}
 
           {campaign && (
             <>
@@ -56,7 +63,13 @@ export function FundingCampaign(props: FundingCampaignProps) {
                   numberOfBackers={campaign.numberOfBackers}
                   numberOfDaysLeft={campaign.numberOfDaysLeft}
                 />
-                <PaymentControls repositoryId={props.repositoryId} preferredCurrency={preferredCurrency} prices={campaign?.prices} />
+                <PaymentControls
+                  repositoryId={props.repositoryId}
+                  preferredCurrency={preferredCurrency}
+                  prices={campaign?.prices}
+                  paymentSuccessUrl={paymentSuccessUrl}
+                  paymentCancelUrl={paymentCancelUrl}
+                />
               </div>
               <NonProfitBanner />
             </>
