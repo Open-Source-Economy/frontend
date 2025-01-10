@@ -3,7 +3,9 @@ import Stripe from "stripe";
 
 export interface CheckoutParams {}
 
-export interface CheckoutResponse {}
+export interface CheckoutResponse {
+  redirectUrl: string;
+}
 
 export interface CheckoutBody {
   mode: Stripe.Checkout.SessionCreateParams.Mode;

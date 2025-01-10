@@ -60,7 +60,12 @@ export function PaymentControls(props: PaymentControlsProps) {
         };
         const query: CheckoutQuery = {};
 
-        await backendAPI.checkout(params, body, query);
+        const response = await backendAPI.checkout(params, body, query);
+        if (response instanceof ApiError) {
+          setError(response);
+        } else {
+          window.location.href = response.redirectUrl;
+        }
       } catch (error) {
         console.error("Failed to initiate checkout:", error);
         setError(ApiError.from(error));
@@ -101,7 +106,7 @@ export function PaymentControls(props: PaymentControlsProps) {
             >
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
                 {displayedCurrency.symbol}
-                {price.totalAmount}
+                {price.totalAmount / 100}
                 {priceType === PriceType.RECURRING ? "/mo" : ""}
               </h5>
               <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{price.label}</h6>
@@ -136,7 +141,7 @@ export function PaymentControls(props: PaymentControlsProps) {
         onClick={handleCheckout}
       >
         {selectedPrice
-          ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount} ${priceType === PriceType.RECURRING ? "/mo" : ""}`
+          ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100} ${priceType === PriceType.RECURRING ? "/mo" : ""}`
           : "Select an amount to donate"}
       </Button>
     </>

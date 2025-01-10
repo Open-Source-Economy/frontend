@@ -3,7 +3,7 @@ import { StripeProductId } from "./StripeProduct";
 import { Currency } from "./Currency";
 
 export enum PriceType {
-  RECURRING = "recurring",
+  RECURRING = "monthly",
   ONE_TIME = "one_time",
 }
 
