@@ -1,10 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { EuroIconTwo } from "./Icons";
+import { Currency } from "src/model";
+import { displayedCurrencies } from "src/views/data";
 
-interface MobileNavbarProps {}
+interface MobileNavbarProps {
+  selectedCurrency: Currency;
+  closeSidebar: () => void;
+  showModal: () => void;
+}
 
-export function MobileNavbar(props: MobileNavbarProps) {
+export function MobileNavbar({ selectedCurrency, closeSidebar, showModal }: MobileNavbarProps) {
+  const currency = displayedCurrencies[selectedCurrency];
+
+  const handleButtonClick = () => {
+    showModal();
+    closeSidebar();
+  };
   return (
     <>
       <div className="flex lg:hidden flex-col gap-y-5">
@@ -20,9 +31,12 @@ export function MobileNavbar(props: MobileNavbarProps) {
         <Link to="/profile" className="gradient-text mr-3">
           PROFILE
         </Link>
-        <button className="mr-3 flex gap-2 duration-300 text-white group">
-          <EuroIconTwo />
-          <span className="gradient-bg  bg-clip-text group-hover:text-transparent duration-200">EUR</span>
+        <button
+          className="mr-3 flex items-center w-max duration-200 gradient-bg  bg-clip-text group gap-2 font-montserrat  text-xl  text-white group"
+          onClick={handleButtonClick}
+        >
+          <span className=" flex   items-center    group-hover:text-transparent">{currency.symbol}</span>
+          <span className="group-hover:text-transparent">{currency.code}</span>
         </button>
 
         <Link to="/logout" className="gradient-text mr-3">
