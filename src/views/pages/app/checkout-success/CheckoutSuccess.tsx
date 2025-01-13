@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 interface CheckoutSuccessProps {}
 
 export function CheckoutSuccess(props: CheckoutSuccessProps) {
-  const { session_id, mode } = useParams();
+  const { session_id, mode } = useParams(); // not a params, but a query string
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       Success!
