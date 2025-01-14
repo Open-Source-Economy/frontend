@@ -8,6 +8,7 @@ import { Summary, SummaryType } from "./summary";
 import { useAuth } from "../../authenticate/AuthContext";
 import { useCampaign } from "../../../../hooks/useCampaign";
 import { useParams } from "react-router-dom";
+import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
 
 interface FundingCampaignProps {
   repositoryId: RepositoryId;
@@ -22,7 +23,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
   const auth = useAuth();
   const summaryType: SummaryType = SummaryType.ONE;
 
-  const preferredCurrency: Currency = auth.authInfo?.user?.preferredCurrency || Currency.EUR;
+  const preferredCurrency: Currency = PreferredCurrency.get(auth);
 
   const { campaign, error, reloadCampaign } = useCampaign(props.repositoryId);
 

@@ -1,19 +1,23 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SocialMedia } from "src/components/socialMedia/SocialMedia";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
 import { BaseURL } from "src/App";
 import { NavbarContent } from "./NavbarContent";
+import { CurrencyModal } from "./app";
+import { Currency } from "src/model";
+import { useAuth } from "../../pages/app/authenticate/AuthContext";
+import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
 
 interface HeaderProps {
   baseURL: BaseURL;
 }
 
-const Logo = () => <img className=" 800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
-
 export function Header(props: HeaderProps) {
+  const auth = useAuth();
+
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -21,6 +25,21 @@ export function Header(props: HeaderProps) {
       mirror: false, // Do not mirror animation on scrolling past
     });
   }, []);
+
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  // States For Modals
+  const [showDropdownNavbar, setShowDropdownNavbar] = useState<boolean>(false);
+  const [showCurrencyModal, setShowCurrencyModal] = useState<boolean>(false);
+
+  const [preferredCurrency, setPreferredCurrency] = useState<Currency>(PreferredCurrency.get(auth));
+
+  const handleSelectPreferredCurrency = (currency: Currency) => {
+    setPreferredCurrency(currency);
+    PreferredCurrency.set(auth, currency);
+  };
+
+  const Logo = () => <img className=" 800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
 
   return (
     <div data-aos="fade-down">
@@ -38,22 +57,48 @@ export function Header(props: HeaderProps) {
             </Link>
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="offcanvasNavbar" className="bg-white" />
+          <Navbar.Toggle onClick={() => setShowOffcanvas(true)} aria-controls="offcanvasNavbar" className="bg-white" />
 
-          <Navbar.Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="start" className="bg-primaryBg">
+          <Navbar.Offcanvas
+            show={showOffcanvas}
+            onHide={() => setShowOffcanvas(false)}
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="start"
+            className="bg-primaryBg"
+          >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">
-                <Navbar.Brand href="#">
+              <Offcanvas.Title>
+                <Navbar.Brand href={props.baseURL}>
                   <Logo />
                 </Navbar.Brand>
               </Offcanvas.Title>
             </Offcanvas.Header>
+
             <Offcanvas.Body>
-              <NavbarContent baseURL={props.baseURL} />
+              <NavbarContent
+                baseURL={props.baseURL}
+                setShowOffcanvas={setShowOffcanvas}
+                showDropdownNavbar={showDropdownNavbar}
+                setShowDropdownNavbar={setShowDropdownNavbar}
+                showCurrencyModal={showCurrencyModal}
+                setShowCurrencyModal={setShowCurrencyModal}
+                selectedCurrency={preferredCurrency}
+              />
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
+      <CurrencyModal
+        isOpen={showCurrencyModal}
+        onClose={() => setShowCurrencyModal(false)}
+        onSelect={currency => {
+          handleSelectPreferredCurrency(currency);
+          setShowCurrencyModal(false);
+        }}
+        selectedCurrency={preferredCurrency}
+      />
     </div>
   );
 }

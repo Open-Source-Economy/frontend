@@ -49,6 +49,10 @@ import {
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
+  SetUserPreferredCurrencyBody,
+  SetUserPreferredCurrencyParams,
+  SetUserPreferredCurrencyQuery,
+  SetUserPreferredCurrencyResponse,
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -197,6 +201,14 @@ export class BackendAPIMock implements BackendAPI {
 
   async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
     return {} as CheckoutResponse;
+  }
+
+  async setUserPreferredCurrency(
+    params: SetUserPreferredCurrencyParams,
+    body: SetUserPreferredCurrencyBody,
+    query: SetUserPreferredCurrencyQuery,
+  ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
+    return {};
   }
 }
 

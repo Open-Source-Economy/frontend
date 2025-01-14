@@ -33,6 +33,10 @@ import {
   RequestIssueFundingBody,
   RequestIssueFundingParams,
   RequestIssueFundingQuery,
+  SetUserPreferredCurrencyBody,
+  SetUserPreferredCurrencyParams,
+  SetUserPreferredCurrencyQuery,
+  SetUserPreferredCurrencyResponse,
 } from "src/dtos";
 import { handleError } from "./index";
 import axios from "axios";
@@ -105,6 +109,12 @@ export interface BackendAPI {
   getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError>;
 
   checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<CheckoutResponse | ApiError>;
+
+  setUserPreferredCurrency(
+    params: SetUserPreferredCurrencyParams,
+    body: SetUserPreferredCurrencyBody,
+    query: SetUserPreferredCurrencyQuery,
+  ): Promise<SetUserPreferredCurrencyResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -192,5 +202,16 @@ class BackendAPIImpl implements BackendAPI {
 
   async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
     return handleError(() => axios.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
+  }
+
+  async setUserPreferredCurrency(
+    params: SetUserPreferredCurrencyParams,
+    body: SetUserPreferredCurrencyBody,
+    query: SetUserPreferredCurrencyQuery,
+  ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
+    return handleError(
+      () => axios.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
+      "getUserPreferredCurrency",
+    );
   }
 }

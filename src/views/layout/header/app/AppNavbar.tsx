@@ -1,111 +1,77 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
-import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "./Icons";
 import { Button } from "src/components";
 import { useAuth } from "../../../pages/app/authenticate/AuthContext";
-import { CurrencyModal } from "./CurrencyModal";
 import { MobileNavbar } from "./MobileNavbar";
-import { DropdownNavbar, DropdownNavbarItem } from "./DropdownNavbar";
+import { DropdownNavbar } from "./DropdownNavbar";
 import { Currency } from "src/model";
-import { displayedCurrencies } from "../../../data";
+import { config, Env } from "../../../../ultils";
+import {
+  billingItem,
+  currencyItem,
+  fundingHistoryItem,
+  fundIssuesItem,
+  logoutItem,
+  maintainerPortalItem,
+  manageIssuesItem,
+  NavbarItemData,
+  ordersItem,
+  profileItem,
+} from "./NavbarItemData";
+import { NavbarItem } from "./NavbarItem";
 
-interface AppNavbarProps {}
+interface AppNavbarProps {
+  setShowOffcanvas: Dispatch<SetStateAction<boolean>>;
+  showDropdownNavbar: boolean;
+  showCurrencyModal: boolean;
+  selectedCurrency: Currency;
+  setShowDropdownNavbar: Dispatch<SetStateAction<boolean>>;
+  setShowCurrencyModal: Dispatch<SetStateAction<boolean>>;
+}
 
 export function AppNavbar(props: AppNavbarProps) {
   const auth = useAuth();
 
-  const [showDropdownNavbar, setShowDropdownNavbar] = useState<boolean>(false);
+  const currencyNavItem = currencyItem(props.selectedCurrency, () => {
+    props.setShowCurrencyModal(!props.showCurrencyModal);
+    props.setShowDropdownNavbar(false); // for desktop
+    props.setShowOffcanvas(false); // for mobile
+  });
 
-  const [showCurrencyModal, setShowCurrencyModal] = useState<boolean>(false);
-  const [selectedCurrency, setSelectedCurrency] = useState(Currency.USD);
+  const displayManageIssuesItem = (auth.authInfo?.repositories ?? []).length > 0;
 
-  const dropdownNavbarItems: DropdownNavbarItem[] = [
-    {
-      title: "Fund Issues",
-      href: "/fund-issues",
-      icon: <FundIssueIcon />,
-    },
-    {
-      title: "Funding history",
-      href: "/funding-history",
-      icon: <FundungHistoryIcon />,
-      isBold: true,
-    },
-    {
-      title: displayedCurrencies[selectedCurrency].code,
-      icon: displayedCurrencies[selectedCurrency].symbol,
-      isButton: true,
-      isGradient: true,
-      divider: true,
-      onClick: () => {
-        setShowCurrencyModal(!showCurrencyModal);
-        setShowDropdownNavbar(false);
-      },
-    },
-    {
-      title: "Orders",
-      href: "/orders",
-      icon: <OrderIcon />,
-      divider: true,
-    },
-    {
-      title: "Billing",
-      href: "/billing",
-      icon: <BillingIcon />,
-    },
-    {
-      title: "Profile",
-      href: "/profile",
-      icon: <ProfileIcon />,
-      divider: true,
-      badge: "Pro",
-    },
-    {
-      title: "Maintainer Portal",
-      href: "/maintainer",
-      icon: <MaintainerIcon />,
-    },
-    {
-      title: "Sign Out",
-      href: "/logout",
-      icon: <LogOutIcon />,
-      divider: true,
-    },
+  const authNavbarItems: NavbarItemData[] = [
+    fundIssuesItem,
+    ...(displayManageIssuesItem ? [manageIssuesItem] : []),
+    ...(config.env !== Env.Production ? [fundingHistoryItem, ordersItem, billingItem, profileItem, maintainerPortalItem] : []),
+    currencyNavItem,
+    logoutItem,
   ];
+  const nonAuthNavbarItems: NavbarItemData[] = [currencyNavItem];
+
+  const navbarItems = auth.authInfo ? authNavbarItems : nonAuthNavbarItems;
 
   return (
     <>
-      {(auth.authInfo?.repositories ?? []).length > 0 && (
-        <Link to="/manage-issues" className="gradient-text mr-8">
-          Maintainer Portals
-        </Link>
-      )}
+      {displayManageIssuesItem && <NavbarItem item={manageIssuesItem} style="style_1" />}
+      <NavbarItem item={fundIssuesItem} style="style_1" />
 
-      <Link to="/fund-issues" className="gradient-text mr-3">
-        FUND ISSUES
-      </Link>
-
-      {auth.authInfo && (
+      {auth.authInfo ? (
         <>
-          <MobileNavbar />
+          <MobileNavbar navbarItems={navbarItems} />
 
-          <Button audience="STAKEHOLDER" level="PRIMARY" size="SMALL" asChild>
-            <Link to="/projects">BUY DOW</Link>
-          </Button>
+          {config.env !== Env.Production && (
+            <Button audience="STAKEHOLDER" level="PRIMARY" size="SMALL" asChild>
+              <Link to="/TODO">BUY DOW</Link>
+            </Button>
+          )}
 
-          <DropdownNavbar showDropdownNavbar={showDropdownNavbar} setShowDropdownNavbar={setShowDropdownNavbar} dropdownNavbarItems={dropdownNavbarItems} />
-
-          <CurrencyModal
-            isOpen={showCurrencyModal}
-            onClose={() => setShowCurrencyModal(false)}
-            onSelect={currency => {
-              setSelectedCurrency(currency);
-              // If you want to close as the  currency is selected
-              setShowCurrencyModal(false);
-            }}
-            selectedCurrency={selectedCurrency}
-          />
+          <DropdownNavbar showDropdownNavbar={props.showDropdownNavbar} setShowDropdownNavbar={props.setShowDropdownNavbar} navbarItems={navbarItems} />
         </>
+      ) : (
+        nonAuthNavbarItems.map(item => {
+          return <NavbarItem item={item} style="style_1" />;
+        })
       )}
     </>
   );
