@@ -45,11 +45,11 @@ export function WhatWeOfferCard(props: WhatWeOfferCardProps) {
                   <span className="max-w-[15px] min-w-3 block">
                     <ListIcon />
                   </span>
-                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap font-montserrat relative">
+                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap relative">
                     {" "}
                     {feature.name}
                     {feature.comingSoon && (
-                      <span className="absolute left-[105%] -top-2.5 leading-[100%] rounded-[5px] h-fit w-fit bg-[#243347] text-white text-[8px] font-montserrat font-semibold py-2 px-1.5">
+                      <span className="absolute left-[105%] -top-2.5 leading-[100%] rounded-[5px] h-fit w-fit bg-[#243347] text-white text-[8px] font-semibold py-2 px-1.5">
                         Coming Soon
                       </span>
                     )}

@@ -50,7 +50,7 @@ export function Solution(props: SolutionProps) {
         <div className="text-gray-300 text-[14px] xl:text-base max-sm:mx-auto text-center flex justify-center">{props.comming}</div>
         <h4 className={`${textColorVariants[props.audience]} text-xl md:text-3xl lg:text-4xl xl:text-[45px] michroma`}>{props.title}</h4>
         <h5 className="md:text-lg xl:text-[20px] 2xl:text-[28px] text-base !mt-4 text-white michroma leading-[130%]">{props.subTitle}</h5>
-        <p className="text-[12px] xl:text-[15px] 2xl:text-[21px] text-white leading-[150%] font-montserrat">{props.text}</p>
+        <p className="text-[12px] xl:text-[15px] 2xl:text-[21px] text-white leading-[150%]">{props.text}</p>
       </div>
     </div>
   );

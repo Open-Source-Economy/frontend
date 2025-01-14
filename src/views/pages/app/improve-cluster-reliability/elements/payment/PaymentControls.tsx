@@ -7,6 +7,8 @@ import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "../../../../../data";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
+import * as process from "process";
+import { config, Env } from "../../../../../../ultils";
 
 interface PaymentControlsProps {
   repositoryId: RepositoryId;
@@ -18,7 +20,6 @@ interface PaymentControlsProps {
 
 export function PaymentControls(props: PaymentControlsProps) {
   const backendAPI = getBackendAPI();
-  const displayCustomAmount = true;
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
   const [priceType, setPriceType] = useState<PriceType>(PriceType.RECURRING);
@@ -101,19 +102,19 @@ export function PaymentControls(props: PaymentControlsProps) {
                 selectedPriceIndex === index
                   ? "bg-gradient-custom"
                   : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 ease-linear transition-all !border-transparent"
-              } transition-colors font-montserrat text-white !p-3 3xl:!p-4 rounded-[13px]`}
+              } transition-colors text-white !p-3 3xl:!p-4 rounded-[13px]`}
               aria-pressed={selectedPriceIndex === index}
             >
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
                 {displayedCurrency.symbol}
                 {price.totalAmount / 100}
-                {priceType === PriceType.RECURRING ? "/mo" : ""}
+                <span className="font-normal ">{priceType === PriceType.RECURRING ? "/mo" : ""}</span>
               </h5>
               <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{price.label}</h6>
             </button>
           ))}
 
-        {displayCustomAmount && (
+        {config.env !== Env.Production && (
           <button
             className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
           >
@@ -122,7 +123,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               type="text"
               value={customAmount}
               onChange={handleCustomAmountChange}
-              placeholder={`Other ${priceType === PriceType.RECURRING ? "/mo" : ""}`}
+              placeholder={`Other${priceType === PriceType.RECURRING ? "/mo" : ""}`}
               className="bg-transparent text-white text-base sm:text-lg 3xl:text-xl placeholder:text-sm sm:placeholder:text-lg w-full focus:outline-none ml-2 placeholder-gray-400"
               aria-label="Custom donation amount"
             />

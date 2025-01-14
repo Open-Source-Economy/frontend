@@ -24,10 +24,10 @@ export function OpenSourceExpertTitle(props: OpenSourceExpertTitleProps) {
             <span className="absolute w-[30%] bottom-0 left-1/2 -translate-x-1/2 h-[4px] bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
           </span>{" "}
         </h1>
-        <h3 className="text-[21px] md:text-2xl lg:text-3xl xl:text-[33px] text-center font-montserrat 3xl:text-[40px] mt-10 sm:mt-12 md:mt-[60px] max-w-[320px] 500:max-w-[470px]  sm:max-w-full mx-auto">
+        <h3 className="text-[21px] md:text-2xl lg:text-3xl xl:text-[33px] text-center 3xl:text-[40px] mt-10 sm:mt-12 md:mt-[60px] max-w-[320px] 500:max-w-[470px]  sm:max-w-full mx-auto">
           Need help with an Open Source project?
         </h3>
-        <h5 className="font-montserrat text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center opacity-70 !mt-5 max-w-[320px] 500:max-w-[470px] sm:max-w-full mx-auto">
+        <h5 className="text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center opacity-70 !mt-5 max-w-[320px] 500:max-w-[470px] sm:max-w-full mx-auto">
           We're the experts who build, debug, and maintain it
         </h5>
       </section>

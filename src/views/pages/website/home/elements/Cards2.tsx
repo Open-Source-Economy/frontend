@@ -43,7 +43,7 @@ export function Cards2(props: Cards2Props) {
             <div className={`h-1 w-[149px] mx-auto duration-300 mt-6 bg-white  relative `}>
               <div className={`absolute top-0 left-0 w-full h-full gradient-bg duration-300 group-hover:!opacity-100 opacity-0`}></div>
             </div>
-            <p className="my-2 mt-3 px-4 text-lg font-normal font-montserrat text-white opacity-85  max-[540px]:text-base">{props.repository.description}</p>
+            <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85  max-[540px]:text-base">{props.repository.description}</p>
           </div>
         </div>
         <div className="w-full flex justify-center  relative z-20">

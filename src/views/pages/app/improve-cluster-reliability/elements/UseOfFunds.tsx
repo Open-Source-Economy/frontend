@@ -31,18 +31,18 @@ export function UseOfFunds(props: UseOfFundsProps) {
       </div>
       <section className="3xl:max-w-[1613px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1370px] mx-auto justify-end gap-14 flex items-center xl:flex-row flex-col-reverse">
         <div className="max-w-[590px] 2xl:max-w-[580px] w-full 3xl:max-w-[700px]">
-          <h1 className="text-2xl relative 1400:text-[32px] w-fit 3xl:text-[40px] pb-3 lg:pb-5 3xl:!pb-7 font-semibold font-montserrat sm:text-nowrap">
+          <h1 className="text-2xl relative 1400:text-[32px] w-fit 3xl:text-[40px] pb-3 lg:pb-5 3xl:!pb-7 font-semibold sm:text-nowrap">
             <span className="absolute sm:inline hidden left-0 w-[70%] bottom-0 h-[4px] 3xl:h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
             Use of the Funds
           </h1>
 
           <ul className="space-y-4 2xl:space-y-5 mt-4 xl:!mt-8 !text-left">
-            <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl">Your contribution will help us:</p>
+            <p className="text-base sm:text-xl font-medium 3xl:text-2xl">Your contribution will help us:</p>
             {reliableData.map((item, index) => (
               <ListItem item={item} key={index} />
             ))}
           </ul>
-          <p className="font-montserrat text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">
+          <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">
             Distributed systems like Pekko are inherently complex. Achieving consistent behavior, preventing cascading failures, and avoiding regressions
             requires specialized expertise and dedicated resources.
           </p>

@@ -19,20 +19,20 @@ export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
         <img src={needHelp} alt="" className="object-cover relative z-20" />
       </div>
       <div className="max-w-[640px] 2xl:max-w-[600px] w-full 3xl:max-w-[728px] relative z-20">
-        <h1 className="text-2xl 1400:text-[32px] 3xl:text-[40px] pb-3 lg:!pb-5 3xl:!pb-7 w-fit relative font-semibold font-montserrat sm:text-nowrap">
+        <h1 className="text-2xl 1400:text-[32px] 3xl:text-[40px] pb-3 lg:!pb-5 3xl:!pb-7 w-fit relative font-semibold sm:text-nowrap">
           <span className="absolute sm:inline hidden left-0 w-[37%] bottom-0 h-1 3xl:h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
           Why Do We Need Your Help?
         </h1>
-        <p className="font-montserrat text-base sm:text-xl font-medium 3xl:text-2xl !mt-3 xl:!mt-4">
+        <p className="text-base sm:text-xl font-medium 3xl:text-2xl !mt-3 xl:!mt-4">
           Apache Pekko is an independent open-source project powered by volunteers in their free time.
         </p>
         <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9 !text-left">
-          <h3 className="font-montserrat text-base sm:text-xl font-medium 3xl:text-[25px]">Ensuring a reliable Pekko cluster requires:</h3>
+          <h3 className="text-base sm:text-xl font-medium 3xl:text-[25px]">Ensuring a reliable Pekko cluster requires:</h3>
           {reliableData.map((item, index) => (
             <ListItem key={index} item={item} />
           ))}
         </ul>
-        <p className="font-montserrat text-base xl:max-w-[520px] 3xl:max-w-[628px] sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8">
+        <p className="text-base xl:max-w-[520px] 3xl:max-w-[628px] sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8">
           To make Pekko’s cluster reliability our top priority, we need your support.
         </p>
       </div>

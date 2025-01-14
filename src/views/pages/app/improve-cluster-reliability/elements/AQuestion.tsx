@@ -21,7 +21,7 @@ export function AQuestion(props: AQuestionProps) {
         <span className="absolute w-[40%] sm:w-[10%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
         A question?
       </h2>
-      <p className="font-montserrat text-base relative z-20 max-w-[800px] opacity-80 2xl:max-w-[910px] text-center 3xl:max-w-[1067px] mx-auto sm:text-xl font-medium 3xl:text-2xl mt-8">
+      <p className="text-base relative z-20 max-w-[800px] opacity-80 2xl:max-w-[910px] text-center 3xl:max-w-[1067px] mx-auto sm:text-xl font-medium 3xl:text-2xl mt-8">
         Distributed systems like Pekko are inherently complex. Achieving consistent behavior, preventing cascading failures, and avoiding regressions requires
         specialized expertise and dedicated resources.
       </p>

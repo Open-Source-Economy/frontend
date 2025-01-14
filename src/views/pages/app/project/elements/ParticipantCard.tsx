@@ -29,12 +29,10 @@ export function ParticipantCard(props: ParticipantCardProps) {
         {/* Participant Info */}
 
         <ExternalLink href={props.maintainer.githubPage}>
-          <h3 className="font-montserrat font-semibold text-xl 2xl:text-2xl 3xl:text-[28px] !mt-4 3xl:!mt-[18px]">{props.maintainer.displayName}</h3>
+          <h3 className="font-semibold text-xl 2xl:text-2xl 3xl:text-[28px] !mt-4 3xl:!mt-[18px]">{props.maintainer.displayName}</h3>
         </ExternalLink>
-        <p className="text-[#ADABAF] text-base lg:text-lg font-montserrat font-medium xl:text-xl mt-1 mb-2 3xl:text-[22px]">{props.maintainer.title}</p>
-        {props.maintainer.quote && (
-          <p className="text-white opacity-80 text-base lg:text-lg font-montserrat xl:text-xl 3xl:text-[22px]">"{props.maintainer.quote}"</p>
-        )}
+        <p className="text-[#ADABAF] text-base lg:text-lg font-medium xl:text-xl mt-1 mb-2 3xl:text-[22px]">{props.maintainer.title}</p>
+        {props.maintainer.quote && <p className="text-white opacity-80 text-base lg:text-lg xl:text-xl 3xl:text-[22px]">"{props.maintainer.quote}"</p>}
       </div>
     </>
   );

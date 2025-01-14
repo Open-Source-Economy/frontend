@@ -26,7 +26,7 @@ export function PageTitle(props: PageTitleProps) {
         <span className="bg-gradient-to-r from-[#FF518C] to-[#66319B]  text-transparent bg-clip-text">{capitalize(props.repository.id.name)}</span>
       </h1>
       {props.displayProjectSubtitle && (
-        <h5 className="font-montserrat text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center max-w-[320px] 500:max-w-[470px] md:max-w-[936px] mx-auto opacity-70 !mt-4">
+        <h5 className="text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center max-w-[320px] 500:max-w-[470px] md:max-w-[936px] mx-auto opacity-70 !mt-4">
           Build highly concurrent, distributed, and resilient message-driven{" "}
           <span className="relative w-fit inline md:block mx-auto !pb-3 lg:!pb-5">
             applications using Java/Scala{" "}
@@ -36,10 +36,10 @@ export function PageTitle(props: PageTitleProps) {
       )}
       {props.displayWhatDoWeOffer && (
         <>
-          <h3 className="text-2xl font-medium  lg:text-3xl max-w-[586px] mx-auto xl:text-[33px] font-mdeium text-center font-montserrat 3xl:text-[40px] mt-20 sm:mt-14">
+          <h3 className="text-2xl font-medium  lg:text-3xl max-w-[586px] mx-auto xl:text-[33px] font-mdeium text-center 3xl:text-[40px] mt-20 sm:mt-14">
             What do we offer?
           </h3>
-          <h5 className="font-montserrat text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center max-w-[320px] 500:max-w-[500px] 3xl:max-w-[596px] mx-auto  opacity-70 !mt-3 xl:!mt-5">
+          <h5 className="text-base xl:text-lg 2xl:text-xl 3xl:text-2xl text-center max-w-[320px] 500:max-w-[500px] 3xl:max-w-[596px] mx-auto  opacity-70 !mt-3 xl:!mt-5">
             We're the experts who build, debug, and maintain it
           </h5>
         </>

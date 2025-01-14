@@ -14,7 +14,7 @@ export function DonationSelector(props: DonationSelectorProps) {
         {/* Donation Option */}
         <button
           onClick={() => props.setProductType(ProductType.donation)}
-          className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium font-montserrat flex-1`}
+          className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1`}
         >
           <div
             className={`w-5 h-5  rounded-full border flex items-center justify-center ${
@@ -29,7 +29,7 @@ export function DonationSelector(props: DonationSelectorProps) {
         {/* Receive Option */}
         <button
           onClick={() => props.setProductType(ProductType.milliDow)}
-          className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium font-montserrat flex-1 `}
+          className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1 `}
         >
           <div
             className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === ProductType.milliDow ? "!border-primary-user" : "border-white"}`}

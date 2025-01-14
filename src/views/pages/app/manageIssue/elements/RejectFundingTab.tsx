@@ -9,11 +9,11 @@ export function RejectFundingTab(props: RejectFundingTabProps) {
       <div className="px-10 md:px-12 xl:px-14 2xl:px-[70px]">
         <div className="flex items-start  gap-3">
           <img src={check} className="w-4 h-4 2xl:mt-2" alt="" />
-          <h2 className="font-montserrat xl:text-lg font-normal text-start">All the amount collected will be refunded</h2>
+          <h2 className="xl:text-lg font-normal text-start">All the amount collected will be refunded</h2>
         </div>
         <div className="flex items-start mt-2 gap-3">
           <img src={check} className="w-4 h-4 mt-1 2xl:mt-2" alt="" />
-          <h2 className="font-montserrat xl:text-lg font-normal text-start">Another maintainer cannot accept to work on it.</h2>
+          <h2 className="xl:text-lg font-normal text-start">Another maintainer cannot accept to work on it.</h2>
         </div>
 
         <p className="!mt-5 lg:!mt-10">

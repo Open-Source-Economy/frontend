@@ -56,7 +56,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
           </div>
           <div className="flex items-start mt-3 !gap-3 mb-10">
             <img src={check} className="w-4 h-4 mt-1" alt="" />
-            <h2 className="font-montserrat xl:text-lg font-normal text-start">I will split fairly the amount collected among contributors and reviewers</h2>
+            <h2 className="xl:text-lg font-normal text-start">I will split fairly the amount collected among contributors and reviewers</h2>
           </div>
 
           <Button

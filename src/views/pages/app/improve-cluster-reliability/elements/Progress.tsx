@@ -43,27 +43,27 @@ export function Progress(props: ProgressProps) {
         </div>
       </div>
 
-      <h2 className="font-montserrat text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
+      <h2 className="text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
         {displayedCurrency.symbol}
         {(props.raisedAmount[props.preferredCurrency] / 100).toLocaleString()}/mo
       </h2>
-      <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
+      <p className="text-base opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
         <span className="hidden">{props.raisedAmount[props.preferredCurrency].toLocaleString()} </span> pledged of {displayedCurrency.symbol}
-        {(props.targetAmount[props.preferredCurrency] / 100).toLocaleString()}/mo
+        {(props.targetAmount[props.preferredCurrency] / 100).toLocaleString()}
       </p>
       {(props.numberOfBackers || props.numberOfDaysLeft) && (
         <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">
           {props.numberOfBackers && (
             <div>
               <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{props.numberOfBackers.toLocaleString()}</h3>
-              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Backers</p>
+              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl opacity-80">Backers</p>
             </div>
           )}
 
           {props.numberOfDaysLeft && (
             <div>
               <h3 className="text-xl 2xl:text-[25px] font-medium !mb-1.5">{props.numberOfDaysLeft}</h3>
-              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl font-montserrat opacity-80">Days to go</p>
+              <p className="text-sm xl:text-base 2xl:text-lg !leading-none 3xl:text-xl opacity-80">Days to go</p>
             </div>
           )}
         </div>

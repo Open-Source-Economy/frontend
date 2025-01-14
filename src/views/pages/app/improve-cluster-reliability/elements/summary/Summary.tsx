@@ -17,10 +17,10 @@ export function Summary(props: SummaryProps) {
             Improve Cluster Reliability
             <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </h2>{" "}
-          <p className="font-montserrat text-center !leading-[154%] xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 1600:text-2xl max-w-[650px] w-full 3xl:max-w-[770px] 3xl:text-[30px] !mt-6 xl:!mt-8 2xl:mt-9 3xl:!mt-[42px]">
+          <p className="text-center !leading-[154%] xl:!text-left text-base sm:text-xl mx-auto xl:!mx-0 font-medium 1600:text-2xl max-w-[650px] w-full 3xl:max-w-[770px] 3xl:text-[30px] !mt-6 xl:!mt-8 2xl:mt-9 3xl:!mt-[42px]">
             Apache Pekko is an independent open-source project powered by volunteers in their free time.
           </p>
-          <p className="font-montserrat text-base text-center xl:!text-left sm:text-left sm:text-xl font-medium  1600:text-2xl 3xl:text-[30px] xl:!my-6 !my-4 3xl:!my-8">
+          <p className="text-base text-center xl:!text-left sm:text-left sm:text-xl font-medium  1600:text-2xl 3xl:text-[30px] xl:!my-6 !my-4 3xl:!my-8">
             We need your help.{" "}
           </p>
         </>
@@ -34,7 +34,7 @@ export function Summary(props: SummaryProps) {
             <span className="absolute w-[25%] h-[6px] left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </h2>{" "}
           <VideoPlayer />
-          <p className="font-montserrat text-base xl:text-xl font-medium 3xl:text-2xl !my-5 xl:!my-3 3xl:!my-5">
+          <p className="text-base xl:text-xl font-medium 3xl:text-2xl !my-5 xl:!my-3 3xl:!my-5">
             Apache Pekko is an independent open-source project powered by volunteers in their free time.
           </p>
         </>
