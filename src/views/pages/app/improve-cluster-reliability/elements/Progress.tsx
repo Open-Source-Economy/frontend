@@ -45,11 +45,11 @@ export function Progress(props: ProgressProps) {
 
       <h2 className="font-montserrat text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
         {displayedCurrency.symbol}
-        {props.raisedAmount[props.preferredCurrency].toLocaleString()}/mo
+        {(props.raisedAmount[props.preferredCurrency] / 100).toLocaleString()}/mo
       </h2>
       <p className="text-base font-montserrat opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
         <span className="hidden">{props.raisedAmount[props.preferredCurrency].toLocaleString()} </span> pledged of {displayedCurrency.symbol}
-        {props.targetAmount[props.preferredCurrency].toLocaleString()}/mo
+        {(props.targetAmount[props.preferredCurrency] / 100).toLocaleString()}/mo
       </p>
       {(props.numberOfBackers || props.numberOfDaysLeft) && (
         <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">

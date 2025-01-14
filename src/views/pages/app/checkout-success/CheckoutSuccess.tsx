@@ -2,11 +2,16 @@ import React from "react";
 import { BaseURL } from "../../../../App";
 import { PageWrapper } from "../../PageWrapper";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 interface CheckoutSuccessProps {}
 
 export function CheckoutSuccess(props: CheckoutSuccessProps) {
-  const { session_id, mode } = useParams();
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const session_id = queryParams.get("session_id");
+  const mode = queryParams.get("mode");
+
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       Success!

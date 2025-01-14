@@ -30,9 +30,9 @@ export function Authenticate(props: AuthenticateProps) {
   const authAPI = getAuthBackendAPI();
   const location = useLocation();
 
-  const params = new URLSearchParams(location.search);
-  const repositoryToken: string | null = params.get("repository_token");
-  const companyToken: string | null = params.get("company_token");
+  const queryParams = new URLSearchParams(location.search);
+  const repositoryToken: string | null = queryParams.get("repository_token");
+  const companyToken: string | null = queryParams.get("company_token");
 
   const [name, setName] = useState<string | null>(null);
   const [githubLogin, setGithubLogin] = useState("");

@@ -59,7 +59,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
                 <Progress
                   preferredCurrency={preferredCurrency}
                   raisedAmount={campaign.raisedAmount}
-                  targetAmount={campaign.raisedAmount}
+                  targetAmount={campaign.targetAmount}
                   numberOfBackers={campaign.numberOfBackers}
                   numberOfDaysLeft={campaign.numberOfDaysLeft}
                 />

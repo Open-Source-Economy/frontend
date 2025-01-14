@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { Button } from "src/components";
+import { Button, ExternalLink } from "src/components";
 import { LeftLinear, TelephoneIcon } from "src/Utils/Icons";
 import React from "react";
+import { config, Env } from "../../../../../ultils";
 
 interface AQuestionProps {}
 
@@ -25,11 +26,17 @@ export function AQuestion(props: AQuestionProps) {
         specialized expertise and dedicated resources.
       </p>
       <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
-        <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
-          <Link to="#">FAQ</Link>
-        </Button>{" "}
+        {config.env !== Env.Production && (
+          <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
+            <Link to="#">FAQ</Link>
+          </Button>
+        )}
+
         <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
-          Book a Call
+          <ExternalLink href="https://calendly.com/pekko/30min" underline={false}>
+            {" "}
+            Book a Call{" "}
+          </ExternalLink>
         </Button>
       </div>
     </section>
