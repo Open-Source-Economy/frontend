@@ -34,7 +34,7 @@ export function NavbarItem(props: NavbarItemProps) {
           // </>
           <>
             <button
-              className="mr-3 flex items-center w-max duration-200 gradient-bg  bg-clip-text group gap-2  text-xl  text-white group"
+              className="mr-3 flex items-center w-max duration-200 gradient-bg  bg-clip-text group gap-2 font-montserrat text-xl text-white group"
               onClick={props.item.onClick}
             >
               <span className="flex props.items-center group-hover:text-transparent">{props.item.icon}</span>

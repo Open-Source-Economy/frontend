@@ -23,11 +23,11 @@ export function NavbarContent(props: NavbarContentProps) {
       {props.baseURL === BaseURL.APP && (
         <AppNavbar
           setShowOffcanvas={props.setShowOffcanvas}
-          showCurrencyModal={props?.showCurrencyModal}
-          showDropdownNavbar={props?.showDropdownNavbar}
-          setShowDropdownNavbar={props?.setShowDropdownNavbar}
-          setShowCurrencyModal={props?.setShowCurrencyModal}
-          selectedCurrency={props?.selectedCurrency}
+          showCurrencyModal={props.showCurrencyModal}
+          showDropdownNavbar={props.showDropdownNavbar}
+          setShowDropdownNavbar={props.setShowDropdownNavbar}
+          setShowCurrencyModal={props.setShowCurrencyModal}
+          selectedCurrency={props.selectedCurrency}
         />
       )}
     </Nav>

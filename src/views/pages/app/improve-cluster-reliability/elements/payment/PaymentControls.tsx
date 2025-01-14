@@ -7,7 +7,6 @@ import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "../../../../../data";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
-import * as process from "process";
 import { config, Env } from "../../../../../../ultils";
 
 interface PaymentControlsProps {

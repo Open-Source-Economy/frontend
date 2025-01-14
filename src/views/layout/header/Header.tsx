@@ -34,6 +34,10 @@ export function Header(props: HeaderProps) {
 
   const [preferredCurrency, setPreferredCurrency] = useState<Currency>(PreferredCurrency.get(auth));
 
+  useEffect(() => {
+    setPreferredCurrency(PreferredCurrency.get(auth));
+  }, [auth.authInfo?.user]);
+
   const handleSelectPreferredCurrency = (currency: Currency) => {
     setPreferredCurrency(currency);
     PreferredCurrency.set(auth, currency);
