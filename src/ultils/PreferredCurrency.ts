@@ -1,8 +1,8 @@
 import { Currency } from "../model";
 import { AuthContextState } from "../views/pages/app/authenticate/AuthContext";
-import { CurrencyCookie } from "../cookies";
 import { SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "../dtos";
 import { getBackendAPI } from "../services";
+import { currencyCookie } from "../cookies";
 
 export const PreferredCurrency = {
   backendAPI: getBackendAPI(),
@@ -11,12 +11,12 @@ export const PreferredCurrency = {
     if (auth.authInfo?.user?.preferredCurrency) {
       return auth.authInfo.user.preferredCurrency;
     } else {
-      return CurrencyCookie.get();
+      return currencyCookie.get();
     }
   },
 
   set(auth: AuthContextState, currency: Currency): void {
-    if (auth.authInfo) {
+    if (auth.authInfo?.user) {
       const params: SetUserPreferredCurrencyParams = {
         currency: currency,
       };
@@ -27,7 +27,7 @@ export const PreferredCurrency = {
         window.location.reload();
       });
     } else {
-      CurrencyCookie.set(currency);
+      currencyCookie.set(currency);
       window.location.reload();
     }
   },

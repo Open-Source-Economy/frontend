@@ -49,14 +49,14 @@ export function AppNavbar(props: AppNavbarProps) {
   ];
   const nonAuthNavbarItems: NavbarItemData[] = [currencyNavItem];
 
-  const navbarItems = auth.authInfo ? authNavbarItems : nonAuthNavbarItems;
+  const navbarItems = auth.authInfo?.user ? authNavbarItems : nonAuthNavbarItems;
 
   return (
     <>
       {displayManageIssuesItem && <NavbarItem item={manageIssuesItem} style="style_1" />}
       <NavbarItem item={fundIssuesItem} style="style_1" />
 
-      {auth.authInfo ? (
+      {auth.authInfo?.user ? (
         <>
           <MobileNavbar navbarItems={navbarItems} />
 
