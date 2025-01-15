@@ -13,7 +13,7 @@ export function NonProfitBanner(props: CompanyBannerProps) {
             {" "}
             <DollarSign />
           </span>
-          <span className="font-michroma text-base 2xl:text-lg 3xl:text-xl text-nowrap">100% not profit</span>
+          <span className="font-michroma text-base 2xl:text-lg 3xl:text-xl text-nowrap">100% non-profit</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="max-w-6 2xl:max-w-7 3xl:max-w-9">

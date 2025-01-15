@@ -74,12 +74,15 @@ const App = () => {
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
             <Route element={<RepositoryRoutes />}>
-              <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
               <Route path={`/:${ownerParam}/:${repoParam}/project`} element={<Project />} />
             </Route>
 
             <Route path="/buy-dows" element={<Payment />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          </Route>
+
+          <Route element={<RepositoryRoutes />}>
+            <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
           </Route>
 
           <Route path="/" element={<Home />} />

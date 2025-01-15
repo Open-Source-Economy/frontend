@@ -141,7 +141,9 @@ export function PaymentControls(props: PaymentControlsProps) {
         onClick={handleCheckout}
       >
         {selectedPrice
-          ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100} ${priceType === PriceType.RECURRING ? "/mo" : ""}`
+          ? productType === ProductType.donation
+            ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""}`
+            : `Receive ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""} of DoWs`
           : "Select an amount to donate"}
       </Button>
     </>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProductType } from "src/model";
+import { config, Env } from "src/ultils";
 
 interface DonationSelectorProps {
   productType: ProductType;
@@ -37,25 +38,33 @@ export function DonationSelector(props: DonationSelectorProps) {
             {props.productType === ProductType.milliDow && <div className="w-3 h-3 rounded-full bg-primary-user" />}
           </div>
           I want to receive{" "}
-          <Link
-            to="/"
-            className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
-          >
-            DoW
-          </Link>
+          {config.env !== Env.Production ? (
+            <Link
+              to="/"
+              className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >
+              DoWs
+            </Link>
+          ) : (
+            "DoWs"
+          )}
         </button>
       </div>
 
       {/* Info Banner */}
       {props.productType === ProductType.milliDow && (
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 xl:text-nowrap flex-wrap xl:!flex-nowrap 3xl:rounded-[15px] flex justify-start text-sm 1600:text-base 3xl:text-lg w-full items-center">
-          With DoWs, you can prioritize your needs
-          <Link
-            to="#"
-            className="text-primary-user text-nowrap relative font-semibold after:transition-all after:content-[''] after:absolute after:h-0.5 after:bg-primary-user after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:duration-300"
-          >
-            Learn More
-          </Link>
+          Get bug fixes, features, support,
+          {config.env !== Env.Production ? (
+            <Link
+              to="#"
+              className="text-primary-user text-nowrap relative font-semibold after:transition-all after:content-[''] after:absolute after:h-0.5 after:bg-primary-user after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:duration-300"
+            >
+              and more...
+            </Link>
+          ) : (
+            "and more..."
+          )}
         </div>
       )}
     </div>

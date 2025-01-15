@@ -9,6 +9,8 @@ import { useAuth } from "../../authenticate/AuthContext";
 import { useCampaign } from "../../../../hooks/useCampaign";
 import { useParams } from "react-router-dom";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
+import { CompanyNumberBanner } from "./CompanyNumberBanner";
+import { config, Env } from "../../../../../ultils";
 
 interface FundingCampaignProps {
   repositoryId: RepositoryId;
@@ -73,6 +75,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
                 />
               </div>
               <NonProfitBanner />
+              {config.env !== Env.Production && <CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />}
             </>
           )}
         </div>

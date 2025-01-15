@@ -22,8 +22,14 @@ export function AQuestion(props: AQuestionProps) {
         A question?
       </h2>
       <p className="text-base relative z-20 max-w-[800px] opacity-80 2xl:max-w-[910px] text-center 3xl:max-w-[1067px] mx-auto sm:text-xl font-medium 3xl:text-2xl mt-8">
-        Distributed systems like Pekko are inherently complex. Achieving consistent behavior, preventing cascading failures, and avoiding regressions requires
-        specialized expertise and dedicated resources.
+        Got questions about the campaign, Pekko, or DoWs?
+        <br />
+        Wondering how to get priority bug fixes and features with DoWs?
+        <br />
+        Need tailored solution for your business?
+        <br />
+        <br />
+        We’d love to chat about how your contribution can make an impact!
       </p>
       <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
         {config.env !== Env.Production && (
@@ -33,9 +39,8 @@ export function AQuestion(props: AQuestionProps) {
         )}
 
         <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
-          <ExternalLink href="https://calendly.com/pekko/30min" underline={false}>
-            {" "}
-            Book a Call{" "}
+          <ExternalLink href="https://calendly.com/lauriane-m/open-source-economy" underline={false}>
+            Book a Call
           </ExternalLink>
         </Button>
       </div>
