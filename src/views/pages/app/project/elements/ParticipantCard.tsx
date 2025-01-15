@@ -20,11 +20,7 @@ export function ParticipantCard(props: ParticipantCardProps) {
         </ExternalLink>
         <div className="!bg-secondary h-12 md:h-14 3xl:h-[61px] text-white rounded-full !pl-6 !pr-3 py-1 justify-between flex items-center">
           <span className="text-xs md:text-sm 3xl:text-base opacity-80 max-w-[100px] md:max-w-[140px] 3xl:max-w-[155px]">OSS Full time Thanks to you!</span>{" "}
-          <img
-            className="max-w-12 md:max-w-14 h-auto xl:max-w-16  3xl:max-w-[79px] w-full object-contain -mt-10 3xl:-mt-16"
-            src={props.maintainer.mascot}
-            alt=""
-          />{" "}
+          <img className="max-w-12 md:max-w-14 h-auto xl:max-w-16  3xl:max-w-[79px] w-full -mt-10 3xl:-mt-16" src={props.maintainer.mascot} alt="" />{" "}
         </div>
         {/* Participant Info */}
 
