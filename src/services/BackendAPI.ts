@@ -27,6 +27,9 @@ import {
   GetPricesParams,
   GetPricesQuery,
   GetPricesResponse,
+  GetProjectServicesParams,
+  GetProjectServicesQuery,
+  GetProjectServicesResponse,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
@@ -45,6 +48,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { pekkoMaintainers } from "./data";
+import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -115,6 +119,8 @@ export interface BackendAPI {
     body: SetUserPreferredCurrencyBody,
     query: SetUserPreferredCurrencyQuery,
   ): Promise<SetUserPreferredCurrencyResponse | ApiError>;
+
+  getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<GetProjectServicesResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -213,5 +219,12 @@ class BackendAPIImpl implements BackendAPI {
       () => axios.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
       "getUserPreferredCurrency",
     );
+  }
+
+  async getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<ApiError | GetProjectServicesResponse> {
+    if (params.owner === "apache" && params.repo === "pekko") {
+      return pekkoGetProjectServicesResponse;
+    }
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 }

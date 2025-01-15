@@ -6,3 +6,4 @@ export * from "./useRepository";
 export * from "./useRepositoryFromParams";
 export * from "./useMaintainers";
 export * from "./usePrices";
+export * from "./useProjectServices";

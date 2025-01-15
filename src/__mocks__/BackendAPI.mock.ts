@@ -42,6 +42,9 @@ import {
   GetPricesParams,
   GetPricesQuery,
   GetPricesResponse,
+  GetProjectServicesParams,
+  GetProjectServicesQuery,
+  GetProjectServicesResponse,
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
@@ -57,6 +60,8 @@ import {
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { pekkoMaintainers } from "../services/data";
+import { StatusCodes } from "http-status-codes";
+import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -209,6 +214,13 @@ export class BackendAPIMock implements BackendAPI {
     query: SetUserPreferredCurrencyQuery,
   ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
     return {};
+  }
+
+  async getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<ApiError | GetProjectServicesResponse> {
+    if (params.owner === "apache" && params.repo === "pekko") {
+      return pekkoGetProjectServicesResponse;
+    }
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 }
 

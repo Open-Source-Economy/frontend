@@ -1,5 +1,6 @@
 export * from "./github";
 export * from "./user";
+export * from "./project";
 export * from "./stripe";
 export * from "./Address";
 export * from "./FinancialIssue";
