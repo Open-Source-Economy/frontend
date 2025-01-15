@@ -116,7 +116,9 @@ export function PaymentControls(props: PaymentControlsProps) {
 
         {config.env !== Env.Production && (
           <button
-            className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
+            className={`${
+              customAmount ? "border-[#D8D8D8] border" : ""
+            } w-full  bg-[#16263B] border-[#D8D8D8] h-16 sm:h-[68px] 3xl:h-[81px] border rounded-xl flex items-center px-6`}
           >
             <span className="text-white text-base sm:text-lg 3xl:text-xl font-medium">{displayedCurrency.symbol}</span>
             <input

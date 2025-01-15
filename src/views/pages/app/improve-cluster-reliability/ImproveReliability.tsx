@@ -7,6 +7,7 @@ import { Maintainers } from "../project/elements/Maintainers";
 import { useRepository } from "../../../hooks";
 import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
 import { PageTitle } from "../project/elements/PageTitle";
+import { CompanyNumberBanner } from "./elements/CompanyNumberBanner";
 
 interface ImproveReliabilityProps {}
 
@@ -23,7 +24,7 @@ export function ImproveReliability(props: ImproveReliabilityProps) {
       <PageWrapper baseURL={BaseURL.APP}>
         {owner && repository && <PageTitle owner={owner} repository={repository} />}
         <FundingCampaign repositoryId={repositoryId} />
-        {/*<CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />*/}
+        <CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />
         <Maintainers repositoryId={repositoryId} viewAllButton={false} />
         <AQuestion />
         <WhyDoWeNeedYourHelp />
