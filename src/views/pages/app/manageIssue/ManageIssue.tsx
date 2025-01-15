@@ -12,7 +12,7 @@ import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/Rejec
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
-import { Title } from "src/components";
+import { AudienceTitle } from "src/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface ManageIssueProps {}
@@ -33,7 +33,7 @@ export function ManageIssue(props: ManageIssueProps) {
           <BackgroundSection bgImage={bgimage3} position="right 2%">
             <div className="flex items-center justify-center w-full">
               <div className="sm:mt-20 py-5 px-4 w-full lg:w-fit" style={getBackgroundImageStyle(bgimage)}>
-                <Title audience={audience} whiteText="Manage an " coloredText="Issue" />
+                <AudienceTitle audience={audience} whiteText="Manage an " coloredText="Issue" />
                 <div className="flex flex-wrap xl:!flex-nowrap justify-center w-full items-start !gap-5 xl:py-24 max-w-[1220px] mx-auto 3xl:max-w-[1500px]">
                   <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (

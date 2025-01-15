@@ -6,7 +6,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { BaseURL } from "src/App";
 import { Audience } from "../../../../Audience";
-import { Title } from "src/components";
+import { AudienceTitle } from "src/components";
 
 interface InviteCompanyUserProps {}
 
@@ -72,7 +72,7 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
     <PageWrapper baseURL={BaseURL.APP}>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
-          <Title audience={Audience.DEVELOPER} whiteText={"Invite "} coloredText={"Company User"} />
+          <AudienceTitle audience={Audience.DEVELOPER} whiteText={"Invite "} coloredText={"Company User"} />
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
               onSubmit={handleLocalAuthentication}

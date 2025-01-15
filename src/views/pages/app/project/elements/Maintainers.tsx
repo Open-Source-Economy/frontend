@@ -3,7 +3,7 @@ import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
-import { Button } from "src/components";
+import { Button, DividerTitle } from "src/components";
 import { useMaintainers } from "../../../../hooks";
 import { RepositoryId } from "src/model";
 
@@ -37,13 +37,9 @@ export function Maintainers(props: MaintainersProps) {
         className="absolute max-w-[670px] w-full -z-10 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
       />
 
-      <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
-        {/* Title */}
-        <h2 className="section-heading mx-auto lg:!pb-6 3xl:!pb-8 w-fit relative mb-10 md:mb-14">
-          Who is Participating?
-          <span className="absolute w-[50%] h-1 3xl:h-[6px] hidden lg:inline left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
-        </h2>
+      <DividerTitle title="Who is Participating?" />
 
+      <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
         {/* Participants List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-14 sm:gap-8">
           {maintainers.map((maintainer, index) => (

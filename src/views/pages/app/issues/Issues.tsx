@@ -14,7 +14,7 @@ import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/components/common/Loading";
 
 import catimg from "src/assets/Mascot.png";
-import { ShowApiError } from "../../../../components/common/ShowApiError";
+import { ShowApiError } from "src/components/common/ShowApiError";
 
 interface IssuesProps {
   audience: Audience;

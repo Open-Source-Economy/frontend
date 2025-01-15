@@ -6,7 +6,7 @@ import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
-import { Title } from "src/components";
+import { AudienceTitle } from "src/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface FundIssueProps {}
@@ -36,7 +36,7 @@ export function FundIssue({}: FundIssueProps) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <Title audience={audience} whiteText="Fund an " coloredText="Issue" />
+          <AudienceTitle audience={audience} whiteText="Fund an " coloredText="Issue" />
 
           {financialIssue && (
             <div className="pt-16 md:pt-24 flex justify-center flex-wrap gap-4">
