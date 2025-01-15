@@ -206,7 +206,7 @@ export class BackendAPIMock implements BackendAPI {
   async setUserPreferredCurrency(
     params: SetUserPreferredCurrencyParams,
     body: SetUserPreferredCurrencyBody,
-    query: SetUserPreferredCurrencyQuery,
+    query: SetUserPreferredCurrencyQuery
   ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
     return {};
   }

@@ -8,8 +8,8 @@ interface CompanyNumberBannerProps {
 
 export function CompanyNumberBanner(props: CompanyNumberBannerProps) {
   return (
-    <>
-      <div className="relative bg-[url('src/assets/company-banner.webp')] xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto bg-cover py-[22px] !px-4 3xl:px-[30px] flex !gap-3 3xl:!gap-4 500:flex-row flex-col rounded-[25px] overflow-hidden xl:bg-full items-center justify-center">
+    <section className="!px-4">
+      <div className="relative rounded-2xl xl:rounded-[25px] bg-no-repeat bg-[url('src/assets/company-banner.webp')] xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] max-w-[800px] mx-auto bg-center bg-cover py-[22px] !px-4 3xl:px-[30px] flex !gap-3 3xl:!gap-4 500:flex-row flex-col overflow-hidden xl:bg-full items-center justify-center">
         <div className="flex flex-col items-center gap-1.5 3xl:gap-2.5">
           <h2 className="text-base 1600:text-lg text-nowrap 3xl:text-[22px] font-bold">We are looking for</h2>
           <button className="bg-primary-user text-nowrap w-full shadow-[0px_4px_4px_0px_rgba(255,255,255,0.50)_inset,_0px_4px_4px_0px_#09172A] font-semibold py-2 md:py-3 px-6 rounded-[12px] 3xl:text-[22px] 3xl:font-bold">
@@ -29,6 +29,6 @@ export function CompanyNumberBanner(props: CompanyNumberBannerProps) {
           <p className="text-base 1600:text-lg text-nowrap 3xl:text-[22px] font-bold">Be one of them!</p>
         </div>
       </div>
-    </>
+    </section>
   );
 }

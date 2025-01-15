@@ -37,7 +37,7 @@ export function Maintainers(props: MaintainersProps) {
         className="absolute max-w-[670px] w-full -z-10 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
       />
 
-      <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
+      <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
         {/* Title */}
         <h2 className="section-heading mx-auto lg:!pb-6 3xl:!pb-8 w-fit relative mb-10 md:mb-14">
           Who is Participating?
@@ -45,7 +45,7 @@ export function Maintainers(props: MaintainersProps) {
         </h2>
 
         {/* Participants List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center lg:grid-cols-4 gap-14 sm:gap-8">
+        <div className="flex justify-center  flex-wrap gap-14 sm:gap-8 2xl:justify-between">
           {maintainers.map((maintainer, index) => (
             <ParticipantCard maintainer={maintainer} key={index} />
           ))}

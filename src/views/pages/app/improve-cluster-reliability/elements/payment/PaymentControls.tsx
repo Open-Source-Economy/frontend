@@ -101,7 +101,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               className={`${
                 selectedPriceIndex === index
                   ? "bg-gradient-custom"
-                  : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 ease-linear transition-all !border-transparent"
+                  : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 h-16 sm:h-[69px] 3xl:h-[81px] ease-linear transition-all !border-transparent"
               } transition-colors text-white !p-3 3xl:!p-4 rounded-[13px]`}
               aria-pressed={selectedPriceIndex === index}
             >
@@ -118,7 +118,7 @@ export function PaymentControls(props: PaymentControlsProps) {
           <button
             className={`${
               customAmount ? "border-[#D8D8D8] border" : ""
-            } w-full  bg-[#16263B] border-[#D8D8D8] h-16 sm:h-[68px] 3xl:h-[81px] border rounded-xl flex items-center px-6`}
+            } w-full h-16 sm:h-[69px] 3xl:h-[81px]  bg-[#16263B] border-[#D8D8D8]  border rounded-xl flex items-center px-6`}
           >
             <span className="text-white text-base sm:text-lg 3xl:text-xl font-medium">{displayedCurrency.symbol}</span>
             <input
