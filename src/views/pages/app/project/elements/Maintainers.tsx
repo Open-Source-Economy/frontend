@@ -20,7 +20,7 @@ export function Maintainers(props: MaintainersProps) {
   }, []);
 
   return (
-    <section className="pb-20 3xl:pb-40 pt-16 relative">
+    <section className="relative">
       <img
         src={rightLinear}
         alt="right linear Background"
@@ -37,7 +37,7 @@ export function Maintainers(props: MaintainersProps) {
         className="absolute max-w-[670px] w-full -z-10 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
       />
 
-      <DividerTitle title="Who is Participating?" />
+      <DividerTitle title="Who are We?" />
 
       <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
         {/* Participants List */}

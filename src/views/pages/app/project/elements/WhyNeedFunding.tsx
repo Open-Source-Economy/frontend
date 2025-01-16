@@ -5,8 +5,13 @@ import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
 import faq from "src/assets/faq-bg.webp";
 import { faqData } from "../../whoBuiltIt/elements/Helper";
+import { Link } from "react-router-dom";
+import { campaignPath } from "../../../../../App";
+import { RepositoryId } from "../../../../../model";
 
-interface WhyNeedFundingProps {}
+interface WhyNeedFundingProps {
+  repositoryId: RepositoryId;
+}
 
 export function WhyNeedFunding(props: WhyNeedFundingProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -39,13 +44,14 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
 
           <div className="space-y-4 w-full">
             {faqData.map((faq, index) => (
-              <FaqItem key={index} faq={faq} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
+              <FaqItem key={index} faq={faq} canOpen={false} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
             ))}
           </div>
 
           <div className="relative !mt-7 lg:!mt-9 flex justify-center w-full lg:justify-start items-center">
+            {/*TODO: cursor-pointer should be by default in button. Add it on Button, remove it here are every where else*/}
             <Button audience="ALL" className="cursor-pointer" level="PRIMARY" size="LARGE" asChild>
-              <span> Donate</span>
+              <Link to={campaignPath(props.repositoryId)}>Donate</Link>
             </Button>
           </div>
         </div>

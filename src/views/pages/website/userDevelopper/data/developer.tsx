@@ -19,7 +19,7 @@ const solution1: SolutionProps = {
   image: img2,
   starPosition: "sm:w-[70px] w-14 left-[44%] top-[20%] top-[15%] sm:top-[15%]",
   title: "Get Paid",
-  subTitle: "Earn, Don’t Burn",
+  subtitle: "Earn, Don’t Burn",
   text: (
     <>
       <p className="sm:mt-[35px] mt-6">
@@ -35,7 +35,7 @@ const solution2: SolutionProps = {
   image: img3,
   starPosition: "sm:w-[70px] w-14 left-[40%] sm:left-[45%] top-[10%] sm:top-[16%]",
   title: "Have a Say",
-  subTitle: "Forget the Far West!",
+  subtitle: "Forget the Far West!",
   text: (
     <>
       <p className="xl:py-[96px] lg:py-14 sm:py-8 pt-8">
@@ -51,7 +51,7 @@ const solution3: SolutionProps = {
   image: img4,
   starPosition: "sm:w-[70px] w-14 2xl:left-[21%] xl:left-[15%] sm:left-[5%] md:left-[13%] left-[-6%] top-[32%]",
   title: "Fund Your Future",
-  subTitle: "Stop begging for donations!",
+  subtitle: "Stop begging for donations!",
   text: (
     <>
       <ul className="px-10 2xl:mt-[46px] mt-6">

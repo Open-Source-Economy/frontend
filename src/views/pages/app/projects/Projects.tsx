@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { BaseURL } from "src/App";
+import { BaseURL, projectPath } from "src/App";
 import { useRepositories } from "src/views/hooks";
 import { Cards2 } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
 import { OpenSourceExpertTitle } from "./elements";
+import { RepositoryId } from "../../../../model";
 
 interface ProjectsProps {}
 
@@ -15,6 +16,14 @@ export function Projects(props: ProjectsProps) {
   useEffect(() => {
     reloadRepositories();
   }, []);
+
+  const links = (repositoryId: RepositoryId) => {
+    if (repositoryId.ownerId.login === "apache" && repositoryId.name === "pekko") {
+      return projectPath(repositoryId);
+    } else {
+      return "/issues";
+    }
+  };
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>
@@ -28,7 +37,7 @@ export function Projects(props: ProjectsProps) {
 
             {repositories.map(([owner, repository], index) => (
               <>
-                <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to="/issues" />
+                <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={links(repository.id)} />
               </>
             ))}
           </div>

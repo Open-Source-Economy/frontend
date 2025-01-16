@@ -130,7 +130,7 @@ export function PaymentControls(props: PaymentControlsProps) {
         )}
       </div>
 
-      <DonationSelector productType={productType} setProductType={setProductType} />
+      <DonationSelector repositoryId={props.repositoryId} productType={productType} setProductType={setProductType} />
 
       <Button
         disabled={selectedPrice === null || isLoading}

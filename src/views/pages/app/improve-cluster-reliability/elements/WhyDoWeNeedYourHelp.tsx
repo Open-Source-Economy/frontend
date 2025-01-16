@@ -24,7 +24,7 @@ export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
           Why Do We Need Your Help?
         </h1>
         <p className="text-base sm:text-xl font-medium 3xl:text-2xl !mt-3 xl:!mt-4">
-          Apache Pekko is an independent open-source project powered by volunteers in their free time.
+          Apache Pekko is an independent open source project powered by volunteers in their free time.
         </p>
         <ul className="space-y-4 2xl:space-y-5 3xl:space-y-6 mt-9 !text-left">
           <h3 className="text-base sm:text-xl font-medium 3xl:text-[25px]">To have a more robust and reliable Pekko Cluster we need:</h3>

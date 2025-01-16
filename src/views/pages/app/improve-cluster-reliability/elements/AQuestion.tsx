@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
-import { Button, ExternalLink } from "src/components";
-import { LeftLinear, TelephoneIcon } from "src/Utils/Icons";
+import { LeftLinear } from "src/Utils/Icons";
 import React from "react";
-import { config, Env } from "../../../../../ultils";
 
-interface AQuestionProps {}
+interface AQuestionProps {
+  title: string;
+  subtitle?: React.ReactNode | string;
+  children?: React.ReactNode;
+}
 
 export function AQuestion(props: AQuestionProps) {
   return (
@@ -16,34 +17,20 @@ export function AQuestion(props: AQuestionProps) {
       <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] min-h-[500px] 3xl:min-h-[906px] max-h-[1056px] min-w-[280px] max-w-[364px] w-full h-full absolute right-[-3%] 3xl:right-[6%] -top-[20%]  3xl:-top-[60%] blur-[125px] -z-0 opacity-50 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-[1057px]"></div>
       <span className="absolute -left-[10%] top-[70%] lg:-top-[80%] -z-10">
         <LeftLinear />
-      </span>{" "}
+      </span>
+
+      {/*TODO: use some of the refactored titles*/}
       <h2 className="section-heading relative z-20 !pb-3 lg:!pb-5 3xl:!pb-8 max-w-[386px] md:max-w-[470px] w-full mx-auto lg:max-w-full">
         <span className="absolute w-[40%] sm:w-[10%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
-        A question?
+        {props.title}
       </h2>
-      <p className="text-base relative z-20 max-w-[800px] opacity-80 2xl:max-w-[910px] text-center 3xl:max-w-[1067px] mx-auto sm:text-xl font-medium 3xl:text-2xl mt-8">
-        Got questions about the campaign, Pekko, or DoWs?
-        <br />
-        Wondering how to get priority bug fixes and features with DoWs?
-        <br />
-        Need tailored solution for your business?
-        <br />
-        <br />
-        We’d love to chat about how your contribution can make an impact!
-      </p>
-      <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
-        {config.env !== Env.Production && (
-          <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
-            <Link to="#">FAQ</Link>
-          </Button>
-        )}
+      {props.subtitle && (
+        <p className="text-base relative z-20 max-w-[800px] opacity-80 2xl:max-w-[910px] text-center 3xl:max-w-[1067px] mx-auto sm:text-xl font-medium 3xl:text-2xl mt-8">
+          {props.subtitle}
+        </p>
+      )}
 
-        <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
-          <ExternalLink href="https://calendly.com/lauriane-m/open-source-economy" underline={false}>
-            Book a Call
-          </ExternalLink>
-        </Button>
-      </div>
+      {props.children && <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">{props.children}</div>}
     </section>
   );
 }

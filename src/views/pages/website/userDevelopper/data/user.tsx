@@ -19,7 +19,7 @@ const solution1 = {
   image: img2,
   starPosition: "lg:top-[23%] sm:top-[21%] top-[17%] md:left-[50%] left-[46%] sm:left-[49%] sm:w-[70px] w-14",
   title: "Get Support",
-  subTitle: "From Those Who Know",
+  subtitle: "From Those Who Know",
   comming: <p className="mb-2 sm:text-start  w-full">AVAILABLE</p>,
   text: (
     <>
@@ -43,7 +43,7 @@ const solution2 = {
   comingSoon: true,
   title: "Have a Say",
   comming: <p className="!pb-2.5 mb-2 sm:text-start w-full">COMING SOON</p>,
-  subTitle: "Forget the Far West!",
+  subtitle: "Forget the Far West!",
   text: (
     <div className="sm:mt-[45px] mt-4">
       <p>
@@ -62,7 +62,7 @@ const solution3 = {
   starPosition: "sm:w-[70px] w-14 lg:top-[0%] sm:top-[-2%] top-[-5%]  md:left-[40%] left-[28%] sm:left-[32%]",
   title: "Fund Your Future",
   comming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
-  subTitle: (
+  subtitle: (
     <>
       <p className="sm:!text-start text-center">Secure your platform</p> <p className="!mt-2">Secure your business.</p>
     </>

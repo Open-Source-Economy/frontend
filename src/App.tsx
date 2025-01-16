@@ -2,7 +2,7 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { IssueId } from "src/model";
+import { IssueId, RepositoryId } from "src/model";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
@@ -50,6 +50,14 @@ export function manageIssuePath(issueId: IssueId) {
   return `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`;
 }
 
+export function projectPath(repositoryId: RepositoryId) {
+  return `/${repositoryId.ownerId.login}/${repositoryId.name}`;
+}
+
+export function campaignPath(repositoryId: RepositoryId) {
+  return `/${repositoryId.ownerId.login}/${repositoryId.name}/campaign`;
+}
+
 export enum BaseURL {
   WEBSITE = "/",
   APP = "/projects",
@@ -73,15 +81,13 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
-            <Route element={<RepositoryRoutes />}>
-              <Route path={`/:${ownerParam}/:${repoParam}/project`} element={<Project />} />
-            </Route>
 
             <Route path="/buy-dows" element={<Payment />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
           </Route>
 
           <Route element={<RepositoryRoutes />}>
+            <Route path={`/:${ownerParam}/:${repoParam}`} element={<Project />} />
             <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
           </Route>
 
