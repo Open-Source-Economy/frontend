@@ -13,6 +13,7 @@ const config = {
       "3xl": "1880px",
 
       300: "300px",
+      350: "350px",
       // => @media (min-width: 300px) { ... }
       400: "400px",
       // => @media (min-width: 400px) { ... }

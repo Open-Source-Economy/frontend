@@ -462,3 +462,7 @@ input[type="number"] {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+
+.dow-gradient {
+  background: linear-gradient(90.69deg, #ff7e4b 56.44%, #ff518c 77.66%, #ff5389 89.25%, #66319b 98.87%);
+}

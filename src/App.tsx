@@ -83,12 +83,6 @@ const App = () => {
             <Route path="/who-built-it" element={<WhoBuiltIt />} />
 
             <Route path="/buy-dows" element={<Payment />} />
-            <Route path="/checkout/success" element={<CheckoutSuccess />} />
-          </Route>
-
-          <Route element={<RepositoryRoutes />}>
-            <Route path={`/:${ownerParam}/:${repoParam}`} element={<Project />} />
-            <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
           </Route>
 
           <Route path="/" element={<Home />} />
@@ -111,6 +105,12 @@ const App = () => {
             <Route path={AdminPath.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
             <Route path={AdminPath.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
           </Route>
+
+          <Route element={<RepositoryRoutes />}>
+            <Route path={`/:${ownerParam}/:${repoParam}`} element={<Project />} />
+            <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+          </Route>
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
 
           <Route element={<AuthRoutes redirect="/sign-up" />}>
             <Route path="/projects" element={<Projects />} />
