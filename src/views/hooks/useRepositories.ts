@@ -10,8 +10,12 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
 
   const [repositories, setRepositories] = useState<[Owner, Repository][]>([]);
   const [error, setError] = useState<ApiError | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchRepositories = async () => {
+    setLoading(true);
+    setError(null);
+
     try {
       const responses = await Promise.all(
         repositoryIds.map(repositoryId => {
@@ -33,8 +37,10 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
     } catch (err) {
       console.error("Error fetching repositories:", err);
       setError(ApiError.from(err));
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { repositories, error, reloadRepositories: fetchRepositories };
+  return { repositories, error, loading, reloadRepositories: fetchRepositories };
 }

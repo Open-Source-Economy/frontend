@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { CheckIcon, CloseIcon } from "./Icons";
-import { displayedCurrencies } from "../../../data";
+import { displayedCurrencies } from "src/views/data";
 import { Currency } from "src/model";
 
 interface CurrencyModalProps {

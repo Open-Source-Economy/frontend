@@ -2,7 +2,7 @@ import React from "react";
 import comingSoon from "src/assets/coming-soon.webp";
 import { ListIcon } from "src/Utils/Icons";
 import { ServiceType } from "src/model";
-import { displayedServices } from "../../../../../data/DisplayedService";
+import { displayedServices } from "src/views/data/DisplayedService";
 
 interface ProjectServiceCardProps {
   serviceType: ServiceType;

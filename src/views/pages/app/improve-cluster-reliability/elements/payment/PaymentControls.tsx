@@ -4,7 +4,7 @@ import { DonationSelector } from "./DonationSelector";
 import { Currency, PriceType, ProductType, RepositoryId } from "src/model";
 import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
-import { displayedCurrencies } from "../../../../../data";
+import { displayedCurrencies } from "src/views/data";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
 import { config, Env } from "../../../../../../ultils";

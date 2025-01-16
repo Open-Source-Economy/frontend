@@ -1,6 +1,6 @@
 import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "./Icons";
-import { displayedCurrencies } from "../../../data";
-import { Currency } from "../../../../model";
+import { displayedCurrencies } from "src/views/data";
+import { Currency } from "src/model";
 import React from "react";
 
 export interface NavbarItemData {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Currency } from "src/model";
-import { displayedCurrencies } from "../../../../data";
+import { displayedCurrencies } from "src/views/data";
 
 interface ProgressProps {
   preferredCurrency: Currency;

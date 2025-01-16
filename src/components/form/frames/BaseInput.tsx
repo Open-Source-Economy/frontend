@@ -15,7 +15,7 @@ export function BaseInput(props: BaseInputProps) {
       type={props.type}
       placeholder={props.placeholder}
       className={`
-        w-full sm:w-[400px] border outline-none bg-[#202F45] text-white text-base rounded-lg p-3
+        w-full border outline-none bg-[#202F45] text-white text-base rounded-lg p-3
         ${props.isValid ? "border-0" : "!border-red-500"}
         ${props.disabled ? "bg-opacity-50 opacity-50" : ""}
       `}

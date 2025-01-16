@@ -6,7 +6,7 @@ import { Cards2 } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
 import { OpenSourceExpertTitle } from "./elements";
-import { RepositoryId } from "../../../../model";
+import { RepositoryId } from "src/model";
 
 interface ProjectsProps {}
 
@@ -21,7 +21,7 @@ export function Projects(props: ProjectsProps) {
     if (repositoryId.ownerId.login === "apache" && repositoryId.name === "pekko") {
       return projectPath(repositoryId);
     } else {
-      return "/issues";
+      return "/fund-issues";
     }
   };
 
