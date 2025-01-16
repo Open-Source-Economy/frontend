@@ -11,17 +11,6 @@ export class StripeInvoiceLineId {
     this.id = id;
   }
 
-  static fromStripeApi(json: any): StripeInvoiceLineId | ValidationError {
-    const validator = new Validator(json);
-    validator.requiredString("id");
-
-    const error = validator.getFirstError();
-    if (error) {
-      return error;
-    }
-    return new StripeInvoiceLineId(json.id);
-  }
-
   toString(): string {
     return this.id;
   }
@@ -53,47 +42,49 @@ export class StripeInvoiceLine {
 
   static fromStripeApi(customerId: StripeCustomerId, json: any): StripeInvoiceLine | ValidationError {
     const validator = new Validator(json);
-    validator.requiredNumber("id");
-    validator.requiredString("invoice");
+    const id = validator.requiredString("id");
+    const invoiceId = validator.requiredString("invoice");
     validator.requiredObject("price");
-    validator.requiredString("price.id");
-    validator.requiredObject("price.product");
-    validator.requiredNumber("quantity");
+    const priceId = validator.requiredString(["price", "id"]);
+    const productId = validator.requiredString(["price", "product"]);
+    const quantity = validator.requiredNumber("quantity");
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
+
     return new StripeInvoiceLine(
-      new StripeInvoiceLineId(json.id),
-      new StripeInvoiceId(json.invoice),
+      new StripeInvoiceLineId(id),
+      new StripeInvoiceId(invoiceId),
       customerId,
-      new StripeProductId(json.price.product),
-      new StripePriceId(json.price.id),
-      json.quantity,
+      new StripeProductId(productId),
+      new StripePriceId(priceId),
+      quantity,
     );
   }
 
   static fromBackend(row: any): StripeInvoiceLine | ValidationError {
     const validator = new Validator(row);
-    validator.requiredString("stripe_id");
-    validator.requiredString("invoice_id");
-    validator.requiredString("customer_id");
-    validator.requiredString("product_id");
-    validator.requiredString("price_id");
-    validator.requiredNumber("quantity");
+    const stripeId = validator.requiredString("stripe_id");
+    const invoiceId = validator.requiredString("invoice_id");
+    const customerId = validator.requiredString("stripe_customer_id");
+    const productId = validator.requiredString("product_id");
+    const priceId = validator.requiredString("price_id");
+    const quantity = validator.requiredNumber("quantity");
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
+
     return new StripeInvoiceLine(
-      new StripeInvoiceLineId(row.stripe_id),
-      new StripeInvoiceId(row.invoice_id),
-      new StripeCustomerId(row.customer_id),
-      new StripeProductId(row.product_id),
-      new StripePriceId(row.price_id),
-      row.quantity,
+      new StripeInvoiceLineId(stripeId),
+      new StripeInvoiceId(invoiceId),
+      new StripeCustomerId(customerId),
+      new StripeProductId(productId),
+      new StripePriceId(priceId),
+      quantity,
     );
   }
 }

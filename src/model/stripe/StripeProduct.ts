@@ -1,11 +1,6 @@
 import { ValidationError, Validator } from "../error";
 import { RepositoryId } from "../github";
 
-export enum ProductType {
-  milliDow = "milli_dow",
-  donation = "donation",
-}
-
 export class StripeProductId {
   id: string;
 
@@ -28,6 +23,11 @@ export class StripeProductId {
   toString(): string {
     return this.id;
   }
+}
+
+export enum ProductType {
+  milliDow = "milli_dow",
+  donation = "donation",
 }
 
 export class StripeProduct {

@@ -4,7 +4,7 @@ import { ExternalLink } from "src/components";
 
 interface RepositoryProps {
   owner: model.Owner;
-  repo: model.Repository;
+  repository: model.Repository;
 }
 
 export function Repository(props: RepositoryProps) {
@@ -18,11 +18,15 @@ export function Repository(props: RepositoryProps) {
               <span className="hover:underline">{props.owner.id.login}</span>
             </span>
           </ExternalLink>{" "}
-          /{" "}
+          /
           <span className="text-white text-decoration-none c_links">
-            <ExternalLink href={props.repo.htmlUrl}>
-              <span className="hover:underline ">{props.repo.id.name}</span>
-            </ExternalLink>
+            {props.repository.htmlUrl ? (
+              <ExternalLink href={props.repository.htmlUrl} className="duration-300">
+                {props.repository.id.name}
+              </ExternalLink>
+            ) : (
+              <span>{props.repository.id.name}</span>
+            )}
           </span>
         </h6>
       </div>

@@ -5,6 +5,7 @@ import * as components from "./index";
 import { Approved } from "src/components/issue/Approved";
 import { Action } from "src/components/issue/Action";
 import { Audience } from "src/views";
+import Decimal from "decimal.js";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
@@ -19,7 +20,7 @@ export function IssueCard(props: IssueProps) {
     <>
       <div className={`mx-auto ${FinancialIssue.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
         <div className="padding sm:!py-8 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
-          <components.Repository owner={props.financialIssue.owner} repo={props.financialIssue.repository} />
+          <components.Repository owner={props.financialIssue.owner} repository={props.financialIssue.repository} />
 
           {/*<div>*/}
           {/*  <img className="w-[52px] h-[52px]" src={person} alt="" />*/}
@@ -34,7 +35,10 @@ export function IssueCard(props: IssueProps) {
               <components.Collect
                 audience={props.audience}
                 amountCollected={FinancialIssue.amountCollected(props.financialIssue)}
-                amountRequested={FinancialIssue.amountRequested(props.financialIssue)}
+                amountRequested={(() => {
+                  const amount = FinancialIssue.amountRequested(props.financialIssue);
+                  return amount ? new Decimal(amount) : undefined;
+                })()}
                 state={props.financialIssue.managedIssue?.state}
               />
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />

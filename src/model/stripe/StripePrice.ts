@@ -8,7 +8,7 @@ export enum PriceType {
 }
 
 export class StripePriceId {
-  private readonly id: string;
+  readonly id: string;
 
   constructor(id: string) {
     this.id = id;

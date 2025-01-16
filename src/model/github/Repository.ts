@@ -73,16 +73,16 @@ export class RepositoryId {
 
 export class Repository {
   id: RepositoryId;
-  htmlUrl: string;
+  htmlUrl: string | null;
   description?: string;
 
-  constructor(id: RepositoryId, htmlUrl: string, description?: string) {
+  constructor(id: RepositoryId, htmlUrl: string | null, description?: string) {
     this.id = id;
     this.htmlUrl = htmlUrl;
     this.description = description;
   }
 
-  // Github API: https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#get-a-repository
+  // Gitub API: https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#get-a-repository
   // Example:
   // Repo owned by an organization: https://api.github.com/repos/open-source-economy/frontend
   // Repo owned by a user: https://api.github.com/repos/laurianemollier/strongVerbes
@@ -105,14 +105,14 @@ export class Repository {
     }
 
     const validator = new Validator(json);
-    const htmlUrl = validator.requiredString("html_url");
+    const htmlUrl = validator.optionalString("html_url");
     const description = validator.optionalString("description");
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new Repository(repositoryId, htmlUrl, description);
+    return new Repository(repositoryId, htmlUrl ?? null, description);
   }
 
   static fromBackend(json: any): Repository | ValidationError {

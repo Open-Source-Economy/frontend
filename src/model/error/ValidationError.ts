@@ -186,20 +186,56 @@ export class Validator {
     }
   }
 
-  optionalArray(path: string | string[]): void {
+  optionalArray<T = any>(path: string | string[], elementType?: string): T[] {
     const value = this.getValue(path);
+
     if (value === undefined || value === null) {
-    } else if (!Array.isArray(value)) {
-      this.errors.push(new ArrayValidationError(path, value, this.data));
+      // Return an empty array for optional values
+      return [];
     }
+
+    if (!Array.isArray(value)) {
+      // Value exists but is not an array
+      this.errors.push(new ArrayValidationError(path, value, this.data));
+      return [];
+    }
+
+    if (elementType) {
+      // Validate array elements if a specific type is provided
+      for (const element of value) {
+        if (typeof element !== elementType) {
+          this.errors.push(new ArrayValidationError(path, value, this.data));
+          return [];
+        }
+      }
+    }
+
+    return value;
   }
 
-  requiredArray(path: string | string[]): void {
+  requiredArray<T = any>(path: string | string[], elementType?: string): T[] {
     const value = this.getValue(path);
+
+    if (value === undefined || value === null) {
+      this.errors.push(new ArrayValidationError(path, value, this.data));
+      return [];
+    }
 
     if (!Array.isArray(value)) {
       this.errors.push(new ArrayValidationError(path, value, this.data));
+      return [];
     }
+
+    if (elementType) {
+      for (const element of value) {
+        if (typeof element !== elementType) {
+          this.errors.push(new ArrayValidationError(path, value, this.data));
+          return [];
+        }
+      }
+    }
+
+    return value;
   }
 
   optionalEnum<EnumType extends string>(path: string | string[], enumType: EnumType[]): EnumType | undefined {

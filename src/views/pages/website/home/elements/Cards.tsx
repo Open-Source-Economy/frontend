@@ -55,9 +55,14 @@ export function Cards(props: CardsProps) {
                 <span className="text-secondary">/</span>
               </>
             )}
-            <ExternalLink href={props.repository.htmlUrl} className="duration-300">
-              {props.repository.id.name}
-            </ExternalLink>
+
+            {props.repository.htmlUrl ? (
+              <ExternalLink href={props.repository.htmlUrl} className="duration-300">
+                {props.repository.id.name}
+              </ExternalLink>
+            ) : (
+              <span>{props.repository.id.name}</span>
+            )}
           </h4>
           <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85 max-[540px]:text-base">{props.repository.description}</p>
         </div>

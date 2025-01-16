@@ -36,9 +36,13 @@ export function Cards2(props: Cards2Props) {
                 </>
               )}
 
-              <ExternalLink href={props.repository.htmlUrl} className="duration-300">
-                {props.repository.id.name}
-              </ExternalLink>
+              {props.repository.htmlUrl ? (
+                <ExternalLink href={props.repository.htmlUrl} className="duration-300">
+                  {props.repository.id.name}
+                </ExternalLink>
+              ) : (
+                <span>{props.repository.id.name}</span>
+              )}
             </h4>
             <div className={`h-1 w-[149px] mx-auto duration-300 mt-6 bg-white  relative `}>
               <div className={`absolute top-0 left-0 w-full h-full gradient-bg duration-300 group-hover:!opacity-100 opacity-0`}></div>

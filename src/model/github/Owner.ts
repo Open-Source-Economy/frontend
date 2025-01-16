@@ -61,11 +61,11 @@ export class Owner {
   }
 
   // For Organization
-  // Github API: https://docs.github.com/en/rest/orgs/orgs?apiVersion=2022-11-28#get-an-organization
+  // GitHub API: https://docs.github.com/en/rest/orgs/orgs?apiVersion=2022-11-28#get-an-organization
   // Example: https://api.github.com/orgs/open-source-economy
   //
   // For User
-  // Github API: https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
+  // GitHub API: https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
   // Example: https://api.github.com/users/laurianemollier
   static fromGithubApi(data: any): Owner | ValidationError {
     let json: any;

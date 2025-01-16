@@ -73,15 +73,15 @@ export class BackendAPIMock implements BackendAPI {
   async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
-    const requestedDowAmount = 12;
+    const requestedMilliDowAmount = 12;
 
-    for (const managedIssue of allManagedIssues(requestedDowAmount)) {
+    for (const managedIssue of allManagedIssues(requestedMilliDowAmount)) {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
           financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedMilliDowAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -225,10 +225,10 @@ export class BackendAPIMock implements BackendAPI {
 }
 
 function issueFunding(amount: number): IssueFunding {
-  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, new Decimal(amount));
+  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
 }
 
-function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
+function allManagedIssues(requestedMilliDowAmount: number): ManagedIssue[] {
   const allManagedIssues: ManagedIssue[] = [];
 
   for (const visibility of Object.values(ContributorVisibility)) {
@@ -236,7 +236,7 @@ function allManagedIssues(requestedDowAmount: number): ManagedIssue[] {
       const managedIssue: ManagedIssue = {
         id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
-        requestedDowAmount: new Decimal(requestedDowAmount),
+        requestedMilliDowAmount: requestedMilliDowAmount,
         managerId: userId,
         contributorVisibility: visibility,
         state: state,

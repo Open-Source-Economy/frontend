@@ -1,23 +1,13 @@
 import { ValidationError, Validator } from "../error";
 import { StripeInvoiceLine } from "./StripeInvoiceLine";
 import { StripeCustomerId } from "./StripeCustomer";
+import { Currency } from "./Currency";
 
 export class StripeInvoiceId {
   id: string;
 
   constructor(id: string) {
     this.id = id;
-  }
-
-  static fromStripeApi(json: any): StripeInvoiceId | ValidationError {
-    const validator = new Validator(json);
-    validator.requiredString("id");
-
-    const error = validator.getFirstError();
-    if (error) {
-      return error;
-    }
-    return new StripeInvoiceId(json.id);
   }
 
   toString(): string {
@@ -31,7 +21,7 @@ export class StripeInvoice {
   paid: boolean;
   accountCountry: string;
   lines: StripeInvoiceLine[];
-  currency: string;
+  currency: Currency;
   total: number;
   totalExclTax: number;
   subtotal: number;
@@ -45,7 +35,7 @@ export class StripeInvoice {
     paid: boolean,
     accountCountry: string,
     lines: StripeInvoiceLine[],
-    currency: string,
+    currency: Currency,
     total: number,
     totalExclTax: number,
     subtotal: number,
@@ -70,81 +60,81 @@ export class StripeInvoice {
   // Stripe API: https://docs.stripe.com/api/invoices/object
   static fromStripeApi(json: any): StripeInvoice | ValidationError {
     const validator = new Validator(json);
-    validator.requiredString("id");
-    validator.requiredString("customer");
-    validator.requiredBoolean("paid");
-    validator.requiredString("account_country");
-    validator.requiredObject("lines");
-    validator.requiredArray(["lines", "data"]);
-    validator.requiredString("currency");
-    validator.requiredNumber("total");
-    validator.requiredNumber("total_excluding_tax");
-    validator.requiredNumber("subtotal");
-    validator.requiredNumber("subtotal_excluding_tax");
-    validator.requiredString("hosted_invoice_url");
-    validator.requiredString("invoice_pdf");
+    const id = validator.requiredString("id");
+    const customerId = validator.requiredString("customer");
+    const paid = validator.requiredBoolean("paid");
+    const accountCountry = validator.requiredString("account_country");
+    const linesData = validator.requiredArray<any>(["lines", "data"]);
+    const currency = validator.requiredEnum("currency", Object.values(Currency) as Currency[]);
+    const total = validator.requiredNumber("total");
+    const totalExclTax = validator.requiredNumber("total_excluding_tax");
+    const subtotal = validator.requiredNumber("subtotal");
+    const subtotalExclTax = validator.requiredNumber("subtotal_excluding_tax");
+    const hostedInvoiceUrl = validator.requiredString("hosted_invoice_url");
+    const invoicePdf = validator.requiredString("invoice_pdf");
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    const invoiceId: StripeInvoiceId | ValidationError = StripeInvoiceId.fromStripeApi(json);
-    if (invoiceId instanceof ValidationError) {
-      return invoiceId;
+    const lines = linesData.map((line: any) => {
+      return StripeInvoiceLine.fromStripeApi(new StripeCustomerId(customerId), line);
+    });
+
+    const lineError = lines.find(line => line instanceof ValidationError);
+    if (lineError instanceof ValidationError) {
+      return lineError;
     }
 
-    const customerId: StripeCustomerId = new StripeCustomerId(json.customer);
     return new StripeInvoice(
-      invoiceId,
-      customerId,
-      json.paid,
-      json.account_country,
-      json.lines.data.map((line: any) => StripeInvoiceLine.fromStripeApi(customerId, line)),
-      json.currency,
-      Number(json.total),
-      Number(json.total_excluding_tax),
-      Number(json.subtotal),
-      Number(json.subtotal_excluding_tax),
-      json.hosted_invoice_url,
-      json.invoice_pdf,
+      new StripeInvoiceId(id),
+      new StripeCustomerId(customerId),
+      paid,
+      accountCountry,
+      lines as StripeInvoiceLine[],
+      currency,
+      total,
+      totalExclTax,
+      subtotal,
+      subtotalExclTax,
+      hostedInvoiceUrl,
+      invoicePdf,
     );
   }
 
   static fromBackend(row: any, lines: StripeInvoiceLine[]): StripeInvoice | ValidationError {
     const validator = new Validator(row);
-    validator.requiredString("stripe_id");
-    validator.requiredString("customer_id");
-    validator.requiredBoolean("paid");
-    validator.requiredString("account_country");
-    validator.requiredString("currency");
-    validator.requiredNumber("total");
-    validator.requiredNumber("total_excl_tax");
-    validator.requiredNumber("subtotal");
-    validator.requiredNumber("subtotal_excl_tax");
-    validator.requiredString("hosted_invoice_url");
-    validator.requiredString("invoice_pdf");
+    const id = validator.requiredString("stripe_id");
+    const customerId = validator.requiredString("stripe_customer_id");
+    const paid = validator.requiredBoolean("paid");
+    const accountCountry = validator.requiredString("account_country");
+    const currency = validator.requiredEnum("currency", Object.values(Currency) as Currency[]);
+    const total = validator.requiredNumber("total");
+    const totalExclTax = validator.requiredNumber("total_excl_tax");
+    const subtotal = validator.requiredNumber("subtotal");
+    const subtotalExclTax = validator.requiredNumber("subtotal_excl_tax");
+    const hostedInvoiceUrl = validator.requiredString("hosted_invoice_url");
+    const invoicePdf = validator.requiredString("invoice_pdf");
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    const invoiceId = new StripeInvoiceId(row.stripe_id);
-    const customerId = new StripeCustomerId(row.customer_id);
     return new StripeInvoice(
-      invoiceId,
-      customerId,
-      row.paid,
-      row.account_country,
+      new StripeInvoiceId(id),
+      new StripeCustomerId(customerId),
+      paid,
+      accountCountry,
       lines,
-      row.currency,
-      Number(row.total),
-      Number(row.total_excl_tax),
-      Number(row.subtotal),
-      Number(row.subtotal_excl_tax),
-      row.hosted_invoice_url,
-      row.invoice_pdf,
+      currency,
+      total,
+      totalExclTax,
+      subtotal,
+      subtotalExclTax,
+      hostedInvoiceUrl,
+      invoicePdf,
     );
   }
 }
