@@ -1,4 +1,4 @@
-import { Owner, Repository } from "src/model";
+import { Owner, Repository } from "../../model";
 
 export interface GetRepositoryParams {
   owner: string;

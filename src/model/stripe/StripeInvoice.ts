@@ -28,6 +28,7 @@ export class StripeInvoice {
   subtotalExclTax: number;
   hostedInvoiceUrl: string;
   invoicePdf: string;
+  number: string | null;
 
   constructor(
     id: StripeInvoiceId,
@@ -42,6 +43,7 @@ export class StripeInvoice {
     subtotalExclTax: number,
     hostedInvoiceUrl: string,
     invoicePdf: string,
+    number: string | null,
   ) {
     this.id = id;
     this.customerId = customerId;
@@ -55,6 +57,7 @@ export class StripeInvoice {
     this.subtotalExclTax = subtotalExclTax;
     this.hostedInvoiceUrl = hostedInvoiceUrl;
     this.invoicePdf = invoicePdf;
+    this.number = number;
   }
 
   // Stripe API: https://docs.stripe.com/api/invoices/object
@@ -72,6 +75,7 @@ export class StripeInvoice {
     const subtotalExclTax = validator.requiredNumber("subtotal_excluding_tax");
     const hostedInvoiceUrl = validator.requiredString("hosted_invoice_url");
     const invoicePdf = validator.requiredString("invoice_pdf");
+    const number = validator.optionalString("number");
 
     const error = validator.getFirstError();
     if (error) {
@@ -100,6 +104,7 @@ export class StripeInvoice {
       subtotalExclTax,
       hostedInvoiceUrl,
       invoicePdf,
+      number ?? null,
     );
   }
 
@@ -116,6 +121,7 @@ export class StripeInvoice {
     const subtotalExclTax = validator.requiredNumber("subtotal_excl_tax");
     const hostedInvoiceUrl = validator.requiredString("hosted_invoice_url");
     const invoicePdf = validator.requiredString("invoice_pdf");
+    const number = validator.optionalString("number");
 
     const error = validator.getFirstError();
     if (error) {
@@ -135,6 +141,7 @@ export class StripeInvoice {
       subtotalExclTax,
       hostedInvoiceUrl,
       invoicePdf,
+      number ?? null,
     );
   }
 }

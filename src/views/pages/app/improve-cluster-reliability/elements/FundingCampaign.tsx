@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
 import { LinearBg } from "src/Utils/Icons";
-import { Currency, RepositoryId } from "src/model";
-import { Summary, SummaryType } from "./summary";
+import { Currency, ProjectId } from "src/model";
+import { Summary } from "./summary";
 import { useAuth } from "../../authenticate/AuthContext";
-import { useCampaign } from "../../../../hooks/useCampaign";
 import { useParams } from "react-router-dom";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
 import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { config, Env } from "../../../../../ultils";
+import { GetCampaignResponse } from "../../../../../dtos";
 
 interface FundingCampaignProps {
-  repositoryId: RepositoryId;
+  projectId: ProjectId;
+  campaign: GetCampaignResponse;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
@@ -23,15 +24,8 @@ export function FundingCampaign(props: FundingCampaignProps) {
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`; // Keep the user on the same page if they cancel
 
   const auth = useAuth();
-  const summaryType: SummaryType = SummaryType.ONE;
 
   const preferredCurrency: Currency = PreferredCurrency.get(auth);
-
-  const { campaign, error, reloadCampaign } = useCampaign(props.repositoryId);
-
-  useEffect(() => {
-    reloadCampaign();
-  }, []);
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 flex flex-col">
@@ -46,30 +40,28 @@ export function FundingCampaign(props: FundingCampaignProps) {
           <h4 className="py-2.5 flex justify-center mx-auto xl:!mx-0 items-center rounded-full bg-primary-user text-sm md:text-base lg:text-lg 2xl:text-xl 3xl:text-[25px] max-w-[170px] sm:max-w-[200px] lg:max-w-[270px] 3xl:max-w-[315px] w-full">
             Funding Campaign
           </h4>
-
-          <Summary summaryType={summaryType} />
+          {props.campaign.description?.summary && <Summary {...props.campaign.description.summary} />}
         </div>
 
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           {/*TODO*/}
-          {error && <div className="text-red-500">{error.message}</div>}
           {checkout_error && <div className="text-red-500">Error in the checkout</div>}
 
-          {campaign && (
+          {props.campaign && (
             <>
               <div className="!bg-secondary py-10 w-full xl:py-11 3xl:py-12 !px-4 sm:!px-7 2xl:!px-10 3xl:!px-16 border !border-[#324053] rounded-2xl lg:rounded-[35px]">
                 <Progress
                   preferredCurrency={preferredCurrency}
-                  raisedAmount={campaign.raisedAmount}
-                  targetAmount={campaign.targetAmount}
-                  numberOfBackers={campaign.numberOfBackers}
-                  numberOfDaysLeft={campaign.numberOfDaysLeft}
+                  raisedAmount={props.campaign.raisedAmount}
+                  targetAmount={props.campaign.targetAmount}
+                  numberOfBackers={props.campaign.numberOfBackers}
+                  numberOfDaysLeft={props.campaign.numberOfDaysLeft}
                 />
                 <PaymentControls
-                  repositoryId={props.repositoryId}
+                  projectId={props.projectId}
                   preferredCurrency={preferredCurrency}
-                  prices={campaign?.prices}
+                  prices={props.campaign?.prices}
                   paymentSuccessUrl={paymentSuccessUrl}
                   paymentCancelUrl={paymentCancelUrl}
                 />

@@ -2,7 +2,7 @@
 
 export interface GetMaintainersParams {
   owner: string;
-  repo: string;
+  repo?: string;
 }
 
 export interface Maintainer {

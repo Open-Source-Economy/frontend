@@ -27,6 +27,9 @@ import {
   GetPricesParams,
   GetPricesQuery,
   GetPricesResponse,
+  GetProjectParams,
+  GetProjectQuery,
+  GetProjectResponse,
   GetProjectServicesParams,
   GetProjectServicesQuery,
   GetProjectServicesResponse,
@@ -41,7 +44,7 @@ import {
   SetUserPreferredCurrencyQuery,
   SetUserPreferredCurrencyResponse,
 } from "src/dtos";
-import { handleError } from "./index";
+import { handleError, projectPath } from "./index";
 import axios from "axios";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -105,6 +108,8 @@ export interface BackendAPI {
   getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
 
   getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
+
+  getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError>;
 
   getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError>;
 
@@ -191,6 +196,24 @@ class BackendAPIImpl implements BackendAPI {
     return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 
+  async getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError> {
+    // Hacky, change when we will have time
+    if (params.repo) {
+      const p: GetRepositoryParams = { owner: params.owner, repo: params.repo };
+      const response = await this.getRepository(p, query);
+      if (response instanceof ApiError) {
+        return response;
+      }
+      return { project: { id: response.repository.id, owner: response.owner, repository: response.repository } };
+    } else {
+      const response = await this.getOwner(params, query);
+      if (response instanceof ApiError) {
+        return response;
+      }
+      return { project: { id: response.owner.id, owner: response.owner } };
+    }
+  }
+
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return { maintainers: pekkoMaintainers };
@@ -199,11 +222,16 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError> {
-    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/prices`, { withCredentials: true }), "getPrices");
+    // const path = this.projectPath(params.projectId);
+    // return handleError(() => axios.get(`${config.api.url}${path}/prices`, { withCredentials: true }), "getPrices");
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
-    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/campaigns`, { withCredentials: true }), "getCampaign");
+    return handleError(
+      () => axios.get(`${config.api.url}/github/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
+      "getCampaign",
+    );
   }
 
   async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {

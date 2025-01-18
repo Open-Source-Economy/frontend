@@ -7,6 +7,7 @@ import {
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
+  RepositoryInfo,
   StatusResponse,
 } from "src/dtos/auth";
 import { AuthBackendAPI } from "src/services";
@@ -21,7 +22,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
+      repositories: [[repositoryId, repositoryInfo]],
     };
   }
 
@@ -30,7 +31,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
+      repositories: [[repositoryId, repositoryInfo]],
     };
   }
 
@@ -39,7 +40,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       user: user,
       company: company,
       companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, RepositoryUserRole.ADMIN]],
+      repositories: [[repositoryId, repositoryInfo]],
     };
   }
 
@@ -64,3 +65,9 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 }
+
+const repositoryInfo: RepositoryInfo = {
+  role: RepositoryUserRole.ADMIN,
+  dowRate: "1000",
+  dowCurrency: "USD",
+};

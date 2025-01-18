@@ -19,7 +19,7 @@ import {
   SendRepositoryAdminInviteQuery,
   SendRepositoryAdminInviteResponse,
 } from "src/dtos";
-import { handleError } from "src/services/index";
+import { handleError, projectPath } from "./index";
 import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
@@ -85,7 +85,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     query: CreateProductAndPriceQuery,
   ): Promise<CreateProductAndPriceResponse | ApiError> {
     return await handleError<CreateProductAndPriceResponse>(
-      () => axios.post(`${config.api.url}/admin/repository/${params.owner}/${params.repo}/stripe/create-product-and-price`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/admin/${projectPath(params.owner, params.repo)}/stripe/product-and-price`, body, { withCredentials: true }),
       "createProductAndPrice",
     );
   }

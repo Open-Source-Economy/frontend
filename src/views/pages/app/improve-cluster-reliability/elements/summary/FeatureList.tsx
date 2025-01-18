@@ -1,6 +1,6 @@
 import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "src/Utils/Icons";
 import React from "react";
-import { SummaryType } from "./SummaryType";
+import { SummaryType } from "../../../../../../dtos";
 
 // Define the feature type
 interface Feature {

@@ -5,15 +5,15 @@ import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
 import { Button, DividerTitle } from "src/components";
 import { useMaintainers } from "../../../../hooks";
-import { RepositoryId } from "src/model";
+import { ProjectId } from "src/model";
 
 interface MaintainersProps {
-  repositoryId: RepositoryId;
+  projectId: ProjectId;
   viewAllButton?: boolean;
 }
 
 export function Maintainers(props: MaintainersProps) {
-  const { maintainers, isLoading, error, reloadMaintainers } = useMaintainers(props.repositoryId);
+  const { maintainers, isLoading, error, reloadMaintainers } = useMaintainers(props.projectId);
 
   useEffect(() => {
     reloadMaintainers();

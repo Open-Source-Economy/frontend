@@ -1,4 +1,4 @@
-import { StripeCustomerId } from "src/model";
+import { StripeCustomerId } from "../../model";
 import { PriceItem } from "./index";
 import Stripe from "stripe";
 

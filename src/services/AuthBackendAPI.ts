@@ -14,7 +14,7 @@ import { AuthBackendAPIMock } from "src/__mocks__";
 import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-import { handleError } from "src/services/index";
+import { handleError } from "./index";
 
 export function getAuthBackendAPI(): AuthBackendAPI {
   if (config.api.useMock) {

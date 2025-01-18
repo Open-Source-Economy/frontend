@@ -6,7 +6,7 @@ import { Currency, PriceType, ProductType } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
-export function usePrices(repositoryId: model.RepositoryId) {
+export function usePrices(projectId: model.ProjectId) {
   const backendAPI = getBackendAPI();
 
   const [prices, setPrices] = React.useState<Record<PriceType, Record<Currency, Record<ProductType, Price[]>>> | null>(null);
@@ -15,8 +15,8 @@ export function usePrices(repositoryId: model.RepositoryId) {
   const getPrices = async () => {
     try {
       const params: GetPricesParams = {
-        owner: repositoryId.ownerId.login,
-        repo: repositoryId.name,
+        owner: projectId instanceof model.OwnerId ? projectId.login : projectId.ownerId.login,
+        repo: projectId instanceof model.RepositoryId ? projectId.name : undefined,
       };
       const query: GetPricesQuery = {};
 

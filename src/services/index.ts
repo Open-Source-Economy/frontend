@@ -23,5 +23,9 @@ export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseB
   }
 }
 
+export function projectPath(owner: string, repo?: string): string {
+  return repo ? `repos/${owner}/${repo}` : `owners/${owner}`;
+}
+
 export * from "./AuthBackendAPI";
 export * from "./BackendAPI";

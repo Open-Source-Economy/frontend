@@ -4,7 +4,6 @@ import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { CreateManualInvoiceBody, CreateManualInvoiceQuery } from "src/dtos";
 import { CompanyId, UserId } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
-import Decimal from "decimal.js";
 import { BaseURL } from "src/App";
 
 interface CreateManualInvoiceProps {}
@@ -47,7 +46,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
       companyId: companyId !== null ? new CompanyId(companyId) : undefined,
       userId: userId !== null ? new UserId(userId) : undefined,
       paid: paid!,
-      dowAmount: new Decimal(dowAmount!),
+      milliDowAmount: dowAmount!,
     };
 
     const query: CreateManualInvoiceQuery = {};

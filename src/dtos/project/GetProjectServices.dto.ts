@@ -2,7 +2,7 @@ import { ServiceType } from "../../model";
 
 export interface GetProjectServicesParams {
   owner: string;
-  repo: string;
+  repo?: string;
 }
 
 export interface GetProjectServicesResponse {

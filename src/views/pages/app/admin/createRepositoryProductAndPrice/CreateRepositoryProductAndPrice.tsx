@@ -32,19 +32,15 @@ export function CreateRepositoryProductAndPrice(props: CreateRepositoryProductAn
 
     const { owner, repo } = formData;
 
-    // Basic validations
     if (!owner) {
       setError("Owner is required.");
       return;
     }
-    if (!repo) {
-      setError("Repository name is required.");
-      return;
-    }
+
     const body: CreateProductAndPriceBody = {};
     const params: CreateProductAndPriceParams = {
       owner,
-      repo,
+      repo: repo ?? undefined,
     };
     const query: CreateProductAndPriceQuery = {};
 
@@ -93,7 +89,6 @@ export function CreateRepositoryProductAndPrice(props: CreateRepositoryProductAn
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
                 value={formData.repo}
                 onChange={handleInputChange}
-                required
               />
 
               <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={isSubmitting}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "src/components";
 import { DonationSelector } from "./DonationSelector";
-import { Currency, PriceType, ProductType, RepositoryId } from "src/model";
+import { Currency, PriceType, ProductType, ProjectId } from "src/model";
 import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/data";
@@ -10,7 +10,7 @@ import { getBackendAPI } from "../../../../../../services";
 import { config, Env } from "../../../../../../ultils";
 
 interface PaymentControlsProps {
-  repositoryId: RepositoryId;
+  projectId: ProjectId;
   preferredCurrency: Currency;
   prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
   paymentSuccessUrl: string;
@@ -130,7 +130,7 @@ export function PaymentControls(props: PaymentControlsProps) {
         )}
       </div>
 
-      <DonationSelector repositoryId={props.repositoryId} productType={productType} setProductType={setProductType} />
+      <DonationSelector projectId={props.projectId} productType={productType} setProductType={setProductType} />
 
       <Button
         disabled={selectedPrice === null || isLoading}

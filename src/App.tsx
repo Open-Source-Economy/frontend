@@ -2,7 +2,7 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { IssueId, RepositoryId } from "src/model";
+import { IssueId, OwnerId, ProjectId } from "src/model";
 import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
@@ -35,8 +35,8 @@ import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createR
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
 import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
-import { RepositoryRoutes } from "./views/layout/RepositoryRoutes";
 import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
+import { ProjectRoute } from "./views/layout/ProjectRoute";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -50,12 +50,19 @@ export function manageIssuePath(issueId: IssueId) {
   return `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`;
 }
 
-export function projectPath(repositoryId: RepositoryId) {
-  return `/${repositoryId.ownerId.login}/${repositoryId.name}`;
+export function projectPath(projectId: ProjectId) {
+  if (projectId instanceof OwnerId) {
+    return `/project/${projectId.login}`;
+  } else {
+    return `/project/${projectId.ownerId.login}/${projectId.name}`;
+  }
 }
-
-export function campaignPath(repositoryId: RepositoryId) {
-  return `/${repositoryId.ownerId.login}/${repositoryId.name}/campaign`;
+export function campaignPath(projectId: ProjectId) {
+  if (projectId instanceof OwnerId) {
+    return `/project/${projectId.login}/campaign`;
+  } else {
+    return `/project/${projectId.ownerId.login}/${projectId.name}/campaign`;
+  }
 }
 
 export enum BaseURL {
@@ -106,7 +113,16 @@ const App = () => {
             <Route path={AdminPath.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
           </Route>
 
-          <Route element={<RepositoryRoutes />}>
+          <Route element={<ProjectRoute />}>
+            {/* Repository paths */}
+            <Route path={`/project/:${ownerParam}/:${repoParam}`} element={<Project />} />
+            <Route path={`/project/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+
+            {/* Owner-only paths */}
+            <Route path={`/project/:${ownerParam}`} element={<Project />} />
+            <Route path={`/project/:${ownerParam}/campaign`} element={<ImproveReliability />} />
+
+            {/* TODO: old path: to delete */}
             <Route path={`/:${ownerParam}/:${repoParam}`} element={<Project />} />
             <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
           </Route>

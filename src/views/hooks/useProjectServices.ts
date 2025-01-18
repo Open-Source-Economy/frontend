@@ -5,7 +5,7 @@ import * as model from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
-export function useProjectServices(repositoryId: model.RepositoryId) {
+export function useProjectServices(projectId: model.ProjectId) {
   const backendAPI = getBackendAPI();
 
   const [projectServices, setProjectServices] = React.useState<GetProjectServicesResponse | null>(null);
@@ -14,8 +14,8 @@ export function useProjectServices(repositoryId: model.RepositoryId) {
   const getProjectServices = async () => {
     try {
       const params: GetProjectServicesParams = {
-        owner: repositoryId.ownerId.login,
-        repo: repositoryId.name,
+        owner: projectId instanceof model.OwnerId ? projectId.login : projectId.ownerId.login,
+        repo: projectId instanceof model.RepositoryId ? projectId.name : undefined,
       };
       const query: GetProjectServicesQuery = {};
 

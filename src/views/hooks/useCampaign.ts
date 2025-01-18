@@ -4,8 +4,9 @@ import { GetCampaignParams, GetCampaignQuery, GetCampaignResponse } from "src/dt
 import * as model from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
+import { getCampaignDescription } from "../data";
 
-export function useCampaign(repositoryId: model.RepositoryId) {
+export function useCampaign(projectId: model.ProjectId) {
   const backendAPI = getBackendAPI();
 
   const [campaign, setCampaign] = React.useState<GetCampaignResponse | null>(null);
@@ -14,8 +15,8 @@ export function useCampaign(repositoryId: model.RepositoryId) {
   const getCampaign = async () => {
     try {
       const params: GetCampaignParams = {
-        owner: repositoryId.ownerId.login,
-        repo: repositoryId.name,
+        owner: projectId instanceof model.OwnerId ? projectId.login : projectId.ownerId.login,
+        repo: projectId instanceof model.RepositoryId ? projectId.name : undefined,
       };
       const query: GetCampaignQuery = {};
 
@@ -24,6 +25,7 @@ export function useCampaign(repositoryId: model.RepositoryId) {
       if (response instanceof ApiError) {
         setError(response);
       } else {
+        response.description = getCampaignDescription(projectId);
         setCampaign(response);
       }
     } catch (err) {
@@ -32,5 +34,5 @@ export function useCampaign(repositoryId: model.RepositoryId) {
     }
   };
 
-  return { campaign, error, reloadCampaign: getCampaign };
+  return { campaign, loadCampaignError: error, reloadCampaign: getCampaign };
 }

@@ -10,6 +10,7 @@ import {
   ManagedIssueState,
   PriceType,
   ProductType,
+  Project,
   StripePrice,
   StripePriceId,
   StripeProductId,
@@ -42,6 +43,9 @@ import {
   GetPricesParams,
   GetPricesQuery,
   GetPricesResponse,
+  GetProjectParams,
+  GetProjectQuery,
+  GetProjectResponse,
   GetProjectServicesParams,
   GetProjectServicesQuery,
   GetProjectServicesResponse,
@@ -62,6 +66,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { pekkoMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
+import { getCampaignDescription } from "../views";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -122,10 +127,21 @@ export class BackendAPIMock implements BackendAPI {
       owner: owner,
     };
   }
-  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+
+  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<ApiError | GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
+    };
+  }
+
+  async getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError> {
+    return {
+      project: {
+        id: Project.getId(params.owner, params.repo),
+        owner: owner,
+        repository: repository(),
+      },
     };
   }
 
@@ -177,14 +193,17 @@ export class BackendAPIMock implements BackendAPI {
       }
     }
 
-    return {
-      prices: prices,
-    };
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+
+    // return {
+    //   prices: prices,
+    // };
   }
 
   async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
     const response = await this.getPrices({ owner: params.owner, repo: params.repo }, {});
     if (response instanceof ApiError) return response;
+
     return {
       prices: response.prices,
       raisedAmount: {
@@ -201,6 +220,7 @@ export class BackendAPIMock implements BackendAPI {
       },
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
+      description: getCampaignDescription(Project.getId(params.owner, params.repo)),
     };
   }
 

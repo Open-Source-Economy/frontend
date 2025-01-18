@@ -4,32 +4,35 @@ import { PageWrapper } from "../../PageWrapper";
 import { AQuestion, FundingCampaign, UseOfFunds, WhyDoWeNeedYourHelp } from "./elements";
 import { WhyTrustUs } from "./elements/WhyTrustUs";
 import { Maintainers } from "../project/elements/Maintainers";
-import { useRepository } from "../../../hooks";
-import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
-import { RepositoryTitle } from "src/components/title";
+import { ProjectTitle } from "src/components/title";
 import { config, Env } from "../../../../ultils";
 import { Button, ExternalLink } from "../../../../components";
 import { Link } from "react-router-dom";
 import { TelephoneIcon } from "../../../../Utils/Icons";
+import { useCampaign } from "../../../hooks/useCampaign";
+import { useProject } from "../../../hooks/useProject";
+import { useProjectContext } from "../../../layout/ProjectRoute";
 
 interface ImproveReliabilityProps {}
 
 export function ImproveReliability(props: ImproveReliabilityProps) {
-  const { repositoryId } = useRepositoryContext();
-  const { owner, repository, error, reloadRepository } = useRepository(repositoryId);
+  const { projectId } = useProjectContext();
+  const { project, error, reloadProject } = useProject(projectId);
+  const { campaign, loadCampaignError, reloadCampaign } = useCampaign(projectId);
 
   useEffect(() => {
-    reloadRepository();
+    reloadProject();
+    reloadCampaign();
   }, []);
 
   return (
     <>
       <PageWrapper baseURL={BaseURL.APP}>
-        {owner && repository && <RepositoryTitle owner={owner} repository={repository} />}
-        <FundingCampaign repositoryId={repositoryId} />
+        {project && <ProjectTitle project={project} />}
+        {campaign && <FundingCampaign projectId={projectId} campaign={campaign} />}
         {/*<CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />*/}
         <section className="pb-20 3xl:pb-40 pt-16">
-          <Maintainers repositoryId={repositoryId} viewAllButton={false} />
+          <Maintainers projectId={projectId} viewAllButton={false} />
         </section>
         <AQuestion
           title="A question?"
@@ -59,6 +62,7 @@ export function ImproveReliability(props: ImproveReliabilityProps) {
 
         {/*TODO: error*/}
         {error && <div>{error.message}</div>}
+        {loadCampaignError && <div>{loadCampaignError.message}</div>}
       </PageWrapper>
     </>
   );

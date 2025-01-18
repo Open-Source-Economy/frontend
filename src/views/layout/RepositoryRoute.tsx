@@ -13,7 +13,7 @@ type RepositoryContext = {
   repositoryId: RepositoryId;
 };
 
-export function RepositoryRoutes() {
+export function RepositoryRoute() {
   const repositoryId = useRepositoryFromParams();
 
   if (repositoryId) {

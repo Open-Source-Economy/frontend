@@ -4,39 +4,32 @@ import { ProjectServices } from "src/views/pages/app/project/elements/service";
 import { Maintainers } from "src/views/pages/app/project/elements/Maintainers";
 import { Highlight } from "src/views/pages/app/project/elements/highlight/HighLight";
 import React, { useEffect } from "react";
-import { RepositoryTitle } from "src/components/title";
+import { ProjectTitle } from "src/components/title";
 import { WhyNeedFunding } from "./elements";
-import { useRepositoryContext } from "../../../layout/RepositoryRoutes";
-import { useRepository } from "../../../hooks";
 import { TitleWithSubtitle } from "src/components/title/TitleWithSubtitle";
 import { config, Env } from "../../../../ultils";
 import { Button, ExternalLink } from "../../../../components";
 import { Link } from "react-router-dom";
 import { TelephoneIcon } from "../../../../Utils/Icons";
+import { useProjectContext } from "../../../layout/ProjectRoute";
+import { useProject } from "../../../hooks/useProject";
 
 interface ProjectProps {}
 
 export function Project(props: ProjectProps) {
-  const { repositoryId } = useRepositoryContext();
-  const { owner, repository, error, reloadRepository } = useRepository(repositoryId);
+  const { projectId } = useProjectContext();
+  const { project, error, reloadProject } = useProject(projectId);
 
   useEffect(() => {
-    reloadRepository();
+    reloadProject();
   }, []);
 
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <section className="overflow-hidden">
-        {owner && repository && (
-          <RepositoryTitle
-            owner={owner}
-            repository={repository}
-            displayProjectDescription={false}
-            subtitle="We're the experts who build, debug, and maintain it"
-          />
-        )}
+        {project && <ProjectTitle project={project} displayProjectDescription={false} subtitle="We're the experts who build, debug, and maintain it" />}
         <TitleWithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
-        <ProjectServices repositoryId={repositoryId} />
+        <ProjectServices projectId={projectId} />
 
         {/*pb-16 3xl:pb-24: TODO: make variable for padding between sections */}
         <section className="!px-4 relative flex flex-col">
@@ -55,7 +48,7 @@ export function Project(props: ProjectProps) {
             </Button>
 
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <Link to={campaignPath(repositoryId)}> Support Us</Link>
+              <Link to={campaignPath(projectId)}>Support Us</Link>
             </Button>
           </div>
         </section>
@@ -64,9 +57,9 @@ export function Project(props: ProjectProps) {
         {config.env !== Env.Production && <Highlight />}
 
         <section className="pt-20 3xl:pt-40">
-          <Maintainers repositoryId={repositoryId} />
+          <Maintainers projectId={projectId} />
         </section>
-        <WhyNeedFunding repositoryId={repositoryId} />
+        <WhyNeedFunding projectId={projectId} />
       </section>
     </PageWrapper>
   );

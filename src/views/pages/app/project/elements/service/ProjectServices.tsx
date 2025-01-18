@@ -3,14 +3,14 @@ import rightLinear from "src/assets/right-linear-bg.webp";
 import { ProjectServiceCard } from "./ProjectServiceCard";
 import React, { useEffect } from "react";
 import { useProjectServices } from "src/views/hooks";
-import { RepositoryId } from "src/model";
+import { ProjectId } from "src/model";
 
 interface ProjectServicesProps {
-  repositoryId: RepositoryId;
+  projectId: ProjectId;
 }
 
 export function ProjectServices(props: ProjectServicesProps) {
-  const { projectServices, error, reloadProjectServices } = useProjectServices(props.repositoryId);
+  const { projectServices, error, reloadProjectServices } = useProjectServices(props.projectId);
 
   useEffect(() => {
     reloadProjectServices();

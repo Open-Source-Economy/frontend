@@ -1,4 +1,4 @@
-import { StripePriceId } from "src/model/stripe/StripePrice";
+import { StripePriceId } from "../../model";
 
 export interface PriceItem {
   priceId: StripePriceId;
