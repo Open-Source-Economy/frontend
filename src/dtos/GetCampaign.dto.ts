@@ -1,5 +1,6 @@
 import { Currency, PriceType, ProductType } from "../model";
 import { Price } from "./stripe";
+import React, { ReactNode } from "react";
 
 export interface GetCampaignParams {
   owner: string;
@@ -21,16 +22,41 @@ export interface GetCampaignQuery {}
 
 /*TODO: where to place it? */
 export interface CampaignDescription {
-  summary: CampaignSummary;
+  summary: CampaignDescription.Summary;
+  aQuestion: CampaignDescription.Section;
+  whyWeNeedYourHelp: CampaignDescription.Section;
+  useOfFunds: CampaignDescription.Section;
+  whyTrustUs: CampaignDescription.Section;
 }
 
-export enum SummaryType {
-  ONE,
-  TWO,
-}
+export namespace CampaignDescription {
+  export interface Summary {
+    title: string | ReactNode;
+    subtitle: string | ReactNode;
+    summaryType: Summary.Type;
+    features?: Summary.Feature[];
+  }
 
-export interface CampaignSummary {
-  title: string;
-  subtitle: string;
-  summaryType: SummaryType;
+  export namespace Summary {
+    export enum Type {
+      ONE,
+      TWO,
+    }
+
+    export interface Feature {
+      icon: React.ReactNode;
+      heading: string;
+      text: string;
+    }
+  }
+
+  export interface Section {
+    paragraph1?: string | ReactNode;
+    items?: Item[];
+    paragraph2?: string | ReactNode;
+  }
+
+  export interface Item {
+    text: string | ReactNode;
+  }
 }

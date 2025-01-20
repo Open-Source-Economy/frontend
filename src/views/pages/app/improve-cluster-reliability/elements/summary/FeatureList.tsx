@@ -1,48 +1,16 @@
-import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "src/Utils/Icons";
 import React from "react";
-import { SummaryType } from "../../../../../../dtos";
+import { CampaignDescription } from "src/dtos";
 
-// Define the feature type
-interface Feature {
-  icon: React.ReactNode;
-  heading: string;
-  text: string;
-}
-
-// Dummy data with type annotations
-const features: Feature[] = [
-  {
-    icon: <AimIcon />,
-    heading: "Our Aim",
-    text: "From benevolence to professionalism.",
-  },
-  {
-    icon: <WinIcon />,
-    heading: "Win-Win",
-    text: "Support us; prioritize your needs.",
-  },
-  {
-    icon: <PromiseIcon />,
-    heading: "Our Promise",
-    text: "Reliable. Bug-free. Built to serve you.",
-  },
-  {
-    icon: <OurMissionIcon />,
-    heading: "Our Mission",
-    text: "100% non-profit. 100% for you.",
-  },
-];
-
-// Component with TypeScript annotations
 interface FeatureListProps {
-  featureListType: SummaryType;
+  features: CampaignDescription.Summary.Feature[];
+  summaryType: CampaignDescription.Summary.Type;
 }
 
 export function FeatureList(props: FeatureListProps) {
-  if (props.featureListType === SummaryType.ONE) {
+  if (props.summaryType === CampaignDescription.Summary.Type.ONE) {
     return (
       <div className="!space-y-3 relative z-20 3xl:!space-y-[19px]">
-        {features.map(({ icon, heading, text }, index) => (
+        {props.features.map(({ icon, heading, text }, index) => (
           <div key={index} className="flex items-start sm:items-center gap-4 px-6 !py-3 3xl:!py-4 cursor-pointer rounded-2xl 3xl:rounded-[35px] !bg-primaryBg">
             <div className="w-16 h-16 min-h-16 min-w-16 2xl:w-[90px] sm:w-20 sm:h-[90px] 3xl:w-[112px] 2xl:h-24 3xl:h-[112px] object-cover">{icon}</div>
             <div>
@@ -57,7 +25,7 @@ export function FeatureList(props: FeatureListProps) {
   } else {
     return (
       <div className="grid grid-cols-1 500:grid-cols-2 place-items-center flex-1 gap-x-3 gap-y-3 xl:!gap-y-5 3xl:!gap-y-6 xl:!gap-x-4 relative z-20">
-        {features.map(({ icon, heading, text }, index) => (
+        {props.features.map(({ icon, heading, text }, index) => (
           <div
             key={index}
             className="flex flex-col sm:max-w-[400px] w-full items-center text-center !px-5 pb-12 pt-8 xl:pt-12 3xl:pt-[53px] 3xl:!px-14 md:pb-16 3xl:pb-[84px] cursor-pointer rounded-2xl xl:rounded-[35px] bg-primaryBg"

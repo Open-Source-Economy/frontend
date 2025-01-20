@@ -31,34 +31,27 @@ export function ImproveReliability(props: ImproveReliabilityProps) {
         {project && <ProjectTitle project={project} />}
         {campaign && <FundingCampaign projectId={projectId} campaign={campaign} />}
         {/*<CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />*/}
-        <section className="pb-20 3xl:pb-40 pt-16">
-          <Maintainers projectId={projectId} viewAllButton={false} />
-        </section>
-        <AQuestion
-          title="A question?"
-          subtitle={
-            <>
-              Need a tailored solution for your business?
-              <br />
-              Want to know more about DoWs and priority support?
-            </>
-          }
-        >
-          {config.env !== Env.Production && (
-            <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
-              <Link to="#">FAQ</Link>
-            </Button>
-          )}
 
-          <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
-            <ExternalLink href="https://calendly.com/lauriane-m/open-source-economy" underline={false}>
-              Book a Call
-            </ExternalLink>
-          </Button>
-        </AQuestion>
-        <WhyDoWeNeedYourHelp />
-        <UseOfFunds />
-        <WhyTrustUs />
+        <Maintainers projectId={projectId} viewAllButton={false} />
+
+        {campaign?.description?.aQuestion && (
+          <AQuestion description={campaign?.description?.aQuestion}>
+            {config.env !== Env.Production && (
+              <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
+                <Link to="#">FAQ</Link>
+              </Button>
+            )}
+
+            <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" icon={<TelephoneIcon />}>
+              <ExternalLink href="https://calendly.com/lauriane-m/open-source-economy" underline={false}>
+                Book a Call
+              </ExternalLink>
+            </Button>
+          </AQuestion>
+        )}
+        {campaign?.description?.whyWeNeedYourHelp && <WhyDoWeNeedYourHelp description={campaign?.description?.whyWeNeedYourHelp} />}
+        {campaign?.description?.useOfFunds && <UseOfFunds description={campaign?.description?.useOfFunds} />}
+        {campaign?.description?.whyTrustUs && <WhyTrustUs description={campaign?.description?.whyTrustUs} />}
 
         {/*TODO: error*/}
         {error && <div>{error.message}</div>}

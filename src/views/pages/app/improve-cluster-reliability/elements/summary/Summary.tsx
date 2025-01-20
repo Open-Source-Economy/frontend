@@ -1,14 +1,14 @@
 import React from "react";
 import VideoPlayer from "./VideoContainer";
 import { FeatureList } from "./FeatureList";
-import { CampaignSummary, SummaryType } from "src/dtos";
+import { CampaignDescription } from "src/dtos";
 
-interface SummaryProps extends CampaignSummary {}
+interface SummaryProps extends CampaignDescription.Summary {}
 
 export function Summary(props: SummaryProps) {
   return (
     <>
-      {props.summaryType === SummaryType.ONE && (
+      {props.summaryType === CampaignDescription.Summary.Type.ONE && (
         <>
           <h2 className="text-3xl md:text-4xl xl:text-[44px] !leading-[129%] 1300:text-5xl 1700:text-[52px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-6 3xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
             {props.title}
@@ -23,7 +23,7 @@ export function Summary(props: SummaryProps) {
         </>
       )}
 
-      {props.summaryType === SummaryType.TWO && (
+      {props.summaryType === CampaignDescription.Summary.Type.TWO && (
         <>
           <h2 className="section-heading sm:!text-nowrap !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-8 3xl:!pb-10 w-fit relative !mb-4 3xl:!mb-5 !mt-4">
             {props.title}
@@ -34,7 +34,7 @@ export function Summary(props: SummaryProps) {
         </>
       )}
 
-      <FeatureList featureListType={props.summaryType} />
+      {props.features && <FeatureList features={props.features} summaryType={props.summaryType} />}
     </>
   );
 }

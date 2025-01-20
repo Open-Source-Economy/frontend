@@ -67,6 +67,7 @@ import { pekkoMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
 import { getCampaignDescription } from "../views";
+import { oseMaintainers } from "../services/data/oseMaintainers";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -146,9 +147,13 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
-    return {
-      maintainers: pekkoMaintainers,
-    };
+    if (params.owner === "apache" && params.repo === "pekko") {
+      return { maintainers: pekkoMaintainers };
+    } else if (params.owner === "open-source-economy") {
+      return { maintainers: oseMaintainers };
+    } else {
+      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+    }
   }
 
   async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<ApiError | GetPricesResponse> {
@@ -193,11 +198,9 @@ export class BackendAPIMock implements BackendAPI {
       }
     }
 
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
-
-    // return {
-    //   prices: prices,
-    // };
+    return {
+      prices: prices,
+    };
   }
 
   async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {

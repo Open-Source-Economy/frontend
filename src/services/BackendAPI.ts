@@ -52,6 +52,7 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { pekkoMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
+import { oseMaintainers } from "./data/oseMaintainers";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -217,8 +218,11 @@ class BackendAPIImpl implements BackendAPI {
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return { maintainers: pekkoMaintainers };
+    } else if (params.owner === "open-source-economy") {
+      return { maintainers: oseMaintainers };
+    } else {
+      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError> {

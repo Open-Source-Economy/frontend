@@ -56,9 +56,9 @@ export function Project(props: ProjectProps) {
         {/*<BookACall />*/}
         {config.env !== Env.Production && <Highlight />}
 
-        <section className="pt-20 3xl:pt-40">
+        <div className="pt-20 3xl:pt-40">
           <Maintainers projectId={projectId} />
-        </section>
+        </div>
         <WhyNeedFunding projectId={projectId} />
       </section>
     </PageWrapper>

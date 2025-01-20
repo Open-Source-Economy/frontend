@@ -1,28 +1,14 @@
 import useFunds from "src/assets/icon/useFunds.svg";
-import ListItem from "./ListItem";
+import { ListItem } from "./ListItem";
 import { LeftLinear } from "src/Utils/Icons";
 import React from "react";
+import { CampaignDescription } from "src/dtos";
 
-interface UseOfFundsProps {}
+interface UseOfFundsProps {
+  description: CampaignDescription.Section;
+}
 
 export function UseOfFunds(props: UseOfFundsProps) {
-  const reliableData = [
-    { id: 1, text: "Having the equivalent of 2 full-time developers" },
-    { id: 2, text: "Setting up dedicated hardware to reproduce and fix bugs effectively" },
-    {
-      id: 3,
-      text: (
-        <>
-          Addressing{" "}
-          <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#FF518C]  font-bold text-transparent bg-clip-text inline-block">
-            critical issues{" "}
-          </span>{" "}
-          (like Issue #578)
-        </>
-      ),
-    },
-    { id: 4, text: "Ongoing maintenance and keeping Pekko up-to-date" },
-  ];
   return (
     <div className="relative pb-14 xl:pb-0">
       <div className="hidden xl:block absolute -z-10 w-full h-full -translate-x-1/2 left-1/2 -top-1/2">{/* <LinearCenter /> */}</div>
@@ -36,16 +22,17 @@ export function UseOfFunds(props: UseOfFundsProps) {
             Where Your Money Goes
           </h1>
 
-          <ul className="space-y-4 2xl:space-y-5 mt-4 xl:!mt-8 !text-left">
-            <p className="text-base sm:text-xl font-medium 3xl:text-2xl">Your contribution will help us:</p>
-            {reliableData.map((item, index) => (
-              <ListItem item={item} key={index} />
-            ))}
-          </ul>
-          <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">
-            Distributed systems like Pekko are inherently complex. Achieving consistent behavior, preventing cascading failures, and avoiding regressions
-            requires specialized expertise and dedicated resources.
-          </p>
+          {props.description.items && (
+            <ul className="space-y-4 2xl:space-y-5 mt-4 xl:!mt-8 !text-left">
+              {props.description.paragraph1 && <p className="text-base sm:text-xl font-medium 3xl:text-2xl">{props.description.paragraph1}</p>}
+              {props.description.items.map((item, index) => (
+                <ListItem key={index}>{item.text}</ListItem>
+              ))}
+            </ul>
+          )}
+          {props.description.paragraph2 && (
+            <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">{props.description.paragraph2}</p>
+          )}
         </div>
 
         {/* ======= Right Image ====  */}

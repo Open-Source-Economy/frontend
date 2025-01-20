@@ -1,8 +1,11 @@
 import React from "react";
 import trustUs from "src/assets/icon/trustUs.svg";
 import { LinearCenter } from "src/Utils/Icons";
+import { CampaignDescription } from "src/dtos";
 
-interface WhyTrustUsProps {}
+interface WhyTrustUsProps {
+  description: CampaignDescription.Section;
+}
 
 export function WhyTrustUs(props: WhyTrustUsProps) {
   return (
@@ -20,13 +23,8 @@ export function WhyTrustUs(props: WhyTrustUsProps) {
             Why You Can Trust Us
           </h1>
 
-          <p className="text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-12">
-            We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to
-            everyone.
-          </p>
-          <p className="text-base max-w-[550px] 3xl:max-w-[656px] sm:text-xl font-medium 3xl:text-2xl mt-6">
-            We believe in transparency and accountability, and every dollar raised will go towards improving Pekko’s reliability.
-          </p>
+          <p className="text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-12">{props.description.paragraph1}</p>
+          <p className="text-base max-w-[550px] 3xl:max-w-[656px] sm:text-xl font-medium 3xl:text-2xl mt-6">{props.description.paragraph2}</p>
         </div>
       </section>
     </div>
