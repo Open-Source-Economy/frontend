@@ -7,7 +7,7 @@ export function NonProfitBanner(props: CompanyBannerProps) {
   return (
     <>
       {/* Top Bar */}
-      <div className="flex flex-wrap md:!flex-nowrap justify-between gap-3 xl:gap-8 !px-4 3xl:!px-8 my-6 3xl:my-8">
+      <div className="flex flex-wrap sm:!flex-nowrap justify-center sm:justify-between gap-3 xl:gap-8 !px-4 3xl:!px-8 my-6 3xl:my-8">
         <div className="flex items-center gap-1.5 3xl:gap-2.5">
           <span className="max-w-6 2xl:max-w-7 3xl:max-w-9">
             {" "}
