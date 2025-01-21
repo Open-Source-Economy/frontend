@@ -12,6 +12,7 @@ import { TelephoneIcon } from "../../../../Utils/Icons";
 import { useCampaign } from "../../../hooks/useCampaign";
 import { useProject } from "../../../hooks/useProject";
 import { useProjectContext } from "../../../layout/ProjectRoute";
+import { CompanyNumberBanner } from "./elements/CompanyNumberBanner";
 
 interface ImproveReliabilityProps {}
 

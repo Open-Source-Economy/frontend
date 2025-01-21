@@ -98,10 +98,8 @@ export function PaymentControls(props: PaymentControlsProps) {
               key={index}
               onClick={() => setSelectedPriceIndex(index)}
               className={`${
-                selectedPriceIndex === index
-                  ? "bg-gradient-custom"
-                  : "bg-[#16263B] hover:!border-primary-user border-2 duration-300 ease-linear transition-all !border-transparent"
-              } transition-colors text-white !p-3 3xl:!p-4 rounded-[13px]`}
+                selectedPriceIndex === index ? "bg-gradient-custom pointer-events-none" : "bg-[#16263B]"
+              } text-white !px-3 flex justify-center min-h-16 duration-100 ease-linear transition-all flex-col sm:h-[69px] 3xl:h-[81px] items-center 3xl:!px-4 rounded-[13px]`}
               aria-pressed={selectedPriceIndex === index}
             >
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
@@ -115,7 +113,9 @@ export function PaymentControls(props: PaymentControlsProps) {
 
         {config.env !== Env.Production && (
           <button
-            className={`${customAmount ? "border-[#D8D8D8] border" : ""} w-full h-full bg-[#16263B] border-[#D8D8D8] border rounded-xl flex items-center px-6`}
+            className={`${
+              customAmount ? "border-[#D8D8D8] border" : ""
+            } w-full min-h-16 sm:h-[69px] 3xl:h-[81px]  bg-[#16263B] border-[#D8D8D8]  border rounded-xl flex items-center px-6`}
           >
             <span className="text-white text-base sm:text-lg 3xl:text-xl font-medium">{displayedCurrency.symbol}</span>
             <input

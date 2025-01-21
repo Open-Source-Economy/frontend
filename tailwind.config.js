@@ -67,6 +67,9 @@ const config = {
         background: "background-color",
         border: "border-color",
       },
+      backgroundSize: {
+        full: "100% 100%",
+      },
       backgroundImage: {
         "gradient-custom": "linear-gradient(90deg, #FF7E4B 0%, #FF518C 50%, #66319B 100%)",
         "sunset-glow-gradient": " linear-gradient(270deg, #AC3556 0%, #E78031 45.1%, #5935A1 100%)",

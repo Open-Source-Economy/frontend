@@ -42,8 +42,9 @@ export function Maintainers(props: MaintainersProps) {
 
         <DividerTitle title="Who are We?" />
 
-        <div className="3xl:max-w-[1520px] w-full !px-4 xl:!px-0 xl:max-w-[88%] 2xl:max-w-[80%] mx-auto text-center">
-          <div className={`grid grid-cols-1 place-items-center ${maintainers?.length === 1 ? "" : `sm:grid-cols-2 lg:grid-cols-4`} gap-14 sm:gap-8`}>
+        <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
+          {/* Participants List */}
+          <div className="flex justify-center flex-wrap gap-14 sm:gap-8">
             {maintainers?.map((maintainer, index) => <ParticipantCard maintainer={maintainer} key={index} />)}
           </div>
 
@@ -56,7 +57,6 @@ export function Maintainers(props: MaintainersProps) {
             </div>
           )}
         </div>
-
         {/*TODO: error*/}
         {error && <div>{error.message}</div>}
       </section>

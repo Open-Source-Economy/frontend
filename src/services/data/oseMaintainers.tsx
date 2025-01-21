@@ -1,4 +1,4 @@
-import thankfulCat from "../../assets/cats/participant-card-2.png";
+import thankfulCat from "../../assets/cats/thankful-cat.svg";
 import { Maintainer } from "../../dtos";
 
 const lauriane: Maintainer = {
