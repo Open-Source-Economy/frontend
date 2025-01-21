@@ -48,4 +48,4 @@ const jrudolph: Maintainer = {
   mascotAlt: " Would love to be full-time on Pekko!",
 };
 
-export const pekkoMaintainers: Maintainer[] = [raboof, pjfanning, mdedetrich, jrudolph];
+export const pekkoMaintainers: Maintainer[] = [raboof, pjfanning, mdedetrich];
