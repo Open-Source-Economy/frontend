@@ -12,15 +12,16 @@ interface FeatureItemProps {
 
 const FeatureItem: React.FC<FeatureItemProps> = (props: FeatureItemProps) => {
   return (
-    <div className="grid grid-flow-col justify-start 400:items-center   gap-[10px] ">
-      <div className={cn("md:size-[30px] size-[24px] flex items-center  justify-center rounded-full text-primaryBg", bgColorVariants[props?.audience])}>
-        <FaCheck className="cursor-default" />
-      </div>
+    <div className="grid grid-flow-col  justify-start  items-start 350:items-center gap-[10px] ">
+      <div className="flex gap-2 350:items-center items-start ">
+        <div className={cn("md:size-[30px] size-[24px] flex items-center  justify-center rounded-full text-primaryBg", bgColorVariants[props?.audience])}>
+          <FaCheck className="cursor-default" />
+        </div>
 
-      <div className="flex gap-3 items-center flex-wrap">
-        <span className="lg:text-2xl text-left text-sm 350:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">{props?.title}</span>
-
-        {props?.isComingSoon && <ComingSoon />}
+        <div className="flex gap-2 flex-col pt-[2px] 350:p-0  350:flex-row items-start 350:items-center ">
+          <span className="lg:text-2xl text-left text-[12px] 400:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">{props?.title}</span>
+          {props?.isComingSoon && <ComingSoon />}
+        </div>
       </div>
     </div>
   );
