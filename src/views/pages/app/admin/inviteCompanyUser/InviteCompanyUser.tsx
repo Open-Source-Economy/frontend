@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { SendCompanyAdminInviteBody, SendCompanyAdminInviteQuery } from "src/dtos";
+import { SendCompanyRoleInviteBody, SendCompanyRoleInviteParams, SendCompanyRoleInviteQuery } from "src/dtos";
 import { CompanyId, CompanyUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
@@ -43,17 +43,21 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
       setError("companyId is required");
       return;
     }
-    const body: SendCompanyAdminInviteBody = {
+    const params: SendCompanyRoleInviteParams = {};
+    const body: SendCompanyRoleInviteBody = {
       userName: name,
       userEmail: email,
       companyId: companyId,
       companyUserRole: CompanyUserRole.ADMIN,
     };
 
-    const query: SendCompanyAdminInviteQuery = {};
+    const query: SendCompanyRoleInviteQuery = {};
 
     try {
-      const result = await adminBackendAPI.sendCompanyAdminInvite(body, query);
+      console.log("params", params);
+      console.log("body", body);
+      console.log("query", query);
+      const result = await adminBackendAPI.sendCompanyRoleInvite(params, body, query);
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);
       } else {

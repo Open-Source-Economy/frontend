@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { SendRepositoryAdminInviteBody, SendRepositoryAdminInviteQuery } from "src/dtos";
+import { SendRepositoryRoleInviteBody, SendRepositoryRoleInviteParams, SendRepositoryRoleInviteQuery } from "src/dtos";
 import { DowCurrency, OwnerId, RepositoryId, RepositoryUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
@@ -58,8 +58,8 @@ export function InviteRepositoryUser(props: InviteRepositoryUserProps) {
       setError("DOW Rate is required");
       return;
     }
-
-    const body: SendRepositoryAdminInviteBody = {
+    const params: SendRepositoryRoleInviteParams = {};
+    const body: SendRepositoryRoleInviteBody = {
       userName: name,
       userEmail: email,
       userGithubOwnerLogin: githubOwnerLogin,
@@ -68,11 +68,14 @@ export function InviteRepositoryUser(props: InviteRepositoryUserProps) {
       dowRate: dowRate,
       dowCurrency: dowCurrency as DowCurrency,
     };
-    const query: SendRepositoryAdminInviteQuery = {};
+    const query: SendRepositoryRoleInviteQuery = {};
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.sendRepositoryAdminInvite(body, query);
+      console.log("params", params);
+      console.log("body", body);
+      console.log("query", query);
+      const result = await adminBackendAPI.sendRepositoryRoleInvite(params, body, query);
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);
       } else {

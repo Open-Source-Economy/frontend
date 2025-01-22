@@ -10,6 +10,6 @@ export * from "./CreateIssueFunding.dto";
 export * from "./CreateManagedIssue.dto";
 export * from "./CreateManualInvoice.dto";
 export * from "./CreateCompanyUserPermissionToken.dto";
-export * from "./SendCompanyAdminInvite.dto";
-export * from "./SendRepositoryAdminInvite.dto";
+export * from "./SendCompanyRoleInvite.dto";
+export * from "./SendRepositoryRoleInvite.dto";
 export * from "./GetCampaign.dto";

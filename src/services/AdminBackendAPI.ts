@@ -12,12 +12,14 @@ import {
   CreateProductAndPriceParams,
   CreateProductAndPriceQuery,
   CreateProductAndPriceResponse,
-  SendCompanyAdminInviteBody,
-  SendCompanyAdminInviteQuery,
-  SendCompanyAdminInviteResponse,
-  SendRepositoryAdminInviteBody,
-  SendRepositoryAdminInviteQuery,
-  SendRepositoryAdminInviteResponse,
+  SendCompanyRoleInviteBody,
+  SendCompanyRoleInviteParams,
+  SendCompanyRoleInviteQuery,
+  SendCompanyRoleInviteResponse,
+  SendRepositoryRoleInviteBody,
+  SendRepositoryRoleInviteParams,
+  SendRepositoryRoleInviteQuery,
+  SendRepositoryRoleInviteResponse,
 } from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
@@ -33,9 +35,17 @@ export interface AdminBackendAPI {
 
   createCompany(body: CreateCompanyBody, query: CreateCompanyQuery): Promise<CreateCompanyResponse | ApiError>;
 
-  sendCompanyAdminInvite(body: SendCompanyAdminInviteBody, query: SendCompanyAdminInviteQuery): Promise<SendCompanyAdminInviteResponse | ApiError>;
+  sendCompanyRoleInvite(
+    params: SendCompanyRoleInviteParams,
+    body: SendCompanyRoleInviteBody,
+    query: SendCompanyRoleInviteQuery,
+  ): Promise<SendCompanyRoleInviteResponse | ApiError>;
 
-  sendRepositoryAdminInvite(body: SendRepositoryAdminInviteBody, query: SendRepositoryAdminInviteQuery): Promise<SendRepositoryAdminInviteResponse | ApiError>;
+  sendRepositoryRoleInvite(
+    params: SendRepositoryRoleInviteParams,
+    body: SendRepositoryRoleInviteBody,
+    query: SendRepositoryRoleInviteQuery,
+  ): Promise<SendRepositoryRoleInviteResponse | ApiError>;
 
   createManualInvoice(body: CreateManualInvoiceBody, query: CreateManualInvoiceQuery): Promise<CreateManualInvoiceResponse | ApiError>;
 
@@ -55,18 +65,23 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<CreateCompanyResponse>(() => axios.post(`${config.api.url}/admin/company`, body, { withCredentials: true }), "createCompany");
   }
 
-  async sendCompanyAdminInvite(body: SendCompanyAdminInviteBody, query: SendCompanyAdminInviteQuery): Promise<SendCompanyAdminInviteResponse | ApiError> {
-    return await handleError<SendCompanyAdminInviteResponse>(
+  async sendCompanyRoleInvite(
+    params: SendCompanyRoleInviteParams,
+    body: SendCompanyRoleInviteBody,
+    query: SendCompanyRoleInviteQuery,
+  ): Promise<SendCompanyRoleInviteResponse | ApiError> {
+    return await handleError<SendCompanyRoleInviteResponse>(
       () => axios.post(`${config.api.url}/admin/company/admin-invite`, body, { withCredentials: true }),
       "sendCompanyAdminInvite",
     );
   }
 
-  async sendRepositoryAdminInvite(
-    body: SendRepositoryAdminInviteBody,
-    query: SendRepositoryAdminInviteQuery,
-  ): Promise<SendRepositoryAdminInviteResponse | ApiError> {
-    return await handleError<SendRepositoryAdminInviteResponse>(
+  async sendRepositoryRoleInvite(
+    params: SendRepositoryRoleInviteParams,
+    body: SendRepositoryRoleInviteBody,
+    query: SendRepositoryRoleInviteQuery,
+  ): Promise<SendRepositoryRoleInviteResponse | ApiError> {
+    return await handleError<SendRepositoryRoleInviteResponse>(
       () => axios.post(`${config.api.url}/admin/repository/admin-invite`, body, { withCredentials: true }),
       "sendRepositoryAdminInvite",
     );

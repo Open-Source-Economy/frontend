@@ -1,7 +1,8 @@
 import { DowCurrency, RepositoryId, RepositoryUserRole } from "../model";
 
-// TODO: should be renamed to SendRepositoryRoleInviteBody
-export interface SendRepositoryAdminInviteBody {
+export interface SendRepositoryRoleInviteParams {}
+
+export interface SendRepositoryRoleInviteBody {
   userName: string | null;
   userEmail: string;
   userGithubOwnerLogin: string;
@@ -11,6 +12,6 @@ export interface SendRepositoryAdminInviteBody {
   dowCurrency: DowCurrency;
 }
 
-export interface SendRepositoryAdminInviteQuery {}
+export interface SendRepositoryRoleInviteQuery {}
 
-export interface SendRepositoryAdminInviteResponse {}
+export interface SendRepositoryRoleInviteResponse {}
