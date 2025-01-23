@@ -55,10 +55,10 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
                 )}
               </p>
             </div>
-            <div className=" lg:!px-20  sm:!px-6 px-4   600:mt-0  flex flex-col items-center text-center w-full">
+            <div className=" lg:!px-20  sm:!px-6 px-3   600:mt-0  flex flex-col items-center text-center w-full">
               {config.env !== "production" && (
                 <>
-                  <div className="border 900:min-w-[726px] sm:min-w-[95%] min-w-[100%] mt-1 border-white rounded-[20px] p-4 sm:p-8 mb-8">
+                  <div className="border 900:min-w-[726px] sm:min-w-[95%] min-w-[100%] mt-1 border-white rounded-[20px] !p-4 sm:!p-8 mb-8">
                     <h2 className="text-white lg:text-2xl text-lg md:text-xl mb-6 text-left">You can use them to:</h2>
                     <div className="space-y-6">
                       <FeatureItem title="Get a new feature" audience={audience} />

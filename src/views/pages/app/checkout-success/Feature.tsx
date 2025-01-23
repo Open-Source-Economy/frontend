@@ -19,7 +19,7 @@ const FeatureItem: React.FC<FeatureItemProps> = (props: FeatureItemProps) => {
         </div>
 
         <div className="flex gap-2 flex-col pt-[2px] 350:p-0  350:flex-row items-start 350:items-center ">
-          <span className="lg:text-2xl text-left text-[12px] 400:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">{props?.title}</span>
+          <span className="lg:text-2xl text-left text-[16px] 400:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">{props?.title}</span>
           {props?.isComingSoon && <ComingSoon />}
         </div>
       </div>
