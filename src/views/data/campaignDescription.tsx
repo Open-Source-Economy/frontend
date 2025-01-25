@@ -69,7 +69,7 @@ const pekkoCampaign: CampaignDescription = {
   useOfFunds: {
     paragraph1: "Your contribution will help us:",
     items: [
-      { text: "Having the equivalent of 2 full-time developers" },
+      { text: "Having the equivalent of 4 full-time developers" },
       { text: "Setting up dedicated hardware to reproduce and fix bugs effectively" },
       {
         text: (
