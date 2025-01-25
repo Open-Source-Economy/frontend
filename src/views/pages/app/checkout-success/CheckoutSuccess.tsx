@@ -41,7 +41,7 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
           </div>
 
           <div className=" w-full lg:pb-20 pb-9  mt-6 600:mt-0  flex flex-col items-center text-center">
-            <div className="px-0">
+            <div className="px-5">
               <h1 className="text-white lg:text-[40px] text-[30px]   font-michroma mb-4 font-space">Thanks you so much!</h1>
               <p className="text-white lg:text-2xl text-lg md:text-xl mb-8 font-semibold">
                 {config.env === "production" ? (
