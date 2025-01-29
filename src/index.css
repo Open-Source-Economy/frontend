@@ -11,7 +11,7 @@
     @apply flex text-left items-center justify-between border-b border-[#fff] bg-transparent text-[16px] lg:text-[23px] pb-3 outline-none text-[#FCFEFD] w-full;
   }
   .main-heading {
-    @apply text-3xl md:text-4xl !leading-[129%] lg:text-5xl xl:text-[52px] 2xl:text-[55px] 3xl:text-[62px] font-michroma text-center;
+    @apply text-[26px] sm:text-3xl md:text-4xl !leading-[129%] lg:text-5xl xl:text-[52px] 2xl:text-[55px] 3xl:text-[62px] font-michroma text-center;
   }
   .section-heading {
     @apply text-[26px] text-white text-center sm:text-3xl md:text-4xl leading-normal 2xl:text-[42px] 3xl:text-[50px] font-medium;

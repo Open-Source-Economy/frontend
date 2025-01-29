@@ -99,7 +99,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               onClick={() => setSelectedPriceIndex(index)}
               className={`${
                 selectedPriceIndex === index ? "bg-gradient-custom pointer-events-none" : ""
-              } text-white !px-3 flex bg-[#16263B] justify-center min-h-16 sm:duration-100 sm:ease-linear transition-all flex-col sm:h-[69px] 3xl:h-[81px] items-center 3xl:!px-4 rounded-[13px]`}
+              } text-white !px-3 flex bg-[#16263B] justify-center min-h-16 sm:duration-100 sm:ease-linear sm:transition-all flex-col sm:h-[69px] 3xl:h-[81px] items-center 3xl:!px-4 rounded-[13px]`}
               aria-pressed={selectedPriceIndex === index}
             >
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
