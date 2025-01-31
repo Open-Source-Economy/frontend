@@ -1,5 +1,6 @@
 import { AuthenticateType } from "../../../views";
 import isEqual from "lodash/isEqual";
+import { config, Env } from "../../../ultils";
 
 export interface FormData {
   email: string;
@@ -57,7 +58,7 @@ export function validateForm(type: AuthenticateType, data: FormData): FormValida
       email: isEmailValid,
       password: validatePassword(data.password),
       confirmPassword: data.password === data.confirmPassword,
-      terms: data.termsChecked || false,
+      terms: config.env === Env.Production ? true : data.termsChecked || false,
     };
   } else {
     return {
