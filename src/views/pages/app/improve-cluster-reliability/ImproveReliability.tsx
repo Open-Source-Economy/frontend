@@ -13,6 +13,7 @@ import { useCampaign } from "../../../hooks/useCampaign";
 import { useProject } from "../../../hooks/useProject";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { CompanyNumberBanner } from "./elements/CompanyNumberBanner";
+import Sponsor from "./Sponsor";
 
 interface ImproveReliabilityProps {}
 
@@ -50,6 +51,7 @@ export function ImproveReliability(props: ImproveReliabilityProps) {
             </Button>
           </AQuestion>
         )}
+        <Sponsor />
         {campaign?.description?.whyWeNeedYourHelp && <WhyDoWeNeedYourHelp description={campaign?.description?.whyWeNeedYourHelp} />}
         {campaign?.description?.useOfFunds && <UseOfFunds description={campaign?.description?.useOfFunds} />}
         {campaign?.description?.whyTrustUs && <WhyTrustUs description={campaign?.description?.whyTrustUs} />}

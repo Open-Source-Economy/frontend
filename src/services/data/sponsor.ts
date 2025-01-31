@@ -11,7 +11,7 @@ interface Sponsor {
   logo: string;
   name: string;
   shortTagline?: string;
-  longTagline?: string
+  longTagline?: string;
   link: string;
 }
 
@@ -37,7 +37,7 @@ function sponsorFactory(): Sponsor {
     shortTagline: generateRandomText(6),
     longTagline: generateRandomText(30),
     link: "https://example.com",
-  }
+  };
 }
 
 const sponsors1: (UniqueSponsorBlock | VerticalSponsorBlock | HorizontalSponsorBlock)[] = [
