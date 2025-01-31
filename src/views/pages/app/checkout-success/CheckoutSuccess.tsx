@@ -41,7 +41,7 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
           </div>
 
           <div className=" w-full lg:pb-20 pb-9  mt-6 600:mt-0  flex flex-col items-center text-center">
-            <div className="px-5">
+            <div className="sm:!px-6 px-3">
               <h1 className="text-white lg:text-[40px] text-[30px]   font-michroma mb-4 font-space">Thanks you so much!</h1>
               <p className="text-white lg:text-2xl text-lg md:text-xl mb-8 font-semibold">
                 {config.env === "production" ? (
@@ -55,10 +55,10 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
                 )}
               </p>
             </div>
-            <div className=" lg:!px-20  sm:!px-6 px-3   600:mt-0  flex flex-col items-center text-center w-full">
+            <div className=" lg:!px-20  sm:!px-6 px-3    600:mt-0  flex flex-col items-center text-center w-full">
               {config.env !== "production" && (
                 <>
-                  <div className="border 900:min-w-[726px] sm:min-w-[95%] min-w-[100%] mt-1 border-white rounded-[20px] !p-4 sm:!p-8 mb-8">
+                  <div className="border 900:min-w-[726px] sm:min-w-[95%] min-w-[100%] mt-1 border-white rounded-[20px] !p-4 !pr-2 sm:!p-8 mb-8">
                     <h2 className="text-white lg:text-2xl text-lg md:text-xl mb-6 text-left">You can use them to:</h2>
                     <div className="space-y-6">
                       <FeatureItem title="Get a new feature" audience={audience} />

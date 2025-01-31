@@ -9,7 +9,7 @@ interface MobileNavbarProps {
 export function MobileNavbar(props: MobileNavbarProps) {
   return (
     <>
-      <div className="flex lg:hidden flex-col gap-y-5">
+      <div className="!flex lg:!hidden flex-col gap-y-5">
         {props.navbarItems.map(item => {
           return <NavbarItem item={item} style="style_1" />;
         })}
