@@ -3,7 +3,7 @@ import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SocialMedia } from "src/components/socialMedia/SocialMedia";
-import { Container, Navbar, Offcanvas } from "react-bootstrap";
+import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { BaseURL } from "src/App";
 import { NavbarContent } from "./NavbarContent";
 import { CurrencyModal } from "./app";
@@ -43,7 +43,25 @@ export function Header(props: HeaderProps) {
     PreferredCurrency.set(auth, currency);
   };
 
-  const Logo = () => <img className=" 800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  // Update screen width on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const navbarExpand = screenWidth >= 1024 ? "lg" : false;
+
+  const Logo = () => <img className="block 800:w-[300px] w-[250px] max-[540px]:!w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
 
   return (
     <div data-aos="fade-down">
@@ -53,15 +71,38 @@ export function Header(props: HeaderProps) {
       </div>
 
       {/* Navbar Section */}
-      <Navbar expand="lg" className="pt-3  md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
+      <Navbar expand={navbarExpand} className="pt-3  md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
         <Container fluid className="">
           <Navbar.Brand href="#">
-            <Link to={props.baseURL}>
+            <Link to={props.baseURL} className="block">
               <Logo />
             </Link>
           </Navbar.Brand>
 
           <Navbar.Toggle onClick={() => setShowOffcanvas(true)} aria-controls="offcanvasNavbar" className="bg-white" />
+
+          <Navbar.Collapse className="lg:flex  hidden">
+            <NavbarContent
+              baseURL={props.baseURL}
+              setShowOffcanvas={setShowOffcanvas}
+              showDropdownNavbar={showDropdownNavbar}
+              setShowDropdownNavbar={setShowDropdownNavbar}
+              showCurrencyModal={showCurrencyModal}
+              setShowCurrencyModal={setShowCurrencyModal}
+              selectedCurrency={preferredCurrency}
+            />
+          </Navbar.Collapse>
+          {/* <Navbar.Collapse id="basic-navbar-nav">
+            <NavbarContent
+              baseURL={props.baseURL}
+              setShowOffcanvas={setShowOffcanvas}
+              showDropdownNavbar={showDropdownNavbar}
+              setShowDropdownNavbar={setShowDropdownNavbar}
+              showCurrencyModal={showCurrencyModal}
+              setShowCurrencyModal={setShowCurrencyModal}
+              selectedCurrency={preferredCurrency}
+            />
+          </Navbar.Collapse> */}
 
           <Navbar.Offcanvas
             show={showOffcanvas}
@@ -69,7 +110,7 @@ export function Header(props: HeaderProps) {
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
             placement="start"
-            className="bg-primaryBg"
+            className="bg-primaryBg lg:hidden  flex"
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>

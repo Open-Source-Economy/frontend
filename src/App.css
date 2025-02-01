@@ -1,4 +1,7 @@
 /* main css */
+:root {
+  --gradient-bg: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+}
 * {
   padding: 0;
   margin: 0;
@@ -139,11 +142,11 @@ input[type="number"] {
   /* Remove any border if there is one */
 }
 .gradient-bg {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
 }
 
 .gradient-btn-bg {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   transition: 0.5s ease all;
 }
 
@@ -157,14 +160,14 @@ input[type="number"] {
 
 /* Gradient Text normal */
 .gradient-text-normal {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
 /* Hover effect: Gradient text */
 .gradient-text:hover {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
@@ -211,7 +214,7 @@ input[type="number"] {
 }
 
 .gradient-text-btn:hover {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
@@ -302,7 +305,7 @@ input[type="number"] {
 
 @media (max-width: 640px) {
   .box-gradient-the-future {
-    background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+    background: var(--gradient-bg);
     border-radius: 50%;
     filter: blur(40px);
   }
@@ -352,7 +355,7 @@ input[type="number"] {
 
 .box-gradient {
   /* Standard syntax */
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
 
   /* Webkit (Safari/Chrome) old syntax */
   background: -webkit-linear-gradient(left, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
@@ -404,7 +407,7 @@ input[type="number"] {
 }
 
 .box-gradient-the-future {
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   border-radius: 50%;
   filter: blur(70px);
 }
@@ -423,7 +426,7 @@ input[type="number"] {
   inset: 0;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
@@ -454,7 +457,7 @@ input[type="number"] {
   inset: 0;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(90deg, #ff7e4b 0%, #ff518c 50%, #66319b 100%);
+  background: var(--gradient-bg);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;

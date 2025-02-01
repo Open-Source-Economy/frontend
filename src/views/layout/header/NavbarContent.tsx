@@ -17,7 +17,7 @@ interface NavbarContentProps {
 
 export function NavbarContent(props: NavbarContentProps) {
   return (
-    <Nav className="justify-end  lg:items-center font-mich flex-grow gap-3">
+    <Nav className="justify-end !items-start  lg:!items-center font-mich flex-grow gap-3">
       {props.baseURL === BaseURL.WEBSITE && <WebsiteNavbar />}
 
       {props.baseURL === BaseURL.APP && (
