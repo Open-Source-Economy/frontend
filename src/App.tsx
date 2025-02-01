@@ -94,7 +94,8 @@ const App = () => {
 
           <Route path="/" element={<Home />} />
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
-          <Route path="/user" element={<UserDeveloper {...userProps} />} />
+          {/*<Route path="/user" element={<UserDeveloper {...userProps} />} />*/}
+          <Route path="/user" element={<CompanyProduct />} />
           <Route path="/white-paper" element={<Pdf />} />
 
           <Route path="/logout" element={<Logout redirect={BaseURL.WEBSITE} />} />

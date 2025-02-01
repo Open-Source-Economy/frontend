@@ -2,13 +2,12 @@ import React from "react";
 import { BaseURL } from "src/App";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { OpenSourceExpertTitle } from "src/views/pages/app/projects/elements";
-import Services from "./elements/Services";
-
-import VirtuousSection from "./elements/VirtuousSection";
+import { Services } from "./elements/Services";
+import { VirtuousSection } from "./elements";
 
 interface CompanyProductProps {}
 
-export const CompanyProduct: React.FC<CompanyProductProps> = () => {
+export function CompanyProduct(props: CompanyProductProps) {
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <div className="overflow-hidden">
@@ -18,6 +17,4 @@ export const CompanyProduct: React.FC<CompanyProductProps> = () => {
       </div>
     </PageWrapper>
   );
-};
-
-export default CompanyProduct;
+}

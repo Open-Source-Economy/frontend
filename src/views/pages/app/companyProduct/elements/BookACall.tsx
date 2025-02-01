@@ -1,7 +1,9 @@
 import React from "react";
 import { TelephoneIcon } from "src/Utils/Icons";
 
-const BookACall = () => {
+interface BookACallProps {}
+
+export function BookACall(props: BookACallProps) {
   return (
     <section className="max-w-[1164px] relative 3xl:max-w-[1376px] px-4 mx-auto">
       {" "}
@@ -18,6 +20,4 @@ const BookACall = () => {
       </div>
     </section>
   );
-};
-
-export default BookACall;
+}

@@ -1,11 +1,13 @@
 import React from "react";
 import whoBuiltHero from "src/assets/hero-bg.webp";
 import { RoundLinearBg } from "src/Utils/Icons";
-import BookACall from "./BookACall";
+import { BookACall } from "./BookACall";
 import { virtuousCard } from "./Helper";
-import VirtuousCard from "./VirtuousCard";
+import { VirtuousCard } from "./VirtuousCard";
 
-const VirtuousSection: React.FC = () => {
+interface VirtuousSectionProps {}
+
+export function VirtuousSection(props: VirtuousSectionProps) {
   return (
     <main className="relative w-full">
       {/* ====== BOTTOM LINEAR BACKGROUND ========= */}
@@ -27,12 +29,10 @@ const VirtuousSection: React.FC = () => {
         </h2>
         <div className="xl:grid flex justify-center items-center flex-wrap xl:grid-cols-3 gap-6 w-full !mt-12 md:!mt-16">
           {virtuousCard.map((card, index) => (
-            <VirtuousCard key={index} card={card} />
+            <VirtuousCard key={index} {...card} />
           ))}
         </div>
       </section>
     </main>
   );
-};
-
-export default VirtuousSection;
+}

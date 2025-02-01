@@ -58,34 +58,34 @@ export const FeaturesSection = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full items-center justify-center md:col-span-2">
-          {/* 3  */}
-          <div
-            data-aos="fade-left"
-            data-aos-delay="400"
-            className="box33 group flex max-w-[550px] flex-col-reverse items-center justify-between gap-[20px] rounded-[30px] bg-[#14233A] px-[40px] py-[20px] max-[1279px]:max-w-[460px] max-[1279px]:py-12 max-[1024px]:max-w-[400px] lg:gap-0 lg:rounded-[50px] lg:py-16 xl:flex-row xl:items-center 1500:max-w-[610px] min-[1600px]:max-w-[630px] min-[1600px]:px-[67px] min-[1600px]:py-[73px]"
-          >
-            <div className="max-[1200px]text-center relative w-fit flex-col items-center max-[1279px]:flex">
-              <div className="absolute left-0 top-0 flex h-[102%] w-full items-center justify-start bg-[#14233A] opacity-0 duration-300 group-hover:!opacity-100">
-                <h1 className="font-mich w-full text-[28px] font-[400] leading-[1.1] max-[1279px]:text-center lg:text-[45px]">
-                  Coming <br /> Soon
-                </h1>
-              </div>
-              <h1 className="font-mich text-[28px] font-[400] max-[1279px]:text-center lg:text-[36px]">Get a Stake</h1>
-              <h2 className="font-most mt-[20px] w-full text-[20px] font-[400] leading-[1.4] max-[1279px]:text-center">
-                {" "}
-                Support, invest, or donate in <br /> projects to get a part of its <br />
-                business, governance, and ecosystem.
-              </h2>
-            </div>
-            <div className="relative">
-              <img className="aspect-square h-[150px] w-[150px] object-cover sm:!h-[200px] sm:!w-[200px]" src={sec2icon3} alt="Get Paid Icon" />{" "}
-              <div className="absolute bottom-[5px] left-[60px]">
-                <img src={startimg} alt="" className="size-[45px] duration-300 group-hover:rotate-90" />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/*<div className="flex w-full items-center justify-center md:col-span-2">*/}
+        {/*  /!* 3  *!/*/}
+        {/*  <div*/}
+        {/*    data-aos="fade-left"*/}
+        {/*    data-aos-delay="400"*/}
+        {/*    className="box33 group flex max-w-[550px] flex-col-reverse items-center justify-between gap-[20px] rounded-[30px] bg-[#14233A] px-[40px] py-[20px] max-[1279px]:max-w-[460px] max-[1279px]:py-12 max-[1024px]:max-w-[400px] lg:gap-0 lg:rounded-[50px] lg:py-16 xl:flex-row xl:items-center 1500:max-w-[610px] min-[1600px]:max-w-[630px] min-[1600px]:px-[67px] min-[1600px]:py-[73px]"*/}
+        {/*  >*/}
+        {/*    <div className="max-[1200px]text-center relative w-fit flex-col items-center max-[1279px]:flex">*/}
+        {/*      <div className="absolute left-0 top-0 flex h-[102%] w-full items-center justify-start bg-[#14233A] opacity-0 duration-300 group-hover:!opacity-100">*/}
+        {/*        <h1 className="font-mich w-full text-[28px] font-[400] leading-[1.1] max-[1279px]:text-center lg:text-[45px]">*/}
+        {/*          Coming <br /> Soon*/}
+        {/*        </h1>*/}
+        {/*      </div>*/}
+        {/*      <h1 className="font-mich text-[28px] font-[400] max-[1279px]:text-center lg:text-[36px]">Get a Stake</h1>*/}
+        {/*      <h2 className="font-most mt-[20px] w-full text-[20px] font-[400] leading-[1.4] max-[1279px]:text-center">*/}
+        {/*        {" "}*/}
+        {/*        Support, invest, or donate in <br /> projects to get a part of its <br />*/}
+        {/*        business, governance, and ecosystem.*/}
+        {/*      </h2>*/}
+        {/*    </div>*/}
+        {/*    <div className="relative">*/}
+        {/*      <img className="aspect-square h-[150px] w-[150px] object-cover sm:!h-[200px] sm:!w-[200px]" src={sec2icon3} alt="Get Paid Icon" />{" "}*/}
+        {/*      <div className="absolute bottom-[5px] left-[60px]">*/}
+        {/*        <img src={startimg} alt="" className="size-[45px] duration-300 group-hover:rotate-90" />*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
     </div>
   );
