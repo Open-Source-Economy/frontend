@@ -4,7 +4,7 @@ import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/components";
 import faq from "src/assets/faq-bg.webp";
-import { faqData } from "../../whoBuiltIt/elements/Helper";
+import { faqData } from "../../companyProduct/elements/Helper";
 import { Link } from "react-router-dom";
 import { campaignPath } from "../../../../../App";
 import { ProjectId } from "../../../../../model";

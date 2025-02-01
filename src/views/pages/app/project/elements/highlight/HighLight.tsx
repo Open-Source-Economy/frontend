@@ -1,7 +1,7 @@
 import React from "react";
 import { HighLightCard } from "./HighLightCard";
 import highlightLinear from "src/assets/highlight-linear-bg.webp";
-import { highlightData } from "../../../whoBuiltIt/elements/Helper";
+import { highlightData } from "../../../companyProduct/elements/Helper";
 import { DividerTitle } from "../../../../../../components";
 
 interface HighlightProps {}

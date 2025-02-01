@@ -12,7 +12,7 @@ import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepository
 import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
-import { WhoBuiltIt } from "src/views/pages/app/whoBuiltIt/WhoBuiltIt";
+import { CompanyProduct } from "src/views/pages/app/companyProduct/CompanyProduct";
 import {
   Audience,
   Authenticate,
@@ -87,7 +87,7 @@ const App = () => {
         <Routes>
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
-            <Route path="/who-built-it" element={<WhoBuiltIt />} />
+            <Route path="/who-built-it" element={<CompanyProduct />} />
 
             <Route path="/buy-dows" element={<Payment />} />
           </Route>

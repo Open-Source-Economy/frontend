@@ -6,9 +6,9 @@ import Services from "./elements/Services";
 
 import VirtuousSection from "./elements/VirtuousSection";
 
-interface WhoBuiltItProps {}
+interface CompanyProductProps {}
 
-export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
+export const CompanyProduct: React.FC<CompanyProductProps> = () => {
   return (
     <PageWrapper baseURL={BaseURL.APP}>
       <div className="overflow-hidden">
@@ -20,4 +20,4 @@ export const WhoBuiltIt: React.FC<WhoBuiltItProps> = () => {
   );
 };
 
-export default WhoBuiltIt;
+export default CompanyProduct;
