@@ -1,0 +1,85 @@
+import React from "react";
+
+import swissBorg from "src/assets/swiss-borg.webp";
+import adidas from "src/assets/adidas.webp";
+import softwareMill from "src/assets/software-mill.webp";
+import leftCat from "src/assets/cat-with-heart-2-right.webp";
+import rightCat from "src/assets/cat-with-heart.webp";
+
+interface SponsorCardData {
+  id: string;
+  type: "mainSwissBorg" | "swissBorg" | "adidas" | "softwareMill";
+  title?: string;
+  subtitle?: string;
+  layout: "full" | "half" | "quarter" | "grid";
+  nestedCards?: Array<Omit<SponsorCardData, "nestedCards" | "layout">>;
+  details?: string;
+  description?: string;
+  isLeft?: boolean;
+  isRight?: boolean;
+  className?: string;
+}
+const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout">> = ({
+  type,
+  title,
+  subtitle,
+  details,
+  description,
+  isLeft,
+  className,
+  isRight,
+}) => {
+  return (
+    <div
+      className={`${className} !bg-secondary rounded-lg relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user p-3 flex gap-2 flex-col h-full justify-between`}
+    >
+      {isLeft && <img src={leftCat} alt="Cat with heart left" className="max-w-12 md:max-w-16 object-contain -ml-[3%] lg:-ml-[10%] -mt-[5%] lg:-mt-[10%]" />}
+      {isRight && (
+        <div className="flex justify-end">
+          <img
+            src={rightCat}
+            alt="Cat with heart right"
+            className="max-w-12 md:max-w-16 absolute top-0 h-fit 1800:max-w-[78px] object-contain -mr-[5%] -mt-[5%] lg:-mt-[10%]"
+          />
+        </div>
+      )}
+
+      <div className="flex flex-col items-center justify-center space-x-[9px]">
+        {type === "mainSwissBorg" && (
+          <>
+            <div className="flex justify-between w-full items-center  md:px-10 !pt-5 sm:px-16">
+              <img src={leftCat} alt="Left Cat with heart" className="max-w-12 md:max-w-20 h-fit 1800:max-w-[78px] object-contain" />
+              <div className="flex items-center flex-col justify-center">
+                <img src={swissBorg} alt="SwissBorg logo" className="max-w-32 lg:max-w-40 max-h-32 1800:max-w-[236px] object-contain" />
+              </div>
+              <img src={rightCat} alt="Right Cat with heart" className="max-w-12 md:max-w-20 h-fit 1800:max-w-[78px] object-contain" />
+            </div>
+          </>
+        )}
+        {type === "swissBorg" && (
+          <>
+            <img src={swissBorg} alt="SwissBorg logo" className="max-h-24 max-w-[80%] w-full mx-auto object-contain" />
+            {subtitle && (
+              <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto ">{subtitle}</h4>
+            )}
+          </>
+        )}
+        {type === "adidas" && <img src={adidas} alt="Adidas logo" className="max-w-24 1800:max-w-[114px] max-h-[106px] object-contain" />}
+        {type === "softwareMill" && <img src={softwareMill} alt="SoftwareMill logo" className="max-w-[120px] max-h-14 object-contain" />}
+      </div>
+      {title && (
+        <h3 className="text-white text-xl 1700:text-2xl w-fit 1800:text-[26px] font-medium mx-auto relative text-center !pb-2.5">
+          <span className="absolute w-[80%] sm:w-[110%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+          {title}
+        </h3>
+      )}
+      {details && <h4 className="!text-[#b6bbc2] text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{details}</h4>}
+
+      {description && <p className="text-center text-xs max-w-[244px] mx-auto">{description}</p>}
+
+      <button className="text-pink-500 text-sm 1700:text-base 1800:text-lg underline underline-offset-2">Get in Touch</button>
+    </div>
+  );
+};
+
+export default SponsorCard;
