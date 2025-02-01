@@ -19,10 +19,6 @@ export class StripeProductId {
 
     return new StripeProductId(json.id);
   }
-
-  toString(): string {
-    return this.id;
-  }
 }
 
 export enum ProductType {

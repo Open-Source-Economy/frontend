@@ -50,6 +50,7 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const registerResponse = await auth.register(body, query);
+      console.log(registerResponse);
       if (registerResponse instanceof ApiError) setApiError(registerResponse);
       else setAuthInfo(registerResponse);
     } catch (error: unknown) {

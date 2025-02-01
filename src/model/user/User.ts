@@ -10,10 +10,6 @@ export class UserId {
   constructor(uuid: string) {
     this.uuid = uuid;
   }
-
-  toString(): string {
-    return this.uuid;
-  }
 }
 
 export enum UserRole {

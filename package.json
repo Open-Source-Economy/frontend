@@ -55,7 +55,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx}\" -w",
-    "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx}\" --check"
+    "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx}\" --check",
+    "fmt": "prettier */*.js \"*/**/*{.js,.ts,.tsx}\" -w ; tsc --project tsconfig.json ; rm -f -r dist"
   },
   "eslintConfig": {
     "extends": [

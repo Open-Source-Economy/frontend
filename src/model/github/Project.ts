@@ -22,7 +22,11 @@ export class Project {
   static getId(owner: string, repo?: string) {
     let projectId: ProjectId;
     if (!repo) {
-      projectId = new OwnerId(owner);
+      if (owner === "open-source-economy") {
+        projectId = new OwnerId("Open-Source-Economy"); // TODO: hack to make it work. DB: Open-Source-Economy, GitHub: Open-Source-Economy | open-source-economy, Frontend: open-source-economy
+      } else {
+        projectId = new OwnerId(owner);
+      }
     } else {
       projectId = new RepositoryId(new OwnerId(owner), repo);
     }

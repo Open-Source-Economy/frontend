@@ -8,10 +8,6 @@ export class IssueFundingId {
   constructor(uuid: string) {
     this.uuid = uuid;
   }
-
-  toString(): string {
-    return this.uuid;
-  }
 }
 
 export class IssueFunding {

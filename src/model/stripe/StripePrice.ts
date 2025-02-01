@@ -25,10 +25,6 @@ export class StripePriceId {
 
     return new StripePriceId(json.id);
   }
-
-  toString(): string {
-    return this.id;
-  }
 }
 
 export class StripePrice {

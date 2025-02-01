@@ -108,8 +108,10 @@ export function Authenticate(props: AuthenticateProps) {
       if (inviteInfo instanceof ApiError) setError(inviteInfo);
       else {
         setName(inviteInfo.userName ?? null);
-        setFormData({ ...formData, email: inviteInfo.userEmail });
-        setIsEmailPredefined(true);
+        if (inviteInfo.userEmail) {
+          setFormData({ ...formData, email: inviteInfo.userEmail });
+          setIsEmailPredefined(true);
+        }
       }
     } catch (error: unknown) {
       setError(ApiError.from(error));
@@ -125,8 +127,10 @@ export function Authenticate(props: AuthenticateProps) {
       if (inviteInfo instanceof ApiError) setError(inviteInfo);
       else {
         setName(inviteInfo.userName ?? null);
-        setGithubLogin(inviteInfo.userGithubOwnerLogin);
-        setIsGithubAccountPredefined(true);
+        if (inviteInfo.userGithubOwnerLogin) {
+          setGithubLogin(inviteInfo.userGithubOwnerLogin);
+          setIsGithubAccountPredefined(true);
+        }
       }
     } catch (error: unknown) {
       setError(ApiError.from(error));
@@ -176,7 +180,12 @@ export function Authenticate(props: AuthenticateProps) {
 
               {!isGithubAccountPredefined && (
                 <div className="flex items-center w-full justify-center gap-3 flex-col">
-                  <EmailInput value={formData.email} onChange={value => setFormData({ ...formData, email: value })} isValid={validation.email} />
+                  <EmailInput
+                    value={formData.email}
+                    onChange={value => setFormData({ ...formData, email: value })}
+                    isValid={validation.email}
+                    disabled={isEmailPredefined}
+                  />
 
                   <PasswordInput
                     value={formData.password}

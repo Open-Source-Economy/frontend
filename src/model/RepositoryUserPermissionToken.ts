@@ -1,5 +1,5 @@
 import { ValidationError, Validator } from "./error";
-import { RepositoryId } from "./index";
+import { Currency, RepositoryId } from "./index";
 import Decimal from "decimal.js";
 
 export enum RepositoryUserRole {
@@ -7,21 +7,11 @@ export enum RepositoryUserRole {
   READ = "read",
 }
 
-export enum DowCurrency {
-  USD = "USD",
-  EUR = "EUR",
-  GBP = "GBP",
-}
-
 export class RepositoryUserPermissionTokenId {
   uuid: string;
 
   constructor(uuid: string) {
     this.uuid = uuid;
-  }
-
-  toString(): string {
-    return this.uuid;
   }
 }
 
@@ -34,7 +24,7 @@ export class RepositoryUserPermissionToken {
   repositoryId: RepositoryId;
   repositoryUserRole: RepositoryUserRole;
   dowRate: Decimal;
-  dowCurrency: DowCurrency;
+  dowCurrency: Currency;
   expiresAt: Date;
   hasBeenUsed: boolean; // TODO: not used for the moment
 
@@ -47,7 +37,7 @@ export class RepositoryUserPermissionToken {
     repositoryId: RepositoryId,
     repositoryUserRole: RepositoryUserRole,
     dowRate: Decimal,
-    dowCurrency: DowCurrency,
+    dowCurrency: Currency,
     expiresAt: Date,
     hasBeenUsed: boolean,
   ) {
@@ -77,7 +67,7 @@ export class RepositoryUserPermissionToken {
     }
     const repositoryUserRole = validator.requiredEnum("repository_user_role", Object.values(RepositoryUserRole) as RepositoryUserRole[]);
     const dowRate = validator.requiredDecimal("dow_rate");
-    const dowCurrency = validator.requiredEnum("dow_currency", Object.values(DowCurrency) as DowCurrency[]);
+    const dowCurrency = validator.requiredEnum("dow_currency", Object.values(Currency) as Currency[]);
     const expiresAt = validator.requiredDate("expires_at");
     const hasBeenUsed = validator.requiredBoolean("has_been_used");
 
