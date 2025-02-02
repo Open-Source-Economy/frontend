@@ -58,7 +58,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout">> = (
         )}
         {type === "swissBorg" && (
           <>
-            <img src={swissBorg} alt="SwissBorg logo" className="max-h-24 max-w-[80%] w-full mx-auto object-contain" />
+            <img src={swissBorg} alt="SwissBorg logo" className="max-h-24 max-w-[70%] lg:max-w-[80%] w-full mx-auto object-contain" />
             {subtitle && (
               <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto ">{subtitle}</h4>
             )}
@@ -77,7 +77,9 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout">> = (
 
       {description && <p className="text-center text-xs max-w-[244px] mx-auto">{description}</p>}
 
-      <button className="text-pink-500 text-sm 1700:text-base 1800:text-lg underline underline-offset-2">Get in Touch</button>
+      <button className="text-pink-500 text-sm 1700:text-base hover:text-white duration-300 ease-linear transition-all 1800:text-lg underline underline-offset-2">
+        Get in Touch
+      </button>
     </div>
   );
 };

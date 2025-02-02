@@ -128,15 +128,15 @@ const Sponsor: React.FC = () => {
         Companies <span className="!bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-col md:grid-cols-3 lg:grid-cols-4 gap-2 1800:gap-3 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 1800:gap-3 w-full">
         {/* First Row */}
         <div className="col-span-2">
           <SponsorCard {...sponsorData[0]} />
         </div>
-        <div className="col-span-2 md:col-span-1">
+        <div className="col-span-2 sm:col-span-1">
           <SponsorCard {...sponsorData[1]} />
         </div>
-        <div className="col-span-1">
+        <div className="col-span-2 sm:col-span-1">
           <div className="grid grid-rows-2 gap-2 1800:gap-3 h-full">
             {sponsorData[2].nestedCards?.map(card => (
               <SponsorCard key={card.id} {...card} />
@@ -145,20 +145,20 @@ const Sponsor: React.FC = () => {
         </div>
 
         {/* Second Row */}
-        <div className="col-span-2 md:col-span-1">
+        <div className="col-span-2 lg:col-span-1">
           <GridCards cards={sponsorData[3].nestedCards || []} />
         </div>
-        <div className="col-span-2 md:col-span-1">
+        <div className="col-span-2 sm:col-span-1">
           <SponsorCard {...sponsorData[4]} />
         </div>
-        <div className="col-span-2 md:col-span-1">
+        <div className="col-span-2 sm:col-span-1">
           <div className="grid grid-rows-2 gap-2 1800:gap-3 h-full">
             {sponsorData[5].nestedCards?.map(card => (
               <SponsorCard key={card.id} {...card} />
             ))}
           </div>
         </div>
-        <div className="col-span-1">
+        <div className="col-span-2 md:col-span-1">
           <SponsorCard {...sponsorData[6]} />
         </div>
       </div>
