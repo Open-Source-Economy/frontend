@@ -92,20 +92,6 @@ export interface BackendAPI {
    */
   requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError>;
 
-  /**
-   * Reject funding for an issue.
-   * @param userId
-   * @param issueId
-   */
-  rejectFunding(userId: UserId, issueId: IssueId): Promise<void | ApiError>;
-
-  // TODO: define UserId. could be email or id or github profile
-  // TODO: dust remaining?
-  splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError>;
-
-  // TODO: maybe internal to the backend?
-  updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError>;
-
   getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
 
   getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
@@ -169,24 +155,12 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
   async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
     return handleError(
       () =>
         axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
       "requestFunding",
     );
-  }
-
-  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError> {
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
-  }
-
-  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {

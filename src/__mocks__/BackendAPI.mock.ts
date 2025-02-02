@@ -107,19 +107,7 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
   async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
-  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
-  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
