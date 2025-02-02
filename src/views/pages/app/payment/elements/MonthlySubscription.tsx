@@ -23,10 +23,6 @@ export function MonthlySubscription(props: MonthlySubscriptionProps) {
         <div className="flex items-center gap-3 mt-3">
           <img src={img1} className="w-[32px] h-[32px]" alt="" />
           <h3 className="text-[14px] text-white">Get support</h3>
-          {/* <button className="flex items-center gap-2 bg-gradient-to-r from-[#FF7E4B] to-[#FF518C] text-white px-3 py-[10px] rounded-[50px]">
-            <img src={clock} className="w-5 h-5" alt="clock" />
-            <h3 className="text-[12px] font-semibold">Coming Soon</h3>
-          </button> */}
           <ComingSoon className="capitalize" />
         </div>
         <div className="flex items-center gap-3 mt-3">

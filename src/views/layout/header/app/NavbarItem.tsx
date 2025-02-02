@@ -17,21 +17,6 @@ export function NavbarItem(props: NavbarItemProps) {
             {props.item.title}
           </Link>
         ) : (
-          // <>
-          //   {props.item.icon}
-          //   <span className={`text-base ${props.item.isBold ? "font-semibold" : "font-normal"}  `}>
-          //         <span
-          //           className={`gradient-bg bg-clip-text duration-200 ${
-          //             props.item.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"
-          //           }`}
-          //         >
-          //           {props.item.title}
-          //         </span>
-          //     {props.item.badge && (
-          //       <span className="ml-3 relative z-20 px-3 py-1 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rounded-full text-sm font-medium">{props.item.badge}</span>
-          //     )}
-          //       </span>
-          // </>
           <>
             <button
               className="mr-3 flex items-center w-max duration-200 gradient-bg  bg-clip-text group gap-2 font-montserrat text-xl text-white group"

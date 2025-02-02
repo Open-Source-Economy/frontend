@@ -92,18 +92,6 @@ export function Header(props: HeaderProps) {
               selectedCurrency={preferredCurrency}
             />
           </Navbar.Collapse>
-          {/* <Navbar.Collapse id="basic-navbar-nav">
-            <NavbarContent
-              baseURL={props.baseURL}
-              setShowOffcanvas={setShowOffcanvas}
-              showDropdownNavbar={showDropdownNavbar}
-              setShowDropdownNavbar={setShowDropdownNavbar}
-              showCurrencyModal={showCurrencyModal}
-              setShowCurrencyModal={setShowCurrencyModal}
-              selectedCurrency={preferredCurrency}
-            />
-          </Navbar.Collapse> */}
-
           <Navbar.Offcanvas
             show={showOffcanvas}
             onHide={() => setShowOffcanvas(false)}
