@@ -15,7 +15,7 @@ export function FundIssue({}: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();
-  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
+  const { financialIssue, loadFinancialIssueError, reloadFinancialIssue } = useFinancialIssue(issueId);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {

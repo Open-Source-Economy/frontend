@@ -23,7 +23,7 @@ export class ManagedIssueId {
 export class ManagedIssue {
   id: ManagedIssueId;
   githubIssueId: IssueId;
-  requestedMilliDowAmount: number;
+  requestedMilliDowAmount: number | null;
   managerId: UserId;
   contributorVisibility: ContributorVisibility;
   state: ManagedIssueState;
@@ -31,8 +31,8 @@ export class ManagedIssue {
   constructor(
     id: ManagedIssueId,
     githubIssueId: IssueId,
-    requestedMilliDowAmount: number,
-    managerId: UserId, // TODO: need to change to User
+    requestedMilliDowAmount: number | null,
+    managerId: UserId,
     contributorVisibility: ContributorVisibility,
     state: ManagedIssueState,
   ) {
@@ -52,7 +52,7 @@ export class ManagedIssue {
 
     const validator = new Validator(row);
     const id = validator.requiredString("id");
-    const requestedMilliDowAmount = validator.requiredNumber("requested_milli_dow_amount");
+    const requestedMilliDowAmount = validator.optionalNumber("requested_milli_dow_amount");
     const managerId = validator.requiredString("manager_id");
     const contributorVisibility = validator.requiredEnum("contributor_visibility", Object.values(ContributorVisibility) as ContributorVisibility[]);
     const state = validator.requiredEnum("state", Object.values(ManagedIssueState) as ManagedIssueState[]);
@@ -62,6 +62,6 @@ export class ManagedIssue {
       return error;
     }
 
-    return new ManagedIssue(new ManagedIssueId(id), githubIssueId, requestedMilliDowAmount, new UserId(managerId), contributorVisibility, state);
+    return new ManagedIssue(new ManagedIssueId(id), githubIssueId, requestedMilliDowAmount ?? null, new UserId(managerId), contributorVisibility, state);
   }
 }

@@ -9,7 +9,7 @@ interface ShowApiErrorProps {
 }
 
 export function ShowApiError(props: ShowApiErrorProps) {
-  let friendlyMessageTitle: string = props.error.message || "An unexpected error occurred.";
+  let friendlyMessageTitle: string = props.error.message;
   let friendlyMessage: null | string = null;
 
   // You can adjust these conditions based on how your API sends errors
@@ -25,7 +25,7 @@ export function ShowApiError(props: ShowApiErrorProps) {
 
   return (
     <div className="flex justify-center">
-      <div className="h-[173px] max-w-[600px] relative w-full px-3 sm:px-0">
+      <div className="max-w-[600px] relative w-full px-3 sm:px-0">
         <img src={cat} className="size-20 absolute -top-12 z-50 right-6 object-contain" alt="Error Cat" />
         <div className="border !border-[#FF595B] p-4 bg-[#0E1F35] rounded-xl relative">
           <div className="grid grid-flow-col gap-2">
@@ -56,7 +56,7 @@ export function ShowApiError(props: ShowApiErrorProps) {
             <div className="flex gap-1 flex-col">
               <h4 className="text-xl font-medium">
                 {props.error.statusText}
-                {props.error.statusText ? ": " : ""}
+                {friendlyMessageTitle ? ": " : ""}
                 {friendlyMessageTitle}
               </h4>
               {friendlyMessage && <p className="text-red-500">{friendlyMessage}</p>}

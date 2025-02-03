@@ -17,6 +17,16 @@ export enum UserRole {
   USER = "user",
 }
 
+export const userUtils = {
+  githubData(user: User): GithubData | null {
+    if ("providerData" in user.data) {
+      return user.data.providerData;
+    } else {
+      return null;
+    }
+  },
+};
+
 export class User implements Express.User {
   id: UserId;
   name: string | null;
@@ -32,28 +42,12 @@ export class User implements Express.User {
     this.preferredCurrency = preferredCurrency;
   }
 
-  email(): string | null {
-    if (this.data instanceof LocalUser) {
-      return this.data.email;
-    } else {
-      return this.data.email;
-    }
-  }
-
-  githubData(): GithubData | null {
-    if (this.data instanceof ThirdPartyUser) {
-      return this.data.providerData;
-    } else {
-      return null;
-    }
-  }
-
   static fromRaw(row: any, owner: Owner | null = null): User | ValidationError {
     const validator = new Validator(row);
     const id = validator.requiredString("id");
     const name = validator.optionalString("name");
     const role = validator.requiredEnum("role", Object.values(UserRole) as UserRole[]);
-    const preferredCurrency = validator.optionalEnum("preferred_currency", Object.values(Currency) as Currency[]); // Validate the new field
+    const preferredCurrency = validator.optionalEnum("preferred_currency", Object.values(Currency) as Currency[]);
 
     const error = validator.getFirstError();
     if (error) {

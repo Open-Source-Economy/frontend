@@ -1,6 +1,6 @@
 import React from "react";
 import * as model from "src/model";
-import { ManagedIssueState } from "src/model";
+import { ManagedIssueState, userUtils } from "src/model";
 import { ExternalLink } from "src/components";
 
 interface ApprovedProps {
@@ -10,7 +10,7 @@ interface ApprovedProps {
 
 export function Approved(props: ApprovedProps) {
   const state = props.managedIssue?.state;
-  const githubOwner = props.manager?.githubData()?.owner;
+  const githubOwner = props.manager ? userUtils.githubData(props.manager)?.owner : undefined;
 
   let text = "";
   if (state === ManagedIssueState.OPEN) {
@@ -27,7 +27,7 @@ export function Approved(props: ApprovedProps) {
     return (
       <>
         <p className="text-base text-[#8693A4] mt-2">
-          {text} {githubOwner ? <ExternalLink href={githubOwner.htmlUrl}>{githubOwner.id.login}</ExternalLink> : "a maintainer"}
+          {text} {githubOwner ? <ExternalLink href={githubOwner.htmlUrl}>@{githubOwner.id.login}</ExternalLink> : "a maintainer"}
         </p>
       </>
     );

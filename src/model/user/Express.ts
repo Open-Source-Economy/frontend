@@ -11,7 +11,6 @@ declare global {
       data: LocalUser | ThirdPartyUser;
       role: UserRole;
       preferredCurrency?: Currency;
-      email(): string | null;
     }
   }
 }
