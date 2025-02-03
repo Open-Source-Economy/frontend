@@ -70,6 +70,91 @@ const Sponsor: React.FC = () => {
       position: 6,
     },
   ];
+  const alternateSponsorData: SponsorCardData[] = [
+    {
+      id: "1",
+      type: "softwareMill" as const,
+      size: "xsmall" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", type: "softwareMill" as const },
+        { id: "5b", type: "softwareMill" as const },
+      ],
+    },
+
+    {
+      id: "2",
+      type: "mainSwissBorg" as const,
+      title: "Empowering Your Financial Freedom",
+      size: "xlarge" as CardSize,
+      details: "A Company that buys, sells, and exchanges cryptocurrencies.",
+      position: 2,
+    },
+    {
+      id: "3",
+      type: "softwareMill" as const,
+      size: "xsmall" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", type: "softwareMill" as const },
+        { id: "5b", type: "softwareMill" as const },
+      ],
+    },
+    {
+      id: "4",
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 5,
+      nestedCards: [
+        { id: "5a", type: "adidas" as const },
+        { id: "5b", type: "adidas" as const },
+      ],
+    },
+    {
+      id: "5",
+      type: "swissBorg" as const,
+      subtitle: "Distributed systems like Pekko",
+      size: "large" as CardSize,
+      position: 3,
+      isLeftCat: true,
+    },
+    {
+      id: "6",
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 4,
+      nestedCards: [{ id: "8a", type: "adidas" as const }],
+    },
+    {
+      id: "7",
+      type: "softwareMill" as const,
+      size: "xsmall" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", type: "softwareMill" as const },
+        { id: "5b", type: "softwareMill" as const },
+      ],
+    },
+    {
+      id: "5",
+      type: "swissBorg" as const,
+      subtitle: "Distributed systems like Pekko",
+      size: "large" as CardSize,
+      position: 3,
+      isRightCat: true,
+    },
+
+    {
+      id: "7",
+      type: "softwareMill" as const,
+      size: "xsmall" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", type: "softwareMill" as const },
+        { id: "5b", type: "softwareMill" as const },
+      ],
+    },
+  ];
 
   return (
     <section className="!px-4 2xl:!px-0">
@@ -79,13 +164,28 @@ const Sponsor: React.FC = () => {
           Companies <span className="bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
         </h1>
 
-        <div className="grid grid-cols-2 900:grid-cols-3 xl:grid-cols-4 gap-2 1800:gap-3 w-full">
+        <div className="grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8  gap-2 1800:gap-3 w-full">
           {sponsorData.map(card => (
             <div key={card.id} className={getCardWidth(card.size)}>
               {card.nestedCards ? (
                 <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
                   {card.nestedCards.map(nestedCard => (
                     <SponsorCard key={nestedCard.id} {...nestedCard} />
+                  ))}
+                </div>
+              ) : (
+                <SponsorCard {...card} />
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8  gap-2 1800:gap-3 w-full mt-52">
+          {alternateSponsorData.map(card => (
+            <div key={card.id} className={getCardWidth(card.size)}>
+              {card.nestedCards ? (
+                <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
+                  {card.nestedCards.map(nestedCard => (
+                    <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
                   ))}
                 </div>
               ) : (
