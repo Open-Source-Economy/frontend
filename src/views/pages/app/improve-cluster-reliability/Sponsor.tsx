@@ -1,168 +1,101 @@
-import React from "react";
+import type React from "react";
 import SponsorCard from "./SponsorCard";
-
-interface SponsorCardData {
-  id: string;
-  type: "mainSwissBorg" | "swissBorg" | "adidas" | "softwareMill";
-  title?: string;
-  subtitle?: string;
-  layout: "full" | "half" | "quarter" | "grid";
-  nestedCards?: Array<Omit<SponsorCardData, "nestedCards" | "layout">>;
-  details?: string;
-  description?: string;
-  isLeft?: boolean;
-  isRight?: boolean;
-  className?: string;
-}
-
-const GridCards: React.FC<{ cards: Array<Omit<SponsorCardData, "nestedCards" | "layout">> }> = ({ cards }) => {
-  return (
-    <div className="grid grid-cols-2 gap-2 1800:gap-3 h-full">
-      {cards.map(card => (
-        <SponsorCard key={card.id} {...card} />
-      ))}
-    </div>
-  );
-};
+import type { SponsorCardData, CardSize } from "./types";
+import { getCardWidth } from "./utils";
 
 const Sponsor: React.FC = () => {
   const sponsorData: SponsorCardData[] = [
-    // First Row
     {
       id: "1",
-      type: "mainSwissBorg",
+      type: "mainSwissBorg" as const,
       title: "Empowering Your Financial Freedom",
-      layout: "half",
-      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
+      size: "xlarge" as CardSize,
+      details: "A Company that buys, sells, and exchanges cryptocurrencies.",
+      position: 0,
     },
     {
       id: "2",
-      type: "swissBorg",
+      type: "swissBorg" as const,
       subtitle: "Distributed systems like Pekko",
-      layout: "quarter",
-      isRight: true,
+      size: "large" as CardSize,
+      isRightCat: true,
+      position: 1,
     },
     {
       id: "3",
-      layout: "quarter",
-      type: "adidas",
-
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 2,
       nestedCards: [
-        {
-          id: "3a",
-          type: "adidas",
-          className: "!pt-1 !gap-1 !pb-3",
-          description: "Distributed systems like Pekko are inherently complex.", // Changed to 'description'
-        },
-        {
-          id: "3b",
-          className: "!py-1",
-          type: "adidas",
-          description: "Distributed systems like Pekko are inherently complex.", // Changed to 'description'
-        },
+        { id: "3a", type: "adidas" as const, description: "Distributed systems are complex." },
+        { id: "3b", type: "adidas" as const, description: "Handling scale is challenging." },
       ],
     },
-    // Second Row
     {
       id: "4",
-      layout: "quarter",
-      type: "softwareMill",
+      type: "softwareMill" as const,
+      size: "large" as CardSize,
+      position: 3,
       nestedCards: [
-        {
-          id: "4a",
-          type: "softwareMill",
-          className: "!justify-center",
-        },
-        {
-          id: "4b",
-          type: "swissBorg",
-          className: "!justify-center",
-        },
-        {
-          id: "4c",
-          type: "softwareMill",
-          className: "!justify-center",
-        },
-        {
-          id: "4d",
-          type: "softwareMill",
-          className: "!justify-center",
-        },
+        { id: "4a", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "4b", type: "swissBorg" as const, className: "!justify-center" },
+        { id: "4c", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "4d", type: "softwareMill" as const, className: "!justify-center" },
       ],
     },
     {
       id: "5",
-      type: "swissBorg",
+      type: "swissBorg" as const,
       subtitle: "Distributed systems like Pekko",
-      layout: "quarter",
-      isRight: true,
+      size: "large" as CardSize,
+      isRightCat: true,
+      position: 4,
     },
     {
       id: "6",
-      layout: "quarter",
-      type: "adidas",
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 5,
       nestedCards: [
-        {
-          id: "6a",
-          type: "adidas",
-        },
-        {
-          id: "6b",
-          type: "adidas",
-        },
+        { id: "6a", type: "adidas" as const },
+        { id: "6b", type: "adidas" as const },
       ],
     },
     {
       id: "7",
-      type: "swissBorg",
-      isLeft: true,
+      type: "swissBorg" as const,
+      isLeftCat: true,
       subtitle: "Distributed systems like Pekko",
-      layout: "quarter",
+      size: "large" as CardSize,
+      position: 6,
     },
   ];
 
   return (
-    <div className="!pb-32 !p-4 xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto">
-      <h1 className="main-heading relative mb-8 w-fit text-center mx-auto !pb-4 1800:!pb-8 2xl:mb-16">
-        <span className="absolute w-[80%]  h-1 3xl:h-[6px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
-        Companies <span className="!bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
-      </h1>
+    <section className="!px-4 2xl:!px-0">
+      <div className="!pb-32  xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto">
+        <h1 className="main-heading relative mb-8 w-fit text-center mx-auto pb-4">
+          <span className="absolute w-[80%] h-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+          Companies <span className="bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
+        </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 1800:gap-3 w-full">
-        {/* First Row */}
-        <div className="col-span-2">
-          <SponsorCard {...sponsorData[0]} />
-        </div>
-        <div className="col-span-2 sm:col-span-1">
-          <SponsorCard {...sponsorData[1]} />
-        </div>
-        <div className="col-span-2 sm:col-span-1">
-          <div className="grid grid-rows-2 gap-2 1800:gap-3 h-full">
-            {sponsorData[2].nestedCards?.map(card => (
-              <SponsorCard key={card.id} {...card} />
-            ))}
-          </div>
-        </div>
-
-        {/* Second Row */}
-        <div className="col-span-2 lg:col-span-1">
-          <GridCards cards={sponsorData[3].nestedCards || []} />
-        </div>
-        <div className="col-span-2 sm:col-span-1">
-          <SponsorCard {...sponsorData[4]} />
-        </div>
-        <div className="col-span-2 sm:col-span-1">
-          <div className="grid grid-rows-2 gap-2 1800:gap-3 h-full">
-            {sponsorData[5].nestedCards?.map(card => (
-              <SponsorCard key={card.id} {...card} />
-            ))}
-          </div>
-        </div>
-        <div className="col-span-2 md:col-span-1">
-          <SponsorCard {...sponsorData[6]} />
+        <div className="grid grid-cols-2 900:grid-cols-3 xl:grid-cols-4 gap-2 1800:gap-3 w-full">
+          {sponsorData.map(card => (
+            <div key={card.id} className={getCardWidth(card.size)}>
+              {card.nestedCards ? (
+                <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
+                  {card.nestedCards.map(nestedCard => (
+                    <SponsorCard key={nestedCard.id} {...nestedCard} />
+                  ))}
+                </div>
+              ) : (
+                <SponsorCard {...card} />
+              )}
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
