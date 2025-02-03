@@ -67,7 +67,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
         )}
       </div>
       {title && (
-        <h3 className="text-white text-xl 1700:text-2xl w-fit 1800:text-[26px] font-medium mx-auto relative text-center !pb-2.5">
+        <h3 className="text-white text-xl 1700:text-2xl w-fit 1800:text-[26px] font-medium mx-auto relative text-center !pb-2.5 lg:!pb-4">
           <span className="absolute w-[80%] sm:w-[110%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           {title}
         </h3>

@@ -6,9 +6,9 @@ export interface SponsorCardData {
   title?: string;
   subtitle?: string;
   size?: CardSize;
-  nestedCards?: Array<Omit<SponsorCardData, "nestedCards" | "size">>;
   details?: string;
   description?: string;
+  nestedCards?: SponsorCardData[];
   isLeftCat?: boolean;
   isRightCat?: boolean;
   className?: string;

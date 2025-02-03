@@ -10,7 +10,7 @@ const Sponsor: React.FC = () => {
       type: "mainSwissBorg" as const,
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
-      details: "A Company that buys, sells, and exchanges cryptocurrencies.",
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
       position: 0,
     },
     {
@@ -27,8 +27,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 2,
       nestedCards: [
-        { id: "3a", type: "adidas" as const, description: "Distributed systems are complex." },
-        { id: "3b", type: "adidas" as const, description: "Handling scale is challenging." },
+        { id: "3a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -37,10 +37,10 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 3,
       nestedCards: [
-        { id: "4a", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "4b", type: "swissBorg" as const, className: "!justify-center" },
-        { id: "4c", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "4d", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "4a", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
+        { id: "4b", type: "swissBorg" as const, className: "!justify-center", size: "xsmall" as CardSize },
+        { id: "4c", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
+        { id: "4d", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
       ],
     },
     {
@@ -57,8 +57,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "6a", type: "adidas" as const },
-        { id: "6b", type: "adidas" as const },
+        { id: "3a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -77,8 +77,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const },
-        { id: "5b", type: "softwareMill" as const },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
       ],
     },
 
@@ -87,7 +87,7 @@ const Sponsor: React.FC = () => {
       type: "mainSwissBorg" as const,
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
-      details: "A Company that buys, sells, and exchanges cryptocurrencies.",
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
       position: 2,
     },
     {
@@ -96,8 +96,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const },
-        { id: "5b", type: "softwareMill" as const },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
       ],
     },
     {
@@ -106,8 +106,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "5a", type: "adidas" as const },
-        { id: "5b", type: "adidas" as const },
+        { id: "5a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -123,7 +123,10 @@ const Sponsor: React.FC = () => {
       type: "adidas" as const,
       size: "large" as CardSize,
       position: 4,
-      nestedCards: [{ id: "8a", type: "adidas" as const }],
+      nestedCards: [
+        { id: "5a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+      ],
     },
     {
       id: "7",
@@ -131,8 +134,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const },
-        { id: "5b", type: "softwareMill" as const },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
       ],
     },
     {
@@ -150,9 +153,72 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const },
-        { id: "5b", type: "softwareMill" as const },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
       ],
+    },
+  ];
+  const otherSponsorData: SponsorCardData[] = [
+    {
+      id: "1",
+      type: "swissBorg" as const,
+      size: "large" as CardSize,
+      subtitle: "Distributed systems like Pekko",
+      isRightCat: true,
+      position: 0,
+    },
+    {
+      id: "2",
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 1,
+      nestedCards: [
+        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize, className: "!justify-center" },
+        { id: "2b", type: "softwareMill" as const, size: "xsmall", className: "!justify-center" },
+        {
+          id: "2b",
+          type: "adidas" as const,
+          size: "large" as CardSize,
+          className: "!justify-center",
+          description: "Distributed systems like Pekko are inherently complex.",
+        },
+      ],
+    },
+    {
+      id: "3",
+      type: "mainSwissBorg" as const,
+      title: "Empowering Your Financial Freedom",
+      size: "xlarge" as CardSize,
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
+      position: 0,
+    },
+
+    {
+      id: "5",
+      type: "adidas" as const,
+      size: "large" as CardSize,
+      position: 1,
+      nestedCards: [
+        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize },
+        { id: "2b", type: "softwareMill" as const, size: "xsmall" },
+        { id: "2b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex.", size: "large" as CardSize },
+      ],
+    },
+    {
+      id: "6",
+      type: "mainSwissBorg" as const,
+      title: "Empowering Your Financial Freedom",
+      size: "xlarge" as CardSize,
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
+      position: 0,
+    },
+    {
+      id: "4",
+      type: "swissBorg" as const,
+      subtitle: "Distributed systems like Pekko",
+      size: "large" as CardSize,
+      isRightCat: true,
+      position: 0,
     },
   ];
 
@@ -164,36 +230,23 @@ const Sponsor: React.FC = () => {
           Companies <span className="bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
         </h1>
 
-        <div className="grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8  gap-2 1800:gap-3 w-full">
-          {sponsorData.map(card => (
-            <div key={card.id} className={getCardWidth(card.size)}>
-              {card.nestedCards ? (
-                <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
-                  {card.nestedCards.map(nestedCard => (
-                    <SponsorCard key={nestedCard.id} {...nestedCard} />
-                  ))}
-                </div>
-              ) : (
-                <SponsorCard {...card} />
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8  gap-2 1800:gap-3 w-full mt-52">
-          {alternateSponsorData.map(card => (
-            <div key={card.id} className={getCardWidth(card.size)}>
-              {card.nestedCards ? (
-                <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
-                  {card.nestedCards.map(nestedCard => (
-                    <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
-                  ))}
-                </div>
-              ) : (
-                <SponsorCard {...card} />
-              )}
-            </div>
-          ))}
-        </div>
+        {[sponsorData, alternateSponsorData, otherSponsorData].map((dataArray, index) => (
+          <div key={index} className={`grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8 gap-2 1800:gap-3 w-full py-16`}>
+            {dataArray.map(card => (
+              <div key={card.id} className={getCardWidth(card.size)}>
+                {card.nestedCards ? (
+                  <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid grid-cols-1"}`}>
+                    {card.nestedCards.map(nestedCard => (
+                      <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
+                    ))}
+                  </div>
+                ) : (
+                  <SponsorCard {...card} />
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );
