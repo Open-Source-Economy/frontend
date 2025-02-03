@@ -27,8 +27,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 2,
       nestedCards: [
-        { id: "3a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
-        { id: "3b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -37,10 +37,10 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 3,
       nestedCards: [
-        { id: "4a", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
-        { id: "4b", type: "swissBorg" as const, className: "!justify-center", size: "xsmall" as CardSize },
-        { id: "4c", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
-        { id: "4d", type: "softwareMill" as const, className: "!justify-center", size: "xsmall" as CardSize },
+        { id: "4a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "4b", type: "swissBorg" as const, className: "!justify-center !gap-1" },
+        { id: "4c", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "4d", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
     {
@@ -54,11 +54,12 @@ const Sponsor: React.FC = () => {
     {
       id: "6",
       type: "adidas" as const,
+
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "3a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
-        { id: "3b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
+        { id: "3b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -77,8 +78,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
 
@@ -96,18 +97,19 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
     {
       id: "4",
       type: "adidas" as const,
+
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "5a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
-        { id: "5b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -124,8 +126,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 4,
       nestedCards: [
-        { id: "5a", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
-        { id: "5b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
+        { id: "5b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
       ],
     },
     {
@@ -134,8 +136,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
     {
@@ -153,8 +155,8 @@ const Sponsor: React.FC = () => {
       size: "xsmall" as CardSize,
       position: 0,
       nestedCards: [
-        { id: "5a", type: "softwareMill" as const, className: "!justify-center" },
-        { id: "5b", type: "softwareMill" as const, className: "!justify-center" },
+        { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
+        { id: "5b", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
   ];
@@ -170,16 +172,18 @@ const Sponsor: React.FC = () => {
     {
       id: "2",
       type: "adidas" as const,
+      className: "!gap-0.5 !pt-1 !pb-3",
       size: "large" as CardSize,
       position: 1,
       nestedCards: [
-        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize, className: "!justify-center" },
-        { id: "2b", type: "softwareMill" as const, size: "xsmall", className: "!justify-center" },
+        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
+        { id: "2b", type: "softwareMill" as const, size: "xsmall", className: "!justify-center !gap-1" },
         {
           id: "2b",
           type: "adidas" as const,
+
           size: "large" as CardSize,
-          className: "!justify-center",
+          className: "!justify-center !gap-0.5 !pt-1 !pb-3",
           description: "Distributed systems like Pekko are inherently complex.",
         },
       ],
@@ -196,12 +200,19 @@ const Sponsor: React.FC = () => {
     {
       id: "5",
       type: "adidas" as const,
+      className: "!gap-0.5 !pt-1 !pb-3",
       size: "large" as CardSize,
       position: 1,
       nestedCards: [
-        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize },
-        { id: "2b", type: "softwareMill" as const, size: "xsmall" },
-        { id: "2b", type: "adidas" as const, description: "Distributed systems like Pekko are inherently complex.", size: "large" as CardSize },
+        { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
+        { id: "2b", type: "softwareMill" as const, size: "xsmall", className: "!justify-center !gap-1" },
+        {
+          id: "2b",
+          type: "adidas" as const,
+          className: "!gap-0.5 !pt-1 !pb-3",
+          description: "Distributed systems like Pekko are inherently complex.",
+          size: "large" as CardSize,
+        },
       ],
     },
     {
@@ -231,11 +242,11 @@ const Sponsor: React.FC = () => {
         </h1>
 
         {[sponsorData, alternateSponsorData, otherSponsorData].map((dataArray, index) => (
-          <div key={index} className={`grid grid-cols-2 900:grid-cols-4 xl:grid-cols-8 gap-2 1800:gap-3 w-full py-16`}>
+          <div key={index} className={`grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 1800:gap-3 w-full py-16`}>
             {dataArray.map(card => (
               <div key={card.id} className={getCardWidth(card.size)}>
                 {card.nestedCards ? (
-                  <div className={`grid gap-2 1800:gap-3 min-h-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid grid-cols-1"}`}>
+                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-1"}`}>
                     {card.nestedCards.map(nestedCard => (
                       <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
                     ))}

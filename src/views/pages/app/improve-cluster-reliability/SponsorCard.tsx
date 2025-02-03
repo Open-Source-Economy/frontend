@@ -22,7 +22,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
 
   return (
     <div
-      className={`${className} ${sizeClass} !bg-secondary rounded-lg relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user p-3 flex gap-2 flex-col h-full justify-between`}
+      className={`${className} ${sizeClass} !bg-secondary rounded-lg relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3 flex gap-2 flex-col h-full justify-between`}
     >
       {isLeftCat && (
         <img
@@ -45,25 +45,47 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
         {type === "mainSwissBorg" && (
           <>
             <div className="flex justify-between w-full items-center md:px-10 !pt-5 sm:px-16">
-              <img src={leftCat || "/placeholder.svg"} alt="Left Cat with heart" className="max-w-12 md:max-w-20 h-fit 1800:max-w-[78px] object-contain" />
+              <img
+                src={leftCat || "/placeholder.svg"}
+                alt="Left Cat with heart"
+                className="max-w-12 md:max-w-20 h-fit xl:max-w-24 1800:max-w-[102px] object-contain"
+              />
               <div className="flex items-center flex-col justify-center">
-                <img src={swissBorg || "/placeholder.svg"} alt="SwissBorg logo" className="max-w-32 lg:max-w-40 max-h-32 1800:max-w-[236px] object-contain" />
+                <img
+                  src={swissBorg || "/placeholder.svg"}
+                  alt="SwissBorg logo"
+                  className="max-w-40 lg:max-w-44 xl:max-w-48  1800:max-w-[236px] object-contain"
+                />
               </div>
-              <img src={rightCat || "/placeholder.svg"} alt="Right Cat with heart" className="max-w-12 md:max-w-20 h-fit 1800:max-w-[78px] object-contain" />
+              <img
+                src={rightCat || "/placeholder.svg"}
+                alt="Right Cat with heart"
+                className="max-w-12 md:max-w-20 xl:max-w-24 h-fit 1800:max-w-[102px] object-contain"
+              />
             </div>
           </>
         )}
         {type === "swissBorg" && (
           <>
-            <img src={swissBorg || "/placeholder.svg"} alt="SwissBorg logo" className="max-h-24 max-w-[70%] lg:max-w-[80%] w-full mx-auto object-contain" />
+            <img
+              src={swissBorg || "/placeholder.svg"}
+              alt="SwissBorg logo"
+              className="md:max-w-[60%] max-w-[155px] 2xl:max-w-[70%] w-full mx-auto object-contain"
+            />
             {subtitle && (
               <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{subtitle}</h4>
             )}
           </>
         )}
-        {type === "adidas" && <img src={adidas || "/placeholder.svg"} alt="Adidas logo" className="max-w-24 1800:max-w-[114px] max-h-[106px] object-contain" />}
+        {type === "adidas" && <img src={adidas || "/placeholder.svg"} alt="Adidas logo" className="max-w-24 1800:max-w-[114px] object-contain" />}
         {type === "softwareMill" && (
-          <img src={softwareMill || "/placeholder.svg"} alt="SoftwareMill logo" width={120} height={56} className="max-w-[120px] max-h-14 object-contain" />
+          <img
+            src={softwareMill || "/placeholder.svg"}
+            alt="SoftwareMill logo"
+            width={120}
+            height={56}
+            className="max-w-[120px] w-full 2xl:max-w-[155px] object-contain"
+          />
         )}
       </div>
       {title && (
