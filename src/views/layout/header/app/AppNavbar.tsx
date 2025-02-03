@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import { useAuth } from "../../../pages/app/authenticate/AuthContext";
 import { MobileNavbar } from "./MobileNavbar";
 import { DropdownNavbar } from "./DropdownNavbar";

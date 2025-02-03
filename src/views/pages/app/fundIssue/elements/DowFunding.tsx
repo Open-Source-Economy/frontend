@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
 import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { IssueId } from "src/model";

@@ -5,7 +5,7 @@ import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
 import { BaseURL } from "../../App";
-import { PageLoader } from "src/components/common/PageLoader";
+import { PageLoader } from "src/views/components/common/PageLoader";
 
 export function AuthRoutes(props: { redirect: string }) {
   const auth = useAuth();

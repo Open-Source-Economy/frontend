@@ -3,7 +3,7 @@ import { EnterGitHubIssue, IssueFilter } from "./elements";
 import * as model from "src/model";
 import { FinancialIssue } from "src/model";
 import { PageWrapper } from "../../PageWrapper";
-import { IssueCard } from "src/components/issue";
+import { IssueCard } from "src/views/components/issue";
 import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
 import { GetIssueQuery, GetIssuesParams } from "src/dtos";
@@ -11,10 +11,10 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 import { BaseURL } from "src/App";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
-import Loading from "src/components/common/Loading";
+import Loading from "src/views/components/common/Loading";
 
 import catimg from "src/assets/Mascot.png";
-import { ShowApiError } from "src/components/common/ShowApiError";
+import { ShowApiError } from "src/views/components/common/ShowApiError";
 
 interface IssuesProps {
   audience: Audience;

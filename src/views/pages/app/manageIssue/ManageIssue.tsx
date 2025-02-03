@@ -3,7 +3,7 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 import bgimage from "src/assets/Group258.svg";
 import bgimage2 from "src/assets/issuebg2.png";
 import bgimage3 from "src/assets/issuebg3.png";
-import { IssueCard } from "src/components/issue";
+import { IssueCard } from "src/views/components/issue";
 import { useFinancialIssue } from "src/views/hooks/useFinancialIssue";
 import { SolveIssueOnGithub } from "src/views/pages/app/manageIssue/elements/SolveIssueOnGithub";
 import { FinancialIssue } from "src/model";
@@ -12,9 +12,9 @@ import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/Rejec
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
-import { AudienceTitle } from "src/components";
+import { AudienceTitle } from "src/views/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
-import { ShowApiError } from "../../../../components/common/ShowApiError";
+import { ShowApiError } from "../../../components/common/ShowApiError";
 import { ApiError } from "../../../../ultils/error/ApiError";
 
 interface ManageIssueProps {}

@@ -1,8 +1,8 @@
 import React from "react";
 import * as model from "src/model";
-import { ExternalLink } from "src/components";
+import { ExternalLink } from "src/views/components";
 import cat from "src/assets/catimg.png";
-import { Button } from "src/components/elements/Button";
+import { Button } from "src/views/components/elements/Button";
 
 interface SolveIssueOnGithubProps {
   issue: model.Issue;

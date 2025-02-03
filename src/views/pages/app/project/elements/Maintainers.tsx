@@ -3,7 +3,7 @@ import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import faq from "src/assets/faq-bg.webp";
-import { Button, DividerTitle } from "src/components";
+import { Button, DividerTitle } from "src/views/components";
 import { useMaintainers } from "../../../../hooks";
 import { ProjectId } from "src/model";
 

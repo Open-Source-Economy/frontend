@@ -4,7 +4,7 @@ import check from "src/assets/checkmark.png";
 import { useDowCounter, useIssueIdFromParams } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 
 interface AcceptFundingTabProps {
   reloadFinancialIssue: () => void;

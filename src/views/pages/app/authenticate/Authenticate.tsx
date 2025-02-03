@@ -6,14 +6,14 @@ import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
-import { Button, EmailInput, PasswordInput } from "src/components";
+import { Button, EmailInput, PasswordInput } from "src/views/components";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
 import { config, Env } from "src/ultils";
-import { ApiErrorModal } from "src/components/common/ApiErrorModal";
-import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/components/form/hooks/validateForm";
+import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
+import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 
 export enum AuthenticateType {

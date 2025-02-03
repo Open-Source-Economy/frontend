@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "src/components";
+import { cn } from "src/views/components";
 import { FaCheck } from "react-icons/fa6";
 
 import clock from "src/assets/sand-clock.png";

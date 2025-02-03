@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { SocialMedia } from "src/components/socialMedia/SocialMedia";
+import { SocialMedia } from "src/views/components/socialMedia/SocialMedia";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { BaseURL } from "src/App";

@@ -3,7 +3,7 @@ import { MascotIcon } from "src/Utils/Icons";
 import notFound from "src/assets/404.webp";
 import hero from "src/assets/hero-bg.webp";
 import faq from "src/assets/faq-bg.webp";
-import { Button } from "../../components";
+import { Button } from "src/views/components";
 
 interface PageNotFoundProps {
   home: To;

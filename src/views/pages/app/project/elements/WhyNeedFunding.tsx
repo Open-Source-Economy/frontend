@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import faqImage from "src/assets/faq.webp";
 import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/right-linear-bg.webp";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import faq from "src/assets/faq-bg.webp";
 import { faqData } from "../../companyProduct/elements/Helper";
 import { Link } from "react-router-dom";

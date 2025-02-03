@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { IssueCard } from "src/components/issue";
+import { IssueCard } from "src/views/components/issue";
 import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
 import { BaseURL } from "src/App";
-import { AudienceTitle } from "src/components";
+import { AudienceTitle } from "src/views/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface FundIssueProps {}

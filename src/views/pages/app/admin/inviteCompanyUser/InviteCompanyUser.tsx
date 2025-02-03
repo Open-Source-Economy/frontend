@@ -6,7 +6,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { BaseURL } from "src/App";
 import { Audience } from "../../../../Audience";
-import { AudienceTitle } from "src/components";
+import { AudienceTitle } from "src/views/components";
 
 interface InviteCompanyUserProps {}
 

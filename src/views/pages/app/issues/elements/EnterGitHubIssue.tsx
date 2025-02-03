@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { fundIssuePath, manageIssuePath } from "src/App";
 import { useNavigate } from "react-router-dom";
-import { Button } from "src/components/elements/Button";
+import { Button } from "src/views/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "src/model";
 import { Audience } from "src/views";
 

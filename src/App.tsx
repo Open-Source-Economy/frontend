@@ -13,27 +13,14 @@ import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { CompanyProduct } from "src/views/pages/app/companyProduct/CompanyProduct";
-import {
-  Audience,
-  Authenticate,
-  AuthenticateType,
-  AuthProvider,
-  developerProps,
-  FundIssue,
-  Home,
-  Issues,
-  Payment,
-  Pdf,
-  UserDeveloper,
-  userProps,
-} from "./views";
+import { Audience, Authenticate, AuthenticateType, AuthProvider, developerProps, FundIssue, Home, Issues, Payment, Pdf, UserDeveloper } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
 import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
-import { ImproveReliability } from "./views/pages/app/improve-cluster-reliability/ImproveReliability";
+import { Campaign } from "./views/pages/app/campaign/Campaign";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
 import { ProjectRoute } from "./views/layout/ProjectRoute";
@@ -117,15 +104,15 @@ const App = () => {
           <Route element={<ProjectRoute />}>
             {/* Repository paths */}
             <Route path={`/project/:${ownerParam}/:${repoParam}`} element={<Project />} />
-            <Route path={`/project/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+            <Route path={`/project/:${ownerParam}/:${repoParam}/campaign`} element={<Campaign />} />
 
             {/* Owner-only paths */}
             <Route path={`/project/:${ownerParam}`} element={<Project />} />
-            <Route path={`/project/:${ownerParam}/campaign`} element={<ImproveReliability />} />
+            <Route path={`/project/:${ownerParam}/campaign`} element={<Campaign />} />
 
             {/* TODO: old path: to delete */}
             <Route path={`/:${ownerParam}/:${repoParam}`} element={<Project />} />
-            <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<ImproveReliability />} />
+            <Route path={`/:${ownerParam}/:${repoParam}/campaign`} element={<Campaign />} />
           </Route>
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
 

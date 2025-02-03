@@ -1,6 +1,6 @@
 import React from "react";
 import check from "src/assets/checkmark.png";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import { SpinningWheel } from "src/Utils/Icons";
 
 interface HighLightCardProps {

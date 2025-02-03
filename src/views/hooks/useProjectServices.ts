@@ -2,16 +2,26 @@ import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { GetProjectServicesParams, GetProjectServicesQuery, GetProjectServicesResponse } from "src/dtos";
 import * as model from "src/model";
+import { ServiceType } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
-export function useProjectServices(projectId: model.ProjectId) {
-  const backendAPI = getBackendAPI();
+const DEFAULT_SERVICES: GetProjectServicesResponse = {
+  services: [ServiceType.DEVELOPMENT],
+  comingSoonServices: [ServiceType.SUPPORT, ServiceType.OPERATION, ServiceType.ADVISORY],
+};
 
+export function useProjectServices(projectId?: model.ProjectId) {
+  const backendAPI = getBackendAPI();
   const [projectServices, setProjectServices] = React.useState<GetProjectServicesResponse | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
   const getProjectServices = async () => {
+    if (!projectId) {
+      setProjectServices(DEFAULT_SERVICES);
+      setError(null);
+      return;
+    }
     try {
       const params: GetProjectServicesParams = {
         owner: projectId instanceof model.OwnerId ? projectId.login : projectId.ownerId.login,
@@ -32,5 +42,13 @@ export function useProjectServices(projectId: model.ProjectId) {
     }
   };
 
-  return { projectServices, error, reloadProjectServices: getProjectServices };
+  React.useEffect(() => {
+    getProjectServices();
+  }, [projectId]); // Run when projectId changes
+
+  return {
+    projectServices: projectServices || DEFAULT_SERVICES,
+    error,
+    reloadProjectServices: getProjectServices,
+  };
 }

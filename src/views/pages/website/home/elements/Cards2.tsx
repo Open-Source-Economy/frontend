@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, To } from "react-router-dom";
-import { Button, ExternalLink } from "src/components";
+import { Button, ExternalLink } from "src/views/components";
 import { Owner, Repository } from "src/model";
 import { Audience } from "../../../../Audience";
 

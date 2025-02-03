@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { SocialMedia } from "src/components/socialMedia/SocialMedia";
+import { SocialMedia } from "src/views/components/socialMedia/SocialMedia";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
 import { BaseURL } from "src/App";
 import { NavbarContent } from "./NavbarContent";

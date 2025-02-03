@@ -4,7 +4,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { Link, useLocation } from "react-router-dom";
 import catimg from "src/assets/catimg.png";
 import FeatureItem from "./Feature";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import chatbox from "src/assets/chat-box.png";
 import bg from "src/assets/checkout-bg.png";
 import { Audience } from "../../../Audience";

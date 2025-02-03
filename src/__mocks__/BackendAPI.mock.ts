@@ -4,7 +4,6 @@ import {
   FinancialIssue,
   IssueFunding,
   IssueFundingId,
-  IssueId,
   ManagedIssue,
   ManagedIssueId,
   ManagedIssueState,
@@ -14,7 +13,6 @@ import {
   StripePrice,
   StripePriceId,
   StripeProductId,
-  UserId,
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
