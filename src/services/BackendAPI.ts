@@ -50,9 +50,8 @@ import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAv
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
-import { pekkoMaintainers } from "./data";
+import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { oseMaintainers } from "./data/maintainers/oseMaintainers";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -190,10 +189,9 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
-    if (params.owner === "apache" && params.repo === "pekko") {
-      return { maintainers: pekkoMaintainers };
-    } else if (params.owner === "open-source-economy") {
-      return { maintainers: oseMaintainers };
+    const maintainers = getMaintainers(params.owner, params.repo);
+    if (maintainers) {
+      return { maintainers };
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }

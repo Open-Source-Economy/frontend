@@ -1,3 +1,1 @@
-export * from "./flockMaintainers";
-export * from "./oseMaintainers";
-export * from "./pekkoMaintainers";
+export * from "./getMaintainers";

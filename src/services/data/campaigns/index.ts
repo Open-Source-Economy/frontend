@@ -1,1 +1,1 @@
-export * from "./campaignDescription";
+export * from "./getCampaignDescription";

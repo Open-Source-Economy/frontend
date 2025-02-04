@@ -61,10 +61,9 @@ import {
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
-import { flockMaintainers, getCampaignDescription, pekkoMaintainers } from "../services/data";
+import { getCampaignDescription, getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
-import { oseMaintainers } from "../services/data";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -132,12 +131,9 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
-    if (params.owner === "apache" && params.repo === "pekko") {
-      return { maintainers: pekkoMaintainers };
-    } else if (params.owner === "join-the-flock" && params.repo === "flock") {
-      return { maintainers: flockMaintainers };
-    } else if (params.owner === "open-source-economy") {
-      return { maintainers: oseMaintainers };
+    const maintainers = getMaintainers(params.owner, params.repo);
+    if (maintainers) {
+      return { maintainers };
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
