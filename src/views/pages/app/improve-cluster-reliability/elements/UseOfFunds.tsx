@@ -1,6 +1,6 @@
 import useFunds from "src/assets/icon/useFunds.svg";
 import { ListItem } from "./ListItem";
-import { LeftLinear } from "src/Utils/Icons";
+import { LeftLinear, LinearCenter } from "src/Utils/Icons";
 import React from "react";
 import { CampaignDescription } from "src/dtos";
 
@@ -11,10 +11,10 @@ interface UseOfFundsProps {
 export function UseOfFunds(props: UseOfFundsProps) {
   return (
     <div className="relative pb-14 xl:pb-0">
-      <div className="hidden xl:block absolute -z-10 w-full h-full -translate-x-1/2 left-1/2 -top-1/2">{/* <LinearCenter /> */}</div>
-      <div className="absolute h-full -left-[5%] xl:block hidden -bottom-[25%]">
-        <LeftLinear />{" "}
+      <div className="hidden xl:block absolute -z-10 w-full h-full -translate-x-1/2 left-1/2 -top-1/2">
+        <LinearCenter />
       </div>
+
       <section className="3xl:max-w-[1613px] relative z-20 !px-4 xl:max-w-[90%] 2xl:max-w-[1370px] mx-auto justify-end gap-14 flex items-center xl:flex-row flex-col-reverse">
         <div className="max-w-[590px] 2xl:max-w-[580px] w-full 3xl:max-w-[700px]">
           <h1 className="text-2xl relative 1400:text-[32px] w-fit 3xl:text-[40px] pb-3 lg:pb-5 3xl:!pb-7 font-semibold sm:text-nowrap">

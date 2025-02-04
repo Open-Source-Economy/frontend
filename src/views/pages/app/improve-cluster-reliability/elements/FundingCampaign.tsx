@@ -1,16 +1,14 @@
-import React from "react";
+import { useParams } from "react-router-dom";
+import { Currency, ProjectId } from "src/model";
+import { GetCampaignResponse } from "../../../../../dtos";
+import { config, Env } from "../../../../../ultils";
+import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
+import { useAuth } from "../../authenticate/AuthContext";
+import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
-import { LinearBg } from "src/Utils/Icons";
-import { Currency, ProjectId } from "src/model";
 import { Summary } from "./summary";
-import { useAuth } from "../../authenticate/AuthContext";
-import { useParams } from "react-router-dom";
-import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
-import { CompanyNumberBanner } from "./CompanyNumberBanner";
-import { config, Env } from "../../../../../ultils";
-import { GetCampaignResponse } from "../../../../../dtos";
 
 interface FundingCampaignProps {
   projectId: ProjectId;
@@ -21,7 +19,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
   const { checkout_error } = useParams();
   const checkoutErrorParamName = "checkout_error";
   const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
-  const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`; // Keep the user on the same page if they cancel
+  const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
   const auth = useAuth();
 
@@ -29,11 +27,9 @@ export function FundingCampaign(props: FundingCampaignProps) {
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 pb-16 flex flex-col">
-      <div className="!bg-sunset-glow-gradient max-w-[548px] w-full h-full min-h-[500px] min-w-[260px] max-h-[1000px] absolute left-[5%] top-[60%] xl:top-[18%] blur-[125px] -z-0 opacity-35 !shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
-      <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] max-w-[402px] min-h-[500px] min-w-[270px] w-full h-full max-h-[1166px] absolute left-[5%] top-[18%] blur-[125px] -z-0 opacity-45 shrink-0 pointer-events-none  -rotate-[41.351deg] rounded-full"></div>
-      <span className="right-0 absolute bottom-[17%] lg:bottom-0 -z-10">
-        <LinearBg />
-      </span>
+      <div className="bg-sunset-glow-gradient max-w-[548px] w-full h-full min-h-[500px] min-w-[260px] max-h-[1000px] absolute left-[5%] top-[60%] xl:top-[18%] blur-xl sm:blur-[125px] z-0 opacity-20 sm:opacity-35 !shrink-0 pointer-events-none -rotate-[103deg] rounded-full"></div>
+      <div className="bg-gradient-to-l from-[#5935A1] to-[#AC3556] max-w-[402px] min-h-[500px] min-w-[270px] w-full h-full max-h-[1166px] absolute left-[5%] top-[18%] blur-[50px] sm:blur-[125px] z-0 opacity-25 sm:opacity-45 shrink-0 pointer-events-none -rotate-[41.351deg] rounded-full"></div>
+
       <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto flex justify-center xl:justify-between xl:!flex-nowrap flex-wrap gap-7 2xl:gap-10 3xl:gap-14">
         {/* Left Section */}
         <div className="max-w-[800px] relative z-10 w-full xl:!w-[59%] 3xl:max-w-[817px] mx-auto xl:!mx-0">
