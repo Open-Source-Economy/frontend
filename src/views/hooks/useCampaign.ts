@@ -4,7 +4,7 @@ import { GetCampaignParams, GetCampaignQuery, GetCampaignResponse } from "src/dt
 import * as model from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
-import { getCampaignDescription } from "../data";
+import { getCampaignDescription } from "../../services/data";
 
 export function useCampaign(projectId: model.ProjectId) {
   const backendAPI = getBackendAPI();

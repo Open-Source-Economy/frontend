@@ -1,2 +1,3 @@
 export * from "./repositories";
-export * from "./pekkoMaintainers";
+export * from "./campaigns";
+export * from "./maintainers";

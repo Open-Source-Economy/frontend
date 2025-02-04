@@ -61,11 +61,10 @@ import {
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
-import { pekkoMaintainers } from "../services/data";
+import { flockMaintainers, getCampaignDescription, pekkoMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
-import { getCampaignDescription } from "../views";
-import { oseMaintainers } from "../services/data/oseMaintainers";
+import { oseMaintainers } from "../services/data";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -135,6 +134,8 @@ export class BackendAPIMock implements BackendAPI {
   async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return { maintainers: pekkoMaintainers };
+    } else if (params.owner === "join-the-flock" && params.repo === "flock") {
+      return { maintainers: flockMaintainers };
     } else if (params.owner === "open-source-economy") {
       return { maintainers: oseMaintainers };
     } else {

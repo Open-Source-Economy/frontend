@@ -52,7 +52,7 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { pekkoMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { oseMaintainers } from "./data/oseMaintainers";
+import { oseMaintainers } from "./data/maintainers/oseMaintainers";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
