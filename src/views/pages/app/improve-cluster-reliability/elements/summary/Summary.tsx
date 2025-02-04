@@ -10,7 +10,7 @@ export function Summary(props: SummaryProps) {
     <>
       {props.summaryType === CampaignDescription.Summary.Type.ONE && (
         <>
-          <h2 className="text-3xl md:text-4xl xl:text-[44px] !leading-[129%] 1300:text-5xl 1700:text-[52px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-6 3xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-[44px] !leading-[129%] 1300:text-5xl 1700:text-[52px] 3xl:text-[55px] text-center sm:!text-left !mx-auto xl:!mx-0 !font-michroma !pb-5 2xl:!pb-6 3xl:!pb-7 w-fit relative !mt-3 xl:!mt-4">
             {props.title}
             <span className="absolute w-[28%] h-[6px] left-1/2 -translate-x-1/2 xl:-translate-x-0 xl:left-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </h2>
