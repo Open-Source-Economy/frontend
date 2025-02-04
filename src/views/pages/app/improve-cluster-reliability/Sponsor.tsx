@@ -75,7 +75,7 @@ const Sponsor: React.FC = () => {
     {
       id: "1",
       type: "softwareMill" as const,
-      size: "xsmall" as CardSize,
+      size: "small" as CardSize,
       position: 0,
       nestedCards: [
         { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
@@ -94,7 +94,7 @@ const Sponsor: React.FC = () => {
     {
       id: "3",
       type: "softwareMill" as const,
-      size: "xsmall" as CardSize,
+      size: "small" as CardSize,
       position: 0,
       nestedCards: [
         { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
@@ -133,7 +133,7 @@ const Sponsor: React.FC = () => {
     {
       id: "7",
       type: "softwareMill" as const,
-      size: "xsmall" as CardSize,
+      size: "small" as CardSize,
       position: 0,
       nestedCards: [
         { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
@@ -152,7 +152,7 @@ const Sponsor: React.FC = () => {
     {
       id: "7",
       type: "softwareMill" as const,
-      size: "xsmall" as CardSize,
+      size: "small" as CardSize,
       position: 0,
       nestedCards: [
         { id: "5a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
