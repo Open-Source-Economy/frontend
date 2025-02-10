@@ -22,7 +22,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
 
   return (
     <div
-      className={`${className} ${sizeClass} !bg-secondary rounded-lg relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3 flex gap-2 flex-col h-full justify-between`}
+      className={`${className} ${sizeClass} !bg-secondary rounded-lg !relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3  gap-2 flex-col  h-full flex justify-start sm:justify-between`}
     >
       {isLeftCat && (
         <img
@@ -32,29 +32,29 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
         />
       )}
       {isRightCat && (
-        <div className="flex justify-end">
+        <div className="flex justify-end relative w-full">
           <img
             src={rightCat || "/placeholder.svg"}
             alt="Cat with heart right"
-            className="max-w-12 md:max-w-16 absolute top-0 h-fit 1800:max-w-[78px] object-contain -mr-[3%] sm:-mr-[5%] lg:-mr-[10%] -mt-[5%] lg:-mt-[7%]"
+            className="max-w-12 md:max-w-16 absolute !top-0 h-fit 1800:max-w-[78px] hidden sm:block object-contain -mr-[3%] sm:-mr-[5%] lg:-mr-[10%] !-mt-[5%] lg:-mt-[7%]"
           />
         </div>
       )}
 
-      <div className="flex flex-col items-center justify-center space-x-[9px]">
+      <div className="flex flex-col items-center h-fit justify-center space-x-[9px]">
         {type === "mainSwissBorg" && (
           <>
-            <div className="flex justify-between w-full items-center md:px-10 !pt-5 sm:px-16">
+            <div className="flex h-[150px] justify-between w-full sm:h-full items-center md:px-10 sm:!pt-5 sm:px-16">
               <img
                 src={leftCat || "/placeholder.svg"}
                 alt="Left Cat with heart"
                 className="max-w-12 md:max-w-20 h-fit xl:max-w-24 1800:max-w-[102px] object-contain"
               />
-              <div className="flex items-center flex-col justify-center">
+              <div className="flex items-center h-fit justify-center">
                 <img
                   src={swissBorg || "/placeholder.svg"}
                   alt="SwissBorg logo"
-                  className="max-w-40 lg:max-w-44 xl:max-w-48  1800:max-w-[236px] object-contain"
+                  className="max-w-40 lg:max-w-44 xl:max-w-48 h-fit 1800:max-w-[236px] object-contain"
                 />
               </div>
               <img
@@ -70,7 +70,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
             <img
               src={swissBorg || "/placeholder.svg"}
               alt="SwissBorg logo"
-              className="md:max-w-[60%] max-w-[155px] 2xl:max-w-[70%] w-full mx-auto object-contain"
+              className="lg:max-w-[68%] sm:max-w-[155px] max-w-[62%] 2xl:max-w-[70%] w-full mx-auto object-contain"
             />
             {subtitle && (
               <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{subtitle}</h4>

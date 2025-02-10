@@ -9,7 +9,7 @@ export const getCardWidth = (size?: CardSize) => {
     case "small":
       return "col-span-4 sm:col-span-2 md:col-span-1";
     case "xsmall":
-      return "col-span-2 sm:col-span-1";
+      return "col-span-2 min-w-[160px] sm:col-span-1";
     default:
       return "col-span-2 sm:col-span-1"; // Default sizing
   }

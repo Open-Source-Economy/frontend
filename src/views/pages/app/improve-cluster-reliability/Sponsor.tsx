@@ -104,7 +104,6 @@ const Sponsor: React.FC = () => {
     {
       id: "4",
       type: "adidas" as const,
-
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
@@ -141,7 +140,7 @@ const Sponsor: React.FC = () => {
       ],
     },
     {
-      id: "5",
+      id: "8",
       type: "swissBorg" as const,
       subtitle: "Distributed systems like Pekko",
       size: "large" as CardSize,
@@ -150,7 +149,7 @@ const Sponsor: React.FC = () => {
     },
 
     {
-      id: "7",
+      id: "9",
       type: "softwareMill" as const,
       size: "small" as CardSize,
       position: 0,
@@ -181,7 +180,6 @@ const Sponsor: React.FC = () => {
         {
           id: "2b",
           type: "adidas" as const,
-
           size: "large" as CardSize,
           className: "!justify-center !gap-0.5 !pt-1 !pb-3",
           description: "Distributed systems like Pekko are inherently complex.",
@@ -235,14 +233,14 @@ const Sponsor: React.FC = () => {
 
   return (
     <section className="!px-4 2xl:!px-0">
-      <div className="!pb-32  xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto">
+      <div className="!pb-32 xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto">
         <h1 className="main-heading relative mb-8 w-fit text-center mx-auto pb-4">
           <span className="absolute w-[80%] h-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           Companies <span className="bg-gradient-custom text-transparent bg-clip-text">Supporting</span> Us
         </h1>
 
         {[sponsorData, alternateSponsorData, otherSponsorData].map((dataArray, index) => (
-          <div key={index} className={`grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 1800:gap-3 w-full py-16`}>
+          <div key={index} className={`grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 1800:gap-3 w-full pt-16`}>
             {dataArray.map(card => (
               <div key={card.id} className={getCardWidth(card.size)}>
                 {card.nestedCards ? (
