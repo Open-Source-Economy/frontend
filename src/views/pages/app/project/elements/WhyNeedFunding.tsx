@@ -23,11 +23,7 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
   return (
     <div className="2xl:pt-28 pt-10 md:pt-20 pb-10 md:pb-16 relative">
       <img src={rightLinear} alt="Linear Background" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
-      <img
-        src={faq}
-        alt="Linear Background"
-        className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] -z-10  max-w-[780px] h-full -bottom-[30%]"
-      />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-14 place-items-center !px-4 xl:!px-0 xl:max-w-[90%] 2xl:max-w-[84%] 3xl:max-w-[1650px] mx-auto">
         {/* Left side - Image */}
         <div className="w-full flex justify-center relative items-center p-8 3xl:pl-6 3xl:pb-[72px] 3xl:pr-16 3xl:pt-7 min-h-[300px] max-w-[749px] max-h-[749px] rounded-full !bg-secondary backdrop-blur-md shadow-[inset_5px_8px_10px_0px_rgba(255,255,255,0.08)]">
