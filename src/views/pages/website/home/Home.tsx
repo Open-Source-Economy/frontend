@@ -1,7 +1,7 @@
 import { PageWrapper } from "../../PageWrapper";
 import { BaseURL } from "src/App";
 import React from "react";
-import { DigIntoDetails, FeaturesSection, HeroSection, Projects, VideoSection } from "src/views/pages/website/home/elements";
+import { DigIntoDetails, FeaturesSection, HeroSection, HowItWorks, Projects, VideoSection } from "src/views/pages/website/home/elements";
 import { config, Env } from "src/ultils";
 
 interface HomeProps {}
@@ -13,6 +13,7 @@ export function Home(props: HomeProps) {
         <HeroSection />
         <FeaturesSection />
         <VideoSection />
+        <HowItWorks />
         {config.env !== Env.Production && <DigIntoDetails />}
         <Projects />
       </div>
