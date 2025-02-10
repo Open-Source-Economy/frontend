@@ -64,6 +64,12 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { getCampaignDescription, getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
+import {
+  NewsletterSubscriptionBody,
+  NewsletterSubscriptionParams,
+  NewsletterSubscriptionQuery,
+  NewsletterSubscriptionResponse,
+} from "../dtos/NewsletterSubscription.dto";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -227,6 +233,14 @@ export class BackendAPIMock implements BackendAPI {
       return pekkoGetProjectServicesResponse;
     }
     return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+  }
+
+  async subscribeToNewsletter(
+    params: NewsletterSubscriptionParams,
+    body: NewsletterSubscriptionBody,
+    query: NewsletterSubscriptionQuery,
+  ): Promise<NewsletterSubscriptionResponse | ApiError> {
+    return Promise.resolve({ success: {} });
   }
 }
 

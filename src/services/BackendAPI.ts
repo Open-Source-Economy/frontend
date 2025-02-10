@@ -52,6 +52,12 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
+import {
+  NewsletterSubscriptionBody,
+  NewsletterSubscriptionParams,
+  NewsletterSubscriptionQuery,
+  NewsletterSubscriptionResponse,
+} from "../dtos/NewsletterSubscription.dto";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -112,6 +118,12 @@ export interface BackendAPI {
   ): Promise<SetUserPreferredCurrencyResponse | ApiError>;
 
   getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<GetProjectServicesResponse | ApiError>;
+
+  subscribeToNewsletter(
+    params: NewsletterSubscriptionParams,
+    body: NewsletterSubscriptionBody,
+    query: NewsletterSubscriptionQuery,
+  ): Promise<NewsletterSubscriptionResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -221,7 +233,7 @@ class BackendAPIImpl implements BackendAPI {
   ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
     return handleError(
       () => axios.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
-      "getUserPreferredCurrency",
+      "setUserPreferredCurrency",
     );
   }
 
@@ -230,5 +242,13 @@ class BackendAPIImpl implements BackendAPI {
       return pekkoGetProjectServicesResponse;
     }
     return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+  }
+
+  async subscribeToNewsletter(
+    params: NewsletterSubscriptionParams,
+    body: NewsletterSubscriptionBody,
+    query: NewsletterSubscriptionQuery,
+  ): Promise<NewsletterSubscriptionResponse | ApiError> {
+    return handleError(() => axios.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
   }
 }
