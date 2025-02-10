@@ -27,7 +27,7 @@ export function VirtuousSection(props: VirtuousSectionProps) {
           <span className="absolute w-[10%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           A Virtuous Way to Secure Your Business
         </h2>
-        <div className="xl:grid flex justify-center items-center flex-wrap xl:grid-cols-3 gap-6 w-full !mt-12 md:!mt-16">
+        <div className="xl:grid flex justify-center items-center h-auto flex-wrap xl:grid-cols-3 gap-6 w-full !mt-12 md:!mt-16">
           {virtuousCard.map((card, index) => (
             <VirtuousCard key={index} {...card} />
           ))}
