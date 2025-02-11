@@ -11,11 +11,11 @@ import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
 import { Audience } from "src/views";
-import { BaseURL } from "src/App";
+
 import { AudienceTitle } from "src/views/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 import { ShowApiError } from "../../../components/common/ShowApiError";
-import { ApiError } from "../../../../ultils/error/ApiError";
+import { ApiError } from "src/ultils/error/ApiError";
 
 interface ManageIssueProps {}
 
@@ -36,7 +36,7 @@ export function ManageIssue(props: ManageIssueProps) {
   }, [financialIssue]);
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div>
         <BackgroundSection bgImage={bgimage2} position="left 20%">
           <BackgroundSection bgImage={bgimage3} position="right 2%">

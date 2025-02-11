@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
 import { PageLoader } from "../components/common";
+import { paths } from "src/paths";
 
 export function IssuesRoute() {
   const auth = useAuth();
@@ -22,9 +23,9 @@ export function IssuesRoute() {
 
   useEffect(() => {
     if (audience == Audience.USER) {
-      navigate("/fund-issues");
+      navigate(paths.FUND_ISSUES);
     } else if (audience == Audience.DEVELOPER) {
-      navigate("/manage-issues");
+      navigate(paths.MANAGE_ISSUES);
     }
   }, [audience, navigate]);
 

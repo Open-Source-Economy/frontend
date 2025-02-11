@@ -6,8 +6,8 @@ import { Button } from "src/views/components";
 import faq from "src/assets/faq-bg.webp";
 import { faqData } from "../../companyProduct/elements/Helper";
 import { Link } from "react-router-dom";
-import { campaignPath } from "../../../../../App";
 import { ProjectId } from "../../../../../model";
+import { paths } from "src/paths";
 
 interface WhyNeedFundingProps {
   projectId: ProjectId;
@@ -51,7 +51,7 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
           <div className="relative !mt-7 lg:!mt-9 flex justify-center w-full lg:justify-start items-center">
             {/*TODO: cursor-pointer should be by default in button. Add it on Button, remove it here are every where else*/}
             <Button audience="ALL" className="cursor-pointer" level="PRIMARY" size="LARGE" asChild>
-              <Link to={campaignPath(props.projectId)}>Donate</Link>
+              <Link to={paths.campaign(props.projectId)}>Donate</Link>
             </Button>
           </div>
         </div>

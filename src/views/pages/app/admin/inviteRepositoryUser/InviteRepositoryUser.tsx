@@ -4,7 +4,6 @@ import { SendRepositoryRoleInviteBody, SendRepositoryRoleInviteParams, SendRepos
 import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "src/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { BaseURL } from "src/App";
 
 interface FormData {
   name: string;
@@ -104,7 +103,7 @@ export function InviteRepositoryUser() {
   };
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Invite a Repository Admin</h1>

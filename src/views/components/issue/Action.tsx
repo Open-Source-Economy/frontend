@@ -1,9 +1,9 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
-import { fundIssuePath, manageIssuePath } from "src/App";
 import { Button, ExternalLink } from "src/views/components/index";
 import { Link } from "react-router-dom";
 import { Audience } from "src/views/index";
+import { paths } from "src/paths";
 
 interface ActionProps {
   issue: Issue;
@@ -16,7 +16,7 @@ export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
       <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
-        <Link to={props.audience === Audience.USER ? fundIssuePath(props.issue.id) : manageIssuePath(props.issue.id)}>
+        <Link to={props.audience === Audience.USER ? paths.fundIssue(props.issue.id) : paths.manageIssue(props.issue.id)}>
           {props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}
         </Link>
       </Button>

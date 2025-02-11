@@ -10,11 +10,12 @@ import { Button, EmailInput, PasswordInput } from "src/views/components";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
-import { BaseURL } from "src/App";
+
 import { config, Env } from "src/ultils";
 import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
 import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
+import { paths } from "src/paths";
 
 export enum AuthenticateType {
   SignIn,
@@ -143,7 +144,7 @@ export function Authenticate(props: AuthenticateProps) {
   }, [auth.error, error]);
 
   return (
-    <PageWrapper baseURL={BaseURL.WEBSITE}>
+    <PageWrapper>
       <ApiErrorModal error={auth.error ?? error} showError={showError} setShowError={setShowError} />
 
       <div className="login pt-12 pb-24 min-h-screen flex justify-center items-center">
@@ -154,7 +155,7 @@ export function Authenticate(props: AuthenticateProps) {
             className="bg-[#14233A] border !border-[rgba(255,_255,_255,_0.2)] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
           >
             <>
-              <Link to={"/"}>
+              <Link to={paths.HOME}>
                 <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
               </Link>
 
@@ -231,7 +232,7 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {config.env !== Env.Production && props.type === AuthenticateType.SignIn && (
-                <Link to={"/"} className="gradient-text-normal relative group font-semibold mt-3">
+                <Link to={paths.HOME} className="gradient-text-normal relative group font-semibold mt-3">
                   Forgot Password?
                   <span className="gradient-btn-bg w-full h-[1px] hidden group-hover:block absolute bottom-1 left-0"></span>
                 </Link>
@@ -241,7 +242,7 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"} className="gradient-text-normal group relative">
+            <Link to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN} className="gradient-text-normal group relative">
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
             </Link>

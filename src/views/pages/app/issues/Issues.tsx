@@ -9,7 +9,7 @@ import { Background } from "src/views/pages/app/issues/elements/Background";
 import { GetIssueQuery, GetIssuesParams } from "src/dtos";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
-import { BaseURL } from "src/App";
+
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import Loading from "src/views/components/common/Loading";
 
@@ -47,7 +47,7 @@ export function Issues(props: IssuesProps) {
   }, []);
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <Background>
         <h1 className="lg:text-[62px] text-[30px]  text-center font-medium text-white">
           <>

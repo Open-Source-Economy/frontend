@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
 import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
 import { Button } from "src/views/components/elements/Button";
+import React from "react";
+import { paths } from "src/paths";
+import { Link } from "react-router-dom";
 
 export const HeroSection = () => {
   return (
@@ -14,7 +16,7 @@ export const HeroSection = () => {
         </h1>
 
         <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
-          <Link to="/projects">GET STARTED</Link>
+          <Link to={paths.PROJECTS}>GET STARTED</Link>
         </Button>
       </div>
       {/* Right  */}

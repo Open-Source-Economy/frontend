@@ -5,7 +5,7 @@ import { DisclaimerModal, DowFunding } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
-import { BaseURL } from "src/App";
+
 import { AudienceTitle } from "src/views/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 
@@ -23,7 +23,7 @@ export function FundIssue({}: FundIssueProps) {
   }, []);
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div

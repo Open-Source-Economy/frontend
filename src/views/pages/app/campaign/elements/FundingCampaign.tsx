@@ -3,12 +3,13 @@ import { Currency, ProjectId } from "src/model";
 import { GetCampaignResponse } from "../../../../../dtos";
 import { config, Env } from "../../../../../ultils";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
-import { useAuth } from "../../authenticate/AuthContext";
+import { useAuth } from "../../authenticate";
 import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
 import { Summary } from "./summary";
+import { paths } from "src/paths";
 
 interface FundingCampaignProps {
   projectId: ProjectId;
@@ -18,7 +19,7 @@ interface FundingCampaignProps {
 export function FundingCampaign(props: FundingCampaignProps) {
   const { checkout_error } = useParams();
   const checkoutErrorParamName = "checkout_error";
-  const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
+  const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
   const auth = useAuth();

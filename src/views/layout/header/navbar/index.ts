@@ -1,3 +1,3 @@
 export * from "./DropdownNavbar";
-export * from "./AppNavbar";
+export * from "./NavbarContent";
 export * from "./CurrencyModal";

@@ -1,4 +1,3 @@
-import { BaseURL, campaignPath } from "src/App";
 import { PageWrapper } from "../../PageWrapper";
 import { Services } from "src/views/components/service";
 import { Maintainers } from "src/views/pages/app/project/elements/Maintainers";
@@ -7,13 +6,14 @@ import React, { useEffect } from "react";
 import { ProjectTitle } from "src/views/components/title";
 import { WhyNeedFunding } from "./elements";
 import { TitleWithSubtitle } from "src/views/components/title/TitleWithSubtitle";
-import { config, Env } from "../../../../ultils";
+import { config, Env } from "src/ultils";
 import { Button } from "src/views/components";
 import { Link } from "react-router-dom";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { useProject } from "../../../hooks/useProject";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../Audience";
+import { paths } from "src/paths";
 
 interface ProjectProps {}
 
@@ -26,7 +26,7 @@ export function Project(props: ProjectProps) {
   }, []);
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <section className="overflow-hidden">
         {project && <ProjectTitle project={project} displayProjectDescription={false} subtitle="We're the experts who build, debug, and maintain it" />}
         <TitleWithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
@@ -37,7 +37,7 @@ export function Project(props: ProjectProps) {
           <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
             <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <Link to={campaignPath(projectId)}>Support Us</Link>
+              <Link to={paths.campaign(projectId)}>Support Us</Link>
             </Button>
           </div>
         </section>

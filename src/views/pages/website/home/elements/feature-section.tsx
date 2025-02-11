@@ -3,6 +3,7 @@ import sec2icon2 from "src/assets/icon/sec2img3.png";
 import sec2icon1 from "src/assets/sec2img.png";
 import startimg from "src/assets/star.png";
 import { Button } from "src/views/components/elements/Button";
+import { paths } from "src/paths";
 
 export const FeaturesSection = () => {
   return (
@@ -21,7 +22,7 @@ export const FeaturesSection = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to="/developer">DEVELOPERS</Link>
+                <Link to={paths.DEVELOPER}>DEVELOPERS</Link>
               </Button>
             </div>
           </div>
@@ -46,7 +47,7 @@ export const FeaturesSection = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="USER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to="/user">OPEN SOURCE USERS</Link>
+                <Link to={paths.USER}>OPEN SOURCE USERS</Link>
               </Button>
             </div>
           </div>

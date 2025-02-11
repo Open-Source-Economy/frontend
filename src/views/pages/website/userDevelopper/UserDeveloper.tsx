@@ -9,8 +9,8 @@ import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
-import { BaseURL } from "src/App";
 import { config, Env } from "src/ultils";
+import { paths } from "src/paths";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -30,7 +30,7 @@ export interface UserDeveloperProps {
 export function UserDeveloper(props: UserDeveloperProps) {
   const [bgSize, setBgSize] = useState("70%");
   const location = useLocation();
-  const isDeveloperPath = location.pathname === "/developer";
+  const isDeveloperPath = location.pathname === paths.DEVELOPER;
 
   // Refs for animations
   const solutionHeadingRef = useRef(null);
@@ -142,7 +142,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
   console.log(bgSize, "bgSize");
 
   return (
-    <PageWrapper baseURL={BaseURL.WEBSITE}>
+    <PageWrapper>
       <div className="w-full mx-auto">
         <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-28 lg:mt-20 2xl:mt-[111px] mb-20 my-8 items-center justify-center text-center !px-4 ">
           {isDeveloperPath ? (

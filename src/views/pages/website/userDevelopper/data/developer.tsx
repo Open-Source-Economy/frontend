@@ -23,7 +23,7 @@ const solution1: SolutionProps = {
   text: (
     <>
       <p className="sm:mt-[35px] mt-6">
-        Gain tokens for your involvement. <br /> Get a stake in your project's success
+        Earn for your involvement <br /> Get a stake in your project's success
       </p>
     </>
   ),
@@ -39,7 +39,7 @@ const solution2: SolutionProps = {
   text: (
     <>
       <p className="xl:py-[96px] lg:py-14 sm:py-8 pt-8">
-        The deeper your insights, the stronger your <br /> influence.
+        The deeper your insights, <br /> the stronger your influence.
       </p>
     </>
   ),

@@ -1,5 +1,4 @@
 import React from "react";
-import { BaseURL } from "../../../../App";
 import { PageWrapper } from "../../PageWrapper";
 import { Link, useLocation } from "react-router-dom";
 import catimg from "src/assets/catimg.png";
@@ -8,7 +7,8 @@ import { Button } from "src/views/components";
 import chatbox from "src/assets/chat-box.png";
 import bg from "src/assets/checkout-bg.png";
 import { Audience } from "../../../Audience";
-import { config, Env } from "../../../../ultils";
+import { config, Env } from "src/ultils";
+import { paths } from "src/paths";
 
 interface CheckoutSuccessProps {}
 
@@ -21,7 +21,7 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
   const mode = queryParams.get("mode");
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div className="py-28 min-h-screen grid place-items-center  relative overflow-hidden">
         <img src={bg} className="absolute -top-[5%] left-1/2 -translate-x-1/2 object-contain  size-[120%]" alt="" />
         <div className="1200:max-w-[957px] max-w-[85%] relative z-20 flex flex-col items-center  mx-auto  bg-primaryBg rounded-[50px]">
@@ -70,7 +70,7 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
             )}
 
             <Button audience={audience} level="PRIMARY" size="MEDIUM" asChild>
-              <Link to="/fund-issues">GET STARTED</Link>
+              <Link to={paths.FUND_ISSUES}>GET STARTED</Link>
             </Button>
           </div>
         </div>

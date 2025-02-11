@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { BaseURL, projectPath } from "src/App";
+import { paths } from "src/paths";
 import { useRepositories } from "src/views/hooks";
 import { Cards2 } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
@@ -19,14 +19,14 @@ export function Projects(props: ProjectsProps) {
 
   const links = (repositoryId: RepositoryId) => {
     if (repositoryId.ownerId.login === "apache" && repositoryId.name === "pekko") {
-      return projectPath(repositoryId);
+      return paths.project(repositoryId);
     } else {
-      return "/fund-issues";
+      return paths.FUND_ISSUES;
     }
   };
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <OpenSourceExpertTitle />
 
       <div className="relative sm:px-8 max-[540px]:px-[18px] flex w-full items-center justify-center pb-[100px] max-[540px]:pt-12 pt-[40px] lg:pb-[200px] lg:pt-[40px] max-w-[1330px]   mx-auto">

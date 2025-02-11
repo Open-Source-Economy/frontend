@@ -1,13 +1,12 @@
-import { Link, To } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MascotIcon } from "src/Utils/Icons";
 import notFound from "src/assets/404.webp";
 import hero from "src/assets/hero-bg.webp";
 import faq from "src/assets/faq-bg.webp";
 import { Button } from "src/views/components";
+import { paths } from "src/paths";
 
-interface PageNotFoundProps {
-  home: To;
-}
+interface PageNotFoundProps {}
 
 export function PageNotFound(props: PageNotFoundProps) {
   return (
@@ -32,7 +31,7 @@ export function PageNotFound(props: PageNotFoundProps) {
           The page you were looking for doesn't exist anymore.
         </h5>
         <Button audience="ALL" level="PRIMARY" size="MEDIUM" className="mt-10" asChild>
-          <Link to={props.home}>Back to Home</Link>
+          <Link to={paths.HOME}>Back to Home</Link>
         </Button>
       </div>
     </div>

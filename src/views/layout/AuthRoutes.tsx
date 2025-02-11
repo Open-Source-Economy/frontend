@@ -4,7 +4,7 @@ import { useAuth } from "../pages/app/authenticate/AuthContext";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
-import { BaseURL } from "../../App";
+
 import { PageLoader } from "src/views/components/common/PageLoader";
 
 export function AuthRoutes(props: { redirect: string }) {
@@ -31,7 +31,7 @@ export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <PageNotFound home={BaseURL.WEBSITE} />;
+    return <PageNotFound />;
   }
 }
 

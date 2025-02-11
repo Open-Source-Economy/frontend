@@ -1,12 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import catimg from "../../../../assets/header.svg";
-import { NavbarItemData } from "./NavbarItemData";
-import { NavbarItem } from "./NavbarItem";
+import { DropdownNavbarItem } from "./item/DropdownNavbarItem";
+import { NavItemData } from "./item/NavItemData";
+
+export class Divider {
+  divider: boolean;
+
+  constructor(divider: boolean = true) {
+    this.divider = divider;
+  }
+}
+export const DIVIDER = new Divider();
 
 interface DropdownNavbarProps {
   showDropdownNavbar: boolean;
   setShowDropdownNavbar: (showDropdownNavbar: boolean) => void;
-  navbarItems: NavbarItemData[];
+  navbarItems: (NavItemData | Divider)[];
 }
 
 export function DropdownNavbar(props: DropdownNavbarProps) {
@@ -46,8 +55,12 @@ export function DropdownNavbar(props: DropdownNavbarProps) {
           <div className="absolute top-[85px] z-20 right-0  h-max min-w-[279px] p-2 shadow-[0_15px_90px_0px_rgba(0,0,0,0.6)] bg-primaryBg !border rounded-xl border-[#303f52] text-white flex flex-col gap-y-1">
             <div className="absolute -top-[10px] right-5 -z-10 bg-primaryBg border-t border-l border-t-[#303f52] border-l-[#303f52] rounded-tl-md rotate-45 size-5"></div>
 
-            {props.navbarItems.map(item => {
-              return <NavbarItem item={item} style="style_2" />;
+            {props.navbarItems.map((item, index) => {
+              if (item instanceof Divider && item.divider) {
+                return <div key={index} className="h-px bg-white/5 my-2" aria-hidden="true" />;
+              } else if (item instanceof NavItemData) {
+                return <DropdownNavbarItem key={index} item={item} />;
+              }
             })}
           </div>
         )}

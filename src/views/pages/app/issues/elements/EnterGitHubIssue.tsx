@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { fundIssuePath, manageIssuePath } from "src/App";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/views/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "src/model";
 import { Audience } from "src/views";
+import { paths } from "src/paths";
 
 interface EnterGitHubIssueProps {
   audience: Audience;
@@ -39,8 +39,8 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
       const issueId = extractGitHubIssueInfo(url);
       if (issueId) {
         setIsValidUrl(true);
-        if (props.audience === Audience.DEVELOPER) navigate(manageIssuePath(issueId));
-        else if (props.audience === Audience.USER) navigate(fundIssuePath(issueId));
+        if (props.audience === Audience.DEVELOPER) navigate(paths.manageIssue(issueId));
+        else if (props.audience === Audience.USER) navigate(paths.fundIssue(issueId));
       } else {
         setIsValidUrl(false);
       }

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { BaseURL } from "src/App";
+
 import { PageWrapper } from "../../PageWrapper";
 import { AQuestion, FundingCampaign, UseOfFunds, WhyDoWeNeedYourHelp } from "./elements";
 import { WhyTrustUs } from "./elements/WhyTrustUs";
 import { Maintainers } from "../project/elements/Maintainers";
 import { ProjectTitle } from "src/views/components/title";
-import { config, Env } from "../../../../ultils";
+import { config, Env } from "src/ultils";
 import { Button } from "src/views/components";
 import { Link } from "react-router-dom";
 import { useCampaign } from "../../../hooks/useCampaign";
@@ -27,7 +27,7 @@ export function Campaign(props: CampaignProps) {
 
   return (
     <>
-      <PageWrapper baseURL={BaseURL.APP}>
+      <PageWrapper>
         {project && <ProjectTitle project={project} />}
         {campaign && <FundingCampaign projectId={projectId} campaign={campaign} />}
         {/*<CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />*/}

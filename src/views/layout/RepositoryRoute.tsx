@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { PageNotFound } from "../pages/PageNotFound";
-import { BaseURL } from "../../App";
+
 import { useRepositoryFromParams } from "../hooks";
 import { RepositoryId } from "src/model";
 
@@ -20,5 +20,5 @@ export function RepositoryRoute() {
     return <Outlet context={{ repositoryId }} />;
   }
 
-  return <PageNotFound home={BaseURL.APP} />;
+  return <PageNotFound />;
 }

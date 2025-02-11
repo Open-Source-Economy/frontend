@@ -1,19 +1,16 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { SocialMedia } from "src/views/components/socialMedia/SocialMedia";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
-import { BaseURL } from "src/App";
-import { NavbarContent } from "./NavbarContent";
-import { CurrencyModal } from "./app";
+
+import { CurrencyModal, NavbarContent } from "./navbar";
 import { Currency } from "src/model";
 import { useAuth } from "../../pages/app/authenticate/AuthContext";
 import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
+import { paths } from "src/paths";
+import { TopNavbar } from "./topNavbar";
 
-interface HeaderProps {
-  baseURL: BaseURL;
-}
+interface HeaderProps {}
 
 export function Header(props: HeaderProps) {
   const auth = useAuth();
@@ -47,18 +44,12 @@ export function Header(props: HeaderProps) {
 
   return (
     <div data-aos="fade-down">
-      {/* Social Media Icons Section */}
-      <div className=" border-b border-b-white 1200:px-20 sm:px-10 max-[540px]:px-4 flex items-end justify-end w-full  gap-3 pb-3 pt-4">
-        <SocialMedia />
-      </div>
+      <TopNavbar />
 
-      {/* Navbar Section */}
-      <Navbar expand="lg" className="pt-3  md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
+      <Navbar expand="lg" className="pt-3 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
         <Container fluid className="">
-          <Navbar.Brand href="#">
-            <Link to={props.baseURL}>
-              <Logo />
-            </Link>
+          <Navbar.Brand href={paths.HOME}>
+            <Logo />
           </Navbar.Brand>
 
           <Navbar.Toggle onClick={() => setShowOffcanvas(true)} aria-controls="offcanvasNavbar" className="bg-white" />
@@ -73,7 +64,7 @@ export function Header(props: HeaderProps) {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>
-                <Navbar.Brand href={props.baseURL}>
+                <Navbar.Brand href={paths.HOME}>
                   <Logo />
                 </Navbar.Brand>
               </Offcanvas.Title>
@@ -81,7 +72,6 @@ export function Header(props: HeaderProps) {
 
             <Offcanvas.Body>
               <NavbarContent
-                baseURL={props.baseURL}
                 setShowOffcanvas={setShowOffcanvas}
                 showDropdownNavbar={showDropdownNavbar}
                 setShowDropdownNavbar={setShowDropdownNavbar}

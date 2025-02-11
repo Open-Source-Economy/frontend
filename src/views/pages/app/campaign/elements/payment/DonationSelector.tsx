@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ProductType, ProjectId } from "src/model";
 import { config, Env } from "src/ultils";
-import { projectPath } from "../../../../../../App";
+import { paths } from "src/paths";
 
 interface DonationSelectorProps {
   projectId: ProjectId;
@@ -42,7 +42,7 @@ export function DonationSelector(props: DonationSelectorProps) {
           I want to receive{" "}
           {config.env !== Env.Production ? (
             <Link
-              to="/"
+              to={paths.HOME}
               className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
             >
               DoWs
@@ -58,7 +58,7 @@ export function DonationSelector(props: DonationSelectorProps) {
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 xl:text-nowrap flex-wrap xl:!flex-nowrap 3xl:rounded-[15px] flex justify-start text-sm 1600:text-base 3xl:text-lg w-full items-center">
           Get bug fixes, features, support,
           <Link
-            to={projectPath(props.projectId)}
+            to={paths.project(props.projectId)}
             className="text-primary-user text-nowrap relative font-semibold after:transition-all after:content-[''] after:absolute after:h-0.5 after:bg-primary-user after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:duration-300"
           >
             and more...
