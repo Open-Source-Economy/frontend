@@ -27,17 +27,17 @@ export function Maintainers(props: MaintainersProps) {
         <img
           src={rightLinear}
           alt="right linear Background"
-          className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]"
+          className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 z-0-top-[15%]"
         />
-        <img
+        {/* <img
           src={faq}
           alt="linear Background"
-          className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] -z-10  max-w-[780px] h-full bottom-0"
-        />
+          className="absolute pointer-events-none object-cover -translate-x-1/2 left-1/2 w-full max-h-[850px] z-0 max-w-[780px] h-full bottom-0"
+        /> */}
         <img
           src={offerLeftLinear}
           alt="Linear background"
-          className="absolute max-w-[670px] w-full -z-10 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
+          className="absolute max-w-[670px] w-full z-0 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
         />
 
         <DividerTitle title="Who are We?" />
@@ -45,7 +45,9 @@ export function Maintainers(props: MaintainersProps) {
         <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
           {/* Participants List */}
           <div className="flex justify-center flex-wrap gap-14 sm:gap-8">
-            {maintainers?.map((maintainer, index) => <ParticipantCard maintainer={maintainer} key={index} />)}
+            {maintainers?.map((maintainer, index) => (
+              <ParticipantCard maintainer={maintainer} key={index} />
+            ))}
           </div>
 
           {/* View All Button */}
