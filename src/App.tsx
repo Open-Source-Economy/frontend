@@ -13,7 +13,7 @@ import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { CompanyProduct } from "src/views/pages/app/companyProduct/CompanyProduct";
 import { Audience, Authenticate, AuthenticateType, AuthProvider, developerProps, FundIssue, Home, Issues, Payment, Pdf, UserDeveloper } from "./views";
-import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
+import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
@@ -24,6 +24,7 @@ import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
 import { ProjectRoute } from "./views/layout/ProjectRoute";
 import { paths } from "src/paths";
+import { Dashboard } from "./views/pages/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -44,10 +45,8 @@ const App = () => {
           <Route path={paths.WHITE_PAPER} element={<Pdf />} />
 
           <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
-          <Route element={<UnAuthRoutes redirect={paths.HOME} />}>
-            <Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />
-            <Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />
-          </Route>
+          <Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />
+          <Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />
 
           <Route element={<SuperAdminRoutes />}>
             <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
@@ -76,7 +75,7 @@ const App = () => {
           </Route>
           <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
 
-          <Route element={<AuthRoutes redirect="/sign-up" />}>
+          <Route element={<AuthRoutes authPage="/sign-up" />}>
             <Route path={paths.PROJECTS} element={<Projects />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
             <Route path={paths.ISSUES} element={<IssuesRoute />} />
@@ -86,6 +85,7 @@ const App = () => {
               <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
               <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
             </Route>
+            <Route path={paths.DASHBOARD} element={<Dashboard />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

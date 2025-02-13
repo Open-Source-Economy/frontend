@@ -104,6 +104,10 @@ export class Navigation {
       icon: <FundIssueIcon />,
     }),
 
+    dashboard: new LinkItemData("Dashboard", paths.DASHBOARD, {
+      icon: <MaintainerIcon />,
+    }),
+
     // User section
     fundingHistory: new LinkItemData("Funding history", "/funding-history", {
       icon: <FundungHistoryIcon />,

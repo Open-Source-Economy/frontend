@@ -19,7 +19,7 @@ export function HighLightCard(props: HighLightCardProps) {
   return (
     <div
       className={`${props.card.isBorder ? "virtuous-card" : "border !border-[#2b394d]"}
-cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] service-card 3xl:rounded-[35px] py-8 !px-5 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 group ease-linear transition-shadow`}
+cursor-pointer h-full !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] box-gradient-border-hover 3xl:rounded-[35px] py-8 !px-5 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 group ease-linear transition-shadow`}
     >
       {/* Card Title */}
       <h3 className="text-2xl 2xl:text-3xl 3xl:text-[35px] font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{props.card.title}</h3>

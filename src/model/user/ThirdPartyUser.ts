@@ -52,7 +52,7 @@ export class ThirdPartyUser {
     }
     const providerData = new GithubData(owner as Owner);
 
-    return new ThirdPartyUser(provider, new ThirdPartyUserId(json.id), null, providerData);
+    return new ThirdPartyUser(provider, new ThirdPartyUserId(id), null, providerData);
   }
 
   static fromRaw(row: any, owner: Owner | null = null): ThirdPartyUser | ValidationError {

@@ -32,6 +32,8 @@ export function NavbarContent(props: AppNavbarProps) {
   const displayManageIssuesItem = (auth.authInfo?.repositories ?? []).length > 0;
 
   const authDropdownNavbarItems: (NavItemData | Divider)[] = [
+    Navigation.items.dashboard,
+    DIVIDER,
     Navigation.items.fundIssues,
     ...(displayManageIssuesItem ? [Navigation.items.manageIssues] : []),
     ...(config.env === Env.Production ? [DIVIDER] : []),
@@ -51,7 +53,7 @@ export function NavbarContent(props: AppNavbarProps) {
     DIVIDER,
     Navigation.items.signOut,
   ];
-  const authNavbarItems = [Navigation.items.fundIssues];
+  const authNavbarItems = [Navigation.items.dashboard];
   const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, Navigation.items.newsletter]; // TODO: where to put ? currencyNavItem
 
   const whitePaper = (
@@ -73,10 +75,10 @@ export function NavbarContent(props: AppNavbarProps) {
       {auth.authInfo?.user ? (
         <>
           <MobileNavbar navbarItems={authDropdownNavbarItems} />
-          {supportProjects}
           {authNavbarItems.map(item => {
             return <NavbarItem item={item} />;
           })}
+          {supportProjects}
           <DropdownNavbar
             showDropdownNavbar={props.showDropdownNavbar}
             setShowDropdownNavbar={props.setShowDropdownNavbar}

@@ -1,11 +1,11 @@
 import React from "react";
 
-interface TitleWithSubTitleProps {
+interface H3WithSubTitleProps {
   title: string;
   subtitle: string;
 }
 
-export function TitleWithSubtitle(props: TitleWithSubTitleProps) {
+export function H3WithSubtitle(props: H3WithSubTitleProps) {
   return (
     <>
       <h3 className="text-2xl font-medium  lg:text-3xl max-w-[586px] mx-auto xl:text-[33px] font-mdeium text-center 3xl:text-[40px] mt-20 sm:mt-14">

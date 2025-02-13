@@ -15,6 +15,7 @@ export const paths = {
   DEVELOPER: "/developer",
   USER: "/user",
   WHITE_PAPER: "/white-paper",
+  DASHBOARD: "/dashboard",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

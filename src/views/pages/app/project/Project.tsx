@@ -5,7 +5,7 @@ import { Highlight } from "src/views/pages/app/project/elements/highlight/HighLi
 import React, { useEffect } from "react";
 import { ProjectTitle } from "src/views/components/title";
 import { WhyNeedFunding } from "./elements";
-import { TitleWithSubtitle } from "src/views/components/title/TitleWithSubtitle";
+import { H3WithSubtitle } from "src/views/components/title/H3WithSubtitle";
 import { config, Env } from "src/ultils";
 import { Button } from "src/views/components";
 import { Link } from "react-router-dom";
@@ -29,10 +29,9 @@ export function Project(props: ProjectProps) {
     <PageWrapper>
       <section className="overflow-hidden">
         {project && <ProjectTitle project={project} displayProjectDescription={false} subtitle="We're the experts who build, debug, and maintain it" />}
-        <TitleWithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
+        <H3WithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
         <Services projectId={projectId} />
 
-        {/*pb-16 3xl:pb-24: TODO: make variable for padding between sections */}
         <section className="!px-4 relative flex flex-col">
           <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
             <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
@@ -42,9 +41,7 @@ export function Project(props: ProjectProps) {
           </div>
         </section>
 
-        {/*<BookACall />*/}
         {config.env !== Env.Production && <Highlight />}
-
         <div className="pt-20 3xl:pt-40">
           <Maintainers projectId={projectId} />
         </div>

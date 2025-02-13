@@ -3,6 +3,16 @@ import { Owner, OwnerId } from "./Owner";
 
 export type ProjectId = RepositoryId | OwnerId;
 
+export const ProjectUtils = {
+  key(project: Project): string {
+    let key: string = project.owner.id.login;
+    if (project.repository) {
+      key += "-" + project.repository.id.name;
+    }
+    return key;
+  },
+};
+
 export class Project {
   id: ProjectId;
   owner: Owner;

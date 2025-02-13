@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 import sec2icon2 from "src/assets/icon/sec2img3.png";
-import sec2icon1 from "src/assets/sec2img.png";
+import sec2icon1 from "src/assets/icon/sec2img.png";
 import startimg from "src/assets/star.png";
 import { Button } from "src/views/components/elements/Button";
 import { paths } from "src/paths";
+import { Audience, textColorVariants } from "../../../../Audience";
+import { Simulate } from "react-dom/test-utils";
+import { useAuth } from "../../../app";
 
-export const FeaturesSection = () => {
+export const Gateway = () => {
+  const auth = useAuth();
+  const developerPath = (auth.authInfo?.repositories ?? []).length > 0 ? paths.MANAGE_ISSUES : paths.DEVELOPER;
+  const userPath = auth.authInfo?.user ? paths.DASHBOARD : paths.USER;
+
   return (
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">
       <div className="z-[20] flex w-full max-w-[1250px] flex-wrap justify-center gap-6 1500:gap-[30px] min-[1600px]:max-w-[1305px]">
@@ -16,13 +23,16 @@ export const FeaturesSection = () => {
           className="box11 group flex w-full max-w-[550px] flex-col-reverse items-center justify-between gap-[20px] rounded-[30px] bg-[#14233A] px-[40px] py-[20px] max-[1279px]:max-w-[460px] max-[1279px]:py-12 max-[1024px]:max-w-[400px] lg:items-center lg:gap-0 lg:rounded-[50px] lg:px-[40px] lg:py-16 xl:flex-row 1500:max-w-[610px] min-[1600px]:px-[67px] min-[1600px]:py-[73px]"
         >
           <div className="max-[1200px]text-center flex-col items-center max-[1279px]:flex">
-            <h1 className="font-mich text-[28px] font-[400] lg:text-[36px]">Get Paid</h1>
+            <h1 className="font-mich text-[28px] font-[400] lg:text-[36px]">
+              <span className={`${textColorVariants[Audience.DEVELOPER]}`}> Developers </span>
+            </h1>
+
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
               Stop begging for donations! <br /> Fund your future. Have a Say
             </h2>
             <div className="mt-[42px]">
-              <Button audience="DEVELOPER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to={paths.DEVELOPER}>DEVELOPERS</Link>
+              <Button audience="DEVELOPER" level="PRIMARY" size="MEDIUM" asChild>
+                <Link to={developerPath}>Get Paid</Link>
               </Button>
             </div>
           </div>
@@ -33,6 +43,7 @@ export const FeaturesSection = () => {
             </div>
           </div>
         </div>
+
         {/* 2  */}
         <div
           data-aos="fade-left"
@@ -40,14 +51,16 @@ export const FeaturesSection = () => {
           className="box22 group flex w-full max-w-[550px] flex-col-reverse items-center justify-between rounded-[30px] bg-[#14233A] px-[40px] py-[20px] max-[1279px]:max-w-[460px] max-[1279px]:py-12 max-[1024px]:max-w-[400px] lg:items-center lg:gap-0 lg:rounded-[50px] lg:px-[40px] lg:py-16 xl:flex-row 1500:max-w-[610px] min-[1600px]:px-[67px] min-[1600px]:py-[73px]"
         >
           <div className="flex-col items-center max-[1279px]:flex max-[1200px]:text-center">
-            <h1 className="font-mich text-nowrap text-[28px] font-[400] lg:text-[36px]">Get Support</h1>
+            <h1 className="font-mich text-nowrap text-[28px] font-[400] lg:text-[36px]">
+              <span className={`${textColorVariants[Audience.USER]}`}> Entreprise </span>
+            </h1>
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
               {" "}
               Forget the far west! Secure your <br /> platform, secure your business.
             </h2>
             <div className="mt-[42px]">
-              <Button audience="USER" level="SECONDARY" size="MEDIUM" asChild>
-                <Link to={paths.USER}>OPEN SOURCE USERS</Link>
+              <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>
+                <Link to={userPath}>Get Support</Link>
               </Button>
             </div>
           </div>

@@ -33,12 +33,15 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const login = async (body: LoginBody, query: LoginQuery) => {
+  const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
     setLoading(true);
     try {
       const loginResponse = await auth.login(body, query);
       if (loginResponse instanceof ApiError) setApiError(loginResponse);
-      else setAuthInfo(loginResponse);
+      else {
+        setAuthInfo(loginResponse);
+        if (successCallback) successCallback();
+      }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
     } finally {
@@ -46,13 +49,15 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const register = async (body: RegisterBody, query: RegisterQuery) => {
+  const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
     setLoading(true);
     try {
       const registerResponse = await auth.register(body, query);
-      console.log(registerResponse);
       if (registerResponse instanceof ApiError) setApiError(registerResponse);
-      else setAuthInfo(registerResponse);
+      else {
+        setAuthInfo(registerResponse);
+        if (successCallback) successCallback();
+      }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
     } finally {
@@ -64,12 +69,15 @@ export function AuthProvider(props: AuthProviderProps) {
     auth.loginWithGitHub();
   };
 
-  const logout = async () => {
+  const logout = async (successCallback?: () => void) => {
     setLoading(true);
     try {
       const result = await auth.deleteSession();
       if (result instanceof ApiError) setApiError(result);
-      setAuthInfo(null);
+      else {
+        setAuthInfo(null);
+        if (successCallback) successCallback();
+      }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
     } finally {

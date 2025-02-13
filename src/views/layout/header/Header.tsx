@@ -71,14 +71,18 @@ export function Header(props: HeaderProps) {
             </Offcanvas.Header>
 
             <Offcanvas.Body>
-              <NavbarContent
-                setShowOffcanvas={setShowOffcanvas}
-                showDropdownNavbar={showDropdownNavbar}
-                setShowDropdownNavbar={setShowDropdownNavbar}
-                showCurrencyModal={showCurrencyModal}
-                setShowCurrencyModal={setShowCurrencyModal}
-                selectedCurrency={preferredCurrency}
-              />
+              {auth.loading ? (
+                <></>
+              ) : (
+                <NavbarContent
+                  setShowOffcanvas={setShowOffcanvas}
+                  showDropdownNavbar={showDropdownNavbar}
+                  setShowDropdownNavbar={setShowDropdownNavbar}
+                  showCurrencyModal={showCurrencyModal}
+                  setShowCurrencyModal={setShowCurrencyModal}
+                  selectedCurrency={preferredCurrency}
+                />
+              )}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

@@ -3,10 +3,15 @@ import comingSoon from "src/assets/coming-soon.webp";
 import { ListIcon } from "src/Utils/Icons";
 import { ServiceType } from "src/model";
 import { displayedServices } from "src/views/components/service/style1/DisplayedService";
+import { Audience } from "../../../Audience";
+import { Button } from "../../elements";
+import { Link } from "react-router-dom";
+import { ServiceButton } from "../ServiceButton";
 
 interface ServiceCardProps {
   serviceType: ServiceType;
   comingSoon?: boolean;
+  button?: ServiceButton;
 }
 
 export function ServiceCard(props: ServiceCardProps) {
@@ -51,6 +56,15 @@ export function ServiceCard(props: ServiceCardProps) {
             </ul>
           </div>
         </div>
+        {props.button && (
+          <section className="relative flex flex-col">
+            <div className="flex justify-center relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
+              <Button audience={Audience.USER} level={"SECONDARY"} size={"MEDIUM"} className="!capitalize">
+                <Link to={props.button.to}>{props.button.placeholder}</Link>
+              </Button>
+            </div>
+          </section>
+        )}
       </div>
     </article>
   );

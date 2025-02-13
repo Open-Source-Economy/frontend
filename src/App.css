@@ -409,15 +409,14 @@ input[type="number"] {
   filter: blur(70px);
 }
 
-/* TODO: Star Works: no CSS, to be removed */
-.service-card {
-  position: relative;
+/* Box gradient */
 
+.box-gradient-border-hover {
+  position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ============ SERVICE CARD STYLE ============ */
-.service-card::before {
+.box-gradient-border-hover::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -432,19 +431,13 @@ input[type="number"] {
   transition: opacity 0.3s ease-in-out;
 }
 
-.service-card:hover::before {
+.box-gradient-border-hover:hover::before {
   opacity: 1; /* Show border on hover */
-}
-
-.service-card-content {
-  position: relative; /* Content above the pseudo-elements */
-  z-index: 1;
 }
 
 /* ================ Virtuous CARD STYLE ====================  */
 .virtuous-card {
   position: relative;
-
   transition: all 0.3s ease;
 }
 

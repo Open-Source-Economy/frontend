@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import bg from "src/assets/paymentbg.png";
-import { Card, Coupon, MonthlySubscription, OneTimePayment, PriceItems } from "src/views/pages/app/payment/elements";
+import { Coupon, MonthlySubscription, OneTimePayment, PriceItems } from "src/views/pages/app/payment/elements";
 import { PaymentOptions } from "src/views/pages/app/payment/elements/PaymentOptions";
 
 interface PaymentProps {}
@@ -74,9 +74,9 @@ export function Payment(props: PaymentProps) {
 
               <PriceItems />
             </div>
-            <div className="bg-[#14233A] rounded-[30px] p-4 mt-4">
-              <Card />
-            </div>
+            {/*<div className="bg-[#14233A] rounded-[30px] p-4 mt-4">*/}
+            {/*  <Card />*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>

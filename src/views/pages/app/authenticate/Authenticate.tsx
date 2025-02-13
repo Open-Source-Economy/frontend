@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
@@ -29,8 +29,9 @@ interface AuthenticateProps {
 export function Authenticate(props: AuthenticateProps) {
   const auth = useAuth();
   const authAPI = getAuthBackendAPI();
-  const location = useLocation();
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const repositoryToken: string | null = queryParams.get("repository_token");
   const companyToken: string | null = queryParams.get("company_token");
@@ -77,6 +78,18 @@ export function Authenticate(props: AuthenticateProps) {
       return;
     }
 
+    const from = location.state && (location.state as any).from?.pathname;
+    console.log('Redirect path:', from);
+
+    const successCallback = () => {
+      // Add debug log
+      console.log('Authentication successful, redirecting to:', from || paths.HOME);
+
+      // Only navigate if we have auth info
+      if (auth.authInfo?.user) {
+        navigate(from || paths.HOME, { replace: true });
+      }
+    }; // Redirect to the original page after registration
     if (props.type === AuthenticateType.SignIn) {
       console.log("Logging in...");
       const body: LoginBody = {
@@ -84,7 +97,7 @@ export function Authenticate(props: AuthenticateProps) {
         password: formData.password,
       };
       const query: LoginQuery = {};
-      auth.login(body, query);
+      auth.login(body, query, successCallback);
     } else {
       console.log("Registering...");
       const body: RegisterBody = {
@@ -96,7 +109,7 @@ export function Authenticate(props: AuthenticateProps) {
         companyToken: companyToken ?? undefined,
         repositoryToken: repositoryToken ?? undefined,
       };
-      auth.register(body, query);
+      auth.register(body, query, successCallback);
     }
   };
 
@@ -242,7 +255,10 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN} className="gradient-text-normal group relative">
+            <Link to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN}
+                  state={location.state}
+                  className="gradient-text-normal group relative"
+            >
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
             </Link>

@@ -1,7 +1,6 @@
 import { OwnerId, RepositoryId } from "src/model";
 
-// TODO: lolo to delete
-export const repositoryIds: RepositoryId[] = [
+export const projectsIds: RepositoryId[] = [
   ["apache", "pekko"],
   ["join-the-flock", "flock"],
   ["kubesphere", "kubesphere"],

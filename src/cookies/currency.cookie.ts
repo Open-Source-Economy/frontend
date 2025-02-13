@@ -66,7 +66,7 @@ class CurrencyCookie implements ICurrencyHandler {
       document.cookie = cookieString;
 
       // Verify immediately after setting
-      const cookies = document.cookie.split(";").map(c => c.trim());
+      const _ = document.cookie.split(";").map(c => c.trim());
     } catch (error) {
       throw error;
     }

@@ -7,9 +7,8 @@ export const VideoSection = () => {
   const handlePlayClick = () => {
     setIsPlaying(true); // Set the state to indicate video is playing
   };
-
   return (
-    <div data-aos="fade-right" className="relative sm:px-6 flex w-full items-center justify-center py-[30px] max-[540px]:pb-0 lg:py-[80px]">
+    <div data-aos="fade-right" className="relative sm:px-6 flex w-full items-center justify-center max-[540px]:pb-0">
       <div className="box-33-333 relative z-[100]  flex w-full items-center justify-center rounded-[20px] lg:mx-0 lg:rounded-[50px] ">
         <div className="relative inset-0 lg:w-[1010px] 1600:w-11/12  1600:h-[690px] h-[500px] max-[1024px]:h-max z-[10] aspect-video  flex  w-[96%] max-[540px]:w-[91%] max-[540px]:rounded-[20px] items-center justify-center overflow-hidden  bg-[#14233A]  p-7 rounded-[50px]">
           <iframe

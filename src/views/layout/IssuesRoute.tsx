@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../pages/app/authenticate/AuthContext";
+import { useAuth } from "../pages";
 import { Audience } from "src/views";
 import { PageLoader } from "../components/common";
 import { paths } from "src/paths";

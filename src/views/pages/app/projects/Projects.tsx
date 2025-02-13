@@ -5,8 +5,7 @@ import { useRepositories } from "src/views/hooks";
 import { Cards2 } from "src/views/pages/website/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
-import { OpenSourceExpertTitle } from "./elements";
-import { RepositoryId } from "src/model";
+import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
 
 interface ProjectsProps {}
 
@@ -17,17 +16,20 @@ export function Projects(props: ProjectsProps) {
     reloadRepositories();
   }, []);
 
-  const links = (repositoryId: RepositoryId) => {
-    if (repositoryId.ownerId.login === "apache" && repositoryId.name === "pekko") {
-      return paths.project(repositoryId);
-    } else {
-      return paths.FUND_ISSUES;
-    }
-  };
-
   return (
     <PageWrapper>
-      <OpenSourceExpertTitle />
+      <H1WithSubtitle
+        title={
+          <>
+            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">Open Source</span>
+            <br />
+            From the Experts <br />
+            Who Built It
+          </>
+        }
+        subtitle="Need help with an Open Source project?"
+        subSubtitle="We're the experts who build, debug, and maintain it"
+      />
 
       <div className="relative sm:px-8 max-[540px]:px-[18px] flex w-full items-center justify-center pb-[100px] max-[540px]:pt-12 pt-[40px] lg:pb-[200px] lg:pt-[40px] max-w-[1330px]   mx-auto">
         <div className="dig-into-details relative flex !max-w-[1320px] !w-full flex-col items-center justify-center text-center gap-[80px] lg:gap-[130px]">
@@ -37,7 +39,7 @@ export function Projects(props: ProjectsProps) {
 
             {repositories.map(([owner, repository], index) => (
               <>
-                <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={links(repository.id)} />
+                <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={paths.campaign(repository.id)} />
               </>
             ))}
           </div>

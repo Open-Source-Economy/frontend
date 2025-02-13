@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import gsap from "gsap";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { InterestForm } from "src/views/pages/website/userDevelopper/elements/InterestForm";
 import { Audience } from "src/views";
 import { PageWrapper } from "../../PageWrapper";
@@ -11,6 +11,7 @@ import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
 import { config, Env } from "src/ultils";
 import { paths } from "src/paths";
+import { Button } from "../../../components";
 
 export interface UserDeveloperProps {
   audience: Audience;
@@ -144,7 +145,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
   return (
     <PageWrapper>
       <div className="w-full mx-auto">
-        <div className="flex flex-col 2xl:!mb-[269px] xl:mb-[200px] lg:mb-32 md:mb-24 sm:mb-28 lg:mt-20 2xl:mt-[111px] mb-20 my-8 items-center justify-center text-center !px-4 ">
+        <div className="lg:mt-20 2xl:mt-[111px]"></div>
+        <div className="flex flex-col items-center justify-center text-center !px-4">
           {isDeveloperPath ? (
             <Problem
               title={props.problemTitle}
@@ -171,6 +173,17 @@ export function UserDeveloper(props: UserDeveloperProps) {
             />
           )}
         </div>
+        <div className="mb-10 2xl:!mb-[150px] xl:!mb-[120px] lg:!mb-16 md:!mb-12 sm:!mb-14"></div>
+
+        <section className="!px-4 relative flex flex-col">
+          <div className="flex justify-center z-20 relative flex-wrap items-center">
+            <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
+              <Link to={paths.SIGN_UP}>Register as a Project Maintainer</Link>
+            </Button>
+          </div>
+        </section>
+
+        <div className="mb-10 2xl:!mb-[150px] xl:!mb-[120px] lg:!mb-16 md:!mb-12 sm:!mb-14"></div>
 
         <div className="bg-no-repeat">
           <div className="2xl:px-20 lg:px-52 container">
@@ -205,6 +218,15 @@ export function UserDeveloper(props: UserDeveloperProps) {
             >
               The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
+
+            <section className="!px-4 relative flex flex-col">
+              <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-3 md:!mt-5 xl:mt-9">
+                <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
+                  <Link to={paths.SIGN_UP}>Register as a Project Maintainer</Link>
+                </Button>
+              </div>
+            </section>
+
             <div ref={formContainerRef} className="3xl:pt-32">
               {config.env !== Env.Production && <InterestForm />}
             </div>
