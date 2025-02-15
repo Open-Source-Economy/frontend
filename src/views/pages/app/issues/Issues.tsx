@@ -53,7 +53,7 @@ export function Issues(props: IssuesProps) {
           <>
             {props.audience === Audience.DEVELOPER && "Manage "}
             {props.audience === Audience.USER && "Fund "}
-            <span className={`${textColorVariants[props.audience]}`}>issues</span>
+            <span className={`${textColorVariants[props.audience]}`}>Issues</span>
           </>
         </h1>
         <EnterGitHubIssue audience={props.audience} />

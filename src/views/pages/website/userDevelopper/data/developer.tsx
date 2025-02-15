@@ -39,7 +39,7 @@ const solution2: SolutionProps = {
   text: (
     <>
       <p className="xl:py-[96px] lg:py-14 sm:py-8 pt-8">
-        The deeper your insights, <br /> the stronger your influence.
+        The deeper your insights, <br /> the stronger your influence
       </p>
     </>
   ),
@@ -55,8 +55,8 @@ const solution3: SolutionProps = {
   text: (
     <>
       <ul className="px-10 2xl:mt-[46px] mt-6">
-        <li className="list-disc">Easily set up new revenue streams. </li>
-        <li className="list-disc">Attract financial backers.</li>
+        <li className="list-disc">Easily set up new revenue streams</li>
+        <li className="list-disc">Attract financial backers</li>
       </ul>
       <h2 className="xl:py-[51px] lg:py-10 py-6">And bring your vision to life!</h2>
     </>
@@ -70,7 +70,7 @@ export const developerProps: UserDeveloperProps = {
     <>
       As an open source dev
       <br />
-      are you experiencing....
+      are you experiencing?
     </>
   ),
   subTittle1: (

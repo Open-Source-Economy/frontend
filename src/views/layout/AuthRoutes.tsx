@@ -23,17 +23,8 @@ export function AuthRoutes(props: { authPage: string }) {
     return <Outlet />;
   }
 
-  // Add console.log to debug the redirect
-  console.log('Redirecting to auth page, current location:', location.pathname); // lolo
-
   // Ensure we're passing the full location object
-  return (
-    <Navigate
-      to={props.authPage}
-      state={{ from: { pathname: location.pathname } }}
-      replace
-    />
-  );
+  return <Navigate to={props.authPage} state={{ from: { pathname: location.pathname } }} replace />;
 }
 
 export function NonProdRoutes() {

@@ -40,7 +40,7 @@ export function AuthProvider(props: AuthProviderProps) {
       if (loginResponse instanceof ApiError) setApiError(loginResponse);
       else {
         setAuthInfo(loginResponse);
-        if (successCallback) successCallback();
+        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
       }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
@@ -56,7 +56,7 @@ export function AuthProvider(props: AuthProviderProps) {
       if (registerResponse instanceof ApiError) setApiError(registerResponse);
       else {
         setAuthInfo(registerResponse);
-        if (successCallback) successCallback();
+        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
       }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));
@@ -76,7 +76,7 @@ export function AuthProvider(props: AuthProviderProps) {
       if (result instanceof ApiError) setApiError(result);
       else {
         setAuthInfo(null);
-        if (successCallback) successCallback();
+        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
       }
     } catch (error: unknown) {
       setApiError(ApiError.from(error));

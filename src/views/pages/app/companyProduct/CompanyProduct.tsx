@@ -33,7 +33,7 @@ export function CompanyProduct(props: CompanyProductProps) {
               Who Built It
             </>
           }
-          subtitle="Need help with an Open Source project?"
+          subtitle="Need help with Open Source projects?"
           subSubtitle="We're the experts who build, debug, and maintain it"
         />
         <Services buttonPaths={buttonPaths} />
@@ -41,7 +41,8 @@ export function CompanyProduct(props: CompanyProductProps) {
         <section className="max-w-[1164px] relative 3xl:max-w-[1376px] px-4 mx-auto">
           {" "}
           <h4 className="text-base sm:text-xl md:text-[22px] 3xl:text-[28px] opacity-80 border-t border-[#233959] w-full text-center pt-9">
-            Never get stuck again. Never fork again. Meet your deadline.
+            {/*Never get stuck again. Never fork again. Meet your deadline.*/}
+            Eliminate bottlenecks. Accelerate delivery. Ensure success.
           </h4>
         </section>
 

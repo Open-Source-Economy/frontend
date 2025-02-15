@@ -47,13 +47,13 @@ export function PaymentHeader(props: PaymentHeaderProps) {
         )}
       </div>
 
-      <div className="flex rounded-[15px] py-3 !px-4 sm:!px-[19px] bg-[#3E2946] w-full sm:max-w-full mt-3 3xl:!mt-6">
-        <h1 className="text-sm sm:text-base 1600:text-lg 3xl:text-xl lg:max-w-[90%] 3xl:max-w-[97%] w-full text-primary-user">
-          {props.priceType === PriceType.ONE_TIME && "Giving monthly is an easy, impactful way to be a hero for open source 365 days a year! 🦾"}
+      {/*<div className="flex rounded-[15px] py-3 !px-4 sm:!px-[19px] bg-[#3E2946] w-full sm:max-w-full mt-3 3xl:!mt-6">*/}
+      {/*  <h1 className="text-sm sm:text-base 1600:text-lg 3xl:text-xl lg:max-w-[90%] 3xl:max-w-[97%] w-full text-primary-user">*/}
+      {/*    {props.priceType === PriceType.ONE_TIME && "Giving monthly is an easy, impactful way to be a hero for open source 365 days a year! 🦾"}*/}
 
-          {props.priceType === PriceType.RECURRING && "By giving monthly, you enable maintainers to focus full-time on the project. Thanks a ton! 😍"}
-        </h1>
-      </div>
+      {/*    {props.priceType === PriceType.RECURRING && "By giving monthly, you enable maintainers to focus full-time on the project. Thanks a ton! 😍"}*/}
+      {/*  </h1>*/}
+      {/*</div>*/}
     </>
   );
 }

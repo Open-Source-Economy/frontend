@@ -22,7 +22,7 @@ export function VirtuousSection(props: VirtuousSectionProps) {
       <section className="!pt-16 !pb-16 lg:!pb-[220px] w-full max-w-[1164px] 2xl:max-w-[1250px] relative 3xl:max-w-[1376px] !px-4 mx-auto">
         <h2 className="section-heading relative lg:pb-8 max-w-[386px] md:max-w-[470px] w-full mx-auto lg:max-w-full mb-8">
           <span className="absolute w-[10%] h-[6px] hidden lg:block left-1/2 -translate-x-1/2  bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
-          A Virtuous Way to Secure Your Business
+          Sustainable Open Source Partnership
         </h2>
         <div className="xl:grid flex justify-center items-center h-auto flex-wrap xl:grid-cols-3 gap-6 w-full !mt-12 md:!mt-16">
           {virtuousCard.map((card, index) => (

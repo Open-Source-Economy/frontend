@@ -29,7 +29,7 @@ export function Project(props: ProjectProps) {
     <PageWrapper>
       <section className="overflow-hidden">
         {project && <ProjectTitle project={project} displayProjectDescription={false} subtitle="We're the experts who build, debug, and maintain it" />}
-        <H3WithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
+        <H3WithSubtitle title="What do we offer?" subtitle="Get credits and unlock exclusive benefits" />
         <Services projectId={projectId} />
 
         <section className="!px-4 relative flex flex-col">

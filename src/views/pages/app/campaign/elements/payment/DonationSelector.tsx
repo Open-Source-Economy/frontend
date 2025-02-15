@@ -45,10 +45,10 @@ export function DonationSelector(props: DonationSelectorProps) {
               to={paths.HOME}
               className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
             >
-              DoWs
+              Credits
             </Link>
           ) : (
-            "DoWs"
+            "Credits"
           )}
         </button>
       </div>

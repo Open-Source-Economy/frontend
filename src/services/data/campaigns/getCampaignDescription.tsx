@@ -4,6 +4,7 @@ import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
 import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";
 import { flockCampaignDescription } from "./flockCampaignDescription";
 import { slickCampaignDescription } from "./slickCampaignDescription";
+import { defaultCampaignDescription } from "./defaultCampaignDescription";
 
 export function getCampaignDescription(projectId: ProjectId): CampaignDescription | null {
   if (projectId instanceof RepositoryId) {
@@ -11,14 +12,13 @@ export function getCampaignDescription(projectId: ProjectId): CampaignDescriptio
       return pekkoCampaignDescription;
     } else if (projectId.ownerId.login === "join-the-flock" && projectId.name === "flock") {
       return flockCampaignDescription;
-    } else if (projectId.ownerId.login === "slick" && projectId.name === "slick") {
-      return slickCampaignDescription;
-    } else {
-      return null;
     }
+    // else if (projectId.ownerId.login === "slick" && projectId.name === "slick") {
+    //   return slickCampaignDescription;
+    // }
   } else if (projectId.login === "open-source-economy") {
     return openSourceEconomyCampaignDescription;
-  } else {
-    return null;
   }
+
+  return defaultCampaignDescription;
 }

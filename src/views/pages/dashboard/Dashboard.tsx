@@ -40,7 +40,7 @@ export function Dashboard(props: DashboardProps) {
             Who Built It
           </>
         }
-        subtitle="Need help with an Open Source project?"
+        subtitle="Need help with Open Source projects?"
         subSubtitle="We're the experts who build, debug, and maintain it"
       />
       <Services buttons={buttons} />
@@ -53,11 +53,7 @@ export function Dashboard(props: DashboardProps) {
 
       <div className="mt-[130px] md:mt-[160px] lg:mt-[200px]"></div>
 
-      <H3WithSubtitle title="What do we offer?" subtitle="Support us and unlock exclusive benefits" />
-
       <div className="max-w-[1330px] mx-auto">
-        <EnterGitHubIssue audience={audience} />
-
         <div className="mt-[130px] md:mt-[180px] lg:mt-[230px]"></div>
 
         <DividerTitle title="Lastest Projects" />

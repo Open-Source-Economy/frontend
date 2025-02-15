@@ -72,7 +72,7 @@ export function HowItWorks(props: HowItWorksProps) {
           How it works
         </h1>
         <p className="text-lg sm:text-xl lg:text-[28px] text-white/80">
-          A <span className="text-white font-semibold">win-win credit-based system</span> empowering open-source collaboration.
+          <span className="text-white font-semibold">win-win credit-based system</span> fueling open source collaboration.
         </p>
       </div>
 

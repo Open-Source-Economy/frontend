@@ -56,7 +56,7 @@ export const Gateway = () => {
             </h1>
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
               {" "}
-              Forget the far west! Secure your <br /> platform, secure your business.
+              Forget the far west! Secure your <br /> platform, secure your business
             </h2>
             <div className="mt-[42px]">
               <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>

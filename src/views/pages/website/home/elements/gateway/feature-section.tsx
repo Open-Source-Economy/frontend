@@ -15,7 +15,7 @@ export function FeaturesSection(props: FeaturesSectionProps) {
       audience: Audience.DEVELOPER,
       description: (
         <>
-          Stop begging for donations! <br /> Fund your future. Have a Say.
+          Stop begging for donations! <br /> Fund your future. Have a Say
         </>
       ),
       buttonText: "Get Paid",
@@ -30,7 +30,7 @@ export function FeaturesSection(props: FeaturesSectionProps) {
       audience: Audience.USER,
       description: (
         <>
-          Forget the far west! Secure your <br /> platform, secure your business.
+          Forget the far west! Secure your <br /> platform, secure your business
         </>
       ),
       buttonText: "Get Support",

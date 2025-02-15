@@ -144,7 +144,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
   return (
     <PageWrapper>
-      <div className="w-full mx-auto">
+      <div className="w-full mx-auto w-developer">
         <div className="lg:mt-20 2xl:mt-[111px]"></div>
         <div className="flex flex-col items-center justify-center text-center !px-4">
           {isDeveloperPath ? (
@@ -216,7 +216,8 @@ export function UserDeveloper(props: UserDeveloperProps) {
               ref={finalHeadingRef}
               className="text-2xl md:text-[32px] lg:text-4xl xl:text-5xl 3xl:text-[61px] michroma !leading-normal text-center px-3 pb-[80px] md:pb-[150px] md:px-0"
             >
-              The future of open source is here <br className="hidden md:block" /> JOIN THE MOVEMENT.
+              The future of open source is here <br className="hidden md:block" />
+              <br className="hidden md:block" /> JOIN THE MOVEMENT.
             </h1>
 
             <section className="!px-4 relative flex flex-col">

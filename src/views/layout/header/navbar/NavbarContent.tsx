@@ -66,7 +66,7 @@ export function NavbarContent(props: AppNavbarProps) {
 
   const supportProjects = (
     <Button audience="ALL" level="PRIMARY" size="LARGE" asChild>
-      <Link to={paths.PROJECTS}>Support Projects</Link>
+      <Link to={paths.PROJECTS}>Support</Link>
     </Button>
   );
 

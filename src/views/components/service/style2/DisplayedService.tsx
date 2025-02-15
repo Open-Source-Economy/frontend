@@ -10,27 +10,31 @@ type ServiceDetails = {
 
 export const displayedServices: Record<ServiceType, ServiceDetails> = {
   [ServiceType.SUPPORT]: {
-    title: "Support",
+    title: "Enterprise Support",
     icon: <SupportIcon />,
     items: ["Customer Support", "Technical Support", "Deployment Support"],
+    // buttonText: "Get Expert Support",
     buttonText: "Tap into the deepest expertise",
   },
   [ServiceType.DEVELOPMENT]: {
     title: "OSS Development",
     icon: <OssDevelopmentIcon />,
-    items: ["Bug Fixes", "New Features", "Ongoing Maintenance"],
-    buttonText: "Get tailored solutions.",
+    items: ["Bug Fixes", "New Features", "Maintenance"],
+    // buttonText: "Get tailored solutions.",
+    buttonText: "Accelerate Development",
   },
   [ServiceType.OPERATION]: {
-    title: "Operation",
+    title: "Operations",
     icon: <OperationIcon />,
     items: ["Incident Support", "Maintenance", "Supervision"],
-    buttonText: "We take full responsibility.",
+    // buttonText: "We take full responsibility.",
+    buttonText: "Strengthen Your Operations",
   },
   [ServiceType.ADVISORY]: {
-    title: "Advisory",
+    title: "Consultancy",
     icon: <AdvisoryIcon />,
     items: ["Training and Workshops", "Technology Assessment", "Solution Design"],
-    buttonText: "Access to the state-of-the-art.",
+    // buttonText: "Access to the state-of-the-art.",
+    buttonText: "Shape Your Strategy",
   },
 };

@@ -2,7 +2,6 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { IssuesRoute } from "src/views/layout/IssuesRoute";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateManualInvoice } from "src/views/pages/app/admin/createManualInvoice/CreateManualInvoice";
@@ -78,7 +77,6 @@ const App = () => {
           <Route element={<AuthRoutes authPage="/sign-up" />}>
             <Route path={paths.PROJECTS} element={<Projects />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
-            <Route path={paths.ISSUES} element={<IssuesRoute />} />
             <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
             <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />
             <Route element={<IssueRoutes />}>

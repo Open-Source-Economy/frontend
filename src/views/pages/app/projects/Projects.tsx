@@ -27,7 +27,7 @@ export function Projects(props: ProjectsProps) {
             Who Built It
           </>
         }
-        subtitle="Need help with an Open Source project?"
+        subtitle="Need help with Open Source projects?"
         subSubtitle="We're the experts who build, debug, and maintain it"
       />
 

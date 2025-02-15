@@ -17,23 +17,23 @@ type DisplayedService = {
 
 export const displayedServices: Record<ServiceType, DisplayedService> = {
   [ServiceType.SUPPORT]: {
-    title: "Support",
-    features: [{ name: "Customer Support" }, { name: "Technical Support" }, { name: "Deployment Support" }],
+    title: "Enterprise Support",
+    features: [{ name: "Technical Assistance" }, { name: "Deployment Guidance" }, { name: "Customer Support" }],
     img: support,
   },
   [ServiceType.DEVELOPMENT]: {
-    title: "Development",
-    features: [{ name: "Bug Fixes" }, { name: "New Features" }, { name: "Ongoing Maintenance" }],
+    title: "OSS Development",
+    features: [{ name: "Bug Fixes" }, { name: "New Features" }, { name: "Code Maintenance" }],
     img: development,
   },
   [ServiceType.OPERATION]: {
-    title: "Operation",
-    features: [{ name: "Incident Support" }, { name: "Maintenance" }, { name: "Supervision" }],
+    title: "Operations",
+    features: [{ name: "Incident Response" }, { name: "Proactive Maintenance" }, { name: "24/7 Supervision" }],
     img: operation,
   },
   [ServiceType.ADVISORY]: {
-    title: "Advisory",
-    features: [{ name: "Training and Workshops" }, { name: "Technology Assessment" }, { name: "Solution Design" }],
+    title: "Consultancy",
+    features: [{ name: "Architecture Design" }, { name: "Technology Assessment" }, { name: "Security & Performance" }],
     img: advisory,
   },
 };

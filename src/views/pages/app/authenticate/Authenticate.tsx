@@ -32,6 +32,7 @@ export function Authenticate(props: AuthenticateProps) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
   const repositoryToken: string | null = queryParams.get("repository_token");
   const companyToken: string | null = queryParams.get("company_token");
@@ -79,11 +80,10 @@ export function Authenticate(props: AuthenticateProps) {
     }
 
     const from = location.state && (location.state as any).from?.pathname;
-    console.log('Redirect path:', from);
+    console.debug("Redirect path:", from);
 
     const successCallback = () => {
-      // Add debug log
-      console.log('Authentication successful, redirecting to:', from || paths.HOME);
+      console.debug("Authentication successful, redirecting to:", from || paths.HOME);
 
       // Only navigate if we have auth info
       if (auth.authInfo?.user) {
@@ -255,9 +255,10 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN}
-                  state={location.state}
-                  className="gradient-text-normal group relative"
+            <Link
+              to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN}
+              state={location.state}
+              className="gradient-text-normal group relative"
             >
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
