@@ -12,12 +12,10 @@ export function getMaintainers(owner: string, repo?: string): Maintainer[] | nul
       return flockMaintainers;
     } else if (owner === "slick" && repo === "slick") {
       return slickMaintainers;
-    } else {
-      return null;
     }
   } else if (owner === "open-source-economy") {
     return oseMaintainers;
-  } else {
-    return null;
   }
+
+  return null;
 }
