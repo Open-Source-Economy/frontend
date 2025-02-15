@@ -16,6 +16,7 @@ export const paths = {
   USER: "/user",
   WHITE_PAPER: "/white-paper",
   DASHBOARD: "/dashboard",
+  HOW_ITS_WORK: "/how-its-work",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

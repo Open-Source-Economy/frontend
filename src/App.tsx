@@ -24,6 +24,7 @@ import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSucc
 import { ProjectRoute } from "./views/layout/ProjectRoute";
 import { paths } from "src/paths";
 import { Dashboard } from "./views/pages/dashboard/Dashboard";
+import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
 
 const App = () => {
   return (
@@ -33,7 +34,6 @@ const App = () => {
           <Route element={<NonProdRoutes />}>
             <Route path="/blog" element={<MdConversion />} />
             <Route path="/who-built-it" element={<CompanyProduct />} />
-
             <Route path="/buy-dows" element={<Payment />} />
           </Route>
 
@@ -41,6 +41,7 @@ const App = () => {
           <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
           {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
           <Route path={paths.USER} element={<CompanyProduct />} />
+          <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
           <Route path={paths.WHITE_PAPER} element={<Pdf />} />
 
           <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />

@@ -33,7 +33,6 @@ export function NavbarContent(props: AppNavbarProps) {
 
   const authDropdownNavbarItems: (NavItemData | Divider)[] = [
     Navigation.items.dashboard,
-    DIVIDER,
     Navigation.items.fundIssues,
     ...(displayManageIssuesItem ? [Navigation.items.manageIssues] : []),
     ...(config.env === Env.Production ? [DIVIDER] : []),
@@ -51,10 +50,14 @@ export function NavbarContent(props: AppNavbarProps) {
       : []),
     currencyNavItem,
     DIVIDER,
+    Navigation.items.howItWorks,
+    Navigation.items.blog,
+    Navigation.items.newsletter,
+    DIVIDER,
     Navigation.items.signOut,
   ];
   const authNavbarItems = [Navigation.items.dashboard];
-  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, Navigation.items.newsletter]; // TODO: where to put ? currencyNavItem
+  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, Navigation.items.newsletter, Navigation.items.howItWorks]; // TODO: where to put ? currencyNavItem
 
   const whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
@@ -66,7 +69,7 @@ export function NavbarContent(props: AppNavbarProps) {
 
   const supportProjects = (
     <Button audience="ALL" level="PRIMARY" size="LARGE" asChild>
-      <Link to={paths.PROJECTS}>Support</Link>
+      <Link to={paths.PROJECTS}>Support Projects</Link>
     </Button>
   );
 

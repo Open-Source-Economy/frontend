@@ -13,8 +13,8 @@ export const displayedServices: Record<ServiceType, ServiceDetails> = {
     title: "Enterprise Support",
     icon: <SupportIcon />,
     items: ["Customer Support", "Technical Support", "Deployment Support"],
-    // buttonText: "Get Expert Support",
-    buttonText: "Tap into the deepest expertise",
+    // buttonText: "Tap into the deepest expertise",
+    buttonText: "Get Expert Support",
   },
   [ServiceType.DEVELOPMENT]: {
     title: "OSS Development",

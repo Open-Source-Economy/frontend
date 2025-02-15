@@ -104,8 +104,11 @@ export class Navigation {
       icon: <FundIssueIcon />,
     }),
 
+    howItWorks: new LinkItemData("How it Works", paths.HOW_ITS_WORK, {
+      icon: <MaintainerIcon />, // TODO: replace with proper icon
+    }),
     dashboard: new LinkItemData("Dashboard", paths.DASHBOARD, {
-      icon: <MaintainerIcon />,
+      icon: <MaintainerIcon />, // TODO: replace with proper icon
     }),
 
     // User section

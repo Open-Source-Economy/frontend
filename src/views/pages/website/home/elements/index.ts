@@ -5,4 +5,3 @@ export * from "./video-section";
 export * from "./hero-section";
 export * from "./Gateway";
 export * from "./dig-into-details-section";
-export * from "./how-it-works-section";
