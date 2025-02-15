@@ -57,7 +57,7 @@ import {
   NewsletterSubscriptionParams,
   NewsletterSubscriptionQuery,
   NewsletterSubscriptionResponse,
-} from "../dtos/NewsletterSubscription.dto";
+} from "../dtos";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
