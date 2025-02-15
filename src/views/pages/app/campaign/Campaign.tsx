@@ -12,6 +12,7 @@ import { useCampaign } from "../../../hooks/useCampaign";
 import { useProject } from "../../../hooks/useProject";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
+import { CompanyNumberBanner } from "./elements/CompanyNumberBanner";
 
 interface CampaignProps {}
 
