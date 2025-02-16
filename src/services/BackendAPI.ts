@@ -9,7 +9,7 @@ import {
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
-  GetAvailableDowResponse,
+  GetAvailableCreditResponse,
   GetCampaignParams,
   GetCampaignQuery,
   GetCampaignResponse,
@@ -42,7 +42,7 @@ import {
   SetUserPreferredCurrencyBody,
   SetUserPreferredCurrencyParams,
   SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse,
+  SetUserPreferredCurrencyResponse
 } from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
@@ -56,7 +56,7 @@ import {
   NewsletterSubscriptionBody,
   NewsletterSubscriptionParams,
   NewsletterSubscriptionQuery,
-  NewsletterSubscriptionResponse,
+  NewsletterSubscriptionResponse
 } from "../dtos";
 
 export function getBackendAPI(): BackendAPI {
@@ -150,13 +150,13 @@ class BackendAPIImpl implements BackendAPI {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
-    const response = await handleError<GetAvailableDowResponse>(
-      () => axios.get(`${config.api.url}/user/available-dow?${queryParams}`, { withCredentials: true }),
+    const response = await handleError<GetAvailableCreditResponse>(
+      () => axios.get(`${config.api.url}/user/available-credit?${queryParams}`, { withCredentials: true }),
       "getAvailableDow",
     );
 
     if (response instanceof ApiError) return response;
-    else return new Decimal(response.dowAmount);
+    else return new Decimal(response.creditAmount);
   }
 
   async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {

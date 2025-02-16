@@ -12,8 +12,8 @@ interface FormData {
   githubOwnerLogin: string;
   repositoryOwnerLogin: string;
   repositoryName: string;
-  dowRate: string;
-  dowCurrency: Currency | undefined;
+  rate: string;
+  currency: Currency | undefined;
 }
 
 const emptyFormData: FormData = {
@@ -23,8 +23,8 @@ const emptyFormData: FormData = {
   githubOwnerLogin: "",
   repositoryOwnerLogin: "",
   repositoryName: "",
-  dowRate: "",
-  dowCurrency: undefined,
+  rate: "",
+  currency: undefined,
 };
 
 export function InviteRepositoryUser() {
@@ -46,15 +46,15 @@ export function InviteRepositoryUser() {
     if (!formData.repositoryName) return "Repository Name is required";
 
     // Either both dowRate and dowCurrency should be provided, or neither
-    const hasRate = formData.dowRate !== "";
-    const hasCurrency = formData.dowCurrency !== undefined;
+    const hasRate = formData.rate !== "";
+    const hasCurrency = formData.currency !== undefined;
 
     if (hasRate !== hasCurrency) {
       return "Both DOW Rate and Currency must be provided together";
     }
 
     if (hasRate) {
-      const dowRateNumber = Number(formData.dowRate);
+      const dowRateNumber = Number(formData.rate);
       if (isNaN(dowRateNumber) || dowRateNumber <= 0) {
         return "DOW Rate must be a positive number";
       }
@@ -80,8 +80,8 @@ export function InviteRepositoryUser() {
       userGithubOwnerLogin: formData.githubOwnerLogin,
       repositoryId: new RepositoryId(new OwnerId(formData.repositoryOwnerLogin), formData.repositoryName),
       repositoryUserRole: RepositoryUserRole.ADMIN,
-      dowRate: formData.dowRate ? Number(formData.dowRate) : undefined,
-      dowCurrency: formData.dowCurrency,
+      rate: formData.rate ? Number(formData.rate) : undefined,
+      currency: formData.currency,
     };
     const query: SendRepositoryRoleInviteQuery = {};
 
@@ -180,7 +180,7 @@ export function InviteRepositoryUser() {
                 name="dowRate"
                 placeholder="DOW Rate"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.dowRate}
+                value={formData.rate}
                 onChange={handleInputChange}
                 min="0"
                 step="any"
@@ -189,7 +189,7 @@ export function InviteRepositoryUser() {
               <select
                 name="dowCurrency"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.dowCurrency || ""}
+                value={formData.currency || ""}
                 onChange={handleInputChange}
               >
                 <option value="">Select Currency</option>

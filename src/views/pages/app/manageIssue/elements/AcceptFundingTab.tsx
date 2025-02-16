@@ -29,7 +29,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
       };
 
       const body: RequestIssueFundingBody = {
-        milliDowAmount: noRequestedAmount ? null : (counter!.toNumber() ?? 0) * 1000,
+        creditAmount: noRequestedAmount ? null : (counter!.toNumber() ?? 0) * 1000,
       };
 
       const query: RequestIssueFundingQuery = {};

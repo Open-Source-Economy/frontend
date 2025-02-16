@@ -5,7 +5,6 @@ import startimg from "src/assets/star.png";
 import { Button } from "src/views/components/elements/Button";
 import { paths } from "src/paths";
 import { Audience, textColorVariants } from "../../../../Audience";
-import { Simulate } from "react-dom/test-utils";
 import { useAuth } from "../../../app";
 
 export const Gateway = () => {

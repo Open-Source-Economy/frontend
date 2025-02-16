@@ -58,7 +58,7 @@ export function Payment(props: PaymentProps) {
 
             <div className="flex w-[340px]  md:w-[85%] gap-2 lg:w-[72%] xl:w-[62%] mx-auto my-5 items-center justify-between bg-[#14233A] rounded-[30px] p-4 ">
               <h2 className="lg:text-[18px] text-sm">
-                What DoWs are <br /> used for?{" "}
+                What Credits are <br /> used for?{" "}
               </h2>
               <button className="border-1 border-[rgba(255,81,140,100%)] rounded-md px-5 py-3 hover:bg-[rgba(255,81,140,100%)] transition-all duration-500 ease-in-out">
                 Discover

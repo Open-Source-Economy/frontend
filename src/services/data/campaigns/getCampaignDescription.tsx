@@ -3,7 +3,6 @@ import { CampaignDescription } from "../../../dtos";
 import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
 import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";
 import { flockCampaignDescription } from "./flockCampaignDescription";
-import { slickCampaignDescription } from "./slickCampaignDescription";
 import { defaultCampaignDescription } from "./defaultCampaignDescription";
 
 export function getCampaignDescription(projectId: ProjectId): CampaignDescription | null {

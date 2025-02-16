@@ -9,8 +9,8 @@ export interface SendRepositoryRoleInviteBody {
   userGithubOwnerLogin: string;
   repositoryId: RepositoryId;
   repositoryUserRole: RepositoryUserRole;
-  dowRate?: number;
-  dowCurrency?: Currency;
+  rate?: number;
+  currency?: Currency;
 }
 
 export interface SendRepositoryRoleInviteQuery {}

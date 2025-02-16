@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { PageWrapper } from "../PageWrapper";
-import { DividerTitle, H3WithSubtitle, Services } from "src/views/components";
+import { DividerTitle, Services } from "src/views/components";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { Audience } from "../../Audience";
 import { paths } from "../../../paths";
 import { ServiceType } from "../../../model";
-import { EnterGitHubIssue } from "../app/issues/elements";
 import { Cards2 } from "../website/home/elements";
 import { useRepositories } from "../../hooks";
 import { repositoryIds } from "../../../services/data";

@@ -6,15 +6,15 @@ export class UserRepository {
   userId: UserId;
   repositoryId: RepositoryId;
   repositoryUserRole: RepositoryUserRole;
-  dowRate: Decimal | null;
-  dowCurrency: Currency | null;
+  rate: Decimal | null;
+  currency: Currency | null;
 
-  constructor(userId: UserId, repositoryId: RepositoryId, repositoryUserRole: RepositoryUserRole, dowRate: Decimal | null, dowCurrency: Currency | null) {
+  constructor(userId: UserId, repositoryId: RepositoryId, repositoryUserRole: RepositoryUserRole, rate: Decimal | null, currency: Currency | null) {
     this.userId = userId;
     this.repositoryId = repositoryId;
     this.repositoryUserRole = repositoryUserRole;
-    this.dowRate = dowRate;
-    this.dowCurrency = dowCurrency;
+    this.rate = rate;
+    this.currency = currency;
   }
 
   static fromBackend(row: any): UserRepository | ValidationError {
@@ -25,14 +25,14 @@ export class UserRepository {
       return repositoryId;
     }
     const repositoryUserRole = validator.requiredEnum("repository_user_role", Object.values(RepositoryUserRole) as RepositoryUserRole[]);
-    const dowRate = validator.optionalDecimal("dow_rate");
-    const dowCurrency = validator.optionalEnum("dow_currency", Object.values(Currency) as Currency[]);
+    const rate = validator.optionalDecimal("rate");
+    const currency = validator.optionalEnum("currency", Object.values(Currency) as Currency[]);
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    return new UserRepository(new UserId(userId), repositoryId, repositoryUserRole, dowRate ?? null, dowCurrency ?? null);
+    return new UserRepository(new UserId(userId), repositoryId, repositoryUserRole, rate ?? null, currency ?? null);
   }
 }

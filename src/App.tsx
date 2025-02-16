@@ -11,7 +11,19 @@ import { ManageIssue } from "src/views/pages/app/manageIssue/ManageIssue";
 import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
 import { CompanyProduct } from "src/views/pages/app/companyProduct/CompanyProduct";
-import { Audience, Authenticate, AuthenticateType, AuthProvider, developerProps, FundIssue, Home, Issues, Payment, Pdf, UserDeveloper } from "./views";
+import {
+  Audience,
+  Authenticate,
+  AuthenticateType,
+  AuthProvider,
+  developerProps,
+  FundIssue,
+  Home,
+  Issues,
+  Payment,
+  Pdf,
+  UserDeveloper
+} from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";

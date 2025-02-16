@@ -35,7 +35,7 @@ export const flockCampaignDescription: CampaignDescription = {
       <>
         Need a tailored solution for your business?
         <br />
-        Want to know more about DoWs and priority support?
+        Want to know more about Credits and priority support?
       </>
     ),
   },
