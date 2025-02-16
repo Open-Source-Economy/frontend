@@ -18,17 +18,15 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
   className,
   isRightCat,
 }) => {
-  const sizeClass = size ? getCardWidth(size) : "";
-
   return (
     <div
-      className={`${className} ${sizeClass} !bg-secondary rounded-lg !relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3  gap-2 flex-col  h-full flex justify-start sm:justify-between`}
+      className={`${className} w-full !bg-secondary rounded-lg !relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3  gap-2 flex-col  h-full flex justify-start sm:justify-between`}
     >
       {isLeftCat && (
         <img
           src={leftCat || "/placeholder.svg"}
           alt="Cat with heart left"
-          className="max-w-12 md:max-w-16 object-contain -ml-[3%] sm:-ml-[5%] lg:-ml-[10%] -mt-[5%] lg:-mt-[10%] xl:-ml-[12%] xl:-mt-[12%]"
+          className="max-w-12 sm:max-w-14 lg:max-w-16 w-full 1800:max-w-[78px] object-contain  -ml-[3%] sm:-ml-[5%] lg:-ml-[10%] -mt-[5%] lg:-mt-[10%] xl:-ml-[12%] xl:-mt-[8%]"
         />
       )}
       {isRightCat && (
@@ -36,7 +34,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
           <img
             src={rightCat || "/placeholder.svg"}
             alt="Cat with heart right"
-            className="max-w-12 md:max-w-16 absolute !top-0 h-fit 1800:max-w-[78px] hidden sm:block object-contain -mr-[3%] sm:-mr-[5%] lg:-mr-[10%] !-mt-[5%] lg:-mt-[7%]"
+            className="max-w-12 sm:max-w-14 lg:max-w-16 absolute z-20 !top-0 h-fit 1800:max-w-20  object-contain -mr-[3%] sm:-mr-[5%] lg:-mr-[10%] !-mt-[5%] xl:!-mt-[8%]"
           />
         </div>
       )}
@@ -70,14 +68,16 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
             <img
               src={swissBorg || "/placeholder.svg"}
               alt="SwissBorg logo"
-              className="lg:max-w-[68%] sm:max-w-[155px] max-w-[62%] 2xl:max-w-[70%] w-full mx-auto object-contain"
+              className="lg:max-w-[68%] max-w-[155px] xl:max-w-[62%] 2xl:max-w-[70%] w-full mx-auto object-contain"
             />
             {subtitle && (
               <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{subtitle}</h4>
             )}
           </>
         )}
-        {type === "adidas" && <img src={adidas || "/placeholder.svg"} alt="Adidas logo" className="max-w-24 1800:max-w-[114px] object-contain" />}
+        {type === "adidas" && (
+          <img src={adidas || "/placeholder.svg"} alt="Adidas logo" className="max-w-[70px] lg:max-w-24 1800:max-w-[114px] object-contain" />
+        )}
         {type === "softwareMill" && (
           <img
             src={softwareMill || "/placeholder.svg"}
@@ -96,7 +96,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
       )}
       {details && <h4 className="!text-[#b6bbc2] text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{details}</h4>}
 
-      {description && <p className="text-center text-xs max-w-[244px] mx-auto">{description}</p>}
+      {description && <p className="text-center text-[10px] xl:text-xs max-w-[244px] mx-auto">{description}</p>}
 
       <button className="text-pink-500 text-sm 1700:text-base hover:text-white duration-300 ease-linear transition-all 1800:text-lg underline underline-offset-2">
         Get in Touch

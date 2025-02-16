@@ -3,13 +3,13 @@ import type { CardSize } from "./types";
 export const getCardWidth = (size?: CardSize) => {
   switch (size) {
     case "xlarge":
-      return "col-span-4"; // 50% width on larger screens
+      return "w-full flex md:w-[66%] lg:w-[49.4%]"; // 50% width on larger screens
     case "large":
-      return "col-span-4 sm:col-span-2"; // 25% width on larger screens
+      return "w-full sm:w-[49.3%] flex md:w-[32.6%] lg:w-[24.3%]"; // 25% width on larger screens
     case "small":
-      return "col-span-4 sm:col-span-2 md:col-span-1";
+      return "w-full sm:w-[49.3%] flex md:w-[24%] lg:w-[11.9%]";
     case "xsmall":
-      return "col-span-2 min-w-[160px] sm:col-span-1";
+      return "w-full  flex sm:w-[24%] lg:w-[12%]";
     default:
       return "col-span-2 sm:col-span-1"; // Default sizing
   }

@@ -11,7 +11,6 @@ const Sponsor: React.FC = () => {
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
       details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
-      position: 0,
     },
     {
       id: "2",
@@ -19,13 +18,11 @@ const Sponsor: React.FC = () => {
       subtitle: "Distributed systems like Pekko",
       size: "large" as CardSize,
       isRightCat: true,
-      position: 1,
     },
     {
       id: "3",
       type: "adidas" as const,
       size: "large" as CardSize,
-      position: 2,
       nestedCards: [
         { id: "3a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
         { id: "3b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
@@ -35,7 +32,7 @@ const Sponsor: React.FC = () => {
       id: "4",
       type: "softwareMill" as const,
       size: "large" as CardSize,
-      position: 3,
+
       nestedCards: [
         { id: "4a", type: "softwareMill" as const, className: "!justify-center !gap-1" },
         { id: "4b", type: "swissBorg" as const, className: "!justify-center !gap-1" },
@@ -49,14 +46,11 @@ const Sponsor: React.FC = () => {
       subtitle: "Distributed systems like Pekko",
       size: "large" as CardSize,
       isRightCat: true,
-      position: 4,
     },
     {
       id: "6",
       type: "adidas" as const,
-
       size: "large" as CardSize,
-      position: 5,
       nestedCards: [
         { id: "3a", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
         { id: "3b", type: "adidas" as const, className: "!gap-0.5 !pt-1 !pb-3", description: "Distributed systems like Pekko are inherently complex." },
@@ -68,7 +62,6 @@ const Sponsor: React.FC = () => {
       isLeftCat: true,
       subtitle: "Distributed systems like Pekko",
       size: "large" as CardSize,
-      position: 6,
     },
   ];
   const alternateSponsorData: SponsorCardData[] = [
@@ -82,7 +75,6 @@ const Sponsor: React.FC = () => {
         { id: "5b", type: "softwareMill" as const, className: "!justify-center !gap-1" },
       ],
     },
-
     {
       id: "2",
       type: "mainSwissBorg" as const,
@@ -147,7 +139,6 @@ const Sponsor: React.FC = () => {
       position: 3,
       isRightCat: true,
     },
-
     {
       id: "9",
       type: "softwareMill" as const,
@@ -166,14 +157,14 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       subtitle: "Distributed systems like Pekko",
       isRightCat: true,
-      position: 0,
+      position: 6,
     },
     {
       id: "2",
       type: "adidas" as const,
       className: "!gap-0.5 !pt-1 !pb-3",
       size: "large" as CardSize,
-      position: 1,
+      position: 5,
       nestedCards: [
         { id: "2a", type: "softwareMill" as const, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
         { id: "2b", type: "softwareMill" as const, size: "xsmall", className: "!justify-center !gap-1" },
@@ -181,7 +172,7 @@ const Sponsor: React.FC = () => {
           id: "2b",
           type: "adidas" as const,
           size: "large" as CardSize,
-          className: "!justify-center !gap-0.5 !pt-1 !pb-3",
+          className: "!justify-center !gap-0.5 !pt-1 !pb-3 !col-span-2",
           description: "Distributed systems like Pekko are inherently complex.",
         },
       ],
@@ -192,11 +183,10 @@ const Sponsor: React.FC = () => {
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
       details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
-      position: 0,
+      position: 5,
     },
-
     {
-      id: "5",
+      id: "4",
       type: "adidas" as const,
       className: "!gap-0.5 !pt-1 !pb-3",
       size: "large" as CardSize,
@@ -207,14 +197,14 @@ const Sponsor: React.FC = () => {
         {
           id: "2b",
           type: "adidas" as const,
-          className: "!gap-0.5 !pt-1 !pb-3",
+          className: "!gap-0.5 !pt-1 !pb-3 !col-span-2",
           description: "Distributed systems like Pekko are inherently complex.",
           size: "large" as CardSize,
         },
       ],
     },
     {
-      id: "6",
+      id: "5",
       type: "mainSwissBorg" as const,
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
@@ -222,12 +212,12 @@ const Sponsor: React.FC = () => {
       position: 0,
     },
     {
-      id: "4",
+      id: "6",
       type: "swissBorg" as const,
       subtitle: "Distributed systems like Pekko",
       size: "large" as CardSize,
       isRightCat: true,
-      position: 0,
+      position: 5,
     },
   ];
 
@@ -240,17 +230,19 @@ const Sponsor: React.FC = () => {
         </h1>
 
         {[sponsorData, alternateSponsorData, otherSponsorData].map((dataArray, index) => (
-          <div key={index} className={`grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 1800:gap-3 w-full pt-16`}>
-            {dataArray.map(card => (
-              <div key={card.id} className={getCardWidth(card.size)}>
+          <div key={index} className={`flex flex-wrap !justify-center gap-2 1800:gap-3 w-full pt-2 1800:pt-3`}>
+            {dataArray.map((card, idx) => (
+              <div key={card.id} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
                 {card.nestedCards ? (
-                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-1"}`}>
+                  <div
+                    className={` grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-1"}`}
+                  >
                     {card.nestedCards.map(nestedCard => (
                       <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
                     ))}
                   </div>
                 ) : (
-                  <SponsorCard {...card} />
+                  <SponsorCard className={``} {...card} />
                 )}
               </div>
             ))}
