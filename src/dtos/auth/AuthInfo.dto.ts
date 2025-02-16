@@ -2,8 +2,8 @@ import { Company, CompanyUserRole, RepositoryId, RepositoryUserRole, User } from
 
 export interface RepositoryInfo {
   role: RepositoryUserRole;
-  dowRate: string | null; // currency / dow
-  dowCurrency: string | null;
+  rate: string | null; // currency / credit
+  currency: string | null;
 }
 
 export interface AuthInfo {

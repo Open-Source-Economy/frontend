@@ -25,6 +25,14 @@ export const userUtils = {
       return null;
     }
   },
+
+  email(user: User): string | null {
+    if (user.data instanceof LocalUser) {
+      return user.data.email;
+    } else {
+      return user.data.email;
+    }
+  },
 };
 
 export class User implements Express.User {

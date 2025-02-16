@@ -45,7 +45,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
       companyId: companyId !== null ? new CompanyId(companyId) : undefined,
       userId: userId !== null ? new UserId(userId) : undefined,
       paid: paid!,
-      milliDowAmount: dowAmount!,
+      creditAmount: dowAmount!,
     };
 
     const query: CreateManualInvoiceQuery = {};

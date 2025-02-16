@@ -12,7 +12,7 @@ import {
   Project,
   StripePrice,
   StripePriceId,
-  StripeProductId,
+  StripeProductId
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
@@ -24,8 +24,8 @@ import {
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
-  GetAvailableDowParams,
-  GetAvailableDowQuery,
+  GetAvailableCreditParams,
+  GetAvailableCreditQuery,
   GetCampaignParams,
   GetCampaignQuery,
   GetCampaignResponse,
@@ -57,7 +57,7 @@ import {
   SetUserPreferredCurrencyBody,
   SetUserPreferredCurrencyParams,
   SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse,
+  SetUserPreferredCurrencyResponse
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -68,7 +68,7 @@ import {
   NewsletterSubscriptionBody,
   NewsletterSubscriptionParams,
   NewsletterSubscriptionQuery,
-  NewsletterSubscriptionResponse,
+  NewsletterSubscriptionResponse
 } from "../dtos/NewsletterSubscription.dto";
 
 export class BackendAPIMock implements BackendAPI {
@@ -81,15 +81,15 @@ export class BackendAPIMock implements BackendAPI {
   async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
-    const requestedMilliDowAmount = 12;
+    const requestedCreditAmount = 12;
 
-    for (const managedIssue of allManagedIssues(requestedMilliDowAmount)) {
+    for (const managedIssue of allManagedIssues(requestedCreditAmount)) {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
           financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedMilliDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedCreditAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -97,7 +97,7 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError> {
+  async getAvailableDow(params: GetAvailableCreditParams, query: GetAvailableCreditQuery): Promise<Decimal | ApiError> {
     return Promise.resolve(new Decimal(2));
   }
 
@@ -248,7 +248,7 @@ function issueFunding(amount: number): IssueFunding {
   return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
 }
 
-function allManagedIssues(requestedMilliDowAmount: number): ManagedIssue[] {
+function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
   const allManagedIssues: ManagedIssue[] = [];
 
   for (const visibility of Object.values(ContributorVisibility)) {
@@ -256,7 +256,7 @@ function allManagedIssues(requestedMilliDowAmount: number): ManagedIssue[] {
       const managedIssue: ManagedIssue = {
         id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
-        requestedMilliDowAmount: requestedMilliDowAmount,
+        requestedCreditAmount: requestedCreditAmount,
         managerId: userId,
         contributorVisibility: visibility,
         state: state,

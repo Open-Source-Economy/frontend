@@ -40,7 +40,6 @@ export function FundingCampaign(props: FundingCampaignProps) {
           {props.campaign.description?.summary && <Summary {...props.campaign.description.summary} />}
         </div>
 
-
         {/* Right Section */}
         <div className="max-w-[800px] xl:w-[40%] 3xl:!w-[672px] w-full relative z-20">
           {/*TODO*/}

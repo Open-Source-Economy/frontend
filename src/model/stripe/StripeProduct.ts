@@ -22,7 +22,7 @@ export class StripeProductId {
 }
 
 export enum ProductType {
-  milliDow = "milli_dow",
+  credit = "credit",
   donation = "donation",
 }
 

@@ -15,15 +15,15 @@ export class ManualInvoice {
   companyId?: CompanyId;
   userId?: UserId;
   paid: boolean;
-  milliDowAmount: number;
+  creditAmount: number;
 
-  constructor(id: ManualInvoiceId, number: number, companyId: CompanyId | undefined, userId: UserId | undefined, paid: boolean, milliDowAmount: number) {
+  constructor(id: ManualInvoiceId, number: number, companyId: CompanyId | undefined, userId: UserId | undefined, paid: boolean, creditAmount: number) {
     this.id = id;
     this.number = number;
     this.companyId = companyId;
     this.userId = userId;
     this.paid = paid;
-    this.milliDowAmount = milliDowAmount;
+    this.creditAmount = creditAmount;
   }
 
   static fromBackend(row: any): ManualInvoice | ValidationError {
@@ -33,7 +33,7 @@ export class ManualInvoice {
     const companyId = validator.optionalString("company_id");
     const userId = validator.optionalString("user_id");
     const paid = validator.requiredBoolean("paid");
-    const milliDowAmount = validator.requiredNumber("milli_dow_amount");
+    const creditAmount = validator.requiredNumber("credit_amount");
 
     const error = validator.getFirstError();
     if (error) {
@@ -46,7 +46,7 @@ export class ManualInvoice {
       companyId ? new CompanyId(companyId) : undefined,
       userId ? new UserId(userId) : undefined,
       paid,
-      milliDowAmount,
+      creditAmount,
     );
   }
 }

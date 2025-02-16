@@ -36,6 +36,5 @@ export function Summary(props: SummaryProps) {
 
       {props.features && <FeatureList features={props.features} summaryType={props.summaryType} />}
     </>
-
   );
 }
