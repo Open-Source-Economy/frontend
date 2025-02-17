@@ -9,7 +9,6 @@ import {
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
-  GetAvailableCreditResponse,
   GetCampaignParams,
   GetCampaignQuery,
   GetCampaignResponse,
@@ -46,13 +45,13 @@ import {
 } from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
-import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
 import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery, NewsletterSubscriptionResponse } from "../dtos";
+import { GetAvailableCreditsParams, GetAvailableCreditsQuery, GetAvailableCreditsResponse } from "../dtos/user/GetAvailableCredits";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -69,7 +68,7 @@ export interface BackendAPI {
 
   getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
 
-  getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError>;
+  getAvailableCredits(params: GetAvailableCreditsParams, query: GetAvailableCreditsQuery): Promise<GetAvailableCreditsResponse | ApiError>;
 
   /**
    * Funds a specific issue.
@@ -141,17 +140,14 @@ class BackendAPIImpl implements BackendAPI {
     else return response.issues;
   }
 
-  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError> {
+  async getAvailableCredits(params: GetAvailableCreditsParams, query: GetAvailableCreditsQuery): Promise<GetAvailableCreditsResponse | ApiError> {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
-    const response = await handleError<GetAvailableCreditResponse>(
+    return await handleError<GetAvailableCreditsResponse>(
       () => axios.get(`${config.api.url}/user/available-credit?${queryParams}`, { withCredentials: true }),
-      "getAvailableDow",
+      "getAvailableCredits",
     );
-
-    if (response instanceof ApiError) return response;
-    else return new Decimal(response.creditAmount);
   }
 
   async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {

@@ -1,12 +1,12 @@
 import React from "react";
 import img1 from "src/assets/paymentimg1.png";
 import clock from "src/assets/sand-clock.png";
-import { useDowCounter } from "src/views/hooks";
+import { useCreditCounter } from "src/views/hooks";
 
 interface MonthlySubscriptionProps {}
 
 export function MonthlySubscription(props: MonthlySubscriptionProps) {
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
 
   return (
     <>

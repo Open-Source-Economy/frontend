@@ -3,12 +3,12 @@ import img1 from "src/assets/paymentimg1.png";
 import clock from "src/assets/sand-clock.png";
 import up from "src/assets/arrowup.png";
 import down from "src/assets/arrowdown.png";
-import { useDowCounter } from "src/views/hooks";
+import { useCreditCounter } from "src/views/hooks";
 
 interface OneTimePaymentProps {}
 
 export function OneTimePayment(props: OneTimePaymentProps) {
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
 
   return (
     <>

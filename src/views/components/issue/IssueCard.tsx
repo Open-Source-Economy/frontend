@@ -34,8 +34,8 @@ export function IssueCard(props: IssueProps) {
             <div>
               <components.Collect
                 audience={props.audience}
-                milliDoWCollected={FinancialIssue.amountCollected(props.financialIssue)}
-                milliDoWRequested={(() => {
+                creditsCollected={FinancialIssue.amountCollected(props.financialIssue)}
+                creditsRequested={(() => {
                   const amount = FinancialIssue.amountRequested(props.financialIssue);
                   return amount ? new Decimal(amount) : undefined;
                 })()}

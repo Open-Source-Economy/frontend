@@ -2,33 +2,34 @@ import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
-import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { IssueId } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import { useDowCounter } from "src/views/hooks";
+import { useAvailableCredits, useCreditCounter } from "src/views/hooks";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
+import { credits } from "../../../../../ultils";
 
-interface DowFundingProps {
+interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
   issueId: IssueId;
 }
 
-export function DowFunding(props: DowFundingProps) {
+export function CreditFunding(props: CreditFundingProps) {
   const audience = Audience.USER;
   const auth = useAuth();
   const backendAPI = getBackendAPI();
 
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
-  const [availableDoWAmount, setAvailableDoWAmount] = useState<Decimal>(new Decimal(0));
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [enoughFund, setEnoughFund] = useState<boolean>(true);
   const [error, setError] = useState<ApiError | string | null>(null);
+
+  const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
 
   const fundIssue = async () => {
     if (!counter) {
       setError("Please enter a valid amount.");
-    } else if (counter.lessThanOrEqualTo(availableDoWAmount)) {
+    } else if (counter.lessThanOrEqualTo(availableCredits?.creditAmount ?? new Decimal(0))) {
       const params: FundIssueParams = {
         owner: props.issueId.repositoryId.ownerId.login,
         repo: props.issueId.repositoryId.name,
@@ -51,35 +52,21 @@ export function DowFunding(props: DowFundingProps) {
     }
   };
 
-  const getAvailableDoWs = async () => {
-    try {
-      const params: GetAvailableDowParams = {};
-      const query: GetAvailableDowQuery = {
-        companyId: auth.authInfo?.company?.id.uuid,
-      };
-      const dowAmount = await backendAPI.getAvailableDow(params, query);
-      if (dowAmount instanceof ApiError) setError(dowAmount);
-      else setAvailableDoWAmount(dowAmount);
-    } catch (error) {
-      setError(ApiError.from(error));
-    }
-  };
-
   useEffect(() => {
-    getAvailableDoWs();
+    reloadAvailableCredits();
   }, []);
 
   useEffect(() => {
-    if (availableDoWAmount.isZero()) setEnoughFund(false);
+    if (availableCredits?.creditAmount === 0) setEnoughFund(false);
     else if (!counter) setEnoughFund(true);
-    else setEnoughFund(counter.lessThanOrEqualTo(availableDoWAmount));
-  }, [counter, availableDoWAmount]);
+    else setEnoughFund(counter.lessThanOrEqualTo(availableCredits?.creditAmount ?? new Decimal(0)));
+  }, [counter, availableCredits]);
 
   return (
     <>
       <h2 className="text-end montserrat text-base md:text-base lg:text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
-        <span className="text-[#FF518C] cursor-pointer hover:underline">{availableDoWAmount.toNumber()} DoW</span>
+        <span className="text-[#FF518C] cursor-pointer hover:underline">{credits.display(availableCredits?.creditAmount ? new Decimal(availableCredits?.creditAmount)  : new Decimal(0))}</span>
       </h2>
       <div className="!mt-5 lg:!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
         <div className="flex items-center gap-4 justify-between">

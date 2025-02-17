@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from "react";
-import { DOW_INCREMENT } from "src/ultils";
+import { CREDIT_INCREMENT } from "src/ultils";
 import Decimal from "decimal.js";
 
-export function useDowCounter() {
+export function useCreditCounter() {
   const [counter, setCounter] = useState<Decimal | null>(null);
 
   const roundUpToIncrement = (value: Decimal): Decimal => {
-    const incrementDecimal = new Decimal(DOW_INCREMENT);
+    const incrementDecimal = new Decimal(CREDIT_INCREMENT);
     return value.dividedBy(incrementDecimal).ceil().times(incrementDecimal);
   };
 
@@ -22,15 +22,15 @@ export function useDowCounter() {
 
   const increment = () => {
     if (counter) {
-      setCounter(roundUpToIncrement(counter.plus(DOW_INCREMENT)));
+      setCounter(roundUpToIncrement(counter.plus(CREDIT_INCREMENT)));
     } else {
-      setCounter(new Decimal(DOW_INCREMENT));
+      setCounter(new Decimal(CREDIT_INCREMENT));
     }
   };
 
   const decrement = () => {
     if (counter && counter.isPositive()) {
-      const newValue = roundUpToIncrement(counter.minus(DOW_INCREMENT));
+      const newValue = roundUpToIncrement(counter.minus(CREDIT_INCREMENT));
       setCounter(newValue.isNegative() ? new Decimal(0) : newValue);
     } else {
       setCounter(new Decimal(0));

@@ -24,8 +24,6 @@ import {
   FundIssueBody,
   FundIssueParams,
   FundIssueQuery,
-  GetAvailableCreditParams,
-  GetAvailableCreditQuery,
   GetCampaignParams,
   GetCampaignQuery,
   GetCampaignResponse,
@@ -50,6 +48,10 @@ import {
   GetRepositoryParams,
   GetRepositoryQuery,
   GetRepositoryResponse,
+  NewsletterSubscriptionBody,
+  NewsletterSubscriptionParams,
+  NewsletterSubscriptionQuery,
+  NewsletterSubscriptionResponse,
   Price,
   RequestIssueFundingBody,
   RequestIssueFundingParams,
@@ -64,12 +66,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { getCampaignDescription, getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
-import {
-  NewsletterSubscriptionBody,
-  NewsletterSubscriptionParams,
-  NewsletterSubscriptionQuery,
-  NewsletterSubscriptionResponse,
-} from "../dtos/NewsletterSubscription.dto";
+import { GetAvailableCreditsParams, GetAvailableCreditsQuery, GetAvailableCreditsResponse } from "../dtos/user/GetAvailableCredits";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -97,8 +94,10 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDow(params: GetAvailableCreditParams, query: GetAvailableCreditQuery): Promise<Decimal | ApiError> {
-    return Promise.resolve(new Decimal(2));
+  async getAvailableCredits(params: GetAvailableCreditsParams, query: GetAvailableCreditsQuery): Promise<GetAvailableCreditsResponse | ApiError> {
+    return Promise.resolve({
+      creditAmount: 20,
+    });
   }
 
   async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
