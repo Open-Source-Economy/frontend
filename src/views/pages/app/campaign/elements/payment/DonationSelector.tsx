@@ -40,16 +40,13 @@ export function DonationSelector(props: DonationSelectorProps) {
             {props.productType === ProductType.credit && <div className="w-3 h-3 rounded-full bg-primary-user" />}
           </div>
           I want to receive{" "}
-          {config.env !== Env.Production ? (
-            <Link
-              to={paths.HOME}
-              className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
-            >
-              Credits
-            </Link>
-          ) : (
-            "Credits"
-          )}
+          <Link
+            to={paths.HOW_ITS_WORK}
+            className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            target="_blank"
+          >
+            Credits
+          </Link>
         </button>
       </div>
 

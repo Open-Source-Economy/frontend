@@ -42,7 +42,7 @@ import {
   SetUserPreferredCurrencyBody,
   SetUserPreferredCurrencyParams,
   SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse
+  SetUserPreferredCurrencyResponse,
 } from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
@@ -52,12 +52,7 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import {
-  NewsletterSubscriptionBody,
-  NewsletterSubscriptionParams,
-  NewsletterSubscriptionQuery,
-  NewsletterSubscriptionResponse
-} from "../dtos";
+import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery, NewsletterSubscriptionResponse } from "../dtos";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {

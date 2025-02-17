@@ -13,12 +13,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 
 import { config, Env } from "src/ultils";
 import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
-import {
-  FormData,
-  FormValidation,
-  VALID_FORM_VALIDATION,
-  validateForm
-} from "src/views/components/form/hooks/validateForm";
+import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
 
@@ -85,16 +80,13 @@ export function Authenticate(props: AuthenticateProps) {
     }
 
     const from = location.state && (location.state as any).from?.pathname;
-    console.debug("Redirect path:", from);
+    console.log("Redirect path:", from);
 
     const successCallback = () => {
-      console.debug("Authentication successful, redirecting to:", from || paths.HOME);
-
-      // Only navigate if we have auth info
-      if (auth.authInfo?.user) {
-        navigate(from || paths.HOME, { replace: true });
-      }
+      console.log("Authentication successful, redirecting to:", from || paths.HOME);
+      navigate(from || paths.HOME, { replace: true });
     }; // Redirect to the original page after registration
+
     if (props.type === AuthenticateType.SignIn) {
       console.log("Logging in...");
       const body: LoginBody = {

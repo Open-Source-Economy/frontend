@@ -11,7 +11,7 @@ import {
   ShieldIcon,
   SpeechBubbleIcon,
   StrategiesIcon,
-  UserIcon
+  UserIcon,
 } from "src/Utils/Icons";
 import { IconBox, Section } from "./elements";
 import { PageWrapper } from "../../PageWrapper";

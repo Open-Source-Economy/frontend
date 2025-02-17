@@ -12,7 +12,7 @@ import {
   Project,
   StripePrice,
   StripePriceId,
-  StripeProductId
+  StripeProductId,
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
@@ -57,7 +57,7 @@ import {
   SetUserPreferredCurrencyBody,
   SetUserPreferredCurrencyParams,
   SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse
+  SetUserPreferredCurrencyResponse,
 } from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -68,7 +68,7 @@ import {
   NewsletterSubscriptionBody,
   NewsletterSubscriptionParams,
   NewsletterSubscriptionQuery,
-  NewsletterSubscriptionResponse
+  NewsletterSubscriptionResponse,
 } from "../dtos/NewsletterSubscription.dto";
 
 export class BackendAPIMock implements BackendAPI {

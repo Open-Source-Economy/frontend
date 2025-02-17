@@ -1,12 +1,4 @@
-import {
-  BillingIcon,
-  FundIssueIcon,
-  FundungHistoryIcon,
-  LogOutIcon,
-  MaintainerIcon,
-  OrderIcon,
-  ProfileIcon
-} from "../Icons";
+import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "../Icons";
 import { displayedCurrencies } from "src/views/data";
 import { Currency } from "src/model";
 import React from "react";
