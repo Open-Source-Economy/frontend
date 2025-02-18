@@ -1,10 +1,11 @@
 import React from "react";
 import { CounterInput } from "src/views/pages/app/manageIssue/elements/CounterInput";
 import check from "src/assets/checkmark.png";
-import { useDowCounter, useIssueIdFromParams } from "src/views/hooks";
+import { useCreditCounter, useIssueIdFromParams } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
 import { Button } from "src/views/components";
+import { credit } from "src/model";
 
 interface AcceptFundingTabProps {
   reloadFinancialIssue: () => void;
@@ -14,7 +15,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
   const backendAPI = getBackendAPI();
   const issueId = useIssueIdFromParams();
 
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [error, setError] = React.useState<string | null>(null);
   const [noRequestedAmount, setNoRequestedAmount] = React.useState(false);
 
@@ -29,7 +30,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
       };
 
       const body: RequestIssueFundingBody = {
-        creditAmount: noRequestedAmount ? null : (counter!.toNumber() ?? 0) * 1000,
+        creditAmount: noRequestedAmount ? null : credit.toMinutes(counter),
       };
 
       const query: RequestIssueFundingQuery = {};
@@ -64,7 +65,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
           </div>
 
           <div className={`!mt-4 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[12px] px-3 w-[100%] ${noRequestedAmount ? "opacity-50" : ""}`}>
-            <CounterInput value={counter} increment={increment} decrement={decrement} onChange={handleInputChange} disabled={noRequestedAmount} />
+            <CounterInput credit={counter} increment={increment} decrement={decrement} onChange={handleInputChange} disabled={noRequestedAmount} />
           </div>
 
           <div className="flex items-center !gap-3 !mt-7 lg:!mt-10 2xl:!mt-12">

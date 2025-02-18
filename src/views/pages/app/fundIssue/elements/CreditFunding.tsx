@@ -2,33 +2,33 @@ import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
-import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
-import { IssueId } from "src/model";
+import { credit, IssueId } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import { useDowCounter } from "src/views/hooks";
+import { useAvailableCredits, useCreditCounter } from "src/views/hooks";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
 
-interface DowFundingProps {
+interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
   issueId: IssueId;
 }
 
-export function DowFunding(props: DowFundingProps) {
+export function CreditFunding(props: CreditFundingProps) {
   const audience = Audience.USER;
   const auth = useAuth();
   const backendAPI = getBackendAPI();
 
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
-  const [availableDoWAmount, setAvailableDoWAmount] = useState<Decimal>(new Decimal(0));
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [enoughFund, setEnoughFund] = useState<boolean>(true);
   const [error, setError] = useState<ApiError | string | null>(null);
 
+  const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
+
   const fundIssue = async () => {
-    if (!counter) {
+    if (!counter || counter.amount.isZero()) {
       setError("Please enter a valid amount.");
-    } else if (counter.lessThanOrEqualTo(availableDoWAmount)) {
+    } else if (credit.lessThanOrEqualTo(counter, availableCredits)) {
       const params: FundIssueParams = {
         owner: props.issueId.repositoryId.ownerId.login,
         repo: props.issueId.repositoryId.name,
@@ -36,7 +36,7 @@ export function DowFunding(props: DowFundingProps) {
       };
       const body: FundIssueBody = {
         companyId: auth.authInfo?.company?.id.uuid,
-        creditAmount: counter.toNumber(),
+        creditAmount: credit.toMinutes(counter),
       };
       const query: FundIssueQuery = {};
       try {
@@ -51,35 +51,21 @@ export function DowFunding(props: DowFundingProps) {
     }
   };
 
-  const getAvailableDoWs = async () => {
-    try {
-      const params: GetAvailableDowParams = {};
-      const query: GetAvailableDowQuery = {
-        companyId: auth.authInfo?.company?.id.uuid,
-      };
-      const dowAmount = await backendAPI.getAvailableDow(params, query);
-      if (dowAmount instanceof ApiError) setError(dowAmount);
-      else setAvailableDoWAmount(dowAmount);
-    } catch (error) {
-      setError(ApiError.from(error));
-    }
-  };
-
   useEffect(() => {
-    getAvailableDoWs();
+    reloadAvailableCredits();
   }, []);
 
   useEffect(() => {
-    if (availableDoWAmount.isZero()) setEnoughFund(false);
+    if (availableCredits?.amount.isZero()) setEnoughFund(false);
     else if (!counter) setEnoughFund(true);
-    else setEnoughFund(counter.lessThanOrEqualTo(availableDoWAmount));
-  }, [counter, availableDoWAmount]);
+    else setEnoughFund(credit.lessThanOrEqualTo(counter, availableCredits));
+  }, [counter, availableCredits]);
 
   return (
     <>
       <h2 className="text-end montserrat text-base md:text-base lg:text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
-        <span className="text-[#FF518C] cursor-pointer hover:underline">{availableDoWAmount.toNumber()} DoW</span>
+        <span className="text-[#FF518C] cursor-pointer hover:underline">{credit.displayAmount(availableCredits)}</span>
       </h2>
       <div className="!mt-5 lg:!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
         <div className="flex items-center gap-4 justify-between">
@@ -90,7 +76,7 @@ export function DowFunding(props: DowFundingProps) {
 
             <input
               type="number"
-              value={counter ? counter.toNumber() : undefined}
+              value={counter ? counter.amount.toNumber() : undefined}
               placeholder="0.0"
               onChange={handleInputChange}
               className="border-0 outline-none md:text-[33px] text-[20px] w-full bg-transparent"
@@ -118,10 +104,10 @@ export function DowFunding(props: DowFundingProps) {
                 </svg>
               </button>
               <button
-                className={`w-full cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full cursor-pointer ${counter?.amount.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={decrement}
                 style={{
-                  pointerEvents: counter?.isZero() ? "none" : "auto",
+                  pointerEvents: counter?.amount.isZero() ? "none" : "auto",
                 }}
               >
                 <svg
@@ -141,7 +127,7 @@ export function DowFunding(props: DowFundingProps) {
               </button>
             </div>
             <h2 className="gradient-texts select-none w-fit leading-[100%] font-bold md:text-[33px] text-[20px]" tabIndex={-1}>
-              DoW
+              hour{counter?.amount.greaterThan(new Decimal(1)) && "s"}
             </h2>
             <style>{`
                     .gradient-texts {
@@ -166,7 +152,7 @@ export function DowFunding(props: DowFundingProps) {
           className={` w-full ${enoughFund ? "opacity-50 pointer-events-none" : ""}`}
           size="MEDIUM"
         >
-          GET MORE DoW
+          Get More Credits
         </Button>
       </div>
 

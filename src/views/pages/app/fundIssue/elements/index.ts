@@ -1,2 +1,2 @@
 export * from "./DisclaimerModal";
-export * from "./DowFunding";
+export * from "./CreditFunding";

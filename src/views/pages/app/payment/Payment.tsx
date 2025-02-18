@@ -37,7 +37,7 @@ export function Payment(props: PaymentProps) {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 className="text-[45px] sm:text-[45px] md:text-[62px] text-white text-center">Buy DoW</h1>
+        <h1 className="text-[45px] sm:text-[45px] md:text-[62px] text-white text-center">Buy Credits</h1>
 
         <div className=" flex lg:flex-row flex-col lg:items-start items-center justify-center md:mt-24 mt-10  w-full 3xl:!gap-[109px] 2xl:!gap-20 lg:!gap-16 gap-0 ">
           <div className="lg:max-w-[805px] w-full">

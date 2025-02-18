@@ -1,6 +1,8 @@
 import communitydriven from "src/assets/community-driven.webp";
 import nonProfit from "src/assets/non-profit.webp";
 import talent from "src/assets/talent.webp";
+import { CreditUnit } from "../../../../../model";
+import { Decimal } from "decimal.js";
 
 export const faqData = [
   {
@@ -29,8 +31,8 @@ export const highlightData = [
     title: "Issue #4563",
     description: "There is a problem in the display of the home page",
     tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
+    progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
+    total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",
     isBorder: false,
   },
@@ -38,8 +40,8 @@ export const highlightData = [
     title: "Cluster Maintenance",
     description: "There is a problem in the display of the home page",
     tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
+    progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
+    total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",
     isBorder: true,
   },
@@ -47,8 +49,8 @@ export const highlightData = [
     title: "Issue #4563",
     description: "There is a problem in the display of the home page",
     tasks: ["Find bugs", "Technical Support", "Deployment Support"],
-    progress: 3.3,
-    total: 10,
+    progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
+    total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",
     isBorder: false,
   },

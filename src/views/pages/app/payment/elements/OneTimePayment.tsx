@@ -3,12 +3,12 @@ import img1 from "src/assets/paymentimg1.png";
 import clock from "src/assets/sand-clock.png";
 import up from "src/assets/arrowup.png";
 import down from "src/assets/arrowdown.png";
-import { useDowCounter } from "src/views/hooks";
+import { useCreditCounter } from "src/views/hooks";
 
 interface OneTimePaymentProps {}
 
 export function OneTimePayment(props: OneTimePaymentProps) {
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
 
   return (
     <>
@@ -42,7 +42,7 @@ export function OneTimePayment(props: OneTimePaymentProps) {
               {/*TODO: for all pointer Refactor */}
               <input
                 type="number"
-                value={counter ? counter.toNumber() : undefined}
+                value={counter ? counter.amount.toNumber() : undefined}
                 placeholder="0.0"
                 onChange={handleInputChange}
                 className="border-0 outline-none text-[18px] w-20 bg-transparent"
@@ -52,18 +52,18 @@ export function OneTimePayment(props: OneTimePaymentProps) {
                 <img src={up} className="w-[14px] h-2 cursor-pointer " onClick={increment} alt="" />
                 <img
                   src={down}
-                  className={`w-[14px] h-2 cursor-pointer ${counter?.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`w-[14px] h-2 cursor-pointer ${counter?.amount.isZero() ? "opacity-50 cursor-not-allowed" : ""}`}
                   onClick={decrement}
                   alt=""
                   style={{
-                    pointerEvents: counter?.isZero() ? "none" : "auto",
+                    pointerEvents: counter?.amount.isZero() ? "none" : "auto",
                   }}
                 />
               </div>
             </div>
           </div>
           <div>
-            <h2 className="gradient-texts font-bold">DoW</h2>
+            <h2 className="gradient-texts font-bold">Credits</h2>
             <style>{`
                           .gradient-texts {
                             background: linear-gradient(

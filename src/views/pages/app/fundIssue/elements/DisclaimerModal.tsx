@@ -2,6 +2,8 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import catimg from "src/assets/catimg.png";
 import check from "src/assets/checkmark.png";
+import { Button } from "../../../../components";
+import { Audience } from "../../../../Audience";
 
 interface RegisterModalProps {
   show: boolean;
@@ -40,9 +42,9 @@ export function DisclaimerModal(props: RegisterModalProps) {
                 <h3>Use of the funds collected works is at the honor of the maintainers</h3>
               </div>
               <div className="flex mt-3 items-center justify-center">
-                <button onClick={handleClose} className="sm:px-14 px-[20px]  py-3 mt-4 findbutton">
-                  Done
-                </button>
+                <Button audience={Audience.USER} size="MEDIUM" level={"PRIMARY"} onClick={handleClose} className="sm:px-14 px-[20px]  py-3 mt-4 findbutton">
+                  Got It
+                </Button>
               </div>
             </div>
           </div>

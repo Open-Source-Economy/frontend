@@ -1,8 +1,8 @@
-import Decimal from "decimal.js";
 import { ChangeEvent } from "react";
+import { credit, Credit } from "src/model";
 
 interface CounterInputProps {
-  value: Decimal | null;
+  credit: Credit | null;
   increment: () => void;
   decrement: () => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -33,7 +33,7 @@ export function CounterInput(props: CounterInputProps) {
         <div className="flex items-center !gap-0.5 mt-1">
           <input
             type="number"
-            value={props.value ? props.value.toNumber() : undefined}
+            value={props.credit ? props.credit.amount.toNumber() : undefined}
             placeholder="0.0"
             onChange={handleChange}
             disabled={props.disabled}
@@ -50,11 +50,11 @@ export function CounterInput(props: CounterInputProps) {
               </svg>
             </button>
             <button
-              className={`md:w-[11px] w-[11px] h-2 ${props.disabled || props.value?.isZero() ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+              className={`md:w-[11px] w-[11px] h-2 ${props.disabled || props.credit?.amount.isZero() ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
               onClick={safeDecrement}
               disabled={props.disabled}
               style={{
-                pointerEvents: props.disabled || props.value?.isZero() ? "none" : "auto",
+                pointerEvents: props.disabled || props.credit?.amount.isZero() ? "none" : "auto",
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="8" viewBox="0 0 11 8" fill="none">
@@ -65,7 +65,7 @@ export function CounterInput(props: CounterInputProps) {
         </div>
       </div>
       <div>
-        <h2 className="gradient-texts select-none font-bold md:text-[16px] text-[12px]">DoW</h2>
+        <h2 className="gradient-texts select-none font-bold md:text-[16px] text-[12px]">{credit.displayUnit(props.credit)}</h2>
         <style>{`
           .gradient-texts {
             background: linear-gradient(90deg, #ff7e4b, #ff518c);

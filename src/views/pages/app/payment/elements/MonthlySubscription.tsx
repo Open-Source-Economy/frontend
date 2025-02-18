@@ -1,12 +1,12 @@
 import React from "react";
 import img1 from "src/assets/paymentimg1.png";
 import clock from "src/assets/sand-clock.png";
-import { useDowCounter } from "src/views/hooks";
+import { useCreditCounter } from "src/views/hooks";
 
 interface MonthlySubscriptionProps {}
 
 export function MonthlySubscription(props: MonthlySubscriptionProps) {
-  const { counter, handleInputChange, increment, decrement } = useDowCounter();
+  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
 
   return (
     <>
@@ -39,7 +39,7 @@ export function MonthlySubscription(props: MonthlySubscriptionProps) {
               {/*TODO: refactor all counters*/}
               <input
                 type="number"
-                value={counter ? counter.toNumber() : undefined}
+                value={counter ? counter.amount.toNumber() : undefined}
                 placeholder="0.0"
                 onChange={handleInputChange}
                 className="borde-0 outline-none text-[18px] w-20 bg-transparent"
@@ -47,7 +47,7 @@ export function MonthlySubscription(props: MonthlySubscriptionProps) {
             </div>
             <div>
               <h2 className="gradient-texts font-bold text-[18px]">
-                DoW <span className="text-[14px]">/ month</span>
+                Credits <span className="text-[14px]">/ month</span>
               </h2>
               <style>{`
                             .gradient-texts {

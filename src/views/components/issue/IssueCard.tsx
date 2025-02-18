@@ -5,7 +5,6 @@ import * as components from "./index";
 import { Approved } from "src/views/components/issue/Approved";
 import { Action } from "src/views/components/issue/Action";
 import { Audience } from "src/views/index";
-import Decimal from "decimal.js";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
@@ -34,11 +33,8 @@ export function IssueCard(props: IssueProps) {
             <div>
               <components.Collect
                 audience={props.audience}
-                milliDoWCollected={FinancialIssue.amountCollected(props.financialIssue)}
-                milliDoWRequested={(() => {
-                  const amount = FinancialIssue.amountRequested(props.financialIssue);
-                  return amount ? new Decimal(amount) : undefined;
-                })()}
+                creditsCollected={FinancialIssue.amountCollected(props.financialIssue)}
+                creditsRequested={FinancialIssue.amountRequested(props.financialIssue)}
                 state={props.financialIssue.managedIssue?.state}
               />
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />

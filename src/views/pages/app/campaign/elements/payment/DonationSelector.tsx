@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProductType, ProjectId } from "src/model";
-import { config, Env } from "src/ultils";
 import { paths } from "src/paths";
 
 interface DonationSelectorProps {
