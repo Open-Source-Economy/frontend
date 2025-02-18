@@ -21,8 +21,10 @@ export function useAvailableCredits(auth: AuthContextState) {
 
       const response = await backendAPI.getAvailableCredits(params, query);
 
-      if (response instanceof ApiError) setError(response);
-      else setAvailableCredits(response);
+      if (response instanceof ApiError) {
+        if (response.statusCode === StatusCodes.UNAUTHORIZED) setAvailableCredits(null);
+        else setError(response);
+      } else setAvailableCredits(response);
     } catch (err) {
       console.error("Failed to fetch campaign:", err);
       setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching campaign"));

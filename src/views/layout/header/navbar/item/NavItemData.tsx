@@ -1,6 +1,17 @@
-import { BillingIcon, FundIssueIcon, FundungHistoryIcon, LogOutIcon, MaintainerIcon, OrderIcon, ProfileIcon } from "../Icons";
+import {
+  AvailableFunding,
+  BillingIcon,
+  DashboardIcon,
+  FundIssueIcon,
+  FundungHistoryIcon,
+  HowItWorksIcon,
+  LogOutIcon,
+  MaintainerIcon,
+  OrderIcon,
+  ProfileIcon,
+} from "../Icons";
 import { displayedCurrencies } from "src/views/data";
-import { Currency } from "src/model";
+import { credit, Credit, Currency } from "src/model";
 import React from "react";
 import { paths } from "src/paths";
 
@@ -105,10 +116,10 @@ export class Navigation {
     }),
 
     howItWorks: new LinkItemData("How it Works", paths.HOW_ITS_WORK, {
-      icon: <MaintainerIcon />, // TODO: replace with proper icon
+      icon: <HowItWorksIcon />,
     }),
     dashboard: new LinkItemData("Dashboard", paths.DASHBOARD, {
-      icon: <MaintainerIcon />, // TODO: replace with proper icon
+      icon: <DashboardIcon />,
     }),
 
     // User section
@@ -139,6 +150,12 @@ export class Navigation {
     return new ButtonItemData(currency.code, onClick, {
       icon: currency.symbol,
       isGradient: true,
+    });
+  }
+
+  static availableCredits(credits: Credit | null): LinkItemData {
+    return new LinkItemData(credit.displayAmount(credits), "/maintainer", {
+      icon: <AvailableFunding />,
     });
   }
 }

@@ -19,7 +19,8 @@ export function Collect(props: CollectProps) {
             {state === ManagedIssueState.SOLVED && "That was a volunteer work!"}
             {state === ManagedIssueState.OPEN && (
               <>
-                Want this issue solved? Drop some <span className="text-[#FF7E4B]">Credits</span>
+                Want this issue solved? Drop hours
+                {/*some <span className="text-[#FF7E4B]">Credits</span>*/}
               </>
             )}
           </>
