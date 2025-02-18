@@ -10,6 +10,7 @@ const Sponsor: React.FC = () => {
       type: "mainSwissBorg" as const,
       title: "Empowering Your Financial Freedom",
       size: "xlarge" as CardSize,
+      isUnderline: true,
       details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
     },
     {

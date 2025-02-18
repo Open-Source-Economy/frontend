@@ -12,5 +12,6 @@ export interface SponsorCardData {
   isLeftCat?: boolean;
   isRightCat?: boolean;
   className?: string;
+  isUnderline?: boolean;
   position?: number;
 }

@@ -1,17 +1,16 @@
 import type React from "react";
-import type { SponsorCardData, CardSize } from "./types";
-import { getCardWidth } from "./utils";
-import swissBorg from "src/assets/swiss-borg.webp";
 import adidas from "src/assets/adidas.webp";
-import softwareMill from "src/assets/software-mill.webp";
 import leftCat from "src/assets/cat-with-heart-2-right.webp";
 import rightCat from "src/assets/cat-with-heart.webp";
+import softwareMill from "src/assets/software-mill.webp";
+import swissBorg from "src/assets/swiss-borg.webp";
+import type { CardSize, SponsorCardData } from "./types";
 
 const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { size?: CardSize }> = ({
   type,
   title,
   subtitle,
-  size,
+  isUnderline,
   details,
   description,
   isLeftCat,
@@ -23,11 +22,14 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
       className={`${className} w-full !bg-secondary rounded-lg !relative border shadow-[0px_0px_37.357px_0px_rgba(255,81,140,0.20)] !border-primary-user !p-3  gap-2 flex-col  h-full flex justify-start sm:justify-between`}
     >
       {isLeftCat && (
-        <img
-          src={leftCat || "/placeholder.svg"}
-          alt="Cat with heart left"
-          className="max-w-12 sm:max-w-14 lg:max-w-16 w-full 1800:max-w-[78px] object-contain  -ml-[3%] sm:-ml-[5%] lg:-ml-[10%] -mt-[5%] lg:-mt-[10%] xl:-ml-[12%] xl:-mt-[8%]"
-        />
+        <div className="w-full flex justify-start relative">
+          {" "}
+          <img
+            src={leftCat || "/placeholder.svg"}
+            alt="Cat with heart left"
+            className="max-w-12 sm:max-w-14 lg:max-w-16 w-full absolute 1800:max-w-[78px] object-contain  -ml-[3%] sm:-ml-[5%] lg:-ml-[10%] -mt-[5%] lg:-mt-[10%] xl:-ml-[12%] xl:-mt-[8%]"
+          />
+        </div>
       )}
       {isRightCat && (
         <div className="flex justify-end relative w-full">
@@ -42,7 +44,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
       <div className="flex flex-col items-center h-fit justify-center space-x-[9px]">
         {type === "mainSwissBorg" && (
           <>
-            <div className="flex h-[150px] justify-between w-full sm:h-full items-center md:px-10 sm:!pt-5 sm:px-16">
+            <div className="flex sm:h-[150px] justify-between w-full h-[120px] md:h-full items-center md:px-10 sm:!pt-5 sm:px-16">
               <img
                 src={leftCat || "/placeholder.svg"}
                 alt="Left Cat with heart"
@@ -90,7 +92,9 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
       </div>
       {title && (
         <h3 className="text-white text-xl 1700:text-2xl w-fit 1800:text-[26px] font-medium mx-auto relative text-center !pb-2.5 lg:!pb-4">
-          <span className="absolute w-[80%] sm:w-[110%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+          {isUnderline && (
+            <span className="absolute w-[80%] sm:w-[110%] h-1 3xl:h-[6px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
+          )}
           {title}
         </h3>
       )}
