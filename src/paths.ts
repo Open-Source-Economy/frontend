@@ -1,4 +1,4 @@
-import { IssueId, OwnerId, ProjectId } from "./model";
+import { type IssueId, OwnerId, type ProjectId } from "./model";
 
 export const paths = {
   // Static routes
@@ -17,7 +17,7 @@ export const paths = {
   WHITE_PAPER: "/white-paper",
   DASHBOARD: "/dashboard",
   HOW_ITS_WORK: "/how-its-work",
-
+  PRICING: "/pricing",
   // Admin routes grouped under ADMIN
   ADMIN: {
     HOME: "/admin",
