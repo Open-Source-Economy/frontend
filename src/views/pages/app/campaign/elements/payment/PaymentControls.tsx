@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "src/views/components";
 import { DonationSelector } from "./DonationSelector";
-import { Currency, PriceType, ProductType, ProjectId } from "src/model";
+import { CampaignProductType, Currency, PriceType, ProjectId } from "src/model";
 import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/data";
@@ -12,7 +12,7 @@ import { config, Env } from "../../../../../../ultils";
 interface PaymentControlsProps {
   projectId: ProjectId;
   preferredCurrency: Currency;
-  prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
+  prices: Record<PriceType, Record<Currency, Record<CampaignProductType, Price[]>>>;
   paymentSuccessUrl: string;
   paymentCancelUrl: string;
 }
@@ -22,7 +22,7 @@ export function PaymentControls(props: PaymentControlsProps) {
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
   const [priceType, setPriceType] = useState<PriceType>(PriceType.RECURRING);
-  const [productType, setProductType] = useState<ProductType>(ProductType.donation);
+  const [campaignProductType, setCampaignProductType] = useState<CampaignProductType>(CampaignProductType.DONATION);
 
   const [selectedPriceIndex, setSelectedPriceIndex] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
@@ -77,11 +77,11 @@ export function PaymentControls(props: PaymentControlsProps) {
 
   useEffect(() => {
     if (props.prices && selectedPriceIndex !== null) {
-      setSelectedPrice(props.prices && props.prices[priceType][props.preferredCurrency][productType][selectedPriceIndex]);
+      setSelectedPrice(props.prices && props.prices[priceType][props.preferredCurrency][campaignProductType][selectedPriceIndex]);
     } else {
       setSelectedPrice(null);
     }
-  }, [props.prices, priceType, props.preferredCurrency, productType, selectedPriceIndex]);
+  }, [props.prices, priceType, props.preferredCurrency, campaignProductType, selectedPriceIndex]);
 
   return (
     <>
@@ -93,7 +93,7 @@ export function PaymentControls(props: PaymentControlsProps) {
 
       <div className="grid grid-cols-2 !gap-4 3xl:!gap-5">
         {props.prices &&
-          props.prices[priceType][props.preferredCurrency][productType].map((price: Price, index) => (
+          props.prices[priceType][props.preferredCurrency][campaignProductType].map((price: Price, index) => (
             <button
               key={index}
               onClick={() => setSelectedPriceIndex(index)}
@@ -130,7 +130,7 @@ export function PaymentControls(props: PaymentControlsProps) {
         )}
       </div>
 
-      <DonationSelector projectId={props.projectId} productType={productType} setProductType={setProductType} />
+      <DonationSelector projectId={props.projectId} productType={campaignProductType} setProductType={setCampaignProductType} />
 
       <Button
         disabled={selectedPrice === null || isLoading}
@@ -141,7 +141,7 @@ export function PaymentControls(props: PaymentControlsProps) {
         onClick={handleCheckout}
       >
         {selectedPrice
-          ? productType === ProductType.donation
+          ? campaignProductType === CampaignProductType.DONATION
             ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""}`
             : `Receive ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""} of DoWs`
           : "Select an amount to donate"}

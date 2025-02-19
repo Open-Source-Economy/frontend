@@ -37,12 +37,18 @@ export class FinancialIssue {
   //   }
 
   static amountCollected(m: FinancialIssue): Credit {
-    return { unit: CreditUnit.MINUTE, amount: m.issueFundings?.reduce((acc, funding) => acc.plus(funding.credit), new Decimal(0)) ?? new Decimal(0) };
+    return {
+      unit: CreditUnit.MINUTE,
+      amount: m.issueFundings?.reduce((acc, funding) => acc.plus(funding.credit), new Decimal(0)) ?? new Decimal(0),
+    };
   }
 
   static amountRequested(m: FinancialIssue): Credit | undefined {
     if (m.managedIssue?.requestedCreditAmount) {
-      return { unit: CreditUnit.MINUTE, amount: new Decimal(m.managedIssue?.requestedCreditAmount) };
+      return {
+        unit: CreditUnit.MINUTE,
+        amount: new Decimal(m.managedIssue?.requestedCreditAmount || 0),
+      };
     } else {
       return undefined;
     }

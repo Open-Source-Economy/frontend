@@ -1,5 +1,7 @@
 import { ValidationError, Validator } from "../error";
 import { OwnerId, ProjectId, RepositoryId } from "../github";
+import { ApiError } from "../error/ApiError";
+import { StatusCodes } from "http-status-codes";
 
 export class StripeProductId {
   id: string;
@@ -22,9 +24,38 @@ export class StripeProductId {
 }
 
 export enum ProductType {
-  credit = "credit",
-  donation = "donation",
+  CREDIT = "credit",
+  DONATION = "donation",
 }
+
+export enum CampaignProductType {
+  CREDIT = ProductType.CREDIT,
+  DONATION = ProductType.DONATION,
+}
+
+export const campaignProductTypeUtils = {
+  toProductType: (campaignProductType: CampaignProductType): ProductType => {
+    switch (campaignProductType) {
+      case CampaignProductType.CREDIT:
+        return ProductType.CREDIT;
+      case CampaignProductType.DONATION:
+        return ProductType.DONATION;
+      default:
+        throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unknown campaign product type: ${campaignProductType}`);
+    }
+  },
+
+  toCampaignProductType: (productType: ProductType): CampaignProductType => {
+    switch (productType) {
+      case ProductType.CREDIT:
+        return CampaignProductType.CREDIT;
+      case ProductType.DONATION:
+        return CampaignProductType.DONATION;
+      default:
+        throw new Error(`Product type ${productType} cannot be used in campaigns`);
+    }
+  },
+};
 
 export class StripeProduct {
   stripeId: StripeProductId;

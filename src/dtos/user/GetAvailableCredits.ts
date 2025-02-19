@@ -1,7 +1,7 @@
 export interface GetAvailableCreditsParams {}
 
 export interface GetAvailableCreditsResponse {
-  creditAmount: number; // minutes
+  creditAmount: number; // integer
 }
 
 export interface GetAvailableCreditsBody {}

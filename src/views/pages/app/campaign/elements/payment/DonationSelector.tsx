@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ProductType, ProjectId } from "src/model";
+import { CampaignProductType, ProjectId } from "src/model";
 import { paths } from "src/paths";
 
 interface DonationSelectorProps {
   projectId: ProjectId;
-  productType: ProductType;
-  setProductType: (productType: ProductType) => void;
+  productType: CampaignProductType;
+  setProductType: (productType: CampaignProductType) => void;
 }
 
 export function DonationSelector(props: DonationSelectorProps) {
@@ -15,28 +15,28 @@ export function DonationSelector(props: DonationSelectorProps) {
       <div className="flex flex-wrap !gap-4 xl:!gap-2 2xl:!gap-4">
         {/* Donation Option */}
         <button
-          onClick={() => props.setProductType(ProductType.donation)}
+          onClick={() => props.setProductType(CampaignProductType.DONATION)}
           className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1`}
         >
           <div
             className={`w-5 h-5  rounded-full border flex items-center justify-center ${
-              props.productType === ProductType.donation ? "!border-primary-user" : "border-white"
+              props.productType === CampaignProductType.DONATION ? "!border-primary-user" : "border-white"
             }`}
           >
-            {props.productType === ProductType.donation && <div className="w-3 h-3 rounded-full bg-primary-user" />}
+            {props.productType === CampaignProductType.DONATION && <div className="w-3 h-3 rounded-full bg-primary-user" />}
           </div>
           That's a donation{" "}
         </button>
 
         {/* Receive Option */}
         <button
-          onClick={() => props.setProductType(ProductType.credit)}
+          onClick={() => props.setProductType(CampaignProductType.CREDIT)}
           className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1 `}
         >
           <div
-            className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === ProductType.credit ? "!border-primary-user" : "border-white"}`}
+            className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === CampaignProductType.CREDIT ? "!border-primary-user" : "border-white"}`}
           >
-            {props.productType === ProductType.credit && <div className="w-3 h-3 rounded-full bg-primary-user" />}
+            {props.productType === CampaignProductType.CREDIT && <div className="w-3 h-3 rounded-full bg-primary-user" />}
           </div>
           I want to receive{" "}
           <Link
@@ -50,7 +50,7 @@ export function DonationSelector(props: DonationSelectorProps) {
       </div>
 
       {/* Info Banner */}
-      {props.productType === ProductType.credit && (
+      {props.productType === CampaignProductType.CREDIT && (
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 xl:text-nowrap flex-wrap xl:!flex-nowrap 3xl:rounded-[15px] flex justify-start text-sm 1600:text-base 3xl:text-lg w-full items-center">
           Get bug fixes, features, support,
           <Link
