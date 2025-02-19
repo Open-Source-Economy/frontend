@@ -45,7 +45,7 @@ export function CurrentSubscription({
 }: CurrentSubscriptionProps) {
   return (
     <div className={`${gridLayout} ${className}`}>
-      <Card className="row-span-2 lg:col-span-2">
+      <Card className="row-span-2 lg:col-span-2" data-aos="fade-up" data-aos-delay="0">
         <CardHeader icon={CurrentSubscriptionIcon} title="Current Subscription" />
         <SubscriptionDetails plan={plan} billingPeriod={billingPeriod} />
         {
@@ -63,12 +63,12 @@ export function CurrentSubscription({
         }
       </Card>
 
-      <Card className="lg:col-span-3">
+      <Card className="lg:col-span-3" data-aos="fade-up" data-aos-delay="100">
         <CardHeader icon={PaymentInfoIcon} title="Payment Info" action={onEditPayment ? { label: "Edit", onClick: onEditPayment } : undefined} />
         <PaymentInfo cardType={payment.cardType} lastFourDigits={payment.lastFourDigits} expiryDate={payment.expiryDate} onEdit={onEditPayment} />
       </Card>
 
-      <Card className="lg:col-span-3">
+      <Card className="lg:col-span-3" data-aos="fade-up" data-aos-delay="200">
         <CardHeader
           icon={PaymentScheduleIcon}
           title="Payment Schedule"

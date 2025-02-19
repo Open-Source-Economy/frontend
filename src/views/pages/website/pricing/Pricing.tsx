@@ -39,37 +39,43 @@ export function Pricing(props: PricingProps) {
         </div>
 
         <div className="relative flex w-full max-w-[1444px] flex-col gap-10 md:gap-20 max-lg:px-4">
-          <PricingTable
-            activePlan={activePlan}
-            onUpgradePlan={(plan: Plan, billingPeriod: "annual" | "monthly") => {
-              setActivePlan(plan);
-              setActiveBillingPeriod(billingPeriod);
-            }}
-          />
-          <CustomPlanBanner />
+          <div data-aos="fade-up" data-aos-delay="100">
+            <PricingTable
+              activePlan={activePlan}
+              onUpgradePlan={(plan: Plan, billingPeriod: "annual" | "monthly") => {
+                setActivePlan(plan);
+                setActiveBillingPeriod(billingPeriod);
+              }}
+            />
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200">
+            <CustomPlanBanner />
+          </div>
           <hr className="border-white/30" />
           {auth.authInfo?.user && activePlan && (
-            <CurrentSubscription
-              plan={activePlan}
-              billingPeriod={activeBillingPeriod}
-              payment={{
-                cardType: "Visa",
-                lastFourDigits: "9097",
-                expiryDate: "01/29",
-              }}
-              schedule={{
-                lastPayment: "11/29/2025",
-                nextPayment: "11/29/2025",
-              }}
-              onCancelSubscription={() => {
-                setActivePlan(null);
-              }}
-              onEditPayment={() => {}}
-              onViewInvoices={() => {}}
-            />
+            <div data-aos="fade-up" data-aos-delay="300">
+              <CurrentSubscription
+                plan={activePlan}
+                billingPeriod={activeBillingPeriod}
+                payment={{
+                  cardType: "Visa",
+                  lastFourDigits: "9097",
+                  expiryDate: "01/29",
+                }}
+                schedule={{
+                  lastPayment: "11/29/2025",
+                  nextPayment: "11/29/2025",
+                }}
+                onCancelSubscription={() => {
+                  setActivePlan(null);
+                }}
+                onEditPayment={() => {}}
+                onViewInvoices={() => {}}
+              />
+            </div>
           )}
         </div>
-        <div className="max-lg:px-4 flex flex-col items-center text-center text-white">
+        <div data-aos="fade-up" data-aos-delay="400" className="max-lg:px-4 flex flex-col items-center text-center text-white">
           <p>
             <a href="/terms" className="text-pink-500 hover:underline font-bold">
               Terms

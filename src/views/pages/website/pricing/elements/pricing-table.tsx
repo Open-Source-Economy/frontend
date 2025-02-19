@@ -15,16 +15,19 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
 
   return (
     <div className="w-full text-white space-y-8">
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4" data-aos="fade-down" data-aos-duration="1000">
         <Tabs items={billingOptions} value={billingPeriod} onValueChange={value => setBillingPeriod(value as "monthly" | "annual")} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
         <img src={backdropSVG} className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right" alt="backdrop" />
         <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[51rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
-        {plans.map(plan => (
+        {plans.map((plan, index) => (
           <div
             key={plan.name}
+            data-aos="fade-up"
+            data-aos-delay={index * 300}
+            data-aos-duration="1000"
             className={`group relative p-0.5 rounded-[20px] transition-colors duration-300 ease-in-out bg-gradient-to-r ${
               plan.featured ? "from-gradient-1 to-gradient-1" : "from-theme-blue to-theme-blue hover:from-gradient-1 hover:via-gradient-2 hover:to-gradient-3"
             }`}
@@ -114,7 +117,7 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
         ))}
       </div>
 
-      <p className="text-[22px] text-center">
+      <p className="text-[22px] text-center" data-aos="fade" data-aos-duration="1500">
         <span className="text-theme-pink">100% non profit,</span> 100% Open Source Investment
       </p>
     </div>
