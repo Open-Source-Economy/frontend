@@ -1,7 +1,7 @@
 import { PageWrapper } from "../../PageWrapper";
-import { PricingTable } from "./elements/pricing-table";
-import { CustomPlanBanner } from "./elements/custom-plan-banner";
-import { CurrentSubscription } from "./elements/current-subscription";
+import { PricingTable } from "./elements";
+import { CustomPlanBanner } from "./elements";
+import { CurrentSubscription } from "./elements";
 import { useState } from "react";
 import { useAuth } from "../../app";
 import { plans, type Plan } from "./data";
@@ -17,6 +17,7 @@ export function Pricing(props: PricingProps) {
     lastPayment: "11/29/2025",
     nextPayment: "11/29/2025",
   });
+
   const [activePlan, setActivePlan] = useState<Plan | null>(null);
   const [activeBillingPeriod, setActiveBillingPeriod] = useState<"annual" | "monthly">("annual");
   const auth = useAuth();

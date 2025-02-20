@@ -1,3 +1,5 @@
+import { PlanProductType } from "../stripe";
+
 export enum ServiceType {
   SUPPORT = "Support",
   DEVELOPMENT = "Development",
@@ -36,13 +38,6 @@ export enum AdvisorySubServiceType {
   SECURITY_PERFORMANCE = "Security & Performance",
 }
 
-export enum Plan {
-  INDIVIDUAL = 1,
-  START_UP = 2,
-  SCALE_UP = 3,
-  ENTERPRISE = 4,
-}
-
 // Create an explicit mapping between ServiceType and its corresponding subservices
 type SubServiceTypeMap = {
   [ServiceType.SUPPORT]: SupportSubServiceType;
@@ -52,7 +47,7 @@ type SubServiceTypeMap = {
 };
 
 // Create the planLookup type for each ServiceType to have its subservices correctly typed
-type SubServicePlanMap = Record<Priority, Plan>;
+type SubServicePlanMap = Record<Priority, PlanProductType>;
 
 type PlanLookup = {
   [key in ServiceType]: {
@@ -64,82 +59,82 @@ type PlanLookup = {
 const planLookup: PlanLookup = {
   [ServiceType.SUPPORT]: {
     [SupportSubServiceType.BUG_FIXES]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [SupportSubServiceType.NEW_FEATURES]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [SupportSubServiceType.CODE_MAINTENANCE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
   },
   [ServiceType.DEVELOPMENT]: {
     [DevelopmentSubServiceType.TECHNICAL_ASSISTANCE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [DevelopmentSubServiceType.DEPLOYMENT_GUIDANCE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [DevelopmentSubServiceType.CUSTOMER_SUPPORT]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
   },
   [ServiceType.OPERATION]: {
     [OperationSubServiceType.INCIDENT_RESPONSE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [OperationSubServiceType.PROACTIVE_MAINTENANCE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [OperationSubServiceType.SUPERVISION]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
   },
   [ServiceType.ADVISORY]: {
     [AdvisorySubServiceType.ARCHITECTURE_DESIGN]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [AdvisorySubServiceType.TECHNOLOGY_ASSESSMENT]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
     [AdvisorySubServiceType.SECURITY_PERFORMANCE]: {
-      [Priority.LOW]: Plan.INDIVIDUAL,
-      [Priority.MEDIUM]: Plan.INDIVIDUAL,
-      [Priority.HIGH]: Plan.INDIVIDUAL,
-      [Priority.CRITICAL]: Plan.INDIVIDUAL,
+      [Priority.LOW]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.MEDIUM]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.HIGH]: PlanProductType.INDIVIDUAL_PLAN,
+      [Priority.CRITICAL]: PlanProductType.INDIVIDUAL_PLAN,
     },
   },
 };
@@ -149,7 +144,7 @@ function available_from_plan(
   serviceType: ServiceType,
   subServiceType: SupportSubServiceType | DevelopmentSubServiceType | OperationSubServiceType | AdvisorySubServiceType,
   priority: Priority,
-): Plan {
+): PlanProductType {
   const servicePlans = planLookup[serviceType];
 
   // Ensure service type exists in planLookup

@@ -1,7 +1,4 @@
-export const billingOptions = [
-  { value: "annual", label: "Annual Billing" },
-  { value: "monthly", label: "Monthly Billing" },
-];
+import { PlanProductType } from "../../../../model";
 
 export type Plan = {
   name: string;
@@ -32,8 +29,10 @@ export type Plan = {
   }>;
 };
 
-export const plans: Plan[] = [
-  {
+
+
+export const plans: Record<PlanProductType, Plan> = {
+  [PlanProductType.INDIVIDUAL_PLAN]: {
     name: "Individual",
     description: "Start building with expert backing",
     price: {
@@ -88,7 +87,7 @@ export const plans: Plan[] = [
       },
     ],
   },
-  {
+  [PlanProductType.START_UP_PLAN]: {
     name: "Start-up",
     description: "Scale confidently with expert support",
     price: {
@@ -142,7 +141,7 @@ export const plans: Plan[] = [
       },
     ],
   },
-  {
+  [PlanProductType.SCALE_UP_PLAN]: {
     name: "Scale-up",
     description: "Accelerate growth with enterprise-grade support",
     price: {
@@ -197,7 +196,7 @@ export const plans: Plan[] = [
       },
     ],
   },
-  {
+  [PlanProductType.ENTERPRISE_PLAN]: {
     name: "Enterprise",
     description: "Power mission-critical success",
     price: {
@@ -268,4 +267,4 @@ export const plans: Plan[] = [
       },
     ],
   },
-];
+};
