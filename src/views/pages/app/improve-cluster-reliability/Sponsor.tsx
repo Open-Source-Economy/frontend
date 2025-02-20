@@ -276,7 +276,7 @@ const Sponsor: React.FC = () => {
       imgUrl: swissBorg,
       size: "large" as CardSize,
       subtitle: "Distributed systems like Pekko",
-      isRightCat: true,
+      isLeftCat: true,
       position: 6,
     },
     {
