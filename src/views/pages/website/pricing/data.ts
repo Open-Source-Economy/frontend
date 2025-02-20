@@ -1,10 +1,10 @@
-import { PlanPriceType, PlanProductType } from "../../../../model";
+import { Currency, PlanPriceType, PlanProductType } from "../../../../model";
+
 
 
 export type Plan = {
   name: string;
   description: string;
-  price: Record<PlanPriceType, number>
   current?: boolean;
   featured?: boolean;
   features: Array<{
@@ -23,14 +23,17 @@ export type Plan = {
   }>;
 };
 
+
+// const price: {
+//   [PlanPriceType.MONTHLY]: 69,
+//     [PlanPriceType.ANNUALLY]: 56,
+// },
+// Record<Currency, Record<PlanPriceType, number>>
+
 export const plans: Record<PlanProductType, Plan> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     name: "Individual",
     description: "Start building with expert backing",
-    price: {
-      [PlanPriceType.MONTHLY]: 69,
-      [PlanPriceType.ANNUALLY]: 56,
-    },
     current: true,
     features: [
       {
@@ -39,12 +42,12 @@ export const plans: Record<PlanProductType, Plan> = {
         info: "Unused credits accumulate monthly - perfect for occasional needs",
         included: true,
         extras: [
-          { name: "Co-fund Issues", included: true, info: "Pool resources with others to fix critical bugs" },
-          { name: "Co-fund New features", included: false, info: "Collaboratively fund feature development" },
-          { name: "Standard Support", included: true, info: "Email support with 48h response time" },
-          { name: "Written Consultancy", included: false, info: "Detailed technical guidance documents" },
-          { name: "Live Expert Consultancy", included: false, soon: true, info: "Real-time video consultations" },
-          { name: "24/7 Support", included: false, soon: true, info: "Emergency support hotline" },
+          { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs" , included: true},
+          { name: "Co-fund New features", info: "Collaboratively fund feature development" , included: false},
+          { name: "Standard Support", info: "Email support with 48h response time" , included: true},
+          { name: "Written Consultancy", info: "Detailed technical guidance documents" , included: false},
+          { name: "Live Expert Consultancy", info: "Real-time video consultations" , included: false, soon: true},
+          { name: "24/7 Support", info: "Emergency support hotline" , included: false, soon: true},
         ],
       },
       {
@@ -78,10 +81,6 @@ export const plans: Record<PlanProductType, Plan> = {
   [PlanProductType.START_UP_PLAN]: {
     name: "Start-up",
     description: "Scale confidently with expert support",
-    price: {
-      [PlanPriceType.MONTHLY]: 349,
-      [PlanPriceType.ANNUALLY]: 279,
-    },
     features: [
       {
         name: "Gain 2h monthly",
@@ -89,12 +88,12 @@ export const plans: Record<PlanProductType, Plan> = {
         info: "Unused credits accumulate monthly - perfect for occasional needs",
         included: true,
         extras: [
-          { name: "Co-fund Issues", included: true, info: "Pool resources with others to fix critical bugs" },
-          { name: "Co-fund New features", included: true, info: "Collaboratively fund feature development" },
-          { name: "Standard Support", included: true, info: "Email support with 48h response time" },
-          { name: "Written Consultancy", included: true, info: "Detailed technical guidance documents" },
-          { name: "Live Expert Consultancy", included: false, soon: true, info: "Real-time video consultations" },
-          { name: "24/7 Support", included: false, soon: true, info: "Emergency support hotline" },
+          { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs" , included: true},
+          { name: "Co-fund New features", info: "Collaboratively fund feature development" , included: true},
+          { name: "Standard Support", info: "Email support with 48h response time" , included: true},
+          { name: "Written Consultancy", info: "Detailed technical guidance documents" , included: true},
+          { name: "Live Expert Consultancy", info: "Real-time video consultations" , included: false, soon: true},
+          { name: "24/7 Support", info: "Emergency support hotline" , included: false, soon: true},
         ],
       },
       {
@@ -128,10 +127,6 @@ export const plans: Record<PlanProductType, Plan> = {
   [PlanProductType.SCALE_UP_PLAN]: {
     name: "Scale-up",
     description: "Accelerate growth with enterprise-grade support",
-    price: {
-      [PlanPriceType.MONTHLY]: 999,
-      [PlanPriceType.ANNUALLY]: 799,
-    },
     featured: true,
     features: [
       {
@@ -140,12 +135,12 @@ export const plans: Record<PlanProductType, Plan> = {
         info: "Unused credits accumulate monthly - perfect for occasional needs",
         included: true,
         extras: [
-          { name: "Co-fund Issues", included: true, info: "Pool resources with others to fix critical bugs" },
-          { name: "Co-fund New features", included: true, info: "Collaboratively fund feature development" },
-          { name: "Standard Support", included: true, info: "Email support with 48h response time" },
-          { name: "Written Consultancy", included: true, info: "Detailed technical guidance documents" },
-          { name: "Live Expert Consultancy", included: false, soon: true, info: "Real-time video consultations" },
-          { name: "24/7 Support", included: false, soon: true, info: "Emergency support hotline" },
+          { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs" , included: true},
+          { name: "Co-fund New features", info: "Collaboratively fund feature development" , included: true},
+          { name: "Standard Support", info: "Email support with 48h response time" , included: true},
+          { name: "Written Consultancy", info: "Detailed technical guidance documents" , included: true},
+          { name: "Live Expert Consultancy", info: "Real-time video consultations" , included: false, soon: true},
+          { name: "24/7 Support", info: "Emergency support hotline" , included: false, soon: true},
         ],
       },
       {
@@ -179,10 +174,6 @@ export const plans: Record<PlanProductType, Plan> = {
   [PlanProductType.ENTERPRISE_PLAN]: {
     name: "Enterprise",
     description: "Power mission-critical success",
-    price: {
-      [PlanPriceType.MONTHLY]: 2499,
-      [PlanPriceType.ANNUALLY]: 1999,
-    },
     features: [
       {
         name: "Gain 10h monthly",
@@ -190,12 +181,12 @@ export const plans: Record<PlanProductType, Plan> = {
         info: "Unused credits accumulate monthly - perfect for occasional needs",
         included: true,
         extras: [
-          { name: "Co-fund Issues", included: true, info: "Pool resources with others to fix critical bugs" },
-          { name: "Co-fund New features", included: true, info: "Collaboratively fund feature development" },
-          { name: "Standard Support", included: true, info: "Email support with 48h response time" },
-          { name: "Written Consultancy", included: true, info: "Detailed technical guidance documents" },
-          { name: "Live Expert Consultancy", included: true, info: "Real-time video consultations", soon: true },
-          { name: "24/7 Support", included: true, info: "Emergency support hotline", soon: true },
+          { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs" , included: true},
+          { name: "Co-fund New features", info: "Collaboratively fund feature development" , included: true},
+          { name: "Standard Support", info: "Email support with 48h response time" , included: true},
+          { name: "Written Consultancy", info: "Detailed technical guidance documents" , included: true},
+          { name: "Live Expert Consultancy", info: "Real-time video consultations" , included: true, soon: true},
+          { name: "24/7 Support", info: "Emergency support hotline" , included: true, soon: true},
         ],
       },
       {
