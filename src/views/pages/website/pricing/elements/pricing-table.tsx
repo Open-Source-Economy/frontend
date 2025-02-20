@@ -8,10 +8,11 @@ import { Plan, plans } from "../data";
 
 interface PricingTableProps {
   activePlan: Plan | null;
+  activePrices: Record<PlanPriceType, number> | null
   onUpgradePlan: (plan: Plan, planPriceType: PlanPriceType) => void;
 }
 
-export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
+export function PricingTable(props: PricingTableProps) {
   const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
 
   return (
@@ -53,22 +54,26 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
 
                 <div className="text-center space-y-1">
                   <div className="flex items-center justify-center gap-2">
-                    {priceType === PlanPriceType.ANNUALLY && (
-                      <span className="text-gray-500 line-through text-sm md:text-[22px]">${plan.price[PlanPriceType.MONTHLY]}</span>
+                    {props.activePrices && (
+                      <>
+                        {priceType === PlanPriceType.ANNUALLY && (
+                          <span className="text-gray-500 line-through text-sm md:text-[22px]">${props.activePrices[PlanPriceType.MONTHLY]}</span>
+                        )}
+                        <span className="text-4xl md:text-[38px] font-bold">${props.activePrices[priceType]}</span>
+                      </>
                     )}
-                    <span className="text-4xl md:text-[38px] font-bold">${plan.price[priceType]}</span>
                   </div>
                   <div className="text-[10px] text-gray-400">per month{priceType === PlanPriceType.ANNUALLY ? ", paid annually" : ""}</div>
                 </div>
 
-                {activePlan?.name === plan.name ? (
+                {props.activePlan?.name === plan.name ? (
                   <div className="p-3 text-center text-theme-pink text-sm font-medium">Current Plan</div>
                 ) : (
                   <div className="p-0.5 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 rounded-lg">
                     <button
                       type="button"
                       onClick={() => {
-                        onUpgradePlan(plan, priceType);
+                        props.onUpgradePlan(plan, priceType);
                       }}
                       className={`
                     w-full p-[14px] rounded-lg bg-opacity-0 bg-theme-blue group-hover:bg-opacity-100 transition-all duration-300 group/btn

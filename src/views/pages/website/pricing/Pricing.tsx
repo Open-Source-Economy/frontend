@@ -1,10 +1,10 @@
 import { PageWrapper } from "../../PageWrapper";
 import { CurrentSubscription, CustomPlanBanner, PricingTable } from "./elements";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../app";
 import { type Plan } from "./data";
 import backdropSVG from "src/assets/backdrop.svg";
-import { PlanPriceType } from "../../../../model";
+import { Currency, PlanPriceType } from "../../../../model";
 
 interface PricingProps {}
 
@@ -17,9 +17,18 @@ export function Pricing(props: PricingProps) {
     nextPayment: "11/29/2025",
   });
 
+  const currency = Currency.USD
   const [activePlan, setActivePlan] = useState<Plan | null>(null);
+  const [activePrices, setActivePrices] = useState<Record<PlanPriceType, number> | null>(null);
   const [activePlanPriceType, setActivePlanPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
   const auth = useAuth();
+
+  useEffect(() => {
+    setActivePrices({
+      [PlanPriceType.ANNUALLY]: 100,
+      [PlanPriceType.MONTHLY]: 10,
+    });
+  }, []);
 
   return (
     <PageWrapper>
@@ -42,6 +51,7 @@ export function Pricing(props: PricingProps) {
           <div data-aos="fade-up" data-aos-delay="100">
             <PricingTable
               activePlan={activePlan}
+              activePrices={activePrices}
               onUpgradePlan={(plan: Plan, billingPeriod: PlanPriceType) => {
                 setActivePlan(plan);
                 setActivePlanPriceType(billingPeriod);
@@ -52,11 +62,12 @@ export function Pricing(props: PricingProps) {
             <CustomPlanBanner />
           </div>
           <hr className="border-white/30" />
-          {auth.authInfo?.user && activePlan && (
+          {auth.authInfo?.user && activePlan && activePrices && (
             <div data-aos="fade-up" data-aos-delay="300">
               <CurrentSubscription
                 plan={activePlan}
                 billingPeriod={activePlanPriceType}
+                prices={activePrices}
                 payment={{
                   cardType: "Visa",
                   lastFourDigits: "9097",
