@@ -1,11 +1,10 @@
 import { PageWrapper } from "../../PageWrapper";
-import { PricingTable } from "./elements";
-import { CustomPlanBanner } from "./elements";
-import { CurrentSubscription } from "./elements";
+import { CurrentSubscription, CustomPlanBanner, PricingTable } from "./elements";
 import { useState } from "react";
 import { useAuth } from "../../app";
-import { plans, type Plan } from "./data";
+import { type Plan } from "./data";
 import backdropSVG from "src/assets/backdrop.svg";
+import { PlanPriceType } from "../../../../model";
 
 interface PricingProps {}
 
@@ -19,7 +18,7 @@ export function Pricing(props: PricingProps) {
   });
 
   const [activePlan, setActivePlan] = useState<Plan | null>(null);
-  const [activeBillingPeriod, setActiveBillingPeriod] = useState<"annual" | "monthly">("annual");
+  const [activePlanPriceType, setActivePlanPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
   const auth = useAuth();
 
   return (
@@ -43,9 +42,9 @@ export function Pricing(props: PricingProps) {
           <div data-aos="fade-up" data-aos-delay="100">
             <PricingTable
               activePlan={activePlan}
-              onUpgradePlan={(plan: Plan, billingPeriod: "annual" | "monthly") => {
+              onUpgradePlan={(plan: Plan, billingPeriod: PlanPriceType) => {
                 setActivePlan(plan);
-                setActiveBillingPeriod(billingPeriod);
+                setActivePlanPriceType(billingPeriod);
               }}
             />
           </div>
@@ -57,7 +56,7 @@ export function Pricing(props: PricingProps) {
             <div data-aos="fade-up" data-aos-delay="300">
               <CurrentSubscription
                 plan={activePlan}
-                billingPeriod={activeBillingPeriod}
+                billingPeriod={activePlanPriceType}
                 payment={{
                   cardType: "Visa",
                   lastFourDigits: "9097",

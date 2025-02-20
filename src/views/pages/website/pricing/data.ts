@@ -1,16 +1,10 @@
-import { PlanProductType } from "../../../../model";
+import { PlanPriceType, PlanProductType } from "../../../../model";
+
 
 export type Plan = {
   name: string;
   description: string;
-  price: {
-    monthly: number;
-    annual: number;
-  };
-  originalPrice: {
-    monthly: number;
-    annual: number;
-  };
+  price: Record<PlanPriceType, number>
   current?: boolean;
   featured?: boolean;
   features: Array<{
@@ -29,19 +23,13 @@ export type Plan = {
   }>;
 };
 
-
-
 export const plans: Record<PlanProductType, Plan> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     name: "Individual",
     description: "Start building with expert backing",
     price: {
-      monthly: 69,
-      annual: 56,
-    },
-    originalPrice: {
-      monthly: 0,
-      annual: 69,
+      [PlanPriceType.MONTHLY]: 69,
+      [PlanPriceType.ANNUALLY]: 56,
     },
     current: true,
     features: [
@@ -91,12 +79,8 @@ export const plans: Record<PlanProductType, Plan> = {
     name: "Start-up",
     description: "Scale confidently with expert support",
     price: {
-      monthly: 349,
-      annual: 279,
-    },
-    originalPrice: {
-      monthly: 0,
-      annual: 349,
+      [PlanPriceType.MONTHLY]: 349,
+      [PlanPriceType.ANNUALLY]: 279,
     },
     features: [
       {
@@ -145,12 +129,8 @@ export const plans: Record<PlanProductType, Plan> = {
     name: "Scale-up",
     description: "Accelerate growth with enterprise-grade support",
     price: {
-      monthly: 999,
-      annual: 799,
-    },
-    originalPrice: {
-      monthly: 0,
-      annual: 999,
+      [PlanPriceType.MONTHLY]: 999,
+      [PlanPriceType.ANNUALLY]: 799,
     },
     featured: true,
     features: [
@@ -200,12 +180,8 @@ export const plans: Record<PlanProductType, Plan> = {
     name: "Enterprise",
     description: "Power mission-critical success",
     price: {
-      monthly: 2499,
-      annual: 1999,
-    },
-    originalPrice: {
-      monthly: 0,
-      annual: 2499,
+      [PlanPriceType.MONTHLY]: 2499,
+      [PlanPriceType.ANNUALLY]: 1999,
     },
     features: [
       {

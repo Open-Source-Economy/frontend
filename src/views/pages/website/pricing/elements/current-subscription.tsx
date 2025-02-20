@@ -1,13 +1,12 @@
 import React from "react";
-import { ArrowRight, Calendar, CreditCard } from "lucide-react";
 import { CardHeader } from "./card-header";
 import { SubscriptionDetails } from "./subscription-details";
 import { PaymentInfo } from "./payment-info";
 import { PaymentSchedule } from "./payment-schedule";
 import { Card } from "./card";
-import { MdCurrencyExchange } from "react-icons/md";
 import { CurrentSubscriptionIcon, PaymentInfoIcon, PaymentScheduleIcon } from "src/Utils/Icons";
 import type { Plan } from "../data";
+import { PlanPriceType } from "../../../../../model";
 
 interface PaymentDetails {
   cardType: string;
@@ -22,7 +21,7 @@ interface PaymentScheduleDetails {
 
 interface CurrentSubscriptionProps {
   plan: Plan;
-  billingPeriod: "annual" | "monthly";
+  billingPeriod: PlanPriceType;
   payment: PaymentDetails;
   schedule: PaymentScheduleDetails;
   onCancelSubscription: () => void;
@@ -47,7 +46,7 @@ export function CurrentSubscription({
     <div className={`${gridLayout} ${className}`}>
       <Card className="row-span-2 lg:col-span-2" data-aos="fade-up" data-aos-delay="0">
         <CardHeader icon={CurrentSubscriptionIcon} title="Current Subscription" />
-        <SubscriptionDetails plan={plan} billingPeriod={billingPeriod} />
+        <SubscriptionDetails plan={plan} planPriceType={billingPeriod} />
         {
           <div className="p-0.5 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 rounded-lg w-full">
             <button

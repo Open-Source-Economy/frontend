@@ -13,6 +13,11 @@ export enum CampaignPriceType {
   ONE_TIME = PriceType.ONE_TIME,
 }
 
+export enum PlanPriceType {
+  MONTHLY = PriceType.MONTHLY,
+  ANNUALLY = PriceType.ANNUALLY,
+}
+
 export class StripePriceId {
   readonly id: string;
 

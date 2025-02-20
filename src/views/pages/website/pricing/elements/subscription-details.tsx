@@ -1,20 +1,22 @@
-import { Check, Info, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { InfoTooltip } from "./tooltip";
 import type { Plan } from "../data";
+import { PlanPriceType } from "../../../../../model";
 
 interface SubscriptionDetailsProps {
   plan: Plan;
-  billingPeriod: "annual" | "monthly";
+  planPriceType: PlanPriceType;
 }
 
-export function SubscriptionDetails({ plan, billingPeriod }: SubscriptionDetailsProps) {
+export function SubscriptionDetails({ plan, planPriceType }: SubscriptionDetailsProps) {
   return (
     <div className="space-y-3 w-full">
       <div className="flex items-center gap-2">
         <h3 className="text-white font-semibold -mt-0.5">{plan.name}</h3>
         <span className="text-gray-400 text-xs">
-          ${Intl.NumberFormat("en-US").format(plan.price[billingPeriod] * (billingPeriod === "annual" ? 12 : 1))} /{" "}
-          {billingPeriod === "annual" ? "year" : "month"}
+          {/*TODO: NumberFormat*/}
+          ${Intl.NumberFormat("en-US").format(plan.price[planPriceType] * (planPriceType === PlanPriceType.ANNUALLY ? 12 : 1))} /{" "}
+          {planPriceType === PlanPriceType.ANNUALLY ? "year" : "month"}
         </span>
         <InfoTooltip content={plan.description} />
       </div>

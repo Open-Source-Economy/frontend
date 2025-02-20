@@ -2,27 +2,28 @@ import { Check, X } from "lucide-react";
 import { useState } from "react";
 import { Tabs } from "./tabs";
 import { InfoTooltip } from "./tooltip";
-import { billingOptions, type Plan, plans } from "../data";
 import backdropSVG from "src/assets/backdrop.svg";
+import { PlanPriceType } from "../../../../../model";
+import { Plan, plans } from "../data";
 
 interface PricingTableProps {
   activePlan: Plan | null;
-  onUpgradePlan: (plan: Plan, billingPeriod: "annual" | "monthly") => void;
+  onUpgradePlan: (plan: Plan, planPriceType: PlanPriceType) => void;
 }
 
 export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
-  const [billingPeriod, setBillingPeriod] = useState<"annual" | "monthly">("annual");
+  const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
 
   return (
     <div className="w-full text-white space-y-8">
       <div className="flex flex-col items-center justify-center gap-4" data-aos="fade-down" data-aos-duration="1000">
-        <Tabs items={billingOptions} value={billingPeriod} onValueChange={value => setBillingPeriod(value as "monthly" | "annual")} />
+        <Tabs value={priceType} values={[PlanPriceType.ANNUALLY, PlanPriceType.MONTHLY]} onValueChange={setPriceType} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
         <img src={backdropSVG} className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right" alt="backdrop" />
         <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[51rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
-        {plans.map((plan, index) => (
+        {Object.values(plans).map((plan, index) => (
           <div
             key={plan.name}
             data-aos="fade-up"
@@ -52,12 +53,12 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
 
                 <div className="text-center space-y-1">
                   <div className="flex items-center justify-center gap-2">
-                    {plan.originalPrice[billingPeriod] !== 0 && (
-                      <span className="text-gray-500 line-through text-sm md:text-[22px]">${plan.originalPrice[billingPeriod]}</span>
+                    {priceType === PlanPriceType.ANNUALLY && (
+                      <span className="text-gray-500 line-through text-sm md:text-[22px]">${plan.price[PlanPriceType.MONTHLY]}</span>
                     )}
-                    <span className="text-4xl md:text-[38px] font-bold">${plan.price[billingPeriod]}</span>
+                    <span className="text-4xl md:text-[38px] font-bold">${plan.price[priceType]}</span>
                   </div>
-                  <div className="text-[10px] text-gray-400">per month, {billingPeriod === "annual" ? "paid annually" : "billed monthly"}</div>
+                  <div className="text-[10px] text-gray-400">per month{priceType === PlanPriceType.ANNUALLY ? ", paid annually" : ""}</div>
                 </div>
 
                 {activePlan?.name === plan.name ? (
@@ -67,7 +68,7 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
                     <button
                       type="button"
                       onClick={() => {
-                        onUpgradePlan(plan, billingPeriod);
+                        onUpgradePlan(plan, priceType);
                       }}
                       className={`
                     w-full p-[14px] rounded-lg bg-opacity-0 bg-theme-blue group-hover:bg-opacity-100 transition-all duration-300 group/btn

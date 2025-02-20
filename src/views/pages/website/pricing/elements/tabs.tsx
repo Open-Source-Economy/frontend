@@ -1,13 +1,13 @@
 import React from "react";
+import { PlanPriceType } from "../../../../../model";
 
 interface TabsProps {
-  value: string;
-  onValueChange: (value: string) => void;
-  items: { value: string; label: string }[];
-  className?: string;
+  value: PlanPriceType;
+  values: PlanPriceType[];
+  onValueChange: (value: PlanPriceType) => void;
 }
 
-export function Tabs({ value, onValueChange, items, className }: TabsProps) {
+export function Tabs(props: TabsProps) {
   return (
     <div className="relative">
       <div className="absolute left-1/4 -translate-x-1/2 -top-1 -translate-y-full md:-left-6 md:-translate-x-full md:top-1/2 md:-translate-y-1/2">
@@ -16,22 +16,20 @@ export function Tabs({ value, onValueChange, items, className }: TabsProps) {
         </div>
       </div>
       <div
-        className={`relative inline-flex items-center justify-center rounded-[10px] p-[1.5px] bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
-          className || ""
-        }`}
+        className={`relative inline-flex items-center justify-center rounded-[10px] p-[1.5px] bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3`}
       >
         <div className="w-full h-full bg-theme-background rounded-[10px] inline-flex items-center justify-center p-1.5">
-          {items.map(item => (
+          {props.values.map(priceType => (
             <>
               <button
-                key={item.value}
+                key={priceType}
                 type="button"
-                onClick={() => onValueChange(item.value)}
+                onClick={() => props.onValueChange(priceType as PlanPriceType)}
                 className={`relative h-full flex items-center justify-center whitespace-nowrap rounded-md max-md:px-6 md:px-10 max-md:py-2 md:py-3 text-sm md:text-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
-                  value === item.value ? "text-white" : "bg-clip-text text-transparent hover:text-white"
+                  props.value === priceType ? "text-white" : "bg-clip-text text-transparent hover:text-white"
                 }`}
               >
-                {item.label}
+                {priceType === PlanPriceType.ANNUALLY ? "Annual" : "Monthly"}{" Billing"}
               </button>
             </>
           ))}
