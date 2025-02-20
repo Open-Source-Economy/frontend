@@ -213,8 +213,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "2a", imgUrl: softwareMill, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
-        { id: "2b", imgUrl: softwareMill, size: "xsmall", className: "!justify-center !gap-1" },
+        { id: "2a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "2b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
         {
           id: "2c",
           imgUrl: adidas,
@@ -239,8 +239,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 1,
       nestedCards: [
-        { id: "2a", imgUrl: softwareMill, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
-        { id: "2b", imgUrl: softwareMill, size: "xsmall", className: "!justify-center !gap-1" },
+        { id: "2a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "2b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
         {
           id: "2c",
           imgUrl: adidas,
@@ -285,8 +285,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 5,
       nestedCards: [
-        { id: "2a", imgUrl: softwareMill, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
-        { id: "2b", imgUrl: softwareMill, size: "xsmall", className: "!justify-center !gap-1" },
+        { id: "2a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "2b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
         {
           id: "2c",
           imgUrl: adidas,
@@ -303,8 +303,8 @@ const Sponsor: React.FC = () => {
       size: "large" as CardSize,
       position: 1,
       nestedCards: [
-        { id: "2a", imgUrl: softwareMill, size: "xsmall" as CardSize, className: "!justify-center !gap-1" },
-        { id: "2b", imgUrl: softwareMill, size: "xsmall", className: "!justify-center !gap-1" },
+        { id: "2a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "2b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
         {
           id: "2c",
           imgUrl: adidas,
@@ -325,6 +325,126 @@ const Sponsor: React.FC = () => {
     },
   ];
 
+  const withoutLarge: SponsorCardData[] = [
+    {
+      id: "1",
+      size: "small" as CardSize,
+      imgUrl: softwareMill,
+      position: 0,
+      nestedCards: [
+        { id: "5a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "5b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+      ],
+    },
+    {
+      id: "2",
+      imgUrl: swissBorg,
+      title: "Empowering Your Financial Freedom",
+      size: "xlarge" as CardSize,
+      main: true,
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
+      position: 2,
+    },
+    {
+      id: "3",
+      size: "small" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "5b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+      ],
+    },
+
+    {
+      id: "7",
+      size: "small" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "5b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+      ],
+    },
+
+    {
+      id: "9",
+      size: "small" as CardSize,
+      position: 0,
+      nestedCards: [
+        { id: "5a", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+        { id: "5b", imgUrl: softwareMill, className: "!justify-center !gap-1" },
+      ],
+    },
+  ];
+  const withoutSmallData: SponsorCardData[] = [
+    {
+      id: "2",
+      imgUrl: swissBorg,
+      title: "Empowering Your Financial Freedom",
+      size: "xlarge" as CardSize,
+      details: "A Company that Buy, sell and exchange crypto- currencies with 16 fiats including EUR, CHF and GBP.",
+      position: 2,
+    },
+
+    {
+      id: "4",
+      size: "large" as CardSize,
+      position: 5,
+      nestedCards: [
+        {
+          id: "5a",
+          imgUrl: adidas,
+          imgClasses: "!max-w-[70px] lg:!max-w-24 1800:!max-w-[114px]",
+          className: "!gap-0.5 !pt-1 !pb-3",
+          description: "Distributed systems like Pekko are inherently complex.",
+        },
+        {
+          id: "5b",
+          imgUrl: adidas,
+          imgClasses: "!max-w-[70px] lg:!max-w-24 1800:!max-w-[114px]",
+          className: "!gap-0.5 !pt-1 !pb-3",
+          description: "Distributed systems like Pekko are inherently complex.",
+        },
+      ],
+    },
+    {
+      id: "5",
+      imgUrl: swissBorg,
+      subtitle: "Distributed systems like Pekko",
+      size: "large" as CardSize,
+      position: 3,
+      isLeftCat: true,
+    },
+    {
+      id: "6",
+      size: "large" as CardSize,
+      position: 4,
+      nestedCards: [
+        {
+          id: "5a",
+          imgClasses: "!max-w-[70px] lg:!max-w-24 1800:!max-w-[114px]",
+          imgUrl: adidas,
+          className: "!gap-0.5 !pt-1 !pb-3",
+          description: "Distributed systems like Pekko are inherently complex.",
+        },
+        {
+          id: "5b",
+          imgClasses: "!max-w-[70px] lg:!max-w-24 1800:!max-w-[114px]",
+          imgUrl: adidas,
+          className: "!gap-0.5 !pt-1 !pb-3",
+          description: "Distributed systems like Pekko are inherently complex.",
+        },
+      ],
+    },
+
+    {
+      id: "8",
+      imgUrl: swissBorg,
+      subtitle: "Distributed systems like Pekko",
+      size: "large" as CardSize,
+      position: 3,
+      isRightCat: true,
+    },
+  ];
   return (
     <section className="!px-4 2xl:!px-0">
       <div className="!pb-32 xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] mx-auto">
@@ -338,9 +458,7 @@ const Sponsor: React.FC = () => {
             {dataArray.map((card, idx) => (
               <div key={card.id} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
                 {card.nestedCards ? (
-                  <div
-                    className={` grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-1"}`}
-                  >
+                  <div className={` grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
                     {card.nestedCards.map(nestedCard => (
                       <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
                     ))}
@@ -359,7 +477,43 @@ const Sponsor: React.FC = () => {
             {withOutExtraLarge.map(card => (
               <div key={card.id} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
                 {card.nestedCards ? (
-                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-1"}`}>
+                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
+                    {card.nestedCards.map(nestedCard => (
+                      <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
+                    ))}
+                  </div>
+                ) : (
+                  <SponsorCard {...card} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center mt-10">
+          <h3 className="main-heading mb-5">Without large Card</h3>
+          <div className="flex flex-wrap lg:!flex-nowrap !justify-center gap-2 1800:gap-3 w-full pt-2 1800:pt-3">
+            {withoutLarge.map(card => (
+              <div key={card.id} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
+                {card.nestedCards ? (
+                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
+                    {card.nestedCards.map(nestedCard => (
+                      <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
+                    ))}
+                  </div>
+                ) : (
+                  <SponsorCard {...card} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center mt-10">
+          <h3 className="main-heading mb-5">Without Small Card</h3>
+          <div className="flex flex-wrap !justify-center gap-2 1800:gap-3 w-full pt-2 1800:pt-3">
+            {withoutSmallData.map(card => (
+              <div key={card.id} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
+                {card.nestedCards ? (
+                  <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
                     {card.nestedCards.map(nestedCard => (
                       <SponsorCard key={nestedCard.id} {...nestedCard} className={`${nestedCard.className || ""}`} />
                     ))}

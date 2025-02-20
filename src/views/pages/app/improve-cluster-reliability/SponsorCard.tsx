@@ -1,5 +1,4 @@
 import type React from "react";
-
 import leftCat from "src/assets/cat-with-heart-2-right.webp";
 import rightCat from "src/assets/cat-with-heart.webp";
 
@@ -52,7 +51,7 @@ const SponsorCard: React.FC<Omit<SponsorCardData, "nestedCards" | "layout"> & { 
               className="max-w-12 md:max-w-20 h-fit xl:max-w-24 1800:max-w-[102px] object-contain"
             />
           )}{" "}
-          <img src={imgUrl} alt="Sponsor" className={`${imgClasses} object-contain w-full max-w-[180px] lg:max-w-[250px]`} />
+          <img src={imgUrl} alt="Sponsor" className={`${imgClasses} object-contain w-full max-w-[180px] 2xl:max-w-[250px]`} />
           {main === true && (
             <img
               src={rightCat || "/placeholder.svg"}
