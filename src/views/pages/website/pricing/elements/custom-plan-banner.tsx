@@ -39,7 +39,7 @@ export function CustomPlanBanner() {
               <div className="text-center md:order-last bg-theme-pink text-white font-medium text-xl px-3 py-1 mt-2 rounded-full relative after:absolute after:content-[''] after:border-[12px] after:border-transparent max-md:after:border-t-theme-pink max-md:after:-bottom-5 max-md:after:left-1/2 max-md:after:-translate-x-1/2 md:after:border-t-theme-pink md:after:left-5 md:after:-bottom-5">
                 LETS TALK
               </div>
-              <img src={cat} alt="Astronaut Cat" className="object-contain" />
+              <img src={cat} width={170} height={234} alt="Astronaut Cat" className="object-contain" />
             </div>
           </div>
         </div>
