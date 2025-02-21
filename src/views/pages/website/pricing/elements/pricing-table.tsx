@@ -35,18 +35,22 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
             data-aos="fade-up"
             data-aos-delay={index * 300}
             data-aos-duration="1000"
-            className={`group relative p-0.5 rounded-[20px] transition-colors duration-300 ease-in-out bg-gradient-to-r ${
+            className={`group relative p-0.5 rounded-[20px] transition-all duration-300 ease-in-out bg-gradient-to-r ${
               plan.featured ? "from-gradient-1 to-gradient-1" : "from-theme-blue to-theme-blue hover:from-gradient-1 hover:via-gradient-2 hover:to-gradient-3"
             }`}
           >
             <div
+              className={`absolute inset-0 z-0 h-full w-full bg-theme-blue ${
+                plan.featured ? "bg-opacity-0" : "bg-opacity-100"
+              } group-hover:bg-opacity-0 shadow-[0_0_25px] shadow-[#D06663]/0 group-hover:shadow-[#D06663]/25 rounded-[20px] transition-all duration-300`}
+            />
+            <div
               className={`
-              relative h-full rounded-[20px] px-6 py-9 bg-theme-blue
-              ${plan.featured ? "shadow-lg shadow-[#FF7E4B]/10" : ""}
+              relative h-full rounded-[20px] px-6 py-9 bg-theme-blue transition-all
             `}
             >
               {plan.featured && (
-                <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#FF7E4B] text-white text-xs font-semibold rounded-full">
+                <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-1 text-white text-xs font-semibold rounded-full">
                   MOST POPULAR
                 </div>
               )}
