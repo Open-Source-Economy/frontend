@@ -52,7 +52,7 @@ const createServiceCreditFeature = (amount: string, priceType: PlanProductType) 
   // Missing one
     { name: "Priority Support", info: "Priority support with average 48h response time", included: priceType === PlanProductType.SCALE_UP_PLAN || priceType === PlanProductType.ENTERPRISE_PLAN },
     { name: "Written Consultancy", info: "Detailed technical guidance documents", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
-    { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType !== PlanProductType.ENTERPRISE_PLAN },
+    { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN },
     { name: "24/7 Support", info: "Emergency support hotline", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType === PlanProductType.ENTERPRISE_PLAN },
   ]
 });
