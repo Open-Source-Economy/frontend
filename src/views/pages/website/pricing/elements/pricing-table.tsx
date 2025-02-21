@@ -115,7 +115,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                       <div
                         key={feature.name}
                         className={`flex items-start gap-1.5 ${!feature.included && "opacity-30"} ${
-                          i === 1 ? "md:min-h-[68px]" : i === 2 ? "md:min-h-[172px]" : ""
+                          i === 1 ? "md:min-h-[68px]" : i === 2 ? "md:min-h-[188px]" : ""
                         }`}
                       >
                         {feature.included ? <Check className="h-6 w-6 text-theme-pink shrink-0" /> : <X className="h-5 w-5 text-theme-pink shrink-0 mt-0.5" />}
