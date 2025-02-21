@@ -53,7 +53,7 @@ const createServiceCreditFeature = (amount: string, priceType: PlanProductType) 
     { name: "Priority Support", info: "Priority support with average 48h response time", included: priceType === PlanProductType.SCALE_UP_PLAN || priceType === PlanProductType.ENTERPRISE_PLAN },
     { name: "Written Consultancy", info: "Detailed technical guidance documents", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
     { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType !== PlanProductType.ENTERPRISE_PLAN },
-    { name: "24/7 Support", info: "Emergency support hotline", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType !== PlanProductType.ENTERPRISE_PLAN },
+    { name: "24/7 Support", info: "Emergency support hotline", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType === PlanProductType.ENTERPRISE_PLAN },
   ]
 });
 
@@ -74,6 +74,7 @@ const createEcosystemFeature = () => ({
 });
 
 // Common features used across plans
+
 const COMMON_FEATURES = {
   communityRecognition: {
     basic: {
@@ -98,13 +99,13 @@ const COMMON_FEATURES = {
   supporterSpotlight: {
     basic: {
       name: "Supporter Spotlight",
-      description: "Showcase your open source contributions",
+      description: "Showcase your open source contributions and impact",
       info: "Monthly blog feature highlighting your OSS investments",
       included: false
     },
     premium: {
       name: "Supporter Spotlight",
-      description: "Showcase your open source contributions",
+      description: "Showcase your open source contributions and impact",
       info: "Monthly blog feature highlighting your OSS investments",
       included: true
     },
@@ -117,12 +118,12 @@ const COMMON_FEATURES = {
         {
           name: "Social media mentions (4x/month)",
           included: true,
-          info: "Featured posts to 250k+ followers",
+          info: "Featured posts to our followers",
         },
         {
           name: "Newsletter feature",
           included: true,
-          info: "Spotlight in 50k subscriber newsletter",
+          info: "Spotlight in our subscriber newsletter",
         },
         {
           name: "Dedicated Blog post",
