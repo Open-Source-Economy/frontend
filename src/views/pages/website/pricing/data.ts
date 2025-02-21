@@ -48,21 +48,13 @@ const createServiceCreditFeature = (amount: string, priceType: PlanProductType) 
   extras: [
     { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs", included: true },
     { name: "Co-fund New features", info: "Collaboratively fund feature development", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
+    { name: "Standard Support", info: "Email support with average 2-5 business days response time", included: true },
+  // Missing one
+    { name: "Priority Support", info: "Priority support with average 48h response time", included: priceType === PlanProductType.SCALE_UP_PLAN || priceType === PlanProductType.ENTERPRISE_PLAN },
     { name: "Written Consultancy", info: "Detailed technical guidance documents", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
     { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN },
-    { name: "Standard Support", info: "Email support with average 2-5 business days response time", included: true },
-    {
-      name: "Priority Support",
-      info: "Priority support with average 48h response time",
-      included: priceType === PlanProductType.SCALE_UP_PLAN || priceType === PlanProductType.ENTERPRISE_PLAN,
-    },
-    {
-      name: "24/7 Support",
-      info: "Emergency support hotline",
-      included: priceType === PlanProductType.ENTERPRISE_PLAN,
-      soon: priceType === PlanProductType.ENTERPRISE_PLAN,
-    },
-  ],
+    { name: "24/7 Support", info: "Emergency support hotline", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType === PlanProductType.ENTERPRISE_PLAN },
+  ]
 });
 
 const createOpenSourceImpactFeature = (time: string) => ({
