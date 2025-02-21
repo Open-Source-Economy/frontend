@@ -54,7 +54,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
               <div className="space-y-3">
                 <div className="text-center space-y-3">
                   <h3 className="text-2xl md:text-[26px] font-light font-michroma text-theme-pink">{plan.name}</h3>
-                  <p className="text-sm text-white min-h-8">{plan.description}</p>
+                  <p className="text-sm text-white md:min-h-10">{plan.description}</p>
                 </div>
 
                 <div className="text-center space-y-1">
@@ -104,15 +104,20 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                     </button>
                   </div>
                 ) : (
-                  <div className="p-3.5 text-center text-theme-pink text-sm font-medium">Current Plan</div>
+                  <div className="p-[18px] text-center text-theme-pink text-sm font-medium">Current Plan</div>
                 )}
 
                 <div className="grid gap-3">
-                  {plan.features.map(feature => (
+                  {plan.features.map((feature, i) => (
                     <>
                       <hr key={feature.name} className="border-white/20 border-2" />
                       {feature.title && <div className="font-semibold text-center text-theme-pink">{feature.title}</div>}
-                      <div key={feature.name} className={`flex items-start gap-1.5 ${!feature.included && "opacity-30"}`}>
+                      <div
+                        key={feature.name}
+                        className={`flex items-start gap-1.5 ${!feature.included && "opacity-30"} ${
+                          i === 1 ? "md:min-h-[68px]" : i === 2 ? "md:min-h-[172px]" : ""
+                        }`}
+                      >
                         {feature.included ? <Check className="h-6 w-6 text-theme-pink shrink-0" /> : <X className="h-5 w-5 text-theme-pink shrink-0 mt-0.5" />}
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
