@@ -42,6 +42,7 @@ export function Pricing(props: PricingProps) {
           <div data-aos="fade-up" data-aos-delay="100">
             <PricingTable
               activePlan={activePlan}
+              activeBillingPeriod={activeBillingPeriod}
               onUpgradePlan={(plan: Plan, billingPeriod: "annual" | "monthly") => {
                 setActivePlan(plan);
                 setActiveBillingPeriod(billingPeriod);

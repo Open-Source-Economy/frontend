@@ -4,14 +4,21 @@ import { Tabs } from "./tabs";
 import { InfoTooltip } from "./tooltip";
 import { billingOptions, type Plan, plans } from "../data";
 import backdropSVG from "src/assets/backdrop.svg";
+import { useAuth } from "src/views/pages/app";
 
 interface PricingTableProps {
   activePlan: Plan | null;
+  activeBillingPeriod: "annual" | "monthly";
   onUpgradePlan: (plan: Plan, billingPeriod: "annual" | "monthly") => void;
 }
 
-export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
+export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }: PricingTableProps) {
   const [billingPeriod, setBillingPeriod] = useState<"annual" | "monthly">("annual");
+  const [auth, setAuth] = useState({
+    authInfo: {
+      user: false,
+    },
+  });
 
   return (
     <div className="w-full text-white space-y-8">
@@ -60,24 +67,44 @@ export function PricingTable({ activePlan, onUpgradePlan }: PricingTableProps) {
                   <div className="text-[10px] text-gray-400">per month, {billingPeriod === "annual" ? "paid annually" : "billed monthly"}</div>
                 </div>
 
-                {activePlan?.name === plan.name ? (
-                  <div className="p-3 text-center text-theme-pink text-sm font-medium">Current Plan</div>
-                ) : (
+                {activeBillingPeriod && activePlan?.price[activeBillingPeriod] !== plan.price[billingPeriod] ? (
                   <div className="p-0.5 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 rounded-lg">
                     <button
                       type="button"
                       onClick={() => {
-                        onUpgradePlan(plan, billingPeriod);
+                        auth.authInfo.user ? onUpgradePlan(plan, billingPeriod) : setAuth(prev => ({ ...prev, authInfo: { user: true } }));
                       }}
                       className={`
-                    w-full p-[14px] rounded-lg bg-opacity-0 bg-theme-blue group-hover:bg-opacity-100 transition-all duration-300 group/btn
-                    `}
+                    w-full p-[14px] rounded-lg bg-theme-blue hover:bg-opacity-80 transition-all duration-300 group/btn ${
+                      activePlan && auth.authInfo.user
+                        ? (activePlan.name === plan.name && activePlan.price[activeBillingPeriod] > activePlan.price[billingPeriod]) ||
+                          (activePlan.name !== plan.name && activePlan.price[activeBillingPeriod] < plan.price[billingPeriod])
+                          ? "bg-opacity-0"
+                          : "bg-opacity-100"
+                        : "bg-opacity-0"
+                    }`}
                     >
-                      <span className="group-hover/btn:text-white w-full transition bg-clip-text group-hover:text-transparent font-medium text-sm bg-opacity-0 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3">
-                        UPGRADE PLAN
+                      <span
+                        className={`group-hover/btn:text-white w-full transition font-semibold text-sm bg-clip-text bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
+                          activePlan && auth.authInfo.user
+                            ? (activePlan.name === plan.name && activePlan.price[activeBillingPeriod] > activePlan.price[billingPeriod]) ||
+                              (activePlan.name !== plan.name && activePlan.price[activeBillingPeriod] < plan.price[billingPeriod])
+                              ? "text-white"
+                              : "text-transparent"
+                            : "text-white"
+                        }`}
+                      >
+                        {activePlan && auth.authInfo.user
+                          ? (activePlan.name === plan.name && activePlan.price[activeBillingPeriod] > activePlan.price[billingPeriod]) ||
+                            (activePlan.name !== plan.name && activePlan.price[activeBillingPeriod] < plan.price[billingPeriod])
+                            ? "UPGRADE PLAN"
+                            : "SELECT PLAN"
+                          : "GET STARTED"}
                       </span>
                     </button>
                   </div>
+                ) : (
+                  <div className="p-4 text-center text-theme-pink text-sm font-medium">Current Plan</div>
                 )}
 
                 <div className="grid gap-3">
