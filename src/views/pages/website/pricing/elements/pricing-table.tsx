@@ -28,7 +28,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
         <img src={backdropSVG} className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right" alt="backdrop" />
-        <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[51rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
+        <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[60rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
         {plans.map((plan, index) => (
           <div
             key={plan.name}
