@@ -120,21 +120,27 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                       >
                         {feature.included ? <Check className="h-6 w-6 text-theme-pink shrink-0" /> : <X className="h-5 w-5 text-theme-pink shrink-0 mt-0.5" />}
                         <div className="space-y-1">
-                          <div className="flex items-center gap-2">
+                          <div className="inline-block space-x-2">
                             <span className="font-semibold">{feature.name}</span>
                             {feature.info && <InfoTooltip content={feature.info} />}
                           </div>
                           <p className="text-sm">{feature.description}</p>
                           {feature.extras?.map(extra => (
-                            <div key={extra.name} className={`flex items-center gap-2 mt-2 ${!extra.included && "opacity-30"}`}>
-                              {extra.included ? <Check className="h-4 w-4 text-theme-pink shrink-0" /> : <X className="h-3.5 w-3.5 text-theme-pink shrink-0" />}
-                              <span className="text-sm text-gray-400">{extra.name}</span>
-                              {extra.info && <InfoTooltip content={extra.info} />}
-                              {extra.soon && (
-                                <p className="text-[10px] bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 py-[1px] px-1.5 rounded-full text-white font-semibold">
-                                  soon
-                                </p>
+                            <div key={extra.name} className={`flex gap-2 mt-2 ${!extra.included && "opacity-30"}`}>
+                              {extra.included ? (
+                                <Check className="h-4 w-4 text-theme-pink shrink-0 mt-1" />
+                              ) : (
+                                <X className="h-3.5 w-3.5 text-theme-pink shrink-0 mt-1" />
                               )}
+                              <div className="inline-block space-x-2 relative">
+                                <span className="text-sm text-gray-400">{extra.name}</span>
+                                {extra.info && <InfoTooltip content={extra.info} />}
+                                {extra.soon && (
+                                  <p className="absolute -right-2 translate-x-full top-1/2 -translate-y-1/2 text-xs bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 py-[1px] px-1.5 rounded-full text-white font-semibold inline-block">
+                                    soon
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           ))}
                           {feature.subtext && <p className="text-sm text-gray-400">{feature.subtext}</p>}
