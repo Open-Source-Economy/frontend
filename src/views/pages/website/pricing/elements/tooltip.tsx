@@ -15,7 +15,7 @@ export function InfoTooltip({ content }: InfoTooltipProps) {
           </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>
-          <Tooltip.Content className="max-w-xs rounded-lg bg-theme-pink px-3 py-2 text-xs text-white shadow-lg" sideOffset={5} side="bottom">
+          <Tooltip.Content className="max-w-xs rounded-lg bg-theme-pink px-3 py-2 text-sm text-white shadow-lg" sideOffset={5} side="bottom">
             {content}
             <Tooltip.Arrow className="fill-theme-pink" />
           </Tooltip.Content>

@@ -54,7 +54,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
               <div className="space-y-3">
                 <div className="text-center space-y-3">
                   <h3 className="text-2xl md:text-[26px] font-light font-michroma text-theme-pink">{plan.name}</h3>
-                  <p className="text-xs text-white min-h-8">{plan.description}</p>
+                  <p className="text-sm text-white min-h-8">{plan.description}</p>
                 </div>
 
                 <div className="text-center space-y-1">
@@ -64,7 +64,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                     )}
                     <span className="text-4xl md:text-[38px] font-bold">${plan.price[billingPeriod]}</span>
                   </div>
-                  <div className="text-[10px] text-gray-400">per month, {billingPeriod === "annual" ? "paid annually" : "billed monthly"}</div>
+                  <div className="text-xs text-gray-400">per month, {billingPeriod === "annual" ? "paid annually" : "billed monthly"}</div>
                 </div>
 
                 {activeBillingPeriod && activePlan?.price[activeBillingPeriod] !== plan.price[billingPeriod] ? (
@@ -104,7 +104,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                     </button>
                   </div>
                 ) : (
-                  <div className="p-4 text-center text-theme-pink text-sm font-medium">Current Plan</div>
+                  <div className="p-3.5 text-center text-theme-pink text-sm font-medium">Current Plan</div>
                 )}
 
                 <div className="grid gap-3">
@@ -123,7 +123,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                           {feature.extras?.map(extra => (
                             <div key={extra.name} className={`flex items-center gap-2 mt-2 ${!extra.included && "opacity-30"}`}>
                               {extra.included ? <Check className="h-4 w-4 text-theme-pink shrink-0" /> : <X className="h-3.5 w-3.5 text-theme-pink shrink-0" />}
-                              <span className="text-xs text-gray-400">{extra.name}</span>
+                              <span className="text-sm text-gray-400">{extra.name}</span>
                               {extra.info && <InfoTooltip content={extra.info} />}
                               {extra.soon && (
                                 <p className="text-[10px] bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 py-[1px] px-1.5 rounded-full text-white font-semibold">
@@ -132,7 +132,7 @@ export function PricingTable({ activePlan, activeBillingPeriod, onUpgradePlan }:
                               )}
                             </div>
                           ))}
-                          {feature.subtext && <p className="text-xs text-gray-400">{feature.subtext}</p>}
+                          {feature.subtext && <p className="text-sm text-gray-400">{feature.subtext}</p>}
                         </div>
                       </div>
                     </>
