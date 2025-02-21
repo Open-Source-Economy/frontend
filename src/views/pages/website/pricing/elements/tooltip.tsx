@@ -7,7 +7,7 @@ interface InfoTooltipProps {
 
 export function InfoTooltip({ content }: InfoTooltipProps) {
   return (
-    <Tooltip.Provider>
+    <Tooltip.Provider delayDuration={100}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <span>
