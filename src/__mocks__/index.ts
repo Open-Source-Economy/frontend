@@ -14,7 +14,7 @@ import {
   ThirdPartyUserId,
   User,
   UserId,
-  UserRole
+  UserRole,
 } from "src/model";
 
 export * from "./BackendAPI.mock";

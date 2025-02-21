@@ -8,13 +8,10 @@ import {
   LoginResponse,
   RegisterBody,
   RegisterQuery,
-  RegisterResponse
+  RegisterResponse,
 } from "src/dtos/auth";
 import { AuthBackendAPIMock } from "src/__mocks__";
-import {
-  GetRepositoryUserInviteInfoQuery,
-  GetRepositoryUserInviteInfoResponse
-} from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";

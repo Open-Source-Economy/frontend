@@ -8,7 +8,7 @@ import { Plan, plans } from "../data";
 
 interface PricingTableProps {
   activePlan: Plan | null;
-  activePrices: Record<PlanPriceType, number> | null
+  activePrices: Record<PlanPriceType, number> | null;
   onUpgradePlan: (plan: Plan, planPriceType: PlanPriceType) => void;
 }
 

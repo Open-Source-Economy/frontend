@@ -15,8 +15,8 @@ export function SubscriptionDetails(props: SubscriptionDetailsProps) {
       <div className="flex items-center gap-2">
         <h3 className="text-white font-semibold -mt-0.5">{props.plan.name}</h3>
         <span className="text-gray-400 text-xs">
-          {/*TODO: NumberFormat*/}
-          ${Intl.NumberFormat("en-US").format(props.prices[props.planPriceType] * (props.planPriceType === PlanPriceType.ANNUALLY ? 12 : 1))} /{" "}
+          {/*TODO: NumberFormat*/}$
+          {Intl.NumberFormat("en-US").format(props.prices[props.planPriceType] * (props.planPriceType === PlanPriceType.ANNUALLY ? 12 : 1))} /{" "}
           {props.planPriceType === PlanPriceType.ANNUALLY ? "year" : "month"}
         </span>
         <InfoTooltip content={props.plan.description} />

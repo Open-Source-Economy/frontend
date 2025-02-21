@@ -17,7 +17,7 @@ export function Pricing(props: PricingProps) {
     nextPayment: "11/29/2025",
   });
 
-  const currency = Currency.USD
+  const currency = Currency.USD;
   const [activePlan, setActivePlan] = useState<Plan | null>(null);
   const [activePrices, setActivePrices] = useState<Record<PlanPriceType, number> | null>(null);
   const [activePlanPriceType, setActivePlanPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);

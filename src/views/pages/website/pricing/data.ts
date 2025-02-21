@@ -25,19 +25,19 @@ export type Plan = {
 const TEXTS = {
   SERVICE_CREDIT: {
     DESCRIPTION: "service credit (rolls over)",
-    INFO: "Unused credits accumulate monthly - perfect for occasional needs"
+    INFO: "Unused credits accumulate monthly - perfect for occasional needs",
   },
   OPEN_SOURCE: {
     TITLE: "Open Source Impact",
     DESCRIPTION: "gifted to maintainers",
     INFO: "We allocate your gift to high-impact projects you use",
-    SUBTEXT: "Support proactive development of OSS"
+    SUBTEXT: "Support proactive development of OSS",
   },
   ECOSYSTEM: {
     NAME: "Support ecosystem sustainability",
     DESCRIPTION: "Invest in the future of open source",
-    INFO: "Contribute to the long-term health of open source projects"
-  }
+    INFO: "Contribute to the long-term health of open source projects",
+  },
 };
 
 const createServiceCreditFeature = (amount: string, priceType: PlanProductType) => ({
@@ -48,11 +48,21 @@ const createServiceCreditFeature = (amount: string, priceType: PlanProductType) 
   extras: [
     { name: "Co-fund Issues", info: "Pool resources with others to fix critical bugs", included: true },
     { name: "Co-fund New features", info: "Collaboratively fund feature development", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
-    { name: "Standard Support", info: "Email support with 48h response time", included: true },
     { name: "Written Consultancy", info: "Detailed technical guidance documents", included: priceType !== PlanProductType.INDIVIDUAL_PLAN },
-    { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType !== PlanProductType.ENTERPRISE_PLAN },
-    { name: "24/7 Support", info: "Emergency support hotline", included: priceType === PlanProductType.ENTERPRISE_PLAN, soon: priceType !== PlanProductType.ENTERPRISE_PLAN },
-  ]
+    { name: "Live Expert Consultancy", info: "Real-time video consultations", included: priceType === PlanProductType.ENTERPRISE_PLAN },
+    { name: "Standard Support", info: "Email support with average 2-5 business days response time", included: true },
+    {
+      name: "Priority Support",
+      info: "Priority support with average 48h response time",
+      included: priceType === PlanProductType.SCALE_UP_PLAN || priceType === PlanProductType.ENTERPRISE_PLAN,
+    },
+    {
+      name: "24/7 Support",
+      info: "Emergency support hotline",
+      included: priceType === PlanProductType.ENTERPRISE_PLAN,
+      soon: priceType === PlanProductType.ENTERPRISE_PLAN,
+    },
+  ],
 });
 
 const createOpenSourceImpactFeature = (time: string) => ({
@@ -61,50 +71,51 @@ const createOpenSourceImpactFeature = (time: string) => ({
   description: TEXTS.OPEN_SOURCE.DESCRIPTION,
   info: TEXTS.OPEN_SOURCE.INFO,
   subtext: TEXTS.OPEN_SOURCE.SUBTEXT,
-  included: true
+  included: true,
 });
 
 const createEcosystemFeature = () => ({
   name: TEXTS.ECOSYSTEM.NAME,
   description: TEXTS.ECOSYSTEM.DESCRIPTION,
   info: TEXTS.ECOSYSTEM.INFO,
-  included: true
+  included: true,
 });
 
 // Common features used across plans
+
 const COMMON_FEATURES = {
   communityRecognition: {
     basic: {
       name: "Community Recognition",
       description: "Build your reputation as OSS supporter",
       info: "Featured in supporter directory + profile badge",
-      included: false
+      included: false,
     },
     custom: {
       name: "Community Recognition",
       description: "Customizable Supporter Profile",
       info: "Showcase your brand and OSS contributions",
-      included: true
+      included: true,
     },
     premier: {
       name: "Premier Public Recognition",
       description: "Premier Supporter Spotlight",
       info: "Exclusive recognition across our platforms",
-      included: true
-    }
+      included: true,
+    },
   },
   supporterSpotlight: {
     basic: {
       name: "Supporter Spotlight",
-      description: "Showcase your open source contributions",
+      description: "Showcase your open source contributions and impact",
       info: "Monthly blog feature highlighting your OSS investments",
-      included: false
+      included: false,
     },
     premium: {
       name: "Supporter Spotlight",
-      description: "Showcase your open source contributions",
+      description: "Showcase your open source contributions and impact",
       info: "Monthly blog feature highlighting your OSS investments",
-      included: true
+      included: true,
     },
     marketing: {
       name: "Marketing Spotlight",
@@ -115,29 +126,30 @@ const COMMON_FEATURES = {
         {
           name: "Social media mentions (4x/month)",
           included: true,
-          info: "Featured posts to 250k+ followers",
+          info: "Featured posts to our followers",
         },
         {
           name: "Newsletter feature",
           included: true,
-          info: "Spotlight in 50k subscriber newsletter",
+          info: "Spotlight in our subscriber newsletter",
         },
         {
           name: "Dedicated Blog post",
           included: true,
           info: "Case study highlighting your OSS impact",
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
 };
 
-const prices:Record<PlanProductType, Record<Currency, Record<PlanPriceType, number>>> = {
+const prices: Record<PlanProductType, Record<Currency, Record<PlanPriceType, number>>> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
-  [Currency.USD]: {
-    [PlanPriceType.MONTHLY]: 69,
-    [PlanPriceType.ANNUALLY]: 56,
-  },  [Currency.EUR]: {
+    [Currency.USD]: {
+      [PlanPriceType.MONTHLY]: 69,
+      [PlanPriceType.ANNUALLY]: 56,
+    },
+    [Currency.EUR]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
     },
@@ -155,7 +167,8 @@ const prices:Record<PlanProductType, Record<Currency, Record<PlanPriceType, numb
     [Currency.USD]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
-    },  [Currency.EUR]: {
+    },
+    [Currency.EUR]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
     },
@@ -173,7 +186,8 @@ const prices:Record<PlanProductType, Record<Currency, Record<PlanPriceType, numb
     [Currency.USD]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
-    },  [Currency.EUR]: {
+    },
+    [Currency.EUR]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
     },
@@ -191,7 +205,8 @@ const prices:Record<PlanProductType, Record<Currency, Record<PlanPriceType, numb
     [Currency.USD]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
-    },  [Currency.EUR]: {
+    },
+    [Currency.EUR]: {
       [PlanPriceType.MONTHLY]: 69,
       [PlanPriceType.ANNUALLY]: 56,
     },
@@ -205,8 +220,7 @@ const prices:Record<PlanProductType, Record<Currency, Record<PlanPriceType, numb
       [PlanPriceType.ANNUALLY]: 56,
     },
   },
-}
-
+};
 
 // Factorized plans definition
 export const plans: Record<PlanProductType, Plan> = {
@@ -219,7 +233,7 @@ export const plans: Record<PlanProductType, Plan> = {
       COMMON_FEATURES.communityRecognition.basic,
       COMMON_FEATURES.supporterSpotlight.basic,
       createOpenSourceImpactFeature("15 min"),
-      createEcosystemFeature()
+      createEcosystemFeature(),
     ],
   },
 
@@ -231,7 +245,7 @@ export const plans: Record<PlanProductType, Plan> = {
       COMMON_FEATURES.communityRecognition.basic,
       COMMON_FEATURES.supporterSpotlight.basic,
       createOpenSourceImpactFeature("1h"),
-      createEcosystemFeature()
+      createEcosystemFeature(),
     ],
   },
 
@@ -244,7 +258,7 @@ export const plans: Record<PlanProductType, Plan> = {
       COMMON_FEATURES.communityRecognition.custom,
       COMMON_FEATURES.supporterSpotlight.premium,
       createOpenSourceImpactFeature("2.5h"),
-      createEcosystemFeature()
+      createEcosystemFeature(),
     ],
   },
 
@@ -256,7 +270,7 @@ export const plans: Record<PlanProductType, Plan> = {
       COMMON_FEATURES.communityRecognition.premier,
       COMMON_FEATURES.supporterSpotlight.marketing,
       createOpenSourceImpactFeature("10h"),
-      createEcosystemFeature()
+      createEcosystemFeature(),
     ],
   },
 };

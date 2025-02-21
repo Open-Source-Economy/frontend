@@ -35,7 +35,7 @@ interface CurrentSubscriptionProps {
 export function CurrentSubscription({
   plan,
   billingPeriod,
-                                      prices,
+  prices,
   payment,
   schedule,
   onCancelSubscription,
@@ -48,7 +48,7 @@ export function CurrentSubscription({
     <div className={`${gridLayout} ${className}`}>
       <Card className="row-span-2 lg:col-span-2" data-aos="fade-up" data-aos-delay="0">
         <CardHeader icon={CurrentSubscriptionIcon} title="Current Subscription" />
-        <SubscriptionDetails plan={plan} planPriceType={billingPeriod} prices={prices}/>
+        <SubscriptionDetails plan={plan} planPriceType={billingPeriod} prices={prices} />
         {
           <div className="p-0.5 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 rounded-lg w-full">
             <button

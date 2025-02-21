@@ -29,7 +29,8 @@ export function Tabs(props: TabsProps) {
                   props.value === priceType ? "text-white" : "bg-clip-text text-transparent hover:text-white"
                 }`}
               >
-                {priceType === PlanPriceType.ANNUALLY ? "Annual" : "Monthly"}{" Billing"}
+                {priceType === PlanPriceType.ANNUALLY ? "Annual" : "Monthly"}
+                {" Billing"}
               </button>
             </>
           ))}

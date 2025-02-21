@@ -14,7 +14,7 @@ import {
   Project,
   StripePrice,
   StripePriceId,
-  StripeProductId
+  StripeProductId,
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";

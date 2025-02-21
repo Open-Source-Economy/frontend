@@ -19,7 +19,7 @@ import {
   SendRepositoryRoleInviteBody,
   SendRepositoryRoleInviteParams,
   SendRepositoryRoleInviteQuery,
-  SendRepositoryRoleInviteResponse
+  SendRepositoryRoleInviteResponse,
 } from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
