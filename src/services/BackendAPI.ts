@@ -1,58 +1,15 @@
 import { FinancialIssue } from "../model";
 import Decimal from "decimal.js";
 import { BackendAPIMock } from "src/__mocks__";
-import {
-  CheckoutBody,
-  CheckoutParams,
-  CheckoutQuery,
-  CheckoutResponse,
-  FundIssueBody,
-  FundIssueParams,
-  FundIssueQuery,
-  GetAvailableCreditResponse,
-  GetCampaignParams,
-  GetCampaignQuery,
-  GetCampaignResponse,
-  GetIssueParams,
-  GetIssueQuery,
-  GetIssueResponse,
-  GetIssuesParams,
-  GetIssuesResponse,
-  GetMaintainersParams,
-  GetMaintainersQuery,
-  GetMaintainersResponse,
-  GetOwnerParams,
-  GetOwnerQuery,
-  GetOwnerResponse,
-  GetPricesParams,
-  GetPricesQuery,
-  GetPricesResponse,
-  GetProjectParams,
-  GetProjectQuery,
-  GetProjectResponse,
-  GetProjectServicesParams,
-  GetProjectServicesQuery,
-  GetProjectServicesResponse,
-  GetRepositoryParams,
-  GetRepositoryQuery,
-  GetRepositoryResponse,
-  RequestIssueFundingBody,
-  RequestIssueFundingParams,
-  RequestIssueFundingQuery,
-  SetUserPreferredCurrencyBody,
-  SetUserPreferredCurrencyParams,
-  SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse,
-} from "src/dtos";
+import * as dto from "src/dtos";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
-import { GetAvailableDowParams, GetAvailableDowQuery } from "src/dtos/user/GetAvailableDow";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
+import { Credit, CreditUnit } from "src/model";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery, NewsletterSubscriptionResponse } from "../dtos";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -65,11 +22,11 @@ export function getBackendAPI(): BackendAPI {
 export interface BackendAPI {
   /* Getters */
 
-  getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError>;
+  getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError>;
 
-  getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
+  getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
 
-  getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError>;
+  getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError>;
 
   /**
    * Funds a specific issue.
@@ -80,7 +37,7 @@ export interface BackendAPI {
    * @throws {Error} If the amount is not a positive number.
    * @throws {Error} If there are insufficient funds.
    */
-  fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError>;
+  fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError>;
 
   /**
    * Request or approve funding for an issue.
@@ -90,40 +47,40 @@ export interface BackendAPI {
    * @throws {Error} If the userId or issueId is invalid or not found.
    * @throws {Error} If the amount is not a positive number.
    */
-  requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError>;
+  requestFunding(params: dto.RequestIssueFundingParams, body: dto.RequestIssueFundingBody, query: dto.RequestIssueFundingQuery): Promise<void | ApiError>;
 
-  getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError>;
+  getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError>;
 
-  getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError>;
+  getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse | ApiError>;
 
-  getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError>;
+  getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError>;
 
-  getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError>;
+  getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
 
-  getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError>;
+  getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<dto.GetPricesResponse | ApiError>;
 
-  getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError>;
+  getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError>;
 
-  checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<CheckoutResponse | ApiError>;
+  checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse | ApiError>;
 
   setUserPreferredCurrency(
-    params: SetUserPreferredCurrencyParams,
-    body: SetUserPreferredCurrencyBody,
-    query: SetUserPreferredCurrencyQuery,
-  ): Promise<SetUserPreferredCurrencyResponse | ApiError>;
+    params: dto.SetUserPreferredCurrencyParams,
+    body: dto.SetUserPreferredCurrencyBody,
+    query: dto.SetUserPreferredCurrencyQuery,
+  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError>;
 
-  getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<GetProjectServicesResponse | ApiError>;
+  getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse | ApiError>;
 
   subscribeToNewsletter(
-    params: NewsletterSubscriptionParams,
-    body: NewsletterSubscriptionBody,
-    query: NewsletterSubscriptionQuery,
-  ): Promise<NewsletterSubscriptionResponse | ApiError>;
+    params: dto.NewsletterSubscriptionParams,
+    body: dto.NewsletterSubscriptionBody,
+    query: dto.NewsletterSubscriptionQuery,
+  ): Promise<dto.NewsletterSubscriptionResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
-  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
-    const response = await handleError<GetIssueResponse>(
+  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
+    const response = await handleError<dto.GetIssueResponse>(
       () => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
@@ -132,8 +89,8 @@ class BackendAPIImpl implements BackendAPI {
     else return response.issue;
   }
 
-  async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
-    const response = await handleError<GetIssuesResponse>(
+  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+    const response = await handleError<dto.GetIssuesResponse>(
       () => axios.get(`${config.api.url}/github/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues",
     );
@@ -141,27 +98,35 @@ class BackendAPIImpl implements BackendAPI {
     else return response.issues;
   }
 
-  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError> {
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError> {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
-    const response = await handleError<GetAvailableCreditResponse>(
+    const response = await handleError<dto.GetAvailableCreditsResponse>(
       () => axios.get(`${config.api.url}/user/available-credit?${queryParams}`, { withCredentials: true }),
-      "getAvailableDow",
+      "getAvailableCredits",
     );
 
     if (response instanceof ApiError) return response;
-    else return new Decimal(response.creditAmount);
+    else
+      return {
+        unit: CreditUnit.MINUTE,
+        amount: new Decimal(response.creditAmount),
+      };
   }
 
-  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
+  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
     return handleError(
       () => axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
       "fundIssue",
     );
   }
 
-  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
+  async requestFunding(
+    params: dto.RequestIssueFundingParams,
+    body: dto.RequestIssueFundingBody,
+    query: dto.RequestIssueFundingQuery,
+  ): Promise<void | ApiError> {
     return handleError(
       () =>
         axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
@@ -169,18 +134,18 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError> {
     return handleError(() => axios.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
   }
 
-  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<GetRepositoryResponse | ApiError> {
+  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse | ApiError> {
     return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 
-  async getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError> {
+  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
     // Hacky, change when we will have time
     if (params.repo) {
-      const p: GetRepositoryParams = { owner: params.owner, repo: params.repo };
+      const p: dto.GetRepositoryParams = { owner: params.owner, repo: params.repo };
       const response = await this.getRepository(p, query);
       if (response instanceof ApiError) {
         return response;
@@ -195,7 +160,7 @@ class BackendAPIImpl implements BackendAPI {
     }
   }
 
-  async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
+  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -204,35 +169,35 @@ class BackendAPIImpl implements BackendAPI {
     }
   }
 
-  async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<GetPricesResponse | ApiError> {
+  async getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<dto.GetPricesResponse | ApiError> {
     // const path = this.projectPath(params.projectId);
     // return handleError(() => axios.get(`${config.api.url}${path}/prices`, { withCredentials: true }), "getPrices");
     return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
-  async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
+  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
     return handleError(
       () => axios.get(`${config.api.url}/github/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
       "getCampaign",
     );
   }
 
-  async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
     return handleError(() => axios.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
   }
 
   async setUserPreferredCurrency(
-    params: SetUserPreferredCurrencyParams,
-    body: SetUserPreferredCurrencyBody,
-    query: SetUserPreferredCurrencyQuery,
-  ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
+    params: dto.SetUserPreferredCurrencyParams,
+    body: dto.SetUserPreferredCurrencyBody,
+    query: dto.SetUserPreferredCurrencyQuery,
+  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError> {
     return handleError(
       () => axios.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
       "setUserPreferredCurrency",
     );
   }
 
-  async getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<ApiError | GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
@@ -240,10 +205,10 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async subscribeToNewsletter(
-    params: NewsletterSubscriptionParams,
-    body: NewsletterSubscriptionBody,
-    query: NewsletterSubscriptionQuery,
-  ): Promise<NewsletterSubscriptionResponse | ApiError> {
+    params: dto.NewsletterSubscriptionParams,
+    body: dto.NewsletterSubscriptionBody,
+    query: dto.NewsletterSubscriptionQuery,
+  ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return handleError(() => axios.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
   }
 }

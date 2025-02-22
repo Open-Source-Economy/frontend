@@ -49,7 +49,7 @@ export function CheckoutSuccess(props: CheckoutSuccessProps) {
                 </>
               ) : (
                 <>
-                  You will receive <span className="text-transparent bg-clip-text dow-gradient">0.3 DoW/mo</span>
+                  You will receive <span className="text-transparent bg-clip-text dow-gradient">0.3 credits/mo</span>
                 </>
               )}
             </p>

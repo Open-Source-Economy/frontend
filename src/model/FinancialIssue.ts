@@ -1,5 +1,6 @@
 import * as model from "./index";
 import Decimal from "decimal.js";
+import { Credit, CreditUnit } from "../model";
 
 export class FinancialIssue {
   public owner: model.Owner;
@@ -35,18 +36,28 @@ export class FinancialIssue {
   //     return response.issue;
   //   }
 
-  static amountCollected(m: FinancialIssue): Decimal {
-    return m.issueFundings?.reduce((acc, funding) => acc.plus(funding.credit), new Decimal(0)) ?? new Decimal(0);
+  static amountCollected(m: FinancialIssue): Credit {
+    return {
+      unit: CreditUnit.MINUTE,
+      amount: m.issueFundings?.reduce((acc, funding) => acc.plus(funding.credit), new Decimal(0)) ?? new Decimal(0),
+    };
   }
 
-  static amountRequested(m: FinancialIssue): number | undefined {
-    return m.managedIssue?.requestedCreditAmount ?? undefined;
+  static amountRequested(m: FinancialIssue): Credit | undefined {
+    if (m.managedIssue?.requestedCreditAmount) {
+      return {
+        unit: CreditUnit.MINUTE,
+        amount: new Decimal(m.managedIssue?.requestedCreditAmount || 0),
+      };
+    } else {
+      return undefined;
+    }
   }
 
   static successfullyFunded(m: FinancialIssue): boolean {
     const amountRequested = FinancialIssue.amountRequested(m);
     if (amountRequested === undefined) return false;
-    else return FinancialIssue.amountCollected(m).greaterThanOrEqualTo(amountRequested);
+    else return FinancialIssue.amountCollected(m).amount.greaterThanOrEqualTo(amountRequested.amount);
   }
 
   static isClosed(m: FinancialIssue): boolean {

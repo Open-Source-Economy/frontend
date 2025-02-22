@@ -2,14 +2,15 @@ import React from "react";
 import check from "src/assets/checkmark.png";
 import { Button } from "src/views/components";
 import { SpinningWheel } from "src/Utils/Icons";
+import { Credit, credit } from "../../../../../../model";
 
 interface HighLightCardProps {
   card: {
     title: string;
     description: string;
     tasks: string[];
-    progress: number;
-    total: number;
+    progress: Credit;
+    total: Credit;
     buttonText: string;
     isBorder?: boolean;
   };
@@ -42,8 +43,10 @@ cursor-pointer h-full !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px]
             <SpinningWheel />
           </span>
           <p className="text-base md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-[28px] font-semibold">
-            {props.card.progress} /{" "}
-            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">{props.card.total} DoW</span>
+            {credit.displayAmount(props.card.progress)} /{" "}
+            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">
+              {credit.displayAmount(props.card.total)}
+            </span>
             requested
           </p>
         </div>
@@ -51,7 +54,7 @@ cursor-pointer h-full !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px]
         <div className="w-full bg-gray-700 rounded-full h-2">
           <div
             className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] text-white to-[#66319B] h-2 rounded-full"
-            style={{ width: `${(props.card.progress / props.card.total) * 100}%` }}
+            style={{ width: `${credit.percentage(props.card.progress, props.card.total)}%` }}
           ></div>
         </div>
 

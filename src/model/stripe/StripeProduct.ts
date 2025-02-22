@@ -1,5 +1,7 @@
 import { ValidationError, Validator } from "../error";
 import { OwnerId, ProjectId, RepositoryId } from "../github";
+import { ApiError } from "../error/ApiError";
+import { StatusCodes } from "http-status-codes";
 
 export class StripeProductId {
   id: string;
@@ -21,10 +23,52 @@ export class StripeProductId {
   }
 }
 
+// do not change the naming, used in the database
 export enum ProductType {
-  credit = "credit",
-  donation = "donation",
+  CREDIT = "credit",
+  DONATION = "donation",
+  INDIVIDUAL_PLAN = "individual_plan",
+  START_UP_PLAN = "start_up_plan",
+  SCALE_UP_PLAN = "scale_up_plan",
+  ENTERPRISE_PLAN = "enterprise_plan",
 }
+
+// to enable match exhaustiveness
+export enum CampaignProductType {
+  CREDIT = ProductType.CREDIT,
+  DONATION = ProductType.DONATION,
+}
+
+export enum PlanProductType {
+  INDIVIDUAL_PLAN = ProductType.INDIVIDUAL_PLAN,
+  START_UP_PLAN = ProductType.START_UP_PLAN,
+  SCALE_UP_PLAN = ProductType.SCALE_UP_PLAN,
+  ENTERPRISE_PLAN = ProductType.ENTERPRISE_PLAN,
+}
+
+export const productTypeUtils = {
+  toProductType: (campaignProductType: CampaignProductType): ProductType => {
+    switch (campaignProductType) {
+      case CampaignProductType.CREDIT:
+        return ProductType.CREDIT;
+      case CampaignProductType.DONATION:
+        return ProductType.DONATION;
+      default:
+        throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unknown campaign product type: ${campaignProductType}`);
+    }
+  },
+
+  toCampaignProductType: (productType: ProductType): CampaignProductType => {
+    switch (productType) {
+      case ProductType.CREDIT:
+        return CampaignProductType.CREDIT;
+      case ProductType.DONATION:
+        return CampaignProductType.DONATION;
+      default:
+        throw new Error(`Product type ${productType} cannot be used in campaigns`);
+    }
+  },
+};
 
 export class StripeProduct {
   stripeId: StripeProductId;

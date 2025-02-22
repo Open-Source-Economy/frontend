@@ -25,6 +25,7 @@ import { ProjectRoute } from "./views/layout/ProjectRoute";
 import { paths } from "src/paths";
 import { Dashboard } from "./views/pages/dashboard/Dashboard";
 import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
+import { Pricing } from "./views/pages/website/pricing/Pricing";
 import { Support } from "./views/pages/support/Support";
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
           {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
           <Route path={paths.USER} element={<CompanyProduct />} />
           <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
+          <Route path={paths.PRICING} element={<Pricing />} />
           <Route path={paths.WHITE_PAPER} element={<Pdf />} />
 
           <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />

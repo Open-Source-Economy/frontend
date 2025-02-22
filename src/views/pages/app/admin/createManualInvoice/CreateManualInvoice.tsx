@@ -16,7 +16,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
   const [companyId, setCompanyId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [paid, setPaid] = useState<boolean>(false);
-  const [dowAmount, setDowAmount] = useState<number | null>(null);
+  const [creditAmount, setCreditAmount] = useState<number | null>(null);
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<any>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setter(event.target.value ? event.target.value : null);
@@ -34,7 +34,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
     if (invoiceNumber === null) missingFields.push("Invoice Number");
     if ((companyId === null && userId === null) || (companyId !== null && userId !== null))
       missingFields.push("Either Company ID or User ID must be defined, but not both");
-    if (dowAmount === null) missingFields.push("DOW Amount");
+    if (creditAmount === null) missingFields.push("Credit Amount");
     if (missingFields.length > 0) {
       setError(`Please fill in the following required fields: ${missingFields.join(", ")}`);
       return;
@@ -45,7 +45,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
       companyId: companyId !== null ? new CompanyId(companyId) : undefined,
       userId: userId !== null ? new UserId(userId) : undefined,
       paid: paid!,
-      creditAmount: dowAmount!,
+      creditAmount: creditAmount!,
     };
 
     const query: CreateManualInvoiceQuery = {};
@@ -61,7 +61,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
         setCompanyId(null);
         setUserId(null);
         setPaid(false);
-        setDowAmount(null);
+        setCreditAmount(null);
       }
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred");
@@ -113,10 +113,10 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
               </div>
               <input
                 type="number"
-                placeholder="DOW Amount"
+                placeholder="Credit Amount"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={dowAmount ?? ""}
-                onChange={handleInputChange(setDowAmount)}
+                value={creditAmount ?? ""}
+                onChange={handleInputChange(setCreditAmount)}
                 required
               />
               <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">

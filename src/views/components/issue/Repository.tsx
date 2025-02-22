@@ -17,7 +17,7 @@ export function Repository(props: RepositoryProps) {
             <span className="text-decoration-none c_links color-70">
               <span className="hover:underline">{props.owner.id.login}</span>
             </span>
-          </ExternalLink>{" "}
+          </ExternalLink>
           /
           <span className="text-white text-decoration-none c_links">
             {props.repository.htmlUrl ? (

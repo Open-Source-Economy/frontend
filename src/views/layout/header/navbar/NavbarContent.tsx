@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components";
 import { useAuth } from "src/views/pages";
@@ -10,6 +10,7 @@ import { NavbarItem } from "./item/NavbarItem";
 import { Nav } from "react-bootstrap";
 import { paths } from "src/paths";
 import { Navigation, NavItemData } from "./item/NavItemData";
+import { useAvailableCredits } from "../../../hooks";
 
 interface AppNavbarProps {
   setShowOffcanvas: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +23,8 @@ interface AppNavbarProps {
 
 export function NavbarContent(props: AppNavbarProps) {
   const auth = useAuth();
+
+  const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
 
   const currencyNavItem = Navigation.currency(props.selectedCurrency, () => {
     props.setShowCurrencyModal(!props.showCurrencyModal);
@@ -51,13 +54,18 @@ export function NavbarContent(props: AppNavbarProps) {
     currencyNavItem,
     DIVIDER,
     Navigation.items.howItWorks,
+    Navigation.items.pricing,
     Navigation.items.blog,
     // Navigation.items.newsletter,
     DIVIDER,
     Navigation.items.signOut,
   ];
-  const authNavbarItems = [Navigation.items.dashboard];
-  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, /*Navigation.items.newsletter,*/ Navigation.items.howItWorks]; // TODO: where to put ? currencyNavItem
+  const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
+  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
+
+  useEffect(() => {
+    reloadAvailableCredits();
+  }, []);
 
   const whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>

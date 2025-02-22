@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/views/components/issue";
-import { DisclaimerModal, DowFunding } from "./elements";
+import { CreditFunding, DisclaimerModal } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
@@ -45,7 +45,7 @@ export function FundIssue({}: FundIssueProps) {
               </div>
 
               <div className="bg-[#14233A] rounded-3xl padding !p-4 md:!py-12 sm:!px-10 md:w-[590px] xl:w-[595px] w-full">
-                <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
+                <CreditFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 
               {modal && <DisclaimerModal show={modal} setShow={setModal} closeCallback={() => window.location.reload()} />}
