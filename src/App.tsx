@@ -25,6 +25,7 @@ import { ProjectRoute } from "./views/layout/ProjectRoute";
 import { paths } from "src/paths";
 import { Dashboard } from "./views/pages/dashboard/Dashboard";
 import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
+import { Support } from "./views/pages/support/Support";
 
 const App = () => {
   return (
@@ -38,6 +39,8 @@ const App = () => {
           </Route>
 
           <Route path={paths.HOME} element={<Home />} />
+          <Route path="/support" element={<Support />} />
+
           <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
           {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
           <Route path={paths.USER} element={<CompanyProduct />} />
