@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FormEntry, SelectFilter } from "src/views/components";
+import { FormEntry } from "src/views/components";
 import { BaseInput } from "src/views/components/form/frames/BaseInput";
 import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
+import { SelectFilter } from "./SelectFilter";
 
 export function Support() {
   const [subject, setSubject] = useState("");
@@ -12,9 +13,28 @@ export function Support() {
   const [isPublic, setIsPublic] = useState(false);
 
   const categoryOptions = [
-    { value: "billing", label: "Billing" },
-    { value: "technical", label: "Technical Support" },
-    { value: "general", label: "General Inquiry" },
+    { value: "support", label: "Support", isSelected: true },
+    { value: "development", label: "Development", badge: "Only On Start-Up Plan" },
+    { value: "operations", label: "Operations" },
+    { value: "consultancy", label: "Consultancy" },
+  ];
+
+  const subCategoryOptions = [
+    { value: "bugfix", label: "Bug fix" },
+    { value: "newfeature", label: "new feature", badge: "Only On Start-Up Plan" },
+    { value: "maintenance", label: "maintenance" },
+  ];
+
+  const projectOptions = [
+    { value: "apache", label: "Apache/Pekko" },
+    { value: "slick", label: "Slick", isSelected: true },
+    { value: "other", label: "Other" },
+  ];
+
+  const severityOptions = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium", isSelected: true },
+    { value: "high", label: "High" },
   ];
 
   return (
@@ -24,34 +44,29 @@ export function Support() {
       <div className="p-10 flex flex-col !gap-7 justify-center items-center bg-primaryBg max-w-[1112px] mx-auto rounded-[25px] my-16">
         <h4 className="text-[30px] font-michroma text-white">Your request is about</h4>
         {/* Category Selection */}
-        <div className="grid grid-cols-2 w-full !gap-5">
-          <FormEntry label=" Category">
-            <SelectFilter
-              ariaLabel="Select Category"
-              showBorder={false}
-              placeholder="Select Category"
-              labelValues={categoryOptions}
-              onFilterChange={setSelectedCategory}
-            />
-          </FormEntry>
-          <FormEntry label="Sub category">
-            <SelectFilter
-              showBorder={false}
-              placeholder="Select Category"
-              ariaLabel="Support Category"
-              labelValues={categoryOptions}
-              onFilterChange={setSelectedCategory}
-            />
-          </FormEntry>
+        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+          <SelectFilter
+            ariaLabel="Select Category"
+            placeholder="Select Category"
+            labelValues={categoryOptions}
+            onFilterChange={setSelectedCategory}
+            label="Category"
+            tooltip="lorem ipsum We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
+          />
+          <SelectFilter
+            ariaLabel="Select Sub Category"
+            placeholder="Select Sub Category"
+            labelValues={subCategoryOptions}
+            onFilterChange={setSelectedCategory}
+            label="Sub category"
+          />
         </div>
         {/* Public/Private Toggle */}
         {/* <FormEntry label="Visibility">
           <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
         </FormEntry> */}
         {/* Subject Input */}
-        <FormEntry label="Subject">
-          <BaseInput type="text" placeholder="Enter Title" value={subject} onChange={setSubject} isValid={true} />
-        </FormEntry>
+
         {/* Password Input */}
 
         <FormEntry label="GitHub discussion or issue url (optional)">
@@ -63,25 +78,21 @@ export function Support() {
             isValid={true}
           />
         </FormEntry>
-        <div className="grid grid-cols-2 w-full !gap-5">
-          <FormEntry label="Project">
-            <SelectFilter
-              ariaLabel="Select Category"
-              showBorder={false}
-              placeholder="other"
-              labelValues={categoryOptions}
-              onFilterChange={setSelectedCategory}
-            />
-          </FormEntry>
-          <FormEntry label="Severity">
-            <SelectFilter
-              showBorder={false}
-              placeholder="Low"
-              ariaLabel="Support Category"
-              labelValues={categoryOptions}
-              onFilterChange={setSelectedCategory}
-            />
-          </FormEntry>
+        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+          <SelectFilter
+            ariaLabel="Select Project"
+            placeholder="Select Project"
+            labelValues={projectOptions}
+            onFilterChange={setSelectedCategory}
+            label="Project"
+          />
+          <SelectFilter
+            ariaLabel="Select Severity"
+            placeholder="Select Severity"
+            labelValues={severityOptions}
+            onFilterChange={setSelectedCategory}
+            label="Severity"
+          />
         </div>
         <FormEntry label="Problem Description">
           <textarea
