@@ -60,7 +60,7 @@ export default function FileUpload() {
       <div className="space-y-1.5">
         {" "}
         <h2 className="text-[#FFFFFF99]  3xl:text-lg font-medium">Attachments</h2>
-        <div className="border !border-[rgba(255,255,255,0.30)] !py-5 rounded-[10px] flex justify-center items-center">
+        <div className="border !border-[rgba(255,255,255,0.30)] py-3 md:!py-5 rounded-[10px] flex justify-center items-center">
           <input type="file" multiple onChange={handleFileChange} className="hidden" id="file-upload" />
           <label htmlFor="file-upload" className="cursor-pointer text-white transition-colors text-base flex items-center gap-2">
             <span>

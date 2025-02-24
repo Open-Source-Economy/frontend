@@ -1,5 +1,5 @@
 "use client";
-import { Check } from "lucide-react";
+import { Check, CrownIcon } from "lucide-react";
 import * as React from "react";
 import { ToolTipIcon } from "src/Utils/Icons";
 import { Button, cn } from "src/views/components";
@@ -83,18 +83,21 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
             />
           </svg>
         </div>
-
         {isOpen && (
-          <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-xl shadow-lg overflow-hidden">
+          <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-xl shadow-lg overflow-hidden max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6E7591] scrollbar-track-[#202F45]">
             {labelValues.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center group justify-between py-2.5 px-3 font-medium hover:bg-[rgba(255,255,255,0.10)] cursor-pointer  "
+                className="flex items-center group justify-between py-2.5 px-3 font-medium hover:bg-[rgba(255,255,255,0.10)] cursor-pointer"
                 onClick={() => handleSelect(item.value)}
               >
-                <span className="bg-white  group-hover:bg-gradient-custom text-transparent bg-clip-text "> {item.label}</span>
+                <span className="bg-white group-hover:bg-gradient-custom text-transparent bg-clip-text">{item.label}</span>
                 <div className="flex items-center gap-2">
-                  {item.badge && <span className="px-2 py-1 text-xs rounded-full bg-gradient-custom text-white">{item.badge}</span>}
+                  {item.badge && (
+                    <span className="px-2 py-1 text-xs rounded-full bg-gradient-custom font-medium text-white flex items-center gap-1">
+                      <CrownIcon width={14} /> {item.badge}
+                    </span>
+                  )}
                   <span className={item.badge ? "hidden" : "hidden group-hover:block"}>
                     <Check className="w-4 h-4 text-[#FF518C]" />
                   </span>

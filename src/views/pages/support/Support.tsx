@@ -56,7 +56,6 @@ export function Support() {
     setIsGithubUrlValid(githubUrl.trim() !== "");
 
     if (subject.trim() && githubUrl.trim()) {
-      // Submit the form
     }
   };
 
@@ -64,7 +63,7 @@ export function Support() {
     <div>
       <Header />
       <h2 className="main-heading text-primary-user pt-16">Support</h2>
-      <div className="lg:!p-10 !p-4 !mx-4 flex flex-col !gap-5 md:!gap-7 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] my-10 xl:my-16">
+      <div className="lg:!p-10 !p-4 !mx-4 !py-8 flex flex-col !gap-5 md:!gap-7 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] my-10 xl:my-16">
         <h4 className="text-[22px] md:text-2xl xl:text-[30px] font-michroma text-white">Your request is about</h4>
         {/* Category Selection */}
         <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
@@ -146,8 +145,8 @@ export function Support() {
             <div className="flex justify-between items-center h-full !max-h-[49px] w-full py-3 rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
               <div className="flex items-center gap-1.5">
                 {" "}
-                <PhoneIcon stroke="#FF518C" />
-                <span className="text-base text-white">Request online meeting</span>
+                <PhoneIcon width={17} stroke="#FF518C" />
+                <span className="text-sm sm:text-base text-white">Request online meeting</span>
               </div>
 
               <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
@@ -157,12 +156,25 @@ export function Support() {
         </div>
         <FileUpload />
 
-        <div className="flex items-center justify-center !gap-5 mt-4">
-          <Button audience="USER" level="SECONDARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat">
+        <div className="flex items-center justify-center flex-wrap !gap-5 xl:mt-4">
+          <Button
+            audience="USER"
+            level="SECONDARY"
+            size="MEDIUM"
+            parentClassName="w-full sm:w-fit"
+            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+          >
             Save for later
           </Button>
-          <Button audience="USER" level="PRIMARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat" onClick={handleSubmit}>
-            Submit Support ticketqws
+          <Button
+            parentClassName="w-full sm:w-fit"
+            audience="USER"
+            level="PRIMARY"
+            size="MEDIUM"
+            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+            onClick={handleSubmit}
+          >
+            Submit Support ticket
           </Button>
         </div>
       </div>
