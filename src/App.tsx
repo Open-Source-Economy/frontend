@@ -40,7 +40,9 @@ const App = () => {
           </Route>
 
           <Route path={paths.HOME} element={<Home />} />
-          <Route path="/support" element={<Support />} />
+          <Route element={<IssueRoutes />}>
+            <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />
+          </Route>
 
           <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
           {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
