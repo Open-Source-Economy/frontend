@@ -5,6 +5,7 @@ import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
 import { SelectFilter } from "./SelectFilter";
+import { DownloadIcon, UploadIcon } from "lucide-react";
 
 export function Support() {
   const [subject, setSubject] = useState("");
@@ -61,11 +62,6 @@ export function Support() {
             label="Sub category"
           />
         </div>
-        {/* Public/Private Toggle */}
-        {/* <FormEntry label="Visibility">
-          <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
-        </FormEntry> */}
-        {/* Subject Input */}
 
         <FormEntry label="Subject">
           <BaseInput type="text" placeholder="Enter Title" value={githubUrl} onChange={setGithubUrl} isValid={true} />
@@ -125,10 +121,12 @@ export function Support() {
               </svg>
               <span className="text-base text-white">Request online meeting</span>
             </div>
+
             <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
           </div>
         </div>
         <FileUpload />
+
         <div className="flex items-center justify-center !gap-5 mt-4">
           <Button audience="USER" level="SECONDARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat">
             Save for later

@@ -1,5 +1,6 @@
 "use client";
 
+import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 import { DeleteIcon, FileIcon } from "src/Utils/Icons";
 import { Button } from "src/views/components";
@@ -63,15 +64,7 @@ export default function FileUpload() {
           <input type="file" multiple onChange={handleFileChange} className="hidden" id="file-upload" />
           <label htmlFor="file-upload" className="cursor-pointer text-white transition-colors text-base flex items-center gap-2">
             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
-                <path
-                  d="M16 11V14.3333C16 14.7754 15.8244 15.1993 15.5118 15.5118C15.1993 15.8244 14.7754 16 14.3333 16H2.66667C2.22464 16 1.80072 15.8244 1.48816 15.5118C1.17559 15.1993 1 14.7754 1 14.3333V11M12.6667 5.16667L8.5 1M8.5 1L4.33333 5.16667M8.5 1V11"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <UploadIcon width={17} />
             </span>
             Drop files here or Browse
           </label>

@@ -52,7 +52,10 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
                 Beta Function
                 <ToolTipIcon />
               </div>
-              <div className="absolute right-0 md:left-0 z-50 top-[150%] w-[282px]  hidden group-hover:block p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
+              <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] w-[282px] hidden group-hover:block p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
+                {/* Arrow */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
+
                 {tooltip}
               </div>
             </div>
