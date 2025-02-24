@@ -13,12 +13,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 
 import { config, Env } from "src/ultils";
 import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
-import {
-  FormData,
-  FormValidation,
-  VALID_FORM_VALIDATION,
-  validateForm
-} from "src/views/components/form/hooks/validateForm";
+import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
 

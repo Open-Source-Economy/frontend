@@ -8,7 +8,7 @@ interface FormEntryProps {
 export function FormEntry(props: FormEntryProps) {
   return (
     <div className="flex w-full flex-col gap-y-2">
-      {props.label && <label className="text-white">{props.label}</label>}
+      {props.label && <label className="text-[#FFFFFF99]  3xl:text-lg font-medium">{props.label}</label>}
       {props.children}
     </div>
   );
