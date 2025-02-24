@@ -5,7 +5,9 @@ import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
 import { SelectFilter } from "./SelectFilter";
-import { DownloadIcon, UploadIcon } from "lucide-react";
+import IsUpgraded from "./IsUpgraded";
+import { TelephoneIcon } from "src/Utils/Icons";
+import { PhoneIcon } from "lucide-react";
 
 export function Support() {
   const [subject, setSubject] = useState("");
@@ -13,8 +15,11 @@ export function Support() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isPublic, setIsPublic] = useState(false);
 
+  const [isSubjectValid, setIsSubjectValid] = useState(true);
+  const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
+
   const categoryOptions = [
-    { value: "support", label: "Support", isSelected: true },
+    { value: "support", label: "Support" },
     { value: "development", label: "Development", badge: "Only On Start-Up Plan" },
     { value: "operations", label: "Operations" },
     { value: "consultancy", label: "Consultancy" },
@@ -28,15 +33,32 @@ export function Support() {
 
   const projectOptions = [
     { value: "apache", label: "Apache/Pekko" },
-    { value: "slick", label: "Slick", isSelected: true },
+    { value: "slick", label: "Slick" },
     { value: "other", label: "Other" },
   ];
 
   const severityOptions = [
     { value: "low", label: "Low" },
-    { value: "medium", label: "Medium", isSelected: true },
+    { value: "medium", label: "Medium" },
     { value: "high", label: "High" },
   ];
+
+  const handleInputChange =
+    (setter: React.Dispatch<React.SetStateAction<string>>, validator?: React.Dispatch<React.SetStateAction<boolean>>) => (value: string) => {
+      setter(value);
+      if (validator) {
+        validator(value.trim() !== "");
+      }
+    };
+
+  const handleSubmit = () => {
+    setIsSubjectValid(subject.trim() !== "");
+    setIsGithubUrlValid(githubUrl.trim() !== "");
+
+    if (subject.trim() && githubUrl.trim()) {
+      // Submit the form
+    }
+  };
 
   return (
     <div>
@@ -52,27 +74,36 @@ export function Support() {
             labelValues={categoryOptions}
             onFilterChange={setSelectedCategory}
             label="Category"
+            isUpgraded={true}
             tooltip="lorem ipsum We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
           />
+
           <SelectFilter
             ariaLabel="Select Sub Category"
             placeholder="Select Sub Category"
             labelValues={subCategoryOptions}
             onFilterChange={setSelectedCategory}
             label="Sub category"
+            isUpgraded={true}
           />
         </div>
 
         <FormEntry label="Subject">
-          <BaseInput type="text" placeholder="Enter Title" value={githubUrl} onChange={setGithubUrl} isValid={true} />
+          <BaseInput
+            type="text"
+            placeholder="Enter Title"
+            value={subject}
+            onChange={handleInputChange(setSubject, setIsSubjectValid)}
+            isValid={isSubjectValid}
+          />
         </FormEntry>
         <FormEntry label="GitHub discussion or issue url (optional)">
           <BaseInput
             type="text"
             placeholder="https://github.com/scala-native/scala-native/issues/3701"
             value={githubUrl}
-            onChange={setGithubUrl}
-            isValid={true}
+            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
+            isValid={isGithubUrlValid}
           />
         </FormEntry>
 
@@ -90,6 +121,7 @@ export function Support() {
             labelValues={severityOptions}
             onFilterChange={setSelectedCategory}
             label="Severity"
+            isUpgraded={true}
           />
         </div>
         <FormEntry subLabel="We will do our best to find a maintainer for you" label="GitHub url">
@@ -97,8 +129,8 @@ export function Support() {
             type="text"
             placeholder="https://github.com/scala-native/scala-native/issues/3701"
             value={githubUrl}
-            onChange={setGithubUrl}
-            isValid={true}
+            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
+            isValid={isGithubUrlValid}
           />
         </FormEntry>
         <div className="w-full flex flex-col gap-3 justify-center items-center">
@@ -110,19 +142,17 @@ export function Support() {
               placeholder="Please Provide a detailed description of the problem"
             ></textarea>
           </FormEntry>
-          <div className="flex justify-between items-center max-w-[557px] mx-auto w-full py-[19px]  rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
-            <div className="flex items-center gap-1.5">
-              {" "}
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                <path
-                  d="M20.45 21.5C18.3667 21.5 16.3043 21.05 14.263 20.15C12.2217 19.25 10.3673 17.9667 8.7 16.3C7.03267 14.6333 5.74933 12.7833 4.85 10.75C3.95067 8.71667 3.50067 6.65 3.5 4.55V3.5H9.4L10.325 8.525L7.475 11.4C7.84167 12.05 8.25 12.6667 8.7 13.25C9.15 13.8333 9.63333 14.375 10.15 14.875C10.6333 15.3583 11.1627 15.821 11.738 16.263C12.3133 16.705 12.934 17.1173 13.6 17.5L16.5 14.6L21.5 15.625V21.5H20.45ZM6.525 9.5L8.175 7.85L7.75 5.5H5.525C5.60833 6.25 5.73333 6.95433 5.9 7.613C6.06667 8.27167 6.275 8.90067 6.525 9.5ZM15.475 18.45C16.1417 18.7333 16.8127 18.9583 17.488 19.125C18.1633 19.2917 18.834 19.4 19.5 19.45V17.25L17.15 16.775L15.475 18.45Z"
-                  fill="#FF518C"
-                />
-              </svg>
-              <span className="text-base text-white">Request online meeting</span>
-            </div>
+          <div className="mx-auto max-w-[557px] w-full">
+            <div className="flex justify-between items-center h-full !max-h-[49px] w-full py-3 rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
+              <div className="flex items-center gap-1.5">
+                {" "}
+                <PhoneIcon stroke="#FF518C" />
+                <span className="text-base text-white">Request online meeting</span>
+              </div>
 
-            <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
+              <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
+            </div>
+            <IsUpgraded position="!mt-2.5" />
           </div>
         </div>
         <FileUpload />
@@ -131,8 +161,8 @@ export function Support() {
           <Button audience="USER" level="SECONDARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat">
             Save for later
           </Button>
-          <Button audience="USER" level="PRIMARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat">
-            Submit Support ticket
+          <Button audience="USER" level="PRIMARY" size="MEDIUM" className="!capitalize !font-semibold !text-base !font-montserrat" onClick={handleSubmit}>
+            Submit Support ticketqws
           </Button>
         </div>
       </div>

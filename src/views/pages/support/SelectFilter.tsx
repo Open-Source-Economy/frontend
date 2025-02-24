@@ -1,9 +1,9 @@
 "use client";
-
-import * as React from "react";
 import { Check } from "lucide-react";
-import { cn } from "src/views/components";
+import * as React from "react";
 import { ToolTipIcon } from "src/Utils/Icons";
+import { Button, cn } from "src/views/components";
+import IsUpgraded from "./IsUpgraded";
 
 interface SelectFilterProps {
   ariaLabel: string;
@@ -17,9 +17,10 @@ interface SelectFilterProps {
   placeholder?: string;
   label?: string;
   tooltip?: string;
+  isUpgraded?: boolean;
 }
 
-export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, label, tooltip }: SelectFilterProps) {
+export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, label, tooltip, isUpgraded }: SelectFilterProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -54,7 +55,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
               </div>
               <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] w-[282px] hidden group-hover:block p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
                 {/* Arrow */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
+                <div className="absolute hidden md:block -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
 
                 {tooltip}
               </div>
@@ -103,6 +104,8 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
           </div>
         )}
       </div>
+
+      {isUpgraded && <IsUpgraded />}
     </div>
   );
 }

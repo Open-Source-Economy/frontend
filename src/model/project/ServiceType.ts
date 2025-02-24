@@ -143,7 +143,7 @@ const planLookup: PlanLookup = {
 function available_from_plan(
   serviceType: ServiceType,
   subServiceType: SupportSubServiceType | DevelopmentSubServiceType | OperationSubServiceType | AdvisorySubServiceType,
-  priority: Priority,
+  priority: Priority
 ): PlanProductType {
   const servicePlans = planLookup[serviceType];
 
