@@ -178,6 +178,73 @@ export function Support() {
           </Button>
         </div>
       </div>
+
+      <div className="lg:!p-10 !p-4 !mx-4 !py-8 flex flex-col !gap-5 md:!gap-7 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] my-10 xl:my-16">
+        <h4 className="text-[22px] md:text-2xl xl:text-[30px] font-michroma text-white">Your request is about</h4>
+        {/* Category Selection */}
+        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+          <SelectFilter
+            ariaLabel="Select Category"
+            placeholder="Select Category"
+            labelValues={categoryOptions}
+            onFilterChange={setSelectedCategory}
+            label="Category"
+            isUpgraded={true}
+            tooltip="lorem ipsum We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
+          />
+
+          <SelectFilter
+            ariaLabel="Select Sub Category"
+            placeholder="Select Sub Category"
+            labelValues={subCategoryOptions}
+            onFilterChange={setSelectedCategory}
+            label="Sub category"
+            isUpgraded={true}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+          <FormEntry label="GitHub discussion or issue url (optional)">
+            <BaseInput
+              type="text"
+              placeholder="https://github.com/scala-native/scala-native/issues/3701"
+              value={githubUrl}
+              onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
+              isValid={isGithubUrlValid}
+            />
+          </FormEntry>
+          <SelectFilter
+            ariaLabel="Select Severity"
+            placeholder="Select Severity"
+            labelValues={severityOptions}
+            onFilterChange={setSelectedCategory}
+            label="Severity"
+            isUpgraded={true}
+          />
+        </div>
+
+        <div className="flex items-center justify-center flex-wrap !gap-5 xl:mt-4">
+          <Button
+            audience="USER"
+            level="PRIMARY"
+            size="MEDIUM"
+            parentClassName="w-full sm:w-fit"
+            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+          >
+            Ugrade your plane
+          </Button>
+          <Button
+            parentClassName="w-full sm:w-fit"
+            audience="USER"
+            level="PRIMARY"
+            size="MEDIUM"
+            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+            onClick={handleSubmit}
+          >
+            Co-found
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

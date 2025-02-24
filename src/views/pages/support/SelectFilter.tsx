@@ -45,7 +45,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
   return (
     <div className="relative w-full" ref={dropdownRef}>
       {label && (
-        <div className="flex items-center justify-between gap-2 mb-2">
+        <div className="flex items-center justify-between gap-2 mb-1">
           <label className="text-[#FFFFFF99]  3xl:text-lg font-medium">{label}</label>
           {tooltip && (
             <div className="relative group flex items-center ">
@@ -64,7 +64,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
         </div>
       )}
       <div className="relative cursor-pointer" onClick={() => setIsOpen(!isOpen)} aria-label={ariaLabel}>
-        <div className="bg-[#202F45] w-full rounded-xl p-3 flex items-center justify-between">
+        <div className="bg-[#202F45] w-full rounded-[10px] p-3 flex items-center justify-between">
           <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "}`}>
             {selectedValue ? labelValues.find(item => item.value === selectedValue)?.label : placeholder}
           </span>
@@ -84,7 +84,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
           </svg>
         </div>
         {isOpen && (
-          <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-xl shadow-lg overflow-hidden max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6E7591] scrollbar-track-[#202F45]">
+          <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-[10px] shadow-lg overflow-hidden max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6E7591] scrollbar-track-[#202F45]">
             {labelValues.map((item, index) => (
               <div
                 key={index}
