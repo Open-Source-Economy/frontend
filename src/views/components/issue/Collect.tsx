@@ -7,6 +7,7 @@ interface CollectProps {
   creditsCollected: Credit;
   creditsRequested?: Credit;
   state?: ManagedIssueState;
+  marginTop?: "mt-2.5" | "mt-3";
 }
 
 export function Collect(props: CollectProps) {
@@ -52,9 +53,9 @@ export function Collect(props: CollectProps) {
       </div>
 
       {props.state === ManagedIssueState.OPEN && props.creditsRequested ? (
-        <div className="w-[100%] mt-3 bg-[rgba(255,255,255,10%)] rounded-full h-2">
+        <div className={`w-[100%] ${props.marginTop || "mt-3"} bg-[rgba(255,255,255,10%)] rounded-full h-2`}>
           <div
-            className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] h-2 rounded-full"
+            className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] min-h-1 h-2 rounded-full"
             style={{ width: `${credit.percentage(props.creditsCollected, props.creditsRequested)}%` }} // Dynamically set the width
           ></div>
         </div>
