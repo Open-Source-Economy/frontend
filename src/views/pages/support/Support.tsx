@@ -12,15 +12,16 @@ import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src
 export function Support() {
   const [subject, setSubject] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
+  const [githubDiscussionUrl, setGithubDiscussionUrl] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedSeverity, setSelectedSeverity] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
-
   const [isSubjectValid, setIsSubjectValid] = useState(true);
   const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
+  const [isGithubDiscussionUrlValid, setIsGithubDiscussionUrlValid] = useState(true);
 
   const categoryOptions = [
     { value: ServiceType.SUPPORT, label: "Support" },
@@ -83,6 +84,7 @@ export function Support() {
   const handleSubmit = () => {
     setIsSubjectValid(subject.trim() !== "");
     setIsGithubUrlValid(githubUrl.trim() !== "");
+    setIsGithubDiscussionUrlValid(githubDiscussionUrl.trim() !== "");
 
     if (subject.trim() && githubUrl.trim()) {
       // Handle form submission
@@ -141,9 +143,9 @@ export function Support() {
             <BaseInput
               type="text"
               placeholder="https://github.com/scala-native/scala-native/issues/3701"
-              value={githubUrl}
-              onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
-              isValid={isGithubUrlValid}
+              value={githubDiscussionUrl}
+              onChange={handleInputChange(setGithubDiscussionUrl, setIsGithubDiscussionUrlValid)}
+              isValid={isGithubDiscussionUrlValid}
             />
           </FormEntry>
           <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
