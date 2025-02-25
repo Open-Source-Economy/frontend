@@ -1,5 +1,5 @@
 import { PhoneIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, FormEntry } from "src/views/components";
 import { BaseInput } from "src/views/components/form/frames/BaseInput";
 import { ToggleSwitch } from "src/views/components/issue";
@@ -7,27 +7,26 @@ import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
 import IsUpgraded from "./IsUpgraded";
 import { SelectFilter } from "./SelectFilter";
+import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/model";
 
 export function Support() {
   const [subject, setSubject] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedSeverity, setSelectedSeverity] = useState("");
   const [isPublic, setIsPublic] = useState(false);
+  const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
 
   const [isSubjectValid, setIsSubjectValid] = useState(true);
   const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
 
   const categoryOptions = [
-    { value: "support", label: "Support" },
-    { value: "development", label: "Development", badge: "Only On Start-Up Plan" },
-    { value: "operations", label: "Operations" },
-    { value: "consultancy", label: "Consultancy" },
-  ];
-
-  const subCategoryOptions = [
-    { value: "bugfix", label: "Bug fix" },
-    { value: "newfeature", label: "new feature", badge: "Only On Start-Up Plan" },
-    { value: "maintenance", label: "maintenance" },
+    { value: ServiceType.SUPPORT, label: "Support" },
+    { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
+    { value: ServiceType.OPERATION, label: "Operations" },
+    { value: ServiceType.ADVISORY, label: "Consultancy" },
   ];
 
   const projectOptions = [
@@ -37,12 +36,26 @@ export function Support() {
   ];
 
   const severityOptions = [
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
+    { value: Priority.LOW, label: "Low" },
+    { value: Priority.MEDIUM, label: "Medium" },
+    { value: Priority.HIGH, label: "High" },
+    { value: Priority.CRITICAL, label: "Critical" },
   ];
 
-  const handleInputChange1 =
+  // Update subcategory options when category changes
+  useEffect(() => {
+    if (selectedCategory) {
+      // Use the helper function from service-types.ts to get subcategory options
+      setSubCategoryOptions(getSubServiceOptions(selectedCategory));
+    } else {
+      setSubCategoryOptions([]);
+    }
+
+    // Reset subcategory when main category changes
+    setSelectedSubCategory("");
+  }, [selectedCategory]);
+
+  const handleInputChange =
     (setter: React.Dispatch<React.SetStateAction<string>>, validator?: React.Dispatch<React.SetStateAction<boolean>>) => (value: string) => {
       setter(value);
       if (validator) {
@@ -50,11 +63,38 @@ export function Support() {
       }
     };
 
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+    console.log("Selected category:", value); // Debug log
+  };
+
+  const handleSubCategoryChange = (value: string) => {
+    setSelectedSubCategory(value);
+  };
+
+  const handleProjectChange = (value: string) => {
+    setSelectedProject(value);
+  };
+
+  const handleSeverityChange = (value: string) => {
+    setSelectedSeverity(value);
+  };
+
   const handleSubmit = () => {
     setIsSubjectValid(subject.trim() !== "");
     setIsGithubUrlValid(githubUrl.trim() !== "");
 
     if (subject.trim() && githubUrl.trim()) {
+      // Handle form submission
+      console.log({
+        subject,
+        githubUrl,
+        selectedCategory,
+        selectedSubCategory,
+        selectedProject,
+        selectedSeverity,
+        isPublic,
+      });
     }
   };
 
@@ -70,19 +110,21 @@ export function Support() {
             ariaLabel="Select Category"
             placeholder="Select Category"
             labelValues={categoryOptions}
-            onFilterChange={setSelectedCategory}
+            onFilterChange={handleCategoryChange}
             label="Category"
             isUpgraded={true}
-            tooltip="lorem ipsum We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
+            tooltip="Select the type of service you need assistance with"
           />
 
           <SelectFilter
             ariaLabel="Select Sub Category"
             placeholder="Select Sub Category"
             labelValues={subCategoryOptions}
-            onFilterChange={setSelectedCategory}
+            onFilterChange={handleSubCategoryChange}
             label="Sub category"
             isUpgraded={true}
+            disabled={!selectedCategory}
+            tooltip={!selectedCategory ? "Please select a category first" : undefined}
           />
         </div>
 
@@ -91,7 +133,7 @@ export function Support() {
             type="text"
             placeholder="Enter Title"
             value={subject}
-            onChange={handleInputChange1(setSubject, setIsSubjectValid)}
+            onChange={handleInputChange(setSubject, setIsSubjectValid)}
             isValid={isSubjectValid}
           />
         </FormEntry>
@@ -100,7 +142,7 @@ export function Support() {
             type="text"
             placeholder="https://github.com/scala-native/scala-native/issues/3701"
             value={githubUrl}
-            onChange={handleInputChange1(setGithubUrl, setIsGithubUrlValid)}
+            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
             isValid={isGithubUrlValid}
           />
         </FormEntry>
@@ -110,14 +152,14 @@ export function Support() {
             ariaLabel="Select Project"
             placeholder="Select Project"
             labelValues={projectOptions}
-            onFilterChange={setSelectedCategory}
+            onFilterChange={handleProjectChange}
             label="Project"
           />
           <SelectFilter
             ariaLabel="Select Severity"
             placeholder="Select Severity"
             labelValues={severityOptions}
-            onFilterChange={setSelectedCategory}
+            onFilterChange={handleSeverityChange}
             label="Severity"
             isUpgraded={true}
           />
@@ -127,12 +169,11 @@ export function Support() {
             type="text"
             placeholder="https://github.com/scala-native/scala-native/issues/3701"
             value={githubUrl}
-            onChange={handleInputChange1(setGithubUrl, setIsGithubUrlValid)}
+            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
             isValid={isGithubUrlValid}
           />
         </FormEntry>
         <div className="w-full flex flex-col gap-3 justify-center items-center">
-          {" "}
           <FormEntry label="Problem Description">
             <textarea
               className="w-full min-h-[201px] resize-none outline-none montserrat rounded-xl bg-transparent !bg-[#202F45] text-sm md:text-base xl:text-lg text-[#8693A4] p-3 md:!p-4 h-[100px]"
@@ -143,7 +184,6 @@ export function Support() {
           <div className="mx-auto max-w-[557px] w-full">
             <div className="flex justify-between items-center h-full !max-h-[49px] w-full py-3 rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
               <div className="flex items-center gap-1.5">
-                {" "}
                 <PhoneIcon width={17} stroke="#FF518C" />
                 <span className="text-xs sm:text-sm md:text-base text-white">Request online meeting</span>
               </div>

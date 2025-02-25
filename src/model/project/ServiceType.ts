@@ -38,6 +38,46 @@ export enum AdvisorySubServiceType {
   SECURITY_PERFORMANCE = "Security & Performance",
 }
 
+// Define the structure for dropdown options
+export interface DropdownOption {
+  value: string;
+  label: string;
+  badge?: string;
+  isSelected?: boolean;
+}
+
+// Function to get subservice options based on service type
+export function getSubServiceOptions(serviceType: string): DropdownOption[] {
+  switch (serviceType) {
+    case ServiceType.SUPPORT:
+      return [
+        { value: SupportSubServiceType.BUG_FIXES, label: "Bug Fixes" },
+        { value: SupportSubServiceType.NEW_FEATURES, label: "New Features", badge: "Only On Start-Up Plan" },
+        { value: SupportSubServiceType.CODE_MAINTENANCE, label: "Code Maintenance" },
+      ];
+    case ServiceType.DEVELOPMENT:
+      return [
+        { value: DevelopmentSubServiceType.TECHNICAL_ASSISTANCE, label: "Technical Assistance" },
+        { value: DevelopmentSubServiceType.DEPLOYMENT_GUIDANCE, label: "Deployment Guidance", badge: "Only On Start-Up Plan" },
+        { value: DevelopmentSubServiceType.CUSTOMER_SUPPORT, label: "Customer Support" },
+      ];
+    case ServiceType.OPERATION:
+      return [
+        { value: OperationSubServiceType.INCIDENT_RESPONSE, label: "Incident Response" },
+        { value: OperationSubServiceType.PROACTIVE_MAINTENANCE, label: "Proactive Maintenance" },
+        { value: OperationSubServiceType.SUPERVISION, label: "24/7 Supervision", badge: "Only On Start-Up Plan" },
+      ];
+    case ServiceType.ADVISORY:
+      return [
+        { value: AdvisorySubServiceType.ARCHITECTURE_DESIGN, label: "Architecture Design" },
+        { value: AdvisorySubServiceType.TECHNOLOGY_ASSESSMENT, label: "Technology Assessment" },
+        { value: AdvisorySubServiceType.SECURITY_PERFORMANCE, label: "Security & Performance", badge: "Only On Start-Up Plan" },
+      ];
+    default:
+      return [];
+  }
+}
+
 // Create an explicit mapping between ServiceType and its corresponding subservices
 type SubServiceTypeMap = {
   [ServiceType.SUPPORT]: SupportSubServiceType;
@@ -140,7 +180,7 @@ const planLookup: PlanLookup = {
 };
 
 // Function to determine the available plan
-function available_from_plan(
+export function available_from_plan(
   serviceType: ServiceType,
   subServiceType: SupportSubServiceType | DevelopmentSubServiceType | OperationSubServiceType | AdvisorySubServiceType,
   priority: Priority

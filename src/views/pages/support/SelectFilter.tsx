@@ -1,26 +1,23 @@
 "use client";
 import { Check, CrownIcon } from "lucide-react";
 import * as React from "react";
+import { DropdownOption } from "src/model";
 import { ToolTipIcon } from "src/Utils/Icons";
-import { Button, cn } from "src/views/components";
+import { cn } from "src/views/components";
 import IsUpgraded from "./IsUpgraded";
 
 interface SelectFilterProps {
   ariaLabel: string;
-  labelValues: {
-    value: string;
-    label: string;
-    badge?: string;
-    isSelected?: boolean;
-  }[];
+  labelValues: DropdownOption[];
   onFilterChange: (value: string) => void;
   placeholder?: string;
   label?: string;
   tooltip?: string;
   isUpgraded?: boolean;
+  disabled?: boolean;
 }
 
-export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, label, tooltip, isUpgraded }: SelectFilterProps) {
+export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, label, tooltip, isUpgraded, disabled = false }: SelectFilterProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -36,19 +33,43 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Only reset selected value when options change completely
+  // Don't reset when a value is intentionally selected
+  React.useEffect(() => {
+    // Skip initial render
+    if (labelValues.length > 0) {
+      setSelectedValue("");
+    }
+  }, [JSON.stringify(labelValues.map(item => item.value))]);
+
   const handleSelect = (value: string) => {
     setSelectedValue(value);
     onFilterChange(value);
     setIsOpen(false);
   };
 
+  // Update selectedValue if it comes from parent as a prop
+  React.useEffect(() => {
+    // Find if there's a pre-selected item in labelValues
+    const preSelectedItem = labelValues.find(item => item.isSelected);
+    if (preSelectedItem) {
+      setSelectedValue(preSelectedItem.value);
+    }
+  }, []);
+
+  const handleDropdownClick = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <div className="relative w-full" ref={dropdownRef}>
       {label && (
         <div className="flex items-center justify-between gap-2 mb-1">
-          <label className="text-[#FFFFFF99]  3xl:text-lg font-medium">{label}</label>
+          <label className="text-[#FFFFFF99] 3xl:text-lg font-medium">{label}</label>
           {tooltip && (
-            <div className="relative group flex items-center ">
+            <div className="relative group flex items-center">
               <div className="text-primary-user flex items-center gap-1 justify-center text-sm cursor-help">
                 Beta Function
                 <ToolTipIcon />
@@ -56,14 +77,13 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
               <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] w-[282px] hidden group-hover:block p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
                 {/* Arrow */}
                 <div className="absolute hidden md:block -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
-
                 {tooltip}
               </div>
             </div>
           )}
         </div>
       )}
-      <div className="relative cursor-pointer" onClick={() => setIsOpen(!isOpen)} aria-label={ariaLabel}>
+      <div className={`relative ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`} onClick={handleDropdownClick} aria-label={ariaLabel}>
         <div className="bg-[#202F45] w-full rounded-[10px] p-3 flex items-center justify-between">
           <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "} 3xl:text-lg`}>
             {selectedValue ? labelValues.find(item => item.value === selectedValue)?.label : placeholder}
@@ -83,7 +103,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
             />
           </svg>
         </div>
-        {isOpen && (
+        {isOpen && !disabled && labelValues.length > 0 && (
           <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-[10px] shadow-lg overflow-hidden max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6E7591] scrollbar-track-[#202F45]">
             {labelValues.map((item, index) => (
               <div
@@ -98,9 +118,16 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
                       <CrownIcon width={14} /> {item.badge}
                     </span>
                   )}
-                  <span className={item.badge ? "hidden" : "hidden group-hover:block"}>
-                    <Check className="w-4 h-4 text-[#FF518C]" />
-                  </span>
+                  {selectedValue === item.value && (
+                    <span>
+                      <Check className="w-4 h-4 text-[#FF518C]" />
+                    </span>
+                  )}
+                  {selectedValue !== item.value && !item.badge && (
+                    <span className="hidden group-hover:block">
+                      <Check className="w-4 h-4 text-[#FF518C]" />
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
