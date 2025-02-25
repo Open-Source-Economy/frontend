@@ -126,7 +126,6 @@ export function Support() {
               label="Sub category"
               isUpgraded={true}
               disabled={!selectedCategory}
-              tooltip={!selectedCategory ? "Please select a category first" : undefined}
             />
           </div>
           <FormEntry label="Subject">

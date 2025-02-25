@@ -120,7 +120,6 @@ const SupportCreateTicket = () => {
               label="Sub category"
               isUpgraded={true}
               disabled={!selectedCategory}
-              tooltip={!selectedCategory ? "Please select a category first" : undefined}
             />
           </div>
           <div className="flex flex-col w-full border !border-[#FFFFFF4D] items-center !p-4 rounded-[10px]">
