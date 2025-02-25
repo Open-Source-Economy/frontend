@@ -102,120 +102,120 @@ export function Support() {
     <div>
       <Header />
       <h2 className="main-heading text-primary-user pt-12 sm:pt-14 md:pt-16">Support</h2>
-      <div className="lg:!p-10 3xl:py-[42px] !p-4 !mx-4 !py-8 flex flex-col !gap-5 md:!gap-7 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] 3xl:!px-[55px] my-10 xl:my-16 3xl:my-[74px]">
+      <div className="lg:!p-10 3xl:py-[42px] !p-4 !mx-4 !py-8 flex flex-col !gap-5 md:!gap-7 xl:!gap-9 3xl:!gap-12 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] 3xl:!px-[55px] my-10 xl:my-16 3xl:my-[74px]">
         <h4 className="text-[22px] md:text-2xl xl:text-[30px] font-michroma text-white">Your request is about</h4>
         {/* Category Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
-          <SelectFilter
-            ariaLabel="Select Category"
-            placeholder="Select Category"
-            labelValues={categoryOptions}
-            onFilterChange={handleCategoryChange}
-            label="Category"
-            isUpgraded={true}
-            tooltip="Select the type of service you need assistance with"
-          />
+        <form action="" className="w-full flex flex-col !gap-3 xl:!gap-5 3xl:!gap-7">
+          {" "}
+          <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+            <SelectFilter
+              ariaLabel="Select Category"
+              placeholder="Select Category"
+              labelValues={categoryOptions}
+              onFilterChange={handleCategoryChange}
+              label="Category"
+              isUpgraded={true}
+              tooltip="Select the type of service you need assistance with"
+            />
 
-          <SelectFilter
-            ariaLabel="Select Sub Category"
-            placeholder="Select Sub Category"
-            labelValues={subCategoryOptions}
-            onFilterChange={handleSubCategoryChange}
-            label="Sub category"
-            isUpgraded={true}
-            disabled={!selectedCategory}
-            tooltip={!selectedCategory ? "Please select a category first" : undefined}
-          />
-        </div>
-
-        <FormEntry label="Subject">
-          <BaseInput
-            type="text"
-            placeholder="Enter Title"
-            value={subject}
-            onChange={handleInputChange(setSubject, setIsSubjectValid)}
-            isValid={isSubjectValid}
-          />
-        </FormEntry>
-        <FormEntry label="GitHub discussion or issue url (optional)">
-          <BaseInput
-            type="text"
-            placeholder="https://github.com/scala-native/scala-native/issues/3701"
-            value={githubUrl}
-            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
-            isValid={isGithubUrlValid}
-          />
-        </FormEntry>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
-          <SelectFilter
-            ariaLabel="Select Project"
-            placeholder="Select Project"
-            labelValues={projectOptions}
-            onFilterChange={handleProjectChange}
-            label="Project"
-          />
-          <SelectFilter
-            ariaLabel="Select Severity"
-            placeholder="Select Severity"
-            labelValues={severityOptions}
-            onFilterChange={handleSeverityChange}
-            label="Severity"
-            isUpgraded={true}
-          />
-        </div>
-        <FormEntry subLabel="We will do our best to find a maintainer for you" label="GitHub url">
-          <BaseInput
-            type="text"
-            placeholder="https://github.com/scala-native/scala-native/issues/3701"
-            value={githubUrl}
-            onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
-            isValid={isGithubUrlValid}
-          />
-        </FormEntry>
-        <div className="w-full flex flex-col gap-3 justify-center items-center">
-          <FormEntry label="Problem Description">
-            <textarea
-              className="w-full min-h-[201px] resize-none outline-none montserrat rounded-xl bg-transparent !bg-[#202F45] text-sm md:text-base xl:text-lg text-[#8693A4] p-3 md:!p-4 h-[100px]"
-              cols={5}
-              placeholder="Please Provide a detailed description of the problem"
-            ></textarea>
-          </FormEntry>
-          <div className="mx-auto max-w-[557px] w-full">
-            <div className="flex justify-between items-center h-full !max-h-[49px] w-full py-3 rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
-              <div className="flex items-center gap-1.5">
-                <PhoneIcon width={17} stroke="#FF518C" />
-                <span className="text-xs sm:text-sm md:text-base text-white">Request online meeting</span>
-              </div>
-
-              <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
-            </div>
-            <IsUpgraded position="!mt-2.5" />
+            <SelectFilter
+              ariaLabel="Select Sub Category"
+              placeholder="Select Sub Category"
+              labelValues={subCategoryOptions}
+              onFilterChange={handleSubCategoryChange}
+              label="Sub category"
+              isUpgraded={true}
+              disabled={!selectedCategory}
+              tooltip={!selectedCategory ? "Please select a category first" : undefined}
+            />
           </div>
-        </div>
-        <FileUpload />
+          <FormEntry label="Subject">
+            <BaseInput
+              type="text"
+              placeholder="Enter Title"
+              value={subject}
+              onChange={handleInputChange(setSubject, setIsSubjectValid)}
+              isValid={isSubjectValid}
+            />
+          </FormEntry>
+          <FormEntry label="GitHub discussion or issue url (optional)">
+            <BaseInput
+              type="text"
+              placeholder="https://github.com/scala-native/scala-native/issues/3701"
+              value={githubUrl}
+              onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
+              isValid={isGithubUrlValid}
+            />
+          </FormEntry>
+          <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
+            <SelectFilter
+              ariaLabel="Select Project"
+              placeholder="Select Project"
+              labelValues={projectOptions}
+              onFilterChange={handleProjectChange}
+              label="Project"
+            />
+            <SelectFilter
+              ariaLabel="Select Severity"
+              placeholder="Select Severity"
+              labelValues={severityOptions}
+              onFilterChange={handleSeverityChange}
+              label="Severity"
+              isUpgraded={true}
+            />
+          </div>
+          <FormEntry subLabel="We will do our best to find a maintainer for you" label="GitHub url">
+            <BaseInput
+              type="text"
+              placeholder="https://github.com/scala-native/scala-native/issues/3701"
+              value={githubUrl}
+              onChange={handleInputChange(setGithubUrl, setIsGithubUrlValid)}
+              isValid={isGithubUrlValid}
+            />
+          </FormEntry>
+          <div className="w-full flex flex-col gap-3 justify-center items-center">
+            <FormEntry label="Problem Description">
+              <textarea
+                className="w-full min-h-[201px] resize-none outline-none montserrat rounded-xl bg-transparent !bg-[#202F45] text-sm md:text-base xl:text-lg text-[#8693A4] p-3 md:!p-4 h-[100px]"
+                cols={5}
+                placeholder="Please Provide a detailed description of the problem"
+              ></textarea>
+            </FormEntry>
+            <div className="mx-auto max-w-[557px] w-full">
+              <div className="flex justify-between items-center h-full !max-h-[49px] w-full py-3 rounded-[10px] border px-[18px] !border-[rgba(255,255,255,0.30)]">
+                <div className="flex items-center gap-1.5">
+                  <PhoneIcon width={17} stroke="#FF518C" />
+                  <span className="text-xs sm:text-sm md:text-base text-white">Request online meeting</span>
+                </div>
 
-        <div className="flex items-center justify-center flex-wrap !gap-5 xl:mt-4">
-          <Button
-            audience="USER"
-            level="SECONDARY"
-            size="MEDIUM"
-            parentClassName="w-full sm:w-fit"
-            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
-          >
-            Save for later
-          </Button>
-          <Button
-            parentClassName="w-full sm:w-fit"
-            audience="USER"
-            level="PRIMARY"
-            size="MEDIUM"
-            className="!capitalize w-full !font-semibold !text-base !font-montserrat"
-            onClick={handleSubmit}
-          >
-            Submit Support ticket
-          </Button>
-        </div>
+                <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
+              </div>
+              <IsUpgraded position="!mt-2.5" />
+            </div>
+          </div>
+          <FileUpload />
+          <div className="flex items-center justify-center flex-wrap !gap-5 ">
+            <Button
+              audience="USER"
+              level="SECONDARY"
+              size="MEDIUM"
+              parentClassName="w-full sm:w-fit"
+              className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+            >
+              Save for later
+            </Button>
+            <Button
+              parentClassName="w-full sm:w-fit"
+              audience="USER"
+              level="PRIMARY"
+              size="MEDIUM"
+              className="!capitalize w-full !font-semibold !text-base !font-montserrat"
+              onClick={handleSubmit}
+            >
+              Submit Support ticket
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );

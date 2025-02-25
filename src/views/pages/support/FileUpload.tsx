@@ -116,7 +116,7 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="flex flex-col gap-6 min-w-full max-w-md mx-auto rounded-xl">
+    <div className="flex flex-col gap-6 min-w-full  mx-auto rounded-xl">
       <div className="space-y-1.5">
         <h2 className="text-[#FFFFFF99] 3xl:text-lg font-medium">Attachments</h2>
         <div
