@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 const AUDIENCE_COLORS = {
   ALL: {
     primary:
-      "bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] text-white to-[#66319B] min-w-[210px] after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:!bg-[#0e1f35] after:h-[93%] after:-z-10 relative z-20 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md after:opacity-0 after:duration-300 rounded-md",
+      "bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] text-white to-[#66319B]  after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:!bg-[#0e1f35] after:h-[93%] after:-z-10 relative z-20 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md after:opacity-0 after:duration-300 rounded-md",
     secondary:
       "bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] text-white after:absolute after:w-[98%] after:top-1/2 after:left-1/2 after:bg-secondary after:-z-10 relative z-20 after:h-[93%] after:-z-10 relative z-20 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-md  after:opacity-100 after:duration-300 rounded-md",
     hoverPrimary: "after:hover:opacity-100 hover:!bg-transparent",
@@ -103,7 +103,7 @@ const buttonVariants = cva(
         className: cn(AUDIENCE_COLORS.STAKEHOLDER.secondary, AUDIENCE_COLORS.STAKEHOLDER.hoverSecondary),
       },
     ],
-  },
+  }
 );
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -136,7 +136,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </Comp>
       </div>
     );
-  },
+  }
 );
 
 Button.displayName = "Button";

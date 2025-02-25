@@ -121,9 +121,9 @@ export default function FileUpload() {
         <h2 className="text-[#FFFFFF99] 3xl:text-lg font-medium">Attachments</h2>
         <div
           ref={dropAreaRef}
-          className={`border ${
-            isDragging ? "!border-[#FF518C] bg-[rgba(255,81,140,0.1)]" : "!border-[rgba(255,255,255,0.30)]"
-          } py-3 md:!py-5 rounded-[10px] flex justify-center items-center transition-colors`}
+          className={`border transition-colors py-3 md:!py-5 rounded-[10px] flex justify-center cursor-pointer items-center 
+           hover:!border-[#FF518C] hover:bg-[rgba(255,81,140,0.1)]
+          ${isDragging ? "!border-[#FF518C] bg-[rgba(255,81,140,0.1)]" : "!border-[rgba(255,255,255,0.30)]"}`}
         >
           <input type="file" ref={fileInputRef} multiple onChange={handleFileChange} className="hidden" id="file-upload" />
           <label htmlFor="file-upload" className="cursor-pointer text-white transition-colors text-base flex items-center gap-2">

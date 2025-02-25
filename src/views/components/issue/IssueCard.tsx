@@ -27,11 +27,12 @@ export function IssueCard(props: IssueProps) {
         </div>
 
         <div className="padding sm:!py-7 !py-5 !px-4 sm:!px-10 bg-[#14233A] rounded-bl-3xl rounded-br-3xl  ">
-          <components.Issue issue={props.financialIssue.issue} />
+          <components.Issue showDate={true} issue={props.financialIssue.issue} />
 
           <div className="flex flex-wrap items-center  gap-10 xl:gap-3 justify-between mt-7 lg:!mt-12">
             <div>
               <components.Collect
+                marginTop="mt-3"
                 audience={props.audience}
                 creditsCollected={FinancialIssue.amountCollected(props.financialIssue)}
                 creditsRequested={FinancialIssue.amountRequested(props.financialIssue)}

@@ -69,15 +69,17 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
         <div className="flex items-center justify-between gap-2 mb-1">
           <label className="text-[#FFFFFF99] 3xl:text-lg font-medium">{label}</label>
           {tooltip && (
-            <div className="relative group flex items-center">
+            <div className="relative flex items-center">
               <div className="text-primary-user flex items-center gap-1 justify-center text-sm cursor-help">
                 Beta Function
-                <ToolTipIcon />
-              </div>
-              <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] w-[282px] hidden group-hover:block p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
-                {/* Arrow */}
-                <div className="absolute hidden md:block -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
-                {tooltip}
+                <div className="group">
+                  <ToolTipIcon />
+                  <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] min-w-[200px] max-w-[282px] hidden group-hover:block !p-3 3xl:!p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
+                    {/* Arrow */}
+                    <div className="absolute hidden md:block -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
+                    {tooltip}
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -111,7 +113,14 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
                 className="flex items-center group justify-between py-2.5 px-3 font-medium hover:bg-[rgba(255,255,255,0.10)] cursor-pointer"
                 onClick={() => handleSelect(item.value)}
               >
-                <span className="bg-white group-hover:bg-gradient-custom text-transparent bg-clip-text">{item.label}</span>
+                <span
+                  className={`bg-white text-transparent bg-clip-text 
+                   ${selectedValue === item.value ? "bg-gradient-custom" : "group-hover:bg-gradient-custom"}
+                  `}
+                >
+                  {item.label}
+                </span>
+
                 <div className="flex items-center gap-2">
                   {item.badge && (
                     <span className="px-2 py-1 text-xs rounded-full bg-gradient-custom font-medium text-white flex items-center gap-1">

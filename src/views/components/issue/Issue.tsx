@@ -14,7 +14,7 @@ export function Issue(props: IssueProps) {
     <>
       <ExternalLink href={props.issue.htmlUrl}>
         <h6 className={`${props.issueHeading} text-base lg:text-lg xl:text-xl cursor-pointer hover:underline transition-all duration-500 ease-in-out`}>
-          {props.issue.title}
+          <span className="hover:underline cursor-pointer"> {props.showDate ? "" : `# ${props.issue.id.number}`}</span> {props.issue.title}
         </h6>
       </ExternalLink>
 

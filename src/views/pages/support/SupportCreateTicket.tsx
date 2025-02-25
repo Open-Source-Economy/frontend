@@ -3,7 +3,7 @@ import { useAuth } from "../app";
 import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/views/hooks";
 import { useIssueContext } from "src/views/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
-import { credit, DropdownOption, FinancialIssue, getSubServiceOptions, Priority, ServiceType } from "src/model";
+import { credit, CreditUnit, DropdownOption, FinancialIssue, getSubServiceOptions, Priority, ServiceType } from "src/model";
 import { Header } from "src/views/layout";
 import { SelectFilter } from "./SelectFilter";
 import * as components from "src/views/components/issue/index";
@@ -92,7 +92,7 @@ const SupportCreateTicket = () => {
   return (
     <div>
       <Header />
-      <h2 className="main-heading text-white pt-12 sm:pt-14 md:pt-16 3xl:mt-[108px] relative  w-fit mx-auto">
+      <h2 className="main-heading text-white pt-12 sm:pt-14 md:pt-16 3xl:mt-[108px] relative pb-3 lg:!pb-5 3xl:!pb-7 w-fit mx-auto">
         Create <span className="bg-gradient-custom text-transparent bg-clip-text">support ticket</span>
         <div className="absolute sm:block hidden left-0 bottom-0 h-1 w-full bg-white"></div>
       </h2>
@@ -143,8 +143,8 @@ const SupportCreateTicket = () => {
                   <components.Collect
                     audience={audience}
                     marginTop="mt-2.5"
-                    creditsCollected={FinancialIssue.amountCollected(financialIssue)}
-                    creditsRequested={FinancialIssue.amountRequested(financialIssue)}
+                    creditsCollected={{ unit: CreditUnit.MINUTE, amount: new Decimal(30) }}
+                    creditsRequested={{ unit: CreditUnit.MINUTE, amount: new Decimal(60) }}
                     state={financialIssue.managedIssue?.state}
                   />
                   <Approved managedIssue={financialIssue.managedIssue} manager={financialIssue.issueManager} />

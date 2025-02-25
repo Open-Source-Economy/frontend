@@ -16,7 +16,7 @@ export class FinancialIssue {
     issue: model.Issue,
     issueManager: model.User | null,
     managedIssue: model.ManagedIssue | null,
-    issueFundings: model.IssueFunding[],
+    issueFundings: model.IssueFunding[]
   ) {
     this.owner = owner;
     this.repository = repository;

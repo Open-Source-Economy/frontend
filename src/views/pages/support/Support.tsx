@@ -176,7 +176,7 @@ export function Support() {
           <div className="w-full flex flex-col gap-3 justify-center items-center">
             <FormEntry label="Problem Description">
               <textarea
-                className="w-full min-h-[201px] resize-none outline-none montserrat rounded-xl bg-transparent !bg-[#202F45] text-sm md:text-base xl:text-lg text-[#8693A4] p-3 md:!p-4 h-[100px]"
+                className="w-full xl:min-h-[201px]  text-white outline-none montserrat rounded-xl bg-transparent !bg-[#202F45] text-sm md:text-base xl:text-lg placeholer:text-[#8693A4] p-3 md:!p-4 min-h-[100px]"
                 cols={5}
                 placeholder="Please Provide a detailed description of the problem"
               ></textarea>
