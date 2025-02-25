@@ -1,9 +1,7 @@
 "use client";
-
 import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 import { DeleteIcon, FileIcon } from "src/Utils/Icons";
-import { Button } from "src/views/components";
 
 interface FileItem {
   id: string;
@@ -73,11 +71,18 @@ export default function FileUpload() {
 
       <div className="space-y-4">
         {files.map(file => (
-          <div style={{ borderBottom: "1.5px solid rgba(255,255,255,0.30)" }} key={file.id} className="flex items-end gap-3 group relative pb-4 pt-2.5">
-            <FileIcon />
+          <div
+            style={{ borderBottom: "1.5px solid rgba(255,255,255,0.30)" }}
+            key={file.id}
+            className="flex flex-wrap sm:flex-nowrap items-end gap-1.5 sm:gap-3 group relative pb-2.5 sm:pb-4 pt-2.5"
+          >
+            <span className="w-7 xl:w-10 3xl:w-[52px]">
+              {" "}
+              <FileIcon />
+            </span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-slate-300 truncate pr-4">{file.name}</p>
-              <span className="text-xs text-slate-500">{file.size}</span>
+              <p className="text-sm 3xl:text-base text-white text-opacity-50 truncate pr-3">{file.name}</p>
+              <span className="text-xs 3xl:text-sm text-slate-500">{file.size}</span>
 
               {/* Progress Bar */}
               {file.progress < 100 && (
@@ -88,7 +93,7 @@ export default function FileUpload() {
             </div>
             {file.progress < 100 && <span className="text-xs text-slate-500 w-7">{Math.round(file.progress)}%</span>}
 
-            <button className="text-slate-500 hover:text-red-400 h-8 w-8" onClick={() => handleDelete(file.id)}>
+            <button className="text-slate-500 hover:text-red-400 3xl:h-8 w-5  3xl:w-8" onClick={() => handleDelete(file.id)}>
               <DeleteIcon />
               <span className="sr-only">Delete file</span>
             </button>

@@ -65,7 +65,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
       )}
       <div className="relative cursor-pointer" onClick={() => setIsOpen(!isOpen)} aria-label={ariaLabel}>
         <div className="bg-[#202F45] w-full rounded-[10px] p-3 flex items-center justify-between">
-          <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "}`}>
+          <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "} 3xl:text-lg`}>
             {selectedValue ? labelValues.find(item => item.value === selectedValue)?.label : placeholder}
           </span>
 
