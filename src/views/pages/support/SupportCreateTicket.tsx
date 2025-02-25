@@ -100,7 +100,7 @@ const SupportCreateTicket = () => {
       <div className="lg:!p-10 3xl:!py-[42px] !p-4 !mx-4 !py-8 flex flex-col !gap-5 md:!gap-7 xl:!gap-9 3xl:!gap-12 justify-center items-center bg-primaryBg max-w-[1112px] xl:!mx-auto rounded-2xl xl:rounded-[25px] 3xl:!px-[55px] my-10 xl:my-16 3xl:my-[114px]">
         <h4 className="text-[22px] md:text-2xl xl:text-[30px] font-michroma text-white">Your request is about</h4>
         {/* Category Selection */}
-        <form action="" className="w-full flex flex-col !gap-3 xl:!gap-5 3xl:!gap-7">
+        <form action="" onSubmit={e => e.preventDefault()} className="w-full flex flex-col !gap-3 xl:!gap-5 3xl:!gap-7">
           {" "}
           <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
             <SelectFilter
