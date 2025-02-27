@@ -70,12 +70,12 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
           <label className="text-[#FFFFFF99] 3xl:text-lg font-medium">{label}</label>
           {tooltip && (
             <div className="relative flex items-center">
-              <div className="text-primary-user flex items-center gap-1 justify-center text-sm cursor-help">
+              <div className="text-primary-user flex items-center gap-1 justify-center text-sm">
                 Beta Function
-                <div className="group relative inline-block">
+                <div className="group relative cursor-help inline-block duration-300">
                   <ToolTipIcon />
                   <div
-                    className="absolute z-50  md:left-1/2 top-full transform -right-4 md:-translate-x-1/2 mt-2
+                    className="absolute z-50  md:left-1/2 top-full transform -right-4 md:-translate-x-1/2 mt-2  !duration-300 transition-all
                     min-w-[200px] sm:min-w-[287px] max-w-[287px] 
                     hidden group-hover:block 
                     !p-3 3xl:!p-4 
