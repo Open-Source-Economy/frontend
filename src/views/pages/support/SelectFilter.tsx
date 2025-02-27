@@ -72,11 +72,24 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
             <div className="relative flex items-center">
               <div className="text-primary-user flex items-center gap-1 justify-center text-sm cursor-help">
                 Beta Function
-                <div className="group">
+                <div className="group relative inline-block">
                   <ToolTipIcon />
-                  <div className="absolute right-0 md:left-[-26%] z-50 top-[150%] min-w-[200px] max-w-[282px] hidden group-hover:block !p-3 3xl:!p-4 bg-primary-user text-white rounded-lg text-[11px] leading-[200%]">
-                    {/* Arrow */}
-                    <div className="absolute hidden md:block -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary-user"></div>
+                  <div
+                    className="absolute z-50  md:left-1/2 top-full transform -right-4 md:-translate-x-1/2 mt-2
+                    min-w-[200px] sm:min-w-[287px] max-w-[287px] 
+                    hidden group-hover:block 
+                    !p-3 3xl:!p-4 
+                    bg-primary-user text-white rounded-lg 
+                    text-[11px] leading-[200%]"
+                  >
+                    {/* Arrow - centered */}
+                    <div
+                      className="absolute -top-2 md:left-1/2 transform right-[15px] md:-translate-x-1/2
+                      w-0 h-0 
+                      border-l-8 border-l-transparent 
+                      border-r-8 border-r-transparent 
+                      border-b-8 border-b-primary-user"
+                    ></div>
                     {tooltip}
                   </div>
                 </div>

@@ -117,7 +117,7 @@ export function Support() {
               onFilterChange={handleCategoryChange}
               label="Category"
               isUpgraded={true}
-              tooltip="Select the type of service you need assistance with"
+              tooltip="loream lpeam We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
             />
 
             <SelectFilter
