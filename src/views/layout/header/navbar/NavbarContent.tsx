@@ -54,13 +54,14 @@ export function NavbarContent(props: AppNavbarProps) {
     currencyNavItem,
     DIVIDER,
     Navigation.items.howItWorks,
+    Navigation.items.pricing,
     Navigation.items.blog,
     // Navigation.items.newsletter,
     DIVIDER,
     Navigation.items.signOut,
   ];
   const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
-  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, /*Navigation.items.newsletter,*/ Navigation.items.howItWorks]; // TODO: where to put ? currencyNavItem
+  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
 
   useEffect(() => {
     reloadAvailableCredits();

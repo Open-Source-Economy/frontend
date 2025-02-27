@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "src/views/components";
 import { DonationSelector } from "./DonationSelector";
-import { CampaignProductType, Currency, PriceType, ProjectId } from "src/model";
+import { CampaignPriceType, CampaignProductType, Currency, ProjectId } from "src/model";
 import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/data";
@@ -12,7 +12,7 @@ import { config, Env } from "../../../../../../ultils";
 interface PaymentControlsProps {
   projectId: ProjectId;
   preferredCurrency: Currency;
-  prices: Record<PriceType, Record<Currency, Record<CampaignProductType, Price[]>>>;
+  prices: Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>>;
   paymentSuccessUrl: string;
   paymentCancelUrl: string;
 }
@@ -21,7 +21,7 @@ export function PaymentControls(props: PaymentControlsProps) {
   const backendAPI = getBackendAPI();
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
-  const [priceType, setPriceType] = useState<PriceType>(PriceType.RECURRING);
+  const [priceType, setPriceType] = useState<CampaignPriceType>(CampaignPriceType.MONTHLY);
   const [campaignProductType, setCampaignProductType] = useState<CampaignProductType>(CampaignProductType.DONATION);
 
   const [selectedPriceIndex, setSelectedPriceIndex] = useState<number | null>(null);
@@ -47,7 +47,7 @@ export function PaymentControls(props: PaymentControlsProps) {
       try {
         const params: CheckoutParams = {};
         const body: CheckoutBody = {
-          mode: priceType === PriceType.RECURRING ? "subscription" : "payment",
+          mode: priceType === CampaignPriceType.MONTHLY ? "subscription" : "payment",
           priceItems: [
             {
               priceId: selectedPrice.price.stripeId,
@@ -105,7 +105,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
                 {displayedCurrency.symbol}
                 {price.totalAmount / 100}
-                <span className="font-normal ">{priceType === PriceType.RECURRING ? "/mo" : ""}</span>
+                <span className="font-normal ">{priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}</span>
               </h5>
               <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{price.label}</h6>
             </button>
@@ -122,7 +122,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               type="text"
               value={customAmount}
               onChange={handleCustomAmountChange}
-              placeholder={`Other${priceType === PriceType.RECURRING ? "/mo" : ""}`}
+              placeholder={`Other${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}`}
               className="bg-transparent text-white text-base sm:text-lg 3xl:text-xl placeholder:text-sm sm:placeholder:text-lg w-full focus:outline-none ml-2 placeholder-gray-400"
               aria-label="Custom donation amount"
             />
@@ -142,8 +142,8 @@ export function PaymentControls(props: PaymentControlsProps) {
       >
         {selectedPrice
           ? campaignProductType === CampaignProductType.DONATION
-            ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""}`
-            : `Receive ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === PriceType.RECURRING ? "/mo" : ""} of DoWs`
+            ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}`
+            : `Receive ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""} of DoWs`
           : "Select an amount to donate"}
       </Button>
     </>

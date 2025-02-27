@@ -4,7 +4,7 @@ import { FinancialIssue } from "src/model";
 import * as components from "./index";
 import { Approved } from "src/views/components/issue/Approved";
 import { Action } from "src/views/components/issue/Action";
-import { Audience } from "src/views/index";
+import { Audience } from "../../Audience";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;

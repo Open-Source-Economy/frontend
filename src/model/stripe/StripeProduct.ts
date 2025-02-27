@@ -23,17 +23,30 @@ export class StripeProductId {
   }
 }
 
+// do not change the naming, used in the database
 export enum ProductType {
   CREDIT = "credit",
   DONATION = "donation",
+  INDIVIDUAL_PLAN = "individual_plan",
+  START_UP_PLAN = "start_up_plan",
+  SCALE_UP_PLAN = "scale_up_plan",
+  ENTERPRISE_PLAN = "enterprise_plan",
 }
 
+// to enable match exhaustiveness
 export enum CampaignProductType {
   CREDIT = ProductType.CREDIT,
   DONATION = ProductType.DONATION,
 }
 
-export const campaignProductTypeUtils = {
+export enum PlanProductType {
+  INDIVIDUAL_PLAN = ProductType.INDIVIDUAL_PLAN,
+  START_UP_PLAN = ProductType.START_UP_PLAN,
+  SCALE_UP_PLAN = ProductType.SCALE_UP_PLAN,
+  ENTERPRISE_PLAN = ProductType.ENTERPRISE_PLAN,
+}
+
+export const productTypeUtils = {
   toProductType: (campaignProductType: CampaignProductType): ProductType => {
     switch (campaignProductType) {
       case CampaignProductType.CREDIT:

@@ -118,6 +118,9 @@ export class Navigation {
     howItWorks: new LinkItemData("How it Works", paths.HOW_ITS_WORK, {
       icon: <HowItWorksIcon />,
     }),
+    pricing: new LinkItemData("Pricing", paths.PRICING, {
+      icon: <MaintainerIcon />, // TODO: replace with proper icon
+    }),
     dashboard: new LinkItemData("Dashboard", paths.DASHBOARD, {
       icon: <DashboardIcon />,
     }),
@@ -154,7 +157,7 @@ export class Navigation {
   }
 
   static availableCredits(credits: Credit | null): LinkItemData {
-    return new LinkItemData(credit.displayAmount(credits), "/maintainer", {
+    return new LinkItemData(credit.displayAmount(credits), paths.PRICING, {
       icon: <AvailableFunding />,
     });
   }
