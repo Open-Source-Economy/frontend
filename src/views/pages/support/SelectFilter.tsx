@@ -80,7 +80,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
                     hidden group-hover:block 
                     !p-3 3xl:!p-4 
                     bg-primary-user text-white rounded-lg 
-                    text-[11px] leading-[200%]"
+                    text-[11px] !leading-[160%]"
                   >
                     {/* Arrow - centered */}
                     <div
