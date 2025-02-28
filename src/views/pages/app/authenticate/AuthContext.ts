@@ -6,10 +6,10 @@ export interface AuthContextState {
   loading: boolean;
   authInfo: AuthInfo | null;
   error: ApiError | null;
-  login: (body: LoginBody, query: LoginQuery) => void;
-  logout: () => void;
+  login: (body: LoginBody, query: LoginQuery, successCallback?: () => void) => void;
+  logout: (successCallback?: () => void) => void;
   loginWithGitHub: () => void;
-  register: (body: RegisterBody, query: RegisterQuery) => void;
+  register: (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => void;
 }
 
 export const AuthContext = createContext<AuthContextState>({} as AuthContextState);

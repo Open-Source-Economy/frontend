@@ -5,7 +5,7 @@ export interface CreateManualInvoiceBody {
   companyId?: CompanyId;
   userId?: UserId;
   paid: boolean;
-  milliDowAmount: number;
+  creditAmount: number;
 }
 
 export interface CreateManualInvoiceQuery {}

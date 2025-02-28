@@ -26,5 +26,5 @@ export function useFinancialIssue(issueId: model.IssueId) {
     }
   };
 
-  return { financialIssue, error, reloadFinancialIssue: getFinancialIssue };
+  return { financialIssue, loadFinancialIssueError: error, reloadFinancialIssue: getFinancialIssue };
 }

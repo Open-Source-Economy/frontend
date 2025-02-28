@@ -1,15 +1,16 @@
 import React from "react";
 import check from "src/assets/checkmark.png";
-import { Button } from "src/components";
+import { Button } from "src/views/components";
 import { SpinningWheel } from "src/Utils/Icons";
+import { Credit, credit } from "../../../../../../model";
 
 interface HighLightCardProps {
   card: {
     title: string;
     description: string;
     tasks: string[];
-    progress: number;
-    total: number;
+    progress: Credit;
+    total: Credit;
     buttonText: string;
     isBorder?: boolean;
   };
@@ -19,7 +20,7 @@ export function HighLightCard(props: HighLightCardProps) {
   return (
     <div
       className={`${props.card.isBorder ? "virtuous-card" : "border !border-[#2b394d]"}
-cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] service-card 3xl:rounded-[35px] py-8 !px-5 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 group ease-linear transition-shadow`}
+cursor-pointer h-full !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] box-gradient-border-hover 3xl:rounded-[35px] py-8 !px-5 xl:!px-7 xl:!pt-14 xl:!pb-9 3xl:!px-8 3xl:!pt-16 3xl:!pb-10 flex flex-col hover:shadow-[0px_0px_50px_0px_rgba(208,102,99,0.28)] z-20 duration-300 group ease-linear transition-shadow`}
     >
       {/* Card Title */}
       <h3 className="text-2xl 2xl:text-3xl 3xl:text-[35px] font-medium !mb-3 xl:!mb-4 3xl:!mb-5">{props.card.title}</h3>
@@ -42,8 +43,10 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] servic
             <SpinningWheel />
           </span>
           <p className="text-base md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-[28px] font-semibold">
-            {props.card.progress} /{" "}
-            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">{props.card.total} DoW</span>
+            {credit.displayAmount(props.card.progress)} /{" "}
+            <span className="bg-gradient-to-r pr-1.5 from-[#FF7E4B] to-[#FF518C] w-fit bg-clip-text text-transparent ">
+              {credit.displayAmount(props.card.total)}
+            </span>
             requested
           </p>
         </div>
@@ -51,7 +54,7 @@ cursor-pointer !bg-primaryBg text-white rounded-[20px] 2xl:rounded-[28px] servic
         <div className="w-full bg-gray-700 rounded-full h-2">
           <div
             className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] text-white to-[#66319B] h-2 rounded-full"
-            style={{ width: `${(props.card.progress / props.card.total) * 100}%` }}
+            style={{ width: `${credit.percentage(props.card.progress, props.card.total)}%` }}
           ></div>
         </div>
 

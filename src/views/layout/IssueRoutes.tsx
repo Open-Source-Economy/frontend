@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
-import { BaseURL } from "src/App";
+
 import { useRepositoryFromParams } from "../hooks";
 import { IssueId } from "src/model";
 import React from "react";
@@ -23,5 +23,5 @@ export function IssueRoutes() {
     return <Outlet context={{ issueId }} />;
   }
 
-  return <PageNotFound home={BaseURL.APP} />;
+  return <PageNotFound />;
 }

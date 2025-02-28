@@ -1,20 +1,24 @@
 import { PageWrapper } from "../../PageWrapper";
-import { BaseURL } from "src/App";
+
 import React from "react";
-import { DigIntoDetails, FeaturesSection, HeroSection, Projects, VideoSection } from "src/views/pages/website/home/elements";
+import { DigIntoDetails, Gateway, HeroSection, Projects, VideoSection } from "src/views/pages/website/home/elements";
 import { config, Env } from "src/ultils";
 
 interface HomeProps {}
 
 export function Home(props: HomeProps) {
   return (
-    <PageWrapper baseURL={BaseURL.WEBSITE}>
+    <PageWrapper>
       <div className="boxlayer mt-[20px]">
         <HeroSection />
-        <FeaturesSection />
-        <VideoSection />
+        <Gateway />
         {config.env !== Env.Production && <DigIntoDetails />}
+
+        <div className="pt-[40px] lg:pt-[100px] max-[540px]:pt-12"></div>
         <Projects />
+        <div className="mt-[130px] lg:mt-[230px]"></div>
+        <VideoSection />
+        <div className="mb-[30px] lg:mb-[200px]"> </div>
       </div>
     </PageWrapper>
   );

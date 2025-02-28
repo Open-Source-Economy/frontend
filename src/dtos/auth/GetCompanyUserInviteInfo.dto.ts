@@ -3,6 +3,6 @@ export interface GetCompanyUserInviteInfoQuery {
 }
 
 export interface GetCompanyUserInviteInfoResponse {
-  userName: string | null;
-  userEmail: string;
+  userName?: string | null;
+  userEmail?: string;
 }

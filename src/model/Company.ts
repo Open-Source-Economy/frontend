@@ -7,10 +7,6 @@ export class CompanyId {
   constructor(uuid: string) {
     this.uuid = uuid;
   }
-
-  toString(): string {
-    return this.uuid.toString();
-  }
 }
 
 export class Company {

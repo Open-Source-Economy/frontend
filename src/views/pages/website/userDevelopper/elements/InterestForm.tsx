@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./InterestForm.css";
-import { Button } from "src/components/elements/Button";
+import { Button } from "src/views/components/elements/Button";
 
 interface InterestFormProps {}
 

@@ -138,6 +138,28 @@ export class Validator {
     }
   }
 
+  optionalDecimal(path: string | string[]): Decimal | undefined {
+    let value = this.getValue(path);
+
+    if (value === undefined || value === null) {
+      return undefined;
+    }
+
+    try {
+      if (typeof value === "string" || typeof value === "number") {
+        const decimal = new Decimal(value);
+        if (!isNaN(decimal.toNumber())) {
+          return decimal;
+        }
+      }
+      this.errors.push(new NumberValidationError(path, value, this.data));
+      return undefined;
+    } catch (error) {
+      this.errors.push(new NumberValidationError(path, value, this.data));
+      return undefined;
+    }
+  }
+
   // @ts-ignore
   requiredDecimal(path: string | string[]): Decimal {
     let value = this.getValue(path);

@@ -1,10 +1,11 @@
 import {
   ContributorVisibility,
+  Credit,
+  CreditUnit,
   Currency,
   FinancialIssue,
   IssueFunding,
   IssueFundingId,
-  IssueId,
   ManagedIssue,
   ManagedIssueId,
   ManagedIssueState,
@@ -13,81 +14,36 @@ import {
   Project,
   StripePrice,
   StripePriceId,
-  StripeProductId,
-  UserId,
+  StripeProductId
 } from "src/model";
 import { BackendAPI } from "src/services";
 import Decimal from "decimal.js";
-import {
-  CheckoutBody,
-  CheckoutParams,
-  CheckoutQuery,
-  CheckoutResponse,
-  FundIssueBody,
-  FundIssueParams,
-  FundIssueQuery,
-  GetAvailableDowParams,
-  GetAvailableDowQuery,
-  GetCampaignParams,
-  GetCampaignQuery,
-  GetCampaignResponse,
-  GetIssueParams,
-  GetIssueQuery,
-  GetIssuesParams,
-  GetMaintainersParams,
-  GetMaintainersQuery,
-  GetMaintainersResponse,
-  GetOwnerParams,
-  GetOwnerQuery,
-  GetOwnerResponse,
-  GetPricesParams,
-  GetPricesQuery,
-  GetPricesResponse,
-  GetProjectParams,
-  GetProjectQuery,
-  GetProjectResponse,
-  GetProjectServicesParams,
-  GetProjectServicesQuery,
-  GetProjectServicesResponse,
-  GetRepositoryParams,
-  GetRepositoryQuery,
-  GetRepositoryResponse,
-  Price,
-  RequestIssueFundingBody,
-  RequestIssueFundingParams,
-  RequestIssueFundingQuery,
-  SetUserPreferredCurrencyBody,
-  SetUserPreferredCurrencyParams,
-  SetUserPreferredCurrencyQuery,
-  SetUserPreferredCurrencyResponse,
-} from "src/dtos";
+import * as dto from "src/dtos";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
-import { pekkoMaintainers } from "../services/data";
+import { getCampaignDescription, getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
-import { getCampaignDescription } from "../views";
-import { oseMaintainers } from "../services/data/oseMaintainers";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(params: GetIssueParams, query: GetIssueQuery): Promise<FinancialIssue | ApiError> {
+  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const financialIssues = await this.getAllFinancialIssues({}, {});
     if (financialIssues instanceof ApiError) return financialIssues;
     else return financialIssues[0];
   }
 
-  async getAllFinancialIssues(params: GetIssuesParams, query: GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
-    const requestedMilliDowAmount = 12;
+    const requestedCreditAmount = 12;
 
-    for (const managedIssue of allManagedIssues(requestedMilliDowAmount)) {
+    for (const managedIssue of allManagedIssues(requestedCreditAmount)) {
       for (let i = 0; i < 4; i++) {
         let financialIssue: FinancialIssue;
         if (i === 0) {
           financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedMilliDowAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedCreditAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -95,11 +51,14 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableDow(params: GetAvailableDowParams, query: GetAvailableDowQuery): Promise<Decimal | ApiError> {
-    return Promise.resolve(new Decimal(2));
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError> {
+    return Promise.resolve({
+      unit: CreditUnit.MINUTE,
+      amount: new Decimal(20),
+    });
   }
 
-  async fundIssue(params: FundIssueParams, body: FundIssueBody, query: FundIssueQuery): Promise<void | ApiError> {
+  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
@@ -107,36 +66,28 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async rejectFunding(userId: UserId, issueId: IssueId): Promise<void | ApiError> {
+  async requestFunding(
+    params: dto.RequestIssueFundingParams,
+    body: dto.RequestIssueFundingBody,
+    query: dto.RequestIssueFundingQuery,
+  ): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(params: RequestIssueFundingParams, body: RequestIssueFundingBody, query: RequestIssueFundingQuery): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
-  async splitFunding(userId: UserId, issueId: IssueId, funders: [UserId, Decimal][]): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
-  async updateIssueGitHubStatus(issueId: IssueId, status: string): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
-  }
-
-  async getOwner(params: GetOwnerParams, query: GetOwnerQuery): Promise<GetOwnerResponse | ApiError> {
+  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError> {
     return {
       owner: owner,
     };
   }
 
-  async getRepository(params: GetRepositoryParams, query: GetRepositoryQuery): Promise<ApiError | GetRepositoryResponse> {
+  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<ApiError | dto.GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
     };
   }
 
-  async getProject(params: GetProjectParams, query: GetProjectQuery): Promise<GetProjectResponse | ApiError> {
+  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
     return {
       project: {
         id: Project.getId(params.owner, params.repo),
@@ -146,17 +97,16 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse | ApiError> {
-    if (params.owner === "apache" && params.repo === "pekko") {
-      return { maintainers: pekkoMaintainers };
-    } else if (params.owner === "open-source-economy") {
-      return { maintainers: oseMaintainers };
+  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
+    const maintainers = getMaintainers(params.owner, params.repo);
+    if (maintainers) {
+      return { maintainers };
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
   }
 
-  async getPrices(params: GetPricesParams, query: GetPricesQuery): Promise<ApiError | GetPricesResponse> {
+  async getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<ApiError | dto.GetPricesResponse> {
     const stripePrice: StripePrice = {
       stripeId: new StripePriceId("StripePriceId"),
       productId: new StripeProductId("StripeProductId"),
@@ -167,7 +117,7 @@ export class BackendAPIMock implements BackendAPI {
     };
 
     // Helper function to create a Price object
-    function createPrice(stripePrice: StripePrice): Price {
+    function createPrice(stripePrice: StripePrice): dto.Price {
       return {
         totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
         quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
@@ -176,7 +126,7 @@ export class BackendAPIMock implements BackendAPI {
       };
     }
 
-    const prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>> = {} as any;
+    const prices: Record<PriceType, Record<Currency, Record<ProductType, dto.Price[]>>> = {} as any;
 
     for (const priceType of Object.values(PriceType)) {
       if (!prices[priceType]) {
@@ -189,7 +139,7 @@ export class BackendAPIMock implements BackendAPI {
         }
 
         for (const productType of Object.values(ProductType)) {
-          const priceArray: Price[] = [];
+          const priceArray: dto.Price[] = [];
           for (let i = 0; i < 5; i++) {
             priceArray.push(createPrice(stripePrice));
           }
@@ -203,7 +153,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getCampaign(params: GetCampaignParams, query: GetCampaignQuery): Promise<GetCampaignResponse | ApiError> {
+  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
     const response = await this.getPrices({ owner: params.owner, repo: params.repo }, {});
     if (response instanceof ApiError) return response;
 
@@ -227,23 +177,31 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async checkout(params: CheckoutParams, body: CheckoutBody, query: CheckoutQuery): Promise<ApiError | CheckoutResponse> {
-    return {} as CheckoutResponse;
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
+    return {} as dto.CheckoutResponse;
   }
 
   async setUserPreferredCurrency(
-    params: SetUserPreferredCurrencyParams,
-    body: SetUserPreferredCurrencyBody,
-    query: SetUserPreferredCurrencyQuery,
-  ): Promise<SetUserPreferredCurrencyResponse | ApiError> {
+    params: dto.SetUserPreferredCurrencyParams,
+    body: dto.SetUserPreferredCurrencyBody,
+    query: dto.SetUserPreferredCurrencyQuery,
+  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError> {
     return {};
   }
 
-  async getProjectServices(params: GetProjectServicesParams, query: GetProjectServicesQuery): Promise<ApiError | GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
     return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+  }
+
+  async subscribeToNewsletter(
+    params: dto.NewsletterSubscriptionParams,
+    body: dto.NewsletterSubscriptionBody,
+    query: dto.NewsletterSubscriptionQuery,
+  ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
+    return Promise.resolve({ success: {} });
   }
 }
 
@@ -251,7 +209,7 @@ function issueFunding(amount: number): IssueFunding {
   return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
 }
 
-function allManagedIssues(requestedMilliDowAmount: number): ManagedIssue[] {
+function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
   const allManagedIssues: ManagedIssue[] = [];
 
   for (const visibility of Object.values(ContributorVisibility)) {
@@ -259,7 +217,7 @@ function allManagedIssues(requestedMilliDowAmount: number): ManagedIssue[] {
       const managedIssue: ManagedIssue = {
         id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
-        requestedMilliDowAmount: requestedMilliDowAmount,
+        requestedCreditAmount: requestedCreditAmount,
         managerId: userId,
         contributorVisibility: visibility,
         state: state,

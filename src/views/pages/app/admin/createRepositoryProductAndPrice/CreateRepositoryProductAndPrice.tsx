@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { BaseURL } from "src/App";
+
 import { CreateProductAndPriceBody, CreateProductAndPriceParams, CreateProductAndPriceQuery } from "src/dtos";
 
 interface CreateRepositoryProductAndPriceProps {}
@@ -63,7 +63,7 @@ export function CreateRepositoryProductAndPrice(props: CreateRepositoryProductAn
   };
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Create Product & Price</h1>

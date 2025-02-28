@@ -8,23 +8,19 @@ export class IssueFundingId {
   constructor(uuid: string) {
     this.uuid = uuid;
   }
-
-  toString(): string {
-    return this.uuid;
-  }
 }
 
 export class IssueFunding {
   id: IssueFundingId;
   githubIssueId: IssueId;
   userId: UserId;
-  milliDowAmount: number;
+  credit: number;
 
-  constructor(id: IssueFundingId, githubIssueId: IssueId, userId: UserId, milliDowAmount: number) {
+  constructor(id: IssueFundingId, githubIssueId: IssueId, userId: UserId, creditAmount: number) {
     this.id = id;
     this.githubIssueId = githubIssueId;
     this.userId = userId;
-    this.milliDowAmount = milliDowAmount;
+    this.credit = creditAmount;
   }
 
   static fromBackend(row: any): IssueFunding | ValidationError {
@@ -36,7 +32,7 @@ export class IssueFunding {
     const validator = new Validator(row);
     const id = validator.requiredString("id");
     const userId = validator.requiredString("user_id");
-    const amount = validator.requiredNumber("milli_dow_amount");
+    const amount = validator.requiredNumber("credit_amount");
 
     const error = validator.getFirstError();
     if (error) {

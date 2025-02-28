@@ -8,12 +8,15 @@ import {
   RegisterQuery,
   RegisterResponse,
   RepositoryInfo,
-  StatusResponse,
+  StatusResponse
 } from "src/dtos/auth";
 import { AuthBackendAPI } from "src/services";
 import { CompanyUserRole, RepositoryUserRole } from "src/model";
-import { company, repositoryId, user } from "src/__mocks__/index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import { company, repositoryId, user } from "./index";
+import {
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse
+} from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {
@@ -68,6 +71,6 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
 
 const repositoryInfo: RepositoryInfo = {
   role: RepositoryUserRole.ADMIN,
-  dowRate: "1000",
-  dowCurrency: "USD",
+  rate: "1000",
+  currency: "USD",
 };

@@ -1,5 +1,5 @@
 export * from "./useFinancialIssue";
-export * from "./useDowCounter";
+export * from "./useCreditCounter";
 export * from "./useIssueIdFromParams";
 export * from "./useRepositories";
 export * from "./useRepository";
@@ -7,3 +7,4 @@ export * from "./useRepositoryFromParams";
 export * from "./useMaintainers";
 export * from "./usePrices";
 export * from "./useProjectServices";
+export * from "./useAvailableCredits";

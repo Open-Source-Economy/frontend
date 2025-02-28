@@ -1,10 +1,8 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { Footer, Header } from "src/views/layout";
 import gsap from "gsap";
-import { BaseURL } from "src/App";
 
 export interface PageWrapperProps {
-  baseURL: BaseURL;
   children: ReactNode;
 }
 
@@ -17,9 +15,9 @@ export function PageWrapper(props: PageWrapperProps) {
   }, [pageContainer]);
   return (
     <div ref={pageContainer}>
-      <Header baseURL={props.baseURL} />
+      <Header />
       {props.children}
-      <Footer baseURL={props.baseURL} />
+      <Footer />
     </div>
   );
 }

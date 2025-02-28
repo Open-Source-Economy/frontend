@@ -19,10 +19,6 @@ export class StripeCustomerId {
 
     return new StripeCustomerId(json.id);
   }
-
-  toString(): string {
-    return this.id;
-  }
 }
 
 export class StripeCustomer {

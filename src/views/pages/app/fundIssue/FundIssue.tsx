@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { IssueCard } from "src/components/issue";
-import { DisclaimerModal, DowFunding } from "./elements";
+import { IssueCard } from "src/views/components/issue";
+import { CreditFunding, DisclaimerModal } from "./elements";
 import bgimage from "src/assets/Group258.svg";
 import { useFinancialIssue } from "src/views/hooks";
 import { Audience } from "src/views";
-import { BaseURL } from "src/App";
-import { AudienceTitle } from "src/components";
+
+import { AudienceTitle } from "src/views/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface FundIssueProps {}
@@ -15,7 +15,7 @@ export function FundIssue({}: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();
-  const { financialIssue, error, reloadFinancialIssue } = useFinancialIssue(issueId);
+  const { financialIssue, loadFinancialIssueError, reloadFinancialIssue } = useFinancialIssue(issueId);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function FundIssue({}: FundIssueProps) {
   }, []);
 
   return (
-    <PageWrapper baseURL={BaseURL.APP}>
+    <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         {/*TODO: clean */}
         <div
@@ -45,7 +45,7 @@ export function FundIssue({}: FundIssueProps) {
               </div>
 
               <div className="bg-[#14233A] rounded-3xl padding !p-4 md:!py-12 sm:!px-10 md:w-[590px] xl:w-[595px] w-full">
-                <DowFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
+                <CreditFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 
               {modal && <DisclaimerModal show={modal} setShow={setModal} closeCallback={() => window.location.reload()} />}

@@ -3,9 +3,9 @@ import { RepositoryId } from "../../model";
 export interface GetRepositoryUserInviteInfoParams {}
 
 export interface GetRepositoryUserInviteInfoResponse {
-  userName: string | null;
-  userGithubOwnerLogin: string;
-  repositoryId: RepositoryId;
+  userName?: string | null;
+  userGithubOwnerLogin?: string;
+  repositoryId?: RepositoryId;
 }
 
 export interface GetRepositoryUserInviteInfoBody {}

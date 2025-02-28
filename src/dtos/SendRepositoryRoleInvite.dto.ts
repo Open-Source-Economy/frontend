@@ -1,15 +1,16 @@
-import { DowCurrency, RepositoryId, RepositoryUserRole } from "../model";
+import { Currency, RepositoryId, RepositoryUserRole } from "../model";
 
 export interface SendRepositoryRoleInviteParams {}
 
 export interface SendRepositoryRoleInviteBody {
   userName: string | null;
-  userEmail: string;
+  userEmail?: string;
+  sendEmail: boolean;
   userGithubOwnerLogin: string;
   repositoryId: RepositoryId;
   repositoryUserRole: RepositoryUserRole;
-  dowRate: number;
-  dowCurrency: DowCurrency;
+  dowRate?: number;
+  dowCurrency?: Currency;
 }
 
 export interface SendRepositoryRoleInviteQuery {}

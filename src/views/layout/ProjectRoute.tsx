@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { PageNotFound } from "../pages/PageNotFound";
-import { BaseURL } from "../../App";
+
 import { OwnerId, ProjectId, RepositoryId } from "src/model";
 
 type ProjectContext = {
@@ -38,5 +38,5 @@ export function ProjectRoute() {
     return <Outlet context={{ projectId }} />;
   }
 
-  return <PageNotFound home={BaseURL.APP} />;
+  return <PageNotFound />;
 }

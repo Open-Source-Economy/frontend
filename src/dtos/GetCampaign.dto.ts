@@ -1,6 +1,6 @@
-import { Currency, PriceType, ProductType } from "../model";
+import { CampaignPriceType, CampaignProductType, Currency } from "../model";
 import { Price } from "./stripe";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 export interface GetCampaignParams {
   owner: string;
@@ -12,7 +12,7 @@ export interface GetCampaignResponse {
   targetAmount: Record<Currency, number>; // in cents, in the currency of the price
   numberOfBackers?: number;
   numberOfDaysLeft?: number;
-  prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
+  prices: Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>>;
   description: CampaignDescription | null; // TODO: when description will come from the backend, remove null
 }
 

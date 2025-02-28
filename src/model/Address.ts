@@ -6,10 +6,6 @@ export class AddressId {
   constructor(uuid: string) {
     this.uuid = uuid;
   }
-
-  toString(): string {
-    return this.uuid;
-  }
 }
 
 export class Address {

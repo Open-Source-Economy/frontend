@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
-import { Button, EmailInput, PasswordInput } from "src/components";
+import { Button, EmailInput, PasswordInput } from "src/views/components";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
-import { BaseURL } from "src/App";
+
 import { config, Env } from "src/ultils";
-import { ApiErrorModal } from "src/components/common/ApiErrorModal";
-import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/components/form/hooks/validateForm";
+import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
+import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
+import { paths } from "src/paths";
 
 export enum AuthenticateType {
   SignIn,
@@ -28,6 +29,8 @@ interface AuthenticateProps {
 export function Authenticate(props: AuthenticateProps) {
   const auth = useAuth();
   const authAPI = getAuthBackendAPI();
+
+  const navigate = useNavigate();
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
@@ -76,6 +79,14 @@ export function Authenticate(props: AuthenticateProps) {
       return;
     }
 
+    const from = location.state && (location.state as any).from?.pathname;
+    console.log("Redirect path:", from);
+
+    const successCallback = () => {
+      console.log("Authentication successful, redirecting to:", from || paths.HOME);
+      navigate(from || paths.HOME, { replace: true });
+    }; // Redirect to the original page after registration
+
     if (props.type === AuthenticateType.SignIn) {
       console.log("Logging in...");
       const body: LoginBody = {
@@ -83,7 +94,7 @@ export function Authenticate(props: AuthenticateProps) {
         password: formData.password,
       };
       const query: LoginQuery = {};
-      auth.login(body, query);
+      auth.login(body, query, successCallback);
     } else {
       console.log("Registering...");
       const body: RegisterBody = {
@@ -95,7 +106,7 @@ export function Authenticate(props: AuthenticateProps) {
         companyToken: companyToken ?? undefined,
         repositoryToken: repositoryToken ?? undefined,
       };
-      auth.register(body, query);
+      auth.register(body, query, successCallback);
     }
   };
 
@@ -108,8 +119,10 @@ export function Authenticate(props: AuthenticateProps) {
       if (inviteInfo instanceof ApiError) setError(inviteInfo);
       else {
         setName(inviteInfo.userName ?? null);
-        setFormData({ ...formData, email: inviteInfo.userEmail });
-        setIsEmailPredefined(true);
+        if (inviteInfo.userEmail) {
+          setFormData({ ...formData, email: inviteInfo.userEmail });
+          setIsEmailPredefined(true);
+        }
       }
     } catch (error: unknown) {
       setError(ApiError.from(error));
@@ -125,8 +138,10 @@ export function Authenticate(props: AuthenticateProps) {
       if (inviteInfo instanceof ApiError) setError(inviteInfo);
       else {
         setName(inviteInfo.userName ?? null);
-        setGithubLogin(inviteInfo.userGithubOwnerLogin);
-        setIsGithubAccountPredefined(true);
+        if (inviteInfo.userGithubOwnerLogin) {
+          setGithubLogin(inviteInfo.userGithubOwnerLogin);
+          setIsGithubAccountPredefined(true);
+        }
       }
     } catch (error: unknown) {
       setError(ApiError.from(error));
@@ -139,7 +154,7 @@ export function Authenticate(props: AuthenticateProps) {
   }, [auth.error, error]);
 
   return (
-    <PageWrapper baseURL={BaseURL.WEBSITE}>
+    <PageWrapper>
       <ApiErrorModal error={auth.error ?? error} showError={showError} setShowError={setShowError} />
 
       <div className="login pt-12 pb-24 min-h-screen flex justify-center items-center">
@@ -150,7 +165,7 @@ export function Authenticate(props: AuthenticateProps) {
             className="bg-[#14233A] border !border-[rgba(255,_255,_255,_0.2)] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
           >
             <>
-              <Link to={"/"}>
+              <Link to={paths.HOME}>
                 <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
               </Link>
 
@@ -176,7 +191,12 @@ export function Authenticate(props: AuthenticateProps) {
 
               {!isGithubAccountPredefined && (
                 <div className="flex items-center w-full justify-center gap-3 flex-col">
-                  <EmailInput value={formData.email} onChange={value => setFormData({ ...formData, email: value })} isValid={validation.email} />
+                  <EmailInput
+                    value={formData.email}
+                    onChange={value => setFormData({ ...formData, email: value })}
+                    isValid={validation.email}
+                    disabled={isEmailPredefined}
+                  />
 
                   <PasswordInput
                     value={formData.password}
@@ -222,7 +242,7 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {config.env !== Env.Production && props.type === AuthenticateType.SignIn && (
-                <Link to={"/"} className="gradient-text-normal relative group font-semibold mt-3">
+                <Link to={paths.HOME} className="gradient-text-normal relative group font-semibold mt-3">
                   Forgot Password?
                   <span className="gradient-btn-bg w-full h-[1px] hidden group-hover:block absolute bottom-1 left-0"></span>
                 </Link>
@@ -232,7 +252,11 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link to={props.type === AuthenticateType.SignIn ? "/sign-up" : "/sign-in"} className="gradient-text-normal group relative">
+            <Link
+              to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN}
+              state={location.state}
+              className="gradient-text-normal group relative"
+            >
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
             </Link>

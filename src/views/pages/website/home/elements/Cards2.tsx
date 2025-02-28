@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, To } from "react-router-dom";
-import { Button, ExternalLink } from "src/components";
+import { Button, ExternalLink } from "src/views/components";
 import { Owner, Repository } from "src/model";
 import { Audience } from "../../../../Audience";
 
@@ -50,7 +50,7 @@ export function Cards2(props: Cards2Props) {
             <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85  max-[540px]:text-base">{props.repository.description}</p>
           </div>
         </div>
-        <div className="w-full flex justify-center  relative z-20">
+        <div className="w-full flex justify-center relative z-20">
           {props.action && props.to && (
             <Button audience={"ALL"} level={"SECONDARY"} size="MEDIUM" asChild className="w-full after:!w-[98.5%]" parentClassName="w-10/12 ">
               <Link to={props.to}>{props.action}</Link>

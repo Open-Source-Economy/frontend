@@ -3,7 +3,7 @@
 import React from "react";
 import img2 from "src/assets/developerimg1.png";
 import img3 from "src/assets/developerimg2.png";
-import img4 from "src/assets/sec2img.png";
+import img4 from "src/assets/icon/sec2img.png";
 import bgText from "src/assets/userbannertext.png";
 import secondaryProblemsSrc from "src/assets/userbannertext.png";
 import primaryProblemsSrc from "src/assets/btn2.png";
@@ -23,7 +23,7 @@ const solution1: SolutionProps = {
   text: (
     <>
       <p className="sm:mt-[35px] mt-6">
-        Gain tokens for your involvement. <br /> Get a stake in your project's success
+        Earn for your involvement <br /> Get a stake in your project's success
       </p>
     </>
   ),
@@ -39,7 +39,7 @@ const solution2: SolutionProps = {
   text: (
     <>
       <p className="xl:py-[96px] lg:py-14 sm:py-8 pt-8">
-        The deeper your insights, the stronger your <br /> influence.
+        The deeper your insights, <br /> the stronger your influence
       </p>
     </>
   ),
@@ -55,8 +55,8 @@ const solution3: SolutionProps = {
   text: (
     <>
       <ul className="px-10 2xl:mt-[46px] mt-6">
-        <li className="list-disc">Easily set up new revenue streams. </li>
-        <li className="list-disc">Attract financial backers.</li>
+        <li className="list-disc">Easily set up new revenue streams</li>
+        <li className="list-disc">Attract financial backers</li>
       </ul>
       <h2 className="xl:py-[51px] lg:py-10 py-6">And bring your vision to life!</h2>
     </>
@@ -70,7 +70,7 @@ export const developerProps: UserDeveloperProps = {
     <>
       As an open source dev
       <br />
-      are you experiencing....
+      are you experiencing?
     </>
   ),
   subTittle1: (

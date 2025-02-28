@@ -1,6 +1,6 @@
 import React from "react";
 import { Maintainer } from "../../../../../dtos";
-import { ExternalLink } from "../../../../../components";
+import { ExternalLink } from "src/views/components";
 
 interface ParticipantCardProps {
   maintainer: Maintainer;

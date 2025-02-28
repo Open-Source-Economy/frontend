@@ -1,37 +1,37 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../pages/app/authenticate/AuthContext";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../pages";
 import { UserRole } from "src/model";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
-import { BaseURL } from "../../App";
-import { PageLoader } from "src/components/common/PageLoader";
+import { PageLoader } from "src/views/components/common/PageLoader";
 
-export function AuthRoutes(props: { redirect: string }) {
+export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
+  const location = useLocation();
 
   if (config.api.useMock) {
     return <Outlet />;
-  } else {
-    return auth.loading ? <PageLoader message="Authenticating user..." /> : auth.authInfo?.user ? <Outlet /> : <Navigate to={props.redirect} />;
   }
-}
 
-export function UnAuthRoutes(props: { redirect: string }) {
-  const auth = useAuth();
+  if (auth.loading) {
+    return <PageLoader message="Authenticating user..." />;
+  }
 
-  if (config.api.useMock) {
+  if (auth.authInfo?.user) {
+    // If user is authenticated, allow access to the protected route
     return <Outlet />;
-  } else {
-    return auth.loading ? <PageLoader message="Loading user data..." /> : auth.authInfo?.user ? <Navigate to={props.redirect} /> : <Outlet />;
   }
+
+  // Ensure we're passing the full location object
+  return <Navigate to={props.authPage} state={{ from: { pathname: location.pathname } }} replace />;
 }
 
 export function NonProdRoutes() {
   if (config.env !== Env.Production) {
     return <Outlet />;
   } else {
-    return <PageNotFound home={BaseURL.WEBSITE} />;
+    return <PageNotFound />;
   }
 }
 

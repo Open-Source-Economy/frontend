@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import bg from "src/assets/paymentbg.png";
-import { Card, Coupon, MonthlySubscription, OneTimePayment, PriceItems } from "src/views/pages/app/payment/elements";
+import { Coupon, MonthlySubscription, OneTimePayment, PriceItems } from "src/views/pages/app/payment/elements";
 import { PaymentOptions } from "src/views/pages/app/payment/elements/PaymentOptions";
 
 interface PaymentProps {}
@@ -37,7 +37,7 @@ export function Payment(props: PaymentProps) {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 className="text-[45px] sm:text-[45px] md:text-[62px] text-white text-center">Buy DoW</h1>
+        <h1 className="text-[45px] sm:text-[45px] md:text-[62px] text-white text-center">Buy Credits</h1>
 
         <div className=" flex lg:flex-row flex-col lg:items-start items-center justify-center md:mt-24 mt-10  w-full 3xl:!gap-[109px] 2xl:!gap-20 lg:!gap-16 gap-0 ">
           <div className="lg:max-w-[805px] w-full">
@@ -58,7 +58,7 @@ export function Payment(props: PaymentProps) {
 
             <div className="flex w-[340px]  md:w-[85%] gap-2 lg:w-[72%] xl:w-[62%] mx-auto my-5 items-center justify-between bg-[#14233A] rounded-[30px] p-4 ">
               <h2 className="lg:text-[18px] text-sm">
-                What DoWs are <br /> used for?{" "}
+                What Credits are <br /> used for?{" "}
               </h2>
               <button className="border-1 border-[rgba(255,81,140,100%)] rounded-md px-5 py-3 hover:bg-[rgba(255,81,140,100%)] transition-all duration-500 ease-in-out">
                 Discover
@@ -74,9 +74,9 @@ export function Payment(props: PaymentProps) {
 
               <PriceItems />
             </div>
-            <div className="bg-[#14233A] rounded-[30px] p-4 mt-4">
-              <Card />
-            </div>
+            {/*<div className="bg-[#14233A] rounded-[30px] p-4 mt-4">*/}
+            {/*  <Card />*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>

@@ -9,10 +9,6 @@ export class StripeInvoiceId {
   constructor(id: string) {
     this.id = id;
   }
-
-  toString(): string {
-    return this.id;
-  }
 }
 
 export class StripeInvoice {

@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
 import img from "src/assets/Frame.svg";
 import GridLayerimg from "src/assets/grid-layer.png";
-import { Button } from "src/components/elements/Button";
+import React from "react";
 
 export const HeroSection = () => {
   return (
@@ -13,9 +12,13 @@ export const HeroSection = () => {
           Building the foundation of open source 3.0
         </h1>
 
-        <Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>
-          <Link to="/projects">GET STARTED</Link>
-        </Button>
+        <p className="text-lg sm:text-xl lg:text-[28px] text-white/80 leading-relaxed sm:leading-relaxed lg:leading-relaxed">
+          <span className="text-white font-semibold">win-win credit-based system</span> fueling open source collaboration.
+        </p>
+
+        {/*<Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>*/}
+        {/*  <Link to={paths.PROJECTS}>GET STARTED</Link>*/}
+        {/*</Button>*/}
       </div>
       {/* Right  */}
       <div className="w-full max-w-[700px] lg:max-w-none">
