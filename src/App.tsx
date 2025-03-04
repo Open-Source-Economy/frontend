@@ -26,71 +26,74 @@ import { paths } from "src/paths";
 import { Dashboard } from "./views/pages/dashboard/Dashboard";
 import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
 import { Pricing } from "./views/pages/website/pricing/Pricing";
+import { CurrencyProvider } from "./context/CurrencyContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route element={<NonProdRoutes />}>
-            <Route path="/blog" element={<MdConversion />} />
-            <Route path="/who-built-it" element={<CompanyProduct />} />
-            <Route path="/buy-dows" element={<Payment />} />
-          </Route>
-
-          <Route path={paths.HOME} element={<Home />} />
-          <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
-          {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
-          <Route path={paths.USER} element={<CompanyProduct />} />
-          <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
-          <Route path={paths.PRICING} element={<Pricing />} />
-          <Route path={paths.WHITE_PAPER} element={<Pdf />} />
-
-          <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
-          <Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />
-          <Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />
-
-          <Route element={<SuperAdminRoutes />}>
-            <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
-            <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
-            <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
-            <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
-            <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
-            <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
-            <Route path={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
-          </Route>
-
-          <Route element={<ProjectRoute />}>
-            {/* Repository paths */}
-            <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
-            <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
-
-            {/* Owner-only paths */}
-            <Route path={`/projects/:${paths.params.owner}`} element={<Project />} />
-            <Route path={`/projects/:${paths.params.owner}/campaign`} element={<Campaign />} />
-
-            {/* TODO: old path: to delete */}
-            <Route path={`/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
-            <Route path={`/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
-            <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
-            <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
-          </Route>
-          <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
-
-          <Route element={<AuthRoutes authPage="/sign-up" />}>
-            <Route path={paths.PROJECTS} element={<Projects />} />
-            <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
-            <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
-            <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />
-            <Route element={<IssueRoutes />}>
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
+        <CurrencyProvider>
+          <Routes>
+            <Route element={<NonProdRoutes />}>
+              <Route path="/blog" element={<MdConversion />} />
+              <Route path="/who-built-it" element={<CompanyProduct />} />
+              <Route path="/buy-dows" element={<Payment />} />
             </Route>
-            <Route path={paths.DASHBOARD} element={<Dashboard />} />
-          </Route>
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+            <Route path={paths.HOME} element={<Home />} />
+            <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
+            {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
+            <Route path={paths.USER} element={<CompanyProduct />} />
+            <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
+            <Route path={paths.PRICING} element={<Pricing />} />
+            <Route path={paths.WHITE_PAPER} element={<Pdf />} />
+
+            <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
+            <Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />
+            <Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />
+
+            <Route element={<SuperAdminRoutes />}>
+              <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
+              <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
+              <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
+              <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
+              <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
+              <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
+              <Route path={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
+            </Route>
+
+            <Route element={<ProjectRoute />}>
+              {/* Repository paths */}
+              <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
+              <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
+
+              {/* Owner-only paths */}
+              <Route path={`/projects/:${paths.params.owner}`} element={<Project />} />
+              <Route path={`/projects/:${paths.params.owner}/campaign`} element={<Campaign />} />
+
+              {/* TODO: old path: to delete */}
+              <Route path={`/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
+              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
+              <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />
+              <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />
+            </Route>
+            <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
+
+            <Route element={<AuthRoutes authPage="/sign-up" />}>
+              <Route path={paths.PROJECTS} element={<Projects />} />
+              <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
+              <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
+              <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />
+              <Route element={<IssueRoutes />}>
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
+              </Route>
+              <Route path={paths.DASHBOARD} element={<Dashboard />} />
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </CurrencyProvider>
       </AuthProvider>
     </BrowserRouter>
   );

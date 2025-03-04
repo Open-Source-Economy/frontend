@@ -6,14 +6,15 @@ import { Container, Navbar, Offcanvas } from "react-bootstrap";
 import { CurrencyModal, NavbarContent } from "./navbar";
 import { Currency } from "src/model";
 import { useAuth } from "../../pages/app/authenticate/AuthContext";
-import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
 import { paths } from "src/paths";
 import { TopNavbar } from "./topNavbar";
+import { useCurrency } from "../../../context/CurrencyContext";
 
 interface HeaderProps {}
 
 export function Header(props: HeaderProps) {
   const auth = useAuth();
+  const { preferredCurrency, showCurrencyModal, setShowCurrencyModal, setPreferredCurrency } = useCurrency();
 
   useEffect(() => {
     AOS.init({
@@ -24,23 +25,9 @@ export function Header(props: HeaderProps) {
   }, []);
 
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-
-  // States For Modals
   const [showDropdownNavbar, setShowDropdownNavbar] = useState<boolean>(false);
-  const [showCurrencyModal, setShowCurrencyModal] = useState<boolean>(false);
 
-  const [preferredCurrency, setPreferredCurrency] = useState<Currency>(PreferredCurrency.get(auth));
-
-  useEffect(() => {
-    setPreferredCurrency(PreferredCurrency.get(auth));
-  }, [auth.authInfo?.user]);
-
-  const handleSelectPreferredCurrency = (currency: Currency) => {
-    setPreferredCurrency(currency);
-    PreferredCurrency.set(auth, currency);
-  };
-
-  const Logo = () => <img className=" 800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
+  const Logo = () => <img className="800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
 
   return (
     <div data-aos="fade-down">
@@ -92,7 +79,7 @@ export function Header(props: HeaderProps) {
         isOpen={showCurrencyModal}
         onClose={() => setShowCurrencyModal(false)}
         onSelect={currency => {
-          handleSelectPreferredCurrency(currency);
+          setPreferredCurrency(currency);
           setShowCurrencyModal(false);
         }}
         selectedCurrency={preferredCurrency}

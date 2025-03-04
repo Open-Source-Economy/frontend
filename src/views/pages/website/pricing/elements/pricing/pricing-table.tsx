@@ -4,11 +4,12 @@ import backdropSVG from "src/assets/backdrop.svg";
 import { Currency, PlanPriceType, PlanProductType } from "../../../../../../model";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
+import { useCurrency } from "src/context/CurrencyContext";
 
 interface PricingTableProps {}
 
 export function PricingTable(props: PricingTableProps) {
-  const currency = Currency.USD;
+  const { preferredCurrency: currency } = useCurrency();
 
   const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
   const [prices, setPrices] = useState<Record<PlanProductType, Record<Currency, Record<PlanPriceType, number>>> | null>(null);
@@ -131,6 +132,7 @@ export function PricingTable(props: PricingTableProps) {
                 planDescription={plan}
                 priceType={priceType}
                 prices={prices[planProductType][currency]}
+                currency={currency}
                 pricingCategory={pricingCategory(planProductType, activePlan, activePriceType)}
                 aosDelay={index * 300}
               />
