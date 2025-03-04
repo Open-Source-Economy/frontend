@@ -26,7 +26,8 @@ export const paths = {
     CREATE_COMPANY: "/admin/create-company",
     CREATE_ADDRESS: "/admin/create-address",
     CREATE_MANUAL_INVOICE: "/admin/create-manual-invoice",
-    CREATE_PRODUCT_AND_PRICE: "/admin/create-product-and-price",
+    CREATE_CAMPAIGN_PRODUCT_AND_PRICE: "/admin/campaign/create-product-and-price",
+    CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
   },
   // Dynamic route functions
   fundIssue: (issueId: IssueId) => `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,

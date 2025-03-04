@@ -32,6 +32,12 @@ export interface AdminBackendAPI {
     params: dto.CreateCampaignProductAndPriceParams,
     query: dto.CreateCampaignProductAndPriceQuery,
   ): Promise<dto.CreateCampaignProductAndPriceResponse | ApiError>;
+
+  createPlanProductAndPrice(
+    body: dto.CreatePlanProductAndPriceBody,
+    params: dto.CreatePlanProductAndPriceParams,
+    query: dto.CreatePlanProductAndPriceQuery,
+  ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -80,6 +86,17 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<dto.CreateCampaignProductAndPriceResponse>(
       () => axios.post(`${config.api.url}/admin/${projectPath(params.owner, params.repo)}/stripe/product-and-price`, body, { withCredentials: true }),
       "createCampaignProductAndPrice",
+    );
+  }
+
+  async createPlanProductAndPrice(
+    body: dto.CreatePlanProductAndPriceBody,
+    params: dto.CreatePlanProductAndPriceParams,
+    query: dto.CreatePlanProductAndPriceQuery,
+  ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError> {
+    return await handleError<dto.CreatePlanProductAndPriceResponse>(
+      () => axios.post(`${config.api.url}/admin/plan/product-and-price`, body, { withCredentials: true }),
+      "createPlanProductAndPrice",
     );
   }
 }

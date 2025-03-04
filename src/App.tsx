@@ -26,6 +26,7 @@ import { paths } from "src/paths";
 import { Dashboard } from "./views/pages/dashboard/Dashboard";
 import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
 import { Pricing } from "./views/pages/website/pricing/Pricing";
+import { CreatePlanProductAndPrice } from "./views/pages/app/admin/createPlanProductAndPrice";
 
 const App = () => {
   return (
@@ -57,7 +58,8 @@ const App = () => {
             <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
             <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
             <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
-            <Route path={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
+            <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
+            <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
           </Route>
 
           <Route element={<ProjectRoute />}>

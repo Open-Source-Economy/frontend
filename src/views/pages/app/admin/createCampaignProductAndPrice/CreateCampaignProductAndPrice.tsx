@@ -6,8 +6,6 @@ import * as dto from "../../../../../api/dto";
 
 interface CreateCampaignProductAndPriceProps {}
 
-class CreateCampaignProductAndPriceQuery {}
-
 export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPriceProps) {
   const adminBackendAPI = getAdminBackendAPI();
 
@@ -43,7 +41,7 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
       owner,
       repo: repo ?? undefined,
     };
-    const query: CreateCampaignProductAndPriceQuery = {};
+    const query: dto.CreateCampaignProductAndPriceQuery = {};
 
     setIsSubmitting(true);
     try {
@@ -67,7 +65,7 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
     <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
-          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Create Product & Price</h1>
+          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Create Campaign Product & Price</h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
               onSubmit={handleFormSubmit}

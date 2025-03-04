@@ -32,8 +32,12 @@ export function AdminHome() {
             Create Manual Invoice
           </Link>
 
-          <Link to={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
-            Create Product & Price
+          <Link to={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
+            Create Campaign Product & Price
+          </Link>
+
+          <Link to={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
+            Create Plan Product & Price
           </Link>
         </div>
       </div>
