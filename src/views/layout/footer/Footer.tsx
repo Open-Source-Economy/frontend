@@ -8,10 +8,9 @@ import backdropSVG2 from "../../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../../assets/footer-bd-ll.png";
 
 import { getBackendAPI } from "../../../services";
-import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../dtos";
+import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../dtos";
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
-import { type } from "os";
 import { GradientButton } from "src/views/components/elements/GradientButton";
 
 type FooterLink = {
@@ -108,7 +107,7 @@ export function Footer() {
       <h3 className="text-pink-500 font-semibold mb-4">{section.title}</h3>
       <ul className="space-y-2">
         {section.links.map((link, index) => (
-          <li key={index}>
+          <li key={link.text}>
             <a href={link.href} className="hover:underline">
               {link.text}
             </a>
@@ -143,7 +142,7 @@ export function Footer() {
               {/* Navigation Links */}
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-4 w-full flex-grow mt-2">
                 {footerSections.map((section, i) => (
-                  <div key={`footer-section-${i}`} data-aos="fade-up" data-aos-delay={150 + i * 100}>
+                  <div key={section.title} data-aos="fade-up" data-aos-delay={150 + i * 100}>
                     <FooterSection section={section} />
                   </div>
                 ))}
@@ -205,7 +204,7 @@ export function Footer() {
               </p>
               <div className="flex gap-4 sm:gap-9">
                 {legalLinks.map((link, i) => (
-                  <a key={`legal-link-${i}`} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">
+                  <a key={link.text} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">
                     {link.text}
                   </a>
                 ))}

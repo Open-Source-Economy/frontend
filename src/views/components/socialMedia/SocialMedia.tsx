@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import "./SocialMedia.css";
 
 // Define social media link data structure
@@ -150,7 +150,7 @@ export function SocialMedia() {
   return (
     <>
       {socialMediaLinks.map((link, index) => (
-        <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" title={link.title}>
+        <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" title={link.title}>
           {link.icon}
         </a>
       ))}
