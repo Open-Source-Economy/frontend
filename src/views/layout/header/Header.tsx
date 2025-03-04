@@ -5,7 +5,7 @@ import { Container, Navbar, Offcanvas } from "react-bootstrap";
 
 import { CurrencyModal, NavbarContent } from "./navbar";
 import { Currency } from "src/api/model";
-import { useAuth } from "../../pages/app/authenticate/AuthContext";
+import { useAuth } from "../../pages";
 import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
 import { paths } from "src/paths";
 import { TopNavbar } from "./topNavbar";

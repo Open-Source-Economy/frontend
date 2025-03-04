@@ -1,5 +1,11 @@
-import { CampaignPriceType, CampaignProductType, Currency } from "../model";
-import { Price } from "./stripe";
+import { CampaignPriceType, CampaignProductType, Currency, StripePrice } from "../model";
+
+export interface Price {
+  totalAmount: number; // in cents, in the currency of the price
+  quantity: number;
+  label: string;
+  price: StripePrice;
+}
 
 export interface GetCampaignParams {
   owner: string;

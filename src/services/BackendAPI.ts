@@ -55,7 +55,9 @@ export interface BackendAPI {
 
   getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
 
-  getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<dto.GetPricesResponse | ApiError>;
+  getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError>;
+
+  getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError>;
 
   getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError>;
 
@@ -79,7 +81,7 @@ export interface BackendAPI {
 class BackendAPIImpl implements BackendAPI {
   async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const response = await handleError<dto.GetIssueResponse>(
-      () => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/project/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
 
@@ -89,7 +91,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
     const response = await handleError<dto.GetIssuesResponse>(
-      () => axios.get(`${config.api.url}/github/all-financial-issues`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/project/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues",
     );
     if (response instanceof ApiError) return response;
@@ -108,7 +110,7 @@ class BackendAPIImpl implements BackendAPI {
 
   async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
     return handleError(
-      () => axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
+      () => axios.post(`${config.api.url}/project/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
       "fundIssue",
     );
   }
@@ -120,17 +122,17 @@ class BackendAPIImpl implements BackendAPI {
   ): Promise<void | ApiError> {
     return handleError(
       () =>
-        axios.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
+        axios.post(`${config.api.url}/project/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, { withCredentials: true }),
       "requestFunding",
     );
   }
 
   async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError> {
-    return handleError(() => axios.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
+    return handleError(() => axios.get(`${config.api.url}/project/owners/${params.owner}`, { withCredentials: true }), "getOwner");
   }
 
   async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse | ApiError> {
-    return handleError(() => axios.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
+    return handleError(() => axios.get(`${config.api.url}/project/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 
   async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
@@ -160,15 +162,20 @@ class BackendAPIImpl implements BackendAPI {
     }
   }
 
-  async getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<dto.GetPricesResponse | ApiError> {
-    // const path = this.projectPath(params.projectId);
-    // return handleError(() => axios.get(`${config.api.url}${path}/prices`, { withCredentials: true }), "getPrices");
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {
+    return handleError(() => axios.get(`${config.api.url}/plans`, { withCredentials: true }), "getPlans");
+  }
+
+  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError> {
+    let queryParams = "";
+    if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
+
+    return await handleError(() => axios.get(`${config.api.url}/user/plan?${queryParams}`, { withCredentials: true }), "getUserPlan");
   }
 
   async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
     return handleError(
-      () => axios.get(`${config.api.url}/github/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
+      () => axios.get(`${config.api.url}/project/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
       "getCampaign",
     );
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Currency } from "src/api/model";
 import { displayedCurrencies } from "src/views/data";
+import { NumberUtils } from "../../../../../ultils/NumberUtils";
 
 interface ProgressProps {
   preferredCurrency: Currency;
@@ -45,11 +46,11 @@ export function Progress(props: ProgressProps) {
 
       <h2 className="text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
         {displayedCurrency.symbol}
-        {(props.raisedAmount[props.preferredCurrency] / 100).toLocaleString()}/mo
+        {NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency])}/mo
       </h2>
       <p className="text-base opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
-        <span className="hidden">{props.raisedAmount[props.preferredCurrency].toLocaleString()} </span> pledged of {displayedCurrency.symbol}
-        {(props.targetAmount[props.preferredCurrency] / 100).toLocaleString()}
+        <span className="hidden">{NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency])} </span> pledged of {displayedCurrency.symbol}
+        {NumberUtils.toLocaleStringPrice(props.targetAmount[props.preferredCurrency])}
       </p>
       {(props.numberOfBackers || props.numberOfDaysLeft) && (
         <div className="flex gap-20 !mt-3 2xl:!mt-4 3xl:!mt-6">

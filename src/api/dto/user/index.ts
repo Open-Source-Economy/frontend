@@ -1,5 +1,5 @@
 export * from "./GetAvailableCredits";
-export * from "./GetPlan";
+export * from "./GetUserPlan";
 export * from "./SetUserPreferredCurrency";
 export * from "./CreateCompanyUserPermissionToken.dto";
 export * from "./SendCompanyRoleInvite.dto";

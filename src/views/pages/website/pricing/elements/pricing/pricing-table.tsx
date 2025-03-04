@@ -4,6 +4,8 @@ import backdropSVG from "src/assets/backdrop.svg";
 import { Currency, PlanPriceType, PlanProductType } from "../../../../../../api/model";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
+import { usePlans } from "../../../../../hooks";
+import { useUserPlan } from "../../../../../hooks/useUserPlan";
 
 interface PricingTableProps {}
 
@@ -11,10 +13,12 @@ export function PricingTable(props: PricingTableProps) {
   const currency = Currency.USD;
 
   const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
-  const [prices, setPrices] = useState<Record<PlanProductType, Record<Currency, Record<PlanPriceType, number>>> | null>(null);
 
   const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);
   const [activePriceType, setActivePriceType] = useState<PlanPriceType | null>(null);
+
+  const { plans, loadPlansError, reloadPlans } = usePlans();
+  const { userPlan, loadUserPlanError, reloadUserPlan } = useUserPlan();
 
   const pricingCategory = (type: PlanProductType, activePlan: PlanProductType | null, activePriceType: PlanPriceType | null): PricingCategory => {
     const orderMap: Record<PlanProductType, number> = {
@@ -34,83 +38,14 @@ export function PricingTable(props: PricingTableProps) {
   };
 
   useEffect(() => {
-    setActivePlan(PlanProductType.START_UP_PLAN);
-    setActivePriceType(PlanPriceType.ANNUALLY);
-    setPrices({
-      [PlanProductType.INDIVIDUAL_PLAN]: {
-        [Currency.USD]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.EUR]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.CHF]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.GBP]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-      },
-      [PlanProductType.START_UP_PLAN]: {
-        [Currency.USD]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.EUR]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.CHF]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.GBP]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-      },
-      [PlanProductType.SCALE_UP_PLAN]: {
-        [Currency.USD]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.EUR]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.CHF]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.GBP]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-      },
-      [PlanProductType.ENTERPRISE_PLAN]: {
-        [Currency.USD]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.EUR]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.CHF]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-        [Currency.GBP]: {
-          [PlanPriceType.MONTHLY]: 69,
-          [PlanPriceType.ANNUALLY]: 56,
-        },
-      },
-    });
+    reloadPlans();
+    reloadUserPlan();
   }, []);
+
+  useEffect(() => {
+    setActivePlan(userPlan?.productType ?? null);
+    setActivePriceType(userPlan?.priceType ?? null);
+  }, [userPlan]);
 
   return (
     <div className="w-full text-white space-y-8">
@@ -121,7 +56,7 @@ export function PricingTable(props: PricingTableProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
         <img src={backdropSVG} className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right" alt="backdrop" />
         <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[60rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
-        {prices &&
+        {plans &&
           Object.entries(planDescriptions).map(([planProductTypeKey, plan], index) => {
             // @ts-ignore
             const planProductType: PlanProductType = planProductTypeKey as PlanProductType;
@@ -130,7 +65,7 @@ export function PricingTable(props: PricingTableProps) {
                 key={planProductTypeKey}
                 planDescription={plan}
                 priceType={priceType}
-                prices={prices[planProductType][currency]}
+                prices={plans.plans[planProductType][currency]}
                 pricingCategory={pricingCategory(planProductType, activePlan, activePriceType)}
                 aosDelay={index * 300}
               />

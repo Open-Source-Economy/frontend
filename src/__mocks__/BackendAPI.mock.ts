@@ -1,4 +1,6 @@
 import {
+  CampaignPriceType,
+  CampaignProductType,
   ContributorVisibility,
   Currency,
   FinancialIssue,
@@ -7,6 +9,8 @@ import {
   ManagedIssue,
   ManagedIssueId,
   ManagedIssueState,
+  PlanPriceType,
+  PlanProductType,
   PriceType,
   ProductType,
   Project,
@@ -16,6 +20,7 @@ import {
 } from "src/api/model";
 import { BackendAPI } from "src/services";
 import * as dto from "src/api/dto";
+import { Price } from "src/api/dto";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
@@ -100,59 +105,9 @@ export class BackendAPIMock implements BackendAPI {
     }
   }
 
-  async getPrices(params: dto.GetPricesParams, query: dto.GetPricesQuery): Promise<ApiError | dto.GetPricesResponse> {
-    const stripePrice: StripePrice = {
-      stripeId: new StripePriceId("StripePriceId"),
-      productId: new StripeProductId("StripeProductId"),
-      active: false,
-      currency: Currency.CHF,
-      unitAmount: 20,
-      type: PriceType.ONE_TIME,
-    };
-
-    // Helper function to create a Price object
-    function createPrice(stripePrice: StripePrice): dto.Price {
-      return {
-        totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
-        quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
-        label: "Random label", // Add meaningful labels if needed
-        price: stripePrice,
-      };
-    }
-
-    const prices: Record<PriceType, Record<Currency, Record<ProductType, dto.Price[]>>> = {} as any;
-
-    for (const priceType of Object.values(PriceType)) {
-      if (!prices[priceType]) {
-        prices[priceType] = {} as any;
-      }
-
-      for (const currency of Object.values(Currency)) {
-        if (!prices[priceType][currency]) {
-          prices[priceType][currency] = {} as any;
-        }
-
-        for (const productType of Object.values(ProductType)) {
-          const priceArray: dto.Price[] = [];
-          for (let i = 0; i < 5; i++) {
-            priceArray.push(createPrice(stripePrice));
-          }
-          prices[priceType][currency][productType] = priceArray;
-        }
-      }
-    }
-
-    return {
-      prices: prices,
-    };
-  }
-
   async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
-    const response = await this.getPrices({ owner: params.owner, repo: params.repo }, {});
-    if (response instanceof ApiError) return response;
-
     return {
-      prices: response.prices,
+      prices: getPrices(),
       raisedAmount: {
         [Currency.CHF]: 400,
         [Currency.EUR]: 400,
@@ -168,6 +123,60 @@ export class BackendAPIMock implements BackendAPI {
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
     };
+  }
+
+  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {
+    // Extract enum values properly, avoiding TypeScript enum peculiarities
+    const planTypes = Object.keys(PlanProductType)
+      .filter(key => isNaN(Number(key)))
+      .map(key => PlanProductType[key as keyof typeof PlanProductType]);
+
+    const currencies = Object.values(Currency).filter((value): value is Currency => typeof value === "string");
+
+    const priceTypes = Object.values(PlanPriceType).filter((value): value is PlanPriceType => typeof value === "string");
+
+    // Define price generation strategy with more realistic values
+    const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
+      // Apply discount for annual pricing
+      const multiplier = priceType === PlanPriceType.ANNUALLY ? 0.8 : 1; // 20% discount for annual
+      return Math.round(69 * multiplier);
+    };
+
+    // Create a type-safe StripePrice factory function
+    const createPrice = (planType: PlanProductType, priceType: PlanPriceType, currency: Currency): StripePrice => {
+      const amount = getPriceAmount(planType, priceType);
+      const id = `price_${planType}_${priceType}_${currency.toLowerCase()}`;
+
+      return new StripePrice(new StripePriceId(id), new StripeProductId(planType.toString()), amount, currency, true, priceTypes as unknown as PriceType);
+    };
+
+    // Build the plans object with proper typing
+    const plans: Record<PlanProductType, Record<Currency, Record<PlanPriceType, StripePrice>>> = {} as Record<
+      PlanProductType,
+      Record<Currency, Record<PlanPriceType, StripePrice>>
+    >;
+
+    // Generate each plan
+    for (const planType of planTypes) {
+      // Build price mappings for this product
+      const priceMappings = {} as Record<Currency, Record<PlanPriceType, StripePrice>>;
+
+      for (const currency of currencies) {
+        priceMappings[currency] = {} as Record<PlanPriceType, StripePrice>;
+
+        for (const priceType of priceTypes) {
+          priceMappings[currency][priceType] = createPrice(planType, priceType, currency);
+        }
+      }
+
+      plans[planType] = priceMappings;
+    }
+
+    return { plans };
+  }
+
+  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError> {
+    return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
   }
 
   async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
@@ -220,4 +229,49 @@ function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
   }
 
   return allManagedIssues;
+}
+
+// Helper function to create a Price object
+function createPrice(stripePrice: StripePrice): dto.Price {
+  return {
+    totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
+    quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
+    label: "Random label", // Add meaningful labels if needed
+    price: stripePrice,
+  };
+}
+
+function getPrices(): Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>> {
+  const stripePrice: StripePrice = {
+    stripeId: new StripePriceId("StripePriceId"),
+    productId: new StripeProductId("StripeProductId"),
+    active: false,
+    currency: Currency.CHF,
+    unitAmount: 20,
+    type: PriceType.ONE_TIME,
+  };
+
+  const prices: Record<PriceType, Record<Currency, Record<ProductType, dto.Price[]>>> = {} as any;
+
+  for (const priceType of Object.values(PriceType)) {
+    if (!prices[priceType]) {
+      prices[priceType] = {} as any;
+    }
+
+    for (const currency of Object.values(Currency)) {
+      if (!prices[priceType][currency]) {
+        prices[priceType][currency] = {} as any;
+      }
+
+      for (const productType of Object.values(ProductType)) {
+        const priceArray: dto.Price[] = [];
+        for (let i = 0; i < 5; i++) {
+          priceArray.push(createPrice(stripePrice));
+        }
+        prices[priceType][currency][productType] = priceArray;
+      }
+    }
+  }
+
+  return prices;
 }

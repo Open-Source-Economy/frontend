@@ -1,9 +1,10 @@
 import React from "react";
-import { PlanPriceType } from "../../../../../../api/model";
+import { PlanPriceType, StripePrice } from "../../../../../../api/model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
+import { NumberUtils } from "../../../../../../ultils/NumberUtils";
 
 export enum PricingCategory {
   GET_STARTED, // user can select this plan (they don't have a plan yet)
@@ -15,7 +16,7 @@ export enum PricingCategory {
 interface PricingProps {
   planDescription: PlanDescription;
   priceType: PlanPriceType;
-  prices: Record<PlanPriceType, number> | null;
+  prices: Record<PlanPriceType, StripePrice> | null;
   pricingCategory: PricingCategory;
   aosDelay: number;
 }
@@ -61,9 +62,11 @@ export function Pricing(props: PricingProps) {
                 {props.prices && (
                   <>
                     {props.priceType === PlanPriceType.ANNUALLY && (
-                      <span className="text-gray-500 line-through text-sm md:text-[22px]">${props.prices[PlanPriceType.MONTHLY]}</span>
+                      <span className="text-gray-500 line-through text-sm md:text-[22px]">
+                        ${NumberUtils.toLocaleStringPrice(props.prices[PlanPriceType.MONTHLY].unitAmount)}
+                      </span>
                     )}
-                    <span className="text-4xl md:text-[38px] font-bold">${props.prices[props.priceType]}</span>
+                    <span className="text-4xl md:text-[38px] font-bold">${NumberUtils.toLocaleStringPrice(props.prices[props.priceType].unitAmount)}</span>
                   </>
                 )}
               </div>
