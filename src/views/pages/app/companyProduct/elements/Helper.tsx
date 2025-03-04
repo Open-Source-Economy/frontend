@@ -1,7 +1,7 @@
 import communitydriven from "src/assets/community-driven.webp";
 import nonProfit from "src/assets/non-profit.webp";
 import talent from "src/assets/talent.webp";
-import { CreditUnit } from "../../../../../model";
+import { CreditUnit } from "src/model";
 import { Decimal } from "decimal.js";
 
 export const faqData = [

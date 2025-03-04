@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { SendRepositoryRoleInviteBody, SendRepositoryRoleInviteParams, SendRepositoryRoleInviteQuery } from "src/dtos";
-import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "src/model";
+import { SendRepositoryRoleInviteBody, SendRepositoryRoleInviteParams, SendRepositoryRoleInviteQuery } from "src/api/dto";
+import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 

@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { ApiError } from "./error/ApiError";
+import { ApiError } from "../api/model/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 export enum CreditUnit {
@@ -13,6 +13,9 @@ export interface Credit {
 }
 
 export const credit = {
+  fromBackend: (amount: number): Credit => {
+    return { amount: new Decimal(amount), unit: CreditUnit.MINUTE };
+  },
   toMinutes: (credit: Credit | null): number => {
     if (!credit) {
       return 0;

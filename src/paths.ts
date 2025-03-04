@@ -1,4 +1,4 @@
-import { type IssueId, OwnerId, type ProjectId } from "./model";
+import { type IssueId, OwnerId, type ProjectId } from "./api/model";
 
 export const paths = {
   // Static routes

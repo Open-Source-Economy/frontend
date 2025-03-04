@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
-import * as model from "src/model";
-import { FinancialIssue } from "src/model";
+import * as model from "src/api/model";
+import { financialIssueUtils } from "src/api/model";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/views/components/issue";
 import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
-import { GetIssueQuery, GetIssuesParams } from "src/dtos";
+import { GetIssueQuery, GetIssuesParams } from "src/api/dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 
@@ -74,7 +74,7 @@ export function Issues(props: IssuesProps) {
                 </div>
               ) : (filteredFinancialIssues || []).length > 0 ? (
                 filteredFinancialIssues.map(issue => (
-                  <IssueCard key={FinancialIssue.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
+                  <IssueCard key={financialIssueUtils.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
                 ))
               ) : (
                 <div className="flex justify-center gap-2 sm:text-2xl text-xl items-center font-medium">

@@ -1,12 +1,10 @@
-import { FinancialIssue } from "../model";
-import Decimal from "decimal.js";
+import { FinancialIssue } from "../api/model";
 import { BackendAPIMock } from "src/__mocks__";
-import * as dto from "src/dtos";
+import * as dto from "src/api/dto";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-import { Credit, CreditUnit } from "src/model";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
@@ -26,7 +24,7 @@ export interface BackendAPI {
 
   getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
 
-  getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError>;
+  getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError>;
 
   /**
    * Funds a specific issue.
@@ -98,21 +96,14 @@ class BackendAPIImpl implements BackendAPI {
     else return response.issues;
   }
 
-  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError> {
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
-    const response = await handleError<dto.GetAvailableCreditsResponse>(
+    return await handleError<dto.GetAvailableCreditsResponse>(
       () => axios.get(`${config.api.url}/user/available-credit?${queryParams}`, { withCredentials: true }),
       "getAvailableCredits",
     );
-
-    if (response instanceof ApiError) return response;
-    else
-      return {
-        unit: CreditUnit.MINUTE,
-        amount: new Decimal(response.creditAmount),
-      };
   }
 
   async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {

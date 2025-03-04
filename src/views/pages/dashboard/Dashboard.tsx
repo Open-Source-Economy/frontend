@@ -4,7 +4,7 @@ import { DividerTitle, Services } from "src/views/components";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { Audience } from "../../Audience";
 import { paths } from "../../../paths";
-import { ServiceType } from "../../../model";
+import { ServiceType } from "../../../api/model";
 import { Cards2 } from "../website/home/elements";
 import { useRepositories } from "../../hooks";
 import { repositoryIds } from "../../../services/data";

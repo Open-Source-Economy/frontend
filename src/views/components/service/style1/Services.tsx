@@ -2,7 +2,7 @@ import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import React, { useEffect } from "react";
 import { useProjectServices } from "src/views/hooks";
-import { ProjectId, ServiceType } from "src/model";
+import { ProjectId, ServiceType } from "src/api/model";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
 

@@ -1,4 +1,4 @@
-import { ContributorVisibility, IssueId, ManagedIssueState, UserId } from "../model/";
+import { ContributorVisibility, IssueId, ManagedIssueState, UserId } from "../model";
 
 // TODO: put that somewhere else
 export interface CreateManagedIssueBody {

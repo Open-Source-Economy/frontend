@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { SelectFilter } from "src/views/components";
-import * as model from "src/model/FinancialIssue";
+import * as model from "src/api/model/FinancialIssueUtils";
 import search from "src/assets/search.png";
-import { ManagedIssueState } from "src/model";
+import { ManagedIssueState } from "src/api/model";
 
 enum Status {
   OPEN = "Open",

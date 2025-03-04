@@ -1,7 +1,5 @@
 import {
   ContributorVisibility,
-  Credit,
-  CreditUnit,
   Currency,
   FinancialIssue,
   IssueFunding,
@@ -15,13 +13,12 @@ import {
   StripePrice,
   StripePriceId,
   StripeProductId,
-} from "src/model";
+} from "src/api/model";
 import { BackendAPI } from "src/services";
-import Decimal from "decimal.js";
-import * as dto from "src/dtos";
+import * as dto from "src/api/dto";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getCampaignDescription, getMaintainers } from "../services/data";
+import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
 
@@ -51,11 +48,8 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<Credit | ApiError> {
-    return Promise.resolve({
-      unit: CreditUnit.MINUTE,
-      amount: new Decimal(20),
-    });
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
+    return Promise.resolve({ creditAmount: 20 });
   }
 
   async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
@@ -173,7 +167,6 @@ export class BackendAPIMock implements BackendAPI {
       },
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
-      description: getCampaignDescription(Project.getId(params.owner, params.repo)),
     };
   }
 

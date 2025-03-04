@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
 
 import { CurrencyModal, NavbarContent } from "./navbar";
-import { Currency } from "src/model";
+import { Currency } from "src/api/model";
 import { useAuth } from "../../pages/app/authenticate/AuthContext";
 import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
 import { paths } from "src/paths";

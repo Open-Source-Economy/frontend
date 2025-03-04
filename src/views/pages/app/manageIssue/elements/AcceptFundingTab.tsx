@@ -3,7 +3,7 @@ import { CounterInput } from "src/views/pages/app/manageIssue/elements/CounterIn
 import check from "src/assets/checkmark.png";
 import { useCreditCounter, useIssueIdFromParams } from "src/views/hooks";
 import { getBackendAPI } from "src/services";
-import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/dtos";
+import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "src/api/dto";
 import { Button } from "src/views/components";
 import { credit } from "src/model";
 

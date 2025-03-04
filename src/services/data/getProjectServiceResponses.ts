@@ -1,5 +1,5 @@
-import { GetProjectServicesResponse } from "../../dtos";
-import { ServiceType } from "../../model";
+import { GetProjectServicesResponse } from "../../api/dto";
+import { ServiceType } from "../../api/model";
 
 export const pekkoGetProjectServicesResponse: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],

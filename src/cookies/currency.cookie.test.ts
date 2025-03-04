@@ -1,4 +1,4 @@
-import { Currency } from "../model";
+import { Currency } from "../api/model";
 import { currencyCookie } from "./currency.cookie";
 
 describe("CurrencyCookie", () => {

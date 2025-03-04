@@ -4,7 +4,7 @@ import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button, DividerTitle } from "src/views/components";
 import { useMaintainers } from "../../../../hooks";
-import { ProjectId } from "src/model";
+import { ProjectId } from "src/api/model";
 
 interface MaintainersProps {
   projectId: ProjectId;

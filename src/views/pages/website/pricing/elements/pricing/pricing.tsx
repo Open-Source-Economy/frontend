@@ -1,5 +1,5 @@
 import React from "react";
-import { PlanPriceType } from "../../../../../../model";
+import { PlanPriceType } from "../../../../../../api/model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";

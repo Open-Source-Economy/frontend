@@ -1,5 +1,5 @@
 import React from "react";
-import { CampaignDescription } from "../../../dtos";
+import { CampaignDescription } from "src/model";
 import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../Utils/Icons";
 
 export const slickCampaignDescription: CampaignDescription = {

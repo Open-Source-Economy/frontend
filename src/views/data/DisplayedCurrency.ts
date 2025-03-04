@@ -1,4 +1,4 @@
-import { Currency } from "src/model";
+import { Currency } from "src/api/model";
 
 // TODO put this class somewhere else
 export interface DisplayedCurrency {

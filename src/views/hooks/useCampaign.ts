@@ -1,15 +1,16 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetCampaignParams, GetCampaignQuery, GetCampaignResponse } from "src/dtos";
-import * as model from "src/model";
+import { GetCampaignParams, GetCampaignQuery, GetCampaignResponse } from "src/api/dto";
+import * as model from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
+import { CampaignDescription } from "src/model";
 import { getCampaignDescription } from "../../services/data";
 
 export function useCampaign(projectId: model.ProjectId) {
   const backendAPI = getBackendAPI();
 
-  const [campaign, setCampaign] = React.useState<GetCampaignResponse | null>(null);
+  const [campaign, setCampaign] = React.useState<(GetCampaignResponse & CampaignDescription) | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
   const getCampaign = async () => {
@@ -25,8 +26,8 @@ export function useCampaign(projectId: model.ProjectId) {
       if (response instanceof ApiError) {
         setError(response);
       } else {
-        response.description = getCampaignDescription(projectId);
-        setCampaign(response);
+        const campaignDescription = getCampaignDescription(projectId);
+        setCampaign({ ...response, ...campaignDescription });
       }
     } catch (err) {
       console.error("Failed to fetch campaign:", err);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Currency } from "src/model";
+import { Currency } from "src/api/model";
 import { displayedCurrencies } from "src/views/data";
 
 interface ProgressProps {

@@ -1,8 +1,8 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetPricesParams, GetPricesQuery, Price } from "src/dtos";
-import * as model from "src/model";
-import { Currency, PriceType, ProductType } from "src/model";
+import { GetPricesParams, GetPricesQuery, Price } from "src/api/dto";
+import * as model from "src/api/model";
+import { Currency, PriceType, ProductType } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 

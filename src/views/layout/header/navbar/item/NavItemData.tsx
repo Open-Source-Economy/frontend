@@ -11,7 +11,8 @@ import {
   ProfileIcon,
 } from "../Icons";
 import { displayedCurrencies } from "src/views/data";
-import { credit, Credit, Currency } from "src/model";
+import { Currency } from "src/api/model";
+import { credit, Credit } from "src/model";
 import React from "react";
 import { paths } from "src/paths";
 

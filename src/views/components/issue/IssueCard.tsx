@@ -1,10 +1,11 @@
 import React from "react";
-import * as model from "src/model";
-import { FinancialIssue } from "src/model";
+import * as model from "src/api/model";
+import { financialIssueUtils } from "src/api/model";
 import * as components from "./index";
 import { Approved } from "src/views/components/issue/Approved";
 import { Action } from "src/views/components/issue/Action";
 import { Audience } from "../../Audience";
+import { credit } from "../../../model";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
@@ -17,7 +18,7 @@ interface IssueProps {
 export function IssueCard(props: IssueProps) {
   return (
     <>
-      <div className={`mx-auto ${FinancialIssue.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
+      <div className={`mx-auto ${financialIssueUtils.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
         <div className="padding sm:!py-8 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repository={props.financialIssue.repository} />
 
@@ -33,10 +34,14 @@ export function IssueCard(props: IssueProps) {
             <div>
               <components.Collect
                 audience={props.audience}
-                creditsCollected={FinancialIssue.amountCollected(props.financialIssue)}
-                creditsRequested={FinancialIssue.amountRequested(props.financialIssue)}
+                creditsCollected={credit.fromBackend(financialIssueUtils.amountCollected(props.financialIssue))}
+                creditsRequested={(() => {
+                  const req = financialIssueUtils.amountRequested(props.financialIssue);
+                  return req ? credit.fromBackend(req) : undefined;
+                })()}
                 state={props.financialIssue.managedIssue?.state}
               />
+
               <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
             </div>
 
@@ -55,7 +60,7 @@ export function IssueCard(props: IssueProps) {
                   issue={props.financialIssue.issue}
                   audience={props.audience}
                   state={props.financialIssue.managedIssue?.state}
-                  successfullyFunded={FinancialIssue.successfullyFunded(props.financialIssue)}
+                  successfullyFunded={financialIssueUtils.successfullyFunded(props.financialIssue)}
                 />
               </div>
             )}

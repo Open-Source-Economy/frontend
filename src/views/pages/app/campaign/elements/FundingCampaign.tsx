@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import { Currency, ProjectId } from "src/model";
-import { GetCampaignResponse } from "../../../../../dtos";
+import { Currency, ProjectId } from "src/api/model";
+import { GetCampaignResponse } from "../../../../../api/dto";
 import { config, Env } from "../../../../../ultils";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
 import { useAuth } from "../../authenticate";
@@ -10,10 +10,11 @@ import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
 import { Summary } from "./summary";
 import { paths } from "src/paths";
+import { CampaignDescription } from "../../../../../model";
 
 interface FundingCampaignProps {
   projectId: ProjectId;
-  campaign: GetCampaignResponse;
+  campaign: GetCampaignResponse & CampaignDescription;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
@@ -37,7 +38,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
           <h4 className="py-2 flex justify-center mx-auto xl:!mx-0 items-center rounded-full bg-primary-user text-xs md:text-sm lg:text-base 2xl:text-lg 3xl:text-[18px] max-w-[160px] sm:max-w-[180px] lg:max-w-[240px] 3xl:max-w-[280px] w-full">
             Funding Campaign
           </h4>
-          {props.campaign.description?.summary && <Summary {...props.campaign.description.summary} />}
+          {props.campaign.summary && <Summary {...props.campaign.summary} />}
         </div>
 
         {/* Right Section */}

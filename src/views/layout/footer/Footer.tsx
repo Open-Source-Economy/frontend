@@ -8,7 +8,7 @@ import backdropSVG2 from "../../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../../assets/footer-bd-ll.png";
 
 import { getBackendAPI } from "../../../services";
-import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../dtos";
+import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../api/dto";
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 

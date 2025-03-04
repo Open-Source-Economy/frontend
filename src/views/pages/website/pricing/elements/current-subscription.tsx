@@ -6,7 +6,7 @@ import { PaymentSchedule } from "./payment-schedule";
 import { Card } from "./card";
 import { CurrentSubscriptionIcon, PaymentInfoIcon, PaymentScheduleIcon } from "src/Utils/Icons";
 import type { PlanDescription } from "./data/data";
-import { PlanPriceType } from "../../../../../model";
+import { PlanPriceType } from "../../../../../api/model";
 
 interface PaymentDetails {
   cardType: string;

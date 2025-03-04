@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "src/views/components";
 import { DonationSelector } from "./DonationSelector";
-import { CampaignPriceType, CampaignProductType, Currency, ProjectId } from "src/model";
-import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/dtos";
+import { CampaignPriceType, CampaignProductType, Currency, ProjectId } from "src/api/model";
+import { CheckoutBody, CheckoutParams, CheckoutQuery, Price } from "src/api/dto";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/data";
 import { ApiError } from "../../../../../../ultils/error/ApiError";

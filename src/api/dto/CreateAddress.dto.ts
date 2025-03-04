@@ -1,5 +1,7 @@
 import { AddressId } from "../model";
 
+export interface CreateAddressParams {}
+
 export interface CreateAddressBody {
   name?: string;
   line1?: string;

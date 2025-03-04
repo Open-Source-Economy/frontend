@@ -5,7 +5,7 @@ import { Audience } from "../../../../Audience";
 import { paths } from "../../../../../paths";
 import { useProjects } from "../../../../hooks/useProjects";
 import { projectsIds } from "../../../../../services/data/projects";
-import { ProjectUtils } from "../../../../../model";
+import { ProjectUtils } from "../../../../../api/model";
 
 interface ProjectsProps {}
 

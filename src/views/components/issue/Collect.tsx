@@ -1,5 +1,6 @@
 import React from "react";
-import { Credit, credit, ManagedIssueState } from "src/model";
+import { ManagedIssueState } from "src/api/model";
+import { Credit, credit } from "src/model";
 import { Audience, textColorVariants } from "src/views/index";
 
 interface CollectProps {

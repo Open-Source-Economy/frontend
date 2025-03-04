@@ -1,5 +1,5 @@
 import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/Utils/Icons";
-import { ServiceType } from "../../../../model";
+import { ServiceType } from "../../../../api/model";
 
 type ServiceDetails = {
   title: string;

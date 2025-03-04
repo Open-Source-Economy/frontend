@@ -1,4 +1,4 @@
-import { PlanProductType } from "../../../../../../model";
+import { PlanProductType } from "../../../../../../api/model";
 import { PlanFeature, PlanFeatureDetails } from "./data";
 
 function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDetails[] {

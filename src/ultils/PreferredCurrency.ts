@@ -1,6 +1,6 @@
-import { Currency } from "../model";
+import { Currency } from "../api/model";
 import { AuthContextState } from "../views/pages/app/authenticate/AuthContext";
-import { SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "../dtos";
+import { SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "../api/dto";
 import { getBackendAPI } from "../services";
 import { currencyCookie } from "../cookies";
 

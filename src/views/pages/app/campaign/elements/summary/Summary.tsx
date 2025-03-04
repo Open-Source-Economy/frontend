@@ -1,7 +1,7 @@
 import React from "react";
 import VideoPlayer from "./VideoContainer";
 import { FeatureList } from "./FeatureList";
-import { CampaignDescription } from "src/dtos";
+import { CampaignDescription } from "src/model";
 
 interface SummaryProps extends CampaignDescription.Summary {}
 

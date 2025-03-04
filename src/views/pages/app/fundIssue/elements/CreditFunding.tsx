@@ -1,8 +1,9 @@
 import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/components";
-import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/dtos";
-import { credit, IssueId } from "src/model";
+import { FundIssueBody, FundIssueParams, FundIssueQuery } from "src/api/dto";
+import { IssueId } from "src/api/model";
+import { credit } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { useAvailableCredits, useCreditCounter } from "src/views/hooks";

@@ -15,7 +15,7 @@ import {
   User,
   UserId,
   UserRole,
-} from "src/model";
+} from "src/api/model";
 
 export * from "./BackendAPI.mock";
 export * from "./AuthBackendAPI.mock";

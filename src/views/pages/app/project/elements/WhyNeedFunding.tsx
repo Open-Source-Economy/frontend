@@ -5,7 +5,7 @@ import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/views/components";
 import { faqData } from "../../companyProduct/elements/Helper";
 import { Link } from "react-router-dom";
-import { ProjectId } from "../../../../../model";
+import { ProjectId } from "../../../../../api/model";
 import { paths } from "src/paths";
 
 interface WhyNeedFundingProps {

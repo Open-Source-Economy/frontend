@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { IssueId } from "src/model";
+import { IssueId } from "src/api/model";
 import { useRepositoryFromParams } from "./useRepositoryFromParams";
 
 export function useIssueIdFromParams(): IssueId | null {

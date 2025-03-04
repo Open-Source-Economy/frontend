@@ -11,4 +11,5 @@ export * from "./CreateIssueFunding.dto";
 export * from "./CreateManagedIssue.dto";
 export * from "./CreateManualInvoice.dto";
 export * from "./GetCampaign.dto";
+export * from "./GetPlanPrices.dto";
 export * from "./NewsletterSubscription.dto";

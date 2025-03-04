@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateManualInvoiceBody, CreateManualInvoiceQuery } from "src/dtos";
-import { CompanyId, UserId } from "src/model";
+import { CreateManualInvoiceBody, CreateManualInvoiceQuery } from "src/api/dto";
+import { CompanyId, UserId } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
 interface CreateManualInvoiceProps {}

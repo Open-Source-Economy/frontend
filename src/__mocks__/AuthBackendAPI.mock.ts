@@ -9,11 +9,11 @@ import {
   RegisterResponse,
   RepositoryInfo,
   StatusResponse,
-} from "src/dtos/auth";
+} from "src/api/dto/auth";
 import { AuthBackendAPI } from "src/services";
-import { CompanyUserRole, RepositoryUserRole } from "src/model";
+import { CompanyUserRole, RepositoryUserRole } from "src/api/model";
 import { company, repositoryId, user } from "./index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {

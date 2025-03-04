@@ -6,7 +6,7 @@ import bgimage3 from "src/assets/issuebg3.png";
 import { IssueCard } from "src/views/components/issue";
 import { useFinancialIssue } from "src/views/hooks/useFinancialIssue";
 import { SolveIssueOnGithub } from "src/views/pages/app/manageIssue/elements/SolveIssueOnGithub";
-import { FinancialIssue } from "src/model";
+import { financialIssueUtils } from "src/api/model";
 import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";
@@ -58,7 +58,7 @@ export function ManageIssue(props: ManageIssueProps) {
                       </div>
                     )}
 
-                    {financialIssue && FinancialIssue.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
+                    {financialIssue && financialIssueUtils.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
                   </div>
 
                   <div className="xl:w-1/2 w-full md:w-fit xl:max-w-[700px] md:max-w-[590px] ">

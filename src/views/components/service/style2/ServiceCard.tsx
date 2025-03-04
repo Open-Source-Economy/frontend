@@ -1,7 +1,7 @@
 import React from "react";
 import check from "src/assets/checkmark.png";
 import { Link } from "react-router-dom";
-import { ServiceType } from "../../../../model";
+import { ServiceType } from "../../../../api/model";
 import { displayedServices } from "./DisplayedService";
 
 interface ServiceProps {

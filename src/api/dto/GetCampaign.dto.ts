@@ -1,9 +1,9 @@
-import { Currency, PriceType, ProductType } from "../../model";
-import { Price } from "../stripe";
+import { CampaignPriceType, CampaignProductType, Currency } from "../model";
+import { Price } from "./stripe";
 
 export interface GetCampaignParams {
   owner: string;
-  repo: string;
+  repo?: string;
 }
 
 export interface GetCampaignResponse {
@@ -11,7 +11,7 @@ export interface GetCampaignResponse {
   targetAmount: Record<Currency, number>; // in cents, in the currency of the price
   numberOfBackers?: number;
   numberOfDaysLeft?: number;
-  prices: Record<PriceType, Record<Currency, Record<ProductType, Price[]>>>;
+  prices: Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>>;
 }
 
 export interface GetCampaignBody {}

@@ -1,4 +1,4 @@
-import { Maintainer } from "../../../dtos";
+import { Maintainer } from "../../../api/dto";
 import { pekkoMaintainers } from "./pekkoMaintainers";
 import { flockMaintainers } from "./flockMaintainers";
 import { oseMaintainers } from "./oseMaintainers";

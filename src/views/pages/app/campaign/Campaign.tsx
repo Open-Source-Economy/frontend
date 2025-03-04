@@ -34,8 +34,8 @@ export function Campaign(props: CampaignProps) {
 
         <Maintainers projectId={projectId} viewAllButton={false} />
 
-        {campaign?.description?.aQuestion && (
-          <AQuestion description={campaign?.description?.aQuestion}>
+        {campaign?.aQuestion && (
+          <AQuestion description={campaign?.aQuestion}>
             {config.env !== Env.Production && (
               <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
                 <Link to="#">FAQ</Link>
@@ -44,9 +44,9 @@ export function Campaign(props: CampaignProps) {
             <BookACallButton />
           </AQuestion>
         )}
-        {campaign?.description?.whyWeNeedYourHelp && <WhyDoWeNeedYourHelp description={campaign?.description?.whyWeNeedYourHelp} />}
-        {campaign?.description?.useOfFunds && <UseOfFunds description={campaign?.description?.useOfFunds} />}
-        {campaign?.description?.whyTrustUs && <WhyTrustUs description={campaign?.description?.whyTrustUs} />}
+        {campaign?.whyWeNeedYourHelp && <WhyDoWeNeedYourHelp description={campaign?.whyWeNeedYourHelp} />}
+        {campaign?.useOfFunds && <UseOfFunds description={campaign?.useOfFunds} />}
+        {campaign?.whyTrustUs && <WhyTrustUs description={campaign?.whyTrustUs} />}
 
         {/*TODO: error*/}
         {error && <div>{error.message}</div>}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tabs } from "../tabs";
 import backdropSVG from "src/assets/backdrop.svg";
-import { Currency, PlanPriceType, PlanProductType } from "../../../../../../model";
+import { Currency, PlanPriceType, PlanProductType } from "../../../../../../api/model";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
 

@@ -1,5 +1,7 @@
 import { CompanyId, UserId } from "../model";
 
+export interface CreateManualInvoiceParams {}
+
 export interface CreateManualInvoiceBody {
   number: number;
   companyId?: CompanyId;

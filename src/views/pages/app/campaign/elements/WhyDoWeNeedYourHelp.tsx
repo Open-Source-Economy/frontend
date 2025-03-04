@@ -1,7 +1,7 @@
 import needHelp from "src/assets/whyneedhelp.webp";
 import { ListItem } from "./ListItem";
 import React from "react";
-import { CampaignDescription } from "../../../../../dtos";
+import { CampaignDescription } from "src/model";
 
 interface WhyDoWeNeedYourHelpProps {
   description: CampaignDescription.Section;

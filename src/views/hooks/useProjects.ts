@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetProjectParams, GetProjectQuery, GetProjectResponse } from "src/dtos";
-import { OwnerId, Project, ProjectId } from "src/model";
+import { GetProjectParams, GetProjectQuery, GetProjectResponse } from "src/api/dto";
+import { OwnerId, Project, ProjectId } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
 // TODO: optimize this function to fetch all projects in one request

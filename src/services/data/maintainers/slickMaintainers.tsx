@@ -1,5 +1,5 @@
 import thankfulCat from "../../../assets/cats/thankful-cat.svg";
-import { Maintainer } from "../../../dtos";
+import { Maintainer } from "../../../api/dto";
 
 const matthewCarroll: Maintainer = {
   displayName: "Naftoli Gugenheim",

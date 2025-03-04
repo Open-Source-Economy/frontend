@@ -1,5 +1,5 @@
 import React from "react";
-import { CampaignDescription } from "../../../../../dtos";
+import { CampaignDescription } from "src/model";
 
 interface AQuestionProps {
   description: CampaignDescription.Section;

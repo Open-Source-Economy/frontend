@@ -1,7 +1,7 @@
 import React from "react";
 import trustUs from "src/assets/icon/trustUs.svg";
 import { LinearCenter } from "src/Utils/Icons";
-import { CampaignDescription } from "src/dtos";
+import { CampaignDescription } from "src/model";
 
 interface WhyTrustUsProps {
   description: CampaignDescription.Section;

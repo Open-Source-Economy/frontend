@@ -1,5 +1,5 @@
 import React from "react";
-import { CampaignDescription } from "src/dtos";
+import { CampaignDescription } from "src/model";
 
 interface FeatureListProps {
   features: CampaignDescription.Summary.Feature[];

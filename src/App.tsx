@@ -16,7 +16,7 @@ import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/lay
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
-import { CreateRepositoryProductAndPrice } from "./views/pages/app/admin/createRepositoryProductAndPrice";
+import { CreateCampaignProductAndPrice } from "./views/pages/app/admin/createCampaignProductAndPrice";
 import { AdminHome } from "./views/pages/app/admin/adminHome/AdminHome";
 import { Campaign } from "./views/pages/app/campaign/Campaign";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
@@ -57,7 +57,7 @@ const App = () => {
             <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
             <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
             <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
-            <Route path={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} element={<CreateRepositoryProductAndPrice />} />
+            <Route path={paths.ADMIN.CREATE_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
           </Route>
 
           <Route element={<ProjectRoute />}>

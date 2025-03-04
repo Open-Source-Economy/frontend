@@ -23,7 +23,6 @@ export class StripeProductId {
   }
 }
 
-// do not change the naming, used in the database
 export enum ProductType {
   CREDIT = "credit",
   DONATION = "donation",
@@ -39,6 +38,7 @@ export enum CampaignProductType {
   DONATION = ProductType.DONATION,
 }
 
+// to enable match exhaustiveness
 export enum PlanProductType {
   INDIVIDUAL_PLAN = ProductType.INDIVIDUAL_PLAN,
   START_UP_PLAN = ProductType.START_UP_PLAN,
@@ -47,14 +47,23 @@ export enum PlanProductType {
 }
 
 export const productTypeUtils = {
-  toProductType: (campaignProductType: CampaignProductType): ProductType => {
-    switch (campaignProductType) {
+  toProductType: (productType: CampaignProductType | PlanProductType): ProductType => {
+    switch (productType) {
       case CampaignProductType.CREDIT:
         return ProductType.CREDIT;
       case CampaignProductType.DONATION:
         return ProductType.DONATION;
+
+      case PlanProductType.INDIVIDUAL_PLAN:
+        return ProductType.INDIVIDUAL_PLAN;
+      case PlanProductType.START_UP_PLAN:
+        return ProductType.START_UP_PLAN;
+      case PlanProductType.SCALE_UP_PLAN:
+        return ProductType.SCALE_UP_PLAN;
+      case PlanProductType.ENTERPRISE_PLAN:
+        return ProductType.ENTERPRISE_PLAN;
       default:
-        throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unknown campaign product type: ${campaignProductType}`);
+        throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unknown product type: ${productType}`);
     }
   },
 
@@ -66,6 +75,23 @@ export const productTypeUtils = {
         return CampaignProductType.DONATION;
       default:
         throw new Error(`Product type ${productType} cannot be used in campaigns`);
+    }
+  },
+
+  credits: (productType: ProductType): number => {
+    switch (productType) {
+      case ProductType.CREDIT:
+        return 1;
+      case ProductType.INDIVIDUAL_PLAN:
+        return 30;
+      case ProductType.START_UP_PLAN:
+        return 2 * 60;
+      case ProductType.SCALE_UP_PLAN:
+        return 5 * 60;
+      case ProductType.ENTERPRISE_PLAN:
+        return 10 * 60;
+      default:
+        throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unknown product type: ${productType}`);
     }
   },
 };

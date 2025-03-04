@@ -1,5 +1,7 @@
 import { AddressId, CompanyId } from "../model";
 
+export interface CreateCompanyParams {}
+
 export interface CreateCompanyBody {
   taxId: string | null;
   name: string;

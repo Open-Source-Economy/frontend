@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
+import * as dto from "../../../../../api/dto";
 
-import { CreateProductAndPriceBody, CreateProductAndPriceParams, CreateProductAndPriceQuery } from "src/dtos";
+interface CreateCampaignProductAndPriceProps {}
 
-interface CreateRepositoryProductAndPriceProps {}
+class CreateCampaignProductAndPriceQuery {}
 
-export function CreateRepositoryProductAndPrice(props: CreateRepositoryProductAndPriceProps) {
+export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPriceProps) {
   const adminBackendAPI = getAdminBackendAPI();
 
   const emptyFormData = {
@@ -37,16 +38,16 @@ export function CreateRepositoryProductAndPrice(props: CreateRepositoryProductAn
       return;
     }
 
-    const body: CreateProductAndPriceBody = {};
-    const params: CreateProductAndPriceParams = {
+    const body: dto.CreateCampaignProductAndPriceBody = {};
+    const params: dto.CreateCampaignProductAndPriceParams = {
       owner,
       repo: repo ?? undefined,
     };
-    const query: CreateProductAndPriceQuery = {};
+    const query: CreateCampaignProductAndPriceQuery = {};
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.createProductAndPrice(body, params, query);
+      const result = await adminBackendAPI.createCampaignProductAndPrice(body, params, query);
 
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);

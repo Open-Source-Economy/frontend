@@ -1,11 +1,11 @@
-import { ProjectId, RepositoryId } from "../../../model";
-import { CampaignDescription } from "../../../dtos";
+import { ProjectId, RepositoryId } from "../../../api/model";
+import { CampaignDescription } from "src/model";
 import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
 import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";
 import { flockCampaignDescription } from "./flockCampaignDescription";
 import { defaultCampaignDescription } from "./defaultCampaignDescription";
 
-export function getCampaignDescription(projectId: ProjectId): CampaignDescription | null {
+export function getCampaignDescription(projectId: ProjectId): CampaignDescription {
   if (projectId instanceof RepositoryId) {
     if (projectId.ownerId.login === "apache" && projectId.name === "pekko") {
       return pekkoCampaignDescription;

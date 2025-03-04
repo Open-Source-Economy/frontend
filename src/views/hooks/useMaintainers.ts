@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { GetMaintainersParams, GetMaintainersQuery, Maintainer } from "src/dtos";
-import { OwnerId, ProjectId, RepositoryId } from "src/model";
+import { GetMaintainersParams, GetMaintainersQuery, Maintainer } from "src/api/dto";
+import { OwnerId, ProjectId, RepositoryId } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../services";
 
