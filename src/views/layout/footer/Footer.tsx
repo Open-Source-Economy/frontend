@@ -11,10 +11,60 @@ import { getBackendAPI } from "../../../services";
 import { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../dtos";
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
+import { type } from "os";
+import { GradientButton } from "src/views/components/elements/GradientButton";
 
-interface FooterProps {}
+type FooterLink = {
+  text: string;
+  href: string;
+};
 
-export function Footer(props: FooterProps) {
+type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+const footerSections: FooterSection[] = [
+  {
+    title: "For Enterprise",
+    links: [
+      { text: "Our vision of Open Source 3.0", href: paths.VISION },
+      { text: "Why you save money?", href: paths.SAVINGS },
+      { text: "Mission", href: paths.MISSION },
+    ],
+  },
+  {
+    title: "For Developers",
+    links: [
+      { text: "Our vision of Open Source 3.0", href: paths.VISION },
+      { text: "Why you save money?", href: paths.SAVINGS },
+      { text: "Mission", href: paths.MISSION },
+    ],
+  },
+  {
+    title: "About Us",
+    links: [
+      { text: "Our vision of Open Source 3.0", href: paths.VISION },
+      { text: "Why you save money?", href: paths.SAVINGS },
+      { text: "Mission", href: paths.MISSION },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { text: "Our vision of Open Source 3.0", href: paths.VISION },
+      { text: "Why you save money?", href: paths.SAVINGS },
+      { text: "Mission", href: paths.MISSION },
+    ],
+  },
+];
+
+const legalLinks: FooterLink[] = [
+  { text: "Privacy policy", href: paths.PRIVACY },
+  { text: "Terms & Conditions", href: paths.TERMS },
+];
+
+export function Footer() {
   const successMessage = "You have successfully subscribed to the newsletter!";
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -53,47 +103,112 @@ export function Footer(props: FooterProps) {
     });
   }, []);
 
+  const FooterSection = ({ section }: { section: FooterSection }) => (
+    <div>
+      <h3 className="text-pink-500 font-semibold mb-4">{section.title}</h3>
+      <ul className="space-y-2">
+        {section.links.map((link, index) => (
+          <li key={index}>
+            <a href={link.href} className="hover:underline">
+              {link.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   return (
-    <div id="footer" className="bg-[url('./assets/bg-2.svg')] max-[1100px]:bg-none bg-cover bg-right relative">
-      <img src={backdropSVG2} className="pointer-events-none absolute bottom-0 right-0 z-[-1] max-w-[500px] lg:max-w-[700px]" alt="" />
-      <img src={backdropSVG3} className="pointer-events-none absolute bottom-0 left-0 z-[-1] max-w-[600px] lg:max-w-[1100px]" alt="" />
+    <div id="footer" className="bg-[url('./assets/bg-2.svg')] max-[1100px]:bg-none bg-cover bg-right relative overflow-hidden">
+      <img src={backdropSVG2} className="pointer-events-none absolute bottom-0 right-0 z-[-1] max-w-[500px] lg:max-w-[700px] opacity-20" alt="" />
+      <img src={backdropSVG3} className="pointer-events-none absolute bottom-0 left-0 z-[-1] max-w-[600px] lg:max-w-[1100px] opacity-20" alt="" />
 
       <div className="bg-[url('./assets/bg-1.png')] max-[1100px]:bg-none bg-cover bg-left">
-        <div className="bg-[url('./assets/boxes.png')]  bg-auto bg-no-repeat bg-[position:743px_0%] 1200:bg-[position:743px_0%] md:bg-[position:492px_0%]">
-          <div className="pb-[30px] sm:pb-[100px] md:px-[48px] container max-[376px]:max-w-[95%]">
-            <div className="flex flex-wrap">
-              <div className="md:w-1/2 w-full pt-4" data-aos="fade-right">
-                <a href={paths.HOME} className="">
-                  <img src="/Logo-svg.svg" className="max-[540px]:w-[200px] w-[250px]" alt="Logo" />
+        <div className="bg-[url('./assets/boxes.png')] bg-auto bg-no-repeat bg-[position:743px_0%] 1200:bg-[position:743px_0%] md:bg-[position:492px_0%]">
+          <div className="pb-[30px] md:px-[48px] container max-[376px]:max-w-[95%] space-y-8">
+            {/* Question and Navigation Section */}
+            <div className="flex w-full flex-col lg:flex-row gap-8 lg:gap-16 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
+              {/* Question Section */}
+              <div className="mb-6 lg:mb-12 flex-shrink-0" data-aos="fade-right" data-aos-delay="100">
+                <h2 className="text-3xl lg:text-4xl mb-2 font-semibold">
+                  Have A <span className="text-pink-500">Question</span> Or <br />
+                  <span className="text-pink-500">Need</span> Something?
+                </h2>
+                <p className="text-gray-300 mb-4 text-base lg:text-lg">We are here for you</p>
+                <GradientButton href="#book-call" font="heading" textVariant="white">
+                  Book a Call
+                </GradientButton>
+              </div>
+
+              {/* Navigation Links */}
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-4 w-full flex-grow mt-2">
+                {footerSections.map((section, i) => (
+                  <div key={`footer-section-${i}`} data-aos="fade-up" data-aos-delay={150 + i * 100}>
+                    <FooterSection section={section} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <hr className="border-2 border-gray-700" />
+
+            {/* Logo and Newsletter Section */}
+            <div className="flex flex-col lg:flex-row gap-8 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
+              <div className="lg:w-1/2 w-full" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
+                <a href={paths.HOME}>
+                  <img src="/Logo-svg.svg" className="max-w-[200px] md:max-w-[330px]" alt="Logo" />
                 </a>
                 <div className="flex items-center mt-4 gap-3">
                   <SocialMedia />
                 </div>
               </div>
 
-              <div className="md:w-1/2 w-full pt-4" data-aos="fade-left">
-                <div className="flex flex-col md:items-end md:justify-end ">
-                  <h1 className="text-[29px] leading-[43.5px] font-mich mb-2">Stay Tuned!</h1>
-                  <div className="mt-2 flex h-[57px] max-w-[400px] w-full lg:min-w-[400px] justify-between rounded-xl bg-white">
+              <div className="lg:w-1/2 w-full" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+                <div className="flex flex-col lg:items-end lg:justify-end">
+                  <h1 className="text-2xl lg:text-[29px] leading-[43.5px] font-mich mb-2">Stay Tuned!</h1>
+                  <div className="mt-2 flex h-[57px] w-full max-w-[400px] lg:min-w-[400px] justify-between rounded-[14px] bg-white">
                     <input
                       type="email"
-                      className="w-full border-none bg-transparent pl-3 text-sm text-black outline-none"
+                      className="w-full border-none rounded-l-[14px] bg-transparent px-4 text-sm text-black outline-none"
                       placeholder="Enter your email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                     />
                     <button
-                      className={`gradient-btn-bg font-mich relative h-[57px] min-w-[112px] rounded-r-md duration-300 after:absolute after:left-1/2 after:top-1/2 after:h-[53px] after:w-[106px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-r-md after:bg-secondary after:opacity-0 after:duration-300 hover:bg-transparent after:hover:opacity-100 ${isLoading ? "opacity-50" : ""}`}
+                      type="button"
+                      className={`[background-image:linear-gradient(to_right,#5E309C_0%,#66319B_6%,#7E3698_16%,#A43E94_28%,#D9498F_42%,#FF518C_51%,#FF7E4B_100%)] font-mich relative h-[57px] min-w-[140px] rounded-r-[14px] duration-300 after:absolute after:left-1/2 after:top-1/2 after:h-[calc(100%-4px)] after:w-[calc(100%-4px)] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-r-[14px] after:bg-secondary after:opacity-0 after:duration-300 hover:bg-transparent after:hover:opacity-80 ${
+                        isLoading ? "opacity-50" : ""
+                      }`}
                       onClick={handleSubscribe}
                       disabled={isLoading}
                     >
                       <span className="relative z-30">{isLoading ? "Joining..." : "Join now"}</span>
                     </button>
                   </div>
-                  {/*TODO: design*/}
                   {error && <p className="text-red-500 mt-2">{error.message}</p>}
                   {displaySuccessMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
                 </div>
+              </div>
+            </div>
+
+            <hr className="border-2 border-gray-700" />
+
+            {/* Footer Bottom */}
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-between items-center md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]"
+              data-aos="fade-up"
+              data-aos-delay="300"
+              data-aos-offset="-100"
+            >
+              <p className="text-xs sm:text-sm text-gray-400 text-center sm:text-left">
+                © Open Source Economy - Non profit organisation - registration CH 344.443.234.3 Switzerland
+              </p>
+              <div className="flex gap-4 sm:gap-9">
+                {legalLinks.map((link, i) => (
+                  <a key={`legal-link-${i}`} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">
+                    {link.text}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

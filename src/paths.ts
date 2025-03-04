@@ -18,6 +18,12 @@ export const paths = {
   DASHBOARD: "/dashboard",
   HOW_ITS_WORK: "/how-its-work",
   PRICING: "/pricing",
+  VISION: "/vision",
+  SAVINGS: "/savings",
+  MISSION: "/mission",
+  PRIVACY: "/privacy",
+  TERMS: "/terms",
+
   // Admin routes grouped under ADMIN
   ADMIN: {
     HOME: "/admin",
@@ -28,6 +34,7 @@ export const paths = {
     CREATE_MANUAL_INVOICE: "/admin/create-manual-invoice",
     CREATE_PRODUCT_AND_PRICE: "/admin/create-product-and-price",
   },
+
   // Dynamic route functions
   fundIssue: (issueId: IssueId) => `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,
 
