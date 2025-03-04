@@ -5,6 +5,7 @@ import bannerTopRight from "../../../../../assets/banner/custom-plan-banner-tr.p
 import cat from "../../../../../assets/banner/custom-plan-banner-cat.png";
 import { FaPhone } from "react-icons/fa6";
 import backdropSVG from "src/assets/backdrop.svg";
+import { BookACallButton } from "../../../../components/elements/BookACallButton";
 
 export function CustomPlanBanner() {
   return (
@@ -24,13 +25,14 @@ export function CustomPlanBanner() {
           <div data-aos="fade-up" data-aos-duration="1000" className="text-white z-10">
             <h2 className="text-xl md:text-2xl font-bold">Need a Custom Plan?</h2>
             <p className="text-lg md:text-xl text-gray-300 mb-10 mt-2">Let's design a subscription that matches your enterprise requirements</p>
-            <button
-              type="button"
-              className="font-michroma bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 text-white px-10 py-3 rounded-md flex items-center gap-2 hover:opacity-90 transition-opacity"
-            >
-              <FaPhone className="w-5 h-5" />
-              Let's talk
-            </button>
+            <BookACallButton />
+            {/*<button*/}
+            {/*  type="button"*/}
+            {/*  className="font-michroma bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 text-white px-10 py-3 rounded-md flex items-center gap-2 hover:opacity-90 transition-opacity"*/}
+            {/*>*/}
+            {/*  <FaPhone className="w-5 h-5" />*/}
+            {/*  Let's talk*/}
+            {/*</button>*/}
           </div>
 
           {/* Right side astronaut cat */}
