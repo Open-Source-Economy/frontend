@@ -1,10 +1,14 @@
-import React from "react";
-import { PlanPriceType, StripePrice } from "../../../../../../api/model";
+import React, { useState } from "react";
+import { CampaignPriceType, PlanPriceType, StripePrice } from "../../../../../../api/model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
 import { NumberUtils } from "../../../../../../ultils/NumberUtils";
+import { CheckoutBody, CheckoutParams, CheckoutQuery } from "../../../../../../api/dto";
+import { ApiError } from "../../../../../../ultils/error/ApiError";
+import { getBackendAPI } from "../../../../../../services";
+import { paths } from "../../../../../../paths";
 
 export enum PricingCategory {
   GET_STARTED, // user can select this plan (they don't have a plan yet)
@@ -22,6 +26,47 @@ interface PricingProps {
 }
 
 export function Pricing(props: PricingProps) {
+  const backendAPI = getBackendAPI();
+
+  const checkoutErrorParamName = "checkout_error";
+  const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
+  const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<ApiError | null>(null); // TODO: Display error
+
+  const handleCheckout = async (price: StripePrice) => {
+    setIsLoading(true);
+    try {
+      const params: CheckoutParams = {};
+      const body: CheckoutBody = {
+        mode: "subscription",
+        priceItems: [
+          {
+            priceId: price.stripeId,
+            quantity: 1,
+          },
+        ],
+        countryCode: null, // TODO: Add country code base on user's location
+        successUrl: paymentSuccessUrl,
+        cancelUrl: paymentCancelUrl,
+      };
+      const query: CheckoutQuery = {};
+
+      const response = await backendAPI.checkout(params, body, query);
+      if (response instanceof ApiError) {
+        setError(response);
+      } else {
+        window.location.href = response.redirectUrl;
+      }
+    } catch (error) {
+      console.error("Failed to initiate checkout:", error);
+      setError(ApiError.from(error));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div
@@ -77,28 +122,33 @@ export function Pricing(props: PricingProps) {
               <div className="p-[18px] text-center text-theme-pink text-sm font-medium">Current Plan</div>
             ) : (
               <div className="p-0.5 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 rounded-lg">
-                <button
-                  type="button"
-                  onClick={() => {}} // TODO: lolo
-                  className={`
+                {props.prices && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleCheckout(props.prices![props.priceType]);
+                    }}
+                    className={`
                     w-full p-[14px] rounded-lg bg-theme-blue hover:bg-opacity-80 transition-all duration-300 group/btn ${
                       props.pricingCategory === PricingCategory.UPGRADE || props.pricingCategory === PricingCategory.GET_STARTED
                         ? "bg-opacity-0"
                         : "bg-opacity-100" // PricingCategory.DOWNGRADE
-                    }`}
-                >
-                  <span
-                    className={`group-hover/btn:text-white w-full transition font-semibold text-sm bg-clip-text bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
-                      props.pricingCategory === PricingCategory.UPGRADE || props.pricingCategory === PricingCategory.GET_STARTED
-                        ? "text-white"
-                        : "text-transparent" // PricingCategory.DOWNGRADE
-                    }`}
+                    } ${isLoading ? "opacity-50" : ""}`}
+                    disabled={isLoading}
                   >
-                    {props.pricingCategory === PricingCategory.UPGRADE && "UPGRADE PLAN"}
-                    {props.pricingCategory === PricingCategory.DOWNGRADE && "SELECT PLAN"}
-                    {props.pricingCategory === PricingCategory.GET_STARTED && "GET STARTED"}
-                  </span>
-                </button>
+                    <span
+                      className={`group-hover/btn:text-white w-full transition font-semibold text-sm bg-clip-text bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
+                        props.pricingCategory === PricingCategory.UPGRADE || props.pricingCategory === PricingCategory.GET_STARTED
+                          ? "text-white"
+                          : "text-transparent" // PricingCategory.DOWNGRADE
+                      }`}
+                    >
+                      {props.pricingCategory === PricingCategory.UPGRADE && "UPGRADE PLAN"}
+                      {props.pricingCategory === PricingCategory.DOWNGRADE && "SELECT PLAN"}
+                      {props.pricingCategory === PricingCategory.GET_STARTED && "GET STARTED"}
+                    </span>
+                  </button>
+                )}
               </div>
             )}
 
