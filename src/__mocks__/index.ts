@@ -24,7 +24,7 @@ export const ownerId = new OwnerId("Open-Source-Economy", 141809657);
 export const repositoryId = new RepositoryId(ownerId, "frontend", 701996033);
 export const issueId = new IssueId(repositoryId, 3, 2538344642);
 
-function generateRandomText(maxWords: number): string {
+export function generateRandomText(maxWords: number): string {
   const words = [
     "lorem",
     "ipsum",
