@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CampaignPriceType, PlanPriceType, StripePrice } from "../../../../../../api/model";
+import { CampaignPriceType, Currency, PlanPriceType, StripePrice } from "../../../../../../api/model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
@@ -9,6 +9,8 @@ import { CheckoutBody, CheckoutParams, CheckoutQuery } from "../../../../../../a
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
 import { paths } from "../../../../../../paths";
+import { useAuth } from "../../../../app";
+import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
 
 export enum PricingCategory {
   GET_STARTED, // user can select this plan (they don't have a plan yet)
@@ -20,12 +22,15 @@ export enum PricingCategory {
 interface PricingProps {
   planDescription: PlanDescription;
   priceType: PlanPriceType;
-  prices: Record<PlanPriceType, StripePrice> | null;
+  prices: Record<Currency, Record<PlanPriceType, StripePrice>> | null;
   pricingCategory: PricingCategory;
   aosDelay: number;
 }
 
 export function Pricing(props: PricingProps) {
+  const auth = useAuth();
+  const preferredCurrency: Currency = PreferredCurrency.get(auth);
+
   const backendAPI = getBackendAPI();
 
   const checkoutErrorParamName = "checkout_error";
@@ -108,10 +113,15 @@ export function Pricing(props: PricingProps) {
                   <>
                     {props.priceType === PlanPriceType.ANNUALLY && (
                       <span className="text-gray-500 line-through text-sm md:text-[22px]">
-                        ${NumberUtils.toLocaleStringPrice(props.prices[PlanPriceType.MONTHLY].unitAmount)}
+                        {NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][PlanPriceType.MONTHLY].unitAmount, preferredCurrency)}
                       </span>
                     )}
-                    <span className="text-4xl md:text-[38px] font-bold">${NumberUtils.toLocaleStringPrice(props.prices[props.priceType].unitAmount)}</span>
+                    <span className="text-4xl md:text-[38px] font-bold">
+                      {props.priceType === PlanPriceType.ANNUALLY &&
+                        NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][props.priceType].unitAmount / 12, preferredCurrency)}
+                      {props.priceType === PlanPriceType.MONTHLY &&
+                        NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][props.priceType].unitAmount, preferredCurrency)}
+                    </span>
                   </>
                 )}
               </div>
@@ -126,7 +136,7 @@ export function Pricing(props: PricingProps) {
                   <button
                     type="button"
                     onClick={() => {
-                      handleCheckout(props.prices![props.priceType]);
+                      handleCheckout(props.prices![preferredCurrency][props.priceType]);
                     }}
                     className={`
                     w-full p-[14px] rounded-lg bg-theme-blue hover:bg-opacity-80 transition-all duration-300 group/btn ${

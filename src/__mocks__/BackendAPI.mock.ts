@@ -138,8 +138,8 @@ export class BackendAPIMock implements BackendAPI {
     // Define price generation strategy with more realistic values
     const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
       // Apply discount for annual pricing
-      const multiplier = priceType === PlanPriceType.ANNUALLY ? 0.8 : 1; // 20% discount for annual
-      return Math.round(69 * multiplier);
+      const multiplier = priceType === PlanPriceType.ANNUALLY ? 0.8 * 12 : 1; // 20% discount for annual
+      return Math.round(69_00 * multiplier);
     };
 
     // Create a type-safe StripePrice factory function

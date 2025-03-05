@@ -1,5 +1,6 @@
-import { PlanProductType } from "../../../../../../api/model";
+import { PlanProductType, ProductType, productTypeUtils } from "../../../../../../api/model";
 import { PlanFeature, PlanFeatureDetails } from "./data";
+import { credit } from "../../../../../../model";
 
 function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDetails[] {
   return [
@@ -108,6 +109,21 @@ function serviceCreditExtras(planProductType: PlanProductType): PlanFeatureDetai
       included: true,
     },
     {
+      name: {
+        [PlanProductType.INDIVIDUAL_PLAN]: "Existing OSS Library",
+        [PlanProductType.START_UP_PLAN]: "Project Suggestion",
+        [PlanProductType.SCALE_UP_PLAN]: "Priority Project Matching",
+        [PlanProductType.ENTERPRISE_PLAN]: "Dedicated Project Onboarding",
+      }[planProductType],
+      info: {
+        [PlanProductType.INDIVIDUAL_PLAN]: "Access the current open-source projects registered on the platform",
+        [PlanProductType.START_UP_PLAN]: "Suggest projects and we'll start reaching out to maintainers",
+        [PlanProductType.SCALE_UP_PLAN]: "Faster matching with relevant projects and assisted maintainer outreach",
+        [PlanProductType.ENTERPRISE_PLAN]: "We handle the entire process of finding, onboarding, and supporting your desired OSS projects.",
+      }[planProductType],
+      included: true,
+    },
+    {
       name: "Live Consultancy",
       info: "Direct online meetings with experts to discuss your architecture, implementation & strategic needs",
       included: {
@@ -130,25 +146,25 @@ const basic: Omit<PlanFeature, "name" | "details" | "extras"> = {
 export const serviceCredits: Record<PlanProductType, PlanFeature> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
-    name: "Gain 30 min monthly",
+    name: `in ${credit.displayAmount(productTypeUtils.credits(ProductType.INDIVIDUAL_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.INDIVIDUAL_PLAN),
     extras: serviceCreditExtras(PlanProductType.INDIVIDUAL_PLAN),
   },
   [PlanProductType.START_UP_PLAN]: {
     ...basic,
-    name: "Gain 2h monthly",
+    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.START_UP_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.START_UP_PLAN),
     extras: serviceCreditExtras(PlanProductType.START_UP_PLAN),
   },
   [PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
-    name: "Gain 5h monthly",
+    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.SCALE_UP_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.SCALE_UP_PLAN),
     extras: serviceCreditExtras(PlanProductType.SCALE_UP_PLAN),
   },
   [PlanProductType.ENTERPRISE_PLAN]: {
     ...basic,
-    name: "Gain 10h monthly",
+    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.ENTERPRISE_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.ENTERPRISE_PLAN),
     extras: serviceCreditExtras(PlanProductType.ENTERPRISE_PLAN),
   },

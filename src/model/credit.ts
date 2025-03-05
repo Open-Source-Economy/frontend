@@ -48,15 +48,28 @@ export const credit = {
     return thisAmountInMinutes.lessThanOrEqualTo(thatAmountInMinutes);
   },
 
-  displayAmount: (credit: Credit | null): string => {
-    if (!credit) {
+  /**
+   * Display the amount in a human-readable format
+   * @param credit The credit to display, if number, it is assumed to be in minutes
+   * @param displayMinutesUnits Whether to display the minutes unit when the amount is more than 1 hour
+   */
+  displayAmount: (credit: Credit | number | null, displayMinutesUnits: boolean = true): string => {
+    const c =
+      typeof credit === "number"
+        ? {
+            amount: new Decimal(credit),
+            unit: CreditUnit.MINUTE,
+          }
+        : credit;
+
+    if (!c) {
       return "0h";
-    } else if (credit.unit === CreditUnit.MINUTE) {
-      const amount = credit.amount.toNumber(); // Convert Decimal to a number
+    } else if (c.unit === CreditUnit.MINUTE) {
+      const amount = c.amount.toNumber(); // Convert Decimal to a number
       if (amount >= 60) {
         const hours = Math.floor(amount / 60);
         const remainingMinutes = amount % 60;
-        if (remainingMinutes === 0) {
+        if (remainingMinutes === 0 || !displayMinutesUnits) {
           return `${hours}h`;
         } else {
           return `${hours}h${remainingMinutes}min`;
@@ -64,16 +77,16 @@ export const credit = {
       } else {
         return `${amount}min`;
       }
-    } else if (credit.unit === CreditUnit.HOUR) {
-      const hours = Math.floor(credit.amount.ceil().toNumber());
-      const minutes = (credit.amount.toNumber() - hours) * 60; // Convert remaining decimal to minutes
+    } else if (c.unit === CreditUnit.HOUR) {
+      const hours = Math.floor(c.amount.ceil().toNumber());
+      const minutes = (c.amount.toNumber() - hours) * 60; // Convert remaining decimal to minutes
       if (minutes === 0) {
         return `${hours}h`;
       } else {
         return `${hours}h${minutes}min`;
       }
     } else {
-      throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unsupported credit unit: ${credit.unit}`);
+      throw new ApiError(StatusCodes.NOT_IMPLEMENTED, `Unsupported credit unit: ${c.unit}`);
     }
   },
   displayUnit: (credit: Credit | null): string => {

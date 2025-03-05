@@ -8,6 +8,7 @@ import { displayedCurrencies } from "src/views/data";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
 import { config, Env } from "../../../../../../ultils";
+import { NumberUtils } from "../../../../../../ultils/NumberUtils";
 
 interface PaymentControlsProps {
   projectId: ProjectId;
@@ -103,8 +104,7 @@ export function PaymentControls(props: PaymentControlsProps) {
               aria-pressed={selectedPriceIndex === index}
             >
               <h5 className="text-base sm:text-lg 3xl:text-xl !leading-[110%] !mb-1 font-bold">
-                {displayedCurrency.symbol}
-                {price.totalAmount / 100}
+                {NumberUtils.toLocaleStringPrice(price.totalAmount, props.preferredCurrency)}
                 <span className="font-normal ">{priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}</span>
               </h5>
               <h6 className="text-xs sm:text-sm 3xl:text-base !leading-[125%]">{price.label}</h6>
@@ -140,11 +140,17 @@ export function PaymentControls(props: PaymentControlsProps) {
         className="w-full !font-bold !font-montserrat lg:!text-xl 3xl:!text-2xl 3xl:!h-[70px] !capitalize overflow-hidden cursor-pointer mt-4"
         onClick={handleCheckout}
       >
-        {selectedPrice
-          ? campaignProductType === CampaignProductType.DONATION
-            ? `Donate ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}`
-            : `Receive ${displayedCurrency.symbol}${selectedPrice.totalAmount / 100}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""} of DoWs`
-          : "Select an amount to donate"}
+        {(() => {
+          const formattedPrice = selectedPrice
+            ? `${NumberUtils.toLocaleStringPrice(selectedPrice.totalAmount, props.preferredCurrency)}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}`
+            : "";
+
+          return selectedPrice
+            ? campaignProductType === CampaignProductType.DONATION
+              ? `Donate ${formattedPrice}`
+              : `Receive ${formattedPrice} of DoWs`
+            : "Select an amount to donate";
+        })()}
       </Button>
     </>
   );

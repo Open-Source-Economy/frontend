@@ -6,12 +6,12 @@ import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
 import { usePlans } from "../../../../../hooks";
 import { useUserPlan } from "../../../../../hooks/useUserPlan";
+import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
+import { useAuth } from "../../../../app";
 
 interface PricingTableProps {}
 
 export function PricingTable(props: PricingTableProps) {
-  const currency = Currency.USD;
-
   const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
 
   const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);
@@ -65,7 +65,7 @@ export function PricingTable(props: PricingTableProps) {
                 key={planProductTypeKey}
                 planDescription={plan}
                 priceType={priceType}
-                prices={plans.plans[planProductType][currency]}
+                prices={plans.plans[planProductType]}
                 pricingCategory={pricingCategory(planProductType, activePlan, activePriceType)}
                 aosDelay={index * 300}
               />

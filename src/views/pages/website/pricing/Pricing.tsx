@@ -2,6 +2,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { CustomPlanBanner, PricingTable } from "./elements";
 import { useState } from "react";
 import backdropSVG from "src/assets/backdrop.svg";
+import { config, Env } from "../../../../ultils";
 
 interface PricingProps {}
 
@@ -68,16 +69,18 @@ export function Pricing(props: PricingProps) {
         </div>
 
         <div data-aos="fade-up" data-aos-delay="400" className="max-lg:px-4 flex flex-col items-center text-center text-white">
-          <p>
-            <a href="/terms" className="text-pink-500 hover:underline font-bold">
-              Terms
-            </a>{" "}
-            and{" "}
-            <a href="/conditions" className="text-pink-500 hover:underline font-bold">
-              conditions
-            </a>{" "}
-            apply.
-          </p>
+          {config.env !== Env.Production && (
+            <p>
+              <a href="/TODO" className="text-pink-500 hover:underline font-bold">
+                Terms
+              </a>{" "}
+              and{" "}
+              <a href="/TODO" className="text-pink-500 hover:underline font-bold">
+                conditions
+              </a>{" "}
+              apply.
+            </p>
+          )}
           <p>Subject to maintainer availability. Unused credits automatically recredited if service cannot be provided.</p>
         </div>
       </div>

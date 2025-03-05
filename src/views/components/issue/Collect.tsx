@@ -27,7 +27,7 @@ export function Collect(props: CollectProps) {
           </>
         ) : (
           <>
-            <span className="michroma text-[#FF7E4B]">{credit.displayAmount(credits)}</span>
+            <span className="michroma text-[#FF7E4B]">{credit.displayAmount(credits)} </span>
             {state === ManagedIssueState.REJECTED && "refunded"}
             {state === ManagedIssueState.SOLVED && "for open source!"}
             {state === ManagedIssueState.OPEN && "collected"}

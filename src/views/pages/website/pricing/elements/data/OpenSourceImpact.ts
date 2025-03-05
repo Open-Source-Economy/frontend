@@ -1,5 +1,6 @@
-import { PlanProductType } from "../../../../../../api/model";
+import { PlanProductType, ProductType, productTypeUtils } from "../../../../../../api/model";
 import { PlanFeature } from "./data";
+import { credit } from "../../../../../../model";
 
 const basic: Omit<PlanFeature, "name"> = {
   title: "Open Source Impact",
@@ -12,22 +13,22 @@ const basic: Omit<PlanFeature, "name"> = {
 export const openSourceImpacts: Record<PlanProductType, PlanFeature> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
-    name: "$25 monthly",
+    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.INDIVIDUAL_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.START_UP_PLAN]: {
     ...basic,
-    name: "$100 monthly",
+    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.START_UP_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
-    name: "$500 monthly",
+    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.SCALE_UP_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.ENTERPRISE_PLAN]: {
     ...basic,
-    name: "$2000 monthly",
+    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.ENTERPRISE_PLAN) / 2, false)} monthly`,
     included: true,
   },
 };
