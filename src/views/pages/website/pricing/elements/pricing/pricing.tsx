@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CampaignPriceType, Currency, PlanPriceType, StripePrice } from "../../../../../../api/model";
+import { Currency, PlanPriceType, StripePrice } from "../../../../../../api/model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";

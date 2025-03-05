@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Tabs } from "../tabs";
 import backdropSVG from "src/assets/backdrop.svg";
-import { Currency, PlanPriceType, PlanProductType } from "../../../../../../api/model";
+import { PlanPriceType, PlanProductType } from "../../../../../../api/model";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
 import { usePlans } from "../../../../../hooks";
 import { useUserPlan } from "../../../../../hooks/useUserPlan";
-import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
-import { useAuth } from "../../../../app";
 
 interface PricingTableProps {}
 

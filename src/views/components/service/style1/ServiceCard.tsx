@@ -32,7 +32,7 @@ export function ServiceCard(props: ServiceCardProps) {
           </div>
           <div className="w-full">
             {" "}
-            <h3 className="text-xl md:text-lg w-fit 500:!mx-0 mx-auto lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[32px] font-michroma relative !pb-5">
+            <h3 className="text-xl md:text-lg w-fit 500:!mx-0 mx-auto lg:text-xl xl:text-2xl 2xl:text-[28px] 3xl:text-[32px] font-michroma relative !pb-5">
               {service.title}{" "}
               <span className="absolute bottom-0 left-0 w-full sm:w-[50%] h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
             </h3>
@@ -42,29 +42,24 @@ export function ServiceCard(props: ServiceCardProps) {
                   <span className="max-w-[15px] min-w-3 block">
                     <ListIcon />
                   </span>
-                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap relative">
-                    {" "}
-                    {feature.name}
-                    {feature.comingSoon && (
-                      <span className="absolute left-[105%] -top-2.5 leading-[100%] rounded-[5px] h-fit w-fit bg-[#243347] text-white text-[8px] font-semibold py-2 px-1.5">
-                        Coming Soon
-                      </span>
-                    )}
-                  </span>
+                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap relative"> {feature.name}</span>
                 </li>
               ))}
+              {props.button && (
+                <div className="!mt-3  xl:!mt-5 1800:!mt-6 ">
+                  <Button
+                    audience={Audience.ALL}
+                    level={"SECONDARY"}
+                    size={"SMALL"}
+                    className="!capitalize 1800:!min-h-12 !min-h-10 !min-w-[170px] 1800:!min-w-[200px] !text-sm"
+                  >
+                    <Link to={props.button.to}>{props.button.placeholder}</Link>
+                  </Button>
+                </div>
+              )}
             </ul>
           </div>
         </div>
-        {props.button && (
-          <section className="relative flex flex-col">
-            <div className="flex justify-center relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
-              <Button audience={Audience.USER} level={"SECONDARY"} size={"MEDIUM"} className="!capitalize">
-                <Link to={props.button.to}>{props.button.placeholder}</Link>
-              </Button>
-            </div>
-          </section>
-        )}
       </div>
     </article>
   );

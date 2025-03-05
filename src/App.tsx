@@ -27,6 +27,8 @@ import { Dashboard } from "./views/pages/dashboard/Dashboard";
 import { HowItWorks } from "./views/pages/website/howItWorks/HowItWorks";
 import { Pricing } from "./views/pages/website/pricing/Pricing";
 import { CreatePlanProductAndPrice } from "./views/pages/app/admin/createPlanProductAndPrice";
+import { Support } from "./views/pages/support/Support";
+import SupportCreateTicket from "./views/pages/support/SupportCreateTicket";
 
 const App = () => {
   return (
@@ -40,6 +42,11 @@ const App = () => {
           </Route>
 
           <Route path={paths.HOME} element={<Home />} />
+          <Route element={<IssueRoutes />}>
+            <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />
+            <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
+          </Route>
+
           <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
           {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
           <Route path={paths.USER} element={<CompanyProduct />} />

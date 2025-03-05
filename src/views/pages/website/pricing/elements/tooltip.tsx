@@ -9,6 +9,11 @@ export function InfoTooltip({ content }: InfoTooltipProps) {
   return (
     <Tooltip.Provider delayDuration={100}>
       <Tooltip.Root>
+        {/*<Tooltip.Trigger asChild>*/}
+        {/*  <span>*/}
+        {/*    <MdInfo className="h-3.5 w-3.5 text-white/70 hover:text-white transition" />*/}
+        {/*  </span>*/}
+        {/*</Tooltip.Trigger>*/}
         <Tooltip.Trigger asChild className="inline-block">
           <span className="inline-block">
             <MdInfo className="size-3.5 text-white/70 hover:text-white transition translate-y-0.5" />
