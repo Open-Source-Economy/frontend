@@ -53,26 +53,63 @@ export function getSubServiceOptions(serviceType: string): DropdownOption[] {
     case ServiceType.SUPPORT:
       return [
         { value: SupportSubServiceType.BUG_FIXES, label: "Bug Fixes" },
-        { value: SupportSubServiceType.NEW_FEATURES, label: "New Features", badge: "Only On Start-Up Plan" },
-        { value: SupportSubServiceType.CODE_MAINTENANCE, label: "Code Maintenance" },
+        {
+          value: SupportSubServiceType.NEW_FEATURES,
+          label: "New Features",
+          badge: "Only On Start-Up Plan",
+        },
+        {
+          value: SupportSubServiceType.CODE_MAINTENANCE,
+          label: "Code Maintenance",
+        },
       ];
     case ServiceType.DEVELOPMENT:
       return [
-        { value: DevelopmentSubServiceType.TECHNICAL_ASSISTANCE, label: "Technical Assistance" },
-        { value: DevelopmentSubServiceType.DEPLOYMENT_GUIDANCE, label: "Deployment Guidance", badge: "Only On Start-Up Plan" },
-        { value: DevelopmentSubServiceType.CUSTOMER_SUPPORT, label: "Customer Support" },
+        {
+          value: DevelopmentSubServiceType.TECHNICAL_ASSISTANCE,
+          label: "Technical Assistance",
+        },
+        {
+          value: DevelopmentSubServiceType.DEPLOYMENT_GUIDANCE,
+          label: "Deployment Guidance",
+          badge: "Only On Start-Up Plan",
+        },
+        {
+          value: DevelopmentSubServiceType.CUSTOMER_SUPPORT,
+          label: "Customer Support",
+        },
       ];
     case ServiceType.OPERATION:
       return [
-        { value: OperationSubServiceType.INCIDENT_RESPONSE, label: "Incident Response" },
-        { value: OperationSubServiceType.PROACTIVE_MAINTENANCE, label: "Proactive Maintenance" },
-        { value: OperationSubServiceType.SUPERVISION, label: "24/7 Supervision", badge: "Only On Start-Up Plan" },
+        {
+          value: OperationSubServiceType.INCIDENT_RESPONSE,
+          label: "Incident Response",
+        },
+        {
+          value: OperationSubServiceType.PROACTIVE_MAINTENANCE,
+          label: "Proactive Maintenance",
+        },
+        {
+          value: OperationSubServiceType.SUPERVISION,
+          label: "24/7 Supervision",
+          badge: "Only On Start-Up Plan",
+        },
       ];
     case ServiceType.ADVISORY:
       return [
-        { value: AdvisorySubServiceType.ARCHITECTURE_DESIGN, label: "Architecture Design" },
-        { value: AdvisorySubServiceType.TECHNOLOGY_ASSESSMENT, label: "Technology Assessment" },
-        { value: AdvisorySubServiceType.SECURITY_PERFORMANCE, label: "Security & Performance", badge: "Only On Start-Up Plan" },
+        {
+          value: AdvisorySubServiceType.ARCHITECTURE_DESIGN,
+          label: "Architecture Design",
+        },
+        {
+          value: AdvisorySubServiceType.TECHNOLOGY_ASSESSMENT,
+          label: "Technology Assessment",
+        },
+        {
+          value: AdvisorySubServiceType.SECURITY_PERFORMANCE,
+          label: "Security & Performance",
+          badge: "Only On Start-Up Plan",
+        },
       ];
     default:
       return [];
