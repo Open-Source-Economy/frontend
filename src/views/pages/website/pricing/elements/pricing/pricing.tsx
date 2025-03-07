@@ -1,15 +1,16 @@
-import React from "react";
-import { PlanPriceType } from "../../../../../../model";
+import type React from "react";
+import { type Currency, PlanPriceType } from "../../../../../../model";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
-import { PlanDescription } from "../data/data";
+import type { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
+import { displayedCurrencies } from "src/views/data";
 
 export enum PricingCategory {
-  GET_STARTED, // user can select this plan (they don't have a plan yet)
-  SELECTED, // user has this plan selected
-  UPGRADE, // user can upgrade to this plan
-  DOWNGRADE, // user can downgrade to this plan
+  GET_STARTED = 0, // user can select this plan (they don't have a plan yet)
+  SELECTED = 1, // user has this plan selected
+  UPGRADE = 2, // user can upgrade to this plan
+  DOWNGRADE = 3, // user can downgrade to this plan
 }
 
 interface PricingProps {
@@ -18,6 +19,7 @@ interface PricingProps {
   prices: Record<PlanPriceType, number> | null;
   pricingCategory: PricingCategory;
   aosDelay: number;
+  currency: Currency;
 }
 
 export function Pricing(props: PricingProps) {
@@ -61,9 +63,15 @@ export function Pricing(props: PricingProps) {
                 {props.prices && (
                   <>
                     {props.priceType === PlanPriceType.ANNUALLY && (
-                      <span className="text-gray-500 line-through text-sm md:text-[22px]">${props.prices[PlanPriceType.MONTHLY]}</span>
+                      <span className="text-gray-500 line-through text-sm md:text-[22px]">
+                        {displayedCurrencies[props.currency].symbol}
+                        {props.prices[PlanPriceType.MONTHLY]}
+                      </span>
                     )}
-                    <span className="text-4xl md:text-[38px] font-bold">${props.prices[props.priceType]}</span>
+                    <span className="text-4xl md:text-[38px] font-bold">
+                      {displayedCurrencies[props.currency].symbol}
+                      {props.prices[props.priceType]}
+                    </span>
                   </>
                 )}
               </div>
