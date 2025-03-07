@@ -3,33 +3,34 @@ import * as dto from "src/api/dto";
 import { OwnerId, ProjectId, RepositoryId } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../services";
+import { SponsorDescription } from "../../model";
 
-export function useMaintainers(projectId: ProjectId) {
+export function useSponsors(projectId: ProjectId) {
   const backendAPI = getBackendAPI();
 
-  const [maintainersRes, setMaintainersRes] = useState<dto.GetMaintainersResponse | null>(null);
+  const [sponsors, setSponsors] = useState<SponsorDescription[] | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const fetchMaintainers = async () => {
+  const fetchSponsors = async () => {
     setIsLoading(true);
 
     try {
-      const params: dto.GetMaintainersParams = {
+      const params: dto.GetSponsorsParams = {
         owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
         repo: projectId instanceof RepositoryId ? projectId.name : undefined,
       };
-      const query: dto.GetMaintainersQuery = {};
+      const query: dto.GetSponsorsQuery = {};
 
-      const response = await backendAPI.getMaintainers(params, query);
+      const response = await backendAPI.getSponsors(params, query);
 
       if (response instanceof ApiError) {
         setError(response);
       } else {
-        setMaintainersRes(response);
+        setSponsors(response);
       }
     } catch (err) {
-      console.error("Error fetching maintainers:", err);
+      console.error("Error fetching sponsor:", err);
       setError(ApiError.from(err));
     } finally {
       setIsLoading(false);
@@ -37,9 +38,9 @@ export function useMaintainers(projectId: ProjectId) {
   };
 
   return {
-    maintainersRes,
+    sponsors,
     isLoading,
     error,
-    reloadMaintainers: fetchMaintainers,
+    reloadSponsors: fetchSponsors,
   };
 }

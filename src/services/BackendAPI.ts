@@ -8,6 +8,8 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
+import { getSponsors } from "../services/data/sponsors";
+import { SponsorDescription } from "../model";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -54,6 +56,8 @@ export interface BackendAPI {
   getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError>;
 
   getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
+
+  getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError>;
 
   getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError>;
 
@@ -160,6 +164,10 @@ class BackendAPIImpl implements BackendAPI {
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
+  }
+
+  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {
+    return getSponsors(params.owner, params.repo);
   }
 
   async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {

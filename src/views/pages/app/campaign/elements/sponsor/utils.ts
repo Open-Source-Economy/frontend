@@ -1,4 +1,4 @@
-import type { CardSize } from "./types";
+import { CardSize } from "../../../../../../api/dto";
 
 export const getCardWidth = (size?: CardSize) => {
   switch (size) {

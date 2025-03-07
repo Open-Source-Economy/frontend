@@ -26,6 +26,8 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
+import { getSponsors } from "../services/data/sponsors";
+import { SponsorDescription } from "../model";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -103,6 +105,10 @@ export class BackendAPIMock implements BackendAPI {
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
+  }
+
+  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {
+    return getSponsors(params.owner, params.repo);
   }
 
   async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {

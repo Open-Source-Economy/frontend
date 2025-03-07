@@ -1,5 +1,5 @@
 interface SectionProps {
-  title: React.ReactNode;
+  title: string | React.ReactNode;
   subtitle: string;
   children: React.ReactNode;
   span?: boolean;

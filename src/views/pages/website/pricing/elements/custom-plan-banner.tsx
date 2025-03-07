@@ -3,7 +3,6 @@ import bannerBottomLeft from "../../../../../assets/banner/custom-plan-banner-lb
 import bannerBottomRight from "../../../../../assets/banner/custom-plan-banner-br.png";
 import bannerTopRight from "../../../../../assets/banner/custom-plan-banner-tr.png";
 import cat from "../../../../../assets/banner/custom-plan-banner-cat.png";
-import { FaPhone } from "react-icons/fa6";
 import backdropSVG from "src/assets/backdrop.svg";
 import { BookACallButton } from "../../../../components/elements/BookACallButton";
 

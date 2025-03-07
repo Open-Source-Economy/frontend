@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Currency } from "src/api/model";
-import { displayedCurrencies } from "src/views/data";
 import { NumberUtils } from "../../../../../ultils/NumberUtils";
 
 interface ProgressProps {
@@ -12,8 +11,6 @@ interface ProgressProps {
 }
 
 export function Progress(props: ProgressProps) {
-  const displayedCurrency = displayedCurrencies[props.preferredCurrency];
-
   const [animatedProgress, setAnimatedProgress] = useState(0);
   const progressPercentage = Math.min((props.raisedAmount[props.preferredCurrency] / props.targetAmount[props.preferredCurrency]) * 100, 100);
 
@@ -45,12 +42,10 @@ export function Progress(props: ProgressProps) {
       </div>
 
       <h2 className="text-xl 2xl:text-[28px] font-medium !mt-2.5 3xl:!mt-4">
-        {displayedCurrency.symbol}
         {NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency], props.preferredCurrency)}/mo
       </h2>
       <p className="text-base opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
         <span className="hidden">{NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency], props.preferredCurrency)} </span> pledged of{" "}
-        {displayedCurrency.symbol}
         {NumberUtils.toLocaleStringPrice(props.targetAmount[props.preferredCurrency], props.preferredCurrency)}
       </p>
       {(props.numberOfBackers || props.numberOfDaysLeft) && (

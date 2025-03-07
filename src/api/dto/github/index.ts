@@ -6,3 +6,4 @@ export * from "./GetIssues.dto";
 export * from "./GetProject.dto";
 export * from "./RequestIssueFunding.dto";
 export * from "./GetMaintainers.dto";
+export * from "./GetSponsors.dto";

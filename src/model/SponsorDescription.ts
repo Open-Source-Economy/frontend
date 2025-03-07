@@ -1,15 +1,15 @@
-export type CardSize = "xlarge" | "large" | "small" | "xsmall";
+import { CardSize } from "../api/dto";
 
-export interface SponsorCardData {
-  id: string;
+export interface SponsorDescription {
   title?: string;
   subtitle?: string;
   imgUrl?: string;
   size?: CardSize;
   imgClasses?: string;
-  details?: string;
+  details?: React.ReactNode;
   description?: string;
-  nestedCards?: SponsorCardData[];
+  callToAction?: React.ReactNode;
+  nestedCards?: SponsorDescription[];
   isLeftCat?: boolean;
   isRightCat?: boolean;
   className?: string;

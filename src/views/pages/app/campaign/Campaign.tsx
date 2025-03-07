@@ -12,7 +12,7 @@ import { useCampaign } from "../../../hooks/useCampaign";
 import { useProject } from "../../../hooks/useProject";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
-import Sponsor from "./Sponsor";
+import { Sponsor } from "./elements/sponsor/Sponsor";
 
 interface CampaignProps {}
 
@@ -45,8 +45,7 @@ export function Campaign(props: CampaignProps) {
             <BookACallButton />
           </AQuestion>
         )}
-        {/*TODO*/}
-        {/*<Sponsor />*/}
+        <Sponsor projectId={projectId} />
         {campaign?.whyWeNeedYourHelp && <WhyDoWeNeedYourHelp description={campaign?.whyWeNeedYourHelp} />}
         {campaign?.useOfFunds && <UseOfFunds description={campaign?.useOfFunds} />}
         {campaign?.whyTrustUs && <WhyTrustUs description={campaign?.whyTrustUs} />}

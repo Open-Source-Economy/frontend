@@ -12,13 +12,13 @@ interface MaintainersProps {
 }
 
 export function Maintainers(props: MaintainersProps) {
-  const { maintainers, isLoading, error, reloadMaintainers } = useMaintainers(props.projectId);
+  const { maintainersRes, isLoading, error, reloadMaintainers } = useMaintainers(props.projectId);
 
   useEffect(() => {
     reloadMaintainers();
   }, []);
 
-  if (maintainers?.length === 0) {
+  if (maintainersRes === null || maintainersRes.maintainers?.length === 0) {
     return null;
   } else {
     return (
@@ -44,7 +44,7 @@ export function Maintainers(props: MaintainersProps) {
         <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
           {/* Participants List */}
           <div className="flex justify-center flex-wrap gap-14 sm:gap-8">
-            {maintainers?.map((maintainer, index) => <ParticipantCard maintainer={maintainer} key={index} />)}
+            {maintainersRes.maintainers?.map((maintainer, index) => <ParticipantCard maintainer={maintainer} key={index} />)}
           </div>
 
           {/* View All Button */}
