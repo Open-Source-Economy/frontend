@@ -23,13 +23,11 @@ export const PreferredCurrency = {
       const query: SetUserPreferredCurrencyQuery = {};
 
       this.backendAPI.setUserPreferredCurrency(params, body, query).then(() => {
-        if (auth.authInfo?.user) {
-          auth.authInfo.user.preferredCurrency = currency;
-        }
+        window.location.reload();
       });
     } else {
       currencyCookie.set(currency);
-      //window.location.reload();
+      window.location.reload();
     }
   },
 };
