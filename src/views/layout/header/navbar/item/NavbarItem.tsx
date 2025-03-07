@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ButtonItemData, ExternalLinkItemData, LinkItemData, NavItemData } from "./NavItemData";
+import { ButtonItemData, ExternalLinkItemData, LinkItemData, type NavItemData } from "./NavItemData";
 import { ExternalLink } from "../../../../components";
 
 interface NavbarItemProps {
@@ -15,7 +15,9 @@ export function NavbarItem(props: NavbarItemProps) {
           <span className="mr-2 group-hover:text-transparent">{props.item.icon}</span>
           <span className={`text-base ${props.item.isBold ? "font-semibold" : "font-normal"}  `}>
             <span
-              className={`gradient-bg bg-clip-text duration-200 ${props.item.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"}`}
+              className={`gradient-bg bg-clip-text duration-200 font-michroma ${
+                props.item.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"
+              }`}
             >
               {props.item.title}
             </span>
@@ -35,15 +37,14 @@ export function NavbarItem(props: NavbarItemProps) {
       )}
 
       {props.item instanceof ButtonItemData && (
-        <>
-          <button
-            className="mr-3 flex items-center w-max duration-200 gradient-bg  bg-clip-text group gap-2 font-montserrat text-xl text-white group"
-            onClick={props.item.onClick}
-          >
-            <span className="flex props.items-center group-hover:text-transparent">{props.item.icon}</span>
-            <span className="group-hover:text-transparent">{props.item.title}</span>
-          </button>
-        </>
+        <button
+          type="button"
+          className="flex items-center w-max duration-200 gradient-bg bg-clip-text group gap-2 text-base text-white group"
+          onClick={props.item.onClick}
+        >
+          <span className="flex items-center group-hover:text-transparent font-montserrat text-lg">{props.item.icon}</span>
+          <span className="group-hover:text-transparent font-michroma -mt-0.5 capitalize">{props.item.title}</span>
+        </button>
       )}
     </div>
   );

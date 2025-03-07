@@ -1,15 +1,16 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import type React from "react";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components";
 import { useAuth } from "src/views/pages";
 import { MobileNavbar } from "./MobileNavbar";
-import { Divider, DIVIDER, DropdownNavbar } from "./DropdownNavbar";
-import { Currency } from "src/api/model";
+import { type Divider, DIVIDER, DropdownNavbar } from "./DropdownNavbar";
+import type { Currency } from "src/api/model";
 import { config, Env } from "src/ultils";
 import { NavbarItem } from "./item/NavbarItem";
 import { Nav } from "react-bootstrap";
 import { paths } from "src/paths";
-import { Navigation, NavItemData } from "./item/NavItemData";
+import { Navigation, type NavItemData } from "./item/NavItemData";
 import { useAvailableCredits } from "../../../hooks";
 
 interface AppNavbarProps {
@@ -18,7 +19,7 @@ interface AppNavbarProps {
   showCurrencyModal: boolean;
   selectedCurrency: Currency;
   setShowDropdownNavbar: Dispatch<SetStateAction<boolean>>;
-  setShowCurrencyModal: Dispatch<SetStateAction<boolean>>;
+  setShowCurrencyModal: (show: boolean) => void;
 }
 
 export function NavbarContent(props: AppNavbarProps) {
@@ -87,7 +88,7 @@ export function NavbarContent(props: AppNavbarProps) {
         <>
           <MobileNavbar navbarItems={authDropdownNavbarItems} />
           {authNavbarItems.map(item => {
-            return <NavbarItem item={item} />;
+            return <NavbarItem key={item.title} item={item} />;
           })}
           {supportProjects}
           <DropdownNavbar
@@ -99,7 +100,7 @@ export function NavbarContent(props: AppNavbarProps) {
       ) : (
         <>
           {nonAuthNavbarItems.map(item => {
-            return <NavbarItem item={item} />;
+            return <NavbarItem key={item.title} item={item} />;
           })}
           {supportProjects}
         </>

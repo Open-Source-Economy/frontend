@@ -105,8 +105,8 @@ export class Navigation {
     signOut: new LinkItemData("Sign Out", paths.LOGOUT, { icon: <LogOutIcon /> }),
 
     // Main navigation
-    newsletter: new LinkItemData("Newsletter", "#footer"),
-    blog: new ExternalLinkItemData("Blog", "https://blog.open-source-economy.com/"),
+    // newsletter: new LinkItemData("Newsletter", "#footer"),
+    blog: new ExternalLinkItemData("Blog", paths.BLOG),
 
     // Issue management
     manageIssues: new LinkItemData("Manage Issues", paths.MANAGE_ISSUES, {
