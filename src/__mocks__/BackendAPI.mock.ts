@@ -56,7 +56,7 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
-    return Promise.resolve({ creditAmount: 20 });
+    return Promise.resolve({ creditAmount: 60 });
   }
 
   async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {

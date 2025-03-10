@@ -9,6 +9,9 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { useAvailableCredits, useCreditCounter } from "src/views/hooks";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
+import { Link } from "react-router-dom";
+import * as Path from "path";
+import { paths } from "../../../../../paths";
 
 interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
@@ -21,7 +24,7 @@ export function CreditFunding(props: CreditFundingProps) {
   const backendAPI = getBackendAPI();
 
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
-  const [enoughFund, setEnoughFund] = useState<boolean>(true);
+  const [enoughFund, setEnoughFund] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | string | null>(null);
 
   const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
@@ -66,7 +69,9 @@ export function CreditFunding(props: CreditFundingProps) {
     <>
       <h2 className="text-end montserrat text-base md:text-base lg:text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
-        <span className="text-[#FF518C] cursor-pointer hover:underline">{credit.displayAmount(availableCredits)}</span>
+        <span className="text-[#FF518C] cursor-pointer hover:underline">
+          <Link to={paths.PRICING}> {credit.displayAmount(availableCredits)}</Link>
+        </span>
       </h2>
       <div className="!mt-5 lg:!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
         <div className="flex items-center gap-4 justify-between">
@@ -142,18 +147,20 @@ export function CreditFunding(props: CreditFundingProps) {
         </div>
       </div>
       <div className="!mt-10 xl:!mt-14 flex flex-wrap sm:!flex-nowrap justify-center w-full items-center gap-3">
-        <Button parentClassName="w-full" onClick={fundIssue} className="w-full" disabled={!enoughFund} level="SECONDARY" audience={audience} size="MEDIUM">
-          FUND THE ISSUE
+        <Button parentClassName="w-full" audience={audience} level={enoughFund ? "SECONDARY" : "PRIMARY"} className={`w-full`} size="MEDIUM" asChild>
+          <Link to={paths.PRICING}>Get More Credits</Link>
         </Button>
 
         <Button
           parentClassName="w-full"
+          onClick={fundIssue}
+          className="w-full"
+          disabled={!enoughFund}
+          level={enoughFund ? "PRIMARY" : "SECONDARY"}
           audience={audience}
-          level="SECONDARY"
-          className={` w-full ${enoughFund ? "opacity-50 pointer-events-none" : ""}`}
           size="MEDIUM"
         >
-          Get More Credits
+          FUND THE ISSUE
         </Button>
       </div>
 
