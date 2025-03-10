@@ -70,16 +70,14 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
           className={`flex flex-col flex-lg-row w-100 ${!isValidUrl ? "1000:items-start  items-center" : "items-center"}  gap-4 mt-4`}
         >
           <div className="flex w-full flex-col">
-            {" "}
             <input
-              type="url"
               value={url || ""}
               onChange={e => setUrl(e.target.value)}
               onKeyDown={handleKeyDown}
               className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${
                 !isValidUrl ? " border-red-500" : "border-transparent"
               }`}
-              placeholder="https://github.com/scala-native/scala-native/issues/3851"
+              placeholder="https://github.com/apache/pekko/issues/578"
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}
           </div>
