@@ -35,7 +35,7 @@ const BackToTop = () => {
     // >
     //   <img src={backToTop} alt="BackToTop" />
     // </button>
-    <div className="fixed bottom-[2%] right-[2%] z-50">
+    <div className="fixed bottom-[2%] right-[2%] z-[888]">
       <BookACallButton />
     </div>
   );

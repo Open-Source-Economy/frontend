@@ -63,10 +63,20 @@ export function Dashboard(props: DashboardProps) {
               {/*TODO*/}
               {error && <div>{error.toSting()}</div>}
 
-              {repositories.map(([owner, repository], index) => (
+              {/* {repositories.map(([owner, repository], index) => (
                 <>
                   <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={paths.project(repository.id)} />
                 </>
+              ))} */}
+              {repositories.map(([owner, repository], index) => (
+                <Cards2
+                  key={`${repository.id}-${index}`}
+                  owner={owner}
+                  repository={repository}
+                  audience={Audience.USER}
+                  action="FUND"
+                  to={paths.project(repository.id)}
+                />
               ))}
             </div>
           </div>

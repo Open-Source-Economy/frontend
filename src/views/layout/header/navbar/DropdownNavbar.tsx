@@ -52,7 +52,7 @@ export function DropdownNavbar(props: DropdownNavbarProps) {
 
         {/* DropDown */}
         {props.showDropdownNavbar && (
-          <div className="absolute top-[85px] z-50 right-0  h-max min-w-[279px] p-2 shadow-[0_15px_90px_0px_rgba(0,0,0,0.6)] bg-primaryBg !border rounded-xl border-[#303f52] text-white flex flex-col gap-y-1">
+          <div className="absolute top-[85px] z-[888] right-0  h-max min-w-[279px] p-2 shadow-[0_15px_90px_0px_rgba(0,0,0,0.6)] bg-primaryBg !border rounded-xl border-[#303f52] text-white flex flex-col gap-y-1">
             <div className="absolute -top-[10px] right-5 -z-10 bg-primaryBg border-t border-l border-t-[#303f52] border-l-[#303f52] rounded-tl-md rotate-45 size-5"></div>
 
             {props.navbarItems.map((item, index) => {
