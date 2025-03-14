@@ -11,7 +11,7 @@ export function NavbarItem(props: NavbarItemProps) {
   return (
     <div key={props.item.title}>
       {props.item instanceof LinkItemData && (
-        <Link to={props.item.to} className="gradient-text mr-3 flex items-center">
+        <Link to={props.item.to} className="gradient-text mr-3 flex items-center group">
           <span className="mr-2 group-hover:text-transparent">{props.item.icon}</span>
           <span className={`text-base ${props.item.isBold ? "font-semibold" : "font-normal"}  `}>
             <span

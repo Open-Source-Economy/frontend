@@ -30,10 +30,12 @@ import { CreatePlanProductAndPrice } from "./views/pages/app/admin/createPlanPro
 import { Support } from "./views/pages/support/Support";
 import SupportCreateTicket from "./views/pages/support/SupportCreateTicket";
 import { CurrencyProvider } from "./context/CurrencyContext";
+import ScrollToTop from "./views/components/ScrollTop";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <CurrencyProvider>
           <Routes>
