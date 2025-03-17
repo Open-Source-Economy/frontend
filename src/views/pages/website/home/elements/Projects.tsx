@@ -38,8 +38,11 @@ export function Projects(props: ProjectsProps) {
                   ))}
               </>
             ) : (
-              projects.map(project => (
-                <Cards key={ProjectUtils.key(project)} project={project} audience={Audience.ALL} action={"Learn More"} to={paths.project(project.id)} />
+              // projects.map(project => (
+              //   <Cards key={ProjectUtils.key(project)} project={project} audience={Audience.ALL} action={"Learn More"} to={paths.project(project.id)} />
+              // ))
+              projects.map((project, index) => (
+                <Cards key={`${project.id}-${index}`} project={project} audience={Audience.ALL} action={"Learn More"} to={paths.project(project.id)} />
               ))
             )}
           </div>
