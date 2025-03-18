@@ -6,3 +6,5 @@ export const projectsIds: RepositoryId[] = [
   ["kubesphere", "kubesphere"],
   ["slick", "slick"],
 ].map(([owner, repository]) => new RepositoryId(new OwnerId(owner), repository));
+
+export const openSourceEconomyId: OwnerId = new OwnerId("Open-Source-Economy");

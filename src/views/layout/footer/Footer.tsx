@@ -138,7 +138,7 @@ export function Footer() {
               {/* Navigation Links */}
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-4 w-full flex-grow mt-2 justify-end">
                 {footerSections.map((section, i) => (
-                  <div key={section.title} data-aos="fade-up" data-aos-delay={150 + i * 100} className="">
+                  <div key={`footer-section-${i}`} data-aos="fade-up" data-aos-delay={150 + i * 100} className="">
                     <FooterSection section={section} />
                   </div>
                 ))}

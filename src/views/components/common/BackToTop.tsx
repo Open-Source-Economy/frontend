@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
-import backToTop from "../../../assets/icon/BackToTop.svg";
+import React, { useEffect, useState } from "react";
+// import backToTop from "../../../assets/icon/BackToTop.svg";
+import { Button } from "../elements";
+import { paths } from "../../../paths";
+import { openSourceEconomyId } from "../../../services/data/projects";
 
-const BackToTop = () => {
+export const BackToTop = () => {
   const [scrollValue, setScrollValue] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -27,23 +30,27 @@ const BackToTop = () => {
   }, [scrollValue]); // DEPENDS ON SCROLL VALUE
 
   // HANDLER FUNCTION TO SCROLL TO TOP OF THE PAGE
-  const scrollTopHandler = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // SMOOTH SCROLLING ANIMATION
-    });
-  };
+  // const scrollTopHandler = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth", // SMOOTH SCROLLING ANIMATION
+  //   });
+  // };
 
   return (
-    <button
-      onClick={scrollTopHandler} // SCROLL TO TOP WHEN CLICKED
-      className={`fixed bottom-[2%] right-[2%] z-50 bg-gloomy flex h-10 w-10 items-center shadow-off-white justify-center overflow-hidden rounded-full hover:bg-gloomy transition-all duration-500 large:right-[calc((100vw-1900px)/2)] border border-white ${
-        showScrollTop ? "translate-y-0 scale-100" : "translate-y-[40px] scale-0"
-      }`}
-    >
-      <img src={backToTop} alt="BackToTop" />
-    </button>
+    // <button
+    //   onClick={scrollTopHandler} // SCROLL TO TOP WHEN CLICKED
+    //   className={`fixed bottom-[2%] right-[2%] z-50 bg-gloomy flex h-10 w-10 items-center shadow-off-white justify-center overflow-hidden rounded-full hover:bg-gloomy transition-all duration-500 large:right-[calc((100vw-1900px)/2)] border border-white ${
+    //     showScrollTop ? "translate-y-0 scale-100" : "translate-y-[40px] scale-0"
+    //   }`}
+    // >
+    //   <img src={backToTop} alt="BackToTop" />
+    // </button>
+    <div className="fixed bottom-[2%] right-[2%] z-[888]">
+      <Button audience={"ALL"} level={"PRIMARY"} size={"LARGE"} className={`!capitalize`} asChild>
+        {/*Link does not load*/}
+        <a href={paths.campaign(openSourceEconomyId)}>Donate</a>
+      </Button>
+    </div>
   );
 };
-
-export default BackToTop;
