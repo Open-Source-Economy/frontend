@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../pages";
 import { UserRole } from "src/api/model";
@@ -51,7 +51,9 @@ export function SuperAdminRoutes() {
 export function Logout(props: { redirect: string }) {
   const auth = useAuth();
 
-  auth.logout();
+  useEffect(() => {
+    auth.logout();
+  }, []);
 
   return auth.loading ? <PageLoader message="Logging out..." /> : <Navigate to={props.redirect} />;
 }

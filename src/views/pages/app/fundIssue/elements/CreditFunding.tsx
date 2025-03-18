@@ -10,7 +10,6 @@ import { useAvailableCredits, useCreditCounter } from "src/views/hooks";
 import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
 import { Audience } from "src/views";
 import { Link } from "react-router-dom";
-import * as Path from "path";
 import { paths } from "../../../../../paths";
 
 interface CreditFundingProps {
