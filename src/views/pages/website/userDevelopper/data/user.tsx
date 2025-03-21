@@ -20,7 +20,7 @@ const solution1 = {
   starPosition: "lg:top-[23%] sm:top-[21%] top-[17%] md:left-[50%] left-[46%] sm:left-[49%] sm:w-[70px] w-14",
   title: "Get Support",
   subtitle: "From Those Who Know",
-  comming: <p className="mb-2 sm:text-start  w-full">AVAILABLE</p>,
+  coming: <p className="mb-2 sm:text-start  w-full">AVAILABLE</p>,
   text: (
     <>
       <ul className="px-10 sm:mt-[35px] mt-4 w-fit mx-auto sm:!mx-0 text-start">
@@ -42,7 +42,7 @@ const solution2 = {
   starPosition: "lg:top-[10%] sm:top-[8%] top-[1%] sm:top-[7%] md:left-[49%] left-[40%] sm:left-[49%] sm:w-[70px] w-14",
   comingSoon: true,
   title: "Have a Say",
-  comming: <p className="!pb-2.5 mb-2 sm:text-start w-full">COMING SOON</p>,
+  coming: <p className="!pb-2.5 mb-2 sm:text-start w-full">COMING SOON</p>,
   subtitle: "Forget the Far West!",
   text: (
     <div className="sm:mt-[45px] mt-4">
@@ -61,7 +61,7 @@ const solution3 = {
   image: img3,
   starPosition: "sm:w-[70px] w-14 lg:top-[0%] sm:top-[-2%] top-[-5%]  md:left-[40%] left-[28%] sm:left-[32%]",
   title: "Fund Your Future",
-  comming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
+  coming: <p className="!mb-2.5  sm:text-start  w-full">COMING SOON</p>,
   subtitle: (
     <>
       <p className="sm:!text-start text-center">Secure your platform</p> <p className="!mt-2">Secure your business.</p>

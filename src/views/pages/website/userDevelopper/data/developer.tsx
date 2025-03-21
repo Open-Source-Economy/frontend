@@ -27,7 +27,7 @@ const solution1: SolutionProps = {
       </p>
     </>
   ),
-  comming: undefined,
+  coming: undefined,
 };
 
 const solution2: SolutionProps = {
@@ -43,7 +43,7 @@ const solution2: SolutionProps = {
       </p>
     </>
   ),
-  comming: undefined,
+  coming: undefined,
 };
 
 const solution3: SolutionProps = {
@@ -61,7 +61,7 @@ const solution3: SolutionProps = {
       <h2 className="xl:py-[51px] lg:py-10 py-6">And bring your vision to life!</h2>
     </>
   ),
-  comming: undefined,
+  coming: undefined,
 };
 
 export const developerProps: UserDeveloperProps = {

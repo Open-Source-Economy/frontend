@@ -11,7 +11,7 @@ export interface SolutionProps {
   title: string;
   subtitle: string | ReactNode;
   text: ReactNode;
-  comming: ReactNode;
+  coming: ReactNode;
 }
 
 export function Solution(props: SolutionProps) {
@@ -47,7 +47,7 @@ export function Solution(props: SolutionProps) {
         <SolutionImage image={props.image} starPosition={props.starPosition} />
       </div>
       <div className="2xl:max-w-[633px] max-w-[550px] w-full sm:!text-start text-center">
-        <div className="text-gray-300 text-[14px] xl:text-base max-sm:mx-auto text-center flex justify-center">{props.comming}</div>
+        <div className="text-gray-300 text-[14px] xl:text-base max-sm:mx-auto text-center flex justify-center">{props.coming}</div>
         <h4 className={`${textColorVariants[props.audience]} text-xl md:text-3xl lg:text-4xl xl:text-[45px] michroma`}>{props.title}</h4>
         <h5 className="md:text-lg xl:text-[20px] 2xl:text-[28px] text-base !mt-4 text-white michroma leading-[130%]">{props.subtitle}</h5>
         <p className="text-[12px] xl:text-[15px] 2xl:text-[21px] text-white leading-[150%]">{props.text}</p>
