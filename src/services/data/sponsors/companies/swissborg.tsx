@@ -22,7 +22,7 @@ export const swissborg: SponsorDescription = {
   callToAction: (
     <>
       p.s.{" "}
-      <ExternalLink href="https://jobs.lever.co/swissborg/3ee017ae-ced2-42f8-b21a-6d9a17ef0d7c" className="text-primary-user">
+      <ExternalLink href="https://jobs.lever.co/swissborg/" className="text-primary-user">
         we’re hiring
       </ExternalLink>
       ! 😉
