@@ -50,6 +50,12 @@ export function Campaign(props: CampaignProps) {
         {campaign?.useOfFunds && <UseOfFunds description={campaign?.useOfFunds} />}
         {campaign?.whyTrustUs && <WhyTrustUs description={campaign?.whyTrustUs} />}
 
+        {campaign?.disclaimer && (
+          <div className="max-lg:px-4 flex flex-col items-center text-center text-white mb-40">
+            <p>{campaign?.disclaimer}</p>
+          </div>
+        )}
+
         {/*TODO: error*/}
         {error && <div>{error.message}</div>}
         {loadCampaignError && <div>{loadCampaignError.message}</div>}

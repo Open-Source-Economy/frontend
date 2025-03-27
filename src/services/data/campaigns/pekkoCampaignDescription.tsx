@@ -48,11 +48,7 @@ export const pekkoCampaignDescription: CampaignDescription = {
         We aim to deliver:
       </>
     ),
-    items: [
-      { text: "Stable, up-to-date, bug-free software" },
-      { text: "Support for the community" },
-      { text: "Development of new features" }
-    ],
+    items: [{ text: "Stable, up-to-date, bug-free software" }, { text: "Support for the community" }, { text: "Development of new features" }],
     paragraph2: "To make Pekko's our top priority, we need your help.",
   },
   useOfFunds: {
@@ -77,20 +73,32 @@ export const pekkoCampaignDescription: CampaignDescription = {
         Distributed systems like Pekko are inherently complex.
         <br />
         Achieving consistent behavior, preventing cascading failures, and avoiding regressions requires specialized expertise and dedicated resources.
-
         <br />
         <br />
       </>
     ),
   },
   whyTrustUs: {
-    paragraph1:
-    <>When Akka switched to a Business Source License (BSL), some developers said: "𝙽𝚘 𝚠𝚊𝚢!".
-      They decided to work tirelessly to keep Akka open source and available to everyone. This is how Pekko was born.
-      <br />
-      <br />
-      <> We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to everyone.</>
-    </>,
+    paragraph1: (
+      <>
+        When Akka switched to a Business Source License (BSL), some developers said: "𝙽𝚘 𝚠𝚊𝚢!". They decided to work tirelessly to keep Akka open source and
+        available to everyone. This is how Pekko was born.
+        <br />
+        <br />
+        <>
+          {" "}
+          We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to
+          everyone.
+        </>
+      </>
+    ),
     paragraph2: "We believe in transparency and accountability, and every dollar raised will go towards open source.",
   },
+  disclaimer: (
+    <>
+      This collective is not officially affiliated with the Apache Pekko project (or the Apache Software Foundation) <br />
+      but aims to support development and testing work related to that project. <br />
+      Apache Pekko will continue to be Free and Open Source Software.
+    </>
+  ),
 };

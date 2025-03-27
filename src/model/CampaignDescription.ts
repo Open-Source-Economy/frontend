@@ -6,6 +6,7 @@ export interface CampaignDescription {
   whyWeNeedYourHelp: CampaignDescription.Section;
   useOfFunds: CampaignDescription.Section;
   whyTrustUs: CampaignDescription.Section;
+  disclaimer?: ReactNode;
 }
 
 export namespace CampaignDescription {

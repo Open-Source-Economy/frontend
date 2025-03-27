@@ -93,4 +93,5 @@ export const defaultCampaignDescription: CampaignDescription = {
       </>
     ),
   },
+  disclaimer: "All donations are managed by the Open Source Economy, a 501(c)(6) non-profit organization.",
 };
