@@ -199,7 +199,7 @@ export function Footer() {
                 © Open Source Economy - Non profit organisation -{" "}
                 <ExternalLink href="https://zefix.ch/en/search/entity/list/firm/1637128">CHE-440.058.692</ExternalLink> Switzerland
               </p>
-              {config.env === Env.Production && (
+              {config.env !== Env.Production && (
                 <div className="flex gap-4 sm:gap-9">
                   {legalLinks.map((link, i) => (
                     <a key={link.text} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">
