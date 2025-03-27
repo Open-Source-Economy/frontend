@@ -42,31 +42,34 @@ export const pekkoCampaignDescription: CampaignDescription = {
   whyWeNeedYourHelp: {
     paragraph1: (
       <>
-        Apache Pekko is an independent open source project powered by volunteers in their free time.
+        Pekko's workload is too heavy for a voluntary effort.
         <br />
         <br />
-        To have a more robust and reliable software, we need:
+        We aim to deliver:
       </>
     ),
-    items: [{ text: "Improve the reliability of the cluster" }, { text: "Increase the number of maintainers" }, { text: "Improve the documentation" }],
-    paragraph2: "To make Pekko's reliability our top priority, we need your support.",
+    items: [
+      { text: "Stable, up-to-date, bug-free software" },
+      { text: "Support for the community" },
+      { text: "Development of new features" }
+    ],
+    paragraph2: "To make Pekko's our top priority, we need your help.",
   },
   useOfFunds: {
     paragraph1: "Your contribution will help us:",
     items: [
-      { text: "Having the equivalent of 4 full-time developers" },
-      { text: "Setting up dedicated hardware to reproduce and fix bugs effectively" },
-      {
-        text: (
-          <>
-            Addressing{" "}
-            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#FF518C] font-bold text-transparent bg-clip-text inline-block">
-              critical issues{" "}
-            </span>{" "}
-            (like Issue #578)
-          </>
-        ),
-      },
+      { text: "Having the equivalent of 2 full-time developers" },
+      { text: "Setting up dedicated testing hardware to reproduce and fix bugs effectively" },
+      // {
+      //   text: (
+      //     <>
+      //       Addressing{" "}
+      //       <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#FF518C] font-bold text-transparent bg-clip-text inline-block">
+      //         critical issues{" "}
+      //       </span>
+      //     </>
+      //   ),
+      // },
       { text: "Ongoing maintenance and keeping Pekko up-to-date" },
     ],
     paragraph2: (
@@ -74,12 +77,20 @@ export const pekkoCampaignDescription: CampaignDescription = {
         Distributed systems like Pekko are inherently complex.
         <br />
         Achieving consistent behavior, preventing cascading failures, and avoiding regressions requires specialized expertise and dedicated resources.
+
+        <br />
+        <br />
       </>
     ),
   },
   whyTrustUs: {
     paragraph1:
-      "We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to everyone.",
-    paragraph2: "We believe in transparency and accountability, and every dollar raised will go towards improving Pekko’s reliability.",
+    <>When Akka switched to a Business Source License (BSL), some developers said: "𝙽𝚘 𝚠𝚊𝚢!".
+      They decided to work tirelessly to keep Akka open source and available to everyone. This is how Pekko was born.
+      <br />
+      <br />
+      <> We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to everyone.</>
+    </>,
+    paragraph2: "We believe in transparency and accountability, and every dollar raised will go towards open source.",
   },
 };
