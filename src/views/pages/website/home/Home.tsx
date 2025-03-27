@@ -17,8 +17,8 @@ export function Home(props: HomeProps) {
         <div className="pt-[40px] lg:pt-[100px] max-[540px]:pt-12"></div>
         <Projects />
         <div className="mt-[130px] lg:mt-[230px]"></div>
-        <VideoSection />
-        <div className="mb-[30px] lg:mb-[200px]"> </div>
+        {/*<VideoSection />*/}
+        {/*<div className="mb-[30px] lg:mb-[200px]"> </div>*/}
       </div>
     </PageWrapper>
   );
