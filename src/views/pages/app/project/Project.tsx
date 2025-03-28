@@ -14,12 +14,16 @@ import { useProject } from "../../../hooks/useProject";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../Audience";
 import { paths } from "src/paths";
+import { getDescription } from "../../../../services/data/descriptions/pekkoDescription";
 
 interface ProjectProps {}
 
 export function Project(props: ProjectProps) {
   const { projectId } = useProjectContext();
   const { project, error, reloadProject } = useProject(projectId);
+
+  // TODO: to be refactored
+  const disclaimer = getDescription(projectId)?.disclaimer;
 
   useEffect(() => {
     reloadProject();
@@ -47,6 +51,13 @@ export function Project(props: ProjectProps) {
         </div>
         <WhyNeedFunding projectId={projectId} />
       </section>
+
+      {disclaimer && (
+        <div className="max-lg:px-4 flex flex-col items-center text-center text-white mb-40">
+          <p>{disclaimer}</p>
+        </div>
+      )}
+
     </PageWrapper>
   );
 }

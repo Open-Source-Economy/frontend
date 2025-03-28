@@ -100,5 +100,5 @@ export const pekkoCampaignDescription: CampaignDescription = {
       but aims to support development and testing work related to that project. <br />
       Apache Pekko will continue to be Free and Open Source Software.
     </>
-  ),
+  ), // TODO: refactor with Description component
 };
