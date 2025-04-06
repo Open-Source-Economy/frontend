@@ -51,7 +51,7 @@ export const Gateway = () => {
         >
           <div className="flex-col items-center max-[1279px]:flex max-[1200px]:text-center">
             <h1 className="font-mich text-nowrap text-[28px] font-[400] lg:text-[36px]">
-              <span className={`${textColorVariants[Audience.USER]}`}> Entreprise </span>
+              <span className={`${textColorVariants[Audience.USER]}`}> Enterprise </span>
             </h1>
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
               {" "}

@@ -26,7 +26,7 @@ export function FeaturesSection(props: FeaturesSectionProps) {
       delay: 0,
     },
     {
-      title: "Entreprise",
+      title: "Enterprise",
       audience: Audience.USER,
       description: (
         <>
