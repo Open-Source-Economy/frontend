@@ -46,13 +46,14 @@ const footerSections: FooterSection[] = [
       { text: "White Paper", href: paths.WHITE_PAPER, external: true },
       { text: "How it Works", href: paths.HOW_ITS_WORK },
       { text: "Blog", href: paths.BLOG, external: true },
+      { text: "Terms & Conditions", href: paths.TERMS_AND_CONDITIONS, external: true },
     ],
   },
 ];
 
 const legalLinks: FooterLink[] = [
   { text: "Privacy policy", href: paths.PRIVACY },
-  { text: "Terms & Conditions", href: paths.TERMS },
+  { text: "", href: paths.TERMS },
 ];
 
 export function Footer() {
@@ -199,15 +200,16 @@ export function Footer() {
                 © Open Source Economy - Non profit organisation -{" "}
                 <ExternalLink href="https://zefix.ch/en/search/entity/list/firm/1637128">CHE-440.058.692</ExternalLink> Switzerland
               </p>
-              {config.env !== Env.Production && (
-                <div className="flex gap-4 sm:gap-9">
-                  {legalLinks.map((link, i) => (
-                    <a key={link.text} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">
-                      {link.text}
-                    </a>
-                  ))}
-                </div>
-              )}
+              {/*This part is overridden by the button "Donate"*/}
+              {/*{config.env !== Env.Production && (*/}
+              {/*  <div className="flex gap-4 sm:gap-9">*/}
+              {/*    {legalLinks.map((link, i) => (*/}
+              {/*      <a key={link.text} href={link.href} className="text-xs sm:text-sm hover:underline transition-all duration-300">*/}
+              {/*        {link.text}*/}
+              {/*      </a>*/}
+              {/*    ))}*/}
+              {/*  </div>*/}
+              {/*)}*/}
             </div>
           </div>
         </div>

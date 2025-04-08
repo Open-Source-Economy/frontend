@@ -57,7 +57,6 @@ export function Project(props: ProjectProps) {
           <p>{disclaimer}</p>
         </div>
       )}
-
     </PageWrapper>
   );
 }

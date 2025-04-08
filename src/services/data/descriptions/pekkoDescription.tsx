@@ -13,7 +13,7 @@ const pekkoDescription: Description = {
       but aims to support development and testing work related to that project. <br />
       Apache Pekko will continue to be Free and Open Source Software.
     </>
-  )
+  ),
 };
 
 export function getDescription(projectId: ProjectId): Description | null {

@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 
-interface PdfProps {}
+interface PdfProps {
+  location: string;
+}
 
 export function Pdf(props: PdfProps) {
   useEffect(() => {
-    window.location.href = "/white-paper.pdf";
+    window.location.href = props.location;
   }, []);
 
   return null;

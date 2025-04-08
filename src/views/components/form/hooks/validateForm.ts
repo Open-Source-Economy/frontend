@@ -58,7 +58,7 @@ export function validateForm(type: AuthenticateType, data: FormData): FormValida
       email: isEmailValid,
       password: validatePassword(data.password),
       confirmPassword: data.password === data.confirmPassword,
-      terms: config.env === Env.Production ? true : data.termsChecked || false,
+      terms: data.termsChecked || false,
     };
   } else {
     return {

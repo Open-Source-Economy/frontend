@@ -217,12 +217,14 @@ export function Authenticate(props: AuthenticateProps) {
                 </div>
               )}
 
-              {config.env !== Env.Production && props.type === AuthenticateType.SignUp && (
-                <TermsAgreement
-                  checked={formData.termsChecked}
-                  setChecked={checked => setFormData({ ...formData, termsChecked: checked })}
-                  isValid={validation.terms}
-                />
+              {props.type === AuthenticateType.SignUp && (
+                <>
+                  <TermsAgreement
+                    checked={formData.termsChecked}
+                    setChecked={checked => setFormData({ ...formData, termsChecked: checked })}
+                    isValid={validation.terms}
+                  />
+                </>
               )}
 
               {!isGithubAccountPredefined && (

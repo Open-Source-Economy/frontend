@@ -56,7 +56,9 @@ const App = () => {
             <Route path={paths.USER} element={<CompanyProduct />} />
             <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
             <Route path={paths.PRICING} element={<Pricing />} />
-            <Route path={paths.WHITE_PAPER} element={<Pdf />} />
+
+            <Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />
+            <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
 
             <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
             <Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />

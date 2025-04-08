@@ -15,14 +15,15 @@ export function CustomCheckBox(props: CustomCheckBoxProps) {
         props.setChecked(!props.checked);
       }}
     >
-      {!props.isValid && (
-        <div className="absolute hidden group-hover:block -top-14 bg-[#FF595B] rounded-xl p-2 h-[48px] w-[280px] -left-6 text-xs">
-          You need to accept out Terms of Sale and Terms of use to create a Type form account.
-          <svg className="size-3 absolute -bottom-1 left-7" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="50,80 80,50 50,20 20,50" fill="#FF5252" style={{ transform: "scale(1.5)", transformOrigin: "center" }} />
-          </svg>
-        </div>
-      )}
+      {/*{!props.isValid && (*/}
+      {/*  <div className="absolute hidden group-hover:block -top-14 bg-[#FF595B] rounded-xl p-2 h-[48px] w-[280px] -left-6 text-xs">*/}
+      {/*    You need to accept the terms and conditions to proceed*/}
+      {/*    <svg className="size-3 absolute -bottom-1 left-7" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">*/}
+      {/*      <polygon points="50,80 80,50 50,20 20,50" fill="#FF5252" style={{ transform: "scale(1.5)", transformOrigin: "center" }} />*/}
+      {/*    </svg>*/}
+      {/*  </div>*/}
+      {/*)}*/}
+
       {props.checked && (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
           <path
