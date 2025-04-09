@@ -4,3 +4,4 @@ export * from "./authenticate";
 export * from "./manageIssue";
 export * from "./payment";
 export * from "./admin";
+export * from "./myPurchases";

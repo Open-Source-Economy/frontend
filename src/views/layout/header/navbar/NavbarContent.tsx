@@ -45,6 +45,7 @@ export function NavbarContent(props: AppNavbarProps) {
           Navigation.items.fundingHistory,
           DIVIDER,
           Navigation.items.orders,
+          Navigation.items.myPurchases,
           Navigation.items.billing,
           DIVIDER,
           Navigation.items.profile,
