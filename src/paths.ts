@@ -16,6 +16,7 @@ export const paths = {
   USER: "/user",
   WHITE_PAPER: "/white-paper",
   DASHBOARD: "/dashboard",
+  MY_PURCHASES: "/my-purchases",
   HOW_ITS_WORK: "/how-its-work",
   PRICING: "/pricing",
   VISION: "/vision",

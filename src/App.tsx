@@ -13,6 +13,7 @@ import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRi
 import { CompanyProduct } from "src/views/pages/app/companyProduct/CompanyProduct";
 import { Audience, Authenticate, AuthenticateType, AuthProvider, developerProps, FundIssue, Home, Issues, Payment, Pdf, UserDeveloper } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
+import { MyPurchases } from "./views/pages/app/myPurchases";
 import { Projects } from "./views/pages/app/projects/Projects";
 import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
@@ -100,6 +101,7 @@ const App = () => {
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
+              <Route path={paths.MY_PURCHASES} element={<MyPurchases />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

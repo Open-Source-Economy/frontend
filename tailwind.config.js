@@ -64,6 +64,7 @@ const config = {
         primaryBg: "#14233A",
         "theme-pink": "#ff518c",
         "theme-blue": "#14233A",
+        "theme-blue-dark": "#0e1f35",
         "theme-background": "#112237",
         "gradient-1": "#FF7E4B",
         "gradient-2": "#FF518C",
