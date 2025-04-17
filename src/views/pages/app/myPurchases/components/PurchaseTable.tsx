@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Purchase } from "../types";
 import { InvoiceIcon } from "src/Utils/Icons";
+import { parse } from "date-fns";
 
 interface PurchaseTableProps {
   purchases: Purchase[];
@@ -124,11 +125,30 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
 
     // Handle string comparison
     if (typeof aValue === "string" && typeof bValue === "string") {
-      // For date strings, try to convert to Date objects for comparison
+      // For date strings, use date-fns for robust parsing
       if (sortColumn === "date") {
-        const aDate = new Date(aValue);
-        const bDate = new Date(bValue);
-        return sortDirection === "asc" ? aDate.getTime() - bDate.getTime() : bDate.getTime() - aDate.getTime();
+        // Attempt to parse the date string using the format 'dd/MM/yyyy' based on mock data.
+        const aDate = parse(aValue, "dd/MM/yyyy", new Date());
+        const bDate = parse(bValue, "dd/MM/yyyy", new Date());
+
+        // Check if dates are valid after parsing
+        if (!isNaN(aDate.getTime()) && !isNaN(bDate.getTime())) {
+          return sortDirection === "asc" ? aDate.getTime() - bDate.getTime() : bDate.getTime() - aDate.getTime();
+        } else {
+          // Fallback to string comparison if parsing fails
+          console.warn("Failed to parse date strings for sorting, falling back to string comparison:", aValue, bValue);
+          return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        }
+      }
+
+      // For serviceCredit strings, try to extract numeric values
+      if (sortColumn === "serviceCredit") {
+        const aNum = parseInt(aValue.replace(/[^0-9]+/g, ""), 10);
+        const bNum = parseInt(bValue.replace(/[^0-9]+/g, ""), 10);
+
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          return sortDirection === "asc" ? aNum - bNum : bNum - aNum;
+        }
       }
 
       // For price strings, try to extract numeric values
