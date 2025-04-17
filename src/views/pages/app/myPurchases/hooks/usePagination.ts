@@ -23,24 +23,24 @@ export function usePagination({ totalItems, itemsPerPage, initialPage = 1 }: Use
     });
   };
 
-  const handleCurrentPage = (page: number) => {
+  const handleSetCurrentPage = (page: number) => {
+    setTimeout(() => scrollToTop(), 0);
     setCurrentPage(page);
-    scrollToTop();
   };
 
   const handlePageChange = (page: number) => {
-    handleCurrentPage(page);
+    handleSetCurrentPage(page);
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      handleCurrentPage(currentPage - 1);
+      handleSetCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      handleCurrentPage(currentPage + 1);
+      handleSetCurrentPage(currentPage + 1);
     }
   };
 

@@ -195,7 +195,10 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
               key={purchase.id}
               className={`block p-4 rounded-xl transition-all outline outline-2 outline-transparent hover:outline-theme-pink bg-theme-blue hover:shadow-[0px_0px_50px_rgba(255,81,140,0.43)] border border-white/10 hover:border-white/0
               `}
-              onClick={() => onPurchaseClick(purchase.id)}
+              onClick={e => {
+                e.preventDefault(); // Prevent default anchor behavior (scrolling)
+                onPurchaseClick(purchase.id);
+              }}
             >
               <div className="grid grid-cols-2 gap-2 text-white">
                 <div className="text-white/60">Date:</div>
