@@ -3,15 +3,18 @@ import type { Purchase } from "../types";
 import { InvoiceIcon } from "src/Utils/Icons";
 import { parse } from "date-fns";
 
+export type SortDirection = "asc" | "desc" | null;
+export type SortableColumn = "date" | "serviceCredit" | "price" | "plan" | null;
+
 interface PurchaseTableProps {
   purchases: Purchase[];
   selectedPurchaseId: number | null;
   onPurchaseClick: (id: number) => void;
   isLoading: boolean; // Add isLoading prop
+  sortColumn: SortableColumn;
+  sortDirection: SortDirection;
+  onSort: (column: SortableColumn) => void;
 }
-
-type SortDirection = "asc" | "desc" | null;
-type SortableColumn = "date" | "serviceCredit" | "price" | "plan" | null;
 
 interface TableHeaderProps {
   sortColumn: SortableColumn;
@@ -116,7 +119,7 @@ const TableRow = ({
   );
 };
 
-export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, isLoading }: PurchaseTableProps) {
+export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, isLoading, sortColumn, sortDirection, onSort }: PurchaseTableProps) {
   // Show loading state whenever isLoading is true
   const [isMobileView, setIsMobileView] = useState(false);
 
@@ -135,73 +138,7 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, 
     // Clean up
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
-  const [sortColumn, setSortColumn] = useState<SortableColumn>("date");
-  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
-  const handleSort = (column: SortableColumn) => {
-    if (column === null) return;
-
-    if (sortColumn === column) {
-      // Toggle direction if same column is clicked
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      // Set new column and default to descending
-      setSortColumn(column);
-      setSortDirection("desc");
-    }
-  };
-
-  // Sort purchases based on current sort column and direction
-  const sortedPurchases = [...purchases].sort((a, b) => {
-    if (sortColumn === null) return 0;
-
-    const aValue = a[sortColumn];
-    const bValue = b[sortColumn];
-
-    // Handle string comparison
-    if (typeof aValue === "string" && typeof bValue === "string") {
-      // For date strings, use date-fns for robust parsing
-      if (sortColumn === "date") {
-        // Attempt to parse the date string using the format 'dd/MM/yyyy' based on mock data.
-        const aDate = parse(aValue, "dd/MM/yyyy", new Date());
-        const bDate = parse(bValue, "dd/MM/yyyy", new Date());
-
-        // Check if dates are valid after parsing
-        if (!isNaN(aDate.getTime()) && !isNaN(bDate.getTime())) {
-          return sortDirection === "asc" ? aDate.getTime() - bDate.getTime() : bDate.getTime() - aDate.getTime();
-        } else {
-          // Fallback to string comparison if parsing fails
-          console.warn("Failed to parse date strings for sorting, falling back to string comparison:", aValue, bValue);
-          return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        }
-      }
-
-      // For serviceCredit strings, try to extract numeric values
-      if (sortColumn === "serviceCredit") {
-        const aNum = parseInt(aValue.replace(/[^0-9]+/g, ""), 10);
-        const bNum = parseInt(bValue.replace(/[^0-9]+/g, ""), 10);
-
-        if (!isNaN(aNum) && !isNaN(bNum)) {
-          return sortDirection === "asc" ? aNum - bNum : bNum - aNum;
-        }
-      }
-
-      // For price strings, try to extract numeric values
-      if (sortColumn === "price") {
-        const aNum = parseFloat(aValue.replace(/[^0-9.-]+/g, ""));
-        const bNum = parseFloat(bValue.replace(/[^0-9.-]+/g, ""));
-
-        if (!isNaN(aNum) && !isNaN(bNum)) {
-          return sortDirection === "asc" ? aNum - bNum : bNum - aNum;
-        }
-      }
-
-      // Default string comparison
-      return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-    }
-
-    return 0;
-  });
   return (
     <div className="bg-theme-blue rounded-[25px] overflow-hidden mb-8 max-md:p-3 md:px-10 md:pt-[10px] md:pb-[28px]">
       {isLoading ? (
@@ -209,7 +146,7 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, 
         !isMobileView ? (
           // Desktop skeleton
           <table className="w-full border-collapse text-white max-md:hidden md:table">
-            <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={handleSort} />
+            <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={onSort} />
             <tbody>
               {[...Array(5)].map((_, i) => (
                 <SkeletonTableRow key={i} isLast={i === 4} />
@@ -228,9 +165,9 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, 
       !isMobileView ? (
         // Desktop view - standard table
         <table className="w-full border-collapse text-white max-md:hidden md:table">
-          <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={handleSort} />
+          <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={onSort} />
           <tbody>
-            {sortedPurchases.map((purchase, i) => (
+            {purchases.map((purchase, i) => (
               <TableRow
                 key={purchase.id}
                 isLast={i === purchases.length - 1}
@@ -245,7 +182,7 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, 
       ) : (
         // Mobile view - card style layout
         <div className="md:hidden grid gap-4">
-          {sortedPurchases.map((purchase, i) => (
+          {purchases.map((purchase, i) => (
             <a
               href="#"
               key={purchase.id}
