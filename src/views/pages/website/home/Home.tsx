@@ -1,7 +1,7 @@
 import { PageWrapper } from "../../PageWrapper";
 
 import React from "react";
-import { DigIntoDetails, Gateway, HeroSection, Projects, VideoSection } from "src/views/pages/website/home/elements";
+import { DigIntoDetails, Gateway, HeroSection, Projects } from "src/views/pages/website/home/elements";
 import { config, Env } from "src/ultils";
 
 interface HomeProps {}

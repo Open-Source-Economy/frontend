@@ -1,5 +1,6 @@
 import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/Utils/Icons";
 import { ServiceType } from "../../../../api/model";
+import { serviceLabels } from "../../../../i18n";
 
 type ServiceDetails = {
   title: string;
@@ -10,31 +11,27 @@ type ServiceDetails = {
 
 export const displayedServices: Record<ServiceType, ServiceDetails> = {
   [ServiceType.SUPPORT]: {
-    title: "Enterprise Support",
+    title: serviceLabels[ServiceType.SUPPORT].title,
     icon: <SupportIcon />,
-    items: ["Customer Support", "Technical Support", "Deployment Support"],
-    // buttonText: "Tap into the deepest expertise",
+    items: Object.values(serviceLabels[ServiceType.SUPPORT].subService),
     buttonText: "Get Expert Support",
   },
   [ServiceType.DEVELOPMENT]: {
-    title: "OSS Development",
+    title: serviceLabels[ServiceType.DEVELOPMENT].title,
     icon: <OssDevelopmentIcon />,
-    items: ["Bug Fixes", "New Features", "Maintenance"],
-    // buttonText: "Get tailored solutions.",
+    items: Object.values(serviceLabels[ServiceType.DEVELOPMENT].subService),
     buttonText: "Accelerate Development",
   },
   [ServiceType.OPERATION]: {
-    title: "Operations",
+    title: serviceLabels[ServiceType.OPERATION].title,
     icon: <OperationIcon />,
-    items: ["Incident Support", "Maintenance", "Supervision"],
-    // buttonText: "We take full responsibility.",
+    items: Object.values(serviceLabels[ServiceType.OPERATION].subService),
     buttonText: "Strengthen Your Operations",
   },
   [ServiceType.ADVISORY]: {
-    title: "Consultancy",
+    title: serviceLabels[ServiceType.ADVISORY].title,
     icon: <AdvisoryIcon />,
-    items: ["Training and Workshops", "Technology Assessment", "Solution Design"],
-    // buttonText: "Access to the state-of-the-art.",
+    items: Object.values(serviceLabels[ServiceType.ADVISORY].subService),
     buttonText: "Shape Your Strategy",
   },
 };

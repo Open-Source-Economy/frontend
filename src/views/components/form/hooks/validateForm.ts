@@ -1,6 +1,5 @@
 import { AuthenticateType } from "../../../index";
 import isEqual from "lodash/isEqual";
-import { config, Env } from "src/ultils";
 
 export interface FormData {
   email: string;

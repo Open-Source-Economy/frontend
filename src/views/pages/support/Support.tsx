@@ -4,17 +4,21 @@ import { Button, FormEntry } from "src/views/components";
 import { BaseInput } from "src/views/components/form/frames/BaseInput";
 import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
-import FileUpload from "./FileUpload";
-import IsUpgraded from "./IsUpgraded";
+import FileUpload from "./elements/FileUpload";
+import { NeedUpgradePopIn } from "./elements";
 import { SelectFilter } from "./SelectFilter";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { ServicePriority, ServiceType } from "src/api/model";
+import { getSubServiceOptions } from "../../../services/data/services/getServices";
+import { DropdownOption } from "../../../model";
 
 export function Support() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
   const [subject, setSubject] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [githubDiscussionUrl, setGithubDiscussionUrl] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedSeverity, setSelectedSeverity] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -37,10 +41,10 @@ export function Support() {
   ];
 
   const severityOptions = [
-    { value: Priority.LOW, label: "Low" },
-    { value: Priority.MEDIUM, label: "Medium" },
-    { value: Priority.HIGH, label: "High" },
-    { value: Priority.CRITICAL, label: "Critical" },
+    { value: ServicePriority.LOW, label: "Low" },
+    { value: ServicePriority.MEDIUM, label: "Medium" },
+    { value: ServicePriority.HIGH, label: "High" },
+    { value: ServicePriority.CRITICAL, label: "Critical" },
   ];
 
   // Update subcategory options when category changes
@@ -191,7 +195,7 @@ export function Support() {
 
                 <ToggleSwitch onToggle={setIsPublic} bgSwitchColor="bg-[#FF518C]" />
               </div>
-              <IsUpgraded position="!mt-2.5" />
+              <NeedUpgradePopIn position="!mt-2.5" />
             </div>
           </div>
           <FileUpload />

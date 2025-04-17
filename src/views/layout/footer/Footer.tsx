@@ -12,7 +12,6 @@ import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, Newslett
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
-import { config, Env } from "../../../ultils";
 import { ExternalLink } from "../../components";
 import { Link } from "react-router-dom";
 

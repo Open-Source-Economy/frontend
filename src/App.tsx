@@ -43,14 +43,12 @@ const App = () => {
               <Route path="/blog" element={<MdConversion />} />
               <Route path="/who-built-it" element={<CompanyProduct />} />
               <Route path="/buy-dows" element={<Payment />} />
+
+              <Route path={`/support`} element={<Support />} />
+              <Route path={`/support-ticket`} element={<SupportCreateTicket />} />
             </Route>
 
             <Route path={paths.HOME} element={<Home />} />
-            <Route element={<IssueRoutes />}>
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
-            </Route>
-
             <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
             {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
             <Route path={paths.USER} element={<CompanyProduct />} />

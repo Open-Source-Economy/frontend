@@ -3,8 +3,8 @@ import { useAuth } from "../app";
 import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/views/hooks";
 import { useIssueContext } from "src/views/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
-import { credit, CreditUnit } from "src/model";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { credit, CreditUnit, DropdownOption } from "src/model";
+import { ServicePriority, ServiceType } from "src/api/model";
 import { Header } from "src/views/layout";
 import { SelectFilter } from "./SelectFilter";
 import * as components from "src/views/components/issue/index";
@@ -13,6 +13,7 @@ import { Button, FormEntry } from "src/views/components";
 import Decimal from "decimal.js";
 import { BaseInput } from "src/views/components/form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/Utils/Icons";
+import { getSubServiceOptions } from "../../../services/data/services/getServices";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");
@@ -53,10 +54,10 @@ const SupportCreateTicket = () => {
     { value: ServiceType.ADVISORY, label: "Consultancy" },
   ];
   const severityOptions = [
-    { value: Priority.LOW, label: "Low" },
-    { value: Priority.MEDIUM, label: "Medium" },
-    { value: Priority.HIGH, label: "High" },
-    { value: Priority.CRITICAL, label: "Critical" },
+    { value: ServicePriority.LOW, label: "Low" },
+    { value: ServicePriority.MEDIUM, label: "Medium" },
+    { value: ServicePriority.HIGH, label: "High" },
+    { value: ServicePriority.CRITICAL, label: "Critical" },
   ];
 
   // Update subcategory options when category changes

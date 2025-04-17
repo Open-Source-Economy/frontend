@@ -3,8 +3,8 @@ import { Check, CrownIcon } from "lucide-react";
 import * as React from "react";
 import { ToolTipIcon } from "src/Utils/Icons";
 import { cn } from "src/views/components";
-import IsUpgraded from "./IsUpgraded";
-import { DropdownOption } from "../../../api/model";
+import { NeedUpgradePopIn } from "./elements";
+import { DropdownOption } from "../../../model";
 
 interface SelectFilterProps {
   ariaLabel: string;
@@ -157,7 +157,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
         )}
       </div>
 
-      {isUpgraded && <IsUpgraded />}
+      {isUpgraded && <NeedUpgradePopIn />}
     </div>
   );
 }
