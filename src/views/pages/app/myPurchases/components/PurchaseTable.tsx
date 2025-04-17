@@ -7,6 +7,7 @@ interface PurchaseTableProps {
   purchases: Purchase[];
   selectedPurchaseId: number | null;
   onPurchaseClick: (id: number) => void;
+  isLoading: boolean; // Add isLoading prop
 }
 
 type SortDirection = "asc" | "desc" | null;
@@ -45,6 +46,39 @@ const TableHeader = ({ sortColumn, sortDirection, onSort }: TableHeaderProps) =>
 const getCommonCellClasses = (isLast: boolean, isFirst: boolean) =>
   `transition-all font-semibold p-[24px] ${!isLast ? "border-b-[0.5px] border-white/10" : ""}`;
 
+// Skeleton component for table row
+const SkeletonTableRow = ({ isLast }: { isLast: boolean }) => {
+  const cellClasses = getCommonCellClasses(isLast, false);
+  return (
+    <tr className="animate-pulse">
+      {[...Array(4)].map((_, index) => (
+        <td key={index} className={cellClasses + " " + (index === 0 ? "text-left" : "text-center")}>
+          <div className="h-4 bg-gray-600 rounded w-3/4"></div>
+        </td>
+      ))}
+      <td className={cellClasses + ""}>
+        <div className="flex w-full justify-end items-center">
+          <div className="h-6 w-6 bg-gray-600 rounded"></div>
+        </div>
+      </td>
+    </tr>
+  );
+};
+
+// Skeleton component for mobile card
+const SkeletonMobileCard = () => (
+  <div className="block p-4 rounded-xl bg-theme-blue border border-white/10 animate-pulse">
+    <div className="grid grid-cols-2 gap-2 text-white">
+      {[...Array(4)].map((_, i) => (
+        <React.Fragment key={i}>
+          <div className="text-white/60 h-4 bg-gray-600 rounded w-1/2"></div>
+          <div className="font-semibold h-4 bg-gray-600 rounded w-3/4"></div>
+        </React.Fragment>
+      ))}
+    </div>
+  </div>
+);
+
 const TableRow = ({
   purchase,
   isSelected,
@@ -82,7 +116,8 @@ const TableRow = ({
   );
 };
 
-export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }: PurchaseTableProps) {
+export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick, isLoading }: PurchaseTableProps) {
+  // Show loading state whenever isLoading is true
   const [isMobileView, setIsMobileView] = useState(false);
 
   // Check if screen is mobile size on mount and when window resizes
@@ -169,7 +204,28 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
   });
   return (
     <div className="bg-theme-blue rounded-[25px] overflow-hidden mb-8 max-md:p-3 md:px-10 md:pt-[10px] md:pb-[28px]">
-      {!isMobileView ? (
+      {isLoading ? (
+        // Show loading state for both desktop and mobile
+        !isMobileView ? (
+          // Desktop skeleton
+          <table className="w-full border-collapse text-white max-md:hidden md:table">
+            <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={handleSort} />
+            <tbody>
+              {[...Array(5)].map((_, i) => (
+                <SkeletonTableRow key={i} isLast={i === 4} />
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          // Mobile skeleton
+          <div className="md:hidden grid gap-4">
+            {[...Array(5)].map((_, i) => (
+              <SkeletonMobileCard key={i} />
+            ))}
+          </div>
+        )
+      ) : // Show actual data when not loading
+      !isMobileView ? (
         // Desktop view - standard table
         <table className="w-full border-collapse text-white max-md:hidden md:table">
           <TableHeader sortColumn={sortColumn} sortDirection={sortDirection} onSort={handleSort} />
@@ -193,8 +249,7 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
             <a
               href="#"
               key={purchase.id}
-              className={`block p-4 rounded-xl transition-all outline outline-2 outline-transparent hover:outline-theme-pink bg-theme-blue hover:shadow-[0px_0px_50px_rgba(255,81,140,0.43)] border border-white/10 hover:border-white/0
-              `}
+              className={`block p-4 rounded-xl transition-all outline outline-2 outline-transparent hover:outline-theme-pink bg-theme-blue hover:shadow-[0px_0px_50px_rgba(255,81,140,0.43)] border border-white/10 hover:border-white/0`}
               onClick={e => {
                 e.preventDefault(); // Prevent default anchor behavior (scrolling)
                 onPurchaseClick(purchase.id);
@@ -212,13 +267,6 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
 
                 <div className="text-white/60">Plan:</div>
                 <div className="font-semibold">{purchase.plan}</div>
-
-                {/* <div className="text-white/60">Invoice:</div> */}
-                {/* <div className="flex justify-end col-span-2">
-                  <a href="#" className="text-left">
-                    <InvoiceIcon />
-                  </a>
-                </div> */}
               </div>
             </a>
           ))}
