@@ -168,7 +168,7 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
     return 0;
   });
   return (
-    <div className="bg-theme-blue rounded-[25px] overflow-hidden mb-8 max-sm:p-3 md:px-10 md:pt-[10px] md:pb-[28px]">
+    <div className="bg-theme-blue rounded-[25px] overflow-hidden mb-8 max-md:p-3 md:px-10 md:pt-[10px] md:pb-[28px]">
       {!isMobileView ? (
         // Desktop view - standard table
         <table className="w-full border-collapse text-white max-md:hidden md:table">
@@ -188,15 +188,13 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
         </table>
       ) : (
         // Mobile view - card style layout
-        <div className="md:hidden">
+        <div className="md:hidden grid gap-4">
           {sortedPurchases.map((purchase, i) => (
-            <div
+            <a
+              href="#"
               key={purchase.id}
-              className={`mb-4 p-4 rounded-xl transition-all ${
-                selectedPurchaseId === purchase.id
-                  ? "outline outline-2 outline-theme-pink bg-theme-blue shadow-[0px_0px_50px_rgba(255,81,140,0.43)]"
-                  : "border border-white/10"
-              }`}
+              className={`block p-4 rounded-xl transition-all outline outline-2 outline-transparent hover:outline-theme-pink bg-theme-blue hover:shadow-[0px_0px_50px_rgba(255,81,140,0.43)] border border-white/10 hover:border-white/0
+              `}
               onClick={() => onPurchaseClick(purchase.id)}
             >
               <div className="grid grid-cols-2 gap-2 text-white">
@@ -213,13 +211,13 @@ export function PurchaseTable({ purchases, selectedPurchaseId, onPurchaseClick }
                 <div className="font-semibold">{purchase.plan}</div>
 
                 {/* <div className="text-white/60">Invoice:</div> */}
-                <div className="flex justify-end col-span-2">
+                {/* <div className="flex justify-end col-span-2">
                   <a href="#" className="text-left">
                     <InvoiceIcon />
                   </a>
-                </div>
+                </div> */}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       )}
