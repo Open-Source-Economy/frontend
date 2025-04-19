@@ -5,6 +5,7 @@ import {
   FundIssueIcon,
   FundungHistoryIcon,
   HowItWorksIcon,
+  InvoiceIcon,
   LogOutIcon,
   MaintainerIcon,
   OrderIcon,
@@ -31,7 +32,7 @@ export class NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     this.title = title;
     this.icon = options.icon;
@@ -53,7 +54,7 @@ export class LinkItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.to = to;
@@ -72,7 +73,7 @@ export class ExternalLinkItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.href = href;
@@ -91,7 +92,7 @@ export class ButtonItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.onClick = onClick;
@@ -133,6 +134,9 @@ export class Navigation {
     }),
     orders: new LinkItemData("Orders", "/orders", {
       icon: <OrderIcon />,
+    }),
+    myPurchases: new LinkItemData("My Purchases", paths.MY_PURCHASES, {
+      icon: <InvoiceIcon />,
     }),
     billing: new LinkItemData("Billing", "/billing", {
       icon: <BillingIcon />,

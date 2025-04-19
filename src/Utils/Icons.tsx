@@ -1680,3 +1680,44 @@ export const PaymentScheduleIcon = () => (
     />
   </svg>
 );
+
+export const InvoiceIcon = () => {
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="group w-9 h-9">
+      <defs>
+        <linearGradient id="gradientInvoice" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FF7E4B" />
+          <stop offset="50%" stopColor="#FF518C" />
+          <stop offset="100%" stopColor="#66319B" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M6.66602 31.075V13.4225C6.66602 8.66578 6.66602 6.28745 8.13048 4.80975C9.59495 3.33203 11.952 3.33203 16.666 3.33203H23.3327C28.0467 3.33203 30.4037 3.33203 31.8682 4.80975C33.3327 6.28745 33.3327 8.66578 33.3327 13.4225V31.075C33.3327 33.5945 33.3327 34.8542 32.5627 35.35C31.3045 36.1605 29.3595 34.461 28.3812 33.8442C27.5728 33.3344 27.1688 33.0795 26.7202 33.0649C26.2355 33.0489 25.8242 33.2934 24.9508 33.8442L21.766 35.8527C20.9068 36.3944 20.4773 36.6654 19.9993 36.6654C19.5213 36.6654 19.0918 36.3944 18.2327 35.8527L15.0479 33.8442C14.2396 33.3344 13.8354 33.0795 13.3869 33.0649C12.9022 33.0489 12.4909 33.2934 11.6175 33.8442C10.6393 34.461 8.69413 36.1605 7.43593 35.35C6.66602 34.8542 6.66602 33.5945 6.66602 31.075Z"
+        className="stroke-white duration-200 group-hover:stroke-[#FF518C]"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M26.6673 10H13.334"
+        className="stroke-white duration-200 group-hover:stroke-[#FF518C]"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16.6673 16.668H13.334"
+        className="stroke-white duration-200 group-hover:stroke-[#FF518C]"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M24.166 16.4583C22.7853 16.4583 21.666 17.4377 21.666 18.6458C21.666 19.854 22.7853 20.8333 24.166 20.8333C25.5467 20.8333 26.666 21.8127 26.666 23.0208C26.666 24.229 25.5467 25.2083 24.166 25.2083M24.166 16.4583C25.2545 16.4583 26.1805 17.067 26.5237 17.9167M24.166 16.4583V15M24.166 25.2083C23.0775 25.2083 22.1515 24.5997 21.8083 23.75M24.166 25.2083V26.6667"
+        className="stroke-white duration-200 group-hover:stroke-[#FF518C]"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
