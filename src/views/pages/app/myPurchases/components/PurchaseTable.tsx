@@ -55,13 +55,15 @@ const SkeletonTableRow = ({ isLast }: { isLast: boolean }) => {
   return (
     <tr className="animate-pulse">
       {[...Array(4)].map((_, index) => (
-        <td key={index} className={cellClasses + " " + (index === 0 ? "text-left" : "text-center")}>
-          <div className="h-4 bg-gray-600 rounded w-3/4"></div>
+        <td key={index} className={cellClasses}>
+          <div className={`flex ${index === 0 ? "justify-start" : "justify-center"} items-center`}>
+            <div className={`h-4 bg-gray-600 rounded ${index === 0 ? "w-32" : "w-20"}`}></div>
+          </div>
         </td>
       ))}
       <td className={cellClasses + ""}>
         <div className="flex w-full justify-end items-center">
-          <div className="h-6 w-6 bg-gray-600 rounded"></div>
+          <div className="h-8 w-8 bg-gray-600 rounded"></div>
         </div>
       </td>
     </tr>
