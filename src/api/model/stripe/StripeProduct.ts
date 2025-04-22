@@ -87,7 +87,7 @@ export const productTypeUtils = {
       case ProductType.START_UP_PLAN:
         return 2 * 60;
       case ProductType.SCALE_UP_PLAN:
-        return 5 * 60;
+        return 4 * 60;
       case ProductType.ENTERPRISE_PLAN:
         return 10 * 60;
       default:

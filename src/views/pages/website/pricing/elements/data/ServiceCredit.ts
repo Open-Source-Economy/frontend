@@ -53,7 +53,6 @@ function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDeta
         [PlanProductType.ENTERPRISE_PLAN]: "Priority+ support with 1 business days response time",
       }[planProductType],
       included: true,
-      soon: true,
     },
     {
       name: "Deployment Guidance",
@@ -64,7 +63,6 @@ function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDeta
         [PlanProductType.SCALE_UP_PLAN]: true,
         [PlanProductType.ENTERPRISE_PLAN]: true,
       }[planProductType],
-      soon: true,
     },
     {
       name: "Expert Consultancy",
@@ -75,7 +73,6 @@ function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDeta
         [PlanProductType.SCALE_UP_PLAN]: false,
         [PlanProductType.ENTERPRISE_PLAN]: true,
       }[planProductType],
-      soon: true,
     },
     {
       name: "24/7 Supervision",
