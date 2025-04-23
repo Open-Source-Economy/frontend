@@ -10,6 +10,7 @@ import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
 import { getSponsors } from "../services/data/sponsors";
 import { SponsorDescription } from "../model";
+import { getProjectAccordion } from "./data/accordions/getAccordions";
 
 export function getBackendAPI(): BackendAPI {
   if (config.api.useMock) {
@@ -56,6 +57,8 @@ export interface BackendAPI {
   getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError>;
 
   getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
+
+  getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError>;
 
   getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError>;
 
@@ -164,6 +167,10 @@ class BackendAPIImpl implements BackendAPI {
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
+  }
+
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError> {
+    return getProjectAccordion(params.owner, params.repo);
   }
 
   async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {

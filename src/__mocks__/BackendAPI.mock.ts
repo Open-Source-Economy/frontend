@@ -28,6 +28,7 @@ import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
 import { getSponsors } from "../services/data/sponsors";
 import { SponsorDescription } from "../model";
+import { getProjectAccordion } from "../services/data/accordions/getAccordions";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -105,6 +106,10 @@ export class BackendAPIMock implements BackendAPI {
     } else {
       return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
+  }
+
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError> {
+    return getProjectAccordion(params.owner, params.repo);
   }
 
   async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {

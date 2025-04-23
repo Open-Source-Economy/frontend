@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
-import { Button, DividerTitle } from "src/views/components";
+import { Button, DividerTitle, H3WithSubtitle } from "src/views/components";
 import { useMaintainers } from "../../../../hooks";
 import { ProjectId } from "src/api/model";
 
@@ -39,7 +39,10 @@ export function Maintainers(props: MaintainersProps) {
           className="absolute max-w-[670px] w-full z-0 pointer-events-none left-[-10%] opacity-70 -top-[15%] xl:-top-[26%] "
         />
 
-        <DividerTitle title="Who are We?" />
+        <div className="lg:!pb-8 mb-6 md:mb-8 lg:mb-10 3xl:mb-14">
+          <H3WithSubtitle title="Who are We?" subtitle="We're the experts who build, debug, and maintain it" divider={true} />
+          {/*<DividerTitle title="Who are We?"/>*/}
+        </div>
 
         <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
           {/* Participants List */}

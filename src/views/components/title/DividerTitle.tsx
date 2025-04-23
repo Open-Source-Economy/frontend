@@ -2,6 +2,7 @@ import React from "react";
 
 interface DividerTitleProps {
   title: string;
+  subtitle?: string;
 }
 
 export function DividerTitle(props: DividerTitleProps) {

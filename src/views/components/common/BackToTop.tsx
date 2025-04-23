@@ -38,14 +38,17 @@ export const BackToTop = () => {
   // };
 
   return (
+    // SCROLL TO TOP WHEN CLICKED
     // <button
-    //   onClick={scrollTopHandler} // SCROLL TO TOP WHEN CLICKED
+    //   onClick={scrollTopHandler}
     //   className={`fixed bottom-[2%] right-[2%] z-50 bg-gloomy flex h-10 w-10 items-center shadow-off-white justify-center overflow-hidden rounded-full hover:bg-gloomy transition-all duration-500 large:right-[calc((100vw-1900px)/2)] border border-white ${
     //     showScrollTop ? "translate-y-0 scale-100" : "translate-y-[40px] scale-0"
     //   }`}
     // >
     //   <img src={backToTop} alt="BackToTop" />
     // </button>
+
+    // Donate button
     <div className="fixed bottom-[2%] right-[2%] z-[888]">
       <Button audience={"ALL"} level={"PRIMARY"} size={"LARGE"} className={`!capitalize`} asChild>
         {/*Link does not load*/}

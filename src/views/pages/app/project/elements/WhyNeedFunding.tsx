@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import faqImage from "src/assets/faq.webp";
 import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/views/components";
-import { faqData } from "../../companyProduct/elements/Helper";
 import { Link } from "react-router-dom";
 import { ProjectId } from "../../../../../api/model";
 import { paths } from "src/paths";
+import { useAccordion } from "../../../../hooks/useAccordion";
 
 interface WhyNeedFundingProps {
   projectId: ProjectId;
@@ -14,6 +14,12 @@ interface WhyNeedFundingProps {
 
 export function WhyNeedFunding(props: WhyNeedFundingProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const { accordionRes, isLoading, error, reloadAccordion } = useAccordion(props.projectId);
+
+  useEffect(() => {
+    reloadAccordion();
+  }, []);
 
   const handleToggle = (index: number): void => {
     setOpenIndex(openIndex === index ? null : index);
@@ -33,21 +39,34 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
         {/* Right side - FAQ */}
         <div className="w-full max-w-[685px] 3xl:max-w-[858px]">
           <h2 className="section-heading text-center lg:!text-left xl:!pb-8 lg:w-fit relative !mb-9">
-            Why do we Need Funding?
+            {accordionRes?.title}
             <span className="absolute w-[34%] h-[6px] hidden xl:block bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] bottom-0"></span>
           </h2>
 
           <div className="space-y-4 w-full">
-            {faqData.map((faq, index) => (
-              <FaqItem key={index} faq={faq} canOpen={false} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
+            {accordionRes?.items.map((item, index) => (
+              <FaqItem key={index} faq={item} canOpen={true} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
             ))}
           </div>
 
           <div className="relative !mt-7 lg:!mt-9 flex justify-center w-full lg:justify-start items-center">
             {/*TODO: cursor-pointer should be by default in button. Add it on Button, remove it here are every where else*/}
-            <Button audience="ALL" className="cursor-pointer" level="PRIMARY" size="LARGE" asChild>
-              <Link to={paths.campaign(props.projectId)}>Donate</Link>
-            </Button>
+            {accordionRes?.donationButton && (
+              <Button
+                audience="ALL"
+                className={`cursor-pointer !capitalize ! ${accordionRes?.buyServicesButton ? "mr-4" : ""}`}
+                level="SECONDARY"
+                size="LARGE"
+                asChild
+              >
+                <Link to={paths.campaign(props.projectId)}>Donate</Link>
+              </Button>
+            )}
+            {accordionRes?.buyServicesButton && (
+              <Button audience="ALL" className="cursor-pointer !capitalize" level="PRIMARY" size="LARGE" asChild>
+                <Link to={paths.PRICING}>Get Hourly Credits</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>

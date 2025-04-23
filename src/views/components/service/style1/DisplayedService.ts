@@ -28,7 +28,7 @@ export const displayedServices: Record<ServiceType, DisplayedService> = {
   },
   [ServiceType.OPERATION]: {
     title: "Operations",
-    features: [{ name: "Incident Response" }, { name: "Proactive Maintenance" }, { name: "24/7 Supervision" }],
+    features: [{ name: "Incident Response" }, { name: "Proactive Monitoring" }, { name: "24/7 Supervision" }],
     img: operation,
   },
   [ServiceType.ADVISORY]: {

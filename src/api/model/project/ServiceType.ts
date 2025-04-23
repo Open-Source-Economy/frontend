@@ -28,7 +28,7 @@ export enum DevelopmentSubServiceType {
 
 export enum OperationSubServiceType {
   INCIDENT_RESPONSE = "Incident Response",
-  PROACTIVE_MAINTENANCE = "Proactive Maintenance",
+  PROACTIVE_MAINTENANCE = "Proactive Monitoring",
   SUPERVISION = "24/7 Supervision",
 }
 
@@ -87,7 +87,7 @@ export function getSubServiceOptions(serviceType: string): DropdownOption[] {
         },
         {
           value: OperationSubServiceType.PROACTIVE_MAINTENANCE,
-          label: "Proactive Maintenance",
+          label: "Proactive Monitoring",
         },
         {
           value: OperationSubServiceType.SUPERVISION,

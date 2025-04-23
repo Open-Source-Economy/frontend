@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import { ProjectId, RepositoryId } from "../../../api/model";
 
-interface Description {
+interface Disclaimer {
   disclaimer?: ReactNode;
 }
 
 // TODO: refactor with pekkoCampaignDescription.disclaimer
-const pekkoDescription: Description = {
+const pekkoDisclaimer: Disclaimer = {
   disclaimer: (
     <>
       This collective is not officially affiliated with the Apache Pekko project (or the Apache Software Foundation) <br />
@@ -16,10 +16,10 @@ const pekkoDescription: Description = {
   ),
 };
 
-export function getDescription(projectId: ProjectId): Description | null {
+export function getDescription(projectId: ProjectId): Disclaimer | null {
   if (projectId instanceof RepositoryId) {
     if (projectId.ownerId.login === "apache" && projectId.name === "pekko") {
-      return pekkoDescription;
+      return pekkoDisclaimer;
     }
   }
 
