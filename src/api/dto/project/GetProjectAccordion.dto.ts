@@ -1,5 +1,3 @@
-import { ServiceType } from "../../model";
-
 export interface GetProjectAccordionParams {
   owner: string;
   repo?: string;

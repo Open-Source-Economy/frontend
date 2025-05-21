@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
-import { Button, DividerTitle, H3WithSubtitle } from "src/views/components";
+import { Button, H3WithSubtitle } from "src/views/components";
 import { useMaintainers } from "../../../../hooks";
 import { ProjectId } from "src/api/model";
 
