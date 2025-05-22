@@ -1,7 +1,8 @@
 import { ValidationError, Validator } from "../error";
-import { OwnerId, ProjectId, RepositoryId } from "../github";
+import { OwnerId, RepositoryId } from "../github";
 import { ApiError } from "../error/ApiError";
 import { StatusCodes } from "http-status-codes";
+import { ProjectId } from "../project";
 
 export class StripeProductId {
   id: string;

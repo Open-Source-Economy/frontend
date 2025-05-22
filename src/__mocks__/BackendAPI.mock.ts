@@ -13,7 +13,7 @@ import {
   PlanProductType,
   PriceType,
   ProductType,
-  Project,
+  ProjectUtils,
   StripePrice,
   StripePriceId,
   StripeProductId,
@@ -92,7 +92,7 @@ export class BackendAPIMock implements BackendAPI {
   async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
     return {
       project: {
-        id: Project.getId(params.owner, params.repo),
+        id: ProjectUtils.getId(params.owner, params.repo),
         owner: owner,
         repository: repository(),
       },

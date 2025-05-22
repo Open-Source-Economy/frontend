@@ -13,12 +13,12 @@ export class OwnerId {
     return OwnerId.fromAny(json, "login", "id");
   }
 
-  static fromBackendPrimaryKey(row: any): OwnerId | ValidationError {
-    return OwnerId.fromAny(row, "github_login", "github_id");
+  static fromBackendPrimaryKey(row: any, table_prefix: string = ""): OwnerId | ValidationError {
+    return OwnerId.fromAny(row, `${table_prefix}github_login`, `${table_prefix}github_id`);
   }
 
-  static fromBackendForeignKey(row: any): OwnerId | ValidationError {
-    return OwnerId.fromAny(row, "github_owner_login", "github_owner_id");
+  static fromBackendForeignKey(row: any, table_prefix: string = ""): OwnerId | ValidationError {
+    return OwnerId.fromAny(row, `${table_prefix}github_owner_login`, `${table_prefix}github_owner_id`);
   }
 
   private static fromAny(data: any, loginKey: string, idKey: string): OwnerId | ValidationError {
@@ -94,36 +94,39 @@ export class Owner {
     return new Owner(ownerId, type, htmlUrl, avatarUrl);
   }
 
-  static fromBackend(json: any): Owner | ValidationError {
+  /**
+   * Creates an `Owner` instance from a raw backend JSON object, typically retrieved from a SQL query.
+   *
+   * This method validates the required fields from the JSON and returns either a valid `Owner` instance
+   * or a `ValidationError` if validation fails.
+   *
+   * @param json - The raw backend data object containing owner fields.
+   * @param table_prefix - Optional prefix used to avoid column name conflicts when SQL joins are performed.
+   *                       For example, if the `github_owner` table is joined with other tables in a query,
+   *                       a prefix like `"owner_"` can be used so that columns become
+   *                       `"owner_github_html_url"`, `"owner_github_avatar_url"`, etc.
+   *                       This prefix is automatically prepended to relevant keys during validation.
+   *
+   * @returns A new `Owner` instance if validation succeeds, or a `ValidationError` otherwise.
+   */
+  static fromBackend(json: any, table_prefix: string = ""): Owner | ValidationError {
     const validator = new Validator(json);
+
     // @ts-ignore
-    const type: OwnerType = validator.requiredEnum<OwnerType>("github_type", Object.values(OwnerType) as OwnerType[]);
-    const htmlUrl = validator.requiredString("github_html_url");
-    const avatarUrl = validator.requiredString("github_avatar_url");
+    const type: OwnerType = validator.requiredEnum<OwnerType>(`${table_prefix}github_type`, Object.values(OwnerType) as OwnerType[]);
+    const htmlUrl = validator.requiredString(`${table_prefix}github_html_url`);
+    const avatarUrl = validator.requiredString(`${table_prefix}github_avatar_url`);
 
     const error = validator.getFirstError();
     if (error) {
       return error;
     }
 
-    const ownerId = OwnerId.fromBackendPrimaryKey(json);
+    const ownerId = OwnerId.fromBackendPrimaryKey(json, table_prefix);
     if (ownerId instanceof ValidationError) {
       return ownerId;
     }
 
     return new Owner(ownerId, type, htmlUrl, avatarUrl);
-  }
-}
-
-export class UserOwner extends Owner {
-  static fromGithubApi(json: any): UserOwner | ValidationError {
-    const owner = Owner.fromGithubApi(json);
-    if (owner instanceof ValidationError) {
-      return owner;
-    }
-    if (owner.type !== OwnerType.User) {
-      return new ValidationError("Invalid JSON: owner is not a user", json);
-    }
-    return owner as UserOwner;
   }
 }

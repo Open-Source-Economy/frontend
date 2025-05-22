@@ -44,12 +44,12 @@ export class RepositoryId {
     return new RepositoryId(ownerId, name, id);
   }
 
-  static fromBackendPrimaryKey(row: any): RepositoryId | ValidationError {
-    return RepositoryId.fromAny(row, "github_name", "github_id");
+  static fromBackendPrimaryKey(row: any, table_prefix: string = ""): RepositoryId | ValidationError {
+    return RepositoryId.fromAny(row, `${table_prefix}github_name`, `${table_prefix}github_id`);
   }
 
-  static fromBackendForeignKey(row: any): RepositoryId | ValidationError {
-    return RepositoryId.fromAny(row, "github_repository_name", "github_repository_id");
+  static fromBackendForeignKey(row: any, table_prefix: string = ""): RepositoryId | ValidationError {
+    return RepositoryId.fromAny(row, `${table_prefix}github_repository_name`, `${table_prefix}github_repository_id`);
   }
 
   private static fromAny(data: any, nameKey: string, idKey: string): RepositoryId | ValidationError {
@@ -115,15 +115,31 @@ export class Repository {
     return new Repository(repositoryId, htmlUrl ?? null, description);
   }
 
-  static fromBackend(json: any): Repository | ValidationError {
-    const repositoryId = RepositoryId.fromBackendPrimaryKey(json);
+  /**
+   * Creates a `Repository` instance from a raw backend JSON object, typically retrieved from a SQL query.
+   *
+   * This method extracts and validates the required and optional fields from the JSON input and returns
+   * a `Repository` instance if all validations succeed. If validation fails, a `ValidationError` is returned.
+   *
+   * @param json - The raw backend data object containing repository fields.
+   * @param table_prefix - Optional prefix used to avoid column name conflicts when SQL joins are performed.
+   *                       For example, if the `repository` table is joined with others in a query, a prefix
+   *                       like `"repo_"` can be used so that columns become `"repo_github_html_url"`,
+   *                       `"repo_github_description"`, etc. This prefix is automatically prepended to
+   *                       relevant keys during validation.
+   *
+   * @returns A new `Repository` instance if validation succeeds, or a `ValidationError` otherwise.
+   */
+  static fromBackend(json: any, table_prefix: string = ""): Repository | ValidationError {
+    const validator = new Validator(json);
+
+    const repositoryId = RepositoryId.fromBackendPrimaryKey(json, table_prefix);
     if (repositoryId instanceof ValidationError) {
       return repositoryId;
     }
 
-    const validator = new Validator(json);
-    const htmlUrl = validator.requiredString("github_html_url");
-    const description = validator.optionalString("github_description");
+    const htmlUrl = validator.requiredString(`${table_prefix}github_html_url`);
+    const description = validator.optionalString(`${table_prefix}github_description`);
 
     const error = validator.getFirstError();
     if (error) {
