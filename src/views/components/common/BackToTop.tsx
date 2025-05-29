@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import backToTop from "../../../assets/icon/BackToTop.svg";
 import { Button } from "../elements";
 import { paths } from "../../../paths";
-import { openSourceEconomyId } from "../../../services/data/projects";
+import { openSourceEconomyProjectId } from "../../../services/data/projects";
 
 export const BackToTop = () => {
   const [scrollValue, setScrollValue] = useState(0);
@@ -52,7 +52,7 @@ export const BackToTop = () => {
     <div className="fixed bottom-[2%] right-[2%] z-[888]">
       <Button audience={"ALL"} level={"PRIMARY"} size={"LARGE"} className={`!capitalize`} asChild>
         {/*Link does not load*/}
-        <a href={paths.campaign(openSourceEconomyId)}>Donate</a>
+        <a href={paths.campaign(openSourceEconomyProjectId)}>Donate</a>
       </Button>
     </div>
   );

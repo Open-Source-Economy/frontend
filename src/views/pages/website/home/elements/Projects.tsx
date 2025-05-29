@@ -4,13 +4,12 @@ import { Cards } from "src/views/pages/website/home/elements/Cards";
 import { Audience } from "../../../../Audience";
 import { paths } from "../../../../../paths";
 import { useProjects } from "../../../../hooks/useProjects";
-import { projectsIds } from "../../../../../services/data/projects";
 import { ProjectUtils } from "../../../../../api/model";
 
 interface ProjectsProps {}
 
 export function Projects(props: ProjectsProps) {
-  const { projects, error, reloadProjects, loading } = useProjects(projectsIds);
+  const { projects, error, reloadProjects, loading } = useProjects();
 
   useEffect(() => {
     reloadProjects();
@@ -24,7 +23,7 @@ export function Projects(props: ProjectsProps) {
       >
         <div className="dig-into-details relative flex !max-w-[1320px] !w-full flex-col items-center justify-center text-center gap-8 lg:gap-16">
           <img src={backdropSVG} className="pointer-events-none absolute top-[0px] z-0" alt="backdrop" />
-          <h1 className="text-center font-mich text-[28px] font-[400] lg:text-[42px]">New Onboarded Projects</h1>
+          <h1 className="text-center font-mich text-[28px] font-[400] lg:text-[42px]">Onboarded Projects</h1>
           <div className="flex flex-wrap z-[10] w-full justify-center gap-4">
             {/*TODO*/}
             {error && <div>{error.toSting()}</div>}
@@ -43,7 +42,7 @@ export function Projects(props: ProjectsProps) {
                   key={`${ProjectUtils.key(project)}-${index}`}
                   project={project}
                   audience={Audience.ALL}
-                  action={"Learn More"}
+                  // action={"Learn More"}
                   to={paths.project(project.id)}
                 />
               ))

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetProjectParams, GetProjectQuery, GetProjectResponse } from "src/api/dto";
-import { OwnerId, Project, ProjectId } from "src/api/model";
+import * as dto from "src/api/dto";
+import { Project } from "src/api/model";
 import { ApiError } from "src/ultils/error/ApiError";
 
-// TODO: optimize this function to fetch all projects in one request
-export function useProjects(projectIds: ProjectId[]) {
+export function useProjects() {
   const backendAPI = getBackendAPI();
 
   const [projects, setProjects] = useState<Project[]>([]);
@@ -17,35 +16,14 @@ export function useProjects(projectIds: ProjectId[]) {
     setError(null);
 
     try {
-      const responses = await Promise.all(
-        projectIds.map(projectId => {
-          let params: GetProjectParams;
-          if (projectId instanceof OwnerId) {
-            params = {
-              owner: projectId.login,
-            };
-          } else {
-            params = {
-              owner: projectId.ownerId.login,
-              repo: projectId.name,
-            };
-          }
+      let params: dto.GetProjectsParams = {};
+      const query: dto.GetProjectsQuery = {};
+      const response = await backendAPI.getProjects(params, query);
 
-          const query: GetProjectQuery = {};
-          return backendAPI.getProject(params, query);
-        }),
-      );
-
-      const validResponses: GetProjectResponse[] = responses
-        .filter(response => !(response instanceof ApiError))
-        .map(response => response as GetProjectResponse);
-
-      setProjects(validResponses.map(response => response.project));
-
-      const errors = responses.filter((response): response is ApiError => response instanceof ApiError);
-
-      if (errors.length > 0) {
-        setError(errors[0]); // Handle the first error
+      if (response instanceof ApiError) {
+        setError(response);
+      } else {
+        setProjects(response.projects);
       }
     } catch (err) {
       console.error("Error fetching project:", err);

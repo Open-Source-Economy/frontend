@@ -36,6 +36,7 @@ export const paths = {
     CREATE_MANUAL_INVOICE: "/admin/create-manual-invoice",
     CREATE_CAMPAIGN_PRODUCT_AND_PRICE: "/admin/campaign/create-product-and-price",
     CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
+    CREATE_PROJECT: "/admin/project",
   },
 
   // Dynamic route functions

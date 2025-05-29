@@ -25,19 +25,21 @@ export interface AdminBackendAPI {
     query: dto.SendRepositoryRoleInviteQuery,
   ): Promise<dto.SendRepositoryRoleInviteResponse | ApiError>;
 
-  createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse | ApiError>;
-
   createCampaignProductAndPrice(
-    body: dto.CreateCampaignProductAndPriceBody,
     params: dto.CreateCampaignProductAndPriceParams,
+    body: dto.CreateCampaignProductAndPriceBody,
     query: dto.CreateCampaignProductAndPriceQuery,
   ): Promise<dto.CreateCampaignProductAndPriceResponse | ApiError>;
 
+  createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse | ApiError>;
+
   createPlanProductAndPrice(
-    body: dto.CreatePlanProductAndPriceBody,
     params: dto.CreatePlanProductAndPriceParams,
+    body: dto.CreatePlanProductAndPriceBody,
     query: dto.CreatePlanProductAndPriceQuery,
   ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError>;
+
+  createProject(params: dto.CreateProjectParams, body: dto.CreateProjectBody, query: dto.CreateProjectQuery): Promise<dto.CreateProjectResponse | ApiError>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -79,8 +81,8 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   }
 
   async createCampaignProductAndPrice(
-    body: dto.CreateCampaignProductAndPriceBody,
     params: dto.CreateCampaignProductAndPriceParams,
+    body: dto.CreateCampaignProductAndPriceBody,
     query: dto.CreateCampaignProductAndPriceQuery,
   ): Promise<dto.CreateCampaignProductAndPriceResponse | ApiError> {
     return await handleError<dto.CreateCampaignProductAndPriceResponse>(
@@ -90,13 +92,24 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   }
 
   async createPlanProductAndPrice(
-    body: dto.CreatePlanProductAndPriceBody,
     params: dto.CreatePlanProductAndPriceParams,
+    body: dto.CreatePlanProductAndPriceBody,
     query: dto.CreatePlanProductAndPriceQuery,
   ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError> {
     return await handleError<dto.CreatePlanProductAndPriceResponse>(
       () => axios.post(`${config.api.url}/admin/plan/product-and-price`, body, { withCredentials: true }),
       "createPlanProductAndPrice",
+    );
+  }
+
+  async createProject(
+    params: dto.CreateProjectParams,
+    body: dto.CreateProjectBody,
+    query: dto.CreateProjectQuery,
+  ): Promise<dto.CreateProjectResponse | ApiError> {
+    return await handleError<dto.CreateProjectResponse>(
+      () => axios.post(`${config.api.url}/admin/projects/${projectPath(params.owner, params.repo)}`, body, { withCredentials: true }),
+      "createProject",
     );
   }
 }

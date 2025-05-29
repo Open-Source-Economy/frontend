@@ -11,8 +11,15 @@ export class Project {
   repository?: Repository;
   projectEcosystem?: ProjectEcosystem;
 
-  constructor(id: ProjectId, owner: Owner, repository?: Repository, projectEcosystem?: ProjectEcosystem) {
-    this.id = id;
+  constructor(owner: Owner, repository?: Repository, projectEcosystem?: ProjectEcosystem) {
+    let projectId: ProjectId;
+    if (repository instanceof Repository) {
+      projectId = repository.id;
+    } else {
+      projectId = owner.id;
+    }
+
+    this.id = projectId;
     this.owner = owner;
     this.repository = repository;
     this.projectEcosystem = projectEcosystem;
@@ -31,14 +38,7 @@ export class Project {
     if (error) return error;
     if (owner instanceof ValidationError) return owner;
 
-    let projectId: ProjectId;
-    if (repository instanceof Repository) {
-      projectId = repository.id;
-    } else {
-      projectId = owner.id;
-    }
-
-    return new Project(projectId, owner, repository instanceof Repository ? repository : undefined, ecosystem);
+    return new Project(owner, repository instanceof Repository ? repository : undefined, ecosystem);
   }
 }
 

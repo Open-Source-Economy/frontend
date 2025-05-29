@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { paths } from "src/paths";
 
-interface AdminHomeProps {}
-
 export function AdminHome() {
   return (
     <PageWrapper>
@@ -12,6 +10,10 @@ export function AdminHome() {
         <h1 className="text-white text-3xl font-semibold mb-8 mt-12">Admin Dashboard</h1>
 
         <div className="flex flex-col gap-4">
+          <Link to={paths.ADMIN.CREATE_PROJECT} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
+            Add Project
+          </Link>
+
           <Link to={paths.ADMIN.INVITE_COMPANY_USER} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
             Invite Company User
           </Link>
