@@ -83,7 +83,7 @@ export function CreateProject() {
             >
               <input
                 type="text"
-                name="repositoryOwnerLogin"
+                name="owner"
                 placeholder="Repository Owner Login"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
                 value={formData.owner}
@@ -93,7 +93,7 @@ export function CreateProject() {
 
               <input
                 type="text"
-                name="repositoryName"
+                name="repo"
                 placeholder="Repository Name"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
                 value={formData.repo}

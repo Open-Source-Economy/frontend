@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { paths } from "src/paths";
 
-interface AdminHomeProps {}
-
 export function AdminHome() {
   return (
     <PageWrapper>
