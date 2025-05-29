@@ -99,6 +99,23 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
+  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
+    const repo = repository();
+    return {
+      projects: [
+        {
+          id: owner.id,
+          owner: owner,
+        },
+        {
+          id: repo.id,
+          owner: owner,
+          repository: repo,
+        },
+      ],
+    };
+  }
+
   async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {

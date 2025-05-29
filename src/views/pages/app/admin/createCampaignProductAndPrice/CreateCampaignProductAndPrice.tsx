@@ -45,7 +45,7 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.createCampaignProductAndPrice(body, params, query);
+      const result = await adminBackendAPI.createCampaignProductAndPrice(params, body, query);
 
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);

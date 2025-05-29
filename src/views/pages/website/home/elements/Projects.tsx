@@ -4,13 +4,12 @@ import { Cards } from "src/views/pages/website/home/elements/Cards";
 import { Audience } from "../../../../Audience";
 import { paths } from "../../../../../paths";
 import { useProjects } from "../../../../hooks/useProjects";
-import { projectsIds } from "../../../../../services/data/projects";
 import { ProjectUtils } from "../../../../../api/model";
 
 interface ProjectsProps {}
 
 export function Projects(props: ProjectsProps) {
-  const { projects, error, reloadProjects, loading } = useProjects(projectsIds);
+  const { projects, error, reloadProjects, loading } = useProjects();
 
   useEffect(() => {
     reloadProjects();
