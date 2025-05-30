@@ -27,7 +27,13 @@ export const Gateway = () => {
             </h1>
 
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
-              Stop begging for donations! <br /> Fund your future. Have a Say
+              {/*Stop begging for donations! <br /> Fund your future. Have a Say*/}
+              {/*get paid for your passion and expertise.*/}
+              {/*Monetize your expertise on your own terms.*/}
+              {/*Secure funding for your open source work, on your own terms.*/}
+              We help you securing funding for <br />
+              your open source work, <br />
+              on your own terms.
             </h2>
             <div className="mt-[42px]">
               <Button audience="DEVELOPER" level="PRIMARY" size="MEDIUM" asChild>
@@ -54,8 +60,9 @@ export const Gateway = () => {
               <span className={`${textColorVariants[Audience.USER]}`}> Enterprise </span>
             </h1>
             <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
-              {" "}
-              Forget the far west! Secure your <br /> platform, secure your business
+              {/*Resolve issues faster, Secure your platform, secure your business*/}
+              Unlock unparalleled expertise for your open source dependencies
+              {/*Resolve issues faster with direct access to project experts.*/}
             </h2>
             <div className="mt-[42px]">
               <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>

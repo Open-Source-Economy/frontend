@@ -9,11 +9,16 @@ export const HeroSection = () => {
       {/* left  */}
       <div className="flex w-full flex-col items-center justify-center max-[768px]:-translate-y-11 lg:max-w-[550px] lg:items-start 1600:max-w-[650px]">
         <h1 className="font-mich mb-[20px] !text-center text-[30px] font-[400] text-[#FFFFFF] max-[700px]:!mt-10 md:mb-[40px] md:text-[42px] lg:!text-start xl:text-[50px] 1600:mb-[70px] 1600:text-[62px]">
-          Building the foundation of open source 3.0
+          {/*The Open Source Maintainer Network*/}
+          {/*Your Open Source Support Hub*/}
+          Trusted <br />
+          Open Source <br />
+          Experts Hub
         </h1>
 
         <p className="text-lg sm:text-xl lg:text-[28px] text-white/80 leading-relaxed sm:leading-relaxed lg:leading-relaxed">
-          <span className="text-white font-semibold">win-win credit-based system</span> fueling open source collaboration.
+          The bridge to sustainable open source and reliable enterprise support
+          {/*<span className="text-white font-semibold">win-win credit-based system</span> fueling open source collaboration.*/}
         </p>
 
         {/*<Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>*/}

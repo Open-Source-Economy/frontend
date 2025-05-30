@@ -56,13 +56,13 @@ export function NavbarContent(props: AppNavbarProps) {
     DIVIDER,
     Navigation.items.howItWorks,
     Navigation.items.pricing,
-    Navigation.items.blog,
+    // Navigation.items.blog,
     // Navigation.items.newsletter,
     DIVIDER,
     Navigation.items.signOut,
   ];
   const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
-  const nonAuthNavbarItems: NavItemData[] = [Navigation.items.blog, /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
+  const nonAuthNavbarItems: NavItemData[] = [/*Navigation.items.blog,*/ /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
 
   useEffect(() => {
     reloadAvailableCredits();
@@ -90,7 +90,7 @@ export function NavbarContent(props: AppNavbarProps) {
           {authNavbarItems.map(item => {
             return <NavbarItem key={item.title} item={item} />;
           })}
-          {supportProjects}
+          {/*{supportProjects}*/}
           <DropdownNavbar
             showDropdownNavbar={props.showDropdownNavbar}
             setShowDropdownNavbar={props.setShowDropdownNavbar}
@@ -102,7 +102,7 @@ export function NavbarContent(props: AppNavbarProps) {
           {nonAuthNavbarItems.map(item => {
             return <NavbarItem key={item.title} item={item} />;
           })}
-          {supportProjects}
+          {/*{supportProjects}*/}
         </>
       )}
     </Nav>

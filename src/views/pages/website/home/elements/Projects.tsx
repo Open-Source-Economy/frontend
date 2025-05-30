@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import backdropSVG from "src/assets/backdrop.svg";
 import { Cards } from "src/views/pages/website/home/elements/Cards";
 import { Audience } from "../../../../Audience";
-import { paths } from "../../../../../paths";
 import { useProjects } from "../../../../hooks/useProjects";
 import { ProjectUtils } from "../../../../../api/model";
 
@@ -43,7 +42,7 @@ export function Projects(props: ProjectsProps) {
                   project={project}
                   audience={Audience.ALL}
                   // action={"Learn More"}
-                  // to={paths.project(project.id)}
+                  // to={paths.project(project.id)} // TODO: not always working
                 />
               ))
             )}

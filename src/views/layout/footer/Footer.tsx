@@ -42,9 +42,9 @@ const footerSections: FooterSection[] = [
   {
     title: "Resources",
     links: [
-      { text: "White Paper", href: paths.WHITE_PAPER, external: true },
+      // { text: "White Paper", href: paths.WHITE_PAPER, external: true },
       { text: "How it Works", href: paths.HOW_ITS_WORK },
-      { text: "Blog", href: paths.BLOG, external: true },
+      // { text: "Blog", href: paths.BLOG, external: true },
       { text: "Terms & Conditions", href: paths.TERMS_AND_CONDITIONS, external: true },
     ],
   },
