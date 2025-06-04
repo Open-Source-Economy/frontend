@@ -151,7 +151,7 @@ export function Footer() {
             <div className="flex flex-col lg:flex-row gap-8 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
               <div className="lg:w-1/2 w-full" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
                 <a href={paths.HOME}>
-                  <img src="/Logo-svg.svg" className="max-w-[200px] md:max-w-[330px]" alt="Logo" />
+                  <img src="/favicon.svg" className="max-w-[200px] md:max-w-[330px]" alt="Logo" />
                 </a>
                 <div className="flex items-center mt-4 gap-3">
                   <SocialMedia />

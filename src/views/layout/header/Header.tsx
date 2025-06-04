@@ -26,7 +26,7 @@ export function Header(props: HeaderProps) {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showDropdownNavbar, setShowDropdownNavbar] = useState<boolean>(false);
 
-  const Logo = () => <img className="800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/Logo-svg.svg" alt="Logo" />;
+  const Logo = () => <img className="800:w-[300px] sm:w-[250px] max-[540px]:w-[200px]" src="/favicon.svg" alt="Logo" />;
 
   return (
     <div data-aos="fade-down">
