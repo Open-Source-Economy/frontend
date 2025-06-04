@@ -14,26 +14,29 @@ export function useAvailableCredits(auth: AuthContextState) {
   const [error, setError] = React.useState<ApiError | null>(null);
 
   const getAvailableCredits = async () => {
-    try {
-      const params: GetAvailableCreditsParams = {};
-      const query: GetAvailableCreditsQuery = {
-        companyId: auth.authInfo?.company?.id.uuid,
-      };
+    // don't fetch if not authenticated
+    if (auth.authInfo?.user) {
+      try {
+        const params: GetAvailableCreditsParams = {};
+        const query: GetAvailableCreditsQuery = {
+          companyId: auth.authInfo?.company?.id.uuid,
+        };
 
-      const response = await backendAPI.getAvailableCredits(params, query);
+        const response = await backendAPI.getAvailableCredits(params, query);
 
-      if (response instanceof ApiError) {
-        if (response.statusCode === StatusCodes.UNAUTHORIZED) setAvailableCredits(null);
-        else setError(response);
-      } else {
-        setAvailableCredits({
-          amount: new Decimal(response.creditAmount),
-          unit: CreditUnit.MINUTE,
-        });
+        if (response instanceof ApiError) {
+          if (response.statusCode === StatusCodes.UNAUTHORIZED) setAvailableCredits(null);
+          else setError(response);
+        } else {
+          setAvailableCredits({
+            amount: new Decimal(response.creditAmount),
+            unit: CreditUnit.MINUTE,
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch campaign:", err);
+        setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching campaign"));
       }
-    } catch (err) {
-      console.error("Failed to fetch campaign:", err);
-      setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching campaign"));
     }
   };
 
