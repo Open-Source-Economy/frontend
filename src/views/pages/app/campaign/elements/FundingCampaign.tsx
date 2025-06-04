@@ -3,7 +3,7 @@ import { Currency, ProjectId } from "src/api/model";
 import { GetCampaignResponse } from "../../../../../api/dto";
 import { config, Env } from "../../../../../ultils";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
-import { useAuth } from "../../authenticate";
+import { useAuth } from "../../../authenticate";
 import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";

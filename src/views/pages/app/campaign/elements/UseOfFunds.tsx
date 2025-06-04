@@ -1,6 +1,6 @@
 import useFunds from "src/assets/icon/useFunds.svg";
 import { ListItem } from "./ListItem";
-import { LinearCenter } from "src/Utils/Icons";
+import { LinearCenter } from "src/ultils/Icons";
 import React from "react";
 import { CampaignDescription } from "src/model";
 

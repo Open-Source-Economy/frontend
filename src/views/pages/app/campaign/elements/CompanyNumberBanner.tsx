@@ -1,5 +1,5 @@
 import React from "react";
-import { MascotIcon } from "../../../../../Utils/Icons";
+import { MascotIcon } from "../../../../../ultils/Icons";
 
 interface CompanyNumberBannerProps {
   leftButtonText: string;

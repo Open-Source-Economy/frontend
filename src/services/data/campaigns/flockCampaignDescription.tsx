@@ -1,6 +1,6 @@
 import React from "react";
 import { CampaignDescription } from "src/model";
-import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../Utils/Icons";
+import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../ultils/Icons";
 
 export const flockCampaignDescription: CampaignDescription = {
   summary: {

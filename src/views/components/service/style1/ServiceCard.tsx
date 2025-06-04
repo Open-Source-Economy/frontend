@@ -1,6 +1,6 @@
 import React from "react";
 import comingSoon from "src/assets/coming-soon.webp";
-import { ListIcon } from "src/Utils/Icons";
+import { ListIcon } from "src/ultils/Icons";
 import { ServiceType } from "src/api/model";
 import { displayedServices } from "src/views/components/service/style1/DisplayedService";
 import { Audience } from "../../../Audience";

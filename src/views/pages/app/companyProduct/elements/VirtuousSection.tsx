@@ -1,6 +1,6 @@
 import React from "react";
 import whoBuiltHero from "src/assets/hero-bg.webp";
-import { RoundLinearBg } from "src/Utils/Icons";
+import { RoundLinearBg } from "src/ultils/Icons";
 import { virtuousCard } from "./Helper";
 import { VirtuousCard } from "./VirtuousCard";
 

@@ -1,5 +1,5 @@
 import type { Currency } from "../api/model";
-import type { AuthContextState } from "../views/pages/app/authenticate/AuthContext";
+import type { AuthContextState } from "../views/pages/authenticate/AuthContext";
 import type { SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "../api/dto";
 import { getBackendAPI } from "../services";
 import { currencyCookie } from "../cookies";

@@ -10,7 +10,7 @@ import { GetIssueQuery, GetIssuesParams } from "src/api/dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 
-import { useAuth } from "src/views/pages/app/authenticate/AuthContext";
+import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import Loading from "src/views/components/common/Loading";
 
 import catimg from "src/assets/Mascot.png";

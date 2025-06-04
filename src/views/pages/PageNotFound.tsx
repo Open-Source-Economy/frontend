@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MascotIcon } from "src/Utils/Icons";
+import { MascotIcon } from "src/ultils/Icons";
 import notFound from "src/assets/404.webp";
 import hero from "src/assets/hero-bg.webp";
 import faq from "src/assets/faq-bg.webp";

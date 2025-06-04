@@ -1,7 +1,7 @@
 import React from "react";
 import loader from "src/assets/loader.png";
 import whoBuiltHero from "src/assets/hero-bg.webp";
-import { MascotIcon } from "src/Utils/Icons";
+import { MascotIcon } from "src/ultils/Icons";
 
 interface LoadingProps {
   message?: string;

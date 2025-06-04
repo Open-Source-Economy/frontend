@@ -1,5 +1,5 @@
 import React from "react";
-import { TelephoneIcon } from "../../../Utils/Icons";
+import { TelephoneIcon } from "../../../ultils/Icons";
 import { ExternalLink } from "./ExternalLink";
 import { laurianeCalendly } from "../../data";
 import { Button } from "./Button";

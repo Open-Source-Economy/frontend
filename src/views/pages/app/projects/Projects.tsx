@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { paths } from "src/paths";
 import { useRepositories } from "src/views/hooks";
-import { Cards2 } from "src/views/pages/website/home/elements";
+import { Cards2 } from "src/views/pages/app/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";

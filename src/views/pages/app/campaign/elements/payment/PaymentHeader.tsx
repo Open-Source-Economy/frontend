@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "src/views/components";
 import { CampaignPriceType } from "src/api/model";
-import { HeartIcon, PointingArrow } from "src/Utils/Icons";
+import { HeartIcon, PointingArrow } from "src/ultils/Icons";
 
 interface PaymentHeaderProps {
   priceType: CampaignPriceType;

@@ -2,7 +2,7 @@ import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Currency } from "src/api/model";
 import { PreferredCurrency } from "../ultils/PreferredCurrency";
-import { useAuth } from "../views/pages/app/authenticate/AuthContext";
+import { useAuth } from "../views/pages/authenticate/AuthContext";
 
 interface CurrencyContextType {
   preferredCurrency: Currency;
