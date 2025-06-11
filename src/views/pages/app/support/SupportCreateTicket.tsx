@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../index";
 import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/views/hooks";
 import { useIssueContext } from "src/views/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
@@ -13,6 +12,7 @@ import { Button, FormEntry } from "src/views/components";
 import Decimal from "decimal.js";
 import { BaseInput } from "src/views/components/form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
+import { useAuth } from "../../authenticate";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");

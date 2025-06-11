@@ -9,8 +9,8 @@ import { CheckoutBody, CheckoutParams, CheckoutQuery } from "../../../../../../a
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
 import { paths } from "../../../../../../paths";
-import { useAuth } from "../../../index";
 import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
+import { useAuth } from "../../../../authenticate";
 
 export enum PricingCategory {
   GET_STARTED, // user can select this plan (they don't have a plan yet)
