@@ -4,7 +4,7 @@ import "aos/dist/aos.css";
 import gsap from "gsap";
 import { Link, useLocation } from "react-router-dom";
 import { InterestForm } from "src/views/pages/old/userDevelopper/elements/InterestForm";
-import { Audience } from "src/views/index";
+import { Audience, laurianeCalendlyDev } from "src/views/index";
 import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
@@ -178,7 +178,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
         <section className="!px-4 relative flex flex-col">
           <div className="flex justify-center z-20 relative flex-wrap items-center">
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <Link to={paths.SIGN_UP}>Register as a Project Maintainer</Link>
+              <Link to={laurianeCalendlyDev}>Book a meeting</Link>
             </Button>
           </div>
         </section>
@@ -223,7 +223,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
             <section className="!px-4 relative flex flex-col">
               <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-3 md:!mt-5 xl:mt-9">
                 <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-                  <Link to={paths.SIGN_UP}>Register as a Project Maintainer</Link>
+                  <Link to={laurianeCalendlyDev}>Book a meeting</Link>
                 </Button>
               </div>
             </section>
