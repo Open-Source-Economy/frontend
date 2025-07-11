@@ -1,9 +1,10 @@
-import { PlanProductType } from "../../../../../../api/model";
+import { PlanProductType } from "src/api/model";
 import { communityRecognitions } from "./communityRecognition";
 import { supporterSpotlights } from "./SupporterSpotlight";
 import { openSourceImpacts } from "./OpenSourceImpact";
 import { ecosystems } from "./Ecosystem";
 import { serviceCredits } from "./ServiceCredit";
+import { planProductTypeLabels } from "src/i18n/planProductTypeLabels";
 
 export type PlanFeatureDetails = {
   name: string;
@@ -35,8 +36,8 @@ export type PlanDescription = {
 // Factorized plans definition
 export const planDescriptions: Record<PlanProductType, PlanDescription> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
-    name: "Individual",
-    description: "Start building with expert backing",
+    name: planProductTypeLabels[PlanProductType.INDIVIDUAL_PLAN].en.label,
+    description: planProductTypeLabels[PlanProductType.INDIVIDUAL_PLAN].en.description,
     current: true,
     features: [
       serviceCredits[PlanProductType.INDIVIDUAL_PLAN],
@@ -48,8 +49,8 @@ export const planDescriptions: Record<PlanProductType, PlanDescription> = {
   },
 
   [PlanProductType.START_UP_PLAN]: {
-    name: "Start-up",
-    description: "Scale confidently with expert support",
+    name: planProductTypeLabels[PlanProductType.START_UP_PLAN].en.label,
+    description: planProductTypeLabels[PlanProductType.START_UP_PLAN].en.description,
     features: [
       serviceCredits[PlanProductType.START_UP_PLAN],
       communityRecognitions[PlanProductType.START_UP_PLAN],
@@ -60,8 +61,8 @@ export const planDescriptions: Record<PlanProductType, PlanDescription> = {
   },
 
   [PlanProductType.SCALE_UP_PLAN]: {
-    name: "Scale-up",
-    description: "Grow faster with enterprise support",
+    name: planProductTypeLabels[PlanProductType.SCALE_UP_PLAN].en.label,
+    description: planProductTypeLabels[PlanProductType.SCALE_UP_PLAN].en.description,
     featured: true,
     features: [
       serviceCredits[PlanProductType.SCALE_UP_PLAN],
@@ -73,8 +74,8 @@ export const planDescriptions: Record<PlanProductType, PlanDescription> = {
   },
 
   [PlanProductType.ENTERPRISE_PLAN]: {
-    name: "Enterprise",
-    description: "Power mission-critical success",
+    name: planProductTypeLabels[PlanProductType.ENTERPRISE_PLAN].en.label,
+    description: planProductTypeLabels[PlanProductType.ENTERPRISE_PLAN].en.description,
     features: [
       serviceCredits[PlanProductType.ENTERPRISE_PLAN],
       communityRecognitions[PlanProductType.ENTERPRISE_PLAN],

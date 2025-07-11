@@ -36,6 +36,8 @@ export enum AdvisorySubServiceType {
   // Training and Workshops
 }
 
+export type SubServiceType = DevelopmentSubServiceType | SupportSubServiceType | OperationSubServiceType | AdvisorySubServiceType;
+
 // Create an explicit mapping between ServiceType and its corresponding subservices
 type SubServiceTypeMap = {
   [ServiceType.SUPPORT]: SupportSubServiceType;

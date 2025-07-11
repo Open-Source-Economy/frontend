@@ -7,13 +7,22 @@ import { Header } from "src/views/layout";
 import FileUpload from "./elements/FileUpload";
 import { NeedUpgradePopIn } from "./elements";
 import { SelectFilter } from "./SelectFilter";
-import { ServicePriority, ServiceType } from "src/api/model";
+import { ServicePriority, ServiceType, SubServiceType } from "src/api/model";
 import { getSubServiceOptions } from "../../../services/data/services/getServices";
 import { DropdownOption } from "../../../model";
+import { SelectService } from "./elements";
+import { useUserPlan } from "../../hooks/useUserPlan";
 
 export function Support() {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
+    const { userPlan, loadUserPlanError, reloadUserPlan } = useUserPlan();
+
+  useEffect(() => {
+         reloadUserPlan()
+  }, []);
+
+  const [selectedServiceType, setSelectedServiceType] = useState<ServiceType | null>(null);
+  const [selectedSubServiceType, setSelectedSubServiceType] = useState<SubServiceType | null>(null);
 
   const [subject, setSubject] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
@@ -27,12 +36,7 @@ export function Support() {
   const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
   const [isGithubDiscussionUrlValid, setIsGithubDiscussionUrlValid] = useState(true);
 
-  const categoryOptions = [
-    { value: ServiceType.SUPPORT, label: "Support" },
-    { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
-    { value: ServiceType.OPERATION, label: "Operations" },
-    { value: ServiceType.ADVISORY, label: "Consultancy" },
-  ];
+
 
   const projectOptions = [
     { value: "apache", label: "Apache/Pekko" },
@@ -49,16 +53,17 @@ export function Support() {
 
   // Update subcategory options when category changes
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedServiceType) {
       // Use the helper function from service-types.ts to get subcategory options
-      setSubCategoryOptions(getSubServiceOptions(selectedCategory));
+      setSubCategoryOptions(getSubServiceOptions(selectedServiceType));
     } else {
       setSubCategoryOptions([]);
     }
 
     // Reset subcategory when main category changes
-    setSelectedSubCategory("");
-  }, [selectedCategory]);
+    // TODO: lolo
+    // setSelectedSubServiceType("");
+  }, [selectedServiceType]);
 
   const handleInputChange =
     (setter: React.Dispatch<React.SetStateAction<string>>, validator?: React.Dispatch<React.SetStateAction<boolean>>) => (value: string) => {
@@ -67,15 +72,6 @@ export function Support() {
         validator(value.trim() !== "");
       }
     };
-
-  const handleCategoryChange = (value: string) => {
-    setSelectedCategory(value);
-    console.log("Selected category:", value); // Debug log
-  };
-
-  const handleSubCategoryChange = (value: string) => {
-    setSelectedSubCategory(value);
-  };
 
   const handleProjectChange = (value: string) => {
     setSelectedProject(value);
@@ -95,8 +91,8 @@ export function Support() {
       console.log({
         subject,
         githubUrl,
-        selectedCategory,
-        selectedSubCategory,
+        selectedCategory: selectedServiceType,
+        selectedSubCategory: selectedSubServiceType,
         selectedProject,
         selectedSeverity,
         isPublic,
@@ -114,26 +110,14 @@ export function Support() {
         <form action="" onSubmit={e => e.preventDefault()} className="w-full flex flex-col !gap-3 xl:!gap-5 3xl:!gap-7">
           {" "}
           <div className="grid grid-cols-1 md:grid-cols-2 !gap-5 w-full">
-            <SelectFilter
-              ariaLabel="Select Category"
-              placeholder="Select Category"
-              labelValues={categoryOptions}
-              onFilterChange={handleCategoryChange}
-              label="Category"
-              isUpgraded={true}
-              tooltip="loream lpeam We'll proactively monitor and maintain your critical open-source ponents for two hours each month,"
-            />
-
-            <SelectFilter
-              ariaLabel="Select Sub Category"
-              placeholder="Select Sub Category"
-              labelValues={subCategoryOptions}
-              onFilterChange={handleSubCategoryChange}
-              label="Sub category"
-              isUpgraded={true}
-              disabled={!selectedCategory}
+            <SelectService
+              selectedServiceType={selectedServiceType}
+              setSelectedServiceType={setSelectedServiceType}
+              selectedSubServiceType={selectedSubServiceType}
+              setSelectedSubServiceType={setSelectedSubServiceType}
             />
           </div>
+
           <FormEntry label="Subject">
             <BaseInput
               type="text"
