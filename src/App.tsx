@@ -44,6 +44,8 @@ import { Support } from "./views/pages/app/support/Support";
 import SupportCreateTicket from "./views/pages/app/support/SupportCreateTicket";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/components/ScrollTop";
+import OnboardingLandingPage from "./views/pages/app/onboarding/OnboardingLanding";
+import OnboardingFlow from "./views/pages/app/onboarding/OnboardingFlow";
 
 const App = () => {
   return (
@@ -118,6 +120,8 @@ const App = () => {
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
+              <Route path={paths.ONBOARDING} element={<OnboardingLandingPage />} />
+              <Route path={`${paths.ONBOARDING}/start`} element={<OnboardingFlow />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />
