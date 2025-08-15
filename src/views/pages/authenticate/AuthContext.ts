@@ -8,7 +8,7 @@ export interface AuthContextState {
   error: ApiError | null;
   login: (body: LoginBody, query: LoginQuery, successCallback?: () => void) => void;
   logout: (successCallback?: () => void) => void;
-  loginWithGitHub: () => void;
+  loginWithGitHub: (redirectPath?: string) => void;
   register: (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => void;
 }
 

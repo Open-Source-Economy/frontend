@@ -65,8 +65,8 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const loginWithGitHub = async () => {
-    auth.loginWithGitHub();
+  const loginWithGitHub = async (redirectPath?: string) => {
+    auth.loginWithGitHub(redirectPath);
   };
 
   const logout = async (successCallback?: () => void) => {

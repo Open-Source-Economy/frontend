@@ -31,7 +31,7 @@ export interface AuthBackendAPI {
 
   register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError>;
 
-  loginWithGitHub(success?: string, failure?: string): void;
+  loginWithGitHub(redirectPath?: string): void;
 
   deleteSession(): Promise<void | ApiError>;
 
@@ -64,8 +64,11 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     }
   }
 
-  loginWithGitHub(): void {
-    window.location.href = `${config.api.url}/auth/github`;
+  loginWithGitHub(redirectPath?: string): void {
+    const url = redirectPath 
+      ? `${config.api.url}/auth/github?redirect=${encodeURIComponent(redirectPath)}`
+      : `${config.api.url}/auth/github`;
+    window.location.href = url;
   }
 
   async deleteSession(): Promise<void | ApiError> {

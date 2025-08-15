@@ -29,3 +29,4 @@ export function projectPath(owner: string, repo?: string): string {
 
 export * from "./AuthBackendAPI";
 export * from "./BackendAPI";
+export * from "./OnboardingBackendAPI";
