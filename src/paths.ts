@@ -27,12 +27,12 @@ export const paths = {
   BLOG: "https://blog.open-source-economy.com/",
   
   // Onboarding routes
-  ONBOARDING: "/onboarding",
-  ONBOARDING_PROFILE: "/onboarding/profile",
-  ONBOARDING_PROJECTS: "/onboarding/projects",
-  ONBOARDING_INCOME: "/onboarding/income-availability",
-  ONBOARDING_SERVICES: "/onboarding/services",
-  ONBOARDING_REVIEW: "/onboarding/review",
+  DEV_ONBOARDING: "/dev-onboarding",
+  DEV_ONBOARDING_PROFILE: "/dev-onboarding/profile",
+  DEV_ONBOARDING_PROJECTS: "/dev-onboarding/projects",
+  DEV_ONBOARDING_INCOME: "/dev-onboarding/income-availability",
+  DEV_ONBOARDING_SERVICES: "/dev-onboarding/services",
+  DEV_ONBOARDING_REVIEW: "/dev-onboarding/review",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

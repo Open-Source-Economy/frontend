@@ -120,8 +120,8 @@ const App = () => {
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
-              <Route path={paths.ONBOARDING} element={<OnboardingLandingPage />} />
-              <Route path={`${paths.ONBOARDING}/start`} element={<OnboardingFlow />} />
+              <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
+              <Route path={`${paths.DEV_ONBOARDING}/start`} element={<OnboardingFlow />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

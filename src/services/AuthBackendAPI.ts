@@ -8,10 +8,13 @@ import {
   LoginResponse,
   RegisterBody,
   RegisterQuery,
-  RegisterResponse,
+  RegisterResponse
 } from "src/api/dto/auth";
 import { AuthBackendAPIMock } from "src/__mocks__";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
+import {
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse
+} from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";
@@ -65,10 +68,9 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   }
 
   loginWithGitHub(redirectPath?: string): void {
-    const url = redirectPath 
+    window.location.href = redirectPath
       ? `${config.api.url}/auth/github?redirect=${encodeURIComponent(redirectPath)}`
       : `${config.api.url}/auth/github`;
-    window.location.href = url;
   }
 
   async deleteSession(): Promise<void | ApiError> {

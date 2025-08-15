@@ -1,7 +1,7 @@
 import React from "react";
 import { TelephoneIcon } from "../../../ultils/Icons";
 import { ExternalLink } from "./ExternalLink";
-import { laurianeCalendly } from "../../data";
+import { laurianeCalLink } from "../../data";
 import { Button } from "./Button";
 import { Audience } from "../../Audience";
 
@@ -20,7 +20,7 @@ export function BookACallButton(props: BookACallButtonProps) {
       className={`!capitalize ${props.className}`}
       icon={<TelephoneIcon />}
     >
-      <ExternalLink href={laurianeCalendly} underline={false}>
+      <ExternalLink href={laurianeCalLink} underline={false}>
         Book a Call
       </ExternalLink>
     </Button>
