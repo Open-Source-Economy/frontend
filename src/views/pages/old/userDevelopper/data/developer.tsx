@@ -68,28 +68,22 @@ export const developerProps: UserDeveloperProps = {
   audience,
   problemTitle: (
     <>
-      As an open source dev
-      <br />
-      are you experiencing?
+      As an open source dev, do you experience...?
     </>
   ),
   subTittle1: (
     <>
-      No availability <br className="mx:block hidden" /> for community
+      No availability for the community
     </>
   ),
   subTittle2: (
     <>
-      Others profiting
-      <br className="mx:block hidden" />
-      off your work
+      Others profiting off of your work
     </>
   ),
   subTittle3: (
     <>
-      Project struggling
-      <br className="mx:block hidden" />
-      to survive
+      Project struggling to survive
     </>
   ),
   bgTextImg: bgText,
