@@ -11,7 +11,7 @@ import {
   ProfileIcon,
 } from "../Icons";
 import { displayedCurrencies } from "src/views/data";
-import { Currency } from "src/api/model";
+import { Currency } from "@open-source-economy/api-types";
 import { credit, Credit } from "src/model";
 import React from "react";
 import { paths } from "src/paths";

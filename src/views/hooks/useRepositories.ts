@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetRepositoryParams, GetRepositoryQuery } from "src/api/dto";
-import { Owner, Repository, RepositoryId } from "src/api/model";
+import { GetRepositoryParams, GetRepositoryQuery } from "@open-source-economy/api-types";
+import { Owner, Repository, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 // TODO: optimize this function to fetch all repositories in one request

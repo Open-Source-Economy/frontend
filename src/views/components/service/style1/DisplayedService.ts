@@ -1,4 +1,4 @@
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 import advisory from "src/assets/advisory.webp";
 import operation from "src/assets/operation.webp";
 import support from "src/assets/support-logo.webp";

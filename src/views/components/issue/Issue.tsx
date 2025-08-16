@@ -1,5 +1,5 @@
 import React from "react";
-import * as model from "src/api/model";
+import * as model from "@open-source-economy/api-types";
 import { format } from "date-fns";
 import { ExternalLink } from "src/views/components/index";
 

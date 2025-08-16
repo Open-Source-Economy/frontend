@@ -1,5 +1,5 @@
 import React from "react";
-import { Maintainer } from "../../../../../api/dto";
+import { Maintainer } from "@open-source-economy/api-types";
 import { ExternalLink } from "src/views/components";
 
 interface ParticipantCardProps {

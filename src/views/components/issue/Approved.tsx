@@ -1,6 +1,6 @@
 import React from "react";
-import * as model from "src/api/model";
-import { ManagedIssueState, userUtils } from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { ManagedIssueState, userUtils } from "@open-source-economy/api-types";
 import { ExternalLink } from "src/views/components/index";
 
 interface ApprovedProps {

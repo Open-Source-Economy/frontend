@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../pages";
-import { UserRole } from "src/api/model";
+import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
 import { PageLoader } from "src/views/components/common/PageLoader";

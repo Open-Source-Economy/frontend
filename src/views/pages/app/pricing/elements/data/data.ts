@@ -1,4 +1,4 @@
-import { PlanProductType } from "../../../../../../api/model";
+import { PlanProductType } from "@open-source-economy/api-types";
 import { communityRecognitions } from "./communityRecognition";
 import { supporterSpotlights } from "./SupporterSpotlight";
 import { openSourceImpacts } from "./OpenSourceImpact";

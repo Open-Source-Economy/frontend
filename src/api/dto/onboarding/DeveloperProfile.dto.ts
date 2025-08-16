@@ -1,3 +1,5 @@
+import { CurrencyType, DeveloperRoleType, IncomeStreamType, MergeRightsType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+
 export interface CreateDeveloperProfileDto {
   name?: string;
   email?: string;
@@ -57,9 +59,3 @@ export interface DeveloperServiceData {
   createdAt: string;
   updatedAt: string;
 }
-
-export type IncomeStreamType = "royalties" | "services" | "donations";
-export type OpenToOtherOpportunityType = "yes" | "maybe" | "no";
-export type CurrencyType = "USD" | "EUR" | "GBP" | "CHF";
-export type MergeRightsType = "full_rights" | "no_rights" | "formal_process";
-export type DeveloperRoleType = "creator_founder" | "project_lead" | "core_developer" | "maintainer";

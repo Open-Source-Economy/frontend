@@ -1,7 +1,7 @@
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "./tooltip";
 import type { PlanDescription } from "./data/data";
-import { PlanPriceType } from "../../../../../api/model";
+import { PlanPriceType } from "@open-source-economy/api-types";
 
 interface SubscriptionDetailsProps {
   plan: PlanDescription;

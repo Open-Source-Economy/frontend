@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getAdminBackendAPI } from "../../../../services/AdminBackendAPI";
-import * as dto from "../../../../api/dto";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "../../../../ultils/error/ApiError";
 import { PageWrapper } from "../../PageWrapper";
 

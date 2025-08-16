@@ -1,5 +1,5 @@
 import thankfulCat from "../../../assets/cats/thankful-cat.svg";
-import { Maintainer } from "../../../api/dto";
+import { Maintainer } from "@open-source-economy/api-types";
 
 const lauriane: Maintainer = {
   displayName: "Lauriane Mollier",

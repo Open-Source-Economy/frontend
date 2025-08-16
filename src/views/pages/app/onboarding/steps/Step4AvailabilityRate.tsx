@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
-import type { IncomeStreamType, OpenToOtherOpportunityType, CurrencyType } from "src/api/dto/onboarding/DeveloperProfile.dto";
+import { CurrencyType, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 // Inline SVG components replacing localhost assets
 const CloseIcon = () => (
@@ -100,13 +100,13 @@ export default function Step4AvailabilityRate({ state, updateState, onNext, onBa
     try {
       // Get income streams from Step 3 state
       const incomeStreams: IncomeStreamType[] = [];
-      if (state.activeIncome?.royalties) incomeStreams.push("royalties");
-      if (state.activeIncome?.offerServices) incomeStreams.push("services");
-      if (state.activeIncome?.donations) incomeStreams.push("donations");
+      if (state.activeIncome?.royalties) incomeStreams.push(IncomeStreamType.ROYALTIES);
+      if (state.activeIncome?.offerServices) incomeStreams.push(IncomeStreamType.SERVICES);
+      if (state.activeIncome?.donations) incomeStreams.push(IncomeStreamType.DONATIONS);
 
       // If no income streams selected, default to at least one to pass validation
       if (incomeStreams.length === 0) {
-        incomeStreams.push("services"); // Default fallback
+        incomeStreams.push(IncomeStreamType.SERVICES); // Default fallback
       }
 
       const settingsData = {

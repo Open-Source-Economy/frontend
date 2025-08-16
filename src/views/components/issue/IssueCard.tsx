@@ -1,6 +1,6 @@
 import React from "react";
-import * as model from "src/api/model";
-import { financialIssueUtils } from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { financialIssueUtils } from "@open-source-economy/api-types";
 import * as components from "./index";
 import { Approved } from "src/views/components/issue/Approved";
 import { Action } from "src/views/components/issue/Action";

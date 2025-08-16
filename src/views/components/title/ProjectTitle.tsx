@@ -1,6 +1,6 @@
 import React from "react";
 import background from "../../../assets/hero-bg.webp";
-import { Project } from "src/api/model";
+import { Project } from "@open-source-economy/api-types";
 import { capitalize } from "lodash";
 
 interface RepositoryTitleProps {

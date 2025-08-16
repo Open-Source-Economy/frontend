@@ -1,4 +1,4 @@
-import { CurrencyType } from "./DeveloperProfile.dto";
+import { CurrencyType } from "@open-source-economy/api-types";
 
 export interface Service {
   id: string;

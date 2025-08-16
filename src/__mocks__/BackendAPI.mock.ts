@@ -17,10 +17,10 @@ import {
   StripePrice,
   StripePriceId,
   StripeProductId,
-} from "src/api/model";
+} from "@open-source-economy/api-types";
 import { BackendAPI } from "src/services";
-import * as dto from "src/api/dto";
-import { Price } from "src/api/dto";
+import * as dto from "@open-source-economy/api-types";
+import { Price } from "@open-source-economy/api-types";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";

@@ -6,7 +6,7 @@ import { PaymentSchedule } from "./payment-schedule";
 import { Card } from "./card";
 import { CurrentSubscriptionIcon, PaymentInfoIcon, PaymentScheduleIcon } from "src/ultils/Icons";
 import type { PlanDescription } from "./data/data";
-import { PlanPriceType } from "../../../../../api/model";
+import { PlanPriceType } from "@open-source-economy/api-types";
 
 interface PaymentDetails {
   cardType: string;

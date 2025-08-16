@@ -1,4 +1,4 @@
-import { CurrencyType, IncomeStreamType, OpenToOtherOpportunityType } from "./DeveloperProfile.dto";
+import { CurrencyType, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface SetIncomeStreamsDto {
   incomeStreams: IncomeStreamType[];

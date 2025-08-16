@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Currency, PlanPriceType, StripePrice } from "../../../../../../api/model";
+import { Currency, PlanPriceType, StripePrice } from "@open-source-economy/api-types";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
 import { NumberUtils } from "../../../../../../ultils/NumberUtils";
-import { CheckoutBody, CheckoutParams, CheckoutQuery } from "../../../../../../api/dto";
+import { CheckoutBody, CheckoutParams, CheckoutQuery } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getBackendAPI } from "../../../../../../services";
 import { paths } from "../../../../../../paths";

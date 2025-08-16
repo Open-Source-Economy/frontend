@@ -4,7 +4,7 @@ import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button } from "src/views/components";
 import { Link } from "react-router-dom";
-import { ProjectId } from "../../../../../api/model";
+import { ProjectId } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
 import { useAccordion } from "../../../../hooks/useAccordion";
 

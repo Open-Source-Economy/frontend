@@ -3,7 +3,7 @@ import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/vi
 import { useIssueContext } from "src/views/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
 import { credit, CreditUnit } from "src/model";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "@open-source-economy/api-types";
 import { Header } from "src/views/layout";
 import { SelectFilter } from "./SelectFilter";
 import * as components from "src/views/components/issue";

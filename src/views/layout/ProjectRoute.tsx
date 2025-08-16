@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { PageNotFound } from "../pages/PageNotFound";
 
-import { OwnerId, ProjectId, RepositoryId } from "src/api/model";
+import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 
 type ProjectContext = {
   projectId: ProjectId;

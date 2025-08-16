@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { CheckIcon, CloseIcon } from "./Icons";
 import { displayedCurrencies } from "src/views/data";
-import { Currency } from "src/api/model";
+import { Currency } from "@open-source-economy/api-types";
 
 interface CurrencyModalProps {
   isOpen: boolean;

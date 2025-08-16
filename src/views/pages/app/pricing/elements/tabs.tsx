@@ -1,5 +1,5 @@
 import React from "react";
-import { PlanPriceType } from "../../../../../api/model";
+import { PlanPriceType } from "@open-source-economy/api-types";
 
 interface TabsProps {
   value: PlanPriceType;

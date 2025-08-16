@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateCompanyBody, CreateCompanyQuery } from "src/api/dto";
-import { AddressId, CompanyId } from "src/api/model";
+import { CreateCompanyBody, CreateCompanyQuery } from "@open-source-economy/api-types";
+import { AddressId, CompanyId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 interface CreateCompanyProps {}

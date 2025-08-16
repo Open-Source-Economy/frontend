@@ -2,7 +2,7 @@ import React from "react";
 import { ServiceCard } from "./ServiceCard";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import leftlinear from "src/assets/left-linear-bg.webp";
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 
 interface ServicesProps {
   buttonPaths?: { [key in ServiceType]?: string };

@@ -4,7 +4,7 @@ import offerLeftLinear from "src/assets/offer-linear.webp";
 import rightLinear from "src/assets/right-linear-bg.webp";
 import { Button, H3WithSubtitle } from "src/views/components";
 import { useMaintainers } from "../../../../hooks";
-import { ProjectId } from "src/api/model";
+import { ProjectId } from "@open-source-economy/api-types";
 
 interface MaintainersProps {
   projectId: ProjectId;

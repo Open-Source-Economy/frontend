@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import { Currency, ProjectId } from "src/api/model";
-import { GetCampaignResponse } from "../../../../../api/dto";
+import { Currency, ProjectId } from "@open-source-economy/api-types";
+import { GetCampaignResponse } from "@open-source-economy/api-types";
 import { config, Env } from "../../../../../ultils";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
 import { useAuth } from "../../../authenticate";

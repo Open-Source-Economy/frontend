@@ -1,4 +1,4 @@
-import * as dto from "src/api/dto";
+import * as dto from "@open-source-economy/api-types";
 import { handleError, projectPath } from "./index";
 import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";

@@ -4,7 +4,7 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 import { VirtuousSection } from "./elements";
 import { Services } from "src/views/components/service/style2/Services";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../Audience";
 import { Button } from "../../../components";

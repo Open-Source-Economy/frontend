@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
-import type { IncomeStreamType } from "src/api/dto/onboarding/DeveloperProfile.dto";
+import { IncomeStreamType } from "@open-source-economy/api-types";
 
 // Inline SVG components replacing localhost assets
 const CloseIcon = () => (
@@ -20,8 +20,6 @@ const FireIcon = () => (
     />
   </svg>
 );
-
-// Ambiguous assets removed: imgSec2Img, imgDownload
 
 interface FundingOptions {
   royalties: boolean;
@@ -117,8 +115,12 @@ function FundingCard({ title, description, isEnabled, onChange, isRecommended = 
 }
 
 export default function Step3ActiveIncome({ state, updateState, onNext, onBack, currentStep }: Step3ActiveIncomeProps) {
+  // Ensure 'state' is an object to prevent errors when accessing its properties
+  // If 'state' is undefined, default it to an empty object.
+  const validatedState = state || {};
+
   const [fundingOptions, setFundingOptions] = useState<FundingOptions>(
-    state.activeIncome || {
+    validatedState.activeIncome || {
       royalties: true,
       offerServices: false,
       donations: true,
@@ -132,9 +134,9 @@ export default function Step3ActiveIncome({ state, updateState, onNext, onBack, 
     const api = getOnboardingBackendAPI();
     const incomeStreams: IncomeStreamType[] = [];
 
-    if (options.royalties) incomeStreams.push("royalties");
-    if (options.offerServices) incomeStreams.push("services");
-    if (options.donations) incomeStreams.push("donations");
+    if (options.royalties) incomeStreams.push(IncomeStreamType.ROYALTIES);
+    if (options.offerServices) incomeStreams.push(IncomeStreamType.SERVICES);
+    if (options.donations) incomeStreams.push(IncomeStreamType.DONATIONS);
 
     try {
       console.log("Saving income streams:", incomeStreams);
@@ -154,13 +156,14 @@ export default function Step3ActiveIncome({ state, updateState, onNext, onBack, 
 
   // Save default selections on mount if they haven't been saved yet
   useEffect(() => {
-    if (!hasInitialized && !state.activeIncome) {
+    if (!hasInitialized && !validatedState.activeIncome) {
+      // Use validatedState here
       // Save the default selections to the database
       saveIncomeStreams(fundingOptions);
       setHasInitialized(true);
       updateState({ activeIncome: fundingOptions });
     }
-  }, [hasInitialized, state.activeIncome, fundingOptions, updateState]);
+  }, [hasInitialized, validatedState.activeIncome, fundingOptions, updateState]); // Add validatedState to dependencies
 
   const handleToggleChange = async (option: keyof FundingOptions, enabled: boolean) => {
     const newOptions = {

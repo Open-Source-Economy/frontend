@@ -2,7 +2,7 @@ import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
-import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "../../api/dto";
+import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
 import { AuthContextState } from "../pages";
 import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";

@@ -1,4 +1,4 @@
-import { GetProjectAccordionResponse } from "../../../api/dto";
+import { GetProjectAccordionResponse } from "@open-source-economy/api-types";
 
 export const pekkoAccordion: GetProjectAccordionResponse = {
   title: "Pekko: Your Best Choice",

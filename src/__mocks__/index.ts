@@ -15,7 +15,7 @@ import {
   User,
   UserId,
   UserRole,
-} from "src/api/model";
+} from "@open-source-economy/api-types";
 
 export * from "./BackendAPI.mock";
 export * from "./AuthBackendAPI.mock";

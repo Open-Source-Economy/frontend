@@ -1,4 +1,4 @@
-import { type IssueId, OwnerId, type ProjectId } from "./api/model";
+import { type IssueId, OwnerId, type ProjectId } from "@open-source-economy/api-types";
 
 export const paths = {
   // Static routes

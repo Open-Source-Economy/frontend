@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import * as dto from "../../../../api/dto";
+import * as dto from "@open-source-economy/api-types";
 
 interface CreateCampaignProductAndPriceProps {}
 

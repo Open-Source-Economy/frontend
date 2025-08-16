@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/api/dto/auth";
+import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 
 export interface AuthContextState {
   loading: boolean;

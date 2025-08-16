@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { StatusCodes } from "http-status-codes";
-import { ErrorResponse, ResponseBody } from "src/api/dto/ResponseBody.dto";
+import { ErrorResponse, ResponseBody } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T | ApiError> {

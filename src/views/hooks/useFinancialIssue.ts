@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetIssueParams, GetIssueQuery } from "src/api/dto";
-import * as model from "src/api/model";
+import { GetIssueParams, GetIssueQuery } from "@open-source-economy/api-types";
+import * as model from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function useFinancialIssue(issueId: model.IssueId) {

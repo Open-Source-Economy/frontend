@@ -1,5 +1,5 @@
 import axios from "axios";
-import { StatusResponse } from "src/api/dto/auth/Status.dto";
+import { StatusResponse } from "@open-source-economy/api-types";
 import {
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
@@ -9,9 +9,9 @@ import {
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
-} from "src/api/dto/auth";
+} from "@open-source-economy/api-types";
 import { AuthBackendAPIMock } from "src/__mocks__";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";

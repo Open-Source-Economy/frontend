@@ -7,7 +7,7 @@ import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
 import IsUpgraded from "./IsUpgraded";
 import { SelectFilter } from "./SelectFilter";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "@open-source-economy/api-types";
 
 export function Support() {
   const [subject, setSubject] = useState("");

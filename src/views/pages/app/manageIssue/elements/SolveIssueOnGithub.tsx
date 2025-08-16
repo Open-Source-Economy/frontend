@@ -1,5 +1,5 @@
 import React from "react";
-import * as model from "src/api/model";
+import * as model from "@open-source-economy/api-types";
 import { ExternalLink } from "src/views/components";
 import cat from "src/assets/catimg.png";
 import { Button } from "src/views/components/elements/Button";

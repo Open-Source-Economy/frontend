@@ -1,5 +1,5 @@
 import React from "react";
-import { Issue, ManagedIssueState } from "src/api/model";
+import { Issue, ManagedIssueState } from "@open-source-economy/api-types";
 import { Button, ExternalLink } from "src/views/components/index";
 import { Link } from "react-router-dom";
 import { Audience } from "src/views/index";

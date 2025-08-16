@@ -1,4 +1,4 @@
-import { PlanProductType } from "../../../../../../api/model";
+import { PlanProductType } from "@open-source-economy/api-types";
 import { PlanFeature } from "./data";
 
 const basic: PlanFeature = {

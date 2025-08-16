@@ -1,6 +1,6 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Currency } from "src/api/model";
+import type { Currency } from "@open-source-economy/api-types";
 import { PreferredCurrency } from "../ultils/PreferredCurrency";
 import { useAuth } from "../views/pages/authenticate/AuthContext";
 

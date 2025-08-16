@@ -4,7 +4,7 @@ import * as React from "react";
 import { ToolTipIcon } from "src/ultils/Icons";
 import { cn } from "src/views/components";
 import IsUpgraded from "./IsUpgraded";
-import { DropdownOption } from "../../../../api/model";
+import { DropdownOption } from "@open-source-economy/api-types";
 
 interface SelectFilterProps {
   ariaLabel: string;

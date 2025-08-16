@@ -1,4 +1,4 @@
-import { CurrencyType, DeveloperRoleType, MergeRightsType } from "./DeveloperProfile.dto";
+import { CurrencyType, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
 
 export interface AddRepositoryDto {
   githubOwnerId: number;

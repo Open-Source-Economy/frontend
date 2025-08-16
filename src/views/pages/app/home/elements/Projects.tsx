@@ -3,7 +3,7 @@ import backdropSVG from "src/assets/backdrop.svg";
 import { Cards } from "src/views/pages/app/home/elements/Cards";
 import { Audience } from "../../../../Audience";
 import { useProjects } from "../../../../hooks/useProjects";
-import { ProjectUtils } from "../../../../../api/model";
+import { ProjectUtils } from "@open-source-economy/api-types";
 
 interface ProjectsProps {}
 

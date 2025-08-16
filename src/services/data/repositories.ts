@@ -1,4 +1,4 @@
-import { OwnerId, RepositoryId } from "src/api/model";
+import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 
 // TODO: lolo to delete
 export const repositoryIds: RepositoryId[] = [

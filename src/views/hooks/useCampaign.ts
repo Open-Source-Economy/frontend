@@ -1,7 +1,7 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import * as dto from "src/api/dto";
-import * as model from "src/api/model";
+import * as dto from "@open-source-economy/api-types";
+import * as model from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { CampaignDescription } from "src/model";

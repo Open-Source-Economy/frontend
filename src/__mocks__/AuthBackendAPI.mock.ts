@@ -9,11 +9,11 @@ import {
   RegisterResponse,
   RepositoryInfo,
   StatusResponse,
-} from "src/api/dto/auth";
+} from "@open-source-economy/api-types";
 import { AuthBackendAPI } from "src/services";
-import { CompanyUserRole, RepositoryUserRole } from "src/api/model";
+import { CompanyUserRole, RepositoryUserRole } from "@open-source-economy/api-types";
 import { company, repositoryId, user } from "./index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
+import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {

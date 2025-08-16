@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Currency } from "src/api/model";
+import { Currency } from "@open-source-economy/api-types";
 import { NumberUtils } from "../../../../../ultils/NumberUtils";
 
 interface ProgressProps {

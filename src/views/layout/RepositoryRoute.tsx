@@ -3,7 +3,7 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import { PageNotFound } from "../pages/PageNotFound";
 
 import { useRepositoryFromParams } from "../hooks";
-import { RepositoryId } from "src/api/model";
+import { RepositoryId } from "@open-source-economy/api-types";
 
 export function useRepositoryContext() {
   return useOutletContext<RepositoryContext>();
