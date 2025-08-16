@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { OnboardingState } from '../OnboardingFlow';
-import ProgressBar from '../components/ProgressBar';
-import { getOnboardingBackendAPI } from 'src/services';
-import { ApiError } from 'src/ultils/error/ApiError';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { OnboardingState } from "../OnboardingFlow";
+import ProgressBar from "../components/ProgressBar";
+import { getOnboardingBackendAPI } from "src/services";
+import { ApiError } from "src/ultils/error/ApiError";
 
 interface Step1ProfileProps {
   state: OnboardingState;
@@ -28,17 +28,17 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
     const newErrors: FormErrors = {};
 
     if (!state.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
 
     if (!state.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (!state.agreedToTerms) {
-      newErrors.terms = 'You must agree to the terms and conditions';
+      newErrors.terms = "You must agree to the terms and conditions";
     }
 
     setErrors(newErrors);
@@ -53,28 +53,28 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
         const profileData = {
           name: state.name,
           email: state.email,
-          agreedToTerms: state.agreedToTerms
+          agreedToTerms: state.agreedToTerms,
         };
-        
-        console.log('Sending profile data:', profileData);
-        console.log('State values:', { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
-        
+
+        console.log("Sending profile data:", profileData);
+        console.log("State values:", { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
+
         // Try to update profile first, if that fails, create a new one
         let result = await onboardingAPI.updateProfile(profileData);
-        
+
         if (result instanceof ApiError) {
           // If update fails, create profile with the data
           result = await onboardingAPI.createProfile(profileData);
           if (result instanceof ApiError) {
-            throw new Error('Failed to save profile data');
+            throw new Error("Failed to save profile data");
           }
         }
-        
+
         // Move to next step
         onNext();
       } catch (error) {
-        console.error('Error saving profile:', error);
-        setErrors({ name: 'Failed to save profile. Please try again.' });
+        console.error("Error saving profile:", error);
+        setErrors({ name: "Failed to save profile. Please try again." });
       } finally {
         setSaving(false);
       }
@@ -97,7 +97,6 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
       {/* Form Content */}
       <div className="box-border content-stretch flex flex-col gap-8 items-center justify-start px-[200px] py-0 relative shrink-0 w-full">
         <div className="box-border content-stretch flex flex-col gap-12 items-center justify-center p-0 relative shrink-0 w-full">
-          
           {/* Section Title */}
           <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-full">
             <div className="font-michroma not-italic relative shrink-0 text-[42px] w-full">
@@ -112,7 +111,6 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
           <div className="box-border content-stretch flex flex-col gap-6 items-center justify-start p-0 relative shrink-0">
             <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-2.5 items-start justify-start px-8 py-9 relative rounded-[30px] shrink-0">
               <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-[680px]">
-                
                 {/* Name Input */}
                 <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
                   <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
@@ -127,15 +125,13 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                       <input
                         type="text"
                         value={state.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        onChange={e => handleInputChange("name", e.target.value)}
                         placeholder="Your name"
                         className="w-full bg-transparent font-montserrat font-normal leading-[0] text-[#ffffff] text-[16px] text-left outline-none placeholder:opacity-60 placeholder:text-[#ffffff]"
                       />
                     </div>
                   </div>
-                  {errors.name && (
-                    <div className="text-red-400 text-sm mt-1">{errors.name}</div>
-                  )}
+                  {errors.name && <div className="text-red-400 text-sm mt-1">{errors.name}</div>}
                 </div>
 
                 {/* Email Input */}
@@ -152,15 +148,13 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                       <input
                         type="email"
                         value={state.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={e => handleInputChange("email", e.target.value)}
                         placeholder="Your email address"
                         className="w-full bg-transparent font-montserrat font-normal leading-[0] text-[#ffffff] text-[16px] text-left outline-none placeholder:opacity-60 placeholder:text-[#ffffff]"
                       />
                     </div>
                   </div>
-                  {errors.email && (
-                    <div className="text-red-400 text-sm mt-1">{errors.email}</div>
-                  )}
+                  {errors.email && <div className="text-red-400 text-sm mt-1">{errors.email}</div>}
                 </div>
               </div>
             </div>
@@ -171,33 +165,32 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                 <input
                   type="checkbox"
                   checked={state.agreedToTerms}
-                  onChange={(e) => handleInputChange('agreedToTerms', e.target.checked)}
+                  onChange={e => handleInputChange("agreedToTerms", e.target.checked)}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
                 {state.agreedToTerms && (
                   <div className="absolute inset-0 bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] rounded-sm flex items-center justify-center">
                     <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                 )}
               </div>
               <div className="box-border content-stretch flex flex-row gap-1 items-center justify-start leading-[0] p-0 relative shrink-0 text-[16px] text-left text-nowrap">
                 <div className="flex flex-col font-montserrat font-normal justify-center relative shrink-0 text-[#ffffff]">
-                  <p className="block leading-[1.1] text-nowrap whitespace-pre">
-                    By submitting this form, I agree to the
-                  </p>
+                  <p className="block leading-[1.1] text-nowrap whitespace-pre">By submitting this form, I agree to the</p>
                 </div>
-                <Link to="/terms-and-conditions" target="_blank" className="bg-clip-text bg-gradient-to-r flex flex-col font-montserrat font-medium from-[#ff7e4b] justify-center relative shrink-0 to-[#66319b] via-50% via-[#ff518c] underline" style={{ WebkitTextFillColor: "transparent" }}>
-                  <p className="block leading-[1.1] text-nowrap whitespace-pre">
-                    Terms and Conditions
-                  </p>
+                <Link
+                  to="/terms-and-conditions"
+                  target="_blank"
+                  className="bg-clip-text bg-gradient-to-r flex flex-col font-montserrat font-medium from-[#ff7e4b] justify-center relative shrink-0 to-[#66319b] via-50% via-[#ff518c] underline"
+                  style={{ WebkitTextFillColor: "transparent" }}
+                >
+                  <p className="block leading-[1.1] text-nowrap whitespace-pre">Terms and Conditions</p>
                 </Link>
               </div>
             </div>
-            {errors.terms && (
-              <div className="text-red-400 text-sm">{errors.terms}</div>
-            )}
+            {errors.terms && <div className="text-red-400 text-sm">{errors.terms}</div>}
           </div>
 
           {/* Button Group */}
@@ -217,7 +210,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">{saving ? 'Saving...' : 'Next'}</p>
+                <p className="block leading-[1.5] whitespace-pre">{saving ? "Saving..." : "Next"}</p>
               </div>
             </button>
           </div>

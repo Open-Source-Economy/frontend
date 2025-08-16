@@ -25,7 +25,7 @@ export const paths = {
   PRIVACY: "/privacy",
   TERMS: "/terms",
   BLOG: "https://blog.open-source-economy.com/",
-  
+
   // Onboarding routes
   DEV_ONBOARDING: "/dev-onboarding",
   DEV_ONBOARDING_PROFILE: "/dev-onboarding/profile",
