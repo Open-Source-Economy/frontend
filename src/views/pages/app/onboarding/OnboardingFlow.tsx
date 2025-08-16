@@ -40,7 +40,7 @@ export interface OnboardingState {
   // Step 4 - Availability & Rate
   availability?: {
     weeklyHours: string;
-    largerOpportunities: "yes" | "maybe" | "no" | "";
+    largerOpportunities: "yes" | "maybe" | "no" | ""; // TODO: lolo
     hourlyRate: string;
     currency: string;
     comments: string;
@@ -78,7 +78,7 @@ export default function OnboardingFlow() {
   const [loading, setLoading] = useState(true);
 
   // Get current step from URL params, default to 1
-  const currentStep = parseInt(searchParams.get("step") || "1");
+  const currentStep = parseInt(searchParams.get("step") || "1"); // TODO: lolo enum the steps
 
   // Update URL when step changes
   const goToStep = (step: number) => {
@@ -91,7 +91,7 @@ export default function OnboardingFlow() {
       goToStep(currentStep + 1);
     } else {
       // Already on completion page, navigate to dashboard
-      navigate("/dashboard");
+      navigate("/dashboard"); // TODO: lolo
     }
   };
 
@@ -100,7 +100,7 @@ export default function OnboardingFlow() {
       goToStep(currentStep - 1);
     } else {
       // Go back to main onboarding landing page
-      navigate("/onboarding");
+      navigate("/onboarding"); // TODO: lolo
     }
   };
 
@@ -118,7 +118,7 @@ export default function OnboardingFlow() {
         // Check if user is authenticated
         if (!auth.authInfo) {
           // Redirect to authentication if not logged in
-          navigate("/sign-in", { state: { from: "/onboarding/start?step=1" } });
+          navigate("/sign-in", { state: { from: "/onboarding/start?step=1" } }); // TODO: lolo
           return;
         }
 
