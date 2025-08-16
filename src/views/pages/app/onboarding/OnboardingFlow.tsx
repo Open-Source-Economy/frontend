@@ -125,62 +125,62 @@ export default function OnboardingFlow() {
       setLoading(true);
 
       try {
-        if (!auth.authInfo?.user) {
-          // TODO: lolo
-          console.warn("User not authenticated, redirecting to sign-in page.");
-          // // Redirect to authentication if not logged in
-          // navigate(paths.SIGN_IN, { state: { from: "/onboarding/start?step=1" } });
-          // // paths.SIGN_IN is false
-          return;
-        }
-
-        // Try to fetch user data and developer profile
-        const profileResponse = await onboardingAPI.getDeveloperProfile();
-
-        if (profileResponse instanceof ApiError) {
-          console.error("Failed to fetch developer profile:", profileResponse.message);
-          setError(profileResponse)
-        } else {
-
-          updateState({
-            name: profileResponse.user.name || "",
-            email: profileResponse.user.email || "",
-            // Map other profile fields as needed if profile exists
-          });
-
-          // Fallback to auth context if API call fails
-          const userName = auth.authInfo.user?.name || "";
-          let userEmail = "";
-          if (auth.authInfo.user?.data && "email" in auth.authInfo.user.data) {
-            userEmail = auth.authInfo.user.data.email ?? "";
-          }
-
-          updateState({
-            name: userName,
-            email: userEmail
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        // Fall back to auth info if available
-        if (auth.authInfo?.user) {
-          const userName = auth.authInfo.user.name || "";
-          let userEmail = "";
-          if (auth.authInfo.user.data && "email" in auth.authInfo.user.data) {
-            userEmail = auth.authInfo.user.data.email ?? "";
-          }
-
-          updateState({
-            name: userName,
-            email: userEmail
-          });
-        }
+      //   if (!auth.authInfo?.user) {
+      //     // TODO: lolo - should we need this?
+      //     console.warn("User not authenticated, redirecting to sign-in page.");
+      //     // // Redirect to authentication if not logged in
+      //     // navigate(paths.SIGN_IN, { state: { from: "/onboarding/start?step=1" } });
+      //     // // paths.SIGN_IN is false
+      //     return;
+      //   }
+      //
+      //   // Try to fetch user data and developer profile
+      //   const profileResponse = await onboardingAPI.getDeveloperProfile();
+      //
+      //   if (profileResponse instanceof ApiError) {
+      //     console.error("Failed to fetch developer profile:", profileResponse.message);
+      //     setError(profileResponse)
+      //   } else {
+      //
+      //     updateState({
+      //       name: profileResponse.user.name || "",
+      //       email: profileResponse.user.email || "",
+      //       // Map other profile fields as needed if profile exists
+      //     });
+      //
+      //     // Fallback to auth context if API call fails
+      //     const userName = auth.authInfo.user?.name || "";
+      //     let userEmail = "";
+      //     if (auth.authInfo.user?.data && "email" in auth.authInfo.user.data) {
+      //       userEmail = auth.authInfo.user.data.email ?? "";
+      //     }
+      //
+      //     updateState({
+      //       name: userName,
+      //       email: userEmail
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.error("Error fetching user data:", error);
+      //   // Fall back to auth info if available
+      //   if (auth.authInfo?.user) {
+      //     const userName = auth.authInfo.user.name || "";
+      //     let userEmail = "";
+      //     if (auth.authInfo.user.data && "email" in auth.authInfo.user.data) {
+      //       userEmail = auth.authInfo.user.data.email ?? "";
+      //     }
+      //
+      //     updateState({
+      //       name: userName,
+      //       email: userEmail
+      //     });
+      //   }
       } finally {
         setLoading(false);
       }
     };
 
-    // fetchUserData();
+    fetchUserData();
   }, [auth.authInfo]);
 
   const renderCurrentStep = () => {

@@ -11,7 +11,6 @@ export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
   const location = useLocation();
 
-  console.log("AuthRoutes", props.authPage); // TODO: lolo
   if (config.api.useMock) {
     return <Outlet />;
   }
