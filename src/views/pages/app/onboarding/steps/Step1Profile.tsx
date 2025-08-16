@@ -59,7 +59,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
         console.log("Sending profile data:", profileData);
         console.log("State values:", { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
 
-        // Try to update profile first, if that fails, create a new one
+        // Try to update profile first, if that fails, create a new one -> lauriane
         let result = await onboardingAPI.updateProfile(profileData);
 
         if (result instanceof ApiError) {
