@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { Header } from "src/views/layout/header/Header";
-import { Footer } from "src/views/layout/footer/Footer";
+
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
@@ -12,6 +11,9 @@ import Step3ActiveIncome from "./steps/Step3ActiveIncome";
 import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
 import Step5TasksPreferences from "./steps/Step5TasksPreferences";
 import Step6Completion from "./steps/Step6Completion";
+import { paths } from "../../../../paths";
+import { PageWrapper } from "../../PageWrapper";
+import { ApiError } from "src/ultils/error/ApiError";
 
 export interface OnboardingState {
   // Step 1 - Profile
@@ -66,7 +68,7 @@ export interface OnboardingState {
 const initialState: OnboardingState = {
   name: "",
   email: "",
-  agreedToTerms: false,
+  agreedToTerms: false
 };
 
 export default function OnboardingFlow() {
@@ -77,8 +79,16 @@ export default function OnboardingFlow() {
   const [state, setState] = useState<OnboardingState>(initialState);
   const [loading, setLoading] = useState(true);
 
+  // TODO: handle errors properly
+  const [error, setError] = useState<ApiError | null>(null);
+
   // Get current step from URL params, default to 1
   const currentStep = parseInt(searchParams.get("step") || "1"); // TODO: lolo enum the steps
+
+  if (isNaN(currentStep) || currentStep < 1 || currentStep > 6) { // TODO: lolo enum the steps
+    // If step is invalid, redirect to step 1
+    setSearchParams({ step: "1" });
+  }
 
   // Update URL when step changes
   const goToStep = (step: number) => {
@@ -91,7 +101,7 @@ export default function OnboardingFlow() {
       goToStep(currentStep + 1);
     } else {
       // Already on completion page, navigate to dashboard
-      navigate("/dashboard"); // TODO: lolo
+      navigate(paths.HOME); // TODO: improve this
     }
   };
 
@@ -100,7 +110,7 @@ export default function OnboardingFlow() {
       goToStep(currentStep - 1);
     } else {
       // Go back to main onboarding landing page
-      navigate("/onboarding"); // TODO: lolo
+      navigate(paths.DEV_ONBOARDING); // TODO: improve this
     }
   };
 
@@ -111,28 +121,33 @@ export default function OnboardingFlow() {
 
   // Fetch user data on component mount
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUserData = async () => { // TODO: lolo this is completely wrong: getDeveloperProfile should setup OnboardingState
       setLoading(true);
 
       try {
-        // Check if user is authenticated
-        if (!auth.authInfo) {
-          // Redirect to authentication if not logged in
-          navigate("/sign-in", { state: { from: "/onboarding/start?step=1" } }); // TODO: lolo
+        if (!auth.authInfo?.user) {
+          // TODO: lolo
+          console.warn("User not authenticated, redirecting to sign-in page.");
+          // // Redirect to authentication if not logged in
+          // navigate(paths.SIGN_IN, { state: { from: "/onboarding/start?step=1" } });
+          // // paths.SIGN_IN is false
           return;
         }
 
         // Try to fetch user data and developer profile
         const profileResponse = await onboardingAPI.getDeveloperProfile();
 
-        if (profileResponse && !(profileResponse instanceof Error)) {
-          // Successfully got user data from backend
+        if (profileResponse instanceof ApiError) {
+          console.error("Failed to fetch developer profile:", profileResponse.message);
+          setError(profileResponse)
+        } else {
+
           updateState({
             name: profileResponse.user.name || "",
             email: profileResponse.user.email || "",
             // Map other profile fields as needed if profile exists
           });
-        } else {
+
           // Fallback to auth context if API call fails
           const userName = auth.authInfo.user?.name || "";
           let userEmail = "";
@@ -142,7 +157,7 @@ export default function OnboardingFlow() {
 
           updateState({
             name: userName,
-            email: userEmail,
+            email: userEmail
           });
         }
       } catch (error) {
@@ -157,7 +172,7 @@ export default function OnboardingFlow() {
 
           updateState({
             name: userName,
-            email: userEmail,
+            email: userEmail
           });
         }
       } finally {
@@ -165,7 +180,7 @@ export default function OnboardingFlow() {
       }
     };
 
-    fetchUserData();
+    // fetchUserData();
   }, [auth.authInfo]);
 
   const renderCurrentStep = () => {
@@ -174,7 +189,7 @@ export default function OnboardingFlow() {
       updateState,
       onNext: goToNextStep,
       onBack: goToPrevStep,
-      currentStep,
+      currentStep
     };
 
     switch (currentStep) {
@@ -196,8 +211,7 @@ export default function OnboardingFlow() {
   };
 
   return (
-    <>
-      <Header />
+    <PageWrapper>
       <div className="bg-[#0e1f35] min-h-screen">
         {loading ? (
           <div className="flex items-center justify-center h-screen">
@@ -207,7 +221,6 @@ export default function OnboardingFlow() {
           renderCurrentStep()
         )}
       </div>
-      <Footer />
-    </>
+    </PageWrapper>
   );
 }

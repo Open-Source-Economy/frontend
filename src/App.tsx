@@ -23,7 +23,7 @@ import {
   Issues,
   Payment,
   Pdf,
-  UserDeveloper,
+  UserDeveloper
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
@@ -64,8 +64,11 @@ const App = () => {
 
             <Route path={paths.HOME} element={<Home />} />
             <Route element={<IssueRoutes />}>
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
+              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`}
+                     element={<Support />} />
+              <Route
+                path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`}
+                element={<SupportCreateTicket />} />
             </Route>
 
             <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
@@ -110,18 +113,24 @@ const App = () => {
             </Route>
             <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
 
-            <Route element={<AuthRoutes authPage="/sign-up" />}>
+            <Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>
               <Route path={paths.PROJECTS} element={<Projects />} />
               <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
               <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
               <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />
               <Route element={<IssueRoutes />}>
-                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
-                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`}
+                       element={<ManageIssue />} />
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`}
+                       element={<FundIssue />} />
               </Route>
+
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
-              <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
-              <Route path={`${paths.DEV_ONBOARDING}/start`} element={<OnboardingFlow />} />
+            </Route>
+
+            <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
+            <Route element={<AuthRoutes authPage={paths.DEV_ONBOARDING} />}>
+              <Route path={paths.DEV_ONBOARDING_START} element={<OnboardingFlow />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />
