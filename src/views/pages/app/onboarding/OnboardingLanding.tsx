@@ -1,10 +1,6 @@
 import React from "react";
-import { Button } from "src/views/components/elements/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { Header } from "src/views/layout/header/Header";
-import { Footer } from "src/views/layout/footer/Footer";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
-import { getAuthBackendAPI } from "src/services";
 import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 
@@ -251,7 +247,6 @@ export default function OnboardingLandingPage() {
               </div>
             </Link>
           </div>
-
         </div>
       </div>
     </PageWrapper>

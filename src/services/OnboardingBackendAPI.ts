@@ -1,8 +1,9 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";
-import * as dto from "src/api/dto/onboarding";
+import * as samdto from "src/api/dto/onboarding";
+import * as dto from "@open-source-economy/api-types";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   return new OnboardingBackendAPIImpl();
@@ -10,78 +11,79 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
 
 export interface OnboardingBackendAPI {
   // Profile management
-  createProfile(profileData?: dto.CreateDeveloperProfileDto): Promise<dto.OnboardingResponse | ApiError>;
-  updateProfile(updates: dto.UpdateDeveloperProfileDto): Promise<dto.OnboardingResponse | ApiError>;
+  createProfile(profileData?: samdto.CreateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError>;
+  updateProfile(updates: samdto.UpdateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError>;
   getDeveloperProfile(): Promise<dto.GetDeveloperProfileResponse | ApiError>;
 
   // Settings management
-  setDeveloperSettings(settings: dto.SetDeveloperSettingsDto): Promise<dto.SetDeveloperSettingsResponse | ApiError>;
-  setIncomeStreams(incomeStreams: dto.SetIncomeStreamsDto): Promise<dto.SetIncomeStreamsResponse | ApiError>;
+  setDeveloperSettings(settings: samdto.SetDeveloperSettingsDto): Promise<samdto.SetDeveloperSettingsResponse | ApiError>;
+  setIncomeStreams(incomeStreams: samdto.SetIncomeStreamsDto): Promise<samdto.SetIncomeStreamsResponse | ApiError>;
 
   // Repository management
-  addRepository(repository: dto.AddRepositoryDto): Promise<dto.AddRepositoryResponse | ApiError>;
-  removeRepository(projectItemId: string): Promise<dto.RemoveRepositoryResponse | ApiError>;
-  getRepositories(): Promise<dto.GetRepositoriesResponse | ApiError>;
+  addRepository(repository: samdto.AddRepositoryDto): Promise<samdto.AddRepositoryResponse | ApiError>;
+  removeRepository(projectItemId: string): Promise<samdto.RemoveRepositoryResponse | ApiError>;
+  getRepositories(): Promise<samdto.GetRepositoriesResponse | ApiError>;
 
   // GitHub integration
-  getGitHubOrganizations(): Promise<dto.GetGitHubOrganizationsResponse | ApiError>;
-  getGitHubRepositories(org: string): Promise<dto.GetGitHubRepositoriesResponse | ApiError>;
-  getUserGitHubRepositories(): Promise<dto.GetUserGitHubRepositoriesResponse | ApiError>;
+  // TODO: should be in the GitHubBackendAPI
+  // getGitHubOrganizations(): Promise<samdto.GetGitHubOrganizationsResponse | ApiError>;
+  // getGitHubRepositories(org: string): Promise<samdto.GetGitHubRepositoriesResponse | ApiError>;
+  getUserGitHubRepositories(): Promise<samdto.GetUserGitHubRepositoriesResponse | ApiError>;
 
   // Rights management
-  updateDeveloperRights(id: string, updates: dto.UpdateDeveloperRightsDto): Promise<dto.OnboardingResponse | ApiError>;
+  updateDeveloperRights(id: string, updates: samdto.UpdateDeveloperRightsDto): Promise<samdto.OnboardingResponse | ApiError>;
 
   // Service management
-  getServices(): Promise<dto.GetServicesResponse | ApiError>;
-  addDeveloperService(service: dto.AddDeveloperServiceDto): Promise<dto.DeveloperServiceResponse | ApiError>;
-  updateDeveloperService(id: string, updates: dto.UpdateDeveloperServiceDto): Promise<dto.DeveloperServiceResponse | ApiError>;
-  deleteDeveloperService(id: string): Promise<dto.DeleteDeveloperServiceResponse | ApiError>;
+  getServices(): Promise<samdto.GetServicesResponse | ApiError>;
+  addDeveloperService(service: samdto.AddDeveloperServiceDto): Promise<samdto.DeveloperServiceResponse | ApiError>;
+  updateDeveloperService(id: string, updates: samdto.UpdateDeveloperServiceDto): Promise<samdto.DeveloperServiceResponse | ApiError>;
+  deleteDeveloperService(id: string): Promise<samdto.DeleteDeveloperServiceResponse | ApiError>;
 
   // Onboarding completion
-  completeOnboarding(): Promise<dto.CompleteOnboardingResponse | ApiError>;
+  completeOnboarding(): Promise<samdto.CompleteOnboardingResponse | ApiError>;
 }
 
 class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   private readonly baseUrl = `${config.api.url}/onboarding`;
 
-  async createProfile(profileData?: dto.CreateDeveloperProfileDto): Promise<dto.OnboardingResponse | ApiError> {
-    return handleError<dto.OnboardingResponse>(() => axios.post(`${this.baseUrl}/profile`, profileData || {}, { withCredentials: true }), "createProfile");
+  async createProfile(profileData?: samdto.CreateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError> {
+    return handleError<samdto.OnboardingResponse>(() => axios.post(`${this.baseUrl}/profile`, profileData || {}, { withCredentials: true }), "createProfile");
   }
 
-  async updateProfile(updates: dto.UpdateDeveloperProfileDto): Promise<dto.OnboardingResponse | ApiError> {
-    return handleError<dto.OnboardingResponse>(() => axios.put(`${this.baseUrl}/profile`, updates, { withCredentials: true }), "updateProfile");
+  async updateProfile(updates: samdto.UpdateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError> {
+    return handleError<samdto.OnboardingResponse>(() => axios.put(`${this.baseUrl}/profile`, updates, { withCredentials: true }), "updateProfile");
   }
 
   async getDeveloperProfile(): Promise<dto.GetDeveloperProfileResponse | ApiError> {
     return handleError<dto.GetDeveloperProfileResponse>(() => axios.get(`${this.baseUrl}/profile`, { withCredentials: true }), "getDeveloperProfile");
   }
 
-  async setDeveloperSettings(settings: dto.SetDeveloperSettingsDto): Promise<dto.SetDeveloperSettingsResponse | ApiError> {
-    return handleError<dto.SetDeveloperSettingsResponse>(
+  async setDeveloperSettings(settings: samdto.SetDeveloperSettingsDto): Promise<samdto.SetDeveloperSettingsResponse | ApiError> {
+    return handleError<samdto.SetDeveloperSettingsResponse>(
       () => axios.post(`${this.baseUrl}/settings`, settings, { withCredentials: true }),
       "setDeveloperSettings",
     );
   }
 
-  async setIncomeStreams(incomeStreams: dto.SetIncomeStreamsDto): Promise<dto.SetIncomeStreamsResponse | ApiError> {
-    return handleError<dto.SetIncomeStreamsResponse>(
+  async setIncomeStreams(incomeStreams: samdto.SetIncomeStreamsDto): Promise<samdto.SetIncomeStreamsResponse | ApiError> {
+    return handleError<samdto.SetIncomeStreamsResponse>(
       () => axios.post(`${this.baseUrl}/income-streams`, incomeStreams, { withCredentials: true }),
       "setIncomeStreams",
     );
   }
 
-  async addRepository(repository: dto.AddRepositoryDto): Promise<dto.AddRepositoryResponse | ApiError> {
-    return handleError<dto.AddRepositoryResponse>(() => axios.post(`${this.baseUrl}/repositories`, repository, { withCredentials: true }), "addRepository");
+  async addRepository(repository: samdto.AddRepositoryDto): Promise<samdto.AddRepositoryResponse | ApiError> {
+    return handleError<samdto.AddRepositoryResponse>(() => axios.post(`${this.baseUrl}/repositories`, repository, { withCredentials: true }), "addRepository");
   }
 
-  async removeRepository(projectItemId: string): Promise<dto.RemoveRepositoryResponse | ApiError> {
-    return handleError<dto.RemoveRepositoryResponse>(
+  async removeRepository(projectItemId: string): Promise<samdto.RemoveRepositoryResponse | ApiError> {
+    return handleError<samdto.RemoveRepositoryResponse>(
       () => axios.delete(`${this.baseUrl}/repositories/${projectItemId}`, { withCredentials: true }),
       "removeRepository",
     );
   }
 
-  async getRepositories(): Promise<dto.GetRepositoriesResponse | ApiError> {
+  async getRepositories(): Promise<samdto.GetRepositoriesResponse | ApiError> {
     try {
       const response = await axios.get(`${this.baseUrl}/repositories`, { withCredentials: true });
       // Handle the actual backend response format: { success: boolean, data: [...] }
@@ -99,32 +101,32 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     }
   }
 
-  async getGitHubOrganizations(): Promise<dto.GetGitHubOrganizationsResponse | ApiError> {
-    return handleError<dto.GetGitHubOrganizationsResponse>(
+  async getGitHubOrganizations(): Promise<samdto.GetGitHubOrganizationsResponse | ApiError> {
+    return handleError<samdto.GetGitHubOrganizationsResponse>(
       () => axios.get(`${this.baseUrl}/github/organizations`, { withCredentials: true }),
       "getGitHubOrganizations",
     );
   }
 
-  async getGitHubRepositories(org: string): Promise<dto.GetGitHubRepositoriesResponse | ApiError> {
-    return handleError<dto.GetGitHubRepositoriesResponse>(
+  async getGitHubRepositories(org: string): Promise<samdto.GetGitHubRepositoriesResponse | ApiError> {
+    return handleError<samdto.GetGitHubRepositoriesResponse>(
       () => axios.get(`${this.baseUrl}/github/organizations/${org}/repositories`, { withCredentials: true }),
       "getGitHubRepositories",
     );
   }
 
-  async getUserGitHubRepositories(): Promise<dto.GetUserGitHubRepositoriesResponse | ApiError> {
-    return handleError<dto.GetUserGitHubRepositoriesResponse>(
+  async getUserGitHubRepositories(): Promise<samdto.GetUserGitHubRepositoriesResponse | ApiError> {
+    return handleError<samdto.GetUserGitHubRepositoriesResponse>(
       () => axios.get(`${this.baseUrl}/github/user/repositories`, { withCredentials: true }),
       "getUserGitHubRepositories",
     );
   }
 
-  async updateDeveloperRights(id: string, updates: dto.UpdateDeveloperRightsDto): Promise<dto.OnboardingResponse | ApiError> {
-    return handleError<dto.OnboardingResponse>(() => axios.put(`${this.baseUrl}/rights/${id}`, updates, { withCredentials: true }), "updateDeveloperRights");
+  async updateDeveloperRights(id: string, updates: samdto.UpdateDeveloperRightsDto): Promise<samdto.OnboardingResponse | ApiError> {
+    return handleError<samdto.OnboardingResponse>(() => axios.put(`${this.baseUrl}/rights/${id}`, updates, { withCredentials: true }), "updateDeveloperRights");
   }
 
-  async getServices(): Promise<dto.GetServicesResponse | ApiError> {
+  async getServices(): Promise<samdto.GetServicesResponse | ApiError> {
     try {
       const response = await axios.get(`${this.baseUrl}/services`, { withCredentials: true });
       console.log("Raw services API response:", response.data);
@@ -144,28 +146,28 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     }
   }
 
-  async addDeveloperService(service: dto.AddDeveloperServiceDto): Promise<dto.DeveloperServiceResponse | ApiError> {
-    return handleError<dto.DeveloperServiceResponse>(
+  async addDeveloperService(service: samdto.AddDeveloperServiceDto): Promise<samdto.DeveloperServiceResponse | ApiError> {
+    return handleError<samdto.DeveloperServiceResponse>(
       () => axios.post(`${this.baseUrl}/developer-services`, service, { withCredentials: true }),
       "addDeveloperService",
     );
   }
 
-  async updateDeveloperService(id: string, updates: dto.UpdateDeveloperServiceDto): Promise<dto.DeveloperServiceResponse | ApiError> {
-    return handleError<dto.DeveloperServiceResponse>(
+  async updateDeveloperService(id: string, updates: samdto.UpdateDeveloperServiceDto): Promise<samdto.DeveloperServiceResponse | ApiError> {
+    return handleError<samdto.DeveloperServiceResponse>(
       () => axios.put(`${this.baseUrl}/developer-services/${id}`, updates, { withCredentials: true }),
       "updateDeveloperService",
     );
   }
 
-  async deleteDeveloperService(id: string): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
-    return handleError<dto.DeleteDeveloperServiceResponse>(
+  async deleteDeveloperService(id: string): Promise<samdto.DeleteDeveloperServiceResponse | ApiError> {
+    return handleError<samdto.DeleteDeveloperServiceResponse>(
       () => axios.delete(`${this.baseUrl}/developer-services/${id}`, { withCredentials: true }),
       "deleteDeveloperService",
     );
   }
 
-  async completeOnboarding(): Promise<dto.CompleteOnboardingResponse | ApiError> {
-    return handleError<dto.CompleteOnboardingResponse>(() => axios.post(`${this.baseUrl}/complete`, {}, { withCredentials: true }), "completeOnboarding");
+  async completeOnboarding(): Promise<samdto.CompleteOnboardingResponse | ApiError> {
+    return handleError<samdto.CompleteOnboardingResponse>(() => axios.post(`${this.baseUrl}/complete`, {}, { withCredentials: true }), "completeOnboarding");
   }
 }

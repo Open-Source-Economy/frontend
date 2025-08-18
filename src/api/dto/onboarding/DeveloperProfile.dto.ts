@@ -1,4 +1,4 @@
-import { CurrencyType, DeveloperRoleType, IncomeStreamType, MergeRightsType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Currency, DeveloperRoleType, IncomeStreamType, MergeRightsType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface CreateDeveloperProfileDto {
   name?: string;
@@ -12,20 +12,6 @@ export interface UpdateDeveloperProfileDto {
   agreedToTerms?: boolean;
 }
 
-export interface GetDeveloperProfileResponse {
-  user: {
-    name: string | null;
-    email: string | null;
-  };
-  profile?: {
-    id: string;
-    onboardingCompleted: boolean;
-  } | null;
-  settings?: DeveloperSettingsData;
-  rights?: DeveloperRightsData[];
-  services?: DeveloperServiceData[];
-}
-
 export interface DeveloperSettingsData {
   id: string;
   developerProfileId: string;
@@ -33,7 +19,7 @@ export interface DeveloperSettingsData {
   hourlyWeeklyCommitment: number;
   openToOtherOpportunity: OpenToOtherOpportunityType;
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
   createdAt: string;
   updatedAt: string;
 }
@@ -54,7 +40,7 @@ export interface DeveloperServiceData {
   projectItemId: string;
   serviceId: string;
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
   responseTimeHours?: number | null;
   createdAt: string;
   updatedAt: string;

@@ -1,4 +1,4 @@
-import { CurrencyType } from "@open-source-economy/api-types";
+import { Currency } from "@open-source-economy/api-types";
 
 export interface Service {
   id: string;
@@ -21,13 +21,13 @@ export interface AddDeveloperServiceDto {
   projectItemId: string;
   serviceId: string;
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
   responseTimeHours?: number | null;
 }
 
 export interface UpdateDeveloperServiceDto {
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
   responseTimeHours?: number | null;
 }
 
@@ -39,7 +39,7 @@ export interface DeveloperServiceResponse {
     projectItemId: string;
     serviceId: string;
     hourlyRate: number;
-    currency: CurrencyType;
+    currency: Currency;
     responseTimeHours?: number | null;
     createdAt: string;
     updatedAt: string;

@@ -1,5 +1,4 @@
-import { GetProjectServicesResponse } from "@open-source-economy/api-types";
-import { ServiceType } from "@open-source-economy/api-types";
+import { GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
 
 export const pekkoGetProjectServicesResponse: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT, ServiceType.SUPPORT, ServiceType.ADVISORY],

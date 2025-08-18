@@ -1,8 +1,7 @@
 import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/components";
-import { FundIssueBody, FundIssueParams, FundIssueQuery } from "@open-source-economy/api-types";
-import { IssueId } from "@open-source-economy/api-types";
+import { FundIssueBody, FundIssueParams, FundIssueQuery, IssueId } from "@open-source-economy/api-types";
 import { credit } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";

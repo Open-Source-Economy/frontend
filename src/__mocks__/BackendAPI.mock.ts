@@ -1,3 +1,4 @@
+import * as dto from "@open-source-economy/api-types";
 import {
   CampaignPriceType,
   CampaignProductType,
@@ -11,6 +12,7 @@ import {
   ManagedIssueState,
   PlanPriceType,
   PlanProductType,
+  Price,
   PriceType,
   ProductType,
   ProjectUtils,
@@ -19,8 +21,6 @@ import {
   StripeProductId,
 } from "@open-source-economy/api-types";
 import { BackendAPI } from "src/services";
-import * as dto from "@open-source-economy/api-types";
-import { Price } from "@open-source-economy/api-types";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";

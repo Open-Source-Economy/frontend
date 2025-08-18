@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
+import { Step1State } from "../OnboardingDataSteps";
+import { OnboardingStepProps } from "./OnboardingStepProps";
 
-interface Step1ProfileProps {
-  state: OnboardingState;
-  updateState: (updates: Partial<OnboardingState>) => void;
-  onNext: () => void;
-  onBack: () => void;
-  currentStep: number;
-}
+export interface Step1ProfileProps extends OnboardingStepProps<Step1State> {}
 
 interface FormErrors {
   name?: string;
@@ -19,7 +14,7 @@ interface FormErrors {
   terms?: string;
 }
 
-export default function Step1Profile({ state, updateState, onNext, onBack, currentStep }: Step1ProfileProps) {
+export default function Step1Profile(props: Step1ProfileProps) {
   const [errors, setErrors] = useState<FormErrors>({});
   const [saving, setSaving] = useState(false);
   const onboardingAPI = getOnboardingBackendAPI();
@@ -27,17 +22,17 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!state.name.trim()) {
+    if (!props.state.name || !props.state.name.trim()) {
       newErrors.name = "Name is required";
     }
 
-    if (!state.email.trim()) {
+    if (!props.state.email || !props.state.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(props.state.email)) {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!state.agreedToTerms) {
+    if (!props.state.agreedToTerms) {
       newErrors.terms = "You must agree to the terms and conditions";
     }
 
@@ -51,13 +46,13 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
       try {
         // Save profile data to backend
         const profileData = {
-          name: state.name,
-          email: state.email,
-          agreedToTerms: state.agreedToTerms,
+          name: props.state.name,
+          email: props.state.email,
+          agreedToTerms: props.state.agreedToTerms,
         };
 
         console.log("Sending profile data:", profileData);
-        console.log("State values:", { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
+        console.log("State values:", { name: props.state.name, email: props.state.email, agreedToTerms: props.state.agreedToTerms });
 
         // Try to update profile first, if that fails, create a new one -> lauriane
         let result = await onboardingAPI.updateProfile(profileData);
@@ -71,7 +66,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
         }
 
         // Move to next step
-        onNext();
+        props.onNext();
       } catch (error) {
         console.error("Error saving profile:", error);
         setErrors({ name: "Failed to save profile. Please try again." });
@@ -81,8 +76,8 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
     }
   };
 
-  const handleInputChange = (field: keyof OnboardingState, value: string | boolean) => {
-    updateState({ [field]: value });
+  const handleInputChange = (field: keyof Step1State, value: string | boolean) => {
+    props.updateState({ [field]: value });
     // Clear error when user starts typing
     if (errors[field as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
@@ -92,7 +87,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
   return (
     <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
       {/* Progress Bar */}
-      <ProgressBar currentStep={currentStep} />
+      <ProgressBar currentStep={props.currentStep} />
 
       {/* Form Content */}
       <div className="box-border content-stretch flex flex-col gap-8 items-center justify-start px-[200px] py-0 relative shrink-0 w-full">
@@ -124,7 +119,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                     <div className="basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1 grow items-center justify-start min-h-px min-w-px p-[12px] relative rounded-md shrink-0">
                       <input
                         type="text"
-                        value={state.name}
+                        value={props.state.name}
                         onChange={e => handleInputChange("name", e.target.value)}
                         placeholder="Your name"
                         className="w-full bg-transparent font-montserrat font-normal leading-[0] text-[#ffffff] text-[16px] text-left outline-none placeholder:opacity-60 placeholder:text-[#ffffff]"
@@ -147,7 +142,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                     <div className="basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1 grow items-center justify-start min-h-px min-w-px p-[12px] relative rounded-md shrink-0">
                       <input
                         type="email"
-                        value={state.email}
+                        value={props.state.email}
                         onChange={e => handleInputChange("email", e.target.value)}
                         placeholder="Your email address"
                         className="w-full bg-transparent font-montserrat font-normal leading-[0] text-[#ffffff] text-[16px] text-left outline-none placeholder:opacity-60 placeholder:text-[#ffffff]"
@@ -164,11 +159,11 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
               <div className="relative bg-[#202f45] rounded-sm shrink-0 size-[18px] flex items-center justify-center cursor-pointer overflow-hidden">
                 <input
                   type="checkbox"
-                  checked={state.agreedToTerms}
+                  checked={props.state.agreedToTerms}
                   onChange={e => handleInputChange("agreedToTerms", e.target.checked)}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
-                {state.agreedToTerms && (
+                {props.state.agreedToTerms && (
                   <div className="absolute inset-0 bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] rounded-sm flex items-center justify-center">
                     <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -196,7 +191,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
           {/* Button Group */}
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
             <button
-              onClick={onBack}
+              onClick={props.onBack}
               className="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all hover:bg-[rgba(255,255,255,0.1)]"
             >
               <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">

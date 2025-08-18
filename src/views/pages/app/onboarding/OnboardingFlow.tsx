@@ -1,74 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
-// Step components (we'll create these)
 import Step1Profile from "./steps/Step1Profile";
 import Step2Involvement from "./steps/Step2Involvement";
 import Step3ActiveIncome from "./steps/Step3ActiveIncome";
 import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
 import Step5TasksPreferences from "./steps/Step5TasksPreferences";
 import Step6Completion from "./steps/Step6Completion";
+
 import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
-
-export interface OnboardingState {
-  // Step 1 - Profile
-  name: string;
-  email: string;
-  agreedToTerms: boolean;
-
-  // Step 2 - Involvement
-  involvement?: {
-    projects: Array<{
-      id: string;
-      organization: string;
-      repository: string;
-      role: string;
-      mergeRights: string;
-    }>;
-  };
-
-  // Step 3 - Active Income
-  activeIncome?: {
-    royalties: boolean;
-    offerServices: boolean;
-    donations: boolean;
-  };
-
-  // Step 4 - Availability & Rate
-  availability?: {
-    weeklyHours: string;
-    largerOpportunities: "yes" | "maybe" | "no" | ""; // TODO: lolo
-    hourlyRate: string;
-    currency: string;
-    comments: string;
-  };
-
-  // Step 5 - Tasks & Preferences
-  tasks?: {
-    selectedTasks: Array<{
-      id: string;
-      serviceId: string;
-      name: string;
-      category: string;
-      projects?: string[];
-      hourlyRate?: number;
-      currency?: string;
-      responseTime?: string;
-      customService?: string;
-      hasResponseTime?: boolean;
-    }>;
-  };
-}
+import { PageLoader } from "../../../components/common";
+import { OnboardingDataSteps, OnboardingState } from "./OnboardingDataSteps";
+import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 const initialState: OnboardingState = {
-  name: "",
-  email: "",
-  agreedToTerms: false
+  currentStep: OnboardingDataSteps.Step1,
+  step1: {
+    name: "",
+    email: "",
+    agreedToTerms: false,
+  },
+  step2: {
+    projects: [],
+  },
+  step3: {
+    incomeStreams: [],
+  },
+  step4: {
+    hourlyWeeklyCommitment: 0,
+    openToOtherOpportunity: OpenToOtherOpportunityType.NO,
+    hourlyRate: 0,
+    currency: Currency.USD,
+    comments: "",
+  },
+  step5: {
+    selectedTasks: [],
+  },
+  step6: {},
 };
 
 export default function OnboardingFlow() {
@@ -76,151 +49,128 @@ export default function OnboardingFlow() {
   const navigate = useNavigate();
   const auth = useAuth();
   const onboardingAPI = getOnboardingBackendAPI();
+
+  // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(initialState);
   const [loading, setLoading] = useState(true);
-
-  // TODO: handle errors properly
+  // TODO: Handle errors properly
   const [error, setError] = useState<ApiError | null>(null);
 
-  // Get current step from URL params, default to 1
-  const currentStep = parseInt(searchParams.get("step") || "1"); // TODO: lolo enum the steps
+  const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
 
-  if (isNaN(currentStep) || currentStep < 1 || currentStep > 6) { // TODO: lolo enum the steps
-    // If step is invalid, redirect to step 1
-    setSearchParams({ step: "1" });
-  }
+  useEffect(() => {
+    // If the URL step is invalid, redirect to Step1
+    if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step6) {
+      setSearchParams({ step: OnboardingDataSteps.Step1.toString() });
+      setState(initialState);
+    } else {
+      // Sync internal state with URL step
+      setState(prevState => ({ ...prevState, currentStep: currentUrlStep }));
+    }
+    setLoading(false); // Finished initial loading and state sync
+  }, [currentUrlStep, setSearchParams]); // Depend on currentUrlStep and setSearchParams
 
-  // Update URL when step changes
-  const goToStep = (step: number) => {
+  const goToStep = (step: OnboardingDataSteps) => {
     setSearchParams({ step: step.toString() });
+    setState(prevState => ({ ...prevState, currentStep: step }));
   };
 
-  // Navigation handlers
   const goToNextStep = () => {
-    if (currentStep < 6) {
-      goToStep(currentStep + 1);
+    if (state.currentStep < OnboardingDataSteps.Step6) {
+      goToStep(state.currentStep + 1);
     } else {
-      // Already on completion page, navigate to dashboard
-      navigate(paths.HOME); // TODO: improve this
+      // If already on the last step, navigate to the home/dashboard
+      navigate(paths.HOME);
     }
   };
 
   const goToPrevStep = () => {
-    if (currentStep > 1) {
-      goToStep(currentStep - 1);
+    if (state.currentStep > OnboardingDataSteps.Step1) {
+      goToStep(state.currentStep - 1);
     } else {
-      // Go back to main onboarding landing page
-      navigate(paths.DEV_ONBOARDING); // TODO: improve this
+      // If on the first step, navigate back to the main onboarding landing page
+      navigate(paths.DEV_ONBOARDING);
     }
   };
 
-  // Update state
-  const updateState = (updates: Partial<OnboardingState>) => {
-    setState(prev => ({ ...prev, ...updates }));
+  // Function to update the data specific to the current active step
+  const updateStateData = (updates: any) => {
+    switch (state.currentStep) {
+      case OnboardingDataSteps.Step1:
+        setState(prevState => ({ ...prevState, step1: { ...prevState.step1, ...updates } }));
+        break;
+      case OnboardingDataSteps.Step2:
+        setState(prevState => ({ ...prevState, step2: { ...prevState.step2, ...updates } }));
+        break;
+      case OnboardingDataSteps.Step3:
+        setState(prevState => ({ ...prevState, step3: { ...prevState.step3, ...updates } }));
+        break;
+      case OnboardingDataSteps.Step4:
+        setState(prevState => ({ ...prevState, step4: { ...prevState.step4, ...updates } }));
+        break;
+      case OnboardingDataSteps.Step5:
+        setState(prevState => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
+        break;
+      case OnboardingDataSteps.Step6:
+        setState(prevState => ({ ...prevState, step6: { ...prevState.step6, ...updates } }));
+        break;
+      default:
+        break;
+    }
   };
 
-  // Fetch user data on component mount
-  useEffect(() => {
-    const fetchUserData = async () => { // TODO: lolo this is completely wrong: getDeveloperProfile should setup OnboardingState
-      setLoading(true);
-
-      try {
-      //   if (!auth.authInfo?.user) {
-      //     // TODO: lolo - should we need this?
-      //     console.warn("User not authenticated, redirecting to sign-in page.");
-      //     // // Redirect to authentication if not logged in
-      //     // navigate(paths.SIGN_IN, { state: { from: "/onboarding/start?step=1" } });
-      //     // // paths.SIGN_IN is false
-      //     return;
-      //   }
-      //
-      //   // Try to fetch user data and developer profile
-      //   const profileResponse = await onboardingAPI.getDeveloperProfile();
-      //
-      //   if (profileResponse instanceof ApiError) {
-      //     console.error("Failed to fetch developer profile:", profileResponse.message);
-      //     setError(profileResponse)
-      //   } else {
-      //
-      //     updateState({
-      //       name: profileResponse.user.name || "",
-      //       email: profileResponse.user.email || "",
-      //       // Map other profile fields as needed if profile exists
-      //     });
-      //
-      //     // Fallback to auth context if API call fails
-      //     const userName = auth.authInfo.user?.name || "";
-      //     let userEmail = "";
-      //     if (auth.authInfo.user?.data && "email" in auth.authInfo.user.data) {
-      //       userEmail = auth.authInfo.user.data.email ?? "";
-      //     }
-      //
-      //     updateState({
-      //       name: userName,
-      //       email: userEmail
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.error("Error fetching user data:", error);
-      //   // Fall back to auth info if available
-      //   if (auth.authInfo?.user) {
-      //     const userName = auth.authInfo.user.name || "";
-      //     let userEmail = "";
-      //     if (auth.authInfo.user.data && "email" in auth.authInfo.user.data) {
-      //       userEmail = auth.authInfo.user.data.email ?? "";
-      //     }
-      //
-      //     updateState({
-      //       name: userName,
-      //       email: userEmail
-      //     });
-      //   }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [auth.authInfo]);
-
+  // Renders the appropriate step component based on the current `state.currentStep`
   const renderCurrentStep = () => {
-    const stepProps = {
-      state,
-      updateState,
-      onNext: goToNextStep,
-      onBack: goToPrevStep,
-      currentStep
-    };
-
-    switch (currentStep) {
-      case 1:
-        return <Step1Profile {...stepProps} />;
-      case 2:
-        return <Step2Involvement {...stepProps} />;
-      case 3:
-        return <Step3ActiveIncome {...stepProps} />;
-      case 4:
-        return <Step4AvailabilityRate {...stepProps} />;
-      case 5:
-        return <Step5TasksPreferences {...stepProps} />;
-      case 6:
-        return <Step6Completion {...stepProps} />;
+    switch (state.currentStep) {
+      case OnboardingDataSteps.Step1:
+        return <Step1Profile currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
+      case OnboardingDataSteps.Step2:
+        return (
+          <Step2Involvement currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />
+        );
+      case OnboardingDataSteps.Step3:
+        return (
+          <Step3ActiveIncome currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />
+        );
+      case OnboardingDataSteps.Step4:
+        return (
+          <Step4AvailabilityRate
+            currentStep={state.currentStep}
+            state={state.step4}
+            updateState={updateStateData}
+            onNext={goToNextStep}
+            onBack={goToPrevStep}
+          />
+        );
+      case OnboardingDataSteps.Step5:
+        return (
+          <Step5TasksPreferences
+            currentStep={state.currentStep}
+            state={state.step5}
+            updateState={updateStateData}
+            onNext={goToNextStep}
+            onBack={goToPrevStep}
+          />
+        );
+      case OnboardingDataSteps.Step6:
+        return (
+          <Step6Completion
+            currentStep={state.currentStep}
+            state={{}} // Step 6 has no data, so an empty object is passed
+            updateState={updateStateData}
+            onNext={goToNextStep}
+            onBack={goToPrevStep}
+          />
+        );
       default:
-        return <Step1Profile {...stepProps} />;
+        console.error("Unknown onboarding step:", state.currentStep);
+        return <PageLoader message="Error: Unknown step." />;
     }
   };
 
   return (
     <PageWrapper>
-      <div className="bg-[#0e1f35] min-h-screen">
-        {loading ? (
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-white text-2xl">Loading your profile...</div>
-          </div>
-        ) : (
-          renderCurrentStep()
-        )}
-      </div>
+      <div className="bg-[#0e1f35] min-h-screen">{loading ? <PageLoader message="Loading onboarding steps..." /> : renderCurrentStep()}</div>
     </PageWrapper>
   );
 }

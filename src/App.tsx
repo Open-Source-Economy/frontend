@@ -23,7 +23,7 @@ import {
   Issues,
   Payment,
   Pdf,
-  UserDeveloper
+  UserDeveloper,
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";
@@ -64,11 +64,8 @@ const App = () => {
 
             <Route path={paths.HOME} element={<Home />} />
             <Route element={<IssueRoutes />}>
-              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`}
-                     element={<Support />} />
-              <Route
-                path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`}
-                element={<SupportCreateTicket />} />
+              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />
+              <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
             </Route>
 
             <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
@@ -119,10 +116,8 @@ const App = () => {
               <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
               <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />
               <Route element={<IssueRoutes />}>
-                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`}
-                       element={<ManageIssue />} />
-                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`}
-                       element={<FundIssue />} />
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
+                <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
 
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
