@@ -1,1 +1,1 @@
-export * from "./onboarding";
+export * from "./onboarding"; // TODO: sam  api folder should be deleted

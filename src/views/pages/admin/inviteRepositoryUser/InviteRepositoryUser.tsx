@@ -7,7 +7,7 @@ import {
   RepositoryUserRole,
   SendRepositoryRoleInviteBody,
   SendRepositoryRoleInviteParams,
-  SendRepositoryRoleInviteQuery,
+  SendRepositoryRoleInviteQuery
 } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";

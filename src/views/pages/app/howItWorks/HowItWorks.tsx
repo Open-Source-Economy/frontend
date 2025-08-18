@@ -11,7 +11,7 @@ import {
   ShieldIcon,
   SpeechBubbleIcon,
   StrategiesIcon,
-  UserIcon,
+  UserIcon
 } from "src/ultils/Icons";
 import { IconBox, Section } from "./elements";
 import { PageWrapper } from "../../PageWrapper";

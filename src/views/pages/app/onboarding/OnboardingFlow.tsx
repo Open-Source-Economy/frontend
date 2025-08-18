@@ -15,7 +15,11 @@ import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common";
-import { OnboardingDataSteps, OnboardingState } from "./OnboardingDataSteps";
+import {
+  OnboardingDataSteps,
+  OnboardingState,
+  transformFullDeveloperProfileToOnboardingState
+} from "./OnboardingDataSteps";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 const initialState: OnboardingState = {
@@ -39,7 +43,7 @@ const initialState: OnboardingState = {
     comments: "",
   },
   step5: {
-    selectedTasks: [],
+    services: [],
   },
   step6: {},
 };
@@ -59,15 +63,39 @@ export default function OnboardingFlow() {
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
 
   useEffect(() => {
+    async function initialStateSync(currentStep: OnboardingDataSteps) {
+      setLoading(true);
+      try {
+        const response = await onboardingAPI.getDeveloperProfile();
+        if (response instanceof ApiError) {
+          setError(response);
+          return;
+        } else if (response.profile) {
+          const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile);
+          setState(state);
+        } else {
+          setState(initialState);
+        }
+      } catch (error) {
+        setError(ApiError.from(error));
+        return;
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    setLoading(true);
+    let currentStep = OnboardingDataSteps.Step1;
+
     // If the URL step is invalid, redirect to Step1
     if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step6) {
-      setSearchParams({ step: OnboardingDataSteps.Step1.toString() });
-      setState(initialState);
+      setSearchParams({ step: currentStep.toString() });
     } else {
-      // Sync internal state with URL step
-      setState(prevState => ({ ...prevState, currentStep: currentUrlStep }));
+      currentStep = currentUrlStep as OnboardingDataSteps;
     }
-    setLoading(false); // Finished initial loading and state sync
+    initialStateSync(currentStep);
+
+    setLoading(false);
   }, [currentUrlStep, setSearchParams]); // Depend on currentUrlStep and setSearchParams
 
   const goToStep = (step: OnboardingDataSteps) => {
