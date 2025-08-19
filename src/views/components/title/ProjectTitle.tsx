@@ -18,7 +18,9 @@ export function ProjectTitle(props: RepositoryTitleProps) {
         alt=""
         className="absolute pointer-events-none sm:max-w-[80%] w-full lg:max-w-[75%] xl:max-w-[802px] 3xl:max-w-[1020px] object-contain -translate-x-1/2 left-1/2 -z-10 top-[4%] opacity-40 md:opacity-30"
       />
-      <img src={props.project.owner.avatarUrl} alt="Logo" className="w-16 rounded-full md:h-20 md:w-20 xl:w-[109px] h-16 xl:h-[109px]" />
+      {props.project.owner.displayAvatarUrl && (
+        <img src={props.project.owner.displayAvatarUrl} alt="Logo" className="w-16 rounded-full md:h-20 md:w-20 xl:w-[109px] h-16 xl:h-[109px]" />
+      )}
       <h1 className="relative text-center mx-auto main-heading !mt-3">
         {capitalize(props.project.owner.id.login)}
         {props.project.repository && "/"}

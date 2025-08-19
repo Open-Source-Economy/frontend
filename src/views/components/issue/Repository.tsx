@@ -12,7 +12,14 @@ export function Repository(props: RepositoryProps) {
   return (
     <>
       <div className="flex items-center justify-center w-full gap-2 3xl:gap-3">
-        <img className="sm:w-[55px] h-12 w-12 sm:h-[55px] 3xl:h-[62px] 3xl:w-[62px] object-cover" src={props.owner.avatarUrl} alt={`${props.owner}'s avatar`} />
+        {props.owner.displayAvatarUrl && (
+          <img
+            className="sm:w-[55px] h-12 w-12 sm:h-[55px] 3xl:h-[62px] 3xl:w-[62px] object-cover"
+            src={props.owner.displayAvatarUrl}
+            alt={`${props.owner}'s avatar`}
+          />
+        )}
+
         <h6 className={` ${props.repoHeading || ""} text-lg sm:text-xl font-semibold md:text-2xl text-[#8693A4] cursor-pointer`}>
           <ExternalLink href={props.owner.htmlUrl}>
             <span className="text-decoration-none c_links color-70 pr-1">

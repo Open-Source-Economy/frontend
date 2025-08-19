@@ -23,7 +23,7 @@ export function Cards2(props: Cards2Props) {
       <div className="flex flex-col relative h-full bg-[#14233A] rounded-[40px] z-20 items-center justify-between gap-y-3 py-8 pb-4 pt-12 max-[490px]:pb-10">
         <div className="flex flex-col items-center justify-between">
           <div className="grid md:size-[144px] size-[100px] place-items-center overflow-hidden rounded-full border-1 border-gray-300 bg-[length:100%_100%] p-0">
-            <img src={props.owner.avatarUrl} className="size-full object-cover object-center" alt="" />
+            {props.owner.displayAvatarUrl && <img src={props.owner.displayAvatarUrl} className="size-full object-cover object-center" alt="" />}
           </div>
           <div className="max-[860px]:min-h-[100px]">
             <h4 className="font-mich mt-3 text-2xl max-[540px]:!text-1xl">

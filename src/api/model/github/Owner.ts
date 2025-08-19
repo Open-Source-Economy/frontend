@@ -51,13 +51,20 @@ export class Owner {
   id: OwnerId;
   type: OwnerType;
   htmlUrl: string;
-  avatarUrl?: string;
+  private avatarUrl?: string;
+  displayAvatarUrl?: string | null;
 
   constructor(id: OwnerId, type: OwnerType, htmlUrl: string, avatarUrl?: string) {
     this.id = id;
     this.type = type;
     this.htmlUrl = htmlUrl;
     this.avatarUrl = avatarUrl;
+
+    if (id.login === "apache") {
+      this.displayAvatarUrl = null; // Apache Foundation has a special case for their avatar URL due regulation.
+    } else {
+      this.displayAvatarUrl = avatarUrl;
+    }
   }
 
   // For Organization
