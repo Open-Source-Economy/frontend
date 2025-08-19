@@ -5,6 +5,8 @@ import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../OnboardingDataSteps";
 import { OnboardingStepProps } from "./OnboardingStepProps";
+import * as dto from "@open-source-economy/api-types";
+import { handleApiCall } from "../../../../../ultils";
 
 export interface Step1ProfileProps extends OnboardingStepProps<Step1State> {}
 
@@ -16,9 +18,13 @@ interface FormErrors {
 
 export default function Step1Profile(props: Step1ProfileProps) {
   const [errors, setErrors] = useState<FormErrors>({});
-  const [saving, setSaving] = useState(false);
+
+  // TODO: sam deal with errors - for now we can just display a string in the UI
+  const [error, setError] = useState<ApiError | null>(null); // TODO: sam-info api error type. Probably we can refactor this later
+  const [isLoading, setIsLoading] = useState(false); // TODO: sam use name isLoading everywhere please. Probably we can refactor this later
   const onboardingAPI = getOnboardingBackendAPI();
 
+  // TODO: sam, for later, we will need to refactor this to have a structure that we can re-use for all input fields
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
@@ -42,37 +48,30 @@ export default function Step1Profile(props: Step1ProfileProps) {
 
   const handleNext = async () => {
     if (validateForm()) {
-      setSaving(true);
-      try {
-        // Save profile data to backend
-        const profileData = {
-          name: props.state.name,
-          email: props.state.email,
-          agreedToTerms: props.state.agreedToTerms,
-        };
-
-        console.log("Sending profile data:", profileData);
-        console.log("State values:", { name: props.state.name, email: props.state.email, agreedToTerms: props.state.agreedToTerms });
-
-        // Try to update profile first, if that fails, create a new one -> lauriane
-        let result = await onboardingAPI.updateProfile(profileData);
-
-        if (result instanceof ApiError) {
-          // If update fails, create profile with the data
-          result = await onboardingAPI.createProfile(profileData);
-          if (result instanceof ApiError) {
-            throw new Error("Failed to save profile data");
-          }
+      const apiCall = async () => {
+        let result;
+        if (props.state.developerProfileId) {
+          const body: dto.UpdateDeveloperContactInfosBody = {
+            name: props.state.name!,
+            email: props.state.email!,
+          };
+          result = await onboardingAPI.updateProfile(body);
+        } else {
+          const body: dto.CreateDeveloperProfileBody = {
+            name: props.state.name!,
+            email: props.state.email!,
+            agreedToTerms: props.state.agreedToTerms!,
+          };
+          result = await onboardingAPI.createProfile(body);
         }
+        return result;
+      };
 
-        // Move to next step
+      const onSuccess = () => {
         props.onNext();
-      } catch (error) {
-        console.error("Error saving profile:", error);
-        setErrors({ name: "Failed to save profile. Please try again." });
-      } finally {
-        setSaving(false);
-      }
+      };
+
+      await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
     }
   };
 
@@ -201,11 +200,11 @@ export default function Step1Profile(props: Step1ProfileProps) {
 
             <button
               onClick={handleNext}
-              disabled={saving}
+              disabled={isLoading}
               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">{saving ? "Saving..." : "Next"}</p>
+                <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : "Next"}</p>
               </div>
             </button>
           </div>

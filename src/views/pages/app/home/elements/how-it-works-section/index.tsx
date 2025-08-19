@@ -12,7 +12,7 @@ import {
   ShieldIcon,
   SpeechBubbleIcon,
   StrategiesIcon,
-  UserIcon
+  UserIcon,
 } from "src/ultils/Icons";
 import { IconBox } from "./icon-box";
 import { Section } from "./section";

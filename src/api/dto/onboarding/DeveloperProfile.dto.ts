@@ -1,10 +1,4 @@
-import {
-  Currency,
-  DeveloperRoleType,
-  IncomeStreamType,
-  MergeRightsType,
-  OpenToOtherOpportunityType
-} from "@open-source-economy/api-types";
+import { Currency, DeveloperRoleType, IncomeStreamType, MergeRightsType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface CreateDeveloperProfileDto {
   name?: string;

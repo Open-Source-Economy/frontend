@@ -2,7 +2,7 @@ import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";
-import * as samdto from "src/api/dto/onboarding";
+import * as samdto from "src/api/dto/onboarding"; // TODO: sam the call is overtime to suppress all those types
 import * as dto from "@open-source-economy/api-types";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
@@ -11,8 +11,8 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
 
 export interface OnboardingBackendAPI {
   // Profile management
-  createProfile(profileData?: samdto.CreateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError>;
-  updateProfile(updates: samdto.UpdateDeveloperProfileDto): Promise<samdto.OnboardingResponse | ApiError>;
+  createProfile(body: dto.CreateDeveloperProfileBody): Promise<dto.CreateDeveloperProfileResponse | ApiError>;
+  updateProfile(body: dto.UpdateDeveloperContactInfosBody): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError>;
   getDeveloperProfile(): Promise<dto.GetDeveloperProfileResponse | ApiError>;
 
   // Settings management

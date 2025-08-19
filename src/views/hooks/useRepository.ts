@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import {
-  GetRepositoryParams,
-  GetRepositoryQuery,
-  Owner,
-  Repository,
-  RepositoryId
-} from "@open-source-economy/api-types";
+import { GetRepositoryParams, GetRepositoryQuery, Owner, Repository, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function useRepository(repositoryId: RepositoryId) {

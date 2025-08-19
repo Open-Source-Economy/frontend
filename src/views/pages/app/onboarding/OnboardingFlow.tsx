@@ -15,11 +15,7 @@ import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common";
-import {
-  OnboardingDataSteps,
-  OnboardingState,
-  transformFullDeveloperProfileToOnboardingState
-} from "./OnboardingDataSteps";
+import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 const initialState: OnboardingState = {
@@ -63,6 +59,7 @@ export default function OnboardingFlow() {
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
 
   useEffect(() => {
+    // TODO: sam can you use the handleApiCall utility function here? I made an example in Step1Profile.tsx
     async function initialStateSync(currentStep: OnboardingDataSteps) {
       setLoading(true);
       try {
