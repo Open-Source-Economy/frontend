@@ -1,3 +1,5 @@
 export * from "./config";
 export * from "./ManageFundRecipient";
 export * from "./getFirstSentenceOrFirstNWordsFromValue";
+export * from "./handleApiCall";
+export * from "./GithubUrls";

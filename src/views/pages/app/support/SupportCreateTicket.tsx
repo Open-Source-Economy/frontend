@@ -10,7 +10,7 @@ import * as components from "src/views/components/issue";
 import { Approved } from "src/views/components/issue/Approved";
 import { Button, FormEntry } from "src/views/components";
 import Decimal from "decimal.js";
-import { BaseInput } from "src/views/components/form/frames/BaseInput";
+import { BaseInput } from "src/views/components/old-form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
 import { useAuth } from "../../authenticate";
 

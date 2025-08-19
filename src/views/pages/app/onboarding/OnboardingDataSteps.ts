@@ -1,5 +1,6 @@
 import {
   Currency,
+  DeveloperProfileId,
   DeveloperProjectItem,
   DeveloperService,
   FullDeveloperProfile,
@@ -19,6 +20,7 @@ export enum OnboardingDataSteps {
 }
 
 export interface Step1State {
+  developerProfileId?: DeveloperProfileId;
   name?: string;
   email?: string;
   agreedToTerms?: boolean;
@@ -73,7 +75,8 @@ export interface OnboardingState {
 export function transformFullDeveloperProfileToOnboardingState(currentStep: OnboardingDataSteps, profile: FullDeveloperProfile): OnboardingState {
   // Initialize each step's state from the FullDeveloperProfile
   const step1: Step1State = {
-    name: profile.name || undefined, // Use undefined for null to align with optional properties
+    developerProfileId: profile.profile?.id || undefined,
+    name: profile.name || undefined,
     email: profile.email || undefined,
     agreedToTerms: profile.agreedToTerms || undefined,
   };

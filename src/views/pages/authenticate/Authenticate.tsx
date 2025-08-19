@@ -24,7 +24,7 @@ import {
   FormValidation,
   VALID_FORM_VALIDATION,
   validateForm
-} from "src/views/components/form/hooks/validateForm";
+} from "src/views/components/old-form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
 
