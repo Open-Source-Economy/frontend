@@ -4,6 +4,12 @@ import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
+import { 
+  CreateDeveloperProfileBody, 
+  CreateDeveloperProfileResponse,
+  UpdateDeveloperContactInfosBody, 
+  UpdateDeveloperContactInfosResponse 
+} from "@open-source-economy/api-types";
 
 interface Step1ProfileProps {
   state: OnboardingState;
@@ -49,25 +55,29 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
     if (validateForm()) {
       setSaving(true);
       try {
-        // Save profile data to backend
-        const profileData = {
+        // First try to update contact info (for existing profiles)
+        const contactInfo: UpdateDeveloperContactInfosBody = {
           name: state.name,
           email: state.email,
-          agreedToTerms: state.agreedToTerms,
         };
 
-        console.log("Sending profile data:", profileData);
+        console.log("Sending contact info:", contactInfo);
         console.log("State values:", { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
 
-        // Try to update profile first, if that fails, create a new one -> lauriane
-        let result = await onboardingAPI.updateProfile(profileData);
+        let result: UpdateDeveloperContactInfosResponse | ApiError = await onboardingAPI.updateProfile(contactInfo);
 
         if (result instanceof ApiError) {
-          // If update fails, create profile with the data
-          result = await onboardingAPI.createProfile(profileData);
-          if (result instanceof ApiError) {
+          // If update fails, create a new profile
+          const profileData: CreateDeveloperProfileBody = {
+            name: state.name,
+            email: state.email,
+            agreedToTerms: state.agreedToTerms,
+          };
+          const createResult: CreateDeveloperProfileResponse | ApiError = await onboardingAPI.createProfile(profileData);
+          if (createResult instanceof ApiError) {
             throw new Error("Failed to save profile data");
           }
+          result = createResult;
         }
 
         // Move to next step

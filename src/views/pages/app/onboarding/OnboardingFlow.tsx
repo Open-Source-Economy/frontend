@@ -4,14 +4,28 @@ import { Header } from "src/views/layout/header/Header";
 import { Footer } from "src/views/layout/footer/Footer";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
+import { 
+  GetDeveloperProfileResponse, 
+  FullDeveloperProfile,
+  Currency,
+  IncomeStreamType,
+  OpenToOtherOpportunityType,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectItemType,
+  ProjectItemId,
+  DeveloperProjectItemId
+} from "@open-source-economy/api-types";
+import { ApiError } from "src/ultils/error/ApiError";
 
 // Step components (we'll create these)
 import Step1Profile from "./steps/Step1Profile";
 import Step2Involvement from "./steps/Step2Involvement";
-import Step3ActiveIncome from "./steps/Step3ActiveIncome";
-import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
-import Step5TasksPreferences from "./steps/Step5TasksPreferences";
-import Step6Completion from "./steps/Step6Completion";
+// TODO: Re-enable when steps 3+ are updated to use api-types
+// import Step3ActiveIncome from "./steps/Step3ActiveIncome";
+// import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
+// import Step5TasksPreferences from "./steps/Step5TasksPreferences";
+// import Step6Completion from "./steps/Step6Completion";
 
 export interface OnboardingState {
   // Step 1 - Profile
@@ -22,45 +36,47 @@ export interface OnboardingState {
   // Step 2 - Involvement
   involvement?: {
     projects: Array<{
-      id: string;
+      id: DeveloperProjectItemId;
+      projectItemId: ProjectItemId;
+      projectItemType: ProjectItemType;
       organization: string;
       repository: string;
-      role: string;
-      mergeRights: string;
+      roles: DeveloperRoleType[];
+      mergeRights: MergeRightsType[];
     }>;
   };
 
+  // TODO: Re-enable when steps 3+ are updated to use api-types
   // Step 3 - Active Income
-  activeIncome?: {
-    royalties: boolean;
-    offerServices: boolean;
-    donations: boolean;
-  };
+  // activeIncome?: {
+  //   incomeStreams: IncomeStreamType[];
+  // };
 
   // Step 4 - Availability & Rate
-  availability?: {
-    weeklyHours: string;
-    largerOpportunities: "yes" | "maybe" | "no" | ""; // TODO: lolo
-    hourlyRate: string;
-    currency: string;
-    comments: string;
-  };
+  // availability?: {
+  //   weeklyHours: string;
+  //   largerOpportunities: OpenToOtherOpportunityType | "";
+  //   hourlyRate: string;
+  //   currency: Currency;
+  //   comments: string;
+  // };
 
+  // TODO: Re-enable when steps 5+ are updated to use api-types
   // Step 5 - Tasks & Preferences
-  tasks?: {
-    selectedTasks: Array<{
-      id: string;
-      serviceId: string;
-      name: string;
-      category: string;
-      projects?: string[];
-      hourlyRate?: number;
-      currency?: string;
-      responseTime?: string;
-      customService?: string;
-      hasResponseTime?: boolean;
-    }>;
-  };
+  // tasks?: {
+  //   selectedTasks: Array<{
+  //     id: string;
+  //     serviceId: string;
+  //     name: string;
+  //     category: string;
+  //     projects?: string[];
+  //     hourlyRate?: number;
+  //     currency?: string;
+  //     responseTime?: string;
+  //     customService?: string;
+  //     hasResponseTime?: boolean;
+  //   }>;
+  // };
 }
 
 const initialState: OnboardingState = {
@@ -123,13 +139,15 @@ export default function OnboardingFlow() {
         }
 
         // Try to fetch user data and developer profile
-        const profileResponse = await onboardingAPI.getDeveloperProfile();
+        const profileResponse: GetDeveloperProfileResponse | ApiError = await onboardingAPI.getDeveloperProfile();
 
-        if (profileResponse && !(profileResponse instanceof Error)) {
+        if (profileResponse && !(profileResponse instanceof ApiError) && profileResponse.profile) {
           // Successfully got user data from backend
+          const profile: FullDeveloperProfile = profileResponse.profile;
           updateState({
-            name: profileResponse.user.name || "",
-            email: profileResponse.user.email || "",
+            name: profile.name || "",
+            email: profile.email || "",
+            agreedToTerms: profile.agreedToTerms || false,
             // Map other profile fields as needed if profile exists
           });
         } else {
@@ -182,14 +200,15 @@ export default function OnboardingFlow() {
         return <Step1Profile {...stepProps} />;
       case 2:
         return <Step2Involvement {...stepProps} />;
-      case 3:
-        return <Step3ActiveIncome {...stepProps} />;
-      case 4:
-        return <Step4AvailabilityRate {...stepProps} />;
-      case 5:
-        return <Step5TasksPreferences {...stepProps} />;
-      case 6:
-        return <Step6Completion {...stepProps} />;
+      // TODO: Re-enable when steps 3+ are updated to use api-types
+      // case 3:
+      //   return <Step3ActiveIncome {...stepProps} />;
+      // case 4:
+      //   return <Step4AvailabilityRate {...stepProps} />;
+      // case 5:
+      //   return <Step5TasksPreferences {...stepProps} />;
+      // case 6:
+      //   return <Step6Completion {...stepProps} />;
       default:
         return <Step1Profile {...stepProps} />;
     }

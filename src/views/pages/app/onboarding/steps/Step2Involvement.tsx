@@ -2,13 +2,22 @@ import React, { useState, useEffect } from "react";
 import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
+import {
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectItemType,
+  ProjectItemId,
+  DeveloperProjectItemId
+} from "@open-source-economy/api-types";
 
-interface Project {
-  id: string;
+interface ProjectItem {
+  id: DeveloperProjectItemId;
+  projectItemId: ProjectItemId;
+  projectItemType: ProjectItemType;
   organization: string;
   repository: string;
-  role: string;
-  mergeRights: string;
+  roles: DeveloperRoleType[];
+  mergeRights: MergeRightsType[];
 }
 
 interface GitHubOrganization {
@@ -43,8 +52,8 @@ interface Step2InvolvementProps {
 
 export default function Step2Involvement({ state, updateState, onNext, onBack, currentStep }: Step2InvolvementProps) {
   const [showModal, setShowModal] = useState(false);
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [projects, setProjects] = useState<Project[]>(state.involvement?.projects || []);
+  const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
+  const [projects, setProjects] = useState<ProjectItem[]>(state.involvement?.projects || []);
 
   // Modal form state
   const [selectedOrg, setSelectedOrg] = useState("");
@@ -125,9 +134,20 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
     }
   };
 
-  const roleOptions = ["Lead Maintainer", "Co-developer", "Contributor", "Documentation Lead", "Community Manager"];
+  const roleOptions = [
+    { label: "Lead Maintainer", value: DeveloperRoleType.CREATOR_FOUNDER },
+    { label: "Co-developer", value: DeveloperRoleType.CORE_DEVELOPER },
+    { label: "Contributor", value: DeveloperRoleType.MAINTAINER },
+    { label: "Documentation Lead", value: DeveloperRoleType.PROJECT_LEAD },
+    { label: "Community Manager", value: DeveloperRoleType.PROJECT_LEAD },
+  ];
 
-  const mergeRightsOptions = ["Full rights", "Specific areas", "No direct rights", "Formal process"];
+  const mergeRightsOptions = [
+    { label: "Full rights", value: MergeRightsType.FULL_RIGHTS },
+    { label: "Specific areas", value: MergeRightsType.SPECIFIC_AREAS },
+    { label: "No direct rights", value: MergeRightsType.NO_RIGHTS },
+    { label: "Formal process", value: MergeRightsType.FORMAL_PROCESS },
+  ];
 
   // Get available repositories based on selected organization
   const getAvailableRepositories = (): APIGitHubRepository[] => {
@@ -168,24 +188,30 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
     setShowModal(true);
   };
 
-  const handleEditProject = (project: Project) => {
+  const handleEditProject = (project: ProjectItem) => {
     setEditingProject(project);
     setSelectedOrg(project.organization);
     setSelectedRepo(project.repository);
-    setSelectedRole(project.role);
-    setSelectedMergeRights(project.mergeRights);
+    // Take the first role and merge right for editing
+    setSelectedRole(project.roles[0] || "");
+    setSelectedMergeRights(project.mergeRights[0] || "");
     setShowModal(true);
   };
 
   const handleSaveProject = async () => {
     if (!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights) return;
 
-    const newProject: Project = {
-      id: editingProject?.id || Date.now().toString(),
+    const selectedRoleEnum = roleOptions.find(r => r.label === selectedRole)?.value || DeveloperRoleType.CORE_DEVELOPER;
+    const selectedMergeRightsEnum = mergeRightsOptions.find(m => m.label === selectedMergeRights)?.value || MergeRightsType.NO_RIGHTS;
+
+    const newProject: ProjectItem = {
+      id: editingProject?.id || new DeveloperProjectItemId(),
+      projectItemId: editingProject?.projectItemId || new ProjectItemId(),
+      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
       organization: selectedOrg,
       repository: selectedRepo,
-      role: selectedRole,
-      mergeRights: selectedMergeRights,
+      roles: [selectedRoleEnum],
+      mergeRights: [selectedMergeRightsEnum],
     };
 
     // Save to database first
@@ -203,7 +229,7 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
     setShowModal(false);
   };
 
-  const saveRepositoryToDatabase = async (project: Project) => {
+  const saveRepositoryToDatabase = async (project: ProjectItem) => {
     try {
       // Find the GitHub repository data for this project
       let repoData = null;
@@ -221,24 +247,8 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
         return;
       }
 
-      // Map frontend role/mergeRights to backend format
-      const roleMapping: { [key: string]: string } = {
-        "Lead Maintainer": "creator_founder",
-        "Co-developer": "core_developer",
-        Contributor: "core_developer",
-        "Documentation Lead": "maintainer",
-        "Community Manager": "project_lead",
-      };
-
-      const mergeRightsMapping: { [key: string]: string } = {
-        "Full rights": "full_rights",
-        "Specific areas": "formal_process",
-        "No direct rights": "no_rights",
-        "Formal process": "formal_process",
-      };
-
-      const roles = [roleMapping[project.role] || "core_developer"] as any;
-      const mergeRights = [mergeRightsMapping[project.mergeRights] || "no_rights"] as any;
+      const roles = project.roles as any;
+      const mergeRights = project.mergeRights as any;
 
       const addRepositoryData = {
         githubOwnerId: repoData.id.ownerId.githubId,
@@ -359,10 +369,10 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                       </p>
                     </div>
                     <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>{project.role}</p>
+                      <p>{project.roles[0] || "No role"}</p>
                     </div>
                     <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>{project.mergeRights}</p>
+                      <p>{project.mergeRights[0] || "No rights"}</p>
                     </div>
                     <div className="w-[80px] flex flex-row gap-2 items-center justify-center">
                       <button onClick={() => handleEditProject(project)} className="text-[#ff7e4b] hover:text-[#ff518c] transition-colors">
@@ -562,14 +572,14 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                     <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
                       {roleOptions.map(role => (
                         <button
-                          key={role}
+                          key={role.value}
                           onClick={() => {
-                            setSelectedRole(role);
+                            setSelectedRole(role.label);
                             setShowRoleDropdown(false);
                           }}
                           className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
                         >
-                          {role}
+                          {role.label}
                         </button>
                       ))}
                     </div>
@@ -603,14 +613,14 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                     <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
                       {mergeRightsOptions.map(rights => (
                         <button
-                          key={rights}
+                          key={rights.value}
                           onClick={() => {
-                            setSelectedMergeRights(rights);
+                            setSelectedMergeRights(rights.label);
                             setShowMergeRightsDropdown(false);
                           }}
                           className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
                         >
-                          {rights}
+                          {rights.label}
                         </button>
                       ))}
                     </div>
