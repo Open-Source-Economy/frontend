@@ -1,4 +1,4 @@
-import { CurrencyType, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
+import { Currency, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
 
 export interface AddRepositoryDto {
   githubOwnerId: number;
@@ -13,7 +13,7 @@ export interface AddRepositoryDto {
 export interface AddRepositoryServiceDto {
   serviceId: string;
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
   responseTimeHours?: number | null;
 }
 

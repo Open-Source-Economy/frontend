@@ -1,4 +1,4 @@
-import { CurrencyType, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Currency, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface SetIncomeStreamsDto {
   incomeStreams: IncomeStreamType[];
@@ -16,7 +16,7 @@ export interface SetDeveloperSettingsDto {
   hourlyWeeklyCommitment: number;
   openToOtherOpportunity: OpenToOtherOpportunityType;
   hourlyRate: number;
-  currency: CurrencyType;
+  currency: Currency;
 }
 
 export interface SetDeveloperSettingsResponse {
@@ -28,7 +28,7 @@ export interface SetDeveloperSettingsResponse {
     hourlyWeeklyCommitment: number;
     openToOtherOpportunity: OpenToOtherOpportunityType;
     hourlyRate: number;
-    currency: CurrencyType;
+    currency: Currency;
     createdAt: string;
     updatedAt: string;
   };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
-import { CurrencyType, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Currency, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 // Inline SVG components replacing localhost assets
 const CloseIcon = () => (
@@ -114,7 +114,7 @@ export default function Step4AvailabilityRate({ state, updateState, onNext, onBa
         hourlyWeeklyCommitment: parseInt(availability.weeklyHours),
         openToOtherOpportunity: availability.largerOpportunities as OpenToOtherOpportunityType,
         hourlyRate: parseFloat(availability.hourlyRate),
-        currency: availability.currency as CurrencyType,
+        currency: availability.currency as Currency,
       };
 
       console.log("Saving developer settings:", settingsData);
@@ -226,31 +226,28 @@ export default function Step4AvailabilityRate({ state, updateState, onNext, onBa
               <div className="box-border content-stretch flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-full">
                 <button
                   onClick={() => handleInputChange("largerOpportunities", "yes")}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    availability.largerOpportunities === "yes"
+                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "yes"
                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
+                    }`}
                 >
                   Yes
                 </button>
                 <button
                   onClick={() => handleInputChange("largerOpportunities", "maybe")}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    availability.largerOpportunities === "maybe"
+                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "maybe"
                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
+                    }`}
                 >
                   Maybe
                 </button>
                 <button
                   onClick={() => handleInputChange("largerOpportunities", "no")}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    availability.largerOpportunities === "no"
+                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "no"
                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
+                    }`}
                 >
                   No
                 </button>

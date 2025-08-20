@@ -408,9 +408,8 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
             <button
               onClick={onNext}
               disabled={projects.length === 0}
-              className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${
-                projects.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
-              }`}
+              className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${projects.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
+                }`}
             >
               <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
                 <p className="block leading-[1.5] whitespace-pre">Next</p>
@@ -504,9 +503,8 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                       setShowMergeRightsDropdown(false);
                     }}
                     disabled={!selectedOrg || loadingRepos}
-                    className={`box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full transition-colors ${
-                      selectedOrg && !loadingRepos ? "bg-[#202f45] hover:bg-[#2a3f56] cursor-pointer" : "bg-[#1a2332] cursor-not-allowed opacity-50"
-                    }`}
+                    className={`box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full transition-colors ${selectedOrg && !loadingRepos ? "bg-[#202f45] hover:bg-[#2a3f56] cursor-pointer" : "bg-[#1a2332] cursor-not-allowed opacity-50"
+                      }`}
                   >
                     <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
                       <p>{loadingRepos ? "Loading repositories..." : selectedRepo || "Select repository..."}</p>
@@ -634,9 +632,8 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                 <button
                   onClick={handleSaveProject}
                   disabled={!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights}
-                  className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${
-                    !selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
-                  }`}
+                  className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
+                    }`}
                 >
                   <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">
                     <p className="block leading-[1.5] whitespace-pre">{editingProject ? "Save Changes" : "Add Project"}</p>
