@@ -11,7 +11,7 @@ import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 
 type Step2InvolvementProps = OnboardingStepProps<Step2State>;
 
-const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
+const Step2Involvement: React.FC<Step2InvolvementProps> = props => {
   const [showModal, setShowModal] = useState(false);
   const [projects, setProjects] = useState<[ProjectItem, DeveloperProjectItem][]>(props.state.projects);
   const [editingProject, setEditingProject] = useState<[ProjectItem, DeveloperProjectItem] | null>(null);
@@ -40,9 +40,7 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
     let updatedProjects: [ProjectItem, DeveloperProjectItem][];
 
     if (editingProject) {
-      updatedProjects = projects.map(p =>
-        p[1].id.uuid === newOrUpdatedProject[1].id.uuid ? newOrUpdatedProject : p
-      );
+      updatedProjects = projects.map(p => (p[1].id.uuid === newOrUpdatedProject[1].id.uuid ? newOrUpdatedProject : p));
     } else {
       updatedProjects = [...projects, newOrUpdatedProject];
     }
@@ -53,13 +51,13 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
 
   const handleDeleteProject = (projectId: ProjectItemId) => {
     const apiCall = async () => {
-      const params: dto.RemoveDeveloperProjectItemParams = {}
+      const params: dto.RemoveDeveloperProjectItemParams = {};
       const body: dto.RemoveDeveloperProjectItemBody = {
         projectItemId: projectId,
-      }
-      const query: dto.RemoveDeveloperProjectItemQuery  = {}
-
+      };
+      const query: dto.RemoveDeveloperProjectItemQuery = {};
       return await api.removeProjectItem(params, body, query);
+    };
   };
 
   return (
@@ -138,12 +136,15 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
                 {projects.map(project => {
                   const [projectItem, developerProjectItem] = project;
                   return (
-                    <div key={developerProjectItem.id.uuid} className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2">
+                    <div
+                      key={developerProjectItem.id.uuid}
+                      className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2"
+                    >
                       <div className="flex-[2] font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
                         <p>
                           {/*{(() => {*/}
-                          {/*  const repoInfo = extractGitHubRepoInfo(String(projectItem.sourceIdentifier)); // TODO: refactor*/}
-                          {/*  return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : String(projectItem.sourceIdentifier);*/}
+                          {/* const repoInfo = extractGitHubRepoInfo(String(projectItem.sourceIdentifier)); // TODO: refactor*/}
+                          {/* return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : String(projectItem.sourceIdentifier);*/}
                           {/*})()}*/}
                         </p>
                       </div>
@@ -190,7 +191,11 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
             <div className="flex items-center justify-center mt-4">
               <svg className="animate-spin h-6 w-6 text-[#ff7e4b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
               <span className="ml-3 text-[#ff7e4b] font-montserrat">Loading...</span>
             </div>
@@ -233,14 +238,7 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
       </div>
 
       {/* Add/Edit Project UpsertProjectItemModal */}
-      {showModal && (
-        <UpsertProjectItemModal
-          show={showModal}
-          setShow={setShowModal}
-          projectItem={editingProject}
-          onUpsert={handleUpsertComplete}
-        />
-      )}
+      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} projectItem={editingProject} onUpsert={handleUpsertComplete} />}
     </div>
   );
 };

@@ -16,8 +16,8 @@ import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
-import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 import * as dto from "@open-source-economy/api-types";
+import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 const initialState: OnboardingState = {
   currentStep: OnboardingDataSteps.Step1,
@@ -64,8 +64,8 @@ export default function OnboardingFlow() {
     async function initialStateSync(currentStep: OnboardingDataSteps) {
       setLoading(true);
       try {
-       const params: dto.GetDeveloperProfileParams = {}
-        const query: dto.GetDeveloperProfileQuery = {}
+        const params: dto.GetDeveloperProfileParams = {};
+        const query: dto.GetDeveloperProfileQuery = {};
         const response = await onboardingAPI.getDeveloperProfile(params, query);
         if (response instanceof ApiError) {
           setError(response);

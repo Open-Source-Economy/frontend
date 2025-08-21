@@ -13,32 +13,29 @@ export interface OnboardingBackendAPI {
   createDeveloperProfile(
     params: dto.CreateDeveloperProfileParams,
     body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery
+    query: dto.CreateDeveloperProfileQuery,
   ): Promise<dto.CreateDeveloperProfileResponse | ApiError>;
 
   updateDeveloperProfile(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery
+    query: dto.UpdateDeveloperContactInfosQuery,
   ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError>;
 
-  getDeveloperProfile(
-    params: dto.GetDeveloperProfileParams,
-    query: dto.GetDeveloperProfileQuery
-  ): Promise<dto.GetDeveloperProfileResponse | ApiError>;
+  getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError>;
 
   // Settings management
   setDeveloperSettings(
     params: dto.SetDeveloperSettingsParams,
     body: dto.SetDeveloperSettingsBody,
-    query: dto.SetDeveloperSettingsQuery
+    query: dto.SetDeveloperSettingsQuery,
   ): Promise<dto.SetDeveloperSettingsResponse | ApiError>;
 
   // Project items management
   upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
-    query: dto.UpsertDeveloperProjectItemQuery
+    query: dto.UpsertDeveloperProjectItemQuery,
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError>;
 
   removeProjectItem(
@@ -49,19 +46,16 @@ export interface OnboardingBackendAPI {
 
   getPotentialProjectItems(
     params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
+    query: dto.GetPotentialDeveloperProjectItemsQuery,
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError>;
 
   // Service management (Not developer services)
-  getServices(
-    params: dto.GetServiceHierarchyParams,
-    query: dto.GetServiceHierarchyQuery
-  ): Promise<any | ApiError>;
+  getServices(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError>;
 
   addDeveloperService(
     params: dto.AddDeveloperServiceParams,
     body: dto.AddDeveloperServiceBody,
-    query: dto.AddDeveloperServiceQuery
+    query: dto.AddDeveloperServiceQuery,
   ): Promise<dto.AddDeveloperServiceResponse | ApiError>;
 
   updateDeveloperService(
@@ -73,20 +67,20 @@ export interface OnboardingBackendAPI {
   deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody,
-    query: dto.DeleteDeveloperServiceQuery
+    query: dto.DeleteDeveloperServiceQuery,
   ): Promise<dto.DeleteDeveloperServiceResponse | ApiError>;
 
   createCustomService(
     params: dto.CreateCustomServiceParams,
     body: dto.CreateCustomServiceBody,
-    query: dto.CreateCustomServiceQuery
+    query: dto.CreateCustomServiceQuery,
   ): Promise<dto.CreateCustomServiceResponse | ApiError>;
 
   // Onboarding completion
   completeOnboarding(
     params: dto.CompleteOnboardingParams,
     body: dto.CompleteOnboardingBody,
-    query: dto.CompleteOnboardingQuery
+    query: dto.CompleteOnboardingQuery,
   ): Promise<dto.CompleteOnboardingResponse | ApiError>;
 }
 
@@ -94,7 +88,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async createDeveloperProfile(
     params: dto.CreateDeveloperProfileParams,
     body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery
+    query: dto.CreateDeveloperProfileQuery,
   ): Promise<dto.CreateDeveloperProfileResponse | ApiError> {
     return handleError<dto.CreateDeveloperProfileResponse>(
       () => axios.post(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
@@ -105,7 +99,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async updateDeveloperProfile(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery
+    query: dto.UpdateDeveloperContactInfosQuery,
   ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError> {
     return handleError<dto.UpdateDeveloperContactInfosResponse>(
       () => axios.put(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
@@ -113,10 +107,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  async getDeveloperProfile(
-    params: dto.GetDeveloperProfileParams,
-    query: dto.GetDeveloperProfileQuery
-  ): Promise<dto.GetDeveloperProfileResponse | ApiError> {
+  async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
     return handleError<dto.GetDeveloperProfileResponse>(
       () => axios.get(`${config.api.url}/onboarding/profile`, { withCredentials: true, params: query }),
       "getDeveloperProfile",
@@ -126,7 +117,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async setDeveloperSettings(
     params: dto.SetDeveloperSettingsParams,
     body: dto.SetDeveloperSettingsBody,
-    query: dto.SetDeveloperSettingsQuery
+    query: dto.SetDeveloperSettingsQuery,
   ): Promise<dto.SetDeveloperSettingsResponse | ApiError> {
     return handleError<dto.SetDeveloperSettingsResponse>(
       () => axios.post(`${config.api.url}/onboarding/settings`, body, { withCredentials: true, params: query }),
@@ -137,7 +128,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
-    query: dto.UpsertDeveloperProjectItemQuery
+    query: dto.UpsertDeveloperProjectItemQuery,
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.UpsertDeveloperProjectItemResponse>(
       () => axios.post(`${config.api.url}/onboarding/project-items`, body, { withCredentials: true, params: query }),
@@ -158,7 +149,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
 
   async getPotentialProjectItems(
     params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
+    query: dto.GetPotentialDeveloperProjectItemsQuery,
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError> {
     return handleError<dto.GetPotentialDeveloperProjectItemsResponse>(
       () => axios.get(`${config.api.url}/onboarding/project-items/potential`, { withCredentials: true, params: query }),
@@ -166,17 +157,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  async getServices(
-    params: dto.GetServiceHierarchyParams,
-    query: dto.GetServiceHierarchyQuery
-  ): Promise<any | ApiError> {
+  async getServices(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError> {
     return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServices");
   }
 
   async addDeveloperService(
     params: dto.AddDeveloperServiceParams,
     body: dto.AddDeveloperServiceBody,
-    query: dto.AddDeveloperServiceQuery
+    query: dto.AddDeveloperServiceQuery,
   ): Promise<dto.AddDeveloperServiceResponse | ApiError> {
     return handleError<dto.AddDeveloperServiceResponse>(
       () => axios.post(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
@@ -198,7 +186,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody,
-    query: dto.DeleteDeveloperServiceQuery
+    query: dto.DeleteDeveloperServiceQuery,
   ): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
     return handleError<dto.DeleteDeveloperServiceResponse>(
       () => axios.delete(`${config.api.url}/onboarding/services/${body.serviceId}`, { withCredentials: true, params: query }),
@@ -209,7 +197,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async createCustomService(
     params: dto.CreateCustomServiceParams,
     body: dto.CreateCustomServiceBody,
-    query: dto.CreateCustomServiceQuery
+    query: dto.CreateCustomServiceQuery,
   ): Promise<dto.CreateCustomServiceResponse | ApiError> {
     return handleError<dto.CreateCustomServiceResponse>(
       () => axios.post(`${config.api.url}/onboarding/services/custom`, body, { withCredentials: true, params: query }),
@@ -220,7 +208,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async completeOnboarding(
     params: dto.CompleteOnboardingParams,
     body: dto.CompleteOnboardingBody,
-    query: dto.CompleteOnboardingQuery
+    query: dto.CompleteOnboardingQuery,
   ): Promise<dto.CompleteOnboardingResponse | ApiError> {
     return handleError<dto.CompleteOnboardingResponse>(
       () => axios.post(`${config.api.url}/onboarding/complete`, body, { withCredentials: true, params: query }),

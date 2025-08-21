@@ -1,6 +1,6 @@
 import { ApiError } from "src/ultils/error/ApiError";
 
-export const handleApiCall = async <T,>(
+export const handleApiCall = async <T>(
   apiCall: () => Promise<T | ApiError>,
   setIsLoading: (loading: boolean) => void,
   setError: (error: ApiError | null) => void,
