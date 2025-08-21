@@ -8,6 +8,7 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   return new OnboardingBackendAPIImpl();
 }
 
+// TODO: sam, please implement a MOCK so that we do not have a run a local DB to test the UI
 export interface OnboardingBackendAPI {
   // Profile management
   createDeveloperProfile(

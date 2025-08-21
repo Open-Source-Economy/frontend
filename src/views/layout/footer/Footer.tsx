@@ -8,7 +8,11 @@ import backdropSVG2 from "../../../assets/footer-bd-rr.png";
 import backdropSVG3 from "../../../assets/footer-bd-ll.png";
 
 import { getBackendAPI } from "../../../services";
-import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "@open-source-economy/api-types";
+import type {
+  NewsletterSubscriptionBody,
+  NewsletterSubscriptionParams,
+  NewsletterSubscriptionQuery
+} from "@open-source-economy/api-types";
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";

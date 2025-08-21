@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { CheckoutBody, CheckoutParams, CheckoutQuery, Currency, PlanPriceType, StripePrice } from "@open-source-economy/api-types";
+import {
+  CheckoutBody,
+  CheckoutParams,
+  CheckoutQuery,
+  Currency,
+  PlanPriceType,
+  StripePrice
+} from "@open-source-economy/api-types";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";

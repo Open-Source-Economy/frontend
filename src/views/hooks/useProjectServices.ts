@@ -1,7 +1,12 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import * as model from "@open-source-economy/api-types";
-import { GetProjectServicesParams, GetProjectServicesQuery, GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
+import {
+  GetProjectServicesParams,
+  GetProjectServicesQuery,
+  GetProjectServicesResponse,
+  ServiceType
+} from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 

@@ -10,7 +10,7 @@ import {
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
-  StatusResponse,
+  StatusResponse
 } from "@open-source-economy/api-types";
 import { AuthBackendAPIMock } from "src/__mocks__";
 import { ApiError } from "src/ultils/error/ApiError";

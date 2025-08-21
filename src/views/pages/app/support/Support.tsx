@@ -1,7 +1,7 @@
 import { PhoneIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button, FormEntry } from "src/views/components";
-import { BaseInput } from "src/views/components/form/frames/BaseInput";
+import { BaseInput } from "src/views/components/old-form/frames/BaseInput";
 import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";

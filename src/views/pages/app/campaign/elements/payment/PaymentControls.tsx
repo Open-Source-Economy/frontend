@@ -9,7 +9,7 @@ import {
   CheckoutQuery,
   Currency,
   Price,
-  ProjectId,
+  ProjectId
 } from "@open-source-economy/api-types";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/data";
