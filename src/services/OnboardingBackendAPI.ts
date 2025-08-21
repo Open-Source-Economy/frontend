@@ -34,18 +34,12 @@ export interface OnboardingBackendAPI {
     query: dto.SetDeveloperSettingsQuery
   ): Promise<dto.SetDeveloperSettingsResponse | ApiError>;
 
-  // Project items (repositories) management
-  addProjectItem(
+  // Project items management
+  upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
     query: dto.UpsertDeveloperProjectItemQuery
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError>;
-
-  // addRepository(
-  //   params: dto.AddProjectItemParams,
-  //   body: dto.AddRepositoryBody,
-  //   query: dto.AddRepositoryQuery
-  // ): Promise<any | ApiError>;
 
   removeProjectItem(
     params: dto.RemoveDeveloperProjectProjectItemParams,
@@ -141,23 +135,16 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   }
 
 
-  async addProjectItem(
+  async upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
     query: dto.UpsertDeveloperProjectItemQuery
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.UpsertDeveloperProjectItemResponse>(
       () => axios.post(`${config.api.url}/onboarding/project-items`, body, { withCredentials: true, params: query }),
-      "addProjectItem",
+      "upsertProjectItem",
     );
   }
-
-  // async addRepository(
-  //   params: dto.AddRepositoryParams,
-  //   body: dto.AddRepositoryBody,
-  //   query: dto.AddRepositoryQuery): Promise<any | ApiError> {
-  //   return handleError<any>(() => axios.post(`${config.api.url}/onboarding/repositories`, body, { withCredentials: true, params: query }), "addRepository");
-  // }
 
   async removeProjectItem(
     params: dto.RemoveDeveloperProjectProjectItemParams,

@@ -2,167 +2,38 @@ import React, { useState } from "react";
 import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import {
-  DeveloperRoleType,
-  MergeRightsType,
-  ProjectItemType,
-  ProjectItemId,
-  DeveloperProjectItemId,
   ProjectItem,
   DeveloperProjectItem,
-  DeveloperProfileId
 } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
+import { UpsertProjectItemModal } from "./UpsertProjectItemModal";
+import { ApiError } from "../../../../../../ultils/error/ApiError";
 
 
 type Step2InvolvementProps = OnboardingStepProps<Step2State>;
 
-// Helper function to extract org/repo from GitHub URL
-function extractGitHubRepoInfo(url: string): { owner: string; repo: string } | null {
-  // Support various GitHub URL formats
-  const patterns = [
-    /^https?:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?$/,
-    /^git@github\.com:([^/]+)\/([^/]+?)(?:\.git)?$/,
-    /^([^/]+)\/([^/]+)$/ // Simple org/repo format
-  ];
-
-  for (const pattern of patterns) {
-    const match = url.trim().match(pattern);
-    if (match) {
-      const [, owner, repo] = match;
-      return { owner, repo: repo.replace(/\.git$/, '') };
-    }
-  }
-  return null;
-}
-
 const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [editingProject, setEditingProject] = useState<[ProjectItem, DeveloperProjectItem] | null>(null);
-  const [projects, setProjects] = useState<[ProjectItem, DeveloperProjectItem][]>(props.state.projects || []);
+  const [projects, setProjects] = useState<[ProjectItem, DeveloperProjectItem][]>(props.state.projects);
 
-  // Modal form state
-  const [repositoryUrl, setRepositoryUrl] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
-  const [selectedMergeRights, setSelectedMergeRights] = useState("");
-  const [showRoleDropdown, setShowRoleDropdown] = useState(false);
-  const [showMergeRightsDropdown, setShowMergeRightsDropdown] = useState(false);
-
-  // GitHub data state
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ApiError | null>(null);
 
   const api = getOnboardingBackendAPI();
 
 
-  const roleOptions = [
-    { label: "Lead Maintainer", value: DeveloperRoleType.CREATOR_FOUNDER },
-    { label: "Co-developer", value: DeveloperRoleType.CORE_DEVELOPER },
-    { label: "Contributor", value: DeveloperRoleType.MAINTAINER },
-    { label: "Documentation Lead", value: DeveloperRoleType.PROJECT_LEAD },
-    { label: "Community Manager", value: DeveloperRoleType.PROJECT_LEAD },
-  ];
-
-  const mergeRightsOptions = [
-    { label: "Full rights", value: MergeRightsType.FULL_RIGHTS },
-    { label: "Specific areas", value: MergeRightsType.SPECIFIC_AREAS },
-    { label: "No direct rights", value: MergeRightsType.NO_RIGHTS },
-    { label: "Formal process", value: MergeRightsType.FORMAL_PROCESS },
-  ];
-
-
   const handleAddProject = () => {
-    setEditingProject(null);
-    setRepositoryUrl("");
-    setSelectedRole("");
-    setSelectedMergeRights("");
     setError(null);
     setShowModal(true);
+    //     TODO: project needs to be transfermed to the model
   };
 
   const handleEditProject = (project: [ProjectItem, DeveloperProjectItem]) => {
-    setEditingProject(project);
-    const [projectItem, developerProjectItem] = project;
-    setRepositoryUrl(String(projectItem.sourceIdentifier));
-    // Take the first role and merge right for editing
-    setSelectedRole(developerProjectItem.roles[0] || "");
-    setSelectedMergeRights(developerProjectItem.mergeRights[0] || "");
     setShowModal(true);
+    //     TODO:  project needs to be transfermed to the model
   };
 
-  const handleSaveProject = async () => {
-    if (!repositoryUrl || !selectedRole || !selectedMergeRights) {
-      console.error("Please fill all required fields");
-      return;
-    }
 
-    // Validate the URL format
-    const repoInfo = extractGitHubRepoInfo(repositoryUrl);
-    if (!repoInfo) {
-      console.error("Invalid repository URL format. Please use a valid GitHub URL.");
-      setError("Invalid repository URL format");
-      return;
-    }
-
-    const selectedRoleEnum = roleOptions.find(r => r.label === selectedRole)?.value || DeveloperRoleType.CORE_DEVELOPER;
-    const selectedMergeRightsEnum = mergeRightsOptions.find(m => m.label === selectedMergeRights)?.value || MergeRightsType.NO_RIGHTS;
-
-    const projectItem: ProjectItem = {
-      id: editingProject?.[0]?.id || new ProjectItemId(crypto.randomUUID()),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
-      sourceIdentifier: repositoryUrl,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    const developerProjectItem: DeveloperProjectItem = {
-      id: editingProject?.[1]?.id || new DeveloperProjectItemId(crypto.randomUUID()),
-      developerProfileId: editingProject?.[1]?.developerProfileId || new DeveloperProfileId(crypto.randomUUID()),
-      projectItemId: projectItem.id,
-      roles: [selectedRoleEnum],
-      mergeRights: [selectedMergeRightsEnum],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    const newProject: [ProjectItem, DeveloperProjectItem] = [projectItem, developerProjectItem];
-
-    // Save to database first
-    await saveRepositoryToDatabase(newProject);
-
-    let updatedProjects;
-    if (editingProject) {
-      updatedProjects = projects.map(p => (p[1].id === editingProject[1].id ? newProject : p));
-    } else {
-      updatedProjects = [...projects, newProject];
-    }
-
-    setProjects(updatedProjects);
-    props.updateState({ projects: updatedProjects });
-    setShowModal(false);
-  };
-
-  const saveRepositoryToDatabase = async (project: [ProjectItem, DeveloperProjectItem]) => {
-    try {
-      console.log("Saving repository to database:", project);
-      // addRepository is replaced with addProjectItem
-      const [projectItem, developerProjectItem] = project;
-      const projectItemData = {
-        projectItemType: ProjectItemType.GITHUB_REPOSITORY,
-        sourceIdentifier: projectItem.sourceIdentifier,
-        roles: developerProjectItem.roles,
-        mergeRights: developerProjectItem.mergeRights
-      };
-      const result = await api.addProjectItem({}, projectItemData, {});
-
-      if (result && !(result instanceof Error)) {
-        console.log("Repository saved successfully:", result);
-      } else {
-        console.error("Failed to save repository:", result);
-      }
-    } catch (error) {
-      console.error("Error saving repository to database:", error);
-    }
-  };
 
   const handleDeleteProject = (projectId: string) => {
     const updatedProjects = projects.filter(p => p[1].id.uuid !== projectId);
@@ -248,10 +119,10 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
                     <div key={developerProjectItem.id.uuid} className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2">
                       <div className="flex-[2] font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
                         <p>
-                          {(() => {
-                            const repoInfo = extractGitHubRepoInfo(String(projectItem.sourceIdentifier));
-                            return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : String(projectItem.sourceIdentifier);
-                          })()}
+                          {/*{(() => {*/}
+                          {/*  const repoInfo = extractGitHubRepoInfo(String(projectItem.sourceIdentifier)); // TODO: refactor*/}
+                          {/*  return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : String(projectItem.sourceIdentifier);*/}
+                          {/*})()}*/}
                         </p>
                       </div>
                       <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
@@ -316,146 +187,12 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = (props) => {
         </div>
       </div>
 
-      {/* Add/Edit Project Modal */}
+      {/* Add/Edit Project UpsertProjectItemModal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[#14233a] rounded-[30px] p-8 w-[600px] max-h-[80vh] overflow-y-auto">
-            <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-              {/* Modal Header */}
-              <div className="box-border content-stretch flex flex-row gap-4 items-center justify-between p-0 relative shrink-0 w-full">
-                <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[24px] text-left">
-                  <p className="block leading-[1.3]">{editingProject ? "Edit Project" : "Add Project"}</p>
-                </div>
-                <button onClick={() => setShowModal(false)} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Repository URL Input */}
-              <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
-                <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left">
-                  <p className="block leading-[1.5] whitespace-pre">Repository URL</p>
-                </div>
-                <input
-                  type="text"
-                  value={repositoryUrl}
-                  onChange={(e) => {
-                    setRepositoryUrl(e.target.value);
-                    setError(null); // Clear error when user types
-                  }}
-                  placeholder="https://github.com/owner/repository"
-                  className="bg-[#202f45] box-border flex flex-row gap-2 items-center p-3 relative rounded-md shrink-0 w-full text-[#ffffff] font-montserrat text-[16px] placeholder-[#8a8a8a] focus:outline-none focus:ring-2 focus:ring-[#ff7e4b] transition-colors"
-                />
-                {error && (
-                  <p className="text-red-400 text-sm font-montserrat mt-1">{error}</p>
-                )}
-              </div>
-
-              {/* Role Dropdown */}
-              <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
-                <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left">
-                  <p className="block leading-[1.5] whitespace-pre">Your Role</p>
-                </div>
-                <div className="relative w-full">
-                  <button
-                    onClick={() => {
-                      setShowRoleDropdown(!showRoleDropdown);
-                      setShowMergeRightsDropdown(false);
-                    }}
-                    className="bg-[#202f45] box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full hover:bg-[#2a3f56] transition-colors"
-                  >
-                    <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>{selectedRole || "Select your role..."}</p>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 7.5L10 12.5L15 7.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {showRoleDropdown && (
-                    <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
-                      {roleOptions.map(role => (
-                        <button
-                          key={role.value}
-                          onClick={() => {
-                            setSelectedRole(role.label);
-                            setShowRoleDropdown(false);
-                          }}
-                          className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
-                        >
-                          {role.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Merge Rights Dropdown */}
-              <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
-                <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left">
-                  <p className="block leading-[1.5] whitespace-pre">Merge Rights</p>
-                </div>
-                <div className="relative w-full">
-                  <button
-                    onClick={() => {
-                      setShowMergeRightsDropdown(!showMergeRightsDropdown);
-                      setShowRoleDropdown(false);
-                    }}
-                    className="bg-[#202f45] box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full hover:bg-[#2a3f56] transition-colors"
-                  >
-                    <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>{selectedMergeRights || "Select merge rights..."}</p>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 7.5L10 12.5L15 7.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {showMergeRightsDropdown && (
-                    <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
-                      {mergeRightsOptions.map(rights => (
-                        <button
-                          key={rights.value}
-                          onClick={() => {
-                            setSelectedMergeRights(rights.label);
-                            setShowMergeRightsDropdown(false);
-                          }}
-                          className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
-                        >
-                          {rights.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Modal Buttons */}
-              <div className="box-border content-stretch flex flex-row gap-4 items-center justify-end p-0 relative shrink-0 w-full">
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all hover:bg-[rgba(255,255,255,0.1)]"
-                >
-                  <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">
-                    <p className="block leading-[1.5] whitespace-pre">Cancel</p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={handleSaveProject}
-                  disabled={!repositoryUrl || !selectedRole || !selectedMergeRights}
-                  className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${!repositoryUrl || !selectedRole || !selectedMergeRights ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
-                    }`}
-                >
-                  <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">
-                    <p className="block leading-[1.5] whitespace-pre">{editingProject ? "Save Changes" : "Add Project"}</p>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <UpsertProjectItemModal
+          show={showModal}
+          setShow={setShowModal}
+        />
       )}
     </div>
   );

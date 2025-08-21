@@ -28,7 +28,7 @@ export function CurrencyModal(props: CurrencyModalProps) {
           <div className="fixed inset-0 bg-black/10 backdrop-blur-sm" />
         </TransitionChild>
 
-        {/* Modal */}
+        {/* UpsertProjectItemModal */}
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
