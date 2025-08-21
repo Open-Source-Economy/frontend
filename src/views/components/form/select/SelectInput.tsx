@@ -17,7 +17,7 @@ interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 export const SelectInput = forwardRef(function SelectInput(
   props: SelectInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
   const { label, options, required, value, onChange, className, forceValidate, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
@@ -39,12 +39,16 @@ export const SelectInput = forwardRef(function SelectInput(
   };
 
   // Expose validate method via ref for parent components
-  useImperativeHandle(ref, () => ({
-    validate: () => {
-      // When validate() is called, run validation and ensure errors are shown immediately.
-      return runValidation(value, true);
-    }
-  }), [value, required, label]); // Dependencies for useImperativeHandle
+  useImperativeHandle(
+    ref,
+    () => ({
+      validate: () => {
+        // When validate() is called, run validation and ensure errors are shown immediately.
+        return runValidation(value, true);
+      },
+    }),
+    [value, required, label],
+  ); // Dependencies for useImperativeHandle
 
   // Effect to trigger validation when forceValidate becomes true
   useEffect(() => {
@@ -65,12 +69,11 @@ export const SelectInput = forwardRef(function SelectInput(
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [value]);
-
 
   const handleOptionClick = (optionValue: string) => {
     const syntheticEvent = {
@@ -96,7 +99,7 @@ export const SelectInput = forwardRef(function SelectInput(
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1
     grow items-center justify-between min-h-px min-w-px p-[12px] relative rounded-md shrink-0
     cursor-pointer
-    ${internalError ? 'border border-red-500' : 'border border-[#202f45]'}
+    ${internalError ? "border border-red-500" : "border border-[#202f45]"}
   `;
 
   // Classes for the label text container
@@ -110,7 +113,9 @@ export const SelectInput = forwardRef(function SelectInput(
       <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
-            <p className="block leading-[1.5] whitespace-pre">{label} {required && <span className="text-red-500">*</span>}</p>
+            <p className="block leading-[1.5] whitespace-pre">
+              {label} {required && <span className="text-red-500">*</span>}
+            </p>
           </div>
         </div>
       </div>
@@ -132,12 +137,10 @@ export const SelectInput = forwardRef(function SelectInput(
           aria-expanded={showDropdown}
           aria-labelledby={`${props.id}-label`}
         >
-          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">
-            {selectedOptionLabel}
-          </span>
+          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">{selectedOptionLabel}</span>
           {/* Dropdown arrow icon (using a simple caret) */}
           <svg
-            className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -153,7 +156,7 @@ export const SelectInput = forwardRef(function SelectInput(
 
       {showDropdown && (
         <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10 w-full">
-          {options.map((option) => (
+          {options.map(option => (
             <button
               key={option.value}
               onClick={() => handleOptionClick(option.value)}
@@ -164,9 +167,7 @@ export const SelectInput = forwardRef(function SelectInput(
           ))}
         </div>
       )}
-      {internalError && (
-        <div className="text-red-400 text-sm mt-1">{internalError}</div>
-      )}
+      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

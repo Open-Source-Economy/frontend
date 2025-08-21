@@ -15,7 +15,7 @@ interface GenericInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const GenericInput = forwardRef(function GenericInput(
   props: GenericInputProps,
-  ref: Ref<GenericInputRef> // <--- FIX: Corrected type to Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // <--- FIX: Corrected type to Ref<GenericInputRef>
 ) {
   const { label, className, required, validator, renderError, forceValidate, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
@@ -38,17 +38,21 @@ export const GenericInput = forwardRef(function GenericInput(
   };
 
   // Expose methods via ref for parent components.
-  useImperativeHandle(ref, () => ({
-    validate: () => {
-      // When validate() is called, run validation and ensure errors are shown immediately.
-      return runValidation(String(props.value || ''), true);
-    }
-  }), [props.value, required, validator, label]);
+  useImperativeHandle(
+    ref,
+    () => ({
+      validate: () => {
+        // When validate() is called, run validation and ensure errors are shown immediately.
+        return runValidation(String(props.value || ""), true);
+      },
+    }),
+    [props.value, required, validator, label],
+  );
 
   // Effect to trigger validation when `forceValidate` becomes true or value changes (if forced).
   useEffect(() => {
     if (forceValidate) {
-      runValidation(String(props.value || ''), true); // Force display of errors
+      runValidation(String(props.value || ""), true); // Force display of errors
     }
   }, [forceValidate, props.value]);
 
@@ -58,7 +62,7 @@ export const GenericInput = forwardRef(function GenericInput(
     bg-transparent font-montserrat font-normal leading-[0]
     text-[#ffffff] text-[16px] text-left outline-none
     placeholder:opacity-60 placeholder:text-[#ffffff]
-    ${className || ''}
+    ${className || ""}
   `;
 
   // Classes for the input container, matching your provided structure
@@ -71,7 +75,7 @@ export const GenericInput = forwardRef(function GenericInput(
   const inputWrapperClasses = `
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1
     grow items-center justify-start min-h-px min-w-px p-[12px] relative rounded-md shrink-0
-    ${internalError ? 'border border-red-500' : 'border border-[#202f45]'}
+    ${internalError ? "border border-red-500" : "border border-[#202f45]"}
   `;
 
   // Classes for the label text container
@@ -85,7 +89,9 @@ export const GenericInput = forwardRef(function GenericInput(
       <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
-            <p className="block leading-[1.5] whitespace-pre">{label} {required && <span className="text-red-500">*</span>}</p>
+            <p className="block leading-[1.5] whitespace-pre">
+              {label} {required && <span className="text-red-500">*</span>}
+            </p>
           </div>
         </div>
       </div>
@@ -97,14 +103,14 @@ export const GenericInput = forwardRef(function GenericInput(
             // and pass it to the input: `ref={htmlInputRef}`.
             className={inputClasses}
             {...rest}
-            onBlur={(e) => {
+            onBlur={e => {
               setIsTouched(true); // Mark as touched on blur
               runValidation(e.target.value, true); // Validate and show error on blur
               if (rest.onBlur) {
                 rest.onBlur(e);
               }
             }}
-            onChange={(e) => {
+            onChange={e => {
               // Validate on change only if input has been touched OR if forceValidate is active
               if (isTouched || forceValidate) {
                 runValidation(e.target.value);
@@ -116,9 +122,7 @@ export const GenericInput = forwardRef(function GenericInput(
           />
         </div>
       </div>
-      {renderError ? renderError(internalError) : internalError && (
-        <div className="text-red-400 text-sm mt-1">{internalError}</div>
-      )}
+      {renderError ? renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

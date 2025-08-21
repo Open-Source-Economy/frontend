@@ -15,11 +15,9 @@ import {
   TermsAndConditionsCheckbox
 } from "../../../../components/form";
 
-export interface Step1ProfileProps extends OnboardingStepProps<Step1State> {
-}
+export interface Step1ProfileProps extends OnboardingStepProps<Step1State> {}
 
 export default function Step1Profile(props: Step1ProfileProps) {
-
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const onboardingAPI = getOnboardingBackendAPI();
@@ -28,7 +26,6 @@ export default function Step1Profile(props: Step1ProfileProps) {
   const nameInputRef = useRef<GenericInputRef>(null);
   const emailInputRef = useRef<GenericInputRef>(null);
   const termsCheckboxRef = useRef<CheckboxInputRef>(null);
-
 
   // The validateForm now aggregates validation results from all child input components.
   const validateForm = (): boolean => {
@@ -53,7 +50,7 @@ export default function Step1Profile(props: Step1ProfileProps) {
           const params: dto.UpdateDeveloperContactInfosParams = {};
           const body: dto.UpdateDeveloperContactInfosBody = {
             name: props.state.name!,
-            email: props.state.email!
+            email: props.state.email!,
           };
           const query: dto.UpdateDeveloperContactInfosQuery = {};
           result = await onboardingAPI.updateDeveloperProfile(params, body, query);
@@ -62,7 +59,7 @@ export default function Step1Profile(props: Step1ProfileProps) {
           const body: dto.CreateDeveloperProfileBody = {
             name: props.state.name!,
             email: props.state.email!,
-            agreedToTerms: props.state.agreedToTerms!
+            agreedToTerms: props.state.agreedToTerms!,
           };
           const query: dto.CreateDeveloperProfileQuery = {};
           result = await onboardingAPI.createDeveloperProfile(params, body, query);
@@ -83,19 +80,15 @@ export default function Step1Profile(props: Step1ProfileProps) {
   };
 
   return (
-    <div
-      className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
+    <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
       {/* Progress Bar */}
       <ProgressBar currentStep={props.currentStep} />
 
       {/* Form Content */}
-      <div
-        className="box-border content-stretch flex flex-col gap-8 items-center justify-start px-[200px] py-0 relative shrink-0 w-full">
-        <div
-          className="box-border content-stretch flex flex-col gap-12 items-center justify-center p-0 relative shrink-0 w-full">
+      <div className="box-border content-stretch flex flex-col gap-8 items-center justify-start px-[200px] py-0 relative shrink-0 w-full">
+        <div className="box-border content-stretch flex flex-col gap-12 items-center justify-center p-0 relative shrink-0 w-full">
           {/* Section Title */}
-          <div
-            className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-full">
+          <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-full">
             <div className="font-michroma not-italic relative shrink-0 text-[42px] w-full">
               <p className="block leading-[1.3]">Confirm Your Details</p>
             </div>
@@ -105,12 +98,9 @@ export default function Step1Profile(props: Step1ProfileProps) {
           </div>
 
           {/* Form Card */}
-          <div
-            className="box-border content-stretch flex flex-col gap-6 items-center justify-start p-0 relative shrink-0">
-            <div
-              className="bg-[#14233a] box-border content-stretch flex flex-col gap-2.5 items-start justify-start px-8 py-9 relative rounded-[30px] shrink-0">
-              <div
-                className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-[680px]">
+          <div className="box-border content-stretch flex flex-col gap-6 items-center justify-start p-0 relative shrink-0">
+            <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-2.5 items-start justify-start px-8 py-9 relative rounded-[30px] shrink-0">
+              <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-[680px]">
                 {/* Name Input */}
                 <NameInput
                   id="name"
@@ -148,15 +138,13 @@ export default function Step1Profile(props: Step1ProfileProps) {
           </div>
 
           {/* Button Group */}
-          <div
-            className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
+          <div className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
             {/*TODO: sam: use or update the class Button */}
             <button
               onClick={props.onBack}
               className="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all hover:bg-[rgba(255,255,255,0.1)]"
             >
-              <div
-                className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
+              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
                 <p className="block leading-[1.5] whitespace-pre">Back</p>
               </div>
             </button>
@@ -167,8 +155,7 @@ export default function Step1Profile(props: Step1ProfileProps) {
               disabled={isLoading}
               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div
-                className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
+              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
                 <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : "Next"}</p>
               </div>
             </button>

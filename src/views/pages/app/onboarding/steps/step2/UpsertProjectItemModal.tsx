@@ -44,7 +44,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [selectedRoles, setSelectedRoles] = useState<DeveloperRoleType[] | null>(props.projectItem ? props.projectItem[1].roles : null);
   const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType[] | null>(props.projectItem ? props.projectItem[1].mergeRights : null);
 
-
   // Refs for our custom input components to trigger their validation
   const urlInputRef = useRef<GenericInputRef>(null);
   const roleSelectRef = useRef<GenericInputRef>(null);
@@ -61,7 +60,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     // Original validation logic for basic check (now relies on individual input validation)
     // Note: The `validateForm` function logic below would typically replace this simple check
     // for a more robust form validation flow.
-    if (!url || !selectedRoles || selectedRoles.length === 0 || !selectedMergeRights || selectedMergeRights.length === 0) { // Added check for empty arrays
+    if (!url || !selectedRoles || selectedRoles.length === 0 || !selectedMergeRights || selectedMergeRights.length === 0) {
+      // Added check for empty arrays
       console.error("Please fill all required fields");
       // Original: setFromError("Please fill all required fields");
       return;
@@ -126,7 +126,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     return isValid;
   };
 
-
   return (
     <>
       <Modal show={props.show} onHide={() => props.setShow(false)} centered className="upsert-project-item-modal">
@@ -160,7 +159,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                 />
                 {/* original fromError display is left here, but UrlInput handles its own errors */}
                 {fromError && <p className="text-red-400 text-sm font-montserrat mt-1">{fromError}</p>}
-
 
                 {/* Role Dropdown - Using SelectInput component */}
                 <SelectInput
@@ -209,7 +207,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                     }`}
                   >
                     <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">
-                      <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : (props.projectItem ? "Save Changes" : "Add Project")}</p>
+                      <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : props.projectItem ? "Save Changes" : "Add Project"}</p>
                     </div>
                   </button>
                 </div>

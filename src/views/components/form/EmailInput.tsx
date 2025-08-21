@@ -4,7 +4,7 @@ import { GenericInput, GenericInputRef } from "./GenericInput"; // Import Generi
 // Validator function for email format
 const validateEmail = (value: string): string | undefined => {
   if (value && !/\S+@\S+\.\S+/.test(value)) {
-    return 'Please enter a valid email address.';
+    return "Please enter a valid email address.";
   }
   return undefined; // No error
 };
@@ -18,7 +18,7 @@ interface EmailInputProps extends InputHTMLAttributes<HTMLInputElement> {
 // Use forwardRef to allow this component to receive a ref for GenericInputRef
 export const EmailInput = forwardRef(function EmailInput(
   props: EmailInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
   const { forceValidate, ...rest } = props;
   return (

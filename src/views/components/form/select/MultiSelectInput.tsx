@@ -9,7 +9,8 @@ interface SelectOption {
 // FIX: Removed extends InputHTMLAttributes<HTMLInputElement>
 // Instead, explicitly define common HTML attributes like `name`, `id`, `className`, etc.,
 // that are relevant and directly consumed by the MultiSelectInput's root div or hidden inputs.
-interface MultiSelectInputProps { // No longer extending HTML attributes directly
+interface MultiSelectInputProps {
+  // No longer extending HTML attributes directly
   label: string;
   options: SelectOption[];
   required?: boolean;
@@ -28,7 +29,7 @@ interface MultiSelectInputProps { // No longer extending HTML attributes directl
 
 export const MultiSelectInput = forwardRef(function MultiSelectInput(
   props: MultiSelectInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as GenericInputRef, as it exposes a validate() method
+  ref: Ref<GenericInputRef>, // The ref is typed as GenericInputRef, as it exposes a validate() method
 ) {
   const { label, options, required, value, onChange, className, forceValidate, id, name, ...rest } = props; // Destructure id and name
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
@@ -38,7 +39,8 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
   // Helper function to run validation and update internal error state
   const runValidation = (currentValues: string[], showImmediately: boolean = false): boolean => {
     let errorMessage: string | undefined = undefined;
-    if (required && currentValues.length === 0) { // Check if the array is empty for required validation
+    if (required && currentValues.length === 0) {
+      // Check if the array is empty for required validation
       errorMessage = `${label} is required.`;
     }
 
@@ -50,12 +52,16 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
   };
 
   // Expose validate method via ref for parent components
-  useImperativeHandle(ref, () => ({
-    validate: () => {
-      // When validate() is called, run validation and ensure errors are shown immediately.
-      return runValidation(value, true); // Pass the array value to validation
-    }
-  }), [value, required, label]); // Dependencies for useImperativeHandle
+  useImperativeHandle(
+    ref,
+    () => ({
+      validate: () => {
+        // When validate() is called, run validation and ensure errors are shown immediately.
+        return runValidation(value, true); // Pass the array value to validation
+      },
+    }),
+    [value, required, label],
+  ); // Dependencies for useImperativeHandle
 
   // Effect to trigger validation when forceValidate becomes true
   useEffect(() => {
@@ -73,12 +79,11 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [value]); // Depend on value to ensure validation uses latest state
-
 
   const handleOptionClick = (optionValue: string) => {
     const isSelected = value.includes(optionValue);
@@ -96,9 +101,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
   };
 
   // Get labels for currently selected options to display as pills
-  const selectedLabels = value
-    .map(selectedValue => options.find(opt => opt.value === selectedValue)?.label)
-    .filter(Boolean) as string[]; // Filter out undefined and cast
+  const selectedLabels = value.map(selectedValue => options.find(opt => opt.value === selectedValue)?.label).filter(Boolean) as string[]; // Filter out undefined and cast
 
   // Classes for the main container div
   const inputContainerClasses = `
@@ -111,7 +114,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row flex-wrap gap-2
     grow items-center justify-between min-h-px min-w-px p-[12px] relative rounded-md shrink-0
     cursor-pointer
-    ${internalError ? 'border border-red-500' : 'border border-[#202f45]'}
+    ${internalError ? "border border-red-500" : "border border-[#202f45]"}
   `;
 
   // Classes for the label text container
@@ -125,7 +128,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
       <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
-            <p className="block leading-[1.5] whitespace-pre">{label} {required && <span className="text-red-500">*</span>}</p>
+            <p className="block leading-[1.5] whitespace-pre">
+              {label} {required && <span className="text-red-500">*</span>}
+            </p>
           </div>
         </div>
       </div>
@@ -155,14 +160,12 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
               ))}
             </div>
           ) : (
-            <span className="font-montserrat font-normal text-[#8a8a8a] text-[16px] flex-grow">
-              Select...
-            </span>
+            <span className="font-montserrat font-normal text-[#8a8a8a] text-[16px] flex-grow">Select...</span>
           )}
 
           {/* Dropdown arrow icon */}
           <svg
-            className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -175,19 +178,19 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
 
       {/* Hidden inputs to hold the actual values for form submission */}
       {value.map((val, index) => (
-        <input type="hidden" key={index} name={`${name || 'multiSelect'}[${index}]`} value={val} />
-        ))}
+        <input type="hidden" key={index} name={`${name || "multiSelect"}[${index}]`} value={val} />
+      ))}
 
       {showDropdown && (
         <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10 w-full">
-          {options.map((option) => {
+          {options.map(option => {
             const isSelected = value.includes(option.value);
             return (
               <button
                 key={option.value}
                 onClick={() => handleOptionClick(option.value)}
                 className={`w-full px-3 py-2 text-left font-montserrat font-normal text-[16px] transition-colors
-                  ${isSelected ? 'bg-[#ff518c] text-white' : 'text-[#ffffff] hover:bg-[#2a3f56]'}`}
+                  ${isSelected ? "bg-[#ff518c] text-white" : "text-[#ffffff] hover:bg-[#2a3f56]"}`}
               >
                 {option.label}
                 {isSelected && ( // Optional: Add a checkmark for selected items
@@ -200,9 +203,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
           })}
         </div>
       )}
-      {internalError && (
-        <div className="text-red-400 text-sm mt-1">{internalError}</div>
-      )}
+      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

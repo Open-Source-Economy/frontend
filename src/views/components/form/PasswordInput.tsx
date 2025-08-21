@@ -36,7 +36,7 @@ interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const PasswordInput = forwardRef(function PasswordInput(
   props: PasswordInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
   const {
     label,
@@ -65,7 +65,7 @@ export const PasswordInput = forwardRef(function PasswordInput(
 
   // Effect to recalculate validation and match status whenever input value or relevant props change.
   useEffect(() => {
-    const currentValue = String(value || ''); // Ensure value is a string for checks
+    const currentValue = String(value || ""); // Ensure value is a string for checks
 
     // Detailed password policy checks
     const isEmpty = !currentValue.trim();
@@ -94,13 +94,8 @@ export const PasswordInput = forwardRef(function PasswordInput(
   }, [value, isConfirmation, passwordToMatch]); // Dependencies for useEffect
 
   // Determine if there's any policy error to display detailed messages.
-  const hasPolicyError = !validation.isEmpty && !(
-    validation.minLength &&
-    validation.hasNumber &&
-    validation.hasSymbol &&
-    validation.hasLowercase &&
-    validation.hasUppercase
-  );
+  const hasPolicyError =
+    !validation.isEmpty && !(validation.minLength && validation.hasNumber && validation.hasSymbol && validation.hasLowercase && validation.hasUppercase);
 
   return (
     <GenericInput
@@ -110,14 +105,14 @@ export const PasswordInput = forwardRef(function PasswordInput(
       // Pass the appropriate generic validator to GenericInput.
       // If it's a confirmation field, only check for emptiness (match handled by renderError).
       // Otherwise, use the standard genericPasswordValidator for basic checks.
-      validator={isConfirmation ? (val) => val.trim() ? undefined : "Password confirmation is required." : genericPasswordValidator}
+      validator={isConfirmation ? val => (val.trim() ? undefined : "Password confirmation is required.") : genericPasswordValidator}
       value={value}
       onChange={onChange}
       forceValidate={forceValidate} // Pass forceValidate down to GenericInput
       ref={ref} // Forward the ref to GenericInput
       {...rest}
       // This is where PasswordInput takes control of error rendering.
-      renderError={(genericErrorFromGenericInput) => {
+      renderError={genericErrorFromGenericInput => {
         // --- Custom Error Rendering Logic ---
 
         // 1. Prioritize displaying a "Passwords do not match" message for confirmation fields.

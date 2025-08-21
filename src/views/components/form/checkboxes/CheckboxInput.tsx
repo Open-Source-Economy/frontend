@@ -11,10 +11,7 @@ interface CheckboxInputProps extends InputHTMLAttributes<HTMLInputElement> {
   renderError?: (errorMessage: string | undefined) => React.ReactNode; // Custom error renderer
 }
 
-export const CheckboxInput = forwardRef(function CheckboxInput(
-  props: CheckboxInputProps,
-  ref: Ref<CheckboxInputRef>
-) {
+export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxInputProps, ref: Ref<CheckboxInputRef>) {
   const { label, required, renderError, className, checked, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [isTouched, setIsTouched] = useState(false);
@@ -35,12 +32,16 @@ export const CheckboxInput = forwardRef(function CheckboxInput(
   };
 
   // Expose methods via ref for parent components
-  useImperativeHandle(ref, () => ({
-    validate: () => {
-      // When validate() is called, run validation and ensure errors are shown immediately.
-      return runValidation(Boolean(checked), true);
-    }
-  }), [checked, required]);
+  useImperativeHandle(
+    ref,
+    () => ({
+      validate: () => {
+        // When validate() is called, run validation and ensure errors are shown immediately.
+        return runValidation(Boolean(checked), true);
+      },
+    }),
+    [checked, required],
+  );
 
   return (
     <div className="box-border content-stretch flex flex-row gap-3 items-start justify-start p-0 relative shrink-0">
@@ -48,16 +49,16 @@ export const CheckboxInput = forwardRef(function CheckboxInput(
         <input
           type="checkbox"
           checked={checked}
-          className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 ${className || ''}`}
+          className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 ${className || ""}`}
           {...rest}
-          onChange={(e) => {
+          onChange={e => {
             setIsTouched(true); // Mark as touched on change
             runValidation(e.target.checked); // Validate on change
             if (props.onChange) {
               props.onChange(e); // Pass the event up to the parent
             }
           }}
-          onBlur={(e) => {
+          onBlur={e => {
             setIsTouched(true); // Mark as touched on blur
             runValidation(e.target.checked, true); // Validate and show error on blur
             if (props.onBlur) {
@@ -79,9 +80,7 @@ export const CheckboxInput = forwardRef(function CheckboxInput(
           <p className="block leading-[1.1] text-nowrap whitespace-pre">{label}</p>
         </div>
       </div>
-      {renderError ? renderError(internalError) : internalError && (
-        <div className="text-red-400 text-sm mt-1">{internalError}</div>
-      )}
+      {renderError ? renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

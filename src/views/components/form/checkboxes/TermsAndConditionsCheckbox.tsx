@@ -11,7 +11,7 @@ interface TermsAndConditionsCheckboxProps extends InputHTMLAttributes<HTMLInputE
 
 export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditionsCheckbox(
   props: TermsAndConditionsCheckboxProps,
-  ref: Ref<CheckboxInputRef> // The ref is typed for CheckboxInputRef
+  ref: Ref<CheckboxInputRef>, // The ref is typed for CheckboxInputRef
 ) {
   const { required, ...rest } = props;
 
@@ -19,7 +19,7 @@ export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditions
   // This is a React.ReactNode, which CheckboxInput's label prop now accepts.
   const termsLabel = (
     <>
-      By submitting this form, I agree to the{' '}
+      By submitting this form, I agree to the{" "}
       <Link
         to="/terms-and-conditions"
         target="_blank"

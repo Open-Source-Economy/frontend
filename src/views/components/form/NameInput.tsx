@@ -3,7 +3,7 @@ import { GenericInput, GenericInputRef } from "./GenericInput"; // Import Generi
 
 const validateName = (value: string): string | undefined => {
   if (value && !/^[a-zA-Z-' ]+$/.test(value)) {
-    return 'Name can only contain letters, hyphens, and apostrophes.';
+    return "Name can only contain letters, hyphens, and apostrophes.";
   }
   return undefined; // No error
 };
@@ -17,7 +17,7 @@ interface NameInputProps extends InputHTMLAttributes<HTMLInputElement> {
 // Use forwardRef to allow this component to receive a ref for GenericInputRef
 export const NameInput = forwardRef(function NameInput(
   props: NameInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
   const { forceValidate, ...rest } = props;
   return (

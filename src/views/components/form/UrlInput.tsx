@@ -9,7 +9,7 @@ const validateUrl = (value: string): string | undefined => {
   try {
     new URL(value);
   } catch (_) {
-    return 'Please enter a valid URL.';
+    return "Please enter a valid URL.";
   }
   return undefined; // No error
 };
@@ -23,7 +23,7 @@ interface UrlInputProps extends InputHTMLAttributes<HTMLInputElement> {
 // Use forwardRef to allow this component to receive a ref for GenericInputRef
 export const UrlInput = forwardRef(function UrlInput(
   props: UrlInputProps,
-  ref: Ref<GenericInputRef> // The ref is typed as Ref<GenericInputRef>
+  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
   const { forceValidate, ...rest } = props;
   return (
