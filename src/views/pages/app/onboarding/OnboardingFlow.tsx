@@ -22,6 +22,16 @@ import { ApiError } from "src/ultils/error/ApiError";
 // Step components (we'll create these)
 import Step1Profile from "./steps/Step1Profile";
 import Step2Involvement from "./steps/Step2Involvement";
+
+// Unified project item type for onboarding (extends the backend DeveloperProjectItem with frontend-specific fields)
+export interface OnboardingProjectItem {
+  id: DeveloperProjectItemId;
+  projectItemId: ProjectItemId;
+  projectItemType: ProjectItemType;
+  sourceIdentifier: string; // URL for the repository
+  roles: DeveloperRoleType[];
+  mergeRights: MergeRightsType[];
+}
 // TODO: Re-enable when steps 3+ are updated to use api-types
 // import Step3ActiveIncome from "./steps/Step3ActiveIncome";
 // import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
@@ -34,16 +44,9 @@ export interface OnboardingState {
   email: string;
   agreedToTerms: boolean;
 
-  // Step 2 - Involvement
+  // Step 2 - Involvement  
   involvement?: {
-    projects: Array<{
-      id: DeveloperProjectItemId;
-      projectItemId: ProjectItemId;
-      projectItemType: ProjectItemType;
-      sourceIdentifier: string; // URL for the repository
-      roles: DeveloperRoleType[];
-      mergeRights: MergeRightsType[];
-    }>;
+    projects: OnboardingProjectItem[];
   };
 
   // TODO: Re-enable when steps 3+ are updated to use api-types

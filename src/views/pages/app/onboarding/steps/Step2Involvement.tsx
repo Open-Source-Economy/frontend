@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { OnboardingState } from "../OnboardingFlow";
+import { OnboardingState, OnboardingProjectItem } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import {
@@ -10,14 +10,8 @@ import {
   DeveloperProjectItemId
 } from "@open-source-economy/api-types";
 
-interface ProjectItem {
-  id: DeveloperProjectItemId;
-  projectItemId: ProjectItemId;
-  projectItemType: ProjectItemType;
-  sourceIdentifier: string; // URL for the repository
-  roles: DeveloperRoleType[];
-  mergeRights: MergeRightsType[];
-}
+// Using the shared OnboardingProjectItem type from OnboardingFlow.tsx
+type ProjectItem = OnboardingProjectItem;
 
 interface GitHubOrganization {
   id: number;
