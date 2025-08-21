@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { OnboardingState } from "../OnboardingFlow";
+import { paths } from "src/paths";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -64,7 +65,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
         console.log("Sending contact info:", contactInfo);
         console.log("State values:", { name: state.name, email: state.email, agreedToTerms: state.agreedToTerms });
 
-        let result: UpdateDeveloperContactInfosResponse | ApiError = await onboardingAPI.updateProfile(contactInfo);
+        let result: UpdateDeveloperContactInfosResponse | ApiError = await onboardingAPI.updateDeveloperProfile({}, contactInfo, {});
 
         if (result instanceof ApiError) {
           // If update fails, create a new profile
@@ -73,7 +74,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
             email: state.email,
             agreedToTerms: state.agreedToTerms,
           };
-          const createResult: CreateDeveloperProfileResponse | ApiError = await onboardingAPI.createProfile(profileData);
+          const createResult: CreateDeveloperProfileResponse | ApiError = await onboardingAPI.createDeveloperProfile({}, profileData, {});
           if (createResult instanceof ApiError) {
             throw new Error("Failed to save profile data");
           }
@@ -191,7 +192,7 @@ export default function Step1Profile({ state, updateState, onNext, onBack, curre
                   <p className="block leading-[1.1] text-nowrap whitespace-pre">By submitting this form, I agree to the</p>
                 </div>
                 <Link
-                  to="/terms-and-conditions"
+                  to={paths.TERMS_AND_CONDITIONS}
                   target="_blank"
                   className="bg-clip-text bg-gradient-to-r flex flex-col font-montserrat font-medium from-[#ff7e4b] justify-center relative shrink-0 to-[#66319b] via-50% via-[#ff518c] underline"
                   style={{ WebkitTextFillColor: "transparent" }}

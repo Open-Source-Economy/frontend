@@ -74,9 +74,8 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
               value={url || ""}
               onChange={e => setUrl(e.target.value)}
               onKeyDown={handleKeyDown}
-              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${
-                !isValidUrl ? " border-red-500" : "border-transparent"
-              }`}
+              className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${!isValidUrl ? " border-red-500" : "border-transparent"
+                }`}
               placeholder="https://github.com/apache/pekko/issues/578"
             />
             {!isValidUrl && <p className="mt-2 text-base text-red-500">Enter a URL from a GitHub issues page.</p>}{" "}

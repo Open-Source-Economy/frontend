@@ -14,8 +14,7 @@ interface ProjectItem {
   id: DeveloperProjectItemId;
   projectItemId: ProjectItemId;
   projectItemType: ProjectItemType;
-  organization: string;
-  repository: string;
+  sourceIdentifier: string; // URL for the repository
   roles: DeveloperRoleType[];
   mergeRights: MergeRightsType[];
 }
@@ -50,89 +49,42 @@ interface Step2InvolvementProps {
   currentStep: number;
 }
 
+// Helper function to extract org/repo from GitHub URL
+function extractGitHubRepoInfo(url: string): { owner: string; repo: string } | null {
+  // Support various GitHub URL formats
+  const patterns = [
+    /^https?:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?$/,
+    /^git@github\.com:([^/]+)\/([^/]+?)(?:\.git)?$/,
+    /^([^/]+)\/([^/]+)$/ // Simple org/repo format
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.trim().match(pattern);
+    if (match) {
+      const [, owner, repo] = match;
+      return { owner, repo: repo.replace(/\.git$/, '') };
+    }
+  }
+  return null;
+}
+
 export default function Step2Involvement({ state, updateState, onNext, onBack, currentStep }: Step2InvolvementProps) {
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
   const [projects, setProjects] = useState<ProjectItem[]>(state.involvement?.projects || []);
 
   // Modal form state
-  const [selectedOrg, setSelectedOrg] = useState("");
-  const [selectedRepo, setSelectedRepo] = useState("");
+  const [repositoryUrl, setRepositoryUrl] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedMergeRights, setSelectedMergeRights] = useState("");
-  const [showOrgDropdown, setShowOrgDropdown] = useState(false);
-  const [showRepoDropdown, setShowRepoDropdown] = useState(false);
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
   const [showMergeRightsDropdown, setShowMergeRightsDropdown] = useState(false);
 
   // GitHub data state
-  const [githubOrganizations, setGithubOrganizations] = useState<GitHubOrganization[]>([]);
-  const [githubRepositories, setGithubRepositories] = useState<APIGitHubRepository[]>([]);
-  const [userRepositories, setUserRepositories] = useState<APIGitHubRepository[]>([]);
-  const [loadingOrgs, setLoadingOrgs] = useState(false);
-  const [loadingRepos, setLoadingRepos] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const api = getOnboardingBackendAPI();
 
-  // Load GitHub data on component mount
-  useEffect(() => {
-    loadGitHubData();
-  }, []);
-
-  const loadGitHubData = async () => {
-    setLoadingOrgs(true);
-    setError(null);
-
-    try {
-      console.log("Loading GitHub data...");
-      // Load organizations and user repositories in parallel
-      const [orgsResult, userReposResult] = await Promise.all([api.getGitHubOrganizations(), api.getUserGitHubRepositories()]);
-
-      console.log("GitHub API results:", { orgsResult, userReposResult });
-
-      if (orgsResult && typeof orgsResult === "object" && "error" in orgsResult) {
-        setError("Failed to load GitHub organizations");
-        console.error("Failed to load organizations:", orgsResult);
-      } else {
-        const orgs = (orgsResult as { data: GitHubOrganization[] }).data || [];
-        setGithubOrganizations(orgs);
-      }
-
-      if (userReposResult && typeof userReposResult === "object" && "error" in userReposResult) {
-        console.error("Failed to load user repositories:", userReposResult);
-      } else {
-        const repos = (userReposResult as any).data || [];
-        setUserRepositories(repos);
-      }
-    } catch (error) {
-      console.error("Error loading GitHub data:", error);
-      setError("Failed to load GitHub data");
-    } finally {
-      setLoadingOrgs(false);
-    }
-  };
-
-  const loadRepositoriesForOrg = async (orgLogin: string) => {
-    if (!orgLogin) return;
-
-    setLoadingRepos(true);
-    try {
-      const result = await api.getGitHubRepositories(orgLogin);
-      if (result && typeof result === "object" && "error" in result) {
-        console.error("Failed to load repositories for org:", orgLogin, result);
-        setGithubRepositories([]);
-      } else {
-        const repos = (result as any).data || [];
-        setGithubRepositories(repos);
-      }
-    } catch (error) {
-      console.error("Error loading repositories:", error);
-      setGithubRepositories([]);
-    } finally {
-      setLoadingRepos(false);
-    }
-  };
 
   const roleOptions = [
     { label: "Lead Maintainer", value: DeveloperRoleType.CREATOR_FOUNDER },
@@ -149,49 +101,19 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
     { label: "Formal process", value: MergeRightsType.FORMAL_PROCESS },
   ];
 
-  // Get available repositories based on selected organization
-  const getAvailableRepositories = (): APIGitHubRepository[] => {
-    if (selectedOrg === "personal") {
-      return userRepositories;
-    } else if (selectedOrg) {
-      return githubRepositories;
-    }
-    return [];
-  };
-
-  // Get organization options (user's personal repos + organizations)
-  const getOrganizationOptions = () => {
-    const options = [];
-
-    // Add personal repositories option if user has any
-    if (userRepositories.length > 0) {
-      options.push({ login: "personal", name: "Personal Repositories" });
-    }
-
-    // Add organizations
-    options.push(
-      ...githubOrganizations.map(org => ({
-        login: org.login,
-        name: org.name || org.login,
-      })),
-    );
-
-    return options;
-  };
 
   const handleAddProject = () => {
     setEditingProject(null);
-    setSelectedOrg("");
-    setSelectedRepo("");
+    setRepositoryUrl("");
     setSelectedRole("");
     setSelectedMergeRights("");
+    setError(null);
     setShowModal(true);
   };
 
   const handleEditProject = (project: ProjectItem) => {
     setEditingProject(project);
-    setSelectedOrg(project.organization);
-    setSelectedRepo(project.repository);
+    setRepositoryUrl(project.sourceIdentifier);
     // Take the first role and merge right for editing
     setSelectedRole(project.roles[0] || "");
     setSelectedMergeRights(project.mergeRights[0] || "");
@@ -199,17 +121,27 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
   };
 
   const handleSaveProject = async () => {
-    if (!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights) return;
+    if (!repositoryUrl || !selectedRole || !selectedMergeRights) {
+      console.error("Please fill all required fields");
+      return;
+    }
+
+    // Validate the URL format
+    const repoInfo = extractGitHubRepoInfo(repositoryUrl);
+    if (!repoInfo) {
+      console.error("Invalid repository URL format. Please use a valid GitHub URL.");
+      setError("Invalid repository URL format");
+      return;
+    }
 
     const selectedRoleEnum = roleOptions.find(r => r.label === selectedRole)?.value || DeveloperRoleType.CORE_DEVELOPER;
     const selectedMergeRightsEnum = mergeRightsOptions.find(m => m.label === selectedMergeRights)?.value || MergeRightsType.NO_RIGHTS;
 
     const newProject: ProjectItem = {
-      id: editingProject?.id || new DeveloperProjectItemId(),
-      projectItemId: editingProject?.projectItemId || new ProjectItemId(),
+      id: editingProject?.id || new DeveloperProjectItemId(crypto.randomUUID()),
+      projectItemId: editingProject?.projectItemId || new ProjectItemId(crypto.randomUUID()),
       projectItemType: ProjectItemType.GITHUB_REPOSITORY,
-      organization: selectedOrg,
-      repository: selectedRepo,
+      sourceIdentifier: repositoryUrl,
       roles: [selectedRoleEnum],
       mergeRights: [selectedMergeRightsEnum],
     };
@@ -231,36 +163,15 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
 
   const saveRepositoryToDatabase = async (project: ProjectItem) => {
     try {
-      // Find the GitHub repository data for this project
-      let repoData = null;
-
-      // Check if it's from organization repositories
-      if (project.organization !== "personal") {
-        repoData = githubRepositories.find(repo => repo.id.ownerId.login === project.organization && repo.id.name === project.repository);
-      } else {
-        // Check user repositories
-        repoData = userRepositories.find(repo => repo.id.name === project.repository);
-      }
-
-      if (!repoData) {
-        console.error("Could not find repository data for:", project);
-        return;
-      }
-
-      const roles = project.roles as any;
-      const mergeRights = project.mergeRights as any;
-
-      const addRepositoryData = {
-        githubOwnerId: repoData.id.ownerId.githubId,
-        githubOwnerLogin: repoData.id.ownerId.login,
-        githubRepositoryId: repoData.id.githubId,
-        githubRepositoryName: repoData.id.name,
-        mergeRights,
-        roles,
+      console.log("Saving repository to database:", project);
+      // addRepository is replaced with addProjectItem
+      const projectItemData = {
+        projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+        sourceIdentifier: project.sourceIdentifier,
+        roles: project.roles,
+        mergeRights: project.mergeRights
       };
-
-      console.log("Saving repository to database:", addRepositoryData);
-      const result = await api.addRepository(addRepositoryData);
+      const result = await api.addProjectItem({}, projectItemData, {});
 
       if (result && !(result instanceof Error)) {
         console.log("Repository saved successfully:", result);
@@ -273,22 +184,11 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
   };
 
   const handleDeleteProject = (projectId: string) => {
-    const updatedProjects = projects.filter(p => p.id !== projectId);
+    const updatedProjects = projects.filter(p => p.id.uuid !== projectId);
     setProjects(updatedProjects);
     updateState({ involvement: { projects: updatedProjects } });
   };
 
-  // Handle organization selection
-  const handleOrgSelection = async (orgLogin: string) => {
-    setSelectedOrg(orgLogin);
-    setSelectedRepo("");
-    setShowOrgDropdown(false);
-
-    // Load repositories for the selected organization (but not for personal)
-    if (orgLogin && orgLogin !== "personal") {
-      await loadRepositoriesForOrg(orgLogin);
-    }
-  };
 
   return (
     <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
@@ -362,10 +262,13 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
 
                 {/* Project Rows */}
                 {projects.map(project => (
-                  <div key={project.id} className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2">
+                  <div key={project.id.uuid} className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2">
                     <div className="flex-[2] font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
                       <p>
-                        {project.organization}/{project.repository}
+                        {(() => {
+                          const repoInfo = extractGitHubRepoInfo(project.sourceIdentifier);
+                          return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : project.sourceIdentifier;
+                        })()}
                       </p>
                     </div>
                     <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
@@ -386,7 +289,7 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                           />
                         </svg>
                       </button>
-                      <button onClick={() => handleDeleteProject(project.id)} className="text-red-400 hover:text-red-300 transition-colors">
+                      <button onClick={() => handleDeleteProject(project.id.uuid)} className="text-red-400 hover:text-red-300 transition-colors">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M2 4H14M12.6667 4V13.3333C12.6667 13.687 12.5262 14.0261 12.2761 14.2761C12.0261 14.5262 11.687 14.6667 11.3333 14.6667H4.66667C4.31304 14.6667 3.97391 14.5262 3.72386 14.2761C3.47381 14.0261 3.33333 13.687 3.33333 13.3333V4M5.33333 4V2.66667C5.33333 2.31304 5.47381 1.97391 5.72386 1.72386C5.97391 1.47381 6.31304 1.33333 6.66667 1.33333H9.33333C9.687 1.33333 10.0261 1.47381 10.2761 1.72386C10.5262 1.97391 10.6667 2.31304 10.6667 2.66667V4"
@@ -446,104 +349,24 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                 </button>
               </div>
 
-              {/* Organization Dropdown */}
+              {/* Repository URL Input */}
               <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
                 <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left">
-                  <p className="block leading-[1.5] whitespace-pre">Organization</p>
+                  <p className="block leading-[1.5] whitespace-pre">Repository URL</p>
                 </div>
-                <div className="relative w-full">
-                  <button
-                    onClick={() => {
-                      setShowOrgDropdown(!showOrgDropdown);
-                      setShowRepoDropdown(false);
-                      setShowRoleDropdown(false);
-                      setShowMergeRightsDropdown(false);
-                    }}
-                    disabled={loadingOrgs}
-                    className="bg-[#202f45] box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full hover:bg-[#2a3f56] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>
-                        {loadingOrgs
-                          ? "Loading organizations..."
-                          : selectedOrg
-                            ? selectedOrg === "personal"
-                              ? "Personal Repositories"
-                              : getOrganizationOptions().find(org => org.login === selectedOrg)?.name || selectedOrg
-                            : "Select organization..."}
-                      </p>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 7.5L10 12.5L15 7.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {showOrgDropdown && !loadingOrgs && (
-                    <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
-                      {error ? (
-                        <div className="px-3 py-2 text-red-400 font-montserrat text-[14px]">{error}</div>
-                      ) : getOrganizationOptions().length === 0 ? (
-                        <div className="px-3 py-2 text-[#ffffff] font-montserrat text-[14px]">No organizations found</div>
-                      ) : (
-                        getOrganizationOptions().map(org => (
-                          <button
-                            key={org.login}
-                            onClick={() => handleOrgSelection(org.login)}
-                            className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
-                          >
-                            {org.name}
-                          </button>
-                        ))
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Repository Dropdown */}
-              <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-full">
-                <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left">
-                  <p className="block leading-[1.5] whitespace-pre">Repository</p>
-                </div>
-                <div className="relative w-full">
-                  <button
-                    onClick={() => {
-                      setShowRepoDropdown(!showRepoDropdown);
-                      setShowOrgDropdown(false);
-                      setShowRoleDropdown(false);
-                      setShowMergeRightsDropdown(false);
-                    }}
-                    disabled={!selectedOrg || loadingRepos}
-                    className={`box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full transition-colors ${selectedOrg && !loadingRepos ? "bg-[#202f45] hover:bg-[#2a3f56] cursor-pointer" : "bg-[#1a2332] cursor-not-allowed opacity-50"
-                      }`}
-                  >
-                    <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                      <p>{loadingRepos ? "Loading repositories..." : selectedRepo || "Select repository..."}</p>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 7.5L10 12.5L15 7.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {showRepoDropdown && selectedOrg && !loadingRepos && (
-                    <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10">
-                      {getAvailableRepositories().length === 0 ? (
-                        <div className="px-3 py-2 text-[#ffffff] font-montserrat text-[14px]">No repositories found</div>
-                      ) : (
-                        getAvailableRepositories().map(repo => (
-                          <button
-                            key={`${repo.id.ownerId.login}/${repo.id.name}`}
-                            onClick={() => {
-                              setSelectedRepo(repo.id.name);
-                              setShowRepoDropdown(false);
-                            }}
-                            className="w-full px-3 py-2 text-left font-montserrat font-normal text-[#ffffff] text-[16px] hover:bg-[#2a3f56] transition-colors"
-                          >
-                            {repo.id.name}
-                          </button>
-                        ))
-                      )}
-                    </div>
-                  )}
-                </div>
+                <input
+                  type="text"
+                  value={repositoryUrl}
+                  onChange={(e) => {
+                    setRepositoryUrl(e.target.value);
+                    setError(null); // Clear error when user types
+                  }}
+                  placeholder="https://github.com/owner/repository"
+                  className="bg-[#202f45] box-border flex flex-row gap-2 items-center p-3 relative rounded-md shrink-0 w-full text-[#ffffff] font-montserrat text-[16px] placeholder-[#8a8a8a] focus:outline-none focus:ring-2 focus:ring-[#ff7e4b] transition-colors"
+                />
+                {error && (
+                  <p className="text-red-400 text-sm font-montserrat mt-1">{error}</p>
+                )}
               </div>
 
               {/* Role Dropdown */}
@@ -555,8 +378,6 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                   <button
                     onClick={() => {
                       setShowRoleDropdown(!showRoleDropdown);
-                      setShowOrgDropdown(false);
-                      setShowRepoDropdown(false);
                       setShowMergeRightsDropdown(false);
                     }}
                     className="bg-[#202f45] box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full hover:bg-[#2a3f56] transition-colors"
@@ -596,8 +417,6 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
                   <button
                     onClick={() => {
                       setShowMergeRightsDropdown(!showMergeRightsDropdown);
-                      setShowOrgDropdown(false);
-                      setShowRepoDropdown(false);
                       setShowRoleDropdown(false);
                     }}
                     className="bg-[#202f45] box-border content-stretch flex flex-row gap-2 items-center justify-between p-3 relative rounded-md shrink-0 w-full hover:bg-[#2a3f56] transition-colors"
@@ -641,8 +460,8 @@ export default function Step2Involvement({ state, updateState, onNext, onBack, c
 
                 <button
                   onClick={handleSaveProject}
-                  disabled={!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights}
-                  className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${!selectedOrg || !selectedRepo || !selectedRole || !selectedMergeRights ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
+                  disabled={!repositoryUrl || !selectedRole || !selectedMergeRights}
+                  className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${!repositoryUrl || !selectedRole || !selectedMergeRights ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
                     }`}
                 >
                   <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">

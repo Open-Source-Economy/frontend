@@ -1,28 +1,8 @@
-import axios, { AxiosError } from "axios";
+import * as dto from "@open-source-economy/api-types";
+import { handleError } from "./index";
+import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-import { handleError } from "./index";
-import {
-  CreateDeveloperProfileBody,
-  CreateDeveloperProfileResponse,
-  UpdateDeveloperContactInfosBody,
-  UpdateDeveloperContactInfosResponse,
-  GetDeveloperProfileResponse,
-  SetDeveloperSettingsBody,
-  SetDeveloperSettingsResponse,
-  UpsertDeveloperProjectItemBody,
-  UpsertDeveloperProjectItemResponse,
-  RemoveDeveloperProjectProjectItemResponse,
-  GetPotentialDeveloperProjectItemsResponse,
-  AddDeveloperServiceBody,
-  AddDeveloperServiceResponse,
-  UpdateDeveloperServiceBody,
-  UpdateDeveloperServiceResponse,
-  DeleteDeveloperServiceResponse,
-  CompleteOnboardingResponse,
-  CreateCustomServiceBody,
-  CreateCustomServiceResponse,
-} from "@open-source-economy/api-types";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   return new OnboardingBackendAPIImpl();
@@ -30,171 +10,293 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
 
 export interface OnboardingBackendAPI {
   // Profile management
-  createProfile(profileData?: CreateDeveloperProfileBody): Promise<CreateDeveloperProfileResponse | ApiError>;
-  updateProfile(updates: UpdateDeveloperContactInfosBody): Promise<UpdateDeveloperContactInfosResponse | ApiError>;
-  getDeveloperProfile(): Promise<GetDeveloperProfileResponse | ApiError>;
+  createDeveloperProfile(
+    params: dto.CreateDeveloperProfileParams,
+    body: dto.CreateDeveloperProfileBody,
+    query: dto.CreateDeveloperProfileQuery
+  ): Promise<dto.CreateDeveloperProfileResponse | ApiError>;
+
+  updateDeveloperProfile(
+    params: dto.UpdateDeveloperContactInfosParams,
+    body: dto.UpdateDeveloperContactInfosBody,
+    query: dto.UpdateDeveloperContactInfosQuery
+  ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError>;
+
+  getDeveloperProfile(
+    params: dto.GetDeveloperProfileParams,
+    query: dto.GetDeveloperProfileQuery
+  ): Promise<dto.GetDeveloperProfileResponse | ApiError>;
 
   // Settings management
-  setDeveloperSettings(settings: SetDeveloperSettingsBody): Promise<SetDeveloperSettingsResponse | ApiError>;
-  setIncomeStreams(incomeStreams: any): Promise<any | ApiError>; // Legacy method for compatibility
+  setDeveloperSettings(
+    params: dto.SetDeveloperSettingsParams,
+    body: dto.SetDeveloperSettingsBody,
+    query: dto.SetDeveloperSettingsQuery
+  ): Promise<dto.SetDeveloperSettingsResponse | ApiError>;
 
   // Project items (repositories) management
-  addProjectItem(projectItem: UpsertDeveloperProjectItemBody): Promise<UpsertDeveloperProjectItemResponse | ApiError>;
-  addRepository(repository: any): Promise<any | ApiError>; // Legacy method for compatibility
-  removeProjectItem(projectItemId: string): Promise<RemoveDeveloperProjectProjectItemResponse | ApiError>;
-  getPotentialProjectItems(): Promise<GetPotentialDeveloperProjectItemsResponse | ApiError>;
-  getRepositories(): Promise<any | ApiError>; // Legacy method for compatibility
+  addProjectItem(
+    params: dto.UpsertDeveloperProjectItemParams,
+    body: dto.UpsertDeveloperProjectItemBody,
+    query: dto.UpsertDeveloperProjectItemQuery
+  ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError>;
+
+  // addRepository(
+  //   params: dto.AddProjectItemParams,
+  //   body: dto.AddRepositoryBody,
+  //   query: dto.AddRepositoryQuery
+  // ): Promise<any | ApiError>;
+
+  removeProjectItem(
+    params: dto.RemoveDeveloperProjectProjectItemParams,
+    body: dto.RemoveDeveloperProjectProjectItemBody,
+    query: dto.RemoveDeveloperProjectProjectItemQuery,
+  ): Promise<dto.RemoveDeveloperProjectProjectItemResponse | ApiError>;
+
+  getPotentialProjectItems(
+    params: dto.GetPotentialDeveloperProjectItemsParams,
+    query: dto.GetPotentialDeveloperProjectItemsQuery
+  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError>;
+
+  // getRepositories(
+  //   params: dto.GetRepositoriesParams,
+  //   query: dto.GetRepositoriesQuery
+  // ): Promise<any | ApiError>;
 
   // GitHub integration
-  getGitHubOrganizations(): Promise<any | ApiError>; // Keep as any for now, will need to check api-types
-  getGitHubRepositories(org: string): Promise<any | ApiError>;
-  getUserGitHubRepositories(): Promise<any | ApiError>;
+  // getGitHubOrganizations(
+  //   params: dto.GetGitHubOrganizationsParams,
+  //   query: dto.GetGitHubOrganizationsQuery
+  // ): Promise<any | ApiError>;
 
-  // Service management
-  getServices(): Promise<any | ApiError>; // Keep as any for now
-  addDeveloperService(service: AddDeveloperServiceBody): Promise<AddDeveloperServiceResponse | ApiError>;
-  updateDeveloperService(id: string, updates: UpdateDeveloperServiceBody): Promise<UpdateDeveloperServiceResponse | ApiError>;
-  deleteDeveloperService(id: string): Promise<DeleteDeveloperServiceResponse | ApiError>;
-  createCustomService(service: CreateCustomServiceBody): Promise<CreateCustomServiceResponse | ApiError>;
+  // getGitHubRepositories(
+  //   params: dto.GetGitHubRepositoriesParams,
+  //   query: dto.GetGitHubRepositoriesQuery
+  // ): Promise<any | ApiError>;
+
+  // getUserGitHubRepositories(
+  //   params: dto.GetUserGitHubRepositoriesParams,
+  //   query: dto.GetUserGitHubRepositoriesQuery
+  // ): Promise<any | ApiError>;
+
+  // Service management (Not developer services)
+  getServices(
+    params: dto.GetServiceHierarchyParams,
+    query: dto.GetServiceHierarchyQuery
+  ): Promise<any | ApiError>;
+
+  addDeveloperService(
+    params: dto.AddDeveloperServiceParams,
+    body: dto.AddDeveloperServiceBody,
+    query: dto.AddDeveloperServiceQuery
+  ): Promise<dto.AddDeveloperServiceResponse | ApiError>;
+
+  updateDeveloperService(
+    params: dto.UpdateDeveloperServiceParams,
+    body: dto.UpdateDeveloperServiceBody,
+    query: dto.UpdateDeveloperServiceQuery,
+  ): Promise<dto.UpdateDeveloperServiceResponse | ApiError>;
+
+  deleteDeveloperService(
+    params: dto.DeleteDeveloperServiceParams,
+    body: dto.DeleteDeveloperServiceBody,
+    query: dto.DeleteDeveloperServiceQuery
+  ): Promise<dto.DeleteDeveloperServiceResponse | ApiError>;
+
+  createCustomService(
+    params: dto.CreateCustomServiceParams,
+    body: dto.CreateCustomServiceBody,
+    query: dto.CreateCustomServiceQuery
+  ): Promise<dto.CreateCustomServiceResponse | ApiError>;
 
   // Onboarding completion
-  completeOnboarding(): Promise<CompleteOnboardingResponse | ApiError>;
+  completeOnboarding(
+    params: dto.CompleteOnboardingParams,
+    body: dto.CompleteOnboardingBody,
+    query: dto.CompleteOnboardingQuery
+  ): Promise<dto.CompleteOnboardingResponse | ApiError>;
 }
 
 class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
-  private readonly baseUrl = `${config.api.url}/onboarding`;
-
-  async createProfile(profileData?: CreateDeveloperProfileBody): Promise<CreateDeveloperProfileResponse | ApiError> {
-    const data = profileData || { name: "", email: "", agreedToTerms: false };
-    return handleError<CreateDeveloperProfileResponse>(() => axios.post(`${this.baseUrl}/profile`, data, { withCredentials: true }), "createProfile");
+  async createDeveloperProfile(
+    params: dto.CreateDeveloperProfileParams,
+    body: dto.CreateDeveloperProfileBody,
+    query: dto.CreateDeveloperProfileQuery
+  ): Promise<dto.CreateDeveloperProfileResponse | ApiError> {
+    return handleError<dto.CreateDeveloperProfileResponse>(
+      () => axios.post(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
+      "createDeveloperProfile",
+    );
   }
 
-  async updateProfile(updates: UpdateDeveloperContactInfosBody): Promise<UpdateDeveloperContactInfosResponse | ApiError> {
-    return handleError<UpdateDeveloperContactInfosResponse>(() => axios.put(`${this.baseUrl}/profile`, updates, { withCredentials: true }), "updateProfile");
+  async updateDeveloperProfile(
+    params: dto.UpdateDeveloperContactInfosParams,
+    body: dto.UpdateDeveloperContactInfosBody,
+    query: dto.UpdateDeveloperContactInfosQuery
+  ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError> {
+    return handleError<dto.UpdateDeveloperContactInfosResponse>(
+      () => axios.put(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
+      "updateDeveloperProfile",
+    );
   }
 
-  async getDeveloperProfile(): Promise<GetDeveloperProfileResponse | ApiError> {
-    return handleError<GetDeveloperProfileResponse>(() => axios.get(`${this.baseUrl}/profile`, { withCredentials: true }), "getDeveloperProfile");
+  async getDeveloperProfile(
+    params: dto.GetDeveloperProfileParams,
+    query: dto.GetDeveloperProfileQuery
+  ): Promise<dto.GetDeveloperProfileResponse | ApiError> {
+    return handleError<dto.GetDeveloperProfileResponse>(
+      () => axios.get(`${config.api.url}/onboarding/profile`, { withCredentials: true, params: query }),
+      "getDeveloperProfile",
+    );
   }
 
-  async setDeveloperSettings(settings: SetDeveloperSettingsBody): Promise<SetDeveloperSettingsResponse | ApiError> {
-    return handleError<SetDeveloperSettingsResponse>(
-      () => axios.post(`${this.baseUrl}/settings`, settings, { withCredentials: true }),
+  async setDeveloperSettings(
+    params: dto.SetDeveloperSettingsParams,
+    body: dto.SetDeveloperSettingsBody,
+    query: dto.SetDeveloperSettingsQuery
+  ): Promise<dto.SetDeveloperSettingsResponse | ApiError> {
+    return handleError<dto.SetDeveloperSettingsResponse>(
+      () => axios.post(`${config.api.url}/onboarding/settings`, body, { withCredentials: true, params: query }),
       "setDeveloperSettings",
     );
   }
 
-  async setIncomeStreams(incomeStreams: any): Promise<any | ApiError> {
-    // Legacy method - maps to settings
-    return handleError<any>(() => axios.post(`${this.baseUrl}/income-streams`, incomeStreams, { withCredentials: true }), "setIncomeStreams");
-  }
 
-  async addProjectItem(projectItem: UpsertDeveloperProjectItemBody): Promise<UpsertDeveloperProjectItemResponse | ApiError> {
-    return handleError<UpsertDeveloperProjectItemResponse>(
-      () => axios.post(`${this.baseUrl}/project-items`, projectItem, { withCredentials: true }),
+  async addProjectItem(
+    params: dto.UpsertDeveloperProjectItemParams,
+    body: dto.UpsertDeveloperProjectItemBody,
+    query: dto.UpsertDeveloperProjectItemQuery
+  ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
+    return handleError<dto.UpsertDeveloperProjectItemResponse>(
+      () => axios.post(`${config.api.url}/onboarding/project-items`, body, { withCredentials: true, params: query }),
       "addProjectItem",
     );
   }
 
-  async addRepository(repository: any): Promise<any | ApiError> {
-    // Legacy method - maps to addProjectItem
-    return handleError<any>(() => axios.post(`${this.baseUrl}/repositories`, repository, { withCredentials: true }), "addRepository");
-  }
+  // async addRepository(
+  //   params: dto.AddRepositoryParams,
+  //   body: dto.AddRepositoryBody,
+  //   query: dto.AddRepositoryQuery): Promise<any | ApiError> {
+  //   return handleError<any>(() => axios.post(`${config.api.url}/onboarding/repositories`, body, { withCredentials: true, params: query }), "addRepository");
+  // }
 
-  async removeProjectItem(projectItemId: string): Promise<RemoveDeveloperProjectProjectItemResponse | ApiError> {
-    return handleError<RemoveDeveloperProjectProjectItemResponse>(
-      () => axios.delete(`${this.baseUrl}/project-items/${projectItemId}`, { withCredentials: true }),
+  async removeProjectItem(
+    params: dto.RemoveDeveloperProjectProjectItemParams,
+    body: dto.RemoveDeveloperProjectProjectItemBody,
+    query: dto.RemoveDeveloperProjectProjectItemQuery,
+  ): Promise<dto.RemoveDeveloperProjectProjectItemResponse | ApiError> {
+    return handleError<dto.RemoveDeveloperProjectProjectItemResponse>(
+      () => axios.delete(`${config.api.url}/onboarding/project-items/${body.projectItemId}`, { withCredentials: true, params: query }),
       "removeProjectItem",
     );
   }
 
-  async getPotentialProjectItems(): Promise<GetPotentialDeveloperProjectItemsResponse | ApiError> {
-    try {
-      const response = await axios.get(`${this.baseUrl}/project-items/potential`, { withCredentials: true });
-      return response.data;
-    } catch (err) {
-      console.error("Error in getPotentialProjectItems:", err);
-      if (err instanceof Error) {
-        return new ApiError(500, "Network Error", err.message);
-      }
-      return new ApiError(500, "Unknown Error", "An unknown error occurred");
-    }
+  async getPotentialProjectItems(
+    params: dto.GetPotentialDeveloperProjectItemsParams,
+    query: dto.GetPotentialDeveloperProjectItemsQuery
+  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError> {
+    return handleError<dto.GetPotentialDeveloperProjectItemsResponse>(
+      () => axios.get(`${config.api.url}/onboarding/project-items/potential`, { withCredentials: true, params: query }),
+      "getPotentialProjectItems",
+    );
   }
 
-  async getRepositories(): Promise<any | ApiError> {
-    // Legacy method - maps to getPotentialProjectItems
-    try {
-      const response = await axios.get(`${this.baseUrl}/repositories`, { withCredentials: true });
-      // Handle the actual backend response format: { success: boolean, data: [...] }
-      if (response.data && response.data.success) {
-        return { success: true, data: response.data.data || [] };
-      } else {
-        return new ApiError(response.status, "API Error", response.data?.message || "Failed to fetch repositories");
-      }
-    } catch (err) {
-      console.error("Error in getRepositories:", err);
-      if (err instanceof Error) {
-        return new ApiError(500, "Network Error", err.message);
-      }
-      return new ApiError(500, "Unknown Error", "An unknown error occurred");
-    }
+  // async getRepositories(
+  //   params: dto.GetRepositoriesParams,
+  //   query: dto.GetRepositoriesQuery
+  // ): Promise<any | ApiError> {
+  //   return handleError<any>(() => axios.get(`${config.api.url}/onboarding/repositories`, { withCredentials: true, params: query }), "getRepositories");
+  // }
+
+  // async getGitHubOrganizations(
+  //   params: dto.GetGitHubOrganizationsParams,
+  //   query: dto.GetGitHubOrganizationsQuery
+  // ): Promise<any | ApiError> {
+  //   return handleError<any>(
+  //     () => axios.get(`${config.api.url}/onboarding/github/organizations`, { withCredentials: true, params: query }),
+  //     "getGitHubOrganizations",
+  //   );
+  // }
+
+  // async getGitHubRepositories(
+  //   params: dto.GetGitHubRepositoriesParams,
+  //   query: dto.GetGitHubRepositoriesQuery
+  // ): Promise<any | ApiError> {
+  //   return handleError<any>(
+  //     () => axios.get(`${config.api.url}/onboarding/github/organizations/${params.org}/repositories`, { withCredentials: true, params: query }),
+  //     "getGitHubRepositories",
+  //   );
+  // }
+
+  // async getUserGitHubRepositories(
+  //   params: dto.GetUserGitHubRepositoriesParams,
+  //   query: dto.GetUserGitHubRepositoriesQuery
+  // ): Promise<any | ApiError> {
+  //   return handleError<any>(
+  //     () => axios.get(`${config.api.url}/onboarding/github/user/repositories`, { withCredentials: true, params: query }),
+  //     "getUserGitHubRepositories",
+  //   );
+  // }
+
+  async getServices(
+    params: dto.GetServiceHierarchyParams,
+    query: dto.GetServiceHierarchyQuery
+  ): Promise<any | ApiError> {
+    return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServices");
   }
 
-  async getGitHubOrganizations(): Promise<any | ApiError> {
-    return handleError<any>(() => axios.get(`${this.baseUrl}/github/organizations`, { withCredentials: true }), "getGitHubOrganizations");
-  }
-
-  async getGitHubRepositories(org: string): Promise<any | ApiError> {
-    return handleError<any>(() => axios.get(`${this.baseUrl}/github/organizations/${org}/repositories`, { withCredentials: true }), "getGitHubRepositories");
-  }
-
-  async getUserGitHubRepositories(): Promise<any | ApiError> {
-    return handleError<any>(() => axios.get(`${this.baseUrl}/github/user/repositories`, { withCredentials: true }), "getUserGitHubRepositories");
-  }
-
-  async getServices(): Promise<any | ApiError> {
-    try {
-      const response = await axios.get(`${this.baseUrl}/services`, { withCredentials: true });
-      console.log("Raw services API response:", response.data);
-      return response.data;
-    } catch (err) {
-      console.error("Error in getServices:", err);
-      if (err instanceof Error) {
-        return new ApiError(500, "Network Error", err.message);
-      }
-      return new ApiError(500, "Unknown Error", "An unknown error occurred");
-    }
-  }
-
-  async addDeveloperService(service: AddDeveloperServiceBody): Promise<AddDeveloperServiceResponse | ApiError> {
-    return handleError<AddDeveloperServiceResponse>(
-      () => axios.post(`${this.baseUrl}/services`, service, { withCredentials: true }),
+  async addDeveloperService(
+    params: dto.AddDeveloperServiceParams,
+    body: dto.AddDeveloperServiceBody,
+    query: dto.AddDeveloperServiceQuery
+  ): Promise<dto.AddDeveloperServiceResponse | ApiError> {
+    return handleError<dto.AddDeveloperServiceResponse>(
+      () => axios.post(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
       "addDeveloperService",
     );
   }
 
-  async updateDeveloperService(id: string, updates: UpdateDeveloperServiceBody): Promise<UpdateDeveloperServiceResponse | ApiError> {
-    return handleError<UpdateDeveloperServiceResponse>(
-      () => axios.put(`${this.baseUrl}/services/${id}`, updates, { withCredentials: true }),
+  async updateDeveloperService(
+    params: dto.UpdateDeveloperServiceParams,
+    body: dto.UpdateDeveloperServiceBody,
+    query: dto.UpdateDeveloperServiceQuery,
+  ): Promise<dto.UpdateDeveloperServiceResponse | ApiError> {
+    return handleError<dto.UpdateDeveloperServiceResponse>(
+      () => axios.put(`${config.api.url}/onboarding/services/${body.id}`, body, { withCredentials: true, params: query }),
       "updateDeveloperService",
     );
   }
 
-  async deleteDeveloperService(id: string): Promise<DeleteDeveloperServiceResponse | ApiError> {
-    return handleError<DeleteDeveloperServiceResponse>(
-      () => axios.delete(`${this.baseUrl}/services/${id}`, { withCredentials: true }),
+  async deleteDeveloperService(
+    params: dto.DeleteDeveloperServiceParams,
+    body: dto.DeleteDeveloperServiceBody,
+    query: dto.DeleteDeveloperServiceQuery
+  ): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
+    return handleError<dto.DeleteDeveloperServiceResponse>(
+      () => axios.delete(`${config.api.url}/onboarding/services/${body.serviceId}`, { withCredentials: true, params: query }),
       "deleteDeveloperService",
     );
   }
 
-  async createCustomService(service: CreateCustomServiceBody): Promise<CreateCustomServiceResponse | ApiError> {
-    return handleError<CreateCustomServiceResponse>(
-      () => axios.post(`${this.baseUrl}/services/custom`, service, { withCredentials: true }),
+  async createCustomService(
+    params: dto.CreateCustomServiceParams,
+    body: dto.CreateCustomServiceBody,
+    query: dto.CreateCustomServiceQuery
+  ): Promise<dto.CreateCustomServiceResponse | ApiError> {
+    return handleError<dto.CreateCustomServiceResponse>(
+      () => axios.post(`${config.api.url}/onboarding/services/custom`, body, { withCredentials: true, params: query }),
       "createCustomService",
     );
   }
 
-  async completeOnboarding(): Promise<CompleteOnboardingResponse | ApiError> {
-    return handleError<CompleteOnboardingResponse>(() => axios.post(`${this.baseUrl}/complete`, {}, { withCredentials: true }), "completeOnboarding");
+  async completeOnboarding(
+    params: dto.CompleteOnboardingParams,
+    body: dto.CompleteOnboardingBody,
+    query: dto.CompleteOnboardingQuery
+  ): Promise<dto.CompleteOnboardingResponse | ApiError> {
+    return handleError<dto.CompleteOnboardingResponse>(
+      () => axios.post(`${config.api.url}/onboarding/complete`, body, { withCredentials: true, params: query }),
+      "completeOnboarding",
+    );
   }
 }

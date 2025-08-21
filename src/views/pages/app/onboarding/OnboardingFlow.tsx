@@ -4,8 +4,9 @@ import { Header } from "src/views/layout/header/Header";
 import { Footer } from "src/views/layout/footer/Footer";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
-import { 
-  GetDeveloperProfileResponse, 
+import { paths } from "src/paths";
+import {
+  GetDeveloperProfileResponse,
   FullDeveloperProfile,
   Currency,
   IncomeStreamType,
@@ -39,8 +40,7 @@ export interface OnboardingState {
       id: DeveloperProjectItemId;
       projectItemId: ProjectItemId;
       projectItemType: ProjectItemType;
-      organization: string;
-      repository: string;
+      sourceIdentifier: string; // URL for the repository
       roles: DeveloperRoleType[];
       mergeRights: MergeRightsType[];
     }>;
@@ -134,12 +134,12 @@ export default function OnboardingFlow() {
         // Check if user is authenticated
         if (!auth.authInfo) {
           // Redirect to authentication if not logged in
-          navigate("/sign-in", { state: { from: "/onboarding/start?step=1" } }); // TODO: lolo
+          navigate("/sign-in", { state: { from: paths.DEV_ONBOARDING_PROFILE } });
           return;
         }
 
         // Try to fetch user data and developer profile
-        const profileResponse: GetDeveloperProfileResponse | ApiError = await onboardingAPI.getDeveloperProfile();
+        const profileResponse: GetDeveloperProfileResponse | ApiError = await onboardingAPI.getDeveloperProfile({}, {});
 
         if (profileResponse && !(profileResponse instanceof ApiError) && profileResponse.profile) {
           // Successfully got user data from backend

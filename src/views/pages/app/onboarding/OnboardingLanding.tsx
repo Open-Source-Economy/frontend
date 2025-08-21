@@ -1,10 +1,10 @@
 import React from "react";
-import { Button } from "src/views/components/elements/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "src/views/layout/header/Header";
 import { Footer } from "src/views/layout/footer/Footer";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getAuthBackendAPI } from "src/services";
+import { paths } from "src/paths";
 
 // Inline SVG components replacing localhost assets
 const GitHubIcon = () => (
@@ -41,11 +41,11 @@ export default function OnboardingLandingPage() {
     // Check if user is already authenticated
     if (auth.authInfo) {
       // User is already logged in, go directly to onboarding
-      navigate("/onboarding/start?step=1");
+      navigate(paths.DEV_ONBOARDING_PROFILE);
     } else {
       // User needs to authenticate first
       // Trigger GitHub OAuth with redirect path
-      authAPI.loginWithGitHub("/onboarding/start?step=1");
+      authAPI.loginWithGitHub(paths.DEV_ONBOARDING_PROFILE);
     }
   };
 
