@@ -42,10 +42,10 @@ export interface OnboardingBackendAPI {
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError>;
 
   removeProjectItem(
-    params: dto.RemoveDeveloperProjectProjectItemParams,
-    body: dto.RemoveDeveloperProjectProjectItemBody,
-    query: dto.RemoveDeveloperProjectProjectItemQuery,
-  ): Promise<dto.RemoveDeveloperProjectProjectItemResponse | ApiError>;
+    params: dto.RemoveDeveloperProjectItemParams,
+    body: dto.RemoveDeveloperProjectItemBody,
+    query: dto.RemoveDeveloperProjectItemQuery,
+  ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError>;
 
   getPotentialProjectItems(
     params: dto.GetPotentialDeveloperProjectItemsParams,
@@ -134,7 +134,6 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-
   async upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
@@ -147,11 +146,11 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   }
 
   async removeProjectItem(
-    params: dto.RemoveDeveloperProjectProjectItemParams,
-    body: dto.RemoveDeveloperProjectProjectItemBody,
-    query: dto.RemoveDeveloperProjectProjectItemQuery,
-  ): Promise<dto.RemoveDeveloperProjectProjectItemResponse | ApiError> {
-    return handleError<dto.RemoveDeveloperProjectProjectItemResponse>(
+    params: dto.RemoveDeveloperProjectItemParams,
+    body: dto.RemoveDeveloperProjectItemBody,
+    query: dto.RemoveDeveloperProjectItemQuery,
+  ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError> {
+    return handleError<dto.RemoveDeveloperProjectItemResponse>(
       () => axios.delete(`${config.api.url}/onboarding/project-items/${body.projectItemId}`, { withCredentials: true, params: query }),
       "removeProjectItem",
     );
