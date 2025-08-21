@@ -110,7 +110,7 @@ const App = () => {
             </Route>
             <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
 
-            <Route element={<AuthRoutes authPage="/sign-up" />}>
+            <Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>
               <Route path={paths.PROJECTS} element={<Projects />} />
               <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
               <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
@@ -119,9 +119,18 @@ const App = () => {
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
+
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
+<<<<<<< HEAD
               <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
               <Route path={paths.DEV_ONBOARDING_PROFILE} element={<OnboardingFlow />} />
+=======
+            </Route>
+
+            <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
+            <Route element={<AuthRoutes authPage={paths.DEV_ONBOARDING} />}>
+              <Route path={paths.DEV_ONBOARDING_START} element={<OnboardingFlow />} />
+>>>>>>> stage
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

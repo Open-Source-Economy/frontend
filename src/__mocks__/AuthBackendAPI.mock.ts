@@ -1,6 +1,9 @@
 import {
+  CompanyUserRole,
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse,
   LoginBody,
   LoginQuery,
   LoginResponse,
@@ -8,12 +11,11 @@ import {
   RegisterQuery,
   RegisterResponse,
   RepositoryInfo,
+  RepositoryUserRole,
   StatusResponse,
 } from "@open-source-economy/api-types";
 import { AuthBackendAPI } from "src/services";
-import { CompanyUserRole, RepositoryUserRole } from "@open-source-economy/api-types";
 import { company, repositoryId, user } from "./index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {

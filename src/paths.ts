@@ -28,6 +28,7 @@ export const paths = {
 
   // Onboarding routes
   DEV_ONBOARDING: "/dev-onboarding",
+  DEV_ONBOARDING_START: "/dev-onboarding/start",
   DEV_ONBOARDING_PROFILE: "/dev-onboarding/profile",
   DEV_ONBOARDING_PROJECTS: "/dev-onboarding/projects",
   DEV_ONBOARDING_INCOME: "/dev-onboarding/income-availability",

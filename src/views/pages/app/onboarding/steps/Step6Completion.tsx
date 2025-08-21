@@ -1,7 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { OnboardingState } from "../OnboardingFlow";
+import { OnboardingStepProps } from "./OnboardingStepProps";
+import { Step6State } from "../OnboardingDataSteps";
 
+<<<<<<< HEAD
 // interface Step6CompletionProps {
 //   state: OnboardingState;
 //   updateState: (updates: Partial<OnboardingState>) => void;
@@ -13,11 +13,38 @@ import { OnboardingState } from "../OnboardingFlow";
 // export default function Step6Completion({ state, updateState, onNext, onBack, currentStep }: Step6CompletionProps) {
 //   const navigate = useNavigate();
 
+=======
+export interface Step6CompletionProps extends OnboardingStepProps<Step6State> {}
+
+export default function Step6Completion(props: Step6CompletionProps) {
+  return <>Not implemented</>;
+}
+
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
+// import { OnboardingState } from "../OnboardingFlow";
+//
+// interface Step6CompletionProps {
+//   state: OnboardingState;
+//   updateState: (updates: Partial<OnboardingState>) => void;
+//   onNext: () => void;
+//   onBack: () => void;
+//   currentStep: number;
+// }
+//
+// export default function Step6Completion({ state, updateState, onNext, onBack, currentStep }: Step6CompletionProps) {
+//   const navigate = useNavigate();
+//
+>>>>>>> stage
 //   const handleDashboard = () => {
 //     // Navigate to dashboard
 //     navigate("/dashboard");
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleBookMeeting = () => {
 //     // Open calendar booking link in new tab
 //     window.open("https://cal.com/open-source-economy/oss-dev-30min", "_blank");
@@ -26,7 +53,11 @@ import { OnboardingState } from "../OnboardingFlow";
 //       navigate("/dashboard");
 //     }, 1000);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   return (
 //     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-center min-h-screen p-0 relative size-full">
 //       {/* Success Content */}
@@ -39,7 +70,11 @@ import { OnboardingState } from "../OnboardingFlow";
 //             </svg>
 //           </div>
 //         </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //         {/* Success Message */}
 //         <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-full">
 //           <div className="font-michroma not-italic relative shrink-0 text-[48px] w-full">
@@ -53,7 +88,11 @@ import { OnboardingState } from "../OnboardingFlow";
 //             <p className="block leading-[1.5] mt-2">What would you like to do next?</p>
 //           </div>
 //         </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //         {/* Action Cards */}
 //         <div className="box-border content-stretch flex flex-row gap-8 items-stretch justify-center p-0 relative shrink-0 w-full">
 //           {/* Dashboard Card */}
@@ -83,7 +122,11 @@ import { OnboardingState } from "../OnboardingFlow";
 //               </div>
 //             </button>
 //           </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //           {/* Book Meeting Card */}
 //           <div className="basis-0 bg-[#14233a] box-border content-stretch flex flex-col gap-6 grow items-center justify-between min-h-px min-w-px p-8 relative rounded-[20px] shrink-0 border border-[rgba(255,255,255,0.2)] hover:border-[rgba(255,255,255,0.4)] transition-all">
 //             <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start p-0 relative shrink-0 w-full">
@@ -119,7 +162,11 @@ import { OnboardingState } from "../OnboardingFlow";
 //             </button>
 //           </div>
 //         </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //         {/* Skip Link */}
 //         <div className="box-border content-stretch flex flex-col items-center justify-center p-0 relative shrink-0 w-full mt-4">
 //           <button

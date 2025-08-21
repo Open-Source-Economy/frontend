@@ -1,17 +1,18 @@
 import axios from "axios";
-import { StatusResponse } from "@open-source-economy/api-types";
 import {
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse,
   LoginBody,
   LoginQuery,
   LoginResponse,
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
+  StatusResponse,
 } from "@open-source-economy/api-types";
 import { AuthBackendAPIMock } from "src/__mocks__";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { handleError } from "./index";

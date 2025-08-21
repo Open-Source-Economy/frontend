@@ -1,22 +1,47 @@
+<<<<<<< HEAD
 // import React, { useState, useEffect } from "react";
 import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 
+=======
+import { OnboardingStepProps } from "./OnboardingStepProps";
+import { Step5State } from "../OnboardingDataSteps";
+
+export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
+
+export default function Step5TasksPreferences(props: Step5InvolvementProps) {
+  return <>Not implemented</>;
+}
+
+// import React, { useState, useEffect } from "react";
+// import { OnboardingState } from "../OnboardingFlow";
+// import ProgressBar from "../components/ProgressBar";
+// import { getOnboardingBackendAPI } from "src/services";
+//
+>>>>>>> stage
 // // Inline SVG components replacing localhost assets
 // const CloseIcon = () => (
 //   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //   </svg>
 // );
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 // const AddIcon = () => (
 //   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //   </svg>
 // );
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 // interface Step5TasksPreferencesProps {
 //   state: OnboardingState;
 //   updateState: (updates: Partial<OnboardingState>) => void;
@@ -24,7 +49,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   onBack: () => void;
 //   currentStep: number;
 // }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 // interface Task {
 //   id: string;
 //   serviceId: string;
@@ -37,11 +66,19 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   customService?: string;
 //   hasResponseTime?: boolean;
 // }
+<<<<<<< HEAD
 
 // interface TasksData {
 //   selectedTasks: Task[];
 // }
 
+=======
+//
+// interface TasksData {
+//   selectedTasks: Task[];
+// }
+//
+>>>>>>> stage
 // interface RepositoryData {
 //   projectItemId: string;
 //   repository: string | null;
@@ -49,7 +86,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   mergeRights: string[];
 //   services: any[];
 // }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 // interface ServiceData {
 //   id: string;
 //   name: string;
@@ -57,12 +98,17 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   isCustom: boolean;
 //   hasResponseTime: boolean;
 // }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 // interface ServiceCategory {
 //   id: string;
 //   name: string;
 //   services: ServiceData[];
 // }
+<<<<<<< HEAD
 
 // // Dynamic task categories will be built from fetched services
 
@@ -73,17 +119,34 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   const [repositories, setRepositories] = useState<RepositoryData[]>([]);
 //   const [loadingRepositories, setLoadingRepositories] = useState(true);
 
+=======
+//
+// // Dynamic task categories will be built from fetched services
+//
+// export default function Step5TasksPreferences({ state, updateState, onNext, onBack, currentStep }: Step5TasksPreferencesProps) {
+//   const [tasks, setTasks] = useState<TasksData>(state.tasks || { selectedTasks: [] });
+//
+//   // Repository state
+//   const [repositories, setRepositories] = useState<RepositoryData[]>([]);
+//   const [loadingRepositories, setLoadingRepositories] = useState(true);
+//
+>>>>>>> stage
 //   // Services state
 //   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
 //   const [loadingServices, setLoadingServices] = useState(true);
 //   const [savingServices, setSavingServices] = useState(false);
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   // Modal states
 //   const [showTaskSelectionModal, setShowTaskSelectionModal] = useState(false);
 //   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
 //   const [showSelectProjectsModal, setShowSelectProjectsModal] = useState(false);
 //   const [showCustomServiceModal, setShowCustomServiceModal] = useState(false);
 //   const [showIncidentResponseModal, setShowIncidentResponseModal] = useState(false);
+<<<<<<< HEAD
 
 //   // Task selection state
 //   const [selectedTasksInModal, setSelectedTasksInModal] = useState<string[]>([]);
@@ -95,23 +158,48 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //   const [selectedProjectsInModal, setSelectedProjectsInModal] = useState<string[]>([]);
 //   const [allProjectsSelected, setAllProjectsSelected] = useState(false);
 
+=======
+//
+//   // Task selection state
+//   const [selectedTasksInModal, setSelectedTasksInModal] = useState<string[]>([]);
+//
+//   // Current task being edited
+//   const [currentTaskForProjects, setCurrentTaskForProjects] = useState<Task | null>(null);
+//
+//   // Project selection state
+//   const [selectedProjectsInModal, setSelectedProjectsInModal] = useState<string[]>([]);
+//   const [allProjectsSelected, setAllProjectsSelected] = useState(false);
+//
+>>>>>>> stage
 //   // Form states
 //   const [customServiceText, setCustomServiceText] = useState("");
 //   const [hourlyRate, setHourlyRate] = useState(state.availability?.hourlyRate || "");
 //   const [currency, setCurrency] = useState(state.availability?.currency || "EUR");
 //   const [responseTime, setResponseTime] = useState("12");
 //   const [customResponseTime, setCustomResponseTime] = useState("12");
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   // Fetch services from database on component mount
 //   useEffect(() => {
 //     const fetchServices = async () => {
 //       setLoadingServices(true);
 //       const api = getOnboardingBackendAPI();
+<<<<<<< HEAD
 
 //       try {
 //         console.log("Fetching services from database...");
 //         const result = await api.getServices();
 
+=======
+//
+//       try {
+//         console.log("Fetching services from database...");
+//         const result = await api.getServices();
+//
+>>>>>>> stage
 //         if (result && !(result instanceof Error)) {
 //           console.log("Services fetched successfully:", result);
 //           console.log("Raw services data:", result.data);
@@ -132,15 +220,23 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         setLoadingServices(false);
 //       }
 //     };
+<<<<<<< HEAD
 
 //     fetchServices();
 //   }, []);
 
+=======
+//
+//     fetchServices();
+//   }, []);
+//
+>>>>>>> stage
 //   // Fetch repositories from database on component mount
 //   useEffect(() => {
 //     const fetchRepositories = async () => {
 //       setLoadingRepositories(true);
 //       const api = getOnboardingBackendAPI();
+<<<<<<< HEAD
 
 //       try {
 //         console.log("Fetching repositories from database...");
@@ -150,6 +246,17 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         console.log("Result type:", typeof result);
 //         console.log("Is result an Error?", result instanceof Error);
 
+=======
+//
+//       try {
+//         console.log("Fetching repositories from database...");
+//         const result = await api.getRepositories();
+//
+//         console.log("Raw API result:", result);
+//         console.log("Result type:", typeof result);
+//         console.log("Is result an Error?", result instanceof Error);
+//
+>>>>>>> stage
 //         if (result && !(result instanceof Error)) {
 //           console.log("Repositories fetched successfully:", result);
 //           console.log("result.data:", result.data);
@@ -166,10 +273,17 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         setLoadingRepositories(false);
 //       }
 //     };
+<<<<<<< HEAD
 
 //     fetchRepositories();
 //   }, []);
 
+=======
+//
+//     fetchRepositories();
+//   }, []);
+//
+>>>>>>> stage
 //   // Helper function to parse PostgreSQL array format like "{item1,item2}" to ["item1", "item2"]
 //   const parsePostgresArray = (pgArray: string | string[]): string[] => {
 //     if (Array.isArray(pgArray)) {
@@ -184,12 +298,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     }
 //     return [];
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   // Helper function to build service categories from flat service list
 //   const buildServiceCategories = (services: any[]): ServiceCategory[] => {
 //     console.log("Building categories from services:", services);
 //     const categories: { [key: string]: ServiceCategory } = {};
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //     // Normalize services to handle both camelCase and snake_case
 //     const normalizedServices = services.map(service => ({
 //       id: service.id,
@@ -198,9 +320,15 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       isCustom: service.isCustom || service.is_custom,
 //       hasResponseTime: service.hasResponseTime || service.has_response_time,
 //     }));
+<<<<<<< HEAD
 
 //     console.log("Normalized services:", normalizedServices);
 
+=======
+//
+//     console.log("Normalized services:", normalizedServices);
+//
+>>>>>>> stage
 //     // First pass: create categories (parent services)
 //     normalizedServices.forEach(service => {
 //       console.log("Processing service:", service, "parentId:", service.parentId);
@@ -213,9 +341,15 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         };
 //       }
 //     });
+<<<<<<< HEAD
 
 //     console.log("Parent categories created:", Object.keys(categories));
 
+=======
+//
+//     console.log("Parent categories created:", Object.keys(categories));
+//
+>>>>>>> stage
 //     // Second pass: add child services to categories
 //     normalizedServices.forEach(service => {
 //       if (service.parentId && categories[service.parentId]) {
@@ -225,7 +359,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         console.log("WARNING: Parent category not found for service:", service.name, "parentId:", service.parentId);
 //       }
 //     });
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //     // Custom services will come from the database with isCustom: true
 //     // Group them in an "Other" category if they don't have a parent
 //     const customServices = normalizedServices.filter(service => service.isCustom && !service.parentId);
@@ -236,12 +374,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         services: customServices,
 //       };
 //     }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //     const result = Object.values(categories);
 //     console.log("Final categories with services:", result);
 //     return result;
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   // Convert repositories to the format expected by project selection modals
 //   const availableProjects = repositories.map((repo, index) => ({
 //     id: repo.projectItemId,
@@ -250,7 +396,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     role: parsePostgresArray(repo.roles).join(", "),
 //     mergeRights: parsePostgresArray(repo.mergeRights).join(", "),
 //   }));
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleTaskSelection = (service: ServiceData, categoryName: string) => {
 //     const taskKey = `${service.id}:${service.name}`;
 //     setSelectedTasksInModal(prev => {
@@ -261,16 +411,28 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       }
 //     });
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleAddSelectedTasks = () => {
 //     const newTasks = selectedTasksInModal
 //       .map(taskKey => {
 //         const [serviceId, serviceName] = taskKey.split(":");
+<<<<<<< HEAD
 
 //         // Find the service and its category
 //         let categoryName = "";
 //         let service: ServiceData | null = null;
 
+=======
+//
+//         // Find the service and its category
+//         let categoryName = "";
+//         let service: ServiceData | null = null;
+//
+>>>>>>> stage
 //         for (const category of serviceCategories) {
 //           const foundService = category.services.find(s => s.id === serviceId);
 //           if (foundService) {
@@ -279,9 +441,15 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //             break;
 //           }
 //         }
+<<<<<<< HEAD
 
 //         if (!service) return null; // Skip if service not found
 
+=======
+//
+//         if (!service) return null; // Skip if service not found
+//
+>>>>>>> stage
 //         const baseTask: Task = {
 //           id: Date.now().toString() + Math.random(),
 //           serviceId: service.id,
@@ -292,11 +460,16 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           currency: state.availability?.currency || "EUR",
 //           hasResponseTime: service.hasResponseTime,
 //         };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //         // Add response time for services that need it
 //         if (service.hasResponseTime) {
 //           baseTask.responseTime = "12"; // Default 12 hours
 //         }
+<<<<<<< HEAD
 
 //         return baseTask;
 //       })
@@ -306,12 +479,27 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       selectedTasks: [...tasks.selectedTasks, ...newTasks],
 //     };
 
+=======
+//
+//         return baseTask;
+//       })
+//       .filter(task => task !== null) as Task[];
+//
+//     const updatedTasks = {
+//       selectedTasks: [...tasks.selectedTasks, ...newTasks],
+//     };
+//
+>>>>>>> stage
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setSelectedTasksInModal([]);
 //     setShowTaskSelectionModal(false);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleSelectProjects = (task: Task) => {
 //     setCurrentTaskForProjects(task);
 //     // Pre-populate with current task's projects
@@ -324,7 +512,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     setCustomResponseTime(task.responseTime || "12");
 //     setShowSelectProjectsModal(true);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleProjectToggle = (projectId: string) => {
 //     setSelectedProjectsInModal(prev => {
 //       if (prev.includes(projectId)) {
@@ -335,7 +527,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     });
 //     setAllProjectsSelected(false);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleAllProjectsToggle = () => {
 //     if (allProjectsSelected) {
 //       setSelectedProjectsInModal([]);
@@ -345,13 +541,21 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       setAllProjectsSelected(true);
 //     }
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleProjectSelectionComplete = () => {
 //     if (currentTaskForProjects) {
 //       const finalSelectedProjects = allProjectsSelected
 //         ? availableProjects.map(p => p.id) // Use project item ID
 //         : selectedProjectsInModal;
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       const updatedTasks = {
 //         selectedTasks: tasks.selectedTasks.map(task =>
 //           task.id === currentTaskForProjects.id
@@ -373,11 +577,19 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     setSelectedProjectsInModal([]);
 //     setAllProjectsSelected(false);
 //   };
+<<<<<<< HEAD
 
 //   const handleCustomServiceSave = () => {
 //     // Find the "Custom Service" from the available services
 //     let customServiceId = "custom_task"; // fallback
 
+=======
+//
+//   const handleCustomServiceSave = () => {
+//     // Find the "Custom Service" from the available services
+//     let customServiceId = "custom_task"; // fallback
+//
+>>>>>>> stage
 //     for (const category of serviceCategories) {
 //       const customService = category.services.find(s => s.name === "Custom Service" || s.isCustom);
 //       if (customService) {
@@ -385,7 +597,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //         break;
 //       }
 //     }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //     const customTask: Task = {
 //       id: Date.now().toString(),
 //       serviceId: customServiceId,
@@ -397,18 +613,30 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       currency: currency || state.availability?.currency || "EUR",
 //       hasResponseTime: false,
 //     };
+<<<<<<< HEAD
 
 //     const updatedTasks = {
 //       selectedTasks: [...tasks.selectedTasks, customTask],
 //     };
 
+=======
+//
+//     const updatedTasks = {
+//       selectedTasks: [...tasks.selectedTasks, customTask],
+//     };
+//
+>>>>>>> stage
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setCustomServiceText("");
 //     setHourlyRate("");
 //     setShowCustomServiceModal(false);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleIncidentResponseSave = () => {
 //     const incidentTask: Task = {
 //       id: Date.now().toString(),
@@ -421,18 +649,30 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       currency: currency || state.availability?.currency || "EUR",
 //       hasResponseTime: true,
 //     };
+<<<<<<< HEAD
 
 //     const updatedTasks = {
 //       selectedTasks: [...tasks.selectedTasks, incidentTask],
 //     };
 
+=======
+//
+//     const updatedTasks = {
+//       selectedTasks: [...tasks.selectedTasks, incidentTask],
+//     };
+//
+>>>>>>> stage
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setResponseTime("");
 //     setHourlyRate("");
 //     setShowIncidentResponseModal(false);
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   const handleRemoveTask = (taskId: string) => {
 //     const updatedTasks = {
 //       selectedTasks: tasks.selectedTasks.filter(task => task.id !== taskId),
@@ -440,6 +680,7 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //   };
+<<<<<<< HEAD
 
 //   const handleNext = async () => {
 //     if (tasks.selectedTasks.length === 0) return;
@@ -454,11 +695,28 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       for (const task of tasks.selectedTasks) {
 //         const projectIds = task.projects || [];
 
+=======
+//
+//   const handleNext = async () => {
+//     if (tasks.selectedTasks.length === 0) return;
+//
+//     setSavingServices(true);
+//     const api = getOnboardingBackendAPI();
+//
+//     try {
+//       console.log("Saving services to backend...", tasks.selectedTasks);
+//
+//       // Save each task as developer services
+//       for (const task of tasks.selectedTasks) {
+//         const projectIds = task.projects || [];
+//
+>>>>>>> stage
 //         // If no projects selected, skip this task
 //         if (projectIds.length === 0) {
 //           console.log(`Skipping task "${task.name}" - no projects selected`);
 //           continue;
 //         }
+<<<<<<< HEAD
 
 //         // Create a developer service for each selected project
 //         for (const projectId of projectIds) {
@@ -472,10 +730,27 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           console.log("Creating developer service:", serviceData);
 //           const result = await api.addDeveloperService(serviceData);
 
+=======
+//
+//         // Create a developer service for each selected project
+//         for (const projectId of projectIds) {
+//           const serviceData = {
+//             projectItemId: projectId, // projectId is now already the correct UUID
+//             serviceId: task.serviceId,
+//             hourlyRate: task.hourlyRate || 100,
+//             currency: task.currency || ("EUR" as any),
+//             responseTimeHours: task.hasResponseTime ? parseInt(task.responseTime || "12") : null,
+//           };
+//
+//           console.log("Creating developer service:", serviceData);
+//           const result = await api.addDeveloperService(serviceData);
+//
+>>>>>>> stage
 //           if (result instanceof Error) {
 //             console.error("Failed to create developer service:", result);
 //             throw new Error(`Failed to save service "${task.name}" for project ${projectId}`);
 //           }
+<<<<<<< HEAD
 
 //           console.log("Developer service created successfully:", result);
 //         }
@@ -485,13 +760,30 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       console.log("Completing onboarding...");
 //       const completionResult = await api.completeOnboarding();
 
+=======
+//
+//           console.log("Developer service created successfully:", result);
+//         }
+//       }
+//
+//       // Mark onboarding as completed
+//       console.log("Completing onboarding...");
+//       const completionResult = await api.completeOnboarding();
+//
+>>>>>>> stage
 //       if (completionResult instanceof Error) {
 //         console.error("Failed to complete onboarding:", completionResult);
 //         throw new Error("Failed to complete onboarding");
 //       }
+<<<<<<< HEAD
 
 //       console.log("Onboarding completed successfully");
 
+=======
+//
+//       console.log("Onboarding completed successfully");
+//
+>>>>>>> stage
 //       // Navigate to next step/dashboard
 //       onNext();
 //     } catch (error) {
@@ -502,12 +794,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //       setSavingServices(false);
 //     }
 //   };
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //   return (
 //     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
 //       {/* Progress Bar */}
 //       <ProgressBar currentStep={currentStep} />
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       {/* Form Content */}
 //       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
 //         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
@@ -517,20 +817,32 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //               <p className="block leading-[1.3]">Tasks & Preferences</p>
 //             </div>
 //           </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //           {/* Selected Tasks Display */}
 //           <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
 //             {/* Task Categories */}
 //             {serviceCategories.map(category => {
 //               const categoryTasks = tasks.selectedTasks.filter(task => task.category === category.name);
 //               if (categoryTasks.length === 0) return null;
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               return (
 //                 <div key={category.id} className="box-border content-stretch flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
 //                   <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
 //                     <p className="block leading-[1.3]">{category.name}</p>
 //                   </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                   {categoryTasks.map(task => {
 //                     // Convert project IDs to repository names for display
 //                     const projectNames =
@@ -542,7 +854,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                             })
 //                             .filter(name => name) // Remove any undefined/null values
 //                         : [];
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                     // Format projects display
 //                     const projectsDisplay =
 //                       projectNames.length > 0
@@ -550,12 +866,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                           ? `${projectNames.slice(0, 5).join(" | ")} | +${projectNames.length - 5} more...`
 //                           : projectNames.join(" | ")
 //                         : "No projects selected";
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                     // Get default rate from availability if not set on task
 //                     const displayRate = task.hourlyRate || (state.availability?.hourlyRate ? Number(state.availability.hourlyRate) : 100);
 //                     const displayCurrency = task.currency || state.availability?.currency || "EUR";
 //                     const currencySymbol = displayCurrency === "EUR" ? "€" : displayCurrency === "USD" ? "$" : "£";
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                     return (
 //                       <div key={task.id} className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full">
 //                         <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
@@ -579,7 +903,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                               )}
 //                             </div>
 //                           </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                           <div className="flex flex-row gap-2 items-center">
 //                             <button
 //                               onClick={() => handleSelectProjects(task)}
@@ -614,13 +942,21 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //               );
 //             })}
 //           </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //           {/* Add Task Section */}
 //           <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
 //             <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[25px] text-left">
 //               <p className="block leading-[1.3]">Add Task</p>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="box-border content-stretch flex flex-row gap-6 items-center justify-center p-0 relative shrink-0 w-full">
 //               <button
 //                 onClick={() => setShowTaskSelectionModal(true)}
@@ -633,7 +969,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //               </button>
 //             </div>
 //           </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //           {/* Button Group */}
 //           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
 //             <button
@@ -644,7 +984,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 <p className="block leading-[1.5] whitespace-pre">Back</p>
 //               </div>
 //             </button>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <button
 //               onClick={handleNext}
 //               disabled={tasks.selectedTasks.length === 0 || savingServices}
@@ -671,7 +1015,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           </div>
 //         </div>
 //       </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       {/* Task Selection Modal */}
 //       {showTaskSelectionModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -684,7 +1032,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 <CloseIcon />
 //               </button>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="flex flex-col gap-2 mb-6">
 //               {loadingServices ? (
 //                 <div className="flex items-center justify-center py-4">
@@ -729,7 +1081,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 ))
 //               )}
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={() => setShowTaskSelectionModal(false)}
@@ -756,7 +1112,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           </div>
 //         </div>
 //       )}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       {/* Select Projects Modal */}
 //       {showSelectProjectsModal && currentTaskForProjects && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -774,12 +1134,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 <CloseIcon />
 //               </button>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">
 //                 Fix a bug on an open source project. List the projects you're involved with
 //               </p>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //                 <div className="bg-[#202f45] rounded-md p-3">
@@ -804,7 +1172,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                       <span className="font-montserrat font-normal text-[#ffffff] text-[14px]">All projects</span>
 //                     </label>
 //                   </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                   {loadingRepositories ? (
 //                     <div className="flex items-center justify-center py-4">
 //                       <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading your repositories...</div>
@@ -822,7 +1194,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                     availableProjects.map(project => {
 //                       const projectId = project.id; // Use project item ID
 //                       const isSelected = selectedProjectsInModal.includes(projectId);
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                       return (
 //                         <div key={project.id} className="flex flex-row gap-2 items-center mb-2">
 //                           <label className="flex flex-row gap-2 items-center cursor-pointer">
@@ -860,7 +1236,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                       );
 //                     })
 //                   )}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //                   <button className="flex flex-row gap-2 items-center text-[#ff7e4b] hover:text-[#ff518c] transition-colors mt-2">
 //                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 //                       <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -869,7 +1249,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                   </button>
 //                 </div>
 //               </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //                 <div className="flex flex-row gap-2 items-center">
@@ -891,7 +1275,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                   />
 //                 </div>
 //               </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               {currentTaskForProjects?.hasResponseTime && (
 //                 <div className="mb-4">
 //                   <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Response Time</p>
@@ -909,7 +1297,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 </div>
 //               )}
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleProjectSelectionComplete}
@@ -928,7 +1320,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           </div>
 //         </div>
 //       )}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       {/* Custom Service Modal */}
 //       {showCustomServiceModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -946,7 +1342,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 <CloseIcon />
 //               </button>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">Service you want to offer *</p>
 //               <textarea
@@ -956,7 +1356,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 placeholder="Describe the custom service you want to offer..."
 //               />
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //               <div className="bg-[#202f45] rounded-md p-3 flex flex-row gap-2 items-center justify-between">
@@ -966,7 +1370,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 </svg>
 //               </div>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="mb-6">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //               <div className="flex flex-row gap-2 items-center">
@@ -988,7 +1396,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 />
 //               </div>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleCustomServiceSave}
@@ -1007,7 +1419,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //           </div>
 //         </div>
 //       )}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //       {/* Incident Response Modal */}
 //       {showIncidentResponseModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -1025,12 +1441,20 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 <CloseIcon />
 //               </button>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">
 //                 Fix a bug on an open source project. List the projects you're involved with
 //               </p>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //                 <div className="bg-[#202f45] rounded-md p-3 flex flex-row gap-2 items-center justify-between">
@@ -1040,7 +1464,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                   </svg>
 //                 </div>
 //               </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">First Response Time</p>
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[12px] text-left mb-2 opacity-70">Expect sickness and vacations</p>
@@ -1061,7 +1489,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                   </button>
 //                 </div>
 //               </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //                 <div className="flex flex-row gap-2 items-center">
@@ -1084,7 +1516,11 @@ import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
 //                 </div>
 //               </div>
 //             </div>
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> stage
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleIncidentResponseSave}

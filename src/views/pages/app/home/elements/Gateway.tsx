@@ -9,13 +9,14 @@ import { useAuth } from "../../../authenticate";
 
 export const Gateway = () => {
   const auth = useAuth();
-  const developerPath = (auth.authInfo?.repositories ?? []).length > 0 ? paths.MANAGE_ISSUES : paths.DEVELOPER;
+  const developerPath = (auth.authInfo?.repositories ?? []).length > 0 ? paths.MANAGE_ISSUES : paths.DEV_ONBOARDING;
   const userPath = auth.authInfo?.user ? paths.DASHBOARD : paths.USER;
 
   return (
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">
       <div className="z-[20] flex w-full max-w-[1250px] flex-wrap justify-center gap-6 1500:gap-[30px] min-[1600px]:max-w-[1305px]">
         {/* 1  */}
+        {/*TODO: should be refactored with FeaturesSection */}
         <div
           data-aos="fade-left"
           data-aos-delay="0"
