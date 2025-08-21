@@ -51,18 +51,22 @@ export default function Step1Profile(props: Step1ProfileProps) {
       const apiCall = async () => {
         let result;
         if (props.state.developerProfileId) {
+          const params: dto.UpdateDeveloperContactInfosParams = {};
           const body: dto.UpdateDeveloperContactInfosBody = {
             name: props.state.name!,
             email: props.state.email!,
           };
-          result = await onboardingAPI.updateProfile(body);
+          const query: dto.UpdateDeveloperContactInfosQuery = {};
+          result = await onboardingAPI.updateDeveloperProfile(params, body, query);
         } else {
+          const params: dto.CreateDeveloperProfileParams = {};
           const body: dto.CreateDeveloperProfileBody = {
             name: props.state.name!,
             email: props.state.email!,
             agreedToTerms: props.state.agreedToTerms!,
           };
-          result = await onboardingAPI.createProfile(body);
+          const query: dto.CreateDeveloperProfileQuery = {};
+          result = await onboardingAPI.createDeveloperProfile(params, body, query);
         }
         return result;
       };

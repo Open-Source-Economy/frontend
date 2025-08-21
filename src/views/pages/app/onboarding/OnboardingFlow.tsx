@@ -5,7 +5,7 @@ import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
 import Step1Profile from "./steps/Step1Profile";
-import Step2Involvement from "./steps/Step2Involvement";
+import Step2Involvement from "./steps/step2/Step2Involvement";
 import Step3ActiveIncome from "./steps/Step3ActiveIncome";
 import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
 import Step5TasksPreferences from "./steps/Step5TasksPreferences";
@@ -16,6 +16,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
+import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 const initialState: OnboardingState = {
@@ -63,7 +64,9 @@ export default function OnboardingFlow() {
     async function initialStateSync(currentStep: OnboardingDataSteps) {
       setLoading(true);
       try {
-        const response = await onboardingAPI.getDeveloperProfile();
+        const params: dto.GetDeveloperProfileParams = {};
+        const query: dto.GetDeveloperProfileQuery = {};
+        const response = await onboardingAPI.getDeveloperProfile(params, query);
         if (response instanceof ApiError) {
           setError(response);
           return;
