@@ -1,9 +1,10 @@
-<<<<<<< HEAD
+
 import React, { useState } from "react";
-import { OnboardingState } from "../OnboardingFlow";
 import ProgressBar from "../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { Currency, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+// import { OnboardingStepProps } from "./OnboardingStepProps";
+// import { OnboardingDataSteps, Step4State } from "../OnboardingDataSteps";
 
 // // Inline SVG components replacing localhost assets
 // const CloseIcon = () => (
@@ -22,40 +23,6 @@ import { Currency, IncomeStreamType, OpenToOtherOpportunityType } from "@open-so
 //   currentStep: number;
 // }
 
-=======
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step4State } from "../OnboardingDataSteps";
-
-export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
-
-export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
-  return <>Not implemented</>;
-}
-
-// import React, { useState } from "react";
-// import { OnboardingState } from "../OnboardingFlow";
-// import ProgressBar from "../components/ProgressBar";
-// import { getOnboardingBackendAPI } from "src/services";
-// import { Currency, IncomeStreamType, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
-//
-// // Inline SVG components replacing localhost assets
-// const CloseIcon = () => (
-//   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-//     <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-//   </svg>
-// );
-//
-// // Chat icon removed - ambiguous asset
-//
-// interface Step4AvailabilityRateProps {
-//   state: OnboardingState;
-//   updateState: (updates: Partial<OnboardingState>) => void;
-//   onNext: () => void;
-//   onBack: () => void;
-//   currentStep: number;
-// }
-//
->>>>>>> stage
 // interface AvailabilityData {
 //   weeklyHours: string;
 //   largerOpportunities: "yes" | "maybe" | "no" | "";
@@ -63,11 +30,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //   currency: string;
 //   comments: string;
 // }
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 // interface FormErrors {
 //   weeklyHours?: string;
 //   largerOpportunities?: string;
@@ -75,11 +38,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //   currency?: string;
 //   comments?: string;
 // }
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 // export default function Step4AvailabilityRate({ state, updateState, onNext, onBack, currentStep }: Step4AvailabilityRateProps) {
 //   const [availability, setAvailability] = useState<AvailabilityData>(
 //     state.availability || {
@@ -92,11 +51,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //   );
 //   const [showCommentInput, setShowCommentInput] = useState(false);
 //   const [errors, setErrors] = useState<FormErrors>({});
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //   const handleInputChange = (field: keyof AvailabilityData, value: string) => {
 //     const newAvailability = {
 //       ...availability,
@@ -104,100 +59,60 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //     };
 //     setAvailability(newAvailability);
 //     updateState({ availability: newAvailability });
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //     // Clear error when user starts typing
 //     if (errors[field as keyof FormErrors]) {
 //       setErrors(prev => ({ ...prev, [field]: undefined }));
 //     }
 //   };
-<<<<<<< HEAD
 
 //   const validateForm = (): boolean => {
 //     const newErrors: FormErrors = {};
 
-=======
-//
-//   const validateForm = (): boolean => {
-//     const newErrors: FormErrors = {};
-//
->>>>>>> stage
+
 //     if (!availability.weeklyHours) {
 //       newErrors.weeklyHours = "Please enter your weekly hours";
 //     } else if (isNaN(Number(availability.weeklyHours)) || Number(availability.weeklyHours) < 0 || Number(availability.weeklyHours) > 168) {
 //       newErrors.weeklyHours = "Please enter a valid number of hours (0-168)";
 //     }
-<<<<<<< HEAD
 
 //     if (!availability.largerOpportunities) {
 //       newErrors.largerOpportunities = "Please select an option";
 //     }
 
-=======
-//
-//     if (!availability.largerOpportunities) {
-//       newErrors.largerOpportunities = "Please select an option";
-//     }
-//
->>>>>>> stage
 //     if (!availability.hourlyRate) {
 //       newErrors.hourlyRate = "Please enter your hourly rate";
 //     } else if (isNaN(Number(availability.hourlyRate)) || Number(availability.hourlyRate) < 0) {
 //       newErrors.hourlyRate = "Please enter a valid rate";
 //     }
-<<<<<<< HEAD
 
 //     setErrors(newErrors);
 //     return Object.keys(newErrors).length === 0;
 //   };
 
-=======
-//
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-//
->>>>>>> stage
+
 //   const handleNext = async () => {
 //     if (validateForm()) {
 //       await saveSettingsToDatabase();
 //       onNext();
 //     }
 //   };
-<<<<<<< HEAD
 
 //   const saveSettingsToDatabase = async () => {
 //     const api = getOnboardingBackendAPI();
 
-=======
-//
-//   const saveSettingsToDatabase = async () => {
-//     const api = getOnboardingBackendAPI();
-//
->>>>>>> stage
 //     try {
 //       // Get income streams from Step 3 state
 //       const incomeStreams: IncomeStreamType[] = [];
 //       if (state.activeIncome?.royalties) incomeStreams.push(IncomeStreamType.ROYALTIES);
 //       if (state.activeIncome?.offerServices) incomeStreams.push(IncomeStreamType.SERVICES);
 //       if (state.activeIncome?.donations) incomeStreams.push(IncomeStreamType.DONATIONS);
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //       // If no income streams selected, default to at least one to pass validation
 //       if (incomeStreams.length === 0) {
 //         incomeStreams.push(IncomeStreamType.SERVICES); // Default fallback
 //       }
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //       const settingsData = {
 //         incomeStreams,
 //         hourlyWeeklyCommitment: parseInt(availability.weeklyHours),
@@ -205,17 +120,10 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //         hourlyRate: parseFloat(availability.hourlyRate),
 //         currency: availability.currency as Currency,
 //       };
-<<<<<<< HEAD
 
 //       console.log("Saving developer settings:", settingsData);
 //       const result = await api.setDeveloperSettings(settingsData);
 
-=======
-//
-//       console.log("Saving developer settings:", settingsData);
-//       const result = await api.setDeveloperSettings(settingsData);
-//
->>>>>>> stage
 //       if (result && !(result instanceof Error)) {
 //         console.log("Settings saved successfully:", result);
 //       } else {
@@ -225,20 +133,12 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //       console.error("Error saving settings:", error);
 //     }
 //   };
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //   return (
 //     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
 //       {/* Progress Bar */}
 //       <ProgressBar currentStep={currentStep} />
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //       {/* Form Content */}
 //       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
 //         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
@@ -251,11 +151,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //               <p className="block">Let us know your availability and pricing preferences</p>
 //             </div>
 //           </div>
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //           {/* Form Fields Container */}
 //           <div className="box-border content-stretch flex flex-col gap-8 items-start justify-start p-0 relative shrink-0 w-full">
 //             {/* Weekly Commitment Section */}
@@ -299,11 +195,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //                 </div>
 //               </div>
 //               {errors.weeklyHours && <div className="text-red-400 text-sm">{errors.weeklyHours}</div>}
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //               {/* Expandable Comment Section */}
 //               {showCommentInput && (
 //                 <div className="bg-[#202f45] box-border content-stretch flex flex-col gap-3 items-start justify-start p-4 relative rounded-md shrink-0 w-full">
@@ -326,11 +218,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //                 </div>
 //               )}
 //             </div>
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //             {/* Larger Opportunities Section */}
 //             <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
 //               <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
@@ -342,63 +230,41 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //               <div className="box-border content-stretch flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-full">
 //                 <button
 //                   onClick={() => handleInputChange("largerOpportunities", "yes")}
-<<<<<<< HEAD
+
 //                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "yes"
 //                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
 //                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
 //                     }`}
-=======
-//                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-//                     availability.largerOpportunities === "yes"
-//                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-//                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-//                   }`}
->>>>>>> stage
+
 //                 >
 //                   Yes
 //                 </button>
 //                 <button
 //                   onClick={() => handleInputChange("largerOpportunities", "maybe")}
-<<<<<<< HEAD
+
 //                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "maybe"
 //                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
 //                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
 //                     }`}
-=======
-//                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-//                     availability.largerOpportunities === "maybe"
-//                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-//                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-//                   }`}
->>>>>>> stage
+
 //                 >
 //                   Maybe
 //                 </button>
 //                 <button
 //                   onClick={() => handleInputChange("largerOpportunities", "no")}
-<<<<<<< HEAD
+
 //                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${availability.largerOpportunities === "no"
 //                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
 //                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
 //                     }`}
-=======
-//                   className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-//                     availability.largerOpportunities === "no"
-//                       ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-//                       : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-//                   }`}
->>>>>>> stage
+
 //                 >
 //                   No
 //                 </button>
 //               </div>
 //               {errors.largerOpportunities && <div className="text-red-400 text-sm">{errors.largerOpportunities}</div>}
 //             </div>
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //             {/* Indicative Rate Section */}
 //             <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
 //               <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
@@ -433,11 +299,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //               {errors.hourlyRate && <div className="text-red-400 text-sm">{errors.hourlyRate}</div>}
 //             </div>
 //           </div>
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //           {/* Button Group */}
 //           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
 //             <button
@@ -448,11 +310,7 @@ export default function Step4AvailabilityRate(props: Step4AvailabilityRateProps)
 //                 <p className="block leading-[1.5] whitespace-pre">Back</p>
 //               </div>
 //             </button>
-<<<<<<< HEAD
 
-=======
-//
->>>>>>> stage
 //             <button
 //               onClick={handleNext}
 //               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105"

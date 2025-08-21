@@ -1,15 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Header } from "src/views/layout/header/Header";
+import { Footer } from "src/views/layout/footer/Footer";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
-<<<<<<< HEAD
 import { getAuthBackendAPI } from "src/services";
 import { paths } from "src/paths";
-=======
-import { paths } from "../../../../paths";
-import { PageWrapper } from "../../PageWrapper";
->>>>>>> stage
 
-// TODO: Move icons to come icon folder - so that we can reuse them across the app
 // Inline SVG components replacing localhost assets
 const GitHubIcon = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,12 +30,14 @@ const CheckIcon = () => (
   </svg>
 );
 
+// Ambiguous assets removed: imgEllipse, imgSeparator, imgGroup
+
 export default function OnboardingLandingPage() {
   const auth = useAuth();
   const navigate = useNavigate();
+  const authAPI = getAuthBackendAPI();
 
   const handleGitHubSignIn = () => {
-<<<<<<< HEAD
     // Check if user is already authenticated
     if (auth.authInfo) {
       // User is already logged in, go directly to onboarding
@@ -48,17 +46,12 @@ export default function OnboardingLandingPage() {
       // User needs to authenticate first
       // Trigger GitHub OAuth with redirect path
       authAPI.loginWithGitHub(paths.DEV_ONBOARDING_PROFILE);
-=======
-    if (auth.authInfo?.user) {
-      navigate(paths.DEV_ONBOARDING_START);
-    } else {
-      auth.loginWithGitHub(paths.DEV_ONBOARDING_START);
->>>>>>> stage
     }
   };
 
   return (
-    <PageWrapper>
+    <>
+      <Header />
       <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[100px] items-center justify-start pb-[100px] pt-0 px-0 relative size-full min-h-screen">
         {/* Main Hero Section */}
         <div className="box-border content-stretch flex flex-col gap-12 items-start justify-center px-[200px] py-0 relative shrink-0 w-full mt-[200px]">
@@ -124,8 +117,6 @@ export default function OnboardingLandingPage() {
                 </div>
               </div>
             </div>
-
-            {/*TODO: factorize*/}
 
             {/* Three Cards */}
             <div className="box-border content-stretch flex flex-row gap-8 items-start justify-center p-0 relative shrink-0 w-full">
@@ -252,7 +243,6 @@ export default function OnboardingLandingPage() {
               <p className="block leading-[normal]">Book a meeting with our team</p>
             </div>
           </div>
-          {/*TODO: there is a class for that */}
           <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-full">
             <Link
               to="/support"
@@ -265,6 +255,7 @@ export default function OnboardingLandingPage() {
           </div>
         </div>
       </div>
-    </PageWrapper>
+      <Footer />
+    </>
   );
 }
