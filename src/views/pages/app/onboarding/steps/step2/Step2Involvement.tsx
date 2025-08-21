@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProgressBar from "../components/ProgressBar";
+import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import {
   DeveloperRoleType,
@@ -11,8 +11,8 @@ import {
   DeveloperProjectItem,
   DeveloperProfileId
 } from "@open-source-economy/api-types";
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step2State } from "../OnboardingDataSteps";
+import { OnboardingStepProps } from "../OnboardingStepProps";
+import { Step2State } from "../../OnboardingDataSteps";
 
 
 type Step2InvolvementProps = OnboardingStepProps<Step2State>;
