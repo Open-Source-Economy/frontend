@@ -1,25 +1,18 @@
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step3State } from "../OnboardingDataSteps";
-
-export interface Step3ActiveIncomeProps extends OnboardingStepProps<Step3State> {}
-
-export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
-  return <>Not implemented</>;
-}
-
 // import React, { useState, useEffect } from "react";
-// import { OnboardingState } from "../OnboardingFlow";
 // import ProgressBar from "../components/ProgressBar";
 // import { getOnboardingBackendAPI } from "src/services";
-// import { IncomeStreamType } from "@open-source-economy/api-types";
-//
+// import { OnboardingStepProps } from "./OnboardingStepProps";
+// import { OnboardingDataSteps, Step3State } from "../OnboardingDataSteps";
+
+export {};
+
 // // Inline SVG components replacing localhost assets
 // const CloseIcon = () => (
 //   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //   </svg>
 // );
-//
+
 // const FireIcon = () => (
 //   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M13.5 6.5C13.5 9.5 11 10.5 10 10.5C9 10.5 6.5 9.5 6.5 6.5C6.5 4.5 8.5 2.5 10 2.5C11.5 2.5 13.5 4.5 13.5 6.5Z" fill="currentColor" />
@@ -29,13 +22,14 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //     />
 //   </svg>
 // );
-//
+
 // interface FundingOptions {
 //   royalties: boolean;
 //   offerServices: boolean;
 //   donations: boolean;
 // }
-//
+
+
 // interface Step3ActiveIncomeProps {
 //   state: OnboardingState;
 //   updateState: (updates: Partial<OnboardingState>) => void;
@@ -43,12 +37,12 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //   onBack: () => void;
 //   currentStep: number;
 // }
-//
+
 // interface ToggleProps {
 //   isEnabled: boolean;
 //   onChange: (enabled: boolean) => void;
 // }
-//
+
 // function Toggle({ isEnabled, onChange }: ToggleProps) {
 //   return (
 //     <div className="box-border content-stretch flex flex-row gap-2.5 items-center justify-start p-0 relative">
@@ -75,7 +69,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //     </div>
 //   );
 // }
-//
+
 // interface FundingCardProps {
 //   title: string;
 //   description: string;
@@ -85,7 +79,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //   hasLearnMore?: boolean;
 //   onLearnMore?: () => void;
 // }
-//
+
 // function FundingCard({ title, description, isEnabled, onChange, isRecommended = false, hasLearnMore = false, onLearnMore }: FundingCardProps) {
 //   return (
 //     <div className="basis-0 bg-[#14233a] box-border content-stretch flex flex-col gap-[30px] grow items-start justify-start min-h-px min-w-px p-[20px] relative rounded-md self-stretch shrink-0 border border-[rgba(255,255,255,0.2)]">
@@ -102,7 +96,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //         {!isRecommended && <div />}
 //         <Toggle isEnabled={isEnabled} onChange={onChange} />
 //       </div>
-//
+
 //       {/* Content */}
 //       <div className="box-border content-stretch flex flex-col gap-[9px] items-start justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-left w-full">
 //         <div className="font-michroma not-italic relative shrink-0 text-[28px] w-full">
@@ -122,12 +116,12 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //     </div>
 //   );
 // }
-//
+
 // export default function Step3ActiveIncome({ state, updateState, onNext, onBack, currentStep }: Step3ActiveIncomeProps) {
 //   // Ensure 'state' is an object to prevent errors when accessing its properties
 //   // If 'state' is undefined, default it to an empty object.
 //   const validatedState = state || {};
-//
+
 //   const [fundingOptions, setFundingOptions] = useState<FundingOptions>(
 //     validatedState.activeIncome || {
 //       royalties: true,
@@ -137,16 +131,17 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //   );
 //   const [showServiceModel, setShowServiceModel] = useState(false);
 //   const [hasInitialized, setHasInitialized] = useState(false);
-//
+
 //   // Helper function to save income streams to database
 //   const saveIncomeStreams = async (options: FundingOptions) => {
 //     const api = getOnboardingBackendAPI();
 //     const incomeStreams: IncomeStreamType[] = [];
-//
+
+
 //     if (options.royalties) incomeStreams.push(IncomeStreamType.ROYALTIES);
 //     if (options.offerServices) incomeStreams.push(IncomeStreamType.SERVICES);
 //     if (options.donations) incomeStreams.push(IncomeStreamType.DONATIONS);
-//
+
 //     try {
 //       console.log("Saving income streams:", incomeStreams);
 //       const result = await api.setIncomeStreams({ incomeStreams });
@@ -162,7 +157,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //       return false;
 //     }
 //   };
-//
+
 //   // Save default selections on mount if they haven't been saved yet
 //   useEffect(() => {
 //     if (!hasInitialized && !validatedState.activeIncome) {
@@ -173,7 +168,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //       updateState({ activeIncome: fundingOptions });
 //     }
 //   }, [hasInitialized, validatedState.activeIncome, fundingOptions, updateState]); // Add validatedState to dependencies
-//
+
 //   const handleToggleChange = async (option: keyof FundingOptions, enabled: boolean) => {
 //     const newOptions = {
 //       ...fundingOptions,
@@ -181,11 +176,12 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //     };
 //     setFundingOptions(newOptions);
 //     updateState({ activeIncome: newOptions });
-//
+
 //     // Save to database using helper function
 //     await saveIncomeStreams(newOptions);
 //   };
-//
+
+
 //   const handleNext = async () => {
 //     // Ensure at least one funding option is selected
 //     const hasSelection = Object.values(fundingOptions).some(option => option);
@@ -195,14 +191,16 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //       onNext();
 //     }
 //   };
-//
+
+
 //   const hasSelection = Object.values(fundingOptions).some(option => option);
-//
+
+
 //   return (
 //     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
 //       {/* Progress Bar */}
 //       <ProgressBar currentStep={currentStep} />
-//
+
 //       {/* Form Content */}
 //       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
 //         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[700px]">
@@ -216,7 +214,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //               <p className="block">Designed to respect free software and community-led projects.</p>
 //             </div>
 //           </div>
-//
+
 //           {/* Funding Options Cards */}
 //           <div className="box-border content-stretch flex flex-row gap-5 items-start justify-start p-0 relative shrink-0 w-[1280px]">
 //             {/* Royalties Card */}
@@ -226,7 +224,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //               isEnabled={fundingOptions.royalties}
 //               onChange={enabled => handleToggleChange("royalties", enabled)}
 //             />
-//
+
 //             {/* Offer Services Card (Recommended) */}
 //             <FundingCard
 //               title="Offer Services"
@@ -237,7 +235,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //               hasLearnMore={true}
 //               onLearnMore={() => setShowServiceModel(true)}
 //             />
-//
+
 //             {/* Donations Card */}
 //             <FundingCard
 //               title="Donations"
@@ -246,7 +244,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //               onChange={enabled => handleToggleChange("donations", enabled)}
 //             />
 //           </div>
-//
+
 //           {/* Service Model Section (Expanded when Learn More is clicked) */}
 //           {showServiceModel && (
 //             <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-8 items-center justify-start px-[19px] py-5 relative rounded-md shrink-0 w-[1280px] border border-[rgba(255,255,255,0.2)]">
@@ -256,14 +254,14 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //                   <CloseIcon />
 //                 </button>
 //               </div>
-//
+
 //               {/* Section Title */}
 //               <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start p-0 relative shrink-0 w-[600px]">
 //                 <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[25px] text-center w-full">
 //                   <p className="block leading-[1.3]">The Service Model</p>
 //                 </div>
 //               </div>
-//
+
 //               {/* Service Model Steps */}
 //               <div className="box-border content-stretch flex flex-row gap-5 items-center justify-start p-0 relative shrink-0 w-full">
 //                 {/* Step 1 */}
@@ -277,7 +275,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //                     </div>
 //                   </div>
 //                 </div>
-//
+
 //                 {/* Step 2 */}
 //                 <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
 //                   <div className="basis-0 bg-[#202f45] box-border content-stretch flex flex-col font-montserrat font-normal gap-[9px] grow h-full items-start justify-start leading-[0] min-h-px min-w-px overflow-clip px-5 py-[30px] relative rounded-md shrink-0 text-[#ffffff] text-left">
@@ -289,7 +287,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //                     </div>
 //                   </div>
 //                 </div>
-//
+
 //                 {/* Step 3 */}
 //                 <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
 //                   <div className="basis-0 bg-[#202f45] box-border content-stretch flex flex-col font-montserrat font-normal gap-[9px] grow h-full items-start justify-start leading-[0] min-h-px min-w-px overflow-clip px-5 py-[30px] relative rounded-md shrink-0 text-[#ffffff] text-left">
@@ -301,7 +299,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //                     </div>
 //                   </div>
 //                 </div>
-//
+
 //                 {/* Step 4 */}
 //                 <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
 //                   <div className="basis-0 bg-[#202f45] box-border content-stretch flex flex-col font-montserrat font-normal gap-[9px] grow h-full items-start justify-start leading-[0] min-h-px min-w-px overflow-clip px-5 py-[30px] relative rounded-md shrink-0 text-[#ffffff] text-left">
@@ -316,7 +314,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //               </div>
 //             </div>
 //           )}
-//
+
 //           {/* Button Group */}
 //           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[700px]">
 //             <button
@@ -327,7 +325,7 @@ export default function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
 //                 <p className="block leading-[1.5] whitespace-pre">Back</p>
 //               </div>
 //             </button>
-//
+
 //             <button
 //               onClick={handleNext}
 //               disabled={!hasSelection}

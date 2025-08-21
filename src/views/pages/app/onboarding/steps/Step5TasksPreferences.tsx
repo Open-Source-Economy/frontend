@@ -1,30 +1,26 @@
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step5State } from "../OnboardingDataSteps";
-
-export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
-
-export default function Step5TasksPreferences(props: Step5InvolvementProps) {
-  return <>Not implemented</>;
-}
-
 // import React, { useState, useEffect } from "react";
-// import { OnboardingState } from "../OnboardingFlow";
-// import ProgressBar from "../components/ProgressBar";
-// import { getOnboardingBackendAPI } from "src/services";
-//
+import ProgressBar from "../components/ProgressBar";
+import { getOnboardingBackendAPI } from "src/services";
+import { ServiceId, ProjectItemId } from "@open-source-economy/api-types";
+// import { OnboardingStepProps } from "./OnboardingStepProps";
+// import { OnboardingDataSteps, Step5State } from "../OnboardingDataSteps";
+
+export {};
+
+
 // // Inline SVG components replacing localhost assets
 // const CloseIcon = () => (
 //   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //   </svg>
 // );
-//
+
 // const AddIcon = () => (
 //   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 //     <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //   </svg>
 // );
-//
+
 // interface Step5TasksPreferencesProps {
 //   state: OnboardingState;
 //   updateState: (updates: Partial<OnboardingState>) => void;
@@ -32,7 +28,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //   onBack: () => void;
 //   currentStep: number;
 // }
-//
+
 // interface Task {
 //   id: string;
 //   serviceId: string;
@@ -45,11 +41,13 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //   customService?: string;
 //   hasResponseTime?: boolean;
 // }
-//
+
+
 // interface TasksData {
 //   selectedTasks: Task[];
 // }
-//
+
+
 // interface RepositoryData {
 //   projectItemId: string;
 //   repository: string | null;
@@ -57,7 +55,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //   mergeRights: string[];
 //   services: any[];
 // }
-//
+
 // interface ServiceData {
 //   id: string;
 //   name: string;
@@ -65,61 +63,64 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //   isCustom: boolean;
 //   hasResponseTime: boolean;
 // }
-//
+
 // interface ServiceCategory {
 //   id: string;
 //   name: string;
 //   services: ServiceData[];
 // }
-//
+
+
 // // Dynamic task categories will be built from fetched services
-//
+
 // export default function Step5TasksPreferences({ state, updateState, onNext, onBack, currentStep }: Step5TasksPreferencesProps) {
 //   const [tasks, setTasks] = useState<TasksData>(state.tasks || { selectedTasks: [] });
-//
+
 //   // Repository state
 //   const [repositories, setRepositories] = useState<RepositoryData[]>([]);
 //   const [loadingRepositories, setLoadingRepositories] = useState(true);
-//
+
 //   // Services state
 //   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
 //   const [loadingServices, setLoadingServices] = useState(true);
 //   const [savingServices, setSavingServices] = useState(false);
-//
+
 //   // Modal states
 //   const [showTaskSelectionModal, setShowTaskSelectionModal] = useState(false);
 //   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
 //   const [showSelectProjectsModal, setShowSelectProjectsModal] = useState(false);
 //   const [showCustomServiceModal, setShowCustomServiceModal] = useState(false);
 //   const [showIncidentResponseModal, setShowIncidentResponseModal] = useState(false);
-//
+
 //   // Task selection state
 //   const [selectedTasksInModal, setSelectedTasksInModal] = useState<string[]>([]);
-//
+
 //   // Current task being edited
 //   const [currentTaskForProjects, setCurrentTaskForProjects] = useState<Task | null>(null);
-//
+
 //   // Project selection state
 //   const [selectedProjectsInModal, setSelectedProjectsInModal] = useState<string[]>([]);
 //   const [allProjectsSelected, setAllProjectsSelected] = useState(false);
-//
+
+
 //   // Form states
 //   const [customServiceText, setCustomServiceText] = useState("");
 //   const [hourlyRate, setHourlyRate] = useState(state.availability?.hourlyRate || "");
 //   const [currency, setCurrency] = useState(state.availability?.currency || "EUR");
 //   const [responseTime, setResponseTime] = useState("12");
 //   const [customResponseTime, setCustomResponseTime] = useState("12");
-//
+
 //   // Fetch services from database on component mount
 //   useEffect(() => {
 //     const fetchServices = async () => {
 //       setLoadingServices(true);
 //       const api = getOnboardingBackendAPI();
-//
+
 //       try {
 //         console.log("Fetching services from database...");
 //         const result = await api.getServices();
-//
+
+
 //         if (result && !(result instanceof Error)) {
 //           console.log("Services fetched successfully:", result);
 //           console.log("Raw services data:", result.data);
@@ -140,24 +141,26 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         setLoadingServices(false);
 //       }
 //     };
-//
+
 //     fetchServices();
 //   }, []);
-//
+
+
 //   // Fetch repositories from database on component mount
 //   useEffect(() => {
 //     const fetchRepositories = async () => {
 //       setLoadingRepositories(true);
 //       const api = getOnboardingBackendAPI();
-//
+
 //       try {
 //         console.log("Fetching repositories from database...");
 //         const result = await api.getRepositories();
-//
+
 //         console.log("Raw API result:", result);
 //         console.log("Result type:", typeof result);
 //         console.log("Is result an Error?", result instanceof Error);
-//
+
+
 //         if (result && !(result instanceof Error)) {
 //           console.log("Repositories fetched successfully:", result);
 //           console.log("result.data:", result.data);
@@ -174,10 +177,10 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         setLoadingRepositories(false);
 //       }
 //     };
-//
+
 //     fetchRepositories();
 //   }, []);
-//
+
 //   // Helper function to parse PostgreSQL array format like "{item1,item2}" to ["item1", "item2"]
 //   const parsePostgresArray = (pgArray: string | string[]): string[] => {
 //     if (Array.isArray(pgArray)) {
@@ -192,12 +195,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //     }
 //     return [];
 //   };
-//
+
 //   // Helper function to build service categories from flat service list
 //   const buildServiceCategories = (services: any[]): ServiceCategory[] => {
 //     console.log("Building categories from services:", services);
 //     const categories: { [key: string]: ServiceCategory } = {};
-//
+
 //     // Normalize services to handle both camelCase and snake_case
 //     const normalizedServices = services.map(service => ({
 //       id: service.id,
@@ -206,9 +209,9 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       isCustom: service.isCustom || service.is_custom,
 //       hasResponseTime: service.hasResponseTime || service.has_response_time,
 //     }));
-//
+
 //     console.log("Normalized services:", normalizedServices);
-//
+
 //     // First pass: create categories (parent services)
 //     normalizedServices.forEach(service => {
 //       console.log("Processing service:", service, "parentId:", service.parentId);
@@ -221,9 +224,9 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         };
 //       }
 //     });
-//
+
 //     console.log("Parent categories created:", Object.keys(categories));
-//
+
 //     // Second pass: add child services to categories
 //     normalizedServices.forEach(service => {
 //       if (service.parentId && categories[service.parentId]) {
@@ -233,7 +236,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         console.log("WARNING: Parent category not found for service:", service.name, "parentId:", service.parentId);
 //       }
 //     });
-//
+
 //     // Custom services will come from the database with isCustom: true
 //     // Group them in an "Other" category if they don't have a parent
 //     const customServices = normalizedServices.filter(service => service.isCustom && !service.parentId);
@@ -244,12 +247,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         services: customServices,
 //       };
 //     }
-//
+
 //     const result = Object.values(categories);
 //     console.log("Final categories with services:", result);
 //     return result;
 //   };
-//
+
 //   // Convert repositories to the format expected by project selection modals
 //   const availableProjects = repositories.map((repo, index) => ({
 //     id: repo.projectItemId,
@@ -258,7 +261,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //     role: parsePostgresArray(repo.roles).join(", "),
 //     mergeRights: parsePostgresArray(repo.mergeRights).join(", "),
 //   }));
-//
+
 //   const handleTaskSelection = (service: ServiceData, categoryName: string) => {
 //     const taskKey = `${service.id}:${service.name}`;
 //     setSelectedTasksInModal(prev => {
@@ -269,16 +272,17 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       }
 //     });
 //   };
-//
+
 //   const handleAddSelectedTasks = () => {
 //     const newTasks = selectedTasksInModal
 //       .map(taskKey => {
 //         const [serviceId, serviceName] = taskKey.split(":");
-//
+
 //         // Find the service and its category
 //         let categoryName = "";
 //         let service: ServiceData | null = null;
-//
+
+
 //         for (const category of serviceCategories) {
 //           const foundService = category.services.find(s => s.id === serviceId);
 //           if (foundService) {
@@ -287,9 +291,9 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //             break;
 //           }
 //         }
-//
+
 //         if (!service) return null; // Skip if service not found
-//
+
 //         const baseTask: Task = {
 //           id: Date.now().toString() + Math.random(),
 //           serviceId: service.id,
@@ -300,26 +304,26 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //           currency: state.availability?.currency || "EUR",
 //           hasResponseTime: service.hasResponseTime,
 //         };
-//
+
 //         // Add response time for services that need it
 //         if (service.hasResponseTime) {
 //           baseTask.responseTime = "12"; // Default 12 hours
 //         }
-//
+
 //         return baseTask;
 //       })
 //       .filter(task => task !== null) as Task[];
-//
+
 //     const updatedTasks = {
 //       selectedTasks: [...tasks.selectedTasks, ...newTasks],
 //     };
-//
+
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setSelectedTasksInModal([]);
 //     setShowTaskSelectionModal(false);
 //   };
-//
+
 //   const handleSelectProjects = (task: Task) => {
 //     setCurrentTaskForProjects(task);
 //     // Pre-populate with current task's projects
@@ -343,7 +347,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //     });
 //     setAllProjectsSelected(false);
 //   };
-//
+
 //   const handleAllProjectsToggle = () => {
 //     if (allProjectsSelected) {
 //       setSelectedProjectsInModal([]);
@@ -353,13 +357,13 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       setAllProjectsSelected(true);
 //     }
 //   };
-//
+
 //   const handleProjectSelectionComplete = () => {
 //     if (currentTaskForProjects) {
 //       const finalSelectedProjects = allProjectsSelected
 //         ? availableProjects.map(p => p.id) // Use project item ID
 //         : selectedProjectsInModal;
-//
+
 //       const updatedTasks = {
 //         selectedTasks: tasks.selectedTasks.map(task =>
 //           task.id === currentTaskForProjects.id
@@ -381,11 +385,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //     setSelectedProjectsInModal([]);
 //     setAllProjectsSelected(false);
 //   };
-//
+
+
 //   const handleCustomServiceSave = () => {
 //     // Find the "Custom Service" from the available services
 //     let customServiceId = "custom_task"; // fallback
-//
+
 //     for (const category of serviceCategories) {
 //       const customService = category.services.find(s => s.name === "Custom Service" || s.isCustom);
 //       if (customService) {
@@ -393,7 +398,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         break;
 //       }
 //     }
-//
+
 //     const customTask: Task = {
 //       id: Date.now().toString(),
 //       serviceId: customServiceId,
@@ -404,19 +409,18 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       hourlyRate: Number(hourlyRate) || (state.availability?.hourlyRate ? Number(state.availability.hourlyRate) : 100),
 //       currency: currency || state.availability?.currency || "EUR",
 //       hasResponseTime: false,
-//     };
-//
 //     const updatedTasks = {
 //       selectedTasks: [...tasks.selectedTasks, customTask],
 //     };
-//
+
+
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setCustomServiceText("");
 //     setHourlyRate("");
 //     setShowCustomServiceModal(false);
 //   };
-//
+
 //   const handleIncidentResponseSave = () => {
 //     const incidentTask: Task = {
 //       id: Date.now().toString(),
@@ -429,18 +433,18 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       currency: currency || state.availability?.currency || "EUR",
 //       hasResponseTime: true,
 //     };
-//
+
 //     const updatedTasks = {
 //       selectedTasks: [...tasks.selectedTasks, incidentTask],
 //     };
-//
+
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //     setResponseTime("");
 //     setHourlyRate("");
 //     setShowIncidentResponseModal(false);
 //   };
-//
+
 //   const handleRemoveTask = (taskId: string) => {
 //     const updatedTasks = {
 //       selectedTasks: tasks.selectedTasks.filter(task => task.id !== taskId),
@@ -448,59 +452,59 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //     setTasks(updatedTasks);
 //     updateState({ tasks: updatedTasks });
 //   };
-//
+
 //   const handleNext = async () => {
 //     if (tasks.selectedTasks.length === 0) return;
-//
+
 //     setSavingServices(true);
 //     const api = getOnboardingBackendAPI();
-//
+
 //     try {
 //       console.log("Saving services to backend...", tasks.selectedTasks);
-//
+
 //       // Save each task as developer services
 //       for (const task of tasks.selectedTasks) {
 //         const projectIds = task.projects || [];
-//
+
 //         // If no projects selected, skip this task
 //         if (projectIds.length === 0) {
 //           console.log(`Skipping task "${task.name}" - no projects selected`);
 //           continue;
 //         }
-//
+
 //         // Create a developer service for each selected project
 //         for (const projectId of projectIds) {
 //           const serviceData = {
-//             projectItemId: projectId, // projectId is now already the correct UUID
-//             serviceId: task.serviceId,
+//             projectItemIds: [new ProjectItemId(projectId)], // Create ProjectItemId instance
+//             serviceId: new ServiceId(task.serviceId), // Create ServiceId instance
 //             hourlyRate: task.hourlyRate || 100,
-//             currency: task.currency || ("EUR" as any),
-//             responseTimeHours: task.hasResponseTime ? parseInt(task.responseTime || "12") : null,
+//             responseTimeHours: task.hasResponseTime ? parseInt(task.responseTime || "12") : undefined,
 //           };
-//
+
 //           console.log("Creating developer service:", serviceData);
 //           const result = await api.addDeveloperService(serviceData);
-//
+
+
 //           if (result instanceof Error) {
 //             console.error("Failed to create developer service:", result);
 //             throw new Error(`Failed to save service "${task.name}" for project ${projectId}`);
 //           }
-//
+
 //           console.log("Developer service created successfully:", result);
 //         }
 //       }
-//
+
 //       // Mark onboarding as completed
 //       console.log("Completing onboarding...");
 //       const completionResult = await api.completeOnboarding();
-//
+
 //       if (completionResult instanceof Error) {
 //         console.error("Failed to complete onboarding:", completionResult);
 //         throw new Error("Failed to complete onboarding");
 //       }
-//
+
 //       console.log("Onboarding completed successfully");
-//
+
 //       // Navigate to next step/dashboard
 //       onNext();
 //     } catch (error) {
@@ -511,12 +515,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //       setSavingServices(false);
 //     }
 //   };
-//
+
 //   return (
 //     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
 //       {/* Progress Bar */}
 //       <ProgressBar currentStep={currentStep} />
-//
+
 //       {/* Form Content */}
 //       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
 //         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
@@ -526,20 +530,20 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //               <p className="block leading-[1.3]">Tasks & Preferences</p>
 //             </div>
 //           </div>
-//
+
 //           {/* Selected Tasks Display */}
 //           <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
 //             {/* Task Categories */}
 //             {serviceCategories.map(category => {
 //               const categoryTasks = tasks.selectedTasks.filter(task => task.category === category.name);
 //               if (categoryTasks.length === 0) return null;
-//
+
 //               return (
 //                 <div key={category.id} className="box-border content-stretch flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
 //                   <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
 //                     <p className="block leading-[1.3]">{category.name}</p>
 //                   </div>
-//
+
 //                   {categoryTasks.map(task => {
 //                     // Convert project IDs to repository names for display
 //                     const projectNames =
@@ -551,7 +555,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                             })
 //                             .filter(name => name) // Remove any undefined/null values
 //                         : [];
-//
+
 //                     // Format projects display
 //                     const projectsDisplay =
 //                       projectNames.length > 0
@@ -559,12 +563,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                           ? `${projectNames.slice(0, 5).join(" | ")} | +${projectNames.length - 5} more...`
 //                           : projectNames.join(" | ")
 //                         : "No projects selected";
-//
+
 //                     // Get default rate from availability if not set on task
 //                     const displayRate = task.hourlyRate || (state.availability?.hourlyRate ? Number(state.availability.hourlyRate) : 100);
 //                     const displayCurrency = task.currency || state.availability?.currency || "EUR";
 //                     const currencySymbol = displayCurrency === "EUR" ? "€" : displayCurrency === "USD" ? "$" : "£";
-//
+
 //                     return (
 //                       <div key={task.id} className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full">
 //                         <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
@@ -588,7 +592,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                               )}
 //                             </div>
 //                           </div>
-//
+
 //                           <div className="flex flex-row gap-2 items-center">
 //                             <button
 //                               onClick={() => handleSelectProjects(task)}
@@ -623,13 +627,13 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //               );
 //             })}
 //           </div>
-//
+
 //           {/* Add Task Section */}
 //           <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
 //             <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[25px] text-left">
 //               <p className="block leading-[1.3]">Add Task</p>
 //             </div>
-//
+
 //             <div className="box-border content-stretch flex flex-row gap-6 items-center justify-center p-0 relative shrink-0 w-full">
 //               <button
 //                 onClick={() => setShowTaskSelectionModal(true)}
@@ -642,7 +646,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //               </button>
 //             </div>
 //           </div>
-//
+
 //           {/* Button Group */}
 //           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
 //             <button
@@ -653,7 +657,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 <p className="block leading-[1.5] whitespace-pre">Back</p>
 //               </div>
 //             </button>
-//
+
 //             <button
 //               onClick={handleNext}
 //               disabled={tasks.selectedTasks.length === 0 || savingServices}
@@ -680,7 +684,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //           </div>
 //         </div>
 //       </div>
-//
+
 //       {/* Task Selection Modal */}
 //       {showTaskSelectionModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -693,7 +697,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 <CloseIcon />
 //               </button>
 //             </div>
-//
+
 //             <div className="flex flex-col gap-2 mb-6">
 //               {loadingServices ? (
 //                 <div className="flex items-center justify-center py-4">
@@ -738,7 +742,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 ))
 //               )}
 //             </div>
-//
+
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={() => setShowTaskSelectionModal(false)}
@@ -765,7 +769,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //           </div>
 //         </div>
 //       )}
-//
+
 //       {/* Select Projects Modal */}
 //       {showSelectProjectsModal && currentTaskForProjects && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -783,12 +787,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 <CloseIcon />
 //               </button>
 //             </div>
-//
+
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">
 //                 Fix a bug on an open source project. List the projects you're involved with
 //               </p>
-//
+
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //                 <div className="bg-[#202f45] rounded-md p-3">
@@ -813,7 +817,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                       <span className="font-montserrat font-normal text-[#ffffff] text-[14px]">All projects</span>
 //                     </label>
 //                   </div>
-//
+
 //                   {loadingRepositories ? (
 //                     <div className="flex items-center justify-center py-4">
 //                       <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading your repositories...</div>
@@ -831,7 +835,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                     availableProjects.map(project => {
 //                       const projectId = project.id; // Use project item ID
 //                       const isSelected = selectedProjectsInModal.includes(projectId);
-//
+
 //                       return (
 //                         <div key={project.id} className="flex flex-row gap-2 items-center mb-2">
 //                           <label className="flex flex-row gap-2 items-center cursor-pointer">
@@ -869,7 +873,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                       );
 //                     })
 //                   )}
-//
+
 //                   <button className="flex flex-row gap-2 items-center text-[#ff7e4b] hover:text-[#ff518c] transition-colors mt-2">
 //                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 //                       <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -878,7 +882,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                   </button>
 //                 </div>
 //               </div>
-//
+
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //                 <div className="flex flex-row gap-2 items-center">
@@ -900,7 +904,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                   />
 //                 </div>
 //               </div>
-//
+
 //               {currentTaskForProjects?.hasResponseTime && (
 //                 <div className="mb-4">
 //                   <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Response Time</p>
@@ -918,7 +922,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 </div>
 //               )}
 //             </div>
-//
+
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleProjectSelectionComplete}
@@ -937,7 +941,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //           </div>
 //         </div>
 //       )}
-//
+
 //       {/* Custom Service Modal */}
 //       {showCustomServiceModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -955,7 +959,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 <CloseIcon />
 //               </button>
 //             </div>
-//
+
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">Service you want to offer *</p>
 //               <textarea
@@ -965,7 +969,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 placeholder="Describe the custom service you want to offer..."
 //               />
 //             </div>
-//
+
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //               <div className="bg-[#202f45] rounded-md p-3 flex flex-row gap-2 items-center justify-between">
@@ -975,7 +979,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 </svg>
 //               </div>
 //             </div>
-//
+
 //             <div className="mb-6">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //               <div className="flex flex-row gap-2 items-center">
@@ -997,7 +1001,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 />
 //               </div>
 //             </div>
-//
+
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleCustomServiceSave}
@@ -1016,7 +1020,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //           </div>
 //         </div>
 //       )}
-//
+
 //       {/* Incident Response Modal */}
 //       {showIncidentResponseModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -1034,12 +1038,12 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 <CloseIcon />
 //               </button>
 //             </div>
-//
+
 //             <div className="mb-4">
 //               <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-3">
 //                 Fix a bug on an open source project. List the projects you're involved with
 //               </p>
-//
+
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project(s)?</p>
 //                 <div className="bg-[#202f45] rounded-md p-3 flex flex-row gap-2 items-center justify-between">
@@ -1049,7 +1053,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                   </svg>
 //                 </div>
 //               </div>
-//
+
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">First Response Time</p>
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[12px] text-left mb-2 opacity-70">Expect sickness and vacations</p>
@@ -1070,7 +1074,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                   </button>
 //                 </div>
 //               </div>
-//
+
 //               <div className="mb-4">
 //                 <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
 //                 <div className="flex flex-row gap-2 items-center">
@@ -1093,7 +1097,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //                 </div>
 //               </div>
 //             </div>
-//
+
 //             <div className="flex flex-row gap-4 items-center justify-end">
 //               <button
 //                 onClick={handleIncidentResponseSave}
