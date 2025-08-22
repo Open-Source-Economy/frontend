@@ -22,7 +22,7 @@ export function useFinancialIssue(issueId: model.IssueId) {
       if (financialIssue instanceof ApiError) setError(financialIssue);
       else setFinancialIssue(financialIssue);
     } catch (error) {
-      setError(ApiError.from(error));
+      
     }
   };
 

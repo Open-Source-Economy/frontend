@@ -8,9 +8,15 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 
 import InitialServiceSelection from "./InitialServiceSelection";
 import { Step5State } from "../../OnboardingDataSteps";
-import { Currency, ServiceId } from "@open-source-economy/api-types";
+import { Currency, Service, ServiceId } from "@open-source-economy/api-types";
 import SelectProjectsModal from "./SelectProjectsModal";
-import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile"; // Import the specific type
+import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
+
+import {
+  buildServiceCategories,
+  groupDeveloperServicesByCategory,
+} from "./utils";
+import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data"; // Assuming utils.ts is in the same directory
 
 export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
 
@@ -27,43 +33,23 @@ const AddIcon = () => (
   </svg>
 );
 
+// ServiceCategory interface is now defined in utils.ts or can be kept here if preferred
 interface ServiceCategory {
   service: dto.Service;
   services: dto.Service[];
 }
 
-// --- Helper Functions ---
-const buildServiceCategories = (items: dto.ServiceHierarchyItem[]): ServiceCategory[] => {
-  const categories: { [key: string]: ServiceCategory } = {};
-
-  items.forEach(item => {
-    if (item.level === 0) {
-      categories[item.service.id.uuid] = { service: item.service, services: [] };
-    }
-  });
-
-  items.forEach(item => {
-    if (item.level > 0 && item.ancestors.length > 0) {
-      const parentId = item.ancestors[item.ancestors.length - 1].uuid;
-      if (categories[parentId]) {
-        categories[parentId].services.push(item.service);
-      }
-    }
-  });
-
-  return Object.values(categories);
-};
-
 // --- Main Component ---
 export default function Step5Involvement(props: Step5InvolvementProps) {
-  const currency = Currency.GBP; // TODO: lolo should be imported from developer profile settings
+  const defaultCurrency = Currency.GBP; // Default currency for new services or if not specified
+  const { state, updateState, onNext, onBack, currentStep } = props;
 
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
   const [projectItems, setProjectItems] = useState<[dto.ProjectItem, dto.DeveloperProjectItem][]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null); // Renamed to avoid conflict with apiError
 
   const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
@@ -74,18 +60,13 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
   useEffect(() => {
     const fetchInitialData = async () => {
       setIsLoading(true);
+      setApiError(null);
+      setLocalError(null);
+
       const apiCall = async () => {
         // Fetch service hierarchy
         const serviceHierarchyResponse = await api.getServiceHierarchy({}, {});
         if (serviceHierarchyResponse instanceof ApiError) throw serviceHierarchyResponse;
-
-        // Fetch developer project items (assuming this is where projectItems comes from)
-        // You might need a specific API call for this if it's not part of profile.projects
-        // For now, assuming a placeholder or it's part of the profile data loaded elsewhere
-        // If not, you'll need to add an actual API call here.
-        // Example: const projectsResponse = await api.getDeveloperProjectItems({}, {});
-        // if (projectsResponse instanceof ApiError) throw projectsResponse;
-        // setProjectItems(projectsResponse.items); // Assuming response has an 'items' field of the correct type
 
         return serviceHierarchyResponse;
       };
@@ -102,7 +83,7 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
   }, []);
 
   const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
-    const newServices: [ServiceId, DeveloperServiceTODOChangeName | null] = serviceIds.map(serviceId => {
+    const newServices: [Service, DeveloperServiceTODOChangeName | null] = serviceIds.map(serviceId => {
       const service = serviceCategories.flatMap(c => c.services).find(s => s.id.uuid === serviceId.uuid);
       if (!service) {
         // TODO: sam handle this better, maybe show a message to the user
@@ -110,31 +91,37 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
         return null;
       }
       return [service, null];
-    });
+    }).filter((s): s is [Service | null, DeveloperServiceTODOChangeName | null] => s !== null);
 
-    const updatedServices: [ServiceId, DeveloperServiceTODOChangeName | null][] = [...props.state.services, ...newServices];
+    const updatedServices: [Service, DeveloperServiceTODOChangeName | null][] = [...props.state.services, ...newServices];
     props.updateState({ services: updatedServices });
     setShowInitialServiceModal(false);
   };
 
   const handleDeleteDeveloperService = async (serviceId: ServiceId) => {
-    const updatedServices = props.state.services.filter(s => s[0].id.uuid !== serviceId.uuid);
-    props.updateState({ services: updatedServices });
+    setLocalError(null);
+    setApiError(null);
+    setIsLoading(true);
 
     const apiCall = async () => {
-      const params: dto.DeleteDeveloperServiceParams = {}
-      const   body: dto.DeleteDeveloperServiceBody = {
+      const params: dto.DeleteDeveloperServiceParams = {};
+      const body: dto.DeleteDeveloperServiceBody = {
         serviceId: serviceId,
-      }
-      const   query: dto.DeleteDeveloperServiceQuery = {}
+      };
+      const query: dto.DeleteDeveloperServiceQuery = {};
       return await api.deleteDeveloperService(params, body, query);
     };
 
-    const onSuccess = () => props.onNext();
+    const onSuccess = () => {
+      const updatedServices = props.state.services.filter(s => s[0].id.uuid !== serviceId.uuid);
+      props.updateState({ services: updatedServices });
+      setIsLoading(false); // Stop loading after local state update
+    };
+
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  // Type of serviceTuple updated to match currentService props.state
+  // Type of serviceTuple updated to match currentService state
   const handleEditTask = (serviceTuple: [dto.Service, DeveloperServiceTODOChangeName]) => {
     setCurrentService(serviceTuple);
     setShowUpsertDeveloperServiceModal(true);
@@ -143,8 +130,8 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
   // Type of updatedDevService updated to match DeveloperServiceTODOChangeName
   const handleUpdateTask = (updatedDevService: DeveloperServiceTODOChangeName) => {
     const updatedServices = props.state.services.map(s => {
-      // Check if the tuple's DeveloperService ID matches the updated one
-      if (s[0]?.id.uuid === updatedDevService.serviceId.uuid) {
+      // Check if the tuple's DeveloperService ID (serviceId) matches the updated one
+      if (s[0].id.uuid === updatedDevService.serviceId.uuid) {
         return [s[0], updatedDevService] as [dto.Service, DeveloperServiceTODOChangeName];
       }
       return s;
@@ -158,36 +145,22 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
   const handleNext = async () => {
     if (props.state.services.length === 0) {
       // TODO: sam
-      setError("Please add at least one service before proceeding.");
+      setLocalError("Please add at least one service before proceeding.");
     } else {
       const apiCall = async () => {
         return await api.completeOnboarding({}, {}, {});
       };
 
-      const onSuccess = () => props.onNext();
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    }
+    const onSuccess = () => {
+      setIsLoading(false); // Clear loading on success
+      props.onNext();
+    };
+
+    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-   // TODO: use displayedCurrencies
-  const getCurrencySymbol = (currency: string) => {
-    if (currency === dto.Currency.EUR) return "€";
-    if (currency === dto.Currency.USD) return "$";
-    if (currency === dto.Currency.GBP) return "£";
-    return currency;
-  }; 
-
-  // Group developerServices by category
-  const groupedServices = serviceCategories.reduce(
-    (acc, category) => {
-      const tasksInCategory = props.state.services.filter(s => category.services.some(child => child.id.uuid === s[0].id.uuid));
-      if (tasksInCategory.length > 0) {
-        acc.push({ category: category.service.name, developerServices: tasksInCategory });
-      }
-      return acc;
-    },
-    [] as { category: string; developerServices: [dto.Service, DeveloperServiceTODOChangeName][] }[],
-  );
+  // Group developerServices by category using the utility function
+  const groupedServices = groupDeveloperServicesByCategory(serviceCategories, props.state.services);
 
   return (
     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
@@ -207,27 +180,29 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
                 </div>
                 {developerServices.map(([service, devService]) => {
                   // Correctly handle multiple project IDs
-                  const projectNames = devService.projectItemIds.length > 0
-                    ? devService.projectItemIds.map(projectId => {
-                      // Find the corresponding ProjectItem from projectItems props.state
-                      const projectTuple = projectItems.find(p => p[1].id.uuid === projectId.uuid);
-                      return projectTuple?.[0]?.sourceIdentifier || projectId.uuid; // Safely access sourceIdentifier
-                    })
-                    : [];
+                  const projectItemNames = (devService?.projectItemIds || []).map(projectId => {
+                    const tuple = projectItems.find(p => p[1].id.uuid === projectId.uuid);
+                    if (tuple) {
+                      return ProjectItemIdCompanion.displayName(tuple[0].sourceIdentifier)
+                    } else {
+                      console.warn(`Project item with ID ${projectId.uuid} not found in projectItems.`);
+                  }
+
+                  })
 
                   const projectsDisplay =
-                    projectNames.length > 0
-                      ? projectNames.length > 5
-                        ? `${projectNames.slice(0, 5).join(" | ")} | +${projectNames.length - 5} more...`
-                        : projectNames.join(" | ")
+                    projectItemNames.length > 0
+                      ? projectItemNames.length > 5
+                        ? `${projectItemNames.slice(0, 5).join(" | ")} | +${projectItemNames.length - 5} more...`
+                        : projectItemNames.join(" | ")
                       : "No projects selected";
 
-                  const displayRate = devService.hourlyRate || 100;
-                  const currencySymbol = getCurrencySymbol(devService.currency || currency); // Use devService.currency if available
+                  const displayRate = devService?.hourlyRate || 100;
+
 
                   return (
                     <div
-                      key={service.id.uuid}
+                      key={service.id.uuid} // Use service.id.uuid for key as devService.id might be null for new items
                       className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full"
                     >
                       <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
@@ -241,19 +216,19 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
                           <div className="flex flex-row gap-4 items-center">
                             <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
                               <p className="block leading-[1.5]">
-                                Hourly rate: {currencySymbol} {displayRate}
+                                Hourly rate: {displayedCurrencies[defaultCurrency]?.symbol} {displayRate}
                               </p>
                             </div>
                             {service.hasResponseTime && (
                               <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
-                                <p className="block leading-[1.5]">Response time: {devService.responseTimeHours || "12"} hours</p>
+                                <p className="block leading-[1.5]">Response time: {devService?.responseTimeHours || "12"} hours</p>
                               </div>
                             )}
                           </div>
                         </div>
                         <div className="flex flex-row gap-2 items-center">
                           <button
-                            onClick={() => handleEditTask([service, devService])}
+                            onClick={() => devService && handleEditTask([service, devService])} // Only allow edit if devService is not null
                             className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors p-1"
                             title="Edit Service"
                           >
@@ -268,7 +243,7 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
                             </svg>
                           </button>
                           <button
-                            onClick={() => handleDeleteDeveloperService(devService.serviceId)}
+                            onClick={() => handleDeleteDeveloperService(service.id)} // Pass service.id for deletion
                             className="text-[#ffffff] hover:text-red-400 transition-colors p-1"
                             title="Remove Service"
                           >
@@ -347,8 +322,9 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal
           service={currentService[0]}
-          developerService={currentService[1]} // This is now DeveloperServiceTODOChangeName
-          developerProjectItems={projectItems.map(p => p[1])} // Correctly pass an array of DeveloperProjectItems
+          developerService={currentService[1]}
+          developerProjectItems={props.state.projects.map(p => p[1])} // Use projects from state.step2
+          currency={defaultCurrency} // Pass the default currency
           onClose={() => setShowUpsertDeveloperServiceModal(false)}
           onUpsertDeveloperService={handleUpdateTask} // This expects DeveloperServiceTODOChangeName
           onBack={props.onBack}

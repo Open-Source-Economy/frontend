@@ -48,6 +48,7 @@ export interface Step4State {
 
 // Corrected type for Step5State
 export interface Step5State {
+  projects: [ProjectItem, DeveloperProjectItem][];
   services: [Service, DeveloperServiceTODOChangeName | null][];
 }
 
