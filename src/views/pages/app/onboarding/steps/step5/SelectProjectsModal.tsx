@@ -24,53 +24,66 @@ const GitHubIcon = () => (
 
 interface SelectProjectsModalProps {
   service: dto.Service;
-  developerService: dto.DeveloperServiceTODOChangeName;
+  developerService: DeveloperServiceTODOChangeName | null;
   developerProjectItems: dto.DeveloperProjectItem[];
   currency: dto.Currency;
   onClose: () => void;
-  onUpsertDeveloperService: (developerService: dto.DeveloperServiceTODOChangeName) => void;
+  onUpsertDeveloperService: (developerService: DeveloperServiceTODOChangeName) => void;
   onBack: () => void;
 }
 
-// --- Main Component ---
 export default function SelectProjectsModal(props: SelectProjectsModalProps) {
   const api = getOnboardingBackendAPI();
 
-  const isEditing = props.developerService.projectItemIds.length > 0;
+  const isEditing = props.developerService !== null;
 
-  // --- State Variables (as per your request) ---
-  const [selectedProjectItemIds, setSelectedProjectItemIds] = useState<dto.ProjectItemId[]>(props.developerService.projectItemIds || []);
-  const [hourlyRateInput, setHourlyRateInput] = useState<number | null>(props.developerService.hourlyRate || null);
-  const [customResponseTime, setCustomResponseTime] = useState<number | null>(props.developerService.responseTimeHours || null);
+  // --- State Variables ---
+  const [selectedProjectItemIds, setSelectedProjectItemIds] = useState<dto.ProjectItemId[]>(props.developerService?.projectItemIds || []);
+  const [hourlyRateInput, setHourlyRateInput] = useState<number | null>(props.developerService?.hourlyRate || null);
+  const [customResponseTime, setCustomResponseTime] = useState<number | null>(props.developerService?.responseTimeHours || null);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const [inputError, setInputError] = useState<string | null>(null);
+
+  // --- Effect to (re)initialize state when props change ---
+  useEffect(() => {
+    setSelectedProjectItemIds(props.developerService?.projectItemIds || []);
+    setHourlyRateInput(props.developerService?.hourlyRate || null);
+    setCustomResponseTime(props.developerService?.responseTimeHours || null);
+    setApiError(null);
+    setInputError(null);
+  }, [props.developerService, props.service]);
 
   const handleSave = async () => {
     setIsLoading(true);
     setApiError(null);
+    setInputError(null);
 
-    // Validation
-    if (selectedProjectItemIds.length === 0 || hourlyRateInput === null || (props.service.hasResponseTime && customResponseTime === null)) {
-      // setInputError();
-      // TODO:
+    // --- Validation ---
+    if (selectedProjectItemIds.length === 0) {
+      setInputError("Please select at least one project.");
+      setIsLoading(false);
+      return;
+    }
+    if (props.service.hasResponseTime && (customResponseTime === null || isNaN(customResponseTime))) {
+      setInputError("Please enter a valid response time.");
       setIsLoading(false);
       return;
     }
 
     const apiCall = async () => {
-      const developerService: DeveloperServiceTODOChangeName = {
-          serviceId: props.service.id,
-          projectItemIds: props.developerService.projectItemIds,
-          hourlyRate: hourlyRateInput,
-          responseTimeHours: customResponseTime || undefined,
-      }
-        const body: dto.UpsertDeveloperServiceBody = {
-          developerService: developerService
-        };
-        return await api.upsertDeveloperService({}, body, {});
+      const developerServiceData: DeveloperServiceTODOChangeName = {
+        serviceId: props.service.id,
+        projectItemIds: selectedProjectItemIds,
+        hourlyRate: hourlyRateInput || undefined,
+        responseTimeHours: props.service.hasResponseTime ? customResponseTime || undefined : undefined,
+      };
+      const body: dto.UpsertDeveloperServiceBody = {
+        developerService: developerServiceData,
+      };
+
+      return await api.upsertDeveloperService({}, body, {});
     };
 
     const onSuccess = (response: dto.UpsertDeveloperServiceResponse) => {
@@ -98,7 +111,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
         <div className="mb-4">
           <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">For Which Project?</p>
           <div className="bg-[#202f45] rounded-md p-3">
-            {isLoading ? (
+            {isLoading && !apiError ? (
               <div className="flex items-center justify-center py-4">
                 <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading your repositories...</div>
               </div>
@@ -112,7 +125,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                 </button>
               </div>
             ) : (
-              props.developerProjectItems.map((developerProjectItem) => {
+              props.developerProjectItems.map(developerProjectItem => {
                 const isSelected = selectedProjectItemIds.some(id => id.uuid === developerProjectItem.id.uuid);
                 return (
                   <div key={developerProjectItem.id.uuid} className="flex flex-row gap-2 items-center mb-2">
@@ -124,9 +137,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                           checked={isSelected}
                           onChange={() => {
                             setSelectedProjectItemIds(prev =>
-                              isSelected
-                                ? prev.filter(id => id.uuid !== developerProjectItem.id.uuid)
-                                : [...prev, developerProjectItem.id]
+                              isSelected ? prev.filter(id => id.uuid !== developerProjectItem.id.uuid) : [...prev, developerProjectItem.id],
                             );
                           }}
                           className="w-full h-full opacity-0 cursor-pointer"
@@ -152,17 +163,20 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                 );
               })
             )}
+            {inputError && (
+              <div className="mt-2 text-center">
+                <p className="font-montserrat font-normal text-red-400 text-[12px]">{inputError}</p>
+              </div>
+            )}
           </div>
         </div>
         <div className="mb-4">
           <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Want to change your hourly rate for this service? ℹ️</p>
           <div className="flex flex-row gap-2 items-center">
-            <div className="bg-[#202f45] px-3 py-2 rounded-md font-montserrat font-normal text-[#ffffff] text-[14px] outline-none">
-              {props.currency}
-            </div>
+            <div className="bg-[#202f45] px-3 py-2 rounded-md font-montserrat font-normal text-[#ffffff] text-[14px] outline-none">{props.currency}</div>
             <input
               type="text"
-              value={hourlyRateInput || ""}
+              value={hourlyRateInput === null ? "" : hourlyRateInput.toString()}
               onChange={e => {
                 const value = Number(e.target.value);
                 setHourlyRateInput(isNaN(value) ? null : value);
@@ -179,7 +193,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
             <div className="flex flex-row gap-2 items-center">
               <input
                 type="text"
-                value={customResponseTime || ""}
+                value={customResponseTime === null ? "" : customResponseTime.toString()}
                 onChange={e => {
                   const value = Number(e.target.value);
                   setCustomResponseTime(isNaN(value) ? null : value);

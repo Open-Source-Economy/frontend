@@ -8,6 +8,8 @@ import {
   OpenToOtherOpportunityType,
   ProjectItem,
   Service,
+  ServiceId,
+  DeveloperServiceTODOChangeName,
 } from "@open-source-economy/api-types";
 
 export enum OnboardingDataSteps {
@@ -44,8 +46,9 @@ export interface Step4State {
   comments: string;
 }
 
+// Corrected type for Step5State
 export interface Step5State {
-  services: [Service, DeveloperService][];
+  services: [Service, DeveloperServiceTODOChangeName | null][];
 }
 
 export interface Step6State {}
