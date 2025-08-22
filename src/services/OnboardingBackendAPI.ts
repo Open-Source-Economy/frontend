@@ -3,6 +3,7 @@ import { handleError } from "./index";
 import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
+import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   return new OnboardingBackendAPIImpl();
@@ -57,7 +58,8 @@ export interface OnboardingBackendAPI {
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError>;
 
   // Service management (Not developer services)
-  getServices(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError>;
+  // TODO: find a better place for this interface
+  getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<GetServiceHierarchyResponse | ApiError>;
 
   addDeveloperService(
     params: dto.AddDeveloperServiceParams,
@@ -175,8 +177,8 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  async getServices(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError> {
-    return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServices");
+  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError> {
+    return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServiceHierarchy");
   }
 
   async addDeveloperService(

@@ -6,7 +6,7 @@ import { getOnboardingBackendAPI } from "src/services";
 
 import Step1Profile from "./steps/step1/Step1Profile";
 import Step2Involvement from "./steps/step2/Step2Involvement";
-import Step5TasksPreferences from "./steps/steps5/Step5TasksPreferences";
+import Step5TasksPreferences from "./steps/steps5s/Step5TasksPreferences";
 import Step6Completion from "./steps/steps6/Step6Completion";
 
 import { paths } from "../../../../paths";

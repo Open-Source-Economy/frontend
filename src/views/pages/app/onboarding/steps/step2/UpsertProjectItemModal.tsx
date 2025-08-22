@@ -47,7 +47,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpsertProject = async () => {
-    if (!url || !selectedRoles || selectedRoles.length !== 1 || !selectedMergeRights || selectedMergeRights.length !== 0) {
+    if (!url || !selectedRoles || selectedRoles.length !== 1 || !selectedMergeRights || selectedMergeRights.length !== 1) {
       console.error("Please fill all required fields");
       return;
     }

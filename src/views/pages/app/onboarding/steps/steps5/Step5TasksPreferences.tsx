@@ -1,12 +1,3 @@
-import { OnboardingStepProps } from "../OnboardingStepProps";
-import { Step5State } from "../../OnboardingDataSteps";
-
-export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
-
-export default function Step5TasksPreferences(props: Step5InvolvementProps) {
-  return <>Not implemented</>;
-}
-
 // import React, { useState, useEffect } from "react";
 // import { OnboardingState } from "../OnboardingFlow";
 // import ProgressBar from "../components/ProgressBar";

@@ -61,8 +61,9 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = props => {
     };
 
     const onSuccess = () => {
-      setProjects(projects.filter(p => p[1].id.uuid !== projectId.uuid));
-      props.updateState({ projects: projects });
+      const updatedProjects = projects.filter(p => p[1].id.uuid !== projectId.uuid);
+      setProjects(updatedProjects);
+      props.updateState({ projects: updatedProjects });
     };
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
