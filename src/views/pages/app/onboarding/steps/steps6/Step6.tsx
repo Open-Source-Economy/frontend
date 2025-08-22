@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { paths } from "../../../../../../paths";
 import { laurianeCalDevLink } from "../../../../../data";
 
-export interface Step6CompletionProps extends OnboardingStepProps<Step6State> {}
+export interface Step6Props extends OnboardingStepProps<Step6State> {}
 
-export default function Step6Completion(props: Step6CompletionProps) {
+export default function Step6(props: Step6Props) {
   const navigate = useNavigate();
 
   const handleDashboard = () => {

@@ -10,9 +10,9 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { handleApiCall } from "../../../../../../ultils";
 
-type Step2InvolvementProps = OnboardingStepProps<Step2State>;
+type Step2Props = OnboardingStepProps<Step2State>;
 
-const Step2Involvement: React.FC<Step2InvolvementProps> = props => {
+const Step2: React.FC<Step2Props> = props => {
   const [showModal, setShowModal] = useState(false);
   const [projects, setProjects] = useState<[ProjectItem, DeveloperProjectItem][]>(props.state.projects);
   const [editingProject, setEditingProject] = useState<[ProjectItem, DeveloperProjectItem] | null>(null);
@@ -252,4 +252,4 @@ const Step2Involvement: React.FC<Step2InvolvementProps> = props => {
   );
 };
 
-export default Step2Involvement;
+export default Step2;

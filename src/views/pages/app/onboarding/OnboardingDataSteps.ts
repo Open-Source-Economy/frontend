@@ -37,11 +37,11 @@ export interface Step3State {
 
 export interface Step4State {
   // coming from DeveloperSettings
-  hourlyWeeklyCommitment: number;
-  openToOtherOpportunity: OpenToOtherOpportunityType;
-  hourlyRate: number;
-  currency: Currency;
-  comments: string;
+  hourlyWeeklyCommitment?: number;
+  openToOtherOpportunity?: OpenToOtherOpportunityType;
+  hourlyRate?: number;
+  currency?: Currency;
+  comments?: string;
 }
 
 // Corrected type for Step5State with the new projects property

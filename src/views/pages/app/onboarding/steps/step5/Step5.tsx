@@ -15,7 +15,7 @@ import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/d
 import { buildServiceCategories, groupDeveloperServicesByCategory } from "./utils";
 import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data";
 
-export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
+export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
 // --- Inline SVG Components ---
 const CloseIcon = () => (
@@ -36,7 +36,7 @@ interface ServiceCategory {
 }
 
 // --- Main Component ---
-export default function Step5Involvement(props: Step5InvolvementProps) {
+export default function Step5(props: Step5Props) {
   const defaultCurrency = Currency.GBP;
 
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);

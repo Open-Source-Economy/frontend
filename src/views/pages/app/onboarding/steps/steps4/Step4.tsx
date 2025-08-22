@@ -5,28 +5,8 @@ import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import ProgressBar from "../../components/ProgressBar";
-
-export declare enum Currency {
-  USD = "usd",
-  EUR = "eur",
-  GBP = "gbp",
-  CHF = "chf",
-}
-
-export declare enum OpenToOtherOpportunityType {
-  YES = "yes",
-  MAYBE = "maybe",
-  NO = "no",
-}
-
-// New state and props interfaces
-export interface Step4State {
-  hourlyWeeklyCommitment: number | null;
-  openToOtherOpportunity: OpenToOtherOpportunityType | null;
-  hourlyRate: number | null;
-  currency: Currency;
-  comments: string;
-}
+import { Step4State } from "../../OnboardingDataSteps";
+import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
@@ -46,8 +26,8 @@ interface FormErrors {
   comments?: string;
 }
 
-// --- Step4AvailabilityRate Component ---
-export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
+// --- Step4 Component ---
+export function Step4(props: Step4AvailabilityRateProps) {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -55,7 +35,7 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
 
   // Handlers now directly update the parent state
   const handleWeeklyHoursChange = (value: string) => {
-    const hours = value === "" ? null : Number(value);
+    const hours = value === "" ? undefined : Number(value);
     if (!isNaN(hours as number)) {
       props.updateState({ hourlyWeeklyCommitment: hours });
     }
@@ -68,7 +48,7 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
   };
 
   const handleHourlyRateChange = (value: string) => {
-    const rate = value === "" ? null : parseFloat(value);
+    const rate = value === "" ? undefined : parseFloat(value);
     if (!isNaN(rate as number)) {
       props.updateState({ hourlyRate: rate });
     }
@@ -88,7 +68,7 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (props.state.hourlyWeeklyCommitment === null || props.state.hourlyWeeklyCommitment < 0 || props.state.hourlyWeeklyCommitment > 168) {
+    if (props.state.hourlyWeeklyCommitment === null) {
       newErrors.weeklyHours = "Please enter a valid number of hours (0-168)";
     }
 
@@ -96,7 +76,7 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
       newErrors.largerOpportunities = "Please select an option";
     }
 
-    if (props.state.hourlyRate === null || props.state.hourlyRate < 0) {
+    if (props.state.hourlyRate === null) {
       newErrors.hourlyRate = "Please enter a valid rate";
     }
 
@@ -115,7 +95,7 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
         openToOtherOpportunity: props.state.openToOtherOpportunity!,
         openToOtherOpportunityComments: "TODO",
         hourlyRate: props.state.hourlyRate!,
-        currency: props.state.currency,
+        currency: props.state.currency!,
         hourlyRateComments: "TODO",
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};

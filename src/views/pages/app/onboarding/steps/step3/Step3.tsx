@@ -9,9 +9,9 @@ import { CloseIcon, FundingCard } from "./FundingCard";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 
-export interface Step3ActiveIncomeProps extends OnboardingStepProps<Step3State> {}
+export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
-export function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
+export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
 
   const [incomeStreams, setIncomeStreams] = useState<IncomeStreamType[]>(

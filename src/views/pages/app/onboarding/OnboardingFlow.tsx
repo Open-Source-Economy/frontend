@@ -4,9 +4,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
-import Step1Profile from "./steps/step1/Step1Profile";
-import Step2Involvement from "./steps/step2/Step2Involvement";
-import Step6Completion from "./steps/steps6/Step6Completion";
+import Step1 from "./steps/step1/Step1";
+import Step2 from "./steps/step2/Step2";
+import Step6 from "./steps/steps6/Step6";
 
 import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
@@ -15,8 +15,8 @@ import { PageLoader } from "../../../components/common";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
-import { Step3ActiveIncome } from "./steps/step3/Step3ActiveIncome";
-import { Step4AvailabilityRate } from "./steps/steps4/Step4AvailabilityRate";
+import { Step3 } from "./steps/step3/Step3";
+import { Step4 } from "./steps/steps4/Step4";
 
 const initialState: OnboardingState = {
   currentStep: OnboardingDataSteps.Step1,
@@ -60,7 +60,7 @@ export default function OnboardingFlow() {
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
 
   useEffect(() => {
-    // TODO: sam can you use the handleApiCall utility function here? I made an example in Step1Profile.tsx
+    // TODO: sam can you use the handleApiCall utility function here? I made an example in Step1.tsx
     async function initialStateSync(currentStep: OnboardingDataSteps) {
       setLoading(true);
       try {
@@ -151,25 +151,13 @@ export default function OnboardingFlow() {
   const renderCurrentStep = () => {
     switch (state.currentStep) {
       case OnboardingDataSteps.Step1:
-        return <Step1Profile currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
+        return <Step1 currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step2:
-        return (
-          <Step2Involvement currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />
-        );
+        return <Step2 currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step3:
-        return (
-          <Step3ActiveIncome currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />
-        );
+        return <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step4:
-        return (
-          <Step4AvailabilityRate
-            currentStep={state.currentStep}
-            state={state.step4}
-            updateState={updateStateData}
-            onNext={goToNextStep}
-            onBack={goToPrevStep}
-          />
-        );
+        return <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step5:
       // return (
       //   <Step5TasksPreferences
@@ -182,7 +170,7 @@ export default function OnboardingFlow() {
       // );
       case OnboardingDataSteps.Step6:
         return (
-          <Step6Completion
+          <Step6
             currentStep={state.currentStep}
             state={{}} // Step 6 has no data, so an empty object is passed
             updateState={updateStateData}
