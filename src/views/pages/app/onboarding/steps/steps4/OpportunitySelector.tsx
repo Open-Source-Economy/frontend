@@ -1,7 +1,6 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useState } from "react";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
-// Interface for the OpportunitySelector's ref
 export interface OpportunitySelectorRef {
   validate: () => boolean;
 }

@@ -168,7 +168,7 @@ export default function OnboardingFlow() {
         return (
           <Step6
             currentStep={state.currentStep}
-            state={{}} // Step 6 has no data, so an empty object is passed
+            state={{}}
             updateState={updateStateData}
             onNext={goToNextStep}
             onBack={goToPrevStep}
