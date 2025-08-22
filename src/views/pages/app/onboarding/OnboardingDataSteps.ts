@@ -46,6 +46,7 @@ export interface Step4State {
 
 // Corrected type for Step5State with the new projects property
 export interface Step5State {
+  currency?: Currency;
   developerServices: [Service, DeveloperServiceTODOChangeName | null][];
   developerProjectItems: [ProjectItem, DeveloperProjectItem][];
 }
@@ -82,13 +83,14 @@ export function transformFullDeveloperProfileToOnboardingState(currentStep: Onbo
     hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment || 0,
     openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO,
     hourlyRate: profile.settings?.hourlyRate || 0,
-    currency: profile.settings?.currency || Currency.USD,
+    currency: profile.settings?.currency,
     comments: "",
   };
 
   const step5: Step5State = {
+    currency: profile.settings?.currency,
     developerServices: profile.services || [],
-    developerProjectItems: profile.projects || [], // Initializing the new projects property from the profile
+    developerProjectItems: profile.projects || [],
   };
 
   const step6: Step6State = {};

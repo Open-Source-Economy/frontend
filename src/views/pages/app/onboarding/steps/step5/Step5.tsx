@@ -37,8 +37,6 @@ interface ServiceCategory {
 
 // --- Main Component ---
 export default function Step5(props: Step5Props) {
-  const defaultCurrency = Currency.GBP;
-
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
   const [projectItems, setProjectItems] = useState<[dto.ProjectItem, dto.DeveloperProjectItem][]>([]);
 
@@ -204,7 +202,7 @@ export default function Step5(props: Step5Props) {
                           <div className="flex flex-row gap-4 items-center">
                             <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
                               <p className="block leading-[1.5]">
-                                Hourly rate: {displayedCurrencies[defaultCurrency]?.symbol} {displayRate}
+                                Hourly rate: {displayedCurrencies[props.state.currency || Currency.USD]?.symbol} {displayRate}
                               </p>
                             </div>
                             {service.hasResponseTime && (
@@ -312,7 +310,7 @@ export default function Step5(props: Step5Props) {
           service={currentService[0]}
           developerService={currentService[1]}
           developerProjectItems={props.state.developerProjectItems}
-          currency={defaultCurrency}
+          currency={props.state.currency || Currency.USD}
           onClose={() => setShowUpsertDeveloperServiceModal(false)}
           onUpsertDeveloperService={handleUpdateTask}
           onBack={props.onBack}

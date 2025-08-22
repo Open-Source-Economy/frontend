@@ -17,6 +17,7 @@ import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3/Step3";
 import { Step4 } from "./steps/steps4/Step4";
+import Step5 from "./steps/step5/Step5";
 
 const initialState: OnboardingState = {
   currentStep: OnboardingDataSteps.Step1,
@@ -159,15 +160,7 @@ export default function OnboardingFlow() {
       case OnboardingDataSteps.Step4:
         return <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step5:
-      // return (
-      //   <Step5TasksPreferences
-      //     currentStep={state.currentStep}
-      //     state={state.step5}
-      //     updateState={updateStateData}
-      //     onNext={goToNextStep}
-      //     onBack={goToPrevStep}
-      //   />
-      // );
+        return <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step6:
         return (
           <Step6
