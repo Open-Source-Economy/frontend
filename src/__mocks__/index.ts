@@ -1,3 +1,4 @@
+import * as dto from "@open-source-economy/api-types";
 import {
   Company,
   CompanyId,
@@ -19,6 +20,7 @@ import {
 
 export * from "./BackendAPI.mock";
 export * from "./AuthBackendAPI.mock";
+export * from "./OnboardingBackendAPI.mock";
 
 export const ownerId = new OwnerId("Open-Source-Economy", 141809657);
 export const repositoryId = new RepositoryId(ownerId, "frontend", 701996033);
@@ -88,3 +90,61 @@ export const user = new User(userId, null, thirdPartyUser, UserRole.USER, undefi
 
 export const companyId = new CompanyId("141809657");
 export const company = new Company(companyId, "7324ry34r", "Open-Source-Economy");
+
+// --- Shared Service Data ---
+const devCategoryId = new dto.ServiceId("dev-category-id");
+const reviewCategoryId = new dto.ServiceId("review-category-id");
+
+const bugFixingServiceId = new dto.ServiceId("bug-fixing-service-id");
+const bugFixingService: dto.Service = {
+  id: bugFixingServiceId,
+  name: "Bug Fixing",
+  parentId: devCategoryId,
+  isCustom: false,
+  hasResponseTime: true,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+const featureImplService: dto.Service = {
+  id: new dto.ServiceId("feature-impl-service-id"),
+  name: "Feature Implementation",
+  parentId: devCategoryId,
+  isCustom: false,
+  hasResponseTime: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const serviceHierarchy: dto.ServiceHierarchyItem[] = [
+  {
+    service: { id: devCategoryId, name: "Development", isCustom: false, hasResponseTime: false, createdAt: new Date(), updatedAt: new Date(), parentId: undefined },
+    level: 0,
+    ancestors: [],
+  },
+  {
+    service: { id: reviewCategoryId, name: "Code Review", isCustom: false, hasResponseTime: false, createdAt: new Date(), updatedAt: new Date(), parentId: undefined },
+    level: 0,
+    ancestors: [],
+  },
+  {
+    service: bugFixingService,
+    level: 1,
+    ancestors: [devCategoryId],
+  },
+  {
+    service: featureImplService,
+    level: 1,
+    ancestors: [devCategoryId],
+  },
+];
+
+export const developerBugFixingService: [dto.Service, dto.DeveloperServiceTODOChangeName] = [
+  bugFixingService,
+  {
+    serviceId: bugFixingServiceId,
+    projectItemIds: [],
+    hourlyRate: 80,
+    responseTimeHours: 24,
+  },
+];
