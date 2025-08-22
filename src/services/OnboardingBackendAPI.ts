@@ -5,7 +5,12 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 
+import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
+
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
+  if (config.api.useMock) {
+    return new OnboardingBackendAPIMock();
+  }
   return new OnboardingBackendAPIImpl();
 }
 
