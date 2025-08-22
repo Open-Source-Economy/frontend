@@ -1,7 +1,6 @@
-import React, { useRef, forwardRef, useImperativeHandle, useState, Ref, useEffect } from "react";
+import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Currency } from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data"; // Adjust path as needed
-
 import { CurrencySelectInput } from "./CurrencySelectInput";
 import { GenericInputRef } from "../GenericInput"; // Adjust path as needed
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
-import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { IncomeStreamType } from "@open-source-economy/api-types";

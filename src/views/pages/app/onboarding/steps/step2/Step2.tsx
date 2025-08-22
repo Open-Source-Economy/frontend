@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItem, ProjectItem } from "@open-source-economy/api-types";

@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
+import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
-import ProgressBar from "../../components/ProgressBar";
 import { Step4State } from "../../OnboardingDataSteps";
-import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 import { HourlyRateInput, HourlyRateInputRef } from "../../../../../components/form/select/HourlyRateInput";
+import { OpportunitySelector, OpportunitySelectorRef } from "./OpportunitySelector";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
@@ -21,7 +21,6 @@ const CloseIcon = () => (
 // Interface for local state management within the component
 interface FormErrors {
   weeklyHours?: string;
-  largerOpportunities?: string;
   comments?: string;
 }
 
@@ -33,8 +32,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [forceFormValidation, setForceFormValidation] = useState(false); // State to trigger validation in children
 
-  // Ref for the HourlyRateInput component
   const hourlyRateInputRef = useRef<HourlyRateInputRef>(null);
+  const opportunitySelectorRef = useRef<OpportunitySelectorRef>(null);
 
   // Handlers now directly update the parent state
   const handleWeeklyHoursChange = (value: string) => {
@@ -47,7 +46,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   const handleLargerOpportunitiesChange = (value: OpenToOtherOpportunityType) => {
     props.updateState({ openToOtherOpportunity: value });
-    setErrors(prev => ({ ...prev, largerOpportunities: undefined }));
+    // OpportunitySelector manages its own internal errors, so no need to clear here
   };
 
   // HourlyRateInput now calls handleHourlyRateChange with the sanitized value directly
@@ -81,19 +80,20 @@ export function Step4(props: Step4AvailabilityRateProps) {
       isFormValid = false;
     }
 
-    // Validate Larger Opportunities
-    if (props.state.openToOtherOpportunity === null) {
-      newErrors.largerOpportunities = "Please select an option";
+    // Validate Larger Opportunities using OpportunitySelector's ref
+    const isOpportunitySelectorValid = opportunitySelectorRef.current?.validate() || false;
+    if (!isOpportunitySelectorValid) {
       isFormValid = false;
     }
 
+    // Validate Hourly Rate and Currency using HourlyRateInput's ref
     const isHourlyRateSectionValid = hourlyRateInputRef.current?.validate() || false;
     if (!isHourlyRateSectionValid) {
       isFormValid = false;
     }
 
-    setErrors(newErrors);
-    return isFormValid && isHourlyRateSectionValid;
+    setErrors(newErrors); // Update errors only for fields managed by Step4
+    return isFormValid && isOpportunitySelectorValid && isHourlyRateSectionValid;
   };
 
   const saveSettingsToDatabase = async (): Promise<boolean> => {
@@ -103,12 +103,12 @@ export function Step4(props: Step4AvailabilityRateProps) {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
         hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
-        hourlyWeeklyCommitmentComments: "TODO",
+        hourlyWeeklyCommitmentComments: "TODO sam",
         openToOtherOpportunity: props.state.openToOtherOpportunity!,
-        openToOtherOpportunityComments: "TODO",
+        openToOtherOpportunityComments: "TODO sam ",
         hourlyRate: props.state.hourlyRate!,
         currency: props.state.currency!,
-        hourlyRateComments: "TODO",
+        hourlyRateComments: "TODO sam ",
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
       return await onboardingAPI.setDeveloperServiceSettings(params, body, query);
@@ -213,48 +213,16 @@ export function Step4(props: Step4AvailabilityRateProps) {
               )}
             </div>
 
-            {/* Larger Opportunities Section */}
-            <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
-              <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
-                <p className="block leading-[1.3]">Larger Opportunities</p>
-              </div>
-              <div className="font-montserrat font-normal relative shrink-0 text-[#ffffff] text-[14px] text-left opacity-70">
-                <p className="block leading-[1.5]">Are you interested in taking on larger projects or full-time opportunities?</p>
-              </div>
-              <div className="box-border content-stretch flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-full">
-                <button
-                  onClick={() => handleLargerOpportunitiesChange(OpenToOtherOpportunityType.YES)}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    props.state.openToOtherOpportunity === OpenToOtherOpportunityType.YES
-                      ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-                      : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
-                >
-                  Yes
-                </button>
-                <button
-                  onClick={() => handleLargerOpportunitiesChange(OpenToOtherOpportunityType.MAYBE)}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    props.state.openToOtherOpportunity === OpenToOtherOpportunityType.MAYBE
-                      ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-                      : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
-                >
-                  Maybe
-                </button>
-                <button
-                  onClick={() => handleLargerOpportunitiesChange(OpenToOtherOpportunityType.NO)}
-                  className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-                    props.state.openToOtherOpportunity === OpenToOtherOpportunityType.NO
-                      ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-                      : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-                  }`}
-                >
-                  No
-                </button>
-              </div>
-              {errors.largerOpportunities && <div className="text-red-400 text-sm">{errors.largerOpportunities}</div>}
-            </div>
+            {/* Larger Opportunities Section - Now using OpportunitySelector */}
+            <OpportunitySelector
+              id="larger-opportunities-selector"
+              label="Larger Opportunities"
+              value={props.state.openToOtherOpportunity || null}
+              onChange={handleLargerOpportunitiesChange}
+              required={true}
+              forceValidate={forceFormValidation}
+              ref={opportunitySelectorRef}
+            />
 
             {/* Indicative Rate Section */}
             <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">

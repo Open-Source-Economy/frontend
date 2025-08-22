@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { Currency, Service, ServiceId } from "@open-source-economy/api-types";
+import { Service, ServiceId } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";

@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import ProgressBar from "../../components/ProgressBar";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
