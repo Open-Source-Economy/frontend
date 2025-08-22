@@ -1,5 +1,5 @@
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step5State } from "../OnboardingDataSteps";
+import { OnboardingStepProps } from "../OnboardingStepProps";
+import { Step5State } from "../../OnboardingDataSteps";
 
 export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
 
@@ -86,7 +86,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //   const [loadingServices, setLoadingServices] = useState(true);
 //   const [savingServices, setSavingServices] = useState(false);
 //
-//   // Modal states
+//   // UpsertProjectItemModal states
 //   const [showTaskSelectionModal, setShowTaskSelectionModal] = useState(false);
 //   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
 //   const [showSelectProjectsModal, setShowSelectProjectsModal] = useState(false);
@@ -681,7 +681,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         </div>
 //       </div>
 //
-//       {/* Task Selection Modal */}
+//       {/* Task Selection UpsertProjectItemModal */}
 //       {showTaskSelectionModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 //           <div className="bg-[#14233a] rounded-md p-6 w-[600px] max-h-[80vh] overflow-y-auto border border-[rgba(255,255,255,0.2)]">
@@ -766,7 +766,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         </div>
 //       )}
 //
-//       {/* Select Projects Modal */}
+//       {/* Select Projects UpsertProjectItemModal */}
 //       {showSelectProjectsModal && currentTaskForProjects && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 //           <div className="bg-[#14233a] rounded-md p-6 w-[500px] border border-[rgba(255,255,255,0.2)]">
@@ -938,7 +938,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         </div>
 //       )}
 //
-//       {/* Custom Service Modal */}
+//       {/* Custom Service UpsertProjectItemModal */}
 //       {showCustomServiceModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 //           <div className="bg-[#14233a] rounded-md p-6 w-[500px] border border-[rgba(255,255,255,0.2)]">
@@ -1017,7 +1017,7 @@ export default function Step5TasksPreferences(props: Step5InvolvementProps) {
 //         </div>
 //       )}
 //
-//       {/* Incident Response Modal */}
+//       {/* Incident Response UpsertProjectItemModal */}
 //       {showIncidentResponseModal && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 //           <div className="bg-[#14233a] rounded-md p-6 w-[500px] border border-[rgba(255,255,255,0.2)]">

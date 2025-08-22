@@ -1,5 +1,5 @@
-import { OnboardingStepProps } from "./OnboardingStepProps";
-import { Step6State } from "../OnboardingDataSteps";
+import { OnboardingStepProps } from "../OnboardingStepProps";
+import { Step6State } from "../../OnboardingDataSteps";
 
 export interface Step6CompletionProps extends OnboardingStepProps<Step6State> {}
 

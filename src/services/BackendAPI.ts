@@ -8,7 +8,7 @@ import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
 import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { getSponsors } from "../services/data/sponsors";
+import { getSponsors } from "./data/sponsors";
 import { SponsorDescription } from "../model";
 import { getProjectAccordion } from "./data/accordions/getAccordions";
 

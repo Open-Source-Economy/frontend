@@ -4,19 +4,20 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
-import Step1Profile from "./steps/Step1Profile";
-import Step2Involvement from "./steps/Step2Involvement";
-import Step3ActiveIncome from "./steps/Step3ActiveIncome";
-import Step4AvailabilityRate from "./steps/Step4AvailabilityRate";
-import Step5TasksPreferences from "./steps/Step5TasksPreferences";
-import Step6Completion from "./steps/Step6Completion";
+import Step1Profile from "./steps/step1/Step1Profile";
+import Step2Involvement from "./steps/step2/Step2Involvement";
+import Step5TasksPreferences from "./steps/steps5/Step5TasksPreferences";
+import Step6Completion from "./steps/steps6/Step6Completion";
 
 import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
+import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Step3ActiveIncome } from "./steps/step3/Step3ActiveIncome";
+import { Step4AvailabilityRate } from "./steps/steps4/Step4AvailabilityRate";
 
 const initialState: OnboardingState = {
   currentStep: OnboardingDataSteps.Step1,
@@ -63,7 +64,9 @@ export default function OnboardingFlow() {
     async function initialStateSync(currentStep: OnboardingDataSteps) {
       setLoading(true);
       try {
-        const response = await onboardingAPI.getDeveloperProfile();
+        const params: dto.GetDeveloperProfileParams = {};
+        const query: dto.GetDeveloperProfileQuery = {};
+        const response = await onboardingAPI.getDeveloperProfile(params, query);
         if (response instanceof ApiError) {
           setError(response);
           return;
