@@ -111,9 +111,12 @@ export function Step4AvailabilityRate(props: Step4AvailabilityRateProps) {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
         hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
+        hourlyWeeklyCommitmentComments: "TODO",
         openToOtherOpportunity: props.state.openToOtherOpportunity!,
+        openToOtherOpportunityComments: "TODO",
         hourlyRate: props.state.hourlyRate!,
         currency: props.state.currency,
+        hourlyRateComments: "TODO",
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
       return await onboardingAPI.setDeveloperServiceSettings(params, body, query);

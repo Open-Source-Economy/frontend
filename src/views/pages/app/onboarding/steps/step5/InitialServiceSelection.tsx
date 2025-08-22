@@ -15,7 +15,7 @@ interface ServiceCategory {
 interface InitialServiceSelectionProps {
   serviceCategories: ServiceCategory[];
   onClose: () => void;
-  onAddServices: (serviceIds: dto.ServiceId[]) => void;
+  onAddInitialServices: (serviceIds: dto.ServiceId[]) => void;
   isLoading: boolean;
 }
 
@@ -37,7 +37,7 @@ export default function InitialServiceSelection(props: InitialServiceSelectionPr
 
   const handleAddSelectedTasks = () => {
     const serviceIds = selectedServices.map(service => service.id);
-    props.onAddServices(serviceIds);
+    props.onAddInitialServices(serviceIds);
   };
 
   return (
@@ -45,7 +45,7 @@ export default function InitialServiceSelection(props: InitialServiceSelectionPr
       <div className="bg-[#14233a] rounded-md p-6 w-[600px] max-h-[80vh] overflow-y-auto border border-[rgba(255,255,255,0.2)]">
         <div className="flex flex-row gap-4 items-center justify-between mb-6">
           <div className="font-michroma not-italic text-[#ffffff] text-[25px] text-left">
-            <p className="block leading-[1.3]">Add Task</p>
+            <p className="block leading-[1.3]">Add Service</p>
           </div>
           <button onClick={props.onClose} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
             <CloseIcon />

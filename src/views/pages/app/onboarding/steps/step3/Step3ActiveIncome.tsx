@@ -140,7 +140,7 @@ export function Step3ActiveIncome(props: Step3ActiveIncomeProps) {
                       <p className="block leading-[1.2]">2.</p>
                     </div>
                     <div className="relative shrink-0 text-[20px] w-full">
-                      <p className="block leading-[1.2]">Companies subscribe to monthly hours or request one-off tasks.</p>
+                      <p className="block leading-[1.2]">Companies subscribe to monthly hours or request one-off developerServices.</p>
                     </div>
                   </div>
                 </div>
