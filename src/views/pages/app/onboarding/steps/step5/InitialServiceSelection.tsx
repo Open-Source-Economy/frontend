@@ -20,20 +20,24 @@ interface InitialServiceSelectionProps {
 }
 
 export default function InitialServiceSelection(props: InitialServiceSelectionProps) {
-  const [selectedServices, setSelectedServices] = useState<dto.ServiceId[]>([]);
+  const [selectedServices, setSelectedServices] = useState<dto.Service[]>([]);
 
   const handleServiceSelection = (service: dto.Service) => {
     setSelectedServices(prev => {
-      if (prev.some(s => s.uuid === service.id.uuid)) {
-        return prev.filter(s => s.uuid !== service.id.uuid);
+      // Check if the service is already selected based on its UUID
+      if (prev.some(s => s.id.uuid === service.id.uuid)) {
+        // If it is, filter it out to deselect it
+        return prev.filter(s => s.id.uuid !== service.id.uuid);
       } else {
+        // Otherwise, add the new service to the list
         return [...prev, service];
       }
     });
   };
 
   const handleAddSelectedTasks = () => {
-    setSelectedServices(selectedServices);
+    const serviceIds = selectedServices.map(service => service.id);
+    props.onAddServices(serviceIds);
   };
 
   return (
@@ -59,7 +63,7 @@ export default function InitialServiceSelection(props: InitialServiceSelectionPr
                   <p className="block leading-[1.5]">{category.service.name}</p>
                 </div>
                 {category.services.map(service => {
-                  const isSelected = selectedServices.some(s => s.uuid === service.id.uuid);
+                  const isSelected = selectedServices.some(s => s.id.uuid === service.id.uuid);
                   return (
                     <div
                       key={service.id.uuid}

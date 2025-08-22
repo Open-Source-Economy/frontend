@@ -7,7 +7,6 @@ import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
 import InitialServiceSelection from "./InitialServiceSelection";
-import SelectProjectsModal from "./SelectProjectsModal";
 import { Step5State } from "../../OnboardingDataSteps";
 import { Currency } from "@open-source-economy/api-types";
 
@@ -55,7 +54,7 @@ const buildServiceCategories = (items: dto.ServiceHierarchyItem[]): ServiceCateg
 
 // --- Main Component ---
 export default function Step5Involvement(props: Step5InvolvementProps) {
-  const currency = Currency.GBP // TODO: lolo should be imported from developer profile settings
+  const currency = Currency.GBP; // TODO: lolo should be imported from developer profile settings
   const { state, updateState, onNext, onBack, currentStep } = props;
 
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
@@ -74,15 +73,15 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
     const fetchInitialData = async () => {
       setIsLoading(true);
       const apiCall = async () => {
-        const params: dto.GetServiceHierarchyParams= {}
-        const query: dto.GetServiceHierarchyQuery= {}
+        const params: dto.GetServiceHierarchyParams = {};
+        const query: dto.GetServiceHierarchyQuery = {};
         return await api.getServiceHierarchy(params, query);
       };
 
       const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
         const categories = buildServiceCategories(response.items);
         setServiceCategories(categories);
-      }
+      };
 
       await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
     };
@@ -90,10 +89,11 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
     fetchInitialData();
   }, []);
 
-  const handleAddTasks = (newTasks: [dto.Service, dto.DeveloperService][]) => {
-    const updatedServices = [...state.services, ...newTasks];
-    updateState({ services: updatedServices });
-    setShowTaskSelectionModal(false);
+  const onAddServiceIds = (serviceIds: dto.ServiceId[]) => {
+    // TODO: to implement
+    // const updatedServices = [...state.services, ...newTasks];
+    // updateState({ services: updatedServices });
+    // setShowTaskSelectionModal(false);
   };
 
   const handleRemoveTask = (devServiceId: string) => {
@@ -107,9 +107,7 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
   };
 
   const handleUpdateTask = (updatedDevService: dto.DeveloperService) => {
-    const updatedServices = state.services.map(s =>
-      s[1].id.uuid === updatedDevService.id.uuid ? [s[0], updatedDevService] : s
-    );
+    const updatedServices = state.services.map(s => (s[1].id.uuid === updatedDevService.id.uuid ? [s[0], updatedDevService] : s));
     updateState({ services: updatedServices as [dto.Service, dto.DeveloperService][] });
     setShowSelectProjectsModal(false);
     setCurrentService(null);
@@ -145,15 +143,16 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
     return currency;
   };
 
-  const groupedTasks = serviceCategories.reduce((acc, category) => {
-    const tasksInCategory = state.services.filter(s =>
-      category.services.some(child => child.id.uuid === s[0].id.uuid)
-    );
-    if (tasksInCategory.length > 0) {
-      acc.push({ category: category.service.name, tasks: tasksInCategory });
-    }
-    return acc;
-  }, [] as { category: string; tasks: [dto.Service, dto.DeveloperService][] }[]);
+  const groupedTasks = serviceCategories.reduce(
+    (acc, category) => {
+      const tasksInCategory = state.services.filter(s => category.services.some(child => child.id.uuid === s[0].id.uuid));
+      if (tasksInCategory.length > 0) {
+        acc.push({ category: category.service.name, tasks: tasksInCategory });
+      }
+      return acc;
+    },
+    [] as { category: string; tasks: [dto.Service, dto.DeveloperService][] }[],
+  );
 
   return (
     <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
@@ -176,17 +175,21 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
                     ? [projectItems.find(p => p[1].id.uuid === devService.projectItemId.uuid)?.[0].sourceIdentifier || devService.projectItemId.uuid]
                     : [];
 
-                  const projectsDisplay = projectNames.length > 0
-                    ? projectNames.length > 5
-                      ? `${projectNames.slice(0, 5).join(" | ")} | +${projectNames.length - 5} more...`
-                      : projectNames.join(" | ")
-                    : "No projects selected";
+                  const projectsDisplay =
+                    projectNames.length > 0
+                      ? projectNames.length > 5
+                        ? `${projectNames.slice(0, 5).join(" | ")} | +${projectNames.length - 5} more...`
+                        : projectNames.join(" | ")
+                      : "No projects selected";
 
                   const displayRate = devService.hourlyRate || 100;
                   const currencySymbol = getCurrencySymbol(currency || dto.Currency.EUR);
 
                   return (
-                    <div key={devService.id.uuid} className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full">
+                    <div
+                      key={devService.id.uuid}
+                      className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full"
+                    >
                       <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
                         <div className="flex-1">
                           <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left mb-1">
@@ -296,22 +299,22 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
         <InitialServiceSelection
           serviceCategories={serviceCategories}
           onClose={() => setShowTaskSelectionModal(false)}
-          onAddServices={handleAddTasks}
+          onAddServices={onAddServiceIds}
           isLoading={isLoading}
         />
       )}
 
-      {showSelectProjectsModal && currentService && (
-        <SelectProjectsModal
-          service={currentService[0]}
-          developerService={currentService[1]}
-          availableProjects={projectItems}
-          onClose={() => setShowSelectProjectsModal(false)}
-          onUpdateTask={handleUpdateTask}
-          onBack={onBack}
-          isLoading={isLoading}
-        />
-      )}
+      {/*{showSelectProjectsModal && currentService && (*/}
+      {/*  <SelectProjectsModal*/}
+      {/*    service={currentService[0]}*/}
+      {/*    developerService={currentService[1]}*/}
+      {/*    developerProjectItems={projectItems}*/}
+      {/*    onClose={() => setShowSelectProjectsModal(false)}*/}
+      {/*    onUpsertDeveloperService={handleUpdateTask}*/}
+      {/*    onBack={onBack}*/}
+      {/*    isLoading={isLoading}*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
 }

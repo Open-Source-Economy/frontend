@@ -6,7 +6,6 @@ import { getOnboardingBackendAPI } from "src/services";
 
 import Step1Profile from "./steps/step1/Step1Profile";
 import Step2Involvement from "./steps/step2/Step2Involvement";
-import Step5TasksPreferences from "./steps/steps5s/Step5TasksPreferences";
 import Step6Completion from "./steps/steps6/Step6Completion";
 
 import { paths } from "../../../../paths";
@@ -171,15 +170,15 @@ export default function OnboardingFlow() {
           />
         );
       case OnboardingDataSteps.Step5:
-        return (
-          <Step5TasksPreferences
-            currentStep={state.currentStep}
-            state={state.step5}
-            updateState={updateStateData}
-            onNext={goToNextStep}
-            onBack={goToPrevStep}
-          />
-        );
+      // return (
+      //   <Step5TasksPreferences
+      //     currentStep={state.currentStep}
+      //     state={state.step5}
+      //     updateState={updateStateData}
+      //     onNext={goToNextStep}
+      //     onBack={goToPrevStep}
+      //   />
+      // );
       case OnboardingDataSteps.Step6:
         return (
           <Step6Completion
