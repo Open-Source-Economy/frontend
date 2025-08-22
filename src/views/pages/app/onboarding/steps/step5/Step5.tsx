@@ -311,7 +311,7 @@ export default function Step5(props: Step5Props) {
         <SelectProjectsModal
           service={currentService[0]}
           developerService={currentService[1]}
-          developerProjectItems={props.state.developerProjectItems.map(p => p[1])}
+          developerProjectItems={props.state.developerProjectItems}
           currency={defaultCurrency}
           onClose={() => setShowUpsertDeveloperServiceModal(false)}
           onUpsertDeveloperService={handleUpdateTask}

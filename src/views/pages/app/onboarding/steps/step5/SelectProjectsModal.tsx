@@ -4,6 +4,7 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { handleApiCall } from "../../../../../../ultils";
 import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
+import { ProjectItemIdCompanion } from "../../../../../data";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +26,7 @@ const GitHubIcon = () => (
 interface SelectProjectsModalProps {
   service: dto.Service;
   developerService: DeveloperServiceTODOChangeName | null;
-  developerProjectItems: dto.DeveloperProjectItem[];
+  developerProjectItems: [dto.ProjectItem, dto.DeveloperProjectItem][];
   currency: dto.Currency;
   onClose: () => void;
   onUpsertDeveloperService: (developerService: DeveloperServiceTODOChangeName) => void;
@@ -125,7 +126,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                 </button>
               </div>
             ) : (
-              props.developerProjectItems.map(developerProjectItem => {
+              props.developerProjectItems.map(([projectItem, developerProjectItem]) => {
                 const isSelected = selectedProjectItemIds.some(id => id.uuid === developerProjectItem.id.uuid);
                 return (
                   <div key={developerProjectItem.id.uuid} className="flex flex-row gap-2 items-center mb-2">
@@ -154,8 +155,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                       <div className="flex flex-row gap-2 items-center">
                         <GitHubIcon />
                         <span className="font-montserrat font-normal text-[#ffffff] text-[14px]">
-                          {/*TODO: lolo */}
-                          {/*{developerProjectItem.sourceIdentifier || developerProjectItem.id.uuid}*/}
+                          {ProjectItemIdCompanion.displayName(projectItem.sourceIdentifier)}
                         </span>
                       </div>
                     </label>

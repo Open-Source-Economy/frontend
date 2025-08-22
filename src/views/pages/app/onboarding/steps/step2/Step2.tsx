@@ -9,6 +9,7 @@ import { UpsertProjectItemModal } from "./UpsertProjectItemModal";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { handleApiCall } from "../../../../../../ultils";
+import { ProjectItemIdCompanion } from "../../../../../data";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
@@ -150,12 +151,7 @@ const Step2: React.FC<Step2Props> = props => {
                       className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2"
                     >
                       <div className="flex-[2] font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                        <p>
-                          {/*{(() => {*/}
-                          {/* const repoInfo = extractGitHubRepoInfo(String(projectItem.sourceIdentifier)); // TODO: refactor*/}
-                          {/* return repoInfo ? `${repoInfo.owner}/${repoInfo.repo}` : String(projectItem.sourceIdentifier);*/}
-                          {/*})()}*/}
-                        </p>
+                        <p>{ProjectItemIdCompanion.displayName(projectItem.sourceIdentifier)}</p>
                       </div>
                       <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
                         <p>{developerProjectItem.roles[0] || "No role"}</p>
