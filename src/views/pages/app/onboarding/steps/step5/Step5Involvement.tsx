@@ -9,6 +9,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import InitialServiceSelection from "./InitialServiceSelection";
 import { Step5State } from "../../OnboardingDataSteps";
 import { Currency } from "@open-source-economy/api-types";
+import SelectProjectsModal from "./SelectProjectsModal";
 
 export interface Step5InvolvementProps extends OnboardingStepProps<Step5State> {}
 
@@ -126,7 +127,7 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
           hourlyRate: devService.hourlyRate,
           responseTimeHours: devService.responseTimeHours || undefined,
         };
-        const result = await api.addDeveloperService({}, body, {});
+        const result = await api.upsertDeveloperService({}, body, {});
         if (result instanceof ApiError) throw result;
       }
       return await api.completeOnboarding({}, {}, {});
@@ -304,17 +305,17 @@ export default function Step5Involvement(props: Step5InvolvementProps) {
         />
       )}
 
-      {/*{showSelectProjectsModal && currentService && (*/}
-      {/*  <SelectProjectsModal*/}
-      {/*    service={currentService[0]}*/}
-      {/*    developerService={currentService[1]}*/}
-      {/*    developerProjectItems={projectItems}*/}
-      {/*    onClose={() => setShowSelectProjectsModal(false)}*/}
-      {/*    onUpsertDeveloperService={handleUpdateTask}*/}
-      {/*    onBack={onBack}*/}
-      {/*    isLoading={isLoading}*/}
-      {/*  />*/}
-      {/*)}*/}
+      {showSelectProjectsModal && currentService && (
+        <SelectProjectsModal
+          service={currentService[0]}
+          developerService={currentService[1]}
+          developerProjectItems={projectItems}
+          onClose={() => setShowSelectProjectsModal(false)}
+          onUpsertDeveloperService={handleUpdateTask}
+          onBack={onBack}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 }

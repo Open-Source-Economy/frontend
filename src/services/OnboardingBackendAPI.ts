@@ -61,17 +61,11 @@ export interface OnboardingBackendAPI {
   // TODO: find a better place for this interface
   getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<GetServiceHierarchyResponse | ApiError>;
 
-  addDeveloperService(
-    params: dto.AddDeveloperServiceParams,
-    body: dto.AddDeveloperServiceBody,
-    query: dto.AddDeveloperServiceQuery,
-  ): Promise<dto.AddDeveloperServiceResponse | ApiError>;
-
-  updateDeveloperService(
-    params: dto.UpdateDeveloperServiceParams,
-    body: dto.UpdateDeveloperServiceBody,
-    query: dto.UpdateDeveloperServiceQuery,
-  ): Promise<dto.UpdateDeveloperServiceResponse | ApiError>;
+  upsertDeveloperService(
+    params: dto.UpsertDeveloperServiceParams,
+    body: dto.UpsertDeveloperServiceBody,
+    query: dto.UpsertDeveloperServiceQuery,
+  ): Promise<dto.UpsertDeveloperServiceResponse | ApiError>;
 
   deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
@@ -181,25 +175,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServiceHierarchy");
   }
 
-  async addDeveloperService(
-    params: dto.AddDeveloperServiceParams,
-    body: dto.AddDeveloperServiceBody,
-    query: dto.AddDeveloperServiceQuery,
-  ): Promise<dto.AddDeveloperServiceResponse | ApiError> {
-    return handleError<dto.AddDeveloperServiceResponse>(
+  async upsertDeveloperService(
+    params: dto.UpsertDeveloperServiceParams,
+    body: dto.UpsertDeveloperServiceBody,
+    query: dto.UpsertDeveloperServiceQuery,
+  ): Promise<dto.UpsertDeveloperServiceResponse | ApiError> {
+    return handleError<dto.UpsertDeveloperServiceResponse>(
       () => axios.post(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
-      "addDeveloperService",
-    );
-  }
-
-  async updateDeveloperService(
-    params: dto.UpdateDeveloperServiceParams,
-    body: dto.UpdateDeveloperServiceBody,
-    query: dto.UpdateDeveloperServiceQuery,
-  ): Promise<dto.UpdateDeveloperServiceResponse | ApiError> {
-    return handleError<dto.UpdateDeveloperServiceResponse>(
-      () => axios.put(`${config.api.url}/onboarding/services/${body.id}`, body, { withCredentials: true, params: query }),
-      "updateDeveloperService",
+      "upsertDeveloperService",
     );
   }
 
