@@ -1,5 +1,5 @@
 import React, { forwardRef, Ref, SelectHTMLAttributes, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { GenericInputRef } from "../GenericInput"; // Import GenericInputRef
+import { GenericInputRef } from "../GenericInput";
 
 interface SelectOption {
   value: string;
@@ -7,6 +7,7 @@ interface SelectOption {
 }
 
 interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  id: string; // Add id to props to ensure aria-labelledby works
   label: string;
   options: SelectOption[];
   required?: boolean;
@@ -19,7 +20,7 @@ export const SelectInput = forwardRef(function SelectInput(
   props: SelectInputProps,
   ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
 ) {
-  const { label, options, required, value, onChange, className, forceValidate, ...rest } = props;
+  const { id, label, options, required, value, onChange, className, forceValidate, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
@@ -113,7 +114,9 @@ export const SelectInput = forwardRef(function SelectInput(
       <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
-            <p className="block leading-[1.5] whitespace-pre">
+            <p id={`${id}-label`} className="block leading-[1.5] whitespace-pre">
+              {" "}
+              {/* Added ID for accessibility */}
               {label} {required && <span className="text-red-500">*</span>}
             </p>
           </div>
@@ -130,12 +133,11 @@ export const SelectInput = forwardRef(function SelectInput(
               setInternalError(undefined);
             }
           }}
-          // No direct onBlur on this div if we handle it on the overall wrapper click outside
           tabIndex={0} // Make div focusable for accessibility
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded={showDropdown}
-          aria-labelledby={`${props.id}-label`}
+          aria-labelledby={`${id}-label`}
         >
           <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">{selectedOptionLabel}</span>
           {/* Dropdown arrow icon (using a simple caret) */}

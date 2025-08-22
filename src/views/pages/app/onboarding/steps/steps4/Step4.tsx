@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
@@ -7,7 +7,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import ProgressBar from "../../components/ProgressBar";
 import { Step4State } from "../../OnboardingDataSteps";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
-import { displayedCurrencies } from "../../../../../data";
+import { HourlyRateInput, HourlyRateInputRef } from "../../../../../components/form/select/HourlyRateInput";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
@@ -22,8 +22,6 @@ const CloseIcon = () => (
 interface FormErrors {
   weeklyHours?: string;
   largerOpportunities?: string;
-  hourlyRate?: string;
-  currency?: string;
   comments?: string;
 }
 
@@ -33,6 +31,10 @@ export function Step4(props: Step4AvailabilityRateProps) {
   const [errors, setErrors] = useState<FormErrors>({});
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [forceFormValidation, setForceFormValidation] = useState(false); // State to trigger validation in children
+
+  // Ref for the HourlyRateInput component
+  const hourlyRateInputRef = useRef<HourlyRateInputRef>(null);
 
   // Handlers now directly update the parent state
   const handleWeeklyHoursChange = (value: string) => {
@@ -48,17 +50,19 @@ export function Step4(props: Step4AvailabilityRateProps) {
     setErrors(prev => ({ ...prev, largerOpportunities: undefined }));
   };
 
+  // HourlyRateInput now calls handleHourlyRateChange with the sanitized value directly
   const handleHourlyRateChange = (value: string) => {
     const rate = value === "" ? undefined : parseFloat(value);
     if (!isNaN(rate as number)) {
       props.updateState({ hourlyRate: rate });
     }
-    setErrors(prev => ({ ...prev, hourlyRate: undefined }));
+    // HourlyRateInput manages its own internal errors, so no need to clear here
   };
 
+  // CurrencySelectInput (inside HourlyRateInput) calls handleCurrencyChange directly
   const handleCurrencyChange = (value: Currency) => {
     props.updateState({ currency: value });
-    setErrors(prev => ({ ...prev, currency: undefined }));
+    // CurrencySelectInput manages its own internal errors, so no need to clear here
   };
 
   const handleCommentsChange = (value: string) => {
@@ -68,21 +72,28 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
+    let isFormValid = true;
 
-    if (props.state.hourlyWeeklyCommitment === null) {
+    // Validate Weekly Commitment
+    if (props.state.hourlyWeeklyCommitment === null /* || props.state.hourlyWeeklyCommitment < 0 || props.state.hourlyWeeklyCommitment > 168*/) {
+      // TODO: sam
       newErrors.weeklyHours = "Please enter a valid number of hours (0-168)";
+      isFormValid = false;
     }
 
+    // Validate Larger Opportunities
     if (props.state.openToOtherOpportunity === null) {
       newErrors.largerOpportunities = "Please select an option";
+      isFormValid = false;
     }
 
-    if (props.state.hourlyRate === null) {
-      newErrors.hourlyRate = "Please enter a valid rate";
+    const isHourlyRateSectionValid = hourlyRateInputRef.current?.validate() || false;
+    if (!isHourlyRateSectionValid) {
+      isFormValid = false;
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return isFormValid && isHourlyRateSectionValid;
   };
 
   const saveSettingsToDatabase = async (): Promise<boolean> => {
@@ -113,6 +124,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
   };
 
   const handleNext = async () => {
+    setForceFormValidation(true); // Force child components to show validation errors
     if (validateForm()) {
       const success = await saveSettingsToDatabase();
       if (success) {
@@ -192,7 +204,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
                     </button>
                   </div>
                   <textarea
-                    value={props.state.comments}
+                    value={props.state.comments || ""} // Ensure controlled component
                     onChange={e => handleCommentsChange(e.target.value)}
                     placeholder="e.g., I'm available on weekends, prefer morning hours, etc."
                     className="w-full h-24 bg-[#14233a] px-3 py-2 font-montserrat font-normal text-[#ffffff] text-[14px] rounded-md outline-none placeholder:opacity-60 resize-none"
@@ -253,32 +265,14 @@ export function Step4(props: Step4AvailabilityRateProps) {
                 <p className="block leading-[1.5]">What's your preferred hourly rate for open source work?</p>
               </div>
 
-              {/*displayedCurrencies[props.state.currency]?.symbol*/}
-              <div className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-                {/*TODO: refactor */}
-                <select
-                  value={props.state.currency}
-                  onChange={e => handleCurrencyChange(e.target.value as Currency)}
-                  className="bg-[#202f45] px-4 py-3 rounded-md font-montserrat font-normal text-[#ffffff] text-[16px] outline-none cursor-pointer hover:bg-[#2a3f56] transition-colors"
-                >
-                  <option value={Currency.USD}>USD</option>
-                  <option value={Currency.EUR}>EUR</option>
-                  <option value={Currency.GBP}>GBP</option>
-                  <option value={Currency.CHF}>CHF</option>
-                </select>
-                <div className="bg-[#202f45] box-border flex flex-row gap-2 items-center justify-between px-4 py-3 relative rounded-md w-[150px]">
-                  <span className="font-montserrat font-normal text-[#ffffff] text-[16px] opacity-60">$</span>
-                  <input
-                    type="text"
-                    value={props.state.hourlyRate === null ? "" : props.state.hourlyRate}
-                    onChange={e => handleHourlyRateChange(e.target.value)}
-                    placeholder="0"
-                    className="w-full bg-transparent font-montserrat font-normal text-[#ffffff] text-[16px] text-center outline-none placeholder:opacity-60"
-                  />
-                  <span className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-60">/hr</span>
-                </div>
-              </div>
-              {errors.hourlyRate && <div className="text-red-400 text-sm">{errors.hourlyRate}</div>}
+              {/* Refactored to use HourlyRateInput */}
+              <HourlyRateInput
+                state={{ currency: props.state.currency!, hourlyRate: props.state.hourlyRate || null }}
+                handleCurrencyChange={handleCurrencyChange}
+                handleHourlyRateChange={handleHourlyRateChange}
+                forceValidate={forceFormValidation}
+                ref={hourlyRateInputRef} // Pass the ref to HourlyRateInput
+              />
             </div>
           </div>
 
@@ -297,7 +291,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
               onClick={handleNext}
               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105"
             >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
+              <div className="font-michroma leading-[1.5] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
                 <p className="block leading-[1.5] whitespace-pre">Next</p>
               </div>
             </button>
