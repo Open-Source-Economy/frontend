@@ -54,10 +54,7 @@ export function Step3(props: Step3Props) {
   };
 
   return (
-    <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
-      {/* Progress Bar */}
-      <ProgressBar currentStep={props.currentStep} />
-
+    <div>
       {/* Form Content */}
       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[700px]">

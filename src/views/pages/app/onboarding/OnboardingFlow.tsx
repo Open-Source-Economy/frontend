@@ -19,6 +19,7 @@ import { Step3 } from "./steps/step3/Step3";
 import { Step4 } from "./steps/steps4/Step4";
 import Step5 from "./steps/step5/Step5";
 import { PreferredCurrency } from "../../../../ultils/PreferredCurrency";
+import ProgressBar from "./components/ProgressBar";
 
 const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
@@ -181,7 +182,19 @@ export default function OnboardingFlow() {
 
   return (
     <PageWrapper>
-      <div className="bg-[#0e1f35] min-h-screen">{loading ? <PageLoader message="Loading onboarding steps..." /> : renderCurrentStep()}</div>
+      {/* Corrected: The outer curly brace for the conditional rendering was missing. */}
+      <div className="bg-[#0e1f35] min-h-screen">
+        {loading ? (
+          <PageLoader message="Loading onboarding steps..." />
+        ) : (
+          <>
+            <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
+              <ProgressBar currentStep={state.currentStep} />
+              {renderCurrentStep()}
+            </div>
+          </>
+        )}
+      </div>
     </PageWrapper>
   );
 }

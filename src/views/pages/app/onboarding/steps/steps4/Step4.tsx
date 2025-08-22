@@ -7,6 +7,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import ProgressBar from "../../components/ProgressBar";
 import { Step4State } from "../../OnboardingDataSteps";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { displayedCurrencies } from "../../../../../data";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
@@ -121,10 +122,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
   };
 
   return (
-    <div className="bg-[#0e1f35] box-border content-stretch flex flex-col gap-[50px] items-center justify-start pt-[80px] pb-0 px-0 relative size-full">
-      {/* Progress Bar */}
-      <ProgressBar currentStep={props.currentStep} />
-
+    <div>
       {/* Form Content */}
       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
@@ -254,6 +252,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
               <div className="font-montserrat font-normal relative shrink-0 text-[#ffffff] text-[14px] text-left opacity-70">
                 <p className="block leading-[1.5]">What's your preferred hourly rate for open source work?</p>
               </div>
+
+              {/*displayedCurrencies[props.state.currency]?.symbol*/}
               <div className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
                 {/*TODO: refactor */}
                 <select

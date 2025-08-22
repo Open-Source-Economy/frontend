@@ -71,11 +71,7 @@ const Step2: React.FC<Step2Props> = props => {
   };
 
   return (
-    <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
-      {/* Progress Bar */}
-      <ProgressBar currentStep={props.currentStep} />
-
-      {/* Form Content */}
+    <div>
       <div className="box-border content-stretch flex flex-col gap-8 items-center justify-start px-[200px] py-0 relative shrink-0 w-full">
         <div className="box-border content-stretch flex flex-col gap-12 items-center justify-center p-0 relative shrink-0 w-full">
           {/* Section Title */}
