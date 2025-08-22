@@ -2,6 +2,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step6State } from "../../OnboardingDataSteps";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../../../../../../paths";
+import { laurianeCalDevLink } from "../../../../../data";
 
 export interface Step6CompletionProps extends OnboardingStepProps<Step6State> {}
 
@@ -14,10 +15,10 @@ export default function Step6Completion(props: Step6CompletionProps) {
 
   const handleBookMeeting = () => {
     // Open calendar booking link in new tab
-    window.open("https://cal.com/open-source-economy/oss-dev-30min", "_blank");
+    window.open(laurianeCalDevLink, "_blank");
     // Also navigate to dashboard after opening the booking link
     setTimeout(() => {
-      navigate("/dashboard");
+      navigate(paths.HOME);
     }, 1000);
   };
 

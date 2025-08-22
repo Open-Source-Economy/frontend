@@ -38,7 +38,6 @@ interface ServiceCategory {
 // --- Main Component ---
 export default function Step5Involvement(props: Step5InvolvementProps) {
   const defaultCurrency = Currency.GBP;
-  const { state, updateState, onNext, onBack, currentStep } = props;
 
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
   const [projectItems, setProjectItems] = useState<[dto.ProjectItem, dto.DeveloperProjectItem][]>([]);
