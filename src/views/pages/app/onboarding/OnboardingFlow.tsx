@@ -18,8 +18,9 @@ import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-t
 import { Step3 } from "./steps/step3/Step3";
 import { Step4 } from "./steps/steps4/Step4";
 import Step5 from "./steps/step5/Step5";
+import { PreferredCurrency } from "../../../../ultils/PreferredCurrency";
 
-const initialState: OnboardingState = {
+const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
   step1: {
     name: "",
@@ -36,15 +37,16 @@ const initialState: OnboardingState = {
     hourlyWeeklyCommitment: 0,
     openToOtherOpportunity: OpenToOtherOpportunityType.NO,
     hourlyRate: 0,
-    currency: Currency.USD,
+    currency: preferredCurrency,
     comments: "",
   },
   step5: {
+    currency: preferredCurrency,
     developerServices: [],
     developerProjectItems: [],
   },
   step6: {},
-};
+});
 
 export default function OnboardingFlow() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,8 +54,10 @@ export default function OnboardingFlow() {
   const auth = useAuth();
   const onboardingAPI = getOnboardingBackendAPI();
 
+  const preferredCurrency: Currency = PreferredCurrency.get(auth);
+
   // Use a single state object to hold all onboarding data
-  const [state, setState] = useState<OnboardingState>(initialState);
+  const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
   const [loading, setLoading] = useState(true);
   // TODO: Handle errors properly
   const [error, setError] = useState<ApiError | null>(null);
@@ -72,10 +76,8 @@ export default function OnboardingFlow() {
           setError(response);
           return;
         } else if (response.profile) {
-          const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile);
+          const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile, preferredCurrency);
           setState(state);
-        } else {
-          setState(initialState);
         }
       } catch (error) {
         setError(ApiError.from(error));

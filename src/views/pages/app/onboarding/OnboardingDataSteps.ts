@@ -40,13 +40,13 @@ export interface Step4State {
   hourlyWeeklyCommitment?: number;
   openToOtherOpportunity?: OpenToOtherOpportunityType;
   hourlyRate?: number;
-  currency?: Currency;
+  currency: Currency;
   comments?: string;
 }
 
 // Corrected type for Step5State with the new projects property
 export interface Step5State {
-  currency?: Currency;
+  currency: Currency;
   developerServices: [Service, DeveloperServiceTODOChangeName | null][];
   developerProjectItems: [ProjectItem, DeveloperProjectItem][];
 }
@@ -63,7 +63,11 @@ export interface OnboardingState {
   step6: Step6State;
 }
 
-export function transformFullDeveloperProfileToOnboardingState(currentStep: OnboardingDataSteps, profile: FullDeveloperProfile): OnboardingState {
+export function transformFullDeveloperProfileToOnboardingState(
+  currentStep: OnboardingDataSteps,
+  profile: FullDeveloperProfile,
+  fallBackCurrency: Currency,
+): OnboardingState {
   const step1: Step1State = {
     developerProfileId: profile.profile?.id || undefined,
     name: profile.name || undefined,
@@ -83,12 +87,12 @@ export function transformFullDeveloperProfileToOnboardingState(currentStep: Onbo
     hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment || 0,
     openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO,
     hourlyRate: profile.settings?.hourlyRate || 0,
-    currency: profile.settings?.currency,
+    currency: profile.settings?.currency || fallBackCurrency,
     comments: "",
   };
 
   const step5: Step5State = {
-    currency: profile.settings?.currency,
+    currency: profile.settings?.currency || fallBackCurrency,
     developerServices: profile.services || [],
     developerProjectItems: profile.projects || [],
   };
