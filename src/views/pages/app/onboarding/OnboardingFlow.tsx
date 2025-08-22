@@ -39,7 +39,8 @@ const initialState: OnboardingState = {
     comments: "",
   },
   step5: {
-    services: [],
+    developerServices: [],
+    developerProjectItems: [],
   },
   step6: {},
 };

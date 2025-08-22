@@ -21,9 +21,7 @@ export function useFinancialIssue(issueId: model.IssueId) {
       const financialIssue = await backendAPI.getFinancialIssue(params, query);
       if (financialIssue instanceof ApiError) setError(financialIssue);
       else setFinancialIssue(financialIssue);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return { financialIssue, loadFinancialIssueError: error, reloadFinancialIssue: getFinancialIssue };

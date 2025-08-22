@@ -1,4 +1,3 @@
-import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model/github";
 
 export namespace ProjectItemIdCompanion {

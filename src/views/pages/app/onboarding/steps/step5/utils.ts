@@ -47,8 +47,8 @@ export const groupDeveloperServicesByCategory = (
 ): { category: string; developerServices: [dto.Service, DeveloperServiceTODOChangeName | null][] }[] => {
   return serviceCategories.reduce(
     (acc, category) => {
-      const servicesInThisCategory = developerServices.filter(
-        ([service, _]) => category.services.some(childService => childService.id.uuid === service.id.uuid),
+      const servicesInThisCategory = developerServices.filter(([service, _]) =>
+        category.services.some(childService => childService.id.uuid === service.id.uuid),
       );
       if (servicesInThisCategory.length > 0) {
         acc.push({ category: category.service.name, developerServices: servicesInThisCategory });

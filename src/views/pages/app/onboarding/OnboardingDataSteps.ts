@@ -2,14 +2,12 @@ import {
   Currency,
   DeveloperProfileId,
   DeveloperProjectItem,
-  DeveloperService,
+  DeveloperServiceTODOChangeName,
   FullDeveloperProfile,
   IncomeStreamType,
   OpenToOtherOpportunityType,
   ProjectItem,
   Service,
-  ServiceId,
-  DeveloperServiceTODOChangeName,
 } from "@open-source-economy/api-types";
 
 export enum OnboardingDataSteps {
@@ -46,10 +44,10 @@ export interface Step4State {
   comments: string;
 }
 
-// Corrected type for Step5State
+// Corrected type for Step5State with the new projects property
 export interface Step5State {
-  projects: [ProjectItem, DeveloperProjectItem][];
-  services: [Service, DeveloperServiceTODOChangeName | null][];
+  developerServices: [Service, DeveloperServiceTODOChangeName | null][];
+  developerProjectItems: [ProjectItem, DeveloperProjectItem][];
 }
 
 export interface Step6State {}
@@ -64,20 +62,7 @@ export interface OnboardingState {
   step6: Step6State;
 }
 
-/**
- * Transforms a FullDeveloperProfile object into an OnboardingState object.
- * This function maps relevant fields from the detailed developer profile
- * to the structured steps of the onboarding process.
- * It sets the current step to Step1 by default, without making assumptions
- * about the completeness of any step based on the profile data.
- *
- * @param currentStep The current step in the onboarding process, defaulting to Step1.
- * @param profile The FullDeveloperProfile object to transform.
- * @returns An OnboardingState object representing the initial state
- * of the developer's onboarding, with currentStep defaulted to Step1.
- */
 export function transformFullDeveloperProfileToOnboardingState(currentStep: OnboardingDataSteps, profile: FullDeveloperProfile): OnboardingState {
-  // Initialize each step's state from the FullDeveloperProfile
   const step1: Step1State = {
     developerProfileId: profile.profile?.id || undefined,
     name: profile.name || undefined,
@@ -94,18 +79,19 @@ export function transformFullDeveloperProfileToOnboardingState(currentStep: Onbo
   };
 
   const step4: Step4State = {
-    hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment || 0, // Default to 0 or appropriate default
-    openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO, // Default
-    hourlyRate: profile.settings?.hourlyRate || 0, // Default to 0 or appropriate default
-    currency: profile.settings?.currency || Currency.USD, // Default
-    comments: "", // This field is not in FullDeveloperProfile, initialize as empty string
+    hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment || 0,
+    openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO,
+    hourlyRate: profile.settings?.hourlyRate || 0,
+    currency: profile.settings?.currency || Currency.USD,
+    comments: "",
   };
 
   const step5: Step5State = {
-    services: profile.services || [],
+    developerServices: profile.services || [],
+    developerProjectItems: profile.projects || [], // Initializing the new projects property from the profile
   };
 
-  const step6: Step6State = {}; // This step is empty, no data to map
+  const step6: Step6State = {};
 
   return {
     currentStep,
