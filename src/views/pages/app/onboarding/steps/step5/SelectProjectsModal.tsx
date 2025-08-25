@@ -5,6 +5,7 @@ import { getOnboardingBackendAPI } from "../../../../../../services";
 import { handleApiCall } from "../../../../../../ultils";
 import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
 import { ProjectItemIdCompanion } from "../../../../../data";
+import { DeveloperService } from "@open-source-economy/api-types/dist/model";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +30,7 @@ interface SelectProjectsModalProps {
   developerProjectItems: [dto.ProjectItem, dto.DeveloperProjectItem][];
   currency: dto.Currency;
   onClose: () => void;
-  onUpsertDeveloperService: (developerService: DeveloperServiceTODOChangeName) => void;
+  onUpsertDeveloperService: (developerService: DeveloperService) => void;
   onBack: () => void;
 }
 

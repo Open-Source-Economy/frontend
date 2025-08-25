@@ -13,6 +13,7 @@ import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/d
 
 import { buildServiceCategories, groupDeveloperServicesByCategory } from "./utils";
 import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data";
+import { DeveloperService } from "@open-source-economy/api-types/dist/model";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
@@ -117,7 +118,7 @@ export default function Step5(props: Step5Props) {
     setShowUpsertDeveloperServiceModal(true);
   };
 
-  const handleUpdateTask = (updatedDevService: DeveloperServiceTODOChangeName) => {
+  const handleUpdateTask = (updatedDevService: DeveloperService) => {
     const updatedServices = props.state.developerServices.map(s => {
       if (s[0].id.uuid === updatedDevService.serviceId.uuid) {
         return [s[0], updatedDevService] as [dto.Service, DeveloperServiceTODOChangeName];

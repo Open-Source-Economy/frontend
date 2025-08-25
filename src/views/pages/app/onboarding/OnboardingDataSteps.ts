@@ -22,7 +22,7 @@ export enum OnboardingDataSteps {
 export interface Step1State {
   developerProfileId?: DeveloperProfileId;
   name?: string;
-  email?: string;
+  contactEmail?: string;
   agreedToTerms?: boolean;
 }
 
@@ -71,7 +71,7 @@ export function transformFullDeveloperProfileToOnboardingState(
   const step1: Step1State = {
     developerProfileId: profile.profile?.id || undefined,
     name: profile.name || undefined,
-    email: profile.email || undefined,
+    contactEmail: profile.contactEmail || undefined,
     agreedToTerms: profile.agreedToTerms || undefined,
   };
 

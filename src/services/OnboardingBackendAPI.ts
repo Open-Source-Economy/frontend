@@ -1,9 +1,9 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError } from "./index";
+import { handleError } from "./index"; // Assuming handleError utility is correctly imported
 import axios from "axios";
-import { ApiError } from "src/ultils/error/ApiError";
-import { config } from "src/ultils";
-import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
+import { ApiError } from "src/ultils/error/ApiError"; // Assuming ApiError is correctly imported
+import { config } from "src/ultils"; // Assuming config is correctly imported
+import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto"; // Assuming this is the correct path for the DTO
 
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
 
@@ -14,7 +14,6 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   return new OnboardingBackendAPIImpl();
 }
 
-// TODO: sam, please implement a MOCK so that we do not have a run a local DB to test the UI
 export interface OnboardingBackendAPI {
   // Profile management
   createDeveloperProfile(
@@ -23,7 +22,8 @@ export interface OnboardingBackendAPI {
     query: dto.CreateDeveloperProfileQuery,
   ): Promise<dto.CreateDeveloperProfileResponse | ApiError>;
 
-  updateDeveloperProfile(
+  // Renamed to match the specific action and backend route
+  updateDeveloperContactInfos(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
     query: dto.UpdateDeveloperContactInfosQuery,
@@ -53,7 +53,7 @@ export interface OnboardingBackendAPI {
 
   removeProjectItem(
     params: dto.RemoveDeveloperProjectItemParams,
-    body: dto.RemoveDeveloperProjectItemBody,
+    body: dto.RemoveDeveloperProjectItemBody, // projectItemId now in body for DELETE
     query: dto.RemoveDeveloperProjectItemQuery,
   ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError>;
 
@@ -63,7 +63,6 @@ export interface OnboardingBackendAPI {
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError>;
 
   // Service management (Not developer services)
-  // TODO: find a better place for this interface
   getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<GetServiceHierarchyResponse | ApiError>;
 
   upsertDeveloperService(
@@ -74,7 +73,7 @@ export interface OnboardingBackendAPI {
 
   deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
-    body: dto.DeleteDeveloperServiceBody,
+    body: dto.DeleteDeveloperServiceBody, // serviceId now in body for DELETE
     query: dto.DeleteDeveloperServiceQuery,
   ): Promise<dto.DeleteDeveloperServiceResponse | ApiError>;
 
@@ -104,14 +103,15 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  async updateDeveloperProfile(
+  // Renamed method and updated endpoint to match backend
+  async updateDeveloperContactInfos(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
     query: dto.UpdateDeveloperContactInfosQuery,
   ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError> {
     return handleError<dto.UpdateDeveloperContactInfosResponse>(
-      () => axios.put(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
-      "updateDeveloperProfile",
+      () => axios.put(`${config.api.url}/onboarding/profile/contact-infos`, body, { withCredentials: true, params: query }),
+      "updateDeveloperContactInfos",
     );
   }
 
@@ -128,8 +128,8 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.SetDeveloperIncomeStreamsQuery,
   ): Promise<dto.SetDeveloperIncomeStreamsResponse | ApiError> {
     return handleError<dto.SetDeveloperIncomeStreamsResponse>(
-      () => axios.post(`${config.api.url}/onboarding/settings/income-streams`, body, { withCredentials: true, params: query }),
-      "setDeveloperSettings",
+      () => axios.put(`${config.api.url}/onboarding/settings/income-streams`, body, { withCredentials: true, params: query }),
+      "setDeveloperIncomeStreams",
     );
   }
 
@@ -139,7 +139,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.SetDeveloperServiceSettingsQuery,
   ): Promise<dto.SetDeveloperServiceSettingsResponse | ApiError> {
     return handleError<dto.SetDeveloperServiceSettingsResponse>(
-      () => axios.post(`${config.api.url}/onboarding/settings/service`, body, { withCredentials: true, params: query }),
+      () => axios.put(`${config.api.url}/onboarding/settings/services`, body, { withCredentials: true, params: query }),
       "setDeveloperServiceSettings",
     );
   }
@@ -150,7 +150,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.UpsertDeveloperProjectItemQuery,
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.UpsertDeveloperProjectItemResponse>(
-      () => axios.post(`${config.api.url}/onboarding/project-items`, body, { withCredentials: true, params: query }),
+      () => axios.post(`${config.api.url}/onboarding/projects`, body, { withCredentials: true, params: query }),
       "upsertProjectItem",
     );
   }
@@ -161,7 +161,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.RemoveDeveloperProjectItemQuery,
   ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.RemoveDeveloperProjectItemResponse>(
-      () => axios.delete(`${config.api.url}/onboarding/project-items/${body.projectItemId}`, { withCredentials: true, params: query }),
+      () => axios.delete(`${config.api.url}/onboarding/projects`, { data: body, withCredentials: true, params: query }),
       "removeProjectItem",
     );
   }
@@ -171,13 +171,16 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.GetPotentialDeveloperProjectItemsQuery,
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError> {
     return handleError<dto.GetPotentialDeveloperProjectItemsResponse>(
-      () => axios.get(`${config.api.url}/onboarding/project-items/potential`, { withCredentials: true, params: query }),
+      () => axios.get(`${config.api.url}/onboarding/projects/potential`, { withCredentials: true, params: query }),
       "getPotentialProjectItems",
     );
   }
 
-  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<any | ApiError> {
-    return handleError<any>(() => axios.get(`${config.api.url}/onboarding/services`, { withCredentials: true, params: query }), "getServiceHierarchy");
+  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<GetServiceHierarchyResponse | ApiError> {
+    return handleError<GetServiceHierarchyResponse>(
+      () => axios.get(`${config.api.url}/onboarding/services/hierarchy`, { withCredentials: true, params: query }),
+      "getServiceHierarchy",
+    );
   }
 
   async upsertDeveloperService(
@@ -186,7 +189,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.UpsertDeveloperServiceQuery,
   ): Promise<dto.UpsertDeveloperServiceResponse | ApiError> {
     return handleError<dto.UpsertDeveloperServiceResponse>(
-      () => axios.post(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
+      () => axios.put(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
       "upsertDeveloperService",
     );
   }
@@ -197,7 +200,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.DeleteDeveloperServiceQuery,
   ): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
     return handleError<dto.DeleteDeveloperServiceResponse>(
-      () => axios.delete(`${config.api.url}/onboarding/services/${body.serviceId}`, { withCredentials: true, params: query }),
+      () => axios.delete(`${config.api.url}/onboarding/services`, { data: body, withCredentials: true, params: query }),
       "deleteDeveloperService",
     );
   }

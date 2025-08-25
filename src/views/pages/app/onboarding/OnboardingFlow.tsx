@@ -25,7 +25,7 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
   step1: {
     name: "",
-    email: "",
+    contactEmail: "",
     agreedToTerms: false,
   },
   step2: {
@@ -165,15 +165,7 @@ export default function OnboardingFlow() {
       case OnboardingDataSteps.Step5:
         return <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       case OnboardingDataSteps.Step6:
-        return (
-          <Step6
-            currentStep={state.currentStep}
-            state={{}}
-            updateState={updateStateData}
-            onNext={goToNextStep}
-            onBack={goToPrevStep}
-          />
-        );
+        return <Step6 currentStep={state.currentStep} state={{}} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
       default:
         console.error("Unknown onboarding step:", state.currentStep);
         return <PageLoader message="Error: Unknown step." />;

@@ -43,15 +43,15 @@ export default function Step1(props: Step1Props) {
           const params: dto.UpdateDeveloperContactInfosParams = {};
           const body: dto.UpdateDeveloperContactInfosBody = {
             name: props.state.name!,
-            email: props.state.email!,
+            email: props.state.contactEmail!,
           };
           const query: dto.UpdateDeveloperContactInfosQuery = {};
-          result = await onboardingAPI.updateDeveloperProfile(params, body, query);
+          result = await onboardingAPI.updateDeveloperContactInfos(params, body, query);
         } else {
           const params: dto.CreateDeveloperProfileParams = {};
           const body: dto.CreateDeveloperProfileBody = {
             name: props.state.name!,
-            email: props.state.email!,
+            email: props.state.contactEmail!,
             agreedToTerms: props.state.agreedToTerms!,
           };
           const query: dto.CreateDeveloperProfileQuery = {};
@@ -108,8 +108,8 @@ export default function Step1(props: Step1Props) {
                   name="email"
                   label="Your email address"
                   required
-                  value={props.state.email || ""}
-                  onChange={e => handleInputChange("email", e.target.value)}
+                  value={props.state.contactEmail || ""}
+                  onChange={e => handleInputChange("contactEmail", e.target.value)}
                   placeholder="Your email address"
                   ref={emailInputRef}
                 />

@@ -118,12 +118,28 @@ const featureImplService: dto.Service = {
 
 export const serviceHierarchy: dto.ServiceHierarchyItem[] = [
   {
-    service: { id: devCategoryId, name: "Development", isCustom: false, hasResponseTime: false, createdAt: new Date(), updatedAt: new Date(), parentId: undefined },
+    service: {
+      id: devCategoryId,
+      name: "Development",
+      isCustom: false,
+      hasResponseTime: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      parentId: undefined,
+    },
     level: 0,
     ancestors: [],
   },
   {
-    service: { id: reviewCategoryId, name: "Code Review", isCustom: false, hasResponseTime: false, createdAt: new Date(), updatedAt: new Date(), parentId: undefined },
+    service: {
+      id: reviewCategoryId,
+      name: "Code Review",
+      isCustom: false,
+      hasResponseTime: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      parentId: undefined,
+    },
     level: 0,
     ancestors: [],
   },
