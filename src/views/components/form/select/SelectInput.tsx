@@ -157,7 +157,7 @@ export const SelectInput = forwardRef(function SelectInput(
       <input type="hidden" name={props.name} value={value} />
 
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-10 w-full">
+        <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-[100] w-full">
           {options.map(option => (
             <button
               key={option.value}

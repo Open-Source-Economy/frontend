@@ -86,10 +86,15 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   return (
     <>
-      <Modal show={props.show} onHide={() => props.setShow(false)} centered className="upsert-project-item-modal">
-        <Modal.Body>
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-[#14233a] rounded-[30px] p-8 w-[600px] max-h-[80vh] overflow-y-auto">
+      <Modal 
+        show={props.show} 
+        onHide={() => props.setShow(false)} 
+        centered 
+        className="[&_.modal-content]:bg-transparent [&_.modal-content]:border-none [&_.modal-dialog]:max-w-[600px] [&_.modal-backdrop]:bg-black/50"
+        backdrop="static"
+      >
+        <Modal.Body className="bg-[#14233a] rounded-[30px] p-8">
+          <div className="max-h-[80vh] overflow-visible">
               <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
                 {/* UpsertProjectItemModal Header */}
                 <div className="box-border content-stretch flex flex-row gap-4 items-center justify-between p-0 relative shrink-0 w-full">
@@ -123,7 +128,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   name="mergeRights"
                   required
                   value={selectedMergeRights || null}
-                  onChange={e => setSelectedMergeRights}
+                  onChange={setSelectedMergeRights}
                   ref={mergeRightsSelectRef}
                 />
 
@@ -154,7 +159,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   </button>
                 </div>
               </div>
-            </div>
           </div>
         </Modal.Body>
       </Modal>
