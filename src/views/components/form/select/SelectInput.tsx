@@ -47,6 +47,13 @@ export const SelectInput = forwardRef(function SelectInput(
         // When validate() is called, run validation and ensure errors are shown immediately.
         return runValidation(value, true);
       },
+      isValid: () => {
+        let errorMessage: string | undefined = undefined;
+        if (required && !value) {
+          errorMessage = `${label} is required.`;
+        }
+        return !errorMessage;
+      },
     }),
     [value, required, label],
   ); // Dependencies for useImperativeHandle

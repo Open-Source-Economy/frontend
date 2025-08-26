@@ -3,6 +3,7 @@ import React, { forwardRef, InputHTMLAttributes, Ref, useImperativeHandle, useSt
 // Define the interface for the methods exposed via ref for a checkbox
 export interface CheckboxInputRef {
   validate: () => boolean; // Method to programmatically validate the checkbox
+  isValid: () => boolean; // New: This one just checks without showing errors
 }
 
 interface CheckboxInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -38,6 +39,14 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
       validate: () => {
         // When validate() is called, run validation and ensure errors are shown immediately.
         return runValidation(Boolean(checked), true);
+      },
+      isValid: () => {
+        // This new function runs the same logic but doesn't set the error state.
+        let errorMessage: string | undefined = undefined;
+        if (required && !checked) {
+          errorMessage = `This field is required.`;
+        }
+        return !errorMessage; // Return true if valid, false if not
       },
     }),
     [checked, required],

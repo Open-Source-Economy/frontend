@@ -59,6 +59,13 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
         // When validate() is called, run validation and ensure errors are shown immediately.
         return runValidation(value, true); // Pass the array value to validation
       },
+      isValid: () => {
+        let errorMessage: string | undefined = undefined;
+        if (required && value.length === 0) {
+          errorMessage = `${label} is required.`;
+        }
+        return !errorMessage;
+      },
     }),
     [value, required, label],
   ); // Dependencies for useImperativeHandle

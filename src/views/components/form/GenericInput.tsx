@@ -3,6 +3,7 @@ import React, { forwardRef, InputHTMLAttributes, Ref, useEffect, useImperativeHa
 // Define the interface for the methods exposed via ref
 export interface GenericInputRef {
   validate: () => boolean; // Method to programmatically validate the input
+  isValid: () => boolean; // New: This one just checks without showing errors
 }
 
 interface GenericInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -45,8 +46,21 @@ export const GenericInput = forwardRef(function GenericInput(
         // When validate() is called, run validation and ensure errors are shown immediately.
         return runValidation(String(props.value || ""), true);
       },
+      isValid: () => {
+        // This new function runs the same logic but doesn't set the error state.
+        let errorMessage: string | undefined = undefined;
+        const value = String(props.value || "");
+
+        if (props.required && !value.trim()) {
+          errorMessage = `${props.label} is required.`;
+        } else if (props.validator) {
+          errorMessage = props.validator(value);
+        }
+
+        return !errorMessage; // Return true if valid, false if not
+      },
     }),
-    [props.value, required, validator, label],
+    [props.value, props.required, props.validator, props.label],
   );
 
   // Effect to trigger validation when `forceValidate` becomes true or value changes (if forced).

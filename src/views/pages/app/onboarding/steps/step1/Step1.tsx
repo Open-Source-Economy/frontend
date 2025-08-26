@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
@@ -13,12 +13,23 @@ export interface Step1Props extends OnboardingStepProps<Step1State> {}
 export default function Step1(props: Step1Props) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false); // New state
   const onboardingAPI = getOnboardingBackendAPI();
 
   // Refs for inputs, including the new checkbox, typed with their respective ref interfaces
   const nameInputRef = useRef<GenericInputRef>(null);
   const emailInputRef = useRef<GenericInputRef>(null);
   const termsCheckboxRef = useRef<CheckboxInputRef>(null);
+
+  useEffect(() => {
+    // Check the validity of each input using the new "silent" method
+    const nameIsValid = nameInputRef.current?.isValid() ?? false;
+    const emailIsValid = emailInputRef.current?.isValid() ?? false;
+    const termsAreValid = termsCheckboxRef.current?.isValid() ?? false;
+
+    // Update the form's validity state
+    setIsFormValid(nameIsValid && emailIsValid && termsAreValid);
+  }, [props.state]); // This effect runs whenever the form data changes
 
   // The validateForm now aggregates validation results from all child input components.
   const validateForm = (): boolean => {
@@ -142,7 +153,7 @@ export default function Step1(props: Step1Props) {
             {/*TODO: sam: use or update the class Button */}
             <button
               onClick={handleNext}
-              disabled={isLoading}
+              disabled={!isFormValid || isLoading}
               className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
