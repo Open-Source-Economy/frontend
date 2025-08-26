@@ -18,7 +18,7 @@ import {
   ProjectUtils,
   StripePrice,
   StripePriceId,
-  StripeProductId,
+  StripeProductId
 } from "@open-source-economy/api-types";
 import { BackendAPI } from "src/services";
 import { issue, issueId, owner, repository, user, userId } from "./index";

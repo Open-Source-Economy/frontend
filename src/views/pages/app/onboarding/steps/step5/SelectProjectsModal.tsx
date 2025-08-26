@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
+import { ResponseTimeType } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { handleApiCall } from "../../../../../../ultils";
 import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
 import { ProjectItemIdCompanion } from "../../../../../data";
 import { DeveloperService } from "@open-source-economy/api-types/dist/model";
+import { ResponseTimeTypeSelectInput } from "../../../../../components/form";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +44,8 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
   // --- State Variables ---
   const [selectedProjectItemIds, setSelectedProjectItemIds] = useState<dto.ProjectItemId[]>(props.developerService?.projectItemIds || []);
   const [hourlyRateInput, setHourlyRateInput] = useState<number | null>(props.developerService?.hourlyRate || null);
-  const [customResponseTime, setCustomResponseTime] = useState<number | null>(props.developerService?.responseTimeHours || null);
+  // Changed type to ResponseTimeType | null
+  const [customResponseTime, setCustomResponseTime] = useState<ResponseTimeType | null>(props.developerService?.responseTimeHours || null);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +55,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
   useEffect(() => {
     setSelectedProjectItemIds(props.developerService?.projectItemIds || []);
     setHourlyRateInput(props.developerService?.hourlyRate || null);
+    // Ensure customResponseTime is initialized with the enum value
     setCustomResponseTime(props.developerService?.responseTimeHours || null);
     setApiError(null);
     setInputError(null);
@@ -68,8 +72,9 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
       setIsLoading(false);
       return;
     }
-    if (props.service.hasResponseTime && (customResponseTime === null || isNaN(customResponseTime))) {
-      setInputError("Please enter a valid response time.");
+    // Updated validation for enum
+    if (props.service.hasResponseTime && customResponseTime === null) {
+      setInputError("Please select a valid response time.");
       setIsLoading(false);
       return;
     }
@@ -79,6 +84,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
         serviceId: props.service.id,
         projectItemIds: selectedProjectItemIds,
         hourlyRate: hourlyRateInput || undefined,
+        // Ensure responseTimeHours is correctly typed as ResponseTimeType or undefined
         responseTimeHours: props.service.hasResponseTime ? customResponseTime || undefined : undefined,
       };
       const body: dto.UpsertDeveloperServiceBody = {
@@ -192,17 +198,12 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
             <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Response Time</p>
             <p className="font-montserrat font-normal text-[#ffffff] text-[12px] text-left mb-2 opacity-70">Expected time to respond to requests</p>
             <div className="flex flex-row gap-2 items-center">
-              <input
-                type="text"
-                value={customResponseTime === null ? "" : customResponseTime.toString()}
-                onChange={e => {
-                  const value = Number(e.target.value);
-                  setCustomResponseTime(isNaN(value) ? null : value);
-                }}
-                placeholder="12"
-                className="bg-[#202f45] px-3 py-2 rounded-md font-montserrat font-normal text-[#ffffff] text-[14px] outline-none w-20"
+              <ResponseTimeTypeSelectInput
+                value={customResponseTime}
+                onChange={setCustomResponseTime}
+                required={props.service.hasResponseTime}
+                name="responseTime"
               />
-              <span className="font-montserrat font-normal text-[#ffffff] text-[14px]">hours</span>
             </div>
           </div>
         )}

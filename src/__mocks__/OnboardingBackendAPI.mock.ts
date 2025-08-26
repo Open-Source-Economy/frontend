@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { OnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
-import { userId, serviceHierarchy, developerBugFixingService } from "./index"; // Assuming these mocks are correctly imported
+import { developerBugFixingService, serviceHierarchy } from "./index"; // Assuming these mocks are correctly imported
 
 export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async createDeveloperProfile(

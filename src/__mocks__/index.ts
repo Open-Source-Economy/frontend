@@ -11,11 +11,12 @@ import {
   Provider,
   Repository,
   RepositoryId,
+  ResponseTimeType,
   ThirdPartyUser,
   ThirdPartyUserId,
   User,
   UserId,
-  UserRole,
+  UserRole
 } from "@open-source-economy/api-types";
 
 export * from "./BackendAPI.mock";
@@ -161,6 +162,6 @@ export const developerBugFixingService: [dto.Service, dto.DeveloperServiceTODOCh
     serviceId: bugFixingServiceId,
     projectItemIds: [],
     hourlyRate: 80,
-    responseTimeHours: 24,
+    responseTimeHours: ResponseTimeType.FourHours,
   },
 ];

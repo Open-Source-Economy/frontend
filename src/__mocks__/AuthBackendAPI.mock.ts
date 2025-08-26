@@ -12,7 +12,7 @@ import {
   RegisterResponse,
   RepositoryInfo,
   RepositoryUserRole,
-  StatusResponse,
+  StatusResponse
 } from "@open-source-economy/api-types";
 import { AuthBackendAPI } from "src/services";
 import { company, repositoryId, user } from "./index";

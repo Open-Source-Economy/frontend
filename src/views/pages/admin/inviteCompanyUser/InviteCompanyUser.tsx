@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { CompanyId, CompanyUserRole, SendCompanyRoleInviteBody, SendCompanyRoleInviteParams, SendCompanyRoleInviteQuery } from "@open-source-economy/api-types";
+import {
+  CompanyId,
+  CompanyUserRole,
+  SendCompanyRoleInviteBody,
+  SendCompanyRoleInviteParams,
+  SendCompanyRoleInviteQuery
+} from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 

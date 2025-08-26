@@ -4,7 +4,6 @@ import axios from "axios";
 import { ApiError } from "src/ultils/error/ApiError"; // Assuming ApiError is correctly imported
 import { config } from "src/ultils"; // Assuming config is correctly imported
 import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto"; // Assuming this is the correct path for the DTO
-
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {

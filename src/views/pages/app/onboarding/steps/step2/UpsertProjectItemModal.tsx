@@ -1,7 +1,13 @@
 import React, { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItem, DeveloperRoleType, MergeRightsType, ProjectItem, ProjectItemType } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItem,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectItem,
+  ProjectItemType
+} from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { GithubUrls, handleApiCall } from "../../../../../../ultils";
