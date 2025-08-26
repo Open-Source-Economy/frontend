@@ -3,8 +3,9 @@ import { Step6State } from "../../OnboardingDataSteps";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../../../../../../paths";
 import { laurianeCalDevLink } from "../../../../../data";
+import { Button } from "../../../../../components/elements/Button";
 
-export interface Step6Props extends OnboardingStepProps<Step6State> {}
+export interface Step6Props extends OnboardingStepProps<Step6State> { }
 
 export default function Step6(props: Step6Props) {
   const navigate = useNavigate();
@@ -69,14 +70,9 @@ export default function Step6(props: Step6Props) {
                 <p className="block leading-[1.5]">Explore your dashboard, view opportunities, and start contributing</p>
               </div>
             </div>
-            <button
-              onClick={handleDashboard}
-              className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-6 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 w-full"
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-center text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">Continue to Dashboard</p>
-              </div>
-            </button>
+            <Button level="PRIMARY" audience="DEVELOPER" size="MEDIUM" onClick={handleDashboard} className="w-full">
+              Continue to Dashboard
+            </Button>
           </div>
 
           {/* Book Meeting Card */}

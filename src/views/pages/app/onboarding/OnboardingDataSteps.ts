@@ -41,7 +41,9 @@ export interface Step4State {
   openToOtherOpportunity?: OpenToOtherOpportunityType;
   hourlyRate?: number;
   currency: Currency;
-  comments?: string;
+  hourlyWeeklyCommitmentComments?: string;
+  openToOtherOpportunityComments?: string;
+  hourlyRateComments?: string;
 }
 
 // Corrected type for Step5State with the new projects property
@@ -51,7 +53,7 @@ export interface Step5State {
   developerProjectItems: [ProjectItem, DeveloperProjectItem][];
 }
 
-export interface Step6State {}
+export interface Step6State { }
 
 export interface OnboardingState {
   currentStep: OnboardingDataSteps;
@@ -88,7 +90,9 @@ export function transformFullDeveloperProfileToOnboardingState(
     openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO,
     hourlyRate: profile.settings?.hourlyRate || 0,
     currency: profile.settings?.currency || fallBackCurrency,
-    comments: "",
+    hourlyWeeklyCommitmentComments: "",
+    openToOtherOpportunityComments: "",
+    hourlyRateComments: "",
   };
 
   const step5: Step5State = {

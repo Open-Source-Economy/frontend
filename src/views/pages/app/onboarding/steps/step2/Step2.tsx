@@ -9,6 +9,9 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { handleApiCall } from "../../../../../../ultils";
 import { ProjectItemIdCompanion } from "../../../../../data";
+import { Button } from "../../../../../components/elements/Button";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import ErrorDisplay from "../../components/ErrorDisplay";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
@@ -186,53 +189,20 @@ const Step2: React.FC<Step2Props> = props => {
           )}
 
           {/* Loading Indicator */}
-          {/*TODO: sam - refactor with other step - dont do a copy past*/}
-          {isLoading && (
-            <div className="flex items-center justify-center mt-4">
-              <svg className="animate-spin h-6 w-6 text-[#ff7e4b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              <span className="ml-3 text-[#ff7e4b] font-montserrat">Loading...</span>
-            </div>
-          )}
+          {isLoading && <LoadingIndicator />}
 
           {/* Error Display */}
-          {/*TODO: sam - refactor with other step - dont do a copy past*/}
-          {apiError && (
-            <div className="bg-red-900 bg-opacity-30 border border-red-700 text-red-300 px-4 py-3 rounded-md relative mt-4 w-full">
-              <strong className="font-bold">Error:</strong>
-              <span className="block sm:inline ml-2">{apiError.message}</span>
-            </div>
-          )}
+          <ErrorDisplay message={apiError?.message} />
 
           {/* Button Group */}
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
-            <button
-              onClick={props.onBack}
-              disabled={isLoading}
-              className={`box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-[rgba(255,255,255,0.1)]"}`}
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">Back</p>
-              </div>
-            </button>
+            <Button onClick={props.onBack} disabled={isLoading} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
+              Back
+            </Button>
 
-            <button
-              onClick={props.onNext}
-              disabled={projects.length === 0 || isLoading}
-              className={`bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${
-                projects.length === 0 || isLoading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
-              }`}
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">Next</p>
-              </div>
-            </button>
+            <Button onClick={props.onNext} disabled={projects.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+              Next
+            </Button>
           </div>
         </div>
       </div>

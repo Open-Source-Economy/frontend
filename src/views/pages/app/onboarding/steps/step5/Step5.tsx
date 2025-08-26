@@ -14,8 +14,10 @@ import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/d
 import { buildServiceCategories, groupDeveloperServicesByCategory } from "./utils";
 import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data";
 import { DeveloperService } from "@open-source-economy/api-types/dist/model";
+import ErrorDisplay from "../../components/ErrorDisplay";
+import { Button } from "../../../../../components/elements/Button";
 
-export interface Step5Props extends OnboardingStepProps<Step5State> {}
+export interface Step5Props extends OnboardingStepProps<Step5State> { }
 
 // --- Inline SVG Components ---
 const CloseIcon = () => (
@@ -86,6 +88,8 @@ export default function Step5(props: Step5Props) {
       })
       .filter((s): s is [Service, DeveloperServiceTODOChangeName | null] => s !== null);
 
+    // TODO: Prevent duplicate services from being added. The current logic concatenates arrays without checking for existing services.
+    //       Should filter `newServices` to only include services not already in `props.state.developerServices`.
     const updatedServices = [...props.state.developerServices, ...newServices];
     props.updateState({ developerServices: updatedServices });
     setShowInitialServiceModal(false);
@@ -164,8 +168,7 @@ export default function Step5(props: Step5Props) {
             <div className="font-michroma not-italic relative shrink-0 text-[32px] w-full">
               <p className="block leading-[1.3]">Tasks & Preferences</p>
             </div>
-            {localError && <p className="text-red-400 text-sm mt-2">{localError}</p>}
-            {apiError && <p className="text-red-400 text-sm mt-2">Error: {apiError.message}</p>}
+            <ErrorDisplay message={apiError?.message || localError} />
           </div>
           <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
             {groupedServices.map(({ category, developerServices }) => (
@@ -248,50 +251,40 @@ export default function Step5(props: Step5Props) {
               <p className="block leading-[1.3]">Add Service</p>
             </div>
             <div className="box-border content-stretch flex flex-row gap-6 items-center justify-center p-0 relative shrink-0 w-full">
-              <button
-                onClick={() => setShowInitialServiceModal(true)}
-                className="bg-[#202f45] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 hover:bg-[#2a3f56] transition-colors"
-              >
+              <Button level="SECONDARY" audience="DEVELOPER" size="MEDIUM" onClick={() => setShowInitialServiceModal(true)}>
                 <AddIcon />
-                <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-left text-nowrap">
-                  <p className="block leading-[normal] whitespace-pre">Add Service</p>
-                </div>
-              </button>
+                <span className="ml-2">Add Service</span>
+              </Button>
             </div>
           </div>
 
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
-            <button
-              onClick={props.onBack}
-              className="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all hover:bg-[rgba(255,255,255,0.1)]"
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">Back</p>
-              </div>
-            </button>
-            <button
+            <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
+              Back
+            </Button>
+            <Button
               onClick={handleNext}
               disabled={props.state.developerServices.length === 0 || isLoading}
-              className={`box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${
-                props.state.developerServices.length === 0 || isLoading
-                  ? "bg-gray-500 opacity-50 cursor-not-allowed"
-                  : "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] hover:scale-105"
-              }`}
+              level="PRIMARY"
+              audience="DEVELOPER"
+              size="MEDIUM"
             >
-              {isLoading && (
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Saving...
+                </>
+              ) : (
+                "Get Started"
               )}
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : "Get Started"}</p>
-              </div>
-            </button>
+            </Button>
           </div>
         </div>
       </div>

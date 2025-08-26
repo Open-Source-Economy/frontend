@@ -8,6 +8,7 @@ import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/d
 import { ProjectItemIdCompanion } from "../../../../../data";
 import { DeveloperService } from "@open-source-economy/api-types/dist/model";
 import { ResponseTimeTypeSelectInput } from "../../../../../components/form/select/enum";
+import { Button } from "../../../../../components/elements/Button";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,19 +214,15 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
           </div>
         )}
         <div className="flex flex-row gap-4 items-center justify-end">
-          <button
+          <Button
             onClick={handleSave}
             disabled={isLoading || selectedProjectItemIds.length === 0}
-            className={`box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all ${
-              isLoading || selectedProjectItemIds.length === 0
-                ? "bg-gray-500 opacity-50 cursor-not-allowed"
-                : "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] hover:scale-105"
-            }`}
+            level="PRIMARY"
+            audience="DEVELOPER"
+            size="MEDIUM"
           >
-            <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[14px] text-left text-nowrap">
-              <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : isEditing ? "Save Changes" : "Select Projects"}</p>
-            </div>
-          </button>
+            {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Select Projects"}
+          </Button>
         </div>
       </div>
     </div>

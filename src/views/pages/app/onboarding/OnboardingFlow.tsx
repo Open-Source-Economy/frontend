@@ -39,7 +39,9 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     openToOtherOpportunity: OpenToOtherOpportunityType.NO,
     hourlyRate: 0,
     currency: preferredCurrency,
-    comments: "",
+    hourlyWeeklyCommitmentComments: "",
+    openToOtherOpportunityComments: "",
+    hourlyRateComments: "",
   },
   step5: {
     currency: preferredCurrency,

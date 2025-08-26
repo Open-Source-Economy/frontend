@@ -77,8 +77,8 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
   };
 
   return (
-    <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0 w-full">
-      <div className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full">
+    <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0 ">
+      <div className="box-border content-stretch flex flex-row gap-2 items-end justify-start p-0 relative shrink-0 w-full">
         <CurrencySelectInput
           ref={currencySelectRef}
           value={state.currency}
@@ -89,7 +89,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
         />
 
         <div
-          className={`bg-[#202f45] box-border flex flex-row gap-2 items-center justify-between px-4 py-3 relative rounded-md w-full sm:w-[150px]
+          className={`bg-[#202f45] box-border flex flex-row gap-2 items-center justify-between px-4 py-2.5 min-h-[50px] relative rounded-md
           ${internalHourlyRateError ? "border border-red-500" : "border border-[#202f45]"}`}
         >
           <span className="font-montserrat font-normal text-[#ffffff] text-[16px] opacity-60">{displayedCurrencies[state.currency]?.symbol || "$"}</span>
@@ -99,7 +99,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
             onChange={e => sanitizeHourlyRateInput(e.target.value)}
             onBlur={() => runHourlyRateValidation(state.hourlyRate, true)} // Validate on blur
             placeholder="0"
-            className="w-full bg-transparent font-montserrat font-normal text-[#ffffff] text-[16px] text-center outline-none placeholder:opacity-60"
+            className="bg-transparent font-montserrat font-normal text-[#ffffff] text-[16px]  text-center outline-none placeholder:opacity-60 w-[4ch]"
             inputMode="numeric"
             pattern="[0-9]*[.]?[0-9]*"
             aria-label="Hourly Rate"

@@ -55,7 +55,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
   };
 
   return (
-    <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
+    <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full ">
       <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
         <p id={`${id}-label`} className="block leading-[1.3]">
           {label} {required && <span className="text-red-500">*</span>}
@@ -65,17 +65,16 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         <p className="block leading-[1.5]">Are you interested in taking on larger projects or full-time opportunities?</p>
       </div>
       <div
-        className="box-border content-stretch flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-full"
+        className="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative shrink-0 w-full"
         role="radiogroup"
         aria-labelledby={`${id}-label`}
       >
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.YES)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.YES
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.YES
+            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+            }`}
           aria-checked={value === OpenToOtherOpportunityType.YES}
           role="radio"
         >
@@ -83,11 +82,10 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         </button>
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.MAYBE)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.MAYBE
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.MAYBE
+            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+            }`}
           aria-checked={value === OpenToOtherOpportunityType.MAYBE}
           role="radio"
         >
@@ -95,11 +93,10 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         </button>
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.NO)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.NO
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.NO
+            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+            }`}
           aria-checked={value === OpenToOtherOpportunityType.NO}
           role="radio"
         >

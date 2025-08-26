@@ -9,7 +9,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import { CheckboxInputRef, EmailInput, GenericInputRef, NameInput, TermsAndConditionsCheckbox } from "../../../../../components/form";
 import { Button } from "../../../../../components/elements/Button";
 
-export interface Step1Props extends OnboardingStepProps<Step1State> {}
+export interface Step1Props extends OnboardingStepProps<Step1State> { }
 
 export default function Step1(props: Step1Props) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -132,11 +132,11 @@ export default function Step1(props: Step1Props) {
 
           {/* Button Group */}
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
-            <Button onClick={props.onBack} level="SECONDARY" audience="ALL" size="MEDIUM">
+            <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
               Back
             </Button>
 
-            <Button onClick={handleNext} disabled={isLoading} level="PRIMARY" audience="ALL" size="MEDIUM">
+            <Button onClick={handleNext} disabled={isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? "Saving..." : "Next"}
             </Button>
           </div>
