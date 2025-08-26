@@ -2,7 +2,7 @@ import React, { forwardRef, InputHTMLAttributes, Ref, useEffect, useImperativeHa
 
 // Define the interface for the methods exposed via ref
 export interface GenericInputRef {
-  validate: () => boolean; // Method to programmatically validate the input
+  validate: (showInputError: boolean) => boolean;
 }
 
 interface GenericInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -22,7 +22,7 @@ export const GenericInput = forwardRef(function GenericInput(
   const [isTouched, setIsTouched] = useState(false); // Tracks if input has been focused and then blurred
 
   // Helper function to run validation and update internal error state
-  const runValidation = (value: string, showImmediately: boolean = false): boolean => {
+  const runValidation = (value: string, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
 
     if (required && !value.trim()) {
@@ -31,7 +31,7 @@ export const GenericInput = forwardRef(function GenericInput(
       errorMessage = validator(value);
     }
 
-    if (showImmediately || isTouched || forceValidate) {
+    if (showInputError || isTouched || forceValidate) {
       setInternalError(errorMessage);
     }
     return !errorMessage; // Returns true if valid, false if invalid
@@ -41,12 +41,11 @@ export const GenericInput = forwardRef(function GenericInput(
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
-        // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(String(props.value || ""), true);
+      validate: (showInputError: boolean) => {
+        return runValidation(String(props.value || ""), showInputError);
       },
     }),
-    [props.value, required, validator, label],
+    [props.value, props.required, props.validator, props.label],
   );
 
   // Effect to trigger validation when `forceValidate` becomes true or value changes (if forced).
@@ -104,8 +103,7 @@ export const GenericInput = forwardRef(function GenericInput(
             className={inputClasses}
             {...rest}
             onBlur={e => {
-              setIsTouched(true); // Mark as touched on blur
-              runValidation(e.target.value, true); // Validate and show error on blur
+              setIsTouched(true);
               if (rest.onBlur) {
                 rest.onBlur(e);
               }
@@ -113,7 +111,7 @@ export const GenericInput = forwardRef(function GenericInput(
             onChange={e => {
               // Validate on change only if input has been touched OR if forceValidate is active
               if (isTouched || forceValidate) {
-                runValidation(e.target.value);
+                runValidation(e.target.value, false);
               }
               if (rest.onChange) {
                 rest.onChange(e);

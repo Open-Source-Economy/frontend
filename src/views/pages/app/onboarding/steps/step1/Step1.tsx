@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
@@ -7,12 +7,14 @@ import * as dto from "@open-source-economy/api-types";
 import { handleApiCall } from "../../../../../../ultils";
 
 import { CheckboxInputRef, EmailInput, GenericInputRef, NameInput, TermsAndConditionsCheckbox } from "../../../../../components/form";
+import { Button } from "../../../../../components/elements/Button";
 
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
 export default function Step1(props: Step1Props) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const onboardingAPI = getOnboardingBackendAPI();
 
   // Refs for inputs, including the new checkbox, typed with their respective ref interfaces
@@ -20,19 +22,20 @@ export default function Step1(props: Step1Props) {
   const emailInputRef = useRef<GenericInputRef>(null);
   const termsCheckboxRef = useRef<CheckboxInputRef>(null);
 
-  // The validateForm now aggregates validation results from all child input components.
   const validateForm = (): boolean => {
-    let isValid = true;
+    const showInputError: boolean = true;
+    let isFormValid = true;
 
-    const isNameValid = nameInputRef.current?.validate() ?? false;
-    const isEmailValid = emailInputRef.current?.validate() ?? false;
-    const isTermsValid = termsCheckboxRef.current?.validate() ?? false;
+    const isNameValid = nameInputRef.current?.validate(showInputError) ?? false;
+    const isEmailValid = emailInputRef.current?.validate(showInputError) ?? false;
+    const isTermsValid = termsCheckboxRef.current?.validate(showInputError) ?? false;
 
     if (!isNameValid || !isEmailValid || !isTermsValid) {
-      isValid = false;
+      isFormValid = false;
     }
 
-    return isValid;
+    setIsFormValid(isFormValid);
+    return isFormValid;
   };
 
   const handleNext = async () => {
@@ -129,26 +132,13 @@ export default function Step1(props: Step1Props) {
 
           {/* Button Group */}
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-center justify-center p-0 relative shrink-0">
-            {/*TODO: sam: use or update the class Button */}
-            <button
-              onClick={props.onBack}
-              className="box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 border border-[#ffffff] transition-all hover:bg-[rgba(255,255,255,0.1)]"
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">Back</p>
-              </div>
-            </button>
+            <Button onClick={props.onBack} level="SECONDARY" audience="ALL" size="MEDIUM">
+              Back
+            </Button>
 
-            {/*TODO: sam: use or update the class Button */}
-            <button
-              onClick={handleNext}
-              disabled={isLoading}
-              className="bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] box-border content-stretch flex flex-row gap-2.5 items-center justify-center px-5 py-3 relative rounded-md shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <div className="font-michroma leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
-                <p className="block leading-[1.5] whitespace-pre">{isLoading ? "Saving..." : "Next"}</p>
-              </div>
-            </button>
+            <Button onClick={handleNext} disabled={isLoading} level="PRIMARY" audience="ALL" size="MEDIUM">
+              {isLoading ? "Saving..." : "Next"}
+            </Button>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { GenericInputRef } from "../GenericInput"; // Adjust path as needed
 
 // New interface for the HourlyRateInput's ref
 export interface HourlyRateInputRef {
-  validate: () => boolean;
+  validate: (showInputError: boolean) => boolean;
 }
 
 interface HourlyRateState {
@@ -31,13 +31,13 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
 
   // Helper to run hourly rate specific validation
-  const runHourlyRateValidation = (currentRate: number | null, showImmediately: boolean = false): boolean => {
+  const runHourlyRateValidation = (currentRate: number | null, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
     if (currentRate === null || currentRate <= 0) {
       errorMessage = "Please enter a valid positive rate";
     }
 
-    if (showImmediately || forceValidate) {
+    if (showInputError || forceValidate) {
       setInternalHourlyRateError(errorMessage);
     }
     return !errorMessage;
@@ -47,9 +47,9 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
+      validate: (showInputError: boolean) => {
         // Trigger validation for the currency select
-        const isCurrencyValid = currencySelectRef.current?.validate() || false;
+        const isCurrencyValid = currencySelectRef.current?.validate(showInputError) || false;
         // Trigger validation for the hourly rate input, showing errors immediately
         const isHourlyRateValid = runHourlyRateValidation(state.hourlyRate, true);
 

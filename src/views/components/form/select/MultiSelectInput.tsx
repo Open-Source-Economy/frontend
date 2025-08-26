@@ -37,7 +37,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
 
   // Helper function to run validation and update internal error state
-  const runValidation = (currentValues: string[], showImmediately: boolean = false): boolean => {
+  const runValidation = (currentValues: string[], showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
     if (required && currentValues.length === 0) {
       // Check if the array is empty for required validation
@@ -45,7 +45,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
     }
 
     // Only set the error state if it should be shown immediately or if forced
-    if (showImmediately || forceValidate) {
+    if (showInputError || forceValidate) {
       setInternalError(errorMessage);
     }
     return !errorMessage; // Return true if valid, false if invalid
@@ -55,9 +55,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
+      validate: (showInputError: boolean) => {
         // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(value, true); // Pass the array value to validation
+        return runValidation(value, showInputError); // Pass the array value to validation
       },
     }),
     [value, required, label],
@@ -97,7 +97,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
 
     onChange(newSelectedValues); // Notify parent of change with the new array
     // We don't close the dropdown here to allow multiple selections
-    runValidation(newSelectedValues); // Validate immediately after selection/deselection
+    runValidation(newSelectedValues, false); // Validate immediately after selection/deselection
   };
 
   // Get labels for currently selected options to display as pills

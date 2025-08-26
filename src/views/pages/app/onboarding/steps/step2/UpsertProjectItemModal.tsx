@@ -38,9 +38,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const handleUpsertProject = async () => {
     // Validate inputs
-    const isUrlValid = urlInputRef.current?.validate() ?? false;
-    const isRoleValid = roleSelectRef.current?.validate() ?? false;
-    const isMergeRightsValid = mergeRightsSelectRef.current?.validate() ?? false;
+    const isUrlValid = urlInputRef.current?.validate(true) ?? false;
+    const isRoleValid = roleSelectRef.current?.validate(true) ?? false;
+    const isMergeRightsValid = mergeRightsSelectRef.current?.validate(true) ?? false;
 
     if (!isUrlValid || !isRoleValid || !isMergeRightsValid) {
       console.error("Please fill all required fields");

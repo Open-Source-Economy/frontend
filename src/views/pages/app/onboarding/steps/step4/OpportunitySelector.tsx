@@ -18,13 +18,13 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
   const { id, label, value, onChange, required, forceValidate } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
 
-  const runValidation = (currentValue: OpenToOtherOpportunityType | null, showImmediately: boolean = false): boolean => {
+  const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
     if (required && currentValue === null) {
       errorMessage = `${label} is required.`;
     }
 
-    if (showImmediately || forceValidate) {
+    if (showInputError || forceValidate) {
       setInternalError(errorMessage);
     }
     return !errorMessage;

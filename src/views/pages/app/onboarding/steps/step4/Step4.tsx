@@ -69,7 +69,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
     setErrors(prev => ({ ...prev, comments: undefined }));
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = (showInputError: boolean): boolean => {
     const newErrors: FormErrors = {};
     let isFormValid = true;
 
@@ -87,7 +87,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
     }
 
     // Validate Hourly Rate and Currency using HourlyRateInput's ref
-    const isHourlyRateSectionValid = hourlyRateInputRef.current?.validate() || false;
+    const isHourlyRateSectionValid = hourlyRateInputRef.current?.validate(showInputError) || false;
     if (!isHourlyRateSectionValid) {
       isFormValid = false;
     }
@@ -125,7 +125,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   const handleNext = async () => {
     setForceFormValidation(true); // Force child components to show validation errors
-    if (validateForm()) {
+    if (validateForm(true)) {
       const success = await saveSettingsToDatabase();
       if (success) {
         props.onNext();

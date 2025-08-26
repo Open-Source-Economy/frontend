@@ -1,14 +1,13 @@
 import React, { forwardRef, InputHTMLAttributes, Ref, useImperativeHandle, useState } from "react";
 
-// Define the interface for the methods exposed via ref for a checkbox
 export interface CheckboxInputRef {
-  validate: () => boolean; // Method to programmatically validate the checkbox
+  validate: (showInputError: boolean) => boolean;
 }
 
 interface CheckboxInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: React.ReactNode; // FIX: Changed type from 'string' to 'React.ReactNode'
-  required?: boolean; // If the checkbox must be checked
-  renderError?: (errorMessage: string | undefined) => React.ReactNode; // Custom error renderer
+  label: React.ReactNode;
+  required?: boolean;
+  renderError?: (errorMessage: string | undefined) => React.ReactNode;
 }
 
 export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxInputProps, ref: Ref<CheckboxInputRef>) {
@@ -17,7 +16,7 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
   const [isTouched, setIsTouched] = useState(false);
 
   // Helper function to run validation and update internal error state
-  const runValidation = (isChecked: boolean, showImmediately: boolean = false): boolean => {
+  const runValidation = (isChecked: boolean, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
 
     if (required && !isChecked) {
@@ -25,7 +24,7 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
     }
 
     // Show error if explicitly told to, or if the input has been interacted with.
-    if (showImmediately || isTouched) {
+    if (showInputError || isTouched) {
       setInternalError(errorMessage);
     }
     return !errorMessage; // Returns true if valid, false if invalid
@@ -35,9 +34,9 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
+      validate: (showInputError: boolean) => {
         // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(Boolean(checked), true);
+        return runValidation(Boolean(checked), showInputError);
       },
     }),
     [checked, required],
@@ -53,14 +52,12 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
           {...rest}
           onChange={e => {
             setIsTouched(true); // Mark as touched on change
-            runValidation(e.target.checked); // Validate on change
             if (props.onChange) {
               props.onChange(e); // Pass the event up to the parent
             }
           }}
           onBlur={e => {
             setIsTouched(true); // Mark as touched on blur
-            runValidation(e.target.checked, true); // Validate and show error on blur
             if (props.onBlur) {
               props.onBlur(e);
             }

@@ -26,14 +26,14 @@ export const SelectInput = forwardRef(function SelectInput(
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
 
   // Helper function to run validation and update internal error state
-  const runValidation = (currentValue: string | number, showImmediately: boolean = false): boolean => {
+  const runValidation = (currentValue: string | number, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
     if (required && !currentValue) {
       errorMessage = `${label} is required.`;
     }
 
     // Only set the error state if it should be shown immediately or if forced
-    if (showImmediately || forceValidate) {
+    if (showInputError || forceValidate) {
       setInternalError(errorMessage);
     }
     return !errorMessage; // Return true if valid, false if invalid
@@ -43,9 +43,9 @@ export const SelectInput = forwardRef(function SelectInput(
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
+      validate: (showInputError: boolean) => {
         // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(value, true);
+        return runValidation(value, showInputError);
       },
     }),
     [value, required, label],
