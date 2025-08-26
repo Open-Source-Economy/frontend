@@ -1,8 +1,8 @@
 import React, { forwardRef, Ref, SelectHTMLAttributes, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { GenericInputRef } from "../GenericInput";
 
-interface SelectOption {
-  value: string;
+export interface SelectOption {
+  value: string | number;
   label: string;
 }
 
@@ -11,7 +11,7 @@ interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   options: SelectOption[];
   required?: boolean;
-  value: string; // Ensure value is controlled by parent
+  value: string | number; // Ensure value is controlled by parent
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void; // Pass the change event
   forceValidate?: boolean; // Prop to pass down for initial validation or external trigger
 }
@@ -26,7 +26,7 @@ export const SelectInput = forwardRef(function SelectInput(
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
 
   // Helper function to run validation and update internal error state
-  const runValidation = (currentValue: string, showImmediately: boolean = false): boolean => {
+  const runValidation = (currentValue: string | number, showImmediately: boolean = false): boolean => {
     let errorMessage: string | undefined = undefined;
     if (required && !currentValue) {
       errorMessage = `${label} is required.`;
@@ -76,7 +76,7 @@ export const SelectInput = forwardRef(function SelectInput(
     };
   }, [value]);
 
-  const handleOptionClick = (optionValue: string) => {
+  const handleOptionClick = (optionValue: string | number) => {
     const syntheticEvent = {
       target: {
         value: optionValue,

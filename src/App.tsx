@@ -23,7 +23,7 @@ import {
   Issues,
   Payment,
   Pdf,
-  UserDeveloper
+  UserDeveloper,
 } from "./views";
 import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes } from "./views/layout/AuthRoutes";
 import { Projects } from "./views/pages/app/projects/Projects";

@@ -16,7 +16,7 @@ import {
   ThirdPartyUserId,
   User,
   UserId,
-  UserRole
+  UserRole,
 } from "@open-source-economy/api-types";
 
 export * from "./BackendAPI.mock";

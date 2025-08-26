@@ -7,7 +7,7 @@ import {
   IncomeStreamType,
   OpenToOtherOpportunityType,
   ProjectItem,
-  Service
+  Service,
 } from "@open-source-economy/api-types";
 
 export enum OnboardingDataSteps {

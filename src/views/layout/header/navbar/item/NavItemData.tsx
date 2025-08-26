@@ -8,7 +8,7 @@ import {
   LogOutIcon,
   MaintainerIcon,
   OrderIcon,
-  ProfileIcon
+  ProfileIcon,
 } from "../Icons";
 import { displayedCurrencies } from "src/views/data";
 import { Currency } from "@open-source-economy/api-types";

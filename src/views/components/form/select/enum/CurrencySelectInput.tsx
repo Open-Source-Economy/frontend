@@ -1,8 +1,8 @@
 import React, { forwardRef, Ref } from "react";
-import { SelectInput } from "./SelectInput"; // Adjust path if SelectInput is not in the same directory
+import { SelectInput } from "../SelectInput"; // Adjust path if SelectInput is not in the same directory
 import { Currency } from "@open-source-economy/api-types"; // Import Currency enum from your API types
-import { displayedCurrencies } from "../../../data";
-import { GenericInputRef } from "../GenericInput"; // Import displayedCurrencies from your data file (adjust path as needed)
+import { displayedCurrencies } from "../../../../data";
+import { GenericInputRef } from "../../GenericInput"; // Import displayedCurrencies from your data file (adjust path as needed)
 
 interface CurrencySelectInputProps {
   value: Currency;

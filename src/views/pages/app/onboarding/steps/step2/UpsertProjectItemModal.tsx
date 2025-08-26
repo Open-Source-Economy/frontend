@@ -1,33 +1,13 @@
 import React, { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import {
-  DeveloperProjectItem,
-  DeveloperRoleType,
-  MergeRightsType,
-  ProjectItem,
-  ProjectItemType
-} from "@open-source-economy/api-types";
+import { DeveloperProjectItem, DeveloperRoleType, MergeRightsType, ProjectItem, ProjectItemType } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { GithubUrls, handleApiCall } from "../../../../../../ultils";
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model";
-import { GenericInputRef, SelectInput, UrlInput } from "../../../../../components/form";
-
-const roleOptions = [
-  { label: "Lead Maintainer", value: DeveloperRoleType.CREATOR_FOUNDER },
-  { label: "Co-developer", value: DeveloperRoleType.CORE_DEVELOPER },
-  { label: "Contributor", value: DeveloperRoleType.MAINTAINER },
-  { label: "Documentation Lead", value: DeveloperRoleType.PROJECT_LEAD },
-  { label: "Community Manager", value: DeveloperRoleType.PROJECT_LEAD },
-];
-
-const mergeRightsOptions = [
-  { label: "Full rights", value: MergeRightsType.FULL_RIGHTS },
-  { label: "Specific areas", value: MergeRightsType.SPECIFIC_AREAS },
-  { label: "No direct rights", value: MergeRightsType.NO_RIGHTS },
-  { label: "Formal process", value: MergeRightsType.FORMAL_PROCESS },
-];
+import { GenericInputRef, UrlInput } from "../../../../../components/form";
+import { DeveloperRoleTypeSelectInput, MergeRightsTypeSelectInput } from "../../../../../components/form/select/enum";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -41,10 +21,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const [url, setUrl] = useState("");
 
-  const [selectedRoles, setSelectedRoles] = useState<DeveloperRoleType[] | null>(props.projectItem ? props.projectItem[1].roles : null);
-  const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType[] | null>(props.projectItem ? props.projectItem[1].mergeRights : null);
+  const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
+    props.projectItem && props.projectItem[1].roles && props.projectItem[1].roles.length > 0 ? props.projectItem[1].roles[0] : null,
+  );
+  const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(
+    props.projectItem && props.projectItem[1].mergeRights && props.projectItem[1].mergeRights.length > 0 ? props.projectItem[1].mergeRights[0] : null,
+  );
 
-  // Refs for our custom input components to trigger their validation
+  // Refs for custom input components
   const urlInputRef = useRef<GenericInputRef>(null);
   const roleSelectRef = useRef<GenericInputRef>(null);
   const mergeRightsSelectRef = useRef<GenericInputRef>(null);
@@ -53,7 +37,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpsertProject = async () => {
-    if (!url || !selectedRoles || selectedRoles.length !== 1 || !selectedMergeRights || selectedMergeRights.length !== 1) {
+    // Validate inputs
+    const isUrlValid = urlInputRef.current?.validate() ?? false;
+    const isRoleValid = roleSelectRef.current?.validate() ?? false;
+    const isMergeRightsValid = mergeRightsSelectRef.current?.validate() ?? false;
+
+    if (!isUrlValid || !isRoleValid || !isMergeRightsValid) {
       console.error("Please fill all required fields");
       return;
     }
@@ -79,8 +68,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       const body: dto.UpsertDeveloperProjectItemBody = {
         projectItemType: projectItemType,
         sourceIdentifier: sourceIdentifier,
-        roles: selectedRoles,
-        mergeRights: selectedMergeRights,
+        roles: selectedRole ? [selectedRole] : [],
+        mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
 
@@ -95,27 +84,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
   };
 
-  // This validateForm now orchestrates validation of child components via refs
-  // This function was part of the previous refactor but is left here as a placeholder for
-  // how a comprehensive form validation would work. Its logic is NOT called by handleUpsertProject
-  // in this version, as per the explicit "only change input types" instruction.
-  const validateForm = (): boolean => {
-    let isValid = true;
-
-    // Trigger validation on each custom input component and collect results
-    // Calling .validate() will also make the component display its internal error if any.
-    const isUrlValid = urlInputRef.current?.validate() ?? false;
-    const isRoleValid = roleSelectRef.current?.validate() ?? false;
-    const isMergeRightsValid = mergeRightsSelectRef.current?.validate() ?? false;
-
-    // If any component is invalid, the overall form is invalid
-    if (!isUrlValid || !isRoleValid || !isMergeRightsValid) {
-      isValid = false;
-    }
-
-    return isValid;
-  };
-
   return (
     <>
       <Modal show={props.show} onHide={() => props.setShow(false)} centered className="upsert-project-item-modal">
@@ -128,7 +96,6 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[24px] text-left">
                     <p className="block leading-[1.3]">{props.projectItem ? "Edit Project" : "Add Project"}</p>
                   </div>
-
                   <button onClick={() => props.setShow(false)} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -148,28 +115,15 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   ref={urlInputRef}
                 />
 
-                {/* Role Dropdown - Using SelectInput component */}
-                <SelectInput
-                  id="your-role"
-                  name="yourRole"
-                  label="Your Role"
-                  required
-                  options={roleOptions}
-                  value={selectedRoles && selectedRoles.length > 0 ? selectedRoles[0] : ""}
-                  onChange={e => setSelectedRoles([e.target.value as DeveloperRoleType])} // Convert back to array of enum
-                  ref={roleSelectRef}
-                />
+                {/* Role Dropdown - Using new dedicated component */}
+                <DeveloperRoleTypeSelectInput name="yourRole" required value={selectedRole || null} onChange={setSelectedRole} ref={roleSelectRef} />
 
-                {/* Merge Rights Dropdown - Using SelectInput component */}
-                <SelectInput
-                  id="merge-rights"
+                {/* Merge Rights Dropdown - Using new dedicated component */}
+                <MergeRightsTypeSelectInput
                   name="mergeRights"
-                  label="Merge Rights"
                   required
-                  options={mergeRightsOptions}
-                  // Value for SelectInput must be string
-                  value={selectedMergeRights && selectedMergeRights.length > 0 ? selectedMergeRights[0] : ""}
-                  onChange={e => setSelectedMergeRights([e.target.value as MergeRightsType])} // Convert back to array of enum
+                  value={selectedMergeRights || null}
+                  onChange={e => setSelectedMergeRights}
                   ref={mergeRightsSelectRef}
                 />
 

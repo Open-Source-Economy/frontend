@@ -6,13 +6,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import * as dto from "@open-source-economy/api-types";
 import { handleApiCall } from "../../../../../../ultils";
 
-import {
-  CheckboxInputRef,
-  EmailInput,
-  GenericInputRef,
-  NameInput,
-  TermsAndConditionsCheckbox
-} from "../../../../../components/form";
+import { CheckboxInputRef, EmailInput, GenericInputRef, NameInput, TermsAndConditionsCheckbox } from "../../../../../components/form";
 
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
