@@ -20,6 +20,9 @@ import { Step4 } from "./steps/step4/Step4";
 import Step5 from "./steps/step5/Step5";
 import { PreferredCurrency } from "../../../../ultils/PreferredCurrency";
 import ProgressBar from "./components/ProgressBar";
+import { handleApiCall } from "../../../../ultils";
+import LoadingIndicator from "./components/LoadingIndicator";
+import ErrorDisplay from "./components/ErrorDisplay";
 
 const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
@@ -61,36 +64,13 @@ export default function OnboardingFlow() {
 
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
-  const [loading, setLoading] = useState(true);
-  // TODO: Handle errors properly
-  const [error, setError] = useState<ApiError | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
 
+  // TODO: lolo
   useEffect(() => {
-    // TODO: sam can you use the handleApiCall utility function here? I made an example in Step1.tsx
-    async function initialStateSync(currentStep: OnboardingDataSteps) {
-      setLoading(true);
-      try {
-        const params: dto.GetDeveloperProfileParams = {};
-        const query: dto.GetDeveloperProfileQuery = {};
-        const response = await onboardingAPI.getDeveloperProfile(params, query);
-        if (response instanceof ApiError) {
-          setError(response);
-          return;
-        } else if (response.profile) {
-          const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile, preferredCurrency);
-          setState(state);
-        }
-      } catch (error) {
-        setError(ApiError.from(error));
-        return;
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    setLoading(true);
     let currentStep = OnboardingDataSteps.Step1;
 
     // If the URL step is invalid, redirect to Step1
@@ -99,10 +79,22 @@ export default function OnboardingFlow() {
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
-    initialStateSync(currentStep);
 
-    setLoading(false);
-  }, [currentUrlStep, setSearchParams]); // Depend on currentUrlStep and setSearchParams
+    const apiCall = async () => {
+      const params: dto.GetDeveloperProfileParams = {};
+      const query: dto.GetDeveloperProfileQuery = {};
+      return await onboardingAPI.getDeveloperProfile(params, query);
+    };
+
+    const onSuccess = (response: dto.GetDeveloperProfileResponse) => {
+      if (response.profile) {
+        const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile, preferredCurrency);
+        setState(state);
+      }
+    };
+
+    handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+  }, [currentUrlStep, setSearchParams]); // TODO: lolo not sure about it Depend on currentUrlStep and setSearchParams
 
   const goToStep = (step: OnboardingDataSteps) => {
     setSearchParams({ step: step.toString() });
@@ -178,7 +170,8 @@ export default function OnboardingFlow() {
     <PageWrapper>
       {/* Corrected: The outer curly brace for the conditional rendering was missing. */}
       <div className="bg-[#0e1f35] min-h-screen">
-        {loading ? (
+        <ErrorDisplay message={apiError?.message} />
+        {isLoading ? (
           <PageLoader message="Loading onboarding steps..." />
         ) : (
           <>
