@@ -10,7 +10,7 @@ import { Step5State } from "../../OnboardingDataSteps";
 import SelectProjectsModal from "./SelectProjectsModal";
 
 import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
-import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data";
+import { ProjectItemIdCompanion } from "../../../../../data";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
 import { ServiceCard } from "./ServiceCard";

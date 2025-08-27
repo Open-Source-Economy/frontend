@@ -17,7 +17,7 @@ interface HourlyRateState {
 interface HourlyRateInputProps {
   state: HourlyRateState;
   handleCurrencyChange: (currency: Currency) => void;
-  handleHourlyRateChange: (value: string) => void;
+  handleHourlyRateChange: (value: number) => void;
   forceValidate?: boolean;
 }
 
@@ -69,7 +69,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
   // Helper to ensure only valid numeric input for the hourly rate
   const sanitizeHourlyRateInput = (inputValue: string) => {
     const numericValue = inputValue.match(/^\d*\.?\d*$/)?.[0] || "";
-    handleHourlyRateChange(numericValue);
+    handleHourlyRateChange(Number(numericValue));
     // Clear error immediately on change if it was showing and input is now valid
     if (internalHourlyRateError && runHourlyRateValidation(parseFloat(numericValue), false)) {
       setInternalHourlyRateError(undefined);

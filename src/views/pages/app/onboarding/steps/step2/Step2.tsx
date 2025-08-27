@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItem, DeveloperProjectItemEntry, ProjectItem } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./UpsertProjectItemModal";

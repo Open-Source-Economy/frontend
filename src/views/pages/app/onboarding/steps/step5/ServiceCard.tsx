@@ -1,6 +1,6 @@
 import React from "react";
 import { displayedCurrencies } from "../../../../../data";
-import { Currency, ServiceId, DeveloperServiceEntry } from "@open-source-economy/api-types";
+import { Currency, DeveloperServiceEntry, ServiceId } from "@open-source-economy/api-types";
 import { CloseIcon } from "../step3/FundingCard";
 
 interface ServiceCardProps {

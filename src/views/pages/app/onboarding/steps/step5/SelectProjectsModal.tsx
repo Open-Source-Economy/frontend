@@ -6,8 +6,9 @@ import { getOnboardingBackendAPI } from "../../../../../../services";
 import { handleApiCall } from "../../../../../../ultils";
 import { ProjectItemIdCompanion } from "../../../../../data";
 import { DeveloperService } from "@open-source-economy/api-types/dist/model";
-import { ResponseTimeTypeSelectInput } from "../../../../../components/form/select/enum";
-import { Button } from "../../../../../components/elements/Button";
+import { ResponseTimeTypeSelectInput } from "../../../../../components/form";
+import { Button } from "../../../../../components";
+import { CommentSection } from "../../components";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,8 +45,9 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
   // --- State Variables ---
   const [selectedProjectItemIds, setSelectedProjectItemIds] = useState<dto.ProjectItemId[]>(props.developerService?.projectItemIds || []);
   const [hourlyRateInput, setHourlyRateInput] = useState<number | null>(props.developerService?.hourlyRate || null);
-  // Changed type to ResponseTimeType | null
   const [customResponseTime, setCustomResponseTime] = useState<ResponseTimeType | null>(props.developerService?.responseTimeHours || null);
+  const [comment, setComment] = useState<string>(props.developerService?.comment || "");
+  const [showCommentInput, setShowCommentInput] = useState(false);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,8 +57,9 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
   useEffect(() => {
     setSelectedProjectItemIds(props.developerService?.projectItemIds || []);
     setHourlyRateInput(props.developerService?.hourlyRate || null);
-    // Ensure customResponseTime is initialized with the enum value
     setCustomResponseTime(props.developerService?.responseTimeHours || null);
+    setComment(props.developerService?.comment || "");
+    setShowCommentInput(false);
     setApiError(null);
     setInputError(null);
   }, [props.developerService, props.service]);
@@ -72,7 +75,6 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
       setIsLoading(false);
       return;
     }
-    // Updated validation for enum
     if (props.service.hasResponseTime && customResponseTime === null) {
       setInputError("Please select a valid response time.");
       setIsLoading(false);
@@ -84,9 +86,8 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
         serviceId: props.service.id,
         projectItemIds: selectedProjectItemIds,
         hourlyRate: hourlyRateInput || undefined,
-        // Ensure responseTimeHours is correctly typed as ResponseTimeType or undefined
         responseTimeHours: props.service.hasResponseTime ? customResponseTime || undefined : undefined,
-        comment: undefined, // TODO: lolo
+        comment: comment || undefined,
       };
 
       return await api.upsertDeveloperService({}, body, {});
@@ -205,6 +206,29 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
             </div>
           </div>
         )}
+        <div className="bg-[#14233a] box-border flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
+          <div className="box-border flex flex-col gap-4 items-start justify-between p-0 relative shrink-0 w-full">
+            <div className="flex-1">
+              <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left mb-2">
+                <p className="block leading-[1.3]">Comments</p>
+              </div>
+              <div className="font-montserrat font-normal relative shrink-0 text-[#ffffff] text-[14px] text-left opacity-70">
+                <p className="block leading-[1.5]">Add a comment about your service or project selection</p>
+              </div>
+            </div>
+            <div className="flex flex-row gap-2 items-stretch">
+              <CommentSection
+                show={showCommentInput}
+                onToggle={() => setShowCommentInput(!showCommentInput)}
+                onClose={() => setShowCommentInput(false)}
+                value={comment}
+                onChange={value => setComment(value)}
+                label="Additional comments:"
+                placeholder="e.g., I'm prioritizing this project, I have specific availability on weekends, etc."
+              />
+            </div>
+          </div>
+        </div>
         {apiError && (
           <div className="mt-4 text-center">
             <p className="font-montserrat font-normal text-red-500 text-[14px]">{apiError.message}</p>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
