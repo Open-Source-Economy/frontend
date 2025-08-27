@@ -13,10 +13,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   forceValidate?: boolean;
 }
 
-export const TextArea = forwardRef(function TextArea(
-  props: TextAreaProps,
-  ref: Ref<TextAreaRef>,
-) {
+export const TextArea = forwardRef(function TextArea(props: TextAreaProps, ref: Ref<TextAreaRef>) {
   const { label, className, required, validator, renderError, forceValidate, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [isTouched, setIsTouched] = useState(false);
@@ -25,7 +22,7 @@ export const TextArea = forwardRef(function TextArea(
     let errorMessage: string | undefined = undefined;
 
     if (required && !value.trim()) {
-      errorMessage = `${label || 'Field'} is required.`;
+      errorMessage = `${label || "Field"} is required.`;
     } else if (validator) {
       errorMessage = validator(value);
     }

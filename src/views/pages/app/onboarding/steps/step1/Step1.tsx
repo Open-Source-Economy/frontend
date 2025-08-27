@@ -9,7 +9,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import { CheckboxInputRef, EmailInput, GenericInputRef, NameInput, TermsAndConditionsCheckbox } from "../../../../../components/form";
 import { Button } from "../../../../../components/elements/Button";
 
-export interface Step1Props extends OnboardingStepProps<Step1State> { }
+export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
 export default function Step1(props: Step1Props) {
   const [apiError, setApiError] = useState<ApiError | null>(null);

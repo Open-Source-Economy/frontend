@@ -156,12 +156,16 @@ export const serviceHierarchy: dto.ServiceHierarchyItem[] = [
   },
 ];
 
-export const developerBugFixingService: [dto.Service, dto.DeveloperServiceTODOChangeName] = [
-  bugFixingService,
-  {
-    serviceId: bugFixingServiceId,
-    projectItemIds: [],
+export const developerBugFixingService: dto.DeveloperServiceEntry = {
+  service: bugFixingService,
+  developerService: {
+    id: new dto.DeveloperServiceId("DeveloperServiceId"),
+    developerProfileId: new dto.DeveloperProfileId("some-profile-id"),
+    projectItemIds: [new dto.ProjectItemId("some ProjectItemId"), new dto.ProjectItemId("some ProjectItemId")],
+    serviceId: bugFixingService.id,
     hourlyRate: 80,
     responseTimeHours: ResponseTimeType.FourHours,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
-];
+};

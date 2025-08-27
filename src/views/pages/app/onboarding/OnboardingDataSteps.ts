@@ -1,13 +1,11 @@
 import {
   Currency,
   DeveloperProfileId,
-  DeveloperProjectItem,
-  DeveloperServiceTODOChangeName,
+  DeveloperProjectItemEntry,
+  DeveloperServiceEntry,
   FullDeveloperProfile,
   IncomeStreamType,
   OpenToOtherOpportunityType,
-  ProjectItem,
-  Service,
 } from "@open-source-economy/api-types";
 
 export enum OnboardingDataSteps {
@@ -27,7 +25,7 @@ export interface Step1State {
 }
 
 export interface Step2State {
-  projects: [ProjectItem, DeveloperProjectItem][];
+  projects: DeveloperProjectItemEntry[];
 }
 
 export interface Step3State {
@@ -46,14 +44,14 @@ export interface Step4State {
   hourlyRateComments?: string;
 }
 
-// Corrected type for Step5State with the new projects property
+// Step 5 now uses the new entry types
 export interface Step5State {
   currency: Currency;
-  developerServices: [Service, DeveloperServiceTODOChangeName | null][];
-  developerProjectItems: [ProjectItem, DeveloperProjectItem][];
+  developerServices: DeveloperServiceEntry[];
+  developerProjectItems: DeveloperProjectItemEntry[];
 }
 
-export interface Step6State { }
+export interface Step6State {}
 
 export interface OnboardingState {
   currentStep: OnboardingDataSteps;

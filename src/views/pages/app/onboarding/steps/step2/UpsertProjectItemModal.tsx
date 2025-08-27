@@ -1,20 +1,19 @@
 import React, { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItem, DeveloperRoleType, MergeRightsType, ProjectItem, ProjectItemType } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectItemType } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { GithubUrls, handleApiCall } from "../../../../../../ultils";
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model";
-import { GenericInputRef, UrlInput } from "../../../../../components/form";
-import { DeveloperRoleTypeSelectInput, MergeRightsTypeSelectInput } from "../../../../../components/form/select/enum";
-import { Button } from "../../../../../components/elements/Button";
+import { DeveloperRoleTypeSelectInput, GenericInputRef, MergeRightsTypeSelectInput, UrlInput } from "../../../../../components/form";
+import { Button } from "../../../../../components";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  projectItem: [ProjectItem, DeveloperProjectItem] | null;
-  onUpsert: (projectItem: [ProjectItem, DeveloperProjectItem]) => void;
+  projectItem: DeveloperProjectItemEntry | null;
+  onUpsert: (projectItem: DeveloperProjectItemEntry) => void;
 }
 
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
@@ -23,10 +22,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [url, setUrl] = useState("");
 
   const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
-    props.projectItem && props.projectItem[1].roles && props.projectItem[1].roles.length > 0 ? props.projectItem[1].roles[0] : null,
+    props.projectItem && props.projectItem.developerProjectItem.roles && props.projectItem.developerProjectItem.roles.length > 0
+      ? props.projectItem.developerProjectItem.roles[0]
+      : null,
   );
   const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(
-    props.projectItem && props.projectItem[1].mergeRights && props.projectItem[1].mergeRights.length > 0 ? props.projectItem[1].mergeRights[0] : null,
+    props.projectItem && props.projectItem.developerProjectItem.mergeRights && props.projectItem.developerProjectItem.mergeRights.length > 0
+      ? props.projectItem.developerProjectItem.mergeRights[0]
+      : null,
   );
 
   // Refs for custom input components
@@ -79,7 +82,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
     const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
       props.setShow(false);
-      props.onUpsert([response.projectItem, response.developerProjectItem]);
+      props.onUpsert({
+        developerProjectItem: response.developerProjectItem,
+        projectItem: response.projectItem,
+      });
     };
 
     await handleApiCall(apiCall, setIsLoading, setError, onSuccess);

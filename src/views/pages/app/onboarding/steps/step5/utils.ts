@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
 
 interface ServiceCategory {
   service: dto.Service;
@@ -35,26 +34,31 @@ export const buildServiceCategories = (items: dto.ServiceHierarchyItem[]): Servi
   return Object.values(categories);
 };
 
+export interface GroupedDeveloperServiceEntry {
+  category: string;
+  developerServices: dto.DeveloperServiceEntry[];
+}
+
 /**
  * Groups developer services by their respective categories based on the service hierarchy.
  * @param serviceCategories A list of all available service categories.
- * @param developerServices A list of developer's selected services, including the associated Service object.
- * @returns An array of objects, each containing a category name and a list of developer services belonging to that category.
+ * @param developerServices A list of the developer's selected services, each with its associated Service object.
+ * @returns An array of objects, each containing a category name and the list of developer services in that category.
  */
 export const groupDeveloperServicesByCategory = (
   serviceCategories: ServiceCategory[],
-  developerServices: [dto.Service, DeveloperServiceTODOChangeName | null][],
-): { category: string; developerServices: [dto.Service, DeveloperServiceTODOChangeName | null][] }[] => {
-  return serviceCategories.reduce(
-    (acc, category) => {
-      const servicesInThisCategory = developerServices.filter(([service, _]) =>
-        category.services.some(childService => childService.id.uuid === service.id.uuid),
-      );
-      if (servicesInThisCategory.length > 0) {
-        acc.push({ category: category.service.name, developerServices: servicesInThisCategory });
-      }
-      return acc;
-    },
-    [] as { category: string; developerServices: [dto.Service, DeveloperServiceTODOChangeName | null][] }[],
-  );
+  developerServices: dto.DeveloperServiceEntry[],
+): GroupedDeveloperServiceEntry[] => {
+  return serviceCategories.reduce<GroupedDeveloperServiceEntry[]>((acc, category) => {
+    const servicesInThisCategory = developerServices.filter(({ service }) => category.services.some(childService => childService.id.uuid === service.id.uuid));
+
+    if (servicesInThisCategory.length > 0) {
+      acc.push({
+        category: category.service.name,
+        developerServices: servicesInThisCategory,
+      });
+    }
+
+    return acc;
+  }, []);
 };

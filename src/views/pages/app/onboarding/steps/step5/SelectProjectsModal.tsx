@@ -4,7 +4,6 @@ import { ResponseTimeType } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { handleApiCall } from "../../../../../../ultils";
-import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
 import { ProjectItemIdCompanion } from "../../../../../data";
 import { DeveloperService } from "@open-source-economy/api-types/dist/model";
 import { ResponseTimeTypeSelectInput } from "../../../../../components/form/select/enum";
@@ -29,8 +28,8 @@ const GitHubIcon = () => (
 
 interface SelectProjectsModalProps {
   service: dto.Service;
-  developerService: DeveloperServiceTODOChangeName | null;
-  developerProjectItems: [dto.ProjectItem, dto.DeveloperProjectItem][];
+  developerService: dto.DeveloperService | null;
+  developerProjectItemEntries: dto.DeveloperProjectItemEntry[];
   currency: dto.Currency;
   onClose: () => void;
   onUpsertDeveloperService: (developerService: DeveloperService) => void;
@@ -81,15 +80,13 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
     }
 
     const apiCall = async () => {
-      const developerServiceData: DeveloperServiceTODOChangeName = {
+      const body: dto.UpsertDeveloperServiceBody = {
         serviceId: props.service.id,
         projectItemIds: selectedProjectItemIds,
         hourlyRate: hourlyRateInput || undefined,
         // Ensure responseTimeHours is correctly typed as ResponseTimeType or undefined
         responseTimeHours: props.service.hasResponseTime ? customResponseTime || undefined : undefined,
-      };
-      const body: dto.UpsertDeveloperServiceBody = {
-        developerService: developerServiceData,
+        comment: undefined, // TODO: lolo
       };
 
       return await api.upsertDeveloperService({}, body, {});
@@ -124,7 +121,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
               <div className="flex items-center justify-center py-4">
                 <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading your repositories...</div>
               </div>
-            ) : props.developerProjectItems.length === 0 ? (
+            ) : props.developerProjectItemEntries.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-4 gap-2">
                 <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">
                   No repositories found. Please add repositories in Step 2 first.
@@ -134,10 +131,10 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                 </button>
               </div>
             ) : (
-              props.developerProjectItems.map(([projectItem, developerProjectItem]) => {
-                const isSelected = selectedProjectItemIds.some(id => id.uuid === developerProjectItem.id.uuid);
+              props.developerProjectItemEntries.map(entry => {
+                const isSelected = selectedProjectItemIds.some(id => id.uuid === entry.developerProjectItem.id.uuid);
                 return (
-                  <div key={developerProjectItem.id.uuid} className="flex flex-row gap-2 items-center mb-2">
+                  <div key={entry.developerProjectItem.id.uuid} className="flex flex-row gap-2 items-center mb-2">
                     <label className="flex flex-row gap-2 items-center cursor-pointer">
                       <div className="bg-[#202f45] relative rounded-sm shrink-0 size-[18px]">
                         <input
@@ -146,7 +143,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                           checked={isSelected}
                           onChange={() => {
                             setSelectedProjectItemIds(prev =>
-                              isSelected ? prev.filter(id => id.uuid !== developerProjectItem.id.uuid) : [...prev, developerProjectItem.id],
+                              isSelected ? prev.filter(id => id.uuid !== entry.developerProjectItem.id.uuid) : [...prev, entry.developerProjectItem.id],
                             );
                           }}
                           className="w-full h-full opacity-0 cursor-pointer"
@@ -163,7 +160,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                       <div className="flex flex-row gap-2 items-center">
                         <GitHubIcon />
                         <span className="font-montserrat font-normal text-[#ffffff] text-[14px]">
-                          {ProjectItemIdCompanion.displayName(projectItem.sourceIdentifier)}
+                          {ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)}
                         </span>
                       </div>
                     </label>
@@ -214,13 +211,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
           </div>
         )}
         <div className="flex flex-row gap-4 items-center justify-end">
-          <Button
-            onClick={handleSave}
-            disabled={isLoading || selectedProjectItemIds.length === 0}
-            level="PRIMARY"
-            audience="DEVELOPER"
-            size="MEDIUM"
-          >
+          <Button onClick={handleSave} disabled={isLoading || selectedProjectItemIds.length === 0} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
             {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Select Projects"}
           </Button>
         </div>

@@ -5,7 +5,7 @@ import { paths } from "../../../../../../paths";
 import { laurianeCalDevLink } from "../../../../../data";
 import { Button } from "../../../../../components/elements/Button";
 
-export interface Step6Props extends OnboardingStepProps<Step6State> { }
+export interface Step6Props extends OnboardingStepProps<Step6State> {}
 
 export default function Step6(props: Step6Props) {
   const navigate = useNavigate();

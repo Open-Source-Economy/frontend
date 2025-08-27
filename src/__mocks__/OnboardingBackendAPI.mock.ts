@@ -55,16 +55,15 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
           updatedAt: new Date(),
         },
         projects: [
-          [
-            // Mock ProjectItem and DeveloperProjectItem
-            {
+          {
+            projectItem: {
               id: projectItemId,
               projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
               sourceIdentifier: "https://github.com/open-source-economy/ose-website",
               createdAt: new Date(),
               updatedAt: new Date(),
             },
-            {
+            developerProjectItem: {
               id: developerProjectItemId,
               developerProfileId: developerProfileId,
               projectItemId: projectItemId,
@@ -73,9 +72,9 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
               createdAt: new Date(),
               updatedAt: new Date(),
             },
-          ],
+          },
         ],
-        services: [developerBugFixingService], // Assuming developerBugFixingService is a mock
+        services: [developerBugFixingService],
       },
     };
     return Promise.resolve(response);
@@ -176,11 +175,11 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
       developerService: {
         id: mockDeveloperServiceId,
         developerProfileId: developerProfileId,
-        serviceId: body.developerService.serviceId,
-        projectItemIds: body.developerService.projectItemIds,
-        hourlyRate: body.developerService.hourlyRate,
-        responseTimeHours: body.developerService.responseTimeHours,
-        comment: body.developerService.comments, // DTO uses 'comments', model uses 'comment'
+        serviceId: body.serviceId,
+        projectItemIds: body.projectItemIds,
+        hourlyRate: body.hourlyRate,
+        responseTimeHours: body.responseTimeHours,
+        comment: body.comment, // DTO uses 'comments', model uses 'comment'
         createdAt: new Date(),
         updatedAt: new Date(),
       },

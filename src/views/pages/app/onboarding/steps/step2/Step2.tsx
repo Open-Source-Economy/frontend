@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItem, ProjectItem } from "@open-source-economy/api-types";
+import { DeveloperProjectItem, DeveloperProjectItemEntry, ProjectItem } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./UpsertProjectItemModal";
@@ -17,8 +17,8 @@ type Step2Props = OnboardingStepProps<Step2State>;
 
 const Step2: React.FC<Step2Props> = props => {
   const [showModal, setShowModal] = useState(false);
-  const [projects, setProjects] = useState<[ProjectItem, DeveloperProjectItem][]>(props.state.projects);
-  const [editingProject, setEditingProject] = useState<[ProjectItem, DeveloperProjectItem] | null>(null);
+  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(props.state.projects);
+  const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,19 +32,21 @@ const Step2: React.FC<Step2Props> = props => {
   };
 
   // Function to handle editing an existing project
-  const handleEditProject = (project: [ProjectItem, DeveloperProjectItem]) => {
+  const handleEditProject = (project: DeveloperProjectItemEntry) => {
     setEditingProject(project);
     setApiError(null);
     setShowModal(true);
   };
 
   // Callback from UpsertProjectItemModal after an item is added or updated
-  const handleUpsertComplete = (newOrUpdatedProject: [ProjectItem, DeveloperProjectItem]) => {
+  const handleUpsertComplete = (newOrUpdatedProject: DeveloperProjectItemEntry) => {
     setShowModal(false);
-    let updatedProjects: [ProjectItem, DeveloperProjectItem][];
+    let updatedProjects: DeveloperProjectItemEntry[];
 
     if (editingProject) {
-      updatedProjects = projects.map(p => (p[1].id.uuid === newOrUpdatedProject[1].id.uuid ? newOrUpdatedProject : p));
+      updatedProjects = projects.map(entry =>
+        entry.developerProjectItem.id.uuid === newOrUpdatedProject.developerProjectItem.id.uuid ? newOrUpdatedProject : entry,
+      );
     } else {
       updatedProjects = [...projects, newOrUpdatedProject];
     }
@@ -64,7 +66,7 @@ const Step2: React.FC<Step2Props> = props => {
     };
 
     const onSuccess = () => {
-      const updatedProjects = projects.filter(p => p[1].id.uuid !== projectId.uuid);
+      const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== projectId.uuid);
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
     };
@@ -141,24 +143,23 @@ const Step2: React.FC<Step2Props> = props => {
                 </div>
 
                 {/* Project Rows */}
-                {projects.map(project => {
-                  const [projectItem, developerProjectItem] = project;
+                {projects.map(entry => {
                   return (
                     <div
-                      key={developerProjectItem.id.uuid}
+                      key={entry.developerProjectItem.id.uuid}
                       className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0 w-full py-2"
                     >
                       <div className="flex-[2] font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                        <p>{ProjectItemIdCompanion.displayName(projectItem.sourceIdentifier)}</p>
+                        <p>{ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)}</p>
                       </div>
                       <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                        <p>{developerProjectItem.roles[0] || "No role"}</p>
+                        <p>{entry.developerProjectItem.roles[0] || "No role"}</p>
                       </div>
                       <div className="flex-1 font-montserrat font-normal text-[#ffffff] text-[16px] text-left">
-                        <p>{developerProjectItem.mergeRights[0] || "No rights"}</p>
+                        <p>{entry.developerProjectItem.mergeRights[0] || "No rights"}</p>
                       </div>
                       <div className="w-[80px] flex flex-row gap-2 items-center justify-center">
-                        <button onClick={() => handleEditProject(project)} className="text-[#ff7e4b] hover:text-[#ff518c] transition-colors">
+                        <button onClick={() => handleEditProject(entry)} className="text-[#ff7e4b] hover:text-[#ff518c] transition-colors">
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M11.333 2.00009C11.5081 1.82499 11.7167 1.68595 11.9457 1.59129C12.1747 1.49663 12.4194 1.44788 12.6663 1.44788C12.9133 1.44788 13.158 1.49663 13.387 1.59129C13.616 1.68595 13.8246 1.82499 13.9997 2.00009C14.1748 2.17518 14.3138 2.38383 14.4085 2.61281C14.5032 2.8418 14.5519 3.08651 14.5519 3.33342C14.5519 3.58033 14.5032 3.82504 14.4085 4.05403C14.3138 4.28302 14.1748 4.49167 13.9997 4.66676L5.33301 13.3334L1.33301 14.6667L2.66634 10.6667L11.333 2.00009Z"
@@ -169,7 +170,10 @@ const Step2: React.FC<Step2Props> = props => {
                             />
                           </svg>
                         </button>
-                        <button onClick={() => handleDeleteProject(developerProjectItem.id)} className="text-red-400 hover:text-red-300 transition-colors">
+                        <button
+                          onClick={() => handleDeleteProject(entry.developerProjectItem.id)}
+                          className="text-red-400 hover:text-red-300 transition-colors"
+                        >
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M2 4H14M12.6667 4V13.3333C12.6667 13.687 12.5262 14.0261 12.2761 14.2761C12.0261 14.5262 11.687 14.6667 11.3333 14.6667H4.66667C4.31304 14.6667 3.97391 14.5262 3.72386 14.2761C3.47381 14.0261 3.33333 13.687 3.33333 13.3333V4M5.33333 4V2.66667C5.33333 2.31304 5.47381 1.97391 5.72386 1.72386C5.97391 1.47381 6.31304 1.33333 6.66667 1.33333H9.33333C9.687 1.33333 10.0261 1.47381 10.2761 1.72386C10.5262 1.97391 10.6667 2.31304 10.6667 2.66667V4"

@@ -100,13 +100,7 @@ export default function InitialServiceSelection(props: InitialServiceSelectionPr
           <Button onClick={props.onClose} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
             Cancel
           </Button>
-          <Button
-            onClick={handleAddSelectedTasks}
-            disabled={selectedServices.length === 0}
-            level="PRIMARY"
-            audience="DEVELOPER"
-            size="MEDIUM"
-          >
+          <Button onClick={handleAddSelectedTasks} disabled={selectedServices.length === 0} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
             Add Selected
           </Button>
         </div>

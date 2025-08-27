@@ -11,7 +11,7 @@ import { Button } from "../../../../../components/elements/Button";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 
-export interface Step3Props extends OnboardingStepProps<Step3State> { }
+export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
 export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
@@ -49,7 +49,6 @@ export function Step3(props: Step3Props) {
     props.updateState({ incomeStreams: newStreams });
     await saveIncomeStreams();
   };
-
 
   return (
     <div>

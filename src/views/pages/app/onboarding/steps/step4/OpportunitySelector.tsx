@@ -71,10 +71,11 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
       >
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.YES)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.YES
-            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-            }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
+            value === OpenToOtherOpportunityType.YES
+              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+          }`}
           aria-checked={value === OpenToOtherOpportunityType.YES}
           role="radio"
         >
@@ -82,10 +83,11 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         </button>
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.MAYBE)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.MAYBE
-            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-            }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
+            value === OpenToOtherOpportunityType.MAYBE
+              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+          }`}
           aria-checked={value === OpenToOtherOpportunityType.MAYBE}
           role="radio"
         >
@@ -93,10 +95,11 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         </button>
         <button
           onClick={() => handleButtonClick(OpenToOtherOpportunityType.NO)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${value === OpenToOtherOpportunityType.NO
-            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-            : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-            }`}
+          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
+            value === OpenToOtherOpportunityType.NO
+              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
+              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
+          }`}
           aria-checked={value === OpenToOtherOpportunityType.NO}
           role="radio"
         >

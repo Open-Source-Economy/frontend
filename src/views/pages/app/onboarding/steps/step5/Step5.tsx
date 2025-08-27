@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { Service, ServiceId } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
@@ -9,15 +8,14 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import InitialServiceSelection from "./InitialServiceSelection";
 import { Step5State } from "../../OnboardingDataSteps";
 import SelectProjectsModal from "./SelectProjectsModal";
-import { DeveloperServiceTODOChangeName } from "@open-source-economy/api-types/dist/dto/onboarding/profile";
 
-import { buildServiceCategories, groupDeveloperServicesByCategory } from "./utils";
+import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import { displayedCurrencies, ProjectItemIdCompanion } from "../../../../../data";
-import { DeveloperService } from "@open-source-economy/api-types/dist/model";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
+import { ServiceCard } from "./ServiceCard";
 
-export interface Step5Props extends OnboardingStepProps<Step5State> { }
+export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
 // --- Inline SVG Components ---
 const CloseIcon = () => (
@@ -40,7 +38,7 @@ interface ServiceCategory {
 // --- Main Component ---
 export default function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-  const [projectItems, setProjectItems] = useState<[dto.ProjectItem, dto.DeveloperProjectItem][]>([]);
+  const [projectItems, setProjectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -48,7 +46,7 @@ export default function Step5(props: Step5Props) {
 
   const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
-  const [currentService, setCurrentService] = useState<[dto.Service, DeveloperServiceTODOChangeName] | null>(null);
+  const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
 
   const api = getOnboardingBackendAPI();
 
@@ -62,7 +60,7 @@ export default function Step5(props: Step5Props) {
       const apiCall = async () => {
         const serviceHierarchyResponse = await api.getServiceHierarchy({}, {});
         if (serviceHierarchyResponse instanceof ApiError) throw serviceHierarchyResponse;
-        return serviceHierarchyResponse;
+        return serviceHierarchyResponse as dto.GetServiceHierarchyResponse;
       };
 
       const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
@@ -77,57 +75,64 @@ export default function Step5(props: Step5Props) {
   }, []);
 
   const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
-    const newServices = serviceIds
+    const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
+
+    const newServices: dto.DeveloperServiceEntry[] = serviceIds
+      .filter(serviceId => !existingServiceIds.has(serviceId.uuid))
       .map(serviceId => {
         const service = serviceCategories.flatMap(c => c.services).find(s => s.id.uuid === serviceId.uuid);
         if (!service) {
           console.warn(`Service with ID ${serviceId.uuid} not found in categories.`);
           return null;
         }
-        return [service, null] as [Service, DeveloperServiceTODOChangeName | null];
+        const entry: dto.DeveloperServiceEntry = {
+          service,
+          developerService: null,
+        };
+        return entry;
       })
-      .filter((s): s is [Service, DeveloperServiceTODOChangeName | null] => s !== null);
+      .filter((s): s is dto.DeveloperServiceEntry => s !== null);
 
-    // TODO: Prevent duplicate services from being added. The current logic concatenates arrays without checking for existing services.
-    //       Should filter `newServices` to only include services not already in `props.state.developerServices`.
     const updatedServices = [...props.state.developerServices, ...newServices];
     props.updateState({ developerServices: updatedServices });
     setShowInitialServiceModal(false);
   };
 
-  const handleDeleteDeveloperService = async (serviceId: ServiceId) => {
+  const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
     setLocalError(null);
     setApiError(null);
     setIsLoading(true);
 
     const apiCall = async () => {
       const params: dto.DeleteDeveloperServiceParams = {};
-      const body: dto.DeleteDeveloperServiceBody = {
-        serviceId: serviceId,
-      };
+      const body: dto.DeleteDeveloperServiceBody = { serviceId };
       const query: dto.DeleteDeveloperServiceQuery = {};
       return await api.deleteDeveloperService(params, body, query);
     };
 
     const onSuccess = () => {
-      const updatedServices = props.state.developerServices.filter(s => s[0].id.uuid !== serviceId.uuid);
+      const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
       props.updateState({ developerServices: updatedServices });
     };
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const handleEditTask = (serviceTuple: [dto.Service, DeveloperServiceTODOChangeName]) => {
-    setCurrentService(serviceTuple);
+  const handleEditTask = (serviceEntry: dto.DeveloperServiceEntry) => {
+    setCurrentService(serviceEntry);
     setShowUpsertDeveloperServiceModal(true);
   };
 
-  const handleUpdateTask = (updatedDevService: DeveloperService) => {
-    const updatedServices = props.state.developerServices.map(s => {
-      if (s[0].id.uuid === updatedDevService.serviceId.uuid) {
-        return [s[0], updatedDevService] as [dto.Service, DeveloperServiceTODOChangeName];
+  const handleUpdateTask = (updatedDevService: dto.DeveloperService) => {
+    const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
+      if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
+        const updatedEntry: dto.DeveloperServiceEntry = {
+          service: entry.service,
+          developerService: updatedDevService,
+        };
+        return updatedEntry;
       }
-      return s;
+      return entry;
     });
 
     props.updateState({ developerServices: updatedServices });
@@ -153,12 +158,18 @@ export default function Step5(props: Step5Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const groupedServices = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
+  const groupedServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
   // Pre-compute project names for better performance
   const projectItemNameMap = new Map(
-    projectItems.map(([projectItem, devProjectItem]) => [devProjectItem.id.uuid, ProjectItemIdCompanion.displayName(projectItem.sourceIdentifier)]),
+    projectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
   );
+
+  const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
+  const filteredServiceCategories = serviceCategories.map(category => ({
+    ...category,
+    services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
+  }));
 
   return (
     <div>
@@ -172,77 +183,15 @@ export default function Step5(props: Step5Props) {
           </div>
           <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
             {groupedServices.map(({ category, developerServices }) => (
-              <div key={category} className="box-border content-stretch flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
-                <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
-                  <p className="block leading-[1.3]">{category}</p>
-                </div>
-                {developerServices.map(([service, devService]) => {
-                  const projectItemNames = (devService?.projectItemIds || []).map(projectId => projectItemNameMap.get(projectId.uuid)).filter(Boolean);
-
-                  const projectsDisplay =
-                    projectItemNames.length > 0
-                      ? projectItemNames.length > 5
-                        ? `${projectItemNames.slice(0, 5).join(" | ")} | +${projectItemNames.length - 5} more...`
-                        : projectItemNames.join(" | ")
-                      : "No projects selected";
-
-                  const displayRate = devService?.hourlyRate || 0;
-
-                  return (
-                    <div
-                      key={service.id.uuid}
-                      className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full"
-                    >
-                      <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
-                        <div className="flex-1">
-                          <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left mb-1">
-                            <p className="block leading-[1.5]">{service.name}</p>
-                          </div>
-                          <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left opacity-70 mb-2">
-                            <p className="block leading-[1.4]">{projectsDisplay}</p>
-                          </div>
-                          <div className="flex flex-row gap-4 items-center">
-                            <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
-                              <p className="block leading-[1.5]">
-                                Hourly rate: {displayedCurrencies[props.state.currency]?.symbol} {displayRate}
-                              </p>
-                            </div>
-                            {service.hasResponseTime && (
-                              <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
-                                <p className="block leading-[1.5]">Response time: {devService?.responseTimeHours || "12"} hours</p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex flex-row gap-2 items-center">
-                          <button
-                            onClick={() => devService && handleEditTask([service, devService])}
-                            className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors p-1"
-                            title="Edit Service"
-                          >
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M11.333 2.00009C11.5081 1.82499 11.7167 1.68595 11.9457 1.59129C12.1747 1.49663 12.4194 1.44788 12.6663 1.44788C12.9133 1.44788 13.158 1.49663 13.387 1.59129C13.616 1.68595 13.8246 1.82499 13.9997 2.00009C14.1748 2.17518 14.3138 2.38383 14.4085 2.61281C14.5032 2.8418 14.5519 3.08651 14.5519 3.33342C14.5519 3.58033 14.5032 3.82504 14.4085 4.05403C14.3138 4.28302 14.1748 4.49167 13.9997 4.66676L5.33301 13.3334L1.33301 14.6667L2.66634 10.6667L11.333 2.00009Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => handleDeleteDeveloperService(service.id)}
-                            className="text-[#ffffff] hover:text-red-400 transition-colors p-1"
-                            title="Remove Service"
-                          >
-                            <CloseIcon />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <ServiceCard
+                key={category}
+                category={category}
+                developerServices={developerServices}
+                projectItemNameMap={projectItemNameMap}
+                currency={props.state.currency}
+                onEditTask={handleEditTask}
+                onDeleteDeveloperService={handleDeleteDeveloperService}
+              />
             ))}
           </div>
 
@@ -262,13 +211,7 @@ export default function Step5(props: Step5Props) {
             <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
               Back
             </Button>
-            <Button
-              onClick={handleNext}
-              disabled={props.state.developerServices.length === 0 || isLoading}
-              level="PRIMARY"
-              audience="DEVELOPER"
-              size="MEDIUM"
-            >
+            <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? (
                 <>
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -288,9 +231,10 @@ export default function Step5(props: Step5Props) {
           </div>
         </div>
       </div>
+
       {showInitialServiceModal && (
         <InitialServiceSelection
-          serviceCategories={serviceCategories}
+          serviceCategories={filteredServiceCategories}
           onClose={() => setShowInitialServiceModal(false)}
           onAddInitialServices={onAddInitialServices}
           isLoading={isLoading}
@@ -299,9 +243,9 @@ export default function Step5(props: Step5Props) {
 
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal
-          service={currentService[0]}
-          developerService={currentService[1]}
-          developerProjectItems={props.state.developerProjectItems}
+          service={currentService.service}
+          developerService={currentService.developerService}
+          developerProjectItemEntries={props.state.developerProjectItems}
           currency={props.state.currency}
           onClose={() => setShowUpsertDeveloperServiceModal(false)}
           onUpsertDeveloperService={handleUpdateTask}
