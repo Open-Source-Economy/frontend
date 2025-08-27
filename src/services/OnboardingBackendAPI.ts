@@ -1,9 +1,9 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError } from "./index"; // Assuming handleError utility is correctly imported
+import { handleError } from "./index";
 import axios from "axios";
-import { ApiError } from "src/ultils/error/ApiError"; // Assuming ApiError is correctly imported
-import { config } from "src/ultils"; // Assuming config is correctly imported
-import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto"; // Assuming this is the correct path for the DTO
+import { ApiError } from "src/ultils/error/ApiError";
+import { config } from "src/ultils";
+import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
@@ -102,7 +102,6 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  // Renamed method and updated endpoint to match backend
   async updateDeveloperContactInfos(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
