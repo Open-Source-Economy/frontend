@@ -87,7 +87,14 @@ export const issue = new Issue(
 
 export const userId = new UserId("141809342");
 export const thirdPartyUser = new ThirdPartyUser(Provider.Github, new ThirdPartyUserId("141809342"), null, new GithubData(owner));
-export const user = new User(userId, null, thirdPartyUser, UserRole.USER, undefined, undefined);
+export const user: User = {
+  id: userId,
+  name: "Lauriane",
+  data: thirdPartyUser,
+  role: UserRole.USER,
+  preferredCurrency: undefined,
+  termsAcceptedVersion: undefined,
+};
 
 export const companyId = new CompanyId("141809657");
 export const company = new Company(companyId, "7324ry34r", "Open-Source-Economy");
