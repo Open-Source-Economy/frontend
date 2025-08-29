@@ -83,9 +83,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
     runValidation(newSelectedValues, false);
   };
 
-  const selectedLabels = value
-    .map(selectedValue => options.find(opt => opt.value === selectedValue && !opt.isCategory)?.label)
-    .filter(Boolean) as string[];
+  const selectedLabels = value.map(selectedValue => options.find(opt => opt.value === selectedValue && !opt.isCategory)?.label).filter(Boolean) as string[];
 
   const selectDisplayClasses = `
     flex justify-between items-center flex-1 bg-[#202F45] px-3 py-3 rounded-md cursor-pointer
@@ -110,19 +108,17 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
             aria-labelledby={`${id}-label`}
             {...rest}
           >
-            <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal opacity-60">
-              {placeholder}
-            </span>
-            
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
+            <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal opacity-60">{placeholder}</span>
+
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+              className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
             >
-              <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
+              <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white" />
             </svg>
           </div>
         </div>
@@ -139,17 +135,12 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
           {options.map((option, index) => {
             const isSelected = value.includes(option.value);
             const isCategory = option.isCategory;
-            
+
             if (isCategory) {
               // Category header - non-selectable
               return (
-                <div
-                  key={option.value}
-                  className="flex px-6 py-2 items-center bg-[#202F45]"
-                >
-                  <span className="flex-1 text-white font-montserrat text-[16px] leading-[150%] font-medium opacity-40">
-                    {option.label}
-                  </span>
+                <div key={option.value} className="flex px-6 py-2 items-center bg-[#202F45]">
+                  <span className="flex-1 text-white font-montserrat text-[16px] leading-[150%] font-medium opacity-40">{option.label}</span>
                 </div>
               );
             }
@@ -159,9 +150,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
               <div
                 key={option.value}
                 className={`flex px-6 py-3 items-center gap-2.5 cursor-pointer transition-colors ${
-                  isSelected 
-                    ? 'bg-gradient-to-r from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.08)] border-white border' 
-                    : 'bg-[#202F45] hover:bg-[rgba(255,255,255,0.05)]'
+                  isSelected
+                    ? "bg-gradient-to-r from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.08)] border-white border"
+                    : "bg-[#202F45] hover:bg-[rgba(255,255,255,0.05)]"
                 }`}
                 onClick={() => handleOptionClick(option.value)}
               >
@@ -173,17 +164,15 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
                     </svg>
                   )}
                 </div>
-                
+
                 {/* Label */}
-                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">
-                  {option.label}
-                </span>
+                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">{option.label}</span>
               </div>
             );
           })}
         </div>
       )}
-      
+
       {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );

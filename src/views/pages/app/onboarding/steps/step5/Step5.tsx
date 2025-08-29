@@ -159,9 +159,7 @@ export default function Step5(props: Step5Props) {
       {/* Main Content Container */}
       <div className="flex justify-center items-start gap-12 w-full">
         {/* Step Number */}
-        <div className="text-white text-center font-michroma text-[42px] leading-[130%] font-normal opacity-15">
-          05
-        </div>
+        <div className="text-white text-center font-michroma text-[42px] leading-[130%] font-normal opacity-15">05</div>
 
         {/* Divider Line */}
         <div className="w-px h-[1619px] opacity-15 bg-white"></div>
@@ -173,9 +171,7 @@ export default function Step5(props: Step5Props) {
             {/* Section Title */}
             <div className="flex flex-col items-center gap-4 w-full">
               <div className="flex flex-col items-start gap-4 w-full">
-                <h1 className="w-full text-white font-michroma text-[42px] leading-[130%] font-normal capitalize">
-                  Tasks & Preferences
-                </h1>
+                <h1 className="w-full text-white font-michroma text-[42px] leading-[130%] font-normal capitalize">Tasks & Preferences</h1>
               </div>
               <ErrorDisplay message={apiError?.message} />
             </div>
@@ -197,11 +193,7 @@ export default function Step5(props: Step5Props) {
             </div>
 
             {/* Add Task Section */}
-            <InitialServiceSelection
-              serviceCategories={filteredServiceCategories}
-              onAddInitialServices={onAddInitialServices}
-              isLoading={isLoading}
-            />
+            <InitialServiceSelection serviceCategories={filteredServiceCategories} onAddInitialServices={onAddInitialServices} isLoading={isLoading} />
 
             {/* Button Group */}
             <div className="flex flex-col justify-center items-start gap-4 w-full">
@@ -212,18 +204,16 @@ export default function Step5(props: Step5Props) {
                     onClick={props.onBack}
                     className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md border border-white hover:bg-white hover:bg-opacity-10 transition-colors"
                   >
-                    <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                      Back
-                    </span>
+                    <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">Back</span>
                   </button>
                 </div>
 
                 {/* Get Started Button */}
-                <div className={`flex justify-center items-center gap-2.5 rounded-md ${
-                  props.state.developerServices.length === 0 || isLoading 
-                    ? 'opacity-50' 
-                    : ''
-                }`}>
+                <div
+                  className={`flex justify-center items-center gap-2.5 rounded-md ${
+                    props.state.developerServices.length === 0 || isLoading ? "opacity-50" : ""
+                  }`}
+                >
                   <button
                     onClick={handleNext}
                     disabled={props.state.developerServices.length === 0 || isLoading}
@@ -239,25 +229,17 @@ export default function Step5(props: Step5Props) {
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           ></path>
                         </svg>
-                        <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                          Saving...
-                        </span>
+                        <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">Saving...</span>
                       </>
                     ) : (
-                      <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                        Get Started
-                      </span>
+                      <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">Get Started</span>
                     )}
                   </button>
                 </div>
               </div>
 
               {/* Error Message */}
-              {localError && (
-                <div className="w-full text-[#FF8C8C] font-montserrat text-[16px] leading-[150%] font-normal">
-                  * {localError}
-                </div>
-              )}
+              {localError && <div className="w-full text-[#FF8C8C] font-montserrat text-[16px] leading-[150%] font-normal">* {localError}</div>}
             </div>
           </div>
         </div>

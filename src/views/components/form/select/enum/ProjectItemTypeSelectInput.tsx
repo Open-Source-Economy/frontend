@@ -11,10 +11,7 @@ export const displayedProjectItemTypes: Record<ProjectItemType, DisplayedEnum> =
 
 export interface ProjectItemTypeSelectInputProps extends EnumSelectInputChildrenProps<ProjectItemType> {}
 
-export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(
-  props: ProjectItemTypeSelectInputProps,
-  ref: Ref<GenericInputRef>,
-) {
+export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(props: ProjectItemTypeSelectInputProps, ref: Ref<GenericInputRef>) {
   return (
     // @ts-ignore
     <EnumSelectInput<ProjectItemType>

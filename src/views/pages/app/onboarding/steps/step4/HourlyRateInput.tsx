@@ -9,18 +9,18 @@ interface HourlyRateInputProps {
 }
 
 const currencies = [
-  { code: 'EUR' as Currency, symbol: '€', label: '€ (EUR)' },
-  { code: 'USD' as Currency, symbol: '$', label: '$ (USD)' },
-  { code: 'GBP' as Currency, symbol: '£', label: '£ (GBP)' },
-  { code: 'CAD' as Currency, symbol: 'C$', label: 'C$ (CAD)' },
+  { code: "EUR" as Currency, symbol: "€", label: "€ (EUR)" },
+  { code: "USD" as Currency, symbol: "$", label: "$ (USD)" },
+  { code: "GBP" as Currency, symbol: "£", label: "£ (GBP)" },
+  { code: "CAD" as Currency, symbol: "C$", label: "C$ (CAD)" },
 ];
 
 export function HourlyRateInput(props: HourlyRateInputProps) {
   const { hourlyRate, currency, onHourlyRateChange, onCurrencyChange } = props;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   const currentCurrency = currencies.find(c => c.code === currency) || currencies[0];
-  
+
   const handleRateChange = (inputValue: string) => {
     if (inputValue === "") {
       onHourlyRateChange(null);
@@ -42,9 +42,7 @@ export function HourlyRateInput(props: HourlyRateInputProps) {
       {/* Currency Symbol + Rate Input */}
       <div className="flex w-40 px-0 pr-3 items-center gap-4 bg-[#202F45] rounded-md">
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base leading-[1.5]">
-            {currentCurrency.symbol}
-          </span>
+          <span className="text-white font-montserrat text-base leading-[1.5]">{currentCurrency.symbol}</span>
         </div>
         <input
           type="number"
@@ -64,13 +62,13 @@ export function HourlyRateInput(props: HourlyRateInputProps) {
         >
           <span className="flex-1 text-left pl-3">{currentCurrency.label}</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
+            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white" />
           </svg>
         </button>
 
         {isDropdownOpen && (
           <div className="absolute top-full left-0 w-full mt-1 bg-[#202F45] rounded-md shadow-lg z-10 overflow-hidden">
-            {currencies.map((curr) => (
+            {currencies.map(curr => (
               <button
                 key={curr.code}
                 onClick={() => handleCurrencySelect(curr.code)}

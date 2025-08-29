@@ -56,20 +56,16 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
 
   const RadioOption = ({ option, label: optionLabel }: { option: OpenToOtherOpportunityType; label: string }) => {
     const isSelected = value === option;
-    
+
     return (
       <div className="flex items-start gap-3">
         <button
           onClick={() => handleButtonClick(option)}
-          className={`w-[18px] h-[18px] rounded-full flex items-center justify-center transition-all ${
-            isSelected ? 'bg-[#202F45] p-0.5' : 'bg-[#202F45]'
-          }`}
+          className={`w-[18px] h-[18px] rounded-full flex items-center justify-center transition-all ${isSelected ? "bg-[#202F45] p-0.5" : "bg-[#202F45]"}`}
           aria-checked={isSelected}
           role="radio"
         >
-          {isSelected && (
-            <div className="w-[14px] h-[14px] rounded-full bg-[#FF7E4B]" />
-          )}
+          {isSelected && <div className="w-[14px] h-[14px] rounded-full bg-[#FF7E4B]" />}
         </button>
         <button
           onClick={() => handleButtonClick(option)}
@@ -88,17 +84,13 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
       <div className="text-white font-montserrat text-base leading-[1.5] opacity-60">
         Should Open Source Economy team privately contact you when a major opportunity arises?
       </div>
-      
-      <div
-        className="flex items-center gap-8"
-        role="radiogroup"
-        aria-labelledby={`${id}-label`}
-      >
+
+      <div className="flex items-center gap-8" role="radiogroup" aria-labelledby={`${id}-label`}>
         <RadioOption option={OpenToOtherOpportunityType.YES} label="Yes" />
         <RadioOption option={OpenToOtherOpportunityType.MAYBE} label="Maybe" />
         <RadioOption option={OpenToOtherOpportunityType.NO} label="No" />
       </div>
-      
+
       {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );

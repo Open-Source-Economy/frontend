@@ -69,8 +69,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         isProjectInputValid = organizationSelectRef.current?.validate(true) ?? false;
         break;
       case ProjectItemType.GITHUB_REPOSITORY:
-        isProjectInputValid = (organizationSelectRef.current?.validate(true) ?? false) &&
-                             (repositorySelectRef.current?.validate(true) ?? false);
+        isProjectInputValid = (organizationSelectRef.current?.validate(true) ?? false) && (repositorySelectRef.current?.validate(true) ?? false);
         break;
       default:
         isProjectInputValid = false;

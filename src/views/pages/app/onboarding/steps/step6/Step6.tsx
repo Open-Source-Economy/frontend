@@ -24,23 +24,17 @@ export default function Step6(props: Step6Props) {
       {/* Main Content */}
       <div className="flex px-0 py-12 flex-col justify-center items-start gap-12 flex-1 w-full">
         <div className="flex flex-col items-center gap-7 w-full">
-          <h1 className="max-w-[900px] text-white text-center font-michroma text-[64px] leading-[1.3] font-normal">
-            Thank You!
-          </h1>
-          <p className="text-white text-center font-montserrat text-[32px] leading-[1.3] font-normal w-full">
-            We will be in contact shortly.
-          </p>
+          <h1 className="max-w-[900px] text-white text-center font-michroma text-[64px] leading-[1.3] font-normal">Thank You!</h1>
+          <p className="text-white text-center font-montserrat text-[32px] leading-[1.3] font-normal w-full">We will be in contact shortly.</p>
         </div>
       </div>
 
       {/* Call to Action Section */}
       <div className="flex px-0 py-12 flex-col items-center gap-8 w-full">
         <div className="flex flex-col items-center gap-4 w-full">
-          <div className="text-white text-center font-montserrat text-[28px] font-normal leading-normal w-full">
-            Have more questions? Schedule a call
-          </div>
+          <div className="text-white text-center font-montserrat text-[28px] font-normal leading-normal w-full">Have more questions? Schedule a call</div>
         </div>
-        
+
         <div className="flex flex-col justify-center items-center gap-8 w-full">
           <button
             onClick={handleBookMeeting}

@@ -55,13 +55,11 @@ export function Step3(props: Step3Props) {
       {/* Main Content */}
       <div className="flex justify-center items-start gap-12 w-full">
         {/* Step Number */}
-        <div className="text-white text-center font-michroma text-[42px] leading-[1.3] opacity-15">
-          03
-        </div>
-        
+        <div className="text-white text-center font-michroma text-[42px] leading-[1.3] opacity-15">03</div>
+
         {/* Divider Line */}
         <div className={`w-px opacity-15 bg-white ${showServiceModel ? "h-[1170px]" : "h-[811px]"}`} />
-        
+
         {/* Form Content */}
         <div className="flex flex-col items-center gap-12 flex-1">
           {/* Content */}
@@ -69,9 +67,7 @@ export function Step3(props: Step3Props) {
             {/* Section Title */}
             <div className="flex flex-col items-center gap-4 w-full">
               <div className="flex flex-col items-start gap-4 w-full">
-                <h1 className="w-full text-white font-michroma text-[42px] leading-[1.3] capitalize">
-                  Choose how you get funded
-                </h1>
+                <h1 className="w-full text-white font-michroma text-[42px] leading-[1.3] capitalize">Choose how you get funded</h1>
                 <p className="w-full text-white font-montserrat text-xl leading-[1.3] opacity-60">
                   3 ways to get paid for your open source work. Designed to respect free software and community-led projects.
                 </p>
@@ -96,10 +92,8 @@ export function Step3(props: Step3Props) {
                 <div className="flex flex-col items-center gap-6 w-full p-6 rounded-md bg-transparent">
                   {/* Header with Close Button */}
                   <div className="flex justify-center items-center gap-2.5 w-full relative">
-                    <h2 className="flex-1 text-white font-michroma text-[28px] leading-[1.3]">
-                      The Service Model
-                    </h2>
-                    <button 
+                    <h2 className="flex-1 text-white font-michroma text-[28px] leading-[1.3]">The Service Model</h2>
+                    <button
                       onClick={() => setShowServiceModel(false)}
                       className="flex flex-col justify-center items-center gap-2.5 w-6 h-6 hover:opacity-70 transition-opacity"
                     >
@@ -111,19 +105,13 @@ export function Step3(props: Step3Props) {
                   <div className="flex justify-center items-start gap-5 w-full">
                     {/* Step 1 */}
                     <div className="flex flex-col p-6 gap-4 flex-1 bg-[#14233A] rounded-[30px]">
-                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">
-                        1.
-                      </div>
-                      <div className="text-white font-montserrat text-lg leading-[1.3] opacity-80">
-                        You define your service offering, pricing, and terms.
-                      </div>
+                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">1.</div>
+                      <div className="text-white font-montserrat text-lg leading-[1.3] opacity-80">You define your service offering, pricing, and terms.</div>
                     </div>
 
                     {/* Step 2 */}
                     <div className="flex flex-col p-6 gap-4 flex-1 bg-[#14233A] rounded-[30px]">
-                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">
-                        2.
-                      </div>
+                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">2.</div>
                       <div className="text-white font-montserrat text-lg leading-[1.3] opacity-80">
                         Companies subscribe to monthly hours or request one-off tasks.
                       </div>
@@ -131,9 +119,7 @@ export function Step3(props: Step3Props) {
 
                     {/* Step 3 */}
                     <div className="flex flex-col p-6 gap-4 flex-1 bg-[#14233A] rounded-[30px]">
-                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">
-                        3.
-                      </div>
+                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">3.</div>
                       <div className="text-white font-montserrat text-lg leading-[1.3] opacity-80">
                         We handle sales, marketing, contracts, billing, and expectations.
                       </div>
@@ -141,9 +127,7 @@ export function Step3(props: Step3Props) {
 
                     {/* Step 4 */}
                     <div className="flex flex-col p-6 gap-4 flex-1 bg-[#14233A] rounded-[30px]">
-                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">
-                        4.
-                      </div>
+                      <div className="text-white font-michroma text-[28px] leading-[1.3] opacity-20">4.</div>
                       <div className="text-white font-montserrat text-lg leading-[1.3] opacity-80">
                         Every payment includes a donation to your project and its ecosystem.
                       </div>
@@ -175,24 +159,24 @@ export function Step3(props: Step3Props) {
           <div className="flex h-12 items-center gap-2.5 w-full">
             <div className="flex items-start gap-4">
               <div className="flex justify-center items-center gap-2.5 border border-white rounded-md">
-                <Button 
-                  onClick={props.onBack} 
-                  disabled={isLoading} 
-                  level="SECONDARY" 
-                  audience="DEVELOPER" 
+                <Button
+                  onClick={props.onBack}
+                  disabled={isLoading}
+                  level="SECONDARY"
+                  audience="DEVELOPER"
                   size="MEDIUM"
                   className="border-white text-white font-michroma text-base leading-[1.5] px-5 py-3"
                 >
                   Back
                 </Button>
               </div>
-              
+
               <div className="flex justify-center items-center gap-2.5 rounded-md">
-                <Button 
-                  onClick={props.onNext} 
-                  disabled={isLoading} 
-                  level="PRIMARY" 
-                  audience="DEVELOPER" 
+                <Button
+                  onClick={props.onNext}
+                  disabled={isLoading}
+                  level="PRIMARY"
+                  audience="DEVELOPER"
                   size="MEDIUM"
                   className="bg-[#FF7E4B] text-white font-michroma text-base leading-[1.5] px-5 py-3"
                 >
