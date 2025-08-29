@@ -11,9 +11,7 @@ export function StepHeader(props: StepHeaderProps) {
   return (
     <div className="flex justify-center items-start gap-12 self-stretch">
       {/* Step Number */}
-      <div className="text-white text-center font-michroma text-[42px] font-normal leading-[130%] opacity-15">
-        {props.stepNumber}
-      </div>
+      <div className="text-white text-center font-michroma text-[42px] font-normal leading-[130%] opacity-15">{props.stepNumber}</div>
 
       {/* Divider */}
       <div className="w-px h-[555px] opacity-15 bg-white"></div>
@@ -23,12 +21,8 @@ export function StepHeader(props: StepHeaderProps) {
         {/* Section Title */}
         <div className="flex flex-col items-center gap-4 self-stretch">
           <div className="flex flex-col items-start gap-4 self-stretch">
-            <div className="self-stretch text-white font-michroma text-[42px] font-normal leading-[130%]">
-              {props.title}
-            </div>
-            <div className="self-stretch text-white font-montserrat text-xl font-normal leading-[130%] opacity-60">
-              {props.subtitle}
-            </div>
+            <div className="self-stretch text-white font-michroma text-[42px] font-normal leading-[130%]">{props.title}</div>
+            <div className="self-stretch text-white font-montserrat text-xl font-normal leading-[130%] opacity-60">{props.subtitle}</div>
           </div>
         </div>
 

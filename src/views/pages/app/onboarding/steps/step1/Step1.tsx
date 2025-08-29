@@ -79,16 +79,12 @@ export default function Step1(props: Step1Props) {
 
   const handleTermsClick = () => {
     // Handle terms and conditions link click
-    window.open('/terms-and-conditions.pdf', '_blank');
+    window.open("/terms-and-conditions.pdf", "_blank");
   };
 
   return (
     <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
-      <StepHeader
-        stepNumber="01"
-        title="Confirm Your Details"
-        subtitle="This is so that we can get in contact with you."
-      >
+      <StepHeader stepNumber="01" title="Confirm Your Details" subtitle="This is so that we can get in contact with you.">
         <FormSection>
           {/* Input Fields */}
           <div className="flex flex-col items-start gap-6 self-stretch">
@@ -112,11 +108,11 @@ export default function Step1(props: Step1Props) {
               onChange={e => handleInputChange("contactEmail", e.target.value)}
               placeholder="Your email address"
               ref={emailInputRef}
-              renderError={error => error && (
-                <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
-                  * Your email address is required
-                </div>
-              )}
+              renderError={error =>
+                error && (
+                  <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Your email address is required</div>
+                )
+              }
             />
           </div>
 

@@ -115,11 +115,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
       </div>
 
       {/* Error Message */}
-      {hasError && !props.renderError && (
-        <div className={errorMessageClasses}>
-          {internalError}
-        </div>
-      )}
+      {hasError && !props.renderError && <div className={errorMessageClasses}>{internalError}</div>}
 
       {/* Custom Error Renderer */}
       {props.renderError && props.renderError(internalError)}
