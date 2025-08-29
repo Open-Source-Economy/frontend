@@ -156,111 +156,108 @@ export default function Step5(props: Step5Props) {
   }));
 
   return (
-    <div className="flex flex-col items-center gap-[50px] pb-[100px] bg-[#0E1F35] min-h-screen">
-      {/* Content Layout */}
-      <div className="flex px-0 py-12 flex-col items-center gap-[100px] w-full max-w-[1040px]">
-        {/* Main Content Container */}
-        <div className="flex justify-center items-start gap-12 w-full">
-          {/* Step Number */}
-          <div className="text-white text-center font-michroma text-[42px] leading-[130%] font-normal opacity-15">
-            05
-          </div>
+    <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
+      {/* Main Content Container */}
+      <div className="flex justify-center items-start gap-12 w-full">
+        {/* Step Number */}
+        <div className="text-white text-center font-michroma text-[42px] leading-[130%] font-normal opacity-15">
+          05
+        </div>
 
-          {/* Divider Line */}
-          <div className="w-px h-[1583px] opacity-15 bg-white"></div>
+        {/* Divider Line */}
+        <div className="w-px h-[1619px] opacity-15 bg-white"></div>
 
-          {/* Form Content */}
-          <div className="flex flex-col items-center gap-8 flex-1">
-            {/* Content Section */}
+        {/* Form Content */}
+        <div className="flex flex-col items-center gap-8 flex-1">
+          {/* Content Section */}
+          <div className="flex flex-col items-start gap-12 w-full">
+            {/* Section Title */}
+            <div className="flex flex-col items-center gap-4 w-full">
+              <div className="flex flex-col items-start gap-4 w-full">
+                <h1 className="w-full text-white font-michroma text-[42px] leading-[130%] font-normal capitalize">
+                  Tasks & Preferences
+                </h1>
+              </div>
+              <ErrorDisplay message={apiError?.message} />
+            </div>
+
+            {/* Selected Services by Category */}
             <div className="flex flex-col items-start gap-12 w-full">
-              {/* Section Title */}
-              <div className="flex flex-col items-center gap-4 w-full">
-                <div className="flex flex-col items-start gap-4 w-full">
-                  <h1 className="w-full text-white font-michroma text-[42px] leading-[130%] font-normal capitalize">
-                    Tasks & Preferences
-                  </h1>
+              {groupedServices.map(({ category, developerServices }) => (
+                <ServiceCard
+                  key={category}
+                  category={category}
+                  developerServices={developerServices}
+                  projectItemNameMap={projectItemNameMap}
+                  currency={props.state.currency}
+                  onEditTask={handleEditTask}
+                  onDeleteDeveloperService={handleDeleteDeveloperService}
+                />
+              ))}
+            </div>
+
+            {/* Add Task Section */}
+            <InitialServiceSelection
+              serviceCategories={filteredServiceCategories}
+              onAddInitialServices={onAddInitialServices}
+              isLoading={isLoading}
+            />
+
+            {/* Button Group */}
+            <div className="flex flex-col justify-center items-start gap-4 w-full">
+              <div className="flex items-start gap-4">
+                {/* Back Button */}
+                <div className="flex justify-center items-center gap-2.5 rounded-md">
+                  <button
+                    onClick={props.onBack}
+                    className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md border border-white hover:bg-white hover:bg-opacity-10 transition-colors"
+                  >
+                    <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
+                      Back
+                    </span>
+                  </button>
                 </div>
-                <ErrorDisplay message={apiError?.message} />
-              </div>
 
-              {/* Selected Services by Category */}
-              <div className="flex flex-col items-start gap-12 w-full">
-                {groupedServices.map(({ category, developerServices }) => (
-                  <ServiceCard
-                    key={category}
-                    category={category}
-                    developerServices={developerServices}
-                    projectItemNameMap={projectItemNameMap}
-                    currency={props.state.currency}
-                    onEditTask={handleEditTask}
-                    onDeleteDeveloperService={handleDeleteDeveloperService}
-                  />
-                ))}
-              </div>
-
-              {/* Add Task Section */}
-              <InitialServiceSelection
-                serviceCategories={filteredServiceCategories}
-                onAddInitialServices={onAddInitialServices}
-                isLoading={isLoading}
-              />
-
-              {/* Button Group */}
-              <div className="flex flex-col justify-center items-start gap-4 w-full">
-                <div className="flex items-start gap-4">
-                  {/* Back Button */}
-                  <div className="flex justify-center items-center gap-2.5 rounded-md border border-white">
-                    <button
-                      onClick={props.onBack}
-                      className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md border border-white"
-                    >
-                      <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                        Back
-                      </span>
-                    </button>
-                  </div>
-
-                  {/* Get Started Button */}
-                  <div className={`flex justify-center items-center gap-2.5 rounded-md ${
-                    props.state.developerServices.length === 0 || isLoading 
-                      ? 'opacity-50' 
-                      : ''
-                  }`}>
-                    <button
-                      onClick={handleNext}
-                      disabled={props.state.developerServices.length === 0 || isLoading}
-                      className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md bg-[#FF7E4B]"
-                    >
-                      {isLoading ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
-                          <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                            Saving...
-                          </span>
-                        </>
-                      ) : (
+                {/* Get Started Button */}
+                <div className={`flex justify-center items-center gap-2.5 rounded-md ${
+                  props.state.developerServices.length === 0 || isLoading 
+                    ? 'opacity-50' 
+                    : ''
+                }`}>
+                  <button
+                    onClick={handleNext}
+                    disabled={props.state.developerServices.length === 0 || isLoading}
+                    className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md bg-[#FF7E4B] hover:bg-[#e56a3c] transition-colors disabled:hover:bg-[#FF7E4B]"
+                  >
+                    {isLoading ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
                         <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                          Get Started
+                          Saving...
                         </span>
-                      )}
-                    </button>
-                  </div>
+                      </>
+                    ) : (
+                      <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
+                        Get Started
+                      </span>
+                    )}
+                  </button>
                 </div>
-
-                {/* Error Message */}
-                {localError && (
-                  <div className="w-full text-[#FF8C8C] font-montserrat text-[16px] leading-[150%] font-normal">
-                    * {localError}
-                  </div>
-                )}
               </div>
+
+              {/* Error Message */}
+              {localError && (
+                <div className="w-full text-[#FF8C8C] font-montserrat text-[16px] leading-[150%] font-normal">
+                  * {localError}
+                </div>
+              )}
             </div>
           </div>
         </div>
