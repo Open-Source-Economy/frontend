@@ -24,7 +24,6 @@ interface ServiceCategory {
 // --- Main Component ---
 export default function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-  const [projectItems, setProjectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -144,9 +143,9 @@ export default function Step5(props: Step5Props) {
 
   const groupedServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
-  // Pre-compute project names for better performance
+  // Pre-compute project names for better performance using the actual project items from state
   const projectItemNameMap = new Map(
-    projectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
+    props.state.developerProjectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
   );
 
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
@@ -189,6 +188,7 @@ export default function Step5(props: Step5Props) {
                   category={category}
                   developerServices={developerServices}
                   projectItemNameMap={projectItemNameMap}
+                  developerProjectItemEntries={props.state.developerProjectItems}
                   currency={props.state.currency}
                   onEditTask={handleEditTask}
                   onDeleteDeveloperService={handleDeleteDeveloperService}
