@@ -1,16 +1,17 @@
 import React, { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectItemType } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { GithubUrls, handleApiCall } from "../../../../../../ultils";
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model";
 import { GenericInputRef } from "../../../../../components/form";
 import { ModalHeader } from "./ModalHeader";
 import { ProjectSection } from "./ProjectSection";
 import { ContributionSection } from "./ContributionSection";
 import { ModalFooter } from "./ModalFooter";
+import { ProjectItemType } from "./ProjectItemType";
+import { OwnerId, RepositoryId } from "./Repository";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -22,7 +23,13 @@ interface UpsertProjectItemModalProps {
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const api = getOnboardingBackendAPI();
 
+  // Project type selection state
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(null);
+
+  // Project input states
   const [url, setUrl] = useState("");
+  const [selectedOrganization, setSelectedOrganization] = useState<string | null>(null);
+  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([]);
 
   const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
     props.projectItem && props.projectItem.developerProjectItem.roles && props.projectItem.developerProjectItem.roles.length > 0
@@ -36,7 +43,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   );
 
   // Refs for custom input components
+  const projectTypeSelectRef = useRef<GenericInputRef>(null);
   const urlInputRef = useRef<GenericInputRef>(null);
+  const organizationSelectRef = useRef<GenericInputRef>(null);
+  const repositorySelectRef = useRef<GenericInputRef>(null);
   const roleSelectRef = useRef<GenericInputRef>(null);
   const mergeRightsSelectRef = useRef<GenericInputRef>(null);
 
@@ -44,12 +54,29 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpsertProject = async () => {
-    // Validate inputs
-    const isUrlValid = urlInputRef.current?.validate(true) ?? false;
+    // Validate inputs based on selected project type
+    const isProjectTypeValid = projectTypeSelectRef.current?.validate(true) ?? false;
     const isRoleValid = roleSelectRef.current?.validate(true) ?? false;
     const isMergeRightsValid = mergeRightsSelectRef.current?.validate(true) ?? false;
 
-    if (!isUrlValid || !isRoleValid || !isMergeRightsValid) {
+    let isProjectInputValid = false;
+
+    switch (selectedProjectType) {
+      case ProjectItemType.URL:
+        isProjectInputValid = urlInputRef.current?.validate(true) ?? false;
+        break;
+      case ProjectItemType.GITHUB_OWNER:
+        isProjectInputValid = organizationSelectRef.current?.validate(true) ?? false;
+        break;
+      case ProjectItemType.GITHUB_REPOSITORY:
+        isProjectInputValid = (organizationSelectRef.current?.validate(true) ?? false) &&
+                             (repositorySelectRef.current?.validate(true) ?? false);
+        break;
+      default:
+        isProjectInputValid = false;
+    }
+
+    if (!isProjectTypeValid || !isProjectInputValid || !isRoleValid || !isMergeRightsValid) {
       console.error("Please fill all required fields");
       return;
     }
@@ -57,23 +84,37 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     const apiCall = async () => {
       const params: dto.UpsertDeveloperProjectItemParams = {};
 
-      let projectItemType: ProjectItemType;
       let sourceIdentifier: OwnerId | RepositoryId | string;
 
-      const githubId = GithubUrls.extractOwnerOrRepositoryId(url);
-      if (githubId instanceof RepositoryId) {
-        projectItemType = ProjectItemType.GITHUB_REPOSITORY;
-        sourceIdentifier = githubId;
-      } else if (githubId instanceof OwnerId) {
-        projectItemType = ProjectItemType.GITHUB_OWNER;
-        sourceIdentifier = githubId;
-      } else {
-        projectItemType = ProjectItemType.URL;
-        sourceIdentifier = url;
+      switch (selectedProjectType) {
+        case ProjectItemType.URL:
+          sourceIdentifier = url;
+          break;
+        case ProjectItemType.GITHUB_OWNER:
+          // For organization, create an OwnerId
+          if (selectedOrganization) {
+            sourceIdentifier = new OwnerId(selectedOrganization);
+          } else {
+            throw new Error("Organization not selected");
+          }
+          break;
+        case ProjectItemType.GITHUB_REPOSITORY:
+          // For repositories, we would need to create RepositoryId instances
+          // This is simplified for now - in a real implementation,
+          // you'd need the full repository data including owner info
+          if (selectedOrganization && selectedRepositories.length > 0) {
+            const ownerIdForRepo = new OwnerId(selectedOrganization);
+            sourceIdentifier = new RepositoryId(ownerIdForRepo, selectedRepositories[0]);
+          } else {
+            throw new Error("Repository selection incomplete");
+          }
+          break;
+        default:
+          throw new Error("Invalid project type selected");
       }
 
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItemType: projectItemType,
+        projectItemType: selectedProjectType as any, // Cast to match API types
         sourceIdentifier: sourceIdentifier,
         roles: selectedRole ? [selectedRole] : [],
         mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
@@ -113,7 +154,20 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             />
 
             {/* Project Section */}
-            <ProjectSection url={url} onUrlChange={setUrl} urlInputRef={urlInputRef} />
+            <ProjectSection
+              selectedProjectType={selectedProjectType}
+              onProjectTypeChange={setSelectedProjectType}
+              projectTypeSelectRef={projectTypeSelectRef}
+              url={url}
+              onUrlChange={setUrl}
+              urlInputRef={urlInputRef}
+              selectedOrganization={selectedOrganization}
+              onOrganizationChange={setSelectedOrganization}
+              organizationSelectRef={organizationSelectRef}
+              selectedRepositories={selectedRepositories}
+              onRepositoriesChange={setSelectedRepositories}
+              repositorySelectRef={repositorySelectRef}
+            />
 
             {/* Contribution Section */}
             <ContributionSection
@@ -132,7 +186,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             <ModalFooter
               onSubmit={handleUpsertProject}
               isLoading={isLoading}
-              isDisabled={!url || !selectedRole || !selectedMergeRights}
+              isDisabled={!selectedProjectType || !selectedRole || !selectedMergeRights}
               buttonText={props.projectItem ? "Save Changes" : "Add Project"}
             />
           </div>
