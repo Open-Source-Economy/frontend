@@ -1,7 +1,5 @@
 import React from "react";
 
-// Inline SVG components replacing localhost assets
-
 interface ProgressBarProps {
   currentStep: number;
 }
@@ -11,22 +9,30 @@ interface ProgressStepProps {
   label: string;
   isActive: boolean;
   isCompleted: boolean;
+  showConnector?: boolean;
 }
 
-function ProgressStep({ step, label, isActive, isCompleted }: ProgressStepProps) {
+function ProgressStep({ step, label, isActive, isCompleted, showConnector = true }: ProgressStepProps) {
+  const stepClasses = isActive || isCompleted
+    ? "bg-[#FF7E4B]"
+    : "bg-white bg-opacity-30";
+
+  const labelClasses = isActive || isCompleted
+    ? "text-white"
+    : "text-white text-opacity-30";
+
   return (
-    <div className="box-border content-stretch flex flex-col gap-1 items-start justify-center p-0 relative shrink-0 w-[140px]">
-      <div
-        className={`box-border content-stretch flex flex-col items-center justify-center overflow-clip p-0 rounded-[48px] shrink-0 size-4 ${
-          isActive || isCompleted ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b]" : "bg-[rgba(255,255,255,0.3)]"
-        }`}
-      />
-      <div
-        className={`font-montserrat font-normal leading-[0] relative shrink-0 text-[14px] text-left text-nowrap ${
-          isActive || isCompleted ? "text-[#ffffff]" : "text-[rgba(255,255,255,0.3)]"
-        }`}
-      >
-        <p className="block leading-[1.5] whitespace-pre">{label}</p>
+    <div className="flex flex-col justify-center items-start gap-1 flex-1">
+      <div className="flex items-center gap-2 self-stretch">
+        <div className={`w-4 h-4 rounded-full ${stepClasses}`} />
+        {showConnector && (
+          <svg className="flex-1 h-0.5" viewBox="0 0 195 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.0001L194.5 1.00002" stroke="#202F45" strokeLinecap="round"/>
+          </svg>
+        )}
+      </div>
+      <div className={`font-montserrat text-sm font-normal leading-[150%] ${labelClasses}`}>
+        {label}
       </div>
     </div>
   );
@@ -42,11 +48,16 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
   ];
 
   return (
-    <div className="box-border content-stretch flex flex-row items-center justify-between p-0 relative w-[900px] mx-auto">
+    <div className="flex items-center gap-2 self-stretch">
       {steps.map((stepData, index) => (
-        <React.Fragment key={stepData.step}>
-          <ProgressStep step={stepData.step} label={stepData.label} isActive={currentStep === stepData.step} isCompleted={currentStep > stepData.step} />
-        </React.Fragment>
+        <ProgressStep
+          key={stepData.step}
+          step={stepData.step}
+          label={stepData.label}
+          isActive={currentStep === stepData.step}
+          isCompleted={currentStep > stepData.step}
+          showConnector={index < steps.length - 1}
+        />
       ))}
     </div>
   );
