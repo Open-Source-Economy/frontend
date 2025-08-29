@@ -84,65 +84,61 @@ export default function Step1(props: Step1Props) {
 
   return (
     <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
-      <div className="flex flex-col items-center gap-2 self-stretch">
-        <StepHeader
-          stepNumber="01"
-          title="Confirm Your Details"
-          subtitle="This is so that we can get in contact with you."
-        />
-
-        <div className="flex w-[864px] flex-col justify-center items-center gap-12">
-          <FormSection>
-            {/* Input Fields */}
-            <div className="flex flex-col items-start gap-6 self-stretch">
-              <NameInput
-                id="name"
-                name="name"
-                label="Your name *"
-                required
-                value={props.state.name || ""}
-                onChange={e => handleInputChange("name", e.target.value)}
-                placeholder="Your name"
-                ref={nameInputRef}
-              />
-
-              <EmailInput
-                id="email"
-                name="email"
-                label="Your email address *"
-                required
-                value={props.state.contactEmail || ""}
-                onChange={e => handleInputChange("contactEmail", e.target.value)}
-                placeholder="Your email address"
-                ref={emailInputRef}
-                renderError={error => error && (
-                  <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
-                    * Your email address is required
-                  </div>
-                )}
-              />
-            </div>
-
-            {/* Terms and Conditions Checkbox */}
-            <CheckboxOption
-              checked={props.state.agreedToTerms || false}
-              onChange={checked => handleInputChange("agreedToTerms", checked)}
-              text="By submitting this form, I agree to the "
-              linkText="Terms and Conditions"
-              onLinkClick={handleTermsClick}
+      <StepHeader
+        stepNumber="01"
+        title="Confirm Your Details"
+        subtitle="This is so that we can get in contact with you."
+      >
+        <FormSection>
+          {/* Input Fields */}
+          <div className="flex flex-col items-start gap-6 self-stretch">
+            <NameInput
+              id="name"
+              name="name"
+              label="Your name *"
+              required
+              value={props.state.name || ""}
+              onChange={e => handleInputChange("name", e.target.value)}
+              placeholder="Your name"
+              ref={nameInputRef}
             />
-          </FormSection>
 
-          {/* Button Group */}
-          <ButtonGroup
-            onBack={props.onBack}
-            onNext={handleNext}
-            isLoading={isLoading}
-            showErrorMessage={!isFormValid && !isLoading}
-            errorMessage={apiError ? `API Error: ${apiError.message}` : undefined}
+            <EmailInput
+              id="email"
+              name="email"
+              label="Your email address *"
+              required
+              value={props.state.contactEmail || ""}
+              onChange={e => handleInputChange("contactEmail", e.target.value)}
+              placeholder="Your email address"
+              ref={emailInputRef}
+              renderError={error => error && (
+                <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
+                  * Your email address is required
+                </div>
+              )}
+            />
+          </div>
+
+          {/* Terms and Conditions Checkbox */}
+          <CheckboxOption
+            checked={props.state.agreedToTerms || false}
+            onChange={checked => handleInputChange("agreedToTerms", checked)}
+            text="By submitting this form, I agree to the "
+            linkText="Terms and Conditions"
+            onLinkClick={handleTermsClick}
           />
-        </div>
-      </div>
+        </FormSection>
+
+        {/* Button Group */}
+        <ButtonGroup
+          onBack={props.onBack}
+          onNext={handleNext}
+          isLoading={isLoading}
+          showErrorMessage={!isFormValid && !isLoading}
+          errorMessage={apiError ? `API Error: ${apiError.message}` : undefined}
+        />
+      </StepHeader>
     </div>
   );
 }
