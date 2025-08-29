@@ -1,5 +1,5 @@
 import React from "react";
-import { Currency, DeveloperServiceEntry, ServiceId } from "@open-source-economy/api-types";
+import { Currency, DeveloperServiceEntry, ServiceId, DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { ProjectItemIdCompanion } from "../../../../../data";
 import { displayedCurrencies } from "../../../../../data";
 
@@ -7,6 +7,7 @@ interface ServiceCardProps {
   category: string;
   developerServices: DeveloperServiceEntry[];
   projectItemNameMap: Map<string, string>;
+  developerProjectItemEntries: DeveloperProjectItemEntry[];
   currency: Currency;
   onEditTask: (entry: DeveloperServiceEntry) => void;
   onDeleteDeveloperService: (serviceId: ServiceId) => void;
@@ -16,6 +17,24 @@ export function ServiceCard(props: ServiceCardProps) {
   if (props.developerServices.length === 0) {
     return null;
   }
+
+  const getProjectName = (projectId: { uuid: string }): string => {
+    // First try the projectItemNameMap
+    const mappedName = props.projectItemNameMap.get(projectId.uuid);
+    if (mappedName) return mappedName;
+
+    // Fallback to finding in developerProjectItemEntries
+    const projectEntry = props.developerProjectItemEntries.find(
+      entry => entry.projectItem.id.uuid === projectId.uuid
+    );
+    
+    if (projectEntry) {
+      return ProjectItemIdCompanion.displayName(projectEntry.projectItem.sourceIdentifier);
+    }
+
+    // Last fallback
+    return `Project ${projectId.uuid.substring(0, 8)}`;
+  };
 
   return (
     <div className="flex flex-col items-start gap-6 w-full">
@@ -31,13 +50,9 @@ export function ServiceCard(props: ServiceCardProps) {
           const hasProjects = entry.developerService?.projectItemIds && entry.developerService.projectItemIds.length > 0;
           
           // Get project names for display
-          const projectNames = entry.developerService?.projectItemIds?.map(projectId => {
-            const projectEntry = Object.values(props.projectItemNameMap).find((_, mapIndex) => {
-              const keys = Array.from(props.projectItemNameMap.keys());
-              return keys[mapIndex] === projectId.uuid;
-            });
-            return projectEntry || ProjectItemIdCompanion.displayName({ uuid: projectId.uuid });
-          }) || [];
+          const projectNames = entry.developerService?.projectItemIds?.map(projectId => 
+            getProjectName(projectId)
+          ) || [];
 
           // Format project display text
           const getProjectDisplayText = () => {
@@ -104,25 +119,27 @@ export function ServiceCard(props: ServiceCardProps) {
                 )}
 
                 {/* Info Pills */}
-                <div className="flex items-center gap-4 w-full">
-                  {/* Hourly Rate Pill */}
-                  {entry.developerService?.hourlyRate && (
-                    <div className="flex px-2.5 py-0.5 justify-center items-center gap-2.5 rounded-[50px] border border-[#FF7E4B]">
-                      <span className="text-white font-montserrat text-[14px] leading-[150%] font-normal">
-                        Hourly rate: {displayedCurrencies[props.currency]?.symbol} {entry.developerService.hourlyRate}
-                      </span>
-                    </div>
-                  )}
+                {hasProjects && (
+                  <div className="flex items-center gap-4 w-full">
+                    {/* Hourly Rate Pill */}
+                    {entry.developerService?.hourlyRate && (
+                      <div className="flex px-2.5 py-0.5 justify-center items-center gap-2.5 rounded-[50px] border border-[#FF7E4B]">
+                        <span className="text-white font-montserrat text-[14px] leading-[150%] font-normal">
+                          Hourly rate: {displayedCurrencies[props.currency]?.symbol} {entry.developerService.hourlyRate}
+                        </span>
+                      </div>
+                    )}
 
-                  {/* Response Time Pill */}
-                  {entry.developerService?.responseTimeHours && (
-                    <div className="flex px-2.5 py-0.5 justify-center items-center gap-2.5 rounded-[50px] border border-[#FF7E4B]">
-                      <span className="text-white font-montserrat text-[14px] leading-[150%] font-normal">
-                        Response time: {entry.developerService.responseTimeHours} hours
-                      </span>
-                    </div>
-                  )}
-                </div>
+                    {/* Response Time Pill */}
+                    {entry.developerService?.responseTimeHours && (
+                      <div className="flex px-2.5 py-0.5 justify-center items-center gap-2.5 rounded-[50px] border border-[#FF7E4B]">
+                        <span className="text-white font-montserrat text-[14px] leading-[150%] font-normal">
+                          Response time: {entry.developerService.responseTimeHours} hours
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Error Message for unconfigured services (fallback) */}
                 {!hasProjects && (
