@@ -1,7 +1,5 @@
 import React from "react";
-import { displayedCurrencies } from "../../../../../data";
 import { Currency, DeveloperServiceEntry, ServiceId } from "@open-source-economy/api-types";
-import { CloseIcon } from "../step3/FundingCard";
 
 interface ServiceCardProps {
   category: string;
@@ -13,78 +11,72 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard(props: ServiceCardProps) {
+  if (props.developerServices.length === 0) {
+    return null;
+  }
+
   return (
-    <div key={props.category} className="box-border content-stretch flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
-      <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
-        <p className="block leading-[1.3]">{props.category}</p>
-      </div>
+    <div className="flex flex-col items-start gap-6 w-full">
+      {/* Category Title */}
+      <h3 className="text-[#FF7E4B] font-michroma text-[28px] leading-[130%] font-normal w-full">
+        {props.category}
+      </h3>
 
-      {props.developerServices.map(entry => {
-        const projectItemNames = (entry.developerService?.projectItemIds || [])
-          .map(projectId => props.projectItemNameMap.get(projectId.uuid))
-          .filter(Boolean) as string[];
-
-        const projectsDisplay =
-          projectItemNames.length > 0
-            ? projectItemNames.length > 5
-              ? `${projectItemNames.slice(0, 5).join(" | ")} | +${projectItemNames.length - 5} more...`
-              : projectItemNames.join(" | ")
-            : "No projects selected";
-
-        const displayRate = entry.developerService?.hourlyRate ?? 0;
-
-        return (
-          <div key={entry.service.id.uuid} className="box-border content-stretch flex flex-col gap-3 items-start justify-start p-0 relative shrink-0 w-full">
-            <div className="box-border content-stretch flex flex-row gap-4 items-start justify-between p-0 relative shrink-0 w-full">
-              <div className="flex-1">
-                <div className="font-montserrat font-normal text-[#ffffff] text-[16px] text-left mb-1">
-                  <p className="block leading-[1.5]">{entry.service.name}</p>
+      {/* Services Container */}
+      <div className="flex flex-col items-start w-full rounded-[30px]">
+        {props.developerServices.map((entry, index) => {
+          const isLastItem = index === props.developerServices.length - 1;
+          
+          return (
+            <div key={entry.service.id.uuid} className="flex flex-col items-start w-full bg-[#14233A]">
+              {/* Service Item */}
+              <div className={`flex px-7 py-7 justify-center items-center gap-4 w-full ${
+                !isLastItem ? 'border-b border-[#0E1F35]' : ''
+              } ${index === 0 ? 'pt-7' : ''} ${isLastItem ? 'pb-7' : ''}`}>
+                {/* Service Content */}
+                <div className="flex items-center gap-4 flex-1">
+                  <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">
+                    {entry.service.name}
+                  </span>
+                  
+                  {/* Select Projects Button */}
+                  <button
+                    onClick={() => props.onEditTask(entry)}
+                    className="flex px-2.5 py-0.5 justify-center items-center gap-2.5 rounded-[50px] bg-[#202F45] hover:bg-[#2a3f56] transition-colors"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id={`mask0_714_31789_${entry.service.id.uuid}`} style={{maskType: 'luminance'}} maskUnits="userSpaceOnUse" x="1" y="1" width="16" height="16">
+                        <path d="M9 16.0625C12.6245 16.0625 15.5625 13.1245 15.5625 9C15.5625 5.37553 12.6245 2.4375 9 2.4375C5.37553 2.4375 2.4375 5.37553 2.4375 9C2.4375 13.1245 5.37553 16.0625 9 16.0625Z" fill="white" stroke="white" strokeWidth="1.3125" strokeLinejoin="round"/>
+                        <path d="M9 6.375V11.625M6.375 9H11.625" stroke="black" strokeWidth="1.3125" strokeLinecap="round" strokeLinejoin="round"/>
+                      </mask>
+                      <g mask={`url(#mask0_714_31789_${entry.service.id.uuid})`}>
+                        <path d="M1.125 1.125H16.875V16.875H1.125V1.125Z" fill="white"/>
+                      </g>
+                    </svg>
+                    <span className="text-white font-montserrat text-[14px] leading-[150%] font-normal">
+                      Select Projects
+                    </span>
+                  </button>
                 </div>
-                <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left opacity-70 mb-2">
-                  <p className="block leading-[1.4]">{projectsDisplay}</p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
-                    <p className="block leading-[1.5]">
-                      Hourly rate: {displayedCurrencies[props.currency]?.symbol} {displayRate}
-                    </p>
-                  </div>
-                  {entry.service.hasResponseTime && (
-                    <div className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left">
-                      <p className="block leading-[1.5]">Response time: {entry.developerService?.responseTimeHours ?? "12"} hours</p>
-                    </div>
-                  )}
-                </div>
-              </div>
 
-              <div className="flex flex-row gap-2 items-center">
-                <button
-                  onClick={() => entry.developerService && props.onEditTask(entry)}
-                  className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors p-1"
-                  title="Edit Service"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M11.333 2.00009C11.5081 1.82499 11.7167 1.68595 11.9457 1.59129C12.1747 1.49663 12.4194 1.44788 12.6663 1.44788C12.9133 1.44788 13.158 1.49663 13.387 1.59129C13.616 1.68595 13.8246 1.82499 13.9997 2.00009C14.1748 2.17518 14.3138 2.38383 14.4085 2.61281C14.5032 2.8418 14.5519 3.08651 14.5519 3.33342C14.5519 3.58033 14.5032 3.82504 14.4085 4.05403C14.3138 4.28302 14.1748 4.49167 13.9997 4.66676L5.33301 13.3334L1.33301 14.6667L2.66634 10.6667L11.333 2.00009Z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
+                {/* Close Button */}
                 <button
                   onClick={() => props.onDeleteDeveloperService(entry.service.id)}
-                  className="text-[#ffffff] hover:text-red-400 transition-colors p-1"
+                  className="flex w-6 h-6 flex-col justify-center items-center gap-2.5 text-white hover:text-red-400 transition-colors"
                   title="Remove Service"
                 >
-                  <CloseIcon />
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4L4 20" stroke="currentColor" strokeLinecap="round"/>
+                    <path d="M4 4L20 20" stroke="currentColor" strokeLinecap="round"/>
+                  </svg>
                 </button>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
+
+export default ServiceCard;
