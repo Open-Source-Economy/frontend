@@ -44,7 +44,7 @@ import { Support } from "./views/pages/app/support/Support";
 import SupportCreateTicket from "./views/pages/app/support/SupportCreateTicket";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/components/ScrollTop";
-import OnboardingLandingPage from "./views/pages/app/onboarding/OnboardingLanding";
+import OnboardingLandingPage from "./views/pages/app/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/app/onboarding/OnboardingFlow";
 
 const App = () => {
