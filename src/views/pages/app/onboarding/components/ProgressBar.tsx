@@ -10,12 +10,15 @@ interface ProgressStepProps {
   isActive: boolean;
   isCompleted: boolean;
   showConnector?: boolean;
+  isConnectorCompleted?: boolean;
 }
 
-function ProgressStep({ step, label, isActive, isCompleted, showConnector = true }: ProgressStepProps) {
+function ProgressStep({ step, label, isActive, isCompleted, showConnector = true, isConnectorCompleted = false }: ProgressStepProps) {
   const stepClasses = isActive || isCompleted ? "bg-[#FF7E4B]" : "bg-white bg-opacity-30";
 
-  const labelClasses = isActive || isCompleted ? "text-white" : "text-white text-opacity-30";
+  const labelClasses = isActive ? "text-white" : "text-white text-opacity-30";
+
+  const connectorStroke = isConnectorCompleted ? "#FF7E4B" : "#FF7E4B";
 
   return (
     <div className="flex flex-col justify-center items-start gap-1 flex-1">
@@ -23,7 +26,7 @@ function ProgressStep({ step, label, isActive, isCompleted, showConnector = true
         <div className={`w-4 h-4 rounded-full ${stepClasses}`} />
         {showConnector && (
           <svg className="flex-1 h-0.5" viewBox="0 0 195 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1.0001L194.5 1.00002" stroke="#202F45" strokeLinecap="round" />
+            <path d="M1 1.0001L194.5 1.00002" stroke={connectorStroke} strokeLinecap="round" />
           </svg>
         )}
       </div>
@@ -51,6 +54,7 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
           isActive={currentStep === stepData.step}
           isCompleted={currentStep > stepData.step}
           showConnector={index < steps.length - 1}
+          isConnectorCompleted={currentStep > stepData.step}
         />
       ))}
     </div>
