@@ -126,7 +126,7 @@ export default function Step5(props: Step5Props) {
 
   const handleNext = async () => {
     if (props.state.developerServices.length === 0) {
-      setLocalError("Please add at least one service before proceeding.");
+      setLocalError("Please select projects or add tasks");
       return;
     }
     setLocalError(null); // Clear local error before starting API call
@@ -167,7 +167,7 @@ export default function Step5(props: Step5Props) {
           </div>
 
           {/* Divider Line */}
-          <div className="w-px h-[443px] opacity-15 bg-white"></div>
+          <div className="w-px h-[1583px] opacity-15 bg-white"></div>
 
           {/* Form Content */}
           <div className="flex flex-col items-center gap-8 flex-1">
@@ -180,81 +180,86 @@ export default function Step5(props: Step5Props) {
                     Tasks & Preferences
                   </h1>
                 </div>
-                <ErrorDisplay message={apiError?.message || localError} />
+                <ErrorDisplay message={apiError?.message} />
               </div>
 
-              {/* Display Existing Services */}
-              {groupedServices.length > 0 && (
-                <div className="flex flex-col gap-6 w-full">
-                  {groupedServices.map(({ category, developerServices }) => (
-                    <ServiceCard
-                      key={category}
-                      category={category}
-                      developerServices={developerServices}
-                      projectItemNameMap={projectItemNameMap}
-                      currency={props.state.currency}
-                      onEditTask={handleEditTask}
-                      onDeleteDeveloperService={handleDeleteDeveloperService}
-                    />
-                  ))}
-                </div>
-              )}
+              {/* Selected Services by Category */}
+              <div className="flex flex-col items-start gap-12 w-full">
+                {groupedServices.map(({ category, developerServices }) => (
+                  <ServiceCard
+                    key={category}
+                    category={category}
+                    developerServices={developerServices}
+                    projectItemNameMap={projectItemNameMap}
+                    currency={props.state.currency}
+                    onEditTask={handleEditTask}
+                    onDeleteDeveloperService={handleDeleteDeveloperService}
+                  />
+                ))}
+              </div>
 
-              {/* Initial Service Selection */}
+              {/* Add Task Section */}
               <InitialServiceSelection
                 serviceCategories={filteredServiceCategories}
                 onAddInitialServices={onAddInitialServices}
                 isLoading={isLoading}
               />
-            </div>
 
-            {/* Button Group */}
-            <div className="flex h-12 items-center gap-2.5 w-full">
-              <div className="flex items-start gap-4">
-                {/* Back Button */}
-                <div className="flex justify-center items-center gap-2.5 rounded-md border border-white">
-                  <button
-                    onClick={props.onBack}
-                    className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md border border-white"
-                  >
-                    <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                      Back
-                    </span>
-                  </button>
-                </div>
-
-                {/* Get Started Button */}
-                <div className={`flex justify-center items-center gap-2.5 rounded-md ${
-                  props.state.developerServices.length === 0 || isLoading 
-                    ? 'opacity-50' 
-                    : ''
-                }`}>
-                  <button
-                    onClick={handleNext}
-                    disabled={props.state.developerServices.length === 0 || isLoading}
-                    className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md bg-[#FF7E4B]"
-                  >
-                    {isLoading ? (
-                      <>
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                          Saving...
-                        </span>
-                      </>
-                    ) : (
+              {/* Button Group */}
+              <div className="flex flex-col justify-center items-start gap-4 w-full">
+                <div className="flex items-start gap-4">
+                  {/* Back Button */}
+                  <div className="flex justify-center items-center gap-2.5 rounded-md border border-white">
+                    <button
+                      onClick={props.onBack}
+                      className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md border border-white"
+                    >
                       <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
-                        Get Started
+                        Back
                       </span>
-                    )}
-                  </button>
+                    </button>
+                  </div>
+
+                  {/* Get Started Button */}
+                  <div className={`flex justify-center items-center gap-2.5 rounded-md ${
+                    props.state.developerServices.length === 0 || isLoading 
+                      ? 'opacity-50' 
+                      : ''
+                  }`}>
+                    <button
+                      onClick={handleNext}
+                      disabled={props.state.developerServices.length === 0 || isLoading}
+                      className="flex px-5 py-3 justify-center items-center gap-2.5 rounded-md bg-[#FF7E4B]"
+                    >
+                      {isLoading ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
+                            Saving...
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-white font-michroma text-[16px] leading-[150%] font-normal">
+                          Get Started
+                        </span>
+                      )}
+                    </button>
+                  </div>
                 </div>
+
+                {/* Error Message */}
+                {localError && (
+                  <div className="w-full text-[#FF8C8C] font-montserrat text-[16px] leading-[150%] font-normal">
+                    * {localError}
+                  </div>
+                )}
               </div>
             </div>
           </div>
