@@ -6,8 +6,11 @@ import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { GithubUrls, handleApiCall } from "../../../../../../ultils";
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model";
-import { DeveloperRoleTypeSelectInput, GenericInputRef, MergeRightsTypeSelectInput, UrlInput } from "../../../../../components/form";
-import { Button } from "../../../../../components";
+import { GenericInputRef } from "../../../../../components/form";
+import { ModalHeader } from "./ModalHeader";
+import { ProjectSection } from "./ProjectSection";
+import { ContributionSection } from "./ContributionSection";
+import { ModalFooter } from "./ModalFooter";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -97,56 +100,49 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         show={props.show}
         onHide={() => props.setShow(false)}
         centered
-        className="[&_.modal-content]:bg-transparent [&_.modal-content]:border-none [&_.modal-dialog]:max-w-[600px] [&_.modal-backdrop]:bg-black/50"
+        className="[&_.modal-content]:bg-transparent [&_.modal-content]:border-none [&_.modal-dialog]:max-w-[800px] [&_.modal-backdrop]:bg-black/50"
         backdrop="static"
       >
-        <Modal.Body className="bg-[#14233a] rounded-[30px] p-8">
-          <div className="max-h-[80vh] overflow-visible">
-            <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-              {/* UpsertProjectItemModal Header */}
-              <div className="box-border content-stretch flex flex-row gap-4 items-center justify-between p-0 relative shrink-0 w-full">
-                <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[24px] text-left">
-                  <p className="block leading-[1.3]">{props.projectItem ? "Edit Project" : "Add Project"}</p>
-                </div>
-                <button onClick={() => props.setShow(false)} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
+        <Modal.Body className="p-0">
+          <div className="flex w-[800px] p-9 flex-col justify-end items-end gap-8 rounded-[50px] bg-[#0E1F35]">
+            {/* Modal Header */}
+            <ModalHeader
+              title="Choose Project"
+              subtitle="You can choose an entire organisation or a specific repository in an organisation"
+              onClose={() => props.setShow(false)}
+            />
+
+            {/* Project Section */}
+            <ProjectSection
+              url={url}
+              onUrlChange={setUrl}
+              urlInputRef={urlInputRef}
+            />
+
+            {/* Contribution Section */}
+            <ContributionSection
+              selectedRole={selectedRole}
+              selectedMergeRights={selectedMergeRights}
+              onRoleChange={setSelectedRole}
+              onMergeRightsChange={setSelectedMergeRights}
+              roleSelectRef={roleSelectRef}
+              mergeRightsSelectRef={mergeRightsSelectRef}
+            />
+
+            {/* Error Display */}
+            {error && (
+              <div className="self-stretch text-red-400 text-sm font-montserrat">
+                API Error: {error.message}
               </div>
+            )}
 
-              {/* Repository URL Input - Using UrlInput component */}
-              <UrlInput
-                id="repository-url"
-                name="repositoryUrl"
-                label="Repository URL"
-                required
-                value={url}
-                onChange={e => setUrl(e.target.value)}
-                placeholder="https://github.com/owner/repository"
-                ref={urlInputRef}
-              />
-
-              {/* Role Dropdown - Using new dedicated component */}
-              <DeveloperRoleTypeSelectInput required value={selectedRole || null} onChange={setSelectedRole} ref={roleSelectRef} />
-
-              {/* Merge Rights Dropdown - Using new dedicated component */}
-              <MergeRightsTypeSelectInput required value={selectedMergeRights || null} onChange={setSelectedMergeRights} ref={mergeRightsSelectRef} />
-
-              {/* TODO: sam implement UI for error */}
-              {error && <p className="text-red-400 text-sm font-montserrat mt-1">API Error: {error.message}</p>}
-
-              {/* UpsertProjectItemModal Buttons */}
-              <div className="box-border content-stretch flex flex-row gap-4 items-center justify-end p-0 relative shrink-0 w-full">
-                <Button level="SECONDARY" audience="DEVELOPER" size="MEDIUM" onClick={() => props.setShow(false)}>
-                  Cancel
-                </Button>
-
-                <Button level="PRIMARY" audience="DEVELOPER" size="MEDIUM" onClick={handleUpsertProject} disabled={isLoading}>
-                  {isLoading ? "Saving..." : props.projectItem ? "Save Changes" : "Add Project"}
-                </Button>
-              </div>
-            </div>
+            {/* Footer Button */}
+            <ModalFooter
+              onSubmit={handleUpsertProject}
+              isLoading={isLoading}
+              isDisabled={!url || !selectedRole || !selectedMergeRights}
+              buttonText={props.projectItem ? "Save Changes" : "Add Project"}
+            />
           </div>
         </Modal.Body>
       </Modal>
