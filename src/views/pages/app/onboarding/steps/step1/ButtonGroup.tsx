@@ -4,6 +4,7 @@ interface ButtonGroupProps {
   onBack: () => void;
   onNext: () => void;
   isLoading: boolean;
+  isNextDisabled?: boolean;
   showErrorMessage?: boolean;
   errorMessage?: string;
 }

@@ -102,6 +102,7 @@ const Step2: React.FC<Step2Props> = props => {
           onBack={props.onBack}
           onNext={props.onNext}
           isLoading={isLoading}
+          isNextDisabled={projects.length === 0}
           showErrorMessage={false}
           errorMessage={apiError?.message}
         />
