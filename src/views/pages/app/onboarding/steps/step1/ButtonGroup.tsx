@@ -25,9 +25,9 @@ export function ButtonGroup(props: ButtonGroupProps) {
           {/* Next Button */}
           <button
             onClick={props.onNext}
-            disabled={props.isLoading}
+            disabled={props.isLoading || props.isNextDisabled}
             className={`flex justify-center items-center gap-2.5 rounded-md px-5 py-3 bg-[#FF7E4B] transition-opacity ${
-              props.isLoading ? "opacity-50 cursor-not-allowed" : "opacity-50 hover:opacity-100"
+              props.isLoading || props.isNextDisabled ? "opacity-50 cursor-not-allowed" : "opacity-50 hover:opacity-100"
             }`}
           >
             <div className="text-white font-michroma text-base font-normal leading-[150%]">{props.isLoading ? "Saving..." : "Next"}</div>
