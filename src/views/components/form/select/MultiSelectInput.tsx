@@ -88,40 +88,44 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
     .filter(Boolean) as string[];
 
   const selectDisplayClasses = `
-    flex justify-between items-center flex-1 border-radius-md bg-[#202F45] px-3 py-3 rounded-md cursor-pointer
+    flex justify-between items-center flex-1 bg-[#202F45] px-3 py-3 rounded-md cursor-pointer
     ${internalError ? "border border-red-500" : ""}
   `;
 
   return (
-    <div className="relative w-full" ref={dropdownRef}>
+    <div className="flex flex-col items-start gap-0 relative w-full" ref={dropdownRef}>
       {/* Input Display */}
-      <div
-        className={selectDisplayClasses}
-        onClick={() => {
-          setIsOpen(!isOpen);
-          runValidation(value, true);
-        }}
-        tabIndex={0}
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-labelledby={`${id}-label`}
-        {...rest}
-      >
-        <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal opacity-60">
-          {placeholder}
-        </span>
-        
-        <svg 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-          className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-        >
-          <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
-        </svg>
+      <div className="flex flex-col items-start gap-0 w-full">
+        <div className="flex items-start gap-2.5 w-full">
+          <div
+            className={selectDisplayClasses}
+            onClick={() => {
+              setIsOpen(!isOpen);
+              runValidation(value, true);
+            }}
+            tabIndex={0}
+            role="combobox"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            aria-labelledby={`${id}-label`}
+            {...rest}
+          >
+            <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal opacity-60">
+              {placeholder}
+            </span>
+            
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            >
+              <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Hidden inputs for form submission */}
