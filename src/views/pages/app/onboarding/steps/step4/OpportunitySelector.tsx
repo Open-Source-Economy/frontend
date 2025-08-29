@@ -54,58 +54,51 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
     }
   };
 
+  const RadioOption = ({ option, label: optionLabel }: { option: OpenToOtherOpportunityType; label: string }) => {
+    const isSelected = value === option;
+    
+    return (
+      <div className="flex items-start gap-3">
+        <button
+          onClick={() => handleButtonClick(option)}
+          className={`w-[18px] h-[18px] rounded-full flex items-center justify-center transition-all ${
+            isSelected ? 'bg-[#202F45] p-0.5' : 'bg-[#202F45]'
+          }`}
+          aria-checked={isSelected}
+          role="radio"
+        >
+          {isSelected && (
+            <div className="w-[14px] h-[14px] rounded-full bg-[#FF7E4B]" />
+          )}
+        </button>
+        <button
+          onClick={() => handleButtonClick(option)}
+          className="text-white font-montserrat text-base leading-[1.1] hover:text-[#FF7E4B] transition-colors"
+          role="radio"
+          aria-checked={isSelected}
+        >
+          {optionLabel}
+        </button>
+      </div>
+    );
+  };
+
   return (
-    <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full ">
-      <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[20px] text-left">
-        <p id={`${id}-label`} className="block leading-[1.3]">
-          {label} {required && <span className="text-red-500">*</span>}
-        </p>
+    <div className="flex flex-col gap-4 w-full">
+      <div className="text-white font-montserrat text-base leading-[1.5] opacity-60">
+        Should Open Source Economy team privately contact you when a major opportunity arises?
       </div>
-      <div className="font-montserrat font-normal relative shrink-0 text-[#ffffff] text-[14px] text-left opacity-70">
-        <p className="block leading-[1.5]">Are you interested in taking on larger projects or full-time opportunities?</p>
-      </div>
+      
       <div
-        className="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative shrink-0 w-full"
+        className="flex items-center gap-8"
         role="radiogroup"
         aria-labelledby={`${id}-label`}
       >
-        <button
-          onClick={() => handleButtonClick(OpenToOtherOpportunityType.YES)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.YES
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
-          aria-checked={value === OpenToOtherOpportunityType.YES}
-          role="radio"
-        >
-          Yes
-        </button>
-        <button
-          onClick={() => handleButtonClick(OpenToOtherOpportunityType.MAYBE)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.MAYBE
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
-          aria-checked={value === OpenToOtherOpportunityType.MAYBE}
-          role="radio"
-        >
-          Maybe
-        </button>
-        <button
-          onClick={() => handleButtonClick(OpenToOtherOpportunityType.NO)}
-          className={`px-6 py-3 rounded-md font-montserrat font-normal text-[16px] transition-all ${
-            value === OpenToOtherOpportunityType.NO
-              ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] text-[#ffffff]"
-              : "bg-[#202f45] text-[#ffffff] hover:bg-[#2a3f56]"
-          }`}
-          aria-checked={value === OpenToOtherOpportunityType.NO}
-          role="radio"
-        >
-          No
-        </button>
+        <RadioOption option={OpenToOtherOpportunityType.YES} label="Yes" />
+        <RadioOption option={OpenToOtherOpportunityType.MAYBE} label="Maybe" />
+        <RadioOption option={OpenToOtherOpportunityType.NO} label="No" />
       </div>
+      
       {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
