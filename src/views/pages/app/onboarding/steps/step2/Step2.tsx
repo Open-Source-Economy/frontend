@@ -11,6 +11,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import { StepHeader } from "../step1/StepHeader";
 import { ButtonGroup } from "../step1/ButtonGroup";
 import { ProjectsSection } from "./ProjectsSection";
+import { DeleteProjectModal } from "./DeleteProjectModal";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 
@@ -18,11 +19,14 @@ type Step2Props = OnboardingStepProps<Step2State>;
 
 const Step2: React.FC<Step2Props> = props => {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(props.state.projects);
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
+  const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const api = getOnboardingBackendAPI();
 
@@ -56,7 +60,12 @@ const Step2: React.FC<Step2Props> = props => {
     setApiError(null);
   };
 
-  const handleDeleteProject = async (projectId: ProjectItemId) => {
+  const handleShowDeleteModal = (project: DeveloperProjectItemEntry) => {
+    setDeletingProject(project);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async (projectId: ProjectItemId) => {
     const apiCall = async () => {
       const params: dto.RemoveDeveloperProjectItemParams = {};
       const body: dto.RemoveDeveloperProjectItemBody = {
@@ -70,9 +79,11 @@ const Step2: React.FC<Step2Props> = props => {
       const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== projectId.uuid);
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
+      setShowDeleteModal(false);
+      setDeletingProject(null);
     };
 
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    await handleApiCall(apiCall, setIsDeleting, setApiError, onSuccess);
   };
 
   return (
@@ -87,7 +98,7 @@ const Step2: React.FC<Step2Props> = props => {
           projects={projects}
           onAddProject={handleAddProject}
           onEditProject={handleEditProject}
-          onDeleteProject={handleDeleteProject}
+          onShowDeleteModal={handleShowDeleteModal}
           isLoading={isLoading}
         />
 
@@ -115,6 +126,17 @@ const Step2: React.FC<Step2Props> = props => {
           setShow={setShowModal}
           projectItem={editingProject}
           onUpsert={handleUpsertComplete}
+        />
+      )}
+
+      {/* Delete Project Modal */}
+      {showDeleteModal && (
+        <DeleteProjectModal
+          show={showDeleteModal}
+          setShow={setShowDeleteModal}
+          project={deletingProject}
+          onConfirmDelete={handleConfirmDelete}
+          isDeleting={isDeleting}
         />
       )}
     </div>

@@ -3,6 +3,7 @@ export { AddProjectButton } from './AddProjectButton';
 export { ProjectsSection } from './ProjectsSection';
 export { ProjectListTable } from './ProjectListTable';
 export { UpsertProjectItemModal } from './UpsertProjectItemModal';
+export { DeleteProjectModal } from './DeleteProjectModal';
 export { ModalHeader } from './ModalHeader';
 export { ProjectSection } from './ProjectSection';
 export { ContributionSection } from './ContributionSection';

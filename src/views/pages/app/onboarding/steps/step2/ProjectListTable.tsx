@@ -6,7 +6,7 @@ import { ProjectItemIdCompanion } from "../../../../../data";
 interface ProjectListTableProps {
   projects: DeveloperProjectItemEntry[];
   onEditProject: (project: DeveloperProjectItemEntry) => void;
-  onDeleteProject: (projectId: ProjectItemId) => void;
+  onDeleteProject: (project: DeveloperProjectItemEntry) => void;
 }
 
 export function ProjectListTable(props: ProjectListTableProps) {
@@ -90,7 +90,7 @@ export function ProjectListTable(props: ProjectListTableProps) {
               
               {/* Delete Icon */}
               <button
-                onClick={() => props.onDeleteProject(entry.developerProjectItem.id)}
+                onClick={() => props.onDeleteProject(entry)}
                 className="flex w-6 h-6 flex-col justify-center items-center gap-2.5 hover:opacity-70 transition-opacity"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

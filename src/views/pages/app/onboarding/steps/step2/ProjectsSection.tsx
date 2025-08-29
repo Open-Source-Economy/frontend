@@ -8,7 +8,7 @@ interface ProjectsSectionProps {
   projects: DeveloperProjectItemEntry[];
   onAddProject: () => void;
   onEditProject: (project: DeveloperProjectItemEntry) => void;
-  onDeleteProject: (projectId: ProjectItemId) => void;
+  onShowDeleteModal: (project: DeveloperProjectItemEntry) => void;
   isLoading: boolean;
 }
 
@@ -28,7 +28,7 @@ export function ProjectsSection(props: ProjectsSectionProps) {
       <ProjectListTable
         projects={props.projects}
         onEditProject={props.onEditProject}
-        onDeleteProject={props.onDeleteProject}
+        onDeleteProject={props.onShowDeleteModal}
       />
 
       {/* Add Project Button */}
