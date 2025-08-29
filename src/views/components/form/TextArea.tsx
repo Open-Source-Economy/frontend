@@ -1,33 +1,24 @@
-import React, { forwardRef, Ref, TextareaHTMLAttributes, useEffect, useImperativeHandle, useState } from "react";
+import React, { forwardRef, Ref, TextareaHTMLAttributes, useImperativeHandle, useState } from "react";
+import { BaseProps, BaseRef } from "./Base";
 
-// Define the interface for the methods exposed via ref
-export interface TextAreaRef {
-  validate: (showInputError: boolean) => boolean;
-}
+export interface TextAreaRef extends BaseRef {}
 
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string; // Keep label for validation message, but make it optional
-  validator?: (value: string) => string | undefined;
-  required?: boolean;
-  renderError?: (genericError: string | undefined) => React.ReactNode;
-  forceValidate?: boolean;
-}
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>, BaseProps {}
 
 export const TextArea = forwardRef(function TextArea(props: TextAreaProps, ref: Ref<TextAreaRef>) {
-  const { label, className, required, validator, renderError, forceValidate, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [isTouched, setIsTouched] = useState(false);
 
   const runValidation = (value: string, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
 
-    if (required && !value.trim()) {
-      errorMessage = `${label || "Field"} is required.`;
-    } else if (validator) {
-      errorMessage = validator(value);
+    if (props.required && !value.trim()) {
+      errorMessage = `${props.label || "Field"} is required.`;
+    } else if (props.validator) {
+      errorMessage = props.validator(value);
     }
 
-    if (showInputError || isTouched || forceValidate) {
+    if (showInputError || isTouched) {
       setInternalError(errorMessage);
     }
     return !errorMessage;
@@ -40,41 +31,46 @@ export const TextArea = forwardRef(function TextArea(props: TextAreaProps, ref: 
         return runValidation(String(props.value || ""), showInputError);
       },
     }),
-    [props.value, props.required, props.validator, label],
+    [props.value, props.required, props.validator, props.label],
   );
 
-  useEffect(() => {
-    if (forceValidate) {
-      runValidation(String(props.value || ""), true);
-    }
-  }, [forceValidate, props.value]);
-
   const textAreaClasses = `
-    ${className || ""}
+    ${props.className || ""}
     ${internalError ? "border border-red-500" : ""}
   `;
 
   return (
     <div className="w-full">
+      {props.label && (
+        <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
+          <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
+            <div className="font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff] text-[16px] text-left text-nowrap">
+              <p className="block leading-[1.5] whitespace-pre">
+                {props.label} {props.required && <span className="text-red-500">*</span>}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       <textarea
         className={textAreaClasses}
-        {...rest}
+        {...props}
         onBlur={e => {
           setIsTouched(true);
-          if (rest.onBlur) {
-            rest.onBlur(e);
+          if (props.onBlur) {
+            props.onBlur(e);
           }
         }}
         onChange={e => {
-          if (isTouched || forceValidate) {
+          if (isTouched) {
             runValidation(e.target.value, false);
           }
-          if (rest.onChange) {
-            rest.onChange(e);
+          if (props.onChange) {
+            props.onChange(e);
           }
         }}
       />
-      {renderError ? renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {props.renderError ? props.renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

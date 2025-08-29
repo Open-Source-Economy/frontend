@@ -1,22 +1,18 @@
 import React, { forwardRef, InputHTMLAttributes, Ref } from "react";
-import { Link } from "react-router-dom"; // Assuming you have react-router-dom installed
-import { CheckboxInput, CheckboxInputRef } from "./CheckboxInput"; // Import the base CheckboxInput and its ref type
+import { Link } from "react-router-dom";
+import { CheckboxInput } from "./CheckboxInput";
+import { BaseProps, BaseRef } from "../Base";
 
-interface TermsAndConditionsCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  // checked and onChange will be passed down from parent
-  checked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-}
+export interface TermsAndConditionsCheckboxRef extends BaseRef {}
+
+interface TermsAndConditionsCheckboxProps extends InputHTMLAttributes<HTMLInputElement>, Omit<BaseProps, "label"> {}
 
 export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditionsCheckbox(
   props: TermsAndConditionsCheckboxProps,
-  ref: Ref<CheckboxInputRef>, // The ref is typed for CheckboxInputRef
+  ref: Ref<TermsAndConditionsCheckboxRef>,
 ) {
-  const { required, ...rest } = props;
+  const { ...rest } = props;
 
-  // The label is composed here, including the Link component.
-  // This is a React.ReactNode, which CheckboxInput's label prop now accepts.
   const termsLabel = (
     <>
       By submitting this form, I agree to the{" "}
@@ -31,8 +27,6 @@ export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditions
     </>
   );
 
-  // You can also provide a custom renderError if you want a more specific message
-  // than the default "This field is required." from CheckboxInput.
   const renderCustomError = (errorMessage: string | undefined) => {
     if (errorMessage) {
       return <div className="text-red-400 text-sm mt-1">You must agree to the Terms and Conditions to proceed.</div>;
@@ -40,14 +34,5 @@ export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditions
     return null;
   };
 
-  return (
-    <CheckboxInput
-      id="agreedToTerms"
-      label={termsLabel} // Pass the composed label (React.ReactNode)
-      required={required}
-      ref={ref} // Forward the ref to CheckboxInput
-      renderError={renderCustomError} // Pass custom error renderer
-      {...rest}
-    />
-  );
+  return <CheckboxInput id="agreedToTerms" label={termsLabel} ref={ref} renderError={renderCustomError} {...rest} />;
 });

@@ -1,41 +1,32 @@
 import React, { forwardRef, InputHTMLAttributes, Ref, useImperativeHandle, useState } from "react";
+import { BaseProps, BaseRef } from "../Base";
 
-export interface CheckboxInputRef {
-  validate: (showInputError: boolean) => boolean;
-}
+export interface CheckboxInputRef extends BaseRef {}
 
-interface CheckboxInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: React.ReactNode;
-  required?: boolean;
-  renderError?: (errorMessage: string | undefined) => React.ReactNode;
-}
+interface CheckboxInputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {}
 
 export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxInputProps, ref: Ref<CheckboxInputRef>) {
   const { label, required, renderError, className, checked, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [isTouched, setIsTouched] = useState(false);
 
-  // Helper function to run validation and update internal error state
   const runValidation = (isChecked: boolean, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
 
     if (required && !isChecked) {
-      errorMessage = `This field is required.`; // Generic message, can be overridden by renderError
+      errorMessage = `This field is required.`;
     }
 
-    // Show error if explicitly told to, or if the input has been interacted with.
     if (showInputError || isTouched) {
       setInternalError(errorMessage);
     }
-    return !errorMessage; // Returns true if valid, false if invalid
+    return !errorMessage;
   };
 
-  // Expose methods via ref for parent components
   useImperativeHandle(
     ref,
     () => ({
       validate: (showInputError: boolean) => {
-        // When validate() is called, run validation and ensure errors are shown immediately.
         return runValidation(Boolean(checked), showInputError);
       },
     }),
@@ -51,13 +42,13 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
           className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 ${className || ""}`}
           {...rest}
           onChange={e => {
-            setIsTouched(true); // Mark as touched on change
+            setIsTouched(true);
             if (props.onChange) {
-              props.onChange(e); // Pass the event up to the parent
+              props.onChange(e);
             }
           }}
           onBlur={e => {
-            setIsTouched(true); // Mark as touched on blur
+            setIsTouched(true);
             if (props.onBlur) {
               props.onBlur(e);
             }
@@ -72,7 +63,6 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
         )}
       </div>
       <div className="box-border content-stretch flex flex-row gap-1 items-center justify-start leading-[0] p-0 relative shrink-0 text-[16px] text-left text-nowrap">
-        {/* Render the label directly, now that its type is React.ReactNode */}
         <div className="flex flex-col font-montserrat font-normal justify-center relative shrink-0 text-[#ffffff]">
           <p className="block leading-[1.1] text-nowrap whitespace-pre">{label}</p>
         </div>

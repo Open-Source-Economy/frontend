@@ -1,72 +1,53 @@
 import React, { forwardRef, Ref, SelectHTMLAttributes, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { GenericInputRef } from "../GenericInput";
+import { BaseProps, BaseRef } from "../Base";
 
 export interface SelectOption {
   value: string | number;
   label: string;
 }
 
-interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  id: string; // Add id to props to ensure aria-labelledby works
-  label: string;
+export interface SelectInputRef extends BaseRef {}
+
+interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement>, BaseProps {
   options: SelectOption[];
-  required?: boolean;
-  value: string | number; // Ensure value is controlled by parent
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void; // Pass the change event
-  forceValidate?: boolean; // Prop to pass down for initial validation or external trigger
+  value: string | number;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export const SelectInput = forwardRef(function SelectInput(
-  props: SelectInputProps,
-  ref: Ref<GenericInputRef>, // The ref is typed as Ref<GenericInputRef>
-) {
-  const { id, label, options, required, value, onChange, className, forceValidate, ...rest } = props;
+export const SelectInput = forwardRef(function SelectInput(props: SelectInputProps, ref: Ref<SelectInputRef>) {
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Helper function to run validation and update internal error state
   const runValidation = (currentValue: string | number, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
-    if (required && !currentValue) {
-      errorMessage = `${label} is required.`;
+    if (props.required && !currentValue) {
+      errorMessage = `${props.label} is required.`;
     }
 
-    // Only set the error state if it should be shown immediately or if forced
-    if (showInputError || forceValidate) {
+    if (showInputError) {
       setInternalError(errorMessage);
     }
-    return !errorMessage; // Return true if valid, false if invalid
+    return !errorMessage;
   };
 
-  // Expose validate method via ref for parent components
   useImperativeHandle(
     ref,
     () => ({
       validate: (showInputError: boolean) => {
-        // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(value, showInputError);
+        return runValidation(props.value, showInputError);
       },
     }),
-    [value, required, label],
-  ); // Dependencies for useImperativeHandle
+    [props.value, props.required, props.label],
+  );
 
-  // Effect to trigger validation when forceValidate becomes true
-  useEffect(() => {
-    if (forceValidate) {
-      runValidation(value, true); // Force display of errors
-    }
-  }, [forceValidate, value]); // Depend on forceValidate and value
+  const selectedOptionLabel = props.options.find(option => option.value === props.value)?.label || "Select...";
 
-  // Find the currently selected label
-  const selectedOptionLabel = options.find(option => option.value === value)?.label || "Select...";
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDropdown(false);
-        runValidation(value, true); // Validate on dropdown close
+        runValidation(props.value, true);
       }
     };
 
@@ -74,28 +55,26 @@ export const SelectInput = forwardRef(function SelectInput(
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [value]);
+  }, [props.value]);
 
   const handleOptionClick = (optionValue: string | number) => {
     const syntheticEvent = {
       target: {
         value: optionValue,
-        name: props.name, // Pass the name from props
+        name: props.name,
       } as HTMLSelectElement,
     } as React.ChangeEvent<HTMLSelectElement>;
 
-    onChange(syntheticEvent); // Notify parent of change
-    setShowDropdown(false); // Close dropdown after selection
-    runValidation(optionValue, true); // Validate immediately after selection
+    props.onChange(syntheticEvent);
+    setShowDropdown(false);
+    runValidation(optionValue, true);
   };
 
-  // Classes for the main container div
   const inputContainerClasses = `
     box-border content-stretch flex flex-col gap-2 items-start justify-start
     p-0 relative shrink-0 w-full
   `;
 
-  // Classes for the custom select display area
   const selectDisplayClasses = `
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1
     grow items-center justify-between min-h-px min-w-px p-[12px] relative rounded-md shrink-0
@@ -103,7 +82,6 @@ export const SelectInput = forwardRef(function SelectInput(
     ${internalError ? "border border-red-500" : "border border-[#202f45]"}
   `;
 
-  // Classes for the label text container
   const labelTextContainerClasses = `
     font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff]
     text-[16px] text-left text-nowrap
@@ -114,10 +92,9 @@ export const SelectInput = forwardRef(function SelectInput(
       <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
-            <p id={`${id}-label`} className="block leading-[1.5] whitespace-pre">
+            <p id={`${props.id}-label`} className="block leading-[1.5] whitespace-pre">
               {" "}
-              {/* Added ID for accessibility */}
-              {label} {required && <span className="text-red-500">*</span>}
+              {props.label} {props.required && <span className="text-red-500">*</span>}
             </p>
           </div>
         </div>
@@ -128,19 +105,17 @@ export const SelectInput = forwardRef(function SelectInput(
           className={selectDisplayClasses}
           onClick={() => {
             setShowDropdown(!showDropdown);
-            // On opening, if required and empty, don't show error yet (let onBlur/validate() handle it)
-            if (required && !value && !internalError) {
+            if (props.required && !props.value && !internalError) {
               setInternalError(undefined);
             }
           }}
-          tabIndex={0} // Make div focusable for accessibility
+          tabIndex={0}
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded={showDropdown}
-          aria-labelledby={`${id}-label`}
+          aria-labelledby={`${props.id}-label`}
         >
           <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">{selectedOptionLabel}</span>
-          {/* Dropdown arrow icon (using a simple caret) */}
           <svg
             className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
             fill="none"
@@ -153,12 +128,11 @@ export const SelectInput = forwardRef(function SelectInput(
         </div>
       </div>
 
-      {/* Hidden input to hold the actual value for form submission (important for native form behavior) */}
-      <input type="hidden" name={props.name} value={value} />
+      <input type="hidden" name={props.name} value={props.value} />
 
       {showDropdown && (
         <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-[100] w-full">
-          {options.map(option => (
+          {props.options.map(option => (
             <button
               key={option.value}
               onClick={() => handleOptionClick(option.value)}

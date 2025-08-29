@@ -1,81 +1,54 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { GenericInputRef } from "../GenericInput"; // Removed InputHTMLAttributes as it's no longer extended
+import { BaseProps, BaseRef } from "../Base";
 
-interface SelectOption {
+export interface SelectOption {
   value: string;
   label: string;
 }
 
-// FIX: Removed extends InputHTMLAttributes<HTMLInputElement>
-// Instead, explicitly define common HTML attributes like `name`, `id`, `className`, etc.,
-// that are relevant and directly consumed by the MultiSelectInput's root div or hidden inputs.
-interface MultiSelectInputProps {
-  // No longer extending HTML attributes directly
-  label: string;
-  options: SelectOption[];
-  required?: boolean;
-  value: string[]; // Value is now an array of strings for multiple selections
-  onChange: (selectedValues: string[]) => void; // onChange directly passes the array of selected values
-  forceValidate?: boolean; // Prop to trigger validation externally
+export interface MultiSelectInputRef extends BaseRef {}
 
-  // Explicitly add common HTML attributes that might be passed
+interface MultiSelectInputProps extends BaseProps {
+  options: SelectOption[];
+  value: string[];
+  onChange: (selectedValues: string[]) => void;
   id?: string;
   name?: string;
-  className?: string; // For styling the root div if needed
-  // Any other standard HTML attributes like `aria-` properties should be passed via `...rest`
-  // but their types won't be automatically inferred without extending a base HTMLAttributes interface.
-  // For simplicity and direct control, we'll keep it minimal here.
 }
 
-export const MultiSelectInput = forwardRef(function MultiSelectInput(
-  props: MultiSelectInputProps,
-  ref: Ref<GenericInputRef>, // The ref is typed as GenericInputRef, as it exposes a validate() method
-) {
-  const { label, options, required, value, onChange, className, forceValidate, id, name, ...rest } = props; // Destructure id and name
+export const MultiSelectInput = forwardRef(function MultiSelectInput(props: MultiSelectInputProps, ref: Ref<MultiSelectInputRef>) {
+  const { options, value, onChange, id, name, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for closing dropdown on outside click
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Helper function to run validation and update internal error state
   const runValidation = (currentValues: string[], showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
-    if (required && currentValues.length === 0) {
-      // Check if the array is empty for required validation
-      errorMessage = `${label} is required.`;
+    if (props.required && currentValues.length === 0) {
+      errorMessage = `${props.label} is required.`;
     }
 
-    // Only set the error state if it should be shown immediately or if forced
-    if (showInputError || forceValidate) {
+    if (showInputError) {
       setInternalError(errorMessage);
     }
-    return !errorMessage; // Return true if valid, false if invalid
+    return !errorMessage;
   };
 
-  // Expose validate method via ref for parent components
   useImperativeHandle(
     ref,
     () => ({
       validate: (showInputError: boolean) => {
-        // When validate() is called, run validation and ensure errors are shown immediately.
-        return runValidation(value, showInputError); // Pass the array value to validation
+        return runValidation(value, showInputError);
       },
     }),
-    [value, required, label],
-  ); // Dependencies for useImperativeHandle
+    [value, props.required, props.label],
+  );
 
-  // Effect to trigger validation when forceValidate becomes true
-  useEffect(() => {
-    if (forceValidate) {
-      runValidation(value, true); // Force display of errors
-    }
-  }, [forceValidate, value]); // Depend on forceValidate and value
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDropdown(false);
-        runValidation(value, true); // Validate on dropdown close
+        runValidation(value, true);
       }
     };
 
@@ -83,33 +56,29 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [value]); // Depend on value to ensure validation uses latest state
+  }, [value]);
 
   const handleOptionClick = (optionValue: string) => {
     const isSelected = value.includes(optionValue);
     let newSelectedValues: string[];
 
     if (isSelected) {
-      newSelectedValues = value.filter(val => val !== optionValue); // Deselect
+      newSelectedValues = value.filter(val => val !== optionValue);
     } else {
-      newSelectedValues = [...value, optionValue]; // Select
+      newSelectedValues = [...value, optionValue];
     }
 
-    onChange(newSelectedValues); // Notify parent of change with the new array
-    // We don't close the dropdown here to allow multiple selections
-    runValidation(newSelectedValues, false); // Validate immediately after selection/deselection
+    onChange(newSelectedValues);
+    runValidation(newSelectedValues, false);
   };
 
-  // Get labels for currently selected options to display as pills
-  const selectedLabels = value.map(selectedValue => options.find(opt => opt.value === selectedValue)?.label).filter(Boolean) as string[]; // Filter out undefined and cast
+  const selectedLabels = value.map(selectedValue => options.find(opt => opt.value === selectedValue)?.label).filter(Boolean) as string[];
 
-  // Classes for the main container div
   const inputContainerClasses = `
     box-border content-stretch flex flex-col gap-2 items-start justify-start
     p-0 relative shrink-0 w-full
   `;
 
-  // Classes for the custom select display area
   const selectDisplayClasses = `
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row flex-wrap gap-2
     grow items-center justify-between min-h-px min-w-px p-[12px] relative rounded-md shrink-0
@@ -117,7 +86,6 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
     ${internalError ? "border border-red-500" : "border border-[#202f45]"}
   `;
 
-  // Classes for the label text container
   const labelTextContainerClasses = `
     font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff]
     text-[16px] text-left text-nowrap
@@ -129,7 +97,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
         <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
           <div className={labelTextContainerClasses}>
             <p className="block leading-[1.5] whitespace-pre">
-              {label} {required && <span className="text-red-500">*</span>}
+              {props.label} {props.required && <span className="text-red-500">*</span>}
             </p>
           </div>
         </div>
@@ -140,17 +108,15 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
           className={selectDisplayClasses}
           onClick={() => {
             setShowDropdown(!showDropdown);
-            // On opening, validate to update error state if needed
             runValidation(value, true);
           }}
-          tabIndex={0} // Make div focusable for accessibility
+          tabIndex={0}
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded={showDropdown}
-          aria-labelledby={`${id}-label`} // Use id prop here
-          {...rest} // Pass any remaining props to the main interactive div
+          aria-labelledby={`${id}-label`}
+          {...rest}
         >
-          {/* Display selected items as pills or "Select..." placeholder */}
           {selectedLabels.length > 0 ? (
             <div className="flex flex-wrap gap-1 flex-grow">
               {selectedLabels.map((label, index) => (
@@ -163,7 +129,6 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
             <span className="font-montserrat font-normal text-[#8a8a8a] text-[16px] flex-grow">Select...</span>
           )}
 
-          {/* Dropdown arrow icon */}
           <svg
             className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
             fill="none"
@@ -176,7 +141,6 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
         </div>
       </div>
 
-      {/* Hidden inputs to hold the actual values for form submission */}
       {value.map((val, index) => (
         <input type="hidden" key={index} name={`${name || "multiSelect"}[${index}]`} value={val} />
       ))}
@@ -193,7 +157,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(
                   ${isSelected ? "bg-[#ff518c] text-white" : "text-[#ffffff] hover:bg-[#2a3f56]"}`}
               >
                 {option.label}
-                {isSelected && ( // Optional: Add a checkmark for selected items
+                {isSelected && (
                   <svg className="inline-block ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>

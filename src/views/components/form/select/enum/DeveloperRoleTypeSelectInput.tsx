@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import { DeveloperRoleType } from "@open-source-economy/api-types";
-import { GenericInputRef } from "../../GenericInput";
-import { DisplayedEnum, EnumSelectInput, EnumSelectInputChildrenProps } from "./EnumSelectInput"; // Import GenericInputRef
+import { GenericInputRef } from "../../input";
+import { DisplayedEnum, EnumSelectInput, EnumSelectInputChildrenProps } from "./EnumSelectInput";
 
 export const displayedDeveloperRoles: Record<DeveloperRoleType, DisplayedEnum> = {
   [DeveloperRoleType.CREATOR_FOUNDER]: { name: "Lead Maintainer" },
@@ -18,6 +18,13 @@ export const DeveloperRoleTypeSelectInput = forwardRef(function DeveloperRoleTyp
 ) {
   return (
     // @ts-ignore
-    <EnumSelectInput<DeveloperRoleType> label="Developer Role" enumObject={DeveloperRoleType} displayedEnums={displayedDeveloperRoles} {...props} ref={ref} />
+    <EnumSelectInput<DeveloperRoleType>
+      label="Developer Role"
+      name="yourRole"
+      enumObject={DeveloperRoleType}
+      displayedEnums={displayedDeveloperRoles}
+      {...props}
+      ref={ref}
+    />
   );
 });

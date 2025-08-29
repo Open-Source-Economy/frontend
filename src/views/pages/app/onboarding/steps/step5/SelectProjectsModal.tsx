@@ -197,12 +197,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
             <p className="font-montserrat font-normal text-[#ffffff] text-[14px] text-left mb-2">Response Time</p>
             <p className="font-montserrat font-normal text-[#ffffff] text-[12px] text-left mb-2 opacity-70">Expected time to respond to requests</p>
             <div className="flex flex-row gap-2 items-center">
-              <ResponseTimeTypeSelectInput
-                value={customResponseTime}
-                onChange={setCustomResponseTime}
-                required={props.service.hasResponseTime}
-                name="responseTime"
-              />
+              <ResponseTimeTypeSelectInput value={customResponseTime} onChange={setCustomResponseTime} required={props.service.hasResponseTime} />
             </div>
           </div>
         )}

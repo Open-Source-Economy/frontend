@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import { ResponseTimeType } from "@open-source-economy/api-types/dist/model"; // Import ResponseTimeType enum
-import { GenericInputRef } from "../../GenericInput";
-import { DisplayedEnum, EnumSelectInput, EnumSelectInputChildrenProps } from "./EnumSelectInput"; // Import GenericInputRef
+import { GenericInputRef } from "../../input/GenericInput";
+import { DisplayedEnum, EnumSelectInput, EnumSelectInputChildrenProps } from "./EnumSelectInput";
 
 export const displayedResponseTimes: Record<ResponseTimeType, DisplayedEnum> = {
   [ResponseTimeType.FourHours]: { name: "4 hours" },
@@ -19,6 +19,13 @@ export interface ResponseTimeTypeSelectInputProps extends EnumSelectInputChildre
 export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(props: ResponseTimeTypeSelectInputProps, ref: Ref<GenericInputRef>) {
   return (
     // @ts-ignore
-    <EnumSelectInput<ResponseTimeType> label="Response Time" enumObject={ResponseTimeType} displayedEnums={displayedResponseTimes} {...props} ref={ref} />
+    <EnumSelectInput<ResponseTimeType>
+      label="Response Time"
+      name="response_time"
+      enumObject={ResponseTimeType}
+      displayedEnums={displayedResponseTimes}
+      {...props}
+      ref={ref}
+    />
   );
 });

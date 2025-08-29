@@ -38,7 +38,7 @@ export interface Step4State {
   hourlyWeeklyCommitment?: number;
   openToOtherOpportunity?: OpenToOtherOpportunityType;
   hourlyRate?: number;
-  currency: Currency;
+  currency: Currency | null;
   hourlyWeeklyCommitmentComments?: string;
   openToOtherOpportunityComments?: string;
   hourlyRateComments?: string;

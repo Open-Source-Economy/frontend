@@ -197,6 +197,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
               </div>
 
               <HourlyRateInput
+                label={"Your Indicative Rate"}
                 state={{ currency: props.state.currency!, hourlyRate: props.state.hourlyRate || null }}
                 handleCurrencyChange={value => props.updateState({ currency: value })}
                 handleHourlyRateChange={value => props.updateState({ hourlyRate: value })}

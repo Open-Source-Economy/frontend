@@ -128,16 +128,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               />
 
               {/* Role Dropdown - Using new dedicated component */}
-              <DeveloperRoleTypeSelectInput name="yourRole" required value={selectedRole || null} onChange={setSelectedRole} ref={roleSelectRef} />
+              <DeveloperRoleTypeSelectInput required value={selectedRole || null} onChange={setSelectedRole} ref={roleSelectRef} />
 
               {/* Merge Rights Dropdown - Using new dedicated component */}
-              <MergeRightsTypeSelectInput
-                name="mergeRights"
-                required
-                value={selectedMergeRights || null}
-                onChange={setSelectedMergeRights}
-                ref={mergeRightsSelectRef}
-              />
+              <MergeRightsTypeSelectInput required value={selectedMergeRights || null} onChange={setSelectedMergeRights} ref={mergeRightsSelectRef} />
 
               {/* TODO: sam implement UI for error */}
               {error && <p className="text-red-400 text-sm font-montserrat mt-1">API Error: {error.message}</p>}
