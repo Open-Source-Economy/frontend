@@ -92,6 +92,21 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
     );
   };
 
+  const handleAllProjectsToggle = () => {
+    const allProjectIds = props.developerProjectItemEntries.map(entry => entry.developerProjectItem.id);
+    const areAllSelected = allProjectIds.length > 0 && allProjectIds.every(id => 
+      selectedProjectItemIds.some(selectedId => selectedId.uuid === id.uuid)
+    );
+    
+    if (areAllSelected) {
+      // Deselect all
+      setSelectedProjectItemIds([]);
+    } else {
+      // Select all
+      setSelectedProjectItemIds(allProjectIds);
+    }
+  };
+
   // Get category name from service hierarchy (fallback to service parent or default)
   const categoryName = "Open Source Development"; // This should come from the service hierarchy
 
@@ -108,6 +123,12 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
       ? `${selectedProjectNames.slice(0, 3).join(', ')}, ...`
       : selectedProjectNames.join(', ')
     : "";
+
+  // Check if all projects are selected
+  const allProjectIds = props.developerProjectItemEntries.map(entry => entry.developerProjectItem.id);
+  const areAllProjectsSelected = allProjectIds.length > 0 && allProjectIds.every(id => 
+    selectedProjectItemIds.some(selectedId => selectedId.uuid === id.uuid)
+  );
 
   // --- Render Component ---
   return (
@@ -209,11 +230,18 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
 
             {/* Dropdown Options */}
             {isDropdownOpen && (
-              <div className="flex flex-col items-start w-full rounded-md">
+              <div className="flex flex-col items-start w-full rounded-md relative">
                 {/* All Projects Option */}
-                <div className="flex px-6 py-3 items-center gap-2.5 w-full bg-[#202F45]">
+                <div 
+                  className="flex px-6 py-3 items-center gap-2.5 w-full bg-[#202F45] cursor-pointer hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+                  onClick={handleAllProjectsToggle}
+                >
                   <div className="w-[18px] h-[18px] border border-white rounded-sm bg-[#202F45] flex items-center justify-center">
-                    {/* Empty checkbox for "All projects" */}
+                    {areAllProjectsSelected && (
+                      <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                   </div>
                   <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">
                     All projects
@@ -252,7 +280,7 @@ export default function SelectProjectsModal(props: SelectProjectsModalProps) {
                 })}
 
                 {/* Add Different Project Option */}
-                <div className="flex px-6 py-3 items-center gap-2.5 w-full bg-[#202F45] shadow-[0_-2px_4px_0_rgba(20,35,58,0.50)]">
+                <div className="flex px-6 py-3 items-center gap-2.5 w-full bg-[#202F45] shadow-[0_-2px_4px_0_rgba(20,35,58,0.50)] cursor-pointer hover:bg-[rgba(255,255,255,0.05)] transition-colors">
                   <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.68602 1.31445V14.687M1 8.0002H14.3726" stroke="#FF7E4B" strokeLinecap="round"/>
                   </svg>
