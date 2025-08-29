@@ -88,11 +88,7 @@ const Step2: React.FC<Step2Props> = props => {
 
   return (
     <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
-      <StepHeader
-        stepNumber="02"
-        title="Open Source Involvement"
-        subtitle="Select the projects you're involved with"
-      >
+      <StepHeader stepNumber="02" title="Open Source Involvement" subtitle="Select the projects you're involved with">
         {/* Projects Section */}
         <ProjectsSection
           projects={projects}
@@ -120,14 +116,7 @@ const Step2: React.FC<Step2Props> = props => {
       </StepHeader>
 
       {/* Add/Edit Project Modal */}
-      {showModal && (
-        <UpsertProjectItemModal
-          show={showModal}
-          setShow={setShowModal}
-          projectItem={editingProject}
-          onUpsert={handleUpsertComplete}
-        />
-      )}
+      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} projectItem={editingProject} onUpsert={handleUpsertComplete} />}
 
       {/* Delete Project Modal */}
       {showDeleteModal && (

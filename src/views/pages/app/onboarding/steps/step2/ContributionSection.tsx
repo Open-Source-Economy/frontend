@@ -15,30 +15,28 @@ export function ContributionSection(props: ContributionSectionProps) {
   return (
     <div className="flex p-9 flex-col justify-end items-end gap-2.5 self-stretch rounded-[30px] bg-[#14233A]">
       <div className="flex flex-col items-start gap-4 self-stretch">
-        <div className="self-stretch text-white font-montserrat text-2xl font-normal leading-[130%]">
-          Your Contribution
-        </div>
+        <div className="self-stretch text-white font-montserrat text-2xl font-normal leading-[130%]">Your Contribution</div>
       </div>
-      
+
       {/* Two dropdowns side by side */}
       <div className="flex items-start gap-5 self-stretch">
         {/* Role Dropdown */}
         <div className="flex-1">
-          <DeveloperRoleTypeSelectInput 
-            required 
-            value={props.selectedRole} 
-            onChange={props.onRoleChange} 
+          <DeveloperRoleTypeSelectInput
+            required
+            value={props.selectedRole}
+            onChange={props.onRoleChange}
             ref={props.roleSelectRef}
             label="Your role in this project *"
           />
         </div>
-        
+
         {/* Merge Rights Dropdown */}
         <div className="flex-1">
-          <MergeRightsTypeSelectInput 
-            required 
-            value={props.selectedMergeRights} 
-            onChange={props.onMergeRightsChange} 
+          <MergeRightsTypeSelectInput
+            required
+            value={props.selectedMergeRights}
+            onChange={props.onMergeRightsChange}
             ref={props.mergeRightsSelectRef}
             label="Merge Rights to Main Branch *"
           />

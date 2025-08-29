@@ -113,11 +113,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             />
 
             {/* Project Section */}
-            <ProjectSection
-              url={url}
-              onUrlChange={setUrl}
-              urlInputRef={urlInputRef}
-            />
+            <ProjectSection url={url} onUrlChange={setUrl} urlInputRef={urlInputRef} />
 
             {/* Contribution Section */}
             <ContributionSection
@@ -130,11 +126,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             />
 
             {/* Error Display */}
-            {error && (
-              <div className="self-stretch text-red-400 text-sm font-montserrat">
-                API Error: {error.message}
-              </div>
-            )}
+            {error && <div className="self-stretch text-red-400 text-sm font-montserrat">API Error: {error.message}</div>}
 
             {/* Footer Button */}
             <ModalFooter

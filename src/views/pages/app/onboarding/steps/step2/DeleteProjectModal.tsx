@@ -40,9 +40,7 @@ export function DeleteProjectModal(props: DeleteProjectModalProps) {
             <div className="flex flex-col items-center gap-1 self-stretch">
               <div className="flex flex-col items-start gap-4 self-stretch">
                 <div className="flex justify-center items-center gap-2.5 self-stretch">
-                  <div className="flex-1 text-white text-center font-michroma text-[28px] font-normal leading-[130%]">
-                    Remove Project
-                  </div>
+                  <div className="flex-1 text-white text-center font-michroma text-[28px] font-normal leading-[130%]">Remove Project</div>
                 </div>
                 <div className="self-stretch text-white text-center font-montserrat text-lg font-normal leading-[150%] opacity-60">
                   Are you sure you want to delete this item?
@@ -63,9 +61,7 @@ export function DeleteProjectModal(props: DeleteProjectModalProps) {
                 disabled={props.isDeleting}
                 className="flex justify-center items-center gap-2.5 rounded-md border border-white px-5 py-3 hover:bg-white hover:bg-opacity-10 transition-colors disabled:opacity-50"
               >
-                <div className="text-white font-michroma text-base font-normal leading-[150%]">
-                  Cancel
-                </div>
+                <div className="text-white font-michroma text-base font-normal leading-[150%]">Cancel</div>
               </button>
 
               {/* Delete Button */}
@@ -74,9 +70,7 @@ export function DeleteProjectModal(props: DeleteProjectModalProps) {
                 disabled={props.isDeleting}
                 className="flex justify-center items-center gap-2.5 rounded-md px-5 py-3 bg-[#FF7E4B] hover:bg-[#e6703f] transition-colors disabled:opacity-50"
               >
-                <div className="text-white font-michroma text-base font-normal leading-[150%]">
-                  {props.isDeleting ? "Deleting..." : "Delete"}
-                </div>
+                <div className="text-white font-michroma text-base font-normal leading-[150%]">{props.isDeleting ? "Deleting..." : "Delete"}</div>
               </button>
             </div>
           </div>
