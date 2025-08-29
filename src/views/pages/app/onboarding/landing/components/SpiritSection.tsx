@@ -24,7 +24,7 @@ export function SpiritSection(props: SpiritSectionProps) {
 
   return (
     <div className="flex px-4 sm:px-8 md:px-16 lg:px-32 xl:px-[200px] flex-col items-center gap-2.5 self-stretch">
-      <div className="flex flex-col items-center gap-[100px] self-stretch rounded-md">
+      <div className="flex flex-col items-center gap-[50px] self-stretch rounded-md">
         <div className="flex flex-col justify-center items-center gap-6 self-stretch">
           <h2 className="self-stretch text-white text-center font-michroma text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal leading-[130%]">
             The Spirit

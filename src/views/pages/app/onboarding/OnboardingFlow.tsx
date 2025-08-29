@@ -21,7 +21,6 @@ import Step5 from "./steps/step5/Step5";
 import { PreferredCurrency } from "../../../../ultils/PreferredCurrency";
 import ProgressBar from "./components/ProgressBar";
 import { handleApiCall } from "../../../../ultils";
-import LoadingIndicator from "./components/LoadingIndicator";
 import ErrorDisplay from "./components/ErrorDisplay";
 
 const createInitialState = (preferredCurrency: Currency): OnboardingState => ({

@@ -8,24 +8,21 @@ interface HeroSectionProps {
 
 export function HeroSection(props: HeroSectionProps) {
   return (
-    <div className="flex px-4 sm:px-8 md:px-16 lg:px-32 xl:px-[200px] flex-col justify-center items-start gap-8 lg:gap-12 self-stretch">
-      <div className="flex flex-col items-center gap-7 self-stretch">
-        <h1 className="max-w-[900px] self-stretch text-white text-center font-michroma text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-normal leading-[130%]">
-          Fuel Your Open Source Passion
-        </h1>
-        <p className="self-stretch text-white text-center font-montserrat text-lg sm:text-xl md:text-2xl lg:text-[32px] font-normal leading-[130%]">
-          Earn recurring income, your way.
-        </p>
+    <div className="w-full px-8 md:px-20 lg:px-[200px] flex flex-col items-center gap-12">
+      <div className="flex flex-col items-center gap-7 text-center">
+        <h1 className="max-w-[900px] text-white font-michroma text-3xl md:text-5xl lg:text-[64px] leading-[1.3]">Fuel Your Open Source Passion</h1>
+        <p className="text-white font-montserrat text-xl md:text-2xl lg:text-[32px] leading-[1.3]">Earn recurring income, your way.</p>
       </div>
 
       <div className="flex flex-col justify-center items-center gap-8 self-stretch">
         <Button
           onClick={props.onGitHubSignIn}
-          audience={Audience.ALL}
+          audience={Audience.DEVELOPER}
           level="PRIMARY"
           size="MEDIUM"
-          className="!bg-primary-developer hover:!bg-primary-developer/90 transition-all duration-300"
+          className="!bg-primary-developer hover:!bg-primary-developer/90 transition-all duration-300 !capitalize"
           icon={
+            // TODO: refactor GitHub SVG icon
             <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"

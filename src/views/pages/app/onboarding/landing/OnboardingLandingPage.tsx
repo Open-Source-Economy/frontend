@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/views/pages/authenticate/AuthContext";
 import { paths } from "../../../../../paths";
 import { PageWrapper } from "../../../PageWrapper";
-import { HeroSection, VideoSection, SpiritSection, CTASection } from "./components";
+import { CTASection, HeroSection, SpiritSection } from "./components";
+import { VideoSection } from "../../../../components";
 
 export default function OnboardingLandingPage() {
   const auth = useAuth();
@@ -19,11 +20,13 @@ export default function OnboardingLandingPage() {
 
   return (
     <PageWrapper>
-      <div className="flex w-full min-h-screen px-0 py-0 pb-[50px] md:pb-[100px] flex-col items-center gap-[50px] md:gap-[100px]">
-        <HeroSection onGitHubSignIn={handleGitHubSignIn} />
-        <VideoSection />
-        <SpiritSection />
-        <CTASection />
+      <div className="flex max-[1100px]:bg-none w-full min-h-screen px-0 flex-col items-center gap-[50px] md:gap-[100px]">
+        <div className="max-w-[1200px] w-full px-4 sm:px-6 lg:px-8 py-[100px] md:py-[150px] space-y-[50px] md:space-y-[100px]">
+          <HeroSection onGitHubSignIn={handleGitHubSignIn} />
+          <VideoSection />
+          <SpiritSection />
+          <CTASection />
+        </div>
       </div>
     </PageWrapper>
   );
