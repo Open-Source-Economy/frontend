@@ -96,7 +96,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks }: AddTaskModalProps)
       />
       
       {/* Modal */}
-      <div className="relative w-[800px] max-h-[80vh] overflow-y-auto bg-[#0E1F35] rounded-[50px] p-8">
+      <div className="relative w-full max-w-[800px] mx-4 max-h-[80vh] overflow-y-auto bg-[#0E1F35] rounded-[50px] p-4 md:p-8">
         {/* Header */}
         <div className="flex flex-col items-center gap-4 mb-8">
           <div className="flex justify-center items-center gap-2.5 self-stretch">
