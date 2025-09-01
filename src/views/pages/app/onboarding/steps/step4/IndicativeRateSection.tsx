@@ -22,7 +22,7 @@ export function IndicativeRateSection(props: IndicativeRateSectionProps) {
       onCommentChange={props.onCommentChange}
       error={props.error}
     >
-      {(showComment, commentInputComponent) => (
+      {(showComment, commentButtonComponent) => (
         <div className="flex h-12 items-center gap-2 self-stretch">
           <HourlyRateInput
             hourlyRate={props.hourlyRate}
@@ -30,7 +30,7 @@ export function IndicativeRateSection(props: IndicativeRateSectionProps) {
             onHourlyRateChange={value => props.onHourlyRateChange(value || undefined)}
             onCurrencyChange={props.onCurrencyChange}
           />
-          {commentInputComponent}
+          {commentButtonComponent}
         </div>
       )}
     </OnboardingSectionWrapper>
