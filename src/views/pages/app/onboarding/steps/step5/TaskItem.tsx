@@ -52,6 +52,7 @@ export function TaskItem(props: TaskItemProps) {
 
                 <IconButton
                   onClick={() => props.onRemoveTask(props.task.id)}
+                  variant="rounded"
                 >
                   <CloseIcon className="w-6 h-6" />
                 </IconButton>
