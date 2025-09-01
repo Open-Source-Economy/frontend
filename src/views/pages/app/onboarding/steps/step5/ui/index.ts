@@ -6,3 +6,5 @@ export { AddTaskButton } from "./AddTaskButton";
 export { ModalHeader } from "./ModalHeader";
 export { IconButton } from "./IconButton";
 export { InfoPill } from "./InfoPill";
+export { BaseDeleteConfirmationModal } from "./BaseDeleteConfirmationModal";
+export { DeleteTaskModal } from "./DeleteTaskModal";
