@@ -34,7 +34,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
   const [showComments, setShowComments] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hourlyRate, setHourlyRate] = useState<number | null>(100);
-  const [currency, setCurrency] = useState<Currency>(props.currency);
+  const [currency, setCurrency] = useState<dto.Currency>(props.currency);
   const [comment, setComment] = useState("");
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
@@ -56,22 +56,14 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
   ];
 
   const handleSave = () => {
-    const taskData: any = {
+    const taskData = {
       projectIds: selectedProjects,
       hourlyRate: hourlyRate || undefined,
       comment: comment || undefined,
+      firstResponseTime: firstResponseTime ? `${firstResponseTime} ${firstResponseTimeUnit}` : undefined,
+      serviceName: serviceName || undefined,
+      serviceDescription: serviceDescription || undefined,
     };
-
-    // Add first response time for incident response tasks
-    if (props.task.type === TaskType.INCIDENT_RESPONSE && firstResponseTime) {
-      taskData.firstResponseTime = `${firstResponseTime} ${firstResponseTimeUnit}`;
-    }
-
-    // Add custom service fields for custom tasks
-    if (props.task.type === TaskType.CUSTOM) {
-      taskData.serviceName = serviceName;
-      taskData.serviceDescription = serviceDescription;
-    }
 
     props.onSave(taskData);
   };
