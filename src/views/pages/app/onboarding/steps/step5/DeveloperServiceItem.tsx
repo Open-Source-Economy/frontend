@@ -26,7 +26,7 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
               <span className="text-white font-montserrat text-base font-normal leading-[150%]">{service.name}</span>
 
               {!hasConfiguration && (
-                <SelectProjectsPill onClick={() => props.onSelectProjects(developerServiceEntry)} hasError={props.showError && !hasConfiguration} />
+                <SelectProjectsPill onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError && !hasConfiguration} />
               )}
             </div>
 
