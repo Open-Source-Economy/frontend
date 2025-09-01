@@ -194,7 +194,7 @@ export default function OnboardingFlow() {
           <>
             <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
               <ProgressBar currentStep={state.currentStep} />
-              <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
+              <div className="flex px-[120px] flex-col items-center gap-[100px] self-stretch">
                 <StepHeader
                   currentStep={state.currentStep}
                   title={onboardingStepsConfigs[state.currentStep].title}
