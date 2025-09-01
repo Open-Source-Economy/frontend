@@ -5,3 +5,4 @@ export { IndicativeRateSection } from "./IndicativeRateSection";
 export { WeeklyCommitmentInput } from "./WeeklyCommitmentInput";
 export { CommentInput } from "./CommentInput";
 export { OpportunitySelector } from "./OpportunitySelector";
+export { OnboardingSectionWrapper } from "./OnboardingSectionWrapper";
