@@ -203,6 +203,17 @@ export function Step5(props: Step5Props) {
     services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
   }));
 
+  // Group selected tasks by category
+  const tasksByCategory = selectedTasks.reduce((acc, task) => {
+    if (!acc[task.category]) {
+      acc[task.category] = [];
+    }
+    acc[task.category].push(task);
+    return acc;
+  }, {} as Record<string, SelectedTask[]>);
+
+  const existingTaskIds = selectedTasks.map(task => task.id);
+
   return (
     <div>
       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
