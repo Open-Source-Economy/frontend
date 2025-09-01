@@ -3,18 +3,17 @@ import { ModalBackdrop } from "./ModalBackdrop";
 import { CloseIcon, PenIcon } from "../icons";
 import { HourlyRateInput } from "src/views/components/form/select/HourlyRateInput";
 import { MultiSelectInput, SelectOption } from "src/views/components/form/select/MultiSelectInput";
-import { Currency, DeveloperProjectItemEntry } from "@open-source-economy/api-types";
-import { SelectedTask, TaskType } from "../TaskItem";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectItemIdCompanion } from "../../../../../../data";
 import { ProjectNotOnListModal } from "./ProjectNotOnListModal";
 
 interface TaskSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  task: SelectedTask;
-  currency: Currency;
-  projects: DeveloperProjectItemEntry[];
-  onSave: (taskData: { projectIds: string[]; hourlyRate?: number; responseTime?: string; comment?: string }) => void;
+  developerServiceEntry: dto.DeveloperServiceEntry;
+  currency: dto.Currency;
+  projects: dto.DeveloperProjectItemEntry[];
+  onSave: (taskData: { projectIds: string[]; hourlyRate?: number; responseTime?: string; comment?: string; firstResponseTime?: string; serviceName?: string; serviceDescription?: string }) => void;
   onAddProject?: () => void;
 }
 
