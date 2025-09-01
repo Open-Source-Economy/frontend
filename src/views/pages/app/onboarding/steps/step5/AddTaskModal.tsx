@@ -86,10 +86,20 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
       const category = TASK_CATEGORIES.find(cat =>
         cat.tasks.some(t => t.id === task.id)
       );
+
+      // Determine task type based on task ID
+      let taskType: TaskType = TaskType.STANDARD;
+      if (task.id === "incident-response") {
+        taskType = TaskType.INCIDENT_RESPONSE;
+      } else if (task.id === "custom-service") {
+        taskType = TaskType.CUSTOM;
+      }
+
       return {
         id: task.id,
         label: task.label,
         category: category?.title || "Other",
+        type: taskType,
         hasSelectedProjects: false
       };
     });
