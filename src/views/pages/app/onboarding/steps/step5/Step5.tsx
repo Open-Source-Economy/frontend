@@ -173,8 +173,8 @@ export function Step5(props: Step5Props) {
   };
 
   const handleNext = async () => {
-    if (props.state.developerServices.length === 0) {
-      setLocalError("Please add at least one service before proceeding.");
+    if (selectedTasks.length === 0) {
+      setLocalError("Please add at least one task before proceeding.");
       return;
     }
     setLocalError(null); // Clear local error before starting API call
