@@ -19,7 +19,7 @@ export const DeveloperRoleTypeSelectInput = forwardRef(function DeveloperRoleTyp
   return (
     // @ts-ignore
     <EnumSelectInput<DeveloperRoleType>
-      label="Developer Role"
+      label="Your role in this project"
       name="yourRole"
       enumObject={DeveloperRoleType}
       displayedEnums={displayedDeveloperRoles}

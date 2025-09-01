@@ -16,7 +16,7 @@ export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSel
   return (
     // @ts-ignore
     <EnumSelectInput<MergeRightsType>
-      label="Merge Rights"
+      label="Merge Rights to Main Branch"
       name="mergeRights"
       enumObject={MergeRightsType}
       displayedEnums={displayedMergeRights}

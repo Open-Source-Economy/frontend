@@ -22,6 +22,7 @@ import { PreferredCurrency } from "../../../../ultils/PreferredCurrency";
 import ProgressBar from "./components/ProgressBar";
 import { handleApiCall } from "../../../../ultils";
 import ErrorDisplay from "./components/ErrorDisplay";
+import { StepHeader } from "./landing/components";
 
 const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
@@ -144,25 +145,42 @@ export default function OnboardingFlow() {
     }
   };
 
-  // Renders the appropriate step component based on the current `state.currentStep`
-  const renderCurrentStep = () => {
-    switch (state.currentStep) {
-      case OnboardingDataSteps.Step1:
-        return <Step1 currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      case OnboardingDataSteps.Step2:
-        return <Step2 currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      case OnboardingDataSteps.Step3:
-        return <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      case OnboardingDataSteps.Step4:
-        return <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      case OnboardingDataSteps.Step5:
-        return <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      case OnboardingDataSteps.Step6:
-        return <Step6 currentStep={state.currentStep} state={{}} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />;
-      default:
-        console.error("Unknown onboarding step:", state.currentStep);
-        return <PageLoader message="Error: Unknown step." />;
-    }
+  type OnboardingStepConfig = {
+    title: string;
+    subtitle: string;
+    render: React.ReactNode;
+  };
+  const onboardingStepsConfigs: Record<OnboardingDataSteps, OnboardingStepConfig> = {
+    [OnboardingDataSteps.Step1]: {
+      title: "Confirm Your Details",
+      subtitle: "This is so that we can get in contact with you.",
+      render: <Step1 currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
+    [OnboardingDataSteps.Step2]: {
+      title: "Open Source Involvement",
+      subtitle: "Select the projects you're involved with",
+      render: <Step2 currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
+    [OnboardingDataSteps.Step3]: {
+      title: "Income Streams",
+      subtitle: "Let us know how you earn your income",
+      render: <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
+    [OnboardingDataSteps.Step4]: {
+      title: "Work Preferences",
+      subtitle: "Share your work preferences and availability",
+      render: <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
+    [OnboardingDataSteps.Step5]: {
+      title: "Services & Offerings",
+      subtitle: "Detail the services and offerings you provide",
+      render: <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
+    [OnboardingDataSteps.Step6]: {
+      title: "Merge Rights",
+      subtitle: "Set your preferences for merge rights",
+      render: <Step6 currentStep={state.currentStep} state={state.step6} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+    },
   };
 
   return (
@@ -176,7 +194,15 @@ export default function OnboardingFlow() {
           <>
             <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
               <ProgressBar currentStep={state.currentStep} />
-              {renderCurrentStep()}
+              <div className="flex px-[200px] flex-col items-center gap-[100px] self-stretch">
+                <StepHeader
+                  currentStep={state.currentStep}
+                  title={onboardingStepsConfigs[state.currentStep].title}
+                  subtitle={onboardingStepsConfigs[state.currentStep].subtitle}
+                >
+                  {onboardingStepsConfigs[state.currentStep].render}
+                </StepHeader>
+              </div>
             </div>
           </>
         )}

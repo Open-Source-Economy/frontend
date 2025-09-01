@@ -6,19 +6,17 @@ import { BaseProps, BaseRef } from "../Base";
 
 export interface HourlyRateInputRef extends BaseRef {}
 
-interface HourlyRateState {
-  currency: Currency;
-  hourlyRate: number | null;
-}
+interface HourlyRateState {}
 
 interface HourlyRateInputProps extends BaseProps {
-  state: HourlyRateState;
-  handleCurrencyChange: (currency: Currency | null) => void;
-  handleHourlyRateChange: (value: number) => void;
+  currency: Currency;
+  hourlyRate: number | null;
+  onCurrencyChange: (currency: Currency | null) => void;
+  onHourlyRateChange: (value: number) => void;
 }
 
 export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
-  const { state, handleCurrencyChange, handleHourlyRateChange, ...rest } = props;
+  const { currency, hourlyRate, onCurrencyChange, onHourlyRateChange, ...rest } = props;
 
   const currencySelectRef = useRef<CurrencySelectInputRef>(null);
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
@@ -40,17 +38,17 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     () => ({
       validate: (showInputError: boolean) => {
         const isCurrencyValid = currencySelectRef.current?.validate(showInputError) || false;
-        const isHourlyRateValid = runHourlyRateValidation(state.hourlyRate, true);
+        const isHourlyRateValid = runHourlyRateValidation(hourlyRate, true);
 
         return isCurrencyValid && isHourlyRateValid;
       },
     }),
-    [state.currency, state.hourlyRate, props.required, props.label],
+    [currency, hourlyRate, props.required, props.label],
   );
 
   const sanitizeHourlyRateInput = (inputValue: string) => {
     const numericValue = inputValue.match(/^\d*\.?\d*$/)?.[0] || "";
-    handleHourlyRateChange(Number(numericValue));
+    onHourlyRateChange(Number(numericValue));
     if (internalHourlyRateError && runHourlyRateValidation(parseFloat(numericValue), false)) {
       setInternalHourlyRateError(undefined);
     }
@@ -59,18 +57,18 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
   return (
     <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0 ">
       <div className="box-border content-stretch flex flex-row gap-2 items-end justify-start p-0 relative shrink-0 w-full">
-        <CurrencySelectInput ref={currencySelectRef} value={state.currency} onChange={handleCurrencyChange} {...rest} />
+        <CurrencySelectInput ref={currencySelectRef} value={currency} onChange={onCurrencyChange} {...rest} />
 
         <div
           className={`bg-[#202f45] box-border flex flex-row gap-2 items-center justify-between px-4 py-2.5 min-h-[50px] relative rounded-md
           ${internalHourlyRateError ? "border border-red-500" : "border border-[#202f45]"}`}
         >
-          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] opacity-60">{displayedCurrencies[state.currency]?.symbol || "$"}</span>
+          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] opacity-60">{displayedCurrencies[currency]?.symbol || "$"}</span>
           <input
             type="text"
-            value={state.hourlyRate === null ? "" : state.hourlyRate}
+            value={hourlyRate === null ? "" : hourlyRate}
             onChange={e => sanitizeHourlyRateInput(e.target.value)}
-            onBlur={() => runHourlyRateValidation(state.hourlyRate, true)}
+            onBlur={() => runHourlyRateValidation(hourlyRate, true)}
             placeholder="0"
             className="bg-transparent font-montserrat font-normal text-[#ffffff] text-[16px]  text-center outline-none placeholder:opacity-60 w-[4ch]"
             inputMode="numeric"

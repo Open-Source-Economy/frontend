@@ -1,7 +1,5 @@
 import React from "react";
 
-// Inline SVG components replacing localhost assets
-
 interface ProgressBarProps {
   currentStep: number;
 }

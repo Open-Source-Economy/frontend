@@ -47,7 +47,6 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDropdown(false);
-        runValidation(props.value, true);
       }
     };
 
@@ -67,7 +66,6 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
 
     props.onChange(syntheticEvent);
     setShowDropdown(false);
-    runValidation(optionValue, true);
   };
 
   const inputContainerClasses = `
