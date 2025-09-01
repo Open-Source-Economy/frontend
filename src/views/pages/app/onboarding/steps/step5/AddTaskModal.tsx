@@ -81,7 +81,18 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
   };
 
   const handleAddTasks = () => {
-    onAddTasks(selectedTasks);
+    const selectedTasksWithCategory: SelectedTask[] = selectedTasks.map(task => {
+      const category = TASK_CATEGORIES.find(cat =>
+        cat.tasks.some(t => t.id === task.id)
+      );
+      return {
+        id: task.id,
+        label: task.label,
+        category: category?.title || "Other",
+        hasSelectedProjects: false
+      };
+    });
+    onAddTasks(selectedTasksWithCategory);
     setSelectedTasks([]);
   };
 
