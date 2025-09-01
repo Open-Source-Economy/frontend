@@ -10,7 +10,7 @@ import { AddTaskModal } from "./AddTaskModal";
 import { TaskCategory } from "./TaskCategory";
 import { SelectedTask } from "./TaskItem";
 import { Step5State } from "../../OnboardingDataSteps";
-import { AddTaskButton, LoadingSpinner } from "./ui";
+import { AddTaskButton, LoadingSpinner, DeleteTaskModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
 
 import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
@@ -41,6 +41,9 @@ export function Step5(props: Step5Props) {
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [selectedTasks, setSelectedTasks] = useState<SelectedTask[]>([]);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<SelectedTask | null>(null);
+  const [isDeletingTask, setIsDeletingTask] = useState(false);
 
   const api = getOnboardingBackendAPI();
 
@@ -128,7 +131,29 @@ export function Step5(props: Step5Props) {
   };
 
   const handleRemoveTask = (taskId: string) => {
+    const task = selectedTasks.find(t => t.id === taskId);
+    if (task) {
+      setTaskToDelete(task);
+      setShowDeleteTaskModal(true);
+    }
+  };
+
+  const handleConfirmDeleteTask = async (taskId: string) => {
+    setIsDeletingTask(true);
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     setSelectedTasks(prev => prev.filter(task => task.id !== taskId));
+    setShowDeleteTaskModal(false);
+    setTaskToDelete(null);
+    setIsDeletingTask(false);
+  };
+
+  const handleCancelDeleteTask = () => {
+    setShowDeleteTaskModal(false);
+    setTaskToDelete(null);
+    setIsDeletingTask(false);
   };
 
   const handleEditTask = (task: SelectedTask) => {
@@ -312,6 +337,14 @@ export function Step5(props: Step5Props) {
           onBack={props.onBack}
         />
       )}
+
+      <DeleteTaskModal
+        isOpen={showDeleteTaskModal}
+        onClose={handleCancelDeleteTask}
+        task={taskToDelete}
+        onConfirmDelete={handleConfirmDeleteTask}
+        isDeleting={isDeletingTask}
+      />
     </div>
   );
 }
