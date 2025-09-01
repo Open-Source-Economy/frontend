@@ -9,15 +9,17 @@ interface TaskCategoryProps {
   onRemoveTask: (taskId: string) => void;
   showAddCustomTask?: boolean;
   onAddCustomTask?: () => void;
+  showError?: boolean;
 }
 
-export function TaskCategory({ 
-  categoryTitle, 
-  tasks, 
-  onSelectProjects, 
-  onRemoveTask, 
+export function TaskCategory({
+  categoryTitle,
+  tasks,
+  onSelectProjects,
+  onRemoveTask,
   showAddCustomTask = false,
-  onAddCustomTask 
+  onAddCustomTask,
+  showError = false
 }: TaskCategoryProps) {
   if (tasks.length === 0 && !showAddCustomTask) {
     return null;
@@ -48,6 +50,7 @@ export function TaskCategory({
             task={task}
             onSelectProjects={onSelectProjects}
             onRemoveTask={onRemoveTask}
+            showError={showError}
           />
         ))}
       </div>
