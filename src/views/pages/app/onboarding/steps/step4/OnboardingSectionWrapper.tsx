@@ -47,7 +47,7 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
 
         {/* Expanded Comment Section - Full width below inputs */}
         {showComment && (
-          <div className="flex h-12 items-center gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
+          <div className="flex min-h-12 items-start gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
             <textarea
               value={props.commentValue}
               onChange={(e) => props.onCommentChange(e.target.value)}
