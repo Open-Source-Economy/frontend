@@ -36,9 +36,11 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
       {/* Content Section */}
       <div className="flex flex-col items-start gap-3 self-stretch">
         {/* Subtitle */}
-        <div className="text-white font-montserrat text-base font-normal leading-[1.5] opacity-60">
-          {props.subtitle}
-        </div>
+        {props.subtitle && (
+          <div className="text-white font-montserrat text-base font-normal leading-[1.5] opacity-60">
+            {props.subtitle}
+          </div>
+        )}
         
         {/* Main Content - passed as children render prop */}
         {props.children(showComment, commentInputComponent)}
