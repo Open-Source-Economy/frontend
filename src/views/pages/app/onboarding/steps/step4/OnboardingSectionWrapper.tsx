@@ -52,10 +52,9 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
               value={props.commentValue}
               onChange={(e) => props.onCommentChange(e.target.value)}
               placeholder="Comments (only visible to Open Source Economy team)"
-              className="w-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 border-none resize"
+              className="w-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 border-none resize-y"
               style={{
                 minHeight: '120px',
-                resize: 'both',
                 overflow: 'auto'
               }}
               rows={5}
