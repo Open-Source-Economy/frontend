@@ -9,3 +9,4 @@ export { InfoPill } from "./InfoPill";
 export { BaseDeleteConfirmationModal } from "./BaseDeleteConfirmationModal";
 export { DeleteTaskModal } from "./DeleteTaskModal";
 export { TaskSelectionModal } from "./TaskSelectionModal";
+export { ProjectNotOnListModal } from "./ProjectNotOnListModal";
