@@ -25,7 +25,7 @@ interface MultiSelectInputProps extends BaseProps {
 }
 
 export const MultiSelectInput = forwardRef(function MultiSelectInput(props: MultiSelectInputProps, ref: Ref<MultiSelectInputRef>) {
-  const { options, value, onChange, id, name, placeholder = "Select...", isOpen: controlledIsOpen, onToggle, onAddProject, ...rest } = props;
+  const { options, value, onChange, id, name, isOpen: controlledIsOpen, onToggle, onAddProject, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
         return runValidation(value, showInputError);
       },
     }),
-    [value, props.required, props.label],
+    [value, props.required, props.label, runValidation],
   );
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [value, setIsOpen]);
+  }, [value, setIsOpen, runValidation]);
 
   const handleOptionClick = (optionValue: string) => {
     const option = options.find(opt => opt.value === optionValue);
@@ -137,6 +137,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
             role="combobox"
             aria-haspopup="listbox"
             aria-expanded={isOpen}
+            aria-controls={`${id || 'multiselect'}-listbox`}
             aria-labelledby={`${id}-label`}
             {...rest}
           >
