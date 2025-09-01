@@ -7,7 +7,7 @@ interface IndicativeRateSectionProps {
   hourlyRate: number | null;
   currency: Currency;
   onHourlyRateChange: (value: number | undefined) => void;
-  onCurrencyChange: (currency: Currency) => void;
+  onCurrencyChange: (currency: Currency | null) => void;
   commentValue: string;
   onCommentChange: (value: string) => void;
   error?: string;
