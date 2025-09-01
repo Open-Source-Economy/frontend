@@ -307,6 +307,7 @@ export function Step5(props: Step5Props) {
         isOpen={showAddTaskModal}
         onClose={() => setShowAddTaskModal(false)}
         onAddTasks={onAddTasks}
+        existingTaskIds={existingTaskIds}
       />
 
       {showUpsertDeveloperServiceModal && currentService && (
