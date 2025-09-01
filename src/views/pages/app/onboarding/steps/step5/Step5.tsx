@@ -205,16 +205,16 @@ export function Step5(props: Step5Props) {
   };
 
   const handleNext = async () => {
-    if (selectedTasks.length === 0) {
-      setLocalError("Please add at least one task before proceeding.");
+    if (props.state.developerServices.length === 0) {
+      setLocalError("Please add at least one service before proceeding.");
       return;
     }
 
-    // Check if any tasks don't have selected projects
-    const tasksWithoutProjects = selectedTasks.filter(task => !task.hasSelectedProjects);
-    if (tasksWithoutProjects.length > 0) {
+    // Check if any services don't have configuration
+    const servicesWithoutConfiguration = props.state.developerServices.filter(entry => entry.developerService === null);
+    if (servicesWithoutConfiguration.length > 0) {
       setShowValidationErrors(true);
-      setLocalError("Please select projects for all tasks before proceeding.");
+      setLocalError("Please configure all services before proceeding.");
       return;
     }
 
@@ -238,19 +238,11 @@ export function Step5(props: Step5Props) {
     services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
   }));
 
-  // Group selected tasks by category
-  const tasksByCategory = selectedTasks.reduce(
-    (acc, task) => {
-      if (!acc[task.category]) {
-        acc[task.category] = [];
-      }
-      acc[task.category].push(task);
-      return acc;
-    },
-    {} as Record<string, SelectedTask[]>,
+  // Group developer services by category
+  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(
+    serviceCategories,
+    props.state.developerServices
   );
-
-  const existingTaskIds = selectedTasks.map(task => task.id);
 
   return (
     <div>
@@ -258,28 +250,27 @@ export function Step5(props: Step5Props) {
         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
           <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-[700px]">
             <div className="font-michroma not-italic relative shrink-0 text-[32px] w-full">
-              <p className="block leading-[1.3]">Tasks & Preferences</p>
+              <p className="block leading-[1.3]">Services & Preferences</p>
             </div>
             <ErrorDisplay message={apiError?.message || localError} />
           </div>
           <div className="flex flex-col gap-12 items-start self-stretch">
-            {/* Display Selected Tasks by Category */}
-            {Object.entries(tasksByCategory).map(([categoryTitle, tasks]) => (
-              <TaskCategory
-                key={categoryTitle}
-                categoryTitle={categoryTitle}
-                tasks={tasks}
+            {/* Display Developer Services by Category */}
+            {groupedDeveloperServices.map((groupedEntry) => (
+              <DeveloperServiceCategory
+                key={groupedEntry.category}
+                groupedDeveloperServiceEntry={groupedEntry}
                 onSelectProjects={handleSelectProjects}
-                onRemoveTask={handleRemoveTask}
-                onEditTask={handleEditTask}
-                showAddCustomTask={categoryTitle === "Other Tasks"}
-                onAddCustomTask={handleAddCustomTask}
+                onRemoveDeveloperService={handleRemoveDeveloperService}
+                onEditDeveloperService={handleEditDeveloperService}
+                showAddCustomService={groupedEntry.category === "Other Services"}
+                onAddCustomService={handleAddCustomService}
                 showError={showValidationErrors}
               />
             ))}
 
-            {/* Add Task Button */}
-            <AddTaskButton onClick={() => setShowAddTaskModal(true)} />
+            {/* Add Service Button */}
+            <AddTaskButton onClick={() => setShowAddTaskModal(true)} text="Add Service" />
           </div>
 
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
