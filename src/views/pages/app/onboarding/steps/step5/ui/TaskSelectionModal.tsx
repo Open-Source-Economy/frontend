@@ -52,7 +52,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
 
   // Transform real project data into SelectOption format
   const projectOptions: SelectOption[] = [
-    { value: "all", label: "All projects", isAllOption: true },
+    ...(props.projects.length > 0 ? [{ value: "all", label: "All projects", isAllOption: true }] : []),
     ...props.projects.map(entry => ({
       value: entry.developerProjectItem.id.uuid,
       label: ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier),
