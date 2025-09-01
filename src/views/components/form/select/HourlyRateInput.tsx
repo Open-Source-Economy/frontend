@@ -58,35 +58,50 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
 
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
-      {/* Text input container */}
+      {/* Text input container - matches Figma width and padding */}
       <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
-        {/* Currency symbol container */}
+        {/* Currency symbol container - matches Figma styling */}
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
           <span className="text-white font-montserrat text-base font-normal leading-[150%]">
             {displayedCurrencies[currency]?.symbol || "€"}
           </span>
         </div>
-        {/* Input field */}
-        <input
-          type="text"
-          value={hourlyRate === null ? "" : hourlyRate}
-          onChange={e => sanitizeHourlyRateInput(e.target.value)}
-          onBlur={() => runHourlyRateValidation(hourlyRate, true)}
-          placeholder="e.g. 100"
-          className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
-          inputMode="numeric"
-          pattern="[0-9]*[.]?[0-9]*"
-          aria-label="Hourly Rate"
-        />
+        {/* Input field - matches Figma placeholder styling */}
+        <div className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60 flex-1">
+          {hourlyRate === null || hourlyRate === 0 ? (
+            <input
+              type="text"
+              value=""
+              onChange={e => sanitizeHourlyRateInput(e.target.value)}
+              onBlur={() => runHourlyRateValidation(hourlyRate, true)}
+              placeholder="e.g. 100"
+              className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 w-full"
+              inputMode="numeric"
+              pattern="[0-9]*[.]?[0-9]*"
+              aria-label="Hourly Rate"
+            />
+          ) : (
+            <input
+              type="text"
+              value={hourlyRate}
+              onChange={e => sanitizeHourlyRateInput(e.target.value)}
+              onBlur={() => runHourlyRateValidation(hourlyRate, true)}
+              className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none w-full"
+              inputMode="numeric"
+              pattern="[0-9]*[.]?[0-9]*"
+              aria-label="Hourly Rate"
+            />
+          )}
+        </div>
       </div>
 
-      {/* Currency dropdown container */}
+      {/* Currency dropdown container - matches Figma styling */}
       <div className="relative">
         <button
           type="button"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
-          className="flex px-3 py-0 items-center gap-3 h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
+          className="flex px-3 py-0 items-center gap-3 self-stretch h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
         >
           <span className="text-white font-montserrat text-base font-normal leading-[150%]">
             {displayedCurrencies[currency]?.symbol} ({displayedCurrencies[currency]?.code})
