@@ -5,7 +5,6 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
-import { InitialServiceSelection } from "./InitialServiceSelection";
 import { AddTaskModal } from "./AddTaskModal";
 import { TaskCategory } from "./TaskCategory";
 import { SelectedTask } from "./TaskItem";
@@ -32,7 +31,6 @@ export function Step5(props: Step5Props) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
-  const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
@@ -96,6 +94,11 @@ export function Step5(props: Step5Props) {
 
   const onAddTasks = (newTasks: SelectedTask[]) => {
     setSelectedTasks(prev => [...prev, ...newTasks]);
+    setShowAddTaskModal(false);
+  };
+
+  const onAddServices = (serviceIds: dto.ServiceId[]) => {
+    onAddInitialServices(serviceIds);
     setShowAddTaskModal(false);
   };
 
@@ -313,16 +316,14 @@ export function Step5(props: Step5Props) {
         </div>
       </div>
 
-      {showInitialServiceModal && (
-        <InitialServiceSelection
-          serviceCategories={filteredServiceCategories}
-          onClose={() => setShowInitialServiceModal(false)}
-          onAddInitialServices={onAddInitialServices}
-          isLoading={isLoading}
-        />
-      )}
-
-      <AddTaskModal isOpen={showAddTaskModal} onClose={() => setShowAddTaskModal(false)} onAddTasks={onAddTasks} existingTaskIds={existingTaskIds} />
+      <AddTaskModal
+        isOpen={showAddTaskModal}
+        onClose={() => setShowAddTaskModal(false)}
+        onAddServices={onAddServices}
+        serviceCategories={filteredServiceCategories}
+        isLoading={isLoading}
+        existingServiceIds={Array.from(existingServiceIds)}
+      />
 
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal
