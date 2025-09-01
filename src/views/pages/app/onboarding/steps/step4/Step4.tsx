@@ -115,13 +115,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
         />
       </div>
 
-      <ButtonGroup 
-        onBack={props.onBack} 
-        onNext={handleNext} 
-        isLoading={isLoading} 
-        showErrorMessage={false} 
-        errorMessage={apiError?.message} 
-      />
+      <ButtonGroup onBack={props.onBack} onNext={handleNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}

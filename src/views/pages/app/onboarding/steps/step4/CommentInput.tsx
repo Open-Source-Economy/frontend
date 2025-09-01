@@ -26,9 +26,9 @@ export function CommentInput(props: CommentInputProps) {
 
   if (!isExpanded) {
     return (
-      <button 
-        onClick={onToggle} 
-        className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity" 
+      <button
+        onClick={onToggle}
+        className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity"
         title="Add comment"
         aria-label="Add comment"
       >
