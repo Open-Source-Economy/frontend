@@ -135,7 +135,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks }: AddTaskModalProps)
               </div>
 
               {/* Task List */}
-              <div className="flex w-[670px] flex-col items-center gap-[-1px] rounded-md">
+              <div className="flex w-full max-w-[670px] flex-col items-center gap-[-1px] rounded-md">
                 {category.tasks.map((task) => (
                   <div
                     key={task.id}
