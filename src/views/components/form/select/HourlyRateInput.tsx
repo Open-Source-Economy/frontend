@@ -37,7 +37,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         return isHourlyRateValid;
       },
     }),
-    [currency, hourlyRate, props.required, props.label],
+    [hourlyRate],
   );
 
   const sanitizeHourlyRateInput = (inputValue: string) => {
