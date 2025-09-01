@@ -33,7 +33,7 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
             {hasConfiguration && (
               <>
                 {props.onEditDeveloperService && (
-                  <IconButton onClick={() => props.onEditDeveloperService?.(developerServiceEntry)}>
+                  <IconButton onClick={() => props.onEditDeveloperService?.(props.developerServiceEntry)}>
                     <PenIcon className="w-6 h-6" />
                   </IconButton>
                 )}
