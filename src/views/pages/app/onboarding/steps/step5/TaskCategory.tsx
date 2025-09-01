@@ -7,6 +7,7 @@ interface TaskCategoryProps {
   tasks: SelectedTask[];
   onSelectProjects: (task: SelectedTask) => void;
   onRemoveTask: (taskId: string) => void;
+  onEditTask?: (task: SelectedTask) => void;
   showAddCustomTask?: boolean;
   onAddCustomTask?: () => void;
   showError?: boolean;
@@ -17,6 +18,7 @@ export function TaskCategory({
   tasks,
   onSelectProjects,
   onRemoveTask,
+  onEditTask,
   showAddCustomTask = false,
   onAddCustomTask,
   showError = false
@@ -50,6 +52,7 @@ export function TaskCategory({
             task={task}
             onSelectProjects={onSelectProjects}
             onRemoveTask={onRemoveTask}
+            onEditTask={onEditTask}
             showError={showError}
           />
         ))}
