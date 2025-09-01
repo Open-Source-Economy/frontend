@@ -13,9 +13,9 @@ interface OnboardingSectionWrapperProps {
 export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
   const [showComment, setShowComment] = useState(false);
 
-  const commentInputComponent = (
+  const commentButtonComponent = (
     <CommentInput
-      isExpanded={showComment}
+      isExpanded={false}
       onToggle={() => setShowComment(!showComment)}
       value={props.commentValue}
       onChange={props.onCommentChange}
@@ -41,10 +41,22 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
             {props.subtitle}
           </div>
         )}
-        
-        {/* Main Content - passed as children render prop */}
-        {props.children(showComment, commentInputComponent)}
-        
+
+        {/* Main Content - passed as children render prop with comment button */}
+        {props.children(showComment, commentButtonComponent)}
+
+        {/* Expanded Comment Section - Full width below inputs */}
+        {showComment && (
+          <div className="flex h-12 items-center gap-2 self-stretch rounded-md bg-[#202F45] p-3">
+            <CommentInput
+              isExpanded={true}
+              onToggle={() => setShowComment(!showComment)}
+              value={props.commentValue}
+              onChange={props.onCommentChange}
+            />
+          </div>
+        )}
+
         {/* Error Display */}
         {props.error && <div className="text-red-400 text-sm">{props.error}</div>}
       </div>
