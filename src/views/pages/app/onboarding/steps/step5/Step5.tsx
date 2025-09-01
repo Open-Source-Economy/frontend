@@ -8,7 +8,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { InitialServiceSelection } from "./InitialServiceSelection";
 import { AddTaskModal } from "./AddTaskModal";
 import { TaskCategory } from "./TaskCategory";
-import { SelectedTask, TaskType } from "./TaskItem";
+import { SelectedTask } from "./TaskItem";
 import { Step5State } from "../../OnboardingDataSteps";
 import { AddTaskButton, LoadingSpinner, DeleteTaskModal, TaskSelectionModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
@@ -194,10 +194,11 @@ export function Step5(props: Step5Props) {
     console.log("Add custom task");
   };
 
-  const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
-    setCurrentService(serviceEntry);
-    setShowUpsertDeveloperServiceModal(true);
-  };
+  // Commented out temporarily - will be used for service editing feature
+  // const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
+  //   setCurrentService(serviceEntry);
+  //   setShowUpsertDeveloperServiceModal(true);
+  // };
 
   const handleUpdateTask = (updatedDevService: dto.DeveloperService) => {
     const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
