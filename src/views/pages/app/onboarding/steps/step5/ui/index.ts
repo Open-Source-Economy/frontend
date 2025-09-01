@@ -8,3 +8,4 @@ export { IconButton } from "./IconButton";
 export { InfoPill } from "./InfoPill";
 export { BaseDeleteConfirmationModal } from "./BaseDeleteConfirmationModal";
 export { DeleteTaskModal } from "./DeleteTaskModal";
+export { TaskSelectionModal } from "./TaskSelectionModal";
