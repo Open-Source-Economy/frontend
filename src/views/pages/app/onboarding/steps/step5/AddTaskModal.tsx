@@ -133,48 +133,53 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
 
         {/* Task Categories */}
         <div className="flex flex-col gap-4 mb-8">
-          {TASK_CATEGORIES.map((category) => (
-            <div
-              key={category.id}
-              className="flex p-4 md:p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]"
-            >
-              {/* Category Title */}
-              <div className="flex flex-col items-center gap-1 self-stretch">
-                <div className="flex flex-col items-start gap-4 self-stretch">
-                  <h3 className="self-stretch text-[#FF7E4B] font-montserrat text-2xl font-normal leading-[130%]">
-                    {category.title}
-                  </h3>
+          {TASK_CATEGORIES.map((category) => {
+            const availableTasks = category.tasks.filter(task => !existingTaskIds.includes(task.id));
+            if (availableTasks.length === 0) return null;
+
+            return (
+              <div
+                key={category.id}
+                className="flex p-4 md:p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]"
+              >
+                {/* Category Title */}
+                <div className="flex flex-col items-center gap-1 self-stretch">
+                  <div className="flex flex-col items-start gap-4 self-stretch">
+                    <h3 className="self-stretch text-[#FF7E4B] font-montserrat text-2xl font-normal leading-[130%]">
+                      {category.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Task List */}
+                <div className="flex w-full max-w-[670px] flex-col items-center gap-[-1px] rounded-md">
+                  {availableTasks.map((task) => (
+                    <div
+                      key={task.id}
+                      className="flex p-3 items-center gap-2.5 self-stretch bg-[#14233A] cursor-pointer hover:bg-[#1a2a42] transition-colors"
+                      onClick={() => handleTaskToggle(task)}
+                    >
+                      {/* Checkbox */}
+                      <div className="relative w-[18px] h-[18px] rounded-sm border border-white bg-[#14233A]">
+                        {isTaskSelected(task.id) && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rounded-sm flex items-center justify-center">
+                            <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Label */}
+                      <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+                        {task.label}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* Task List */}
-              <div className="flex w-full max-w-[670px] flex-col items-center gap-[-1px] rounded-md">
-                {category.tasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="flex p-3 items-center gap-2.5 self-stretch bg-[#14233A] cursor-pointer hover:bg-[#1a2a42] transition-colors"
-                    onClick={() => handleTaskToggle(task)}
-                  >
-                    {/* Checkbox */}
-                    <div className="relative w-[18px] h-[18px] rounded-sm border border-white bg-[#14233A]">
-                      {isTaskSelected(task.id) && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] rounded-sm flex items-center justify-center">
-                          <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Label */}
-                    <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-                      {task.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Add Tasks Button */}
