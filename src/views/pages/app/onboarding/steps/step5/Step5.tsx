@@ -110,6 +110,9 @@ export function Step5(props: Step5Props) {
     hourlyRate?: number;
     responseTime?: string;
     comment?: string;
+    firstResponseTime?: string;
+    serviceName?: string;
+    serviceDescription?: string;
   }) => {
     if (currentTaskForSelection) {
       setSelectedTasks(prev =>
@@ -127,7 +130,10 @@ export function Step5(props: Step5Props) {
                   '23 more...'
                 ],
                 hourlyRate: taskData.hourlyRate ? `€ ${taskData.hourlyRate}` : '€ 100',
-                responseTime: taskData.responseTime || (t.label === 'Deployment Guidance' ? '12 hours' : undefined)
+                responseTime: taskData.responseTime || (t.label === 'Deployment Guidance' ? '12 hours' : undefined),
+                firstResponseTime: taskData.firstResponseTime,
+                serviceName: taskData.serviceName,
+                serviceDescription: taskData.serviceDescription
               }
             : t
         )
