@@ -59,9 +59,7 @@ const TASK_CATEGORIES: TaskCategory[] = [
   {
     id: "other-tasks",
     title: "Other Tasks",
-    tasks: [
-      { id: "custom-service", label: "Custom Service" },
-    ],
+    tasks: [{ id: "custom-service", label: "Custom Service" }],
   },
 ];
 
@@ -83,9 +81,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
 
   const handleAddTasks = () => {
     const selectedTasksWithCategory: SelectedTask[] = selectedTasks.map(task => {
-      const category = TASK_CATEGORIES.find(cat =>
-        cat.tasks.some(t => t.id === task.id)
-      );
+      const category = TASK_CATEGORIES.find(cat => cat.tasks.some(t => t.id === task.id));
 
       // Determine task type based on task ID
       let taskType: TaskType = TaskType.STANDARD;
@@ -100,7 +96,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
         label: task.label,
         category: category?.title || "Other",
         type: taskType,
-        hasSelectedProjects: false
+        hasSelectedProjects: false,
       };
     });
     onAddTasks(selectedTasksWithCategory);
@@ -117,72 +113,54 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = []
       onClose={onClose}
       className="relative w-full max-w-[800px] mx-4 max-h-[80vh] overflow-y-auto bg-[#0E1F35] rounded-[50px] p-4 md:p-8"
     >
-      <ModalHeader
-        title="Add Tasks"
-        subtitle="Tasks are required."
-        onClose={onClose}
-      />
+      <ModalHeader title="Add Tasks" subtitle="Tasks are required." onClose={onClose} />
 
-        {/* Task Categories */}
-        <div className="flex flex-col gap-4 mb-8">
-          {TASK_CATEGORIES.map((category) => {
-            const availableTasks = category.tasks.filter(task => !existingTaskIds.includes(task.id));
-            if (availableTasks.length === 0) return null;
+      {/* Task Categories */}
+      <div className="flex flex-col gap-4 mb-8">
+        {TASK_CATEGORIES.map(category => {
+          const availableTasks = category.tasks.filter(task => !existingTaskIds.includes(task.id));
+          if (availableTasks.length === 0) return null;
 
-            return (
-              <div
-                key={category.id}
-                className="flex p-4 md:p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]"
-              >
-                {/* Category Title */}
-                <div className="flex flex-col items-center gap-1 self-stretch">
-                  <div className="flex flex-col items-start gap-4 self-stretch">
-                    <h3 className="self-stretch text-[#FF7E4B] font-montserrat text-2xl font-normal leading-[130%]">
-                      {category.title}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Task List */}
-                <div className="flex w-full max-w-[670px] flex-col items-center gap-[-1px] rounded-md">
-                  {availableTasks.map((task) => (
-                    <div
-                      key={task.id}
-                      className="flex p-3 items-center gap-2.5 self-stretch bg-[#14233A] cursor-pointer hover:bg-[#1a2a42] transition-colors"
-                      onClick={() => handleTaskToggle(task)}
-                    >
-                      <Checkbox
-                        checked={isTaskSelected(task.id)}
-                        onChange={() => handleTaskToggle(task)}
-                      />
-
-                      <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-                        {task.label}
-                      </span>
-                    </div>
-                  ))}
+          return (
+            <div key={category.id} className="flex p-4 md:p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]">
+              {/* Category Title */}
+              <div className="flex flex-col items-center gap-1 self-stretch">
+                <div className="flex flex-col items-start gap-4 self-stretch">
+                  <h3 className="self-stretch text-[#FF7E4B] font-montserrat text-2xl font-normal leading-[130%]">{category.title}</h3>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Add Tasks Button */}
-        <div className="flex justify-center items-center gap-2.5 rounded-md">
-          <button
-            onClick={handleAddTasks}
-            disabled={selectedTasks.length === 0}
-            className={`flex p-3 justify-center items-center gap-2 rounded-md border border-[#FF7E4B] transition-all ${
-              selectedTasks.length === 0 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:bg-[#FF7E4B] hover:bg-opacity-10'
-            }`}
-          >
-            <span className="text-white font-michroma text-xs font-normal leading-[150%]">
-              Add Tasks
-            </span>
-          </button>
-        </div>
+              {/* Task List */}
+              <div className="flex w-full max-w-[670px] flex-col items-center gap-[-1px] rounded-md">
+                {availableTasks.map(task => (
+                  <div
+                    key={task.id}
+                    className="flex p-3 items-center gap-2.5 self-stretch bg-[#14233A] cursor-pointer hover:bg-[#1a2a42] transition-colors"
+                    onClick={() => handleTaskToggle(task)}
+                  >
+                    <Checkbox checked={isTaskSelected(task.id)} onChange={() => handleTaskToggle(task)} />
+
+                    <span className="text-white font-montserrat text-base font-normal leading-[150%]">{task.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Add Tasks Button */}
+      <div className="flex justify-center items-center gap-2.5 rounded-md">
+        <button
+          onClick={handleAddTasks}
+          disabled={selectedTasks.length === 0}
+          className={`flex p-3 justify-center items-center gap-2 rounded-md border border-[#FF7E4B] transition-all ${
+            selectedTasks.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-[#FF7E4B] hover:bg-opacity-10"
+          }`}
+        >
+          <span className="text-white font-michroma text-xs font-normal leading-[150%]">Add Tasks</span>
+        </button>
+      </div>
     </ModalBackdrop>
   );
 }

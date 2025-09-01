@@ -13,7 +13,7 @@ export function ComponentLibrary(props: ComponentLibraryProps) {
     <>
       <div className="fixed bottom-4 right-4 w-80 bg-[#0E1F35] rounded-lg border border-[#FF7E4B] p-4 z-50 max-h-96 overflow-y-auto">
         <h3 className="text-white font-michroma text-sm mb-4">Component Library</h3>
-        
+
         {/* Icons */}
         <div className="mb-4">
           <h4 className="text-[#FF7E4B] font-montserrat text-xs mb-2">Icons</h4>

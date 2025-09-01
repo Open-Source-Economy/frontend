@@ -5,7 +5,7 @@ import { CloseIcon, PenIcon } from "./icons";
 export enum TaskType {
   STANDARD = "standard",
   INCIDENT_RESPONSE = "incident_response",
-  CUSTOM = "custom"
+  CUSTOM = "custom",
 }
 
 export interface SelectedTask {
@@ -39,41 +39,29 @@ export function TaskItem(props: TaskItemProps) {
           {/* Task Header */}
           <div className="flex items-center gap-4 self-stretch">
             <div className="flex items-center gap-4 flex-1">
-              <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-                {props.task.label}
-              </span>
+              <span className="text-white font-montserrat text-base font-normal leading-[150%]">{props.task.label}</span>
 
               {!props.task.hasSelectedProjects && (
-                <SelectProjectsPill
-                  onClick={() => props.onSelectProjects(props.task)}
-                  hasError={props.showError && !props.task.hasSelectedProjects}
-                />
+                <SelectProjectsPill onClick={() => props.onSelectProjects(props.task)} hasError={props.showError && !props.task.hasSelectedProjects} />
               )}
             </div>
 
             {props.task.hasSelectedProjects && (
               <>
                 {props.onEditTask && (
-                  <IconButton
-                    onClick={() => props.onEditTask?.(props.task)}
-                  >
+                  <IconButton onClick={() => props.onEditTask?.(props.task)}>
                     <PenIcon className="w-6 h-6" />
                   </IconButton>
                 )}
 
-                <IconButton
-                  onClick={() => props.onRemoveTask(props.task.id)}
-                  variant="rounded"
-                >
+                <IconButton onClick={() => props.onRemoveTask(props.task.id)} variant="rounded">
                   <CloseIcon className="w-6 h-6" />
                 </IconButton>
               </>
             )}
 
             {!props.task.hasSelectedProjects && (
-              <IconButton
-                onClick={() => props.onRemoveTask(props.task.id)}
-              >
+              <IconButton onClick={() => props.onRemoveTask(props.task.id)}>
                 <CloseIcon />
               </IconButton>
             )}
@@ -84,13 +72,9 @@ export function TaskItem(props: TaskItemProps) {
             <div className="flex items-start content-start gap-[6px] self-stretch flex-wrap">
               {props.task.selectedProjects.map((project, index) => (
                 <React.Fragment key={project}>
-                  <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
-                    {project}
-                  </span>
+                  <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">{project}</span>
                   {index < props.task.selectedProjects!.length - 1 && (
-                    <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
-                      |
-                    </span>
+                    <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">|</span>
                   )}
                 </React.Fragment>
               ))}
@@ -100,20 +84,14 @@ export function TaskItem(props: TaskItemProps) {
           {/* Configuration Pills */}
           {props.task.hasSelectedProjects && (props.task.hourlyRate || props.task.responseTime) && (
             <div className="flex items-center gap-4 self-stretch">
-              {props.task.hourlyRate && (
-                <InfoPill text={`Hourly rate: ${props.task.hourlyRate}`} />
-              )}
-              {props.task.responseTime && (
-                <InfoPill text={`Response time: ${props.task.responseTime}`} />
-              )}
+              {props.task.hourlyRate && <InfoPill text={`Hourly rate: ${props.task.hourlyRate}`} />}
+              {props.task.responseTime && <InfoPill text={`Response time: ${props.task.responseTime}`} />}
             </div>
           )}
         </div>
 
         {props.showError && !props.task.hasSelectedProjects && (
-          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
-            * Please select projects
-          </div>
+          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Please select projects</div>
         )}
       </div>
     </>

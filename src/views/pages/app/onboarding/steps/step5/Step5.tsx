@@ -121,21 +121,21 @@ export function Step5(props: Step5Props) {
                 ...t,
                 hasSelectedProjects: true,
                 selectedProjects: [
-                  'organisation/repository_1',
-                  'organisation/repository_2',
-                  'organisation/repository_3',
-                  'organisation/repository_4',
-                  'organisation/repository_5',
-                  '23 more...'
+                  "organisation/repository_1",
+                  "organisation/repository_2",
+                  "organisation/repository_3",
+                  "organisation/repository_4",
+                  "organisation/repository_5",
+                  "23 more...",
                 ],
-                hourlyRate: taskData.hourlyRate ? `€ ${taskData.hourlyRate}` : '€ 100',
-                responseTime: taskData.responseTime || (t.label === 'Deployment Guidance' ? '12 hours' : undefined),
+                hourlyRate: taskData.hourlyRate ? `€ ${taskData.hourlyRate}` : "€ 100",
+                responseTime: taskData.responseTime || (t.label === "Deployment Guidance" ? "12 hours" : undefined),
                 firstResponseTime: taskData.firstResponseTime,
                 serviceName: taskData.serviceName,
-                serviceDescription: taskData.serviceDescription
+                serviceDescription: taskData.serviceDescription,
               }
-            : t
-        )
+            : t,
+        ),
       );
       setShowTaskSelectionModal(false);
       setCurrentTaskForSelection(null);
@@ -194,7 +194,6 @@ export function Step5(props: Step5Props) {
     console.log("Add custom task");
   };
 
-
   const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
     setCurrentService(serviceEntry);
     setShowUpsertDeveloperServiceModal(true);
@@ -245,7 +244,6 @@ export function Step5(props: Step5Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
   const filteredServiceCategories = serviceCategories.map(category => ({
     ...category,
@@ -253,13 +251,16 @@ export function Step5(props: Step5Props) {
   }));
 
   // Group selected tasks by category
-  const tasksByCategory = selectedTasks.reduce((acc, task) => {
-    if (!acc[task.category]) {
-      acc[task.category] = [];
-    }
-    acc[task.category].push(task);
-    return acc;
-  }, {} as Record<string, SelectedTask[]>);
+  const tasksByCategory = selectedTasks.reduce(
+    (acc, task) => {
+      if (!acc[task.category]) {
+        acc[task.category] = [];
+      }
+      acc[task.category].push(task);
+      return acc;
+    },
+    {} as Record<string, SelectedTask[]>,
+  );
 
   const existingTaskIds = selectedTasks.map(task => task.id);
 
@@ -290,9 +291,7 @@ export function Step5(props: Step5Props) {
             ))}
 
             {/* Add Task Button */}
-            <AddTaskButton
-              onClick={() => setShowAddTaskModal(true)}
-            />
+            <AddTaskButton onClick={() => setShowAddTaskModal(true)} />
           </div>
 
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
@@ -322,12 +321,7 @@ export function Step5(props: Step5Props) {
         />
       )}
 
-      <AddTaskModal
-        isOpen={showAddTaskModal}
-        onClose={() => setShowAddTaskModal(false)}
-        onAddTasks={onAddTasks}
-        existingTaskIds={existingTaskIds}
-      />
+      <AddTaskModal isOpen={showAddTaskModal} onClose={() => setShowAddTaskModal(false)} onAddTasks={onAddTasks} existingTaskIds={existingTaskIds} />
 
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal

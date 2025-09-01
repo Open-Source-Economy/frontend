@@ -21,7 +21,7 @@ export function TaskCategory({
   onEditTask,
   showAddCustomTask = false,
   onAddCustomTask,
-  showError = false
+  showError = false,
 }: TaskCategoryProps) {
   if (tasks.length === 0 && !showAddCustomTask) {
     return null;
@@ -31,30 +31,16 @@ export function TaskCategory({
     <div className="flex flex-col items-start gap-6 self-stretch">
       {/* Category Header */}
       <div className="flex items-center gap-6 self-stretch">
-        <h3 className="flex-1 text-[#FF7E4B] font-michroma text-[28px] font-normal leading-[130%]">
-          {categoryTitle}
-        </h3>
-        
+        <h3 className="flex-1 text-[#FF7E4B] font-michroma text-[28px] font-normal leading-[130%]">{categoryTitle}</h3>
+
         {/* Add Custom Task Button - only for "Other Tasks" category */}
-        {showAddCustomTask && onAddCustomTask && (
-          <AddTaskButton
-            onClick={onAddCustomTask}
-            text="Add Custom Task"
-          />
-        )}
+        {showAddCustomTask && onAddCustomTask && <AddTaskButton onClick={onAddCustomTask} text="Add Custom Task" />}
       </div>
 
       {/* Tasks */}
       <div className="flex flex-col items-start self-stretch rounded-[30px]">
         {tasks.map((task, index) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onSelectProjects={onSelectProjects}
-            onRemoveTask={onRemoveTask}
-            onEditTask={onEditTask}
-            showError={showError}
-          />
+          <TaskItem key={task.id} task={task} onSelectProjects={onSelectProjects} onRemoveTask={onRemoveTask} onEditTask={onEditTask} showError={showError} />
         ))}
       </div>
     </div>
