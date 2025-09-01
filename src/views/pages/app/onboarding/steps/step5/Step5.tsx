@@ -5,15 +5,30 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
-import InitialServiceSelection from "./InitialServiceSelection";
+import { InitialServiceSelection } from "./InitialServiceSelection";
 import { Step5State } from "../../OnboardingDataSteps";
 import SelectProjectsModal from "./SelectProjectsModal";
 
 import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import { ProjectItemIdCompanion } from "../../../../../data";
-import { ButtonGroup } from "../../landing/components";
+import ErrorDisplay from "../../components/ErrorDisplay";
+import { Button } from "../../../../../components/elements/Button";
+import { ServiceCard } from "./ServiceCard";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
+
+// --- Inline SVG Components ---
+const CloseIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const AddIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 interface ServiceCategory {
   service: dto.Service;
@@ -21,13 +36,15 @@ interface ServiceCategory {
 }
 
 // --- Main Component ---
-export default function Step5(props: Step5Props) {
+export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
+  const [projectItems, setProjectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
+  const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
 
@@ -78,6 +95,7 @@ export default function Step5(props: Step5Props) {
 
     const updatedServices = [...props.state.developerServices, ...newServices];
     props.updateState({ developerServices: updatedServices });
+    setShowInitialServiceModal(false);
   };
 
   const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
@@ -124,7 +142,7 @@ export default function Step5(props: Step5Props) {
 
   const handleNext = async () => {
     if (props.state.developerServices.length === 0) {
-      setLocalError("Please select projects or add tasks");
+      setLocalError("Please add at least one service before proceeding.");
       return;
     }
     setLocalError(null); // Clear local error before starting API call
@@ -142,9 +160,9 @@ export default function Step5(props: Step5Props) {
 
   const groupedServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
-  // Pre-compute project names for better performance using the actual project items from state
+  // Pre-compute project names for better performance
   const projectItemNameMap = new Map(
-    props.state.developerProjectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
+    projectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
   );
 
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
@@ -154,13 +172,75 @@ export default function Step5(props: Step5Props) {
   }));
 
   return (
-    <>
-      {/* Add Task Section */}
-      <InitialServiceSelection serviceCategories={filteredServiceCategories} onAddInitialServices={onAddInitialServices} isLoading={isLoading} />
+    <div>
+      <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
+        <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
+          <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-[700px]">
+            <div className="font-michroma not-italic relative shrink-0 text-[32px] w-full">
+              <p className="block leading-[1.3]">Tasks & Preferences</p>
+            </div>
+            <ErrorDisplay message={apiError?.message || localError} />
+          </div>
+          <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
+            {groupedServices.map(({ category, developerServices }) => (
+              <ServiceCard
+                key={category}
+                category={category}
+                developerServices={developerServices}
+                projectItemNameMap={projectItemNameMap}
+                currency={props.state.currency}
+                onEditTask={handleEditTask}
+                onDeleteDeveloperService={handleDeleteDeveloperService}
+              />
+            ))}
+          </div>
 
-      <ButtonGroup onBack={props.onBack} onNext={props.onNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
+          <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
+            <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[25px] text-left">
+              <p className="block leading-[1.3]">Add Service</p>
+            </div>
+            <div className="box-border content-stretch flex flex-row gap-6 items-center justify-center p-0 relative shrink-0 w-full">
+              <Button level="SECONDARY" audience="DEVELOPER" size="MEDIUM" onClick={() => setShowInitialServiceModal(true)}>
+                <AddIcon />
+                <span className="ml-2">Add Service</span>
+              </Button>
+            </div>
+          </div>
 
-      {/* Modals */}
+          <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
+            <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
+              Back
+            </Button>
+            <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Saving...
+                </>
+              ) : (
+                "Get Started"
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {showInitialServiceModal && (
+        <InitialServiceSelection
+          serviceCategories={filteredServiceCategories}
+          onClose={() => setShowInitialServiceModal(false)}
+          onAddInitialServices={onAddInitialServices}
+          isLoading={isLoading}
+        />
+      )}
+
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal
           service={currentService.service}
@@ -172,6 +252,6 @@ export default function Step5(props: Step5Props) {
           onBack={props.onBack}
         />
       )}
-    </>
+    </div>
   );
 }
