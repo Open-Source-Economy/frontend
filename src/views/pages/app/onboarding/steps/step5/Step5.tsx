@@ -154,9 +154,9 @@ export function Step5(props: Step5Props) {
     // Close the modal and navigate back to Step 2 to add projects
     setShowTaskSelectionModal(false);
     setCurrentTaskForSelection(null);
-    // This would typically navigate back to Step 2
-    // For now, we'll just close the modal - in a real app you'd navigate
-    console.log("Navigate to Step 2 to add projects");
+    // Navigate back to Step 2 to add projects
+    props.onBack?.();
+    props.onBack?.(); // Call twice to go from Step 5 to Step 2
   };
 
   const handleRemoveTask = (taskId: string) => {
