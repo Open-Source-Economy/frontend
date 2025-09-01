@@ -47,12 +47,12 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
 
         {/* Expanded Comment Section - Full width below inputs */}
         {showComment && (
-          <div className="flex flex-col items-start gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative min-h-[144px]">
+          <div className="flex items-start gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
             <textarea
               value={props.commentValue}
               onChange={(e) => props.onCommentChange(e.target.value)}
               placeholder="Comments (only visible to Open Source Economy team)"
-              className="w-full h-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white resize-none border-none"
+              className="w-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 border-none resize"
               style={{
                 minHeight: '120px',
                 resize: 'both',
@@ -60,11 +60,11 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
               }}
               rows={5}
             />
-            {/* Resize handle */}
+            {/* Custom resize handle - positioned like in Figma */}
             <div className="absolute bottom-2 right-2 opacity-20 pointer-events-none">
               <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M591 140L598 133" stroke="white" strokeLinecap="round"/>
-                <path d="M595 140L598 137" stroke="white" strokeLinecap="round"/>
+                <path d="M6 6L1 1" stroke="white" strokeLinecap="round"/>
+                <path d="M4 6L1 3" stroke="white" strokeLinecap="round"/>
               </svg>
             </div>
           </div>
