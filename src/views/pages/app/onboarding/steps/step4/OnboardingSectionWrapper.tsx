@@ -3,7 +3,7 @@ import { CommentInput } from "./CommentInput";
 
 interface OnboardingSectionWrapperProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: (showComment: boolean, commentInputComponent: ReactNode) => ReactNode;
   commentValue: string;
   onCommentChange: (value: string) => void;
