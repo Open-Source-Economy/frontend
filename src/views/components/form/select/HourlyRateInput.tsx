@@ -85,6 +85,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         <button
           type="button"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
           className="flex px-3 py-0 items-center gap-3 h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
         >
           <span className="text-white font-montserrat text-base font-normal leading-[150%]">
