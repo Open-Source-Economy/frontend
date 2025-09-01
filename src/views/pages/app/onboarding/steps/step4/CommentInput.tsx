@@ -41,7 +41,7 @@ export function CommentInput(props: CommentInputProps) {
     <div className="self-stretch">
       <TextArea
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={3}
         className="w-full"
