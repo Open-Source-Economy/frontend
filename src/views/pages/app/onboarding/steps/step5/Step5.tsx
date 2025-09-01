@@ -7,6 +7,8 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 
 import { InitialServiceSelection } from "./InitialServiceSelection";
 import { AddTaskModal } from "./AddTaskModal";
+import { TaskCategory } from "./TaskCategory";
+import { SelectedTask } from "./TaskItem";
 import { Step5State } from "../../OnboardingDataSteps";
 import SelectProjectsModal from "./SelectProjectsModal";
 
