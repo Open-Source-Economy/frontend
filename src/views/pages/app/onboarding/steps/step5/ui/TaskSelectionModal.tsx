@@ -182,7 +182,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
                 <HourlyRateInput
                   currency={currency}
                   hourlyRate={hourlyRate}
-                  onCurrencyChange={(newCurrency: Currency | null) => setCurrency(newCurrency || currency)}
+                  onCurrencyChange={(newCurrency: dto.Currency | null) => setCurrency(newCurrency || currency)}
                   onHourlyRateChange={setHourlyRate}
                 />
               </div>
