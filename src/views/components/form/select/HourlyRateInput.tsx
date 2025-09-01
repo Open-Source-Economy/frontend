@@ -1,7 +1,6 @@
 import React, { forwardRef, Ref, useImperativeHandle, useRef, useState } from "react";
 import { Currency } from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data";
-import { CurrencySelectInput, CurrencySelectInputRef } from "./enum/CurrencySelectInput";
 import { BaseProps, BaseRef } from "../Base";
 
 export interface HourlyRateInputRef extends BaseRef {}
@@ -14,7 +13,7 @@ interface HourlyRateInputProps extends BaseProps {
 }
 
 export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
-  const { currency, hourlyRate, onCurrencyChange, onHourlyRateChange, ...rest } = props;
+  const { currency, hourlyRate, onCurrencyChange, onHourlyRateChange } = props;
 
   const currencySelectRef = useRef<CurrencySelectInputRef>(null);
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
