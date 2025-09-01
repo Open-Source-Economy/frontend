@@ -190,8 +190,8 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
           )}
         </div>
 
-        {/* Custom Task Fields */}
-        {props.task.type === TaskType.CUSTOM && (
+        {/* Service Configuration Fields */}
+        {(
           <div className="flex flex-col gap-2.5 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
             {/* Service Name */}
             <div className="flex flex-col items-start gap-2 self-stretch">
