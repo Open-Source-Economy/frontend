@@ -19,14 +19,14 @@ export function WeeklyCommitmentSection(props: WeeklyCommitmentSectionProps) {
       onCommentChange={props.onCommentChange}
       error={props.error}
     >
-      {(showComment, commentInputComponent) => (
+      {(showComment, commentButtonComponent) => (
         <div className="flex items-center gap-2.5 self-stretch">
           <WeeklyCommitmentInput
             value={props.value}
             onChange={props.onChange}
             error={props.error}
           />
-          {commentInputComponent}
+          {commentButtonComponent}
         </div>
       )}
     </OnboardingSectionWrapper>
