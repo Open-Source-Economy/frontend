@@ -5,21 +5,16 @@ import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { Step4State } from "../../OnboardingDataSteps";
-import { OpportunitySelector } from "./OpportunitySelector";
-import { WeeklyCommitmentInput } from "./WeeklyCommitmentInput";
-import { CommentInput } from "./CommentInput";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
-import { HourlyRateInput } from "../../../../../components/form/select/HourlyRateInput";
 import { ButtonGroup } from "../../landing/components";
+import { WeeklyCommitmentSection } from "./WeeklyCommitmentSection";
+import { LargerOpportunitiesSection } from "./LargerOpportunitiesSection";
+import { IndicativeRateSection } from "./IndicativeRateSection";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
 export function Step4(props: Step4AvailabilityRateProps) {
-  const [showWeeklyComment, setShowWeeklyComment] = useState(false);
-  const [showOpportunityComment, setShowOpportunityComment] = useState(false);
-  const [showRateComment, setShowRateComment] = useState(false);
-
   const [errors, setErrors] = useState<{ weeklyHours?: string; opportunity?: string; rate?: string }>({});
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,96 +87,42 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   return (
     <>
-      <div className="flex flex-col items-start gap-12 w-full">
-        {/* Weekly Commitment Section */}
-        <div className="flex flex-col justify-end items-end gap-2.5 w-full p-8 rounded-[30px] bg-[#14233A]">
-          <div className="flex flex-col items-center gap-1 w-full">
-            <div className="flex flex-col items-start gap-4 w-full">
-              <h2 className="w-full text-white font-montserrat text-2xl leading-[1.3]">Your Weekly Commitment</h2>
-            </div>
-          </div>
+      <div className="flex flex-col items-start gap-12 self-stretch">
+        <WeeklyCommitmentSection
+          value={props.state.hourlyWeeklyCommitment}
+          onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
+          commentValue={props.state.hourlyWeeklyCommitmentComments || ""}
+          onCommentChange={value => props.updateState({ hourlyWeeklyCommitmentComments: value })}
+          error={errors.weeklyHours}
+        />
 
-          <div className="flex flex-col items-start gap-3 w-full">
-            <div className="text-white font-montserrat text-base leading-[1.5] opacity-60">
-              How many hours per week, on average, can you dedicate to client services?
-            </div>
-            <div className="flex items-center gap-2.5 w-full">
-              <WeeklyCommitmentInput
-                value={props.state.hourlyWeeklyCommitment}
-                onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
-                error={errors.weeklyHours}
-              />
-              <CommentInput
-                isExpanded={showWeeklyComment}
-                onToggle={() => setShowWeeklyComment(!showWeeklyComment)}
-                value={props.state.hourlyWeeklyCommitmentComments || ""}
-                onChange={value => props.updateState({ hourlyWeeklyCommitmentComments: value })}
-              />
-            </div>
-            {errors.weeklyHours && <div className="text-red-400 text-sm">{errors.weeklyHours}</div>}
-          </div>
-        </div>
+        <LargerOpportunitiesSection
+          value={props.state.openToOtherOpportunity || null}
+          onChange={value => props.updateState({ openToOtherOpportunity: value })}
+          commentValue={props.state.openToOtherOpportunityComments || ""}
+          onCommentChange={value => props.updateState({ openToOtherOpportunityComments: value })}
+          error={errors.opportunity}
+        />
 
-        {/* Larger Opportunities Section */}
-        <div className="flex flex-col justify-end items-end gap-2.5 w-full p-8 rounded-[30px] bg-[#14233A]">
-          <div className="flex flex-col items-center gap-1 w-full">
-            <div className="flex flex-col items-start gap-4 w-full">
-              <h2 className="w-full text-white font-montserrat text-2xl leading-[1.3]">Larger Opportunities</h2>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-end items-start gap-4 w-full">
-            <div className="flex flex-col justify-end items-start gap-4 w-full">
-              <OpportunitySelector
-                id="larger-opportunities"
-                label="Larger Opportunities"
-                value={props.state.openToOtherOpportunity || null}
-                onChange={value => props.updateState({ openToOtherOpportunity: value })}
-                required={true}
-              />
-              <div className="flex items-center gap-8 w-full">
-                <div className="flex-1" />
-                <CommentInput
-                  isExpanded={showOpportunityComment}
-                  onToggle={() => setShowOpportunityComment(!showOpportunityComment)}
-                  value={props.state.openToOtherOpportunityComments || ""}
-                  onChange={value => props.updateState({ openToOtherOpportunityComments: value })}
-                />
-              </div>
-            </div>
-            {errors.opportunity && <div className="text-red-400 text-sm">{errors.opportunity}</div>}
-          </div>
-        </div>
-
-        {/* Indicative Rate Section */}
-        <div className="flex flex-col justify-end items-end gap-2.5 w-full p-8 rounded-[30px] bg-[#14233A]">
-          <div className="flex flex-col items-center gap-1 w-full">
-            <div className="flex flex-col items-start gap-4 w-full">
-              <h2 className="w-full text-white font-montserrat text-2xl leading-[1.3]">Your Indicative Rate</h2>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-start gap-3 w-full">
-            <div className="text-white font-montserrat text-base leading-[1.5] opacity-60">What is your typical hourly rate?</div>
-            <div className="flex h-12 items-center gap-2 w-full">
-              <HourlyRateInput
-                hourlyRate={props.state.hourlyRate || null}
-                currency={props.state.currency!}
-                onHourlyRateChange={value => props.updateState({ hourlyRate: value || undefined })}
-                onCurrencyChange={currency => props.updateState({ currency })}
-              />
-              <CommentInput
-                isExpanded={showRateComment}
-                onToggle={() => setShowRateComment(!showRateComment)}
-                value={props.state.hourlyRateComments || ""}
-                onChange={value => props.updateState({ hourlyRateComments: value })}
-              />
-            </div>
-            {errors.rate && <div className="text-red-400 text-sm">{errors.rate}</div>}
-          </div>
-        </div>
+        <IndicativeRateSection
+          hourlyRate={props.state.hourlyRate || null}
+          currency={props.state.currency!}
+          onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
+          onCurrencyChange={currency => props.updateState({ currency })}
+          commentValue={props.state.hourlyRateComments || ""}
+          onCommentChange={value => props.updateState({ hourlyRateComments: value })}
+          error={errors.rate}
+        />
       </div>
-      <ButtonGroup onBack={props.onBack} onNext={props.onNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
+
+      <ButtonGroup 
+        onBack={props.onBack} 
+        onNext={handleNext} 
+        isLoading={isLoading} 
+        showErrorMessage={false} 
+        errorMessage={apiError?.message} 
+      />
+
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}
 
