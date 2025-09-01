@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ModalBackdrop } from "./ModalBackdrop";
 import { CloseIcon, PenIcon } from "../icons";
-import { HourlyRateInput } from "../../../../../../components/form/select/HourlyRateInput";
+import { HourlyRateInput } from "src/views/components/form/select/HourlyRateInput";
 import { Currency } from "@open-source-economy/api-types";
 import { SelectedTask } from "../TaskItem";
 
