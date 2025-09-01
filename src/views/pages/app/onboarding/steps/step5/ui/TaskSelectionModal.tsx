@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ModalBackdrop } from "./ModalBackdrop";
 import { CloseIcon, PenIcon } from "../icons";
 import { HourlyRateInput } from "src/views/components/form/select/HourlyRateInput";
+import { MultiSelectInput, SelectOption } from "src/views/components/form/select/MultiSelectInput";
 import { Currency } from "@open-source-economy/api-types";
 import { SelectedTask } from "../TaskItem";
 
@@ -16,6 +17,7 @@ interface TaskSelectionModalProps {
     responseTime?: string;
     comment?: string;
   }) => void;
+  onAddProject?: () => void;
 }
 
 const ChevronDownIcon = () => (
@@ -37,7 +39,19 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
   const [hourlyRate, setHourlyRate] = useState<number | null>(100);
   const [currency, setCurrency] = useState<Currency>(props.currency);
   const [comment, setComment] = useState("");
-  const [selectedProjects] = useState<string[]>([]);
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
+
+  // Sample project options - in real app this would come from props or API
+  const projectOptions: SelectOption[] = [
+    { value: "all", label: "All projects", isAllOption: true },
+    { value: "org1/repo1", label: "organisation/repository_1", hasIcon: true },
+    { value: "org1/repo2", label: "organisation/repository_2", hasIcon: true },
+    { value: "org1", label: "organisation_1", hasIcon: true },
+    { value: "org1/repo3", label: "organisation/repository_3", hasIcon: true },
+    { value: "org1/repo4", label: "organisation/repository_4", hasIcon: true },
+    { value: "add", label: "Add different project", isAddOption: true },
+  ];
 
   const handleSave = () => {
     props.onSave({
@@ -45,6 +59,18 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
       hourlyRate: hourlyRate || undefined,
       comment: comment || undefined,
     });
+  };
+
+  const handleProjectChange = (newSelectedProjects: string[]) => {
+    setSelectedProjects(newSelectedProjects);
+  };
+
+  const handleAddProject = () => {
+    if (props.onAddProject) {
+      props.onAddProject();
+    }
+    // Close the dropdown when add project is clicked
+    setIsProjectDropdownOpen(false);
   };
 
   return (
@@ -85,12 +111,15 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
               For Which Project(s)?
             </label>
             <div className="flex items-start gap-2.5 self-stretch">
-              <div className="flex justify-between items-center flex-1 p-3 rounded-md bg-[#202F45]">
-                <span className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
-                  Select ...
-                </span>
-                <ChevronDownIcon />
-              </div>
+              <MultiSelectInput
+                options={projectOptions}
+                value={selectedProjects}
+                onChange={handleProjectChange}
+                placeholder="|"
+                isOpen={isProjectDropdownOpen}
+                onToggle={setIsProjectDropdownOpen}
+                onAddProject={handleAddProject}
+              />
             </div>
           </div>
 
@@ -210,7 +239,9 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
           <button
             onClick={handleSave}
             disabled={selectedProjects.length === 0}
-            className="flex justify-center items-center gap-2 px-5 py-3 rounded-md border border-[#FF7E4B] opacity-50 disabled:opacity-50 hover:opacity-70 transition-opacity"
+            className={`flex justify-center items-center gap-2 px-5 py-3 rounded-md border border-[#FF7E4B] transition-opacity ${
+              selectedProjects.length === 0 ? 'opacity-50' : 'opacity-100 hover:opacity-70'
+            }`}
           >
             <span className="text-white font-michroma text-xs font-normal leading-[150%]">
               Select Project(s)
