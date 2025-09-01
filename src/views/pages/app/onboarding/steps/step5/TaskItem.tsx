@@ -1,96 +1,77 @@
 import React from "react";
+import * as dto from "@open-source-economy/api-types";
 import { SelectProjectsPill, IconButton, InfoPill } from "./ui";
 import { CloseIcon, PenIcon } from "./icons";
 
-export enum TaskType {
-  STANDARD = "standard",
-  INCIDENT_RESPONSE = "incident_response",
-  CUSTOM = "custom",
-}
-
-export interface SelectedTask {
-  id: string;
-  label: string;
-  category: string;
-  type?: TaskType;
-  description?: string;
-  hasSelectedProjects?: boolean;
-  selectedProjects?: string[];
-  hourlyRate?: string;
-  responseTime?: string;
-  firstResponseTime?: string;
-  serviceName?: string;
-  serviceDescription?: string;
-}
-
-interface TaskItemProps {
-  task: SelectedTask;
-  onSelectProjects: (task: SelectedTask) => void;
-  onRemoveTask: (taskId: string) => void;
-  onEditTask?: (task: SelectedTask) => void;
+interface DeveloperServiceItemProps {
+  developerServiceEntry: dto.DeveloperServiceEntry;
+  onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
+  onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
+  onEditDeveloperService?: (entry: dto.DeveloperServiceEntry) => void;
   showError?: boolean;
 }
 
-export function TaskItem(props: TaskItemProps) {
+export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
+  const { developerServiceEntry } = props;
+  const service = developerServiceEntry.service;
+  const developerService = developerServiceEntry.developerService;
+  const hasConfiguration = developerService !== null;
+
   return (
     <>
       <div className="flex p-7 flex-col items-start gap-6 self-stretch bg-[#14233A] rounded-[30px]">
         <div className="flex pb-6 flex-col justify-center items-center gap-4 self-stretch border-b border-[#0E1F35]">
-          {/* Task Header */}
+          {/* Service Header */}
           <div className="flex items-center gap-4 self-stretch">
             <div className="flex items-center gap-4 flex-1">
-              <span className="text-white font-montserrat text-base font-normal leading-[150%]">{props.task.label}</span>
+              <span className="text-white font-montserrat text-base font-normal leading-[150%]">{service.name}</span>
 
-              {!props.task.hasSelectedProjects && (
-                <SelectProjectsPill onClick={() => props.onSelectProjects(props.task)} hasError={props.showError && !props.task.hasSelectedProjects} />
+              {!hasConfiguration && (
+                <SelectProjectsPill onClick={() => props.onSelectProjects(developerServiceEntry)} hasError={props.showError && !hasConfiguration} />
               )}
             </div>
 
-            {props.task.hasSelectedProjects && (
+            {hasConfiguration && (
               <>
-                {props.onEditTask && (
-                  <IconButton onClick={() => props.onEditTask?.(props.task)}>
+                {props.onEditDeveloperService && (
+                  <IconButton onClick={() => props.onEditDeveloperService?.(developerServiceEntry)}>
                     <PenIcon className="w-6 h-6" />
                   </IconButton>
                 )}
 
-                <IconButton onClick={() => props.onRemoveTask(props.task.id)} variant="rounded">
+                <IconButton onClick={() => props.onRemoveDeveloperService(service.id)} variant="rounded">
                   <CloseIcon className="w-6 h-6" />
                 </IconButton>
               </>
             )}
 
-            {!props.task.hasSelectedProjects && (
-              <IconButton onClick={() => props.onRemoveTask(props.task.id)}>
+            {!hasConfiguration && (
+              <IconButton onClick={() => props.onRemoveDeveloperService(service.id)}>
                 <CloseIcon />
               </IconButton>
             )}
           </div>
 
-          {/* Selected Projects List */}
-          {props.task.hasSelectedProjects && props.task.selectedProjects && props.task.selectedProjects.length > 0 && (
+          {/* Selected Projects List - TODO: This needs to be populated from developer service data */}
+          {hasConfiguration && developerService?.projectIds && developerService.projectIds.length > 0 && (
             <div className="flex items-start content-start gap-[6px] self-stretch flex-wrap">
-              {props.task.selectedProjects.map((project, index) => (
-                <React.Fragment key={project}>
-                  <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">{project}</span>
-                  {index < props.task.selectedProjects!.length - 1 && (
-                    <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">|</span>
-                  )}
-                </React.Fragment>
-              ))}
+              {/* TODO: Map projectIds to project names */}
+              <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
+                {developerService.projectIds.length} project(s) configured
+              </span>
             </div>
           )}
 
           {/* Configuration Pills */}
-          {props.task.hasSelectedProjects && (props.task.hourlyRate || props.task.responseTime) && (
+          {hasConfiguration && (developerService?.hourlyRate || developerService?.responseTime) && (
             <div className="flex items-center gap-4 self-stretch">
-              {props.task.hourlyRate && <InfoPill text={`Hourly rate: ${props.task.hourlyRate}`} />}
-              {props.task.responseTime && <InfoPill text={`Response time: ${props.task.responseTime}`} />}
+              {developerService?.hourlyRate && <InfoPill text={`Hourly rate: €${developerService.hourlyRate}`} />}
+              {developerService?.responseTime && <InfoPill text={`Response time: ${developerService.responseTime}`} />}
             </div>
           )}
         </div>
 
-        {props.showError && !props.task.hasSelectedProjects && (
+        {props.showError && !hasConfiguration && (
           <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Please select projects</div>
         )}
       </div>
