@@ -186,7 +186,7 @@ export function Step5(props: Step5Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const handleEditTask = (serviceEntry: dto.DeveloperServiceEntry) => {
+  const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
     setCurrentService(serviceEntry);
     setShowUpsertDeveloperServiceModal(true);
   };
