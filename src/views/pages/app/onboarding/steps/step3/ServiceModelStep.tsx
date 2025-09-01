@@ -9,7 +9,7 @@ export function ServiceModelStep(props: ServiceModelStepProps) {
   const { stepNumber, description } = props;
 
   return (
-    <div className="flex flex-col items-start gap-4 flex-1 p-6 rounded-[30px] bg-primaryBg">
+    <div className="flex flex-col items-start gap-3 flex-1 p-5 rounded-[30px] bg-primaryBg">
       <div className="text-white font-michroma text-[28px] font-normal leading-[1.3] opacity-20">
         {stepNumber}
       </div>
