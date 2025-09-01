@@ -172,7 +172,7 @@ export default function OnboardingFlow() {
       render: <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
     [OnboardingDataSteps.Step5]: {
-      title: "Services & Offerings",
+      title: "Tasks & Preferences",
       subtitle: "Detail the services and offerings you provide",
       render: <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
