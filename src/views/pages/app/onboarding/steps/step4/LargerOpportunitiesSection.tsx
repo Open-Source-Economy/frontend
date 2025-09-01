@@ -24,7 +24,7 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
         <div className="flex flex-col justify-end items-start gap-4 self-stretch">
           <OpportunitySelector
             id="larger-opportunities"
-            label="Should Open Source Economy team privately contact you when a major opportunity arises?"
+            label=""
             value={props.value}
             onChange={props.onChange}
             required={true}
