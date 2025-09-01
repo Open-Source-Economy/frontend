@@ -53,7 +53,7 @@ export function ServiceModelSteps(props: ServiceModelStepsProps) {
       </div>
 
       {/* Service Model Steps Grid */}
-      <div className="flex justify-center items-start gap-5 self-stretch">
+      <div className="flex justify-center items-start gap-3 self-stretch">
         {steps.map((step, index) => (
           <ServiceModelStep
             key={index}
