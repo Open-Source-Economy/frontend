@@ -52,20 +52,20 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
           </div>
 
           {/* Selected Projects List - TODO: This needs to be populated from developer service data */}
-          {hasConfiguration && developerService?.projectIds && developerService.projectIds.length > 0 && (
+          {hasConfiguration && developerService?.projectItemIds && developerService.projectItemIds.length > 0 && (
             <div className="flex items-start content-start gap-[6px] self-stretch flex-wrap">
-              {/* TODO: Map projectIds to project names */}
+              {/* TODO: Map projectItemIds to project names */}
               <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
-                {developerService.projectIds.length} project(s) configured
+                {developerService.projectItemIds.length} project(s) configured
               </span>
             </div>
           )}
 
           {/* Configuration Pills */}
-          {hasConfiguration && (developerService?.hourlyRate || developerService?.responseTime) && (
+          {hasConfiguration && (developerService?.hourlyRate || developerService?.responseTimeHours) && (
             <div className="flex items-center gap-4 self-stretch">
               {developerService?.hourlyRate && <InfoPill text={`Hourly rate: €${developerService.hourlyRate}`} />}
-              {developerService?.responseTime && <InfoPill text={`Response time: ${developerService.responseTime}`} />}
+              {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
             </div>
           )}
         </div>
