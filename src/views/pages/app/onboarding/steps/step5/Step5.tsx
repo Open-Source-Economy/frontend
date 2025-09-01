@@ -10,7 +10,7 @@ import { AddTaskModal } from "./AddTaskModal";
 import { TaskCategory } from "./TaskCategory";
 import { SelectedTask } from "./TaskItem";
 import { Step5State } from "../../OnboardingDataSteps";
-import { AddTaskButton, LoadingSpinner, DeleteTaskModal } from "./ui";
+import { AddTaskButton, LoadingSpinner, DeleteTaskModal, TaskSelectionModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
 
 import { buildServiceCategories } from "./utils";
@@ -42,6 +42,8 @@ export function Step5(props: Step5Props) {
   const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<SelectedTask | null>(null);
   const [isDeletingTask, setIsDeletingTask] = useState(false);
+  const [showTaskSelectionModal, setShowTaskSelectionModal] = useState(false);
+  const [currentTaskForSelection, setCurrentTaskForSelection] = useState<SelectedTask | null>(null);
 
   const api = getOnboardingBackendAPI();
 
@@ -99,33 +101,47 @@ export function Step5(props: Step5Props) {
   };
 
   const handleSelectProjects = (task: SelectedTask) => {
-    // Here you would open a project selection modal for the specific task
-    console.log("Select projects for task:", task);
-    // For now, just mark it as having selected projects with sample data
-    setSelectedTasks(prev =>
-      prev.map(t =>
-        t.id === task.id
-          ? {
-              ...t,
-              hasSelectedProjects: true,
-              selectedProjects: [
-                'organisation/repository_1',
-                'organisation/repository_2',
-                'organisation/repository_3',
-                'organisation/repository_4',
-                'organisation/repository_5',
-                '23 more...'
-              ],
-              hourlyRate: '€ 100',
-              responseTime: task.label === 'Deployment Guidance' ? '12 hours' : undefined
-            }
-          : t
-      )
-    );
+    setCurrentTaskForSelection(task);
+    setShowTaskSelectionModal(true);
+  };
 
-    // Clear validation errors if this was the last task without projects
-    setShowValidationErrors(false);
-    setLocalError(null);
+  const handleTaskSelectionSave = (taskData: {
+    projectIds: string[];
+    hourlyRate?: number;
+    responseTime?: string;
+    comment?: string;
+  }) => {
+    if (currentTaskForSelection) {
+      setSelectedTasks(prev =>
+        prev.map(t =>
+          t.id === currentTaskForSelection.id
+            ? {
+                ...t,
+                hasSelectedProjects: true,
+                selectedProjects: [
+                  'organisation/repository_1',
+                  'organisation/repository_2',
+                  'organisation/repository_3',
+                  'organisation/repository_4',
+                  'organisation/repository_5',
+                  '23 more...'
+                ],
+                hourlyRate: taskData.hourlyRate ? `€ ${taskData.hourlyRate}` : '€ 100',
+                responseTime: taskData.responseTime || (t.label === 'Deployment Guidance' ? '12 hours' : undefined)
+              }
+            : t
+        )
+      );
+      setShowTaskSelectionModal(false);
+      setCurrentTaskForSelection(null);
+      setShowValidationErrors(false);
+      setLocalError(null);
+    }
+  };
+
+  const handleTaskSelectionClose = () => {
+    setShowTaskSelectionModal(false);
+    setCurrentTaskForSelection(null);
   };
 
   const handleRemoveTask = (taskId: string) => {
@@ -318,6 +334,16 @@ export function Step5(props: Step5Props) {
         onConfirmDelete={handleConfirmDeleteTask}
         isDeleting={isDeletingTask}
       />
+
+      {currentTaskForSelection && (
+        <TaskSelectionModal
+          isOpen={showTaskSelectionModal}
+          onClose={handleTaskSelectionClose}
+          task={currentTaskForSelection}
+          currency={props.state.currency}
+          onSave={handleTaskSelectionSave}
+        />
+      )}
     </div>
   );
 }
