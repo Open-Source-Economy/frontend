@@ -13,9 +13,10 @@ interface HourlyRateInputProps extends BaseProps {
 }
 
 export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
-  const { currency, hourlyRate, onHourlyRateChange } = props;
+  const { currency, hourlyRate, onHourlyRateChange, onCurrencyChange } = props;
 
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const runHourlyRateValidation = (currentRate: number | null, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
