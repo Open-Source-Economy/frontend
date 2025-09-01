@@ -108,7 +108,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
           hourlyRate={props.state.hourlyRate || null}
           currency={props.state.currency!}
           onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
-          onCurrencyChange={currency => props.updateState({ currency })}
+          onCurrencyChange={currency => currency && props.updateState({ currency })}
           commentValue={props.state.hourlyRateComments || ""}
           onCommentChange={value => props.updateState({ hourlyRateComments: value })}
           error={errors.rate}
