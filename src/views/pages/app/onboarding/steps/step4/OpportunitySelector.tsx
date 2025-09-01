@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useEffect, useImperativeHandle, useState } from "react";
+import React, { forwardRef, Ref, useEffect, useImperativeHandle, useState, ReactNode } from "react";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface OpportunitySelectorRef {
@@ -12,6 +12,7 @@ interface OpportunitySelectorProps {
   onChange: (value: OpenToOtherOpportunityType) => void;
   required?: boolean;
   forceValidate?: boolean;
+  commentButton?: ReactNode;
 }
 
 export const OpportunitySelector = forwardRef(function OpportunitySelector(props: OpportunitySelectorProps, ref: Ref<OpportunitySelectorRef>) {
