@@ -50,30 +50,37 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
 
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
-      <div className="flex w-40 p-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
+      {/* Text input container */}
+      <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
+        {/* Currency symbol container */}
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base font-normal leading-[1.5]">
-            {displayedCurrencies[currency]?.symbol || "$"}
+          <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+            {displayedCurrencies[currency]?.symbol || "€"}
           </span>
         </div>
+        {/* Input field */}
         <input
           type="text"
           value={hourlyRate === null ? "" : hourlyRate}
           onChange={e => sanitizeHourlyRateInput(e.target.value)}
           onBlur={() => runHourlyRateValidation(hourlyRate, true)}
           placeholder="e.g. 100"
-          className="bg-transparent text-white font-montserrat text-base font-normal leading-[1.5] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
+          className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
           inputMode="numeric"
           pattern="[0-9]*[.]?[0-9]*"
           aria-label="Hourly Rate"
         />
       </div>
-      <div className="flex p-3 items-center gap-3 self-stretch rounded-md bg-[#202F45]">
-        <span className="text-white font-montserrat text-base font-normal leading-[1.5]">€ (EUR)</span>
+
+      {/* Currency dropdown container */}
+      <div className="flex px-3 py-0 items-center gap-3 self-stretch rounded-md bg-[#202F45]">
+        <span className="text-white font-montserrat text-base font-normal leading-[150%]">€ (EUR)</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.2969 8.29297L12.0039 12.586L7.71087 8.29297L6.29688 9.70697L12.0039 15.414L17.7109 9.70697L16.2969 8.29297Z" fill="white"/>
+          <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
         </svg>
       </div>
+
+      {/* Error message */}
       {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
     </div>
   );
