@@ -51,6 +51,7 @@ export function Step5(props: Step5Props) {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [selectedTasks, setSelectedTasks] = useState<SelectedTask[]>([]);
 
   const api = getOnboardingBackendAPI();
 
