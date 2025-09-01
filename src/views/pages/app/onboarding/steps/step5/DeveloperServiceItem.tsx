@@ -12,9 +12,8 @@ interface DeveloperServiceItemProps {
 }
 
 export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
-  const { developerServiceEntry } = props;
-  const service = developerServiceEntry.service;
-  const developerService = developerServiceEntry.developerService;
+  const service = props.developerServiceEntry.service;
+  const developerService = props.developerServiceEntry.developerService;
   const hasConfiguration = developerService !== null;
 
   return (
