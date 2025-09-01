@@ -144,6 +144,15 @@ export function Step5(props: Step5Props) {
     setCurrentTaskForSelection(null);
   };
 
+  const handleAddProjectFromModal = () => {
+    // Close the modal and navigate back to Step 2 to add projects
+    setShowTaskSelectionModal(false);
+    setCurrentTaskForSelection(null);
+    // This would typically navigate back to Step 2
+    // For now, we'll just close the modal - in a real app you'd navigate
+    console.log("Navigate to Step 2 to add projects");
+  };
+
   const handleRemoveTask = (taskId: string) => {
     const task = selectedTasks.find(t => t.id === taskId);
     if (task) {
