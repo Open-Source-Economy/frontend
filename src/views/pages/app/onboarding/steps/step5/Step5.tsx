@@ -46,6 +46,7 @@ export function Step5(props: Step5Props) {
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
 
