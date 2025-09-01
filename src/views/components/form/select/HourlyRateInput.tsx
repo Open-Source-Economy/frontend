@@ -81,11 +81,44 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
       </div>
 
       {/* Currency dropdown container */}
-      <div className="flex px-3 py-0 items-center gap-3 self-stretch rounded-md bg-[#202F45]">
-        <span className="text-white font-montserrat text-base font-normal leading-[150%]">€ (EUR)</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
-        </svg>
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="flex px-3 py-0 items-center gap-3 h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
+        >
+          <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+            {displayedCurrencies[currency]?.symbol} ({displayedCurrencies[currency]?.code})
+          </span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+          >
+            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
+          </svg>
+        </button>
+
+        {/* Dropdown menu */}
+        {isDropdownOpen && (
+          <div className="absolute top-full mt-1 left-0 right-0 bg-[#202F45] rounded-md border border-[#3a4a65] z-10 shadow-lg">
+            {availableCurrencies.map((curr) => (
+              <button
+                key={curr}
+                type="button"
+                onClick={() => handleCurrencySelect(curr)}
+                className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#2a3a55] transition-colors first:rounded-t-md last:rounded-b-md"
+              >
+                <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+                  {displayedCurrencies[curr].symbol} ({displayedCurrencies[curr].code})
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Error message */}
