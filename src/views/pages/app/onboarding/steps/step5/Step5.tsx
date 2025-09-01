@@ -100,6 +100,12 @@ export function Step5(props: Step5Props) {
     setShowInitialServiceModal(false);
   };
 
+  const onAddTasks = (selectedTasks: any[]) => {
+    // For now, just close the modal - you can add logic to handle selected tasks
+    console.log("Selected tasks:", selectedTasks);
+    setShowAddTaskModal(false);
+  };
+
   const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
     setLocalError(null);
     setApiError(null);
