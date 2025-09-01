@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SelectedTask } from "./TaskItem";
 
 interface TaskOption {
   id: string;
@@ -14,7 +15,8 @@ interface TaskCategory {
 interface AddTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddTasks: (selectedTasks: TaskOption[]) => void;
+  onAddTasks: (selectedTasks: SelectedTask[]) => void;
+  existingTaskIds?: string[];
 }
 
 const TASK_CATEGORIES: TaskCategory[] = [
