@@ -277,7 +277,7 @@ export function Step5(props: Step5Props) {
             <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
               Back
             </Button>
-            <Button onClick={handleNext} disabled={selectedTasks.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+            <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? (
                 <>
                   <LoadingSpinner className="-ml-1 mr-2" />
@@ -312,19 +312,19 @@ export function Step5(props: Step5Props) {
         />
       )}
 
-      <DeleteTaskModal
-        isOpen={showDeleteTaskModal}
-        onClose={handleCancelDeleteTask}
-        task={taskToDelete}
-        onConfirmDelete={handleConfirmDeleteTask}
-        isDeleting={isDeletingTask}
+      <DeleteDeveloperServiceModal
+        isOpen={showDeleteDeveloperServiceModal}
+        onClose={handleCancelDeleteDeveloperService}
+        developerServiceEntry={serviceToDelete}
+        onConfirmDelete={handleConfirmDeleteDeveloperService}
+        isDeleting={isDeletingService}
       />
 
-      {currentTaskForSelection && (
+      {currentServiceForSelection && (
         <TaskSelectionModal
           isOpen={showTaskSelectionModal}
           onClose={handleTaskSelectionClose}
-          task={currentTaskForSelection}
+          developerServiceEntry={currentServiceForSelection}
           currency={props.state.currency}
           projects={props.state.developerProjectItems}
           onSave={handleTaskSelectionSave}
