@@ -10,16 +10,37 @@ export function Toggle(props: ToggleProps) {
 
   return (
     <div className="flex items-center gap-2.5">
-      <div className={`font-montserrat text-sm leading-[1.5] transition-colors ${isEnabled ? "text-white/50" : "text-white"}`}>No</div>
+      {/* No Label */}
+      <div className={`font-montserrat text-sm font-normal leading-[1.5] transition-colors duration-300 ${
+        isEnabled ? "text-white/50" : "text-white"
+      }`}>
+        No
+      </div>
+      
+      {/* Toggle Switch */}
       <button
         onClick={() => onChange(!isEnabled)}
-        className={`w-[52px] h-8 px-1 py-0.5 rounded-full flex items-center transition-all duration-300 ${
-          isEnabled ? "bg-[#FF7E4B] justify-end" : "bg-[#202F45] justify-start"
+        className={`flex w-[52px] h-8 p-1 items-center rounded-full transition-all duration-300 ${
+          isEnabled 
+            ? "bg-primary-developer justify-end" 
+            : "bg-[#202F45] justify-start"
         }`}
+        aria-label={`Toggle ${isEnabled ? 'on' : 'off'}`}
       >
-        <div className="w-6 h-6 bg-white rounded-full transition-all duration-300" />
+        {/* Toggle Handle */}
+        <div className="flex justify-center items-center w-6 h-6 bg-white rounded-full transition-all duration-300">
+          <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
+            isEnabled ? "bg-transparent" : "bg-transparent"
+          }`} />
+        </div>
       </button>
-      <div className={`font-montserrat text-sm leading-[1.5] transition-colors ${isEnabled ? "text-white" : "text-white/50"}`}>Yes</div>
+      
+      {/* Yes Label */}
+      <div className={`font-montserrat text-sm font-normal leading-[1.5] transition-colors duration-300 ${
+        isEnabled ? "text-white" : "text-white/50"
+      }`}>
+        Yes
+      </div>
     </div>
   );
 }
