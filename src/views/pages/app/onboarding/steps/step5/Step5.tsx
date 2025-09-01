@@ -6,13 +6,12 @@ import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
 import { AddTaskModal } from "./AddTaskModal";
-import { TaskCategory } from "./TaskCategory";
-import { SelectedTask } from "./TaskItem";
+import { DeveloperServiceCategory } from "./DeveloperServiceCategory";
 import { Step5State } from "../../OnboardingDataSteps";
-import { AddTaskButton, LoadingSpinner, DeleteTaskModal, TaskSelectionModal } from "./ui";
+import { AddTaskButton, LoadingSpinner, DeleteDeveloperServiceModal, TaskSelectionModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
 
-import { buildServiceCategories, ServiceCategory } from "./utils";
+import { buildServiceCategories, ServiceCategory, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
 
@@ -29,13 +28,12 @@ export function Step5(props: Step5Props) {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
-  const [selectedTasks, setSelectedTasks] = useState<SelectedTask[]>([]);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
-  const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState<SelectedTask | null>(null);
-  const [isDeletingTask, setIsDeletingTask] = useState(false);
+  const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [isDeletingService, setIsDeletingService] = useState(false);
   const [showTaskSelectionModal, setShowTaskSelectionModal] = useState(false);
-  const [currentTaskForSelection, setCurrentTaskForSelection] = useState<SelectedTask | null>(null);
+  const [currentServiceForSelection, setCurrentServiceForSelection] = useState<dto.DeveloperServiceEntry | null>(null);
 
   const api = getOnboardingBackendAPI();
 
@@ -87,18 +85,13 @@ export function Step5(props: Step5Props) {
     setShowInitialServiceModal(false);
   };
 
-  const onAddTasks = (newTasks: SelectedTask[]) => {
-    setSelectedTasks(prev => [...prev, ...newTasks]);
-    setShowAddTaskModal(false);
-  };
-
   const onAddServices = (serviceIds: dto.ServiceId[]) => {
     onAddInitialServices(serviceIds);
     setShowAddTaskModal(false);
   };
 
-  const handleSelectProjects = (task: SelectedTask) => {
-    setCurrentTaskForSelection(task);
+  const handleSelectProjects = (entry: dto.DeveloperServiceEntry) => {
+    setCurrentServiceForSelection(entry);
     setShowTaskSelectionModal(true);
   };
 
@@ -111,32 +104,27 @@ export function Step5(props: Step5Props) {
     serviceName?: string;
     serviceDescription?: string;
   }) => {
-    if (currentTaskForSelection) {
-      setSelectedTasks(prev =>
-        prev.map(t =>
-          t.id === currentTaskForSelection.id
-            ? {
-                ...t,
-                hasSelectedProjects: true,
-                selectedProjects: [
-                  "organisation/repository_1",
-                  "organisation/repository_2",
-                  "organisation/repository_3",
-                  "organisation/repository_4",
-                  "organisation/repository_5",
-                  "23 more...",
-                ],
-                hourlyRate: taskData.hourlyRate ? `€ ${taskData.hourlyRate}` : "€ 100",
-                responseTime: taskData.responseTime || (t.label === "Deployment Guidance" ? "12 hours" : undefined),
-                firstResponseTime: taskData.firstResponseTime,
-                serviceName: taskData.serviceName,
-                serviceDescription: taskData.serviceDescription,
-              }
-            : t,
-        ),
+    if (currentServiceForSelection) {
+      const updatedDeveloperService: dto.DeveloperService = {
+        serviceId: currentServiceForSelection.service.id,
+        projectIds: taskData.projectIds.map(id => ({ uuid: id })),
+        hourlyRate: taskData.hourlyRate || 100,
+        responseTime: taskData.responseTime,
+        comment: taskData.comment,
+        firstResponseTime: taskData.firstResponseTime,
+        serviceName: taskData.serviceName,
+        serviceDescription: taskData.serviceDescription,
+      };
+
+      const updatedServices = props.state.developerServices.map(entry =>
+        entry.service.id.uuid === currentServiceForSelection.service.id.uuid
+          ? { ...entry, developerService: updatedDeveloperService }
+          : entry
       );
+
+      props.updateState({ developerServices: updatedServices });
       setShowTaskSelectionModal(false);
-      setCurrentTaskForSelection(null);
+      setCurrentServiceForSelection(null);
       setShowValidationErrors(false);
       setLocalError(null);
     }
@@ -144,52 +132,53 @@ export function Step5(props: Step5Props) {
 
   const handleTaskSelectionClose = () => {
     setShowTaskSelectionModal(false);
-    setCurrentTaskForSelection(null);
+    setCurrentServiceForSelection(null);
   };
 
   const handleAddProjectFromModal = () => {
     // Close the modal and navigate back to Step 2 to add projects
     setShowTaskSelectionModal(false);
-    setCurrentTaskForSelection(null);
+    setCurrentServiceForSelection(null);
     // Navigate back to Step 2 to add projects
     props.onBack?.();
     props.onBack?.(); // Call twice to go from Step 5 to Step 2
   };
 
-  const handleRemoveTask = (taskId: string) => {
-    const task = selectedTasks.find(t => t.id === taskId);
-    if (task) {
-      setTaskToDelete(task);
-      setShowDeleteTaskModal(true);
+  const handleRemoveDeveloperService = (serviceId: dto.ServiceId) => {
+    const serviceEntry = props.state.developerServices.find(entry => entry.service.id.uuid === serviceId.uuid);
+    if (serviceEntry) {
+      setServiceToDelete(serviceEntry);
+      setShowDeleteDeveloperServiceModal(true);
     }
   };
 
-  const handleConfirmDeleteTask = async (taskId: string) => {
-    setIsDeletingTask(true);
+  const handleConfirmDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
+    setIsDeletingService(true);
 
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    setSelectedTasks(prev => prev.filter(task => task.id !== taskId));
-    setShowDeleteTaskModal(false);
-    setTaskToDelete(null);
-    setIsDeletingTask(false);
+    const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
+    props.updateState({ developerServices: updatedServices });
+    setShowDeleteDeveloperServiceModal(false);
+    setServiceToDelete(null);
+    setIsDeletingService(false);
   };
 
-  const handleCancelDeleteTask = () => {
-    setShowDeleteTaskModal(false);
-    setTaskToDelete(null);
-    setIsDeletingTask(false);
+  const handleCancelDeleteDeveloperService = () => {
+    setShowDeleteDeveloperServiceModal(false);
+    setServiceToDelete(null);
+    setIsDeletingService(false);
   };
 
-  const handleEditTask = (task: SelectedTask) => {
-    // Here you would open the task editing modal
-    console.log("Edit task:", task);
+  const handleEditDeveloperService = (entry: dto.DeveloperServiceEntry) => {
+    setCurrentServiceForSelection(entry);
+    setShowTaskSelectionModal(true);
   };
 
-  const handleAddCustomTask = () => {
-    // Open custom task creation modal or inline form
-    console.log("Add custom task");
+  const handleAddCustomService = () => {
+    // Open custom service creation modal or inline form
+    console.log("Add custom service");
   };
 
   // Commented out temporarily - will be used for service editing feature
