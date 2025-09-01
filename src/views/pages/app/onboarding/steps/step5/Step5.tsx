@@ -12,7 +12,7 @@ import { Step5State } from "../../OnboardingDataSteps";
 import { AddTaskButton, LoadingSpinner, DeleteTaskModal, TaskSelectionModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
 
-import { buildServiceCategories } from "./utils";
+import { buildServiceCategories, ServiceCategory } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
 
