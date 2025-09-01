@@ -49,6 +49,13 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     }
   };
 
+  const handleCurrencySelect = (selectedCurrency: Currency) => {
+    onCurrencyChange(selectedCurrency);
+    setIsDropdownOpen(false);
+  };
+
+  const availableCurrencies = Object.keys(displayedCurrencies) as Currency[];
+
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
       {/* Text input container */}
