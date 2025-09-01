@@ -29,9 +29,7 @@ export function FundingCardGrid(props: FundingCardGridProps) {
       />
 
       {/* Service Model Section (Expanded when Learn More is clicked) */}
-      {showServiceModel && (
-        <ServiceModelSteps onClose={onCloseServiceModel} />
-      )}
+      {showServiceModel && <ServiceModelSteps onClose={onCloseServiceModel} />}
 
       {/* Royalties and Donations Cards (Side by Side) */}
       <div className="flex items-start gap-9 self-stretch">
