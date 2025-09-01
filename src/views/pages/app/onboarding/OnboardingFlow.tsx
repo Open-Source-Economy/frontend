@@ -167,8 +167,8 @@ export default function OnboardingFlow() {
       render: <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
     [OnboardingDataSteps.Step4]: {
-      title: "Work Preferences",
-      subtitle: "Share your work preferences and availability",
+      title: "Availability & Rate",
+      subtitle: "Share your availability and indicative rate",
       render: <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
     [OnboardingDataSteps.Step5]: {
