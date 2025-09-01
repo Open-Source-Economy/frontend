@@ -1,18 +1,6 @@
 import React from "react";
-import {
-  LoadingSpinner,
-  Checkbox,
-  SelectProjectsPill,
-  AddTaskButton,
-  IconButton,
-  ModalHeader
-} from "./ui";
-import {
-  AddIcon,
-  CloseIcon,
-  AddCircleIcon,
-  CheckIcon
-} from "./icons";
+import { LoadingSpinner, Checkbox, SelectProjectsPill, AddTaskButton, IconButton, ModalHeader } from "./ui";
+import { AddIcon, CloseIcon, AddCircleIcon, CheckIcon } from "./icons";
 
 interface ComponentLibraryProps {
   isVisible?: boolean;
