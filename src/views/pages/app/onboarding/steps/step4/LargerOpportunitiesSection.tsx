@@ -15,7 +15,6 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
   return (
     <OnboardingSectionWrapper
       title="Larger Opportunities"
-      subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
       commentValue={props.commentValue}
       onCommentChange={props.onCommentChange}
       error={props.error}
@@ -24,7 +23,7 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
         <div className="flex flex-col justify-end items-start gap-4 self-stretch">
           <OpportunitySelector
             id="larger-opportunities"
-            label=""
+            label="Should Open Source Economy team privately contact you when a major opportunity arises?"
             value={props.value}
             onChange={props.onChange}
             required={true}
