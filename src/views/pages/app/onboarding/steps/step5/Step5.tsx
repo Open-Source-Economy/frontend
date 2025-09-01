@@ -40,6 +40,7 @@ export function Step5(props: Step5Props) {
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [selectedTasks, setSelectedTasks] = useState<SelectedTask[]>([]);
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
 
   const api = getOnboardingBackendAPI();
 
@@ -165,7 +166,17 @@ export function Step5(props: Step5Props) {
       setLocalError("Please add at least one task before proceeding.");
       return;
     }
+
+    // Check if any tasks don't have selected projects
+    const tasksWithoutProjects = selectedTasks.filter(task => !task.hasSelectedProjects);
+    if (tasksWithoutProjects.length > 0) {
+      setShowValidationErrors(true);
+      setLocalError("Please select projects for all tasks before proceeding.");
+      return;
+    }
+
     setLocalError(null); // Clear local error before starting API call
+    setShowValidationErrors(false);
 
     const apiCall = async () => {
       return await api.completeOnboarding({}, {}, {});
@@ -223,6 +234,7 @@ export function Step5(props: Step5Props) {
                 onRemoveTask={handleRemoveTask}
                 showAddCustomTask={categoryTitle === "Other Tasks"}
                 onAddCustomTask={handleAddCustomTask}
+                showError={showValidationErrors}
               />
             ))}
 
