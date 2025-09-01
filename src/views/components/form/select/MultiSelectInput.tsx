@@ -137,7 +137,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
             role="combobox"
             aria-haspopup="listbox"
             aria-expanded={isOpen}
-            aria-controls={`${id || 'multiselect'}-listbox`}
+            aria-controls={`${id || "multiselect"}-listbox`}
             aria-labelledby={`${id}-label`}
             {...rest}
           >
