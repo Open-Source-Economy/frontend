@@ -4,10 +4,11 @@ import { GenericInput, GenericInputRef } from "./GenericInput";
 interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
   minValue?: number;
   maxValue?: number;
+  variant?: "default" | "compact";
 }
 
 export const NumberInput = forwardRef(function NumberInput(props: NumberInputProps, ref: Ref<GenericInputRef>) {
-  const { minValue, maxValue, ...rest } = props;
+  const { minValue, maxValue, variant, ...rest } = props;
 
   const validator = (value: string): string | undefined => {
     if (!value) return undefined;
@@ -18,7 +19,17 @@ export const NumberInput = forwardRef(function NumberInput(props: NumberInputPro
     return undefined;
   };
 
-  return <GenericInput type="number" inputMode="numeric" pattern="[0-9]*[.]?[0-9]*" validator={validator} ref={ref} {...rest} />;
+  return (
+    <GenericInput
+      type="number"
+      inputMode="numeric"
+      pattern="[0-9]*[.]?[0-9]*"
+      validator={validator}
+      ref={ref}
+      variant={variant}
+      {...rest}
+    />
+  );
 });
 
 

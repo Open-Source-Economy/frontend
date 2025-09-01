@@ -4,7 +4,9 @@ import { buildInputWrapperClass, formContainer, formError, formLabel } from "../
 
 export interface GenericInputRef extends BaseRef {}
 
-interface GenericInputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {}
+interface GenericInputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {
+  variant?: "default" | "compact";
+}
 
 export const GenericInput = forwardRef(function GenericInput(props: GenericInputProps, ref: Ref<GenericInputRef>) {
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
@@ -12,7 +14,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
   const [isFocused, setIsFocused] = useState(false);
 
   // Destructure custom props that shouldn't be passed to DOM
-  const { label, validator, renderError, required, className, onFocus, onBlur, onChange, ...domProps } = props;
+  const { label, validator, renderError, required, className, onFocus, onBlur, onChange, variant = "default", ...domProps } = props;
 
   const runValidation = (value: string, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
@@ -49,12 +51,17 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
     ${className || ""}
   `;
 
-  const inputContainerClasses = formContainer;
+  const inputContainerClasses = variant === "compact" ? "" : formContainer;
 
-  const inputWrapperClasses = buildInputWrapperClass(
-    `flex items-center gap-1 flex-1 w-full bg-[#202F45] rounded-md p-3`,
-    { hasError, isActiveOrFilled: isFocused || hasValue },
-  );
+  const inputWrapperBase =
+    variant === "compact"
+      ? `flex items-center gap-1 rounded-none bg-transparent px-0 py-0 h-10`
+      : `flex items-center gap-1 flex-1 w-full bg-[#202F45] rounded-md p-3`;
+
+  const inputWrapperClasses = buildInputWrapperClass(inputWrapperBase, {
+    hasError,
+    isActiveOrFilled: isFocused || hasValue,
+  });
 
   const labelClasses = formLabel;
 
@@ -63,16 +70,18 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
   return (
     <div className={inputContainerClasses}>
       {/* Label */}
-      <div className="flex items-start gap-1 w-full">
-        <div className="flex flex-col items-start">
-          <div className={labelClasses}>
-            {label} {required && <span className="text-red-500">*</span>}
+      {label && (
+        <div className="flex items-start gap-1 w-full">
+          <div className="flex flex-col items-start">
+            <div className={labelClasses}>
+              {label} {required && <span className="text-red-500">*</span>}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Input Container */}
-      <div className="flex items-start gap-2.5 self-stretch">
+      <div className={variant === "compact" ? "flex items-center" : "flex items-start gap-2.5 self-stretch"}>
         <div className={inputWrapperClasses}>
           <input
             className={inputClasses}

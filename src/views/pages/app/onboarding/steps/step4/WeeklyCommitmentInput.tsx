@@ -25,7 +25,8 @@ export function WeeklyCommitmentInput(props: WeeklyCommitmentInputProps) {
         }}
         minValue={0}
         maxValue={168}
-        className="w-20 text-left"
+        className="w-20 text-left pl-4"
+        variant="compact"
       />
     </InputWithAddon>
   );
