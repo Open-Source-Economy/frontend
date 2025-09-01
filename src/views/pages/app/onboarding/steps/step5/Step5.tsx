@@ -27,7 +27,6 @@ interface ServiceCategory {
 // --- Main Component ---
 export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-  const [projectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
