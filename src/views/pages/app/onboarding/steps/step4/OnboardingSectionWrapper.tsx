@@ -47,17 +47,17 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
 
         {/* Expanded Comment Section - Full width below inputs */}
         {showComment && (
-          <div className="flex items-start gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
+          <div className="flex h-12 items-center gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
             <textarea
               value={props.commentValue}
               onChange={(e) => props.onCommentChange(e.target.value)}
               placeholder="Comments (only visible to Open Source Economy team)"
               className="w-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 border-none resize-y"
               style={{
-                minHeight: '120px',
+                minHeight: '24px',
                 overflow: 'auto'
               }}
-              rows={5}
+              rows={1}
             />
             {/* Custom resize handle - positioned like in Figma */}
             <div className="absolute bottom-2 right-2 opacity-20 pointer-events-none">
