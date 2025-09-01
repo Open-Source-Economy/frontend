@@ -10,7 +10,6 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
 import { FundingCardGrid } from "./FundingCardGrid";
-import { ServiceModelSteps } from "./ServiceModelSteps";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
@@ -62,17 +61,14 @@ export function Step3(props: Step3Props) {
   return (
     <>
       <div className="flex flex-col items-start gap-9 self-stretch">
-        {/* Main Funding Cards Grid */}
+        {/* Main Funding Cards Grid with inline Service Model */}
         <FundingCardGrid
           incomeStreams={incomeStreams}
           onToggleChange={handleToggleChange}
+          showServiceModel={showServiceModel}
           onServiceLearnMore={handleServiceLearnMore}
+          onCloseServiceModel={handleCloseServiceModel}
         />
-
-        {/* Service Model Section (Expanded when Learn More is clicked) */}
-        {showServiceModel && (
-          <ServiceModelSteps onClose={handleCloseServiceModel} />
-        )}
       </div>
 
       <ButtonGroup 

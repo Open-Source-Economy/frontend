@@ -107,27 +107,22 @@ export const ServicesIcon = () => (
 );
 
 export const RoyaltiesIcon = () => (
-  <div className="w-[120px] h-[120px] relative">
-    {/* Using the correct royalties icon from Figma */}
-    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="60" cy="60" r="50" fill="#FF7E4B" opacity="0.2"/>
-      <path d="M50 50L70 70M70 50L50 70" stroke="#FF7E4B" strokeWidth="3" strokeLinecap="round"/>
-      <circle cx="50" cy="50" r="6" fill="#FF7E4B"/>
-      <circle cx="70" cy="70" r="6" fill="#FF7E4B"/>
-      <path d="M30 75L45 60L30 45" stroke="#FF7E4B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+  <div className="w-[120px] h-[120px] flex items-center justify-center">
+    <img
+      src="https://api.builder.io/api/v1/image/assets/TEMP/ac39b2068b7caedeaadde23e13cdccb4d55e8d73?width=240"
+      className="w-[120px] h-[120px]"
+      alt="Icon-Royalties"
+    />
   </div>
 );
 
 export const DonationsIcon = () => (
-  <div className="w-[120px] h-[120px] relative">
-    {/* Using the correct donations icon from Figma */}
-    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="45" y="40" width="30" height="40" rx="6" fill="#FF7E4B" opacity="0.8"/>
-      <rect x="40" y="50" width="40" height="6" rx="3" fill="#FF7E4B"/>
-      <circle cx="60" cy="30" r="6" fill="#FF7E4B"/>
-      <path d="M35 35L50 50M50 35L35 50" stroke="#FF7E4B" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
+  <div className="w-[120px] h-[120px] flex items-center justify-center">
+    <img
+      src="https://api.builder.io/api/v1/image/assets/TEMP/e3ce0e015be5c0fd641819cc217b896c35f09aed?width=240"
+      className="w-[120px] h-[120px]"
+      alt="Icon-Donation"
+    />
   </div>
 );
 
@@ -147,11 +142,11 @@ const getIconForTitle = (title: string) => {
 export function FundingCard(props: FundingCardProps) {
   const { title, description, isEnabled, onChange, isRecommended = false, hasLearnMore = false, onLearnMore, isFullWidth = false } = props;
 
-  const shouldShowGlow = isEnabled && title.toLowerCase() === "offer services";
+  const shouldShowGlow = !isEnabled && title.toLowerCase() === "offer services";
 
   return (
     <div
-      className={`flex flex-col justify-center items-start gap-9 p-8 rounded-[30px] bg-primaryBg transition-all duration-300 ${
+      className={`flex flex-col justify-center items-start gap-9 p-8 rounded-[30px] bg-primaryBg transition-all duration-300 hover:shadow-[0_0_16px_0_#FF7E4B] ${
         shouldShowGlow ? "shadow-[0_0_16px_0_#FF7E4B]" : ""
       } ${isFullWidth ? "self-stretch" : "flex-1"}`}
     >
