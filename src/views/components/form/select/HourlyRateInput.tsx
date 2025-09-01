@@ -13,7 +13,7 @@ interface HourlyRateInputProps extends BaseProps {
 }
 
 export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
-  const { currency, hourlyRate, onCurrencyChange, onHourlyRateChange } = props;
+  const { currency, hourlyRate, onHourlyRateChange } = props;
 
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
 
