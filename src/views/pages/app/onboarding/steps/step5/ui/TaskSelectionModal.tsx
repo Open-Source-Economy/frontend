@@ -107,7 +107,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
 
           <div className="flex justify-center items-center gap-2.5 self-stretch">
             <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">
-              {props.developerServiceEntry.service.description || "Configure this service for your projects."}
+              Configure this service for your projects.
             </p>
           </div>
         </div>
