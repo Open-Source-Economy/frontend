@@ -224,21 +224,21 @@ export function Step5(props: Step5Props) {
             </div>
             <ErrorDisplay message={apiError?.message || localError} />
           </div>
-          <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-            {groupedServices.map(({ category, developerServices }) => (
-              <ServiceCard
-                key={category}
-                category={category}
-                developerServices={developerServices}
-                projectItemNameMap={projectItemNameMap}
-                currency={props.state.currency}
-                onEditTask={handleEditTask}
-                onDeleteDeveloperService={handleDeleteDeveloperService}
+          <div className="flex flex-col gap-12 items-start self-stretch">
+            {/* Display Selected Tasks by Category */}
+            {Object.entries(tasksByCategory).map(([categoryTitle, tasks]) => (
+              <TaskCategory
+                key={categoryTitle}
+                categoryTitle={categoryTitle}
+                tasks={tasks}
+                onSelectProjects={handleSelectProjects}
+                onRemoveTask={handleRemoveTask}
+                showAddCustomTask={categoryTitle === "Other Tasks"}
+                onAddCustomTask={handleAddCustomTask}
               />
             ))}
-          </div>
 
-          <div className="flex flex-col gap-8 items-start self-stretch">
+            {/* Add Task Button */}
             <button
               onClick={() => setShowAddTaskModal(true)}
               className="flex p-3 justify-center items-center gap-2.5 rounded-md bg-[#202F45] hover:bg-[#2a3f56] transition-colors"
