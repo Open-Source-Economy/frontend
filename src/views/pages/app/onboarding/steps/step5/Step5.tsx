@@ -350,6 +350,7 @@ export function Step5(props: Step5Props) {
           onClose={handleTaskSelectionClose}
           task={currentTaskForSelection}
           currency={props.state.currency}
+          projects={props.state.developerProjectItems}
           onSave={handleTaskSelectionSave}
           onAddProject={handleAddProjectFromModal}
         />
