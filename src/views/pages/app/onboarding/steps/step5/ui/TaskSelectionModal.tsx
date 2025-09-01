@@ -191,70 +191,66 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
         </div>
 
         {/* Service Configuration Fields */}
-        {(
-          <div className="flex flex-col gap-2.5 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
-            {/* Service Name */}
-            <div className="flex flex-col items-start gap-2 self-stretch">
-              <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">Service name*</label>
-              <div className="flex items-start gap-2.5 self-stretch">
-                <input
-                  type="text"
-                  value={serviceName}
-                  onChange={e => setServiceName(e.target.value)}
-                  className="flex h-12 px-3 items-center gap-1 flex-1 rounded-md bg-[#202F45] text-white font-montserrat text-base font-normal leading-[150%] outline-none"
-                  placeholder="Enter service name"
-                />
-              </div>
+        <div className="flex flex-col gap-2.5 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
+          {/* Service Name */}
+          <div className="flex flex-col items-start gap-2 self-stretch">
+            <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">Service name*</label>
+            <div className="flex items-start gap-2.5 self-stretch">
+              <input
+                type="text"
+                value={serviceName}
+                onChange={e => setServiceName(e.target.value)}
+                className="flex h-12 px-3 items-center gap-1 flex-1 rounded-md bg-[#202F45] text-white font-montserrat text-base font-normal leading-[150%] outline-none"
+                placeholder="Enter service name"
+              />
             </div>
+          </div>
 
-            {/* Description */}
-            <div className="flex flex-col items-start gap-3 self-stretch">
-              <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">Description</label>
-              <div className="self-stretch h-24 bg-[#202F45] rounded-md p-3 relative">
-                <textarea
-                  value={serviceDescription}
-                  onChange={e => setServiceDescription(e.target.value)}
-                  className="w-full h-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none resize-none placeholder:text-white placeholder:opacity-60"
-                  placeholder="Describe the service..."
-                />
-                {/* Resize handle */}
-                <div className="absolute bottom-2 right-2 opacity-20">
-                  <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 6L1 1" stroke="white" strokeLinecap="round" />
-                    <path d="M4 6L1 3" stroke="white" strokeLinecap="round" />
-                  </svg>
-                </div>
+          {/* Description */}
+          <div className="flex flex-col items-start gap-3 self-stretch">
+            <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">Description</label>
+            <div className="self-stretch h-24 bg-[#202F45] rounded-md p-3 relative">
+              <textarea
+                value={serviceDescription}
+                onChange={e => setServiceDescription(e.target.value)}
+                className="w-full h-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none resize-none placeholder:text-white placeholder:opacity-60"
+                placeholder="Describe the service..."
+              />
+              {/* Resize handle */}
+              <div className="absolute bottom-2 right-2 opacity-20">
+                <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6L1 1" stroke="white" strokeLinecap="round" />
+                  <path d="M4 6L1 3" stroke="white" strokeLinecap="round" />
+                </svg>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* First Response Time Section */}
-        {props.task.type === TaskType.INCIDENT_RESPONSE && (
-          <div className="flex flex-col gap-2.5 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
-            <div className="flex flex-col items-start gap-3 self-stretch">
-              <div className="flex flex-col items-start">
-                <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">First Response Time</label>
-                <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">Expect sickness and vacations</span>
-              </div>
+        <div className="flex flex-col gap-2.5 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
+          <div className="flex flex-col items-start gap-3 self-stretch">
+            <div className="flex flex-col items-start">
+              <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">First Response Time</label>
+              <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">Expect sickness and vacations</span>
+            </div>
 
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-10 px-3 items-center gap-3 rounded-md bg-[#202F45]">
-                  <input
-                    type="text"
-                    value={firstResponseTime}
-                    onChange={e => setFirstResponseTime(e.target.value)}
-                    className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:opacity-60 w-16"
-                    placeholder="eg. 12"
-                  />
-                </div>
-                <div className="flex px-3 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-                  <span className="text-white font-montserrat text-base font-normal leading-[150%]">{firstResponseTimeUnit}</span>
-                </div>
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-10 px-3 items-center gap-3 rounded-md bg-[#202F45]">
+                <input
+                  type="text"
+                  value={firstResponseTime}
+                  onChange={e => setFirstResponseTime(e.target.value)}
+                  className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:opacity-60 w-16"
+                  placeholder="eg. 12"
+                />
+              </div>
+              <div className="flex px-3 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
+                <span className="text-white font-montserrat text-base font-normal leading-[150%]">{firstResponseTimeUnit}</span>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Comment Section */}
         {showComments && (
