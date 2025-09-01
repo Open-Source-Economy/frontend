@@ -13,6 +13,7 @@ interface TaskItemProps {
   task: SelectedTask;
   onSelectProjects: (task: SelectedTask) => void;
   onRemoveTask: (taskId: string) => void;
+  showError?: boolean;
 }
 
 export function TaskItem(props: TaskItemProps) {
@@ -27,6 +28,7 @@ export function TaskItem(props: TaskItemProps) {
 
             <SelectProjectsPill
               onClick={() => props.onSelectProjects(props.task)}
+              hasError={props.showError && !props.task.hasSelectedProjects}
             />
           </div>
 
@@ -36,6 +38,12 @@ export function TaskItem(props: TaskItemProps) {
             <CloseIcon />
           </IconButton>
         </div>
+
+        {props.showError && !props.task.hasSelectedProjects && (
+          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
+            * Please select projects
+          </div>
+        )}
       </div>
     </>
   );
