@@ -64,7 +64,7 @@ const TASK_CATEGORIES: TaskCategory[] = [
   },
 ];
 
-export function AddTaskModal({ isOpen, onClose, onAddTasks }: AddTaskModalProps) {
+export function AddTaskModal({ isOpen, onClose, onAddTasks, existingTaskIds = [] }: AddTaskModalProps) {
   const [selectedTasks, setSelectedTasks] = useState<TaskOption[]>([]);
 
   if (!isOpen) return null;
