@@ -1,5 +1,6 @@
 import React from "react";
 import { TaskItem, SelectedTask } from "./TaskItem";
+import { AddTaskButton } from "./ui";
 
 interface TaskCategoryProps {
   categoryTitle: string;
