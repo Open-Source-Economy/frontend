@@ -13,12 +13,7 @@ interface LargerOpportunitiesSectionProps {
 
 export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProps) {
   return (
-    <OnboardingSectionWrapper
-      title="Larger Opportunities"
-      commentValue={props.commentValue}
-      onCommentChange={props.onCommentChange}
-      error={props.error}
-    >
+    <OnboardingSectionWrapper title="Larger Opportunities" commentValue={props.commentValue} onCommentChange={props.onCommentChange} error={props.error}>
       {(showComment, commentButtonComponent) => (
         <OpportunitySelector
           id="larger-opportunities"

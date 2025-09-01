@@ -11,17 +11,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
   const [isFocused, setIsFocused] = useState(false);
 
   // Destructure custom props that shouldn't be passed to DOM
-  const {
-    label,
-    validator,
-    renderError,
-    required,
-    className,
-    onFocus,
-    onBlur,
-    onChange,
-    ...domProps
-  } = props;
+  const { label, validator, renderError, required, className, onFocus, onBlur, onChange, ...domProps } = props;
 
   const runValidation = (value: string, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;

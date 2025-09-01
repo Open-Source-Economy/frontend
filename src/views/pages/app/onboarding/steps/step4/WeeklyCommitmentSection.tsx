@@ -21,11 +21,7 @@ export function WeeklyCommitmentSection(props: WeeklyCommitmentSectionProps) {
     >
       {(showComment, commentButtonComponent) => (
         <div className="flex items-center gap-2.5 self-stretch">
-          <WeeklyCommitmentInput
-            value={props.value}
-            onChange={props.onChange}
-            error={props.error}
-          />
+          <WeeklyCommitmentInput value={props.value} onChange={props.onChange} error={props.error} />
           {commentButtonComponent}
         </div>
       )}

@@ -62,9 +62,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
       <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
         {/* Currency symbol container - matches Figma styling */}
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-            {displayedCurrencies[currency]?.symbol || "€"}
-          </span>
+          <span className="text-white font-montserrat text-base font-normal leading-[150%]">{displayedCurrencies[currency]?.symbol || "€"}</span>
         </div>
         {/* Input field - matches Figma placeholder styling */}
         <input
@@ -97,16 +95,16 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+            className={`transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
           >
-            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white"/>
+            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white" />
           </svg>
         </button>
 
         {/* Dropdown menu */}
         {isDropdownOpen && (
           <div className="absolute top-full mt-1 left-0 right-0 bg-[#202F45] rounded-md border border-[#3a4a65] z-10 shadow-lg">
-            {availableCurrencies.map((curr) => (
+            {availableCurrencies.map(curr => (
               <button
                 key={curr}
                 type="button"
