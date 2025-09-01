@@ -17,6 +17,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
 
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const runHourlyRateValidation = (currentRate: number | null, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
