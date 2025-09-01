@@ -19,7 +19,7 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
       onCommentChange={props.onCommentChange}
       error={props.error}
     >
-      {(showComment, commentInputComponent) => (
+      {(showComment, commentButtonComponent) => (
         <div className="flex flex-col justify-end items-start gap-4 self-stretch">
           <OpportunitySelector
             id="larger-opportunities"
@@ -30,7 +30,7 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
           />
           <div className="flex items-center gap-8 self-stretch">
             <div className="flex-1" />
-            {commentInputComponent}
+            {commentButtonComponent}
           </div>
         </div>
       )}
