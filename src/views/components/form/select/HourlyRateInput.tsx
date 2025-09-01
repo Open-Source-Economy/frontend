@@ -67,32 +67,17 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
           </span>
         </div>
         {/* Input field - matches Figma placeholder styling */}
-        <div className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60 flex-1">
-          {hourlyRate === null || hourlyRate === 0 ? (
-            <input
-              type="text"
-              value=""
-              onChange={e => sanitizeHourlyRateInput(e.target.value)}
-              onBlur={() => runHourlyRateValidation(hourlyRate, true)}
-              placeholder="e.g. 100"
-              className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 w-full"
-              inputMode="numeric"
-              pattern="[0-9]*[.]?[0-9]*"
-              aria-label="Hourly Rate"
-            />
-          ) : (
-            <input
-              type="text"
-              value={hourlyRate}
-              onChange={e => sanitizeHourlyRateInput(e.target.value)}
-              onBlur={() => runHourlyRateValidation(hourlyRate, true)}
-              className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none w-full"
-              inputMode="numeric"
-              pattern="[0-9]*[.]?[0-9]*"
-              aria-label="Hourly Rate"
-            />
-          )}
-        </div>
+        <input
+          type="text"
+          value={hourlyRate === null || hourlyRate === 0 ? "" : hourlyRate}
+          onChange={e => sanitizeHourlyRateInput(e.target.value)}
+          onBlur={() => runHourlyRateValidation(hourlyRate, true)}
+          placeholder="e.g. 100"
+          className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
+          inputMode="numeric"
+          pattern="[0-9]*[.]?[0-9]*"
+          aria-label="Hourly Rate"
+        />
       </div>
 
       {/* Currency dropdown container - matches Figma styling */}
