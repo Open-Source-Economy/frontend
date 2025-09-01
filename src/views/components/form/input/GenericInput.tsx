@@ -10,6 +10,19 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
   const [isTouched, setIsTouched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
+  // Destructure custom props that shouldn't be passed to DOM
+  const {
+    label,
+    validator,
+    renderError,
+    required,
+    className,
+    onFocus,
+    onBlur,
+    onChange,
+    ...domProps
+  } = props;
+
   const runValidation = (value: string, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
 
@@ -32,7 +45,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
         return runValidation(String(props.value || ""), showInputError);
       },
     }),
-    [props.value, props.required, props.validator, props.label],
+    [props.value, required, validator, label],
   );
 
   const hasValue = Boolean(props.value);
@@ -49,7 +62,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
     w-full bg-transparent outline-none
     font-montserrat font-normal text-base leading-[150%]
     text-white placeholder:text-white placeholder:opacity-60
-    ${props.className || ""}
+    ${className || ""}
   `;
 
   const inputContainerClasses = `
@@ -78,7 +91,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
       <div className="flex items-start gap-1 w-full">
         <div className="flex flex-col items-start">
           <div className={labelClasses}>
-            {props.label} {props.required && <span className="text-red-500">*</span>}
+            {label} {required && <span className="text-red-500">*</span>}
           </div>
         </div>
       </div>
@@ -88,26 +101,26 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
         <div className={inputWrapperClasses}>
           <input
             className={inputClasses}
-            {...props}
+            {...domProps}
             onFocus={e => {
               setIsFocused(true);
-              if (props.onFocus) {
-                props.onFocus(e);
+              if (onFocus) {
+                onFocus(e);
               }
             }}
             onBlur={e => {
               setIsFocused(false);
               setIsTouched(true);
-              if (props.onBlur) {
-                props.onBlur(e);
+              if (onBlur) {
+                onBlur(e);
               }
             }}
             onChange={e => {
               if (isTouched) {
                 runValidation(e.target.value, false);
               }
-              if (props.onChange) {
-                props.onChange(e);
+              if (onChange) {
+                onChange(e);
               }
             }}
           />
@@ -115,10 +128,10 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
       </div>
 
       {/* Error Message */}
-      {hasError && !props.renderError && <div className={errorMessageClasses}>{internalError}</div>}
+      {hasError && !renderError && <div className={errorMessageClasses}>{internalError}</div>}
 
       {/* Custom Error Renderer */}
-      {props.renderError && props.renderError(internalError)}
+      {renderError && renderError(internalError)}
     </div>
   );
 });
