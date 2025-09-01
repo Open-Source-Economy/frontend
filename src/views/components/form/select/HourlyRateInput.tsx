@@ -6,8 +6,6 @@ import { BaseProps, BaseRef } from "../Base";
 
 export interface HourlyRateInputRef extends BaseRef {}
 
-interface HourlyRateState {}
-
 interface HourlyRateInputProps extends BaseProps {
   currency: Currency;
   hourlyRate: number | null;
@@ -55,28 +53,30 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
   };
 
   return (
-    <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0 ">
-      <div className="box-border content-stretch flex flex-row gap-2 items-end justify-start p-0 relative shrink-0 w-full">
-        <CurrencySelectInput ref={currencySelectRef} value={currency} onChange={onCurrencyChange} {...rest} />
-
-        <div
-          className={`bg-[#202f45] box-border flex flex-row gap-2 items-center justify-between px-4 py-2.5 min-h-[50px] relative rounded-md
-          ${internalHourlyRateError ? "border border-red-500" : "border border-[#202f45]"}`}
-        >
-          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] opacity-60">{displayedCurrencies[currency]?.symbol || "$"}</span>
-          <input
-            type="text"
-            value={hourlyRate === null ? "" : hourlyRate}
-            onChange={e => sanitizeHourlyRateInput(e.target.value)}
-            onBlur={() => runHourlyRateValidation(hourlyRate, true)}
-            placeholder="0"
-            className="bg-transparent font-montserrat font-normal text-[#ffffff] text-[16px]  text-center outline-none placeholder:opacity-60 w-[4ch]"
-            inputMode="numeric"
-            pattern="[0-9]*[.]?[0-9]*"
-            aria-label="Hourly Rate"
-          />
-          <span className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-60">/hr</span>
+    <div className="flex h-12 items-center gap-2 self-stretch">
+      <div className="flex w-40 p-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
+        <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
+          <span className="text-white font-montserrat text-base font-normal leading-[1.5]">
+            {displayedCurrencies[currency]?.symbol || "$"}
+          </span>
         </div>
+        <input
+          type="text"
+          value={hourlyRate === null ? "" : hourlyRate}
+          onChange={e => sanitizeHourlyRateInput(e.target.value)}
+          onBlur={() => runHourlyRateValidation(hourlyRate, true)}
+          placeholder="e.g. 100"
+          className="bg-transparent text-white font-montserrat text-base font-normal leading-[1.5] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
+          inputMode="numeric"
+          pattern="[0-9]*[.]?[0-9]*"
+          aria-label="Hourly Rate"
+        />
+      </div>
+      <div className="flex p-3 items-center gap-3 self-stretch rounded-md bg-[#202F45]">
+        <span className="text-white font-montserrat text-base font-normal leading-[1.5]">€ (EUR)</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.2969 8.29297L12.0039 12.586L7.71087 8.29297L6.29688 9.70697L12.0039 15.414L17.7109 9.70697L16.2969 8.29297Z" fill="white"/>
+        </svg>
       </div>
       {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
     </div>

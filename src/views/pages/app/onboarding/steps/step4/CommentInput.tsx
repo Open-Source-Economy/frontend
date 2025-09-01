@@ -1,4 +1,5 @@
 import React from "react";
+import { TextArea } from "../../../../components/form/TextArea";
 
 interface CommentInputProps {
   isExpanded: boolean;
@@ -25,27 +26,26 @@ export function CommentInput(props: CommentInputProps) {
 
   if (!isExpanded) {
     return (
-      <button onClick={onToggle} className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity" title="Add comment">
+      <button 
+        onClick={onToggle} 
+        className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity" 
+        title="Add comment"
+        aria-label="Add comment"
+      >
         <CommentIcon />
       </button>
     );
   }
 
   return (
-    <div className="flex h-12 px-3 items-center gap-2 flex-1 rounded-md bg-[#202F45] relative">
-      <textarea
+    <div className="self-stretch">
+      <TextArea
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="text-white font-montserrat text-base leading-[1.5] bg-transparent outline-none placeholder:opacity-60 w-full resize-none"
-        rows={1}
+        rows={3}
+        className="w-full"
       />
-      <div className="opacity-20 flex items-center gap-1">
-        <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 6L1 1" stroke="white" strokeLinecap="round" />
-          <path d="M4 6L1 3" stroke="white" strokeLinecap="round" />
-        </svg>
-      </div>
     </div>
   );
 }
