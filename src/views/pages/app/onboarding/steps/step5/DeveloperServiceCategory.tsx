@@ -31,7 +31,7 @@ export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
 
       {/* Developer Services */}
       <div className="flex flex-col items-start self-stretch rounded-[30px]">
-        {props.groupedDeveloperServiceEntry.developerServices.map((developerServiceEntry) => (
+        {props.groupedDeveloperServiceEntry.developerServices.map(developerServiceEntry => (
           <DeveloperServiceItem
             key={developerServiceEntry.service.id.uuid}
             developerServiceEntry={developerServiceEntry}

@@ -13,7 +13,15 @@ interface TaskSelectionModalProps {
   developerServiceEntry: dto.DeveloperServiceEntry;
   currency: dto.Currency;
   projects: dto.DeveloperProjectItemEntry[];
-  onSave: (taskData: { projectIds: string[]; hourlyRate?: number; responseTime?: string; comment?: string; firstResponseTime?: string; serviceName?: string; serviceDescription?: string }) => void;
+  onSave: (taskData: {
+    projectIds: string[];
+    hourlyRate?: number;
+    responseTime?: string;
+    comment?: string;
+    firstResponseTime?: string;
+    serviceName?: string;
+    serviceDescription?: string;
+  }) => void;
   onAddProject?: () => void;
 }
 
@@ -106,9 +114,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
           </div>
 
           <div className="flex justify-center items-center gap-2.5 self-stretch">
-            <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">
-              Configure this service for your projects.
-            </p>
+            <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">Configure this service for your projects.</p>
           </div>
         </div>
 

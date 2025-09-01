@@ -14,7 +14,6 @@ interface BaseDeleteConfirmationModalProps {
 }
 
 export function BaseDeleteConfirmationModal(props: BaseDeleteConfirmationModalProps) {
-
   return (
     <>
       <ModalBackdrop isOpen={props.isOpen} onClose={props.onClose} className="relative w-full max-w-[600px] mx-4 bg-[#0E1F35] rounded-[50px] p-12">
@@ -52,7 +51,9 @@ export function BaseDeleteConfirmationModal(props: BaseDeleteConfirmationModalPr
             disabled={props.isDeleting}
             className="flex justify-center items-center gap-2.5 rounded-md px-5 py-3 bg-[#FF7E4B] hover:bg-[#e6703f] transition-colors disabled:opacity-50"
           >
-            <span className="text-white font-michroma text-base font-normal leading-[150%]">{props.isDeleting ? "Deleting..." : (props.deleteText || "Delete")}</span>
+            <span className="text-white font-michroma text-base font-normal leading-[150%]">
+              {props.isDeleting ? "Deleting..." : props.deleteText || "Delete"}
+            </span>
           </button>
         </div>
       </ModalBackdrop>

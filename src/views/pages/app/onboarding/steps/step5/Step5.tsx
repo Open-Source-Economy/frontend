@@ -116,9 +116,7 @@ export function Step5(props: Step5Props) {
       };
 
       const updatedServices = props.state.developerServices.map(entry =>
-        entry.service.id.uuid === currentServiceForSelection.service.id.uuid
-          ? { ...entry, developerService: updatedDeveloperService }
-          : entry
+        entry.service.id.uuid === currentServiceForSelection.service.id.uuid ? { ...entry, developerService: updatedDeveloperService } : entry,
       );
 
       props.updateState({ developerServices: updatedServices });
@@ -238,10 +236,7 @@ export function Step5(props: Step5Props) {
   }));
 
   // Group developer services by category
-  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(
-    serviceCategories,
-    props.state.developerServices
-  );
+  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
   return (
     <div>
@@ -255,7 +250,7 @@ export function Step5(props: Step5Props) {
           </div>
           <div className="flex flex-col gap-12 items-start self-stretch">
             {/* Display Developer Services by Category */}
-            {groupedDeveloperServices.map((groupedEntry) => (
+            {groupedDeveloperServices.map(groupedEntry => (
               <DeveloperServiceCategory
                 key={groupedEntry.category}
                 groupedDeveloperServiceEntry={groupedEntry}
