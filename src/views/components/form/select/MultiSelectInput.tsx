@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { BaseProps, BaseRef } from "../Base";
+import { formContainer, formError } from "../styles";
 
 export interface SelectOption {
   value: string;
@@ -87,11 +88,11 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
 
   const selectDisplayClasses = `
     flex justify-between items-center flex-1 bg-[#202F45] px-3 py-3 rounded-md cursor-pointer
-    ${internalError ? "border border-red-500" : ""}
+    ${internalError ? "border border-[#FF8C8C]" : ""}
   `;
 
   return (
-    <div className="flex flex-col items-start gap-0 relative w-full" ref={dropdownRef}>
+    <div className={formContainer + " relative w-full gap-0"} ref={dropdownRef}>
       {/* Input Display */}
       <div className="flex flex-col items-start gap-0 w-full">
         <div className="flex items-start gap-2.5 w-full">
@@ -173,7 +174,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
         </div>
       )}
 
-      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {internalError && <div className={formError}>{internalError}</div>}
     </div>
   );
 });

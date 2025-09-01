@@ -2,6 +2,7 @@ import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
 import { Currency } from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data";
 import { BaseProps, BaseRef } from "../Base";
+import { formError } from "../styles";
 
 export interface HourlyRateInputRef extends BaseRef {}
 
@@ -59,7 +60,9 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
       {/* Text input container - matches Figma width and padding */}
-      <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
+      <div className={`flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45] ${
+        internalHourlyRateError ? "border border-[#FF8C8C]" : ""
+      }`}>
         {/* Currency symbol container - matches Figma styling */}
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
           <span className="text-white font-montserrat text-base font-normal leading-[150%]">{displayedCurrencies[currency]?.symbol || "€"}</span>
@@ -121,7 +124,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
       </div>
 
       {/* Error message */}
-      {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
+      {internalHourlyRateError && <div className={formError}>{internalHourlyRateError}</div>}
     </div>
   );
 });

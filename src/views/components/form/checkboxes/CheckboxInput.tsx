@@ -1,5 +1,6 @@
 import React, { forwardRef, InputHTMLAttributes, Ref, useImperativeHandle, useState } from "react";
 import { BaseProps, BaseRef } from "../Base";
+import { formError } from "../styles";
 
 export interface CheckboxInputRef extends BaseRef {}
 
@@ -35,7 +36,11 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
 
   return (
     <div className="box-border content-stretch flex flex-row gap-3 items-start justify-start p-0 relative shrink-0">
-      <div className="relative bg-[#202f45] rounded-sm shrink-0 size-[18px] flex items-center justify-center cursor-pointer overflow-hidden">
+      <div
+        className={`relative bg-[#202f45] rounded-sm shrink-0 size-[18px] flex items-center justify-center cursor-pointer overflow-hidden ${
+          internalError ? "border border-[#FF8C8C]" : ""
+        }`}
+      >
         <input
           type="checkbox"
           checked={checked}
@@ -67,7 +72,7 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
           <p className="block leading-[1.1] text-nowrap whitespace-pre">{label}</p>
         </div>
       </div>
-      {renderError ? renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {renderError ? renderError(internalError) : internalError && <div className={formError}>{internalError}</div>}
     </div>
   );
 });

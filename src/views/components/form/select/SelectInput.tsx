@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, SelectHTMLAttributes, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { BaseProps, BaseRef } from "../Base";
+import { formContainer, formLabel, formError } from "../styles";
 
 export interface SelectOption {
   value: string | number;
@@ -68,32 +69,23 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
     setShowDropdown(false);
   };
 
-  const inputContainerClasses = `
-    box-border content-stretch flex flex-col gap-2 items-start justify-start
-    p-0 relative shrink-0 w-full
-  `;
+  const inputContainerClasses = formContainer;
 
   const selectDisplayClasses = `
     basis-0 bg-[#202f45] box-border content-stretch flex flex-row gap-1
     grow items-center justify-between min-h-px min-w-px p-[12px] relative rounded-md shrink-0
     cursor-pointer
-    ${internalError ? "border border-red-500" : "border border-[#202f45]"}
+    ${internalError ? "border border-[#FF8C8C]" : "border border-[#202f45]"}
   `;
 
-  const labelTextContainerClasses = `
-    font-montserrat font-normal leading-[0] relative shrink-0 text-[#ffffff]
-    text-[16px] text-left text-nowrap
-  `;
+  const labelTextContainerClasses = formLabel;
 
   return (
     <div className={inputContainerClasses} ref={dropdownRef}>
-      <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
-        <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
+      <div className="flex items-start gap-1 w-full">
+        <div className="flex flex-col items-start">
           <div className={labelTextContainerClasses}>
-            <p id={`${props.id}-label`} className="block leading-[1.5] whitespace-pre">
-              {" "}
-              {props.label} {props.required && <span className="text-red-500">*</span>}
-            </p>
+            {props.label} {props.required && <span className="text-red-500">*</span>}
           </div>
         </div>
       </div>
@@ -141,7 +133,7 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
           ))}
         </div>
       )}
-      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {internalError && <div className={formError}>{internalError}</div>}
     </div>
   );
 });

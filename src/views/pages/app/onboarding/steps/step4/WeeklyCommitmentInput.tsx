@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
+import { InputWithAddon } from "../../../../../components/form/input/InputWithAddon";
+import { NumberInput } from "../../../../../components/form/input/NumberInput";
+import { GenericInputRef } from "../../../../../components/form/input/GenericInput";
 
 interface WeeklyCommitmentInputProps {
   value: number | null | undefined;
@@ -8,34 +11,22 @@ interface WeeklyCommitmentInputProps {
 
 export function WeeklyCommitmentInput(props: WeeklyCommitmentInputProps) {
   const { value, onChange } = props;
-
-  const handleInputChange = (inputValue: string) => {
-    if (inputValue === "") {
-      onChange(undefined);
-    } else {
-      const numericValue = Number(inputValue);
-      if (!isNaN(numericValue)) {
-        onChange(numericValue);
-      }
-    }
-  };
+  const inputRef = useRef<GenericInputRef>(null);
 
   return (
-    <div className="flex items-center gap-2.5">
-      <div className="flex h-10 pl-3 items-center gap-3 rounded-md bg-[#202F45]">
-        <input
-          type="number"
-          value={value === null || value === undefined ? "" : value}
-          onChange={e => handleInputChange(e.target.value)}
-          placeholder="eg. 30"
-          className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 w-20 text-left"
-          min="0"
-          max="168"
-        />
-        <div className="flex px-3 py-3 items-center gap-3 self-stretch rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base font-normal leading-[150%]">h/w</span>
-        </div>
-      </div>
-    </div>
+    <InputWithAddon addon={<span className="text-white font-montserrat text-base font-normal leading-[150%]">h/w</span>}>
+      <NumberInput
+        ref={inputRef}
+        placeholder="eg. 30"
+        value={value ?? ""}
+        onChange={e => {
+          const val = e.target.value;
+          onChange(val === "" ? undefined : Number(val));
+        }}
+        minValue={0}
+        maxValue={168}
+        className="w-20 text-left"
+      />
+    </InputWithAddon>
   );
 }

@@ -62,7 +62,9 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
       <div className="flex items-start gap-3">
         <button
           onClick={() => handleButtonClick(option)}
-          className={`w-[18px] h-[18px] rounded-full flex items-center justify-center transition-all ${isSelected ? "bg-[#202F45] p-0.5" : "bg-[#202F45]"}`}
+          className={`w-[18px] h-[18px] rounded-full flex items-center justify-center transition-all ${
+            isSelected ? "bg-[#202F45] p-0.5" : "bg-[#202F45]"
+          } ${internalError ? "border border-[#FF8C8C]" : ""}`}
           aria-checked={isSelected}
           role="radio"
         >
@@ -93,7 +95,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         {commentButton}
       </div>
 
-      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {internalError && <div className="text-[#FF8C8C] text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

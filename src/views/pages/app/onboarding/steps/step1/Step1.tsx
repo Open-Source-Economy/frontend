@@ -7,6 +7,7 @@ import * as dto from "@open-source-economy/api-types";
 import { handleApiCall } from "../../../../../../ultils";
 
 import { EmailInput, GenericInputRef, NameInput } from "../../../../../components/form";
+import { TermsAndConditionsCheckbox } from "../../../../../components/form/checkboxes/TermsAndConditionsCheckbox";
 import { FormSection } from "./FormSection";
 import { CheckboxOption } from "./CheckboxOption";
 import { ButtonGroup } from "../../landing/components/ButtonGroup";
@@ -76,11 +77,6 @@ export default function Step1(props: Step1Props) {
     props.updateState({ [field]: value });
   };
 
-  const handleTermsClick = () => {
-    // Handle terms and conditions link click
-    window.open("/terms-and-conditions.pdf", "_blank");
-  };
-
   return (
     <>
       <FormSection>
@@ -110,12 +106,11 @@ export default function Step1(props: Step1Props) {
         </div>
 
         {/* Terms and Conditions Checkbox */}
-        <CheckboxOption
+        <TermsAndConditionsCheckbox
           checked={props.state.agreedToTerms || false}
-          onChange={checked => handleInputChange("agreedToTerms", checked)}
-          text="By submitting this form, I agree to the "
-          linkText="Terms and Conditions"
-          onLinkClick={handleTermsClick}
+          onChange={e => handleInputChange("agreedToTerms", e.target.checked)}
+          required
+          href="/terms-and-conditions.pdf"
         />
       </FormSection>
 

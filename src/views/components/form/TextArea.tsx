@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, TextareaHTMLAttributes, useImperativeHandle, useState } from "react";
 import { BaseProps, BaseRef } from "./Base";
+import { buildInputWrapperClass, formContainer, formError, formLabel } from "./styles";
 
 export interface TextAreaRef extends BaseRef {}
 
@@ -41,12 +42,6 @@ export const TextArea = forwardRef(function TextArea(props: TextAreaProps, ref: 
   const hasValue = Boolean(props.value);
   const hasError = Boolean(internalError);
 
-  // Get border class based on state
-  const getBorderClass = () => {
-    if (hasError) return "border border-[#FF8C8C]"; // Error state
-    if (isFocused || hasValue) return "border border-white"; // Active/Filling/Filled state
-    return "border-0"; // Default state
-  };
 
   const textAreaClasses = `
     w-full bg-transparent outline-none
@@ -56,26 +51,16 @@ export const TextArea = forwardRef(function TextArea(props: TextAreaProps, ref: 
     ${className || ""}
   `;
 
-  const textAreaContainerClasses = `
-    flex flex-col items-start gap-2 w-full
-  `;
+  const textAreaContainerClasses = formContainer;
 
-  const textAreaWrapperClasses = `
-    flex items-start gap-2.5 flex-1 w-full
-    bg-[#202F45] rounded-md p-3
-    ${getBorderClass()}
-    relative
-  `;
+  const textAreaWrapperClasses = buildInputWrapperClass(
+    `flex items-start gap-2.5 flex-1 w-full bg-[#202F45] rounded-md p-3 relative`,
+    { hasError, isActiveOrFilled: isFocused || hasValue },
+  );
 
-  const labelClasses = `
-    font-montserrat font-normal text-base leading-[150%]
-    text-white opacity-60
-  `;
+  const labelClasses = formLabel;
 
-  const errorMessageClasses = `
-    font-montserrat font-normal text-base leading-[150%]
-    text-[#FF8C8C] self-stretch
-  `;
+  const errorMessageClasses = formError;
 
   return (
     <div className={textAreaContainerClasses}>
