@@ -100,11 +100,24 @@ export function Step5(props: Step5Props) {
   const handleSelectProjects = (task: SelectedTask) => {
     // Here you would open a project selection modal for the specific task
     console.log("Select projects for task:", task);
-    // For now, just mark it as having selected projects
+    // For now, just mark it as having selected projects with sample data
     setSelectedTasks(prev =>
       prev.map(t =>
         t.id === task.id
-          ? { ...t, hasSelectedProjects: true }
+          ? {
+              ...t,
+              hasSelectedProjects: true,
+              selectedProjects: [
+                'organisation/repository_1',
+                'organisation/repository_2',
+                'organisation/repository_3',
+                'organisation/repository_4',
+                'organisation/repository_5',
+                '23 more...'
+              ],
+              hourlyRate: '€ 100',
+              responseTime: task.label === 'Deployment Guidance' ? '12 hours' : undefined
+            }
           : t
       )
     );
@@ -116,6 +129,11 @@ export function Step5(props: Step5Props) {
 
   const handleRemoveTask = (taskId: string) => {
     setSelectedTasks(prev => prev.filter(task => task.id !== taskId));
+  };
+
+  const handleEditTask = (task: SelectedTask) => {
+    // Here you would open the task editing modal
+    console.log("Edit task:", task);
   };
 
   const handleAddCustomTask = () => {
@@ -236,6 +254,7 @@ export function Step5(props: Step5Props) {
                 tasks={tasks}
                 onSelectProjects={handleSelectProjects}
                 onRemoveTask={handleRemoveTask}
+                onEditTask={handleEditTask}
                 showAddCustomTask={categoryTitle === "Other Tasks"}
                 onAddCustomTask={handleAddCustomTask}
                 showError={showValidationErrors}
