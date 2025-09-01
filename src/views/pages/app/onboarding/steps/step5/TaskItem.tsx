@@ -2,14 +2,25 @@ import React from "react";
 import { SelectProjectsPill, IconButton, InfoPill } from "./ui";
 import { CloseIcon, PenIcon } from "./icons";
 
+export enum TaskType {
+  STANDARD = "standard",
+  INCIDENT_RESPONSE = "incident_response",
+  CUSTOM = "custom"
+}
+
 export interface SelectedTask {
   id: string;
   label: string;
   category: string;
+  type?: TaskType;
+  description?: string;
   hasSelectedProjects?: boolean;
   selectedProjects?: string[];
   hourlyRate?: string;
   responseTime?: string;
+  firstResponseTime?: string;
+  serviceName?: string;
+  serviceDescription?: string;
 }
 
 interface TaskItemProps {
