@@ -268,6 +268,12 @@ export function Step5(props: Step5Props) {
         />
       )}
 
+      <AddTaskModal
+        isOpen={showAddTaskModal}
+        onClose={() => setShowAddTaskModal(false)}
+        onAddTasks={onAddTasks}
+      />
+
       {showUpsertDeveloperServiceModal && currentService && (
         <SelectProjectsModal
           service={currentService.service}
