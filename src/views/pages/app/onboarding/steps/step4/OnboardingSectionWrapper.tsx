@@ -47,13 +47,17 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
 
         {/* Expanded Comment Section - Full width below inputs */}
         {showComment && (
-          <div className="flex h-12 items-center gap-2 self-stretch rounded-md bg-[#202F45] p-3">
-            <CommentInput
-              isExpanded={true}
-              onToggle={() => setShowComment(!showComment)}
-              value={props.commentValue}
-              onChange={props.onCommentChange}
-            />
+          <div className="flex h-12 items-center gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
+            <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+              {props.commentValue || "Comments (only visible to Open Source Economy team)"}
+            </span>
+            {/* Resize handle */}
+            <div className="absolute bottom-2 right-2 opacity-20 pointer-events-none">
+              <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6L1 1" stroke="white" strokeLinecap="round" />
+                <path d="M4 6L1 3" stroke="white" strokeLinecap="round" />
+              </svg>
+            </div>
           </div>
         )}
 
