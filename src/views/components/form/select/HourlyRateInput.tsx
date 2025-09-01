@@ -56,23 +56,6 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
 
   const availableCurrencies = Object.keys(displayedCurrencies) as Currency[];
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen]);
-
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
       {/* Text input container */}
