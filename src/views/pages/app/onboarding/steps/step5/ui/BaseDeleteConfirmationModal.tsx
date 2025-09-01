@@ -14,7 +14,6 @@ interface BaseDeleteConfirmationModalProps {
 }
 
 export function BaseDeleteConfirmationModal(props: BaseDeleteConfirmationModalProps) {
-  const { isOpen, onClose, title, subtitle, itemDisplayName, onConfirmDelete, isDeleting = false, cancelText = "Cancel", deleteText = "Delete" } = props;
 
   return (
     <>
