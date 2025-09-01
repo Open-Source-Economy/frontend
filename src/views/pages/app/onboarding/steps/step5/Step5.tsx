@@ -82,7 +82,6 @@ export function Step5(props: Step5Props) {
 
     const updatedServices = [...props.state.developerServices, ...newServices];
     props.updateState({ developerServices: updatedServices });
-    setShowInitialServiceModal(false);
   };
 
   const onAddServices = (serviceIds: dto.ServiceId[]) => {
