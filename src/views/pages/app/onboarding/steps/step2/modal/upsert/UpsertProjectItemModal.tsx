@@ -7,7 +7,7 @@ import { ApiError } from "../../../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../../../ultils";
 import { GenericInputRef } from "../../../../../../../components/form";
 import { ModalHeader } from "./components/ModalHeader";
-import { ProjectSection } from "./components/ProjectSection";
+import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
 import { ContributionSection } from "./components/ContributionSection";
 import { ModalFooter } from "./components/ModalFooter";
 import { ProjectItemType } from "../../ProjectItemType";
@@ -22,14 +22,9 @@ interface UpsertProjectItemModalProps {
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const api = getOnboardingBackendAPI();
 
-  // Project type selection state
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(null);
+  const [projectItemData, setProjectItemData] = useState<[ProjectItemType, OwnerId | RepositoryId | string] | null>(null);
 
-  // Project input states
-  const [url, setUrl] = useState("");
-  const [selectedOrganization, setSelectedOrganization] = useState<string | null>(null);
-  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([]);
-
+  // Contribution-related states
   const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
     props.projectItem && props.projectItem.developerProjectItem.roles && props.projectItem.developerProjectItem.roles.length > 0
       ? props.projectItem.developerProjectItem.roles[0]
@@ -42,77 +37,40 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   );
 
   // Refs for custom input components
-  const projectTypeSelectRef = useRef<GenericInputRef>(null);
-  const urlInputRef = useRef<GenericInputRef>(null);
-  const organizationSelectRef = useRef<GenericInputRef>(null);
-  const repositorySelectRef = useRef<GenericInputRef>(null);
+  const projectSectionRef = useRef<ProjectSectionRef>(null);
   const roleSelectRef = useRef<GenericInputRef>(null);
   const mergeRightsSelectRef = useRef<GenericInputRef>(null);
 
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleProjectItemChange = (data: [ProjectItemType, OwnerId | RepositoryId | string] | null) => {
+    setProjectItemData(data);
+  };
+
   const handleUpsertProject = async () => {
-    // Validate inputs based on selected project type
-    const isProjectTypeValid = projectTypeSelectRef.current?.validate(true) ?? false;
+    // Call the validate method on the projectSectionRef
+    const isProjectSectionValid = projectSectionRef.current?.validate(true) ?? false;
     const isRoleValid = roleSelectRef.current?.validate(true) ?? false;
     const isMergeRightsValid = mergeRightsSelectRef.current?.validate(true) ?? false;
 
-    let isProjectInputValid = false;
-
-    switch (selectedProjectType) {
-      case ProjectItemType.URL:
-        isProjectInputValid = urlInputRef.current?.validate(true) ?? false;
-        break;
-      case ProjectItemType.GITHUB_OWNER:
-        isProjectInputValid = organizationSelectRef.current?.validate(true) ?? false;
-        break;
-      case ProjectItemType.GITHUB_REPOSITORY:
-        isProjectInputValid = (organizationSelectRef.current?.validate(true) ?? false) && (repositorySelectRef.current?.validate(true) ?? false);
-        break;
-      default:
-        isProjectInputValid = false;
-    }
-
-    if (!isProjectTypeValid || !isProjectInputValid || !isRoleValid || !isMergeRightsValid) {
+    if (!isProjectSectionValid || !isRoleValid || !isMergeRightsValid) {
       console.error("Please fill all required fields");
       return;
     }
 
+    if (!projectItemData) {
+      console.error("Project data is missing.");
+      return;
+    }
+
+    const [projectItemType, sourceIdentifier] = projectItemData;
+
     const apiCall = async () => {
       const params: dto.UpsertDeveloperProjectItemParams = {};
 
-      let sourceIdentifier: OwnerId | RepositoryId | string;
-
-      switch (selectedProjectType) {
-        case ProjectItemType.URL:
-          sourceIdentifier = url;
-          break;
-        case ProjectItemType.GITHUB_OWNER:
-          // For organization, create an OwnerId
-          if (selectedOrganization) {
-            sourceIdentifier = new OwnerId(selectedOrganization);
-          } else {
-            throw new Error("Organization not selected");
-          }
-          break;
-        case ProjectItemType.GITHUB_REPOSITORY:
-          // For repositories, we would need to create RepositoryId instances
-          // This is simplified for now - in a real implementation,
-          // you'd need the full repository data including owner info
-          if (selectedOrganization && selectedRepositories.length > 0) {
-            const ownerIdForRepo = new OwnerId(selectedOrganization);
-            sourceIdentifier = new RepositoryId(ownerIdForRepo, selectedRepositories[0]);
-          } else {
-            throw new Error("Repository selection incomplete");
-          }
-          break;
-        default:
-          throw new Error("Invalid project type selected");
-      }
-
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItemType: selectedProjectType as any, // Cast to match API types
+        projectItemType: projectItemType,
         sourceIdentifier: sourceIdentifier,
         roles: selectedRole ? [selectedRole] : [],
         mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
@@ -152,14 +110,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             />
 
             {/* Project Section */}
-            <ProjectSection
-              selectedProjectType={selectedProjectType}
-              onProjectTypeChange={setSelectedProjectType}
-              projectTypeSelectRef={projectTypeSelectRef}
-              url={url}
-              onUrlChange={setUrl}
-              urlInputRef={urlInputRef}
-            />
+            <ProjectSection ref={projectSectionRef} onProjectItemChange={handleProjectItemChange} />
 
             {/* Contribution Section */}
             <ContributionSection
