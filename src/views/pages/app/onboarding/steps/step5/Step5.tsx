@@ -105,14 +105,14 @@ export function Step5(props: Step5Props) {
   }) => {
     if (currentServiceForSelection) {
       const updatedDeveloperService: dto.DeveloperService = {
+        id: currentServiceForSelection.developerService?.id || new dto.DeveloperServiceId("temp-id"),
+        developerProfileId: new dto.DeveloperProfileId("temp-profile-id"),
         serviceId: currentServiceForSelection.service.id,
-        projectIds: taskData.projectIds.map(id => ({ uuid: id })),
+        projectItemIds: taskData.projectIds.map(id => new dto.ProjectItemId(id)),
         hourlyRate: taskData.hourlyRate || 100,
-        responseTime: taskData.responseTime,
-        comment: taskData.comment,
-        firstResponseTime: taskData.firstResponseTime,
-        serviceName: taskData.serviceName,
-        serviceDescription: taskData.serviceDescription,
+        responseTimeHours: taskData.responseTime as any,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       const updatedServices = props.state.developerServices.map(entry =>
