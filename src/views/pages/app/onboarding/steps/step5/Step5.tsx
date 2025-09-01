@@ -17,7 +17,6 @@ import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDevelo
 import { ProjectItemIdCompanion } from "../../../../../data";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
-import { ServiceCard } from "./ServiceCard";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
@@ -29,7 +28,7 @@ interface ServiceCategory {
 // --- Main Component ---
 export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-  const [projectItems, setProjectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
+  const [projectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -69,7 +68,7 @@ export function Step5(props: Step5Props) {
     };
 
     fetchInitialData();
-  }, []);
+  }, [api]);
 
   const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
     const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
@@ -166,25 +165,6 @@ export function Step5(props: Step5Props) {
     console.log("Add custom task");
   };
 
-  const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
-    setLocalError(null);
-    setApiError(null);
-    setIsLoading(true);
-
-    const apiCall = async () => {
-      const params: dto.DeleteDeveloperServiceParams = {};
-      const body: dto.DeleteDeveloperServiceBody = { serviceId };
-      const query: dto.DeleteDeveloperServiceQuery = {};
-      return await api.deleteDeveloperService(params, body, query);
-    };
-
-    const onSuccess = () => {
-      const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
-      props.updateState({ developerServices: updatedServices });
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  };
 
   const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
     setCurrentService(serviceEntry);
@@ -236,12 +216,6 @@ export function Step5(props: Step5Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const groupedServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
-
-  // Pre-compute project names for better performance
-  const projectItemNameMap = new Map(
-    projectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
-  );
 
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
   const filteredServiceCategories = serviceCategories.map(category => ({
