@@ -4,7 +4,7 @@ interface IconButtonProps {
   onClick: () => void;
   children: React.ReactNode;
   className?: string;
-  variant?: "default" | "danger";
+  variant?: "default" | "danger" | "rounded";
 }
 
 export function IconButton(props: IconButtonProps) {
