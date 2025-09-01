@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ModalBackdrop } from "./ModalBackdrop";
 import { CloseIcon, PenIcon } from "../icons";
-import { HourlyRateInput } from "../../../../../components/form/select/HourlyRateInput";
+import { HourlyRateInput } from "../../../../../../components/form/select/HourlyRateInput";
 import { Currency } from "@open-source-economy/api-types";
 import { SelectedTask } from "../TaskItem";
 
@@ -37,7 +37,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
   const [hourlyRate, setHourlyRate] = useState<number | null>(100);
   const [currency, setCurrency] = useState<Currency>(props.currency);
   const [comment, setComment] = useState("");
-  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
+  const [selectedProjects] = useState<string[]>([]);
 
   const handleSave = () => {
     props.onSave({
@@ -149,7 +149,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
                 <HourlyRateInput
                   currency={currency}
                   hourlyRate={hourlyRate}
-                  onCurrencyChange={(newCurrency) => setCurrency(newCurrency || currency)}
+                  onCurrencyChange={(newCurrency: Currency | null) => setCurrency(newCurrency || currency)}
                   onHourlyRateChange={setHourlyRate}
                 />
               </div>
