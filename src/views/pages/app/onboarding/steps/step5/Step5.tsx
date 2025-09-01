@@ -13,8 +13,7 @@ import { Step5State } from "../../OnboardingDataSteps";
 import { AddTaskButton, LoadingSpinner, DeleteTaskModal } from "./ui";
 import SelectProjectsModal from "./SelectProjectsModal";
 
-import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
-import { ProjectItemIdCompanion } from "../../../../../data";
+import { buildServiceCategories } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
 
