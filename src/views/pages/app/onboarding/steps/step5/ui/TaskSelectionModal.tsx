@@ -5,7 +5,7 @@ import { HourlyRateInput } from "src/views/components/form/select/HourlyRateInpu
 import { MultiSelectInput, SelectOption } from "src/views/components/form/select/MultiSelectInput";
 import { Currency, DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { SelectedTask, TaskType } from "../TaskItem";
-import { ProjectItemIdCompanion } from "../../../../../../data";
+import { ProjectItemIdCompanion } from "../../../../../data";
 import { ProjectNotOnListModal } from "./ProjectNotOnListModal";
 
 interface TaskSelectionModalProps {
