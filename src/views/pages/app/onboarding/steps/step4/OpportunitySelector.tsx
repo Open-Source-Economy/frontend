@@ -90,6 +90,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         <RadioOption option={OpenToOtherOpportunityType.YES} label="Yes" />
         <RadioOption option={OpenToOtherOpportunityType.MAYBE} label="Maybe" />
         <RadioOption option={OpenToOtherOpportunityType.NO} label="No" />
+        {commentButton}
       </div>
 
       {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
