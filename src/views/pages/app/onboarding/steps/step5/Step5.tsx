@@ -103,10 +103,31 @@ export function Step5(props: Step5Props) {
     setShowInitialServiceModal(false);
   };
 
-  const onAddTasks = (selectedTasks: any[]) => {
-    // For now, just close the modal - you can add logic to handle selected tasks
-    console.log("Selected tasks:", selectedTasks);
+  const onAddTasks = (newTasks: SelectedTask[]) => {
+    setSelectedTasks(prev => [...prev, ...newTasks]);
     setShowAddTaskModal(false);
+  };
+
+  const handleSelectProjects = (task: SelectedTask) => {
+    // Here you would open a project selection modal for the specific task
+    console.log("Select projects for task:", task);
+    // For now, just mark it as having selected projects
+    setSelectedTasks(prev =>
+      prev.map(t =>
+        t.id === task.id
+          ? { ...t, hasSelectedProjects: true }
+          : t
+      )
+    );
+  };
+
+  const handleRemoveTask = (taskId: string) => {
+    setSelectedTasks(prev => prev.filter(task => task.id !== taskId));
+  };
+
+  const handleAddCustomTask = () => {
+    // Open custom task creation modal or inline form
+    console.log("Add custom task");
   };
 
   const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
