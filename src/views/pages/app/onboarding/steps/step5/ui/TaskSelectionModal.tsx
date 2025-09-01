@@ -3,14 +3,16 @@ import { ModalBackdrop } from "./ModalBackdrop";
 import { CloseIcon, PenIcon } from "../icons";
 import { HourlyRateInput } from "src/views/components/form/select/HourlyRateInput";
 import { MultiSelectInput, SelectOption } from "src/views/components/form/select/MultiSelectInput";
-import { Currency } from "@open-source-economy/api-types";
+import { Currency, DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { SelectedTask } from "../TaskItem";
+import { ProjectItemIdCompanion } from "../../../../../data";
 
 interface TaskSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
   task: SelectedTask;
   currency: Currency;
+  projects: DeveloperProjectItemEntry[];
   onSave: (taskData: {
     projectIds: string[];
     hourlyRate?: number;
@@ -42,14 +44,14 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
 
-  // Sample project options - in real app this would come from props or API
+  // Transform real project data into SelectOption format
   const projectOptions: SelectOption[] = [
     { value: "all", label: "All projects", isAllOption: true },
-    { value: "org1/repo1", label: "organisation/repository_1", hasIcon: true },
-    { value: "org1/repo2", label: "organisation/repository_2", hasIcon: true },
-    { value: "org1", label: "organisation_1", hasIcon: true },
-    { value: "org1/repo3", label: "organisation/repository_3", hasIcon: true },
-    { value: "org1/repo4", label: "organisation/repository_4", hasIcon: true },
+    ...props.projects.map(entry => ({
+      value: entry.developerProjectItem.id.uuid,
+      label: ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier),
+      hasIcon: true,
+    })),
     { value: "add", label: "Add different project", isAddOption: true },
   ];
 
@@ -99,7 +101,7 @@ export function TaskSelectionModal(props: TaskSelectionModalProps) {
           
           <div className="flex justify-center items-center gap-2.5 self-stretch">
             <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">
-              Fix a bug on an open source project. List the projects you're involved with.
+              {props.task.description || "Fix a bug on an open source project. List the projects you're involved with."}
             </p>
           </div>
         </div>
