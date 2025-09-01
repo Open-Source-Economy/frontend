@@ -121,9 +121,9 @@ export function AddTaskModal({ isOpen, onClose, onAddTasks }: AddTaskModalProps)
         {/* Task Categories */}
         <div className="flex flex-col gap-4 mb-8">
           {TASK_CATEGORIES.map((category) => (
-            <div 
+            <div
               key={category.id}
-              className="flex p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]"
+              className="flex p-4 md:p-8 flex-col justify-end items-end gap-4 self-stretch rounded-[30px] bg-[#14233A]"
             >
               {/* Category Title */}
               <div className="flex flex-col items-center gap-1 self-stretch">
