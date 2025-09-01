@@ -108,6 +108,10 @@ export function Step5(props: Step5Props) {
           : t
       )
     );
+
+    // Clear validation errors if this was the last task without projects
+    setShowValidationErrors(false);
+    setLocalError(null);
   };
 
   const handleRemoveTask = (taskId: string) => {
