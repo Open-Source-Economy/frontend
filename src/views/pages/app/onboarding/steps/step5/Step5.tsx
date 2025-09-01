@@ -18,11 +18,6 @@ import { Button } from "../../../../../components/elements/Button";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
-interface ServiceCategory {
-  service: dto.Service;
-  services: dto.Service[];
-}
-
 // --- Main Component ---
 export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
