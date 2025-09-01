@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useImperativeHandle, useState, useEffect, useRef } from "react";
+import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
 import { Currency } from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data";
 import { BaseProps, BaseRef } from "../Base";
