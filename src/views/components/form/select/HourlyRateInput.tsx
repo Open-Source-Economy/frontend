@@ -99,7 +99,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
       </div>
 
       {/* Currency dropdown container */}
-      <div className="relative">
+      <div ref={dropdownRef} className="relative">
         <button
           type="button"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
