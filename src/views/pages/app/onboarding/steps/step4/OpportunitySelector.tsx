@@ -16,7 +16,7 @@ interface OpportunitySelectorProps {
 }
 
 export const OpportunitySelector = forwardRef(function OpportunitySelector(props: OpportunitySelectorProps, ref: Ref<OpportunitySelectorRef>) {
-  const { id, label, value, onChange, required, forceValidate } = props;
+  const { id, label, value, onChange, required, forceValidate, commentButton } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
 
   const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
