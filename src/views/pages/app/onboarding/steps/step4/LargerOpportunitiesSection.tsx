@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { OpportunitySelector } from "./OpportunitySelector";
-import { CommentInput } from "./CommentInput";
+import { OnboardingSectionWrapper } from "./OnboardingSectionWrapper";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 interface LargerOpportunitiesSectionProps {
@@ -12,19 +12,15 @@ interface LargerOpportunitiesSectionProps {
 }
 
 export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProps) {
-  const [showComment, setShowComment] = useState(false);
-
   return (
-    <div className="flex flex-col justify-end items-end gap-2.5 self-stretch p-9 rounded-[30px] bg-primaryBg">
-      <div className="flex flex-col items-center gap-1 self-stretch">
-        <div className="flex flex-col items-start gap-4 self-stretch">
-          <h2 className="self-stretch text-white font-montserrat text-2xl font-normal leading-[1.3]">
-            Larger Opportunities
-          </h2>
-        </div>
-      </div>
-
-      <div className="flex flex-col justify-end items-start gap-4 self-stretch">
+    <OnboardingSectionWrapper
+      title="Larger Opportunities"
+      subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
+      commentValue={props.commentValue}
+      onCommentChange={props.onCommentChange}
+      error={props.error}
+    >
+      {(showComment, commentInputComponent) => (
         <div className="flex flex-col justify-end items-start gap-4 self-stretch">
           <OpportunitySelector
             id="larger-opportunities"
@@ -35,16 +31,10 @@ export function LargerOpportunitiesSection(props: LargerOpportunitiesSectionProp
           />
           <div className="flex items-center gap-8 self-stretch">
             <div className="flex-1" />
-            <CommentInput
-              isExpanded={showComment}
-              onToggle={() => setShowComment(!showComment)}
-              value={props.commentValue}
-              onChange={props.onCommentChange}
-            />
+            {commentInputComponent}
           </div>
         </div>
-        {props.error && <div className="text-red-400 text-sm">{props.error}</div>}
-      </div>
-    </div>
+      )}
+    </OnboardingSectionWrapper>
   );
 }
