@@ -7,7 +7,7 @@ interface WeeklyCommitmentInputProps {
 }
 
 export function WeeklyCommitmentInput(props: WeeklyCommitmentInputProps) {
-  const { value, onChange, error } = props;
+  const { value, onChange } = props;
 
   const handleInputChange = (inputValue: string) => {
     if (inputValue === "") {
