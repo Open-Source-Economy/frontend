@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SelectedTask } from "./TaskItem";
+import { ModalBackdrop, ModalHeader, Checkbox } from "./ui";
 
 interface TaskOption {
   id: string;
