@@ -1,19 +1,32 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, Ref, useRef, useState } from "react";
 import { GenericInputRef, ProjectItemTypeSelectInput, UrlInput } from "../../../../../../../../components/form";
 import { ProjectItemType } from "../../../ProjectItemType";
+import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import { BaseRef } from "../../../../../../../../components/form/Base";
+
+export interface ProjectSectionRef extends BaseRef {}
 
 interface ProjectSectionProps {
-  selectedProjectType: ProjectItemType | null;
-  onProjectTypeChange: (type: ProjectItemType | null) => void;
-  projectTypeSelectRef: React.RefObject<GenericInputRef>;
-
-  // URL input (for URL type)
-  url: string;
-  onUrlChange: (url: string) => void;
-  urlInputRef: React.RefObject<GenericInputRef>;
+  onProjectItemChange: (type: [ProjectItemType, OwnerId | RepositoryId | string] | null) => void;
 }
 
-export function ProjectSection(props: ProjectSectionProps) {
+export const ProjectSection = forwardRef(function ProjectSection(props: ProjectSectionProps, ref: Ref<ProjectSectionRef>) {
+  const [url, setUrl] = useState("");
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(null);
+
+  const projectTypeSelectRef = useRef<GenericInputRef>(null);
+  const urlInputRef = useRef<GenericInputRef>(null);
+
+  useImperativeHandle(ref, () => ({
+    validate: (showInputError: boolean) => {
+      let isUrlValid = true;
+      if (selectedProjectType === ProjectItemType.URL) {
+        isUrlValid = urlInputRef.current?.validate(showInputError) ?? false;
+      }
+      return isUrlValid && (projectTypeSelectRef.current?.validate(true) ?? false);
+    },
+  }));
+
   return (
     <div className="flex p-9 flex-col justify-end items-end gap-2.5 self-stretch rounded-[30px] bg-[#14233A]">
       <div className="flex flex-col items-center gap-1 self-stretch">
@@ -29,16 +42,16 @@ export function ProjectSection(props: ProjectSectionProps) {
             name="repositoryUrl"
             label="Your project"
             required
-            value={props.url}
-            onChange={e => props.onUrlChange(e.target.value)}
+            value={url}
+            onChange={e => setUrl(e.target.value)}
             placeholder="https://github.com/organisation/repository"
-            ref={props.urlInputRef}
+            ref={urlInputRef}
           />
           <div className="flex flex-col items-start gap-2 self-stretch">
-            <ProjectItemTypeSelectInput value={props.selectedProjectType} onChange={props.onProjectTypeChange} required ref={props.projectTypeSelectRef} />
+            <ProjectItemTypeSelectInput value={selectedProjectType} onChange={setSelectedProjectType} required ref={projectTypeSelectRef} />
           </div>
         </div>
       </div>
     </div>
   );
-}
+});
