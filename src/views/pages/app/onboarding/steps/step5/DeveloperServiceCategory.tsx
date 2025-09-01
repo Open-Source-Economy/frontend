@@ -14,18 +14,8 @@ interface DeveloperServiceCategoryProps {
   showError?: boolean;
 }
 
-export function DeveloperServiceCategory({
-  groupedDeveloperServiceEntry,
-  onSelectProjects,
-  onRemoveDeveloperService,
-  onEditDeveloperService,
-  showAddCustomService = false,
-  onAddCustomService,
-  showError = false,
-}: DeveloperServiceCategoryProps) {
-  const { category, developerServices } = groupedDeveloperServiceEntry;
-
-  if (developerServices.length === 0 && !showAddCustomService) {
+export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
+  if (props.groupedDeveloperServiceEntry.developerServices.length === 0 && !props.showAddCustomService) {
     return null;
   }
 
