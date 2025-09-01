@@ -273,7 +273,7 @@ export function Step5(props: Step5Props) {
             <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
               Back
             </Button>
-            <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+            <Button onClick={handleNext} disabled={selectedTasks.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? (
                 <>
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
