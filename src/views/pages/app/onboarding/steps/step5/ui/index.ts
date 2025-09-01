@@ -5,3 +5,4 @@ export { SelectProjectsPill } from "./SelectProjectsPill";
 export { AddTaskButton } from "./AddTaskButton";
 export { ModalHeader } from "./ModalHeader";
 export { IconButton } from "./IconButton";
+export { InfoPill } from "./InfoPill";
