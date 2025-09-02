@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ResponseTimeType } from "@open-source-economy/api-types/dist/model";
 
 interface ResponseTimeSectionProps {
@@ -6,15 +6,59 @@ interface ResponseTimeSectionProps {
   onChange: (value: ResponseTimeType | null) => void;
 }
 
+// Map ResponseTimeType enum values to hours for display
+const responseTimeToHours = (responseTime: ResponseTimeType): string => {
+  switch (responseTime) {
+    case ResponseTimeType.FourHours:
+      return "4";
+    case ResponseTimeType.TwelveHours:
+      return "12";
+    case ResponseTimeType.OneBusinessDay:
+      return "24";
+    case ResponseTimeType.TwoBusinessDays:
+      return "48";
+    case ResponseTimeType.ThreeBusinessDays:
+      return "72";
+    case ResponseTimeType.FourBusinessDays:
+      return "96";
+    case ResponseTimeType.FiveBusinessDays:
+      return "120";
+    case ResponseTimeType.SevenBusinessDays:
+      return "168";
+    default:
+      return "";
+  }
+};
+
+// Map hours input to closest ResponseTimeType enum value
+const hoursToResponseTime = (hours: number): ResponseTimeType => {
+  if (hours <= 4) return ResponseTimeType.FourHours;
+  if (hours <= 12) return ResponseTimeType.TwelveHours;
+  if (hours <= 24) return ResponseTimeType.OneBusinessDay;
+  if (hours <= 48) return ResponseTimeType.TwoBusinessDays;
+  if (hours <= 72) return ResponseTimeType.ThreeBusinessDays;
+  if (hours <= 96) return ResponseTimeType.FourBusinessDays;
+  if (hours <= 120) return ResponseTimeType.FiveBusinessDays;
+  return ResponseTimeType.SevenBusinessDays;
+};
+
 export function ResponseTimeSection(props: ResponseTimeSectionProps) {
-  const [inputValue, setInputValue] = useState<string>(props.value?.toString() || "");
+  const [inputValue, setInputValue] = useState<string>("");
+
+  // Initialize input value from props
+  useEffect(() => {
+    if (props.value) {
+      setInputValue(responseTimeToHours(props.value));
+    } else {
+      setInputValue("");
+    }
+  }, [props.value]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
-    // Convert string to ResponseTimeType (assuming it's a number in hours)
     const numericValue = parseInt(value);
     if (!isNaN(numericValue) && numericValue > 0) {
-      props.onChange(numericValue as ResponseTimeType);
+      props.onChange(hoursToResponseTime(numericValue));
     } else if (value === "") {
       props.onChange(null);
     }
