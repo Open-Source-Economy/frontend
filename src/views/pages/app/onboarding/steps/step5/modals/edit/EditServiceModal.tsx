@@ -4,12 +4,7 @@ import * as dto from "@open-source-economy/api-types";
 import { HourlyRateInput } from "../../../../../../components/form/select/HourlyRateInput";
 import { MultiSelectInput, SelectOption } from "../../../../../../components/form/select/MultiSelectInput";
 import { ProjectItemIdCompanion } from "../../../../../../../data";
-import { 
-  Tooltip, 
-  CommentSection, 
-  FirstResponseTimeSection, 
-  UnifiedCommentSection 
-} from "./components";
+import { Tooltip, CommentSection, FirstResponseTimeSection, UnifiedCommentSection } from "./components";
 import { ModalBackdrop } from "../../ui/ModalBackdrop";
 import { CloseIcon, PenIcon } from "../../icons";
 import { ProjectNotOnListModal } from "../../ui/ProjectNotOnListModal";
