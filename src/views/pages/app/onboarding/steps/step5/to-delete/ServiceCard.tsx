@@ -1,14 +1,14 @@
 import React from "react";
-import { displayedCurrencies } from "../../../../../data";
+import { displayedCurrencies } from "../../../../../../data";
 import { Currency, DeveloperServiceEntry, ServiceId } from "@open-source-economy/api-types";
-import { CloseIcon } from "../step3/FundingCard";
+import { CloseIcon } from "../../step3/FundingCard";
 
 interface ServiceCardProps {
   category: string;
   developerServices: DeveloperServiceEntry[];
   projectItemNameMap: Map<string, string>;
   currency: Currency;
-  onEditTask: (entry: DeveloperServiceEntry) => void;
+  onEditService: (entry: DeveloperServiceEntry) => void;
   onDeleteDeveloperService: (serviceId: ServiceId) => void;
 }
 
@@ -59,7 +59,7 @@ export function ServiceCard(props: ServiceCardProps) {
 
               <div className="flex flex-row gap-2 items-center">
                 <button
-                  onClick={() => entry.developerService && props.onEditTask(entry)}
+                  onClick={() => entry.developerService && props.onEditService(entry)}
                   className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors p-1"
                   title="Edit Service"
                 >

@@ -36,7 +36,7 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
     { step: 2, label: "Your Involvement" },
     { step: 3, label: "Active Income" },
     { step: 4, label: "Availability & Rate" },
-    { step: 5, label: "Tasks & Preferences" },
+    { step: 5, label: "Services & Preferences" },
   ];
 
   return (

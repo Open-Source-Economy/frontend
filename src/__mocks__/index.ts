@@ -161,6 +161,19 @@ export const serviceHierarchy: dto.ServiceHierarchyItem[] = [
     level: 1,
     ancestors: [devCategoryId],
   },
+  {
+    service: {
+      id: new dto.ServiceId("custom-service-id"),
+      name: "Custom Service",
+      parentId: devCategoryId,
+      isCustom: true,
+      hasResponseTime: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    level: 1,
+    ancestors: [devCategoryId],
+  },
 ];
 
 export const developerBugFixingService: dto.DeveloperServiceEntry = {

@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 
-interface ServiceCategory {
+export interface ServiceCategory {
   service: dto.Service;
   services: dto.Service[];
 }

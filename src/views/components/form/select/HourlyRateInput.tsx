@@ -8,13 +8,11 @@ export interface HourlyRateInputRef extends BaseRef {}
 interface HourlyRateInputProps extends BaseProps {
   currency: Currency;
   hourlyRate: number | null;
-  onCurrencyChange: (currency: Currency | null) => void;
+  onCurrencyChange?: (currency: Currency | null) => void;
   onHourlyRateChange: (value: number) => void;
 }
 
 export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
-  const { currency, hourlyRate, onHourlyRateChange, onCurrencyChange } = props;
-
   const [internalHourlyRateError, setInternalHourlyRateError] = useState<string | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -34,42 +32,41 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     ref,
     () => ({
       validate: (showInputError: boolean) => {
-        const isHourlyRateValid = runHourlyRateValidation(hourlyRate, true);
+        const isHourlyRateValid = runHourlyRateValidation(props.hourlyRate, true);
         return isHourlyRateValid;
       },
     }),
-    [hourlyRate],
+    [props.hourlyRate],
   );
 
   const sanitizeHourlyRateInput = (inputValue: string) => {
     const numericValue = inputValue.match(/^\d*\.?\d*$/)?.[0] || "";
-    onHourlyRateChange(Number(numericValue));
+    props.onHourlyRateChange(Number(numericValue));
     if (internalHourlyRateError && runHourlyRateValidation(parseFloat(numericValue), false)) {
       setInternalHourlyRateError(undefined);
     }
   };
 
   const handleCurrencySelect = (selectedCurrency: Currency) => {
-    onCurrencyChange(selectedCurrency);
-    setIsDropdownOpen(false);
+    if (props.onCurrencyChange) {
+      props.onCurrencyChange(selectedCurrency);
+      setIsDropdownOpen(false);
+    }
   };
 
   const availableCurrencies = Object.keys(displayedCurrencies) as Currency[];
 
   return (
     <div className="flex h-12 items-center gap-2 self-stretch">
-      {/* Text input container - matches Figma width and padding */}
       <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
-        {/* Currency symbol container - matches Figma styling */}
         <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base font-normal leading-[150%]">{displayedCurrencies[currency]?.symbol || "€"}</span>
+          <span className="text-white font-montserrat text-base font-normal leading-[150%]">{displayedCurrencies[props.currency]?.symbol || "€"}</span>
         </div>
-        {/* Input field - matches Figma placeholder styling */}
         <input
           type="text"
-          value={hourlyRate === null || hourlyRate === 0 ? "" : hourlyRate}
+          value={props.hourlyRate === null || props.hourlyRate === 0 ? "" : props.hourlyRate}
           onChange={e => sanitizeHourlyRateInput(e.target.value)}
-          onBlur={() => runHourlyRateValidation(hourlyRate, true)}
+          onBlur={() => runHourlyRateValidation(props.hourlyRate, true)}
           placeholder="e.g. 100"
           className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
           inputMode="numeric"
@@ -78,7 +75,6 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         />
       </div>
 
-      {/* Currency dropdown container - matches Figma styling */}
       <div className="relative">
         <button
           type="button"
@@ -87,7 +83,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
           className="flex px-3 py-0 items-center gap-3 self-stretch h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
         >
           <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-            {displayedCurrencies[currency]?.symbol} ({displayedCurrencies[currency]?.code})
+            {displayedCurrencies[props.currency]?.symbol} ({displayedCurrencies[props.currency]?.code})
           </span>
           <svg
             width="24"
@@ -101,7 +97,6 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
           </svg>
         </button>
 
-        {/* Dropdown menu */}
         {isDropdownOpen && (
           <div className="absolute top-full mt-1 left-0 right-0 bg-[#202F45] rounded-md border border-[#3a4a65] z-10 shadow-lg">
             {availableCurrencies.map(curr => (
@@ -120,7 +115,6 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         )}
       </div>
 
-      {/* Error message */}
       {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
     </div>
   );

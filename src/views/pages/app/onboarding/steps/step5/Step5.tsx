@@ -5,48 +5,35 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
-import { InitialServiceSelection } from "./InitialServiceSelection";
+import { AddServiceModal } from "./AddServiceModal";
+import { DeveloperServiceCategory } from "./DeveloperServiceCategory";
 import { Step5State } from "../../OnboardingDataSteps";
-import SelectProjectsModal from "./SelectProjectsModal";
+import { AddServiceButton, LoadingSpinner, DeleteDeveloperServiceModal, EditServiceModal } from "./ui";
+import SelectProjectsModal from "./to-delete/SelectProjectsModal";
 
-import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
-import { ProjectItemIdCompanion } from "../../../../../data";
+import { buildServiceCategories, ServiceCategory, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
-import { ServiceCard } from "./ServiceCard";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
-
-// --- Inline SVG Components ---
-const CloseIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const AddIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-interface ServiceCategory {
-  service: dto.Service;
-  services: dto.Service[];
-}
 
 // --- Main Component ---
 export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-  const [projectItems, setProjectItems] = useState<dto.DeveloperProjectItemEntry[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
-  const [showInitialServiceModal, setShowInitialServiceModal] = useState(false);
+  const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [isDeletingService, setIsDeletingService] = useState(false);
+  const [showServiceSelectionModal, setShowServiceSelectionModal] = useState(false);
+  const [currentServiceForSelection, setCurrentServiceForSelection] = useState<dto.DeveloperServiceEntry | null>(null);
 
   const api = getOnboardingBackendAPI();
 
@@ -95,35 +82,109 @@ export function Step5(props: Step5Props) {
 
     const updatedServices = [...props.state.developerServices, ...newServices];
     props.updateState({ developerServices: updatedServices });
-    setShowInitialServiceModal(false);
   };
 
-  const handleDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
-    setLocalError(null);
-    setApiError(null);
-    setIsLoading(true);
+  const onAddServices = (serviceIds: dto.ServiceId[]) => {
+    onAddInitialServices(serviceIds);
+    setShowAddServiceModal(false);
+  };
 
-    const apiCall = async () => {
-      const params: dto.DeleteDeveloperServiceParams = {};
-      const body: dto.DeleteDeveloperServiceBody = { serviceId };
-      const query: dto.DeleteDeveloperServiceQuery = {};
-      return await api.deleteDeveloperService(params, body, query);
-    };
+  const handleSelectProjects = (entry: dto.DeveloperServiceEntry) => {
+    setCurrentServiceForSelection(entry);
+    setShowServiceSelectionModal(true);
+  };
 
-    const onSuccess = () => {
-      const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
+  const handleServiceSelectionSave = (serviceData: {
+    projectIds: string[];
+    hourlyRate?: number;
+    responseTime?: string;
+    comment?: string;
+    firstResponseTime?: string;
+    serviceName?: string;
+    serviceDescription?: string;
+  }) => {
+    if (currentServiceForSelection) {
+      const updatedDeveloperService: dto.DeveloperService = {
+        id: currentServiceForSelection.developerService?.id || new dto.DeveloperServiceId("temp-id"),
+        developerProfileId: new dto.DeveloperProfileId("temp-profile-id"),
+        serviceId: currentServiceForSelection.service.id,
+        projectItemIds: serviceData.projectIds.map(id => new dto.ProjectItemId(id)),
+        hourlyRate: serviceData.hourlyRate || 100,
+        responseTimeHours: serviceData.responseTime as any,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      const updatedServices = props.state.developerServices.map(entry =>
+        entry.service.id.uuid === currentServiceForSelection.service.id.uuid ? { ...entry, developerService: updatedDeveloperService } : entry,
+      );
+
       props.updateState({ developerServices: updatedServices });
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      setShowServiceSelectionModal(false);
+      setCurrentServiceForSelection(null);
+      setShowValidationErrors(false);
+      setLocalError(null);
+    }
   };
 
-  const handleEditTask = (serviceEntry: dto.DeveloperServiceEntry) => {
-    setCurrentService(serviceEntry);
-    setShowUpsertDeveloperServiceModal(true);
+  const handleServiceSelectionClose = () => {
+    setShowServiceSelectionModal(false);
+    setCurrentServiceForSelection(null);
   };
 
-  const handleUpdateTask = (updatedDevService: dto.DeveloperService) => {
+  const handleAddProjectFromModal = () => {
+    // Close the modal and navigate back to Step 2 to add projects
+    setShowServiceSelectionModal(false);
+    setCurrentServiceForSelection(null);
+    // Navigate back to Step 2 to add projects
+    props.onBack?.();
+    props.onBack?.(); // Call twice to go from Step 5 to Step 2
+  };
+
+  const handleRemoveDeveloperService = (serviceId: dto.ServiceId) => {
+    const serviceEntry = props.state.developerServices.find(entry => entry.service.id.uuid === serviceId.uuid);
+    if (serviceEntry) {
+      setServiceToDelete(serviceEntry);
+      setShowDeleteDeveloperServiceModal(true);
+    }
+  };
+
+  const handleConfirmDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
+    setIsDeletingService(true);
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
+    props.updateState({ developerServices: updatedServices });
+    setShowDeleteDeveloperServiceModal(false);
+    setServiceToDelete(null);
+    setIsDeletingService(false);
+  };
+
+  const handleCancelDeleteDeveloperService = () => {
+    setShowDeleteDeveloperServiceModal(false);
+    setServiceToDelete(null);
+    setIsDeletingService(false);
+  };
+
+  const handleEditDeveloperService = (entry: dto.DeveloperServiceEntry) => {
+    setCurrentServiceForSelection(entry);
+    setShowServiceSelectionModal(true);
+  };
+
+  const handleAddCustomService = () => {
+    // Open custom service creation modal or inline form
+    console.log("Add custom service");
+  };
+
+  // Commented out temporarily - will be used for service editing feature
+  // const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
+  //   setCurrentService(serviceEntry);
+  //   setShowUpsertDeveloperServiceModal(true);
+  // };
+
+  const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
     const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
       if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
         const updatedEntry: dto.DeveloperServiceEntry = {
@@ -145,7 +206,17 @@ export function Step5(props: Step5Props) {
       setLocalError("Please add at least one service before proceeding.");
       return;
     }
+
+    // Check if any services don't have configuration
+    const servicesWithoutConfiguration = props.state.developerServices.filter(entry => entry.developerService === null);
+    if (servicesWithoutConfiguration.length > 0) {
+      setShowValidationErrors(true);
+      setLocalError("Please configure all services before proceeding.");
+      return;
+    }
+
     setLocalError(null); // Clear local error before starting API call
+    setShowValidationErrors(false);
 
     const apiCall = async () => {
       return await api.completeOnboarding({}, {}, {});
@@ -158,53 +229,38 @@ export function Step5(props: Step5Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const groupedServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
-
-  // Pre-compute project names for better performance
-  const projectItemNameMap = new Map(
-    projectItems.map(entry => [entry.projectItem.id.uuid, ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)]),
-  );
-
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
   const filteredServiceCategories = serviceCategories.map(category => ({
     ...category,
     services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
   }));
 
+  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
+
   return (
     <div>
       <div className="box-border content-stretch flex flex-col gap-12 items-center justify-start p-0 relative shrink-0 w-full">
         <div className="box-border content-stretch flex flex-col gap-8 items-center justify-center p-0 relative shrink-0 w-[900px]">
           <div className="box-border content-stretch flex flex-col gap-4 items-center justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-center w-[700px]">
-            <div className="font-michroma not-italic relative shrink-0 text-[32px] w-full">
-              <p className="block leading-[1.3]">Tasks & Preferences</p>
-            </div>
             <ErrorDisplay message={apiError?.message || localError} />
           </div>
-          <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-            {groupedServices.map(({ category, developerServices }) => (
-              <ServiceCard
-                key={category}
-                category={category}
-                developerServices={developerServices}
-                projectItemNameMap={projectItemNameMap}
-                currency={props.state.currency}
-                onEditTask={handleEditTask}
-                onDeleteDeveloperService={handleDeleteDeveloperService}
+          <div className="flex flex-col gap-12 items-start self-stretch">
+            {/* Display Developer Services by Category */}
+            {groupedDeveloperServices.map(groupedEntry => (
+              <DeveloperServiceCategory
+                key={groupedEntry.category}
+                groupedDeveloperServiceEntry={groupedEntry}
+                onSelectProjects={handleSelectProjects}
+                onRemoveDeveloperService={handleRemoveDeveloperService}
+                onEditDeveloperService={handleEditDeveloperService}
+                showAddCustomService={groupedEntry.category === "Other Services"}
+                onAddCustomService={handleAddCustomService}
+                showError={showValidationErrors}
               />
             ))}
-          </div>
 
-          <div className="bg-[#14233a] box-border content-stretch flex flex-col gap-6 items-start justify-start px-8 py-6 relative rounded-md shrink-0 w-full border border-[rgba(255,255,255,0.2)]">
-            <div className="font-michroma not-italic relative shrink-0 text-[#ffffff] text-[25px] text-left">
-              <p className="block leading-[1.3]">Add Service</p>
-            </div>
-            <div className="box-border content-stretch flex flex-row gap-6 items-center justify-center p-0 relative shrink-0 w-full">
-              <Button level="SECONDARY" audience="DEVELOPER" size="MEDIUM" onClick={() => setShowInitialServiceModal(true)}>
-                <AddIcon />
-                <span className="ml-2">Add Service</span>
-              </Button>
-            </div>
+            {/* Add Service Button */}
+            <AddServiceButton onClick={() => setShowAddServiceModal(true)} text="Add Service" />
           </div>
 
           <div className="box-border content-stretch flex flex-row gap-4 h-12 items-end justify-end p-0 relative shrink-0 w-[900px]">
@@ -214,14 +270,7 @@ export function Step5(props: Step5Props) {
             <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? (
                 <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
+                  <LoadingSpinner className="-ml-1 mr-2" />
                   Saving...
                 </>
               ) : (
@@ -232,24 +281,44 @@ export function Step5(props: Step5Props) {
         </div>
       </div>
 
-      {showInitialServiceModal && (
-        <InitialServiceSelection
-          serviceCategories={filteredServiceCategories}
-          onClose={() => setShowInitialServiceModal(false)}
-          onAddInitialServices={onAddInitialServices}
-          isLoading={isLoading}
-        />
-      )}
+      <AddServiceModal
+        isOpen={showAddServiceModal}
+        onClose={() => setShowAddServiceModal(false)}
+        onAddServices={onAddServices}
+        serviceCategories={filteredServiceCategories}
+        isLoading={isLoading}
+        existingServiceIds={Array.from(existingServiceIds)}
+      />
 
-      {showUpsertDeveloperServiceModal && currentService && (
-        <SelectProjectsModal
-          service={currentService.service}
-          developerService={currentService.developerService}
-          developerProjectItemEntries={props.state.developerProjectItems}
+      <DeleteDeveloperServiceModal
+        isOpen={showDeleteDeveloperServiceModal}
+        onClose={handleCancelDeleteDeveloperService}
+        developerServiceEntry={serviceToDelete}
+        onConfirmDelete={handleConfirmDeleteDeveloperService}
+        isDeleting={isDeletingService}
+      />
+
+      {/*{showUpsertDeveloperServiceModal && currentService && (*/}
+      {/*  <SelectProjectsModal*/}
+      {/*    service={currentService.service}*/}
+      {/*    developerService={currentService.developerService}*/}
+      {/*    developerProjectItemEntries={props.state.developerProjectItems}*/}
+      {/*    currency={props.state.currency}*/}
+      {/*    onClose={() => setShowUpsertDeveloperServiceModal(false)}*/}
+      {/*    onUpsertDeveloperService={handleUpdateService}*/}
+      {/*    onBack={props.onBack}*/}
+      {/*  />*/}
+      {/*)}*/}
+
+      {currentServiceForSelection && (
+        <EditServiceModal
+          isOpen={showServiceSelectionModal}
+          onClose={handleServiceSelectionClose}
+          developerServiceEntry={currentServiceForSelection}
           currency={props.state.currency}
-          onClose={() => setShowUpsertDeveloperServiceModal(false)}
-          onUpsertDeveloperService={handleUpdateTask}
-          onBack={props.onBack}
+          projects={props.state.developerProjectItems}
+          onUpsertDeveloperService={handleUpdateService}
+          onAddProject={handleAddProjectFromModal}
         />
       )}
     </div>

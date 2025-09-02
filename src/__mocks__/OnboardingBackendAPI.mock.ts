@@ -30,9 +30,12 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
     console.log("getDeveloperProfile", { params, query });
 
-    const projectItemId = new dto.ProjectItemId(Math.random().toString());
-    const developerProjectItemId = new dto.DeveloperProjectItemId(Math.random().toString());
-    const developerProfileId = new dto.DeveloperProfileId(Math.random().toString());
+    const projectItemId1 = new dto.ProjectItemId(Math.random().toString());
+    const projectItemId2 = new dto.ProjectItemId(Math.random().toString());
+    const developerProjectItemId1 = new dto.DeveloperProjectItemId(Math.random().toString());
+    const developerProjectItemId2 = new dto.DeveloperProjectItemId(Math.random().toString());
+    const developerProfileId1 = new dto.DeveloperProfileId(Math.random().toString());
+    const developerProfileId2 = new dto.DeveloperProfileId(Math.random().toString());
 
     const response: dto.GetDeveloperProfileResponse = {
       profile: {
@@ -42,7 +45,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         profile: null,
         settings: {
           id: new dto.DeveloperSettingsId(Math.random().toString()),
-          developerProfileId: developerProfileId,
+          developerProfileId: developerProfileId1,
           incomeStreams: [dto.IncomeStreamType.SERVICES],
           hourlyWeeklyCommitment: 20,
           hourlyWeeklyCommitmentComment: "Mock comment on commitment",
@@ -57,16 +60,34 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         projects: [
           {
             projectItem: {
-              id: projectItemId,
+              id: projectItemId1,
               projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
               sourceIdentifier: "https://github.com/open-source-economy/ose-website",
               createdAt: new Date(),
               updatedAt: new Date(),
             },
             developerProjectItem: {
-              id: developerProjectItemId,
-              developerProfileId: developerProfileId,
-              projectItemId: projectItemId,
+              id: developerProjectItemId1,
+              developerProfileId: developerProfileId1,
+              projectItemId: projectItemId1,
+              roles: [dto.DeveloperRoleType.MAINTAINER],
+              mergeRights: [dto.MergeRightsType.FULL_RIGHTS],
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          },
+          {
+            projectItem: {
+              id: projectItemId2,
+              projectItemType: dto.ProjectItemType.GITHUB_OWNER,
+              sourceIdentifier: "https://github.com/open-source-economy",
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+            developerProjectItem: {
+              id: developerProjectItemId2,
+              developerProfileId: developerProfileId2,
+              projectItemId: projectItemId2,
               roles: [dto.DeveloperRoleType.MAINTAINER],
               mergeRights: [dto.MergeRightsType.FULL_RIGHTS],
               createdAt: new Date(),

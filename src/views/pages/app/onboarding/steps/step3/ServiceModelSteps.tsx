@@ -15,7 +15,7 @@ export function ServiceModelSteps(props: ServiceModelStepsProps) {
     },
     {
       stepNumber: "2.",
-      description: "Companies subscribe to monthly hours or request one-off tasks.",
+      description: "Companies subscribe to monthly hours or request one-off services.",
     },
     {
       stepNumber: "3.",
