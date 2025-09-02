@@ -164,9 +164,7 @@ export function EditServiceModal(props: EditServiceModalProps) {
           )}
         </div>
 
-        {props.developerServiceEntry.service.hasResponseTime && (
-          <ResponseTimeSection value={responseTime} onChange={setResponseTime} />
-        )}
+        {props.developerServiceEntry.service.hasResponseTime && <ResponseTimeSection value={responseTime} onChange={setResponseTime} />}
 
         {showComments && (
           <CommentSection
