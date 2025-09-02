@@ -28,7 +28,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
   ];
 
   return (
-    <div className="flex p-9 px-8 flex-col justify-end items-end gap-6 self-stretch rounded-[30px] bg-[#14233A] relative">
+    <div className="flex p-9 px-8 flex-col justify-end items-end gap-6 rounded-[30px] bg-[#14233A] relative max-w-[800px] w-full">
       <div className="flex flex-col items-start gap-4 self-stretch">
         <div className="flex flex-col items-start gap-2 self-stretch">
           <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
