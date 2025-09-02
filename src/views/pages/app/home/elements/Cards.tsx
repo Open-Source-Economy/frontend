@@ -42,7 +42,7 @@ export function Cards(props: CardsProps) {
     <div className={CARD_BASE_CLASSES}>
       <div className={CARD_CONTENT_CLASSES}>
         <div className="grid size-[85px] place-items-center overflow-hidden rounded-full border-2 border-gray-300 bg-[length:100%_100%] p-0">
-          <img src={props.project.owner.avatarUrl} className="size-full object-cover object-center" alt="" />
+          {props.project.owner.displayAvatarUrl && <img src={props.project.owner.displayAvatarUrl} className="size-full object-cover object-center" alt="" />}
         </div>
         <div className="max-[860px]:min-h-[150px]">
           <h4 className="font-mich mt-3 text-2xl max-[540px]:!text-1xl">
