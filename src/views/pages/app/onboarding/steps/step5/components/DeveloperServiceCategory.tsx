@@ -1,8 +1,8 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperServiceItem } from "./DeveloperServiceItem";
-import { AddServiceButton } from "./ui";
-import { GroupedDeveloperServiceEntry } from "./utils";
+import { AddServiceButton } from "../ui";
+import { GroupedDeveloperServiceEntry } from "../utils";
 
 interface DeveloperServiceCategoryProps {
   groupedDeveloperServiceEntry: GroupedDeveloperServiceEntry;

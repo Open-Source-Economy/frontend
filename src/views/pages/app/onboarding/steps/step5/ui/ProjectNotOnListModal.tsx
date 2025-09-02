@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalBackdrop } from "../../../ui/ModalBackdrop";
+import { ModalBackdrop } from "../modals/ModalBackdrop";
 
 interface ProjectNotOnListModalProps {
   isOpen: boolean;

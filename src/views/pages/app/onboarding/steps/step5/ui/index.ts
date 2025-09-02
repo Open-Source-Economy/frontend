@@ -1,12 +1,11 @@
 export { LoadingSpinner } from "./LoadingSpinner";
-export { ModalBackdrop } from "./ModalBackdrop";
+export { ModalBackdrop } from "../modals/ModalBackdrop";
 export { Checkbox } from "./Checkbox";
 export { SelectProjectsPill } from "./SelectProjectsPill";
-export { AddServiceButton } from "./AddServiceButton";
 export { ModalHeader } from "./ModalHeader";
 export { IconButton } from "./IconButton";
 export { InfoPill } from "./InfoPill";
-export { BaseDeleteConfirmationModal } from "./BaseDeleteConfirmationModal";
-export { DeleteDeveloperServiceModal } from "./DeleteDeveloperServiceModal";
-export { EditServiceModal } from "../modals/edit/EditServiceModal";
-export { ProjectNotOnListModal } from "../modals/edit/components/ProjectNotOnListModal";
+export { BaseDeleteConfirmationModal } from "../modals/delete/BaseDeleteConfirmationModal";
+export { DeleteDeveloperServiceModal } from "../modals/delete/DeleteDeveloperServiceModal";
+export { ProjectNotOnListModal } from "./ProjectNotOnListModal";
+export { AddServiceButton } from "./AddServiceButton";

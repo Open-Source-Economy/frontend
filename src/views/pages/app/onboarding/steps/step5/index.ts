@@ -1,7 +1,6 @@
 export { Step5 } from "./Step5";
-export { AddServiceModal } from "./AddServiceModal";
-export { DeveloperServiceCategory } from "./DeveloperServiceCategory";
-export { DeveloperServiceItem } from "./DeveloperServiceItem";
+export { DeveloperServiceCategory } from "./components/DeveloperServiceCategory";
+export { DeveloperServiceItem } from "./components/DeveloperServiceItem";
 
 // UI Components
 export * from "./ui";

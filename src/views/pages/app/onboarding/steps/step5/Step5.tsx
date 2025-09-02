@@ -5,15 +5,15 @@ import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
-import { AddServiceModal } from "./AddServiceModal";
-import { DeveloperServiceCategory } from "./DeveloperServiceCategory";
+import { DeveloperServiceCategory } from "./components/DeveloperServiceCategory";
 import { Step5State } from "../../OnboardingDataSteps";
-import { AddServiceButton, LoadingSpinner, DeleteDeveloperServiceModal, EditServiceModal } from "./ui";
-import SelectProjectsModal from "./to-delete/SelectProjectsModal";
+import { AddServiceButton, DeleteDeveloperServiceModal, LoadingSpinner } from "./ui";
+import { EditServiceModal } from "./modals/edit/EditServiceModal";
 
-import { buildServiceCategories, ServiceCategory, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
+import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry, ServiceCategory } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
+import { AddServiceModal } from "./modals/add/AddServiceModal";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
@@ -26,7 +26,6 @@ export function Step5(props: Step5Props) {
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
-  const [showUpsertDeveloperServiceModal, setShowUpsertDeveloperServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
@@ -94,39 +93,6 @@ export function Step5(props: Step5Props) {
     setShowServiceSelectionModal(true);
   };
 
-  const handleServiceSelectionSave = (serviceData: {
-    projectIds: string[];
-    hourlyRate?: number;
-    responseTime?: string;
-    comment?: string;
-    firstResponseTime?: string;
-    serviceName?: string;
-    serviceDescription?: string;
-  }) => {
-    if (currentServiceForSelection) {
-      const updatedDeveloperService: dto.DeveloperService = {
-        id: currentServiceForSelection.developerService?.id || new dto.DeveloperServiceId("temp-id"),
-        developerProfileId: new dto.DeveloperProfileId("temp-profile-id"),
-        serviceId: currentServiceForSelection.service.id,
-        projectItemIds: serviceData.projectIds.map(id => new dto.ProjectItemId(id)),
-        hourlyRate: serviceData.hourlyRate || 100,
-        responseTimeHours: serviceData.responseTime as any,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-
-      const updatedServices = props.state.developerServices.map(entry =>
-        entry.service.id.uuid === currentServiceForSelection.service.id.uuid ? { ...entry, developerService: updatedDeveloperService } : entry,
-      );
-
-      props.updateState({ developerServices: updatedServices });
-      setShowServiceSelectionModal(false);
-      setCurrentServiceForSelection(null);
-      setShowValidationErrors(false);
-      setLocalError(null);
-    }
-  };
-
   const handleServiceSelectionClose = () => {
     setShowServiceSelectionModal(false);
     setCurrentServiceForSelection(null);
@@ -178,12 +144,6 @@ export function Step5(props: Step5Props) {
     console.log("Add custom service");
   };
 
-  // Commented out temporarily - will be used for service editing feature
-  // const handleEditService = (serviceEntry: dto.DeveloperServiceEntry) => {
-  //   setCurrentService(serviceEntry);
-  //   setShowUpsertDeveloperServiceModal(true);
-  // };
-
   const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
     const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
       if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
@@ -197,7 +157,6 @@ export function Step5(props: Step5Props) {
     });
 
     props.updateState({ developerServices: updatedServices });
-    setShowUpsertDeveloperServiceModal(false);
     setCurrentService(null);
   };
 
@@ -235,6 +194,7 @@ export function Step5(props: Step5Props) {
     services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
   }));
 
+  // Group developer services by category
   const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
   return (
@@ -298,24 +258,12 @@ export function Step5(props: Step5Props) {
         isDeleting={isDeletingService}
       />
 
-      {/*{showUpsertDeveloperServiceModal && currentService && (*/}
-      {/*  <SelectProjectsModal*/}
-      {/*    service={currentService.service}*/}
-      {/*    developerService={currentService.developerService}*/}
-      {/*    developerProjectItemEntries={props.state.developerProjectItems}*/}
-      {/*    currency={props.state.currency}*/}
-      {/*    onClose={() => setShowUpsertDeveloperServiceModal(false)}*/}
-      {/*    onUpsertDeveloperService={handleUpdateService}*/}
-      {/*    onBack={props.onBack}*/}
-      {/*  />*/}
-      {/*)}*/}
-
       {currentServiceForSelection && (
         <EditServiceModal
           isOpen={showServiceSelectionModal}
           onClose={handleServiceSelectionClose}
           developerServiceEntry={currentServiceForSelection}
-          currency={props.state.currency}
+          defaultRate={props.state.defaultRate}
           projects={props.state.developerProjectItems}
           onUpsertDeveloperService={handleUpdateService}
           onAddProject={handleAddProjectFromModal}

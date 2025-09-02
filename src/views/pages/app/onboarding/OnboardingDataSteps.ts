@@ -7,6 +7,7 @@ import {
   IncomeStreamType,
   OpenToOtherOpportunityType,
 } from "@open-source-economy/api-types";
+import { Rate } from "./steps/step5/modals/edit/EditServiceModal";
 
 export enum OnboardingDataSteps {
   Step1 = 1,
@@ -46,7 +47,7 @@ export interface Step4State {
 
 // Step 5 now uses the new entry types
 export interface Step5State {
-  currency: Currency;
+  defaultRate: Rate;
   developerServices: DeveloperServiceEntry[];
   developerProjectItems: DeveloperProjectItemEntry[];
 }
@@ -93,8 +94,12 @@ export function transformFullDeveloperProfileToOnboardingState(
     hourlyRateComments: "",
   };
 
+  // TODO: lolo
   const step5: Step5State = {
-    currency: profile.settings?.currency || fallBackCurrency,
+    defaultRate: {
+      amount: profile.settings?.hourlyRate || 0,
+      currency: profile.settings?.currency || fallBackCurrency,
+    },
     developerServices: profile.services || [],
     developerProjectItems: profile.projects || [],
   };

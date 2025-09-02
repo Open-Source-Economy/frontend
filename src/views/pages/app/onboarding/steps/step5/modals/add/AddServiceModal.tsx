@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { Button } from "../../../../../components/elements/Button";
-import { ServiceCategory } from "./utils";
+import { Button } from "../../../../../../../components/elements/Button";
+import { ServiceCategory } from "../../utils";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

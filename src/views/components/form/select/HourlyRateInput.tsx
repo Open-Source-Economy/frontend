@@ -54,68 +54,52 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     }
   };
 
-  const availableCurrencies = Object.keys(displayedCurrencies) as Currency[];
+  const currentCurrency = displayedCurrencies[props.currency];
 
-  return (
-    <div className="flex h-12 items-center gap-2 self-stretch">
-      <div className="flex w-40 pr-3 pl-0 py-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
-        <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-          <span className="text-white font-montserrat text-base font-normal leading-[150%]">{displayedCurrencies[props.currency]?.symbol || "€"}</span>
-        </div>
-        <input
-          type="text"
-          value={props.hourlyRate === null || props.hourlyRate === 0 ? "" : props.hourlyRate}
-          onChange={e => sanitizeHourlyRateInput(e.target.value)}
-          onBlur={() => runHourlyRateValidation(props.hourlyRate, true)}
-          placeholder="e.g. 100"
-          className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
-          inputMode="numeric"
-          pattern="[0-9]*[.]?[0-9]*"
-          aria-label="Hourly Rate"
-        />
-      </div>
-
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
-          className="flex px-3 py-0 items-center gap-3 self-stretch h-12 rounded-md bg-[#202F45] hover:bg-[#2a3a55] transition-colors"
-        >
-          <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-            {displayedCurrencies[props.currency]?.symbol} ({displayedCurrencies[props.currency]?.code})
-          </span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={`transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
-          >
-            <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white" />
-          </svg>
-        </button>
-
-        {isDropdownOpen && (
-          <div className="absolute top-full mt-1 left-0 right-0 bg-[#202F45] rounded-md border border-[#3a4a65] z-10 shadow-lg">
-            {availableCurrencies.map(curr => (
-              <button
-                key={curr}
-                type="button"
-                onClick={() => handleCurrencySelect(curr)}
-                className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#2a3a55] transition-colors first:rounded-t-md last:rounded-b-md"
-              >
-                <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-                  {displayedCurrencies[curr].symbol} ({displayedCurrencies[curr].code})
-                </span>
-              </button>
-            ))}
+  // Fixed currency mode (Design 2)
+  if (!props.onCurrencyChange) {
+    return (
+      <>
+        <div className="flex w-48 h-12 pr-3 items-center gap-4 rounded-md bg-[#202F45]">
+          <div className="flex px-3 py-3 items-center gap-3 self-stretch rounded-md border border-[#202F45] bg-[#0E1F35]">
+            <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+              {currentCurrency.symbol} ({currentCurrency.code})
+            </span>
           </div>
-        )}
+          <div className="text-white font-montserrat text-base font-normal leading-[150%]">{props.hourlyRate || "100"}</div>
+        </div>
+        {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
+      </>
+    );
+  }
+
+  // Editable currency mode (Design 1)
+  return (
+    <>
+      <div className="flex h-12 items-center gap-2 self-stretch">
+        {/* Rate input container */}
+        <div className="flex w-40 pr-3 items-center gap-4 self-stretch rounded-md bg-[#202F45]">
+          {/* Currency symbol container */}
+          <div className="flex px-4 py-3 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
+            <span className="text-white font-montserrat text-base font-normal leading-[150%]">{currentCurrency.symbol}</span>
+          </div>
+          {/* Input field */}
+          <input
+            type="text"
+            value={props.hourlyRate === null || props.hourlyRate === 0 ? "" : props.hourlyRate}
+            onChange={e => sanitizeHourlyRateInput(e.target.value)}
+            onBlur={() => runHourlyRateValidation(props.hourlyRate, true)}
+            placeholder="e.g. 100"
+            className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
+            inputMode="numeric"
+            pattern="[0-9]*[.]?[0-9]*"
+            aria-label="Hourly Rate"
+          />
+        </div>
       </div>
 
+      {/* Error message */}
       {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
-    </div>
+    </>
   );
 });

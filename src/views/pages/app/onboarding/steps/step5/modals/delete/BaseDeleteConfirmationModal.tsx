@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalBackdrop } from "./ModalBackdrop";
+import { ModalBackdrop } from "../ModalBackdrop";
 
 interface BaseDeleteConfirmationModalProps {
   isOpen: boolean;

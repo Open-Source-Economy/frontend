@@ -1,7 +1,7 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { SelectProjectsPill, IconButton, InfoPill } from "./ui";
-import { CloseIcon, PenIcon } from "./icons";
+import { IconButton, InfoPill, SelectProjectsPill } from "../ui";
+import { CloseIcon, PenIcon } from "../icons";
 
 interface DeveloperServiceItemProps {
   developerServiceEntry: dto.DeveloperServiceEntry;

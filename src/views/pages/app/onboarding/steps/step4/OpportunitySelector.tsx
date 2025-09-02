@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useEffect, useImperativeHandle, useState, ReactNode } from "react";
+import React, { forwardRef, ReactNode, Ref, useEffect, useImperativeHandle, useState } from "react";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
 
 export interface OpportunitySelectorRef {

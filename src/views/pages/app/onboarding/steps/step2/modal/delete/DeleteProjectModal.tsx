@@ -2,7 +2,7 @@ import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { ProjectItemIdCompanion } from "../../../../../../../data";
-import { BaseDeleteConfirmationModal } from "../../../step5/ui/BaseDeleteConfirmationModal";
+import { BaseDeleteConfirmationModal } from "../../../step5/modals/delete/BaseDeleteConfirmationModal";
 
 interface DeleteProjectModalProps {
   show: boolean;

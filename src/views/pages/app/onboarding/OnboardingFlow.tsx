@@ -47,7 +47,10 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     hourlyRateComments: "",
   },
   step5: {
-    currency: preferredCurrency,
+    defaultRate: {
+      currency: preferredCurrency,
+      amount: 100,
+    },
     developerServices: [],
     developerProjectItems: [],
   },
