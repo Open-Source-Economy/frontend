@@ -169,7 +169,7 @@ export function EditServiceModal(props: EditServiceModalProps) {
         )}
 
         {showComments && (
-          <UnifiedCommentSection
+          <CommentSection
             onToggle={() => setShowComments(prev => !prev)}
             onClose={() => setShowComments(false)}
             show={showComments}
