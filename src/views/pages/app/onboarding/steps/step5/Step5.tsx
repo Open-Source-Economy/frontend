@@ -8,7 +8,8 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { AddTaskModal } from "./AddTaskModal";
 import { DeveloperServiceCategory } from "./DeveloperServiceCategory";
 import { Step5State } from "../../OnboardingDataSteps";
-import { AddTaskButton, LoadingSpinner, DeleteDeveloperServiceModal, TaskSelectionModal } from "./ui";
+import { AddTaskButton, LoadingSpinner, DeleteDeveloperServiceModal } from "./ui";
+import { EditServiceModal } from "./modals/edit/EditServiceModal";
 import SelectProjectsModal from "./SelectProjectsModal";
 
 import { buildServiceCategories, ServiceCategory, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
@@ -315,7 +316,7 @@ export function Step5(props: Step5Props) {
       />
 
       {currentServiceForSelection && (
-        <TaskSelectionModal
+        <EditServiceModal
           isOpen={showTaskSelectionModal}
           onClose={handleTaskSelectionClose}
           developerServiceEntry={currentServiceForSelection}
