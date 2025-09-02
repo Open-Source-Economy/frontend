@@ -10,7 +10,7 @@ import { Step5State } from "../../OnboardingDataSteps";
 import { AddServiceButton, DeleteDeveloperServiceModal, LoadingSpinner } from "./ui";
 import { EditServiceModal } from "./modals/edit/EditServiceModal";
 
-import { buildServiceCategories, groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry, ServiceCategory } from "./utils";
+import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components/elements/Button";
 import { AddServiceModal } from "./modals/add/AddServiceModal";
@@ -19,7 +19,7 @@ export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
 // --- Main Component ---
 export function Step5(props: Step5Props) {
-  const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
+  const [serviceCategories, setServiceCategories] = useState<dto.ServiceHierarchyItem[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -50,8 +50,7 @@ export function Step5(props: Step5Props) {
       };
 
       const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
-        const categories = buildServiceCategories(response.items);
-        setServiceCategories(categories);
+        setServiceCategories(response.items);
       };
 
       await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
@@ -63,10 +62,12 @@ export function Step5(props: Step5Props) {
   const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
     const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
 
+    const allServices = serviceCategories.flatMap(category => category.services);
+
     const newServices: dto.DeveloperServiceEntry[] = serviceIds
       .filter(serviceId => !existingServiceIds.has(serviceId.uuid))
       .map(serviceId => {
-        const service = serviceCategories.flatMap(c => c.services).find(s => s.id.uuid === serviceId.uuid);
+        const service = allServices.find(s => s.id.uuid === serviceId.uuid);
         if (!service) {
           console.warn(`Service with ID ${serviceId.uuid} not found in categories.`);
           return null;
@@ -213,7 +214,7 @@ export function Step5(props: Step5Props) {
                 onSelectProjects={handleSelectProjects}
                 onRemoveDeveloperService={handleRemoveDeveloperService}
                 onEditDeveloperService={handleEditDeveloperService}
-                showAddCustomService={groupedEntry.category === "Other Services"}
+                showAddCustomService={groupedEntry.category === dto.ServiceType.CUSTOM}
                 onAddCustomService={handleAddCustomService}
                 showError={showValidationErrors}
               />

@@ -36,4 +36,5 @@ export const displayedServices: Record<ServiceType, DisplayedService> = {
     features: [{ name: "Architecture Design" }, { name: "Technology Assessment" }, { name: "Security & Performance" }],
     img: advisory,
   },
+  [ServiceType.CUSTOM]: { title: "Custom", features: [{ name: "Custom Service" }], img: "" },
 };

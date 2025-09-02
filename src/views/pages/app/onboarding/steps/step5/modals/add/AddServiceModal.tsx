@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as dto from "@open-source-economy/api-types";
 import { Button } from "../../../../../../../components/elements/Button";
-import { ServiceCategory } from "../../utils";
 
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +12,7 @@ interface AddServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddServices: (serviceIds: dto.ServiceId[]) => void;
-  serviceCategories: ServiceCategory[];
+  serviceCategories: dto.ServiceHierarchyItem[];
   isLoading?: boolean;
   existingServiceIds?: string[];
 }
@@ -65,9 +64,9 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
               if (availableServices.length === 0) return null;
 
               return (
-                <div key={category.service.id.uuid}>
+                <div key={category.category}>
                   <div className="font-montserrat font-medium text-[#ffffff] text-[16px] text-left py-2 bg-[#202f45] px-4">
-                    <p className="block leading-[1.5]">{category.service.name}</p>
+                    <p className="block leading-[1.5]">{category.category}</p>
                   </div>
                   {availableServices.map(service => {
                     const isSelected = selectedServices.some(s => s.id.uuid === service.id.uuid);

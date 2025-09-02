@@ -37,4 +37,10 @@ export const displayedServices: Record<ServiceType, ServiceDetails> = {
     // buttonText: "Access to the state-of-the-art.",
     buttonText: "Shape Your Strategy",
   },
+  [ServiceType.CUSTOM]: {
+    title: "Custom",
+    icon: <></>,
+    items: ["Custom Service"],
+    buttonText: "Contact Us",
+  },
 };

@@ -17,6 +17,9 @@ import {
   User,
   UserId,
   UserRole,
+  Service,
+  ServiceId,
+  ServiceType,
 } from "@open-source-economy/api-types";
 
 export * from "./BackendAPI.mock";
@@ -100,24 +103,22 @@ export const companyId = new CompanyId("141809657");
 export const company = new Company(companyId, "7324ry34r", "Open-Source-Economy");
 
 // --- Shared Service Data ---
-const devCategoryId = new dto.ServiceId("dev-category-id");
-const reviewCategoryId = new dto.ServiceId("review-category-id");
-
-const bugFixingServiceId = new dto.ServiceId("bug-fixing-service-id");
-const bugFixingService: dto.Service = {
-  id: bugFixingServiceId,
+export const bugFixingService: Service = {
+  id: new ServiceId("bug-fixing-service-id"),
+  serviceType: "Support" as ServiceType,
   name: "Bug Fixing",
-  parentId: devCategoryId,
+  description: "Fixing bugs in existing codebases.",
   isCustom: false,
   hasResponseTime: true,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
 
-const featureImplService: dto.Service = {
-  id: new dto.ServiceId("feature-impl-service-id"),
+export const featureImplService: Service = {
+  id: new ServiceId("feature-impl-service-id"),
+  serviceType: "Development" as ServiceType,
   name: "Feature Implementation",
-  parentId: devCategoryId,
+  description: "Implementing new features based on specifications.",
   isCustom: false,
   hasResponseTime: false,
   createdAt: new Date(),
@@ -126,40 +127,16 @@ const featureImplService: dto.Service = {
 
 export const serviceHierarchy: dto.ServiceHierarchyItem[] = [
   {
-    service: {
-      id: devCategoryId,
-      name: "Development",
-      isCustom: false,
-      hasResponseTime: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      parentId: undefined,
-    },
-    level: 0,
-    ancestors: [],
+    category: "Development" as ServiceType,
+    services: [featureImplService],
   },
   {
-    service: {
-      id: reviewCategoryId,
-      name: "Code Review",
-      isCustom: false,
-      hasResponseTime: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      parentId: undefined,
-    },
-    level: 0,
-    ancestors: [],
+    category: "Support" as ServiceType,
+    services: [bugFixingService],
   },
   {
-    service: bugFixingService,
-    level: 1,
-    ancestors: [devCategoryId],
-  },
-  {
-    service: featureImplService,
-    level: 1,
-    ancestors: [devCategoryId],
+    category: "Advisory" as ServiceType,
+    services: [], // Example of an empty category
   },
 ];
 
