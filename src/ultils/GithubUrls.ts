@@ -2,69 +2,85 @@ import { IssueId, OwnerId, RepositoryId } from "@open-source-economy/api-types";
 
 export class GithubUrls {
   /**
-   * Extracts GitHub owner information from a GitHub URL.
-   * @param url The GitHub URL to extract from.
+   * Extracts GitHub owner information from a GitHub URL or shorthand.
+   * @param input GitHub URL or shorthand
+   * @param allowShorthand Whether to allow shorthand like "owner"
    * @returns An OwnerId object if successful, null otherwise.
    */
-  static extractOwnerId(url: string): OwnerId | null {
-    const ownerRepoRegex = /^https:\/\/github\.com\/([^/]+)/;
-    const match = url.match(ownerRepoRegex);
+  static extractOwnerId(input: string, allowShorthand: boolean = false): OwnerId | null {
+    const value = input.trim();
+
+    // Shorthand case: just "owner"
+    if (allowShorthand && /^[A-Za-z0-9-_.]+$/.test(value) && !value.includes("/")) {
+      return new OwnerId(value);
+    }
+
+    // Full GitHub URL
+    const ownerRegex = /^https:\/\/github\.com\/([^/]+)(?:\/)?$/;
+    const match = value.match(ownerRegex);
     if (match && match[1]) {
       return new OwnerId(match[1]);
     }
+
     return null;
   }
 
   /**
-   * Extracts GitHub repository information from a GitHub URL.
-   * @param url The GitHub URL to extract from.
+   * Extracts GitHub repository information from a GitHub URL or shorthand.
+   * @param input GitHub URL or shorthand
+   * @param allowShorthand Whether to allow shorthand like "owner/repo"
    * @returns A RepositoryId object if successful, null otherwise.
    */
-  static extractRepositoryId(url: string): RepositoryId | null {
-    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)/;
-    const match = url.match(repoRegex);
+  static extractRepositoryId(input: string, allowShorthand: boolean = false): RepositoryId | null {
+    const value = input.trim();
+
+    // Shorthand case: "owner/repo"
+    if (allowShorthand && /^[^/]+\/[^/]+$/.test(value)) {
+      const [owner, repo] = value.split("/");
+      return new RepositoryId(new OwnerId(owner), repo);
+    }
+
+    // Full GitHub URL
+    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)(?:\/)?$/;
+    const match = value.match(repoRegex);
     if (match && match[1] && match[2]) {
       return new RepositoryId(new OwnerId(match[1]), match[2]);
     }
+
     return null;
   }
 
   /**
-   * Extracts either a RepositoryId or an OwnerId from a GitHub URL.
+   * Extracts either a RepositoryId or an OwnerId from input.
    * It prioritizes extracting a RepositoryId if possible.
-   * @param url The GitHub URL to extract from.
+   * @param input GitHub URL or shorthand
+   * @param allowShorthand Whether to allow shorthand like "owner" or "owner/repo"
    * @returns A RepositoryId, OwnerId, or null if neither can be extracted.
    */
-  static extractOwnerOrRepositoryId(url: string): OwnerId | RepositoryId | null {
-    const repository = GithubUrls.extractRepositoryId(url);
-    if (repository) {
-      return repository;
-    }
-    const owner = GithubUrls.extractOwnerId(url);
-    if (owner) {
-      return owner;
-    }
+  static extractOwnerOrRepositoryId(input: string, allowShorthand: boolean = false): OwnerId | RepositoryId | null {
+    const repo = GithubUrls.extractRepositoryId(input, allowShorthand);
+    if (repo) return repo;
+
+    const owner = GithubUrls.extractOwnerId(input, allowShorthand);
+    if (owner) return owner;
+
     return null;
   }
 
   /**
-   * Extracts GitHub issue information (owner, repository, and issue number) from a GitHub issue URL.
-   * @param url The GitHub issue URL to extract from.
+   * Extracts GitHub issue information (owner, repository, and issue number).
+   * @param input The GitHub issue URL (shorthand not supported here)
    * @returns An IssueId object if successful, null otherwise.
    */
-  static extractGitHubIssueInfo(url: string): IssueId | null {
+  static extractGitHubIssueInfo(input: string): IssueId | null {
     const urlRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)$/;
-    const match = url.match(urlRegex);
+    const match = input.trim().match(urlRegex);
     if (match) {
       const [, owner, repo, n] = match;
-      const number = parseInt(n);
-      if (!owner || !repo || isNaN(number)) {
-        return null;
-      } else {
-        return new IssueId(new RepositoryId(new OwnerId(owner), repo), number);
-      }
-    } else {
-      return null;
+      const number = parseInt(n, 10);
+      if (!owner || !repo || isNaN(number)) return null;
+      return new IssueId(new RepositoryId(new OwnerId(owner), repo), number);
     }
+    return null;
   }
 }

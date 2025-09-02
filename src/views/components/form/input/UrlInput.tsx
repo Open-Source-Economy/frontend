@@ -16,9 +16,27 @@ const validateUrl = (value: string): string | undefined => {
 interface UrlInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   required?: boolean;
+  validator?: (value: string) => string | undefined;
 }
 
 export const UrlInput = forwardRef(function UrlInput(props: UrlInputProps, ref: Ref<GenericInputRef>) {
-  const { ...rest } = props;
-  return <GenericInput type="url" validator={validateUrl} ref={ref} {...rest} />;
+  const { validator, ...rest } = props;
+
+  const combinedValidator = (value: string) => {
+    // Run the default URL validation first
+    const urlError = validateUrl(value);
+    if (urlError) {
+      return urlError;
+    }
+
+    // If the default validation passes, run the custom validator from props
+    // if it exists.
+    if (validator) {
+      return validator(value);
+    }
+
+    return undefined; // No errors
+  };
+
+  return <GenericInput type="url" validator={combinedValidator} ref={ref} {...rest} />;
 });

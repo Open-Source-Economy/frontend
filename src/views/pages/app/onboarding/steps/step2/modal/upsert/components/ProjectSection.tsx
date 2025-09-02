@@ -1,8 +1,9 @@
-import React, { forwardRef, Ref, useImperativeHandle, useRef, useState } from "react";
+import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { GenericInputRef, ProjectItemTypeSelectInput, UrlInput } from "../../../../../../../../components/form";
 import { ProjectItemType } from "../../../ProjectItemType";
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 import { BaseRef } from "../../../../../../../../components/form/Base";
+import { GithubUrls } from "../../../../../../../../../ultils";
 
 export interface ProjectSectionRef extends BaseRef {}
 
@@ -10,7 +11,37 @@ interface ProjectSectionProps {
   onProjectItemChange: (type: [ProjectItemType, OwnerId | RepositoryId | string] | null) => void;
 }
 
+const validateProjectUrl = (value: string, projectType: ProjectItemType | null): string | undefined => {
+  if (!value) {
+    return undefined; // Allows the field to be empty
+  }
+
+  if (projectType === ProjectItemType.GITHUB_REPOSITORY) {
+    const repo = GithubUrls.extractRepositoryId(value, true);
+    if (!repo) {
+      return "Enter a valid GitHub repository (owner/repo or https://github.com/owner/repo).";
+    }
+  }
+
+  if (projectType === ProjectItemType.GITHUB_OWNER) {
+    const owner = GithubUrls.extractOwnerId(value, true);
+    if (!owner) {
+      return "Enter a valid GitHub organization/user (owner or https://github.com/owner).";
+    }
+  }
+
+  // Fallback for general URL validation
+  try {
+    new URL(value);
+  } catch (_) {
+    return "Please enter a valid URL.";
+  }
+  return undefined;
+};
+
 export const ProjectSection = forwardRef(function ProjectSection(props: ProjectSectionProps, ref: Ref<ProjectSectionRef>) {
+  const { onProjectItemChange } = props;
+
   const [url, setUrl] = useState("");
   const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(null);
 
@@ -19,13 +50,35 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
 
   useImperativeHandle(ref, () => ({
     validate: (showInputError: boolean) => {
-      let isUrlValid = true;
-      if (selectedProjectType === ProjectItemType.URL) {
-        isUrlValid = urlInputRef.current?.validate(showInputError) ?? false;
-      }
-      return isUrlValid && (projectTypeSelectRef.current?.validate(true) ?? false);
+      const isTypeValid = projectTypeSelectRef.current?.validate(showInputError) ?? false;
+      const needsUrl = !!selectedProjectType;
+      const isUrlValid = needsUrl ? urlInputRef.current?.validate(showInputError) ?? false : true;
+      return isTypeValid && isUrlValid;
     },
   }));
+
+  useEffect(() => {
+    if (!selectedProjectType) {
+      onProjectItemChange(null);
+      return;
+    }
+    onProjectItemChange([selectedProjectType, url]);
+  }, [selectedProjectType, url, onProjectItemChange]);
+
+  const LABELS: Record<ProjectItemType, string> = {
+    [ProjectItemType.GITHUB_REPOSITORY]: "Your GitHub Repository",
+    [ProjectItemType.GITHUB_OWNER]: "Your GitHub Organization",
+    [ProjectItemType.URL]: "Other non GitHub open projects",
+  };
+
+  const PLACEHOLDERS: Record<ProjectItemType, string> = {
+    [ProjectItemType.GITHUB_REPOSITORY]: "owner/repo or https://github.com/owner/repo",
+    [ProjectItemType.GITHUB_OWNER]: "owner or https://github.com/owner",
+    [ProjectItemType.URL]: "https://example.com/my-open-project",
+  };
+
+  const inputLabel = selectedProjectType ? LABELS[selectedProjectType] : "Your project";
+  const inputPlaceholder = selectedProjectType ? PLACEHOLDERS[selectedProjectType] : "Paste a project link";
 
   return (
     <div className="flex p-9 flex-col justify-end items-end gap-2.5 self-stretch rounded-[30px] bg-[#14233A]">
@@ -40,12 +93,14 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
           <UrlInput
             id="repository-url"
             name="repositoryUrl"
-            label="Your project"
-            required
+            label={inputLabel}
+            required={!!selectedProjectType}
+            disabled={!selectedProjectType}
             value={url}
-            onChange={e => setUrl(e.target.value)}
-            placeholder="https://github.com/organisation/repository"
+            onChange={e => setUrl(e.target.value.trim())}
+            placeholder={inputPlaceholder}
             ref={urlInputRef}
+            validator={value => validateProjectUrl(value, selectedProjectType)}
           />
           <div className="flex flex-col items-start gap-2 self-stretch">
             <ProjectItemTypeSelectInput value={selectedProjectType} onChange={setSelectedProjectType} required ref={projectTypeSelectRef} />
