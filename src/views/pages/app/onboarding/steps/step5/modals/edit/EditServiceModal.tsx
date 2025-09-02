@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { CommentIcon, ProjectSelection, ResponseTimeSection, UnifiedCommentSection } from "./components";
+import { CommentIcon, ProjectSelection, ResponseTimeSection, CommentSection } from "./components";
 import { ModalBackdrop } from "../ModalBackdrop";
 import { CloseIcon } from "../../icons";
 import { ProjectNotOnListModal } from "../../ui/ProjectNotOnListModal";
