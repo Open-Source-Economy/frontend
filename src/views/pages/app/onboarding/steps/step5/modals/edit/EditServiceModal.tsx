@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { ResponseTimeType } from "@open-source-economy/api-types/dist/model";
 import * as dto from "@open-source-economy/api-types";
-import { HourlyRateInput } from "../../../../../../components/form/select/HourlyRateInput";
-import { MultiSelectInput, SelectOption } from "../../../../../../components/form/select/MultiSelectInput";
+import { HourlyRateInput } from "../../../../../../../components/form/select/HourlyRateInput";
+import { MultiSelectInput, SelectOption } from "../../../../../../../components/form/select/MultiSelectInput";
 import { ProjectItemIdCompanion } from "../../../../../../../data";
 import { Tooltip, CommentSection, FirstResponseTimeSection, UnifiedCommentSection } from "./components";
 import { ModalBackdrop } from "../../ui/ModalBackdrop";
