@@ -5,7 +5,7 @@ export namespace ProjectItemIdCompanion {
     if (sourceIdentifier instanceof OwnerId) {
       return sourceIdentifier.login;
     } else if (sourceIdentifier instanceof RepositoryId) {
-      return sourceIdentifier.name;
+      return `${sourceIdentifier.ownerId.login}/${sourceIdentifier.name}`;
     } else {
       return sourceIdentifier;
     }

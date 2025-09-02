@@ -62,7 +62,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
             projectItem: {
               id: projectItemId1,
               projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
-              sourceIdentifier: "https://github.com/open-source-economy/ose-website",
+              sourceIdentifier: new dto.RepositoryId(new dto.OwnerId("open-source-economy", undefined), "ose-website", undefined),
               createdAt: new Date(),
               updatedAt: new Date(),
             },
@@ -80,7 +80,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
             projectItem: {
               id: projectItemId2,
               projectItemType: dto.ProjectItemType.GITHUB_OWNER,
-              sourceIdentifier: "https://github.com/open-source-economy",
+              sourceIdentifier: new dto.OwnerId("open-source-economy", undefined),
               createdAt: new Date(),
               updatedAt: new Date(),
             },

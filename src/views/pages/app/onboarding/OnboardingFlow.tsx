@@ -195,9 +195,9 @@ export default function OnboardingFlow() {
           <PageLoader message="Loading onboarding steps..." />
         ) : (
           <>
-            <div className="box-border content-stretch flex flex-col gap-[50px] items-center justify-start pb-[100px] pt-[80px] px-0 relative size-full">
+            <div className="box-border content-stretch flex flex-col gap-[24px] items-center justify-start pb-[50px] pt-[24px] px-0 relative size-full">
               <ProgressBar currentStep={state.currentStep} />
-              <div className="flex px-[120px] flex-col items-center gap-[100px] self-stretch">
+              <div className="flex px-[80px] flex-col items-center gap-[48px] self-stretch">
                 <StepHeader
                   currentStep={state.currentStep}
                   title={onboardingStepsConfigs[state.currentStep].title}
