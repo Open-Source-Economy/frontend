@@ -1,5 +1,4 @@
 import React from "react";
-import { CommentInput } from "../../../../../../../step4/CommentInput";
 
 interface CommentSectionProps {
   show: boolean;
