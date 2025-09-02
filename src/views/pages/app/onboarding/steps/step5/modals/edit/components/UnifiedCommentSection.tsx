@@ -11,14 +11,14 @@ interface UnifiedCommentSectionProps {
   label?: string;
   placeholder?: string;
   className?: string;
-  variant?: 'button' | 'inline';
+  variant?: "button" | "inline";
 }
 
 export function UnifiedCommentSection(props: UnifiedCommentSectionProps) {
   const defaultLabel = "Comments";
   const defaultPlaceholder = "Comments (only visible to Open Source Economy team)";
 
-  if (props.variant === 'button') {
+  if (props.variant === "button") {
     // Compact button version for use in OnboardingSectionWrapper
     if (!props.show) {
       return (
@@ -53,25 +53,17 @@ export function UnifiedCommentSection(props: UnifiedCommentSectionProps) {
   // Full section version
   return (
     <>
-      <button
-        onClick={props.onToggle}
-        className="bg-[#202f45] p-3 rounded-md hover:bg-[#2a3f56] h-full transition-colors"
-        title="Add comment"
-      >
+      <button onClick={props.onToggle} className="bg-[#202f45] p-3 rounded-md hover:bg-[#2a3f56] h-full transition-colors" title="Add comment">
         <CommentIcon />
       </button>
 
       {props.show && (
-        <div className={`bg-[#202f45] box-border flex flex-col gap-3 p-4 rounded-md shrink-0 w-full ${props.className || ''}`}>
+        <div className={`bg-[#202f45] box-border flex flex-col gap-3 p-4 rounded-md shrink-0 w-full ${props.className || ""}`}>
           <div className="flex flex-row items-center justify-between w-full">
             <div className="font-montserrat font-normal text-[#ffffff] text-[14px]">
               <p>{props.label || defaultLabel}</p>
             </div>
-            <button
-              onClick={props.onClose}
-              className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors"
-              title="Close comment section"
-            >
+            <button onClick={props.onClose} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors" title="Close comment section">
               <CloseIcon />
             </button>
           </div>

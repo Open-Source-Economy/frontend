@@ -23,11 +23,7 @@ export function FirstResponseTimeSection(props: FirstResponseTimeSectionProps) {
       >
         {(showComment, commentButtonComponent) => (
           <div className="flex h-12 items-center gap-2 self-stretch">
-            <ResponseTimeTypeSelectInput
-              value={props.value}
-              onChange={props.onChange}
-              required={false}
-            />
+            <ResponseTimeTypeSelectInput value={props.value} onChange={props.onChange} required={false} />
             {commentButtonComponent}
           </div>
         )}
