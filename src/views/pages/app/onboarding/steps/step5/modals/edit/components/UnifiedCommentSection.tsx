@@ -1,5 +1,5 @@
 import React from "react";
-import { TextArea } from "../../../../../../components/form/TextArea";
+import { TextArea } from "../../../../../../../components/form/TextArea";
 import { CommentIcon, CloseIcon } from "./CommentIcons";
 
 interface UnifiedCommentSectionProps {
@@ -69,7 +69,7 @@ export function UnifiedCommentSection(props: UnifiedCommentSectionProps) {
           </div>
           <TextArea
             value={props.value}
-            onChange={e => props.onChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => props.onChange(e.target.value)}
             placeholder={props.placeholder || defaultPlaceholder}
             rows={4}
             className="w-full bg-[#14233a] px-3 py-2 font-montserrat font-normal text-[#ffffff] text-[14px] rounded-md outline-none placeholder:opacity-60 resize-none"
