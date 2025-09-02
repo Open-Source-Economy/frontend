@@ -10,9 +10,6 @@ interface ProjectSelectionProps {
   isProjectDropdownOpen: boolean;
   onToggleDropdown: (isOpen: boolean) => void;
   onAddProject: () => void;
-  hourlyRate?: number;
-  currency?: string;
-  onEditRate?: () => void;
 }
 
 export function ProjectSelection(props: ProjectSelectionProps) {
