@@ -1,6 +1,6 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { displayedCurrencies } from "../../../../../../../../data";
+import { displayedCurrencies } from "src/views/data";
 
 interface HourlyRateDisplayProps {
   hourlyRate: number;
