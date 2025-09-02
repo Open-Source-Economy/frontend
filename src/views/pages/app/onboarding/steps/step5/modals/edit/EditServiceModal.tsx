@@ -134,7 +134,7 @@ export function EditServiceModal(props: EditServiceModalProps) {
         </div>
 
         {/* Project Selection */}
-        <div className="flex flex-col items-end gap-6 self-stretch p-9 rounded-[30px] bg-[#14233A] mb-8">
+        <div className="flex flex-col items-end gap-6 w-full max-w-[662px] p-9 rounded-[30px] bg-[#14233A] mb-8">
           <ProjectSelection
             projects={props.projects}
             selectedProjectItemIds={selectedProjectItemIds}
