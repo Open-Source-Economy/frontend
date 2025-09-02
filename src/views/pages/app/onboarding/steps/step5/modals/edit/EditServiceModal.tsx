@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { ResponseTimeType } from "@open-source-economy/api-types/dist/model";
 import { ResponseTimeTypeSelectInput } from "../../../../../components/form/select/enum/ResponseTimeTypeSelectInput";
 import { OnboardingSectionWrapper } from "../../step4/OnboardingSectionWrapper";
+import { TextArea } from "../../../../../components/form/TextArea";
 
 interface TooltipProps {
   text: string;
