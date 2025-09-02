@@ -5,3 +5,5 @@ import {
   FirstResponseTimeSection, 
   UnifiedCommentSection 
 } from "./components";
+
+export { Tooltip, CommentSection, FirstResponseTimeSection, UnifiedCommentSection };
