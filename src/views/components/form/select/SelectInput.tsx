@@ -87,16 +87,18 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
 
   return (
     <div className={inputContainerClasses} ref={dropdownRef}>
-      <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
-        <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
-          <div className={labelTextContainerClasses}>
-            <p id={`${props.id}-label`} className="block leading-[1.5] whitespace-pre">
-              {" "}
-              {props.label} {props.required && <span className="text-red-500">*</span>}
-            </p>
+      {props.label && (
+        <div className="box-border content-stretch flex flex-row gap-1 items-start justify-start p-0 relative shrink-0">
+          <div className="box-border content-stretch flex flex-col items-start justify-start p-0 relative shrink-0">
+            <div className={labelTextContainerClasses}>
+              <p id={`${props.id}-label`} className="block leading-[1.5] whitespace-pre">
+                {" "}
+                {props.label} {props.required && <span className="text-red-500">*</span>}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-start p-0 relative shrink-0 w-full">
         <div

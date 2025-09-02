@@ -1,50 +1,50 @@
-import React, { useState } from "react";
-import { UnifiedCommentSection } from "./UnifiedCommentSection";
+import React from "react";
+import { CommentInput } from "../../../../step4";
 
 interface CommentSectionProps {
-  commentValue: string;
-  onCommentChange: (value: string) => void;
+  show: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+  value: string;
+  onChange: (value: string) => void;
   label?: string;
   placeholder?: string;
 }
 
 export function CommentSection(props: CommentSectionProps) {
-  const [showComment, setShowComment] = useState(false);
-
-  const handleToggle = () => {
-    setShowComment(!showComment);
-  };
-
-  const handleClose = () => {
-    setShowComment(false);
-  };
-
   return (
-    <>
-      <div className="flex flex-col justify-end items-end gap-2.5 self-stretch p-9 rounded-[30px] bg-primaryBg">
-        <div className="flex flex-col items-center gap-1 self-stretch">
-          <div className="flex flex-col items-start gap-4 self-stretch">
-            <h2 className="self-stretch text-white font-montserrat text-2xl font-normal leading-[1.3]">{props.label || "Comments"}</h2>
+    <div className="flex p-9 px-8 flex-col justify-end items-end gap-2.5 self-stretch rounded-[30px] bg-[#14233A] relative">
+      {/* Close Button */}
+      <button
+        onClick={props.onClose}
+        className="absolute top-6 right-6 w-6 h-6 flex items-center justify-center hover:opacity-80 transition-opacity"
+        aria-label="Close comments"
+      >
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.5 4.5L4.5 20.5" stroke="white" strokeLinecap="round" />
+          <path d="M4.5 4.5L20.5 20.5" stroke="white" strokeLinecap="round" />
+        </svg>
+      </button>
+
+      {/* Content */}
+      <div className="flex flex-col items-start gap-3 self-stretch">
+        {/* Labels */}
+        <div className="flex w-full items-start gap-1">
+          <div className="flex flex-col items-start">
+            <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">{props.label || "Comments"}</label>
+            <div className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">(only visible to Open Source Economy team)</div>
           </div>
         </div>
 
-        <div className="flex flex-col items-start gap-3 self-stretch">
-          <div className="text-white font-montserrat text-base font-normal leading-[1.5] opacity-60">Add any additional comments or context</div>
-
-          <div className="flex items-center gap-2 self-stretch">
-            <UnifiedCommentSection
-              show={showComment}
-              onToggle={handleToggle}
-              onClose={handleClose}
-              value={props.commentValue}
-              onChange={props.onCommentChange}
-              label={props.label}
-              placeholder={props.placeholder}
-              variant="inline"
-            />
-          </div>
-        </div>
+        {/* Comment Input Area */}
+        <CommentInput
+          isExpanded={true}
+          onToggle={props.onToggle}
+          value={props.value}
+          onChange={props.onChange}
+          placeholder={props.placeholder || "Add any additional comments about this service"}
+        />
       </div>
-    </>
+    </div>
   );
 }

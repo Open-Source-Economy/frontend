@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { CommentIcon, ProjectSelection, ResponseTimeSection, UnifiedCommentSection } from "./components";
+import { CommentIcon, ProjectSelection, ResponseTimeSection, CommentSection } from "./components";
 import { ModalBackdrop } from "../ModalBackdrop";
 import { CloseIcon } from "../../icons";
 import { ProjectNotOnListModal } from "../../ui/ProjectNotOnListModal";
@@ -164,14 +164,10 @@ export function EditServiceModal(props: EditServiceModalProps) {
           )}
         </div>
 
-        {props.developerServiceEntry.service.hasResponseTime && (
-          <div className="space-y-6">
-            <ResponseTimeSection value={responseTime} onChange={setResponseTime} />
-          </div>
-        )}
+        {props.developerServiceEntry.service.hasResponseTime && <ResponseTimeSection value={responseTime} onChange={setResponseTime} />}
 
         {showComments && (
-          <UnifiedCommentSection
+          <CommentSection
             onToggle={() => setShowComments(prev => !prev)}
             onClose={() => setShowComments(false)}
             show={showComments}

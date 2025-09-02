@@ -19,13 +19,6 @@ export interface ResponseTimeTypeSelectInputProps extends EnumSelectInputChildre
 export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(props: ResponseTimeTypeSelectInputProps, ref: Ref<GenericInputRef>) {
   return (
     // @ts-ignore
-    <EnumSelectInput<ResponseTimeType>
-      label="Response Time"
-      name="response_time"
-      enumObject={ResponseTimeType}
-      displayedEnums={displayedResponseTimes}
-      {...props}
-      ref={ref}
-    />
+    <EnumSelectInput<ResponseTimeType> name="response_time" enumObject={ResponseTimeType} displayedEnums={displayedResponseTimes} {...props} ref={ref} />
   );
 });

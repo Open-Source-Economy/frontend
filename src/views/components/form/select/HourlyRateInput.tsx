@@ -66,7 +66,17 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
               {currentCurrency.symbol} ({currentCurrency.code})
             </span>
           </div>
-          <div className="text-white font-montserrat text-base font-normal leading-[150%]">{props.hourlyRate || "100"}</div>
+          <input
+            type="text"
+            value={props.hourlyRate === null || props.hourlyRate === 0 ? "" : props.hourlyRate}
+            onChange={e => sanitizeHourlyRateInput(e.target.value)}
+            onBlur={() => runHourlyRateValidation(props.hourlyRate, true)}
+            placeholder="100"
+            className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 flex-1"
+            inputMode="numeric"
+            pattern="[0-9]*[.]?[0-9]*"
+            aria-label="Hourly Rate"
+          />
         </div>
         {internalHourlyRateError && <div className="text-red-400 text-sm mt-1">{internalHourlyRateError}</div>}
       </>
