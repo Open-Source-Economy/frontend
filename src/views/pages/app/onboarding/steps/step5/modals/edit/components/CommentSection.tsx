@@ -1,4 +1,5 @@
 import React from "react";
+import { CommentInput } from "../../../step4/CommentInput";
 
 interface CommentSectionProps {
   show: boolean;
@@ -36,23 +37,14 @@ export function CommentSection(props: CommentSectionProps) {
         </div>
 
         {/* Comment Input Area */}
-        <div className="flex h-24 items-start gap-2.5 self-stretch">
-          <div className="flex flex-1 h-full relative">
-            <textarea
-              value={props.value}
-              onChange={e => props.onChange(e.target.value)}
-              placeholder={props.placeholder || "Add any additional comments about this service"}
-              className="w-full h-full p-3 rounded-md bg-[#202F45] text-white font-montserrat text-base font-normal leading-[150%] placeholder:text-white placeholder:opacity-60 outline-none resize-none"
-            />
-            {/* Resize handle in bottom right */}
-            <div className="absolute bottom-2 right-2 opacity-20">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 8L12 6" stroke="white" strokeLinecap="round" />
-                <path d="M8 10L10 8" stroke="white" strokeLinecap="round" />
-                <path d="M12 10L10 12" stroke="white" strokeLinecap="round" />
-              </svg>
-            </div>
-          </div>
+        <div className="flex items-start gap-2.5 self-stretch">
+          <CommentInput
+            isExpanded={true}
+            onToggle={props.onToggle}
+            value={props.value}
+            onChange={props.onChange}
+            placeholder={props.placeholder || "Add any additional comments about this service"}
+          />
         </div>
       </div>
     </div>
