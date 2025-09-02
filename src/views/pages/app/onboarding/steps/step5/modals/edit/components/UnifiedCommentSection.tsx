@@ -1,5 +1,5 @@
 import React from "react";
-import { TextArea } from "../../../../../../../components/form/TextArea";
+import { TextArea } from "../../../../../../components/form/TextArea";
 import { CommentIcon, CloseIcon } from "./CommentIcons";
 
 interface UnifiedCommentSectionProps {

@@ -1,7 +1,7 @@
 import React from "react";
 import { ResponseTimeType } from "@open-source-economy/api-types/dist/model";
-import { ResponseTimeTypeSelectInput } from "../../../../../../../components/form/select/enum/ResponseTimeTypeSelectInput";
-import { OnboardingSectionWrapper } from "../../../../step4/OnboardingSectionWrapper";
+import { ResponseTimeTypeSelectInput } from "../../../../../../components/form/select/enum/ResponseTimeTypeSelectInput";
+import { OnboardingSectionWrapper } from "../../../step4/OnboardingSectionWrapper";
 
 interface FirstResponseTimeSectionProps {
   value: ResponseTimeType | null;
