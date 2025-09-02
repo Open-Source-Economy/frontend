@@ -12,14 +12,14 @@ import {
   Repository,
   RepositoryId,
   ResponseTimeType,
+  Service,
+  ServiceId,
+  ServiceType,
   ThirdPartyUser,
   ThirdPartyUserId,
   User,
   UserId,
   UserRole,
-  Service,
-  ServiceId,
-  ServiceType,
 } from "@open-source-economy/api-types";
 
 export * from "./BackendAPI.mock";
