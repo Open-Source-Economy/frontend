@@ -26,22 +26,18 @@ export function ProjectSelection(props: ProjectSelectionProps) {
 
   // Get selected projects
   const selectedProjects = props.projects.filter(entry =>
-    props.selectedProjectItemIds.some(selectedId => selectedId.uuid === entry.developerProjectItem.id.uuid)
+    props.selectedProjectItemIds.some(selectedId => selectedId.uuid === entry.developerProjectItem.id.uuid),
   );
 
   const handleRemoveProject = (projectId: string) => {
-    const newSelectedProjects = props.selectedProjectItemIds
-      .filter(id => id.uuid !== projectId)
-      .map(id => id.uuid);
+    const newSelectedProjects = props.selectedProjectItemIds.filter(id => id.uuid !== projectId).map(id => id.uuid);
     props.onProjectChange(newSelectedProjects);
   };
 
   return (
     <div className="flex flex-col items-start gap-4 self-stretch">
       <div className="flex flex-col items-start gap-2 self-stretch">
-        <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
-          For Which Project(s)?
-        </label>
+        <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">For Which Project(s)?</label>
         <div className="flex items-start gap-2.5 self-stretch">
           <MultiSelectInput
             options={projectOptions}
@@ -62,7 +58,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
             <div
               key={entry.developerProjectItem.id.uuid}
               className={`flex py-3 px-6 items-center gap-2.5 self-stretch cursor-pointer transition-colors ${
-                index === 0 ? 'bg-[#202F45]' : 'bg-[#14233A]'
+                index === 0 ? "bg-[#202F45]" : "bg-[#14233A]"
               } hover:bg-[#202F45]`}
               onClick={() => handleRemoveProject(entry.developerProjectItem.id.uuid)}
             >
@@ -72,14 +68,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
               </div>
 
               {/* GitHub Icon */}
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 25 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="flex-shrink-0"
-              >
+              <svg width="24" height="24" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
