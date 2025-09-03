@@ -6,7 +6,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/upsert/UpsertProjectItemModal";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
-import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
+import { DeveloperProjectItemId, ProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { handleApiCall } from "../../../../../../ultils";
 import { ButtonGroup } from "../../landing/components/ButtonGroup";
 import { ProjectsSection } from "./ProjectsSection";
@@ -65,18 +65,18 @@ const Step2: React.FC<Step2Props> = props => {
     setShowDeleteModal(true);
   };
 
-  const handleConfirmDelete = async (projectId: ProjectItemId) => {
+  const handleConfirmDelete = async (developerProjectItemId: DeveloperProjectItemId) => {
     const apiCall = async () => {
       const params: dto.RemoveDeveloperProjectItemParams = {};
       const body: dto.RemoveDeveloperProjectItemBody = {
-        projectItemId: projectId,
+        developerProjectItemId,
       };
       const query: dto.RemoveDeveloperProjectItemQuery = {};
       return await api.removeProjectItem(params, body, query);
     };
 
     const onSuccess = () => {
-      const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== projectId.uuid);
+      const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid);
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
       setShowDeleteModal(false);

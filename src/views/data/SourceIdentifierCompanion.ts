@@ -9,13 +9,7 @@ function isOwnerLike(x: any): x is OwnerId | { login: string } {
   return x && typeof x === "object" && typeof x.login === "string";
 }
 function isRepoLike(x: any): x is RepositoryId | { name: string; ownerId?: { login?: string } } {
-  return (
-    x &&
-    typeof x === "object" &&
-    typeof x.name === "string" &&
-    x.ownerId &&
-    typeof x.ownerId === "object"
-  );
+  return x && typeof x === "object" && typeof x.name === "string" && x.ownerId && typeof x.ownerId === "object";
 }
 
 export namespace SourceIdentifierCompanion {

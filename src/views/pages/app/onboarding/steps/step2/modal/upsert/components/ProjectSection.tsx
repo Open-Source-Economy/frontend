@@ -67,12 +67,7 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
 
     // Repository-like (has name + ownerId with login)
     const isRepoLike =
-      si &&
-      typeof si === "object" &&
-      typeof si.name === "string" &&
-      si.ownerId &&
-      typeof si.ownerId === "object" &&
-      typeof si.ownerId.login === "string";
+      si && typeof si === "object" && typeof si.name === "string" && si.ownerId && typeof si.ownerId === "object" && typeof si.ownerId.login === "string";
 
     // Owner-like (has login)
     const isOwnerLike = si && typeof si === "object" && typeof si.login === "string";
