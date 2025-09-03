@@ -11,7 +11,6 @@ const createApiInstance = () => {
   // Add a request interceptor
   api.interceptors.request.use(
     request => {
-      console.log(config.env)
       if (config.env !== Env.Production) {
         console.log("Sending request:", request.method, request.url);
         if (request.data) {
