@@ -66,6 +66,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
     const [projectItemType, sourceIdentifier] = projectItemData;
 
+    console.log("Upserting project item with data:", { sourceIdentifier});
+    console.log(sourceIdentifier instanceof OwnerId, sourceIdentifier instanceof RepositoryId);
+
     const apiCall = async () => {
       const params: dto.UpsertDeveloperProjectItemParams = {};
 
