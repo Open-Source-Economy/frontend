@@ -123,8 +123,8 @@ const App = () => {
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
             </Route>
 
-            <Route path={paths.DEV_ONBOARDING} element={<OnboardingLandingPage />} />
-            <Route element={<AuthRoutes authPage={paths.DEV_ONBOARDING} />}>
+            <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
+            <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
               <Route path={paths.DEV_ONBOARDING_START} element={<OnboardingFlow />} />
             </Route>
 

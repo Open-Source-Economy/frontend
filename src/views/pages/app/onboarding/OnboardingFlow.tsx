@@ -118,7 +118,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate(paths.DEV_ONBOARDING);
+      navigate(paths.DEVELOPER_LANDING);
     }
   };
 

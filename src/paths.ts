@@ -12,7 +12,7 @@ export const paths = {
   PROJECTS: "/projects",
   REQUEST_MAINTAINER_RIGHTS: "/request-maintainer-rights",
   CHECKOUT_SUCCESS: "/checkout/success",
-  DEVELOPER: "/developer",
+  DEVELOPER: "/developer-old", // TODO: to delete
   USER: "/user",
   WHITE_PAPER: "/white-paper",
   TERMS_AND_CONDITIONS: "/terms-and-conditions",
@@ -27,13 +27,8 @@ export const paths = {
   BLOG: "https://blog.open-source-economy.com/",
 
   // Onboarding routes
-  DEV_ONBOARDING: "/dev-onboarding",
-  DEV_ONBOARDING_START: "/dev-onboarding/start",
-  DEV_ONBOARDING_PROFILE: "/dev-onboarding/profile",
-  DEV_ONBOARDING_PROJECTS: "/dev-onboarding/projects",
-  DEV_ONBOARDING_INCOME: "/dev-onboarding/income-availability",
-  DEV_ONBOARDING_SERVICES: "/dev-onboarding/services",
-  DEV_ONBOARDING_REVIEW: "/dev-onboarding/review",
+  DEVELOPER_LANDING: "/developer",
+  DEV_ONBOARDING_START: "/developer-onboarding",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

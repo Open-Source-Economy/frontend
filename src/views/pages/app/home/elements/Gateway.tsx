@@ -9,7 +9,7 @@ import { useAuth } from "../../../authenticate";
 
 export const Gateway = () => {
   const auth = useAuth();
-  const developerPath = (auth.authInfo?.repositories ?? []).length > 0 ? paths.MANAGE_ISSUES : paths.DEV_ONBOARDING;
+  const developerPath = (auth.authInfo?.repositories ?? []).length > 0 ? paths.MANAGE_ISSUES : paths.DEVELOPER_LANDING;
   const userPath = auth.authInfo?.user ? paths.DASHBOARD : paths.USER;
 
   return (
