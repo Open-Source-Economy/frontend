@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import {
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
@@ -21,7 +21,7 @@ export function getAuthBackendAPI(): AuthBackendAPI {
   if (config.api.useMock) {
     return new AuthBackendAPIMock();
   } else {
-    return new AuthBackendAPIImpl(api);
+    return new AuthBackendAPIImpl(axios);
   }
 }
 
