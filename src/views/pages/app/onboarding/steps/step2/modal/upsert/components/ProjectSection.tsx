@@ -46,7 +46,7 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
   const { onProjectItemChange } = props;
 
   const [url, setUrl] = useState<string | null>(null);
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.projectItemType);
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.projectItemType ?? ProjectItemType.GITHUB_REPOSITORY);
 
   const projectTypeSelectRef = useRef<GenericInputRef>(null);
   const urlInputRef = useRef<GenericInputRef>(null);
@@ -119,7 +119,13 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
             validator={value => validateProjectUrl(value, selectedProjectType)}
           />
           <div className="flex flex-col items-start gap-2 self-stretch">
-            <ProjectItemTypeSelectInput value={selectedProjectType} onChange={setSelectedProjectType} required ref={projectTypeSelectRef} />
+            <ProjectItemTypeSelectInput
+              value={selectedProjectType}
+              includePlaceholder={false}
+              onChange={setSelectedProjectType}
+              required
+              ref={projectTypeSelectRef}
+            />
           </div>
         </div>
       </div>
