@@ -15,7 +15,7 @@ interface DeleteProjectModalProps {
 export function DeleteProjectModal(props: DeleteProjectModalProps) {
   const handleDelete = () => {
     if (props.project) {
-      props.onConfirmDelete(props.project.developerProjectItem.id);
+      props.onConfirmDelete(props.project.developerProjectItem.id); // TODO: improve type safety - if you replace by props.project.projectItem.id it shows an error
     }
   };
 

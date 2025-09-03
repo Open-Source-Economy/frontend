@@ -12,9 +12,9 @@ export default function OnboardingLandingPage() {
 
   const handleGitHubSignIn = () => {
     if (auth.authInfo?.user) {
-      navigate(paths.DEV_ONBOARDING_START);
+      navigate(paths.DEVELOPER_ONBOARDING);
     } else {
-      auth.loginWithGitHub(paths.DEV_ONBOARDING_START);
+      auth.loginWithGitHub(paths.DEVELOPER_ONBOARDING);
     }
   };
 

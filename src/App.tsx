@@ -68,7 +68,7 @@ const App = () => {
               <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
             </Route>
 
-            <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
+            <Route path={paths.DEVELOPER_OLD} element={<UserDeveloper {...developerProps} />} />
             {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
             <Route path={paths.USER} element={<CompanyProduct />} />
             <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
@@ -125,7 +125,7 @@ const App = () => {
 
             <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
             <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
-              <Route path={paths.DEV_ONBOARDING_START} element={<OnboardingFlow />} />
+              <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />
