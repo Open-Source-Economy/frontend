@@ -17,8 +17,9 @@ import ErrorDisplay from "../../components/ErrorDisplay";
 type Step2Props = OnboardingStepProps<Step2State>;
 
 const Step2: React.FC<Step2Props> = props => {
-  const [showModal, setShowModal] = useState(false);
+  const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(props.state.projects);
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
@@ -32,19 +33,19 @@ const Step2: React.FC<Step2Props> = props => {
   const handleAddProject = () => {
     setEditingProject(null);
     setApiError(null);
-    setShowModal(true);
+    setShowUpsertModal(true);
   };
 
   // Function to handle editing an existing project
-  const handleEditProject = (project: DeveloperProjectItemEntry) => {
-    setEditingProject(project);
+  const handleEditProject = (entry: DeveloperProjectItemEntry) => {
+    setEditingProject(entry);
     setApiError(null);
-    setShowModal(true);
+    setShowUpsertModal(true);
   };
 
   // Callback from UpsertProjectItemModal after an item is added or updated
   const handleUpsertComplete = (newOrUpdatedProject: DeveloperProjectItemEntry) => {
-    setShowModal(false);
+    setShowUpsertModal(false);
     let updatedProjects: DeveloperProjectItemEntry[];
 
     if (editingProject) {
@@ -112,7 +113,7 @@ const Step2: React.FC<Step2Props> = props => {
         errorMessage={apiError?.message}
       />
       {/* Add/Edit Project Modal */}
-      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
+      {showUpsertModal && <UpsertProjectItemModal show={showUpsertModal} setShow={setShowUpsertModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
 
       {/* Delete Project Modal */}
       {showDeleteModal && (

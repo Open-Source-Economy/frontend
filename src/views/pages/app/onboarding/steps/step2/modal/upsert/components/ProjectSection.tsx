@@ -60,15 +60,31 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
     },
   }));
 
+  // TODO: improve type safety
   useEffect(() => {
     let newUrl: string | null = null;
-    if (props.sourceIdentifier instanceof RepositoryId) {
-      newUrl = GithubUrls.generateRepositoryUrl(props.sourceIdentifier);
-    } else if (props.sourceIdentifier instanceof OwnerId) {
-      newUrl = GithubUrls.generateOwnerUrl(props.sourceIdentifier);
+    const si = props.sourceIdentifier as any;
+
+    // Repository-like (has name + ownerId with login)
+    const isRepoLike =
+      si &&
+      typeof si === "object" &&
+      typeof si.name === "string" &&
+      si.ownerId &&
+      typeof si.ownerId === "object" &&
+      typeof si.ownerId.login === "string";
+
+    // Owner-like (has login)
+    const isOwnerLike = si && typeof si === "object" && typeof si.login === "string";
+
+    if (isRepoLike) {
+      newUrl = GithubUrls.generateRepositoryUrl(si);
+    } else if (isOwnerLike) {
+      newUrl = GithubUrls.generateOwnerUrl(si);
     } else if (typeof props.sourceIdentifier === "string") {
       newUrl = props.sourceIdentifier;
     }
+
     setUrl(newUrl);
   }, [props.sourceIdentifier]);
 
