@@ -1,16 +1,16 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError } from "./index";
-import axios from "axios";
+import { handleError, api } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
+import { AxiosInstance } from "axios";
 
 export function getOnboardingBackendAPI(): OnboardingBackendAPI {
   if (config.api.useMock) {
     return new OnboardingBackendAPIMock();
   }
-  return new OnboardingBackendAPIImpl();
+  return new OnboardingBackendAPIImpl(api);
 }
 
 export interface OnboardingBackendAPI {
@@ -91,13 +91,18 @@ export interface OnboardingBackendAPI {
 }
 
 class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
+  private api: AxiosInstance;
+  constructor(api: AxiosInstance) {
+    this.api = api;
+  }
+
   async createDeveloperProfile(
     params: dto.CreateDeveloperProfileParams,
     body: dto.CreateDeveloperProfileBody,
     query: dto.CreateDeveloperProfileQuery,
   ): Promise<dto.CreateDeveloperProfileResponse | ApiError> {
     return handleError<dto.CreateDeveloperProfileResponse>(
-      () => axios.post(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
+      () => this.api.post(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
       "createDeveloperProfile",
     );
   }
@@ -108,14 +113,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.UpdateDeveloperContactInfosQuery,
   ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError> {
     return handleError<dto.UpdateDeveloperContactInfosResponse>(
-      () => axios.put(`${config.api.url}/onboarding/profile/contact-infos`, body, { withCredentials: true, params: query }),
+      () => this.api.put(`${config.api.url}/onboarding/profile/contact-infos`, body, { withCredentials: true, params: query }),
       "updateDeveloperContactInfos",
     );
   }
 
   async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
     return handleError<dto.GetDeveloperProfileResponse>(
-      () => axios.get(`${config.api.url}/onboarding/profile`, { withCredentials: true, params: query }),
+      () => this.api.get(`${config.api.url}/onboarding/profile`, { withCredentials: true, params: query }),
       "getDeveloperProfile",
     );
   }
@@ -126,7 +131,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.SetDeveloperIncomeStreamsQuery,
   ): Promise<dto.SetDeveloperIncomeStreamsResponse | ApiError> {
     return handleError<dto.SetDeveloperIncomeStreamsResponse>(
-      () => axios.put(`${config.api.url}/onboarding/settings/income-streams`, body, { withCredentials: true, params: query }),
+      () => this.api.put(`${config.api.url}/onboarding/settings/income-streams`, body, { withCredentials: true, params: query }),
       "setDeveloperIncomeStreams",
     );
   }
@@ -137,7 +142,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.SetDeveloperServiceSettingsQuery,
   ): Promise<dto.SetDeveloperServiceSettingsResponse | ApiError> {
     return handleError<dto.SetDeveloperServiceSettingsResponse>(
-      () => axios.put(`${config.api.url}/onboarding/settings/services`, body, { withCredentials: true, params: query }),
+      () => this.api.put(`${config.api.url}/onboarding/settings/services`, body, { withCredentials: true, params: query }),
       "setDeveloperServiceSettings",
     );
   }
@@ -148,7 +153,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.UpsertDeveloperProjectItemQuery,
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.UpsertDeveloperProjectItemResponse>(
-      () => axios.post(`${config.api.url}/onboarding/projects`, body, { withCredentials: true, params: query }),
+      () => this.api.post(`${config.api.url}/onboarding/projects`, body, { withCredentials: true, params: query }),
       "upsertProjectItem",
     );
   }
@@ -159,7 +164,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.RemoveDeveloperProjectItemQuery,
   ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError> {
     return handleError<dto.RemoveDeveloperProjectItemResponse>(
-      () => axios.delete(`${config.api.url}/onboarding/projects`, { data: body, withCredentials: true, params: query }),
+      () => this.api.delete(`${config.api.url}/onboarding/projects`, { data: body, withCredentials: true, params: query }),
       "removeProjectItem",
     );
   }
@@ -169,14 +174,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.GetPotentialDeveloperProjectItemsQuery,
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError> {
     return handleError<dto.GetPotentialDeveloperProjectItemsResponse>(
-      () => axios.get(`${config.api.url}/onboarding/projects/potential`, { withCredentials: true, params: query }),
+      () => this.api.get(`${config.api.url}/onboarding/projects/potential`, { withCredentials: true, params: query }),
       "getPotentialProjectItems",
     );
   }
 
   async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<GetServiceHierarchyResponse | ApiError> {
     return handleError<GetServiceHierarchyResponse>(
-      () => axios.get(`${config.api.url}/onboarding/services/hierarchy`, { withCredentials: true, params: query }),
+      () => this.api.get(`${config.api.url}/onboarding/services/hierarchy`, { withCredentials: true, params: query }),
       "getServiceHierarchy",
     );
   }
@@ -187,7 +192,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.UpsertDeveloperServiceQuery,
   ): Promise<dto.UpsertDeveloperServiceResponse | ApiError> {
     return handleError<dto.UpsertDeveloperServiceResponse>(
-      () => axios.put(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
+      () => this.api.put(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
       "upsertDeveloperService",
     );
   }
@@ -198,7 +203,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.DeleteDeveloperServiceQuery,
   ): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
     return handleError<dto.DeleteDeveloperServiceResponse>(
-      () => axios.delete(`${config.api.url}/onboarding/services`, { data: body, withCredentials: true, params: query }),
+      () => this.api.delete(`${config.api.url}/onboarding/services`, { data: body, withCredentials: true, params: query }),
       "deleteDeveloperService",
     );
   }
@@ -209,7 +214,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.CreateCustomServiceQuery,
   ): Promise<dto.CreateCustomServiceResponse | ApiError> {
     return handleError<dto.CreateCustomServiceResponse>(
-      () => axios.post(`${config.api.url}/onboarding/services/custom`, body, { withCredentials: true, params: query }),
+      () => this.api.post(`${config.api.url}/onboarding/services/custom`, body, { withCredentials: true, params: query }),
       "createCustomService",
     );
   }
@@ -220,7 +225,7 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     query: dto.CompleteOnboardingQuery,
   ): Promise<dto.CompleteOnboardingResponse | ApiError> {
     return handleError<dto.CompleteOnboardingResponse>(
-      () => axios.post(`${config.api.url}/onboarding/complete`, body, { withCredentials: true, params: query }),
+      () => this.api.post(`${config.api.url}/onboarding/complete`, body, { withCredentials: true, params: query }),
       "completeOnboarding",
     );
   }

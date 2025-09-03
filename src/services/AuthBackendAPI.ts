@@ -1,4 +1,4 @@
-import axios from "axios";
+import { AxiosInstance } from "axios";
 import {
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
@@ -15,13 +15,13 @@ import {
 import { AuthBackendAPIMock } from "src/__mocks__";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-import { handleError } from "./index";
+import { handleError, api } from "./index";
 
 export function getAuthBackendAPI(): AuthBackendAPI {
   if (config.api.useMock) {
     return new AuthBackendAPIMock();
   } else {
-    return new AuthBackendAPIImpl();
+    return new AuthBackendAPIImpl(api);
   }
 }
 
@@ -42,26 +42,35 @@ export interface AuthBackendAPI {
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
+  private api: AxiosInstance;
+
+  constructor(api: AxiosInstance) {
+    this.api = api;
+  }
+
   async checkUserStatus(): Promise<StatusResponse | ApiError> {
-    return handleError<StatusResponse>(() => axios.get(`${config.api.url}/auth/status`, { withCredentials: true }), "checkUserStatus");
+    return handleError<StatusResponse>(() => this.api.get(`${config.api.url}/auth/status`, { withCredentials: true }), "checkUserStatus");
   }
 
   async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse | ApiError> {
-    return handleError(() => axios.post(`${config.api.url}/auth/login`, body, { withCredentials: true }), "login");
+    return handleError(() => this.api.post(`${config.api.url}/auth/login`, body, { withCredentials: true }), "login");
   }
 
   async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError> {
     if (query.companyToken) {
       const queryParams = `companyToken=${encodeURIComponent(query.companyToken)}`;
-      return handleError(() => axios.post(`${config.api.url}/auth/register-as-company?${queryParams}`, body, { withCredentials: true }), "register-as-company");
+      return handleError(
+        () => this.api.post(`${config.api.url}/auth/register-as-company?${queryParams}`, body, { withCredentials: true }),
+        "register-as-company",
+      );
     } else if (query.repositoryToken) {
       const queryParams = `repositoryToken=${encodeURIComponent(query.repositoryToken)}`;
       return handleError(
-        () => axios.post(`${config.api.url}/auth/register-as-maintainer?${queryParams}`, body, { withCredentials: true }),
+        () => this.api.post(`${config.api.url}/auth/register-as-maintainer?${queryParams}`, body, { withCredentials: true }),
         "register-as-maintainer",
       );
     } else {
-      return handleError(() => axios.post(`${config.api.url}/auth/register`, body, { withCredentials: true }), "register");
+      return handleError(() => this.api.post(`${config.api.url}/auth/register`, body, { withCredentials: true }), "register");
     }
   }
 
@@ -70,14 +79,14 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   }
 
   async deleteSession(): Promise<void | ApiError> {
-    return handleError(() => axios.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
+    return handleError(() => this.api.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
   }
 
   async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse | ApiError> {
     // TODO: make that generic for all the params
     const queryParams = `token=${encodeURIComponent(query.token)}`;
     return handleError<GetCompanyUserInviteInfoResponse>(
-      () => axios.get(`${config.api.url}/auth/company-user-invite-info?${queryParams}`, { withCredentials: true }),
+      () => this.api.get(`${config.api.url}/auth/company-user-invite-info?${queryParams}`, { withCredentials: true }),
       "getCompanyUserInviteInfo",
     );
   }
@@ -85,7 +94,7 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   async getRepositoryUserInviteInfo(query: GetRepositoryUserInviteInfoQuery): Promise<GetRepositoryUserInviteInfoResponse | ApiError> {
     const queryParams = `token=${encodeURIComponent(query.token)}`;
     return handleError<GetRepositoryUserInviteInfoResponse>(
-      () => axios.get(`${config.api.url}/auth/repository-user-invite-info?${queryParams}`, { withCredentials: true }),
+      () => this.api.get(`${config.api.url}/auth/repository-user-invite-info?${queryParams}`, { withCredentials: true }),
       "getRepositoryUserInviteInfo",
     );
   }
