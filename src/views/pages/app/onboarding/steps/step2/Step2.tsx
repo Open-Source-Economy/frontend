@@ -88,13 +88,13 @@ const Step2: React.FC<Step2Props> = props => {
   return (
     <>
       {/* Projects Section */}
-      <ProjectsSection
-        projects={projects}
-        onAddProject={handleAddProject}
-        onEditProject={handleEditProject}
-        onShowDeleteModal={handleShowDeleteModal}
-        isLoading={isLoading}
-      />
+      {/*<ProjectsSection*/}
+      {/*  projects={projects}*/}
+      {/*  onAddProject={handleAddProject}*/}
+      {/*  onEditProject={handleEditProject}*/}
+      {/*  onShowDeleteModal={handleShowDeleteModal}*/}
+      {/*  isLoading={isLoading}*/}
+      {/*/>*/}
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}
@@ -111,19 +111,19 @@ const Step2: React.FC<Step2Props> = props => {
         showErrorMessage={false}
         errorMessage={apiError?.message}
       />
-      {/* Add/Edit Project Modal */}
-      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
+      {/*/!* Add/Edit Project Modal *!/*/}
+      {/*{showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} entry={editingProject} onUpsert={handleUpsertComplete} />}*/}
 
-      {/* Delete Project Modal */}
-      {showDeleteModal && (
-        <DeleteProjectModal
-          show={showDeleteModal}
-          setShow={setShowDeleteModal}
-          project={deletingProject}
-          onConfirmDelete={handleConfirmDelete}
-          isDeleting={isDeleting}
-        />
-      )}
+      {/*/!* Delete Project Modal *!/*/}
+      {/*{showDeleteModal && (*/}
+      {/*  <DeleteProjectModal*/}
+      {/*    show={showDeleteModal}*/}
+      {/*    setShow={setShowDeleteModal}*/}
+      {/*    project={deletingProject}*/}
+      {/*    onConfirmDelete={handleConfirmDelete}*/}
+      {/*    isDeleting={isDeleting}*/}
+      {/*  />*/}
+      {/*)}*/}
     </>
   );
 };
