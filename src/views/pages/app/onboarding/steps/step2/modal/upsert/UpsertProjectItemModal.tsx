@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, OwnerId, RepositoryId, SourceIdentifier } from "@open-source-economy/api-types";
@@ -44,9 +44,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleProjectItemChange = (data: [ProjectItemType, SourceIdentifier] | null) => {
+  // Use useCallback to memoize this function.
+  const handleProjectItemChange = useCallback((data: [ProjectItemType, SourceIdentifier] | null) => {
     setProjectItemData(data);
-  };
+  }, []);
 
   const handleUpsertProject = async () => {
     // Call the validate method on the projectSectionRef
