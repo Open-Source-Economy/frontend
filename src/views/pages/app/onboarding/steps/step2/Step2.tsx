@@ -88,13 +88,13 @@ const Step2: React.FC<Step2Props> = props => {
   return (
     <>
       {/* Projects Section */}
-      {/*<ProjectsSection*/}
-      {/*  projects={projects}*/}
-      {/*  onAddProject={handleAddProject}*/}
-      {/*  onEditProject={handleEditProject}*/}
-      {/*  onShowDeleteModal={handleShowDeleteModal}*/}
-      {/*  isLoading={isLoading}*/}
-      {/*/>*/}
+      <ProjectsSection
+        projects={projects}
+        onAddProject={handleAddProject}
+        onEditProject={handleEditProject}
+        onShowDeleteModal={handleShowDeleteModal}
+        isLoading={isLoading}
+      />
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}

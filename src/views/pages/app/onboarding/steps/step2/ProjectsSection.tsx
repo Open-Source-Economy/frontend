@@ -19,7 +19,7 @@ export function ProjectsSection(props: ProjectsSectionProps) {
   return (
     <div className="flex flex-col items-start self-stretch">
       {/* Project List Table */}
-      <ProjectListTable projects={props.projects} onEditProject={props.onEditProject} onDeleteProject={props.onShowDeleteModal} />
+      {/*<ProjectListTable projects={props.projects} onEditProject={props.onEditProject} onDeleteProject={props.onShowDeleteModal} />*/}
 
       {/* Add Project Button */}
       <div className="flex p-3 justify-center items-center gap-2.5 self-stretch bg-[#14233A] rounded-b-[30px]">
