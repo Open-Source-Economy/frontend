@@ -1,6 +1,6 @@
 import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
-import { ProjectItemIdCompanion } from "../../../../../data";
+import { SourceIdentifierCompanion } from "../../../../../data";
 import { displayedDeveloperRoles, displayedMergeRights } from "../../../../../components/form";
 import { GitHubIcon } from "./icons/GitHubIcon";
 import { ProjectItemType } from "@open-source-economy/api-types/dist/model/project/ProjectItemType";
@@ -62,7 +62,7 @@ export function ProjectListTable(props: ProjectListTableProps) {
                   (entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY && <GitHubIcon />)}
 
                 <div className="text-white font-montserrat text-base font-normal leading-[150%]">
-                  {ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)}
+                  {SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}
                 </div>
               </div>
               <svg className="w-0 self-stretch stroke-white opacity-20" width="2" height="42" viewBox="0 0 2 42" fill="none" xmlns="http://www.w3.org/2000/svg">

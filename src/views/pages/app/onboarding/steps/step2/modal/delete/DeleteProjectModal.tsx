@@ -1,7 +1,7 @@
 import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model";
-import { ProjectItemIdCompanion } from "../../../../../../../data";
+import { SourceIdentifierCompanion } from "../../../../../../../data";
 import { BaseDeleteConfirmationModal } from "../../../step5/modals/delete/BaseDeleteConfirmationModal";
 
 interface DeleteProjectModalProps {
@@ -32,7 +32,7 @@ export function DeleteProjectModal(props: DeleteProjectModalProps) {
         onClose={handleCancel}
         title="Remove Project"
         subtitle="Are you sure you want to delete this item?"
-        itemDisplayName={ProjectItemIdCompanion.displayName(props.project.projectItem.sourceIdentifier)}
+        itemDisplayName={SourceIdentifierCompanion.displayName(props.project.projectItem.sourceIdentifier)}
         onConfirmDelete={handleDelete}
         isDeleting={props.isDeleting}
       />

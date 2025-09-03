@@ -1,7 +1,7 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { MultiSelectInput, SelectOption } from "../../../../../../../../components/form/select/MultiSelectInput";
-import { ProjectItemIdCompanion } from "../../../../../../../../data";
+import { SourceIdentifierCompanion } from "../../../../../../../../data";
 
 interface ProjectSelectionProps {
   projects: dto.DeveloperProjectItemEntry[];
@@ -18,7 +18,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
     ...(props.projects.length > 0 ? [{ value: "all", label: "All projects", isAllOption: true }] : []),
     ...props.projects.map(entry => ({
       value: entry.developerProjectItem.id.uuid,
-      label: ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier),
+      label: SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier),
       hasIcon: true,
     })),
     // { value: "add", label: "Add different project", isAddOption: true },
@@ -77,7 +77,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
 
               {/* Project Label */}
               <span className="text-white font-montserrat text-base font-normal leading-[150%]">
-                {ProjectItemIdCompanion.displayName(entry.projectItem.sourceIdentifier)}
+                {SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}
               </span>
             </div>
           ))}

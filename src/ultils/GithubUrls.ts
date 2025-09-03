@@ -83,4 +83,22 @@ export class GithubUrls {
     }
     return null;
   }
+
+  /**
+   * Generates a GitHub owner URL from an OwnerId.
+   * @param ownerId The OwnerId object.
+   * @returns The GitHub URL string.
+   */
+  static generateOwnerUrl(ownerId: OwnerId): string {
+    return `https://github.com/${ownerId.login}`;
+  }
+
+  /**
+   * Generates a GitHub repository URL from a RepositoryId.
+   * @param repoId The RepositoryId object.
+   * @returns The GitHub URL string.
+   */
+  static generateRepositoryUrl(repoId: RepositoryId): string {
+    return `https://github.com/${repoId.ownerId.login}/${repoId.name}`;
+  }
 }

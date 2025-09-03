@@ -1,14 +1,17 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { GenericInputRef, ProjectItemTypeSelectInput, UrlInput } from "../../../../../../../../components/form";
 import { ProjectItemType } from "../../../ProjectItemType";
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import { OwnerId, RepositoryId, SourceIdentifier } from "@open-source-economy/api-types";
 import { BaseRef } from "../../../../../../../../components/form/Base";
 import { GithubUrls } from "../../../../../../../../../ultils";
+import { SourceIdentifierCompanion } from "../../../../../../../../data";
 
 export interface ProjectSectionRef extends BaseRef {}
 
 interface ProjectSectionProps {
-  onProjectItemChange: (type: [ProjectItemType, OwnerId | RepositoryId | string] | null) => void;
+  projectItemType: ProjectItemType | null;
+  sourceIdentifier: SourceIdentifier | null;
+  onProjectItemChange: (type: [ProjectItemType, SourceIdentifier] | null) => void;
 }
 
 const validateProjectUrl = (value: string, projectType: ProjectItemType | null): string | undefined => {
@@ -42,8 +45,8 @@ const validateProjectUrl = (value: string, projectType: ProjectItemType | null):
 export const ProjectSection = forwardRef(function ProjectSection(props: ProjectSectionProps, ref: Ref<ProjectSectionRef>) {
   const { onProjectItemChange } = props;
 
-  const [url, setUrl] = useState("");
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(null);
+  const [url, setUrl] = useState<string | null>(null);
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.projectItemType);
 
   const projectTypeSelectRef = useRef<GenericInputRef>(null);
   const urlInputRef = useRef<GenericInputRef>(null);
@@ -58,11 +61,24 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
   }));
 
   useEffect(() => {
+    let newUrl: string | null = null;
+    if (props.sourceIdentifier instanceof RepositoryId) {
+      newUrl = GithubUrls.generateRepositoryUrl(props.sourceIdentifier);
+    } else if (props.sourceIdentifier instanceof OwnerId) {
+      newUrl = GithubUrls.generateOwnerUrl(props.sourceIdentifier);
+    } else if (typeof props.sourceIdentifier === "string") {
+      newUrl = props.sourceIdentifier;
+    }
+    setUrl(newUrl);
+  }, [props.sourceIdentifier]);
+
+  useEffect(() => {
     if (!selectedProjectType) {
       onProjectItemChange(null);
       return;
+    } else if (url !== null) {
+      onProjectItemChange([selectedProjectType, SourceIdentifierCompanion.fromUrlOrShorthand(url)]);
     }
-    onProjectItemChange([selectedProjectType, url]);
   }, [selectedProjectType, url, onProjectItemChange]);
 
   const LABELS: Record<ProjectItemType, string> = {
@@ -96,7 +112,7 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
             label={inputLabel}
             required={!!selectedProjectType}
             disabled={!selectedProjectType}
-            value={url}
+            value={url ?? ""}
             onChange={e => setUrl(e.target.value.trim())}
             placeholder={inputPlaceholder}
             ref={urlInputRef}

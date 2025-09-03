@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, OwnerId, RepositoryId, SourceIdentifier } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../../../services";
 import { ApiError } from "../../../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../../../ultils";
@@ -15,24 +15,24 @@ import { ProjectItemType } from "../../ProjectItemType";
 interface UpsertProjectItemModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  projectItem: DeveloperProjectItemEntry | null;
+  entry: DeveloperProjectItemEntry | null;
   onUpsert: (projectItem: DeveloperProjectItemEntry) => void;
 }
 
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const api = getOnboardingBackendAPI();
 
-  const [projectItemData, setProjectItemData] = useState<[ProjectItemType, OwnerId | RepositoryId | string] | null>(null);
+  const [projectItemData, setProjectItemData] = useState<[ProjectItemType, SourceIdentifier] | null>(null);
 
   // Contribution-related states
   const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
-    props.projectItem && props.projectItem.developerProjectItem.roles && props.projectItem.developerProjectItem.roles.length > 0
-      ? props.projectItem.developerProjectItem.roles[0]
+    props.entry && props.entry.developerProjectItem.roles && props.entry.developerProjectItem.roles.length > 0
+      ? props.entry.developerProjectItem.roles[0]
       : null,
   );
   const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(
-    props.projectItem && props.projectItem.developerProjectItem.mergeRights && props.projectItem.developerProjectItem.mergeRights.length > 0
-      ? props.projectItem.developerProjectItem.mergeRights[0]
+    props.entry && props.entry.developerProjectItem.mergeRights && props.entry.developerProjectItem.mergeRights.length > 0
+      ? props.entry.developerProjectItem.mergeRights[0]
       : null,
   );
 
@@ -44,7 +44,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleProjectItemChange = (data: [ProjectItemType, OwnerId | RepositoryId | string] | null) => {
+  const handleProjectItemChange = (data: [ProjectItemType, SourceIdentifier] | null) => {
     setProjectItemData(data);
   };
 
@@ -110,7 +110,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             />
 
             {/* Project Section */}
-            <ProjectSection ref={projectSectionRef} onProjectItemChange={handleProjectItemChange} />
+            <ProjectSection
+              projectItemType={props.entry ? props.entry.projectItem.projectItemType : null}
+              sourceIdentifier={props.entry ? props.entry.projectItem.sourceIdentifier : null}
+              onProjectItemChange={handleProjectItemChange}
+              ref={projectSectionRef}
+            />
 
             {/* Contribution Section */}
             <ContributionSection
@@ -126,7 +131,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             {error && <div className="self-stretch text-red-400 text-sm font-montserrat">API Error: {error.message}</div>}
 
             {/* Footer Button */}
-            <ModalFooter onSubmit={handleUpsertProject} isLoading={isLoading} buttonText={props.projectItem ? "Save Changes" : "Add Project"} />
+            <ModalFooter onSubmit={handleUpsertProject} isLoading={isLoading} buttonText={props.entry ? "Save Changes" : "Add Project"} />
           </div>
         </Modal.Body>
       </Modal>

@@ -112,7 +112,7 @@ const Step2: React.FC<Step2Props> = props => {
         errorMessage={apiError?.message}
       />
       {/* Add/Edit Project Modal */}
-      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} projectItem={editingProject} onUpsert={handleUpsertComplete} />}
+      {showModal && <UpsertProjectItemModal show={showModal} setShow={setShowModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
 
       {/* Delete Project Modal */}
       {showDeleteModal && (
