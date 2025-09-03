@@ -124,8 +124,9 @@ const App = () => {
             </Route>
 
             <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
+            <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
             <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
-              <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
+              {/*<Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />*/}
             </Route>
 
             <Route path="*" element={<PageNotFound />} />
