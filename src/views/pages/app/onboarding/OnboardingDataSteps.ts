@@ -15,7 +15,6 @@ export enum OnboardingDataSteps {
   Step3 = 3,
   Step4 = 4,
   Step5 = 5,
-  Step6 = 6,
 }
 
 export interface Step1State {
@@ -52,8 +51,6 @@ export interface Step5State {
   developerProjectItems: DeveloperProjectItemEntry[];
 }
 
-export interface Step6State {}
-
 export interface OnboardingState {
   currentStep: OnboardingDataSteps;
   step1: Step1State;
@@ -61,7 +58,6 @@ export interface OnboardingState {
   step3: Step3State;
   step4: Step4State;
   step5: Step5State;
-  step6: Step6State;
 }
 
 export function transformFullDeveloperProfileToOnboardingState(
@@ -104,8 +100,6 @@ export function transformFullDeveloperProfileToOnboardingState(
     developerProjectItems: profile.projects || [],
   };
 
-  const step6: Step6State = {};
-
   return {
     currentStep,
     step1,
@@ -113,6 +107,5 @@ export function transformFullDeveloperProfileToOnboardingState(
     step3,
     step4,
     step5,
-    step6,
   };
 }

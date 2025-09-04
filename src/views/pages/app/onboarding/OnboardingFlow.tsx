@@ -6,7 +6,6 @@ import { getOnboardingBackendAPI } from "src/services";
 
 import Step1 from "./steps/step1/Step1";
 import Step2 from "./steps/step2/Step2";
-import Step6 from "./steps/step6/Step6";
 
 import { paths } from "../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
@@ -38,13 +37,7 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     incomeStreams: [],
   },
   step4: {
-    hourlyWeeklyCommitment: 0,
-    openToOtherOpportunity: OpenToOtherOpportunityType.NO,
-    hourlyRate: 0,
     currency: preferredCurrency,
-    hourlyWeeklyCommitmentComments: "",
-    openToOtherOpportunityComments: "",
-    hourlyRateComments: "",
   },
   step5: {
     defaultRate: {
@@ -54,7 +47,6 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     developerServices: [],
     developerProjectItems: [],
   },
-  step6: {},
 });
 
 export default function OnboardingFlow() {
@@ -77,7 +69,7 @@ export default function OnboardingFlow() {
     let currentStep = OnboardingDataSteps.Step1;
 
     // If the URL step is invalid, redirect to Step1
-    if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step6) {
+    if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step5) {
       setSearchParams({ step: currentStep.toString() });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
@@ -105,11 +97,10 @@ export default function OnboardingFlow() {
   };
 
   const goToNextStep = () => {
-    if (state.currentStep < OnboardingDataSteps.Step6) {
+    if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      // If already on the last step, navigate to the home/dashboard
-      navigate(paths.HOME);
+      navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
     }
   };
 
@@ -139,9 +130,6 @@ export default function OnboardingFlow() {
         break;
       case OnboardingDataSteps.Step5:
         setState(prevState => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
-        break;
-      case OnboardingDataSteps.Step6:
-        setState(prevState => ({ ...prevState, step6: { ...prevState.step6, ...updates } }));
         break;
       default:
         break;
@@ -178,11 +166,6 @@ export default function OnboardingFlow() {
       title: "Services & Preferences",
       subtitle: "Detail the services and offerings you provide",
       render: <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
-    },
-    [OnboardingDataSteps.Step6]: {
-      title: "Merge Rights",
-      subtitle: "Set your preferences for merge rights",
-      render: <Step6 currentStep={state.currentStep} state={state.step6} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
   };
 

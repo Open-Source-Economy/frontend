@@ -29,6 +29,7 @@ export const paths = {
   // Onboarding routes
   DEVELOPER_LANDING: "/developer",
   DEVELOPER_ONBOARDING: "/developer-onboarding",
+  DEVELOPER_ONBOARDING_COMPLETED: "/developer-onboarding-completed",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

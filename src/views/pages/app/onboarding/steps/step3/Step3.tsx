@@ -10,11 +10,14 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
 import { FundingCardGrid } from "./FundingCardGrid";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../../../../../../paths";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
 export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
+  const navigate = useNavigate();
 
   const [incomeStreams, setIncomeStreams] = useState<IncomeStreamType[]>(validatedState.incomeStreams);
   const [showServiceModel, setShowServiceModel] = useState(false);
@@ -60,6 +63,14 @@ export function Step3(props: Step3Props) {
     setShowServiceModel(false);
   };
 
+  const onNext = () => {
+    if (!incomeStreams.includes(IncomeStreamType.SERVICES)) {
+      navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+    } else {
+      props.onNext();
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col items-start gap-9 self-stretch">
@@ -73,7 +84,7 @@ export function Step3(props: Step3Props) {
         />
       </div>
 
-      <ButtonGroup onBack={props.onBack} onNext={props.onNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
+      <ButtonGroup onBack={props.onBack} onNext={onNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}
