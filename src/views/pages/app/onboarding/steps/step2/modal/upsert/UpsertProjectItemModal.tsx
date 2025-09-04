@@ -11,6 +11,7 @@ import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
 import { ContributionSection } from "./components/ContributionSection";
 import { ModalFooter } from "./components/ModalFooter";
 import { ProjectItemType } from "../../ProjectItemType";
+import { ProjectItemId } from "@open-source-economy/api-types/dist/model/project/ProjectItem";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
