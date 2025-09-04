@@ -20,6 +20,6 @@ export interface CurrencySelectInputProps extends EnumSelectInputChildrenProps<C
 export const CurrencySelectInput = forwardRef(function CurrencySelectInput(props: CurrencySelectInputProps, ref: Ref<CurrencySelectInputRef>) {
   return (
     // @ts-ignore
-    <EnumSelectInput<Currency> label="Currency" enumObject={Currency} displayedEnums={currencyDisplayedEnums} {...props} ref={ref} />
+    <EnumSelectInput<Currency> enumObject={Currency} displayedEnums={currencyDisplayedEnums} {...props} ref={ref} />
   );
 });
