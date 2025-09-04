@@ -7,7 +7,6 @@ interface OnboardingSectionWrapperProps {
   children: (showComment: boolean, commentButtonComponent: ReactNode) => ReactNode;
   commentValue: string;
   onCommentChange: (value: string) => void;
-  error?: string;
 }
 
 export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
@@ -57,9 +56,6 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
             </div>
           </div>
         )}
-
-        {/* Error Display */}
-        {props.error && <div className="text-red-400 text-sm">{props.error}</div>}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { displayedCurrencies } from "../../../data";
 import { BaseProps, BaseRef } from "../Base";
 import { CurrencySelectInput } from "./enum";
 import { IntegerInput } from "../input/number/IntegerInput";
+import { GenericInputRef } from "../input";
 
 export interface HourlyRateInputRef extends BaseRef {}
 
@@ -14,26 +15,21 @@ interface HourlyRateInputProps extends BaseProps {
   onHourlyRateChange: (value: number) => void;
 }
 
-export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, ref: Ref<HourlyRateInputRef>) {
+export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, hourlyRateRef: Ref<HourlyRateInputRef>) {
+  const integerInputRef = React.useRef<GenericInputRef>(null);
+  const currencyInputRef = React.useRef<GenericInputRef>(null);
+
   const [currency, setCurrency] = useState<Currency>(props.currency);
   const [hourlyRate, setHourlyRate] = useState<number | null>(props.hourlyRate);
   const [error, setError] = useState<string | null>(null);
 
-  const runHourlyRateValidation = (currentRate: number | null, showInputError: boolean): boolean => {
-    let errorMessage: string | null = null;
-    if (currentRate === null || currentRate <= 0) {
-      errorMessage = "Please enter a valid positive rate";
-      setError(errorMessage);
-    }
-    return !errorMessage;
-  };
-
   useImperativeHandle(
-    ref,
+    hourlyRateRef,
     () => ({
       validate: (showInputError: boolean) => {
-        const isHourlyRateValid = runHourlyRateValidation(hourlyRate, true);
-        return isHourlyRateValid;
+        const rateValidation = integerInputRef.current?.validate(showInputError) ?? false;
+        const currencyValidation = currencyInputRef.current?.validate(showInputError) ?? false;
+        return rateValidation && currencyValidation;
       },
     }),
     [hourlyRate],
@@ -72,9 +68,10 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
             placeholder="100"
             className="bg-transparent text-white"
             aria-label="Hourly Rate"
+            ref={integerInputRef}
           />
 
-          {props.onCurrencyChange && <CurrencySelectInput onChange={handleCurrencySelect} value={currency} />}
+          {props.onCurrencyChange && <CurrencySelectInput onChange={handleCurrencySelect} value={currency} ref={currencyInputRef} />}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
@@ -8,46 +8,29 @@ import { Step4State } from "../../OnboardingDataSteps";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
-import { WeeklyCommitmentSection } from "./WeeklyCommitmentSection";
-import { LargerOpportunitiesSection } from "./LargerOpportunitiesSection";
-import { IndicativeRateSection } from "./IndicativeRateSection";
+import { OnboardingSectionWrapper } from "./OnboardingSectionWrapper";
+import { WeeklyCommitmentInput, WeeklyCommitmentInputRef } from "../../../../../components/form/input/number";
+import { OpportunitySelector, OpportunitySelectorRef } from "./OpportunitySelector";
+import { HourlyRateInput, HourlyRateInputRef } from "../../../../../components/form";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
 export function Step4(props: Step4AvailabilityRateProps) {
-  const [errors, setErrors] = useState<{ weeklyHours?: string; opportunity?: string; rate?: string }>({});
+  const weeklyCommitmentRef = useRef<WeeklyCommitmentInputRef>(null);
+  const largerOpportunitiesRef = useRef<OpportunitySelectorRef>(null);
+  const indicativeRateRef = useRef<HourlyRateInputRef>(null);
+
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = (): boolean => {
-    const newErrors: { weeklyHours?: string; opportunity?: string; rate?: string } = {};
-    let isFormValid = true;
+  const validateForm = (showInputError: boolean): boolean => {
+    // Call the validate method on each section's ref
+    const isWeeklyCommitmentValid = weeklyCommitmentRef.current?.validate(showInputError) ?? false;
+    const isLargerOpportunitiesValid = largerOpportunitiesRef.current?.validate(showInputError) ?? false;
+    const isIndicativeRateValid = indicativeRateRef.current?.validate(showInputError) ?? false;
 
-    // Validate weekly commitment
-    if (
-      props.state.hourlyWeeklyCommitment === undefined ||
-      props.state.hourlyWeeklyCommitment === null ||
-      props.state.hourlyWeeklyCommitment < 0 ||
-      props.state.hourlyWeeklyCommitment > 168
-    ) {
-      newErrors.weeklyHours = "Please enter a valid number of hours (0-168)";
-      isFormValid = false;
-    }
-
-    // Validate opportunity selection
-    if (!props.state.openToOtherOpportunity) {
-      newErrors.opportunity = "Please select an option";
-      isFormValid = false;
-    }
-
-    // Validate hourly rate
-    if (!props.state.hourlyRate || props.state.hourlyRate <= 0) {
-      newErrors.rate = "Please enter a valid hourly rate";
-      isFormValid = false;
-    }
-
-    setErrors(newErrors);
-    return isFormValid;
+    // The form is valid only if all sections pass their validation
+    return isWeeklyCommitmentValid && isLargerOpportunitiesValid && isIndicativeRateValid;
   };
 
   const saveSettingsToDatabase = async (): Promise<boolean> => {
@@ -77,7 +60,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
   };
 
   const handleNext = async () => {
-    if (validateForm()) {
+    if (validateForm(true)) {
       const success = await saveSettingsToDatabase();
       if (success) {
         props.onNext();
@@ -88,31 +71,64 @@ export function Step4(props: Step4AvailabilityRateProps) {
   return (
     <>
       <div className="flex flex-col items-start gap-12 self-stretch">
-        <WeeklyCommitmentSection
-          value={props.state.hourlyWeeklyCommitment}
-          onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
+        <OnboardingSectionWrapper
+          title="Your Weekly Commitment"
+          subtitle="How many hours per week, on average, can you dedicate to client services?"
           commentValue={props.state.hourlyWeeklyCommitmentComments || ""}
           onCommentChange={value => props.updateState({ hourlyWeeklyCommitmentComments: value })}
-          error={errors.weeklyHours}
-        />
+        >
+          {(showComment, commentButtonComponent) => (
+            <div className="flex items-center gap-2.5 self-stretch">
+              <WeeklyCommitmentInput
+                ref={weeklyCommitmentRef}
+                value={props.state.hourlyWeeklyCommitment ?? null}
+                onChange={value => props.updateState({ hourlyWeeklyCommitment: value ?? undefined })}
+              />
+              {commentButtonComponent}
+            </div>
+          )}
+        </OnboardingSectionWrapper>
 
-        <LargerOpportunitiesSection
-          value={props.state.openToOtherOpportunity || null}
-          onChange={value => props.updateState({ openToOtherOpportunity: value })}
+        <OnboardingSectionWrapper
+          title="Larger Opportunities"
+          subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
           commentValue={props.state.openToOtherOpportunityComments || ""}
           onCommentChange={value => props.updateState({ openToOtherOpportunityComments: value })}
-          error={errors.opportunity}
-        />
+        >
+          {(showComment, commentButtonComponent) => (
+            <>
+              <OpportunitySelector
+                ref={largerOpportunitiesRef}
+                id="larger-opportunities"
+                value={props.state.openToOtherOpportunity || null}
+                onChange={value => props.updateState({ openToOtherOpportunity: value })}
+                required={true}
+              />
 
-        <IndicativeRateSection
-          hourlyRate={props.state.hourlyRate || null}
-          currency={props.state.currency!}
-          onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
-          onCurrencyChange={currency => currency && props.updateState({ currency })}
+              {commentButtonComponent}
+            </>
+          )}
+        </OnboardingSectionWrapper>
+
+        <OnboardingSectionWrapper
+          title="Your Indicative Rate"
+          subtitle="What is your typical hourly rate?"
           commentValue={props.state.hourlyRateComments || ""}
           onCommentChange={value => props.updateState({ hourlyRateComments: value })}
-          error={errors.rate}
-        />
+        >
+          {(showComment, commentButtonComponent) => (
+            <>
+              <HourlyRateInput
+                ref={indicativeRateRef}
+                hourlyRate={props.state.hourlyRate || null}
+                currency={props.state.currency!}
+                onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
+                onCurrencyChange={currency => currency && props.updateState({ currency })}
+              />
+              {commentButtonComponent}
+            </>
+          )}
+        </OnboardingSectionWrapper>
       </div>
 
       <ButtonGroup onBack={props.onBack} onNext={handleNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />

@@ -1,32 +1,24 @@
 import React, { forwardRef, ReactNode, Ref, useEffect, useImperativeHandle, useState } from "react";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { GenericInputRef } from "../../../../../components/form";
+import { BaseRef } from "../../../../../components/form/Base";
 
-export interface OpportunitySelectorRef {
-  validate: () => boolean;
-}
+export interface OpportunitySelectorRef extends BaseRef {}
 
 interface OpportunitySelectorProps {
   id: string;
-  label: string;
   value: OpenToOtherOpportunityType | null;
   onChange: (value: OpenToOtherOpportunityType) => void;
   required?: boolean;
-  forceValidate?: boolean;
-  commentButton?: ReactNode;
 }
 
 export const OpportunitySelector = forwardRef(function OpportunitySelector(props: OpportunitySelectorProps, ref: Ref<OpportunitySelectorRef>) {
-  const { id, label, value, onChange, required, forceValidate, commentButton } = props;
-  const [internalError, setInternalError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
     let errorMessage: string | undefined = undefined;
-    if (required && currentValue === null) {
-      errorMessage = `${label} is required.`;
-    }
-
-    if (showInputError || forceValidate) {
-      setInternalError(errorMessage);
+    if (props.required && currentValue === null && showInputError) {
+      setError(`Please select an option`);
     }
     return !errorMessage;
   };
@@ -34,29 +26,23 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
   useImperativeHandle(
     ref,
     () => ({
-      validate: () => {
-        return runValidation(value, true);
+      validate: (showInputError: boolean) => {
+        return runValidation(props.value, showInputError);
       },
     }),
-    [value, required, label],
+    [props.value, props.required],
   );
 
-  useEffect(() => {
-    if (forceValidate) {
-      runValidation(value, true);
-    }
-  }, [forceValidate, value]);
-
   const handleButtonClick = (option: OpenToOtherOpportunityType) => {
-    onChange(option);
+    props.onChange(option);
     // Clear error immediately on change if it was showing and input is now valid
-    if (internalError && runValidation(option, false)) {
-      setInternalError(undefined);
+    if (error && runValidation(option, false)) {
+      setError(undefined);
     }
   };
 
   const RadioOption = ({ option, label: optionLabel }: { option: OpenToOtherOpportunityType; label: string }) => {
-    const isSelected = value === option;
+    const isSelected = props.value === option;
 
     return (
       <div className="flex items-start gap-3">
@@ -81,19 +67,14 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <div className="text-white font-montserrat text-base leading-[1.5] opacity-60">
-        Should Open Source Economy team privately contact you when a major opportunity arises?
-      </div>
-
-      <div className="flex items-center gap-8" role="radiogroup" aria-labelledby={`${id}-label`}>
+    <>
+      <div className="flex items-center gap-8" role="radiogroup" aria-labelledby={`${props.id}-label`}>
         <RadioOption option={OpenToOtherOpportunityType.YES} label="Yes" />
         <RadioOption option={OpenToOtherOpportunityType.MAYBE} label="Maybe" />
         <RadioOption option={OpenToOtherOpportunityType.NO} label="No" />
-        {commentButton}
       </div>
 
-      {internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
-    </div>
+      {error && <div className="text-red-400 text-sm mt-1">{error}</div>}
+    </>
   );
 });
