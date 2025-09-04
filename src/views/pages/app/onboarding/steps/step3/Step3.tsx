@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
 import { getOnboardingBackendAPI } from "src/services";
@@ -16,13 +16,17 @@ export interface Step3Props extends OnboardingStepProps<Step3State> {}
 export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
 
-  const [incomeStreams, setIncomeStreams] = useState<IncomeStreamType[]>(
-    validatedState.incomeStreams || [IncomeStreamType.ROYALTIES, IncomeStreamType.DONATIONS],
-  );
+  const [incomeStreams, setIncomeStreams] = useState<IncomeStreamType[]>(validatedState.incomeStreams);
   const [showServiceModel, setShowServiceModel] = useState(false);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (incomeStreams) {
+      saveIncomeStreams();
+    }
+  }, [incomeStreams]);
 
   const saveIncomeStreams = async () => {
     const apiCall = async () => {
@@ -44,10 +48,8 @@ export function Step3(props: Step3Props) {
 
   const handleToggleChange = async (option: IncomeStreamType, enabled: boolean) => {
     const newStreams = enabled ? [...incomeStreams, option] : incomeStreams.filter(stream => stream !== option);
-
     setIncomeStreams(newStreams);
     props.updateState({ incomeStreams: newStreams });
-    await saveIncomeStreams();
   };
 
   const handleServiceLearnMore = () => {
