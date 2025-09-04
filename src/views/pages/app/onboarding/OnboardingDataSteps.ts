@@ -85,13 +85,13 @@ export function transformFullDeveloperProfileToOnboardingState(
   };
 
   const step4: Step4State = {
-    hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment || 0,
-    openToOtherOpportunity: profile.settings?.openToOtherOpportunity || OpenToOtherOpportunityType.NO,
-    hourlyRate: profile.settings?.hourlyRate || 0,
+    hourlyWeeklyCommitment: profile.settings?.hourlyWeeklyCommitment,
+    openToOtherOpportunity: profile.settings?.openToOtherOpportunity,
+    hourlyRate: profile.settings?.hourlyRate,
     currency: profile.settings?.currency || fallBackCurrency,
-    hourlyWeeklyCommitmentComments: "",
-    openToOtherOpportunityComments: "",
-    hourlyRateComments: "",
+    hourlyWeeklyCommitmentComments: profile.settings?.hourlyWeeklyCommitmentComment ?? undefined,
+    openToOtherOpportunityComments: profile.settings?.openToOtherOpportunityComment ?? undefined,
+    hourlyRateComments: profile.settings?.hourlyRateComment ?? undefined,
   };
 
   // TODO: lolo
