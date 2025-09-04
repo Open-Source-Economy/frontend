@@ -89,46 +89,46 @@ export function Step4(props: Step4AvailabilityRateProps) {
           )}
         </OnboardingSectionWrapper>
 
-        {/*<OnboardingSectionWrapper*/}
-        {/*  title="Larger Opportunities"*/}
-        {/*  subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"*/}
-        {/*  commentValue={props.state.openToOtherOpportunityComments || ""}*/}
-        {/*  onCommentChange={value => props.updateState({ openToOtherOpportunityComments: value })}*/}
-        {/*>*/}
-        {/*  {(showComment, commentButtonComponent) => (*/}
-        {/*    <>*/}
-        {/*      <OpportunitySelector*/}
-        {/*        ref={largerOpportunitiesRef}*/}
-        {/*        id="larger-opportunities"*/}
-        {/*        value={props.state.openToOtherOpportunity || null}*/}
-        {/*        onChange={value => props.updateState({ openToOtherOpportunity: value })}*/}
-        {/*        required={true}*/}
-        {/*      />*/}
+        <OnboardingSectionWrapper
+          title="Larger Opportunities"
+          subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
+          commentValue={props.state.openToOtherOpportunityComments || ""}
+          onCommentChange={value => props.updateState({ openToOtherOpportunityComments: value })}
+        >
+          {(showComment, commentButtonComponent) => (
+            <>
+              <OpportunitySelector
+                ref={largerOpportunitiesRef}
+                id="larger-opportunities"
+                value={props.state.openToOtherOpportunity || null}
+                onChange={value => props.updateState({ openToOtherOpportunity: value })}
+                required={true}
+              />
 
-        {/*      {commentButtonComponent}*/}
-        {/*    </>*/}
-        {/*  )}*/}
-        {/*</OnboardingSectionWrapper>*/}
+              {commentButtonComponent}
+            </>
+          )}
+        </OnboardingSectionWrapper>
 
-      {/*  <OnboardingSectionWrapper*/}
-      {/*    title="Your Indicative Rate"*/}
-      {/*    subtitle="What is your typical hourly rate?"*/}
-      {/*    commentValue={props.state.hourlyRateComments || ""}*/}
-      {/*    onCommentChange={value => props.updateState({ hourlyRateComments: value })}*/}
-      {/*  >*/}
-      {/*    {(showComment, commentButtonComponent) => (*/}
-      {/*      <>*/}
-      {/*        <HourlyRateInput*/}
-      {/*          ref={indicativeRateRef}*/}
-      {/*          hourlyRate={props.state.hourlyRate || null}*/}
-      {/*          currency={props.state.currency!}*/}
-      {/*          onHourlyRateChange={value => props.updateState({ hourlyRate: value })}*/}
-      {/*          onCurrencyChange={currency => currency && props.updateState({ currency })}*/}
-      {/*        />*/}
-      {/*        {commentButtonComponent}*/}
-      {/*      </>*/}
-      {/*    )}*/}
-      {/*  </OnboardingSectionWrapper>*/}
+        <OnboardingSectionWrapper
+          title="Your Indicative Rate"
+          subtitle="What is your typical hourly rate?"
+          commentValue={props.state.hourlyRateComments || ""}
+          onCommentChange={value => props.updateState({ hourlyRateComments: value })}
+        >
+          {(showComment, commentButtonComponent) => (
+            <>
+              <HourlyRateInput
+                ref={indicativeRateRef}
+                hourlyRate={props.state.hourlyRate || null}
+                currency={props.state.currency!}
+                onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
+                onCurrencyChange={currency => currency && props.updateState({ currency })}
+              />
+              {commentButtonComponent}
+            </>
+          )}
+        </OnboardingSectionWrapper>
       </div>
 
       <ButtonGroup onBack={props.onBack} onNext={handleNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
