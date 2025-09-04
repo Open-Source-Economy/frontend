@@ -46,7 +46,6 @@ export const EnumSelectInput = forwardRef(function EnumSelectInput<T extends str
       value={props.value || ""}
       onChange={handleSelectChange}
       required={props.required}
-      className="bg-[#202f45] px-4 py-3 rounded-md font-montserrat font-normal text-[#ffffff] text-[16px] outline-none cursor-pointer hover:bg-[#2a3f56] transition-colors"
       ref={ref}
     />
   );
