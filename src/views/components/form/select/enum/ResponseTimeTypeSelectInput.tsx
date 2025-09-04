@@ -4,6 +4,7 @@ import { GenericInputRef } from "../../input/GenericInput";
 import { DisplayedEnum, EnumSelectInput, EnumSelectInputChildrenProps } from "./EnumSelectInput";
 
 export const displayedResponseTimes: Record<ResponseTimeType, DisplayedEnum> = {
+  [ResponseTimeType.None]: { name: "No response time" },
   [ResponseTimeType.FourHours]: { name: "4 hours" },
   [ResponseTimeType.TwelveHours]: { name: "12 hours" },
   [ResponseTimeType.OneBusinessDay]: { name: "1 business day" },
