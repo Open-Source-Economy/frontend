@@ -59,7 +59,6 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
             </div>
           ) : (
             serviceCategories.map(category => {
-              // Filter out services that are already selected/existing
               const availableServices = category.services.filter(service => !existingServiceIds.includes(service.id.uuid));
               if (availableServices.length === 0) return null;
 
@@ -73,14 +72,15 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
                     return (
                       <div
                         key={service.id.uuid}
-                        className="bg-[#202f45] box-border content-stretch flex flex-row gap-2.5 items-center justify-start pl-6 pr-3 py-3 border-b border-[#2a3f56] last:border-b-0"
+                        className="bg-[#202f45] box-border content-stretch flex flex-row gap-2.5 items-center justify-start pl-6 pr-3 py-3 border-b border-[#2a3f56] last:border-b-0 cursor-pointer"
+                        onClick={() => handleServiceSelection(service)}
                       >
                         <div className="bg-[#202f45] relative rounded-sm shrink-0 size-[18px]">
                           <input
                             type="checkbox"
                             checked={isSelected}
-                            onChange={() => handleServiceSelection(service)}
-                            className="w-full h-full opacity-0 cursor-pointer"
+                            readOnly // Added readOnly since the onClick is now on the parent
+                            className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer" // Positioning to ensure it's "on top"
                           />
                           {isSelected && (
                             <div className="absolute inset-0 bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] rounded-sm flex items-center justify-center">
