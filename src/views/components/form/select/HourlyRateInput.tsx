@@ -77,16 +77,16 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
 
         {/* Currency dropdown */}
         {props.onCurrencyChange && (
-          <div className="relative flex-1">
+          <div className="relative">
             <div
-              className="flex py-0 px-3 items-center gap-3 self-stretch rounded-md bg-[#202F45] cursor-pointer h-12"
+              className="flex py-0 px-3 items-center gap-3 rounded-md bg-[#202F45] cursor-pointer h-12 min-w-fit"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+              <span className="text-white font-montserrat text-base font-normal leading-[150%] whitespace-nowrap">
                 {currentCurrency.symbol} ({props.currency})
               </span>
               <svg
-                className="w-6 h-6"
+                className="w-6 h-6 flex-shrink-0"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
