@@ -1,4 +1,4 @@
-import { CardSize } from "../api/dto";
+import { CardSize } from "@open-source-economy/api-types";
 
 export interface SponsorDescription {
   title?: string;

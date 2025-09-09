@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/api/dto/auth";
+import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 interface AuthProviderProps {
@@ -65,8 +65,8 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const loginWithGitHub = async () => {
-    auth.loginWithGitHub();
+  const loginWithGitHub = async (redirectPath?: string) => {
+    auth.loginWithGitHub(redirectPath);
   };
 
   const logout = async (successCallback?: () => void) => {

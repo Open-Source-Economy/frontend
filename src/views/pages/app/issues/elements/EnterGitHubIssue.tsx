@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/views/components/elements/Button";
-import { IssueId, OwnerId, RepositoryId } from "src/api/model";
+import { IssueId, OwnerId, RepositoryId } from "@open-source-economy/api-types";
 import { Audience } from "src/views";
 import { paths } from "src/paths";
 
@@ -15,6 +15,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
   const [url, setUrl] = React.useState<string | undefined>(undefined);
   const [isValidUrl, setIsValidUrl] = useState(true);
 
+  // TODO: sam extract this function to a utils file to extract GitHub info from URLs
   function extractGitHubIssueInfo(url: string): IssueId | null {
     const urlRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)$/;
     const match = url.match(urlRegex);

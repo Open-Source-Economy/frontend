@@ -4,7 +4,7 @@ import { SponsorCard } from "./SponsorCard";
 import { getCardWidth } from "./utils";
 import { DividerTitle } from "../../../../../components";
 import { useSponsors } from "../../../../../hooks/useSponsors";
-import { ProjectId } from "../../../../../../api/model";
+import { ProjectId } from "@open-source-economy/api-types";
 
 interface SponsorProps {
   projectId: ProjectId;

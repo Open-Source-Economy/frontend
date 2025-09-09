@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetProjectParams, GetProjectQuery } from "src/api/dto";
-import { OwnerId, Project, ProjectId, RepositoryId } from "src/api/model";
+import { GetProjectParams, GetProjectQuery, OwnerId, Project, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function useProject(projectId: ProjectId) {

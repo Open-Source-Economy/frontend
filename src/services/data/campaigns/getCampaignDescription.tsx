@@ -1,4 +1,4 @@
-import { ProjectId, RepositoryId } from "../../../api/model";
+import { ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { CampaignDescription } from "src/model";
 import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
 import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ProjectId, RepositoryId } from "../../../api/model";
+import { ProjectId, RepositoryId } from "@open-source-economy/api-types";
 
 interface Disclaimer {
   disclaimer?: ReactNode;

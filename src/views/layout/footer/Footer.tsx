@@ -4,11 +4,8 @@ import { SocialMedia } from "src/views/components/socialMedia/SocialMedia";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import backdropSVG2 from "../../../assets/footer-bd-rr.png";
-import backdropSVG3 from "../../../assets/footer-bd-ll.png";
-
 import { getBackendAPI } from "../../../services";
-import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "../../../api/dto";
+import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "@open-source-economy/api-types";
 import { ApiError } from "../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
@@ -116,10 +113,7 @@ export function Footer() {
   );
 
   return (
-    <div id="footer" className="bg-[url('./assets/bg-2.svg')] max-[1100px]:bg-none bg-cover bg-right relative overflow-hidden">
-      <img src={backdropSVG2} className="pointer-events-none absolute bottom-0 right-0 z-[-1] max-w-[500px] lg:max-w-[700px] opacity-20" alt="" />
-      <img src={backdropSVG3} className="pointer-events-none absolute bottom-0 left-0 z-[-1] max-w-[600px] lg:max-w-[1100px] opacity-20" alt="" />
-
+    <div className="bg-[url('./assets/bg-2.svg')] max-[1100px]:bg-none bg-cover bg-right relative overflow-hidden">
       <div className="bg-[url('./assets/bg-1.png')] max-[1100px]:bg-none bg-cover bg-left">
         <div className="bg-[url('./assets/boxes.png')] bg-auto bg-no-repeat bg-[position:743px_0%] 1200:bg-[position:743px_0%] md:bg-[position:492px_0%]">
           <div className="pb-[30px] md:px-[48px] container max-[376px]:max-w-[95%] space-y-8">
@@ -128,10 +122,9 @@ export function Footer() {
               {/* Question Section */}
               <div className="mb-6 lg:mb-12 flex-shrink-0" data-aos="fade-right" data-aos-delay="100">
                 <h2 className="text-3xl lg:text-4xl mb-2 font-semibold">
-                  Have A <span className="text-pink-500">Question</span> Or <br />
-                  <span className="text-pink-500">Need</span> Something?
+                  Have A <span className="text-pink-500">Question</span>?
                 </h2>
-                <p className="text-gray-300 mb-4 text-base lg:text-lg">We are here for you</p>
+                <p className="text-gray-300 mb-4 text-base lg:text-lg">Book a meeting with our team</p>
                 <BookACallButton />
               </div>
 

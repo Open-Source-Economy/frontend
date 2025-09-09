@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
-import * as model from "src/api/model";
-import { financialIssueUtils } from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { financialIssueUtils, GetIssueQuery, GetIssuesParams } from "@open-source-economy/api-types";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/views/components/issue";
 import { getBackendAPI } from "src/services";
 import { Background } from "src/views/pages/app/issues/elements/Background";
-import { GetIssueQuery, GetIssuesParams } from "src/api/dto";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views";
 

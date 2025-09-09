@@ -6,7 +6,7 @@ import bgimage3 from "src/assets/issuebg3.png";
 import { IssueCard } from "src/views/components/issue";
 import { useFinancialIssue } from "src/views/hooks/useFinancialIssue";
 import { SolveIssueOnGithub } from "src/views/pages/app/manageIssue/elements/SolveIssueOnGithub";
-import { financialIssueUtils } from "src/api/model";
+import { financialIssueUtils } from "@open-source-economy/api-types";
 import { ManageTab } from "src/views/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/pages/app/manageIssue/elements";

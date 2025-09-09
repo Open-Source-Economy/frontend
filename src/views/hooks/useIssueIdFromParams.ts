@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { IssueId } from "src/api/model";
+import { IssueId } from "@open-source-economy/api-types";
 import { useRepositoryFromParams } from "./useRepositoryFromParams";
 
 export function useIssueIdFromParams(): IssueId | null {

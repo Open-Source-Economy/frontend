@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { SendRepositoryRoleInviteBody, SendRepositoryRoleInviteParams, SendRepositoryRoleInviteQuery } from "src/api/dto";
-import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "src/api/model";
+import {
+  Currency,
+  OwnerId,
+  RepositoryId,
+  RepositoryUserRole,
+  SendRepositoryRoleInviteBody,
+  SendRepositoryRoleInviteParams,
+  SendRepositoryRoleInviteQuery,
+} from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 

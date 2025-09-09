@@ -19,7 +19,7 @@ export function FeaturesSection(props: FeaturesSectionProps) {
         </>
       ),
       buttonText: "Get Paid",
-      buttonPath: paths.DEVELOPER,
+      buttonPath: paths.DEVELOPER_LANDING,
       icon: sec2icon1,
       imageClassName: "h-[150px] w-[150px] object-cover sm:h-[178x] sm:w-[177px]",
       starPosition: "absolute left-[10px] top-[48px] sm:left-[16px] sm:top-[43px]",

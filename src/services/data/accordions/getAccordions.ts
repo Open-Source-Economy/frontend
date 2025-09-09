@@ -1,4 +1,4 @@
-import { GetProjectAccordionResponse } from "../../../api/dto";
+import { GetProjectAccordionResponse } from "@open-source-economy/api-types";
 import { pekkoAccordion } from "./pekkoAccordion";
 import { defaultAccordion } from "./defaultAccordion";
 

@@ -44,6 +44,9 @@ import { Support } from "./views/pages/app/support/Support";
 import SupportCreateTicket from "./views/pages/app/support/SupportCreateTicket";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/components/ScrollTop";
+import OnboardingLandingPage from "./views/pages/app/onboarding/landing/OnboardingLandingPage";
+import OnboardingFlow from "./views/pages/app/onboarding/OnboardingFlow";
+import DevelopedOnboardingComplete from "./views/pages/app/onboarding/completed/DevelopedOnboardingComplete";
 
 const App = () => {
   return (
@@ -66,7 +69,7 @@ const App = () => {
               <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />
             </Route>
 
-            <Route path={paths.DEVELOPER} element={<UserDeveloper {...developerProps} />} />
+            <Route path={paths.DEVELOPER_OLD} element={<UserDeveloper {...developerProps} />} />
             {/*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*/}
             <Route path={paths.USER} element={<CompanyProduct />} />
             <Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />
@@ -108,7 +111,7 @@ const App = () => {
             </Route>
             <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />
 
-            <Route element={<AuthRoutes authPage="/sign-up" />}>
+            <Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>
               <Route path={paths.PROJECTS} element={<Projects />} />
               <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
               <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
@@ -117,7 +120,14 @@ const App = () => {
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />
                 <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />
               </Route>
+
               <Route path={paths.DASHBOARD} element={<Dashboard />} />
+            </Route>
+
+            <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
+            <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
+              <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
+              <Route path={paths.DEVELOPER_ONBOARDING_COMPLETED} element={<DevelopedOnboardingComplete />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

@@ -1,5 +1,5 @@
 import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/ultils/Icons";
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 
 type ServiceDetails = {
   title: string;
@@ -8,6 +8,7 @@ type ServiceDetails = {
   buttonText: string;
 };
 
+// TODO: make the compiler complain if an option is mission
 export const displayedServices: Record<ServiceType, ServiceDetails> = {
   [ServiceType.SUPPORT]: {
     title: "Enterprise Support",
@@ -23,7 +24,8 @@ export const displayedServices: Record<ServiceType, ServiceDetails> = {
     // buttonText: "Get tailored solutions.",
     buttonText: "Accelerate Development",
   },
-  [ServiceType.OPERATION]: {
+  [ServiceType.SECURITY_AND_COMPLIANCE]: {
+    // TODO: fix
     title: "Operations",
     icon: <OperationIcon />,
     items: ["Incident Support", "Maintenance", "Supervision"],
@@ -36,5 +38,11 @@ export const displayedServices: Record<ServiceType, ServiceDetails> = {
     items: ["Training and Workshops", "Technology Assessment", "Solution Design"],
     // buttonText: "Access to the state-of-the-art.",
     buttonText: "Shape Your Strategy",
+  },
+  [ServiceType.CUSTOM]: {
+    title: "Custom",
+    icon: <></>,
+    items: ["Custom Service"],
+    buttonText: "Contact Us",
   },
 };

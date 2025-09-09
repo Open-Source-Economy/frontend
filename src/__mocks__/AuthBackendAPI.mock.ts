@@ -1,6 +1,9 @@
 import {
+  CompanyUserRole,
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
+  GetRepositoryUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoResponse,
   LoginBody,
   LoginQuery,
   LoginResponse,
@@ -8,12 +11,11 @@ import {
   RegisterQuery,
   RegisterResponse,
   RepositoryInfo,
+  RepositoryUserRole,
   StatusResponse,
-} from "src/api/dto/auth";
+} from "@open-source-economy/api-types";
 import { AuthBackendAPI } from "src/services";
-import { CompanyUserRole, RepositoryUserRole } from "src/api/model";
 import { company, repositoryId, user } from "./index";
-import { GetRepositoryUserInviteInfoQuery, GetRepositoryUserInviteInfoResponse } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {
@@ -44,7 +46,14 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  loginWithGitHub(success?: string, failure?: string): void {}
+  loginWithGitHub(redirectPath?: string): void {
+    // Simulate successful GitHub login by redirecting to the success path
+    if (redirectPath) {
+      setTimeout(() => {
+        window.location.href = redirectPath;
+      }, 100);
+    }
+  }
 
   async deleteSession(): Promise<void | ApiError> {
     return Promise.resolve(undefined);

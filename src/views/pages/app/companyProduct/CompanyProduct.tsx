@@ -4,7 +4,7 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 import { VirtuousSection } from "./elements";
 import { Services } from "src/views/components/service/style2/Services";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../Audience";
 import { Button } from "../../../components";
@@ -16,9 +16,10 @@ interface CompanyProductProps {}
 export function CompanyProduct(props: CompanyProductProps) {
   const buttonPaths: { [key in ServiceType]?: string } = {
     [ServiceType.DEVELOPMENT]: paths.DASHBOARD,
-    [ServiceType.OPERATION]: paths.DASHBOARD,
+    // [ServiceType.OPERATION]: paths.DASHBOARD,
     [ServiceType.ADVISORY]: paths.DASHBOARD,
     [ServiceType.SUPPORT]: paths.DASHBOARD,
+    // TODO: make the compiler complain if an option is mission
   };
 
   return (

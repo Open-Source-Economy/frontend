@@ -1,4 +1,4 @@
-import { type IssueId, OwnerId, type ProjectId } from "./api/model";
+import { type IssueId, OwnerId, type ProjectId } from "@open-source-economy/api-types";
 
 export const paths = {
   // Static routes
@@ -12,7 +12,7 @@ export const paths = {
   PROJECTS: "/projects",
   REQUEST_MAINTAINER_RIGHTS: "/request-maintainer-rights",
   CHECKOUT_SUCCESS: "/checkout/success",
-  DEVELOPER: "/developer",
+  DEVELOPER_OLD: "/developer-old", // TODO: to delete
   USER: "/user",
   WHITE_PAPER: "/white-paper",
   TERMS_AND_CONDITIONS: "/terms-and-conditions",
@@ -25,6 +25,11 @@ export const paths = {
   PRIVACY: "/privacy",
   TERMS: "/terms",
   BLOG: "https://blog.open-source-economy.com/",
+
+  // Onboarding routes
+  DEVELOPER_LANDING: "/developer",
+  DEVELOPER_ONBOARDING: "/developer-onboarding",
+  DEVELOPER_ONBOARDING_COMPLETED: "/developer-onboarding-completed",
 
   // Admin routes grouped under ADMIN
   ADMIN: {

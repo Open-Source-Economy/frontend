@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import * as dto from "src/api/dto";
-import { ProjectEcosystem } from "src/api/model";
+import * as dto from "@open-source-economy/api-types";
+import { ProjectEcosystem } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 

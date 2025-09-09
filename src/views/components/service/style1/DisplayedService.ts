@@ -1,4 +1,4 @@
-import { ServiceType } from "../../../../api/model";
+import { ServiceType } from "@open-source-economy/api-types";
 import advisory from "src/assets/advisory.webp";
 import operation from "src/assets/operation.webp";
 import support from "src/assets/support-logo.webp";
@@ -26,7 +26,8 @@ export const displayedServices: Record<ServiceType, DisplayedService> = {
     features: [{ name: "Bug Fixes" }, { name: "New Features" }, { name: "Code Maintenance" }],
     img: development,
   },
-  [ServiceType.OPERATION]: {
+  [ServiceType.SECURITY_AND_COMPLIANCE]: {
+    // TODO: fix
     title: "Operations",
     features: [{ name: "Incident Response" }, { name: "Proactive Monitoring" }, { name: "24/7 Supervision" }],
     img: operation,
@@ -36,4 +37,5 @@ export const displayedServices: Record<ServiceType, DisplayedService> = {
     features: [{ name: "Architecture Design" }, { name: "Technology Assessment" }, { name: "Security & Performance" }],
     img: advisory,
   },
+  [ServiceType.CUSTOM]: { title: "Custom", features: [{ name: "Custom Service" }], img: "" },
 };

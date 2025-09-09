@@ -1,14 +1,13 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetProjectServicesParams, GetProjectServicesQuery, GetProjectServicesResponse } from "src/api/dto";
-import * as model from "src/api/model";
-import { ServiceType } from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { GetProjectServicesParams, GetProjectServicesQuery, GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],
-  comingSoonServices: [ServiceType.SUPPORT, ServiceType.OPERATION, ServiceType.ADVISORY],
+  comingSoonServices: [ServiceType.SUPPORT, ServiceType.SECURITY_AND_COMPLIANCE, ServiceType.ADVISORY],
 };
 
 export function useProjectServices(projectId?: model.ProjectId) {

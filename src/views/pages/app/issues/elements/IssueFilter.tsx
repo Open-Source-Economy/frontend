@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { SelectFilter } from "src/views/components";
-import * as model from "src/api/model";
-import { ManagedIssueState } from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { ManagedIssueState } from "@open-source-economy/api-types";
 import search from "src/assets/search.png";
 
 enum Status {

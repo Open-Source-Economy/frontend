@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
-import { CreateAddressBody, CreateAddressQuery } from "src/api/dto";
-import { AddressId } from "src/api/model";
+import { AddressId, CreateAddressBody, CreateAddressQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 interface CreateAddressProps {}

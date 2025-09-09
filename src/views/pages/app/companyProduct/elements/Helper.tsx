@@ -8,7 +8,7 @@ export const highlightData = [
   {
     title: "Issue #4563",
     description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
+    developerServices: ["Find bugs", "Technical Support", "Deployment Support"],
     progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
     total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",
@@ -17,7 +17,7 @@ export const highlightData = [
   {
     title: "Cluster Maintenance",
     description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
+    developerServices: ["Find bugs", "Technical Support", "Deployment Support"],
     progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
     total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",
@@ -26,7 +26,7 @@ export const highlightData = [
   {
     title: "Issue #4563",
     description: "There is a problem in the display of the home page",
-    tasks: ["Find bugs", "Technical Support", "Deployment Support"],
+    developerServices: ["Find bugs", "Technical Support", "Deployment Support"],
     progress: { unit: CreditUnit.MINUTE, amount: new Decimal(3.3) },
     total: { unit: CreditUnit.MINUTE, amount: new Decimal(10) },
     buttonText: "FUND",

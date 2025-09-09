@@ -1,4 +1,4 @@
-import { PlanProductType, ProductType, productTypeUtils } from "../../../../../../api/model";
+import { PlanProductType, ProductType, productTypeUtils } from "@open-source-economy/api-types";
 import { PlanFeature, PlanFeatureDetails } from "./data";
 import { credit } from "../../../../../../model";
 

@@ -5,7 +5,7 @@ import { Button } from "src/views/components";
 import { useAuth } from "src/views/pages";
 import { MobileNavbar } from "./MobileNavbar";
 import { type Divider, DIVIDER, DropdownNavbar } from "./DropdownNavbar";
-import type { Currency } from "src/api/model";
+import type { Currency } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
 import { NavbarItem } from "./item/NavbarItem";
 import { Nav } from "react-bootstrap";

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { CheckIcon, CloseIcon } from "./Icons";
 import { displayedCurrencies } from "src/views/data";
-import { Currency } from "src/api/model";
+import { Currency } from "@open-source-economy/api-types";
 
 interface CurrencyModalProps {
   isOpen: boolean;
@@ -28,7 +28,7 @@ export function CurrencyModal(props: CurrencyModalProps) {
           <div className="fixed inset-0 bg-black/10 backdrop-blur-sm" />
         </TransitionChild>
 
-        {/* Modal */}
+        {/* UpsertProjectItemModal */}
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"

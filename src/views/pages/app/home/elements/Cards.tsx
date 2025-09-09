@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, type To } from "react-router-dom";
 import { Button, ExternalLink } from "src/views/components";
-import { Project } from "src/api/model";
+import { Project } from "@open-source-economy/api-types";
 import type { Audience } from "../../../../Audience";
 
 const CARD_BASE_CLASSES =

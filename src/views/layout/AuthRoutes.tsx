@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../pages";
-import { UserRole } from "src/api/model";
+import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
 import { PageLoader } from "src/views/components/common/PageLoader";
+import { paths } from "../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
@@ -44,7 +45,7 @@ export function SuperAdminRoutes() {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
-    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to="/sign-up" />; // TODO: add  404 page
+    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.SIGN_IN} />; // TODO: add  404 page
   }
 }
 

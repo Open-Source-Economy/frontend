@@ -1,4 +1,4 @@
-import { Currency } from "../api/model";
+import { Currency } from "@open-source-economy/api-types";
 
 interface ICurrencyHandler {
   get(): Currency;

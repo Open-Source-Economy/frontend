@@ -31,7 +31,7 @@ export interface UserDeveloperProps {
 export function UserDeveloper(props: UserDeveloperProps) {
   const [bgSize, setBgSize] = useState("70%");
   const location = useLocation();
-  const isDeveloperPath = location.pathname === paths.DEVELOPER;
+  const isDeveloperPath = location.pathname === paths.DEVELOPER_OLD;
 
   // Refs for animations
   const solutionHeadingRef = useRef(null);

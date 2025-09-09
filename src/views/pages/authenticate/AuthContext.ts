@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/api/dto/auth";
+import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 
 export interface AuthContextState {
   loading: boolean;
@@ -8,7 +8,7 @@ export interface AuthContextState {
   error: ApiError | null;
   login: (body: LoginBody, query: LoginQuery, successCallback?: () => void) => void;
   logout: (successCallback?: () => void) => void;
-  loginWithGitHub: () => void;
+  loginWithGitHub: (redirectPath?: string) => void;
   register: (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => void;
 }
 

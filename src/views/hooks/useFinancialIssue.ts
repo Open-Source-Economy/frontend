@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { GetIssueParams, GetIssueQuery } from "src/api/dto";
-import * as model from "src/api/model";
+import * as model from "@open-source-economy/api-types";
+import { GetIssueParams, GetIssueQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function useFinancialIssue(issueId: model.IssueId) {
@@ -21,9 +21,7 @@ export function useFinancialIssue(issueId: model.IssueId) {
       const financialIssue = await backendAPI.getFinancialIssue(params, query);
       if (financialIssue instanceof ApiError) setError(financialIssue);
       else setFinancialIssue(financialIssue);
-    } catch (error) {
-      setError(ApiError.from(error));
-    }
+    } catch (error) {}
   };
 
   return { financialIssue, loadFinancialIssueError: error, reloadFinancialIssue: getFinancialIssue };

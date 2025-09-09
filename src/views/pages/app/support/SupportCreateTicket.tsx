@@ -3,16 +3,17 @@ import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/vi
 import { useIssueContext } from "src/views/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
 import { credit, CreditUnit } from "src/model";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { Priority, ServiceType } from "@open-source-economy/api-types";
 import { Header } from "src/views/layout";
 import { SelectFilter } from "./SelectFilter";
 import * as components from "src/views/components/issue";
 import { Approved } from "src/views/components/issue/Approved";
 import { Button, FormEntry } from "src/views/components";
 import Decimal from "decimal.js";
-import { BaseInput } from "src/views/components/form/frames/BaseInput";
+import { BaseInput } from "src/views/components/old-form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
 import { useAuth } from "../../authenticate";
+import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");
@@ -49,7 +50,7 @@ const SupportCreateTicket = () => {
   const categoryOptions = [
     { value: ServiceType.SUPPORT, label: "Support" },
     { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
-    { value: ServiceType.OPERATION, label: "Operations" },
+    // { value: ServiceType.OPERATION, label: "Operations" },
     { value: ServiceType.ADVISORY, label: "Consultancy" },
   ];
   const severityOptions = [
@@ -57,6 +58,7 @@ const SupportCreateTicket = () => {
     { value: Priority.MEDIUM, label: "Medium" },
     { value: Priority.HIGH, label: "High" },
     { value: Priority.CRITICAL, label: "Critical" },
+    // TODO: make the compiler complain if an option is mission
   ];
 
   // Update subcategory options when category changes

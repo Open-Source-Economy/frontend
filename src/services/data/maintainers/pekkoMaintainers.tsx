@@ -2,7 +2,7 @@ import happyCat from "../../../assets/cats/happy-cat.svg";
 import thankfulCat from "../../../assets/cats/thankful-cat.svg";
 import helloCat from "../../../assets/cats/hello-cat.svg";
 import normalCat from "../../../assets/cats/normal-cat.svg";
-import { Maintainer } from "../../../api/dto";
+import { Maintainer } from "@open-source-economy/api-types";
 
 const raboof: Maintainer = {
   displayName: "Arnout Engelen",

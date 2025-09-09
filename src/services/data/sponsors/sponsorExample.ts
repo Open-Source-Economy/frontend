@@ -1,7 +1,7 @@
 import swissBorg from "../../../assets/sponsor/swiss-borg.webp";
 import adidas from "../../../assets/sponsor/adidas.webp";
 import softwareMill from "../../../assets/sponsor/software-mill.webp";
-import { CardSize } from "../../../api/dto";
+import { CardSize } from "@open-source-economy/api-types";
 import { SponsorDescription } from "../../../model";
 
 // example data

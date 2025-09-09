@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tabs } from "../tabs";
 import backdropSVG from "src/assets/backdrop.svg";
-import { PlanPriceType, PlanProductType } from "../../../../../../api/model";
+import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
 import { usePlans } from "../../../../../hooks";

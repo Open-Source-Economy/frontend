@@ -1,4 +1,4 @@
-import { Currency } from "src/api/model";
+import { Currency } from "@open-source-economy/api-types";
 
 // TODO put this class somewhere else
 export interface DisplayedCurrency {

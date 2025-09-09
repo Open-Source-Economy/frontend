@@ -1,6 +1,5 @@
-import type { Currency } from "../api/model";
+import type { Currency, SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "@open-source-economy/api-types";
 import type { AuthContextState } from "../views/pages/authenticate/AuthContext";
-import type { SetUserPreferredCurrencyBody, SetUserPreferredCurrencyParams, SetUserPreferredCurrencyQuery } from "../api/dto";
 import { getBackendAPI } from "../services";
 import { currencyCookie } from "../cookies";
 

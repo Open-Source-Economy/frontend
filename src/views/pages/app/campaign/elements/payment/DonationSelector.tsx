@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CampaignProductType, ProjectId } from "src/api/model";
+import { CampaignProductType, ProjectId } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
 
 interface DonationSelectorProps {

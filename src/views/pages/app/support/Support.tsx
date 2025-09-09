@@ -1,13 +1,14 @@
 import { PhoneIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button, FormEntry } from "src/views/components";
-import { BaseInput } from "src/views/components/form/frames/BaseInput";
+import { BaseInput } from "src/views/components/old-form/frames/BaseInput";
 import { ToggleSwitch } from "src/views/components/issue";
 import { Header } from "src/views/layout";
 import FileUpload from "./FileUpload";
 import IsUpgraded from "./IsUpgraded";
 import { SelectFilter } from "./SelectFilter";
-import { DropdownOption, getSubServiceOptions, Priority, ServiceType } from "src/api/model";
+import { Priority, ServiceType } from "@open-source-economy/api-types";
+import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 
 export function Support() {
   const [subject, setSubject] = useState("");
@@ -26,8 +27,9 @@ export function Support() {
   const categoryOptions = [
     { value: ServiceType.SUPPORT, label: "Support" },
     { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
-    { value: ServiceType.OPERATION, label: "Operations" },
+    // { value: ServiceType.OPERATION, label: "Operations" },
     { value: ServiceType.ADVISORY, label: "Consultancy" },
+    // TODO: make the compiler complain if an option is mission
   ];
 
   const projectOptions = [

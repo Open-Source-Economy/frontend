@@ -4,16 +4,22 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import logo from "src/assets/logo.png";
 import github from "src/assets/github.png";
-import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/api/dto/auth";
+import {
+  GetCompanyUserInviteInfoQuery,
+  GetRepositoryUserInviteInfoQuery,
+  LoginBody,
+  LoginQuery,
+  RegisterBody,
+  RegisterQuery,
+} from "@open-source-economy/api-types";
 import { getAuthBackendAPI } from "src/services";
 import { Button, EmailInput, PasswordInput } from "src/views/components";
-import { GetRepositoryUserInviteInfoQuery } from "src/api/dto/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 
 import { config, Env } from "src/ultils";
 import { ApiErrorModal } from "src/views/components/common/ApiErrorModal";
-import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/form/hooks/validateForm";
+import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/components/old-form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
 

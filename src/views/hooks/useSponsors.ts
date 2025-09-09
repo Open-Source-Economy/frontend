@@ -1,6 +1,6 @@
 import { useState } from "react";
-import * as dto from "src/api/dto";
-import { OwnerId, ProjectId, RepositoryId } from "src/api/model";
+import * as dto from "@open-source-economy/api-types";
+import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../services";
 import { SponsorDescription } from "../../model";

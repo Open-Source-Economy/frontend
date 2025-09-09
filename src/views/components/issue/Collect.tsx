@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ManagedIssueState } from "src/api/model";
+import { ManagedIssueState } from "@open-source-economy/api-types";
 import { Credit, credit } from "src/model";
 import { Audience, textColorVariants } from "src/views/index";
 
