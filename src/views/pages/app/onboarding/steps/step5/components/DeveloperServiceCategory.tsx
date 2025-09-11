@@ -6,6 +6,7 @@ import { GroupedDeveloperServiceEntry } from "../utils";
 
 interface DeveloperServiceCategoryProps {
   groupedDeveloperServiceEntry: GroupedDeveloperServiceEntry;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
   onEditDeveloperService?: (entry: dto.DeveloperServiceEntry) => void;
@@ -35,6 +36,7 @@ export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
           <DeveloperServiceItem
             key={developerServiceEntry.service.id.uuid}
             developerServiceEntry={developerServiceEntry}
+            sourceIdentifiers={props.sourceIdentifiers}
             onSelectProjects={props.onSelectProjects}
             onRemoveDeveloperService={props.onRemoveDeveloperService}
             onEditDeveloperService={props.onEditDeveloperService}

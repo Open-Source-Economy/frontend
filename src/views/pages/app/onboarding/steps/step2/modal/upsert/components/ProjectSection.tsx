@@ -95,13 +95,13 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
   const LABELS: Record<ProjectItemType, string> = {
     [ProjectItemType.GITHUB_REPOSITORY]: "Your GitHub Repository",
     [ProjectItemType.GITHUB_OWNER]: "Your GitHub Organization",
-    [ProjectItemType.URL]: "Other non GitHub open projects",
+    [ProjectItemType.URL]: "Other non GitHub open source projects",
   };
 
   const PLACEHOLDERS: Record<ProjectItemType, string> = {
     [ProjectItemType.GITHUB_REPOSITORY]: "owner/repo or https://github.com/owner/repo",
     [ProjectItemType.GITHUB_OWNER]: "owner or https://github.com/owner",
-    [ProjectItemType.URL]: "https://example.com/my-open-project",
+    [ProjectItemType.URL]: "https://example.com/my-open-source-project",
   };
 
   const inputLabel = selectedProjectType ? LABELS[selectedProjectType] : "Your project";

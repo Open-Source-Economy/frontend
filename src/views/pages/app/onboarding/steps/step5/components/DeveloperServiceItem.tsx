@@ -2,9 +2,12 @@ import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { IconButton, InfoPill, SelectProjectsPill } from "../ui";
 import { CloseIcon, PenIcon } from "../icons";
+import { SourceIdentifierCompanion } from "../../../../../../data";
+import { DeveloperProjectItem, DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model/onboarding/DeveloperProjectItem";
 
 interface DeveloperServiceItemProps {
   developerServiceEntry: dto.DeveloperServiceEntry;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
   onEditDeveloperService?: (entry: dto.DeveloperServiceEntry) => void;
@@ -12,9 +15,27 @@ interface DeveloperServiceItemProps {
 }
 
 export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
+  const numberOfDisplayedProjects = 5;
+
   const service = props.developerServiceEntry.service;
   const developerService = props.developerServiceEntry.developerService;
   const hasConfiguration = developerService !== null;
+
+  // TODO: is that the best way to do it?
+  // Convert the map to use string keys for efficient lookups
+  const normalizedMap = new Map<string, dto.SourceIdentifier>();
+  for (const [key, value] of props.sourceIdentifiers.entries()) {
+    normalizedMap.set(key.uuid, value);
+  }
+
+  const sourceIdentifiers: dto.SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
+    .map(id => normalizedMap.get(id.uuid))
+    .filter((v): v is dto.SourceIdentifier => v !== undefined);
+
+  const projectItemNames = sourceIdentifiers.map(si => SourceIdentifierCompanion.displayName(si));
+
+  const visibleNames = projectItemNames.slice(0, numberOfDisplayedProjects).join(" | ");
+  const hiddenCount = projectItemNames.length > numberOfDisplayedProjects ? projectItemNames.length - numberOfDisplayedProjects : 0;
 
   return (
     <>
@@ -51,12 +72,11 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
             )}
           </div>
 
-          {/* Selected Projects List - TODO: This needs to be populated from developer service data */}
-          {hasConfiguration && developerService?.developerProjectItemIds && developerService.developerProjectItemIds.length > 0 && (
+          {sourceIdentifiers && (
             <div className="flex items-start content-start gap-[6px] self-stretch flex-wrap">
-              {/* TODO: Map developerProjectItemIds to project names */}
               <span className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
-                {developerService.developerProjectItemIds.length} project(s) configured
+                {visibleNames}
+                {hiddenCount > 0 && ` + ${hiddenCount} more`}
               </span>
             </div>
           )}

@@ -144,7 +144,7 @@ export default function OnboardingFlow() {
   const onboardingStepsConfigs: Record<OnboardingDataSteps, OnboardingStepConfig> = {
     [OnboardingDataSteps.Step1]: {
       title: "Confirm Your Details",
-      subtitle: "This is so that we can get in contact with you.",
+      subtitle: "This is so that we can get in contact with you in case any opportunity comes up.",
       render: <Step1 currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
     [OnboardingDataSteps.Step2]: {

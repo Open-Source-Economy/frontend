@@ -19,7 +19,7 @@ export function ProjectListTable(props: ProjectListTableProps) {
         <div className="flex pb-2.5 justify-center items-center gap-4 self-stretch">
           <div className="flex items-center gap-2.5 flex-1">
             <div className="flex w-[260px] items-center gap-2.5">
-              <div className="text-[#FF7E4B] font-montserrat text-lg font-medium leading-[150%]">Project name</div>
+              <div className="text-[#FF7E4B] font-montserrat text-lg font-medium leading-[150%]">Project</div>
             </div>
             <svg
               className="w-0 self-stretch stroke-[#FF7E4B] opacity-20"

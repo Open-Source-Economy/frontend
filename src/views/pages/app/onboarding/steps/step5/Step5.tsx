@@ -36,6 +36,10 @@ export function Step5(props: Step5Props) {
 
   const api = getOnboardingBackendAPI();
 
+  const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
+    props.state.developerProjectItems.map(entry => [entry.developerProjectItem.id, entry.projectItem.sourceIdentifier]),
+  );
+
   // Fetches service hierarchy on initial mount
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -211,6 +215,7 @@ export function Step5(props: Step5Props) {
               <DeveloperServiceCategory
                 key={groupedEntry.category}
                 groupedDeveloperServiceEntry={groupedEntry}
+                sourceIdentifiers={sourceIdentifiers}
                 onSelectProjects={handleSelectProjects}
                 onRemoveDeveloperService={handleRemoveDeveloperService}
                 onEditDeveloperService={handleEditDeveloperService}
