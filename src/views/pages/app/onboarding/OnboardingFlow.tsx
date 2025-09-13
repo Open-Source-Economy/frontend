@@ -154,7 +154,7 @@ export default function OnboardingFlow() {
     },
     [OnboardingDataSteps.Step3]: {
       title: "Income Streams",
-      subtitle: "Let us know how you earn your income",
+      subtitle: "Let us know how you would like to fund your open source work",
       render: <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
     },
     [OnboardingDataSteps.Step4]: {

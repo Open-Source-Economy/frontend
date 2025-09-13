@@ -34,7 +34,7 @@ export function FundingCardGrid(props: FundingCardGridProps) {
       {/* Royalties and Donations Cards (Side by Side) */}
       <div className="flex items-start gap-9 self-stretch">
         <FundingCard
-          title="Royalties"
+          title="Dependency Payouts"
           description="Earn when your project is used by other funded projects—even transitively."
           isEnabled={incomeStreams.includes(IncomeStreamType.ROYALTIES)}
           onChange={enabled => onToggleChange(IncomeStreamType.ROYALTIES, enabled)}
