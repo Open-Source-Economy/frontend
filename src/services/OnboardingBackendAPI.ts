@@ -70,6 +70,12 @@ export interface OnboardingBackendAPI {
     query: dto.UpsertDeveloperServiceQuery,
   ): Promise<dto.UpsertDeveloperServiceResponse | ApiError>;
 
+  upsertDeveloperServices(
+    params: dto.UpsertDeveloperServicesParams,
+    body: dto.UpsertDeveloperServicesBody,
+    query: dto.UpsertDeveloperServicesQuery,
+  ): Promise<dto.UpsertDeveloperServicesResponse | ApiError>;
+
   deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody, // serviceId now in body for DELETE
@@ -194,6 +200,17 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     return handleError<dto.UpsertDeveloperServiceResponse>(
       () => this.api.put(`${config.api.url}/onboarding/services`, body, { withCredentials: true, params: query }),
       "upsertDeveloperService",
+    );
+  }
+
+  async upsertDeveloperServices(
+    params: dto.UpsertDeveloperServicesParams,
+    body: dto.UpsertDeveloperServicesBody,
+    query: dto.UpsertDeveloperServicesQuery,
+  ): Promise<dto.UpsertDeveloperServicesResponse | ApiError> {
+    return handleError<dto.UpsertDeveloperServicesResponse>(
+      () => this.api.post(`${config.api.url}/onboarding/services/batch`, body, { withCredentials: true, params: query }),
+      "upsertDeveloperServices",
     );
   }
 

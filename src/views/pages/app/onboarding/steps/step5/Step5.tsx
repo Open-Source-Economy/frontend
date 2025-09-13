@@ -12,7 +12,7 @@ import { EditServiceModal } from "./modals/edit/EditServiceModal";
 
 import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
-import { Button } from "../../../../../components/elements/Button";
+import { Button } from "../../../../../components";
 import { AddServiceModal } from "./modals/add/AddServiceModal";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
@@ -63,17 +63,20 @@ export function Step5(props: Step5Props) {
     fetchInitialData();
   }, []);
 
-  const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
+  // TODO: do we need filter ?
+  const onAddInitialServices = async (services: dto.Service[]) => {
+    await onSaveNewSer(services);
+
     const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
 
     const allServices = serviceCategories.flatMap(category => category.services);
 
-    const newServices: dto.DeveloperServiceEntry[] = serviceIds
-      .filter(serviceId => !existingServiceIds.has(serviceId.uuid))
+    const newServices: dto.DeveloperServiceEntry[] = services
+      .filter(service => !existingServiceIds.has(service.id.uuid))
       .map(serviceId => {
-        const service = allServices.find(s => s.id.uuid === serviceId.uuid);
+        const service = allServices.find(s => s.id.uuid === serviceId.id.uuid);
         if (!service) {
-          console.warn(`Service with ID ${serviceId.uuid} not found in categories.`);
+          console.warn(`Service with ID ${serviceId.id.uuid} not found in categories.`);
           return null;
         }
         const entry: dto.DeveloperServiceEntry = {
@@ -88,8 +91,29 @@ export function Step5(props: Step5Props) {
     props.updateState({ developerServices: updatedServices });
   };
 
-  const onAddServices = (serviceIds: dto.ServiceId[]) => {
-    onAddInitialServices(serviceIds);
+  const onSaveNewSer = async (services: dto.Service[]) => {
+    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+      const body: dto.UpsertDeveloperServiceBody = {
+        serviceId: service.id,
+        developerProjectItemIds: props.state.developerProjectItems.map(item => item.developerProjectItem.id),
+      };
+      return body;
+    });
+
+    const apiCall = async () => {
+      const body: dto.UpsertDeveloperServicesBody = {
+        upsertDeveloperServices: upsertDeveloperServices,
+      };
+      return await api.upsertDeveloperServices({}, body, {});
+    };
+
+    const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {};
+
+    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+  };
+
+  const onAddServices = (services: dto.Service[]) => {
+    onAddInitialServices(services);
     setShowAddServiceModal(false);
   };
 
@@ -254,7 +278,6 @@ export function Step5(props: Step5Props) {
         onAddServices={onAddServices}
         serviceCategories={filteredServiceCategories}
         isLoading={isLoading}
-        existingServiceIds={Array.from(existingServiceIds)}
       />
 
       <DeleteDeveloperServiceModal
