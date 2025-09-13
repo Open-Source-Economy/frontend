@@ -73,17 +73,15 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
           )}
 
           {/* Configuration Pills */}
-          {(developerService?.hourlyRate || developerService?.responseTimeHours) && (
-            <div className="flex items-center gap-4 self-stretch">
-              {/*TODO: create a function to display Hourly rate the same way in the whole code */}
-              {developerService?.hourlyRate ? (
-                <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${developerService.hourlyRate}/h`} />
-              ) : (
-                <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${props.defaultRate.amount}/h`} />
-              )}
-              {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
-            </div>
-          )}
+          <div className="flex items-center gap-4 self-stretch">
+            {/*TODO: create a function to display Hourly rate the same way in the whole code */}
+            {developerService?.hourlyRate ? (
+              <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${developerService.hourlyRate}/h`} />
+            ) : (
+              <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${props.defaultRate.amount}/h`} />
+            )}
+            {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
+          </div>
         </div>
 
         {props.showError && (
