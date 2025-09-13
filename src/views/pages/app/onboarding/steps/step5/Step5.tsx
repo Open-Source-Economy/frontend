@@ -216,6 +216,7 @@ export function Step5(props: Step5Props) {
                 key={groupedEntry.category}
                 groupedDeveloperServiceEntry={groupedEntry}
                 sourceIdentifiers={sourceIdentifiers}
+                defaultRate={props.state.defaultRate}
                 onSelectProjects={handleSelectProjects}
                 onRemoveDeveloperService={handleRemoveDeveloperService}
                 onEditDeveloperService={handleEditDeveloperService}

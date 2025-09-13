@@ -18,7 +18,7 @@ export function HourlyRateDisplaySection(props: HourlyRateDisplayProps) {
     <div className="flex justify-between items-center self-stretch">
       <div className="flex py-0.5 px-2.5 justify-center items-center gap-2.5 rounded-[50px] border border-[#FF7E4B]">
         <span className="text-white font-montserrat text-sm font-normal leading-[150%]">
-          Hourly rate: {currentCurrency.symbol} {props.hourlyRate}
+          Hourly rate: {currentCurrency.symbol} {props.hourlyRate}/h
         </span>
       </div>
 

@@ -59,7 +59,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         <div className="flex items-center gap-2">
           {/* Currency symbol container */}
           <div className="flex py-3 px-4 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-            <span className="text-white font-montserrat text-base font-normal leading-[150%]">{currentCurrency.symbol}</span>
+            <span className="text-white font-montserrat text-base font-normal leading-[150%]">{currentCurrency.symbol}/h</span>
           </div>
 
           {/* Input field */}

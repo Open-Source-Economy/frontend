@@ -2,12 +2,14 @@ import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { IconButton, InfoPill, SelectProjectsPill } from "../ui";
 import { CloseIcon, PenIcon } from "../icons";
-import { SourceIdentifierCompanion } from "../../../../../../data";
+import { displayedCurrencies, SourceIdentifierCompanion } from "../../../../../../data";
 import { DeveloperProjectItem, DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model/onboarding/DeveloperProjectItem";
+import { Rate } from "../modals/edit/EditServiceModal";
 
 interface DeveloperServiceItemProps {
   developerServiceEntry: dto.DeveloperServiceEntry;
   sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
   onEditDeveloperService?: (entry: dto.DeveloperServiceEntry) => void;
@@ -20,6 +22,8 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
   const service = props.developerServiceEntry.service;
   const developerService = props.developerServiceEntry.developerService;
   const hasConfiguration = developerService !== null;
+
+  const displayedCurrency = displayedCurrencies[props.defaultRate.currency];
 
   // TODO: is that the best way to do it?
   // Convert the map to use string keys for efficient lookups
@@ -84,7 +88,8 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
           {/* Configuration Pills */}
           {hasConfiguration && (developerService?.hourlyRate || developerService?.responseTimeHours) && (
             <div className="flex items-center gap-4 self-stretch">
-              {developerService?.hourlyRate && <InfoPill text={`Hourly rate: €${developerService.hourlyRate}`} />}
+              {/*TODO: create a function to display Hourly rate the same way in the whole code */}
+              {developerService?.hourlyRate && <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${developerService.hourlyRate}/h`} />}
               {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
             </div>
           )}

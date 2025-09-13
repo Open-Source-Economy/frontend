@@ -3,10 +3,12 @@ import * as dto from "@open-source-economy/api-types";
 import { DeveloperServiceItem } from "./DeveloperServiceItem";
 import { AddServiceButton } from "../ui";
 import { GroupedDeveloperServiceEntry } from "../utils";
+import { Rate } from "../modals/edit/EditServiceModal";
 
 interface DeveloperServiceCategoryProps {
   groupedDeveloperServiceEntry: GroupedDeveloperServiceEntry;
   sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
   onEditDeveloperService?: (entry: dto.DeveloperServiceEntry) => void;
@@ -37,6 +39,7 @@ export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
             key={developerServiceEntry.service.id.uuid}
             developerServiceEntry={developerServiceEntry}
             sourceIdentifiers={props.sourceIdentifiers}
+            defaultRate={props.defaultRate}
             onSelectProjects={props.onSelectProjects}
             onRemoveDeveloperService={props.onRemoveDeveloperService}
             onEditDeveloperService={props.onEditDeveloperService}
