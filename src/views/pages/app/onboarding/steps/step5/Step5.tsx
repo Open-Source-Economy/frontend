@@ -63,35 +63,37 @@ export function Step5(props: Step5Props) {
     fetchInitialData();
   }, []);
 
-  // TODO: do we need filter ?
   const onAddInitialServices = async (services: dto.Service[]) => {
-    await onSaveNewSer(services);
+    // TODO: Need to verify is this function is doing thing correctly
+    const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
+      const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
 
-    const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
+      const allServices = serviceCategories.flatMap(category => category.services);
 
-    const allServices = serviceCategories.flatMap(category => category.services);
+      const newServices: dto.DeveloperServiceEntry[] = services
+        .filter(service => !existingServiceIds.has(service.id.uuid))
+        .map(serviceId => {
+          const service = allServices.find(s => s.id.uuid === serviceId.id.uuid);
+          if (!service) {
+            console.warn(`Service with ID ${serviceId.id.uuid} not found in categories.`);
+            return null;
+          }
+          const entry: dto.DeveloperServiceEntry = {
+            service,
+            developerService: null,
+          };
+          return entry;
+        })
+        .filter((s): s is dto.DeveloperServiceEntry => s !== null);
 
-    const newServices: dto.DeveloperServiceEntry[] = services
-      .filter(service => !existingServiceIds.has(service.id.uuid))
-      .map(serviceId => {
-        const service = allServices.find(s => s.id.uuid === serviceId.id.uuid);
-        if (!service) {
-          console.warn(`Service with ID ${serviceId.id.uuid} not found in categories.`);
-          return null;
-        }
-        const entry: dto.DeveloperServiceEntry = {
-          service,
-          developerService: null,
-        };
-        return entry;
-      })
-      .filter((s): s is dto.DeveloperServiceEntry => s !== null);
+      const updatedServices = [...props.state.developerServices, ...newServices];
+      props.updateState({ developerServices: updatedServices });
+    };
 
-    const updatedServices = [...props.state.developerServices, ...newServices];
-    props.updateState({ developerServices: updatedServices });
+    await onSaveNewServices(services, onSuccess);
   };
 
-  const onSaveNewSer = async (services: dto.Service[]) => {
+  const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
     const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: service.id,
@@ -106,8 +108,6 @@ export function Step5(props: Step5Props) {
       };
       return await api.upsertDeveloperServices({}, body, {});
     };
-
-    const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {};
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
@@ -147,11 +147,16 @@ export function Step5(props: Step5Props) {
   const handleConfirmDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
     setIsDeletingService(true);
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const onSuccess = async () => {
+      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
+      props.updateState({ developerServices: updatedServices });
+    };
 
-    const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
-    props.updateState({ developerServices: updatedServices });
+    const apiCall = async () => {
+      return await api.deleteDeveloperService({}, { serviceId }, {});
+    };
+
     setShowDeleteDeveloperServiceModal(false);
     setServiceToDelete(null);
     setIsDeletingService(false);
