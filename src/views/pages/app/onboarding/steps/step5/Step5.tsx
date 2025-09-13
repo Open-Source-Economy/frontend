@@ -151,15 +151,17 @@ export function Step5(props: Step5Props) {
       await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
       const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
       props.updateState({ developerServices: updatedServices });
+
+      setShowDeleteDeveloperServiceModal(false);
+      setServiceToDelete(null);
+      setIsDeletingService(false);
     };
 
     const apiCall = async () => {
       return await api.deleteDeveloperService({}, { serviceId }, {});
     };
 
-    setShowDeleteDeveloperServiceModal(false);
-    setServiceToDelete(null);
-    setIsDeletingService(false);
+    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
   const handleCancelDeleteDeveloperService = () => {
