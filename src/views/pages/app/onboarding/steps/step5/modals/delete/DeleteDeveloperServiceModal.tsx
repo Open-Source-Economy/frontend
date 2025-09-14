@@ -6,14 +6,14 @@ interface DeleteDeveloperServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   developerServiceEntry: dto.DeveloperServiceEntry | null;
-  onConfirmDelete: (serviceId: dto.ServiceId) => void;
+  onConfirmDelete: (developerServiceEntry: dto.DeveloperServiceEntry) => void;
   isDeleting?: boolean;
 }
 
 export function DeleteDeveloperServiceModal(props: DeleteDeveloperServiceModalProps) {
   const handleConfirmDelete = () => {
     if (props.developerServiceEntry) {
-      props.onConfirmDelete(props.developerServiceEntry.service.id);
+      props.onConfirmDelete(props.developerServiceEntry);
     }
   };
 

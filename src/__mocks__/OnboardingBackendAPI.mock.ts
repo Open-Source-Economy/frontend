@@ -209,6 +209,34 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     return Promise.resolve(response);
   }
 
+  async upsertDeveloperServices(
+    params: dto.UpsertDeveloperServicesParams,
+    body: dto.UpsertDeveloperServicesBody,
+    query: dto.UpsertDeveloperServicesQuery,
+  ): Promise<dto.UpsertDeveloperServicesResponse | ApiError> {
+    console.log("upsertDeveloperServices", { params, body, query });
+
+    const developerServices: dto.DeveloperService[] = body.upsertDeveloperServices.map(service => {
+      const developerService: dto.DeveloperService = {
+        id: new dto.DeveloperProfileId(Math.random().toString()),
+        developerProfileId: new dto.DeveloperServiceId(Math.random().toString()),
+        serviceId: service.serviceId,
+        developerProjectItemIds: service.developerProjectItemIds,
+        hourlyRate: service.hourlyRate,
+        responseTimeHours: service.responseTimeHours,
+        comment: service.comment,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      return developerService;
+    });
+    const response: dto.UpsertDeveloperServicesResponse = {
+      developerServices,
+    };
+
+    return Promise.resolve(response);
+  }
+
   async deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody,

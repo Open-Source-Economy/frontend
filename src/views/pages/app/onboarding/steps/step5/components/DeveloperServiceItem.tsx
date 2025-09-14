@@ -1,6 +1,6 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { IconButton, InfoPill, SelectProjectsPill } from "../ui";
+import { IconButton, InfoPill, ActionPill } from "../ui";
 import { CloseIcon, PenIcon } from "../icons";
 import { displayedCurrencies, SourceIdentifierCompanion } from "../../../../../../data";
 import { DeveloperProjectItem, DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model/onboarding/DeveloperProjectItem";
@@ -21,8 +21,6 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
 
   const service = props.developerServiceEntry.service;
   const developerService = props.developerServiceEntry.developerService;
-  const hasConfiguration = developerService !== null;
-
   const displayedCurrency = displayedCurrencies[props.defaultRate.currency];
 
   // TODO: is that the best way to do it?
@@ -49,31 +47,23 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
           <div className="flex items-center gap-4 self-stretch">
             <div className="flex items-center gap-4 flex-1">
               <span className="text-white font-montserrat text-base font-normal leading-[150%]">{service.name}</span>
-
-              {!hasConfiguration && (
-                <SelectProjectsPill onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError && !hasConfiguration} />
+              {service.hasResponseTime && developerService?.responseTimeHours === undefined && (
+                <ActionPill text="Select response time" onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError} />
+              )}
+              {developerService?.developerProjectItemIds.length === 0 && (
+                <ActionPill text="Select projects" onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError} />
               )}
             </div>
 
-            {hasConfiguration && (
-              <>
-                {props.onEditDeveloperService && (
-                  <IconButton onClick={() => props.onEditDeveloperService?.(props.developerServiceEntry)}>
-                    <PenIcon className="w-6 h-6" />
-                  </IconButton>
-                )}
-
-                <IconButton onClick={() => props.onRemoveDeveloperService(service.id)} variant="rounded">
-                  <CloseIcon className="w-6 h-6" />
-                </IconButton>
-              </>
-            )}
-
-            {!hasConfiguration && (
-              <IconButton onClick={() => props.onRemoveDeveloperService(service.id)}>
-                <CloseIcon />
+            {props.onEditDeveloperService && (
+              <IconButton onClick={() => props.onEditDeveloperService?.(props.developerServiceEntry)}>
+                <PenIcon className="w-6 h-6" />
               </IconButton>
             )}
+
+            <IconButton onClick={() => props.onRemoveDeveloperService(service.id)} variant="rounded">
+              <CloseIcon className="w-6 h-6" />
+            </IconButton>
           </div>
 
           {sourceIdentifiers && (
@@ -86,17 +76,19 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
           )}
 
           {/* Configuration Pills */}
-          {hasConfiguration && (developerService?.hourlyRate || developerService?.responseTimeHours) && (
-            <div className="flex items-center gap-4 self-stretch">
-              {/*TODO: create a function to display Hourly rate the same way in the whole code */}
-              {developerService?.hourlyRate && <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${developerService.hourlyRate}/h`} />}
-              {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
-            </div>
-          )}
+          <div className="flex items-center gap-4 self-stretch">
+            {/*TODO: create a function to display Hourly rate the same way in the whole code */}
+            {developerService?.hourlyRate ? (
+              <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${developerService.hourlyRate}/h`} />
+            ) : (
+              <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${props.defaultRate.amount}/h`} />
+            )}
+            {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
+          </div>
         </div>
 
-        {props.showError && !hasConfiguration && (
-          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Please select projects</div>
+        {props.showError && (
+          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Please add missing configurations</div>
         )}
       </div>
     </>

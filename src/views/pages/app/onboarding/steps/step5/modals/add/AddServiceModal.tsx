@@ -11,16 +11,15 @@ const CloseIcon = () => (
 interface AddServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddServices: (serviceIds: dto.ServiceId[]) => void;
+  onAddServices: (services: dto.Service[]) => void;
   serviceCategories: dto.ServiceHierarchyItem[];
   isLoading?: boolean;
-  existingServiceIds?: string[];
 }
 
-export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategories, isLoading = false, existingServiceIds = [] }: AddServiceModalProps) {
+export function AddServiceModal(props: AddServiceModalProps) {
   const [selectedServices, setSelectedServices] = useState<dto.Service[]>([]);
 
-  if (!isOpen) return null;
+  if (!props.isOpen) return null;
 
   const handleServiceSelection = (service: dto.Service) => {
     setSelectedServices(prev => {
@@ -36,8 +35,7 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
   };
 
   const handleAddSelectedServices = () => {
-    const serviceIds = selectedServices.map(service => service.id);
-    onAddServices(serviceIds);
+    props.onAddServices(selectedServices);
     setSelectedServices([]);
   };
 
@@ -48,26 +46,25 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
           <div className="font-michroma not-italic text-[#ffffff] text-[25px] text-left">
             <p className="block leading-[1.3]">Add Service</p>
           </div>
-          <button onClick={onClose} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
+          <button onClick={props.onClose} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors">
             <CloseIcon />
           </button>
         </div>
         <div className="flex flex-col gap-2 mb-6">
-          {isLoading ? (
+          {props.isLoading ? (
             <div className="flex items-center justify-center py-4">
               <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading services...</div>
             </div>
           ) : (
-            serviceCategories.map(category => {
-              const availableServices = category.services.filter(service => !existingServiceIds.includes(service.id.uuid));
-              if (availableServices.length === 0) return null;
+            props.serviceCategories.map(serviceHierarchyItem => {
+              if (serviceHierarchyItem.services.length === 0) return null;
 
               return (
-                <div key={category.category}>
+                <div key={serviceHierarchyItem.category}>
                   <div className="font-montserrat font-medium text-[#ffffff] text-[16px] text-left py-2 bg-[#202f45] px-4">
-                    <p className="block leading-[1.5]">{category.category}</p>
+                    <p className="block leading-[1.5]">{serviceHierarchyItem.category}</p>
                   </div>
-                  {availableServices.map(service => {
+                  {serviceHierarchyItem.services.map(service => {
                     const isSelected = selectedServices.some(s => s.id.uuid === service.id.uuid);
                     return (
                       <div
@@ -103,7 +100,7 @@ export function AddServiceModal({ isOpen, onClose, onAddServices, serviceCategor
           )}
         </div>
         <div className="flex flex-row gap-4 items-center justify-end">
-          <Button onClick={onClose} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
+          <Button onClick={props.onClose} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
             Cancel
           </Button>
           <Button onClick={handleAddSelectedServices} disabled={selectedServices.length === 0} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">

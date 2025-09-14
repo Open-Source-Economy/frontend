@@ -12,7 +12,7 @@ import { EditServiceModal } from "./modals/edit/EditServiceModal";
 
 import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
 import ErrorDisplay from "../../components/ErrorDisplay";
-import { Button } from "../../../../../components/elements/Button";
+import { Button } from "../../../../../components";
 import { AddServiceModal } from "./modals/add/AddServiceModal";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
@@ -27,7 +27,6 @@ export function Step5(props: Step5Props) {
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
-  const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
   const [isDeletingService, setIsDeletingService] = useState(false);
@@ -63,33 +62,53 @@ export function Step5(props: Step5Props) {
     fetchInitialData();
   }, []);
 
-  const onAddInitialServices = (serviceIds: dto.ServiceId[]) => {
-    const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
+  const onAddInitialServices = async (services: dto.Service[]) => {
+    const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
+      const servicesMap = new Map<string, dto.Service>(services.map(service => [service.id.uuid, service]));
 
-    const allServices = serviceCategories.flatMap(category => category.services);
+      const newEntries: dto.DeveloperServiceEntry[] = response.developerServices
+        .map(ds => {
+          const service = servicesMap.get(ds.serviceId.uuid);
+          if (!service) {
+            // TODO: better to get the new services back from the server?
+            console.warn(`Service with ID ${ds.serviceId.uuid} from response not found in the initial services.`);
+            return null;
+          }
+          return {
+            service: service,
+            developerService: ds,
+          } as dto.DeveloperServiceEntry;
+        })
+        .filter((entry): entry is dto.DeveloperServiceEntry => entry !== null);
 
-    const newServices: dto.DeveloperServiceEntry[] = serviceIds
-      .filter(serviceId => !existingServiceIds.has(serviceId.uuid))
-      .map(serviceId => {
-        const service = allServices.find(s => s.id.uuid === serviceId.uuid);
-        if (!service) {
-          console.warn(`Service with ID ${serviceId.uuid} not found in categories.`);
-          return null;
-        }
-        const entry: dto.DeveloperServiceEntry = {
-          service,
-          developerService: null,
-        };
-        return entry;
-      })
-      .filter((s): s is dto.DeveloperServiceEntry => s !== null);
+      const updatedServices = [...props.state.developerServices, ...newEntries];
+      props.updateState({ developerServices: updatedServices });
+    };
 
-    const updatedServices = [...props.state.developerServices, ...newServices];
-    props.updateState({ developerServices: updatedServices });
+    await onSaveNewServices(services, onSuccess);
   };
 
-  const onAddServices = (serviceIds: dto.ServiceId[]) => {
-    onAddInitialServices(serviceIds);
+  const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
+    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+      const body: dto.UpsertDeveloperServiceBody = {
+        serviceId: service.id,
+        developerProjectItemIds: props.state.developerProjectItems.map(item => item.developerProjectItem.id),
+      };
+      return body;
+    });
+
+    const apiCall = async () => {
+      const body: dto.UpsertDeveloperServicesBody = {
+        upsertDeveloperServices: upsertDeveloperServices,
+      };
+      return await api.upsertDeveloperServices({}, body, {});
+    };
+
+    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+  };
+
+  const onAddServices = (services: dto.Service[]) => {
+    onAddInitialServices(services);
     setShowAddServiceModal(false);
   };
 
@@ -120,17 +139,29 @@ export function Step5(props: Step5Props) {
     }
   };
 
-  const handleConfirmDeleteDeveloperService = async (serviceId: dto.ServiceId) => {
+  const handleConfirmDeleteDeveloperService = async (developerServiceEntry: dto.DeveloperServiceEntry) => {
     setIsDeletingService(true);
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const developerService = developerServiceEntry.developerService;
+    if (developerService) {
+      const apiCall = async () => {
+        const body: dto.DeleteDeveloperServiceBody = {
+          developerServiceId: developerService.id,
+        };
+        return await api.deleteDeveloperService({}, body, {});
+      };
 
-    const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== serviceId.uuid);
-    props.updateState({ developerServices: updatedServices });
-    setShowDeleteDeveloperServiceModal(false);
-    setServiceToDelete(null);
-    setIsDeletingService(false);
+      const onSuccess = () => {
+        const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== developerServiceEntry.service.id.uuid);
+        props.updateState({ developerServices: updatedServices });
+
+        setShowDeleteDeveloperServiceModal(false);
+        setServiceToDelete(null);
+        setIsDeletingService(false);
+      };
+
+      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    }
   };
 
   const handleCancelDeleteDeveloperService = () => {
@@ -171,16 +202,22 @@ export function Step5(props: Step5Props) {
       return;
     }
 
+    const servicesWithoutProjectConfiguration = props.state.developerServices.filter(entry => entry.developerService?.developerProjectItemIds?.length === 0);
+    if (servicesWithoutProjectConfiguration.length > 0) {
+      setLocalError("Please configure all services before proceeding.");
+      return;
+    }
+
     // Check if any services don't have configuration
-    const servicesWithoutConfiguration = props.state.developerServices.filter(entry => entry.developerService === null);
+    const servicesWithoutConfiguration = props.state.developerServices.filter(
+      entry => (entry.service.hasResponseTime && entry.developerService?.responseTimeHours === undefined) || entry.developerService?.responseTimeHours === null,
+    );
     if (servicesWithoutConfiguration.length > 0) {
-      setShowValidationErrors(true);
       setLocalError("Please configure all services before proceeding.");
       return;
     }
 
     setLocalError(null); // Clear local error before starting API call
-    setShowValidationErrors(false);
 
     const apiCall = async () => {
       return await api.completeOnboarding({}, {}, {});
@@ -222,7 +259,6 @@ export function Step5(props: Step5Props) {
                 onEditDeveloperService={handleEditDeveloperService}
                 showAddCustomService={groupedEntry.category === dto.ServiceType.CUSTOM}
                 onAddCustomService={handleAddCustomService}
-                showError={showValidationErrors}
               />
             ))}
 
@@ -234,7 +270,7 @@ export function Step5(props: Step5Props) {
             <Button onClick={props.onBack} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
               Back
             </Button>
-            <Button onClick={handleNext} disabled={props.state.developerServices.length === 0 || isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+            <Button onClick={handleNext} disabled={isLoading} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
               {isLoading ? (
                 <>
                   <LoadingSpinner className="-ml-1 mr-2" />
@@ -254,7 +290,6 @@ export function Step5(props: Step5Props) {
         onAddServices={onAddServices}
         serviceCategories={filteredServiceCategories}
         isLoading={isLoading}
-        existingServiceIds={Array.from(existingServiceIds)}
       />
 
       <DeleteDeveloperServiceModal

@@ -1,7 +1,7 @@
 export { LoadingSpinner } from "./LoadingSpinner";
 export { ModalBackdrop } from "../modals/ModalBackdrop";
 export { Checkbox } from "./Checkbox";
-export { SelectProjectsPill } from "./SelectProjectsPill";
+export { ActionPill } from "./ActionPill";
 export { ModalHeader } from "./ModalHeader";
 export { IconButton } from "./IconButton";
 export { InfoPill } from "./InfoPill";
