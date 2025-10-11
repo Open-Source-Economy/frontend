@@ -87,8 +87,7 @@ export const pekkoCampaignDescription: CampaignDescription = {
         <br />
         <>
           {" "}
-          We’ve been working tirelessly for free, dedicating our time, energy, and sometimes even our health to keep Pekko open source and available to
-          everyone.
+          We’ve been working tirelessly for free, dedicating our time and energy to keep Pekko open source and available to everyone.
         </>
       </>
     ),
