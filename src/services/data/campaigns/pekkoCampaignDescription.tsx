@@ -42,9 +42,6 @@ export const pekkoCampaignDescription: CampaignDescription = {
   whyWeNeedYourHelp: {
     paragraph1: (
       <>
-        Pekko's workload is too heavy for a voluntary effort.
-        <br />
-        <br />
         We aim to deliver:
       </>
     ),
