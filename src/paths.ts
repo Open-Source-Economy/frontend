@@ -42,6 +42,7 @@ export const paths = {
     CREATE_CAMPAIGN_PRODUCT_AND_PRICE: "/admin/campaign/create-product-and-price",
     CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
     CREATE_PROJECT: "/admin/project",
+    SYNC_GITHUB: "/admin/sync-github",
   },
 
   // Dynamic route functions

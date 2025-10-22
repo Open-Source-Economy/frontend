@@ -81,3 +81,4 @@ export const api = createApiInstance();
 export * from "./AuthBackendAPI";
 export * from "./BackendAPI";
 export * from "./OnboardingBackendAPI";
+export * from "./AdminBackendAPI";

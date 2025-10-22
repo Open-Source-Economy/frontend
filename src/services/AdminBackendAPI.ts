@@ -40,6 +40,12 @@ export interface AdminBackendAPI {
   ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError>;
 
   createProject(params: dto.CreateProjectParams, body: dto.CreateProjectBody, query: dto.CreateProjectQuery): Promise<dto.CreateProjectResponse | ApiError>;
+
+  syncOwner(params: dto.SyncOwnerParams): Promise<dto.SyncOwnerResponse | ApiError>;
+
+  syncRepository(params: dto.SyncRepositoryParams): Promise<dto.SyncRepositoryResponse | ApiError>;
+
+  syncProject(params: dto.SyncProjectParams): Promise<dto.SyncProjectResponse | ApiError>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -122,6 +128,28 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<dto.CreateProjectResponse>(
       () => this.api.post(`${config.api.url}/admin/projects/${projectPath(params.owner, params.repo)}`, body, { withCredentials: true }),
       "createProject",
+    );
+  }
+
+  async syncOwner(params: dto.SyncOwnerParams): Promise<dto.SyncOwnerResponse | ApiError> {
+    return await handleError<dto.SyncOwnerResponse>(
+      () => this.api.post(`${config.api.url}/github/owners/${params.owner}/sync`, {}, { withCredentials: true }),
+      "syncOwner",
+    );
+  }
+
+  async syncRepository(params: dto.SyncRepositoryParams): Promise<dto.SyncRepositoryResponse | ApiError> {
+    return await handleError<dto.SyncRepositoryResponse>(
+      () => this.api.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/sync`, {}, { withCredentials: true }),
+      "syncRepository",
+    );
+  }
+
+  async syncProject(params: dto.SyncProjectParams): Promise<dto.SyncProjectResponse | ApiError> {
+    const path = params.repo ? `${params.owner}/${params.repo}` : params.owner;
+    return await handleError<dto.SyncProjectResponse>(
+      () => this.api.post(`${config.api.url}/github/projects/${path}/sync`, {}, { withCredentials: true }),
+      "syncProject",
     );
   }
 }

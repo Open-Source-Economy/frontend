@@ -41,6 +41,10 @@ export function AdminHome() {
           <Link to={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
             Create Plan Product & Price
           </Link>
+
+          <Link to={paths.ADMIN.SYNC_GITHUB} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center">
+            Sync GitHub Data
+          </Link>
         </div>
       </div>
     </PageWrapper>

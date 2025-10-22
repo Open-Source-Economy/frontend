@@ -31,6 +31,7 @@ import { Project } from "./views/pages/app/project/Project";
 import { PageNotFound } from "./views/pages/PageNotFound";
 import { CreateCampaignProductAndPrice } from "./views/pages/admin/createCampaignProductAndPrice";
 import { AdminHome } from "./views/pages/admin/adminHome/AdminHome";
+import { SyncGitHub } from "./views/pages/admin/syncGitHub/SyncGitHub";
 import { Campaign } from "./views/pages/app/campaign/Campaign";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
@@ -92,6 +93,7 @@ const App = () => {
               <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
+              <Route path={paths.ADMIN.SYNC_GITHUB} element={<SyncGitHub />} />
             </Route>
 
             <Route element={<ProjectRoute />}>
