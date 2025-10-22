@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^2.2.0",
-    "@open-source-economy/api-types": "2.0.1-0",
+    "@open-source-economy/api-types": "2.1.1-0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@types/node": "16.18.58",

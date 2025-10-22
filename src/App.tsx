@@ -33,6 +33,7 @@ import { CreateCampaignProductAndPrice } from "./views/pages/admin/createCampaig
 import { AdminHome } from "./views/pages/admin/adminHome/AdminHome";
 import { SyncGitHub } from "./views/pages/admin/syncGitHub/SyncGitHub";
 import { Campaign } from "./views/pages/app/campaign/Campaign";
+import { ProjectItemsWithDetails } from "./views/pages/projectItemsWithDetails/ProjectItemsWithDetails";
 import { IssueRoutes } from "./views/layout/IssueRoutes";
 import { CheckoutSuccess } from "./views/pages/app/checkout-success/CheckoutSuccess";
 import { ProjectRoute } from "./views/layout/ProjectRoute";
@@ -115,6 +116,7 @@ const App = () => {
 
             <Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>
               <Route path={paths.PROJECTS} element={<Projects />} />
+              <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
               <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
               <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />
               <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />

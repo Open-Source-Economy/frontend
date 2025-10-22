@@ -89,6 +89,11 @@ export interface BackendAPI {
     body: dto.NewsletterSubscriptionBody,
     query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError>;
+
+  getProjectItemsWithDetails(
+    params: dto.GetProjectItemsWithDetailsParams,
+    query: dto.GetProjectItemsWithDetailsQuery,
+  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -227,5 +232,12 @@ class BackendAPIImpl implements BackendAPI {
     query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return handleError(() => this.api.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
+  }
+
+  async getProjectItemsWithDetails(
+    params: dto.GetProjectItemsWithDetailsParams,
+    query: dto.GetProjectItemsWithDetailsQuery,
+  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
+    return handleError(() => this.api.get(`${config.api.url}/projects/items/details`, { withCredentials: true }), "getProjectItemsWithDetails");
   }
 }

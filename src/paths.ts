@@ -10,6 +10,7 @@ export const paths = {
   FUND_ISSUES: "/fund-issues",
   MANAGE_ISSUES: "/manage-issues",
   PROJECTS: "/projects",
+  PROJECT_ITEMS_WITH_DETAILS: "/project-items-details",
   REQUEST_MAINTAINER_RIGHTS: "/request-maintainer-rights",
   CHECKOUT_SUCCESS: "/checkout/success",
   DEVELOPER_OLD: "/developer-old", // TODO: to delete

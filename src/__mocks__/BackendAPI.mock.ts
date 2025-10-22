@@ -233,6 +233,13 @@ export class BackendAPIMock implements BackendAPI {
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return Promise.resolve({ success: {} });
   }
+
+  async getProjectItemsWithDetails(
+    params: dto.GetProjectItemsWithDetailsParams,
+    query: dto.GetProjectItemsWithDetailsQuery,
+  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
+    return Promise.resolve({ projectItems: [] });
+  }
 }
 
 function issueFunding(amount: number): IssueFunding {
