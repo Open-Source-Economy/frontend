@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError, projectPath, api } from "./index";
+import { api, handleError, projectPath } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { AxiosInstance } from "axios";

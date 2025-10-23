@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from "react";
-import { Footer, Header } from "src/views/layout";
+import { Footer, Header } from "src/views/components/layout";
 import gsap from "gsap";
 
 export interface PageWrapperProps {
@@ -17,7 +17,9 @@ export function PageWrapper(props: PageWrapperProps) {
     <div ref={pageContainer}>
       <Header />
       {props.children}
-      <Footer />
+      <section className="bg-gradient-to-t from-brand-neutral-50 to-brand-secondary-dark transition-all duration-1000 ease-in-out">
+        <Footer />
+      </section>
     </div>
   );
 }

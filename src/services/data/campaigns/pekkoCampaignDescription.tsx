@@ -40,11 +40,7 @@ export const pekkoCampaignDescription: CampaignDescription = {
     ),
   },
   whyWeNeedYourHelp: {
-    paragraph1: (
-      <>
-        We aim to deliver:
-      </>
-    ),
+    paragraph1: <>We aim to deliver:</>,
     items: [{ text: "Stable, up-to-date, bug-free software" }, { text: "Support for the community" }, { text: "Development of new features" }],
     paragraph2: "To make Pekko's our top priority, we need your help.",
   },
@@ -82,10 +78,7 @@ export const pekkoCampaignDescription: CampaignDescription = {
         available to everyone. This is how Pekko was born.
         <br />
         <br />
-        <>
-          {" "}
-          We’ve been working tirelessly for free, dedicating our time and energy to keep Pekko open source and available to everyone.
-        </>
+        <> We’ve been working tirelessly for free, dedicating our time and energy to keep Pekko open source and available to everyone.</>
       </>
     ),
     paragraph2: "We believe in transparency and accountability, and every dollar raised will go towards open source.",

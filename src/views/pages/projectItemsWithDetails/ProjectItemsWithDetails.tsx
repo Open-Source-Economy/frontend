@@ -14,7 +14,7 @@ export const ProjectItemsWithDetails: React.FC = () => {
         setLoading(true);
         const backendAPI = getBackendAPI();
         const result = await backendAPI.getProjectItemsWithDetails({}, {});
-        
+
         if (result instanceof ApiError) {
           setError(result.message);
         } else {
@@ -55,11 +55,8 @@ export const ProjectItemsWithDetails: React.FC = () => {
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-4 text-gray-900">Project Items with Details</h1>
       <div className="bg-white shadow-md rounded p-4">
-        <pre className="text-sm text-gray-900 overflow-auto max-h-screen">
-          {JSON.stringify(data, null, 2)}
-        </pre>
+        <pre className="text-sm text-gray-900 overflow-auto max-h-screen">{JSON.stringify(data, null, 2)}</pre>
       </div>
     </div>
   );
 };
-

@@ -1,4 +1,4 @@
-import thankfulCat from "../../../assets/cats/thankful-cat.svg";
+import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
 import { Maintainer } from "@open-source-economy/api-types";
 
 const lauriane: Maintainer = {

@@ -1,6 +1,6 @@
-import swissBorg from "../../../../assets/sponsor/swiss-borg.webp";
+import swissBorg from "../../../../assets/v1/sponsor/swiss-borg.webp";
 import { CardSize } from "@open-source-economy/api-types";
-import { ExternalLink } from "../../../../views/components";
+import { ExternalLink } from "../../../../views/v1/components";
 import { SponsorDescription } from "../../../../model";
 
 export const swissborg: SponsorDescription = {

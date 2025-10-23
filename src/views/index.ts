@@ -1,3 +1,3 @@
-export * from "./pages";
+export * from "./v1/pages";
 export * from "./Audience";
-export * from "./data";
+export * from "./v1/data";

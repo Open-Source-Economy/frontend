@@ -15,7 +15,7 @@ import {
 import { AuthBackendAPIMock } from "src/__mocks__";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-import { handleError, api } from "./index";
+import { handleError } from "./index";
 
 export function getAuthBackendAPI(): AuthBackendAPI {
   if (config.api.useMock) {

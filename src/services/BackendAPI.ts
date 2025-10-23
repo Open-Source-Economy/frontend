@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import { FinancialIssue } from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
-import { handleError, projectPath, api } from "./index"; // Import the 'api' instance
+import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";

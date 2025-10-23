@@ -29,6 +29,7 @@ import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServ
 import { getSponsors } from "../services/data/sponsors";
 import { SponsorDescription } from "../model";
 import { getProjectAccordion } from "../services/data/accordions/getAccordions";
+import { projectItemsDatabase } from "./projectItemsData";
 
 export class BackendAPIMock implements BackendAPI {
   async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
@@ -238,7 +239,7 @@ export class BackendAPIMock implements BackendAPI {
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
-    return Promise.resolve({ projectItems: [] });
+    return Promise.resolve({ projectItems: projectItemsDatabase });
   }
 }
 

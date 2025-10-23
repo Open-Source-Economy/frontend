@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { StatusCodes } from "http-status-codes";
 import { ErrorResponse, ResponseBody } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";

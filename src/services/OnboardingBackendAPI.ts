@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError, api } from "./index";
+import { api, handleError } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";

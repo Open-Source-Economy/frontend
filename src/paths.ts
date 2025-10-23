@@ -3,13 +3,26 @@ import { type IssueId, OwnerId, type ProjectId } from "@open-source-economy/api-
 export const paths = {
   // Static routes
   HOME: "/",
+  PRIVACY: "/privacy",
+  PROJECTS: "/projects",
+  FAQ: "/faq",
+  CONTACT: "/contact",
+
+  SOCIALS: {
+    LINKEDIN: "https://www.linkedin.com/company/open-source-economy",
+    TWITTER: "https://x.com/OS_Economy",
+    GITHUB: "https://github.com/Open-Source-Economy",
+    MASTODON: "https://mastodon.social/@OS_Economy",
+    YOUTUBE: "https://www.youtube.com/@OpenSourceEconomy-hn3tg",
+    ZEFIX: "https://zefix.ch/en/search/entity/list/firm/1637128",
+  },
+
   LOGOUT: "/logout",
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
   ISSUES: "/issues",
   FUND_ISSUES: "/fund-issues",
   MANAGE_ISSUES: "/manage-issues",
-  PROJECTS: "/projects",
   PROJECT_ITEMS_WITH_DETAILS: "/project-items-details",
   REQUEST_MAINTAINER_RIGHTS: "/request-maintainer-rights",
   CHECKOUT_SUCCESS: "/checkout/success",
@@ -23,7 +36,7 @@ export const paths = {
   VISION: "/vision",
   SAVINGS: "/savings",
   MISSION: "/mission",
-  PRIVACY: "/privacy",
+
   TERMS: "/terms",
   BLOG: "https://blog.open-source-economy.com/",
 

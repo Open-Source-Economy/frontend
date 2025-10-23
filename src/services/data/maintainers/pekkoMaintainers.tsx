@@ -1,7 +1,7 @@
-import happyCat from "../../../assets/cats/happy-cat.svg";
-import thankfulCat from "../../../assets/cats/thankful-cat.svg";
-import helloCat from "../../../assets/cats/hello-cat.svg";
-import normalCat from "../../../assets/cats/normal-cat.svg";
+import happyCat from "../../../assets/v1/cats/happy-cat.svg";
+import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
+import helloCat from "../../../assets/v1/cats/hello-cat.svg";
+import normalCat from "../../../assets/v1/cats/normal-cat.svg";
 import { Maintainer } from "@open-source-economy/api-types";
 
 const raboof: Maintainer = {
