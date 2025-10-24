@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { PageWrapper } from "./PageWrapper";
 import { Button } from "../components/ui/forms/button";
 import { Input } from "../components/ui/forms/input";
@@ -34,6 +35,8 @@ import {
 } from "lucide-react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { ApiError } from "src/ultils/error/ApiError";
+import { ContactReason } from "@open-source-economy/api-types";
+import { CONTACT_REASON_LABELS } from "src/ultils/companions/ContactReasonCompanion";
 
 interface ProjectEntry {
   url: string;
@@ -56,8 +59,8 @@ interface FormData {
 
 const CONTACT_REASONS = [
   {
-    id: "maintainer",
-    label: "I'm an Open Source Maintainer",
+    id: ContactReason.MAINTAINER,
+    label: CONTACT_REASON_LABELS[ContactReason.MAINTAINER],
     icon: Code2,
     description: "Join our network of expert maintainers",
     placeholder: "Tell us about your open source projects and expertise...",
@@ -65,8 +68,8 @@ const CONTACT_REASONS = [
       "Are you an open source maintainer interested in earning sustainable income for your work? Join our platform to connect with enterprises that depend on your projects. You'll maintain full control of your code while receiving fair compensation for priority support, bug fixes, and feature development.",
   },
   {
-    id: "request-project",
-    label: "Request a Project",
+    id: ContactReason.REQUEST_PROJECT,
+    label: CONTACT_REASON_LABELS[ContactReason.REQUEST_PROJECT],
     icon: FolderPlus,
     description: "Add a new project to our network",
     placeholder: "Tell us which project you'd like to see supported...",
@@ -74,8 +77,8 @@ const CONTACT_REASONS = [
       "Want to see a specific open source project added to our platform? Submit a request with the project details, and we'll evaluate it for inclusion based on community demand, ecosystem impact, and maintainer availability.",
   },
   {
-    id: "enterprise",
-    label: "Enterprise Inquiry",
+    id: ContactReason.ENTERPRISE,
+    label: CONTACT_REASON_LABELS[ContactReason.ENTERPRISE],
     icon: Building2,
     description: "Learn about enterprise solutions",
     placeholder: "Describe your organization's open source needs...",
@@ -83,8 +86,8 @@ const CONTACT_REASONS = [
       "Explore how our enterprise solutions can help your organization get direct access to expert maintainers, prioritize critical bug fixes, and ensure long-term support for your open source dependencies. We offer custom SLAs, dedicated support, and transparent pricing.",
   },
   {
-    id: "partnership",
-    label: "Partnership Opportunity",
+    id: ContactReason.PARTNERSHIP,
+    label: CONTACT_REASON_LABELS[ContactReason.PARTNERSHIP],
     icon: Handshake,
     description: "Explore collaboration opportunities",
     placeholder: "Share your partnership proposal...",
@@ -92,8 +95,8 @@ const CONTACT_REASONS = [
       "Interested in partnering with us? We're open to collaborations that strengthen the open source ecosystem, including foundation partnerships, corporate sponsorships, technology integrations, and community initiatives.",
   },
   {
-    id: "volunteer",
-    label: "Join Our Community",
+    id: ContactReason.VOLUNTEER,
+    label: CONTACT_REASON_LABELS[ContactReason.VOLUNTEER],
     icon: Users,
     description: "Contribute as a volunteer",
     placeholder: "Tell us how you'd like to contribute to our mission...",
@@ -101,8 +104,8 @@ const CONTACT_REASONS = [
       "Want to support our mission as a volunteer? We welcome community contributions in many forms: code contributions to our platform, marketing and outreach, giving talks or writing content, organizing events, or helping with operations. Share your skills and interests, and we'll find the right way for you to get involved.",
   },
   {
-    id: "press",
-    label: "Press & Media",
+    id: ContactReason.PRESS,
+    label: CONTACT_REASON_LABELS[ContactReason.PRESS],
     icon: Newspaper,
     description: "Media inquiries and press requests",
     placeholder: "Let us know about your publication and story angle...",
@@ -110,8 +113,8 @@ const CONTACT_REASONS = [
       "Media professionals can reach out for press releases, interviews, background information, or story ideas. We're happy to discuss our nonprofit mission, impact on the open source ecosystem, and unique funding model.",
   },
   {
-    id: "support",
-    label: "Get Help",
+    id: ContactReason.SUPPORT,
+    label: CONTACT_REASON_LABELS[ContactReason.SUPPORT],
     icon: Wrench,
     description: "Report a platform issue",
     placeholder: "Describe the issue you're experiencing...",
@@ -119,8 +122,8 @@ const CONTACT_REASONS = [
       "Experiencing technical difficulties with our platform? Let us know what issue you're facing, and our support team will help troubleshoot. Please include details about what you were trying to do and any error messages you received.",
   },
   {
-    id: "general",
-    label: "General Inquiry",
+    id: ContactReason.GENERAL,
+    label: CONTACT_REASON_LABELS[ContactReason.GENERAL],
     icon: HelpCircle,
     description: "Questions about our platform",
     placeholder: "How can we help you?",
@@ -130,13 +133,25 @@ const CONTACT_REASONS = [
 ];
 
 export function ContactPage() {
+  const [searchParams] = useSearchParams();
+
+  // Get initial contact reason from URL parameter
+  const getInitialContactReason = (): string => {
+    const reasonParam = searchParams.get("reason");
+    // Validate that the reason parameter is a valid ContactReason enum value
+    if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
+      return reasonParam;
+    }
+    return "";
+  };
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     company: "",
     linkedinProfile: "",
     githubProfile: "",
-    contactReason: "",
+    contactReason: getInitialContactReason(),
     projects: [{ url: "", role: "" }],
     requestMeeting: false,
     meetingNotes: "",
@@ -148,14 +163,22 @@ export function ContactPage() {
   const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
+  // Update contact reason when URL parameter changes
+  useEffect(() => {
+    const reasonParam = searchParams.get("reason");
+    if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
+      setFormData(prev => ({ ...prev, contactReason: reasonParam }));
+    }
+  }, [searchParams]);
+
   const handleInputChange = (field: keyof FormData, value: string | boolean) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [field]: typeof value === "string" && value === "true" ? true : typeof value === "string" && value === "false" ? false : value,
     }));
     // Clear field error when user starts typing
     if (fieldErrors[field]) {
-      setFieldErrors((prev) => {
+      setFieldErrors(prev => {
         const updated = { ...prev };
         delete updated[field];
         return updated;
@@ -201,7 +224,7 @@ export function ContactPage() {
     }
 
     // Validate projects if enterprise consulting is selected
-    if (formData.contactReason === "enterprise") {
+    if (formData.contactReason === ContactReason.ENTERPRISE) {
       if (formData.projects.length === 0 || !formData.projects[0].url.trim()) {
         errors.projects = "At least one project is required for enterprise consulting";
       }
@@ -279,27 +302,27 @@ export function ContactPage() {
   };
 
   const addProject = () => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       projects: [...prev.projects, { url: "", role: "" }],
     }));
   };
 
   const removeProject = (index: number) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       projects: prev.projects.filter((_, i) => i !== index),
     }));
   };
 
   const updateProject = (index: number, field: keyof ProjectEntry, value: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       projects: prev.projects.map((project, i) => (i === index ? { ...project, [field]: value } : project)),
     }));
     // Clear project error when user starts typing
     if (fieldErrors.projects) {
-      setFieldErrors((prev) => {
+      setFieldErrors(prev => {
         const updated = { ...prev };
         delete updated.projects;
         return updated;
@@ -307,7 +330,7 @@ export function ContactPage() {
     }
   };
 
-  const selectedReason = CONTACT_REASONS.find((r) => r.id === formData.contactReason);
+  const selectedReason = CONTACT_REASONS.find(r => r.id === formData.contactReason);
 
   return (
     <PageWrapper>
@@ -340,7 +363,7 @@ export function ContactPage() {
 
                 {/* Simple Card-Based Selection */}
                 <div className="space-y-3">
-                  {CONTACT_REASONS.map((reason) => (
+                  {CONTACT_REASONS.map(reason => (
                     <ContactReasonCard
                       key={reason.id}
                       id={reason.id}
@@ -459,7 +482,7 @@ export function ContactPage() {
                                 name="name"
                                 type="text"
                                 value={formData.name}
-                                onChange={(value) => handleInputChange("name", value)}
+                                onChange={value => handleInputChange("name", value)}
                                 placeholder="John Doe"
                                 error={fieldErrors.name}
                                 required
@@ -470,7 +493,7 @@ export function ContactPage() {
                                 name="email"
                                 type="email"
                                 value={formData.email}
-                                onChange={(value) => handleInputChange("email", value)}
+                                onChange={value => handleInputChange("email", value)}
                                 placeholder="john@example.com"
                                 error={fieldErrors.email}
                                 required
@@ -484,14 +507,18 @@ export function ContactPage() {
                                 name="company"
                                 type="text"
                                 value={formData.company}
-                                onChange={(value) => handleInputChange("company", value)}
+                                onChange={value => handleInputChange("company", value)}
                                 placeholder={
-                                  ["enterprise", "request-project", "partnership", "press"].includes(formData.contactReason)
+                                  [ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT, ContactReason.PARTNERSHIP, ContactReason.PRESS].includes(
+                                    formData.contactReason as ContactReason,
+                                  )
                                     ? "Your company or organization name"
                                     : "Your company name (optional)"
                                 }
                                 error={fieldErrors.company}
-                                required={["enterprise", "request-project", "partnership", "press"].includes(formData.contactReason)}
+                                required={[ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT, ContactReason.PARTNERSHIP, ContactReason.PRESS].includes(
+                                  formData.contactReason as ContactReason,
+                                )}
                               />
 
                               <ValidatedInput
@@ -499,37 +526,41 @@ export function ContactPage() {
                                 name="linkedinProfile"
                                 type="url"
                                 value={formData.linkedinProfile}
-                                onChange={(value) => handleInputChange("linkedinProfile", value)}
+                                onChange={value => handleInputChange("linkedinProfile", value)}
                                 placeholder={
-                                  ["support", "general", "volunteer"].includes(formData.contactReason)
+                                  [ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(formData.contactReason as ContactReason)
                                     ? "https://linkedin.com/in/yourprofile (optional)"
                                     : "https://linkedin.com/in/yourprofile"
                                 }
                                 error={fieldErrors.linkedinProfile}
-                                required={!["support", "general", "volunteer"].includes(formData.contactReason)}
+                                required={
+                                  ![ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(formData.contactReason as ContactReason)
+                                }
                               />
                             </div>
 
                             {/* Conditional Field: GitHub Profile for "maintainer", "support", "general", "volunteer" */}
-                            {["maintainer", "support", "general", "volunteer"].includes(formData.contactReason) && (
+                            {[ContactReason.MAINTAINER, ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(
+                              formData.contactReason as ContactReason,
+                            ) && (
                               <div>
                                 <Label htmlFor="githubProfile">
                                   GitHub Profile
-                                  {formData.contactReason === "maintainer" && <span className="text-brand-error"> *</span>}
+                                  {formData.contactReason === ContactReason.MAINTAINER && <span className="text-brand-error"> *</span>}
                                 </Label>
                                 <Input
                                   id="githubProfile"
                                   type="url"
-                                  required={formData.contactReason === "maintainer"}
+                                  required={formData.contactReason === ContactReason.MAINTAINER}
                                   value={formData.githubProfile || ""}
-                                  onChange={(e) => handleInputChange("githubProfile", e.target.value)}
+                                  onChange={e => handleInputChange("githubProfile", e.target.value)}
                                   placeholder={
-                                    formData.contactReason === "maintainer"
+                                    formData.contactReason === ContactReason.MAINTAINER
                                       ? "https://github.com/yourusername"
                                       : "https://github.com/yourusername (optional)"
                                   }
                                 />
-                                {formData.contactReason === "maintainer" && (
+                                {formData.contactReason === ContactReason.MAINTAINER && (
                                   <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
                                     <Info className="w-4 h-4 flex-shrink-0 text-brand-neutral-500" />
                                     <span>We'll review your GitHub profile to verify your open source contributions and expertise.</span>
@@ -539,7 +570,7 @@ export function ContactPage() {
                             )}
 
                             {/* Conditional Field: Multiple Projects for "maintainer" */}
-                            {formData.contactReason === "maintainer" && (
+                            {formData.contactReason === ContactReason.MAINTAINER && (
                               <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                   <Label>
@@ -581,7 +612,7 @@ export function ContactPage() {
                                             id={`project-url-${index}`}
                                             type="url"
                                             value={project.url}
-                                            onChange={(e) => updateProject(index, "url", e.target.value)}
+                                            onChange={e => updateProject(index, "url", e.target.value)}
                                             placeholder="https://github.com/yourname/project"
                                             className={fieldErrors.projects && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
                                             data-error={fieldErrors.projects && index === 0}
@@ -596,7 +627,7 @@ export function ContactPage() {
                                             id={`project-role-${index}`}
                                             type="text"
                                             value={project.role || ""}
-                                            onChange={(e) => updateProject(index, "role", e.target.value)}
+                                            onChange={e => updateProject(index, "role", e.target.value)}
                                             placeholder="e.g., Core Maintainer, Creator"
                                           />
                                         </div>
@@ -609,7 +640,7 @@ export function ContactPage() {
                             )}
 
                             {/* Conditional Field: Multiple Projects for "request-project" */}
-                            {formData.contactReason === "request-project" && (
+                            {formData.contactReason === ContactReason.REQUEST_PROJECT && (
                               <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                   <Label>
@@ -637,7 +668,7 @@ export function ContactPage() {
                                           type="url"
                                           required
                                           value={project.url}
-                                          onChange={(e) => updateProject(index, "url", e.target.value)}
+                                          onChange={e => updateProject(index, "url", e.target.value)}
                                           placeholder="https://github.com/org/project"
                                         />
                                       </div>
@@ -663,7 +694,7 @@ export function ContactPage() {
                               name="subject"
                               type="text"
                               value={formData.subject}
-                              onChange={(value) => handleInputChange("subject", value)}
+                              onChange={value => handleInputChange("subject", value)}
                               placeholder="Brief description of your inquiry"
                               error={fieldErrors.subject}
                               required
@@ -674,7 +705,7 @@ export function ContactPage() {
                               label="Message"
                               name="message"
                               value={formData.message}
-                              onChange={(value) => handleInputChange("message", value)}
+                              onChange={value => handleInputChange("message", value)}
                               rows={6}
                               placeholder={selectedReason?.placeholder || "Please provide details about your inquiry..."}
                               error={fieldErrors.message}
@@ -682,15 +713,15 @@ export function ContactPage() {
                             />
 
                             {/* Meeting Request Section */}
-                            {(formData.contactReason === "enterprise" ||
-                              formData.contactReason === "partnership" ||
-                              formData.contactReason === "press") && (
+                            {(formData.contactReason === ContactReason.ENTERPRISE ||
+                              formData.contactReason === ContactReason.PARTNERSHIP ||
+                              formData.contactReason === ContactReason.PRESS) && (
                               <div className="p-5 bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg space-y-4">
                                 <div className="flex items-start gap-3">
                                   <Checkbox
                                     id="requestMeeting"
                                     checked={formData.requestMeeting}
-                                    onCheckedChange={(checked) => handleInputChange("requestMeeting", checked === true)}
+                                    onCheckedChange={checked => handleInputChange("requestMeeting", checked === true)}
                                     className="mt-1"
                                   />
                                   <div className="flex-1">
@@ -710,7 +741,7 @@ export function ContactPage() {
                                       <Textarea
                                         id="meetingNotes"
                                         value={formData.meetingNotes || ""}
-                                        onChange={(e) => handleInputChange("meetingNotes", e.target.value)}
+                                        onChange={e => handleInputChange("meetingNotes", e.target.value)}
                                         rows={3}
                                         placeholder="Any specific topics or agenda items you'd like to discuss..."
                                       />
@@ -772,4 +803,3 @@ export function ContactPage() {
     </PageWrapper>
   );
 }
-

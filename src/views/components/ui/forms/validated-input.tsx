@@ -43,7 +43,7 @@ export function ValidatedInput({
         name={name}
         type={type}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         variant={error ? "error" : "default"}
         data-error={!!error}
@@ -70,7 +70,7 @@ export function ValidatedTextarea({
         id={name}
         name={name}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
         variant={error ? "error" : "default"}
@@ -79,4 +79,3 @@ export function ValidatedTextarea({
     </FormField>
   );
 }
-

@@ -33,11 +33,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className,
         )}
         {...props}
       />
-      <Check
-        className={cn(
-          "pointer-events-none absolute h-3.5 w-3.5 text-white opacity-0 transition-opacity peer-checked:opacity-100",
-        )}
-      />
+      <Check className={cn("pointer-events-none absolute h-3.5 w-3.5 text-white opacity-0 transition-opacity peer-checked:opacity-100")} />
     </div>
   );
 });
@@ -45,4 +41,3 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className,
 Checkbox.displayName = "Checkbox";
 
 export { Checkbox };
-

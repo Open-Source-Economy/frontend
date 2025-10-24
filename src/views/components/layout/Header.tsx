@@ -35,7 +35,7 @@ export const headerContent = {
       { title: "Projects", href: paths.PROJECTS },
       // { title: "FAQ", href: paths.FAQ },
       { title: "Blog", href: paths.BLOG, external: true },
-      // { title: "Contact", href: paths.CONTACT },
+      { title: "Contact", href: paths.CONTACT },
     ] as NavItem[],
     cta: undefined as NavItem | undefined, //{ title: "Get Started", href: paths.PROJECTS, external: false } as NavItem,
   },

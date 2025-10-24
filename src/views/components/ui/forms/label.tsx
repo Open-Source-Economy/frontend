@@ -10,4 +10,3 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(({ className, ...pr
 Label.displayName = "Label";
 
 export { Label };
-
