@@ -50,7 +50,6 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
           <ProjectCard
             key={ProjectItemWithDetailsCompanion.getProjectId(item).uuid}
             item={item}
-            category={props.category}
             onViewProject={props.onViewProject}
             canExpandMaintainers={props.canExpandMaintainers}
           />
