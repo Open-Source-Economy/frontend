@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "src/views/components/ui/card";
 import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
-import { ChevronDown, ChevronUp, ExternalLink, GitFork, Star, Users } from "lucide-react";
+import { BadgeCheck, Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
 import { ProjectItemWithDetails, ProjectItemType } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion, ProjectItemWithDetailsCardView } from "src/ultils/companions/ProjectItemWithDetails.companion";
 
@@ -25,10 +25,10 @@ export function ProjectCard(props: ProjectCardProps) {
   return (
     <Card
       key={view.projectId.uuid}
-      className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20 cursor-pointer"
+      className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20 cursor-pointer overflow-hidden"
       onClick={() => props.onViewProject?.(view.projectId.uuid)}
     >
-      <CardContent className="p-5 h-full flex flex-col">
+      <CardContent className="p-5 flex flex-col overflow-hidden">
         {/* Project Header */}
         <div className="flex items-start gap-3 mb-3">
           <div className="flex-1 min-w-0">
@@ -38,20 +38,19 @@ export function ProjectCard(props: ProjectCardProps) {
             {/* Display the category */}
             <p className="text-xs text-muted-foreground">{props.category}</p>
           </div>
-          <button
-            onClick={e => {
-              e.stopPropagation();
-              window.open(view.githubUrl, "_blank");
-            }}
-            className="opacity-40 hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-foreground flex-shrink-0"
-            title={isUrlProject ? "Visit Project" : "View on GitHub"}
-          >
-            <ExternalLink className="w-4 h-4" />
-          </button>
+          {isOwnerProject && (
+            <Badge
+              variant="outline"
+              className="text-xs py-1 px-2 bg-brand-accent/10 border-brand-accent/30 text-brand-accent flex items-center gap-1 flex-shrink-0"
+            >
+              <Building2 className="w-3 h-3" />
+              <span>Org</span>
+            </Badge>
+          )}
         </div>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">{view.projectDescription}</p>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 min-h-[3rem]">{view.projectDescription || "\u00A0"}</p>
 
         {/* GitHub Stats */}
         <div className="flex items-center gap-4 pb-3 mb-3 border-b border-border/50 text-xs opacity-60">
@@ -75,6 +74,16 @@ export function ProjectCard(props: ProjectCardProps) {
               </div>
             </>
           )}
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              window.open(view.githubUrl, "_blank");
+            }}
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-brand-accent transition-all duration-200 hover:scale-110 cursor-pointer"
+            title={isUrlProject ? "Visit Project" : "View on GitHub"}
+          >
+            <ExternalLink className="w-3 h-3" />
+          </button>
           <div className="ml-auto">
             {/* Only display mainLanguage if it exists */}
             {view.mainLanguage && (
@@ -91,16 +100,26 @@ export function ProjectCard(props: ProjectCardProps) {
             {canExpand ? (
               <Collapsible open={openMaintainers} onOpenChange={setOpenMaintainers}>
                 <CollapsibleTrigger asChild>
-                  <div className="flex items-center gap-2 py-1 px-2 -mx-2 rounded-lg cursor-pointer group/maintainers hover:bg-brand-accent/5 transition-colors">
+                  <div
+                    className="flex items-center gap-2 py-1 px-2 -mx-2 rounded-lg cursor-pointer group/maintainers hover:bg-brand-accent/5 transition-colors"
+                    onClick={e => e.stopPropagation()}
+                  >
                     <span className="text-sm text-muted-foreground group-hover/maintainers:text-brand-accent transition-colors">
                       {view.maintainersCount} Expert maintainer{view.maintainersCount !== 1 ? "s" : ""}
                     </span>
-                    <div className="ml-auto p-1 hover:bg-brand-accent/10 rounded transition-colors">
-                      {openMaintainers ? (
-                        <ChevronUp className="w-3.5 h-3.5 text-brand-accent" />
-                      ) : (
-                        <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                    <div className="ml-auto flex items-center gap-2">
+                      {openMaintainers && (
+                        <span className="text-xs text-brand-accent opacity-0 group-hover/maintainers:opacity-100 transition-opacity duration-200">
+                          Show Less
+                        </span>
                       )}
+                      <div className="p-1 hover:bg-brand-accent/10 rounded transition-all duration-200">
+                        <div className={`transition-transform duration-300 ${openMaintainers ? "rotate-180" : "rotate-0"}`}>
+                          <ChevronDown
+                            className={`w-3.5 h-3.5 transition-colors duration-200 ${openMaintainers ? "text-brand-accent" : "text-muted-foreground"}`}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CollapsibleTrigger>
@@ -118,8 +137,11 @@ export function ProjectCard(props: ProjectCardProps) {
                           />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="text-xs text-foreground truncate">{developer.developerOwner.name || developer.developerOwner.id.login}</p>
-                          <p className="text-xs text-muted-foreground truncate">{developer.developerProjectItem.comment || "Maintainer"}</p>
+                          <div className="flex items-center gap-1">
+                            <p className="text-xs text-foreground truncate">{developer.developerOwner.id.login}</p>
+                            {/*<BadgeCheck className="w-3 h-3 text-brand-success flex-shrink-0" />*/}
+                          </div>
+                          <p className="text-xs text-muted-foreground truncate">"Maintainer</p>
                         </div>
                       </div>
                     ))}

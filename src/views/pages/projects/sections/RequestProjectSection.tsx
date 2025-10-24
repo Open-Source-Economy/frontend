@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
 import { MessageCircle, Plus } from "lucide-react";
+import { paths } from "src/paths";
 
 interface RequestProjectSectionProps {
   searchQuery?: string;
   selectedCategory?: string | null;
+  selectedLanguage?: string | null;
   onRequestProject?: () => void;
   className?: string;
   variant?: "default" | "fancy";
@@ -45,6 +48,7 @@ export const requestProjectContent = {
 export function RequestProjectSection(props: RequestProjectSectionProps) {
   const hasSearch = Boolean(props.searchQuery && props.searchQuery.length > 0);
   const hasCategory = props.selectedCategory !== null && props.selectedCategory !== undefined;
+  const hasLanguage = props.selectedLanguage !== null && props.selectedLanguage !== undefined;
   const variant = props.variant ?? "default";
 
   // Helpers (no Tailwind here)
@@ -53,7 +57,7 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
 
   const getDefaultDescription = () => {
     const v = requestProjectContent.variants.default;
-    if (hasSearch || hasCategory) {
+    if (hasSearch || hasCategory || hasLanguage) {
       return (
         <>
           {v.filteredDescriptionPrefix}
@@ -63,10 +67,23 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
               {v.searchNotePrefix} <span className="text-brand-accent">&quot;{props.searchQuery}&quot;</span> {v.searchNoteSuffix}
             </span>
           )}
-          {!hasSearch && hasCategory && (
+          {!hasSearch && hasCategory && !hasLanguage && (
             <span>
               {" "}
               {v.categoryNotePrefix} <span className="text-brand-accent">{props.selectedCategory}</span> {v.categoryNoteSuffix}
+            </span>
+          )}
+          {!hasSearch && !hasCategory && hasLanguage && (
+            <span>
+              {" "}
+              We're actively adding more <span className="text-brand-accent">{props.selectedLanguage}</span> projects.
+            </span>
+          )}
+          {!hasSearch && hasCategory && hasLanguage && (
+            <span>
+              {" "}
+              We're actively adding more <span className="text-brand-accent">{props.selectedLanguage}</span> projects in the{" "}
+              <span className="text-brand-accent">{props.selectedCategory}</span> category.
             </span>
           )}
         </>
@@ -90,20 +107,24 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={props.onRequestProject}
+              asChild
               className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-lg shadow-brand-accent/25 hover:shadow-xl hover:shadow-brand-accent/30 transition-all"
             >
-              <Plus className="w-4 h-4 mr-2" />
-              {v.primaryCta}
+              <Link to={`${paths.CONTACT}?reason=request-project`}>
+                <Plus className="w-4 h-4 mr-2" />
+                {v.primaryCta}
+              </Link>
             </Button>
-            <Button
-              onClick={props.onRequestProject}
-              variant="outline"
-              className="border-brand-accent/40 hover:bg-brand-accent/10 hover:border-brand-accent/60 text-brand-neutral-900 transition-all"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              {v.secondaryCta}
-            </Button>
+            {/*<Button*/}
+            {/*  asChild*/}
+            {/*  variant="outline"*/}
+            {/*  className="border-brand-accent/40 hover:bg-brand-accent/10 hover:border-brand-accent/60 text-brand-neutral-900 transition-all"*/}
+            {/*>*/}
+            {/*  <Link to={paths.CONTACT}>*/}
+            {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
+            {/*    {v.secondaryCta}*/}
+            {/*  </Link>*/}
+            {/*</Button>*/}
           </div>
         </div>
       </div>
@@ -119,18 +140,22 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
           <Plus className="w-6 h-6 text-brand-accent" />
         </div>
 
-        <h3 className="mb-4 text-foreground">{getDefaultHeading(hasSearch || hasCategory)}</h3>
+        <h3 className="mb-4 text-foreground">{getDefaultHeading(hasSearch || hasCategory || hasLanguage)}</h3>
         <p className="text-muted-foreground mb-8 max-w-xl mx-auto">{getDefaultDescription()}</p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button onClick={props.onRequestProject} className="bg-brand-accent hover:bg-brand-accent-dark text-white">
-            <Plus className="w-4 h-4 mr-2" />
-            {v.primaryCta}
+          <Button asChild className="bg-brand-accent hover:bg-brand-accent-dark text-white">
+            <Link to={`${paths.CONTACT}?reason=request-project`}>
+              <Plus className="w-4 h-4 mr-2" />
+              {v.primaryCta}
+            </Link>
           </Button>
-          <Button onClick={props.onRequestProject} variant="outline" className="border-border hover:bg-card">
-            <MessageCircle className="w-4 h-4 mr-2" />
-            {v.secondaryCta}
-          </Button>
+          {/*<Button asChild variant="outline" className="border-border hover:bg-card">*/}
+          {/*  <Link to={paths.CONTACT}>*/}
+          {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
+          {/*    {v.secondaryCta}*/}
+          {/*  </Link>*/}
+          {/*</Button>*/}
         </div>
       </div>
     </div>

@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
-import { ProjectSearchBar } from "src/views/pages/projects/components/ProjectSearchBar";
+import { SearchAndFiltersSection } from "src/views/pages/projects/components/SearchAndFiltersSection";
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
+import { RequestProjectSection } from "src/views/pages/projects/sections/RequestProjectSection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
 import { ProjectCategory, ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ApiError } from "src/ultils/error/ApiError";
-import { LanguageFilter } from "src/views/pages/projects/components/LanguageFilter";
 import { handleApiCall } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { CategoryFilter } from "./components/CategoryFilter";
 
 // ------------------------------------
 // Constants
@@ -231,76 +230,17 @@ export function ProjectsPage(_: {}) {
       {/* Search + Filters + Results */}
       {!isLoading && !apiError && (
         <>
-          <section className="py-8 border-b border-border">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="space-y-4">
-                <div className="flex flex-col lg:flex-row gap-6 items-stretch lg:items-start">
-                  <div className="w-full lg:w-80 flex-shrink-0">
-                    <ProjectSearchBar value={searchQuery} onChange={setSearchQuery} placeholder={projectsPageContent.search.placeholder} />
-                  </div>
-                  {/*<div className="hidden lg:block w-px h-8 bg-border flex-shrink-0 mt-1" />*/}
-                  {/*<div className="flex-1">*/}
-                  {/*  <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />*/}
-                  {/*</div>*/}
-
-                  <div className="hidden lg:block w-px h-8 bg-border flex-shrink-0 mt-1" />
-                  <div className="flex-1">
-                    <LanguageFilter languages={availableLanguages} selectedLanguage={selectedLanguage} onSelectLanguage={setSelectedLanguage} />
-                  </div>
-                </div>
-
-                {(searchQuery || selectedCategory || selectedLanguage) && (
-                  <div className="text-sm text-muted-foreground">
-                    {hasResults ? (
-                      <span>
-                        {totalResults} {totalResults === 1 ? projectsPageContent.results.projectSingular : projectsPageContent.results.projectPlural}
-                        {searchQuery && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.matching} &quot;{searchQuery}&quot;
-                          </span>
-                        )}
-                        {selectedCategory && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.inLabel} {selectedCategory}
-                          </span>
-                        )}
-                        {selectedLanguage && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.inLabel} {selectedLanguage}
-                          </span>
-                        )}
-                      </span>
-                    ) : (
-                      <span className="text-brand-warning">
-                        {projectsPageContent.results.nonePrefix}
-                        {searchQuery && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.matching} &quot;{searchQuery}&quot;
-                          </span>
-                        )}
-                        {selectedCategory && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.inLabel} {selectedCategory}
-                          </span>
-                        )}
-                        {selectedLanguage && (
-                          <span>
-                            {" "}
-                            {projectsPageContent.results.inLabel} {selectedLanguage}
-                          </span>
-                        )}
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
+          <SearchAndFiltersSection
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            selectedLanguage={selectedLanguage}
+            onLanguageChange={setSelectedLanguage}
+            availableLanguages={availableLanguages}
+            hasResults={hasResults}
+            totalResults={totalResults}
+          />
 
           {/* Projects by Category or Request CTA */}
           <section className="py-16">
@@ -320,17 +260,12 @@ export function ProjectsPage(_: {}) {
                     ))}
                 </div>
               ) : (
-                <div className="max-w-4xl mx-auto">{/*<RequestProjectSection searchQuery={searchQuery} selectedCategory={selectedCategory} />*/}</div>
+                <div className="max-w-4xl mx-auto">
+                  <RequestProjectSection searchQuery={searchQuery} selectedCategory={selectedCategory} selectedLanguage={selectedLanguage} />
+                </div>
               )}
             </div>
           </section>
-
-          {/*/!* Bottom CTA *!/*/}
-          {/*{hasResults && (*/}
-          {/*  <section className="py-20 border-t border-border bg-gradient-to-br from-brand-card-blue via-brand-card-blue-light to-brand-accent/5">*/}
-          {/*    <RequestProjectSection variant="fancy" />*/}
-          {/*  </section>*/}
-          {/*)}*/}
         </>
       )}
     </PageWrapper>
