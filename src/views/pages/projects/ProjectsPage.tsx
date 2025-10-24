@@ -4,13 +4,20 @@ import { ProjectSearchBar } from "src/views/pages/projects/components/ProjectSea
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
-import { ProjectCategory, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import {
+  ProjectCategory,
+  ProjectItemSortField,
+  ProjectItemWithDetails,
+  SortOrder
+} from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ApiError } from "src/ultils/error/ApiError";
+import { LanguageFilter } from "src/views/pages/projects/components/LanguageFilter";
 import { handleApiCall } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
+import { CategoryFilter } from "./components/CategoryFilter";
 
 // ------------------------------------
 // Content (semantic only, no Tailwind)
@@ -52,10 +59,9 @@ const CATEGORY_KEYWORDS: Record<ProjectCategory, string[]> = {
   [ProjectCategory.Infrastructure]: ["kubernetes", "docker", "terraform", "ansible"],
   [ProjectCategory.MachineLearning]: ["tensorflow", "pytorch", "scikit-learn"],
   [ProjectCategory.Database]: ["postgresql", "redis", "mongodb", "elasticsearch"],
-  [ProjectCategory.Runtime]: ["node", "deno"],
+  [ProjectCategory.Runtime]: ["deno"],
   [ProjectCategory.ProgrammingLanguage]: ["rust", "python", "go"],
   [ProjectCategory.Security]: ["openssl", "oauth2-proxy"],
-  // Fallbacks handled below
 };
 
 function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | null {
@@ -82,6 +88,7 @@ export function ProjectsPage(_: {}) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   const fetchProjectItems = useCallback(async () => {
     setIsLoading(true);
@@ -91,7 +98,17 @@ export function ProjectsPage(_: {}) {
       const response = await api.getProjectItemsWithDetails(
         {},
         {
-          // Request all projects grouped by type
+          repositories: {
+            sortBy: ProjectItemSortField.STARGAZERS,
+            sortOrder: SortOrder.DESC,
+          },
+          owners: {
+            sortBy: ProjectItemSortField.FOLLOWERS,
+            sortOrder: SortOrder.DESC,
+          },
+          urls: {
+            limit: 0,
+          },
         },
       );
       if (response instanceof ApiError) throw response;
@@ -127,6 +144,18 @@ export function ProjectsPage(_: {}) {
     fetchProjectItems();
   }, [fetchProjectItems]);
 
+  // Extract unique languages from all project items
+  const availableLanguages = useMemo(() => {
+    if (!projectItems) return [];
+    const languages = new Set<string>();
+    projectItems.forEach(item => {
+      if (item.repository?.language) {
+        languages.add(item.repository.language);
+      }
+    });
+    return Array.from(languages);
+  }, [projectItems]);
+
   // Filter + group
   const filteredProjects = useMemo(() => {
     if (!projectItems) return {} as Record<string, ProjectItemWithDetails[]>;
@@ -141,6 +170,10 @@ export function ProjectsPage(_: {}) {
       projects = projects.filter(item => getProjectCategory(item) === selectedCategory);
     }
 
+    if (selectedLanguage) {
+      projects = projects.filter(item => item.repository?.language === selectedLanguage);
+    }
+
     return projects.reduce(
       (acc, item) => {
         const category = getProjectCategory(item);
@@ -151,7 +184,7 @@ export function ProjectsPage(_: {}) {
       },
       {} as Record<string, ProjectItemWithDetails[]>,
     );
-  }, [projectItems, searchQuery, selectedCategory]);
+  }, [projectItems, searchQuery, selectedCategory, selectedLanguage]);
 
   const totalResults = useMemo(() => Object.values(filteredProjects).reduce((sum, arr) => sum + arr.length, 0), [filteredProjects]);
 
@@ -209,9 +242,14 @@ export function ProjectsPage(_: {}) {
                   {/*<div className="flex-1">*/}
                   {/*  <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />*/}
                   {/*</div>*/}
+
+                  <div className="hidden lg:block w-px h-8 bg-border flex-shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <LanguageFilter languages={availableLanguages} selectedLanguage={selectedLanguage} onSelectLanguage={setSelectedLanguage} />
+                  </div>
                 </div>
 
-                {(searchQuery || selectedCategory) && (
+                {(searchQuery || selectedCategory || selectedLanguage) && (
                   <div className="text-sm text-muted-foreground">
                     {hasResults ? (
                       <span>
@@ -228,6 +266,12 @@ export function ProjectsPage(_: {}) {
                             {projectsPageContent.results.inLabel} {selectedCategory}
                           </span>
                         )}
+                        {selectedLanguage && (
+                          <span>
+                            {" "}
+                            {projectsPageContent.results.inLabel} {selectedLanguage}
+                          </span>
+                        )}
                       </span>
                     ) : (
                       <span className="text-brand-warning">
@@ -242,6 +286,12 @@ export function ProjectsPage(_: {}) {
                           <span>
                             {" "}
                             {projectsPageContent.results.inLabel} {selectedCategory}
+                          </span>
+                        )}
+                        {selectedLanguage && (
+                          <span>
+                            {" "}
+                            {projectsPageContent.results.inLabel} {selectedLanguage}
                           </span>
                         )}
                       </span>

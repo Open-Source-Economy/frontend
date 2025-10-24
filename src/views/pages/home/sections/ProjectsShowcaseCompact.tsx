@@ -114,10 +114,12 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
             limit: maxProjects,
           },
           owners: {
+            sortBy: ProjectItemSortField.FOLLOWERS,
+            sortOrder: SortOrder.DESC,
             limit: maxProjects,
           },
           urls: {
-            limit: maxProjects,
+            limit: 0,
           },
         },
       );

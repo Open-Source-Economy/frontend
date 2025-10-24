@@ -28,12 +28,12 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
   return (
     <div className={props.className ?? ""}>
       {/* Category Header */}
-      <div className="mb-8">
-        <h2 className="text-foreground mb-1">{props.category}</h2>
-        <p className="text-sm text-muted-foreground">
-          {props.projects.length} {props.projects.length === 1 ? "project" : "projects"}
-        </p>
-      </div>
+      {/*<div className="mb-8">*/}
+      {/*  <h2 className="text-foreground mb-1">{props.category}</h2>*/}
+      {/*  <p className="text-sm text-muted-foreground">*/}
+      {/*    {props.projects.length} {props.projects.length === 1 ? "project" : "projects"}*/}
+      {/*  </p>*/}
+      {/*</div>*/}
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8 items-start">
