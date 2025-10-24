@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { PageWrapper } from "../PageWrapper";
+import { paths } from "src/paths";
 import { Button } from "../../components/ui/forms/button";
 import { Input } from "../../components/ui/forms/input";
 import { Label } from "../../components/ui/forms/label";
@@ -8,6 +9,7 @@ import { Alert, AlertTitle, AlertDescription } from "../../components/ui/state/a
 import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/validated-input";
 import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
+import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/ExternalLink";
 import {
   Send,
   Building2,
@@ -30,6 +32,7 @@ import {
 } from "lucide-react";
 import { ContactReason } from "@open-source-economy/api-types";
 import { CONTACT_REASON_LABELS } from "src/ultils/companions/ContactReasonCompanion";
+import { contactEmail } from "src/views/v1/data";
 import { useContactForm } from "./hooks/useContactForm";
 import {
   isCompanyRequired,
@@ -211,8 +214,8 @@ export function ContactPage() {
                     <Mail className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
                     <div className="min-w-0">
                       <div className="text-brand-neutral-700 mb-1">Email</div>
-                      <a href="mailto:contact@opensourceeconomy.org" className="text-brand-accent hover:text-brand-accent-dark transition-colors break-all">
-                        contact@opensourceeconomy.org
+                      <a href={`mailto:${contactEmail}`} className="text-brand-accent hover:text-brand-accent-dark transition-colors break-all">
+                        {contactEmail}
                       </a>
                     </div>
                   </div>
@@ -229,10 +232,10 @@ export function ContactPage() {
                     <HelpCircle className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="text-brand-neutral-700 mb-1">Quick Help</div>
-                      <a href="/faq" className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1 group">
+                      <Link to={paths.FAQ} className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1 group">
                         Visit FAQ
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -247,15 +250,13 @@ export function ContactPage() {
                         <p className="text-brand-neutral-600">Our entire platform is open source. Found a bug or have a suggestion?</p>
                       </div>
                     </div>
-                    <a
-                      href="https://github.com/opensourceeconomy/platform"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ExternalLinkComponent
+                      href={paths.SOCIALS.GITHUB}
                       className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group ml-8"
                     >
                       <span>Report an issue on GitHub</span>
                       <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
+                    </ExternalLinkComponent>
                   </div>
                 </div>
               </div>
@@ -383,7 +384,13 @@ export function ContactPage() {
                                   error={fieldErrors.projects}
                                 />
                               ) : (
-                                <RequestProjectList projects={formData.projects} onAdd={addProject} onRemove={removeProject} onUpdate={updateProject} />
+                                <RequestProjectList
+                                  projects={formData.projects}
+                                  onAdd={addProject}
+                                  onRemove={removeProject}
+                                  onUpdate={updateProject}
+                                  error={fieldErrors.projects}
+                                />
                               ))}
 
                             {/* Subject */}
@@ -426,7 +433,7 @@ export function ContactPage() {
                                 <AlertCircle className="h-4 w-4" />
                                 <AlertTitle>Error</AlertTitle>
                                 <AlertDescription>
-                                  There was a problem sending your message. Please try again or contact us directly at contact@opensourceeconomy.org
+                                  There was a problem sending your message. Please try again or contact us directly at {contactEmail}
                                 </AlertDescription>
                               </Alert>
                             )}
@@ -435,9 +442,9 @@ export function ContactPage() {
                             <div className="pt-6 border-t border-brand-neutral-300">
                               <p className="text-brand-neutral-600 text-sm text-center">
                                 By clicking "Send Message", you agree to our{" "}
-                                <a href="/privacy" className="text-brand-accent hover:underline">
+                                <Link to={paths.PRIVACY} className="text-brand-accent hover:underline">
                                   Privacy Policy
-                                </a>{" "}
+                                </Link>{" "}
                                 and consent to the collection and processing of your information.
                               </p>
                             </div>

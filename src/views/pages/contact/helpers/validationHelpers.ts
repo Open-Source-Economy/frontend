@@ -40,7 +40,7 @@ export const validateForm = (formData: FormData): Record<string, string> => {
   // Validate projects if required for the selected contact reason
   if (areProjectsRequired(formData.contactReason)) {
     if (formData.projects.length === 0 || !formData.projects[0].url.trim()) {
-      errors.projects = "At least one project is required for enterprise consulting";
+      errors.projects = "At least one project URL is required";
     }
   }
 

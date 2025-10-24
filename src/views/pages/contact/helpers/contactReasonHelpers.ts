@@ -25,4 +25,5 @@ export const shouldShowMeetingRequest = (contactReason: string): boolean => MEET
 export const shouldShowProjects = (contactReason: string): boolean =>
   contactReason === ContactReason.MAINTAINER || contactReason === ContactReason.REQUEST_PROJECT;
 
-export const areProjectsRequired = (contactReason: string): boolean => contactReason === ContactReason.ENTERPRISE;
+export const areProjectsRequired = (contactReason: string): boolean =>
+  contactReason === ContactReason.ENTERPRISE || contactReason === ContactReason.REQUEST_PROJECT;

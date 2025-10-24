@@ -1,6 +1,7 @@
 import React from "react";
 import { Label } from "../../../components/ui/forms/label";
 import { Input } from "../../../components/ui/forms/input";
+import { FieldError } from "../../../components/ui/forms/field-error";
 import { Plus, X } from "lucide-react";
 import { ProjectEntry } from "../helpers/formHelpers";
 
@@ -9,9 +10,10 @@ interface RequestProjectListProps {
   onAdd: () => void;
   onRemove: (index: number) => void;
   onUpdate: (index: number, field: keyof ProjectEntry, value: string) => void;
+  error?: string;
 }
 
-export function RequestProjectList({ projects, onAdd, onRemove, onUpdate }: RequestProjectListProps) {
+export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error }: RequestProjectListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -42,6 +44,8 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate }: Requ
                 value={project.url}
                 onChange={e => onUpdate(index, "url", e.target.value)}
                 placeholder="https://github.com/org/project"
+                className={error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
+                data-error={error && index === 0}
               />
             </div>
             {projects.length > 1 && (
@@ -56,6 +60,7 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate }: Requ
             )}
           </div>
         ))}
+        <FieldError error={error} />
       </div>
     </div>
   );
