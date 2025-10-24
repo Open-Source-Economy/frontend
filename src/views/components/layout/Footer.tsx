@@ -54,7 +54,7 @@ export const footerContent = {
       title: "Resources",
       links: [
         { title: "Blog", href: paths.BLOG, external: true },
-        // { title: "FAQ", href: paths.FAQ },
+        { title: "FAQ", href: paths.FAQ },
         // { title: "Documentation", href: "#docs" },
         // { title: "Community", href: "#community" },
       ],
