@@ -8,22 +8,31 @@ import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectIt
 interface ProjectCategorySectionProps {
   category: string;
   projects: ProjectItemWithDetails[];
-  initialShowCount?: number;
+  initialShowCount: number;
+  incrementCount: number;
   onViewProject?: (slug: string) => void;
   className?: string;
   canExpandMaintainers?: boolean;
 }
 
 export function ProjectCategorySection(props: ProjectCategorySectionProps) {
-  const [showAll, setShowAll] = React.useState(false);
+  const [displayCount, setDisplayCount] = React.useState(props.initialShowCount);
 
-  const initialShowCount = props.initialShowCount ?? 4;
-  const displayedProjects = showAll ? props.projects : props.projects.slice(0, initialShowCount);
-  const hasMore = props.projects.length > initialShowCount;
+  const displayedProjects = props.projects.slice(0, displayCount);
+  const hasMore = props.projects.length > displayCount;
+  const remainingCount = props.projects.length - displayCount;
 
   if (props.projects.length === 0) {
     return null;
   }
+
+  const handleShowMore = () => {
+    setDisplayCount(prev => Math.min(prev + props.incrementCount, props.projects.length));
+  };
+
+  const handleShowLess = () => {
+    setDisplayCount(props.initialShowCount);
+  };
 
   return (
     <div className={props.className ?? ""}>
@@ -41,30 +50,29 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
           <ProjectCard
             key={ProjectItemWithDetailsCompanion.getProjectId(item).uuid}
             item={item}
+            category={props.category}
             onViewProject={props.onViewProject}
             canExpandMaintainers={props.canExpandMaintainers}
           />
         ))}
       </div>
 
-      {/* Show More Button */}
-      {hasMore && (
-        <div className="flex justify-center">
-          <Button onClick={() => setShowAll(!showAll)} variant="outline" className="border-brand-accent/30 hover:bg-brand-accent/5">
-            {showAll ? (
-              <>
-                <ChevronUp className="w-4 h-4 mr-2" />
-                Show Less
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4 mr-2" />
-                Show {props.projects.length - initialShowCount} More {props.projects.length - initialShowCount === 1 ? "Project" : "Projects"}
-              </>
-            )}
+      {/* Show More/Less Buttons */}
+      <div className="flex justify-center gap-4">
+        {hasMore && (
+          <Button onClick={handleShowMore} variant="outline" className="border-brand-accent/30 hover:bg-brand-accent/5">
+            <ChevronDown className="w-4 h-4 mr-2" />
+            Show {Math.min(remainingCount, props.incrementCount)} More {Math.min(remainingCount, props.incrementCount) === 1 ? "Project" : "Projects"}
           </Button>
-        </div>
-      )}
+        )}
+
+        {displayCount > props.initialShowCount && (
+          <Button onClick={handleShowLess} variant="outline" className="border-brand-accent/30 hover:bg-brand-accent/5">
+            <ChevronUp className="w-4 h-4 mr-2" />
+            Show Less
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

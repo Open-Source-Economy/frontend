@@ -4,12 +4,7 @@ import { ProjectSearchBar } from "src/views/pages/projects/components/ProjectSea
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
-import {
-  ProjectCategory,
-  ProjectItemSortField,
-  ProjectItemWithDetails,
-  SortOrder
-} from "@open-source-economy/api-types";
+import { ProjectCategory, ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -18,6 +13,11 @@ import { handleApiCall } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { CategoryFilter } from "./components/CategoryFilter";
+
+// ------------------------------------
+// Constants
+// ------------------------------------
+const PROJECTS_PER_PAGE = 12;
 
 // ------------------------------------
 // Content (semantic only, no Tailwind)
@@ -310,7 +310,13 @@ export function ProjectsPage(_: {}) {
                   {Object.entries(filteredProjects)
                     .sort(([a], [b]) => a.localeCompare(b))
                     .map(([category, projects]) => (
-                      <ProjectCategorySection key={category} category={category} projects={projects} initialShowCount={4} />
+                      <ProjectCategorySection
+                        key={category}
+                        category={category}
+                        projects={projects}
+                        initialShowCount={PROJECTS_PER_PAGE}
+                        incrementCount={PROJECTS_PER_PAGE}
+                      />
                     ))}
                 </div>
               ) : (
