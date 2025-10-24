@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PageWrapper } from "../PageWrapper";
 import { Button } from "../../components/ui/forms/button";
 import { Input } from "../../components/ui/forms/input";
-import { Textarea } from "../../components/ui/forms/textarea";
 import { Label } from "../../components/ui/forms/label";
 import { Alert, AlertTitle, AlertDescription } from "../../components/ui/state/alert";
 import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/validated-input";
-import { ContactReasonCard } from "./elements/contact-reason-card";
+import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
-import { Checkbox } from "../../components/ui/forms/checkbox";
 import {
   Send,
   Building2,
@@ -26,36 +24,25 @@ import {
   Clock,
   ArrowRight,
   Info,
-  Plus,
-  X,
-  Video,
   Github,
   ExternalLink,
   Users,
 } from "lucide-react";
-import { getBackendAPI } from "src/services/BackendAPI";
-import { ApiError } from "src/ultils/error/ApiError";
 import { ContactReason } from "@open-source-economy/api-types";
 import { CONTACT_REASON_LABELS } from "src/ultils/companions/ContactReasonCompanion";
-
-interface ProjectEntry {
-  url: string;
-  role?: string;
-}
-
-interface FormData {
-  name: string;
-  email: string;
-  company: string;
-  linkedinProfile: string;
-  githubProfile?: string;
-  contactReason: string;
-  projects: ProjectEntry[];
-  requestMeeting: boolean;
-  meetingNotes?: string;
-  subject: string;
-  message: string;
-}
+import { useContactForm } from "./hooks/useContactForm";
+import {
+  isCompanyRequired,
+  isLinkedInRequired,
+  shouldShowGitHubProfile,
+  isGitHubRequired,
+  shouldShowMeetingRequest,
+  shouldShowProjects,
+} from "./helpers/contactReasonHelpers";
+import { getPlaceholder } from "./helpers/formHelpers";
+import { MaintainerProjectList } from "./components/MaintainerProjectList";
+import { RequestProjectList } from "./components/RequestProjectList";
+import { MeetingRequestSection } from "./components/MeetingRequestSection";
 
 const CONTACT_REASONS = [
   {
@@ -138,199 +125,41 @@ export function ContactPage() {
   // Get initial contact reason from URL parameter
   const getInitialContactReason = (): string => {
     const reasonParam = searchParams.get("reason");
-    // Validate that the reason parameter is a valid ContactReason enum value
     if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
       return reasonParam;
     }
     return "";
   };
 
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    company: "",
-    linkedinProfile: "",
-    githubProfile: "",
-    contactReason: getInitialContactReason(),
-    projects: [{ url: "", role: "" }],
-    requestMeeting: false,
-    meetingNotes: "",
-    subject: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const {
+    formData,
+    isSubmitting,
+    submissionStatus,
+    fieldErrors,
+    handleInputChange,
+    handleSubmit,
+    handleNewMessage,
+    addProject,
+    removeProject,
+    updateProject,
+    setContactReason,
+  } = useContactForm(getInitialContactReason());
 
   // Update contact reason when URL parameter changes
   useEffect(() => {
     const reasonParam = searchParams.get("reason");
     if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
-      setFormData(prev => ({ ...prev, contactReason: reasonParam }));
+      setContactReason(reasonParam);
     }
-  }, [searchParams]);
-
-  const handleInputChange = (field: keyof FormData, value: string | boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: typeof value === "string" && value === "true" ? true : typeof value === "string" && value === "false" ? false : value,
-    }));
-    // Clear field error when user starts typing
-    if (fieldErrors[field]) {
-      setFieldErrors(prev => {
-        const updated = { ...prev };
-        delete updated[field];
-        return updated;
-      });
-    }
-    if (submissionStatus === "error") {
-      setSubmissionStatus("idle");
-    }
-  };
-
-  const validateForm = (): boolean => {
-    const errors: Record<string, string> = {};
-
-    // Required field validations
-    if (!formData.name.trim()) {
-      errors.name = "Name is required";
-    }
-
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
-    }
-
-    if (!formData.company.trim()) {
-      errors.company = "Company is required";
-    }
-
-    if (!formData.linkedinProfile.trim()) {
-      errors.linkedinProfile = "LinkedIn profile is required";
-    }
-
-    if (!formData.contactReason) {
-      errors.contactReason = "Please select a reason for contacting us";
-    }
-
-    if (!formData.subject.trim()) {
-      errors.subject = "Subject is required";
-    }
-
-    if (!formData.message.trim()) {
-      errors.message = "Message is required";
-    }
-
-    // Validate projects if enterprise consulting is selected
-    if (formData.contactReason === ContactReason.ENTERPRISE) {
-      if (formData.projects.length === 0 || !formData.projects[0].url.trim()) {
-        errors.projects = "At least one project is required for enterprise consulting";
-      }
-    }
-
-    setFieldErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate form
-    if (!validateForm()) {
-      // Scroll to first error
-      const firstErrorField = document.querySelector("[data-error='true']");
-      if (firstErrorField) {
-        firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmissionStatus("idle");
-
-    try {
-      const backendAPI = getBackendAPI();
-      const result = await backendAPI.submitContactForm(
-        {},
-        {
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          linkedinProfile: formData.linkedinProfile,
-          githubProfile: formData.githubProfile,
-          contactReason: formData.contactReason,
-          projects: formData.projects,
-          requestMeeting: formData.requestMeeting,
-          meetingNotes: formData.meetingNotes,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        {},
-      );
-
-      if (result instanceof ApiError) {
-        console.error("Error submitting contact form:", result);
-        setSubmissionStatus("error");
-      } else {
-        setSubmissionStatus("success");
-      }
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
-      setSubmissionStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleNewMessage = () => {
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      linkedinProfile: "",
-      githubProfile: "",
-      contactReason: "",
-      projects: [{ url: "", role: "" }],
-      requestMeeting: false,
-      meetingNotes: "",
-      subject: "",
-      message: "",
-    });
-    setSubmissionStatus("idle");
-  };
-
-  const addProject = () => {
-    setFormData(prev => ({
-      ...prev,
-      projects: [...prev.projects, { url: "", role: "" }],
-    }));
-  };
-
-  const removeProject = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      projects: prev.projects.filter((_, i) => i !== index),
-    }));
-  };
-
-  const updateProject = (index: number, field: keyof ProjectEntry, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      projects: prev.projects.map((project, i) => (i === index ? { ...project, [field]: value } : project)),
-    }));
-    // Clear project error when user starts typing
-    if (fieldErrors.projects) {
-      setFieldErrors(prev => {
-        const updated = { ...prev };
-        delete updated.projects;
-        return updated;
-      });
-    }
-  };
+  }, [searchParams, setContactReason]);
 
   const selectedReason = CONTACT_REASONS.find(r => r.id === formData.contactReason);
+  const companyRequired = isCompanyRequired(formData.contactReason);
+  const linkedInRequired = isLinkedInRequired(formData.contactReason);
+  const showGitHubProfile = shouldShowGitHubProfile(formData.contactReason);
+  const gitHubRequired = isGitHubRequired(formData.contactReason);
+  const showMeetingRequest = shouldShowMeetingRequest(formData.contactReason);
+  const showProjects = shouldShowProjects(formData.contactReason);
 
   return (
     <PageWrapper>
@@ -341,7 +170,6 @@ export function ContactPage() {
             <div className="space-y-6">
               <div className="space-y-4">
                 <h1 className="text-brand-neutral-950">Contact Us</h1>
-
                 <p className="text-brand-neutral-600 max-w-2xl text-lg">
                   Connect with our team to discuss enterprise solutions, request a project, or learn more about our platform.
                 </p>
@@ -361,7 +189,6 @@ export function ContactPage() {
                   <p className="text-brand-neutral-600">Select the option that best matches your needs.</p>
                 </div>
 
-                {/* Simple Card-Based Selection */}
                 <div className="space-y-3">
                   {CONTACT_REASONS.map(reason => (
                     <ContactReasonCard
@@ -456,7 +283,6 @@ export function ContactPage() {
                       </div>
                     </div>
                   ) : (
-                    /* Contact Form */
                     <>
                       <div className="mb-8">
                         <h2 className="text-brand-neutral-900 mb-2">Send a Message</h2>
@@ -464,7 +290,6 @@ export function ContactPage() {
                       </div>
 
                       <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                        {/* Show form only when reason is selected */}
                         {!formData.contactReason ? (
                           <div className="bg-brand-neutral-200 border border-brand-neutral-300 rounded-lg p-12 flex items-center justify-center gap-6">
                             <ArrowRight className="w-12 h-12 text-brand-neutral-500 rotate-180 flex-shrink-0" />
@@ -487,7 +312,6 @@ export function ContactPage() {
                                 error={fieldErrors.name}
                                 required
                               />
-
                               <ValidatedInput
                                 label="Email"
                                 name="email"
@@ -508,59 +332,38 @@ export function ContactPage() {
                                 type="text"
                                 value={formData.company}
                                 onChange={value => handleInputChange("company", value)}
-                                placeholder={
-                                  [ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT, ContactReason.PARTNERSHIP, ContactReason.PRESS].includes(
-                                    formData.contactReason as ContactReason,
-                                  )
-                                    ? "Your company or organization name"
-                                    : "Your company name (optional)"
-                                }
+                                placeholder={getPlaceholder("company", companyRequired, formData.contactReason)}
                                 error={fieldErrors.company}
-                                required={[ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT, ContactReason.PARTNERSHIP, ContactReason.PRESS].includes(
-                                  formData.contactReason as ContactReason,
-                                )}
+                                required={companyRequired}
                               />
-
                               <ValidatedInput
                                 label="LinkedIn Profile"
                                 name="linkedinProfile"
                                 type="url"
                                 value={formData.linkedinProfile}
                                 onChange={value => handleInputChange("linkedinProfile", value)}
-                                placeholder={
-                                  [ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(formData.contactReason as ContactReason)
-                                    ? "https://linkedin.com/in/yourprofile (optional)"
-                                    : "https://linkedin.com/in/yourprofile"
-                                }
+                                placeholder={getPlaceholder("linkedIn", linkedInRequired, formData.contactReason)}
                                 error={fieldErrors.linkedinProfile}
-                                required={
-                                  ![ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(formData.contactReason as ContactReason)
-                                }
+                                required={linkedInRequired}
                               />
                             </div>
 
-                            {/* Conditional Field: GitHub Profile for "maintainer", "support", "general", "volunteer" */}
-                            {[ContactReason.MAINTAINER, ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER].includes(
-                              formData.contactReason as ContactReason,
-                            ) && (
+                            {/* Conditional Field: GitHub Profile */}
+                            {showGitHubProfile && (
                               <div>
                                 <Label htmlFor="githubProfile">
                                   GitHub Profile
-                                  {formData.contactReason === ContactReason.MAINTAINER && <span className="text-brand-error"> *</span>}
+                                  {gitHubRequired && <span className="text-brand-error"> *</span>}
                                 </Label>
                                 <Input
                                   id="githubProfile"
                                   type="url"
-                                  required={formData.contactReason === ContactReason.MAINTAINER}
+                                  required={gitHubRequired}
                                   value={formData.githubProfile || ""}
                                   onChange={e => handleInputChange("githubProfile", e.target.value)}
-                                  placeholder={
-                                    formData.contactReason === ContactReason.MAINTAINER
-                                      ? "https://github.com/yourusername"
-                                      : "https://github.com/yourusername (optional)"
-                                  }
+                                  placeholder={getPlaceholder("github", gitHubRequired, formData.contactReason)}
                                 />
-                                {formData.contactReason === ContactReason.MAINTAINER && (
+                                {gitHubRequired && (
                                   <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
                                     <Info className="w-4 h-4 flex-shrink-0 text-brand-neutral-500" />
                                     <span>We'll review your GitHub profile to verify your open source contributions and expertise.</span>
@@ -569,124 +372,19 @@ export function ContactPage() {
                               </div>
                             )}
 
-                            {/* Conditional Field: Multiple Projects for "maintainer" */}
-                            {formData.contactReason === ContactReason.MAINTAINER && (
-                              <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <Label>
-                                    Your Open Source Project(s) <span className="text-brand-error">*</span>
-                                  </Label>
-                                  <button
-                                    type="button"
-                                    onClick={addProject}
-                                    className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group"
-                                  >
-                                    <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                                    <span>Add Project</span>
-                                  </button>
-                                </div>
-
-                                <div className="space-y-4">
-                                  {formData.projects.map((project, index) => (
-                                    <div key={index} className="bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg p-4 space-y-4">
-                                      <div className="flex items-center justify-between">
-                                        <span className="text-brand-neutral-700">Project {index + 1}</span>
-                                        {formData.projects.length > 1 && (
-                                          <button
-                                            type="button"
-                                            onClick={() => removeProject(index)}
-                                            className="text-brand-error hover:text-brand-error-dark transition-colors p-1.5 hover:bg-brand-error/10 rounded-lg group"
-                                            aria-label="Remove project"
-                                          >
-                                            <X className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                                          </button>
-                                        )}
-                                      </div>
-
-                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                          <Label htmlFor={`project-url-${index}`}>
-                                            Project URL <span className="text-brand-error">*</span>
-                                          </Label>
-                                          <Input
-                                            id={`project-url-${index}`}
-                                            type="url"
-                                            value={project.url}
-                                            onChange={e => updateProject(index, "url", e.target.value)}
-                                            placeholder="https://github.com/yourname/project"
-                                            className={fieldErrors.projects && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
-                                            data-error={fieldErrors.projects && index === 0}
-                                          />
-                                        </div>
-
-                                        <div>
-                                          <Label htmlFor={`project-role-${index}`}>
-                                            Your Role <span className="text-brand-error">*</span>
-                                          </Label>
-                                          <Input
-                                            id={`project-role-${index}`}
-                                            type="text"
-                                            value={project.role || ""}
-                                            onChange={e => updateProject(index, "role", e.target.value)}
-                                            placeholder="e.g., Core Maintainer, Creator"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  ))}
-                                  <FieldError error={fieldErrors.projects} />
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Conditional Field: Multiple Projects for "request-project" */}
-                            {formData.contactReason === ContactReason.REQUEST_PROJECT && (
-                              <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <Label>
-                                    Project URL(s) <span className="text-brand-error">*</span>
-                                  </Label>
-                                  <button
-                                    type="button"
-                                    onClick={addProject}
-                                    className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group"
-                                  >
-                                    <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                                    <span>Add Another</span>
-                                  </button>
-                                </div>
-
-                                <div className="space-y-3">
-                                  {formData.projects.map((project, index) => (
-                                    <div key={index} className="flex items-center gap-3">
-                                      <div className="flex-1">
-                                        <Label htmlFor={`project-url-${index}`} className="sr-only">
-                                          Project URL {index + 1}
-                                        </Label>
-                                        <Input
-                                          id={`project-url-${index}`}
-                                          type="url"
-                                          required
-                                          value={project.url}
-                                          onChange={e => updateProject(index, "url", e.target.value)}
-                                          placeholder="https://github.com/org/project"
-                                        />
-                                      </div>
-                                      {formData.projects.length > 1 && (
-                                        <button
-                                          type="button"
-                                          onClick={() => removeProject(index)}
-                                          className="text-brand-error hover:text-brand-error-dark transition-colors p-2 hover:bg-brand-error/10 rounded-lg group"
-                                          aria-label="Remove project"
-                                        >
-                                          <X className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                                        </button>
-                                      )}
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
+                            {/* Conditional Field: Projects */}
+                            {showProjects &&
+                              (formData.contactReason === ContactReason.MAINTAINER ? (
+                                <MaintainerProjectList
+                                  projects={formData.projects}
+                                  onAdd={addProject}
+                                  onRemove={removeProject}
+                                  onUpdate={updateProject}
+                                  error={fieldErrors.projects}
+                                />
+                              ) : (
+                                <RequestProjectList projects={formData.projects} onAdd={addProject} onRemove={removeProject} onUpdate={updateProject} />
+                              ))}
 
                             {/* Subject */}
                             <ValidatedInput
@@ -713,42 +411,13 @@ export function ContactPage() {
                             />
 
                             {/* Meeting Request Section */}
-                            {(formData.contactReason === ContactReason.ENTERPRISE ||
-                              formData.contactReason === ContactReason.PARTNERSHIP ||
-                              formData.contactReason === ContactReason.PRESS) && (
-                              <div className="p-5 bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg space-y-4">
-                                <div className="flex items-start gap-3">
-                                  <Checkbox
-                                    id="requestMeeting"
-                                    checked={formData.requestMeeting}
-                                    onCheckedChange={checked => handleInputChange("requestMeeting", checked === true)}
-                                    className="mt-1"
-                                  />
-                                  <div className="flex-1">
-                                    <Label htmlFor="requestMeeting" className="cursor-pointer text-brand-neutral-800 flex items-center gap-2">
-                                      <Video className="w-4 h-4 text-brand-neutral-600" />
-                                      <span>I'd like to schedule a meeting</span>
-                                    </Label>
-                                    <p className="text-brand-neutral-600 mt-1">Request a video call to discuss your needs in detail</p>
-                                  </div>
-                                </div>
-
-                                {/* Conditional Meeting Fields */}
-                                {formData.requestMeeting && (
-                                  <div className="pl-9 pt-3 border-t border-brand-neutral-300">
-                                    <div>
-                                      <Label htmlFor="meetingNotes">Meeting Notes (Optional)</Label>
-                                      <Textarea
-                                        id="meetingNotes"
-                                        value={formData.meetingNotes || ""}
-                                        onChange={e => handleInputChange("meetingNotes", e.target.value)}
-                                        rows={3}
-                                        placeholder="Any specific topics or agenda items you'd like to discuss..."
-                                      />
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
+                            {showMeetingRequest && (
+                              <MeetingRequestSection
+                                requestMeeting={formData.requestMeeting}
+                                meetingNotes={formData.meetingNotes}
+                                onRequestMeetingChange={checked => handleInputChange("requestMeeting", checked)}
+                                onMeetingNotesChange={notes => handleInputChange("meetingNotes", notes)}
+                              />
                             )}
 
                             {/* Error State */}
