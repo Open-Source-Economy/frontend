@@ -41,16 +41,6 @@ interface FooterProps {
 // -----------------------------
 export const footerContent = {
   sections: [
-    // {
-    //   title: "About",
-    //   links: [
-    //     { title: "About Us", href: "about" },
-    //     { title: "Our Mission", href: "about#mission" },
-    //     { title: "Team", href: "about#team" },
-    //     { title: "Contact", href: "contact" },
-    //     { title: "Careers", href: "#careers" },
-    //   ],
-    // },
     {
       title: "Platform",
       links: [
@@ -69,14 +59,14 @@ export const footerContent = {
         // { title: "Community", href: "#community" },
       ],
     },
-    // {
-    //   title: "Legal",
-    //   links: [
-    //     // { title: "Privacy Policy", href: paths.PRIVACY },
-    //     // { title: "Terms of Service", href: paths.TERMS },
-    //     // { title: "Cookie Policy", href: "#cookies" },
-    //   ],
-    // },
+    {
+      title: "Company",
+      links: [
+        { title: "Contact", href: paths.CONTACT },
+        // { title: "About Us", href: paths.ABOUT },
+        // { title: "Privacy Policy", href: paths.PRIVACY },
+      ],
+    },
   ] as FooterSection[],
   social: [
     { icon: Github, href: paths.SOCIALS.GITHUB, label: "GitHub", external: true },

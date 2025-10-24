@@ -263,6 +263,10 @@ export class BackendAPIMock implements BackendAPI {
       },
     });
   }
+
+  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
+    return Promise.resolve({});
+  }
 }
 
 function issueFunding(amount: number): IssueFunding {

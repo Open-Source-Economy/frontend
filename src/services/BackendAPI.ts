@@ -90,6 +90,8 @@ export interface BackendAPI {
     query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError>;
 
+  submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError>;
+
   getProjectItemsWithDetails(
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
@@ -232,6 +234,10 @@ class BackendAPIImpl implements BackendAPI {
     query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return handleError(() => this.api.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
+  }
+
+  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
+    return handleError(() => this.api.post(`${config.api.url}/contact`, body, { withCredentials: true }), "submitContactForm");
   }
 
   async getProjectItemsWithDetails(

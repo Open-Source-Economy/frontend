@@ -4,8 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { Search } from "lucide-react";
 
 const searchInputVariants = cva(
-  // NOTE: use arbitrary values with CSS vars like bg-[var(--token)] (no "color:" prefix)
-  "group relative flex w-full items-center rounded-[var(--form-border-radius)] border border-[var(--form-border)] bg-[var(--form-background)] text-[var(--form-text)] text-sm font-normal transition-[var(--form-transition)] shadow-[var(--form-elevation-rest)] outline-none placeholder:text-[var(--form-text-placeholder)] backdrop-blur-sm disabled:cursor-not-allowed disabled:opacity-60 hover:border-[var(--form-border-hover)] hover:bg-[var(--form-background-hover)] hover:shadow-[var(--form-elevation-hover)] hover:-translate-y-0.5 focus:border-[var(--form-border-focus)] focus:bg-[var(--form-background-focus)] focus:shadow-[var(--form-elevation-focus)] focus:-translate-y-1 focus:ring-2 focus:ring-[var(--form-ring-color)]/15 selection:bg-brand-primary selection:text-white",
+  "group relative flex w-full items-center rounded-[var(--form-border-radius)] border border-[color:var(--form-border)] bg-[color:var(--form-background)] text-[color:var(--form-text)] text-sm font-normal transition-[var(--form-transition)] shadow-[var(--form-elevation-rest)] outline-none placeholder:text-[color:var(--form-text-placeholder)] backdrop-blur-sm disabled:cursor-not-allowed disabled:opacity-60 hover:border-[color:var(--form-border-hover)] hover:bg-[color:var(--form-background-hover)] hover:shadow-[var(--form-elevation-hover)] hover:-translate-y-0.5 focus:border-[color:var(--form-border-focus)] focus:bg-[color:var(--form-background-focus)] focus:shadow-[var(--form-elevation-focus)] focus:-translate-y-1 focus:ring-2 focus:ring-[color:var(--form-ring-color)]/15 selection:bg-brand-primary selection:text-white",
   {
     variants: {
       variant: {
@@ -63,7 +62,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         />
         <Search
           size={iconSize}
-          className="absolute top-1/2 -translate-y-1/2 text-[var(--form-text-placeholder)] pointer-events-none"
+          className="absolute top-1/2 -translate-y-1/2 text-[color:var(--form-text-placeholder)] pointer-events-none"
           style={{ left: iconLeft }}
         />
       </div>
