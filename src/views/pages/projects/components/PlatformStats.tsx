@@ -22,14 +22,14 @@ export function PlatformStats(props: PlatformStatsProps) {
     {
       icon: Users,
       label: "Maintainers",
-      value: props.projectStats.totalMaintainers.toLocaleString(),
+      value: props.projectStats.totalMaintainers.toString(),
       color: "text-brand-accent",
       bgColor: "bg-brand-accent/10",
     },
     {
       icon: Package,
       label: "Projects",
-      value: props.projectStats.totalProjects.toLocaleString(),
+      value: props.projectStats.totalProjects.toString(),
       color: "text-brand-primary",
       bgColor: "bg-brand-primary/10",
     },
@@ -55,7 +55,7 @@ export function PlatformStats(props: PlatformStatsProps) {
     {
       icon: Star,
       label: "Combined Stars",
-      value: props.projectStats.totalStars,
+      value: `${props.projectStats.totalStars}+`,
       iconBg: "bg-gradient-to-br from-brand-accent/20 to-brand-highlight/20",
       iconBorder: "border-brand-accent/30 group-hover:border-brand-highlight/50",
       iconColor: "text-brand-accent group-hover:text-brand-highlight",
@@ -64,7 +64,7 @@ export function PlatformStats(props: PlatformStatsProps) {
     {
       icon: Users,
       label: "Maintainers",
-      value: props.projectStats.totalMaintainers,
+      value: `${props.projectStats.totalMaintainers}`,
       iconBg: "bg-gradient-to-br from-brand-highlight/20 to-brand-success/20",
       iconBorder: "border-brand-highlight/30 group-hover:border-brand-success/50",
       iconColor: "text-brand-highlight group-hover:text-brand-success",

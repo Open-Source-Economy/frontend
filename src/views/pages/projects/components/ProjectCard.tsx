@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, CardContent } from "src/views/components/ui/card";
-import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
-import { ChevronDown, ChevronUp, ExternalLink, GitFork, MessageCircle, Star } from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink, GitFork, Star } from "lucide-react";
 import { ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 

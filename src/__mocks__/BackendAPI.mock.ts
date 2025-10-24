@@ -239,7 +239,29 @@ export class BackendAPIMock implements BackendAPI {
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
-    return Promise.resolve({ projectItems: projectItemsDatabase });
+    // Group project items by type
+    const repositories = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY);
+    const owners = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER);
+    const urls = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.URL);
+
+    // Calculate stats
+    const totalStars = repositories.reduce((sum, item) => sum + (item.repository?.stargazersCount || 0), 0);
+    const totalForks = repositories.reduce((sum, item) => sum + (item.repository?.forksCount || 0), 0);
+    const totalFollowers = owners.reduce((sum, item) => sum + (item.owner?.followers || 0), 0);
+    const uniqueMaintainers = new Set(projectItemsDatabase.flatMap(item => item.developers.map(dev => dev.developerProfile.id.uuid)));
+
+    return Promise.resolve({
+      repositories,
+      owners,
+      urls,
+      stats: {
+        totalProjects: projectItemsDatabase.length,
+        totalMaintainers: uniqueMaintainers.size,
+        totalStars,
+        totalForks,
+        totalFollowers,
+      },
+    });
   }
 }
 

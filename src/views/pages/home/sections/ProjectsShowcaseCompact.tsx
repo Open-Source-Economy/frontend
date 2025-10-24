@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { ArrowRight } from "lucide-react";
-import { ProjectItemWithDetails, ProjectItemSortField, SortOrder } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
+import { ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { NumberUtils } from "src/ultils/NumberUtils";
 import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
 import { ApiError } from "src/ultils/error/ApiError";
-import * as dto from "@open-source-economy/api-types";
 import { handleApiCall } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
@@ -95,6 +96,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
   const maxProjects = props.maxProjects ?? 6;
 
   const [projectItems, setProjectItems] = useState<ProjectItemWithDetails[] | null>(null);
+  const [stats, setStats] = useState<ProjectStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
 
@@ -106,9 +108,17 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
       const response = await api.getProjectItemsWithDetails(
         {},
         {
-          sortBy: ProjectItemSortField.STARGAZERS,
-          sortOrder: SortOrder.DESC,
-          limit: maxProjects,
+          repositories: {
+            sortBy: ProjectItemSortField.STARGAZERS,
+            sortOrder: SortOrder.DESC,
+            limit: maxProjects,
+          },
+          owners: {
+            limit: maxProjects,
+          },
+          urls: {
+            limit: maxProjects,
+          },
         },
       );
       if (response instanceof ApiError) throw response;
@@ -116,7 +126,27 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
     };
 
     const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-      setProjectItems(response.projectItems);
+      // Combine all types and sort by popularity
+      const allProjects = [...response.repositories, ...response.owners, ...response.urls];
+
+      // Sort by popularity: repositories by stars, owners by followers, URLs last
+      allProjects.sort((a, b) => {
+        const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
+        const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
+        return bPopularity - aPopularity; // Descending order
+      });
+
+      // Limit to maxProjects after sorting
+      const limitedProjects = allProjects.slice(0, maxProjects);
+      setProjectItems(limitedProjects);
+
+      // Use stats from API response and format numbers
+      setStats({
+        totalProjects: response.stats.totalProjects,
+        totalMaintainers: response.stats.totalMaintainers,
+        totalStars: NumberUtils.formatCompactNumber(response.stats.totalStars),
+        totalForks: NumberUtils.formatCompactNumber(response.stats.totalForks),
+      });
     };
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
@@ -125,13 +155,6 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
   useEffect(() => {
     fetchProjectItems();
   }, [fetchProjectItems]);
-
-  const stats: ProjectStats = useMemo(() => {
-    if (!projectItems) {
-      return { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 };
-    }
-    return ProjectItemWithDetailsCompanion.getProjectItemsStats(projectItems);
-  }, [projectItems]);
 
   return (
     <section className={`py-16 md:py-24 transition-all duration-1000 ease-in-out ${props.className ?? ""}`}>
@@ -171,7 +194,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
                 </div>
 
                 {/* Stats Integration */}
-                <PlatformStats projectStats={stats} variant="showcase" />
+                <PlatformStats projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }} variant="showcase" />
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Link to={paths.PROJECTS}>

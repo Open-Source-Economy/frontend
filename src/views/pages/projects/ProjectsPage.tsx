@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
-import { CategoryFilter } from "src/views/pages/projects/components/CategoryFilter";
 import { ProjectSearchBar } from "src/views/pages/projects/components/ProjectSearchBar";
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { RequestProjectSection } from "src/views/pages/projects/sections/RequestProjectSection";
-import { ProjectItemWithDetails, ProjectCategory, ProjectItemSortField, SortOrder } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
-import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
+import { ProjectCategory, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { NumberUtils } from "src/ultils/NumberUtils";
+import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { getBackendAPI } from "src/services";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
@@ -78,6 +77,7 @@ export function ProjectsPage(_: {}) {
   const api = useMemo(() => getBackendAPI(), []);
 
   const [projectItems, setProjectItems] = useState<ProjectItemWithDetails[] | null>(null);
+  const [stats, setStats] = useState<ProjectStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -91,8 +91,7 @@ export function ProjectsPage(_: {}) {
       const response = await api.getProjectItemsWithDetails(
         {},
         {
-          sortBy: ProjectItemSortField.STARGAZERS,
-          sortOrder: SortOrder.DESC,
+          // Request all projects grouped by type
         },
       );
       if (response instanceof ApiError) throw response;
@@ -100,7 +99,25 @@ export function ProjectsPage(_: {}) {
     };
 
     const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-      setProjectItems(response.projectItems);
+      // Combine all types and sort by popularity
+      const allProjects = [...response.repositories, ...response.owners, ...response.urls];
+
+      // Sort by popularity: repositories by stars, owners by followers, URLs last
+      allProjects.sort((a, b) => {
+        const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
+        const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
+        return bPopularity - aPopularity; // Descending order
+      });
+
+      setProjectItems(allProjects);
+
+      // Use stats from API response and format numbers
+      setStats({
+        totalProjects: response.stats.totalProjects,
+        totalMaintainers: response.stats.totalMaintainers,
+        totalStars: NumberUtils.formatCompactNumber(response.stats.totalStars),
+        totalForks: NumberUtils.formatCompactNumber(response.stats.totalForks),
+      });
     };
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
@@ -109,18 +126,6 @@ export function ProjectsPage(_: {}) {
   useEffect(() => {
     fetchProjectItems();
   }, [fetchProjectItems]);
-
-  const stats: ProjectStats = useMemo(() => {
-    if (!projectItems) {
-      return {
-        totalProjects: 0,
-        totalStars: "0",
-        totalForks: "0",
-        totalMaintainers: 0,
-      };
-    }
-    return ProjectItemWithDetailsCompanion.getProjectItemsStats(projectItems);
-  }, [projectItems]);
 
   // Filter + group
   const filteredProjects = useMemo(() => {
@@ -161,7 +166,7 @@ export function ProjectsPage(_: {}) {
             <h1 className="mb-4 text-foreground">{projectsPageContent.hero.title}</h1>
             <p className="text-muted-foreground mb-8">{projectsPageContent.hero.subtitle}</p>
             <div className="pt-8 border-t border-border">
-              <PlatformStats projectStats={stats} />
+              <PlatformStats projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }} />
             </div>
           </div>
         </div>

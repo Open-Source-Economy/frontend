@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./views";
+import { AuthProvider, CreateAddress, CreateCompany, CreateManualInvoice, CreateProject, InviteCompanyUser } from "./views";
 import { paths } from "src/paths";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/v1/components/ScrollTop";
@@ -8,6 +8,11 @@ import { HomePage } from "src/views/pages/home/HomePage";
 import { ProjectsPage } from "src/views/pages/projects/ProjectsPage";
 import { NotFoundPage } from "src/views/pages/natigation/NotFoundPage";
 import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails/ProjectItemsWithDetails";
+import { SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
+import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
+import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
+import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";
+import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProductAndPrice";
 
 const App = () => {
   return (
@@ -46,17 +51,17 @@ const App = () => {
             {/*<Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />*/}
             {/*<Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />*/}
 
-            {/*<Route element={<SuperAdminRoutes />}>*/}
-            {/*  <Route path={paths.ADMIN.HOME} element={<AdminHome />} />*/}
-            {/*  <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />*/}
-            {/*  <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />*/}
-            {/*  <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />*/}
-            {/*</Route>*/}
+            <Route element={<SuperAdminRoutes />}>
+              <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
+              <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
+              <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
+              <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
+              <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
+              <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
+              <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
+              <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
+              <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
+            </Route>
 
             {/*<Route element={<ProjectRoute />}>*/}
             {/*  /!* Repository paths *!/*/}

@@ -1,4 +1,9 @@
-import { type IssueId, OwnerId, type ProjectId } from "@open-source-economy/api-types";
+import { type IssueId, type ProjectId } from "@open-source-economy/api-types";
+
+// Helper function to check if a ProjectId is an OwnerId (has only 'login' property)
+function isOwnerId(projectId: ProjectId): boolean {
+  return "login" in projectId && !("name" in projectId);
+}
 
 export const paths = {
   // Static routes
@@ -64,10 +69,13 @@ export const paths = {
 
   manageIssue: (issueId: IssueId) => `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`,
 
-  project: (projectId: ProjectId) => (projectId instanceof OwnerId ? `/projects/${projectId.login}` : `/projects/${projectId.ownerId.login}/${projectId.name}`),
+  project: (projectId: ProjectId) =>
+    isOwnerId(projectId) ? `/projects/${(projectId as any).login}` : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}`,
 
   campaign: (projectId: ProjectId) =>
-    projectId instanceof OwnerId ? `/projects/${projectId.login}/campaign` : `/projects/${projectId.ownerId.login}/${projectId.name}/campaign`,
+    isOwnerId(projectId)
+      ? `/projects/${(projectId as any).login}/campaign`
+      : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}/campaign`,
 
   params: {
     owner: "ownerParam",

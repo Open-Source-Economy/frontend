@@ -13,10 +13,17 @@ export default defineConfig({
     alias: {
       src: path.resolve(__dirname, "src"),
     },
+    preserveSymlinks: true, // Preserve symlinks from npm link
+  },
+  optimizeDeps: {
+    include: ['@open-source-economy/api-types'], // Pre-bundle the linked package
   },
   server: {
     port: 5173,
     open: false,
+    fs: {
+      allow: ['..'], // Allow serving files from parent directories (for linked packages)
+    },
   },
   preview: {
     port: 5173,
