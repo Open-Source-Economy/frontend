@@ -8,7 +8,7 @@ import { HomePage } from "src/views/pages/home/HomePage";
 import { ProjectsPage } from "src/views/pages/projects/ProjectsPage";
 import { NotFoundPage } from "src/views/pages/natigation/NotFoundPage";
 import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails/ProjectItemsWithDetails";
-import { ContactPage } from "src/views/pages/ContactPage";
+import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
 import { SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { PageWrapper } from "./PageWrapper";
-import { Button } from "../components/ui/forms/button";
-import { Input } from "../components/ui/forms/input";
-import { Textarea } from "../components/ui/forms/textarea";
-import { Label } from "../components/ui/forms/label";
-import { Alert, AlertTitle, AlertDescription } from "../components/ui/state/alert";
-import { ValidatedInput, ValidatedTextarea } from "../components/ui/forms/validated-input";
-import { ContactReasonCard } from "../components/ui/forms/contact-reason-card";
-import { FieldError } from "../components/ui/forms/field-error";
-import { Checkbox } from "../components/ui/forms/checkbox";
+import { PageWrapper } from "../PageWrapper";
+import { Button } from "../../components/ui/forms/button";
+import { Input } from "../../components/ui/forms/input";
+import { Textarea } from "../../components/ui/forms/textarea";
+import { Label } from "../../components/ui/forms/label";
+import { Alert, AlertTitle, AlertDescription } from "../../components/ui/state/alert";
+import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/validated-input";
+import { ContactReasonCard } from "./elements/contact-reason-card";
+import { FieldError } from "../../components/ui/forms/field-error";
+import { Checkbox } from "../../components/ui/forms/checkbox";
 import {
   Send,
   Building2,
