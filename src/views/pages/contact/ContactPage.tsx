@@ -279,7 +279,7 @@ export function ContactPage() {
                           Send Another Message
                         </Button>
                         <Button asChild>
-                          <a href="/">Return to Home</a>
+                          <Link to={paths.HOME}>Return to Home</Link>
                         </Button>
                       </div>
                     </div>
