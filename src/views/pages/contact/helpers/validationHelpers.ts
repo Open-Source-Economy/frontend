@@ -1,5 +1,5 @@
 import { FormData } from "./formHelpers";
-import { areProjectsRequired } from "./contactReasonHelpers";
+import { areProjectsRequired, isCompanyRequired, isLinkedInRequired } from "./contactReasonHelpers";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -17,11 +17,11 @@ export const validateForm = (formData: FormData): Record<string, string> => {
     errors.email = "Please enter a valid email address";
   }
 
-  if (!formData.company.trim()) {
+  if (isCompanyRequired(formData.contactReason) && !formData.company.trim()) {
     errors.company = "Company is required";
   }
 
-  if (!formData.linkedinProfile.trim()) {
+  if (isLinkedInRequired(formData.contactReason) && !formData.linkedinProfile.trim()) {
     errors.linkedinProfile = "LinkedIn profile is required";
   }
 

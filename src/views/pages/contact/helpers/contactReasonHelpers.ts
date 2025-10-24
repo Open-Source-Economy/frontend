@@ -5,6 +5,8 @@ export const PROFESSIONAL_REASONS = [ContactReason.ENTERPRISE, ContactReason.REQ
 
 export const CASUAL_REASONS = [ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER] as const;
 
+export const LINKEDIN_REQUIRED_REASONS = [ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT, ContactReason.PARTNERSHIP] as const;
+
 export const GITHUB_PROFILE_REASONS = [ContactReason.MAINTAINER, ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER] as const;
 
 export const MEETING_REQUEST_REASONS = [ContactReason.ENTERPRISE, ContactReason.PARTNERSHIP, ContactReason.PRESS] as const;
@@ -12,7 +14,7 @@ export const MEETING_REQUEST_REASONS = [ContactReason.ENTERPRISE, ContactReason.
 // Helper functions
 export const isCompanyRequired = (contactReason: string): boolean => PROFESSIONAL_REASONS.includes(contactReason as any);
 
-export const isLinkedInRequired = (contactReason: string): boolean => !CASUAL_REASONS.includes(contactReason as any);
+export const isLinkedInRequired = (contactReason: string): boolean => LINKEDIN_REQUIRED_REASONS.includes(contactReason as any);
 
 export const shouldShowGitHubProfile = (contactReason: string): boolean => GITHUB_PROFILE_REASONS.includes(contactReason as any);
 
