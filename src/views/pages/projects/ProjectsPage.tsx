@@ -62,7 +62,7 @@ function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | nul
   const repoName = item.repository?.id.name.toLowerCase() || "";
   const projectId = ProjectItemWithDetailsCompanion.getProjectId(item);
 
-  if (projectId === "linux-foundation") return ProjectCategory.Infrastructure; // URL-type special case
+  if (projectId.uuid === "linux-foundation") return ProjectCategory.Infrastructure; // URL-type special case
 
   for (const [cat, list] of Object.entries(CATEGORY_KEYWORDS) as [ProjectCategory, string[]][]) {
     if (list.includes(repoName)) return cat;

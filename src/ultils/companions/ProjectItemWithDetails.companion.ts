@@ -1,4 +1,4 @@
-import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import { ProjectItemType, ProjectItemWithDetails, DeveloperProfile, DeveloperProjectItem, Owner, ProjectItemId } from "@open-source-economy/api-types";
 import { NumberUtils } from "../NumberUtils";
 
 export interface ProjectStats {
@@ -8,35 +8,56 @@ export interface ProjectStats {
   totalMaintainers: number;
 }
 
+export interface ProjectItemWithDetailsCardView {
+  projectId: ProjectItemId;
+  projectItemType?: ProjectItemType;
+  displayName: string;
+  projectDescription: string;
+  githubUrl: string;
+  stars: string | null;
+  forks: string | null;
+  followers: string | null;
+  mainLanguage: string | undefined;
+  category: string | null;
+  maintainersCount: number;
+  visibleDevelopers: Array<{
+    developerProfile: DeveloperProfile;
+    developerProjectItem: DeveloperProjectItem;
+    developerOwner: Owner;
+  }>;
+  remainingMaintainersCount: number;
+}
+
 export namespace ProjectItemWithDetailsCompanion {
-  export function getProjectId(item: ProjectItemWithDetails): string {
-    return item.projectItem.id.uuid;
+  // Simple helper for getting project ID (used in multiple places)
+  export function getProjectId(item: ProjectItemWithDetails): ProjectItemId {
+    return item.projectItem.id;
   }
 
-  export function getProjectName(item: ProjectItemWithDetails): string {
-    if (item.repository?.id.name) {
-      return item.repository.id.name;
-    }
-    if (item.owner?.id.login) {
-      return item.owner.id.login;
-    }
-    // For URL-type projects, extract domain name from sourceIdentifier
-    if (item.projectItem.projectItemType === ProjectItemType.URL && typeof item.projectItem.sourceIdentifier === "string") {
+  /**
+   * Helper to get display name (owner's full name for owners, otherwise project name)
+   */
+  function getDisplayName(item: ProjectItemWithDetails): string {
+    if (item.repository) {
+      return item.repository.fullName || `${item.owner?.id.login ?? ""}/${item.repository.id.name}`;
+    } else if (item.owner) {
+      return item.owner.name || item.owner.id.login;
+    } else if (typeof item.projectItem.sourceIdentifier === "string") {
       try {
         const url = new URL(item.projectItem.sourceIdentifier);
         return url.hostname.replace("www.", "");
       } catch {
         return item.projectItem.sourceIdentifier;
       }
+    } else {
+      return "Unknown Project";
     }
-    return "Unknown Project";
   }
 
-  export function getProjectDescription(item: ProjectItemWithDetails): string {
-    return item.repository?.description || "";
-  }
-
-  export function getGithubUrl(item: ProjectItemWithDetails): string {
+  /**
+   * Helper to get GitHub URL or project URL
+   */
+  function getGithubUrl(item: ProjectItemWithDetails, isUrlProject: boolean): string {
     if (item.repository?.htmlUrl) {
       return item.repository.htmlUrl;
     }
@@ -44,28 +65,38 @@ export namespace ProjectItemWithDetailsCompanion {
       return item.owner.htmlUrl;
     }
     // For URL-type projects, use the sourceIdentifier if it's a string
-    if (item.projectItem.projectItemType === ProjectItemType.URL && typeof item.projectItem.sourceIdentifier === "string") {
+    if (isUrlProject && typeof item.projectItem.sourceIdentifier === "string") {
       return item.projectItem.sourceIdentifier;
     }
     return "";
   }
 
-  export function getStars(item: ProjectItemWithDetails): string {
-    const count = item.repository?.stargazersCount || 0;
-    return NumberUtils.formatCompactNumber(count);
-  }
+  /**
+   * Creates a view model for displaying a project item in a card.
+   * This centralizes all the display logic and calculations.
+   */
+  export function toCardView(item: ProjectItemWithDetails, visibleDevelopersCount: number = 3): ProjectItemWithDetailsCardView {
+    const isOwnerProject = item.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
+    const isUrlProject = item.projectItem.projectItemType === ProjectItemType.URL;
 
-  export function getForks(item: ProjectItemWithDetails): string {
-    const count = item.repository?.forksCount || 0;
-    return NumberUtils.formatCompactNumber(count);
-  }
+    const displayName = getDisplayName(item);
+    const githubUrl = getGithubUrl(item, isUrlProject);
 
-  export function getMainLanguage(item: ProjectItemWithDetails): string | undefined {
-    return item.repository?.language;
-  }
-
-  export function isUrlProject(item: ProjectItemWithDetails): boolean {
-    return item.projectItem.projectItemType === ProjectItemType.URL;
+    return {
+      projectId: getProjectId(item),
+      projectItemType: item.projectItem.projectItemType,
+      displayName,
+      projectDescription: item.repository?.description || "",
+      githubUrl,
+      stars: isOwnerProject ? null : NumberUtils.formatCompactNumber(item.repository?.stargazersCount || 0),
+      forks: isOwnerProject ? null : NumberUtils.formatCompactNumber(item.repository?.forksCount || 0),
+      followers: isOwnerProject ? NumberUtils.formatCompactNumber(item.owner?.followers || 0) : null,
+      mainLanguage: item.repository?.language,
+      category: null, // Category should be passed from parent component or calculated separately
+      maintainersCount: item.developers.length,
+      visibleDevelopers: item.developers.slice(0, visibleDevelopersCount),
+      remainingMaintainersCount: Math.max(0, item.developers.length - visibleDevelopersCount),
+    };
   }
 
   // Functions that operate on the entire database

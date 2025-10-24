@@ -2,13 +2,13 @@ import React from "react";
 import { Card, CardContent } from "src/views/components/ui/card";
 import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
-import { ChevronDown, ChevronUp, ExternalLink, GitFork, Star } from "lucide-react";
-import { ProjectItemWithDetails } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { ChevronDown, ChevronUp, ExternalLink, GitFork, Star, Users } from "lucide-react";
+import { ProjectItemWithDetails, ProjectItemType } from "@open-source-economy/api-types";
+import { ProjectItemWithDetailsCompanion, ProjectItemWithDetailsCardView } from "src/ultils/companions/ProjectItemWithDetails.companion";
 
 interface ProjectCardProps {
   item: ProjectItemWithDetails;
-  category: string;
+  category?: string;
   onViewProject?: (slug: string) => void;
   canExpandMaintainers?: boolean;
 }
@@ -17,31 +17,23 @@ export function ProjectCard(props: ProjectCardProps) {
   const canExpand = props.canExpandMaintainers ?? true;
   const [openMaintainers, setOpenMaintainers] = React.useState(false);
 
-  const projectId = ProjectItemWithDetailsCompanion.getProjectId(props.item);
-  const projectName = ProjectItemWithDetailsCompanion.getProjectName(props.item);
-  const projectDescription = ProjectItemWithDetailsCompanion.getProjectDescription(props.item);
-  const githubUrl = ProjectItemWithDetailsCompanion.getGithubUrl(props.item);
-  const stars = ProjectItemWithDetailsCompanion.getStars(props.item);
-  const forks = ProjectItemWithDetailsCompanion.getForks(props.item);
-  const mainLanguage = ProjectItemWithDetailsCompanion.getMainLanguage(props.item);
-  const developers = props.item.developers;
-  const maintainersCount = developers.length;
-  const visibleDevelopers = developers.slice(0, 3);
-  const remainingMaintainers = maintainersCount - visibleDevelopers.length;
-  const isUrlProject = ProjectItemWithDetailsCompanion.isUrlProject(props.item);
+  // Create view model with all display information
+  const view: ProjectItemWithDetailsCardView = ProjectItemWithDetailsCompanion.toCardView(props.item, 3);
+  const isOwnerProject = view.projectItemType === ProjectItemType.GITHUB_OWNER;
+  const isUrlProject = view.projectItemType === ProjectItemType.URL;
 
   return (
     <Card
-      key={projectId}
+      key={view.projectId.uuid}
       className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20 cursor-pointer"
-      onClick={() => props.onViewProject?.(projectId)}
+      onClick={() => props.onViewProject?.(view.projectId.uuid)}
     >
       <CardContent className="p-5 h-full flex flex-col">
         {/* Project Header */}
         <div className="flex items-start gap-3 mb-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-foreground truncate">{projectName}</h3>
+              <h3 className="text-foreground truncate">{view.displayName}</h3>
             </div>
             {/* Display the category */}
             <p className="text-xs text-muted-foreground">{props.category}</p>
@@ -49,7 +41,7 @@ export function ProjectCard(props: ProjectCardProps) {
           <button
             onClick={e => {
               e.stopPropagation();
-              window.open(githubUrl, "_blank");
+              window.open(view.githubUrl, "_blank");
             }}
             className="opacity-40 hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-foreground flex-shrink-0"
             title={isUrlProject ? "Visit Project" : "View on GitHub"}
@@ -59,37 +51,49 @@ export function ProjectCard(props: ProjectCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">{projectDescription}</p>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">{view.projectDescription}</p>
 
         {/* GitHub Stats */}
         <div className="flex items-center gap-4 pb-3 mb-3 border-b border-border/50 text-xs opacity-60">
-          <div className="flex items-center gap-1.5">
-            <Star className="w-3 h-3 text-brand-warning/70" />
-            <span className="text-muted-foreground">{stars}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <GitFork className="w-3 h-3 text-brand-accent/70" />
-            <span className="text-muted-foreground">{forks}</span>
-          </div>
+          {isOwnerProject ? (
+            // For owner projects, show followers
+            <div className="flex items-center gap-1.5">
+              <Users className="w-3 h-3 text-brand-accent/70" />
+              <span className="text-muted-foreground">{view.followers}</span>
+              <span className="text-muted-foreground/70">followers</span>
+            </div>
+          ) : (
+            // For repository projects, show stars and forks
+            <>
+              <div className="flex items-center gap-1.5">
+                <Star className="w-3 h-3 text-brand-warning/70" />
+                <span className="text-muted-foreground">{view.stars}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <GitFork className="w-3 h-3 text-brand-accent/70" />
+                <span className="text-muted-foreground">{view.forks}</span>
+              </div>
+            </>
+          )}
           <div className="ml-auto">
             {/* Only display mainLanguage if it exists */}
-            {mainLanguage && (
+            {view.mainLanguage && (
               <Badge variant="outline" className="text-xs py-0 opacity-80 border-border/50">
-                {mainLanguage}
+                {view.mainLanguage}
               </Badge>
             )}
           </div>
         </div>
 
         {/* Expert Maintainers - Only show section if there are maintainers */}
-        {maintainersCount > 0 && (
+        {view.maintainersCount > 0 && (
           <div className="mt-auto">
             {canExpand ? (
               <Collapsible open={openMaintainers} onOpenChange={setOpenMaintainers}>
                 <CollapsibleTrigger asChild>
                   <div className="flex items-center gap-2 py-1 px-2 -mx-2 rounded-lg cursor-pointer group/maintainers hover:bg-brand-accent/5 transition-colors">
                     <span className="text-sm text-muted-foreground group-hover/maintainers:text-brand-accent transition-colors">
-                      {maintainersCount} Expert maintainer{maintainersCount !== 1 ? "s" : ""}
+                      {view.maintainersCount} Expert maintainer{view.maintainersCount !== 1 ? "s" : ""}
                     </span>
                     <div className="ml-auto p-1 hover:bg-brand-accent/10 rounded transition-colors">
                       {openMaintainers ? (
@@ -104,7 +108,7 @@ export function ProjectCard(props: ProjectCardProps) {
                 <CollapsibleContent onClick={e => e.stopPropagation()}>
                   <div className="space-y-2 mt-2">
                     {/* Iterate over the actual developer data */}
-                    {visibleDevelopers.map(developer => (
+                    {view.visibleDevelopers.map(developer => (
                       <div key={developer.developerOwner.id.login} className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-brand-accent/20 flex-shrink-0">
                           <img
@@ -121,16 +125,16 @@ export function ProjectCard(props: ProjectCardProps) {
                     ))}
 
                     {/* View All Maintainers Link - Only show if there are more than 3 maintainers */}
-                    {remainingMaintainers > 0 && (
+                    {view.remainingMaintainersCount > 0 && (
                       <button
                         onClick={e => {
                           e.stopPropagation();
-                          props.onViewProject?.(projectId);
+                          props.onViewProject?.(view.projectId.uuid);
                         }}
                         className="flex items-center gap-1 text-xs text-brand-accent hover:text-brand-accent-dark transition-colors mt-1 py-1"
                       >
                         <span>
-                          + {remainingMaintainers} more maintainer{remainingMaintainers !== 1 ? "s" : ""}
+                          + {view.remainingMaintainersCount} more maintainer{view.remainingMaintainersCount !== 1 ? "s" : ""}
                         </span>
                       </button>
                     )}
@@ -140,7 +144,7 @@ export function ProjectCard(props: ProjectCardProps) {
             ) : (
               <div className="py-1 px-2 -mx-2">
                 <span className="text-sm text-muted-foreground">
-                  {maintainersCount} Expert maintainer{maintainersCount !== 1 ? "s" : ""}
+                  {view.maintainersCount} Expert maintainer{view.maintainersCount !== 1 ? "s" : ""}
                 </span>
               </div>
             )}
