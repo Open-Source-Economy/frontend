@@ -20,8 +20,11 @@ export const useContactForm = (initialContactReason: string) => {
       [field]: typeof value === "string" && value === "true" ? true : typeof value === "string" && value === "false" ? false : value,
     }));
 
-    // Clear field error when user starts typing
-    if (fieldErrors[field]) {
+    // Clear all field errors when contact reason changes
+    if (field === "contactReason") {
+      setFieldErrors({});
+    } else if (fieldErrors[field]) {
+      // Clear specific field error when user starts typing
       setFieldErrors(prev => {
         const updated = { ...prev };
         delete updated[field];
