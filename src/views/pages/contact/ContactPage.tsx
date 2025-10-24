@@ -220,13 +220,13 @@ export function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-brand-neutral-700 mb-1">Response Time</div>
-                      <p className="text-brand-neutral-600">Within 24 hours</p>
-                    </div>
-                  </div>
+                  {/*<div className="flex items-start gap-3">*/}
+                  {/*  <Clock className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />*/}
+                  {/*  <div>*/}
+                  {/*    <div className="text-brand-neutral-700 mb-1">Response Time</div>*/}
+                  {/*    <p className="text-brand-neutral-600">Within 24 hours</p>*/}
+                  {/*  </div>*/}
+                  {/*</div>*/}
 
                   <div className="flex items-start gap-3">
                     <HelpCircle className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
