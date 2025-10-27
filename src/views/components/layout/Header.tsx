@@ -2,21 +2,17 @@ import React from "react";
 import { Logo } from "src/views/components/brand/Logo";
 import { Button } from "src/views/components/ui/forms/button";
 import { Menu, X } from "lucide-react";
-import { paths } from "src/paths";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "../ui/forms/ExternalLink";
+import { NavigationLink } from "src/types/navigation";
+import { headerNavigation } from "./navigation";
 
 // -----------------------------
 // Types
 // -----------------------------
-interface NavItem {
-  title: string;
-  href: string;
-  external?: boolean; // true if opens in a new window/tab
-}
 
 interface HeaderProps {
-  navItems?: NavItem[];
+  navItems?: NavigationLink[];
   developerRegisterUrl?: string;
   className?: string;
   onDeveloperRegister?: () => void;
@@ -30,21 +26,13 @@ export const headerContent = {
     label: "Are you a developer?",
     ctaText: "Register Here",
   },
-  nav: {
-    items: [
-      { title: "Projects", href: paths.PROJECTS },
-      // { title: "FAQ", href: paths.FAQ },
-      { title: "Blog", href: paths.BLOG, external: true },
-      { title: "Contact", href: paths.CONTACT },
-    ] as NavItem[],
-    cta: undefined as NavItem | undefined, //{ title: "Get Started", href: paths.PROJECTS, external: false } as NavItem,
-  },
+  nav: headerNavigation,
 };
 
 // -----------------------------
 // Reusable UI bits
 // -----------------------------
-function NavButton({ item }: { item: NavItem }) {
+function NavButton({ item }: { item: NavigationLink }) {
   const { title, href, external } = item;
   const base = "text-muted-foreground hover:text-brand-primary transition-colors duration-200";
 
@@ -59,7 +47,7 @@ function NavButton({ item }: { item: NavItem }) {
   );
 }
 
-function MobileNavButton({ item, closeMenu }: { item: NavItem; closeMenu: () => void }) {
+function MobileNavButton({ item, closeMenu }: { item: NavigationLink; closeMenu: () => void }) {
   const { title, href, external } = item;
   const base = "text-left text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 py-1";
 

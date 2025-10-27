@@ -7,20 +7,12 @@ import { AlertCircle, AtSign, CheckCircle2, Github, Heart, Linkedin, Loader2, ty
 import { paths } from "src/paths";
 import { ExternalLink } from "../ui/forms/ExternalLink";
 import { Link } from "react-router-dom";
+import { NavigationSection } from "src/types/navigation";
+import { footerNavigation } from "./navigation";
 
 // -----------------------------
 // Types
 // -----------------------------
-interface FooterLink {
-  title: string;
-  href: string;
-  external?: boolean; // open in new tab
-}
-
-interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
 
 interface SocialLink {
   icon: LucideIcon; // keep as component type for consistency
@@ -32,7 +24,7 @@ interface SocialLink {
 interface FooterProps {
   className?: string;
   showNewsletter?: boolean;
-  sections?: FooterSection[];
+  sections?: NavigationSection[];
   socialLinks?: SocialLink[];
 }
 
@@ -40,34 +32,7 @@ interface FooterProps {
 // Content (single source of truth)
 // -----------------------------
 export const footerContent = {
-  sections: [
-    {
-      title: "Platform",
-      links: [
-        // { title: "Services", href: "services" },
-        { title: "Projects", href: paths.PROJECTS },
-        // { title: "Pricing", href: "fund-redistribution" },
-        // { title: "How It Works", href: "#how-it-works" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { title: "Blog", href: paths.BLOG, external: true },
-        // { title: "FAQ", href: paths.FAQ },
-        // { title: "Documentation", href: "#docs" },
-        // { title: "Community", href: "#community" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { title: "Contact", href: paths.CONTACT },
-        // { title: "About Us", href: paths.ABOUT },
-        // { title: "Privacy Policy", href: paths.PRIVACY },
-      ],
-    },
-  ] as FooterSection[],
+  sections: footerNavigation.sections,
   social: [
     { icon: Github, href: paths.SOCIALS.GITHUB, label: "GitHub", external: true },
     { icon: Twitter, href: paths.SOCIALS.TWITTER, label: "Twitter", external: true },
