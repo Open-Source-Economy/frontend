@@ -9,6 +9,7 @@ import { ExternalLink } from "../ui/forms/ExternalLink";
 import { Link } from "react-router-dom";
 import { NavigationSection } from "src/types/navigation";
 import { footerNavigation } from "./navigation";
+import { isVisible } from "src/ultils/featureVisibility";
 
 // -----------------------------
 // Types
@@ -160,7 +161,7 @@ export function Footer({ sections = footerContent.sections, socialLinks = footer
               <p className="text-muted-foreground mb-4">Get the latest updates on open source projects and community news.</p>
 
               {/* Demo Toggle - Development Only */}
-              {process.env.NODE_ENV === "development" && (
+              {isVisible("newsletterDemoToggle") && (
                 <div className="mb-4 p-3 bg-brand-card-blue-light border border-brand-warning rounded-lg">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-brand-warning">Demo Mode</span>
