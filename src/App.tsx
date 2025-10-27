@@ -10,6 +10,7 @@ import { NotFoundPage } from "src/views/pages/natigation/NotFoundPage";
 import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails/ProjectItemsWithDetails";
 import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
+import { FAQPage } from "src/views/pages/faq/FAQPage";
 import { SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
@@ -35,7 +36,9 @@ const App = () => {
             <Route path={paths.PROJECTS} element={<ProjectsPage />} />
             <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
             <Route path={paths.CONTACT} element={<ContactPage />} />
+            <Route path={paths.FAQ} element={<FAQPage />} />
             <Route path={paths.PRIVACY} element={<PrivacyPolicyPage />} />
+            <Route path={paths.CONTACT} element={<ContactPage />} />
 
             {/*<Route element={<IssueRoutes />}>*/}
             {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />*/}
