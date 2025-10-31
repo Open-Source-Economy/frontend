@@ -4,7 +4,7 @@ import { useAuth } from "../pages";
 import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";
-import { PageLoader } from "src/views/v1/components/common/PageLoader";
+import { PageTransition } from "src/views/components/ui/page-transition";
 import { paths } from "../../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
@@ -16,7 +16,7 @@ export function AuthRoutes(props: { authPage: string }) {
   }
 
   if (auth.loading) {
-    return <PageLoader message="Authenticating user..." />;
+    return <PageTransition isLoading={true} message="Authenticating user..." />;
   }
 
   if (auth.authInfo?.user) {
@@ -45,7 +45,7 @@ export function SuperAdminRoutes() {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
-    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.SIGN_IN} />; // TODO: add  404 page
+    return auth.loading ? <PageTransition isLoading={true} message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.SIGN_IN} />; // TODO: add  404 page
   }
 }
 
@@ -56,5 +56,5 @@ export function Logout(props: { redirect: string }) {
     auth.logout();
   }, []);
 
-  return auth.loading ? <PageLoader message="Logging out..." /> : <Navigate to={props.redirect} />;
+  return auth.loading ? <PageTransition isLoading={true} message="Logging out..." /> : <Navigate to={props.redirect} />;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../pages";
 import { Audience } from "src/views/index";
-import { PageLoader } from "../components/common";
+import { PageTransition } from "src/views/components/ui/page-transition";
 import { paths } from "src/paths";
 
 export function IssuesRoute() {
@@ -29,5 +29,5 @@ export function IssuesRoute() {
     }
   }, [audience, navigate]);
 
-  return <PageLoader />;
+  return <PageTransition isLoading={true} />;
 }
