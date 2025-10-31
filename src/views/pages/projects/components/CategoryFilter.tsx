@@ -1,6 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 import { ProjectCategory } from "@open-source-economy/api-types";
+import { ProjectCategoryCompanion } from "src/ultils/companions";
 
 interface CategoryFilterProps {
   selectedCategory: ProjectCategory | null;
@@ -36,7 +37,7 @@ export function CategoryFilter(props: CategoryFilterProps) {
             }`}
           >
             {props.selectedCategory === category && <Check className="w-3.5 h-3.5" />}
-            <span>{category}</span>
+            <span>{ProjectCategoryCompanion.toLabel(category)}</span>
           </button>
         ))}
     </div>

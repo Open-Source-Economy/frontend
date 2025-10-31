@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectItemType } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItemEntry,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectCategory,
+  ProjectItemType,
+} from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { config, Env, handleApiCall } from "../../../../../../ultils";
@@ -10,9 +16,11 @@ import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Input } from "src/views/components/ui/forms/input";
 import { ChipInput } from "src/views/components/ui/chip-input";
-import { ExternalLink, Github, User } from "lucide-react";
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
+import { ExternalLink, AlertCircle, Github, User, ShieldCheck } from "lucide-react";
+import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, ProjectCategoryCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
 import { GithubUrls } from "src/ultils";
+import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
+import { InfoMessage } from "src/views/components/ui/info-message";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -39,40 +47,6 @@ const mergeRightsOptions = Object.entries(MergeRightsType).map(([key, value]) =>
   label: MergeRightsTypeCompanion.label(value as MergeRightsType),
 }));
 
-// Popular ecosystem suggestions
-const ecosystemSuggestions = [
-  "React",
-  "Vue",
-  "Angular",
-  "Node.js",
-  "Python",
-  "Django",
-  "Flask",
-  "Ruby on Rails",
-  "Java",
-  "Spring",
-  "Go",
-  "Rust",
-  "TypeScript",
-  "JavaScript",
-  "PHP",
-  "Laravel",
-  ".NET",
-  "C++",
-  "Kubernetes",
-  "Docker",
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "GraphQL",
-  "Next.js",
-  "Nuxt",
-  "Svelte",
-  "Electron",
-  "React Native",
-  "Flutter",
-];
-
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const api = getOnboardingBackendAPI();
 
@@ -84,8 +58,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(props.entry?.developerProjectItem.mergeRights?.[0] || null);
 
-  // Ecosystem state (not submitted to backend)
-  const [ecosystems, setEcosystems] = useState<string[]>([]);
+  // Category states
+  const [predefinedCategories, setPredefinedCategories] = useState<ProjectCategory[]>(props.entry?.developerProjectItem.predefinedCategories || []);
+  const [customCategories, setCustomCategories] = useState<string[]>(props.entry?.developerProjectItem.customCategories || []);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<ApiError | null>(null);
@@ -109,13 +84,16 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
       setSelectedRole(props.entry.developerProjectItem.roles?.[0] || null);
       setSelectedMergeRights(props.entry.developerProjectItem.mergeRights?.[0] || null);
+      setPredefinedCategories(props.entry.developerProjectItem.predefinedCategories || []);
+      setCustomCategories(props.entry.developerProjectItem.customCategories || []);
     } else if (props.show && !props.entry) {
       // When adding new entry, start with just project type
       setSelectedProjectType(null);
       setUrl("");
       setSelectedRole(null);
       setSelectedMergeRights(null);
-      setEcosystems([]);
+      setPredefinedCategories([]);
+      setCustomCategories([]);
     }
     setErrors({});
     setError(null);
@@ -181,6 +159,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         sourceIdentifier: sourceIdentifier,
         roles: selectedRole ? [selectedRole] : [],
         mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
+        customCategories: customCategories.length > 0 ? customCategories : undefined,
+        predefinedCategories: predefinedCategories.length > 0 ? predefinedCategories : undefined,
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
       return await api.upsertProjectItem(params, body, query);
@@ -202,7 +182,30 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     if (field === "url") setUrl(value);
     if (field === "role") setSelectedRole(value);
     if (field === "mergeRights") setSelectedMergeRights(value);
-    if (field === "ecosystems") setEcosystems(value);
+    if (field === "categories") {
+      // Value is an array of strings (mix of labels and custom text)
+      const allCategories = value as string[];
+      
+      // Separate predefined (matching labels) from custom
+      const predefined: ProjectCategory[] = [];
+      const custom: string[] = [];
+      
+      allCategories.forEach(item => {
+        // Try to find matching enum value
+        const enumValue = Object.values(ProjectCategory).find(cat => 
+          ProjectCategoryCompanion.toLabel(cat) === item
+        );
+        
+        if (enumValue) {
+          predefined.push(enumValue);
+        } else {
+          custom.push(item);
+        }
+      });
+      
+      setPredefinedCategories(predefined);
+      setCustomCategories(custom);
+    }
 
     // Clear errors for this field
     if (errors[field]) {
@@ -241,10 +244,18 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     return "Any public URL to your project";
   };
 
+  const mode = props.entry ? 'edit' : 'add';
+
   return (
     <BrandModal
       open={props.show}
       onClose={() => props.setShow(false)}
+      title={mode === 'add' ? 'Add Open Source Project' : 'Edit Project Information'}
+      description={
+        mode === 'add'
+          ? 'Share details about an open source project where you actively contribute or maintain code.'
+          : 'Update your project details to keep your profile accurate.'
+      }
       size="3xl"
       footer={
         <>
@@ -260,7 +271,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             disabled={isLoading}
             className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg"
           >
-            {isLoading ? "Saving..." : props.entry ? "Save Changes" : "Add Project"}
+            {isLoading ? "Saving..." : mode === 'add' ? "Add Project" : "Save Changes"}
           </Button>
         </>
       }
@@ -311,18 +322,24 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               )}
             </div>
 
-            {/* Ecosystems field - optional, multi-select */}
-            {selectedProjectType && config.env !== Env.Production && (
+            {/* Categories field - optional, multi-select */}
+            {selectedProjectType && (
               <div>
-                <FormField label="Ecosystems" hint="Select from suggestions or type your own. You can add multiple ecosystems.">
+                <FormField label="Categories" hint="Select from suggestions or type your own custom tags">
                   <ChipInput
-                    values={ecosystems}
-                    onChange={ecosystems => handleFieldChange("ecosystems", ecosystems)}
-                    suggestions={ecosystemSuggestions}
-                    placeholder="Type to search or add custom ecosystem..."
-                    allowCustom
+                    values={[
+                      ...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)),
+                      ...customCategories
+                    ]}
+                    onChange={allValues => handleFieldChange("categories", allValues)}
+                    suggestions={Object.values(ProjectCategory)
+                      .filter(category => !predefinedCategories.includes(category))
+                      .map(category => ProjectCategoryCompanion.toLabel(category))
+                    }
+                    placeholder="Type to search or add categories..."
+                    allowCustom={true}
                     showCount
-                    countLabel="ecosystem"
+                    countLabel="category"
                   />
                 </FormField>
               </div>
@@ -357,25 +374,25 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           </BrandModalSection>
         )}
 
-        {/*/!* Step 3: Verification Notice *!/*/}
-        {/*{selectedProjectType && (*/}
-        {/*  <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">*/}
-        {/*    <BrandModalAlert type="success" icon={<AlertCircle />} title="Verification Process">*/}
-        {/*      <p className="mb-3">*/}
-        {/*        We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for*/}
-        {/*        successful verification.*/}
-        {/*      </p>*/}
-        {/*      <ul className="text-xs space-y-1 ml-4 list-disc">*/}
-        {/*        <li>Verification typically takes 24-48 hours</li>*/}
-        {/*        <li>You'll receive an email notification once verified</li>*/}
-        {/*        <li>Public contributions are required for verification</li>*/}
-        {/*      </ul>*/}
-        {/*    </BrandModalAlert>*/}
-        {/*  </BrandModalSection>*/}
-        {/*)}*/}
+        {/* Step 3: Verification Notice */}
+        {selectedProjectType && (
+          <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">
+            <InfoMessage icon={AlertCircle} variant="success" title="Verification Process">
+              <p className="mb-3">
+                We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for
+                successful verification.
+              </p>
+              <ul className="text-xs space-y-1 ml-4 list-disc">
+                <li>Verification typically takes 24-48 hours</li>
+                <li>You'll receive an email notification once verified</li>
+                <li>Public contributions are required for verification</li>
+              </ul>
+            </InfoMessage>
+          </BrandModalSection>
+        )}
 
         {/* API Error Display */}
-        {error && <div className="text-red-400 text-sm mt-4">{error.message}</div>}
+        {error && <ServerErrorAlert error={error} variant="compact" />}
       </div>
     </BrandModal>
   );

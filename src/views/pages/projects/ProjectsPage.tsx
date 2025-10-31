@@ -54,13 +54,24 @@ export const projectsPageContent = {
 // Helpers & mappings (logic only)
 // ------------------------------------
 const CATEGORY_KEYWORDS: Record<ProjectCategory, string[]> = {
-  [ProjectCategory.FrontendFramework]: ["react", "vue", "angular", "svelte"],
-  [ProjectCategory.Infrastructure]: ["kubernetes", "docker", "terraform", "ansible"],
-  [ProjectCategory.MachineLearning]: ["tensorflow", "pytorch", "scikit-learn"],
-  [ProjectCategory.Database]: ["postgresql", "redis", "mongodb", "elasticsearch"],
-  [ProjectCategory.Runtime]: ["deno"],
   [ProjectCategory.ProgrammingLanguage]: ["rust", "python", "go"],
+  [ProjectCategory.Runtime]: ["deno"],
+  [ProjectCategory.Frontend]: ["react", "vue", "angular", "svelte"],
+  [ProjectCategory.Backend]: [],
+  [ProjectCategory.Mobile]: [],
+  [ProjectCategory.Desktop]: [],
+  [ProjectCategory.Database]: ["postgresql", "redis", "mongodb", "elasticsearch"],
+  [ProjectCategory.MachineLearning]: ["tensorflow", "pytorch", "scikit-learn"],
+  [ProjectCategory.DataProcessing]: [],
+  [ProjectCategory.Hardware]: [],
+  [ProjectCategory.Infrastructure]: ["kubernetes", "docker", "terraform", "ansible"],
+  [ProjectCategory.MonitoringObservability]: [],
+  [ProjectCategory.ApiNetworking]: [],
+  [ProjectCategory.BuildTools]: [],
+  [ProjectCategory.Testing]: [],
+  [ProjectCategory.Documentation]: [],
   [ProjectCategory.Security]: ["openssl", "oauth2-proxy"],
+  [ProjectCategory.Library]: [],
 };
 
 function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | null {
