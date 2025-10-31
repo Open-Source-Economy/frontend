@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
 import { getOnboardingBackendAPI } from "src/services";
@@ -10,8 +11,7 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ServiceProviderCard } from "./design-system/ServiceProviderCard";
 import { CommonPotParticipantCard } from "./design-system/CommonPotParticipantCard";
 import { ParticipationDivider } from "./design-system/ParticipationDivider";
-import { InfoMessage } from "src/views/components/ui/info-message";
-import { Lightbulb } from "lucide-react";
+import { paths } from "src/paths";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
@@ -19,6 +19,7 @@ type ParticipationModel = "service_provider" | "common_pot_participant";
 
 export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
+  const navigate = useNavigate();
 
   const [incomeStreams, setIncomeStreams] = useState<IncomeStreamType[]>(validatedState.incomeStreams);
   const [apiError, setApiError] = useState<ApiError | null>(null);
@@ -58,19 +59,41 @@ export function Step3(props: Step3Props) {
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  const handleParticipationModelChange = (model: ParticipationModel) => {
+  const handleParticipationModelChange = async (model: ParticipationModel) => {
     let newStreams: IncomeStreamType[];
 
     if (model === "service_provider") {
       // Service Provider: Only SERVICES
       newStreams = [IncomeStreamType.SERVICES];
+      setIncomeStreams(newStreams);
+      props.updateState({ incomeStreams: newStreams });
     } else {
       // Common Pot Participant: Both ROYALTIES and DONATIONS (simplified)
       newStreams = [IncomeStreamType.ROYALTIES, IncomeStreamType.DONATIONS];
-    }
+      setIncomeStreams(newStreams);
+      props.updateState({ incomeStreams: newStreams });
 
-    setIncomeStreams(newStreams);
-    props.updateState({ incomeStreams: newStreams });
+      // Complete onboarding and navigate to completion page
+      const apiCall = async () => {
+        const params: dto.SetDeveloperIncomeStreamsParams = {};
+        const body: dto.SetDeveloperIncomeStreamsBody = {
+          incomeStreams: newStreams,
+        };
+        const query: dto.SetDeveloperIncomeStreamsQuery = {};
+
+        await getOnboardingBackendAPI().setDeveloperIncomeStreams(params, body, query);
+        
+        // Then complete onboarding
+        return await getOnboardingBackendAPI().completeOnboarding({}, {}, {});
+      };
+
+      const onSuccess = () => {
+        // Navigate to completion page
+        navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+      };
+
+      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    }
   };
 
   // Register onNext: allow advancing; saving runs on selection change
@@ -81,13 +104,6 @@ export function Step3(props: Step3Props) {
 
   return (
     <div className="space-y-8">
-      {/* Info Message */}
-      <InfoMessage icon={Lightbulb} variant="subtle">
-        <strong className="block mb-1 text-sm">Choose Your Role</strong>
-        <span className="block mb-1">Decide how you want to participate in the open source economy.</span>
-        <span className="block">→ You can change this anytime from your profile settings.</span>
-      </InfoMessage>
-
       {/* Error Display */}
       {apiError && <ServerErrorAlert error={apiError} variant="compact" />}
 
