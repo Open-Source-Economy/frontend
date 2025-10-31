@@ -1,5 +1,0 @@
-export enum ProjectItemType {
-  GITHUB_REPOSITORY = "GITHUB_REPOSITORY",
-  GITHUB_OWNER = "GITHUB_OWNER",
-  URL = "URL",
-}

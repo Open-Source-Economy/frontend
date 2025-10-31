@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { faqData, type FAQCategory } from "src/views/pages/faq/data/faqData";
+import { faqData } from "src/views/pages/faq/data/faqData";
 
 export function useFAQFilter() {
   const [searchQuery, setSearchQuery] = useState("");

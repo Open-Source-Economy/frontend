@@ -5,7 +5,7 @@ import { Button } from "../../components/ui/forms/button";
 import { Badge } from "../../components/ui/badge";
 import { paths } from "src/paths";
 import { useFAQFilter } from "./hooks/useFAQFilter";
-import { FAQSearchBar, FAQCategoryFilter, FAQEmptyState, FAQCategorySection } from "./components";
+import { FAQCategoryFilter, FAQCategorySection, FAQEmptyState, FAQSearchBar } from "./components";
 
 export function FAQPage() {
   const { searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, filteredData } = useFAQFilter();

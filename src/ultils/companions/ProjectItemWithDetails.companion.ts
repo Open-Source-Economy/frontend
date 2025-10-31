@@ -1,4 +1,4 @@
-import { ProjectItemType, ProjectItemWithDetails, DeveloperProfile, DeveloperProjectItem, Owner, ProjectItemId } from "@open-source-economy/api-types";
+import { DeveloperProfile, DeveloperProjectItem, Owner, ProjectItemId, ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { NumberUtils } from "../NumberUtils";
 
 export interface ProjectStats {

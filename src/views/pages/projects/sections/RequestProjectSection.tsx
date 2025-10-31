@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
-import { MessageCircle, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { paths } from "src/paths";
 
 interface RequestProjectSectionProps {

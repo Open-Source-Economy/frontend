@@ -1,6 +1,5 @@
 import React from "react";
 import { ProjectSearchBar } from "./ProjectSearchBar";
-import { CategoryFilter } from "./CategoryFilter";
 import { LanguageFilter } from "./LanguageFilter";
 import { ProjectCategory } from "@open-source-economy/api-types";
 

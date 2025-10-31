@@ -2,9 +2,9 @@ import React from "react";
 import { Card, CardContent } from "src/views/components/ui/card";
 import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
-import { BadgeCheck, Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
-import { ProjectItemWithDetails, ProjectItemType } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion, ProjectItemWithDetailsCardView } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
+import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import { ProjectItemWithDetailsCardView, ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 
 interface ProjectCardProps {
   item: ProjectItemWithDetails;

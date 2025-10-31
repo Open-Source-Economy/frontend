@@ -11,11 +11,14 @@ import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails
 import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
 import { FAQPage } from "src/views/pages/faq/FAQPage";
-import { SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
+import { AuthRoutes, SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
 import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";
 import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProductAndPrice";
+import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
+import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
+import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
 
 const App = () => {
   return (
@@ -100,11 +103,11 @@ const App = () => {
             {/*  <Route path={paths.DASHBOARD} element={<Dashboard />} />*/}
             {/*</Route>*/}
 
-            {/*<Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />*/}
-            {/*<Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>*/}
-            {/*  <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />*/}
-            {/*  <Route path={paths.DEVELOPER_ONBOARDING_COMPLETED} element={<DevelopedOnboardingComplete />} />*/}
-            {/*</Route>*/}
+            <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
+            <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
+              <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
+              <Route path={paths.DEVELOPER_ONBOARDING_COMPLETED} element={<DevelopedOnboardingComplete />} />
+            </Route>
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

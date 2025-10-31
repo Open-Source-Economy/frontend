@@ -5,4 +5,5 @@ export { Label } from "./label";
 export { Checkbox } from "./checkbox";
 export { FieldError } from "./field-error";
 export { FormField } from "./form-field";
-export { ValidatedInput, ValidatedTextarea } from "./validated-input";
+export { ValidatedInput, ValidatedTextarea, ValidatedInputWithRef, type InputRef } from "./validated-input";
+export { validateName, validateEmail, validateRequired } from "./validators";

@@ -2,7 +2,7 @@ import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
 import { Currency } from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data";
 import { BaseProps, BaseRef } from "../Base";
-import { CurrencySelectInput } from "./enum";
+// import { CurrencySelectInput } from "./enum";
 import { IntegerInput } from "../input/number/IntegerInput";
 import { GenericInputRef } from "../input";
 
@@ -73,9 +73,9 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
               ref={integerInputRef}
             />
           </div>
-          <div className="flex">
-            {props.onCurrencyChange && <CurrencySelectInput onChange={handleCurrencySelect} value={currency} ref={currencyInputRef} />}
-          </div>
+          {/*<div className="flex">*/}
+          {/*  {props.onCurrencyChange && <CurrencySelectInput onChange={handleCurrencySelect} value={currency} ref={currencyInputRef} />}*/}
+          {/*</div>*/}
         </div>
       </div>
 

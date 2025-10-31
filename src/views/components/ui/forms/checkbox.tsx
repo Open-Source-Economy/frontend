@@ -1,43 +1,55 @@
+"use client";
+
 import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { Check } from "lucide-react";
 import { cn } from "../../utils";
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
-  onCheckedChange?: (checked: boolean) => void;
+interface CheckboxProps extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
+  variant?: "default" | "outline" | "filled" | "ghost";
+  size?: "sm" | "default" | "lg" | "xl";
 }
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className, onCheckedChange, checked, ...props }, ref) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onCheckedChange) {
-      onCheckedChange(e.target.checked);
-    }
-    if (props.onChange) {
-      props.onChange(e);
-    }
-  };
+const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+  ({ className, variant = "default", size = "default", ...props }, ref) => {
+    const sizeClasses = {
+      sm: "w-4 h-4",
+      default: "w-5 h-5",
+      lg: "w-6 h-6",
+      xl: "w-7 h-7",
+    };
 
-  return (
-    <div className="relative inline-flex items-center justify-center">
-      <input
-        type="checkbox"
+    const iconSizes = {
+      sm: "size-2.5",
+      default: "size-3.5",
+      lg: "size-4",
+      xl: "size-5",
+    };
+
+    return (
+      <CheckboxPrimitive.Root
         ref={ref}
-        checked={checked}
-        onChange={handleChange}
+        data-slot="checkbox"
         className={cn(
-          "peer h-5 w-5 shrink-0 rounded border-2 border-brand-neutral-400 bg-form-background transition-all",
-          "focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2",
-          "checked:bg-brand-accent checked:border-brand-accent",
+          "shrink-0 rounded border border-form-border bg-form-background cursor-pointer transition-all",
+          "hover:scale-110 hover:border-form-border-hover",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          "cursor-pointer",
+          "data-[state=checked]:bg-brand-accent data-[state=checked]:border-brand-accent data-[state=checked]:text-white",
+          sizeClasses[size],
           className,
         )}
         {...props}
-      />
-      <Check className={cn("pointer-events-none absolute h-3.5 w-3.5 text-white opacity-0 transition-opacity peer-checked:opacity-100")} />
-    </div>
-  );
-});
+      >
+        <CheckboxPrimitive.Indicator data-slot="checkbox-indicator" className="flex items-center justify-center text-current transition-none">
+          <Check className={iconSizes[size]} />
+        </CheckboxPrimitive.Indicator>
+      </CheckboxPrimitive.Root>
+    );
+  },
+);
 
 Checkbox.displayName = "Checkbox";
 
 export { Checkbox };
+export type { CheckboxProps };

@@ -1,34 +1,33 @@
 import React, { useEffect } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PageWrapper } from "../PageWrapper";
 import { paths } from "src/paths";
 import { Button } from "../../components/ui/forms/button";
 import { Input } from "../../components/ui/forms/input";
 import { Label } from "../../components/ui/forms/label";
-import { Alert, AlertTitle, AlertDescription } from "../../components/ui/state/alert";
+import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
 import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/validated-input";
 import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
 import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/ExternalLink";
 import {
-  Send,
-  Building2,
-  HelpCircle,
-  Handshake,
-  Newspaper,
-  Wrench,
-  FolderPlus,
-  Code2,
-  Mail,
-  CheckCircle2,
-  Loader2,
   AlertCircle,
-  Clock,
   ArrowRight,
-  Info,
-  Github,
+  Building2,
+  CheckCircle2,
+  Code2,
   ExternalLink,
+  FolderPlus,
+  Github,
+  Handshake,
+  HelpCircle,
+  Info,
+  Loader2,
+  Mail,
+  Newspaper,
+  Send,
   Users,
+  Wrench,
 } from "lucide-react";
 import { ContactReason } from "@open-source-economy/api-types";
 import { CONTACT_REASON_LABELS } from "src/ultils/companions/ContactReasonCompanion";
@@ -36,9 +35,9 @@ import { contactEmail } from "src/views/v1/data";
 import { useContactForm } from "./hooks/useContactForm";
 import {
   isCompanyRequired,
+  isGitHubRequired,
   isLinkedInRequired,
   shouldShowGitHubProfile,
-  isGitHubRequired,
   shouldShowMeetingRequest,
   shouldShowProjects,
 } from "./helpers/contactReasonHelpers";

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FormData, ProjectEntry, INITIAL_FORM_DATA } from "../helpers/formHelpers";
-import { validateForm, scrollToFirstError } from "../helpers/validationHelpers";
+import { FormData, INITIAL_FORM_DATA, ProjectEntry } from "../helpers/formHelpers";
+import { scrollToFirstError, validateForm } from "../helpers/validationHelpers";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { ApiError } from "src/ultils/error/ApiError";
 

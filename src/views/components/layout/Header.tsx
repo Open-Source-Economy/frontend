@@ -1,11 +1,12 @@
 import React from "react";
 import { Logo } from "src/views/components/brand/Logo";
 import { Button } from "src/views/components/ui/forms/button";
-import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Code2, Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { ExternalLink } from "../ui/forms/ExternalLink";
 import { NavigationLink } from "src/types/navigation";
 import { headerNavigation } from "./navigation";
+import { paths } from "src/paths";
 
 // -----------------------------
 // Types
@@ -67,6 +68,7 @@ function MobileNavButton({ item, closeMenu }: { item: NavigationLink; closeMenu:
 // -----------------------------
 export function Header(props: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const location = useLocation();
 
   const navItems = props.navItems ?? headerContent.nav.items;
 
@@ -77,25 +79,27 @@ export function Header(props: HeaderProps) {
     if (props.developerRegisterUrl) window.location.href = props.developerRegisterUrl;
   };
 
+  // Define pages where the developer banner should be shown
+  const showDeveloperBanner = [paths.HOME, paths.PROJECTS, paths.HOW_ITS_WORK, paths.PRICING, paths.VISION].includes(location.pathname);
+
   return (
     <>
-      {/* Developer Banner */}
-      {/*<div className="bg-gradient-to-r from-brand-accent to-brand-highlight border-b border-brand-accent-dark">*/}
-      {/*  <div className="container mx-auto px-4 sm:px-6 lg:px-8">*/}
-      {/*    <div className="flex items-center justify-center h-12 gap-3">*/}
-      {/*      <Code2 className="w-4 h-4 text-white" />*/}
-      {/*      <span className="text-white">{headerContent.banner.label}</span>*/}
-      {/*      <Button*/}
-      {/*        onClick={handleDeveloperRegister}*/}
-      {/*        variant="outline"*/}
-      {/*        size="sm"*/}
-      {/*        className="bg-white text-brand-accent hover:bg-brand-neutral-950 hover:text-brand-accent border-white h-8"*/}
-      {/*      >*/}
-      {/*        {headerContent.banner.ctaText}*/}
-      {/*      </Button>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      {/* Developer Banner - Only shown on specific pages */}
+      {showDeveloperBanner && (
+        <div className="bg-gradient-to-r from-brand-accent to-brand-highlight border-b border-brand-accent-dark">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center h-12 gap-3">
+              <Code2 className="w-4 h-4 text-white" />
+              <span className="text-white">{headerContent.banner.label}</span>
+              <Link to={paths.DEVELOPER_LANDING}>
+                <Button variant="outline" size="sm" className="bg-white text-brand-accent hover:bg-brand-neutral-950 hover:text-brand-accent border-white h-8">
+                  {headerContent.banner.ctaText}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Header */}
       <header className={`bg-background border-b border-border sticky top-0 z-50 ${props.className ?? ""}`}>
