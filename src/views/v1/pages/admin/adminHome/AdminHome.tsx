@@ -46,6 +46,32 @@ export function AdminHome() {
             Sync GitHub Data
           </Link>
         </div>
+
+        <div className="mt-8">
+          <h2 className="text-white text-xl font-semibold mb-4">View User Onboarding</h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const username = formData.get("username") as string;
+              if (username) {
+                window.location.href = paths.ADMIN.USER_ONBOARDING(username);
+              }
+            }}
+            className="flex gap-2"
+          >
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter GitHub username"
+              className="flex-1 px-4 py-2 rounded bg-[#1A2B45] text-white border border-brand-neutral-700 focus:outline-none focus:border-brand-accent"
+              required
+            />
+            <button type="submit" className="bg-brand-accent hover:bg-brand-accent-dark text-white py-2 px-6 rounded">
+              View Profile
+            </button>
+          </form>
+        </div>
       </div>
     </PageWrapper>
   );

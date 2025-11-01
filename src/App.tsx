@@ -16,6 +16,7 @@ import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
 import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";
 import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProductAndPrice";
+import { UserOnboarding } from "./views/pages/admin/UserOnboarding";
 import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
@@ -71,6 +72,7 @@ const App = () => {
               <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
+              <Route path="/admin/user-onboarding/:githubUsername" element={<UserOnboarding />} />
             </Route>
 
             {/*<Route element={<ProjectRoute />}>*/}

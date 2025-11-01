@@ -62,6 +62,7 @@ export const paths = {
     CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
     CREATE_PROJECT: "/admin/project",
     SYNC_GITHUB: "/admin/sync-github",
+    USER_ONBOARDING: (githubUsername: string) => `/admin/user-onboarding/${githubUsername}`,
   },
 
   // Dynamic route functions
