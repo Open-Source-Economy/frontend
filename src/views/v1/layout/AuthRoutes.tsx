@@ -41,7 +41,7 @@ export function SuperAdminRoutes() {
 
   const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
 
-  if (config.api.useMock) {
+  if (config.api.useMock || config.env !== Env.Production) {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
