@@ -146,7 +146,24 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
     const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(url);
 
+    // Check if we're editing and the project identifier has changed
+    const isEditingWithChangedProject = props.entry && (
+      selectedProjectType !== props.entry.projectItem.projectItemType ||
+      !SourceIdentifierCompanion.equals(sourceIdentifier, props.entry.projectItem.sourceIdentifier)
+    );
+
     const apiCall = async () => {
+      // If editing and the project identifier changed, delete the old entry first
+      if (isEditingWithChangedProject && props.entry) {
+        const deleteParams: dto.RemoveDeveloperProjectItemParams = {};
+        const deleteBody: dto.RemoveDeveloperProjectItemBody = {
+          developerProjectItemId: props.entry.developerProjectItem.id,
+        };
+        const deleteQuery: dto.RemoveDeveloperProjectItemQuery = {};
+        await api.removeProjectItem(deleteParams, deleteBody, deleteQuery);
+      }
+
+      // Then create or update the project item
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
         projectItemType: selectedProjectType,

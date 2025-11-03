@@ -59,9 +59,11 @@ const Step2: React.FC<Step2Props> = props => {
     let updatedProjects: DeveloperProjectItemEntry[];
 
     if (editingProject) {
-      updatedProjects = projects.map(entry =>
-        entry.developerProjectItem.id.uuid === newOrUpdatedProject.developerProjectItem.id.uuid ? newOrUpdatedProject : entry,
-      );
+      // Remove the old entry (by the editingProject's ID) and add the new one
+      // This handles both cases: simple updates (same project) and changes (different project)
+      updatedProjects = projects
+        .filter(entry => entry.developerProjectItem.id.uuid !== editingProject.developerProjectItem.id.uuid)
+        .concat(newOrUpdatedProject);
     } else {
       updatedProjects = [...projects, newOrUpdatedProject];
     }

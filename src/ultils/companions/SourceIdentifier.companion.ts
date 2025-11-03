@@ -9,7 +9,7 @@ function isOwnerLike(x: any): x is OwnerId | { login: string } {
   return x && typeof x === "object" && typeof x.login === "string";
 }
 function isRepoLike(x: any): x is RepositoryId | { name: string; ownerId?: { login?: string } } {
-  return x && typeof x === "object" && typeof x.name === "string" && x.ownerId && typeof x.ownerId === "object";
+  return x && typeof x === "object" && typeof x.name === "string" && x.ownerId && typeof x.ownerId === "object" && typeof x.ownerId.login === "string";
 }
 
 export namespace SourceIdentifierCompanion {
@@ -48,5 +48,33 @@ export namespace SourceIdentifierCompanion {
     if (ownerId) return ownerId;
 
     return input;
+  }
+
+  /**
+   * Compares two SourceIdentifiers for equality
+   */
+  export function equals(a: SourceIdentifier, b: SourceIdentifier): boolean {
+    // Both are strings
+    if (typeof a === "string" && typeof b === "string") {
+      return a === b;
+    }
+
+    // One is string, the other is not
+    if (typeof a === "string" || typeof b === "string") {
+      return false;
+    }
+
+    // Both are Owner-like
+    if (isOwnerLike(a) && isOwnerLike(b)) {
+      return a.login === b.login;
+    }
+
+    // Both are Repo-like
+    if (isRepoLike(a) && isRepoLike(b)) {
+      return a.name === b.name && a.ownerId.login === b.ownerId.login;
+    }
+
+    // Different types
+    return false;
   }
 }
