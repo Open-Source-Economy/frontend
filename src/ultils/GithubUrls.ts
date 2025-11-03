@@ -15,8 +15,10 @@ export class GithubUrls {
       return new OwnerId(value);
     }
 
-    // Full GitHub URL
-    const ownerRegex = /^https:\/\/github\.com\/([^/]+)(?:\/)?$/;
+    // Full GitHub URL - matches owner URLs with optional trailing slash and query params/fragments
+    // Examples: github.com/owner, github.com/owner/, github.com/owner?tab=repositories
+    // But NOT: github.com/owner/repo (repository URLs)
+    const ownerRegex = /^https:\/\/github\.com\/([^/?#]+)(?:\/)?(?:[?#].*)?$/;
     const match = value.match(ownerRegex);
     if (match && match[1]) {
       return new OwnerId(match[1]);
@@ -40,8 +42,9 @@ export class GithubUrls {
       return new RepositoryId(new OwnerId(owner), repo);
     }
 
-    // Full GitHub URL
-    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)(?:\/)?$/;
+    // Full GitHub URL - matches repository URLs with optional trailing paths, query params, or fragments
+    // Examples: github.com/owner/repo, github.com/owner/repo/, github.com/owner/repo/blob/main/README.md, github.com/owner/repo?tab=readme
+    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/?#]+)/;
     const match = value.match(repoRegex);
     if (match && match[1] && match[2]) {
       return new RepositoryId(new OwnerId(match[1]), match[2]);
