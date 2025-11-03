@@ -16,6 +16,8 @@ import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
 import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";
 import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProductAndPrice";
+import { Maintainer } from "./views/pages/admin/Maintainer";
+import { Maintainers } from "./views/pages/admin/Maintainers";
 import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
@@ -63,6 +65,7 @@ const App = () => {
 
             <Route element={<SuperAdminRoutes />}>
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
+              <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
               <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
               <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
               <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
@@ -71,6 +74,7 @@ const App = () => {
               <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
               <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
+              <Route path={paths.ADMIN.MAINTAINER_ROUTE} element={<Maintainer />} />
             </Route>
 
             {/*<Route element={<ProjectRoute />}>*/}

@@ -82,7 +82,7 @@ export function Step3(props: Step3Props) {
         const query: dto.SetDeveloperIncomeStreamsQuery = {};
 
         await getOnboardingBackendAPI().setDeveloperIncomeStreams(params, body, query);
-        
+
         // Then complete onboarding
         return await getOnboardingBackendAPI().completeOnboarding({}, {}, {});
       };

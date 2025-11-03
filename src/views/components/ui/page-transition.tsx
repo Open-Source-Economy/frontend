@@ -1,5 +1,5 @@
-import React from 'react';
-import { Loader2 } from 'lucide-react';
+import React from "react";
+import { Loader2 } from "lucide-react";
 
 interface PageTransitionProps {
   isLoading: boolean;
@@ -31,11 +31,8 @@ export const PageTransition: React.FC<PageTransitionProps> = ({ isLoading, messa
         </div>
 
         {/* Optional message */}
-        {message && (
-          <p className="text-brand-neutral-600 text-base font-medium">{message}</p>
-        )}
+        {message && <p className="text-brand-neutral-600 text-base font-medium">{message}</p>}
       </div>
     </div>
   );
 };
-

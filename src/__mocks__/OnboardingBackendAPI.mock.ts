@@ -42,7 +42,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         name: "Mock Developer",
         contactEmail: "mock.dev@example.com",
         agreedToTerms: true,
-        profile: null,
+        profileEntry: null,
         settings: {
           id: new dto.DeveloperSettingsId(Math.random().toString()),
           developerProfileId: developerProfileId1,
@@ -144,7 +144,6 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         projectItemId: projectItemId,
         roles: body.roles,
         mergeRights: body.mergeRights,
-        // Ensure comments are included if the DTO has them
         comment: body.comments,
         createdAt: new Date(),
         updatedAt: new Date(),

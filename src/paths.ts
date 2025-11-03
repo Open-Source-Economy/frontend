@@ -53,6 +53,7 @@ export const paths = {
   // Admin routes grouped under ADMIN
   ADMIN: {
     HOME: "/admin",
+    MAINTAINERS: "/admin/maintainers",
     INVITE_COMPANY_USER: "/admin/invite-company-user",
     INVITE_REPOSITORY_USER: "/admin/invite-repository-user",
     CREATE_COMPANY: "/admin/create-company",
@@ -62,6 +63,8 @@ export const paths = {
     CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
     CREATE_PROJECT: "/admin/project",
     SYNC_GITHUB: "/admin/sync-github",
+    MAINTAINER: (githubUsername: string) => `/admin/maintainer/${githubUsername}`,
+    MAINTAINER_ROUTE: "/admin/maintainer/:githubUsername", // Route pattern for React Router
   },
 
   // Dynamic route functions

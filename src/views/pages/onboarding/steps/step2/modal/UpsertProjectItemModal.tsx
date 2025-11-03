@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import {
-  DeveloperProjectItemEntry,
-  DeveloperRoleType,
-  MergeRightsType,
-  ProjectCategory,
-  ProjectItemType,
-} from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectCategory, ProjectItemType } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { config, Env, handleApiCall } from "../../../../../../ultils";
@@ -185,24 +179,22 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     if (field === "categories") {
       // Value is an array of strings (mix of labels and custom text)
       const allCategories = value as string[];
-      
+
       // Separate predefined (matching labels) from custom
       const predefined: ProjectCategory[] = [];
       const custom: string[] = [];
-      
+
       allCategories.forEach(item => {
         // Try to find matching enum value
-        const enumValue = Object.values(ProjectCategory).find(cat => 
-          ProjectCategoryCompanion.toLabel(cat) === item
-        );
-        
+        const enumValue = Object.values(ProjectCategory).find(cat => ProjectCategoryCompanion.toLabel(cat) === item);
+
         if (enumValue) {
           predefined.push(enumValue);
         } else {
           custom.push(item);
         }
       });
-      
+
       setPredefinedCategories(predefined);
       setCustomCategories(custom);
     }
@@ -244,17 +236,17 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     return "Any public URL to your project";
   };
 
-  const mode = props.entry ? 'edit' : 'add';
+  const mode = props.entry ? "edit" : "add";
 
   return (
     <BrandModal
       open={props.show}
       onClose={() => props.setShow(false)}
-      title={mode === 'add' ? 'Add Open Source Project' : 'Edit Project Information'}
+      title={mode === "add" ? "Add Open Source Project" : "Edit Project Information"}
       description={
-        mode === 'add'
-          ? 'Share details about an open source project where you actively contribute or maintain code.'
-          : 'Update your project details to keep your profile accurate.'
+        mode === "add"
+          ? "Share details about an open source project where you actively contribute or maintain code."
+          : "Update your project details to keep your profile accurate."
       }
       size="3xl"
       footer={
@@ -271,7 +263,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
             disabled={isLoading}
             className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg"
           >
-            {isLoading ? "Saving..." : mode === 'add' ? "Add Project" : "Save Changes"}
+            {isLoading ? "Saving..." : mode === "add" ? "Add Project" : "Save Changes"}
           </Button>
         </>
       }
@@ -327,15 +319,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               <div>
                 <FormField label="Categories" hint="Select from suggestions or type your own custom tags">
                   <ChipInput
-                    values={[
-                      ...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)),
-                      ...customCategories
-                    ]}
+                    values={[...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...customCategories]}
                     onChange={allValues => handleFieldChange("categories", allValues)}
                     suggestions={Object.values(ProjectCategory)
                       .filter(category => !predefinedCategories.includes(category))
-                      .map(category => ProjectCategoryCompanion.toLabel(category))
-                    }
+                      .map(category => ProjectCategoryCompanion.toLabel(category))}
                     placeholder="Type to search or add categories..."
                     allowCustom={true}
                     showCount
