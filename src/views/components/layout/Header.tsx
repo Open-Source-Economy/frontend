@@ -80,7 +80,7 @@ export function Header(props: HeaderProps) {
   };
 
   // Define pages where the developer banner should be shown
-  const showDeveloperBanner = [paths.HOME, paths.PROJECTS, paths.HOW_ITS_WORK, paths.PRICING, paths.VISION].includes(location.pathname);
+  const showDeveloperBanner = [paths.HOME, paths.PROJECTS, paths.SERVICES, paths.HOW_ITS_WORK, paths.PRICING, paths.VISION].includes(location.pathname);
 
   return (
     <>

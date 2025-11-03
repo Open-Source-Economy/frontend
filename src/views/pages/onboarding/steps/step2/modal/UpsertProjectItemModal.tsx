@@ -147,10 +147,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(url);
 
     // Check if we're editing and the project identifier has changed
-    const isEditingWithChangedProject = props.entry && (
-      selectedProjectType !== props.entry.projectItem.projectItemType ||
-      !SourceIdentifierCompanion.equals(sourceIdentifier, props.entry.projectItem.sourceIdentifier)
-    );
+    const isEditingWithChangedProject =
+      props.entry &&
+      (selectedProjectType !== props.entry.projectItem.projectItemType ||
+        !SourceIdentifierCompanion.equals(sourceIdentifier, props.entry.projectItem.sourceIdentifier));
 
     const apiCall = async () => {
       // If editing and the project identifier changed, delete the old entry first

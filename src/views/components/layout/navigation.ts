@@ -11,6 +11,7 @@ import { paths } from "src/paths";
 export const navigationLinks = {
   // Main pages
   projects: { title: "Projects", href: paths.PROJECTS } as NavigationLink,
+  services: { title: "Services", href: paths.SERVICES } as NavigationLink,
   faq: { title: "FAQ", href: paths.FAQ } as NavigationLink,
   blog: { title: "Blog", href: paths.BLOG, external: true } as NavigationLink,
   contact: { title: "Contact", href: paths.CONTACT } as NavigationLink,
@@ -24,7 +25,7 @@ export const navigationLinks = {
 // Header Configuration
 // -----------------------------
 export const headerNavigation = {
-  items: [navigationLinks.projects, navigationLinks.faq, navigationLinks.blog, navigationLinks.contact] as NavigationLink[],
+  items: [navigationLinks.projects, navigationLinks.services, navigationLinks.faq, navigationLinks.blog, navigationLinks.contact] as NavigationLink[],
   cta: undefined as NavigationLink | undefined, // { title: "Get Started", href: paths.PROJECTS } as NavigationLink,
 };
 
@@ -37,7 +38,7 @@ export const footerNavigation = {
       title: "Platform",
       links: [
         navigationLinks.projects,
-        // { title: "Services", href: "services" },
+        navigationLinks.services,
         // { title: "Pricing", href: "fund-redistribution" },
         // { title: "How It Works", href: "#how-it-works" },
       ],

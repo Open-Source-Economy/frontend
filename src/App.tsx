@@ -6,6 +6,7 @@ import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/v1/components/ScrollTop";
 import { HomePage } from "src/views/pages/home/HomePage";
 import { ProjectsPage } from "src/views/pages/projects/ProjectsPage";
+import { ServicesPage } from "src/views/pages/services/ServicesPage";
 import { NotFoundPage } from "src/views/pages/natigation/NotFoundPage";
 import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails/ProjectItemsWithDetails";
 import { ContactPage } from "src/views/pages/contact/ContactPage";
@@ -39,6 +40,7 @@ const App = () => {
 
             <Route path={paths.HOME} element={<HomePage />} />
             <Route path={paths.PROJECTS} element={<ProjectsPage />} />
+            <Route path={paths.SERVICES} element={<ServicesPage />} />
             <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
             <Route path={paths.CONTACT} element={<ContactPage />} />
             <Route path={paths.FAQ} element={<FAQPage />} />

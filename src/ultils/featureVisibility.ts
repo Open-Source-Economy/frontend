@@ -35,6 +35,9 @@ export const features = {
   /** Newsletter subscription demo toggle in footer */
   newsletterDemoToggle: envGroups.nonProduction,
 
+  /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
+  enterpriseServiceButtons: envGroups.localOnly,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,
