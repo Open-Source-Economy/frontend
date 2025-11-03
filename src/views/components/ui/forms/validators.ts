@@ -12,8 +12,8 @@ export const validateName = (value: string): string | undefined => {
   if (!value.trim()) {
     return "Name is required.";
   }
-  if (!/^[a-zA-Z-' ]+$/.test(value)) {
-    return "Name can only contain letters, hyphens, and apostrophes.";
+  if (!/^[a-zA-ZÀ-ÿ-'. ]+$/u.test(value)) {
+    return "Name can only contain letters, hyphens, apostrophes, and periods.";
   }
   return undefined;
 };

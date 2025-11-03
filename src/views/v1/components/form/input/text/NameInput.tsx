@@ -2,8 +2,8 @@ import React, { forwardRef, InputHTMLAttributes, Ref } from "react";
 import { GenericInput, GenericInputRef } from "../GenericInput";
 
 const validateName = (value: string): string | undefined => {
-  if (value && !/^[a-zA-Z-' ]+$/.test(value)) {
-    return "Name can only contain letters, hyphens, and apostrophes.";
+  if (value && !/^[a-zA-ZÀ-ÿ-'. ]+$/u.test(value)) {
+    return "Name can only contain letters, hyphens, apostrophes, and periods.";
   }
   return undefined;
 };
