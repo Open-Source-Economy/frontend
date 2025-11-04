@@ -4,6 +4,7 @@ import { ArrowRight, Building2, DollarSign, Eye, GitBranch, Info, Layers, Users 
 import { Card, CardContent } from "src/views/components/ui/card";
 import { Button } from "src/views/components/ui/forms/button";
 import { Progress } from "src/views/components/ui/progress";
+import { isVisible } from "src/ultils/featureVisibility";
 
 interface FundDistributionMinimalProps {
   className?: string;
@@ -18,41 +19,50 @@ export const fundDistributionContent = {
     text: "Fund Transparency",
   },
   title: "Where Your Investment Goes",
-  description: "Complete transparency on fund allocation. Every percentage is negotiated and agreed upon with maintainers for each project.",
-  note: "Example distribution shown below—actual percentages are customized to your project's needs",
+  description:
+    "Every percentage is negotiated and agreed upon with maintainers for each project. We manage enterprise outreach, negotiation, and contracts on behalf of maintainers. Our share reflects this effort—while most funds go directly to the people building your stack.",
+  note: "Example distribution shown below—actual percentages are customized on a per-project basis.",
   allocations: [
     {
       percentage: 55,
       title: "Service Provider",
-      subtitle: "Maintainers & Experts",
+      subtitle: "Maintainers",
       icon: Users,
       color: "brand-accent",
-      usage: ["Direct payments to maintainers", "Expert consultation fees", "Priority support delivery"],
-    },
-    {
-      percentage: 20,
-      title: "Open Source Economy",
-      subtitle: "Platform Operations",
-      icon: Building2,
-      color: "brand-primary",
-      usage: ["Platform development & security", "Customer support operations", "Quality assurance & compliance"],
-      negotiable: true,
-    },
-    {
-      percentage: 15,
-      title: "Open Source Project",
-      subtitle: "Project Development",
-      icon: GitBranch,
-      color: "brand-primary",
-      usage: ["Core project improvements", "Bug fixes & feature development", "Documentation & tooling"],
+      description: "Direct payments to maintainers for the services they provide",
+      // usage: [
+      //   "Direct payments to maintainers",
+      //   "Expert consultation fees",
+      //   "Priority support delivery"
+      // ],
     },
     {
       percentage: 10,
+      title: "The platform",
+      subtitle: "Non-Profit Operations",
+      icon: Building2,
+      color: "brand-primary",
+      description: "We handle enterprise relations for maintainers—our share reflect that effort",
+      descriptionNote: "* agreed with each project",
+      // usage: ["Platform development & security", "Customer support operations", "Quality assurance & compliance"],
+    },
+    {
+      percentage: 20,
+      title: "Open Source Project",
+      subtitle: "Maintenance",
+      icon: GitBranch,
+      color: "brand-primary",
+      description: "Reinvestment into the same open source project where the maintainer provided the service",
+      // usage: ["Core project improvements", "Bug fixes & feature development", "Documentation & tooling"],
+    },
+    {
+      percentage: 15,
       title: "Project Dependencies",
       subtitle: "Ecosystem Support",
       icon: Layers,
       color: "brand-highlight",
-      usage: ["Supporting critical dependencies", "Ecosystem health initiatives", "Upstream contribution funding"],
+      description: "Support for the upstream dependencies that the maintained project relies on",
+      // usage: ["Supporting critical dependencies", "Ecosystem health initiatives", "Upstream contribution funding"],
     },
   ] as AllocationCardProps[],
   summary: {
@@ -82,11 +92,13 @@ interface AllocationCardProps {
   subtitle: string;
   icon: LucideIcon;
   color: string; // e.g. "brand-primary" | "brand-accent"
-  usage: string[];
+  description: string;
+  descriptionNote?: string;
+  usage?: string[];
   negotiable?: boolean;
 }
 
-function AllocationCard({ percentage, title, subtitle, icon: Icon, color, usage, negotiable }: AllocationCardProps) {
+function AllocationCard({ percentage, title, subtitle, icon: Icon, color, description, descriptionNote, usage, negotiable }: AllocationCardProps) {
   return (
     <Card className={`group border border-border/50 hover:border-${color}/30 hover:shadow-lg transition-all duration-300`}>
       <CardContent className="p-6 flex flex-col h-full">
@@ -107,17 +119,10 @@ function AllocationCard({ percentage, title, subtitle, icon: Icon, color, usage,
         <h3 className="font-semibold text-foreground mb-1">{title}</h3>
         <p className="text-xs text-muted-foreground mb-4">{subtitle}</p>
 
-        {/* Description per allocation (optional) */}
+        {/* Description per allocation */}
         <p className="text-sm text-muted-foreground mb-4 flex-grow">
-          {title === "Service Provider" && "Direct compensation and priority support from expert maintainers"}
-          {title === "Open Source Economy" && (
-            <>
-              Platform development, security, and customer support operations
-              <span className="block mt-2 text-xs text-brand-accent/70 italic">* Negotiable non-profit fee, agreed with each project</span>
-            </>
-          )}
-          {title === "Open Source Project" && "Core improvements, bug fixes, and feature development"}
-          {title === "Project Dependencies" && "Supporting critical dependencies and ecosystem health"}
+          {description}
+          {descriptionNote && <span className="block mt-2 text-xs text-brand-accent/70 italic">{descriptionNote}</span>}
         </p>
 
         {/* Bottom Section - Always Aligned */}
@@ -125,14 +130,16 @@ function AllocationCard({ percentage, title, subtitle, icon: Icon, color, usage,
           <Progress value={percentage} className={`h-2 bg-brand-neutral-300 [&>div]:bg-${color} mb-3`} />
 
           {/* Fund Usage Bullet Points */}
-          <div className="text-left space-y-1">
-            {usage.map((u, i) => (
-              <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                <div className={`w-1 h-1 rounded-full bg-${color} mt-1.5 flex-shrink-0`} />
-                <span>{u}</span>
-              </div>
-            ))}
-          </div>
+          {usage && usage.length > 0 && (
+            <div className="text-left space-y-1">
+              {usage.map((u, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                  <div className={`w-1 h-1 rounded-full bg-${color} mt-1.5 flex-shrink-0`} />
+                  <span>{u}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -172,31 +179,33 @@ export function FundDistributionMinimal({ className }: FundDistributionMinimalPr
         </div>
 
         {/* Summary & CTA */}
-        <Card className="border border-brand-accent/20 bg-gradient-to-br from-card to-brand-accent/5">
-          <CardContent className="p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <SummaryIcon className="w-5 h-5 text-brand-accent" />
-              <span className="text-brand-accent font-medium">{summary.label}</span>
-            </div>
+        {isVisible("fundDistributionSummary") && (
+          <Card className="border border-brand-accent/20 bg-gradient-to-br from-card to-brand-accent/5">
+            <CardContent className="p-8 text-center">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <SummaryIcon className="w-5 h-5 text-brand-accent" />
+                <span className="text-brand-accent font-medium">{summary.label}</span>
+              </div>
 
-            <h3 className="text-xl font-semibold text-foreground mb-2">{summary.heading}</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{summary.heading}</h3>
 
-            <p className="text-muted-foreground mb-4 max-w-2xl mx-auto">{summary.paragraph}</p>
+              <p className="text-muted-foreground mb-4 max-w-2xl mx-auto">{summary.paragraph}</p>
 
-            <p className="text-sm text-brand-primary mb-6 max-w-lg mx-auto">{summary.highlight}</p>
+              <p className="text-sm text-brand-primary mb-6 max-w-lg mx-auto">{summary.highlight}</p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button className="bg-gradient-to-r from-brand-accent to-brand-accent-dark hover:from-brand-accent-dark hover:to-brand-accent text-white">
-                <summary.ctaPrimary.icon className="w-4 h-4 mr-2" />
-                {summary.ctaPrimary.text}
-              </Button>
-              <Button variant="outline" className="border-brand-accent/30 text-brand-accent hover:bg-brand-accent/10">
-                {summary.ctaSecondary.text}
-                <summary.ctaSecondary.icon className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button className="bg-gradient-to-r from-brand-accent to-brand-accent-dark hover:from-brand-accent-dark hover:to-brand-accent text-white">
+                  <summary.ctaPrimary.icon className="w-4 h-4 mr-2" />
+                  {summary.ctaPrimary.text}
+                </Button>
+                <Button variant="outline" className="border-brand-accent/30 text-brand-accent hover:bg-brand-accent/10">
+                  {summary.ctaSecondary.text}
+                  <summary.ctaSecondary.icon className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </section>
   );

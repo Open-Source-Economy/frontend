@@ -8,6 +8,7 @@ import { WinWinWinPartnership } from "src/views/pages/home/sections/WinWinWinPar
 import { ProjectsShowcaseCompact } from "src/views/pages/home/sections/ProjectsShowcaseCompact";
 import { UniqueSellingPoints } from "src/views/pages/home/sections/UniqueSellingPoints";
 import { laurianeCalLink } from "src/views/v1/data";
+import { FundDistributionMinimal } from "./sections/FundDistributionMinimal";
 
 interface HomeProps {}
 
@@ -45,12 +46,12 @@ export function HomePage(props: HomeProps) {
       {/* Win-Win-Win Partnership - Value Proposition */}
       <WinWinWinPartnership className="bg-gradient-to-br from-brand-neutral-200 via-brand-secondary to-brand-card-blue-dark" />
 
-      {/*/!* Fund Distribution - Transparency with Semantic Green Accents *!/*/}
-      {/*<div className="relative overflow-hidden bg-gradient-to-b from-brand-card-blue-dark via-brand-secondary to-brand-neutral-100">*/}
-      {/*  <div className="absolute top-0 left-1/4 w-80 h-80 bg-brand-success/15 rounded-full blur-3xl opacity-40" />*/}
-      {/*  <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-success/10 rounded-full blur-2xl opacity-30" />*/}
-      {/*  <FundDistributionMinimal />*/}
-      {/*</div>*/}
+      {/* Fund Distribution - Transparency with Semantic Green Accents */}
+      <div className="relative overflow-hidden bg-gradient-to-b from-brand-card-blue-dark via-brand-secondary to-brand-neutral-100">
+        <div className="absolute top-0 left-1/4 w-80 h-80 bg-brand-success/15 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-success/10 rounded-full blur-2xl opacity-30" />
+        <FundDistributionMinimal />
+      </div>
 
       {/* Featured Projects - Portfolio Showcase with Deep Navy */}
       <ProjectsShowcaseCompact

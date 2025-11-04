@@ -41,6 +41,9 @@ export const features = {
   /** FAQ page in header navigation */
   faqPage: envGroups.localAndDev,
 
+  /** Fund distribution summary section */
+  fundDistributionSummary: envGroups.localAndDev,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,
