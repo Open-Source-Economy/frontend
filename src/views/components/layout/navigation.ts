@@ -1,5 +1,6 @@
 import { NavigationLink, NavigationSection } from "src/types/navigation";
 import { paths } from "src/paths";
+import { isVisible } from "src/ultils/featureVisibility";
 
 /**
  * Single source of truth for all navigation links across the application
@@ -24,8 +25,16 @@ export const navigationLinks = {
 // -----------------------------
 // Header Configuration
 // -----------------------------
+const headerItems: NavigationLink[] = [
+  navigationLinks.projects,
+  navigationLinks.services,
+  ...(isVisible("faqPage") ? [navigationLinks.faq] : []),
+  navigationLinks.blog,
+  navigationLinks.contact,
+];
+
 export const headerNavigation = {
-  items: [navigationLinks.projects, navigationLinks.services, navigationLinks.faq, navigationLinks.blog, navigationLinks.contact] as NavigationLink[],
+  items: headerItems,
   cta: undefined as NavigationLink | undefined, // { title: "Get Started", href: paths.PROJECTS } as NavigationLink,
 };
 

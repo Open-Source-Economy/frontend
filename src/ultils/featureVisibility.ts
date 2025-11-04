@@ -38,6 +38,9 @@ export const features = {
   /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
   enterpriseServiceButtons: envGroups.localOnly,
 
+  /** FAQ page in header navigation */
+  faqPage: envGroups.localAndDev,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,
