@@ -1,9 +1,10 @@
 import React from "react";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
-import { FeatureBadge } from "src/views/components/ui/feature-badge";
-import { FileText, Heart, Layers, LucideIcon, Rocket } from "lucide-react";
-
+import { ArrowRight, Clock, FileText, Heart, Layers, LucideIcon, Rocket, Zap } from "lucide-react";
+import { Button } from "../../../components/ui/forms";
+import { laurianeCalLink } from "src/views/v1/data";
+import { envGroups, isFeatureVisible } from "src/ultils/featureVisibility";
 // -----------------------------
 // Types
 // -----------------------------
@@ -49,6 +50,31 @@ export const howItWorksContent = {
     },
   ] as HowItWorksStep[],
   features: ["NDA protection", "SLA-backed", "Easy payment processing", "Full transparency", "100% open source output code"],
+  accessModels: {
+    title: "Two Flexible Access Models",
+    description: "Choose the model that fits your needs, or combine both for maximum flexibility",
+    models: [
+      {
+        icon: Clock,
+        title: "Reserved Time",
+        description: "Dedicated hours with specific maintainers for ongoing work on critical projects",
+        badge: "Best for: Critical ongoing projects",
+        accentColor: "accent",
+      },
+      {
+        icon: Zap,
+        title: "On-Demand Access",
+        description: "Pre-purchase Service Credits that roll over — use them anytime with any maintainer who built the tools you rely on",
+        badge: "Best for: Broad ecosystem support",
+        accentColor: "highlight",
+      },
+    ],
+  },
+  cta: {
+    primaryButton: "Schedule a Demo",
+    secondaryButton: "Learn More",
+    subtext: "30-minute call • No commitment • Custom pricing",
+  },
 };
 
 interface HowItWorksSimpleProps {
@@ -88,11 +114,70 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
           </div>
         </div>
 
-        {/* Feature badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-          {howItWorksContent.features.map((feature, index) => (
-            <FeatureBadge key={index} label={feature} />
-          ))}
+        {/*/!* Feature badges *!/*/}
+        {/*<div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">*/}
+        {/*  {howItWorksContent.features.map((feature, index) => (*/}
+        {/*    <FeatureBadge key={index} label={feature} />*/}
+        {/*  ))}*/}
+        {/*</div>*/}
+
+        {/* Access Models Section */}
+        <div className="mb-16">
+          <div className="text-center mb-10">
+            <h3 className="text-brand-neutral-900 mb-3">{howItWorksContent.accessModels.title}</h3>
+            <p className="text-brand-neutral-600 max-w-2xl mx-auto">{howItWorksContent.accessModels.description}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {howItWorksContent.accessModels.models.map((model, index) => {
+              const Icon = model.icon;
+              return (
+                <div
+                  key={index}
+                  className={`bg-brand-card-blue/50 backdrop-blur-sm border border-brand-neutral-300/30 rounded-lg p-6 hover:border-brand-${model.accentColor}/40 transition-colors flex flex-col`}
+                >
+                  <div className="flex items-start gap-4 mb-4 flex-grow">
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-brand-${model.accentColor}/10 flex items-center justify-center`}>
+                      <Icon className={`w-6 h-6 text-brand-${model.accentColor}`} />
+                    </div>
+                    <div>
+                      <h4 className="text-brand-neutral-900 mb-2">{model.title}</h4>
+                      <p className="text-brand-neutral-700 text-sm">{model.description}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-brand-neutral-600 text-sm mt-auto">
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-${model.accentColor}/10 text-brand-${model.accentColor}-light`}
+                    >
+                      {model.badge}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4">
+            <Button
+              size="lg"
+              className="gap-2 bg-brand-accent hover:bg-brand-accent-light text-white shadow-lg shadow-brand-accent/20"
+              href={laurianeCalLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {howItWorksContent.cta.primaryButton}
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+            {isFeatureVisible(envGroups.localAndDev) && (
+              <Button size="lg" variant="outline" className="gap-2 border-brand-neutral-400/40 hover:border-brand-accent/60 hover:bg-brand-accent/10">
+                {howItWorksContent.cta.secondaryButton}
+              </Button>
+            )}
+          </div>
+          <p className="text-brand-neutral-600 text-sm mt-4">{howItWorksContent.cta.subtext}</p>
         </div>
       </div>
     </section>
