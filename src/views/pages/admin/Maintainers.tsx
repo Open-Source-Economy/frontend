@@ -8,46 +8,82 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
-import { SourceIdentifierCompanion, VerificationRecordCompanion, VerificationStatusCompanion } from "src/ultils/companions";
+import { FullDeveloperProfileCompanion, SourceIdentifierCompanion, VerificationRecordCompanion, VerificationStatusCompanion } from "src/ultils/companions";
 import { AlertCircle, ArrowRight, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
 import { Input } from "src/views/components/ui/forms/input";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Badge } from "src/views/components/ui/badge";
 
 export function Maintainers() {
-  const [profiles, setProfiles] = useState<dto.FullDeveloperProfile[]>([]);
+  const [allProfiles, setAllProfiles] = useState<dto.FullDeveloperProfile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<dto.VerificationStatus | "all">("all");
   const [expandedProfiles, setExpandedProfiles] = useState<Set<string>>(new Set());
+  const [useLocalSearch, setUseLocalSearch] = useState(true);
   const adminAPI = getAdminBackendAPI();
 
   const fetchProfiles = async () => {
     const apiCall = async () => {
-      return await adminAPI.getAllDeveloperProfiles(
-        {},
-        {
-          verificationStatus: statusFilter === "all" ? undefined : statusFilter,
-          searchTerm: searchTerm.trim() || undefined,
-        },
-      );
+      // If using local search, fetch all profiles without filters
+      // If using backend search, pass filters to the backend
+      if (useLocalSearch) {
+        return await adminAPI.getAllDeveloperProfiles({}, {});
+      } else {
+        return await adminAPI.getAllDeveloperProfiles(
+          {},
+          {
+            verificationStatus: statusFilter === "all" ? undefined : statusFilter,
+            searchTerm: searchTerm.trim() || undefined,
+          },
+        );
+      }
     };
 
     const onSuccess = (response: any) => {
-      setProfiles(response.profiles);
+      setAllProfiles(response.profiles);
     };
 
     await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
-  useEffect(() => {
-    fetchProfiles();
-  }, [statusFilter, searchTerm]);
+  useEffect(
+    () => {
+      fetchProfiles();
+      // When using local search, only fetch once (when mode changes)
+      // When using backend search, refetch when search term or filter changes
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    useLocalSearch ? [useLocalSearch] : [useLocalSearch, statusFilter, searchTerm],
+  );
 
-  const getGithubUsername = (profile: dto.FullDeveloperProfile): string | null => {
-    return profile.profileEntry?.owner?.id.login || null;
-  };
+  // Filtering logic - local or backend
+  const profiles = useMemo(() => {
+    if (!useLocalSearch) {
+      // Backend search - profiles are already filtered
+      return allProfiles;
+    }
+
+    // Local filtering
+    let filtered = allProfiles;
+
+    // Apply status filter
+    if (statusFilter !== "all") {
+      filtered = filtered.filter(profile => {
+        if (!profile.profileEntry) return false;
+        const status = VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid);
+        return status === statusFilter;
+      });
+    }
+
+    // Apply search filter
+    if (searchTerm.trim()) {
+      filtered = filtered.filter(profile => FullDeveloperProfileCompanion.matchesSearchTerm(profile, searchTerm));
+    }
+
+    return filtered;
+  }, [allProfiles, statusFilter, searchTerm, useLocalSearch]);
 
   const getActionNeededCount = (profile: dto.FullDeveloperProfile): number => {
     let count = 0;
@@ -143,27 +179,56 @@ export function Maintainers() {
 
           {/* Search and Filters */}
           <div className="bg-[#1A2B45] rounded-lg p-6 mb-6">
-            <div className="flex flex-col md:flex-row gap-4">
-              {/* Search Bar */}
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-neutral-500" />
-                <Input
-                  type="text"
-                  placeholder="Search by name, email, or project..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-[#14233A] border-brand-neutral-700 text-white"
-                />
+            <div className="flex flex-col gap-4">
+              {/* Search Mode Toggle */}
+              <div className="flex items-center justify-between pb-4 border-b border-brand-neutral-700">
+                <div className="flex items-center gap-3">
+                  <span className="text-brand-neutral-400 text-sm">Search Mode:</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setUseLocalSearch(true)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        useLocalSearch ? "bg-brand-accent text-white" : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
+                      }`}
+                    >
+                      Local (Instant)
+                    </button>
+                    <button
+                      onClick={() => setUseLocalSearch(false)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        !useLocalSearch ? "bg-brand-accent text-white" : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
+                      }`}
+                    >
+                      Backend
+                    </button>
+                  </div>
+                </div>
+                <span className="text-xs text-brand-neutral-500">{useLocalSearch ? "Searching locally for instant results" : "Searching via backend API"}</span>
               </div>
 
-              {/* Verification Status Filter */}
-              <div className="w-64">
-                <SelectField
-                  label="Filter by Status"
-                  options={[{ value: "all", label: "All Statuses" }, ...VerificationStatusCompanion.selectOptions()]}
-                  value={statusFilter}
-                  onChange={value => setStatusFilter(value as dto.VerificationStatus | "all")}
-                />
+              {/* Search and Filter Controls */}
+              <div className="flex flex-col md:flex-row gap-4">
+                {/* Search Bar */}
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-neutral-500" />
+                  <Input
+                    type="text"
+                    placeholder="Search by name, email, or project..."
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="pl-10 bg-[#14233A] border-brand-neutral-700 text-white"
+                  />
+                </div>
+
+                {/* Verification Status Filter */}
+                <div className="w-64">
+                  <SelectField
+                    label="Filter by Status"
+                    options={[{ value: "all", label: "All Statuses" }, ...VerificationStatusCompanion.selectOptions()]}
+                    value={statusFilter}
+                    onChange={value => setStatusFilter(value as dto.VerificationStatus | "all")}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -176,7 +241,7 @@ export function Maintainers() {
               </div>
             ) : (
               profiles.map((profile, idx) => {
-                const githubUsername = getGithubUsername(profile);
+                const githubUsername = FullDeveloperProfileCompanion.getGithubUsername(profile);
                 const actionCount = getActionNeededCount(profile);
                 const unapprovedProjects = profile.projects.filter(p =>
                   VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid),
