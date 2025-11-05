@@ -379,22 +379,22 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           </BrandModalSection>
         )}
 
-        {/* Step 3: Verification Notice */}
-        {selectedProjectType && (
-          <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">
-            <InfoMessage icon={AlertCircle} variant="success" title="Verification Process">
-              <p className="mb-3">
-                We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for
-                successful verification.
-              </p>
-              <ul className="text-xs space-y-1 ml-4 list-disc">
-                <li>Verification typically takes 24-48 hours</li>
-                <li>You'll receive an email notification once verified</li>
-                <li>Public contributions are required for verification</li>
-              </ul>
-            </InfoMessage>
-          </BrandModalSection>
-        )}
+        {/*/!* Step 3: Verification Notice *!/*/}
+        {/*{selectedProjectType && (*/}
+        {/*  <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">*/}
+        {/*    <InfoMessage icon={AlertCircle} variant="success" title="Verification Process">*/}
+        {/*      <p className="mb-3">*/}
+        {/*        We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for*/}
+        {/*        successful verification.*/}
+        {/*      </p>*/}
+        {/*      <ul className="text-xs space-y-1 ml-4 list-disc">*/}
+        {/*        <li>Verification typically takes 24-48 hours</li>*/}
+        {/*        <li>You'll receive an email notification once verified</li>*/}
+        {/*        <li>Public contributions are required for verification</li>*/}
+        {/*      </ul>*/}
+        {/*    </InfoMessage>*/}
+        {/*  </BrandModalSection>*/}
+        {/*)}*/}
 
         {/* API Error Display */}
         {error && <ServerErrorAlert error={error} variant="compact" />}
