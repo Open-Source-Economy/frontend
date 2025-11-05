@@ -140,7 +140,7 @@ export function ProjectCard(props: ProjectCardProps) {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1">
                             <p className="text-xs text-foreground truncate">{developer.developerOwner.id.login}</p>
-                            {/*<BadgeCheck className="w-3 h-3 text-brand-success flex-shrink-0" />*/}
+                            {/*<BadgeCheck className="w-3 h-3 text-brand-primary flex-shrink-0" />*/}
                           </div>
                           <p className="text-xs text-muted-foreground truncate">
                             {developer.developerProjectItem.roles.length > 0

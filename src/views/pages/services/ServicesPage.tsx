@@ -51,7 +51,7 @@ export function ServicesPage() {
         </>
       ),
       buttonText: "Request SLA",
-      colorScheme: "success" as const,
+      colorScheme: "accent" as const,
     },
     {
       icon: Globe,
@@ -63,7 +63,7 @@ export function ServicesPage() {
         </>
       ),
       buttonText: "Request Program",
-      colorScheme: "success" as const,
+      colorScheme: "primary" as const,
     },
   ];
 
@@ -80,7 +80,7 @@ export function ServicesPage() {
                 <h1 className="text-4xl lg:text-5xl tracking-tight font-semibold">
                   <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">Services Available</span>
                   <br />
-                  <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-success bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent">
                     From Expert Maintainers
                   </span>
                 </h1>
@@ -89,7 +89,7 @@ export function ServicesPage() {
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                   Our network of expert open source maintainers provides professional services across
                   <span className="text-brand-primary"> development work</span>,<span className="text-brand-accent"> strategic consulting</span>, and
-                  <span className="text-brand-success"> security & compliance</span>
+                  <span className="text-brand-primary"> security & compliance</span>
                 </p>
               }
             />
@@ -115,7 +115,7 @@ export function ServicesPage() {
                 title="Advisory & Support"
                 description="Strategic guidance and technical support from experienced maintainers"
                 mainIcon={<GraduationCap className="w-9 h-9" />}
-                colorScheme="success"
+                colorScheme="accent"
                 services={[
                   { name: "Technical Support", icon: <LifeBuoy className="w-5 h-5" />, description: "Expert problem solving" },
                   { name: "Architectural Consulting", icon: <Users className="w-5 h-5" />, description: "System design guidance" },
@@ -147,7 +147,7 @@ export function ServicesPage() {
               <div className="relative bg-gradient-to-r from-brand-neutral-50/50 to-transparent rounded-xl border border-brand-neutral-200/50 p-8 md:p-10 lg:p-12 overflow-hidden">
                 {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand-primary/10 to-transparent rounded-full blur-3xl opacity-50"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-brand-success/10 to-transparent rounded-full blur-3xl opacity-50"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-brand-primary/10 to-transparent rounded-full blur-3xl opacity-50"></div>
 
                 <div className="relative z-10 text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-brand-primary to-brand-primary-dark rounded-2xl mb-6 shadow-lg">

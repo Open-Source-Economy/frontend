@@ -75,7 +75,7 @@ export function WinWinWinPartnership({ className }: WinWinWinPartnershipProps) {
   const { title, description, cards } = winWinWinContent;
 
   return (
-    <section className={`py-24 lg:py-40 bg-gradient-to-b from-brand-card-blue via-brand-secondary/95 to-brand-success/10 ${className ?? ""}`}>
+    <section className={`py-24 lg:py-40 bg-gradient-to-b from-brand-card-blue via-brand-secondary/95 to-brand-primary/10 ${className ?? ""}`}>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16 lg:mb-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-brand-neutral-950 mb-6 tracking-tight">{title}</h1>

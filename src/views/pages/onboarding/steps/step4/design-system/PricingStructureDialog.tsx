@@ -54,18 +54,18 @@ export const PricingStructureDialog: React.FC = () => {
 
               <div className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-success"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-primary"></div>
                   <span className="text-sm text-brand-neutral-700">Your project</span>
                 </div>
-                <span className="text-sm text-brand-success">$25 (12.5%)</span>
+                <span className="text-sm text-brand-primary">$25 (12.5%)</span>
               </div>
 
               <div className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-success"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-primary"></div>
                   <span className="text-sm text-brand-neutral-700">Dependencies</span>
                 </div>
-                <span className="text-sm text-brand-success">$15 (7.5%)</span>
+                <span className="text-sm text-brand-primary">$15 (7.5%)</span>
               </div>
 
               <div className="flex items-center justify-between py-2">
@@ -78,12 +78,12 @@ export const PricingStructureDialog: React.FC = () => {
             </div>
 
             {/* Collaborative Note */}
-            <div className="mt-3 p-3 bg-brand-card-blue/50 rounded-lg border border-brand-success/20">
+            <div className="mt-3 p-3 bg-brand-card-blue/50 rounded-lg border border-brand-primary/20">
               <div className="flex items-start gap-2">
-                <Users className="w-4 h-4 text-brand-success mt-0.5 flex-shrink-0" />
+                <Users className="w-4 h-4 text-brand-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-brand-neutral-700">
-                    <strong className="text-brand-success">Note:</strong> Project and dependency distribution is decided collaboratively with you and other
+                    <strong className="text-brand-primary">Note:</strong> Project and dependency distribution is decided collaboratively with you and other
                     maintainers.
                   </p>
                 </div>
@@ -108,17 +108,17 @@ export const PricingStructureDialog: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative p-4 bg-gradient-to-br from-brand-success/8 via-brand-success/5 to-transparent rounded-lg border-l-4 border-brand-success overflow-hidden">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-brand-success/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
+            <div className="relative p-4 bg-gradient-to-br from-brand-primary/8 via-brand-primary/5 to-transparent rounded-lg border-l-4 border-brand-primary overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-brand-primary/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
               <div className="relative">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-lg bg-brand-success/15 flex items-center justify-center">
-                    <TrendingUp className="w-4 h-4 text-brand-success" />
+                  <div className="w-7 h-7 rounded-lg bg-brand-primary/15 flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-brand-primary" />
                   </div>
                   <h5 className="text-sm text-brand-neutral-900">Our Commitment</h5>
                 </div>
                 <p className="text-xs text-brand-neutral-700 leading-relaxed">
-                  We maximize your rate with enterprises — when it increases, <strong className="text-brand-success">everyone benefits</strong>.
+                  We maximize your rate with enterprises — when it increases, <strong className="text-brand-primary">everyone benefits</strong>.
                 </p>
               </div>
             </div>

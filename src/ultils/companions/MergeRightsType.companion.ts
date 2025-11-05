@@ -18,10 +18,10 @@ const mergeRightsLabelMap: Record<dto.MergeRightsType, string> = {
 const mergeRightsStyleMap: Record<dto.MergeRightsType, string> = {
   [dto.MergeRightsType.NONE]: "bg-brand-neutral-300/20 text-brand-neutral-600 border border-brand-neutral-300/30",
   [dto.MergeRightsType.REVIEWER]: "bg-brand-warning/10 text-brand-warning border border-brand-warning/20",
-  [dto.MergeRightsType.LIMITED]: "bg-brand-success/10 text-brand-success border border-brand-success/20",
-  [dto.MergeRightsType.FULL_COMMITTER]: "bg-brand-success/10 text-brand-success border border-brand-success/20",
-  [dto.MergeRightsType.VOTE_BASED_COMMITTER]: "bg-brand-success/10 text-brand-success border border-brand-success/20",
-  [dto.MergeRightsType.RELEASE_MANAGER]: "bg-brand-success/10 text-brand-success border border-brand-success/20",
+  [dto.MergeRightsType.LIMITED]: "bg-brand-primary/10 text-brand-primary border border-brand-primary/20",
+  [dto.MergeRightsType.FULL_COMMITTER]: "bg-brand-primary/10 text-brand-primary border border-brand-primary/20",
+  [dto.MergeRightsType.VOTE_BASED_COMMITTER]: "bg-brand-primary/10 text-brand-primary border border-brand-primary/20",
+  [dto.MergeRightsType.RELEASE_MANAGER]: "bg-brand-primary/10 text-brand-primary border border-brand-primary/20",
   [dto.MergeRightsType.EMERITUS]: "bg-brand-neutral-300/20 text-brand-neutral-600 border border-brand-neutral-300/30",
 };
 

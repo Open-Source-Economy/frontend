@@ -48,8 +48,8 @@ export function HomePage(props: HomeProps) {
 
       {/* Fund Distribution - Transparency with Semantic Green Accents */}
       <div className="relative overflow-hidden bg-gradient-to-b from-brand-card-blue-dark via-brand-secondary to-brand-neutral-100">
-        <div className="absolute top-0 left-1/4 w-80 h-80 bg-brand-success/15 rounded-full blur-3xl opacity-40" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-success/10 rounded-full blur-2xl opacity-30" />
+        <div className="absolute top-0 left-1/4 w-80 h-80 bg-brand-primary/15 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-primary/10 rounded-full blur-2xl opacity-30" />
         <FundDistributionMinimal />
       </div>
 

@@ -16,9 +16,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGitHubSignIn }) => {
 
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-brand-success/10 border border-brand-success/20 px-4 py-2 rounded-full mb-6">
-            <Code2 className="w-4 h-4 text-brand-success" />
-            <span className="text-sm text-brand-success uppercase tracking-wider">For Open Source Maintainers</span>
+          <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-2 rounded-full mb-6">
+            <Code2 className="w-4 h-4 text-brand-primary" />
+            <span className="text-sm text-brand-primary uppercase tracking-wider">For Open Source Maintainers</span>
           </div>
 
           <h1 className="text-brand-neutral-950 mb-6">Get Paid for Your Open Source Work</h1>

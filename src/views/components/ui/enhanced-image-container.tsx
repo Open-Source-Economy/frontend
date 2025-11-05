@@ -53,7 +53,7 @@ export function EnhancedImageContainer({ src, alt, className = "", showDecoratio
 
       {/* Secondary glow effect */}
       {showDecorations && variant !== "standard" && (
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-brand-success/20 rounded-2xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-brand-primary/20 rounded-2xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
       )}
 
       {/* Image container */}
@@ -72,7 +72,7 @@ export function EnhancedImageContainer({ src, alt, className = "", showDecoratio
       </div>
 
       {/* Corner accent */}
-      {showDecorations && variant !== "standard" && <div className="absolute top-4 right-4 w-3 h-3 bg-brand-success rounded-full opacity-60 animate-pulse" />}
+      {showDecorations && variant !== "standard" && <div className="absolute top-4 right-4 w-3 h-3 bg-brand-primary rounded-full opacity-60 animate-pulse" />}
     </div>
   );
 }

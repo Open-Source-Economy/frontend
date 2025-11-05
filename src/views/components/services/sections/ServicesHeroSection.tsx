@@ -23,9 +23,9 @@ export const ServicesHeroSection: React.FC<ServicesHeroSectionProps> = ({
     <div className={`relative text-center mb-16 ${className}`}>
       {/* Background decoration - Blue to Green Journey */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-brand-primary/6 via-brand-accent/4 to-brand-success/8 rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-brand-primary/6 via-brand-accent/4 to-brand-primary/8 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-brand-primary/8 via-brand-accent/6 to-transparent rounded-full blur-2xl opacity-40"></div>
-        <div className="absolute top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-brand-accent/6 via-brand-success/4 to-transparent rounded-full blur-xl opacity-35"></div>
+        <div className="absolute top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-brand-accent/6 via-brand-primary/4 to-transparent rounded-full blur-xl opacity-35"></div>
       </div>
 
       {/* Content */}

@@ -602,7 +602,7 @@ const getStatusBadge = (status: Project["status"]) => {
     case "trending":
       return <Badge className="bg-brand-warning text-white">Trending</Badge>;
     case "new":
-      return <Badge className="bg-brand-success text-white">New</Badge>;
+      return <Badge className="bg-brand-primary text-white">New</Badge>;
     case "active":
     default:
       return null;
@@ -1088,7 +1088,7 @@ export function ProjectsShowcase({
 
                         {/* Enhanced Maintainer Section */}
                         <div className="relative p-3 bg-gradient-to-r from-brand-accent/20 via-brand-primary/5 to-brand-accent/10 rounded-xl border border-brand-primary/15 shadow-sm backdrop-blur-sm">
-                          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/2 via-brand-accent/4 to-brand-success/2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/2 via-brand-accent/4 to-brand-primary/2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                           <div className="relative space-y-2">
                             {/* Maintainer Count Header */}
@@ -1117,7 +1117,7 @@ export function ProjectsShowcase({
                               ) : (
                                 <Badge
                                   variant="outline"
-                                  className="text-xs px-2 py-0.5 border-brand-success/40 text-brand-success-dark bg-brand-success/25 hover:bg-brand-success/30 transition-colors duration-300"
+                                  className="text-xs px-2 py-0.5 border-brand-primary/40 text-brand-primary-dark bg-brand-primary/25 hover:bg-brand-primary/30 transition-colors duration-300"
                                 >
                                   Expert
                                 </Badge>
@@ -1341,7 +1341,7 @@ export function ProjectsShowcase({
 
         {/* Enhanced Request Project Support CTA */}
         <div className="relative mt-16">
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-brand-success/10 rounded-2xl blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-brand-primary/10 rounded-2xl blur-sm" />
           <div className="relative p-8 md:p-10 bg-background/90 backdrop-blur-sm border border-brand-primary/20 rounded-2xl shadow-xl shadow-brand-primary/5">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="text-center lg:text-left flex-1">

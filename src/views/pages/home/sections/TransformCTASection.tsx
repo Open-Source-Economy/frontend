@@ -90,8 +90,8 @@ export function TransformCTASection(props: TransformCTASectionProps) {
                 }}
               >
                 <div className="relative mt-0.5">
-                  <div className="absolute inset-0 bg-brand-success blur-md opacity-30" />
-                  <CheckCircle2 className="relative w-5 h-5 text-brand-success drop-shadow-lg" />
+                  <div className="absolute inset-0 bg-brand-primary blur-md opacity-30" />
+                  <CheckCircle2 className="relative w-5 h-5 text-brand-primary drop-shadow-lg" />
                 </div>
                 <span
                   className="text-brand-neutral-900 leading-relaxed group-hover:text-brand-neutral-950 transition-colors duration-300"
@@ -137,7 +137,7 @@ export function TransformCTASection(props: TransformCTASectionProps) {
                 textShadow: "0 1px 3px rgba(0, 0, 0, 0.5)",
               }}
             >
-              <div className="w-2 h-2 bg-brand-success rounded-full animate-pulse shadow-lg shadow-brand-success/50" />
+              <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse shadow-lg shadow-brand-primary/50" />
               <span>Join 100+ organizations transforming their open source approach</span>
             </div>
           </div>

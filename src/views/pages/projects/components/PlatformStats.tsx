@@ -65,10 +65,10 @@ export function PlatformStats(props: PlatformStatsProps) {
       icon: Users,
       label: "Maintainers",
       value: `${props.projectStats.totalMaintainers}`,
-      iconBg: "bg-gradient-to-br from-brand-highlight/20 to-brand-success/20",
-      iconBorder: "border-brand-highlight/30 group-hover:border-brand-success/50",
-      iconColor: "text-brand-highlight group-hover:text-brand-success",
-      valueGradient: "from-brand-highlight via-brand-highlight-light to-brand-success group-hover:from-brand-success group-hover:to-brand-highlight",
+      iconBg: "bg-gradient-to-br from-brand-highlight/20 to-brand-primary/20",
+      iconBorder: "border-brand-highlight/30 group-hover:border-brand-primary/50",
+      iconColor: "text-brand-highlight group-hover:text-brand-primary",
+      valueGradient: "from-brand-highlight via-brand-highlight-light to-brand-primary group-hover:from-brand-primary group-hover:to-brand-highlight",
     },
   ];
 

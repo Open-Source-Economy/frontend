@@ -9,7 +9,7 @@ interface EnterpriseService {
   title: string;
   description: React.ReactNode;
   buttonText: string;
-  colorScheme: "primary" | "success" | "accent";
+  colorScheme: "primary" | "accent";
 }
 
 interface EnterpriseAddonsSectionProps {
@@ -28,7 +28,7 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
     <div className={`relative mb-12 ${className}`}>
       {/* Background decoration - Blue to Green Journey */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-brand-primary/5 via-brand-accent/4 to-brand-success/6 rounded-full blur-2xl opacity-60"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-brand-primary/5 via-brand-accent/4 to-brand-primary/6 rounded-full blur-2xl opacity-60"></div>
       </div>
 
       <Card className="bg-gradient-to-br from-background via-background to-brand-accent/3 border-brand-primary/15 shadow-md backdrop-blur-sm">
@@ -36,12 +36,12 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
           <div className="text-center max-w-4xl mx-auto">
             {/* Enhanced Header with Blue-to-Green Journey */}
             <div className="relative mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/15 via-brand-accent/12 to-brand-success/15 blur-xl opacity-40 rounded-full"></div>
-              <div className="relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-brand-primary/8 via-brand-accent/10 to-brand-success/8 rounded-full border border-brand-accent/20 backdrop-blur-sm shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/15 via-brand-accent/12 to-brand-primary/15 blur-xl opacity-40 rounded-full"></div>
+              <div className="relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-brand-primary/8 via-brand-accent/10 to-brand-primary/8 rounded-full border border-brand-accent/20 backdrop-blur-sm shadow-lg">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></div>
                   <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-                  <div className="w-1 h-1 bg-brand-success rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+                  <div className="w-1 h-1 bg-brand-primary rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
                 </div>
                 <span className="text-sm font-semibold text-brand-accent-dark tracking-wide">Enterprise-Grade Assurance</span>
                 <Shield className="w-4 h-4 text-brand-accent" />
@@ -49,7 +49,7 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
             </div>
 
             <h2 className="text-2xl lg:text-3xl mb-4 font-semibold">
-              <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-success bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent">
                 Professional Service Guarantees
               </span>
             </h2>
@@ -57,7 +57,7 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
               Enterprise-grade <span className="text-brand-primary">legal frameworks</span> with
               <span className="text-brand-accent"> strategic partnerships</span> designed for
-              <span className="text-brand-success"> sustainable growth</span> at scale.
+              <span className="text-brand-primary"> sustainable growth</span> at scale.
             </p>
 
             {/* Premium Enterprise Services Grid */}

@@ -11,7 +11,7 @@ interface ServiceColumnProps {
   description: string;
   mainIcon: React.ReactNode;
   services: ServiceItem[];
-  colorScheme: "primary" | "success" | "accent";
+  colorScheme: "primary" | "accent";
 }
 
 export function ServiceColumn({ title, description, mainIcon, services, colorScheme }: ServiceColumnProps) {
@@ -35,25 +35,6 @@ export function ServiceColumn({ title, description, mainIcon, services, colorSch
           itemBgHover: "hover:from-brand-primary/5 hover:to-brand-primary/10",
           accentLineItem: "via-brand-primary/20",
           arrowHover: "group-hover/item:text-brand-primary",
-        };
-      case "success":
-        return {
-          gradientOverlay: "from-brand-success/5 via-transparent to-brand-success/10",
-          glowEffect: "from-brand-success/30 via-brand-success/20 to-transparent",
-          backgroundRings: "from-brand-success/15 to-brand-success/25",
-          backgroundRings2: "from-brand-success/10 to-brand-success/20",
-          mainGradient: "from-brand-success via-brand-success to-brand-success-dark",
-          shadowColor: "group-hover:shadow-brand-success/25",
-          particleColor: "bg-brand-success-light",
-          titleHover: "group-hover:text-brand-success",
-          accentLine: "from-brand-success/40",
-          itemIconBg: "from-brand-success/10 to-brand-success/20",
-          itemIconHover: "group-hover/item:from-brand-success group-hover/item:to-brand-success-dark",
-          itemTitleHover: "group-hover/item:text-brand-success",
-          itemBorderHover: "hover:border-brand-success/20",
-          itemBgHover: "hover:from-brand-success/5 hover:to-brand-success/10",
-          accentLineItem: "via-brand-success/20",
-          arrowHover: "group-hover/item:text-brand-success",
         };
       case "accent":
         return {

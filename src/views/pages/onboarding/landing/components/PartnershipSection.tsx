@@ -5,7 +5,7 @@ export const PartnershipSection: React.FC = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-brand-secondary via-brand-neutral-100 to-brand-card-blue relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--brand-accent-dark)_0%,_transparent_50%)] opacity-5 -z-10" />
-      <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--brand-success)_0%,_transparent_50%)] opacity-5 -z-10" />
+      <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--brand-primary)_0%,_transparent_50%)] opacity-5 -z-10" />
 
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16">
@@ -62,12 +62,12 @@ export const PartnershipSection: React.FC = () => {
 
           {/* Our Side */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-success/20 to-brand-success/5 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
-            <div className="relative bg-gradient-to-br from-brand-card-blue via-brand-card-blue-dark to-brand-secondary border-2 border-brand-success/50 rounded-2xl p-8 h-full">
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+            <div className="relative bg-gradient-to-br from-brand-card-blue via-brand-card-blue-dark to-brand-secondary border-2 border-brand-primary/50 rounded-2xl p-8 h-full">
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand-success/10 border border-brand-success/20 rounded-full mb-3">
-                  <DollarSign className="w-4 h-4 text-brand-success" />
-                  <span className="text-sm text-brand-success">Our Focus</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand-primary/10 border border-brand-primary/20 rounded-full mb-3">
+                  <DollarSign className="w-4 h-4 text-brand-primary" />
+                  <span className="text-sm text-brand-primary">Our Focus</span>
                 </div>
                 <h3 className="text-brand-neutral-950">Business & Admin</h3>
               </div>
@@ -79,9 +79,9 @@ export const PartnershipSection: React.FC = () => {
                   { icon: DollarSign, title: "Payments & Billing", desc: "We handle invoicing, payment collection, and timely payouts to you" },
                   { icon: Headphones, title: "Client Relations", desc: "We manage ongoing communication, expectations, and satisfaction" },
                 ].map((item, i) => (
-                  <div key={i} className="bg-brand-success/5 border-l-4 border-brand-success rounded-r-xl p-4 hover:bg-brand-success/10 transition-colors">
+                  <div key={i} className="bg-brand-primary/5 border-l-4 border-brand-primary rounded-r-xl p-4 hover:bg-brand-primary/10 transition-colors">
                     <div className="flex items-start gap-3">
-                      <item.icon className="w-5 h-5 text-brand-success flex-shrink-0 mt-0.5" />
+                      <item.icon className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <div className="text-brand-neutral-900 text-sm mb-1">{item.title}</div>
                         <p className="text-brand-neutral-600 text-xs">{item.desc}</p>
@@ -91,8 +91,8 @@ export const PartnershipSection: React.FC = () => {
                 ))}
               </div>
 
-              <div className="pt-6 border-t border-brand-success/20">
-                <div className="flex items-center gap-2 text-brand-success">
+              <div className="pt-6 border-t border-brand-primary/20">
+                <div className="flex items-center gap-2 text-brand-primary">
                   <Handshake className="h-4 w-4" />
                   <p className="text-sm">You approve every contract. True partnership.</p>
                 </div>

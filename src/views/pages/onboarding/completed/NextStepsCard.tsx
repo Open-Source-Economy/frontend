@@ -33,9 +33,9 @@ export const NextStepsCard: React.FC<NextStepsCardProps> = ({ icon: Icon, title,
       iconText: "text-brand-highlight",
     },
     success: {
-      border: "hover:border-brand-success/30",
-      iconBg: "bg-gradient-to-br from-brand-success/10 to-brand-success/5",
-      iconText: "text-brand-success",
+      border: "hover:border-brand-primary/30",
+      iconBg: "bg-gradient-to-br from-brand-primary/10 to-brand-primary/5",
+      iconText: "text-brand-primary",
     },
   };
 

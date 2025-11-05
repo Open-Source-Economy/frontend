@@ -24,9 +24,9 @@ export function DecorativeBackground({ variant, intensity = "medium", animated =
       case "accent":
         return `${baseStyles} bg-gradient-to-br from-brand-accent/${opacity} via-brand-accent-light/5 to-transparent`;
       case "success":
-        return `${baseStyles} bg-gradient-to-br from-brand-success/${opacity} via-brand-success-light/5 to-transparent`;
+        return `${baseStyles} bg-gradient-to-br from-brand-primary/${opacity} via-brand-primary-light/5 to-transparent`;
       case "gradient":
-        return `${baseStyles} bg-gradient-to-br from-brand-primary/${opacity} via-brand-accent/5 to-brand-success/5`;
+        return `${baseStyles} bg-gradient-to-br from-brand-primary/${opacity} via-brand-accent/5 to-brand-primary/5`;
       default:
         return `${baseStyles} bg-gradient-to-br from-brand-primary/${opacity} to-transparent`;
     }

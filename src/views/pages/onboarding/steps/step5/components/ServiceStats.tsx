@@ -19,7 +19,7 @@ export const ServiceStats: React.FC<ServiceStatsProps> = ({ services, servicesBy
       </div>
       <div className="w-px h-10 bg-brand-neutral-300/30" />
       <div>
-        <div className="text-brand-success">{enabledServices}</div>
+        <div className="text-brand-primary">{enabledServices}</div>
         <div className="text-sm text-brand-neutral-600">Enabled</div>
       </div>
       <div className="w-px h-10 bg-brand-neutral-300/30" />

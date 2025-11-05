@@ -18,7 +18,7 @@ export function HeroRightContent(props: HeroRightContentProps) {
       <DecorativeOrb size="medium" position="bottom-left" variant="accent" intensity="medium" animated={false} />
 
       {/* Additional subtle background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-success/5 rounded-3xl blur-3xl opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-primary/5 rounded-3xl blur-3xl opacity-40" />
     </div>
   );
 }

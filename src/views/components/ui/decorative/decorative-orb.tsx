@@ -59,13 +59,13 @@ export function DecorativeOrb({
 
     switch (variant) {
       case "primary":
-        return `bg-gradient-to-br from-brand-primary/${opacities.primary} via-brand-success/${opacities.secondary} to-transparent`;
+        return `bg-gradient-to-br from-brand-primary/${opacities.primary} via-brand-primary/${opacities.secondary} to-transparent`;
       case "accent":
         return `bg-gradient-to-br from-brand-accent/${opacities.primary} to-transparent`;
       case "success":
-        return `bg-gradient-to-br from-brand-success/${opacities.primary} to-transparent`;
+        return `bg-gradient-to-br from-brand-primary/${opacities.primary} to-transparent`;
       case "gradient":
-        return `bg-gradient-to-br from-brand-primary/${opacities.secondary} via-brand-accent/${opacities.secondary} to-brand-success/${opacities.secondary}`;
+        return `bg-gradient-to-br from-brand-primary/${opacities.secondary} via-brand-accent/${opacities.secondary} to-brand-primary/${opacities.secondary}`;
       default:
         return `bg-gradient-to-br from-brand-primary/${opacities.primary} to-transparent`;
     }

@@ -6,13 +6,13 @@ export const MissionSection: React.FC = () => {
     <section className="py-16 bg-gradient-to-b from-brand-neutral-100 via-brand-secondary to-brand-neutral-200 border-y border-brand-neutral-300">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-success/10 border border-brand-success/20 rounded-full mb-4">
-            <Shield className="w-4 h-4 text-brand-success" />
-            <span className="text-sm text-brand-success">Swiss Non-Profit</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/20 rounded-full mb-4">
+            <Shield className="w-4 h-4 text-brand-primary" />
+            <span className="text-sm text-brand-primary">Swiss Non-Profit</span>
           </div>
           <h2 className="text-brand-neutral-950 mb-4">Our Mission: Solve Open Source Sustainability</h2>
           <p className="text-brand-neutral-700 text-lg max-w-2xl mx-auto">
-            We connect maintainers with the <span className="text-brand-success">$27B→$44B services market</span> while ensuring funds flow to the entire
+            We connect maintainers with the <span className="text-brand-primary">$27B→$44B services market</span> while ensuring funds flow to the entire
             ecosystem—not VCs.
           </p>
         </div>
@@ -34,8 +34,8 @@ export const MissionSection: React.FC = () => {
           {/* Why */}
           <div className="bg-card/60 backdrop-blur-sm border border-brand-neutral-300/50 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 bg-brand-success/10 rounded-lg">
-                <TrendingUp className="w-5 h-5 text-brand-success" />
+              <div className="p-2 bg-brand-primary/10 rounded-lg">
+                <TrendingUp className="w-5 h-5 text-brand-primary" />
               </div>
               <h3 className="text-brand-neutral-900">Why It Works</h3>
             </div>
@@ -60,8 +60,8 @@ export const MissionSection: React.FC = () => {
 
         {/* Core Values Badges */}
         <div className="flex flex-wrap items-center justify-center gap-3 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-success/10 border border-brand-success/20 rounded-full">
-            <CheckCircle2 className="w-4 h-4 text-brand-success" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/20 rounded-full">
+            <CheckCircle2 className="w-4 h-4 text-brand-primary" />
             <span className="text-sm text-brand-neutral-800">100% Non-Profit</span>
           </div>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-accent/10 border border-brand-accent/20 rounded-full">
@@ -76,8 +76,8 @@ export const MissionSection: React.FC = () => {
             <Shield className="w-4 h-4 text-brand-neutral-700" />
             <span className="text-sm text-brand-neutral-800">Swiss Transparency</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-success/10 border border-brand-success/20 rounded-full">
-            <Code2 className="w-4 h-4 text-brand-success" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/20 rounded-full">
+            <Code2 className="w-4 h-4 text-brand-primary" />
             <span className="text-sm text-brand-neutral-800">FOSS Aligned</span>
           </div>
         </div>

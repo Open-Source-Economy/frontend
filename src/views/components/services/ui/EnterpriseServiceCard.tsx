@@ -9,7 +9,7 @@ interface EnterpriseServiceCardProps {
   title: string;
   description: React.ReactNode;
   buttonText: string;
-  colorScheme: "primary" | "success" | "accent";
+  colorScheme: "primary" | "accent";
   showButton?: boolean;
   className?: string;
 }
@@ -33,12 +33,6 @@ export const EnterpriseServiceCard: React.FC<EnterpriseServiceCardProps> = ({
       title: "text-brand-primary-dark",
       buttonVariant: "outline" as const,
       borderHover: "hover:border-brand-primary/30",
-    },
-    success: {
-      iconBg: "from-brand-success to-brand-success-dark",
-      title: "text-brand-success-dark",
-      buttonVariant: "outline" as const,
-      borderHover: "hover:border-brand-success/30",
     },
     accent: {
       iconBg: "from-brand-accent to-brand-accent-dark",

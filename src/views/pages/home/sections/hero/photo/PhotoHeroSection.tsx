@@ -140,10 +140,10 @@ export function PhotoHeroSection(props: PhotoHeroSectionProps) {
                     let hoverBgColor = "group-hover:bg-brand-neutral-600/20";
 
                     if (isNonProfitIndicator) {
-                      iconColor = "text-brand-success-light";
-                      bgColor = "bg-brand-success/15";
-                      borderColor = "border-brand-success/30";
-                      hoverBgColor = "group-hover:bg-brand-success/20";
+                      iconColor = "text-brand-primary-light";
+                      bgColor = "bg-brand-primary/15";
+                      borderColor = "border-brand-primary/30";
+                      hoverBgColor = "group-hover:bg-brand-primary/20";
                     } else if (isSecurityIndicator) {
                       iconColor = "text-brand-accent-light";
                       bgColor = "bg-brand-accent/10";
