@@ -5,6 +5,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/c
 import { Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
 import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCardView, ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { DeveloperRoleTypeCompanion } from "src/ultils/companions/DeveloperRoleType.companion";
 
 interface ProjectCardProps {
   item: ProjectItemWithDetails;
@@ -141,7 +142,11 @@ export function ProjectCard(props: ProjectCardProps) {
                             <p className="text-xs text-foreground truncate">{developer.developerOwner.id.login}</p>
                             {/*<BadgeCheck className="w-3 h-3 text-brand-success flex-shrink-0" />*/}
                           </div>
-                          <p className="text-xs text-muted-foreground truncate">"Maintainer</p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {developer.developerProjectItem.roles.length > 0
+                              ? DeveloperRoleTypeCompanion.label(developer.developerProjectItem.roles[0])
+                              : "Contributor"}
+                          </p>
                         </div>
                       </div>
                     ))}
