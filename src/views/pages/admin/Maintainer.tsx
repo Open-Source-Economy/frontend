@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
@@ -9,19 +9,20 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
 import {
-  SourceIdentifierCompanion,
   CurrencyCompanion,
-  ResponseTimeTypeCompanion,
-  ServiceTypeCompanion,
   DeveloperRoleTypeCompanion,
   MergeRightsTypeCompanion,
+  ResponseTimeTypeCompanion,
+  ServiceTypeCompanion,
+  SourceIdentifierCompanion,
+  VerificationRecordCompanion,
+  VerificationStatusCompanion,
 } from "src/ultils/companions";
-import { ArrowLeft, User, Mail, Check, X, Calendar, DollarSign, Clock, Code, GitBranch, Shield } from "lucide-react";
+import { ArrowLeft, Calendar, Check, Clock, Code, DollarSign, GitBranch, Mail, Shield, User, X } from "lucide-react";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
-import { VerificationStatusCompanion, VerificationRecordCompanion } from "src/ultils/companions";
 
 export function Maintainer() {
   const { githubUsername } = useParams<{ githubUsername: string }>();

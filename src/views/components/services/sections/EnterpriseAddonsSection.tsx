@@ -1,5 +1,5 @@
 import React from "react";
-import { Shield, LucideIcon } from "lucide-react";
+import { LucideIcon, Shield } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
 import { EnterpriseServiceCard } from "../ui/EnterpriseServiceCard";
 import { isVisible } from "src/ultils/featureVisibility";

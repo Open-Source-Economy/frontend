@@ -7,7 +7,6 @@ import { AlertCircle, AtSign, CheckCircle2, Github, Heart, Linkedin, Loader2, ty
 import { paths } from "src/paths";
 import { ExternalLink } from "../ui/forms/ExternalLink";
 import { Link } from "react-router-dom";
-import { NavigationSection } from "src/types/navigation";
 import { footerNavigation } from "./navigation";
 import { isVisible } from "src/ultils/featureVisibility";
 
@@ -22,12 +21,7 @@ interface SocialLink {
   external?: boolean; // default true
 }
 
-interface FooterProps {
-  className?: string;
-  showNewsletter?: boolean;
-  sections?: NavigationSection[];
-  socialLinks?: SocialLink[];
-}
+interface FooterProps {}
 
 // -----------------------------
 // Content (single source of truth)
@@ -62,7 +56,9 @@ function FooterAnchor({ href, external, children, className }: { href: string; e
 // -----------------------------
 // Main component
 // -----------------------------
-export function Footer({ sections = footerContent.sections, socialLinks = footerContent.social, showNewsletter = false, className = "" }: FooterProps) {
+export function Footer(props: FooterProps) {
+  const sections = footerContent.sections;
+  const socialLinks = footerContent.social;
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [submissionStatus, setSubmissionStatus] = React.useState<"idle" | "success" | "error">("idle");
@@ -102,7 +98,7 @@ export function Footer({ sections = footerContent.sections, socialLinks = footer
   };
 
   return (
-    <footer className={`bg-brand-secondary border-t border-border ${className}`}>
+    <footer className={`bg-brand-secondary border-t border-border`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Section */}
@@ -154,7 +150,7 @@ export function Footer({ sections = footerContent.sections, socialLinks = footer
         </div>
 
         {/* Newsletter Section */}
-        {showNewsletter && (
+        {isVisible("newsletterSection") && (
           <div className="border-t border-border mt-8 pt-8">
             <div className="max-w-md">
               <h3 className="font-medium mb-2">Stay Updated</h3>
@@ -242,7 +238,7 @@ export function Footer({ sections = footerContent.sections, socialLinks = footer
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <p className="text-muted-foreground text-sm flex items-center">
             © Open Source Economy - Non profit organisation -{" "}
-            <ExternalLink href={paths.SOCIALS.ZEFIX} target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">
+            <ExternalLink href={paths.SOCIALS.ZEFIX} className="hover:text-brand-primary transition-colors">
               CHE-440.058.692
             </ExternalLink>{" "}
             Switzerland

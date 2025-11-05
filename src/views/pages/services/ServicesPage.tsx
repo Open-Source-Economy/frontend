@@ -9,21 +9,21 @@ import { EnterpriseAddonsSection } from "../../components/services/sections/Ente
 import { SectionHeader } from "../../components/ui/section/section-header";
 import { paths } from "../../../paths";
 import {
+  AlertTriangle,
   ArrowRight,
-  Users,
   Bug,
+  CheckCircle,
+  Clock,
+  FileText,
+  Globe,
+  GraduationCap,
   LifeBuoy,
-  UserCheck,
+  Package,
   Plus,
   Shield,
-  FileText,
-  GraduationCap,
-  AlertTriangle,
-  Globe,
+  UserCheck,
+  Users,
   Zap,
-  Clock,
-  CheckCircle,
-  Package,
 } from "lucide-react";
 
 export function ServicesPage() {

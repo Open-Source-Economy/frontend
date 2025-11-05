@@ -35,6 +35,9 @@ export const features = {
   /** Newsletter subscription demo toggle in footer */
   newsletterDemoToggle: envGroups.nonProduction,
 
+  /** Newsletter subscription section in footer */
+  newsletterSection: envGroups.localAndDev,
+
   /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
   enterpriseServiceButtons: envGroups.localOnly,
 

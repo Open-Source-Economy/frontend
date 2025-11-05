@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services";
@@ -8,8 +8,8 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
-import { SourceIdentifierCompanion, VerificationStatusCompanion, VerificationRecordCompanion } from "src/ultils/companions";
-import { Search, Shield, ShieldCheck, AlertCircle, Users, ArrowRight, GitBranch, Mail, Filter } from "lucide-react";
+import { SourceIdentifierCompanion, VerificationRecordCompanion, VerificationStatusCompanion } from "src/ultils/companions";
+import { AlertCircle, ArrowRight, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
 import { Input } from "src/views/components/ui/forms/input";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Badge } from "src/views/components/ui/badge";
