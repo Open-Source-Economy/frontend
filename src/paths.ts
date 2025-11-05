@@ -64,6 +64,7 @@ export const paths = {
     CREATE_PLAN_PRODUCT_AND_PRICE: "/admin/plan/create-product-and-price",
     CREATE_PROJECT: "/admin/project",
     SYNC_GITHUB: "/admin/sync-github",
+    ORGANIZATION_SYNC: "/admin/organizations/sync",
     MAINTAINER: (githubUsername: string) => `/admin/maintainer/${githubUsername}`,
     MAINTAINER_ROUTE: "/admin/maintainer/:githubUsername", // Route pattern for React Router
   },

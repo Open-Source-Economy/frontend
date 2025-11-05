@@ -121,15 +121,19 @@ export namespace ProjectItemWithDetailsCompanion {
       return sum + (item.repository?.forksCount || 0);
     }, 0);
 
-    const totalMaintainers = projectItems.reduce((sum, item) => {
-      return sum + item.developers.length;
-    }, 0);
+    // Calculate unique maintainers by developer profile ID
+    const uniqueDeveloperIds = new Set<string>();
+    projectItems.forEach(item => {
+      item.developers.forEach(dev => {
+        uniqueDeveloperIds.add(dev.developerProfile.id.uuid);
+      });
+    });
 
     return {
       totalProjects: projectItems.length,
       totalStars: NumberUtils.formatCompactNumber(totalStars),
       totalForks: NumberUtils.formatCompactNumber(totalForks),
-      totalMaintainers,
+      totalMaintainers: uniqueDeveloperIds.size,
     };
   }
 }

@@ -42,6 +42,14 @@ export function AdminHome() {
             Create Plan Product & Price
           </Link>
 
+          <Link to={paths.ADMIN.MAINTAINERS} className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded text-center">
+            View Maintainers
+          </Link>
+
+          <Link to={paths.ADMIN.ORGANIZATION_SYNC} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center">
+            Sync Owner Repositories
+          </Link>
+
           <Link to={paths.ADMIN.SYNC_GITHUB} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center">
             Sync GitHub Data
           </Link>

@@ -19,6 +19,7 @@ import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCamp
 import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProductAndPrice";
 import { Maintainer } from "./views/pages/admin/Maintainer";
 import { Maintainers } from "./views/pages/admin/Maintainers";
+import { OrganizationSyncPage } from "./views/pages/admin/organizations/OrganizationSyncPage";
 import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
@@ -68,6 +69,7 @@ const App = () => {
             <Route element={<SuperAdminRoutes />}>
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
               <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
+              <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
               <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
               <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
               <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />

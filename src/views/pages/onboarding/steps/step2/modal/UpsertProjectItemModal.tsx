@@ -10,11 +10,10 @@ import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Input } from "src/views/components/ui/forms/input";
 import { ChipInput } from "src/views/components/ui/chip-input";
-import { AlertCircle, ExternalLink, Github, ShieldCheck, User } from "lucide-react";
+import { ExternalLink, Github, User } from "lucide-react";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, ProjectCategoryCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
 import { GithubUrls } from "src/ultils";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { InfoMessage } from "src/views/components/ui/info-message";
 
 interface UpsertProjectItemModalProps {
   show: boolean;

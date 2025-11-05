@@ -23,6 +23,7 @@ import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
+import { OrganizationSyncButton } from "./components/OrganizationSyncButton";
 
 export function Maintainer() {
   const { githubUsername } = useParams<{ githubUsername: string }>();
@@ -421,6 +422,22 @@ export function Maintainer() {
                             </Badge>
                           </div>
                           <p className="text-brand-neutral-400 text-sm">{entry.projectItem.projectItemType}</p>
+
+                          {/* Organization Sync Button */}
+                          {entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER && (
+                            <div className="mt-3">
+                              <OrganizationSyncButton
+                                projectItemId={entry.projectItem.id.uuid}
+                                organizationLogin={
+                                  typeof entry.projectItem.sourceIdentifier === "object" && "login" in entry.projectItem.sourceIdentifier
+                                    ? entry.projectItem.sourceIdentifier.login
+                                    : String(entry.projectItem.sourceIdentifier)
+                                }
+                                variant="outline"
+                                size="sm"
+                              />
+                            </div>
+                          )}
                         </div>
                         <div className="flex items-center gap-3">
                           {entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY && (

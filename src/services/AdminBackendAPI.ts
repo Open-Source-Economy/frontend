@@ -38,4 +38,15 @@ export class AdminBackendAPI {
       "createVerificationRecord",
     );
   }
+
+  async syncOrganizationRepositories(
+    params: dto.SyncOrganizationRepositoriesParams,
+    query: dto.SyncOrganizationRepositoriesQuery,
+  ): Promise<dto.SyncOrganizationRepositoriesResponse | dto.ApiError> {
+    return await handleError(
+      async () =>
+        this.api.post(`${config.api.url}/admin/organizations/${params.projectItemId}/sync-repositories`, {}, { withCredentials: true, params: query }),
+      "syncOrganizationRepositories",
+    );
+  }
 }
