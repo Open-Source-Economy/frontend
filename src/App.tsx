@@ -65,11 +65,11 @@ const App = () => {
             {/*<Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />*/}
             {/*<Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />*/}
             {/*<Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />*/}
-
+            
+            <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
             <Route element={<SuperAdminRoutes />}>
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
               <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
-              <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
               <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
               <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
               <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
