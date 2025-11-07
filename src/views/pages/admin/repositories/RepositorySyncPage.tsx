@@ -13,7 +13,6 @@ import { RepositoryWithSyncState } from "./components/types";
 import { RepositoryCard } from "./components/RepositoryCard";
 import { BulkSyncControls } from "../organizations/components/BulkSyncControls";
 import { StatisticCard } from "../organizations/components/StatisticCard";
-import { calculateEstimatedWaitTime } from "../organizations/components/utils";
 
 export function RepositorySyncPage() {
   const [repositories, setRepositories] = useState<RepositoryWithSyncState[]>([]);
@@ -83,7 +82,7 @@ export function RepositorySyncPage() {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
 
     const apiCall = async () => {
-      return await adminAPI.syncRepository(owner, repo);
+      return await adminAPI.syncRepository({ owner, repo }, {}, {});
     };
 
     const onSuccess = (response: dto.SyncRepositoryResponse) => {

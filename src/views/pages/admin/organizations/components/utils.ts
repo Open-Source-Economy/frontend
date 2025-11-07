@@ -21,7 +21,7 @@ export function formatWaitTime(seconds: number): string {
 export function calculateEstimatedWaitTime(
   queuePosition: number,
   queueOrder: string[],
-  organizations: Array<{ projectItem: { id: { uuid: string } }; owner?: { publicRepos?: number } }>,
+  organizations: Array<{ projectItem: { id: { uuid: string } }; owner?: { publicRepos?: number } | null }>,
   msPerRepo: number,
 ): number {
   let estimatedWaitSeconds = 0;

@@ -541,7 +541,7 @@ export function Maintainer() {
                   const Icon = serviceInfo.icon;
 
                   // Determine project scope for this service
-                  const serviceProjectIds = entry.developerService?.developerProjectItemIds || [];
+                  const serviceProjectIds = (entry.developerService?.developerProjectItemIds ?? []).map(id => id.uuid);
                   const allProjectIds = profile.projects.map(p => p.developerProjectItem.id.uuid);
                   const isAllProjects = serviceProjectIds.length === allProjectIds.length && serviceProjectIds.every(id => allProjectIds.includes(id));
 

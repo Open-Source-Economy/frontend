@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import * as dto from "@open-source-economy/api-types";
 import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
-import { Input } from "src/views/components/ui/forms/input";
 import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { AlertCircle, CheckCircle, Code, Eye, GitFork, Loader2, RefreshCw, Star } from "lucide-react";
 import { RepositoryWithSyncState } from "./types";

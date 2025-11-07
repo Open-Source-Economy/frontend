@@ -1,5 +1,7 @@
 import React from "react";
 
+type ColorScheme = "primary" | "accent";
+
 interface ServiceItem {
   name: string;
   icon: React.ReactNode;
@@ -11,56 +13,67 @@ interface ServiceColumnProps {
   description: string;
   mainIcon: React.ReactNode;
   services: ServiceItem[];
-  colorScheme: "primary" | "accent";
+  colorScheme: ColorScheme;
 }
 
-export function ServiceColumn({ title, description, mainIcon, services, colorScheme }: ServiceColumnProps) {
-  const getColorClasses = (scheme: string) => {
-    switch (scheme) {
-      case "primary":
-        return {
-          gradientOverlay: "from-brand-primary/5 via-transparent to-brand-primary/10",
-          glowEffect: "from-brand-primary/30 via-brand-primary/20 to-transparent",
-          backgroundRings: "from-brand-primary/15 to-brand-primary/25",
-          backgroundRings2: "from-brand-primary/10 to-brand-primary/20",
-          mainGradient: "from-brand-primary via-brand-primary to-brand-primary-dark",
-          shadowColor: "group-hover:shadow-brand-primary/25",
-          particleColor: "bg-brand-primary-light",
-          titleHover: "group-hover:text-brand-primary",
-          accentLine: "from-brand-primary/40",
-          itemIconBg: "from-brand-primary/10 to-brand-primary/20",
-          itemIconHover: "group-hover/item:from-brand-primary group-hover/item:to-brand-primary-dark",
-          itemTitleHover: "group-hover/item:text-brand-primary",
-          itemBorderHover: "hover:border-brand-primary/20",
-          itemBgHover: "hover:from-brand-primary/5 hover:to-brand-primary/10",
-          accentLineItem: "via-brand-primary/20",
-          arrowHover: "group-hover/item:text-brand-primary",
-        };
-      case "accent":
-        return {
-          gradientOverlay: "from-brand-accent/5 via-transparent to-brand-accent/10",
-          glowEffect: "from-brand-accent/30 via-brand-accent/20 to-transparent",
-          backgroundRings: "from-brand-accent/15 to-brand-accent/25",
-          backgroundRings2: "from-brand-accent/10 to-brand-accent/20",
-          mainGradient: "from-brand-accent via-brand-accent to-brand-accent-dark",
-          shadowColor: "group-hover:shadow-brand-accent/25",
-          particleColor: "bg-brand-accent-light",
-          titleHover: "group-hover:text-brand-accent",
-          accentLine: "from-brand-accent/40",
-          itemIconBg: "from-brand-accent/10 to-brand-accent/20",
-          itemIconHover: "group-hover/item:from-brand-accent group-hover/item:to-brand-accent-dark",
-          itemTitleHover: "group-hover/item:text-brand-accent",
-          itemBorderHover: "hover:border-brand-accent/20",
-          itemBgHover: "hover:from-brand-accent/5 hover:to-brand-accent/10",
-          accentLineItem: "via-brand-accent/20",
-          arrowHover: "group-hover/item:text-brand-accent",
-        };
-      default:
-        return getColorClasses("primary");
-    }
-  };
+interface ColorClasses {
+  gradientOverlay: string;
+  glowEffect: string;
+  backgroundRings: string;
+  backgroundRings2: string;
+  mainGradient: string;
+  shadowColor: string;
+  particleColor: string;
+  titleHover: string;
+  accentLine: string;
+  itemIconBg: string;
+  itemIconHover: string;
+  itemTitleHover: string;
+  itemBorderHover: string;
+  itemBgHover: string;
+  accentLineItem: string;
+  arrowHover: string;
+}
 
-  const colors = getColorClasses(colorScheme);
+const createColorClasses = (scheme: ColorScheme): ColorClasses => {
+  const brand = `brand-${scheme}`;
+  const dark = `${brand}-dark`;
+  const light = `${brand}-light`;
+  const withAlpha = (value: number) => `${brand}/${value}`;
+
+  return {
+    gradientOverlay: `from-${withAlpha(5)} via-transparent to-${withAlpha(10)}`,
+    glowEffect: `from-${withAlpha(30)} via-${withAlpha(20)} to-transparent`,
+    backgroundRings: `from-${withAlpha(15)} to-${withAlpha(25)}`,
+    backgroundRings2: `from-${withAlpha(10)} to-${withAlpha(20)}`,
+    mainGradient: `from-${brand} via-${brand} to-${dark}`,
+    shadowColor: `group-hover:shadow-${brand}/25`,
+    particleColor: `bg-${light}`,
+    titleHover: `group-hover:text-${brand}`,
+    accentLine: `from-${brand}/40`,
+    itemIconBg: `from-${withAlpha(10)} to-${withAlpha(20)}`,
+    itemIconHover: `group-hover/item:from-${brand} group-hover/item:to-${dark}`,
+    itemTitleHover: `group-hover/item:text-${brand}`,
+    itemBorderHover: `hover:border-${withAlpha(20)}`,
+    itemBgHover: `hover:from-${withAlpha(5)} hover:to-${withAlpha(10)}`,
+    accentLineItem: `via-${withAlpha(20)}`,
+    arrowHover: `group-hover/item:text-${brand}`,
+  };
+};
+
+const COLOR_CLASSES: Record<ColorScheme, ColorClasses> = {
+  primary: createColorClasses("primary"),
+  accent: createColorClasses("accent"),
+};
+
+const ICON_TEXT_CLASS: Record<ColorScheme, string> = {
+  primary: "text-brand-primary",
+  accent: "text-brand-accent",
+};
+
+export function ServiceColumn({ title, description, mainIcon, services, colorScheme }: ServiceColumnProps) {
+  const colors = COLOR_CLASSES[colorScheme];
+  const iconTextColor = ICON_TEXT_CLASS[colorScheme];
 
   return (
     <div className="group relative">
@@ -122,7 +135,7 @@ export function ServiceColumn({ title, description, mainIcon, services, colorSch
               >
                 {/* Icon container */}
                 <div
-                  className={`w-7 h-7 md:w-8 md:h-8 flex-shrink-0 bg-gradient-to-br ${colors.itemIconBg} rounded-lg flex items-center justify-center text-${colorScheme === "primary" ? "brand-primary" : colorScheme === "highlight" ? "brand-highlight" : "brand-accent"} ${colors.itemIconHover} group-hover/item:text-white transition-all duration-300 shadow-sm mt-0.5`}
+                  className={`w-7 h-7 md:w-8 md:h-8 flex-shrink-0 bg-gradient-to-br ${colors.itemIconBg} rounded-lg flex items-center justify-center ${iconTextColor} ${colors.itemIconHover} group-hover/item:text-white transition-all duration-300 shadow-sm mt-0.5`}
                 >
                   {service.icon}
                 </div>

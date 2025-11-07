@@ -4,8 +4,14 @@ import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { GitMerge, Shield, Users } from "lucide-react";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/ultils/companions";
 
+interface MaintainerDeveloper {
+  developerProfile: dto.DeveloperProfile;
+  developerOwner: dto.Owner;
+  developerProjectItem: dto.DeveloperProjectItem;
+}
+
 interface MaintainerListProps {
-  developers: dto.DeveloperWithProjectItem[];
+  developers: MaintainerDeveloper[];
 }
 
 export function MaintainerList({ developers }: MaintainerListProps) {
@@ -42,7 +48,7 @@ export function MaintainerList({ developers }: MaintainerListProps) {
             <div className="flex items-center gap-1">
               <Shield className="w-3 h-3 text-purple-400" />
               <span className="text-xs text-purple-300">
-                {dev.developerProjectItem.roles?.map(role => DeveloperRoleTypeCompanion.label(role)).join(", ") || "N/A"}
+                {dev.developerProjectItem.roles?.map((role: dto.DeveloperRoleType) => DeveloperRoleTypeCompanion.label(role)).join(", ") || "N/A"}
               </span>
             </div>
 
@@ -50,7 +56,7 @@ export function MaintainerList({ developers }: MaintainerListProps) {
             <div className="flex items-center gap-1">
               <GitMerge className="w-3 h-3 text-purple-400" />
               <span className="text-xs text-purple-300">
-                {dev.developerProjectItem.mergeRights?.map(mr => MergeRightsTypeCompanion.label(mr)).join(", ") || "N/A"}
+                {dev.developerProjectItem.mergeRights?.map((mr: dto.MergeRightsType) => MergeRightsTypeCompanion.label(mr)).join(", ") || "N/A"}
               </span>
             </div>
           </div>

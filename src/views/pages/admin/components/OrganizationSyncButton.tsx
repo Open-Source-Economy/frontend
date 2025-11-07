@@ -8,7 +8,7 @@ interface OrganizationSyncButtonProps {
   projectItemId: string;
   organizationLogin: string;
   variant?: "default" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "default" | "lg" | "xl";
   className?: string;
 }
 

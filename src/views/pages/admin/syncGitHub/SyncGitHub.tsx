@@ -28,7 +28,7 @@ export function SyncGitHub() {
 
       switch (syncType) {
         case "owner":
-          response = await adminAPI.syncOwner({ owner: ownerInput });
+          response = await adminAPI.syncOwner({ owner: ownerInput }, {});
           break;
         case "repository":
           if (!repoInput.trim()) {
@@ -36,13 +36,16 @@ export function SyncGitHub() {
             setLoading(false);
             return;
           }
-          response = await adminAPI.syncRepository({ owner: ownerInput, repo: repoInput });
+          response = await adminAPI.syncRepository({ owner: ownerInput, repo: repoInput }, {}, {});
           break;
         case "project":
-          response = await adminAPI.syncProject({
-            owner: ownerInput,
-            repo: repoInput.trim() || undefined,
-          });
+          response = await adminAPI.syncProject(
+            {
+              owner: ownerInput,
+              repo: repoInput.trim() || undefined,
+            },
+            {},
+          );
           break;
       }
 

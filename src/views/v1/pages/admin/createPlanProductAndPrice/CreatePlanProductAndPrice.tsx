@@ -24,7 +24,7 @@ export function CreatePlanProductAndPrice(props: CreatePlanProductAndPriceProps)
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.createPlanProductAndPrice(body, params, query);
+      const result = await adminBackendAPI.createPlanProductAndPrice(params, body, query);
 
       if (result instanceof ApiError) {
         setError(`${result.statusCode}: ${result.message}`);

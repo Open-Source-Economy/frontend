@@ -1,30 +1,25 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
-import { ProjectEcosystem } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 
 interface FormData {
   owner: string;
   repo?: string;
-  projectEcosystem?: ProjectEcosystem;
 }
 
 interface BulkFormData {
   githubUrls: string;
-  projectEcosystem?: ProjectEcosystem;
 }
 
 const emptyFormData: FormData = {
   owner: "",
   repo: "",
-  projectEcosystem: undefined,
 };
 
 const emptyBulkFormData: BulkFormData = {
   githubUrls: "",
-  projectEcosystem: undefined,
 };
 
 export function CreateProject() {
@@ -97,9 +92,7 @@ export function CreateProject() {
       owner: formData.owner,
       repo: formData.repo,
     };
-    const body: dto.CreateProjectBody = {
-      projectEcosystem: formData.projectEcosystem,
-    };
+    const body: dto.CreateProjectBody = {};
 
     const query: dto.CreateProjectQuery = {};
 
@@ -145,9 +138,7 @@ export function CreateProject() {
           owner: project.owner,
           repo: project.repo,
         };
-        const body: dto.CreateProjectBody = {
-          projectEcosystem: bulkFormData.projectEcosystem,
-        };
+        const body: dto.CreateProjectBody = {};
         const query: dto.CreateProjectQuery = {};
 
         try {
@@ -236,20 +227,6 @@ export function CreateProject() {
                   onChange={handleInputChange}
                 />
 
-                <select
-                  name="projectEcosystem"
-                  className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                  value={formData.projectEcosystem || ""}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Ecosystem</option>
-                  {Object.values(ProjectEcosystem).map(ecosystem => (
-                    <option key={ecosystem} value={ecosystem}>
-                      {ecosystem}
-                    </option>
-                  ))}
-                </select>
-
                 <button
                   type="submit"
                   className="sm:px-14 px-[20px] py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -278,20 +255,6 @@ export function CreateProject() {
                   />
                   <p className="text-gray-400 text-xs mt-1">Supported formats: https://github.com/owner/repo or https://github.com/owner</p>
                 </div>
-
-                <select
-                  name="projectEcosystem"
-                  className="w-[100%] sm:w-[500px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                  value={bulkFormData.projectEcosystem || ""}
-                  onChange={handleBulkInputChange}
-                >
-                  <option value="">Select Ecosystem (Optional)</option>
-                  {Object.values(ProjectEcosystem).map(ecosystem => (
-                    <option key={ecosystem} value={ecosystem}>
-                      {ecosystem}
-                    </option>
-                  ))}
-                </select>
 
                 <button
                   type="submit"

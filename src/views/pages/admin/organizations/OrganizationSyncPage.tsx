@@ -115,7 +115,7 @@ export function OrganizationSyncPage() {
     setSyncingOwnerIds(prev => new Set(prev).add(projectItemId));
 
     const apiCall = async () => {
-      return await adminAPI.syncOwner(ownerLogin);
+      return await adminAPI.syncOwner({ owner: ownerLogin }, {});
     };
 
     const onSuccess = (response: any) => {
