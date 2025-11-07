@@ -3,6 +3,7 @@ import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
 import { ArrowRight, Clock, FileText, Heart, Layers, LucideIcon, Rocket, Zap } from "lucide-react";
 import { Button } from "../../../components/ui/forms";
+import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { laurianeCalLink } from "src/views/v1/data";
 import { envGroups, isFeatureVisible } from "src/ultils/featureVisibility";
 // -----------------------------
@@ -161,15 +162,11 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4">
-            <Button
-              size="lg"
-              className="gap-2 bg-brand-accent hover:bg-brand-accent-light text-white shadow-lg shadow-brand-accent/20"
-              href={laurianeCalLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {howItWorksContent.cta.primaryButton}
-              <ArrowRight className="w-4 h-4" />
+            <Button asChild size="lg" className="gap-2 bg-brand-accent hover:bg-brand-accent-light text-white shadow-lg shadow-brand-accent/20">
+              <ExternalLink href={laurianeCalLink} underline={false}>
+                {howItWorksContent.cta.primaryButton}
+                <ArrowRight className="w-4 h-4" />
+              </ExternalLink>
             </Button>
             {isFeatureVisible(envGroups.localAndDev) && (
               <Button size="lg" variant="outline" className="gap-2 border-brand-neutral-400/40 hover:border-brand-accent/60 hover:bg-brand-accent/10">
