@@ -1,15 +1,15 @@
 import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
+import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { Typography } from "src/views/components/ui/typography";
 import { ArrowRight, CheckCircle2, Sparkles, TrendingUp } from "lucide-react";
+import { laurianeCalLink } from "src/views/v1/data";
 
 interface TransformCTASectionProps {
-  onGetStarted?: () => void;
-  onScheduleDemo?: () => void;
   className?: string;
 }
 
-export function TransformCTASection(props: TransformCTASectionProps) {
+export function TransformCTASection({ className }: TransformCTASectionProps) {
   const benefits = [
     "Direct access to expert maintainers",
     "Transparent, mission-driven pricing",
@@ -18,7 +18,7 @@ export function TransformCTASection(props: TransformCTASectionProps) {
   ];
 
   return (
-    <section className={`relative overflow-hidden ${props.className ?? ""}`}>
+    <section className={`relative overflow-hidden ${className ?? ""}`}>
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary via-brand-secondary-dark to-brand-neutral-100" />
 
@@ -108,7 +108,6 @@ export function TransformCTASection(props: TransformCTASectionProps) {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center pt-2">
             <Button
-              onClick={props.onGetStarted}
               size="lg"
               rightIcon={ArrowRight}
               className="shadow-2xl shadow-brand-accent/30 hover:shadow-3xl hover:shadow-brand-accent/40 hover:scale-105 transition-all duration-300 group"
@@ -120,12 +119,14 @@ export function TransformCTASection(props: TransformCTASectionProps) {
             </Button>
 
             <Button
-              onClick={props.onScheduleDemo}
+              asChild
               variant="outline"
               size="lg"
               className="shadow-xl shadow-black/20 hover:shadow-2xl hover:scale-102 border-2 border-brand-neutral-300/30 hover:border-brand-accent/40 transition-all duration-300"
             >
-              Schedule a Demo
+              <ExternalLink href={laurianeCalLink} underline={false}>
+                Schedule a Demo
+              </ExternalLink>
             </Button>
           </div>
 
