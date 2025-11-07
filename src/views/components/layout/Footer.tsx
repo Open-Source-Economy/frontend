@@ -157,6 +157,7 @@ export function Footer(props: FooterProps) {
           </div>
         )}
 
+
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <p className="text-muted-foreground text-sm flex items-center">
