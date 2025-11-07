@@ -20,6 +20,7 @@ import { CreatePlanProductAndPrice } from "./views/v1/pages/admin/createPlanProd
 import { Maintainer } from "./views/pages/admin/Maintainer";
 import { Maintainers } from "./views/pages/admin/Maintainers";
 import { OrganizationSyncPage } from "./views/pages/admin/organizations/OrganizationSyncPage";
+import { RepositorySyncPage } from "./views/pages/admin/repositories/RepositorySyncPage";
 import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
@@ -70,6 +71,7 @@ const App = () => {
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
               <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
               <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
+              <Route path={paths.ADMIN.REPOSITORY_SYNC} element={<RepositorySyncPage />} />
               <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
               <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
               <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />

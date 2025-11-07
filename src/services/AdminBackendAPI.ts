@@ -53,4 +53,11 @@ export class AdminBackendAPI {
   async syncOwner(ownerLogin: string): Promise<dto.Owner | dto.ApiError> {
     return await handleError(async () => this.api.post(`${config.api.url}/github/owners/${ownerLogin}/sync`, {}, { withCredentials: true }), "syncOwner");
   }
+
+  async syncRepository(ownerLogin: string, repositoryName: string): Promise<dto.SyncRepositoryResponse | dto.ApiError> {
+    return await handleError(
+      async () => this.api.post(`${config.api.url}/github/repos/${ownerLogin}/${repositoryName}/sync`, {}, { withCredentials: true }),
+      "syncRepository",
+    );
+  }
 }

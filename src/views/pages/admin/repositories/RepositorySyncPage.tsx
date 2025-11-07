@@ -6,17 +6,17 @@ import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
-import { Building2, GitBranch, Users } from "lucide-react";
+import { Code, GitBranch, Users } from "lucide-react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions";
-import { OrganizationWithSyncState } from "./components/types";
-import { OrganizationCard } from "./components/OrganizationCard";
-import { BulkSyncControls } from "./components/BulkSyncControls";
-import { StatisticCard } from "./components/StatisticCard";
-import { calculateEstimatedWaitTime } from "./components/utils";
+import { RepositoryWithSyncState } from "./components/types";
+import { RepositoryCard } from "./components/RepositoryCard";
+import { BulkSyncControls } from "../organizations/components/BulkSyncControls";
+import { StatisticCard } from "../organizations/components/StatisticCard";
+import { calculateEstimatedWaitTime } from "../organizations/components/utils";
 
-export function OrganizationSyncPage() {
-  const [organizations, setOrganizations] = useState<OrganizationWithSyncState[]>([]);
+export function RepositorySyncPage() {
+  const [repositories, setRepositories] = useState<RepositoryWithSyncState[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
@@ -24,71 +24,75 @@ export function OrganizationSyncPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isBulkSyncing, setIsBulkSyncing] = useState(false);
   const [bulkSyncProgress, setBulkSyncProgress] = useState<{ current: number; total: number } | null>(null);
-  const [syncingOwnerIds, setSyncingOwnerIds] = useState<Set<string>>(new Set());
   const [bulkSyncQueue, setBulkSyncQueue] = useState<Set<string>>(new Set());
   const [bulkSyncCompleted, setBulkSyncCompleted] = useState<Set<string>>(new Set());
   const [bulkSyncQueueOrder, setBulkSyncQueueOrder] = useState<string[]>([]);
-  const [msPerRepo, setMsPerRepo] = useState<number>(1000);
+  const [msPerRepo, setMsPerRepo] = useState<number>(2000); // 2 seconds per repo for safety
   const [globalFetchDetails, setGlobalFetchDetails] = useState(true);
 
   const adminAPI = getAdminBackendAPI();
   const backendAPI = getBackendAPI();
 
-  // Fetch all project items and filter organizations
-  const fetchOrganizations = async () => {
+  // Fetch all project items and filter repositories
+  const fetchRepositories = async () => {
     try {
       const apiCall = async () => {
         return await backendAPI.getProjectItemsWithDetails(
           {},
           {
-            repositories: { limit: 0 },
-            owners: {},
+            repositories: {}, // Fetch all GITHUB_REPOSITORY type project items
+            owners: { limit: 0 },
             urls: { limit: 0 },
           },
         );
       };
 
       const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-        if (!response || !response.owners) {
-          console.warn("No owners in response");
-          setOrganizations([]);
+        if (!response || !response.repositories) {
+          console.warn("No repositories in response");
+          setRepositories([]);
           return;
         }
 
-        if (!Array.isArray(response.owners)) {
-          console.error("response.owners is not an array:", response.owners);
-          setOrganizations([]);
+        if (!Array.isArray(response.repositories)) {
+          console.error("response.repositories is not an array:", response.repositories);
+          setRepositories([]);
           return;
         }
 
-        const orgs: OrganizationWithSyncState[] = response.owners.map(item => ({
+        const repos: RepositoryWithSyncState[] = response.repositories.map(item => ({
           ...item,
           syncInProgress: false,
         }));
-        setOrganizations(orgs);
+        setRepositories(repos);
       };
 
       await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
     } catch (error) {
-      console.error("Error in fetchOrganizations:", error);
+      console.error("Error in fetchRepositories:", error);
       setApiError(ApiError.from(error));
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchOrganizations();
+    fetchRepositories();
   }, []);
 
-  const handleSync = async (projectItemId: string, offset: number = 0, batchSize?: number, fetchDetails: boolean = false) => {
+  const handleSync = async (owner: string, repo: string, projectItemId: string) => {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
 
     const apiCall = async () => {
-      return await adminAPI.syncOrganizationRepositories({ projectItemId }, { offset, batchSize, fetchDetails });
+      return await adminAPI.syncRepository(owner, repo);
     };
 
-    const onSuccess = (response: dto.SyncOrganizationRepositoriesResponse) => {
-      setOrganizations(prev => prev.map(org => (org.projectItem.id.uuid === projectItemId ? { ...org, lastSyncMessage: response.message } : org)));
+    const onSuccess = (response: dto.SyncRepositoryResponse) => {
+      const successData = response;
+      setRepositories(prev =>
+        prev.map(r =>
+          r.projectItem.id.uuid === projectItemId ? { ...r, repository: successData.repository, lastSyncMessage: "Repository synced successfully" } : r,
+        ),
+      );
 
       setTimeout(() => {
         setSyncingIds(prev => {
@@ -111,74 +115,31 @@ export function OrganizationSyncPage() {
     }
   };
 
-  const handleSyncOwner = async (ownerLogin: string, projectItemId: string) => {
-    setSyncingOwnerIds(prev => new Set(prev).add(projectItemId));
-
-    const apiCall = async () => {
-      return await adminAPI.syncOwner(ownerLogin);
-    };
-
-    const onSuccess = (response: any) => {
-      const owner = response?.owner || response;
-
-      if (!owner || !owner.id) {
-        console.error("Invalid owner response:", response);
-        return;
-      }
-
-      setOrganizations(prev => prev.map(org => (org.projectItem.id.uuid === projectItemId ? { ...org, owner } : org)));
-
-      if (owner.publicRepos !== undefined && owner.publicRepos !== null) {
-        setSelectedIds(prev => new Set(prev).add(projectItemId));
-      }
-
-      setTimeout(() => {
-        setSyncingOwnerIds(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(projectItemId);
-          return newSet;
-        });
-      }, 1000);
-    };
-
-    const noopLoading = () => {};
-    const success = await handleApiCall(apiCall, noopLoading, setApiError, onSuccess);
-
-    if (!success) {
-      setSyncingOwnerIds(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(projectItemId);
-        return newSet;
-      });
-    }
-  };
-
   const handleBulkSync = async () => {
-    const selectedOrgs = organizations.filter(org => selectedIds.has(org.projectItem.id.uuid));
+    const selectedRepos = repositories.filter(repo => selectedIds.has(repo.projectItem.id.uuid));
 
-    if (selectedOrgs.length === 0) {
-      alert("Please select at least one owner to sync");
+    if (selectedRepos.length === 0) {
+      alert("Please select at least one repository to sync");
       return;
     }
 
-    const invalidOrgs = selectedOrgs.filter(org => !org.owner?.publicRepos);
-    if (invalidOrgs.length > 0) {
-      alert(`Cannot sync: ${invalidOrgs.length} owner(s) don't have public repo count available`);
+    const invalidRepos = selectedRepos.filter(repo => !repo.repository?.id);
+    if (invalidRepos.length > 0) {
+      alert(`Cannot sync: ${invalidRepos.length} repositor${invalidRepos.length > 1 ? "ies" : "y"} don't have valid data`);
       return;
     }
 
     setIsBulkSyncing(true);
-    setBulkSyncProgress({ current: 0, total: selectedOrgs.length });
+    setBulkSyncProgress({ current: 0, total: selectedRepos.length });
     setBulkSyncCompleted(new Set());
 
-    const queueOrder = selectedOrgs.map(org => org.projectItem.id.uuid);
+    const queueOrder = selectedRepos.map(repo => repo.projectItem.id.uuid);
     setBulkSyncQueueOrder(queueOrder);
     setBulkSyncQueue(new Set(queueOrder));
 
-    for (let i = 0; i < selectedOrgs.length; i++) {
-      const org = selectedOrgs[i];
-      const projectItemId = org.projectItem.id.uuid;
-      const waitTime = org.owner!.publicRepos! * msPerRepo;
+    for (let i = 0; i < selectedRepos.length; i++) {
+      const repo = selectedRepos[i];
+      const projectItemId = repo.projectItem.id.uuid;
 
       setBulkSyncQueue(prev => {
         const newSet = new Set(prev);
@@ -186,15 +147,17 @@ export function OrganizationSyncPage() {
         return newSet;
       });
 
-      setBulkSyncProgress({ current: i + 1, total: selectedOrgs.length });
+      setBulkSyncProgress({ current: i + 1, total: selectedRepos.length });
 
-      await handleSync(projectItemId, 0, undefined, globalFetchDetails);
+      if (repo.repository?.id) {
+        await handleSync(repo.repository.id.ownerId.login, repo.repository.id.name, projectItemId);
+      }
 
       setBulkSyncCompleted(prev => new Set(prev).add(projectItemId));
 
-      if (i < selectedOrgs.length - 1) {
-        console.log(`Waiting ${waitTime}ms (${org.owner!.publicRepos} repos) before next sync...`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
+      if (i < selectedRepos.length - 1) {
+        console.log(`Waiting ${msPerRepo}ms before next sync...`);
+        await new Promise(resolve => setTimeout(resolve, msPerRepo));
       }
     }
 
@@ -221,33 +184,35 @@ export function OrganizationSyncPage() {
   };
 
   const toggleSelectAll = () => {
-    const syncableOrgs = filteredOrganizations.filter(org => org.owner?.publicRepos !== undefined);
-    if (selectedIds.size === syncableOrgs.length) {
+    const syncableRepos = filteredRepositories.filter(repo => repo.repository?.id);
+    if (selectedIds.size === syncableRepos.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(syncableOrgs.map(org => org.projectItem.id.uuid)));
+      setSelectedIds(new Set(syncableRepos.map(repo => repo.projectItem.id.uuid)));
     }
   };
 
-  const filteredOrganizations = organizations.filter(org => {
+  const filteredRepositories = repositories.filter(repo => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
-    const login = org.owner?.id.login?.toLowerCase() || "";
-    const name = org.owner?.name?.toLowerCase() || "";
-    return login.includes(searchLower) || name.includes(searchLower);
+    const name = repo.repository?.id.name?.toLowerCase() || "";
+    const fullName = repo.repository?.fullName?.toLowerCase() || "";
+    const description = repo.repository?.description?.toLowerCase() || "";
+    const owner = repo.repository?.id.ownerId.login?.toLowerCase() || "";
+    return name.includes(searchLower) || fullName.includes(searchLower) || description.includes(searchLower) || owner.includes(searchLower);
   });
 
   const stats = React.useMemo(() => {
-    return ProjectItemWithDetailsCompanion.getProjectItemsStats(organizations);
-  }, [organizations]);
+    return ProjectItemWithDetailsCompanion.getProjectItemsStats(repositories);
+  }, [repositories]);
 
-  const syncableCount = filteredOrganizations.filter(org => org.owner?.publicRepos !== undefined).length;
+  const syncableCount = filteredRepositories.filter(repo => repo.repository?.id).length;
 
   if (isLoading) {
     return (
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] flex items-center justify-center">
-          <LoadingState message="Loading organizations..." variant="spinner" size="lg" />
+          <LoadingState message="Loading repositories..." variant="spinner" size="lg" />
         </div>
       </PageWrapper>
     );
@@ -259,8 +224,8 @@ export function OrganizationSyncPage() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Owner Repository Sync</h1>
-            <p className="text-gray-400">Sync repositories from GitHub organizations and users to create individual project items.</p>
+            <h1 className="text-3xl font-bold text-white mb-2">Repository Sync</h1>
+            <p className="text-gray-400">Sync individual GitHub repositories to update their metadata and information.</p>
           </div>
 
           {apiError && (
@@ -288,40 +253,38 @@ export function OrganizationSyncPage() {
 
           {/* Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <StatisticCard icon={Building2} iconColor="text-blue-400" value={organizations.length} label="Total Owners" />
+            <StatisticCard icon={Code} iconColor="text-blue-400" value={repositories.length} label="Total Repositories" />
             <StatisticCard icon={Users} iconColor="text-purple-400" value={stats.totalMaintainers} label="Unique Maintainers" />
-            <StatisticCard icon={GitBranch} iconColor="text-green-400" value={filteredOrganizations.length} label="Filtered Results" />
+            <StatisticCard icon={GitBranch} iconColor="text-green-400" value={filteredRepositories.length} label="Filtered Results" />
           </div>
 
-          {/* Organizations List */}
+          {/* Repositories List */}
           <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-            {filteredOrganizations.length === 0 ? (
+            {filteredRepositories.length === 0 ? (
               <div className="p-12 text-center">
-                <Building2 className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400 text-lg">No organizations found</p>
+                <Code className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+                <p className="text-gray-400 text-lg">No repositories found</p>
               </div>
             ) : (
               <div className="divide-y divide-white/10">
-                {filteredOrganizations.map(org => {
-                  const projectItemId = org.projectItem.id.uuid;
+                {filteredRepositories.map(repo => {
+                  const projectItemId = repo.projectItem.id.uuid;
                   const isSyncing = syncingIds.has(projectItemId);
-                  const isSyncingOwner = syncingOwnerIds.has(projectItemId);
                   const isSelected = selectedIds.has(projectItemId);
-                  const canSync = org.owner?.publicRepos !== undefined;
+                  const canSync = !!repo.repository?.id;
                   const isInQueue = bulkSyncQueue.has(projectItemId);
                   const isCompleted = bulkSyncCompleted.has(projectItemId);
                   const queuePosition = bulkSyncQueueOrder.indexOf(projectItemId) + 1;
                   const queueTotal = bulkSyncQueueOrder.length;
 
-                  const estimatedWaitSeconds =
-                    isInQueue && queuePosition > 0 ? calculateEstimatedWaitTime(queuePosition, bulkSyncQueueOrder, organizations, msPerRepo) : 0;
+                  // For repositories, we use a fixed wait time per repo
+                  const estimatedWaitSeconds = isInQueue && queuePosition > 0 ? ((queuePosition - 1) * msPerRepo) / 1000 : 0;
 
                   return (
-                    <OrganizationCard
+                    <RepositoryCard
                       key={projectItemId}
-                      organization={org}
+                      repository={repo}
                       isSyncing={isSyncing}
-                      isSyncingOwner={isSyncingOwner}
                       isSelected={isSelected}
                       canSync={canSync}
                       isBulkSyncing={isBulkSyncing}
@@ -330,9 +293,7 @@ export function OrganizationSyncPage() {
                       queuePosition={isInQueue ? queuePosition : undefined}
                       queueTotal={queueTotal}
                       estimatedWaitSeconds={estimatedWaitSeconds}
-                      globalFetchDetails={globalFetchDetails}
-                      onSync={handleSync}
-                      onSyncOwner={handleSyncOwner}
+                      onSync={(owner, repoName) => handleSync(owner, repoName, projectItemId)}
                       onToggleSelection={toggleSelection}
                     />
                   );

@@ -50,6 +50,10 @@ export function AdminHome() {
             Sync Owner Repositories
           </Link>
 
+          <Link to={paths.ADMIN.REPOSITORY_SYNC} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
+            Sync Repositories
+          </Link>
+
           <Link to={paths.ADMIN.SYNC_GITHUB} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center">
             Sync GitHub Data
           </Link>
