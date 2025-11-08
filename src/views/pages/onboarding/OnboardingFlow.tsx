@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
+import { useAuth } from "src/views/auth/AuthContext";
 import { getOnboardingBackendAPI } from "src/services";
 
 import Step1 from "./steps/step1/Step1";

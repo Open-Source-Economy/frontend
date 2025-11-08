@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../PageWrapper";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../../auth/AuthContext";
 import logo from "src/assets/v1/logo.png";
 import github from "src/assets/v1/github.png";
 import {

@@ -2,7 +2,7 @@ import type React from "react";
 import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/v1/components";
-import { useAuth } from "src/views/v1/pages";
+import { useAuth } from "src/views/auth";
 import { MobileNavbar } from "./MobileNavbar";
 import { type Divider, DIVIDER, DropdownNavbar } from "./DropdownNavbar";
 import type { Currency } from "@open-source-economy/api-types";

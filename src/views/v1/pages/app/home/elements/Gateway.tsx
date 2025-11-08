@@ -5,7 +5,7 @@ import startimg from "src/assets/v1/star.png";
 import { Button } from "src/views/v1/components/elements/Button";
 import { paths } from "src/paths";
 import { Audience, textColorVariants } from "../../../../../Audience";
-import { useAuth } from "../../../authenticate";
+import { useAuth } from "src/views/auth";
 
 export const Gateway = () => {
   const auth = useAuth();

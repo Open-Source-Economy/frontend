@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
+import { useAuth } from "src/views/auth/AuthContext";
 import { paths } from "../../../../paths";
 import { CTASection, HeroSection, MissionSection, PartnershipSection, WhyJoinSection } from "./components";
 import { PageWrapper } from "../../PageWrapper";

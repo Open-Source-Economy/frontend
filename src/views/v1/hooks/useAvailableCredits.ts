@@ -3,7 +3,7 @@ import { getBackendAPI } from "src/services/BackendAPI";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
-import { AuthContextState } from "../pages";
+import { AuthContextState } from "src/views/auth";
 import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";
 

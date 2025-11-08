@@ -1,6 +1,6 @@
 import React from "react";
 import { Authentication } from "./Authentication";
-import { useAuth } from "src/views/v1/pages";
+import { useAuth } from "src/views/auth";
 
 interface TopNavbarProps {}
 

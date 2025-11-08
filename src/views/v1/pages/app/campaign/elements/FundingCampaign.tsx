@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Currency, GetCampaignResponse, ProjectId } from "@open-source-economy/api-types";
 import { config, Env } from "../../../../../../ultils";
 import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
-import { useAuth } from "../../../authenticate";
+import { useAuth } from "src/views/auth";
 import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";

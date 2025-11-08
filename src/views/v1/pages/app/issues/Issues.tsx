@@ -9,7 +9,7 @@ import { Background } from "src/views/v1/pages/app/issues/elements/Background";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience, textColorVariants } from "src/views/index";
 
-import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
+import { useAuth } from "src/views/auth/AuthContext";
 import Loading from "src/views/v1/components/common/Loading";
 
 import catimg from "src/assets/v1/Mascot.png";

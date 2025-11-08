@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../pages";
+import { useAuth } from "src/views/auth";
 import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
-import { PageNotFound } from "../pages/PageNotFound";
+import { PageNotFound } from "../v1/pages/PageNotFound";
 import { PageTransition } from "src/views/components/ui/page-transition";
-import { paths } from "../../../paths";
+import { paths } from "../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();

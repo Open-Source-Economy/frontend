@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthProvider, CreateAddress, CreateCompany, CreateManualInvoice, CreateProject, InviteCompanyUser } from "./views";
+import { CreateAddress, CreateCompany, CreateManualInvoice, CreateProject, InviteCompanyUser } from "./views";
 import { paths } from "src/paths";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import ScrollToTop from "./views/v1/components/ScrollTop";
@@ -12,7 +12,7 @@ import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails
 import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
 import { FAQPage } from "src/views/pages/faq/FAQPage";
-import { AuthRoutes, SuperAdminRoutes } from "./views/v1/layout/AuthRoutes";
+import { AuthProvider, AuthRoutes, SuperAdminRoutes } from "./views/auth";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
 import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";

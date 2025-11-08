@@ -12,8 +12,8 @@ import { Button, FormEntry } from "src/views/v1/components";
 import Decimal from "decimal.js";
 import { BaseInput } from "src/views/v1/components/old-form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
-import { useAuth } from "../../authenticate";
 import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
+import { useAuth } from "../../../../auth";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");

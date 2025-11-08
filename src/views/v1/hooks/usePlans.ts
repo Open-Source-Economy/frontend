@@ -3,7 +3,7 @@ import { getBackendAPI } from "src/services/BackendAPI";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
-import { useAuth } from "../pages";
+import { useAuth } from "src/views/auth";
 
 export function usePlans() {
   const auth = useAuth();

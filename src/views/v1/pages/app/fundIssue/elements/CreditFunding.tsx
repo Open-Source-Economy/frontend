@@ -6,7 +6,7 @@ import { credit } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { useAvailableCredits, useCreditCounter } from "src/views/v1/hooks";
-import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
+import { useAuth } from "src/views/auth/AuthContext";
 import { Audience } from "src/views/index";
 import { Link } from "react-router-dom";
 import { paths } from "../../../../../../paths";
