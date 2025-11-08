@@ -17,6 +17,7 @@ import { InfoMessage } from "../../../../components/ui/info-message";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { paths } from "../../../../../paths";
+import { isVisible } from "src/ultils/featureVisibility";
 
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
@@ -159,18 +160,23 @@ export default function Step1(props: Step1Props) {
           </div>
           <FieldError error={errors.agreedToTerms} className="mt-2" />
         </div>
-
         {/* Privacy Notice - Subtle */}
         <InfoMessage variant="muted" className="mt-6 sm:mt-8">
           Your information is secure and will only be used to connect you with enterprise opportunities. We never share your contact details without your
-          permission — learn more in our{" "}
-          <Link
-            to={paths.PRIVACY}
-            target="_blank"
-            className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
-          >
-            Privacy Policy
-          </Link>
+          permission
+          {isVisible("privacyPolicy") && (
+            <>
+              {" "}
+              — learn more in our{" "}
+              <Link
+                to={paths.PRIVACY}
+                target="_blank"
+                className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
+              >
+                Privacy Policy
+              </Link>
+            </>
+          )}
           .
         </InfoMessage>
       </div>
