@@ -3,6 +3,7 @@ import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
 import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { handleApiCall } from "src/ultils/handleApiCall";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -16,53 +17,38 @@ export function AuthProvider(props: AuthProviderProps) {
   const [apiError, setApiError] = useState<ApiError | null>(null);
 
   useEffect(() => {
-    setLoading(false);
     checkUserStatus();
   }, []);
 
+  const runAuthCall = async <T,>(apiCall: () => Promise<T | ApiError>, onSuccess?: (response: T) => void) => {
+    await handleApiCall(apiCall, setLoading, setApiError, onSuccess);
+  };
+
   const checkUserStatus = async () => {
-    setLoading(true);
-    try {
-      const statusResponse = await auth.checkUserStatus();
-      if (statusResponse instanceof ApiError) setApiError(statusResponse);
-      else setAuthInfo(statusResponse);
-    } catch (error: unknown) {
-      setApiError(ApiError.from(error));
-    } finally {
-      setLoading(false);
-    }
+    await runAuthCall<AuthInfo>(
+      () => auth.checkUserStatus(),
+      response => setAuthInfo(response),
+    );
   };
 
   const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
-    setLoading(true);
-    try {
-      const loginResponse = await auth.login(body, query);
-      if (loginResponse instanceof ApiError) setApiError(loginResponse);
-      else {
-        setAuthInfo(loginResponse);
+    await runAuthCall<AuthInfo>(
+      () => auth.login(body, query),
+      response => {
+        setAuthInfo(response);
         if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
-    } catch (error: unknown) {
-      setApiError(ApiError.from(error));
-    } finally {
-      setLoading(false);
-    }
+      },
+    );
   };
 
   const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
-    setLoading(true);
-    try {
-      const registerResponse = await auth.register(body, query);
-      if (registerResponse instanceof ApiError) setApiError(registerResponse);
-      else {
-        setAuthInfo(registerResponse);
+    await runAuthCall<AuthInfo>(
+      () => auth.register(body, query),
+      response => {
+        setAuthInfo(response);
         if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
-    } catch (error: unknown) {
-      setApiError(ApiError.from(error));
-    } finally {
-      setLoading(false);
-    }
+      },
+    );
   };
 
   const loginWithGitHub = async () => {
@@ -70,19 +56,13 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const logout = async (successCallback?: () => void) => {
-    setLoading(true);
-    try {
-      const result = await auth.deleteSession();
-      if (result instanceof ApiError) setApiError(result);
-      else {
+    await runAuthCall(
+      () => auth.deleteSession(),
+      () => {
         setAuthInfo(null);
         if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
-    } catch (error: unknown) {
-      setApiError(ApiError.from(error));
-    } finally {
-      setLoading(false);
-    }
+      },
+    );
   };
 
   const state: AuthContextState = {
