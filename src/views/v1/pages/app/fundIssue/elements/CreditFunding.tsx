@@ -37,7 +37,7 @@ export function CreditFunding(props: CreditFundingProps) {
         number: props.issueId.number,
       };
       const body: FundIssueBody = {
-        companyId: auth.authInfo?.company?.id.uuid,
+        companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
         creditAmount: credit.toMinutes(counter),
       };
       const query: FundIssueQuery = {};

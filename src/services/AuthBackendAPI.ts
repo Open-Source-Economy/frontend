@@ -16,8 +16,8 @@ export interface AuthBackendAPI {
   checkUserStatus(): Promise<dto.StatusResponse | ApiError>;
   login(body: dto.LoginBody, query: dto.LoginQuery): Promise<dto.LoginResponse | ApiError>;
   register(body: dto.RegisterBody, query: dto.RegisterQuery): Promise<dto.RegisterResponse | ApiError>;
-  loginWithGitHub(redirectPath?: string): void;
-  deleteSession(): Promise<void | ApiError>;
+  loginWithGitHub(): void;
+  deleteSession(): Promise<dto.LogoutResponse | ApiError>;
   getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse | ApiError>;
   getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse | ApiError>;
 }
@@ -65,8 +65,8 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     window.location.href = redirectPath ? `${config.api.url}/auth/github?redirect=${encodeURIComponent(redirectPath)}` : `${config.api.url}/auth/github`;
   }
 
-  async deleteSession(): Promise<void | ApiError> {
-    return handleError<void>(() => this.api.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
+  async deleteSession(): Promise<dto.LogoutResponse | ApiError> {
+    return handleError<dto.LogoutResponse>(() => this.api.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
   }
 
   async getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse | ApiError> {

@@ -65,8 +65,8 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const loginWithGitHub = async (redirectPath?: string) => {
-    auth.loginWithGitHub(redirectPath);
+  const loginWithGitHub = async () => {
+    auth.loginWithGitHub();
   };
 
   const logout = async (successCallback?: () => void) => {
@@ -86,8 +86,8 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const state: AuthContextState = {
-    loading: loading,
-    authInfo: authInfo,
+    loading,
+    authInfo,
     error: apiError,
     login,
     logout,

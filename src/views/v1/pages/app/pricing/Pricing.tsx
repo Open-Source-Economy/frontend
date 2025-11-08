@@ -43,7 +43,7 @@ export function Pricing(props: PricingProps) {
 
           <hr className="border-white/30" />
 
-          {/*{auth.authInfo?.user && activePlan && activePrices && (*/}
+          {/*{auth.authInfo?.authenticatedUser && activePlan && activePrices && (*/}
           {/*  <div data-aos="fade-up" data-aos-delay="300">*/}
           {/*    <CurrentSubscription*/}
           {/*      plan={activePlan}*/}

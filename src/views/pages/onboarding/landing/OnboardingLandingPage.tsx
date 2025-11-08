@@ -10,10 +10,10 @@ export default function OnboardingLandingPage() {
   const navigate = useNavigate();
 
   const handleGitHubSignIn = () => {
-    if (auth.authInfo?.user) {
+    if (auth.authInfo?.authenticatedUser) {
       navigate(paths.DEVELOPER_ONBOARDING);
     } else {
-      auth.loginWithGitHub(paths.DEVELOPER_ONBOARDING);
+      auth.loginWithGitHub();
     }
   };
 

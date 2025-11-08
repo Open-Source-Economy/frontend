@@ -19,7 +19,7 @@ export function AuthRoutes(props: { authPage: string }) {
     return <PageTransition isLoading={true} message="Authenticating user..." />;
   }
 
-  if (auth.authInfo?.user) {
+  if (auth.authInfo?.authenticatedUser) {
     // If user is authenticated, allow access to the protected route
     return <Outlet />;
   }
@@ -39,7 +39,7 @@ export function NonProdRoutes() {
 export function SuperAdminRoutes() {
   const auth = useAuth();
 
-  const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
+  const allowed = auth.authInfo?.authenticatedUser?.user.role === UserRole.SUPER_ADMIN;
 
   if (config.api.useMock || config.env !== Env.Production) {
     return <Outlet />;

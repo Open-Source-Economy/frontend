@@ -14,7 +14,7 @@ export function usePlans() {
   const [error, setError] = React.useState<ApiError | null>(null);
 
   const getPlans = async () => {
-    if (!auth.authInfo?.user) {
+    if (!auth.authInfo?.authenticatedUser) {
       setPlans(null);
       return;
     } else {

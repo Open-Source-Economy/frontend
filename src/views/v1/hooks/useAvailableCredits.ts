@@ -15,11 +15,12 @@ export function useAvailableCredits(auth: AuthContextState) {
 
   const getAvailableCredits = async () => {
     // don't fetch if not authenticated
-    if (auth.authInfo?.user) {
+    if (auth.authInfo?.authenticatedUser) {
       try {
+        const authenticatedUser = auth.authInfo?.authenticatedUser;
         const params: GetAvailableCreditsParams = {};
         const query: GetAvailableCreditsQuery = {
-          companyId: auth.authInfo?.company?.id.uuid,
+          companyId: authenticatedUser?.company?.id.uuid,
         };
 
         const response = await backendAPI.getAvailableCredits(params, query);

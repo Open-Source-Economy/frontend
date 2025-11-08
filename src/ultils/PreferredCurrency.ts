@@ -7,14 +7,16 @@ export const PreferredCurrency = {
   backendAPI: getBackendAPI(),
 
   get(auth: AuthContextState): Currency {
-    if (auth.authInfo?.user?.preferredCurrency) {
-      return auth.authInfo.user.preferredCurrency;
+    const authenticatedUser = auth.authInfo?.authenticatedUser;
+    if (authenticatedUser?.user.preferredCurrency) {
+      return authenticatedUser.user.preferredCurrency;
     }
     return currencyCookie.get();
   },
 
   set(auth: AuthContextState, currency: Currency): void {
-    if (auth.authInfo?.user) {
+    const authenticatedUser = auth.authInfo?.authenticatedUser;
+    if (authenticatedUser) {
       const params: SetUserPreferredCurrencyParams = {
         currency: currency,
       };

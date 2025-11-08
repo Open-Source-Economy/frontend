@@ -7,6 +7,7 @@ import {
   LoginBody,
   LoginQuery,
   LoginResponse,
+  LogoutResponse,
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
@@ -21,42 +22,43 @@ import { ApiError } from "src/ultils/error/ApiError";
 export class AuthBackendAPIMock implements AuthBackendAPI {
   async checkUserStatus(): Promise<StatusResponse | ApiError> {
     return {
-      user: user,
-      company: company,
-      companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, repositoryInfo]],
+      authenticatedUser: {
+        user: user,
+        company: company,
+        companyRole: CompanyUserRole.ADMIN,
+        repositories: [[repositoryId, repositoryInfo]],
+      },
     };
   }
 
   async login(body: LoginBody, query: LoginQuery): Promise<LoginResponse | ApiError> {
     return {
-      user: user,
-      company: company,
-      companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, repositoryInfo]],
+      authenticatedUser: {
+        user: user,
+        company: company,
+        companyRole: CompanyUserRole.ADMIN,
+        repositories: [[repositoryId, repositoryInfo]],
+      },
     };
   }
 
   async register(body: RegisterBody, query: RegisterQuery): Promise<RegisterResponse | ApiError> {
     return {
-      user: user,
-      company: company,
-      companyRole: CompanyUserRole.ADMIN,
-      repositories: [[repositoryId, repositoryInfo]],
+      authenticatedUser: {
+        user: user,
+        company: company,
+        companyRole: CompanyUserRole.ADMIN,
+        repositories: [[repositoryId, repositoryInfo]],
+      },
     };
   }
 
-  loginWithGitHub(redirectPath?: string): void {
-    // Simulate successful GitHub login by redirecting to the success path
-    if (redirectPath) {
-      setTimeout(() => {
-        window.location.href = redirectPath;
-      }, 100);
-    }
+  loginWithGitHub(): void {
+    // Simulate successful GitHub login noop
   }
 
-  async deleteSession(): Promise<void | ApiError> {
-    return Promise.resolve(undefined);
+  async deleteSession(): Promise<LogoutResponse | ApiError> {
+    return Promise.resolve({});
   }
 
   async getCompanyUserInviteInfo(query: GetCompanyUserInviteInfoQuery): Promise<GetCompanyUserInviteInfoResponse | ApiError> {
