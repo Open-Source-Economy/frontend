@@ -24,6 +24,7 @@ import { RepositorySyncPage } from "./views/pages/admin/repositories/RepositoryS
 import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLandingPage";
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
+import { Pdf } from "./views/pages/Pdf";
 
 const App = () => {
   return (
@@ -61,7 +62,7 @@ const App = () => {
             {/*<Route path={paths.PRICING} element={<Pricing />} />*/}
 
             {/*<Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />*/}
-            {/*<Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />*/}
+            <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
 
             {/*<Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />*/}
             {/*<Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />*/}
