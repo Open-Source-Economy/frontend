@@ -56,7 +56,7 @@ export const footerNavigation = {
       title: "Resources",
       links: [
         navigationLinks.blog,
-        navigationLinks.faq,
+        ...(!isVisible("faqPage") ? [] : [navigationLinks.faq]),
         // { title: "Documentation", href: "#docs" },
         // { title: "Community", href: "#community" },
       ],
