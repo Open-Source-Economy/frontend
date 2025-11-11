@@ -11,6 +11,7 @@ import { footerNavigation } from "./navigation";
 import { isVisible } from "src/ultils/featureVisibility";
 import NewsletterSubscriptionForm from "../ui/forms/NewsletterSubscriptionForm";
 
+
 // -----------------------------
 // Types
 // -----------------------------
@@ -151,12 +152,9 @@ export function Footer(props: FooterProps) {
         </div>
 
         {/* Newsletter Section */}
-        {isVisible("newsletterSection") && (
-          <div className="border-t border-border mt-8 pt-8">
-            <NewsletterSubscriptionForm />
-          </div>
-        )}
-
+        <div className="border-t border-border mt-8 pt-8">
+          <NewsletterSubscriptionForm />
+        </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">

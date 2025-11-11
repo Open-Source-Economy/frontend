@@ -1,3 +1,4 @@
+// src/utils/featureVisibility.ts
 import { config, Env } from "./index";
 
 /**
@@ -18,10 +19,13 @@ export function isFeatureVisible(allowedEnvironments: readonly Env[]): boolean {
 export const envGroups = {
   /** Only visible in local development */
   localOnly: [Env.Local] as const,
+
   /** Visible in local and dev environments */
   localAndDev: [Env.Local, Env.Development] as const,
+
   /** Visible in all non-production environments */
   nonProduction: [Env.Local, Env.Development, Env.Stage] as const,
+
   /** Disabled feature */
   none: [] as const,
 } as const;
@@ -32,12 +36,6 @@ export const envGroups = {
  * Specify an array of environments where each feature should be visible
  */
 export const features = {
-  /** Newsletter subscription demo toggle in footer */
-  newsletterDemoToggle: envGroups.nonProduction,
-
-  /** Newsletter subscription section in footer */
-  newsletterSection: envGroups.localAndDev,
-
   /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
   enterpriseServiceButtons: envGroups.localOnly,
 
@@ -47,11 +45,7 @@ export const features = {
   /** Fund distribution summary section */
   fundDistributionSummary: envGroups.localAndDev,
 
-  // Add more features here as needed
-  // Custom combinations:
-  // exampleFeature: [Env.Local, Env.Staging] as const,
-  // Or use predefined groups:
-  // anotherFeature: envGroups.localOnly,
+  // Add new feature flags here as needed
 } as const;
 
 /**
