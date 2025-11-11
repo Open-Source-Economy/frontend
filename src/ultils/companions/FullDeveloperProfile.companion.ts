@@ -17,10 +17,12 @@ export namespace FullDeveloperProfileCompanion {
     const search = searchTerm.toLowerCase().trim();
 
     // Search in name
-    if (profile.name?.toLowerCase().includes(search)) return true;
+    const userName = profile.profileEntry?.user?.name;
+    if (userName?.toLowerCase().includes(search)) return true;
 
     // Search in contact email
-    if (profile.contactEmail?.toLowerCase().includes(search)) return true;
+    const contactEmail = profile.profileEntry?.profile.contactEmail;
+    if (contactEmail?.toLowerCase().includes(search)) return true;
 
     // Search in GitHub username
     const githubUsername = profile.profileEntry?.owner?.id.login;

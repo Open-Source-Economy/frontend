@@ -39,9 +39,6 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
 
     const response: dto.GetDeveloperProfileResponse = {
       profile: {
-        name: "Mock Developer",
-        contactEmail: "mock.dev@example.com",
-        agreedToTerms: true,
         profileEntry: null,
         settings: {
           id: new dto.DeveloperSettingsId(Math.random().toString()),

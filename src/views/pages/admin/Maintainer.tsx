@@ -207,6 +207,11 @@ export function Maintainer() {
     );
   }
 
+  const profileEntry = profile.profileEntry;
+  const profileName = profileEntry?.user?.name || "N/A";
+  const profileContactEmail = profileEntry?.profile.contactEmail || "N/A";
+  const hasAgreedToTerms = Boolean(profileEntry?.user?.termsAcceptedVersion);
+
   return (
     <PageWrapper>
       <div className="min-h-screen bg-[#14233A] p-8">
@@ -242,19 +247,19 @@ export function Maintainer() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <p className="text-brand-neutral-400 text-sm">Name</p>
-                <p className="text-white">{profile.name || "N/A"}</p>
+                <p className="text-white">{profileName}</p>
               </div>
               <div>
                 <p className="text-brand-neutral-400 text-sm">Contact Email</p>
                 <p className="text-white flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  {profile.contactEmail || "N/A"}
+                  {profileContactEmail}
                 </p>
               </div>
               <div>
                 <p className="text-brand-neutral-400 text-sm">Terms Agreed</p>
                 <p className="text-white flex items-center gap-2">
-                  {profile.agreedToTerms ? (
+                  {hasAgreedToTerms ? (
                     <>
                       <Check className="w-4 h-4 text-green-500" />
                       Yes

@@ -241,6 +241,7 @@ export function Maintainers() {
               </div>
             ) : (
               profiles.map((profile, idx) => {
+                const profileName = profile.profileEntry?.user?.name || "Unnamed Developer";
                 const githubUsername = FullDeveloperProfileCompanion.getGithubUsername(profile);
                 const actionCount = getActionNeededCount(profile);
                 const unapprovedProjects = profile.projects.filter(p =>
@@ -259,7 +260,7 @@ export function Maintainers() {
                       {/* Main Info */}
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-white text-lg font-semibold">{profile.name || "Unnamed Developer"}</h3>
+                          <h3 className="text-white text-lg font-semibold">{profileName}</h3>
                           <Badge variant={VerificationStatusCompanion.variant(profileStatus)}>{VerificationStatusCompanion.label(profileStatus)}</Badge>
                           {actionCount > 0 && (
                             <Badge variant="destructive" className="text-xs">
@@ -274,10 +275,10 @@ export function Maintainers() {
                               <GitBranch className="w-4 h-4" />@{githubUsername}
                             </span>
                           )}
-                          {profile.contactEmail && (
+                          {profileEntry?.profile.contactEmail && (
                             <span className="flex items-center gap-1">
                               <Mail className="w-4 h-4" />
-                              {profile.contactEmail}
+                              {profileEntry?.profile.contactEmail}
                             </span>
                           )}
                           <span className="flex items-center gap-1">

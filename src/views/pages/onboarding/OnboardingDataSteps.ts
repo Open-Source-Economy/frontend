@@ -66,10 +66,10 @@ export function transformFullDeveloperProfileToOnboardingState(
   fallBackCurrency: Currency,
 ): OnboardingState {
   const step1: Step1State = {
-    developerProfileId: profile.profileEntry?.profile.id || undefined,
-    name: profile.name || undefined,
-    contactEmail: profile.contactEmail || undefined,
-    agreedToTerms: profile.agreedToTerms || undefined,
+    developerProfileId: profile.profileEntry?.profile?.id || undefined,
+    name: profile.profileEntry?.user?.name || undefined,
+    contactEmail: profile.profileEntry?.profile?.contactEmail || undefined,
+    agreedToTerms: Boolean(profile.profileEntry?.user?.termsAcceptedVersion),
   };
 
   const step2: Step2State = {
