@@ -3,8 +3,8 @@ import { Input } from "src/views/components/ui/forms/input";
 import { FormField } from "src/views/components/ui/forms/form-field";
 
 interface WeeklyAvailabilityInputProps {
-  value: number;
-  onChange: (value: number) => void;
+  value?: number;
+  onChange: (value: number | undefined) => void;
   error?: string;
 }
 
@@ -14,10 +14,19 @@ export const WeeklyAvailabilityInput: React.FC<WeeklyAvailabilityInputProps> = (
       <div className="relative w-fit">
         <Input
           type="number"
-          min={1}
-          max={168}
-          value={value || ""}
-          onChange={e => onChange(parseInt(e.target.value) || 0)}
+          min={0}
+          max={45}
+          value={value === undefined || Number.isNaN(value) ? "" : value}
+          onChange={e => {
+            const inputValue = e.target.value;
+            if (inputValue === "") {
+              onChange(undefined);
+              return;
+            }
+
+            const parsedValue = Number(inputValue);
+            onChange(Number.isNaN(parsedValue) ? undefined : parsedValue);
+          }}
           placeholder="20"
           className="w-48 pr-28"
           variant={error ? "error" : "default"}

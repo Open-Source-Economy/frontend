@@ -149,8 +149,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
         >
           <div className="space-y-6">
             <WeeklyAvailabilityInput
-              value={props.state.hourlyWeeklyCommitment || 0}
-              onChange={(value: number) => props.updateState({ hourlyWeeklyCommitment: value })}
+              value={props.state.hourlyWeeklyCommitment}
+              onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
               error={formErrors.hourlyWeeklyCommitment}
             />
 
