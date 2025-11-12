@@ -252,6 +252,7 @@ export function Maintainers() {
                   : dto.VerificationStatus.PENDING_REVIEW;
 
                 const profileId = profile.profileEntry?.profile.id.uuid || `profile-${idx}`;
+                const profileEntry = profile.profileEntry;
                 const isExpanded = expandedProfiles.has(profileId);
 
                 return (

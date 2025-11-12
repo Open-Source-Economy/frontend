@@ -4,12 +4,13 @@
  */
 
 import * as dto from "@open-source-economy/api-types";
-import { Code2, Headphones, Lightbulb, LucideIcon, MessageSquare, Shield } from "lucide-react";
+import { Bug, Headphones, LucideIcon, Puzzle, Shield, Target } from "lucide-react";
 
 export interface ServiceTypeInfo {
   icon: LucideIcon;
   label: string;
   description: string;
+  accentColor: "accent" | "highlight" | "warning" | "success";
 }
 
 const serviceTypeInfoMap: Record<dto.ServiceType, ServiceTypeInfo> = {
@@ -17,26 +18,31 @@ const serviceTypeInfoMap: Record<dto.ServiceType, ServiceTypeInfo> = {
     icon: Headphones,
     label: "Support",
     description: "Provide timely responses and assistance to users and enterprises",
+    accentColor: "accent",
   },
   [dto.ServiceType.DEVELOPMENT]: {
-    icon: Code2,
+    icon: Bug,
     label: "Development",
     description: "Build features, fix bugs, and improve project quality",
+    accentColor: "highlight",
   },
   [dto.ServiceType.ADVISORY]: {
-    icon: Lightbulb,
+    icon: Target,
     label: "Advisory",
     description: "Share expertise through consulting, training, and mentorship",
+    accentColor: "warning",
   },
   [dto.ServiceType.SECURITY_AND_COMPLIANCE]: {
     icon: Shield,
     label: "Security & Compliance",
     description: "Ensure project security and regulatory compliance",
+    accentColor: "success",
   },
   [dto.ServiceType.CUSTOM]: {
-    icon: MessageSquare,
+    icon: Puzzle,
     label: "Custom",
     description: "Custom services tailored to specific needs",
+    accentColor: "highlight",
   },
 };
 

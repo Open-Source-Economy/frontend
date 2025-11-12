@@ -24,4 +24,9 @@ export const NumberUtils = {
     }
     return count.toString();
   },
+
+  pluralize: (count: number, singularLabel: string, pluralLabel?: string): string => {
+    const label = count === 1 ? singularLabel : pluralLabel ?? `${singularLabel}s`;
+    return `${count} ${label}`;
+  },
 };

@@ -6,6 +6,9 @@ import { Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "luci
 import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCardView, ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { DeveloperRoleTypeCompanion } from "src/ultils/companions/DeveloperRoleType.companion";
+import { Button } from "src/views/components/ui/forms/button";
+import { useNavigate } from "react-router-dom";
+import { paths } from "src/paths";
 
 interface ProjectCardProps {
   item: ProjectItemWithDetails;
@@ -17,11 +20,58 @@ interface ProjectCardProps {
 export function ProjectCard(props: ProjectCardProps) {
   const canExpand = props.canExpandMaintainers ?? true;
   const [openMaintainers, setOpenMaintainers] = React.useState(false);
+  const navigate = useNavigate();
 
   // Create view model with all display information
   const view: ProjectItemWithDetailsCardView = ProjectItemWithDetailsCompanion.toCardView(props.item, 3);
   const isOwnerProject = view.projectItemType === ProjectItemType.GITHUB_OWNER;
   const isUrlProject = view.projectItemType === ProjectItemType.URL;
+
+  const resolveOwnerRepo = () => {
+    if (props.item.repository) {
+      return {
+        owner: props.item.repository.id.ownerId.login,
+        repo: props.item.repository.id.name,
+      };
+    }
+
+    if (props.item.owner) {
+      return {
+        owner: props.item.owner.id.login,
+        repo: undefined as string | undefined,
+      };
+    }
+
+    const sourceIdentifier = props.item.projectItem.sourceIdentifier;
+    if (typeof sourceIdentifier === "string") {
+      return { owner: sourceIdentifier, repo: undefined as string | undefined };
+    }
+
+    if (sourceIdentifier && typeof sourceIdentifier === "object") {
+      const maybeRepo = sourceIdentifier as { ownerId?: { login: string }; name?: string; login?: string };
+      if (maybeRepo.ownerId?.login) {
+        return {
+          owner: maybeRepo.ownerId.login,
+          repo: maybeRepo.name,
+        };
+      }
+      if (maybeRepo.login) {
+        return { owner: maybeRepo.login, repo: undefined as string | undefined };
+      }
+    }
+
+    return null;
+  };
+
+  const handleTalkToMaintainers = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const ownerRepo = resolveOwnerRepo();
+    if (ownerRepo?.owner) {
+      navigate(paths.PROJECT_DETAIL(ownerRepo.owner, ownerRepo.repo));
+    } else if (props.onViewProject) {
+      props.onViewProject(view.projectId.uuid);
+    }
+  };
 
   return (
     <Card
@@ -78,7 +128,9 @@ export function ProjectCard(props: ProjectCardProps) {
           <button
             onClick={e => {
               e.stopPropagation();
-              window.open(view.githubUrl, "_blank");
+              if (view.githubUrl) {
+                window.open(view.githubUrl, "_blank");
+              }
             }}
             className="flex items-center gap-1.5 text-muted-foreground hover:text-brand-accent transition-all duration-200 hover:scale-110 cursor-pointer"
             title={isUrlProject ? "Visit Project" : "View on GitHub"}
@@ -176,21 +228,17 @@ export function ProjectCard(props: ProjectCardProps) {
               </div>
             )}
 
-            {/*  /!* Talk to Maintainers Button *!/*/}
-            {/*  <div className="mt-3 pt-3 border-t border-border">*/}
-            {/*    <Button*/}
-            {/*      onClick={e => {*/}
-            {/*        e.stopPropagation();*/}
-            {/*        window.location.href = "#contact";*/}
-            {/*      }}*/}
-            {/*      variant="outline"*/}
-            {/*      size="sm"*/}
-            {/*      className="w-full border-brand-accent/30 hover:bg-brand-accent/10 hover:border-brand-accent text-brand-accent"*/}
-            {/*    >*/}
-            {/*      <MessageCircle className="w-3.5 h-3.5 mr-2" />*/}
-            {/*      Talk to Maintainers*/}
-            {/*    </Button>*/}
-            {/*  </div>*/}
+            <div className="mt-3 pt-3 border-t border-border">
+              <Button
+                onClick={handleTalkToMaintainers}
+                variant="outline"
+                size="sm"
+                className="w-full border-brand-accent/30 hover:bg-brand-accent/10 hover:border-brand-accent text-brand-accent"
+              >
+                {/*<MessageCircle className="w-3.5 h-3.5 mr-2" />*/}
+                Learn More
+              </Button>
+            </div>
           </div>
         )}
       </CardContent>

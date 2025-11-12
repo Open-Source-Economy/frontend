@@ -1,5 +1,6 @@
 import { DeveloperProfile, DeveloperProjectItem, Owner, ProjectItemId, ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { NumberUtils } from "../NumberUtils";
+import { ProjectItemDetailsCompanion } from "./ProjectItemDetails.companion";
 
 export interface ProjectStats {
   totalProjects: number;
@@ -11,9 +12,9 @@ export interface ProjectStats {
 export interface ProjectItemWithDetailsCardView {
   projectId: ProjectItemId;
   projectItemType?: ProjectItemType;
-  displayName: string;
-  projectDescription: string;
-  githubUrl: string;
+  displayName: string | null;
+  projectDescription: string | null;
+  githubUrl: string | null;
   stars: string | null;
   forks: string | null;
   followers: string | null;
@@ -29,65 +30,19 @@ export interface ProjectItemWithDetailsCardView {
 }
 
 export namespace ProjectItemWithDetailsCompanion {
-  // Simple helper for getting project ID (used in multiple places)
-  export function getProjectId(item: ProjectItemWithDetails): ProjectItemId {
-    return item.projectItem.id;
-  }
-
-  /**
-   * Helper to get display name (owner's full name for owners, otherwise project name)
-   */
-  function getDisplayName(item: ProjectItemWithDetails): string {
-    if (item.repository) {
-      return item.repository.fullName || `${item.owner?.id.login ?? ""}/${item.repository.id.name}`;
-    } else if (item.owner) {
-      return item.owner.name || item.owner.id.login;
-    } else if (typeof item.projectItem.sourceIdentifier === "string") {
-      try {
-        const url = new URL(item.projectItem.sourceIdentifier);
-        return url.hostname.replace("www.", "");
-      } catch {
-        return item.projectItem.sourceIdentifier;
-      }
-    } else {
-      return "Unknown Project";
-    }
-  }
-
-  /**
-   * Helper to get GitHub URL or project URL
-   */
-  function getGithubUrl(item: ProjectItemWithDetails, isUrlProject: boolean): string {
-    if (item.repository?.htmlUrl) {
-      return item.repository.htmlUrl;
-    }
-    if (item.owner?.htmlUrl) {
-      return item.owner.htmlUrl;
-    }
-    // For URL-type projects, use the sourceIdentifier if it's a string
-    if (isUrlProject && typeof item.projectItem.sourceIdentifier === "string") {
-      return item.projectItem.sourceIdentifier;
-    }
-    return "";
-  }
-
   /**
    * Creates a view model for displaying a project item in a card.
    * This centralizes all the display logic and calculations.
    */
   export function toCardView(item: ProjectItemWithDetails, visibleDevelopersCount: number = 3): ProjectItemWithDetailsCardView {
     const isOwnerProject = item.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
-    const isUrlProject = item.projectItem.projectItemType === ProjectItemType.URL;
-
-    const displayName = getDisplayName(item);
-    const githubUrl = getGithubUrl(item, isUrlProject);
 
     return {
-      projectId: getProjectId(item),
+      projectId: item.projectItem.id,
       projectItemType: item.projectItem.projectItemType,
-      displayName,
-      projectDescription: item.repository?.description || "",
-      githubUrl,
+      displayName: ProjectItemDetailsCompanion.getDisplayName(item),
+      projectDescription: ProjectItemDetailsCompanion.getDescription(item),
+      githubUrl: ProjectItemDetailsCompanion.getGithubUrl(item),
       stars: isOwnerProject ? null : NumberUtils.formatCompactNumber(item.repository?.stargazersCount || 0),
       forks: isOwnerProject ? null : NumberUtils.formatCompactNumber(item.repository?.forksCount || 0),
       followers: isOwnerProject ? NumberUtils.formatCompactNumber(item.owner?.followers || 0) : null,
@@ -98,8 +53,6 @@ export namespace ProjectItemWithDetailsCompanion {
       remainingMaintainersCount: Math.max(0, item.developers.length - visibleDevelopersCount),
     };
   }
-
-  // Functions that operate on the entire database
 
   export function searchProjectItems(projectItems: ProjectItemWithDetails[], query: string): ProjectItemWithDetails[] {
     const lowerQuery = query.toLowerCase();

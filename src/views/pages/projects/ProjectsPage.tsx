@@ -76,7 +76,7 @@ const CATEGORY_KEYWORDS: Record<ProjectCategory, string[]> = {
 
 function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | null {
   const repoName = item.repository?.id.name.toLowerCase() || "";
-  const projectId = ProjectItemWithDetailsCompanion.getProjectId(item);
+  const projectId = item.projectItem.id;
 
   if (projectId.uuid === "linux-foundation") return ProjectCategory.Infrastructure; // URL-type special case
 

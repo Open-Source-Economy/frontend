@@ -25,6 +25,7 @@ import OnboardingLandingPage from "./views/pages/onboarding/landing/OnboardingLa
 import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
 import { Pdf } from "./views/pages/Pdf";
+import { ProjectDetailPage } from "./views/pages/project/ProjectDetailPage";
 
 const App = () => {
   return (
@@ -44,6 +45,8 @@ const App = () => {
             <Route path={paths.HOME} element={<HomePage />} />
             <Route path={paths.PROJECTS} element={<ProjectsPage />} />
             <Route path={paths.SERVICES} element={<ServicesPage />} />
+            <Route path={paths.PROJECT_DETAIL_ROUTE_REPO} element={<ProjectDetailPage />} />
+            <Route path={paths.PROJECT_DETAIL_ROUTE_OWNER} element={<ProjectDetailPage />} />
             <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
             <Route path={paths.CONTACT} element={<ContactPage />} />
             <Route path={paths.FAQ} element={<FAQPage />} />

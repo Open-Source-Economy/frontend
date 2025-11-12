@@ -117,6 +117,65 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
+  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse | ApiError> {
+    const projectItem =
+      projectItemsDatabase.find(item => {
+        const source = item.projectItem.sourceIdentifier;
+        if (typeof source === "string") {
+          return source.includes(params.owner) && (!params.repo || source.includes(params.repo));
+        }
+        if ("ownerId" in source && "name" in source) {
+          return source.ownerId.login === params.owner && (!!params.repo ? source.name === params.repo : true);
+        }
+        if ("login" in source) {
+          return source.login === params.owner && !params.repo;
+        }
+        return false;
+      }) ?? projectItemsDatabase[0];
+
+    const developers: Record<string, dto.ProjectDeveloperProfile> = {};
+    for (const developer of projectItem.developers) {
+      const mockUser = {
+        id: new dto.UserId(`mock-user-${developer.developerProfile.id.uuid}`),
+        name: developer.developerOwner.name ?? developer.developerOwner.id.login,
+        termsAcceptedVersion: "v1",
+        role: dto.UserRole.USER,
+        data: {
+          providerData: {
+            owner: developer.developerOwner,
+          },
+        },
+      } as unknown as dto.User;
+
+      developers[developer.developerProfile.id.uuid] = {
+        profileEntry: {
+          profile: developer.developerProfile,
+          owner: developer.developerOwner,
+          user: mockUser,
+          verificationRecords: [],
+        },
+        settings: null,
+        project: {
+          projectItem: projectItem.projectItem,
+          developerProjectItem: developer.developerProjectItem,
+          verificationRecords: [],
+        },
+        services: {},
+      };
+    }
+
+    return {
+      project: {
+        projectItem: projectItem.projectItem,
+        owner: projectItem.owner,
+        repository: projectItem.repository,
+      },
+      developers,
+      service: [],
+      serviceOfferings: {},
+    };
+  }
+
   async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {

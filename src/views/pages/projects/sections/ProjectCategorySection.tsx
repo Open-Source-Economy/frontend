@@ -3,7 +3,6 @@ import { Button } from "src/views/components/ui/forms/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { ProjectItemWithDetails } from "@open-source-economy/api-types";
 import { ProjectCard } from "../components/ProjectCard";
-import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 
 interface ProjectCategorySectionProps {
   category: string;
@@ -47,12 +46,7 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8 items-start">
         {displayedProjects.map(item => (
-          <ProjectCard
-            key={ProjectItemWithDetailsCompanion.getProjectId(item).uuid}
-            item={item}
-            onViewProject={props.onViewProject}
-            canExpandMaintainers={props.canExpandMaintainers}
-          />
+          <ProjectCard key={item.projectItem.id.uuid} item={item} onViewProject={props.onViewProject} canExpandMaintainers={props.canExpandMaintainers} />
         ))}
       </div>
 

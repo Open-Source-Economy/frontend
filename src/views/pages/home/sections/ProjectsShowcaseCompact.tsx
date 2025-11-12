@@ -5,7 +5,7 @@ import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { ArrowRight } from "lucide-react";
 import * as dto from "@open-source-economy/api-types";
 import { ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import type { ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
@@ -177,7 +177,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {(projectItems || []).map(item => (
-                <ProjectCard key={ProjectItemWithDetailsCompanion.getProjectId(item).uuid} item={item} />
+                <ProjectCard key={item.projectItem.id.uuid} item={item} />
               ))}
             </div>
 

@@ -58,6 +58,8 @@ export interface BackendAPI {
 
   getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError>;
 
+  getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse | ApiError>;
+
   // TODO: probably remove this method, and query the data from the project
   getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
 
@@ -169,6 +171,13 @@ class BackendAPIImpl implements BackendAPI {
 
   async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
     return handleError(() => this.api.get(`${config.api.url}/projects`, { withCredentials: true }), "getProjects");
+  }
+
+  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse | ApiError> {
+    return handleError(
+      () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}/details`, { withCredentials: true }),
+      "getProjectDetails",
+    );
   }
 
   async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
