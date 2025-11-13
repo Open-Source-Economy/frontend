@@ -20,7 +20,7 @@ export interface HowItWorksStep {
 // -----------------------------
 export const howItWorksContent = {
   title: "How It Works",
-  description: "One contract. Multiple maintainers. Multiple ecosystem. Flexible models.",
+  description: "One contract. Multiple maintainers. Multiple ecosystems. Flexible models.",
   steps: [
     {
       icon: FileText,
