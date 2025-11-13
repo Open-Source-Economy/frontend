@@ -1,7 +1,24 @@
 import React from "react";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
-import { ArrowRight, Clock, FileText, Heart, Layers, LucideIcon, Rocket, Zap } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  Award,
+  Calendar,
+  Clock,
+  FileText,
+  Globe,
+  Handshake,
+  Heart,
+  Layers,
+  LucideIcon,
+  Repeat,
+  Rocket,
+  ShieldCheck,
+  Target,
+  Zap,
+} from "lucide-react";
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { laurianeCalLink } from "src/views/v1/data";
@@ -13,6 +30,20 @@ export interface HowItWorksStep {
   icon: LucideIcon;
   title: string;
   description: string;
+}
+
+interface AccessModelFeature {
+  icon: LucideIcon;
+  text: string;
+}
+
+interface AccessModel {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  accentColor: "accent" | "highlight";
+  features: AccessModelFeature[];
+  bestFor: string;
 }
 
 // -----------------------------
@@ -56,21 +87,32 @@ export const howItWorksContent = {
     description: "Choose the model that fits your needs, or combine both for maximum flexibility",
     models: [
       {
-        icon: Clock,
-        title: "Reserved Time",
-        description: "Dedicated hours with specific maintainers for ongoing work on critical projects",
-        badge: "Best for: Critical ongoing projects",
+        icon: ShieldCheck,
+        title: "Project-Specific Support Plan",
+        description: "Secure a predictable, long-term resource for your most critical projects. Guaranteed availability with SLA response times.",
         accentColor: "accent",
+        features: [
+          { icon: Calendar, text: "Reserved monthly capacity" },
+          { icon: Target, text: "Focused on specific projects" },
+          { icon: Clock, text: "SLA-backed response times" },
+        ],
+        bestFor: "Mission-critical projects",
       },
       {
         icon: Zap,
         title: "On-Demand Access",
-        description: "Pre-purchase Service Credits that roll over — use them anytime with any maintainer who built the tools you rely on",
-        badge: "Best for: Broad ecosystem support",
+        description: "Pre-purchase rollover Service Credits for flexible, ecosystem-wide support when unexpected needs or issues come up.",
         accentColor: "highlight",
+        features: [
+          { icon: Repeat, text: "Credits rollover month-to-month" },
+          { icon: Globe, text: "Works with any project or maintainer" },
+          { icon: AlertCircle, text: "Best-effort availability (no SLA)" },
+        ],
+        bestFor: "Broad ecosystem support",
       },
-    ],
+    ] as AccessModel[],
   },
+
   cta: {
     primaryButton: "Schedule a Demo",
     secondaryButton: "Learn More",
@@ -141,16 +183,21 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
                     <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-brand-${model.accentColor}/10 flex items-center justify-center`}>
                       <Icon className={`w-6 h-6 text-brand-${model.accentColor}`} />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h4 className="text-brand-neutral-900 mb-2">{model.title}</h4>
-                      <p className="text-brand-neutral-700 text-sm">{model.description}</p>
+                      <p className="text-brand-neutral-700 text-sm mb-4">{model.description}</p>
+                      <div className="space-y-2.5">
+                        {model.features.map((feature, featureIndex) => (
+                          <FeatureListItem key={featureIndex} icon={feature.icon} text={feature.text} accentColor={model.accentColor} />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-brand-neutral-600 text-sm mt-auto">
+                  <div className="flex items-center gap-2 text-brand-neutral-600 text-sm mt-auto pt-3 border-t border-brand-neutral-300/20">
                     <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-${model.accentColor}/10 text-brand-${model.accentColor}-light`}
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-${model.accentColor}/10 text-brand-${model.accentColor}`}
                     >
-                      {model.badge}
+                      Best for: {model.bestFor}
                     </span>
                   </div>
                 </div>
@@ -180,3 +227,22 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
     </section>
   );
 }
+
+interface FeatureListItemProps {
+  icon: LucideIcon;
+  text: string;
+  accentColor: "accent" | "highlight";
+}
+
+const FeatureListItem: React.FC<FeatureListItemProps> = ({ icon: Icon, text, accentColor }) => {
+  const accentClasses = accentColor === "accent" ? "bg-brand-accent/10 text-brand-accent" : "bg-brand-highlight/10 text-brand-highlight";
+
+  return (
+    <div className="flex items-center gap-2.5">
+      <div className={`flex-shrink-0 w-5 h-5 rounded ${accentClasses} flex items-center justify-center`}>
+        <Icon className="w-3 h-3" />
+      </div>
+      <span className="text-xs text-brand-neutral-700">{text}</span>
+    </div>
+  );
+};
