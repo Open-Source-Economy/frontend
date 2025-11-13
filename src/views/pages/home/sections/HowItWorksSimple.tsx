@@ -162,14 +162,14 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4">
-            <Button asChild size="lg" className="gap-2 bg-brand-accent hover:bg-brand-accent-light text-white shadow-lg shadow-brand-accent/20">
-              <ExternalLink href={laurianeCalLink} underline={false}>
+            <ExternalLink href={laurianeCalLink} underline={false}>
+              <Button size="lg">
                 {howItWorksContent.cta.primaryButton}
                 <ArrowRight className="w-4 h-4" />
-              </ExternalLink>
-            </Button>
+              </Button>
+            </ExternalLink>
             {isFeatureVisible(envGroups.localAndDev) && (
-              <Button size="lg" variant="outline" className="gap-2 border-brand-neutral-400/40 hover:border-brand-accent/60 hover:bg-brand-accent/10">
+              <Button size="lg" variant="outline">
                 {howItWorksContent.cta.secondaryButton}
               </Button>
             )}
