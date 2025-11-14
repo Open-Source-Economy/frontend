@@ -24,7 +24,7 @@ interface HeaderProps {
 // -----------------------------
 export const headerContent = {
   banner: {
-    label: "Are you a developer?",
+    label: "Are you an OSS developer?",
     ctaText: "Register Here",
   },
   nav: headerNavigation,
