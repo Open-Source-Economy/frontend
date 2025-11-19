@@ -50,6 +50,9 @@ export const features = {
   /** Privacy policy references */
   privacyPolicy: envGroups.localAndDev,
 
+  /** Featured vendors section */
+  featuredVendors: envGroups.nonProduction,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,

@@ -9,6 +9,8 @@ import { ProjectsShowcaseCompact } from "src/views/pages/home/sections/ProjectsS
 import { UniqueSellingPoints } from "src/views/pages/home/sections/UniqueSellingPoints";
 import { laurianeCalLink } from "src/views/v1/data";
 import { FundDistributionMinimal } from "./sections/FundDistributionMinimal";
+import { FeaturedVendors } from "./sections/vendors/FeaturedVendors";
+import { isVisible } from "src/ultils/featureVisibility";
 
 interface HomeProps {}
 
@@ -62,6 +64,8 @@ export function HomePage(props: HomeProps) {
         // }}
         className="bg-gradient-to-br from-brand-neutral-100 via-brand-secondary-dark to-brand-card-blue"
       />
+
+      {isVisible("featuredVendors") && <FeaturedVendors className="bg-gradient-to-b from-brand-card-blue via-brand-secondary to-brand-neutral-200" />}
 
       {/* Unique Selling Points - Differentiation with Warm Accents */}
       <div className="relative overflow-hidden bg-gradient-to-b from-brand-secondary-dark via-brand-neutral-100 to-brand-card-blue">
