@@ -60,6 +60,10 @@
   --brand-highlight: #daa520;         /* Goldenrod - Secondary accents */
   --brand-highlight-light: #f0e68c;   /* Khaki */
   --brand-highlight-dark: #b8860b;    /* Dark Goldenrod */
+  --brand-tier-platinum: #e5e4e2;     /* Soft metallic platinum */
+  --brand-tier-gold: var(--brand-highlight); /* Align gold with highlight */
+  --brand-tier-silver: #c0c0c0;       /* Classic silver tone */
+  --brand-tier-bronze: #cd7f32;       /* Rich bronze accent */
   --brand-success: #10b981;           /* Emerald Green */
   --brand-success-light: #34d399;     /* Light Success */
   --brand-success-dark: #059669;      /* Deep Success */
@@ -271,6 +275,10 @@
   --color-brand-highlight: var(--brand-highlight);
   --color-brand-highlight-light: var(--brand-highlight-light);
   --color-brand-highlight-dark: var(--brand-highlight-dark);
+  --color-brand-tier-platinum: var(--brand-tier-platinum);
+  --color-brand-tier-gold: var(--brand-tier-gold);
+  --color-brand-tier-silver: var(--brand-tier-silver);
+  --color-brand-tier-bronze: var(--brand-tier-bronze);
   --color-brand-success: var(--brand-success);
   --color-brand-success-light: var(--brand-success-light);
   --color-brand-success-dark: var(--brand-success-dark);

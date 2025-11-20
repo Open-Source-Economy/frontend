@@ -53,6 +53,9 @@ export const features = {
   /** Featured vendors section */
   featuredVendors: envGroups.nonProduction,
 
+  /** Supporters section */
+  becomeASponsor: envGroups.localAndDev,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,

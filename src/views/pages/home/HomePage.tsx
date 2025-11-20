@@ -11,6 +11,7 @@ import { laurianeCalLink } from "src/views/v1/data";
 import { FundDistributionMinimal } from "./sections/FundDistributionMinimal";
 import { FeaturedVendors } from "./sections/vendors/FeaturedVendors";
 import { isVisible } from "src/ultils/featureVisibility";
+import { PlatformSponsors } from "./sections/supporters/PlatformSponsors";
 
 interface HomeProps {}
 
@@ -47,6 +48,14 @@ export function HomePage(props: HomeProps) {
 
       {/* Win-Win-Win Partnership - Value Proposition */}
       <WinWinWinPartnership className="bg-gradient-to-br from-brand-neutral-200 via-brand-secondary to-brand-card-blue-dark" />
+
+      {/* Platform Sponsors - Leading Organizations with Visual Hierarchy */}
+
+      <div className="relative overflow-hidden bg-gradient-to-b from-brand-card-blue-dark via-brand-secondary to-brand-neutral-200">
+        <div className="absolute top-1/3 left-0 w-96 h-96 bg-brand-success/12 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-brand-accent/10 rounded-full blur-3xl opacity-30" />
+        <PlatformSponsors />
+      </div>
 
       {/* Fund Distribution - Transparency with Semantic Green Accents */}
       <div className="relative overflow-hidden bg-gradient-to-b from-brand-card-blue-dark via-brand-secondary to-brand-neutral-100">

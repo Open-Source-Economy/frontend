@@ -100,7 +100,7 @@ export function VendorCard({ name, logo, tagline, description, metrics, ctaText 
         <p className="text-brand-neutral-600 leading-relaxed">{description}</p>
 
         {/* Metrics */}
-        <div className="flex flex-wrap justify-center gap-3 w-full">
+        <div className="flex flex-wrap justify-center gap-3 w-full mt-auto">
           {metrics.map((metric, idx) => {
             const IconComponent = metricIcons[metric.icon];
             return (
