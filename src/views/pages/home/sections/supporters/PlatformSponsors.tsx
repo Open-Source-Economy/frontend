@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Award, Heart, Users } from "lucide-react";
-import { IndividualSupporterAvatar } from "./components/IndividualSupporterAvatar";
 import { Button } from "../../../../components/ui/forms";
 import { SponsorCard } from "./components/SponsorCard";
 import type { IndividualSupporter, Sponsor, SponsorTier } from "./components/types";
 import { isVisible } from "../../../../../ultils/featureVisibility";
+import { IndividualSupporterAvatar } from "./components/IndividualSupporterAvatar";
 
 const SPONSOR_TIER_ACCENT_COLORS = {
   Platinum: "var(--brand-tier-platinum)",
@@ -67,27 +67,6 @@ interface PlatformSponsorsProps {
 export function PlatformSponsors({ className = "" }: PlatformSponsorsProps) {
   // Platform sponsors with realistic companies supporting open source
   const sponsors: Sponsor[] = [
-    // Platinum Tier - Largest, most prominent
-    // createSponsor("Platinum", {
-    //   name: "Vercel",
-    //   domain: "vercel.com",
-    //   badge: "Founding Sponsor",
-    //   tagline: '"Empowering the open source ecosystem"',
-    //   description: "Leading the charge in sustainable open source funding, helping connect enterprises with the maintainers they depend on.",
-    //   ctaText: "Learn About Partnership",
-    //   ctaUrl: "https://vercel.com",
-    // }),
-    // createSponsor("Platinum", {
-    //   name: "GitHub",
-    //   domain: "github.com",
-    //   badge: "Founding Sponsor",
-    //   tagline: '"Where the world builds software"',
-    //   description: "Committed to supporting the maintainers and projects that power the software development ecosystem.",
-    //   ctaText: "View Partnership",
-    //   ctaUrl: "https://github.com",
-    // }),
-
-    // Gold Tier - Second tier prominence
     createSponsor("Gold", {
       name: "SwissBorg",
       domain: "swissborg.com",
@@ -97,70 +76,50 @@ export function PlatformSponsors({ className = "" }: PlatformSponsorsProps) {
       ctaText: "We are hiring",
       ctaUrl: "https://swissborg.com/careers",
     }),
-    // createSponsor("Gold", {
-    //   name: "Netlify",
-    //   domain: "netlify.com",
-    //   badge: "Premier Partner",
-    //   tagline: "Powering modern web infrastructure",
-    //   description: "Dedicated to supporting the open source projects that make the modern web possible.",
-    //   ctaText: "Our Commitment",
-    //   ctaUrl: "https://netlify.com",
-    // }),
-    // createSponsor("Gold", {
-    //   name: "Shopify",
-    //   domain: "shopify.com",
-    //   badge: "Premier Partner",
-    //   tagline: "Commerce for everyone",
-    //   description: "Supporting the open source community that powers global commerce.",
-    //   ctaText: "Partnership Details",
-    //   ctaUrl: "https://shopify.com",
-    // }),
-    //
-    // // Silver Tier - Third tier
-    // createSponsor("Silver", {
-    //   name: "Cloudflare",
-    //   domain: "cloudflare.com",
-    //   badge: "Corporate Sponsor",
-    //   description: "Supporting infrastructure for a better Internet.",
-    // }),
-    // createSponsor("Silver", {
-    //   name: "Twilio",
-    //   domain: "twilio.com",
-    //   badge: "Corporate Sponsor",
-    //   description: "Building the future of communications with open source.",
-    // }),
-    // createSponsor("Silver", {
-    //   name: "Supabase",
-    //   domain: "supabase.com",
-    //   badge: "Corporate Sponsor",
-    //   description: "Open source Firebase alternative supporting open source.",
-    // }),
-    //
-    // // Bronze Tier - Compact cards
-    // createSponsor("Bronze", {
-    //   name: "Linear",
-    //   domain: "linear.app",
-    // }),
-    // createSponsor("Bronze", {
-    //   name: "Render",
-    //   domain: "render.com",
-    // }),
-    // createSponsor("Bronze", {
-    //   name: "Railway",
-    //   domain: "railway.app",
-    // }),
+    ...(isVisible("epicmaxSponsor")
+      ? [
+          createSponsor("Platinum", {
+            name: "Epicmax",
+            domain: "epicmax.co",
+            badge: "OSS Passionate",
+            tagline: "Your Trusted Vue.js Development Company",
+            description: "Official partner of Vuetify, PrimeVue, VueJobs. We offer custom front-end development with a strong focus on Vue.js.",
+            ctaText: "Book a Call",
+            ctaUrl: "https://epicmax.co/",
+          }),
+          createSponsor("Gold", {
+            name: "Epicmax",
+            domain: "epicmax.co",
+            badge: "OSS Passionate",
+            tagline: "Your Trusted Vue.js Development Company",
+            description: "We're a passionate united by our love for coding and open source.",
+            ctaText: "Book a Call",
+            ctaUrl: "https://epicmax.co/",
+          }),
+          createSponsor("Silver", {
+            name: "Epicmax",
+            domain: "epicmax.co",
+            badge: "OSS Passionate",
+            description: "Your Trusted Vue.js Development Company",
+          }),
+          createSponsor("Bronze", {
+            name: "Epicmax",
+            domain: "epicmax.co",
+          }),
+        ]
+      : []),
   ];
 
   // Individual supporters
   const individualSupporters: IndividualSupporter[] = [
-    { name: "Sarah Chen", initials: "SC", monthlyAmount: 50 },
-    { name: "Michael Rodriguez", initials: "MR", monthlyAmount: 25 },
-    { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 100 },
-    { name: "Emma Wilson", initials: "EW", monthlyAmount: 15 },
-    { name: "David Kim", initials: "DK", monthlyAmount: 30 },
-    { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 75 },
-    { name: "Lisa Anderson", initials: "LA", monthlyAmount: 20 },
-    { name: "James Brown", initials: "JB", monthlyAmount: 40 },
+    // { name: "Sarah Chen", initials: "SC", monthlyAmount: 50 },
+    // { name: "Michael Rodriguez", initials: "MR", monthlyAmount: 25 },
+    // { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 100 },
+    // { name: "Emma Wilson", initials: "EW", monthlyAmount: 15 },
+    // { name: "David Kim", initials: "DK", monthlyAmount: 30 },
+    // { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 75 },
+    // { name: "Lisa Anderson", initials: "LA", monthlyAmount: 20 },
+    // { name: "James Brown", initials: "JB", monthlyAmount: 40 },
   ];
 
   return (

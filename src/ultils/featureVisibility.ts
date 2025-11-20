@@ -56,6 +56,8 @@ export const features = {
   /** Supporters section */
   becomeASponsor: envGroups.localAndDev,
 
+  epicmaxSponsor: envGroups.nonProduction,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,

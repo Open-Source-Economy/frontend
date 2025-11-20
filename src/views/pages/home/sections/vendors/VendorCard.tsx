@@ -1,17 +1,17 @@
 import React from "react";
-import { ExternalLink, Star, GitBranch, Award } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/forms";
 
 export interface VendorMetric {
-  icon: "star" | "projects" | "award";
+  icon: React.ReactNode;
   label: string;
   value: string | number;
 }
 
 export interface VendorCardProps {
   name: string;
-  logo: string;
+  domain: string;
   tagline: string;
   description: string;
   metrics: VendorMetric[];
@@ -20,13 +20,15 @@ export interface VendorCardProps {
   onLearnMore?: () => void;
 }
 
-const metricIcons = {
-  star: Star,
-  projects: GitBranch,
-  award: Award,
-};
+export function VendorCard({ name, domain, tagline, description, metrics, ctaText = "Learn More", ctaLink, onLearnMore }: VendorCardProps) {
+  const logoUrl = domain ? `https://logo.clearbit.com/${domain}` : null;
+  const vendorInitials = name
+    .split(" ")
+    .map(word => word[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
-export function VendorCard({ name, logo, tagline, description, metrics, ctaText = "Learn More", ctaLink, onLearnMore }: VendorCardProps) {
   const handleClick = () => {
     if (ctaLink) {
       window.open(ctaLink, "_blank", "noopener,noreferrer");
@@ -63,28 +65,22 @@ export function VendorCard({ name, logo, tagline, description, metrics, ctaText 
       <div className="relative z-10 flex flex-col items-center text-center space-y-6 h-full">
         {/* Logo */}
         <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-brand-neutral-200 to-brand-neutral-300 border border-brand-neutral-300 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 overflow-hidden shadow-lg">
-          <img
-            src={logo}
-            alt={`${name} logo`}
-            className="w-full h-full object-contain p-3"
-            onError={e => {
-              // Fallback to initials
-              const target = e.target as HTMLImageElement;
-              target.style.display = "none";
-              const fallback = target.nextElementSibling as HTMLElement;
-              if (fallback) fallback.style.display = "flex";
-            }}
-          />
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt={`${name} logo`}
+              className="w-full h-full object-contain p-3"
+              onError={e => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
+                const fallback = target.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = "flex";
+              }}
+            />
+          )}
           {/* Fallback - Vendor initials */}
-          <div className="w-full h-full flex items-center justify-center" style={{ display: "none" }}>
-            <span className="text-brand-neutral-900 text-2xl">
-              {name
-                .split(" ")
-                .map(word => word[0])
-                .join("")
-                .slice(0, 2)
-                .toUpperCase()}
-            </span>
+          <div className="w-full h-full flex items-center justify-center" style={{ display: logoUrl ? "none" : "flex" }}>
+            <span className="text-brand-neutral-900 text-2xl">{vendorInitials}</span>
           </div>
         </div>
 
@@ -102,14 +98,13 @@ export function VendorCard({ name, logo, tagline, description, metrics, ctaText 
         {/* Metrics */}
         <div className="flex flex-wrap justify-center gap-3 w-full mt-auto">
           {metrics.map((metric, idx) => {
-            const IconComponent = metricIcons[metric.icon];
             return (
               <Badge
                 key={idx}
                 variant="outline"
                 className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-br from-brand-secondary/40 to-brand-secondary/20 border-brand-neutral-300 hover:border-brand-accent/50 transition-colors"
               >
-                <IconComponent className="h-3.5 w-3.5 text-brand-accent" />
+                <span className="h-3.5 w-3.5 text-brand-accent flex items-center justify-center">{metric.icon}</span>
                 <span className="text-brand-neutral-700 text-xs">
                   {metric.value} {metric.label}
                 </span>

@@ -21,6 +21,8 @@ import { laurianeCalLink } from "../../v1/data";
 import { cn } from "../../components/utils";
 import { ServiceTypeCompanion } from "src/ultils/companions";
 import { FundDistributionVisualization } from "./sections/FundDistributionVisualization";
+import { isVisible } from "../../../ultils/featureVisibility";
+import { FeaturedVendors } from "../home/sections/vendors/FeaturedVendors";
 
 type ServiceOfferingByCategory = Map<ServiceType, ServiceOffering[]>;
 
@@ -188,6 +190,8 @@ export function ProjectDetailPage() {
             projectName={projectName}
           />
         </section>
+
+        {isVisible("epicmaxSponsor") && <FeaturedVendors />}
 
         {projectDisclaimer && (
           <section className="bg-brand-card-blue border border-brand-neutral-300 rounded-xl p-6">
