@@ -191,7 +191,7 @@ export function ProjectDetailPage() {
           />
         </section>
 
-        {isVisible("epicmaxSponsor") && <FeaturedVendors />}
+        {isVisible("epicmaxSponsor") && <FeaturedVendors anchorId="featured-vendors" />}
 
         {projectDisclaimer && (
           <section className="bg-brand-card-blue border border-brand-neutral-300 rounded-xl p-6">

@@ -123,7 +123,7 @@ export function PlatformSponsors({ className = "" }: PlatformSponsorsProps) {
   ];
 
   return (
-    <section className={`py-16 lg:py-24 ${className}`}>
+    <section id="platform-sponsors" className={`py-16 lg:py-24 ${className}`}>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="space-y-12">
           {/* Header */}

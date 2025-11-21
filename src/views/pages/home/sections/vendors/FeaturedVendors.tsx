@@ -5,13 +5,14 @@ import { isVisible } from "../../../../../ultils/featureVisibility";
 
 interface FeaturedVendorsProps {
   className?: string;
+  anchorId?: string;
 }
 
 type FeaturedVendor = Omit<VendorCardProps, "ctaLink" | "onLearnMore"> & {
   href: string;
 };
 
-export function FeaturedVendors({ className = "" }: FeaturedVendorsProps) {
+export function FeaturedVendors({ className = "", anchorId = "featured-vendors" }: FeaturedVendorsProps) {
   // Sample vendor data - would come from API in production
   const vendors: FeaturedVendor[] = [
     ...(isVisible("epicmaxSponsor")
@@ -70,7 +71,7 @@ export function FeaturedVendors({ className = "" }: FeaturedVendorsProps) {
   ];
 
   return (
-    <section className={`py-24 relative overflow-hidden ${className}`}>
+    <section id={anchorId} className={`py-24 relative overflow-hidden ${className}`}>
       {/* Background decorative elements */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl opacity-40" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-brand-highlight/10 rounded-full blur-3xl opacity-40" />
