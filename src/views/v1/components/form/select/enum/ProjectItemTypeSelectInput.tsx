@@ -14,10 +14,7 @@ const options: SelectOption[] = Object.values(ProjectItemType).map(value => ({
   label: value,
 }));
 
-export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(
-  props: ProjectItemTypeSelectInputProps,
-  ref: Ref<SelectInputRef>,
-) {
+export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(props: ProjectItemTypeSelectInputProps, ref: Ref<SelectInputRef>) {
   return (
     <SelectInput
       ref={ref}
@@ -29,4 +26,3 @@ export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSel
     />
   );
 });
-

@@ -26,6 +26,7 @@ import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
 import { Pdf } from "./views/pages/Pdf";
 import { ProjectDetailPage } from "./views/pages/project/ProjectDetailPage";
+import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
   return (
@@ -125,6 +126,7 @@ const App = () => {
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          <Analytics />
         </CurrencyProvider>
       </AuthProvider>
     </BrowserRouter>

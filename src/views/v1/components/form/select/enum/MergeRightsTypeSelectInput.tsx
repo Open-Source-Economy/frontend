@@ -14,10 +14,7 @@ const options: SelectOption[] = Object.values(MergeRightsType).map(value => ({
   label: value,
 }));
 
-export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSelectInput(
-  props: MergeRightsTypeSelectInputProps,
-  ref: Ref<SelectInputRef>,
-) {
+export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSelectInput(props: MergeRightsTypeSelectInputProps, ref: Ref<SelectInputRef>) {
   return (
     <SelectInput
       ref={ref}
@@ -29,4 +26,3 @@ export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSel
     />
   );
 });
-

@@ -14,10 +14,7 @@ const options: SelectOption[] = Object.values(ResponseTimeType).map(value => ({
   label: value,
 }));
 
-export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(
-  props: ResponseTimeTypeSelectInputProps,
-  ref: Ref<SelectInputRef>,
-) {
+export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(props: ResponseTimeTypeSelectInputProps, ref: Ref<SelectInputRef>) {
   return (
     <SelectInput
       ref={ref}
@@ -29,4 +26,3 @@ export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeS
     />
   );
 });
-

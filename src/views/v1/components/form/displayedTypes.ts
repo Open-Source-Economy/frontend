@@ -12,4 +12,3 @@ export const displayedMergeRights: Record<MergeRightsType, string> = {
   [MergeRightsType.WRITE]: "Write",
   [MergeRightsType.ADMIN]: "Admin",
 } as const;
-
