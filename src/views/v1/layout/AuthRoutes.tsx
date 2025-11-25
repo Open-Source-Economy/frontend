@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../pages";
+import { useAuth } from "../pages/authenticate/AuthContext";
 import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
 import { PageNotFound } from "../pages/PageNotFound";

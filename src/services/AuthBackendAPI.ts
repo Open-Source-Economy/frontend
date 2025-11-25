@@ -16,7 +16,7 @@ export interface AuthBackendAPI {
   checkUserStatus(): Promise<dto.StatusResponse | ApiError>;
   login(body: dto.LoginBody, query: dto.LoginQuery): Promise<dto.LoginResponse | ApiError>;
   register(body: dto.RegisterBody, query: dto.RegisterQuery): Promise<dto.RegisterResponse | ApiError>;
-  loginWithGitHub(): void;
+  loginWithGitHub(redirectPath?: string): void;
   deleteSession(): Promise<dto.LogoutResponse | ApiError>;
   getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse | ApiError>;
   getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse | ApiError>;

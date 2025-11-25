@@ -65,11 +65,12 @@ export function transformFullDeveloperProfileToOnboardingState(
   profile: FullDeveloperProfile,
   fallBackCurrency: Currency,
 ): OnboardingState {
+  const profileAny = profile as any;
   const step1: Step1State = {
-    developerProfileId: profile.profile?.id || undefined,
-    name: profile.name || undefined,
-    contactEmail: profile.contactEmail || undefined,
-    agreedToTerms: profile.agreedToTerms || undefined,
+    developerProfileId: profileAny.profile?.id || undefined,
+    name: profileAny.name || undefined,
+    contactEmail: profileAny.contactEmail || undefined,
+    agreedToTerms: profileAny.agreedToTerms || undefined,
   };
 
   const step2: Step2State = {

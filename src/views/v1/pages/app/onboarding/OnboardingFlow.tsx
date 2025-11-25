@@ -10,7 +10,7 @@ import Step2 from "./steps/step2/Step2";
 import { paths } from "../../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
-import { PageLoader } from "../../../components/common";
+import { PageLoader } from "../../../components/common/PageLoader";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
