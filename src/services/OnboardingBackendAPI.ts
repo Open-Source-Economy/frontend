@@ -31,11 +31,11 @@ export interface OnboardingBackendAPI {
   getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError>;
 
   // Settings management
-  setDeveloperIncomeStreams(
-    params: dto.SetDeveloperIncomeStreamsParams,
-    body: dto.SetDeveloperIncomeStreamsBody,
-    query: dto.SetDeveloperIncomeStreamsQuery,
-  ): Promise<dto.SetDeveloperIncomeStreamsResponse | ApiError>;
+  setDeveloperPreferences(
+    params: dto.SetDeveloperPreferencesParams,
+    body: dto.SetDeveloperPreferencesBody,
+    query: dto.SetDeveloperPreferencesQuery,
+  ): Promise<dto.SetDeveloperPreferencesResponse | ApiError>;
 
   setDeveloperServiceSettings(
     params: dto.SetDeveloperServiceSettingsParams,
@@ -131,14 +131,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
     );
   }
 
-  async setDeveloperIncomeStreams(
-    params: dto.SetDeveloperIncomeStreamsParams,
-    body: dto.SetDeveloperIncomeStreamsBody,
-    query: dto.SetDeveloperIncomeStreamsQuery,
-  ): Promise<dto.SetDeveloperIncomeStreamsResponse | ApiError> {
-    return handleError<dto.SetDeveloperIncomeStreamsResponse>(
-      () => this.api.put(`${config.api.url}/onboarding/settings/income-streams`, body, { withCredentials: true, params: query }),
-      "setDeveloperIncomeStreams",
+  async setDeveloperPreferences(
+    params: dto.SetDeveloperPreferencesParams,
+    body: dto.SetDeveloperPreferencesBody,
+    query: dto.SetDeveloperPreferencesQuery,
+  ): Promise<dto.SetDeveloperPreferencesResponse | ApiError> {
+    return handleError<dto.SetDeveloperPreferencesResponse>(
+      () => this.api.put(`${config.api.url}/onboarding/settings/preferences`, body, { withCredentials: true, params: query }),
+      "setDeveloperPreferences",
     );
   }
 

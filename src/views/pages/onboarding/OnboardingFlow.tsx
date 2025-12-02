@@ -35,7 +35,9 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     projects: [],
   },
   step3: {
-    incomeStreams: [],
+    royaltiesPreference: undefined,
+    servicesPreference: undefined,
+    communitySupporterPreference: undefined,
   },
   step4: {
     currency: preferredCurrency,
@@ -189,8 +191,8 @@ export default function OnboardingFlow() {
       render: <Step2 {...commonStepProps} state={state.step2} />,
     },
     [OnboardingDataSteps.Step3]: {
-      title: "Income Streams",
-      subtitle: "Let us know how you would like to fund your open source work",
+      title: "Choose Your Participation Model",
+      subtitle: "Select your level of interest for each option - you can participate in multiple ways",
       render: <Step3 {...commonStepProps} state={state.step3} />,
     },
     [OnboardingDataSteps.Step4]: {

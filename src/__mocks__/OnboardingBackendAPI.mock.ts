@@ -43,7 +43,9 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         settings: {
           id: new dto.DeveloperSettingsId(Math.random().toString()),
           developerProfileId: developerProfileId1,
-          incomeStreams: [dto.IncomeStreamType.SERVICES],
+          royaltiesPreference: undefined,
+          servicesPreference: dto.PreferenceType.YES,
+          communitySupporterPreference: undefined,
           hourlyWeeklyCommitment: undefined,
           hourlyWeeklyCommitmentComment: undefined,
           openToOtherOpportunity: undefined,
@@ -98,13 +100,13 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     return Promise.resolve(response);
   }
 
-  async setDeveloperIncomeStreams(
-    params: dto.SetDeveloperIncomeStreamsParams,
-    body: dto.SetDeveloperIncomeStreamsBody,
-    query: dto.SetDeveloperIncomeStreamsQuery,
-  ): Promise<dto.SetDeveloperIncomeStreamsResponse | ApiError> {
-    console.log("setDeveloperIncomeStreams", { params, body, query });
-    return Promise.resolve({} as dto.SetDeveloperIncomeStreamsResponse);
+  async setDeveloperPreferences(
+    params: dto.SetDeveloperPreferencesParams,
+    body: dto.SetDeveloperPreferencesBody,
+    query: dto.SetDeveloperPreferencesQuery,
+  ): Promise<dto.SetDeveloperPreferencesResponse | ApiError> {
+    console.log("setDeveloperPreferences", { params, body, query });
+    return Promise.resolve({} as dto.SetDeveloperPreferencesResponse);
   }
 
   async setDeveloperServiceSettings(

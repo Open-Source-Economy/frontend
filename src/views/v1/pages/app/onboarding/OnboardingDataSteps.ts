@@ -4,7 +4,7 @@ import {
   DeveloperProjectItemEntry,
   DeveloperServiceEntry,
   FullDeveloperProfile,
-  IncomeStreamType,
+  PreferenceType,
   OpenToOtherOpportunityType,
 } from "@open-source-economy/api-types";
 import { Rate } from "./steps/step5/modals/edit/EditServiceModal";
@@ -30,7 +30,9 @@ export interface Step2State {
 
 export interface Step3State {
   // coming from DeveloperSettings
-  incomeStreams: IncomeStreamType[];
+  royaltiesPreference?: PreferenceType | null;
+  servicesPreference?: PreferenceType | null;
+  communitySupporterPreference?: PreferenceType | null;
 }
 
 export interface Step4State {
@@ -78,7 +80,9 @@ export function transformFullDeveloperProfileToOnboardingState(
   };
 
   const step3: Step3State = {
-    incomeStreams: profile.settings?.incomeStreams || [],
+    royaltiesPreference: profile.settings?.royaltiesPreference,
+    servicesPreference: profile.settings?.servicesPreference,
+    communitySupporterPreference: profile.settings?.communitySupporterPreference,
   };
 
   const step4: Step4State = {

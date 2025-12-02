@@ -34,7 +34,9 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
     projects: [],
   },
   step3: {
-    incomeStreams: [],
+    royaltiesPreference: undefined,
+    servicesPreference: undefined,
+    communitySupporterPreference: undefined,
   },
   step4: {
     currency: preferredCurrency,

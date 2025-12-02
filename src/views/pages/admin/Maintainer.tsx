@@ -356,15 +356,20 @@ export function Maintainer() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-brand-neutral-400 text-sm">Income Streams</p>
+                  <p className="text-brand-neutral-400 text-sm">Income Stream Preferences</p>
                   <div className="flex flex-wrap gap-2 mt-1">
-                    {profile.settings.incomeStreams && profile.settings.incomeStreams.length > 0 ? (
-                      profile.settings.incomeStreams.map((stream, idx) => (
-                        <span key={idx} className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">
-                          {stream}
-                        </span>
-                      ))
-                    ) : (
+                    {profile.settings.royaltiesPreference && (
+                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">Royalties: {profile.settings.royaltiesPreference}</span>
+                    )}
+                    {profile.settings.servicesPreference && (
+                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">Services: {profile.settings.servicesPreference}</span>
+                    )}
+                    {profile.settings.communitySupporterPreference && (
+                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">
+                        Community Supporter: {profile.settings.communitySupporterPreference}
+                      </span>
+                    )}
+                    {!profile.settings.royaltiesPreference && !profile.settings.servicesPreference && !profile.settings.communitySupporterPreference && (
                       <span className="text-white">N/A</span>
                     )}
                   </div>
