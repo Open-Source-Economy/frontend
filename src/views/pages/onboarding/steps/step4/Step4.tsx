@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Currency, OpenToOtherOpportunityType, PreferenceType } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../ultils";
 import { Step4State } from "../../OnboardingDataSteps";
@@ -15,8 +16,11 @@ import { BiggerOpportunitiesRadioGroup } from "./design-system/BiggerOpportuniti
 import { ExpandableCommentSection } from "../../components/ExpandableCommentSection";
 import { PricingInfoBanner } from "./design-system/PricingInfoBanner";
 import { validateHourlyRate, validateWeeklyCommitment } from "src/views/components/ui/forms/validators";
+import { paths } from "src/paths";
 
-export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
+export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {
+  servicesPreference?: PreferenceType | null;
+}
 
 interface Step4FormErrors {
   hourlyWeeklyCommitment?: string;
@@ -25,14 +29,20 @@ interface Step4FormErrors {
 }
 
 export function Step4(props: Step4AvailabilityRateProps) {
+  const navigate = useNavigate();
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState<Step4FormErrors>({});
 
+  // Check if user selected "Yes" to Service Provider
+  const isServiceProvider = props.servicesPreference === PreferenceType.YES;
+  // Check if user is not interested in being a service provider at all
+  const skipStep5 = props.servicesPreference === PreferenceType.NOT_INTERESTED;
+
   // Comment expansion states
-  const [isWeeklyHoursCommentExpanded, setIsWeeklyHoursCommentExpanded] = useState(!!props.state.hourlyWeeklyCommitmentComments);
-  const [isCommentExpanded, setIsCommentExpanded] = useState(!!props.state.hourlyRateComments);
-  const [isBiggerOpportunitiesCommentExpanded, setIsBiggerOpportunitiesCommentExpanded] = useState(!!props.state.openToOtherOpportunityComments);
+  const [isWeeklyHoursCommentExpanded, setIsWeeklyHoursCommentExpanded] = useState(!!props.state.hourlyWeeklyCommitmentComment);
+  const [isCommentExpanded, setIsCommentExpanded] = useState(!!props.state.hourlyRateComment);
+  const [isBiggerOpportunitiesCommentExpanded, setIsBiggerOpportunitiesCommentExpanded] = useState(!!props.state.openToOtherOpportunityComment);
 
   // Convert OpenToOtherOpportunityType to boolean | null for BiggerOpportunitiesRadioGroup
   const biggerOpportunitiesValue = useMemo(() => {
@@ -48,13 +58,13 @@ export function Step4(props: Step4AvailabilityRateProps) {
     const apiCall = async () => {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
-        hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
-        hourlyWeeklyCommitmentComments: props.state.hourlyWeeklyCommitmentComments || "",
+        hourlyWeeklyCommitment: isServiceProvider ? props.state.hourlyWeeklyCommitment! : undefined,
+        hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || undefined,
         openToOtherOpportunity: props.state.openToOtherOpportunity!,
-        openToOtherOpportunityComments: props.state.openToOtherOpportunityComments || "",
-        hourlyRate: props.state.hourlyRate!,
-        currency: props.state.currency!,
-        hourlyRateComments: props.state.hourlyRateComments || "",
+        openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || undefined,
+        hourlyRate: isServiceProvider ? props.state.hourlyRate! : undefined,
+        currency: isServiceProvider ? props.state.currency! : undefined,
+        hourlyRateComment: props.state.hourlyRateComment || undefined,
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
       return await onboardingAPI.setDeveloperServiceSettings(params, body, query);
@@ -69,27 +79,30 @@ export function Step4(props: Step4AvailabilityRateProps) {
     const errors: Step4FormErrors = {};
     let isValid = true;
 
-    // Validate required fields
-    const weeklyCommitmentError = validateWeeklyCommitment(props.state.hourlyWeeklyCommitment);
-    if (weeklyCommitmentError) {
-      errors.hourlyWeeklyCommitment = weeklyCommitmentError;
-      isValid = false;
+    // Validate service provider fields only if user selected "Yes" to Service Provider
+    if (isServiceProvider) {
+      const weeklyCommitmentError = validateWeeklyCommitment(props.state.hourlyWeeklyCommitment);
+      if (weeklyCommitmentError) {
+        errors.hourlyWeeklyCommitment = weeklyCommitmentError;
+        isValid = false;
+      }
+
+      if (!props.state.currency) {
+        errors.hourlyRate = "Currency must be specified";
+        isValid = false;
+      } else {
+        const hourlyRateError = validateHourlyRate(props.state.hourlyRate);
+        if (hourlyRateError) {
+          errors.hourlyRate = hourlyRateError;
+          isValid = false;
+        }
+      }
     }
 
+    // Always validate bigger opportunities
     if (props.state.openToOtherOpportunity === undefined) {
       errors.openToOtherOpportunity = "Please indicate if you're open to bigger opportunities";
       isValid = false;
-    }
-
-    if (!props.state.currency) {
-      errors.hourlyRate = "Currency must be specified";
-      isValid = false;
-    } else {
-      const hourlyRateError = validateHourlyRate(props.state.hourlyRate);
-      if (hourlyRateError) {
-        errors.hourlyRate = hourlyRateError;
-        isValid = false;
-      }
     }
 
     setFormErrors(errors);
@@ -99,6 +112,21 @@ export function Step4(props: Step4AvailabilityRateProps) {
     }
 
     const success = await saveSettingsToDatabase();
+
+    // If user selected "Not interested" for Service Provider, skip Step 5 and complete onboarding
+    if (success && skipStep5) {
+      const completeApiCall = async () => {
+        return await getOnboardingBackendAPI().completeOnboarding({}, {}, {});
+      };
+
+      const onComplete = () => {
+        navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+      };
+
+      await handleApiCall(completeApiCall, setIsLoading, setApiError, onComplete);
+      return false; // Don't proceed to Step 5
+    }
+
     return success;
   };
 
@@ -114,11 +142,11 @@ export function Step4(props: Step4AvailabilityRateProps) {
   }, [
     props.setOnNext,
     props.state.hourlyWeeklyCommitment,
-    props.state.hourlyWeeklyCommitmentComments,
+    props.state.hourlyWeeklyCommitmentComment,
     props.state.openToOtherOpportunity,
-    props.state.openToOtherOpportunityComments,
+    props.state.openToOtherOpportunityComment,
     props.state.hourlyRate,
-    props.state.hourlyRateComments,
+    props.state.hourlyRateComment,
     props.state.currency,
   ]);
 
@@ -140,70 +168,75 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
       {/* Main Configuration */}
       <div className="space-y-8">
-        {/* Typical Weekly Availability Section */}
-        <BrandModalSection
-          icon={<Clock />}
-          title="Typical Weekly Availability"
-          description="Approximate hours per week you're typically available (for planning purposes)"
-          iconColor="accent"
-        >
-          <div className="space-y-6">
-            <WeeklyAvailabilityInput
-              value={props.state.hourlyWeeklyCommitment}
-              onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
-              error={formErrors.hourlyWeeklyCommitment}
-            />
+        {/* Only show service provider sections if user selected "Yes" to Service Provider */}
+        {isServiceProvider && (
+          <>
+            {/* Typical Weekly Availability Section */}
+            <BrandModalSection
+              icon={<Clock />}
+              title="Typical Weekly Availability"
+              description="Approximate hours per week you're typically available (for planning purposes)"
+              iconColor="accent"
+            >
+              <div className="space-y-6">
+                <WeeklyAvailabilityInput
+                  value={props.state.hourlyWeeklyCommitment}
+                  onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
+                  error={formErrors.hourlyWeeklyCommitment}
+                />
 
-            {/* Optional Comment Section */}
-            <ExpandableCommentSection
-              isExpanded={isWeeklyHoursCommentExpanded}
-              onToggleExpanded={setIsWeeklyHoursCommentExpanded}
-              value={props.state.hourlyWeeklyCommitmentComments || ""}
-              onChange={value => props.updateState({ hourlyWeeklyCommitmentComments: value })}
-              onDelete={() => {
-                props.updateState({ hourlyWeeklyCommitmentComments: "" });
-                setIsWeeklyHoursCommentExpanded(false);
-              }}
-              placeholder="Any additional details about your availability (e.g., timezone preferences, specific days, schedule variations)..."
-            />
-          </div>
-        </BrandModalSection>
+                {/* Optional Comment Section */}
+                <ExpandableCommentSection
+                  isExpanded={isWeeklyHoursCommentExpanded}
+                  onToggleExpanded={setIsWeeklyHoursCommentExpanded}
+                  value={props.state.hourlyWeeklyCommitmentComment || ""}
+                  onChange={value => props.updateState({ hourlyWeeklyCommitmentComment: value })}
+                  onDelete={() => {
+                    props.updateState({ hourlyWeeklyCommitmentComment: "" });
+                    setIsWeeklyHoursCommentExpanded(false);
+                  }}
+                  placeholder="Any additional details about your availability (e.g., timezone preferences, specific days, schedule variations)..."
+                />
+              </div>
+            </BrandModalSection>
 
-        {/* Your Service Rate Section */}
-        <BrandModalSection
-          icon={<DollarSign />}
-          title="Your Service Rate"
-          description="Your hourly rate for providing services (what you will receive)"
-          iconColor="accent"
-        >
-          <div className="space-y-6">
-            <ServiceRateInput
-              currency={props.state.currency || Currency.USD}
-              rate={props.state.hourlyRate || 0}
-              onCurrencyChange={(value: Currency) => props.updateState({ currency: value })}
-              onRateChange={(value: number) => props.updateState({ hourlyRate: value })}
-              error={formErrors.hourlyRate}
-            />
+            {/* Your Service Rate Section */}
+            <BrandModalSection
+              icon={<DollarSign />}
+              title="Your Service Rate"
+              description="Your hourly rate for providing services (what you will receive)"
+              iconColor="accent"
+            >
+              <div className="space-y-6">
+                <ServiceRateInput
+                  currency={props.state.currency || Currency.USD}
+                  rate={props.state.hourlyRate || 0}
+                  onCurrencyChange={(value: Currency) => props.updateState({ currency: value })}
+                  onRateChange={(value: number) => props.updateState({ hourlyRate: value })}
+                  error={formErrors.hourlyRate}
+                />
 
-            {/* Pricing Information */}
-            <PricingInfoBanner />
+                {/* Pricing Information */}
+                <PricingInfoBanner />
 
-            {/* Optional Comment Section */}
-            <ExpandableCommentSection
-              isExpanded={isCommentExpanded}
-              onToggleExpanded={setIsCommentExpanded}
-              value={props.state.hourlyRateComments || ""}
-              onChange={value => props.updateState({ hourlyRateComments: value })}
-              onDelete={() => {
-                props.updateState({ hourlyRateComments: "" });
-                setIsCommentExpanded(false);
-              }}
-              placeholder="Any additional details about your rates or pricing preferences..."
-            />
-          </div>
-        </BrandModalSection>
+                {/* Optional Comment Section */}
+                <ExpandableCommentSection
+                  isExpanded={isCommentExpanded}
+                  onToggleExpanded={setIsCommentExpanded}
+                  value={props.state.hourlyRateComment || ""}
+                  onChange={value => props.updateState({ hourlyRateComment: value })}
+                  onDelete={() => {
+                    props.updateState({ hourlyRateComment: "" });
+                    setIsCommentExpanded(false);
+                  }}
+                  placeholder="Any additional details about your rates or pricing preferences..."
+                />
+              </div>
+            </BrandModalSection>
+          </>
+        )}
 
-        {/* Bigger Opportunities Section */}
+        {/* Bigger Opportunities Section - Always shown */}
         <BrandModalSection icon={<TrendingUp />} title="Bigger Opportunities" description="Explore larger engagements and projects" iconColor="success">
           <div className="space-y-6">
             <BiggerOpportunitiesRadioGroup
@@ -216,10 +249,10 @@ export function Step4(props: Step4AvailabilityRateProps) {
             <ExpandableCommentSection
               isExpanded={isBiggerOpportunitiesCommentExpanded}
               onToggleExpanded={setIsBiggerOpportunitiesCommentExpanded}
-              value={props.state.openToOtherOpportunityComments || ""}
-              onChange={value => props.updateState({ openToOtherOpportunityComments: value })}
+              value={props.state.openToOtherOpportunityComment || ""}
+              onChange={value => props.updateState({ openToOtherOpportunityComment: value })}
               onDelete={() => {
-                props.updateState({ openToOtherOpportunityComments: "" });
+                props.updateState({ openToOtherOpportunityComment: "" });
                 setIsBiggerOpportunitiesCommentExpanded(false);
               }}
               placeholder="What types of bigger opportunities interest you? Any specific requirements or preferences..."

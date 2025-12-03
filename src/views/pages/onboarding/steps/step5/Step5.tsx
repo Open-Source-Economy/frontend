@@ -15,7 +15,9 @@ import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/sta
 import { EmptyServicesState } from "./components/EmptyServicesState";
 import { ServiceCategorySection } from "./components/ServiceCategorySection";
 
-export interface Step5Props extends OnboardingStepProps<Step5State> {}
+export interface Step5Props extends OnboardingStepProps<Step5State> {
+  servicesPreference?: dto.PreferenceType | null;
+}
 
 // --- Main Component ---
 export function Step5(props: Step5Props) {
@@ -204,7 +206,11 @@ export function Step5(props: Step5Props) {
     let hasValidationIssues = false;
 
     if (props.state.developerServices.length === 0) {
-      setLocalError("Please add at least one service before proceeding.");
+      const errorMessage =
+        props.servicesPreference === dto.PreferenceType.MAYBE_LATER
+          ? "Please add at least one service you're interested in offering in the future."
+          : "Please add at least one service before proceeding.";
+      setLocalError(errorMessage);
       hasValidationIssues = true;
     }
 
@@ -273,8 +279,16 @@ export function Step5(props: Step5Props) {
       {(apiError || localError) && (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Required Information Missing</AlertTitle>
-          <AlertDescription>{apiError?.message || localError}</AlertDescription>
+          <AlertTitle>
+            {props.servicesPreference === dto.PreferenceType.MAYBE_LATER ? "Future Service Selection Required" : "Required Information Missing"}
+          </AlertTitle>
+          <AlertDescription>
+            {apiError?.message ||
+              localError ||
+              (props.servicesPreference === dto.PreferenceType.MAYBE_LATER
+                ? "Please select at least one service you'd be interested in offering in the future. This allows us to start the outreach process to enterprises on your behalf."
+                : "Please add at least one service before proceeding.")}
+          </AlertDescription>
         </Alert>
       )}
 
@@ -283,7 +297,7 @@ export function Step5(props: Step5Props) {
 
       {/* Services List */}
       {!hasServices ? (
-        <EmptyServicesState onAddService={() => setShowAddServiceModal(true)} />
+        <EmptyServicesState onAddService={() => setShowAddServiceModal(true)} isMaybeLater={props.servicesPreference === dto.PreferenceType.MAYBE_LATER} />
       ) : (
         <div className="space-y-6 max-w-4xl">
           {/* Services grouped by category */}

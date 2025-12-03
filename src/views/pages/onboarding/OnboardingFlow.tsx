@@ -179,6 +179,9 @@ export default function OnboardingFlow() {
     subtitle: string;
     render: React.ReactNode;
   };
+  // Check if user is a service provider for conditional Step 4 title
+  const isServiceProvider = state.step3.servicesPreference === dto.PreferenceType.YES;
+
   const onboardingStepsConfigs: Record<OnboardingDataSteps, OnboardingStepConfig> = {
     [OnboardingDataSteps.Step1]: {
       title: "Confirm Your Details",
@@ -196,24 +199,37 @@ export default function OnboardingFlow() {
       render: <Step3 {...commonStepProps} state={state.step3} />,
     },
     [OnboardingDataSteps.Step4]: {
-      title: "Availability & Rate",
-      subtitle: "Share your availability and indicative rate",
-      render: <Step4 {...commonStepProps} state={state.step4} />,
+      title: isServiceProvider ? "Availability & Rate" : "Bigger Opportunities",
+      subtitle: isServiceProvider
+        ? "Share your availability and indicative rate"
+        : "Let us know if you're interested in exploring larger engagements and projects",
+      render: <Step4 {...commonStepProps} state={state.step4} servicesPreference={state.step3.servicesPreference} />,
     },
     [OnboardingDataSteps.Step5]: {
       title: "Services & Preferences",
-      subtitle: "Detail the services and offerings you provide",
-      render: <Step5 {...commonStepProps} state={state.step5} />,
+      subtitle:
+        state.step3.servicesPreference === dto.PreferenceType.MAYBE_LATER
+          ? "Share what you'd be interested in offering in the future so we can start securing contracts and funding on your behalf"
+          : "Detail the services and offerings you provide",
+      render: <Step5 {...commonStepProps} state={state.step5} servicesPreference={state.step3.servicesPreference} />,
     },
   };
 
-  // Wizard steps configuration
+  // Wizard steps configuration - conditional for Step 4
   const wizardSteps = [
     { number: 1, title: "Your Details", description: "Confirm Your Details" },
     { number: 2, title: "Your Involvement", description: "Open Source Involvement" },
-    { number: 3, title: "Active Income", description: "Income Streams" },
-    { number: 4, title: "Availability & Rate", description: "Share your availability" },
-    { number: 5, title: "Services & Preferences", description: "Detail your services" },
+    { number: 3, title: "Participation Model", description: "Choose your participation" },
+    {
+      number: 4,
+      title: isServiceProvider ? "Availability & Rate" : "Opportunities",
+      description: isServiceProvider ? "Share your availability" : "Bigger opportunities",
+    },
+    {
+      number: 5,
+      title: "Services & Preferences",
+      description: state.step3.servicesPreference === dto.PreferenceType.MAYBE_LATER ? "Future service interests" : "Detail your services",
+    },
   ];
 
   // Step width configuration - adapts to content type

@@ -102,8 +102,8 @@ export default function Step1(props: Step1Props) {
       {/* Error Display */}
       {apiError && <ServerErrorAlert error={apiError} variant="compact" />}
 
-      {/* Loading Indicator */}
-      {isLoading && <LoadingState variant="spinner" size="md" />}
+      {/*/!* Loading Indicator *!/*/}
+      {/*{isLoading && <LoadingState variant="spinner" size="md" />}*/}
 
       {/* Form */}
       <div className="space-y-5 sm:space-y-6">

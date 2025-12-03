@@ -41,9 +41,9 @@ export interface Step4State {
   openToOtherOpportunity?: OpenToOtherOpportunityType;
   hourlyRate?: number;
   currency: Currency | null;
-  hourlyWeeklyCommitmentComments?: string;
-  openToOtherOpportunityComments?: string;
-  hourlyRateComments?: string;
+  hourlyWeeklyCommitmentComment?: string;
+  openToOtherOpportunityComment?: string;
+  hourlyRateComment?: string;
 }
 
 // Step 5 now uses the new entry types
@@ -89,9 +89,9 @@ export function transformFullDeveloperProfileToOnboardingState(
     openToOtherOpportunity: profile.settings?.openToOtherOpportunity,
     hourlyRate: profile.settings?.hourlyRate,
     currency: profile.settings?.currency || fallBackCurrency,
-    hourlyWeeklyCommitmentComments: profile.settings?.hourlyWeeklyCommitmentComment ?? undefined,
-    openToOtherOpportunityComments: profile.settings?.openToOtherOpportunityComment ?? undefined,
-    hourlyRateComments: profile.settings?.hourlyRateComment ?? undefined,
+    hourlyWeeklyCommitmentComment: profile.settings?.hourlyWeeklyCommitmentComment ?? undefined,
+    openToOtherOpportunityComment: profile.settings?.openToOtherOpportunityComment ?? undefined,
+    hourlyRateComment: profile.settings?.hourlyRateComment ?? undefined,
   };
 
   const step5: Step5State = {

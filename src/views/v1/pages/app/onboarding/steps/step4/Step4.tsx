@@ -39,12 +39,12 @@ export function Step4(props: Step4AvailabilityRateProps) {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
         hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
-        hourlyWeeklyCommitmentComments: props.state.hourlyWeeklyCommitmentComments ?? "",
+        hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || undefined,
         openToOtherOpportunity: props.state.openToOtherOpportunity!,
-        openToOtherOpportunityComments: props.state.openToOtherOpportunityComments ?? "",
+        openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || undefined,
         hourlyRate: props.state.hourlyRate!,
         currency: props.state.currency!,
-        hourlyRateComments: props.state.hourlyRateComments ?? "",
+        hourlyRateComment: props.state.hourlyRateComment || undefined,
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
       return await onboardingAPI.setDeveloperServiceSettings(params, body, query);
@@ -74,8 +74,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
         <OnboardingSectionWrapper
           title="Your Weekly Commitment"
           subtitle="How many hours per week, on average, can you dedicate to client services?"
-          commentValue={props.state.hourlyWeeklyCommitmentComments || ""}
-          onCommentChange={value => props.updateState({ hourlyWeeklyCommitmentComments: value })}
+          commentValue={props.state.hourlyWeeklyCommitmentComment || ""}
+          onCommentChange={value => props.updateState({ hourlyWeeklyCommitmentComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <div className="flex items-center gap-2.5 self-stretch">
@@ -92,8 +92,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
         <OnboardingSectionWrapper
           title="Larger Opportunities"
           subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
-          commentValue={props.state.openToOtherOpportunityComments || ""}
-          onCommentChange={value => props.updateState({ openToOtherOpportunityComments: value })}
+          commentValue={props.state.openToOtherOpportunityComment || ""}
+          onCommentChange={value => props.updateState({ openToOtherOpportunityComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <>
@@ -113,8 +113,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
         <OnboardingSectionWrapper
           title="Your Indicative Rate"
           subtitle="What is your typical hourly rate?"
-          commentValue={props.state.hourlyRateComments || ""}
-          onCommentChange={value => props.updateState({ hourlyRateComments: value })}
+          commentValue={props.state.hourlyRateComment || ""}
+          onCommentChange={value => props.updateState({ hourlyRateComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <>

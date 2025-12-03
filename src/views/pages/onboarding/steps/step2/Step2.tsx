@@ -143,8 +143,8 @@ const Step2: React.FC<Step2Props> = props => {
         </>
       )}
 
-      {/* Loading Indicator */}
-      {isLoading && <LoadingState variant="spinner" size="md" />}
+      {/*/!* Loading Indicator *!/*/}
+      {/*{isLoading && <LoadingState variant="spinner" size="md" />}*/}
 
       {/* Help Text */}
       <InfoMessage variant="note" title="Note:">

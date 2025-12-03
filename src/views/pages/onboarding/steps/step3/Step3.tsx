@@ -123,8 +123,8 @@ export function Step3(props: Step3Props) {
       {/* Error Display */}
       {apiError && <ServerErrorAlert error={apiError} variant="compact" />}
 
-      {/* Loading Indicator */}
-      {isLoading && <LoadingState variant="spinner" size="md" />}
+      {/*/!* Loading Indicator *!/*/}
+      {/*{isLoading && <LoadingState variant="spinner" size="md" />}*/}
 
       {/* Participation Model Options */}
       <div className="space-y-6 max-w-5xl mx-auto">
