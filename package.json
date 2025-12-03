@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@open-source-economy/api-types": "2.1.11-beta.3",
