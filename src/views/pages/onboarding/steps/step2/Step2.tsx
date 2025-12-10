@@ -12,7 +12,6 @@ import { ProjectsTable } from "./design-system/ProjectsTable";
 import { ProjectCardList } from "./design-system/ProjectCardList";
 import { EmptyProjectsState } from "./design-system/EmptyProjectsState";
 import { DeleteProjectModal } from "./modal/DeleteProjectModal";
-import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { InfoMessage } from "src/views/components/ui/info-message";
 import { Lightbulb, Plus } from "lucide-react";

@@ -1,24 +1,7 @@
 import React from "react";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
-import {
-  AlertCircle,
-  ArrowRight,
-  Award,
-  Calendar,
-  Clock,
-  FileText,
-  Globe,
-  Handshake,
-  Heart,
-  Layers,
-  LucideIcon,
-  Repeat,
-  Rocket,
-  ShieldCheck,
-  Target,
-  Zap,
-} from "lucide-react";
+import { AlertCircle, ArrowRight, Calendar, Clock, FileText, Globe, Heart, Layers, LucideIcon, Repeat, Rocket, ShieldCheck, Target, Zap } from "lucide-react";
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
 import { laurianeCalLink } from "src/views/v1/data";

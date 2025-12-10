@@ -1,5 +1,5 @@
 import React from "react";
-import { User, Heart } from "lucide-react";
+import { Heart, User } from "lucide-react";
 
 export interface IndividualSupporterAvatarProps {
   name?: string;

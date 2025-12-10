@@ -16,6 +16,7 @@ export const paths = {
   SERVICES: "/services",
   FAQ: "/faq",
   CONTACT: "/contact",
+  SPONSORSHIP: "/sponsorship",
 
   SOCIALS: {
     LINKEDIN: "https://www.linkedin.com/company/open-source-economy",

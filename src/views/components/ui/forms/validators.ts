@@ -3,6 +3,8 @@
  * Used across the design system for consistent validation logic
  */
 
+import { GithubUrls } from "src/ultils/GithubUrls";
+
 /**
  * Validates a name field (required and format)
  * @param value - The name value to validate
@@ -73,5 +75,53 @@ export const validateHourlyRate = (value: number | undefined | null): string | u
   if (value <= 0) {
     return "Please enter a valid positive number";
   }
+  return undefined;
+};
+
+/**
+ * Validates a GitHub owner URL or shorthand
+ * @param value - The GitHub URL or owner name to validate
+ * @param allowShorthand - Whether to allow shorthand like "owner" (default: true)
+ * @returns Error message if invalid, undefined if valid
+ */
+export const validateGitHubOwnerUrl = (value: string, allowShorthand: boolean = true): string | undefined => {
+  if (!value.trim()) {
+    return "GitHub profile URL is required.";
+  }
+
+  const ownerId = GithubUrls.extractOwnerId(value, allowShorthand);
+
+  if (!ownerId) {
+    return allowShorthand
+      ? "Please enter a valid GitHub profile URL or username (e.g., https://github.com/username or username)."
+      : "Please enter a valid GitHub profile URL (e.g., https://github.com/username).";
+  }
+
+  return undefined;
+};
+
+/**
+ * Validates a positive integer (strictly positive, whole number)
+ * @param value - The value to validate (as string or number)
+ * @returns Error message if invalid, undefined if valid
+ */
+export const validatePositiveInteger = (value: string | number): string | undefined => {
+  const stringValue = typeof value === "number" ? value.toString() : value.trim();
+
+  if (!stringValue) {
+    return "Amount is required.";
+  }
+
+  // Check if it's a valid integer (no decimals, no negative)
+  if (!/^\d+$/.test(stringValue)) {
+    return "Please enter a valid positive whole number.";
+  }
+
+  const numValue = parseInt(stringValue, 10);
+
+  if (isNaN(numValue) || numValue <= 0) {
+    return "Please enter a positive number greater than zero.";
+  }
+
   return undefined;
 };

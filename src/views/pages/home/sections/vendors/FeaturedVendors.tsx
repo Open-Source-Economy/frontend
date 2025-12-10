@@ -1,6 +1,6 @@
 import React from "react";
 import { VendorCard, VendorCardProps } from "../vendors/VendorCard";
-import { Sparkles, Award, GitBranch, Star, Download } from "lucide-react";
+import { Award, Download, GitBranch, Sparkles, Star } from "lucide-react";
 import { isVisible } from "../../../../../ultils/featureVisibility";
 
 interface FeaturedVendorsProps {

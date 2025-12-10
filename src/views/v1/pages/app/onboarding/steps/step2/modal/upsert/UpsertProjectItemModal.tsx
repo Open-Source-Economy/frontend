@@ -1,7 +1,7 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, OwnerId, RepositoryId, SourceIdentifier } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, SourceIdentifier } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../../../../services";
 import { ApiError } from "../../../../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../../../../ultils";
@@ -11,7 +11,6 @@ import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
 import { ContributionSection } from "./components/ContributionSection";
 import { ModalFooter } from "./components/ModalFooter";
 import { ProjectItemType } from "../../ProjectItemType";
-import { ProjectItemId } from "@open-source-economy/api-types/dist/model/project/ProjectItem";
 
 interface UpsertProjectItemModalProps {
   show: boolean;

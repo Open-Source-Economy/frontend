@@ -58,6 +58,12 @@ export const features = {
 
   epicmaxSponsor: envGroups.nonProduction,
 
+  /** Mission link on sponsorship page */
+  sponsorshipMissionLink: envGroups.localAndDev,
+
+  /** Sponsorship button in header navigation */
+  sponsorshipButton: envGroups.localAndDev,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,

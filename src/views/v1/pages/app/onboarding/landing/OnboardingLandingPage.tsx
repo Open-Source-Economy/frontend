@@ -4,7 +4,6 @@ import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
 import { paths } from "../../../../../../paths";
 import { PageWrapper } from "../../../PageWrapper";
 import { CTASection, HeroSection, SpiritSection } from "./components";
-import { VideoSection } from "../../../../components";
 
 export default function OnboardingLandingPage() {
   const auth = useAuth();
