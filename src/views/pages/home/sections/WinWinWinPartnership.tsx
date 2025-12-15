@@ -1,6 +1,6 @@
 import React from "react";
 import type { LucideIcon } from "lucide-react";
-import { Briefcase, CheckCircle2, Handshake, Heart, Megaphone, Network, Target } from "lucide-react";
+import { CheckCircle2, Handshake, Megaphone, Network } from "lucide-react";
 
 interface WinWinWinPartnershipProps {
   className?: string;

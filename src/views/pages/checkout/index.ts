@@ -1,0 +1,1 @@
+export { CheckoutSuccessPage } from "./CheckoutSuccessPage";

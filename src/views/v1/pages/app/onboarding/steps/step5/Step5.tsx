@@ -89,10 +89,26 @@ export function Step5(props: Step5Props) {
   };
 
   const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
+    // Validate that we have at least one project item before proceeding
+    if (props.state.developerProjectItems.length === 0) {
+      setLocalError("Please ensure that at least one project is listed for each service.");
+      setIsLoading(false);
+      return;
+    }
+
+    const developerProjectItemIds = props.state.developerProjectItems.map(item => item.developerProjectItem.id);
+
+    // Ensure we have at least one project item ID (double-check for safety)
+    if (developerProjectItemIds.length === 0) {
+      setLocalError("Please ensure that at least one project is listed for each service.");
+      setIsLoading(false);
+      return;
+    }
+
     const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: service.id,
-        developerProjectItemIds: props.state.developerProjectItems.map(item => item.developerProjectItem.id),
+        developerProjectItemIds: developerProjectItemIds,
       };
       return body;
     });

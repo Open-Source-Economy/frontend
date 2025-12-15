@@ -6,7 +6,7 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/upsert/UpsertProjectItemModal";
 import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { DeveloperProjectItemId, ProjectItemId } from "@open-source-economy/api-types/dist/model";
+import { DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { handleApiCall } from "../../../../../../../ultils";
 import { ButtonGroup } from "../../landing/components/ButtonGroup";
 import { ProjectsSection } from "./ProjectsSection";

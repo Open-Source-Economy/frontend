@@ -1,5 +1,4 @@
 import React from "react";
-import { OnboardingStepProps } from "../steps/OnboardingStepProps";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../../../../../../paths";
 import { laurianeCalDevLink } from "../../../../data";

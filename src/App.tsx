@@ -26,6 +26,8 @@ import OnboardingFlow from "./views/pages/onboarding/OnboardingFlow";
 import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/DevelopedOnboardingComplete";
 import { Pdf } from "./views/pages/Pdf";
 import { ProjectDetailPage } from "./views/pages/project/ProjectDetailPage";
+import { SponsorshipPage } from "./views/pages/supporter/SponsorshipPage";
+import { CheckoutSuccessPage } from "./views/pages/checkout/CheckoutSuccessPage";
 import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
@@ -52,7 +54,8 @@ const App = () => {
             <Route path={paths.CONTACT} element={<ContactPage />} />
             <Route path={paths.FAQ} element={<FAQPage />} />
             <Route path={paths.PRIVACY} element={<PrivacyPolicyPage />} />
-            <Route path={paths.CONTACT} element={<ContactPage />} />
+            <Route path={paths.SPONSORSHIP} element={<SponsorshipPage />} />
+            <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccessPage />} />
 
             {/*<Route element={<IssueRoutes />}>*/}
             {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />*/}

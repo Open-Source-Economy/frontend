@@ -8,7 +8,6 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "../../../../../ultils";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ParticipationCard } from "./design-system/ParticipationCard";
 import { participationCardConfigs, ParticipationModelOption } from "./design-system/participationCardConfigs";
 import { ServiceProviderCard } from "./design-system/ServiceProviderCard";

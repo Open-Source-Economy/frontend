@@ -13,7 +13,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common/PageLoader";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
-import { Currency, OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
 import { Step4 } from "./steps/step4";
 import { Step5 } from "./steps/step5";

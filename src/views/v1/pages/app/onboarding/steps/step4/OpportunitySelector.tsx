@@ -1,6 +1,5 @@
-import React, { forwardRef, ReactNode, Ref, useEffect, useImperativeHandle, useState } from "react";
+import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
 import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
-import { GenericInputRef } from "../../../../../components/form";
 import { BaseRef } from "../../../../../components/form/Base";
 
 export interface OpportunitySelectorRef extends BaseRef {}

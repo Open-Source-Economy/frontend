@@ -1,9 +1,8 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { IconButton, InfoPill, ActionPill } from "../ui";
+import { ActionPill, IconButton, InfoPill } from "../ui";
 import { CloseIcon, PenIcon } from "../icons";
 import { displayedCurrencies, SourceIdentifierCompanion } from "../../../../../../data";
-import { DeveloperProjectItem, DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model/onboarding/DeveloperProjectItem";
 import { Rate } from "../modals/edit/EditServiceModal";
 
 interface DeveloperServiceItemProps {

@@ -13,6 +13,7 @@ export const navigationLinks = {
   // Main pages
   projects: { title: "Projects", href: paths.PROJECTS } as NavigationLink,
   services: { title: "Services", href: paths.SERVICES } as NavigationLink,
+  sponsorship: { title: "Sponsorship", href: paths.SPONSORSHIP } as NavigationLink,
   faq: { title: "FAQ", href: paths.FAQ } as NavigationLink,
   blog: { title: "Blog", href: paths.BLOG, external: true } as NavigationLink,
   contact: { title: "Contact", href: paths.CONTACT } as NavigationLink,
@@ -35,7 +36,7 @@ const headerItems: NavigationLink[] = [
 
 export const headerNavigation = {
   items: headerItems,
-  cta: undefined as NavigationLink | undefined, // { title: "Get Started", href: paths.PROJECTS } as NavigationLink,
+  cta: isVisible("sponsorshipButton") ? navigationLinks.sponsorship : undefined,
 };
 
 // -----------------------------

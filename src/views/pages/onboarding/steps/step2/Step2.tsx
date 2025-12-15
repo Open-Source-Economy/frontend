@@ -12,11 +12,11 @@ import { ProjectsTable } from "./design-system/ProjectsTable";
 import { ProjectCardList } from "./design-system/ProjectCardList";
 import { EmptyProjectsState } from "./design-system/EmptyProjectsState";
 import { DeleteProjectModal } from "./modal/DeleteProjectModal";
-import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { InfoMessage } from "src/views/components/ui/info-message";
-import { Lightbulb, Plus } from "lucide-react";
+import { Lightbulb, Plus, AlertCircle } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
+import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
@@ -29,16 +29,26 @@ const Step2: React.FC<Step2Props> = props => {
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
   const [apiError, setApiError] = useState<ApiError | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const api = getOnboardingBackendAPI();
 
-  // Register onNext: allow advancing (no extra submission needed here)
+  // Register onNext: validate that at least one project is added
+  const handleNext = React.useCallback((): boolean => {
+    if (projects.length === 0) {
+      setLocalError("Please add at least one project before proceeding.");
+      return false;
+    }
+    setLocalError(null);
+    return true;
+  }, [projects]);
+
   React.useEffect(() => {
-    props.setOnNext?.(() => true);
+    props.setOnNext?.(handleNext);
     return () => props.setOnNext?.(null);
-  }, [props.setOnNext]);
+  }, [props.setOnNext, handleNext]);
 
   const handleAddProject = () => {
     setEditingProject(null);
@@ -70,6 +80,7 @@ const Step2: React.FC<Step2Props> = props => {
     setProjects(updatedProjects);
     props.updateState({ projects: updatedProjects });
     setApiError(null);
+    setLocalError(null); // Clear validation error when a project is added
   };
 
   const handleShowDeleteModal = (project: DeveloperProjectItemEntry) => {
@@ -108,6 +119,15 @@ const Step2: React.FC<Step2Props> = props => {
 
   return (
     <div className="space-y-6">
+      {/* Validation Error Alert */}
+      {localError && (
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertTitle>Required Information Missing</AlertTitle>
+          <AlertDescription>{localError}</AlertDescription>
+        </Alert>
+      )}
+
       {/* Info Alert - Hint about project listing */}
       <InfoMessage icon={Lightbulb} variant="subtle">
         <strong className="block mb-1 text-sm">Pro Tip</strong>

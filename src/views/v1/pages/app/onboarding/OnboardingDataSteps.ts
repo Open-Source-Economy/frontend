@@ -4,8 +4,8 @@ import {
   DeveloperProjectItemEntry,
   DeveloperServiceEntry,
   FullDeveloperProfile,
-  PreferenceType,
   OpenToOtherOpportunityType,
+  PreferenceType,
 } from "@open-source-economy/api-types";
 import { Rate } from "./steps/step5/modals/edit/EditServiceModal";
 
