@@ -46,4 +46,15 @@ export namespace MergeRightsTypeCompanion {
   export function displays(): Record<dto.MergeRightsType, string> {
     return mergeRightsLabelMap;
   }
+
+  /**
+   * Get options array for select fields
+   * @returns Array of { value, label } objects for all merge rights types
+   */
+  export function options(): Array<{ value: dto.MergeRightsType; label: string }> {
+    return Object.entries(dto.MergeRightsType).map(([key, value]) => ({
+      value: value as dto.MergeRightsType,
+      label: label(value as dto.MergeRightsType),
+    }));
+  }
 }

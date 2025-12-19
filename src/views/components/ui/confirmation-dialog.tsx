@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -68,6 +68,31 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   const handleConfirm = () => {
     onConfirm();
   };
+
+  // Handle Enter key to confirm action
+  useEffect(() => {
+    // Only handle Enter key in controlled mode (when open is defined)
+    if (open === undefined || !open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Only trigger if Enter is pressed and not loading
+      // Also check that we're not in an input field (to avoid conflicts)
+      if (event.key === "Enter" && !isLoading) {
+        const target = event.target as HTMLElement;
+        // Don't trigger if user is typing in an input, textarea, or contenteditable
+        if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+          return;
+        }
+        event.preventDefault();
+        onConfirm();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, isLoading, onConfirm]);
 
   const confirmButtonClassName =
     variant === "destructive"

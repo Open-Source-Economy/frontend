@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectCategory, ProjectItemType } from "@open-source-economy/api-types";
 import { getOnboardingBackendAPI } from "../../../../../../services";
 import { ApiError } from "../../../../../../ultils/error/ApiError";
 import { handleApiCall } from "../../../../../../ultils";
-import { BrandModal, BrandModalSection } from "src/views/components/ui/brand-modal";
+import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Button } from "src/views/components/ui/forms/button";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select-field";
-import { Input } from "src/views/components/ui/forms/input";
-import { ChipInput } from "src/views/components/ui/chip-input";
-import { ExternalLink, Github, User } from "lucide-react";
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, ProjectCategoryCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
+import { Textarea } from "src/views/components/ui/forms/textarea";
+import { AlertCircle, Github, ShieldCheck, User } from "lucide-react";
+import { SourceIdentifierCompanion } from "src/ultils/companions";
 import { GithubUrls } from "src/ultils";
+import { BulkProjectUrlParser } from "src/ultils/BulkProjectUrlParser";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
+import { isVisible } from "src/ultils/featureVisibility";
+import { BulkProjectsPreview } from "./BulkProjectsPreview";
+import { CategoryInput } from "./components/CategoryInput";
+import { ProjectUrlInput } from "./components/ProjectUrlInput";
+import { ModeToggle } from "./components/ModeToggle";
+import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
+import { getUrlConfig } from "./utils/urlHelpers";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
   entry: DeveloperProjectItemEntry | null;
   onUpsert: (projectItem: DeveloperProjectItemEntry) => void;
+  existingProjects?: DeveloperProjectItemEntry[]; // Existing projects to check for conflicts
 }
 
 const projectTypeOptions = [
@@ -28,20 +36,30 @@ const projectTypeOptions = [
   { value: ProjectItemType.URL, label: "Other URL" },
 ];
 
-// Convert DeveloperRoleType to select options
-const roleOptions = Object.entries(DeveloperRoleType).map(([key, value]) => ({
-  value: value,
-  label: DeveloperRoleTypeCompanion.label(value as DeveloperRoleType),
-}));
-
-// Convert MergeRightsType to select options
-const mergeRightsOptions = Object.entries(MergeRightsType).map(([key, value]) => ({
-  value: value,
-  label: MergeRightsTypeCompanion.label(value as MergeRightsType),
-}));
+const createProjectItemData = (
+  sourceIdentifier: dto.SourceIdentifier,
+  projectType: ProjectItemType,
+  role: DeveloperRoleType | null,
+  mergeRights: MergeRightsType | null,
+  predefinedCategories: ProjectCategory[],
+  customCategories: string[],
+): dto.ProjectItemData => {
+  return {
+    projectItemType: projectType,
+    sourceIdentifier: sourceIdentifier,
+    roles: role ? [role] : [],
+    mergeRights: mergeRights ? [mergeRights] : [],
+    comments: undefined,
+    customCategories: customCategories.length > 0 ? customCategories : undefined,
+    predefinedCategories: predefinedCategories.length > 0 ? predefinedCategories : undefined,
+  };
+};
 
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const api = getOnboardingBackendAPI();
+
+  const [isBulkMode, setIsBulkMode] = useState(false);
+  const [bulkUrls, setBulkUrls] = useState("");
 
   const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.entry?.projectItem.projectItemType || null);
 
@@ -58,6 +76,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Memoize validation result to avoid recalculating on every render
+  const bulkValidationResult = useMemo(() => {
+    if (!isBulkMode || !bulkUrls.trim() || !selectedProjectType) {
+      return null;
+    }
+    return BulkProjectUrlParser.validateBulkUrls(bulkUrls, selectedProjectType, props.existingProjects || [], props.entry, false);
+  }, [isBulkMode, bulkUrls, selectedProjectType, props.existingProjects, props.entry]);
 
   // Initialize form data from entry when modal opens
   useEffect(() => {
@@ -87,6 +113,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       setSelectedMergeRights(null);
       setPredefinedCategories([]);
       setCustomCategories([]);
+    }
+    // Reset bulk mode when modal opens/closes
+    if (props.show) {
+      setIsBulkMode(false);
+      setBulkUrls("");
     }
     setErrors({});
     setError(null);
@@ -130,11 +161,86 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       newErrors.mergeRights = "Please select merge rights";
     }
 
+    // Check for conflicts with existing projects (if editing, exclude the current entry)
+    if (url && selectedProjectType && Object.keys(newErrors).length === 0) {
+      const existingProjects = props.existingProjects || [];
+      const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(url);
+
+      // Filter existing projects by type and exclude the entry being edited
+      const existingSourceIdentifiers = existingProjects
+        .filter(existing => {
+          if (
+            props.entry &&
+            SourceIdentifierCompanion.equals(existing.projectItem.sourceIdentifier, props.entry.projectItem.sourceIdentifier) &&
+            existing.projectItem.projectItemType === props.entry.projectItem.projectItemType
+          ) {
+            return false;
+          }
+          return existing.projectItem.projectItemType === selectedProjectType;
+        })
+        .map(existing => existing.projectItem.sourceIdentifier);
+
+      const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls([sourceIdentifier], existingSourceIdentifiers);
+
+      if (conflictingSourceIdentifiers.length > 0) {
+        const displayName = SourceIdentifierCompanion.displayName(conflictingSourceIdentifiers[0]);
+        newErrors.url = `This project already exists: ${displayName}. Please edit the existing entry or choose a different project.`;
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const validateBulkForm = (): { valid: boolean; projects: Array<{ sourceIdentifier: dto.SourceIdentifier; projectType: ProjectItemType }> } => {
+    const newErrors: Record<string, string> = {};
+
+    // Validate shared fields
+    if (!selectedRole) {
+      newErrors.role = "Please select a role for all projects";
+    }
+
+    if (!selectedMergeRights) {
+      newErrors.mergeRights = "Please select merge rights for all projects";
+    }
+
+    if (!selectedProjectType) {
+      newErrors.projectType = "Please select a project type for all projects";
+      setErrors(newErrors);
+      return { valid: false, projects: [] };
+    }
+
+    // Use memoized validation result
+    if (!bulkValidationResult) {
+      newErrors.bulkUrls = "Please enter at least one project URL";
+      setErrors(newErrors);
+      return { valid: false, projects: [] };
+    }
+
+    // Check if there are any projects at all
+    if (bulkValidationResult.validProjects.length === 0 && bulkValidationResult.errors.length === 0) {
+      newErrors.bulkUrls = "Please enter at least one project URL";
+      setErrors(newErrors);
+      return { valid: false, projects: [] };
+    }
+
+    // Format errors into error message string
+    if (bulkValidationResult.errors.length > 0) {
+      newErrors.bulkUrls = BulkProjectUrlParser.formatValidationErrors(bulkValidationResult.errors, 3);
+    }
+
+    const projects = bulkValidationResult.validProjects;
+
+    setErrors(newErrors);
+    return { valid: Object.keys(newErrors).length === 0, projects };
+  };
+
   const handleSave = async () => {
+    if (isBulkMode) {
+      handleBulkSave();
+      return;
+    }
+
     if (!validateForm()) {
       return;
     }
@@ -162,15 +268,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         await api.removeProjectItem(deleteParams, deleteBody, deleteQuery);
       }
 
-      // Then create or update the project item
+      // Then create or update the project item (single item as array of 1)
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItemType: selectedProjectType,
-        sourceIdentifier: sourceIdentifier,
-        roles: selectedRole ? [selectedRole] : [],
-        mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
-        customCategories: customCategories.length > 0 ? customCategories : undefined,
-        predefinedCategories: predefinedCategories.length > 0 ? predefinedCategories : undefined,
+        projectItems: [
+          createProjectItemData(sourceIdentifier, selectedProjectType!, selectedRole, selectedMergeRights, predefinedCategories, customCategories),
+        ],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
       return await api.upsertProjectItem(params, body, query);
@@ -178,79 +281,65 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
     const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
       props.setShow(false);
-      props.onUpsert({
-        developerProjectItem: response.developerProjectItem,
-        projectItem: response.projectItem,
-      });
+      // Response now returns results array, get first item for single mode
+      if (response.results && response.results.length > 0) {
+        const result = response.results[0];
+        props.onUpsert({
+          developerProjectItem: result.developerProjectItem,
+          projectItem: result.projectItem,
+        });
+      }
     };
 
     await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
   };
 
-  const handleFieldChange = (field: string, value: any) => {
-    if (field === "projectType") setSelectedProjectType(value);
-    if (field === "url") setUrl(value);
-    if (field === "role") setSelectedRole(value);
-    if (field === "mergeRights") setSelectedMergeRights(value);
-    if (field === "categories") {
-      // Value is an array of strings (mix of labels and custom text)
-      const allCategories = value as string[];
-
-      // Separate predefined (matching labels) from custom
-      const predefined: ProjectCategory[] = [];
-      const custom: string[] = [];
-
-      allCategories.forEach(item => {
-        // Try to find matching enum value
-        const enumValue = Object.values(ProjectCategory).find(cat => ProjectCategoryCompanion.toLabel(cat) === item);
-
-        if (enumValue) {
-          predefined.push(enumValue);
-        } else {
-          custom.push(item);
-        }
-      });
-
-      setPredefinedCategories(predefined);
-      setCustomCategories(custom);
+  const handleBulkSave = async () => {
+    const { valid, projects } = validateBulkForm();
+    if (!valid || projects.length === 0) {
+      return;
     }
 
-    // Clear errors for this field
+    // Convert projects to ProjectItemData format
+    const projectItems: dto.ProjectItemData[] = projects.map(projectData =>
+      createProjectItemData(projectData.sourceIdentifier, projectData.projectType, selectedRole, selectedMergeRights, predefinedCategories, customCategories),
+    );
+
+    const apiCall = async () => {
+      const params: dto.UpsertDeveloperProjectItemParams = {};
+      const body: dto.UpsertDeveloperProjectItemBody = {
+        projectItems: projectItems,
+      };
+      const query: dto.UpsertDeveloperProjectItemQuery = {};
+      return await api.upsertProjectItem(params, body, query);
+    };
+
+    const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
+      props.setShow(false);
+      // Call onUpsert for each result
+      if (response.results && response.results.length > 0) {
+        response.results.forEach(result => {
+          props.onUpsert({
+            developerProjectItem: result.developerProjectItem,
+            projectItem: result.projectItem,
+          });
+        });
+      }
+    };
+
+    await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
+  };
+
+  const clearError = (field: string) => {
     if (errors[field]) {
       setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[field];
-        return newErrors;
+        const { [field]: _, ...rest } = prev;
+        return rest;
       });
     }
   };
 
-  const getUrlLabel = () => {
-    if (selectedProjectType === ProjectItemType.GITHUB_REPOSITORY) {
-      return "GitHub Repository URL";
-    } else if (selectedProjectType === ProjectItemType.GITHUB_OWNER) {
-      return "GitHub Organization URL";
-    }
-    return "Project URL";
-  };
-
-  const getUrlPlaceholder = () => {
-    if (selectedProjectType === ProjectItemType.GITHUB_REPOSITORY) {
-      return "https://github.com/username/repository";
-    } else if (selectedProjectType === ProjectItemType.GITHUB_OWNER) {
-      return "https://github.com/organization";
-    }
-    return "https://...";
-  };
-
-  const getUrlHint = () => {
-    if (selectedProjectType === ProjectItemType.GITHUB_REPOSITORY) {
-      return "e.g., https://github.com/facebook/react";
-    } else if (selectedProjectType === ProjectItemType.GITHUB_OWNER) {
-      return "e.g., https://github.com/nodejs";
-    }
-    return "Any public URL to your project";
-  };
+  const urlConfig = getUrlConfig(selectedProjectType);
 
   const mode = props.entry ? "edit" : "add";
 
@@ -258,10 +347,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     <BrandModal
       open={props.show}
       onClose={() => props.setShow(false)}
-      title={mode === "add" ? "Add Open Source Project" : "Edit Project Information"}
+      title={mode === "add" ? "Add Open Source Projects" : "Edit Project Information"}
       description={
         mode === "add"
-          ? "Share details about an open source project where you actively contribute or maintain code."
+          ? "Share details about open source projects where you actively contribute or maintain code."
           : "Update your project details to keep your profile accurate."
       }
       size="3xl"
@@ -276,124 +365,163 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           </Button>
           <Button
             onClick={handleSave}
-            disabled={isLoading}
-            className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg"
+            disabled={isLoading || (isBulkMode && (!!errors.bulkUrls || !!errors.role || !!errors.mergeRights || !!errors.projectType))}
+            className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Saving..." : mode === "add" ? "Add Project" : "Save Changes"}
+            {isLoading ? "Saving..." : mode === "add" ? (isBulkMode ? "Add Projects" : "Add Project") : "Save Changes"}
           </Button>
         </>
       }
     >
       <div className="space-y-8 py-2 pb-6">
-        {/* Step 1: Project Information */}
-        <BrandModalSection icon={<Github />} title="Project Information" description="Identify the project and provide a link" iconColor="accent">
-          <div className="space-y-5">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Project Type */}
-              <div className="md:col-span-1">
+        {/* Step 1: Your Contribution */}
+        <BrandModalSection icon={<User />} title="Your Contribution" description={"Tell us about your role and permissions"} iconColor="highlight">
+          <RoleAndMergeRightsFields
+            isBulkMode={isBulkMode}
+            selectedRole={selectedRole}
+            selectedMergeRights={selectedMergeRights}
+            onRoleChange={role => {
+              setSelectedRole(role);
+              clearError("role");
+            }}
+            onMergeRightsChange={mergeRights => {
+              setSelectedMergeRights(mergeRights);
+              clearError("mergeRights");
+            }}
+            roleError={errors.role}
+            mergeRightsError={errors.mergeRights}
+          />
+        </BrandModalSection>
+
+        {/* Step 2: Project Information */}
+        <BrandModalSection
+          icon={<Github />}
+          title="Project Information"
+          description={isBulkMode ? "Paste URLs for all projects where you have this role" : "Identify the project and provide a link"}
+          iconColor="accent"
+        >
+          {/* Mode Toggle - Only show in Add mode */}
+          {mode === "add" && <ModeToggle isBulkMode={isBulkMode} onModeChange={setIsBulkMode} />}
+
+          {!isBulkMode ? (
+            <div className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Project Type */}
+                <div className="md:col-span-1">
+                  <SelectField
+                    label="Project Type"
+                    required
+                    options={projectTypeOptions}
+                    value={selectedProjectType || ""}
+                    onChange={value => {
+                      setSelectedProjectType(value as ProjectItemType);
+                      clearError("projectType");
+                    }}
+                    error={errors.projectType}
+                  />
+                </div>
+
+                {/* Project URL - Only shown after type is selected */}
+                {selectedProjectType && (
+                  <div className="md:col-span-2">
+                    <ProjectUrlInput
+                      projectType={selectedProjectType}
+                      value={url}
+                      onChange={value => {
+                        setUrl(value);
+                        clearError("url");
+                      }}
+                      error={errors.url}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Categories field - optional, multi-select */}
+              {selectedProjectType && (
+                <CategoryInput
+                  predefinedCategories={predefinedCategories}
+                  customCategories={customCategories}
+                  onChange={(predefined, custom) => {
+                    setPredefinedCategories(predefined);
+                    setCustomCategories(custom);
+                  }}
+                />
+              )}
+            </div>
+          ) : (
+            <div className="space-y-5">
+              {/* Project Type - Required first */}
+              <div className="md:w-1/3">
                 <SelectField
-                  label="Project Type"
+                  label="Project Type (for all projects)"
                   required
                   options={projectTypeOptions}
                   value={selectedProjectType || ""}
-                  onChange={value => handleFieldChange("projectType", value)}
+                  onChange={value => {
+                    setSelectedProjectType(value as ProjectItemType);
+                    clearError("projectType");
+                  }}
                   error={errors.projectType}
                 />
               </div>
 
-              {/* Project URL - Only shown after type is selected */}
+              {/* Only show bulk URL input after type is selected */}
               {selectedProjectType && (
-                <div className="md:col-span-2">
-                  <FormField label={getUrlLabel()} required error={errors.url} hint={getUrlHint()}>
-                    <div className="relative">
-                      <Input
-                        type="url"
-                        value={url}
-                        onChange={e => handleFieldChange("url", e.target.value)}
-                        placeholder={getUrlPlaceholder()}
-                        className="pr-10"
-                        variant={errors.url ? "error" : "default"}
-                      />
-                      {url && (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-accent hover:text-brand-accent-dark transition-colors z-10"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
+                <>
+                  {/* Bulk URL Input */}
+                  <FormField label="Project URLs" required error={errors.bulkUrls} hint={urlConfig.bulkHint}>
+                    <Textarea
+                      value={bulkUrls}
+                      onChange={e => {
+                        setBulkUrls(e.target.value);
+                        clearError("bulkUrls");
+                      }}
+                      placeholder={urlConfig.bulkPlaceholder}
+                      rows={8}
+                      variant={errors.bulkUrls ? "error" : "default"}
+                      className="font-mono text-sm"
+                    />
                   </FormField>
-                </div>
+
+                  {/* Parsed Projects Preview - Shows both valid and invalid projects */}
+                  {bulkValidationResult && <BulkProjectsPreview validationResult={bulkValidationResult} selectedProjectType={selectedProjectType} />}
+
+                  {/* Shared Categories */}
+                  <CategoryInput
+                    predefinedCategories={predefinedCategories}
+                    customCategories={customCategories}
+                    onChange={(predefined, custom) => {
+                      setPredefinedCategories(predefined);
+                      setCustomCategories(custom);
+                    }}
+                    label="Shared Categories (Optional)"
+                    hint="These categories will be applied to all projects."
+                  />
+                </>
               )}
             </div>
-
-            {/* Categories field - optional, multi-select */}
-            {selectedProjectType && (
-              <div>
-                <FormField label="Categories" hint="Select from suggestions or type your own custom tags">
-                  <ChipInput
-                    values={[...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...customCategories]}
-                    onChange={allValues => handleFieldChange("categories", allValues)}
-                    suggestions={Object.values(ProjectCategory)
-                      .filter(category => !predefinedCategories.includes(category))
-                      .map(category => ProjectCategoryCompanion.toLabel(category))}
-                    placeholder="Type to search or add categories..."
-                    allowCustom={true}
-                    showCount
-                    countLabel="category"
-                  />
-                </FormField>
-              </div>
-            )}
-          </div>
+          )}
         </BrandModalSection>
 
-        {/* Step 2: Your Contribution */}
-        {selectedProjectType && (
-          <BrandModalSection icon={<User />} title="Your Contribution" description="Tell us about your role and permissions" iconColor="highlight">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Role */}
-              <SelectField
-                label="Your Role"
-                required
-                options={roleOptions}
-                value={selectedRole || ""}
-                onChange={value => handleFieldChange("role", value)}
-                error={errors.role}
-              />
-
-              {/* Merge Rights */}
-              <SelectField
-                label="Merge Rights to Main Branch"
-                required
-                options={mergeRightsOptions}
-                value={selectedMergeRights || ""}
-                onChange={value => handleFieldChange("mergeRights", value)}
-                error={errors.mergeRights}
-              />
-            </div>
+        {/* Step 3: Verification Notice - Only visible in local environment */}
+        {isVisible("projectVerificationNotice") && ((!isBulkMode && selectedProjectType) || isBulkMode) && (
+          <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">
+            <BrandModalAlert type="success" icon={<AlertCircle />} title="Verification Process">
+              <p className="mb-3">
+                {isBulkMode
+                  ? "We'll verify your contributions to all projects through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for successful verification."
+                  : "We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for successful verification."}
+              </p>
+              <ul className="text-xs space-y-1 ml-4 list-disc">
+                <li>Verification typically takes 24-48 hours</li>
+                <li>You'll receive an email notification once verified</li>
+                <li>Public contributions are required for verification</li>
+                {isBulkMode && <li>All projects will be verified individually</li>}
+              </ul>
+            </BrandModalAlert>
           </BrandModalSection>
         )}
-
-        {/*/!* Step 3: Verification Notice *!/*/}
-        {/*{selectedProjectType && (*/}
-        {/*  <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">*/}
-        {/*    <InfoMessage icon={AlertCircle} variant="success" title="Verification Process">*/}
-        {/*      <p className="mb-3">*/}
-        {/*        We'll verify your project contributions through your GitHub profile. Please ensure your GitHub contributions are set to public visibility for*/}
-        {/*        successful verification.*/}
-        {/*      </p>*/}
-        {/*      <ul className="text-xs space-y-1 ml-4 list-disc">*/}
-        {/*        <li>Verification typically takes 24-48 hours</li>*/}
-        {/*        <li>You'll receive an email notification once verified</li>*/}
-        {/*        <li>Public contributions are required for verification</li>*/}
-        {/*      </ul>*/}
-        {/*    </InfoMessage>*/}
-        {/*  </BrandModalSection>*/}
-        {/*)}*/}
 
         {/* API Error Display */}
         {error && <ServerErrorAlert error={error} variant="compact" />}

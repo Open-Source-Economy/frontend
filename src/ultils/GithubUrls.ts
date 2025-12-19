@@ -36,18 +36,50 @@ export class GithubUrls {
   static extractRepositoryId(input: string, allowShorthand: boolean = false): RepositoryId | null {
     const value = input.trim();
 
+    // Helper function to strip .git suffix from repository name
+    // Only strips if .git is at the end of the repo name (not followed by a path)
+    // Examples:
+    // - "repo.git" → "repo" (strips)
+    // - "repo.git/pulls" → "repo.git" (doesn't strip, .git is part of the name)
+    // - "repo.git?tab=readme" → "repo" (strips, followed by query param)
+    // - "repo.git#readme" → "repo" (strips, followed by fragment)
+    const stripGitSuffix = (repoName: string, fullUrl: string, matchIndex: number): string => {
+      if (!repoName.endsWith(".git")) {
+        return repoName;
+      }
+
+      // matchIndex is the index where the full regex match ends in the URL
+      // Check the character immediately after the match
+      // If it's '/', then .git is part of the repository name (e.g., repo.git/pulls)
+      // If it's '?', '#', or end of string, then .git is a suffix to strip
+      if (matchIndex < fullUrl.length && fullUrl[matchIndex] === "/") {
+        // .git is followed by a path, so it's part of the repository name
+        return repoName;
+      }
+
+      // .git is at the end or followed by ? or #, so strip it
+      return repoName.slice(0, -4);
+    };
+
     // Shorthand case: "owner/repo"
     if (allowShorthand && /^[^/]+\/[^/]+$/.test(value)) {
       const [owner, repo] = value.split("/");
-      return new RepositoryId(new OwnerId(owner), repo);
+      // For shorthand, .git at the end is always a suffix to strip
+      const repoName = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
+      return new RepositoryId(new OwnerId(owner), repoName);
     }
 
     // Full GitHub URL - matches repository URLs with optional trailing paths, query params, or fragments
     // Examples: github.com/owner/repo, github.com/owner/repo/, github.com/owner/repo/blob/main/README.md, github.com/owner/repo?tab=readme
+    // Also handles: github.com/owner/repo.git (strips .git suffix only if not followed by a path)
     const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/?#]+)/;
     const match = value.match(repoRegex);
     if (match && match[1] && match[2]) {
-      return new RepositoryId(new OwnerId(match[1]), match[2]);
+      // match.index is the start of the match, match[0].length is the length of the full match
+      // The match ends at match.index + match[0].length
+      const matchEndIndex = (match.index || 0) + match[0].length;
+      const repoName = stripGitSuffix(match[2], value, matchEndIndex);
+      return new RepositoryId(new OwnerId(match[1]), repoName);
     }
 
     return null;

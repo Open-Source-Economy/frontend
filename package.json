@@ -5,7 +5,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@headlessui/react": "^2.2.0",
-    "@open-source-economy/api-types": "2.1.11-beta.5",
+    "@open-source-economy/api-types": "2.1.11-beta.6",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-aspect-ratio": "^1.1.2",

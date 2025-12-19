@@ -14,7 +14,7 @@ import { EmptyProjectsState } from "./design-system/EmptyProjectsState";
 import { DeleteProjectModal } from "./modal/DeleteProjectModal";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { InfoMessage } from "src/views/components/ui/info-message";
-import { Lightbulb, Plus, AlertCircle } from "lucide-react";
+import { AlertCircle, Lightbulb, Plus } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
 
@@ -66,19 +66,32 @@ const Step2: React.FC<Step2Props> = props => {
   // Callback from UpsertProjectItemModal after an item is added or updated
   const handleUpsertComplete = (newOrUpdatedProject: DeveloperProjectItemEntry) => {
     setShowUpsertModal(false);
-    let updatedProjects: DeveloperProjectItemEntry[];
 
-    if (editingProject) {
-      // Remove the old entry (by the editingProject's ID) and add the new one
-      // This handles both cases: simple updates (same project) and changes (different project)
-      updatedProjects = projects
-        .filter(entry => entry.developerProjectItem.id.uuid !== editingProject.developerProjectItem.id.uuid)
-        .concat(newOrUpdatedProject);
-    } else {
-      updatedProjects = [...projects, newOrUpdatedProject];
-    }
-    setProjects(updatedProjects);
-    props.updateState({ projects: updatedProjects });
+    // Use functional state updates to ensure each update sees the previous state
+    // This is critical for bulk operations where multiple projects are added in quick succession
+    setProjects(prevProjects => {
+      let updatedProjects: DeveloperProjectItemEntry[];
+
+      // Capture editingProject in the closure to use the correct value
+      const currentEditingProject = editingProject;
+
+      if (currentEditingProject) {
+        // Remove the old entry (by the editingProject's ID) and add the new one
+        // This handles both cases: simple updates (same project) and changes (different project)
+        updatedProjects = prevProjects
+          .filter(entry => entry.developerProjectItem.id.uuid !== currentEditingProject.developerProjectItem.id.uuid)
+          .concat(newOrUpdatedProject);
+        // Clear editing project after update
+        setEditingProject(null);
+      } else {
+        updatedProjects = [...prevProjects, newOrUpdatedProject];
+      }
+
+      // Update parent state with the new projects
+      props.updateState({ projects: updatedProjects });
+      return updatedProjects;
+    });
+
     setApiError(null);
     setLocalError(null); // Clear validation error when a project is added
   };
@@ -172,7 +185,15 @@ const Step2: React.FC<Step2Props> = props => {
       </InfoMessage>
 
       {/* Add/Edit Project Modal */}
-      {showUpsertModal && <UpsertProjectItemModal show={showUpsertModal} setShow={setShowUpsertModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
+      {showUpsertModal && (
+        <UpsertProjectItemModal
+          show={showUpsertModal}
+          setShow={setShowUpsertModal}
+          entry={editingProject}
+          onUpsert={handleUpsertComplete}
+          existingProjects={projects}
+        />
+      )}
 
       {/* Delete Project Modal */}
       {showDeleteModal && (

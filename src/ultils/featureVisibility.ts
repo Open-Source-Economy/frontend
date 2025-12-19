@@ -64,6 +64,9 @@ export const features = {
   /** Sponsorship button in header navigation */
   sponsorshipButton: envGroups.localAndDev,
 
+  /** Project verification notice in onboarding Step 2 */
+  projectVerificationNotice: envGroups.localOnly,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,
