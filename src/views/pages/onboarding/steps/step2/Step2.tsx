@@ -17,6 +17,7 @@ import { InfoMessage } from "src/views/components/ui/info-message";
 import { AlertCircle, Lightbulb, Plus } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
+import { sortProjectsByBackendOrder } from "./adapters";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
@@ -24,7 +25,10 @@ const Step2: React.FC<Step2Props> = props => {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(props.state.projects);
+  // Initialize projects and ensure they're sorted (backend should already be sorted, but we sort here for consistency)
+  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() => 
+    sortProjectsByBackendOrder(props.state.projects)
+  );
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
@@ -94,8 +98,19 @@ const Step2: React.FC<Step2Props> = props => {
         // Clear editing project after update
         setEditingProject(null);
       } else {
+        // For new entries, add to the array
         updatedProjects = [...prevProjects, updatedEntry];
       }
+
+      // Sort projects to match backend ordering logic.
+      // We must sort on the frontend because:
+      // 1. When adding/editing, we manipulate the local state array (backend only returns the new/updated item)
+      // 2. We need consistent ordering whether we refresh (backend-sorted) or add/edit locally (frontend-sorted)
+      // 3. The sorting logic matches the backend's `findByProfileId` method (alphabetical by source identifier, then created_at DESC)
+      // 
+      // TODO: In the future, when sorting becomes configurable via API request parameters,
+      // we should pass those parameters to the backend and apply the same sorting logic here.
+      updatedProjects = sortProjectsByBackendOrder(updatedProjects);
 
       // Update parent state with the new projects
       props.updateState({ projects: updatedProjects });
