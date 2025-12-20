@@ -284,8 +284,13 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       // Response now returns results array, get first item for single mode
       if (response.results && response.results.length > 0) {
         const result = response.results[0];
+        // Ensure we create a new object reference with all properties including categories
         props.onUpsert({
-          developerProjectItem: result.developerProjectItem,
+          developerProjectItem: {
+            ...result.developerProjectItem,
+            customCategories: result.developerProjectItem.customCategories || [],
+            predefinedCategories: result.developerProjectItem.predefinedCategories || [],
+          },
           projectItem: result.projectItem,
         });
       }
@@ -319,8 +324,13 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       // Call onUpsert for each result
       if (response.results && response.results.length > 0) {
         response.results.forEach(result => {
+          // Ensure we create a new object reference with all properties including categories
           props.onUpsert({
-            developerProjectItem: result.developerProjectItem,
+            developerProjectItem: {
+              ...result.developerProjectItem,
+              customCategories: result.developerProjectItem.customCategories || [],
+              predefinedCategories: result.developerProjectItem.predefinedCategories || [],
+            },
             projectItem: result.projectItem,
           });
         });
@@ -440,6 +450,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {/* Categories field - optional, multi-select */}
               {selectedProjectType && (
                 <CategoryInput
+                  key={`category-input-${props.entry?.developerProjectItem.id.uuid || 'new'}`}
                   predefinedCategories={predefinedCategories}
                   customCategories={customCategories}
                   onChange={(predefined, custom) => {
@@ -489,6 +500,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
                   {/* Shared Categories */}
                   <CategoryInput
+                    key="category-input-bulk"
                     predefinedCategories={predefinedCategories}
                     customCategories={customCategories}
                     onChange={(predefined, custom) => {

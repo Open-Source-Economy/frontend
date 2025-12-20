@@ -3,7 +3,8 @@ import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { ExternalLink, Github, Globe } from "lucide-react";
 import { ProjectRowActions } from "./ProjectRowActions";
 import { getAccessValue, getProjectDisplayName, getProjectDisplayUrl, getRoleLabel, isGitHubProject } from "../adapters";
-import { MergeRightsTypeCompanion } from "src/ultils/companions";
+import { MergeRightsTypeCompanion, ProjectCategoryCompanion } from "src/ultils/companions";
+import { Chip } from "src/views/components/ui/chip";
 
 interface ProjectsTableProps {
   projects: DeveloperProjectItemEntry[];
@@ -19,6 +20,7 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
           <thead>
             <tr className="border-b border-brand-neutral-300/40 bg-brand-neutral-200/60">
               <th className="text-left px-6 py-4 text-xs uppercase tracking-wider text-brand-neutral-600">Project</th>
+              <th className="text-left px-6 py-4 text-xs uppercase tracking-wider text-brand-neutral-600">Ecosystems</th>
               <th className="text-left px-6 py-4 text-xs uppercase tracking-wider text-brand-neutral-600">Your Role</th>
               <th className="text-left px-6 py-4 text-xs uppercase tracking-wider text-brand-neutral-600">Access Level</th>
               <th className="text-right px-6 py-4 text-xs uppercase tracking-wider text-brand-neutral-600">Actions</th>
@@ -33,6 +35,10 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
               const accessLabel = MergeRightsTypeCompanion.label(access);
               const accessClassName = MergeRightsTypeCompanion.className(access);
               const isGithubProject = isGitHubProject(project);
+              const ecosystems: string[] = [
+                ...(project.developerProjectItem.customCategories || []),
+                ...(project.developerProjectItem.predefinedCategories?.map(cat => ProjectCategoryCompanion.toLabel(cat)) || []),
+              ];
 
               return (
                 <tr key={project.developerProjectItem.id.uuid} className="hover:bg-brand-card-blue/40 transition-all duration-200">
@@ -57,6 +63,19 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
                       </div>
                       <span className="text-xs text-brand-neutral-600 truncate max-w-xs">{url}</span>
                     </div>
+                  </td>
+                  <td className="px-6 py-5">
+                    {ecosystems && ecosystems.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {ecosystems.map((ecosystem) => (
+                          <Chip key={ecosystem} size="md">
+                            {ecosystem}
+                          </Chip>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-brand-neutral-500">—</span>
+                    )}
                   </td>
                   <td className="px-6 py-5">
                     <span className="text-brand-neutral-700">{role}</span>

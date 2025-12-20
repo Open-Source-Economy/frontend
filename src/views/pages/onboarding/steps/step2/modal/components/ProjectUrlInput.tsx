@@ -62,4 +62,3 @@ export function ProjectUrlInput({ projectType, value, onChange, error }: Project
     </FormField>
   );
 }
-

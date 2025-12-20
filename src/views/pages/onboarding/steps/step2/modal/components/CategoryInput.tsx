@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ProjectCategory } from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { ChipInput } from "src/views/components/ui/chip-input";
@@ -19,7 +19,12 @@ export function CategoryInput({
   label = "Categories (Optional)",
   hint = "Select from suggestions or type your own. You can add multiple categories.",
 }: CategoryInputProps) {
-  const allCategories = [...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...customCategories];
+  const allCategories = useMemo(() => {
+    return [
+      ...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)),
+      ...customCategories
+    ];
+  }, [predefinedCategories, customCategories]);
 
   const handleChange = (allValues: string[]) => {
     const predefined: ProjectCategory[] = [];
@@ -37,14 +42,18 @@ export function CategoryInput({
     onChange(predefined, custom);
   };
 
+  const suggestions = useMemo(() => {
+    return Object.values(ProjectCategory)
+      .filter(category => !predefinedCategories.includes(category))
+      .map(category => ProjectCategoryCompanion.toLabel(category));
+  }, [predefinedCategories]);
+
   return (
     <FormField label={label} hint={hint}>
       <ChipInput
         values={allCategories}
         onChange={handleChange}
-        suggestions={Object.values(ProjectCategory)
-          .filter(category => !predefinedCategories.includes(category))
-          .map(category => ProjectCategoryCompanion.toLabel(category))}
+        suggestions={suggestions}
         placeholder="Type to search or add categories..."
         allowCustom={true}
         showCount
@@ -53,4 +62,3 @@ export function CategoryInput({
     </FormField>
   );
 }
-

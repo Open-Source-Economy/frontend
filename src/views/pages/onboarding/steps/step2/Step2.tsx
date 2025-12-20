@@ -75,16 +75,26 @@ const Step2: React.FC<Step2Props> = props => {
       // Capture editingProject in the closure to use the correct value
       const currentEditingProject = editingProject;
 
+      // Ensure we create a completely new object reference to trigger React re-render
+      const updatedEntry: DeveloperProjectItemEntry = {
+        developerProjectItem: {
+          ...newOrUpdatedProject.developerProjectItem,
+          customCategories: newOrUpdatedProject.developerProjectItem.customCategories || [],
+          predefinedCategories: newOrUpdatedProject.developerProjectItem.predefinedCategories || [],
+        },
+        projectItem: { ...newOrUpdatedProject.projectItem },
+      };
+
       if (currentEditingProject) {
         // Remove the old entry (by the editingProject's ID) and add the new one
         // This handles both cases: simple updates (same project) and changes (different project)
         updatedProjects = prevProjects
           .filter(entry => entry.developerProjectItem.id.uuid !== currentEditingProject.developerProjectItem.id.uuid)
-          .concat(newOrUpdatedProject);
+          .concat(updatedEntry);
         // Clear editing project after update
         setEditingProject(null);
       } else {
-        updatedProjects = [...prevProjects, newOrUpdatedProject];
+        updatedProjects = [...prevProjects, updatedEntry];
       }
 
       // Update parent state with the new projects

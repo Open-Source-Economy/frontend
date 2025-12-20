@@ -47,4 +47,3 @@ export function getUrlConfig(projectType: ProjectItemType | null): UrlConfig {
       };
   }
 }
-

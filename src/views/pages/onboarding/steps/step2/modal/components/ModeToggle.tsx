@@ -29,4 +29,3 @@ export function ModeToggle({ isBulkMode, onModeChange }: ModeToggleProps) {
     </ToggleGroup>
   );
 }
-
