@@ -153,18 +153,18 @@ export function isGitHubProject(entry: DeveloperProjectItemEntry): boolean {
 
 /**
  * Sort projects to match backend ordering logic.
- * 
+ *
  * This function implements the same sorting logic as the backend's `findByProfileId` method:
  * - Primary: Alphabetically by source identifier (owner/repo name or URL)
  * - Secondary: By created_at DESC (newest first) for stable ordering when source identifiers are the same
- * 
+ *
  * We need to sort on the frontend because:
  * 1. When adding/editing projects, we manipulate the local state array
  * 2. The backend response only contains the newly added/updated project, not the full sorted list
  * 3. We need consistent ordering whether we refresh (backend-sorted) or add/edit locally (frontend-sorted)
- * 
+ *
  * This ensures O(n log n) complexity is acceptable since we're maintaining consistency with backend logic.
- * 
+ *
  * TODO: In the future, when sorting becomes configurable via API request parameters,
  * we should pass those parameters to the backend and apply the same sorting logic here.
  */
@@ -175,11 +175,11 @@ export function sortProjectsByBackendOrder(projects: DeveloperProjectItemEntry[]
     const aName = getProjectDisplayName(a);
     const bName = getProjectDisplayName(b);
     const nameComparison = aName.localeCompare(bName);
-    
+
     if (nameComparison !== 0) {
       return nameComparison;
     }
-    
+
     // Secondary sort: by created_at DESC (newest first) for stable ordering when names are the same (should not happen)
     // This matches the backend's `dpi.created_at DESC` ordering
     const aDate = new Date(a.developerProjectItem.createdAt).getTime();

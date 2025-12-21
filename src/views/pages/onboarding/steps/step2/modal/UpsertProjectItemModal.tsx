@@ -450,7 +450,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {/* Categories field - optional, multi-select */}
               {selectedProjectType && (
                 <CategoryInput
-                  key={`category-input-${props.entry?.developerProjectItem.id.uuid || 'new'}`}
+                  key={`category-input-${props.entry?.developerProjectItem.id.uuid || "new"}`}
                   predefinedCategories={predefinedCategories}
                   customCategories={customCategories}
                   onChange={(predefined, custom) => {

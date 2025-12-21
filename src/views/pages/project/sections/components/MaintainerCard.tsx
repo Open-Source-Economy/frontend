@@ -9,6 +9,7 @@ import { getMaintainerTenure } from "../../data/maintainerTenure";
 import { getMaintainerHighlight } from "../../data/maintainerHighlights";
 import { getMaintainerDescription } from "../../data/maintainerDescriptions";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "../../../../../ultils/companions";
+import { StatusBadge } from "./StatusBadge";
 
 interface MaintainerCardProps {
   developer: ProjectDeveloperProfile;
@@ -41,19 +42,10 @@ export function MaintainerCard({ developer, projectName }: MaintainerCardProps) 
       {/*  }}*/}
       {/*/>*/}
 
-      {/*/!* Availability Badge - Top Right *!/*/}
-      {/*<div className="absolute top-5 right-5 z-10">*/}
-      {/*  {availableForConsulting ? (*/}
-      {/*    <Badge className="bg-brand-success/10 text-brand-success border-brand-success/20 text-xs shadow-sm">*/}
-      {/*      <Star className="mr-1 h-3 w-3" />*/}
-      {/*      Available*/}
-      {/*    </Badge>*/}
-      {/*  ) : (*/}
-      {/*    <Badge variant="secondary" className="bg-brand-neutral-200/50 text-brand-neutral-500 border-brand-neutral-400/30 text-xs">*/}
-      {/*      Unavailable*/}
-      {/*    </Badge>*/}
-      {/*  )}*/}
-      {/*</div>*/}
+      {/* Availability Badge - Top Right */}
+      <div className="absolute top-5 right-5 z-10">
+        <StatusBadge settings={developer.settings} />
+      </div>
 
       <div className="flex gap-4 flex-1 relative z-[1]">
         {/* Photo */}

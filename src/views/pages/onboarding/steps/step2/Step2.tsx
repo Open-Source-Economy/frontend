@@ -26,9 +26,7 @@ const Step2: React.FC<Step2Props> = props => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Initialize projects and ensure they're sorted (backend should already be sorted, but we sort here for consistency)
-  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() => 
-    sortProjectsByBackendOrder(props.state.projects)
-  );
+  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() => sortProjectsByBackendOrder(props.state.projects));
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
@@ -107,7 +105,7 @@ const Step2: React.FC<Step2Props> = props => {
       // 1. When adding/editing, we manipulate the local state array (backend only returns the new/updated item)
       // 2. We need consistent ordering whether we refresh (backend-sorted) or add/edit locally (frontend-sorted)
       // 3. The sorting logic matches the backend's `findByProfileId` method (alphabetical by source identifier, then created_at DESC)
-      // 
+      //
       // TODO: In the future, when sorting becomes configurable via API request parameters,
       // we should pass those parameters to the backend and apply the same sorting logic here.
       updatedProjects = sortProjectsByBackendOrder(updatedProjects);

@@ -67,7 +67,7 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
                   <td className="px-6 py-5">
                     {ecosystems && ecosystems.length > 0 ? (
                       <div className="flex flex-wrap gap-1.5">
-                        {ecosystems.map((ecosystem) => (
+                        {ecosystems.map(ecosystem => (
                           <Chip key={ecosystem} size="md">
                             {ecosystem}
                           </Chip>

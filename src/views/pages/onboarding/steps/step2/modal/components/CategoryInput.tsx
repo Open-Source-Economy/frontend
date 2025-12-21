@@ -20,10 +20,7 @@ export function CategoryInput({
   hint = "Select from suggestions or type your own. You can add multiple categories.",
 }: CategoryInputProps) {
   const allCategories = useMemo(() => {
-    return [
-      ...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)),
-      ...customCategories
-    ];
+    return [...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...customCategories];
   }, [predefinedCategories, customCategories]);
 
   const handleChange = (allValues: string[]) => {
