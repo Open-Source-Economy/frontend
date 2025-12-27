@@ -94,7 +94,7 @@
     "vite": "^7.1.10"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host=0.0.0.0",
     "build": "vite build",
     "build:check": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",

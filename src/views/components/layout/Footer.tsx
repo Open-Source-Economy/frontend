@@ -9,6 +9,7 @@ import { ExternalLink } from "../ui/forms/ExternalLink";
 import { Link } from "react-router-dom";
 import { footerNavigation } from "./navigation";
 import { isVisible } from "src/ultils/featureVisibility";
+import NewsletterSubscriptionForm from "../ui/forms/NewsletterSubscriptionForm";
 
 // -----------------------------
 // Types
@@ -152,87 +153,10 @@ export function Footer(props: FooterProps) {
         {/* Newsletter Section */}
         {isVisible("newsletterSection") && (
           <div className="border-t border-border mt-8 pt-8">
-            <div className="max-w-md">
-              <h3 className="font-medium mb-2">Stay Updated</h3>
-              <p className="text-muted-foreground mb-4">Get the latest updates on open source projects and community news.</p>
-
-              {/* Demo Toggle - Development Only */}
-              {isVisible("newsletterDemoToggle") && (
-                <div className="mb-4 p-3 bg-brand-card-blue-light border border-brand-warning rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-brand-warning">Demo Mode</span>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <span className="text-xs text-brand-neutral-600">Simulate Error</span>
-                      <input type="checkbox" checked={showErrorDemo} onChange={e => setShowErrorDemo(e.target.checked)} className="w-4 h-4" />
-                    </label>
-                  </div>
-                </div>
-              )}
-
-              {/* Loading State */}
-              {isSubmitting && (
-                <Alert className="mb-4 border-brand-accent bg-brand-accent/10">
-                  <Loader2 className="h-4 w-4 text-brand-accent animate-spin" />
-                  <AlertDescription className="text-brand-accent">Processing your subscription...</AlertDescription>
-                </Alert>
-              )}
-
-              {/* Success State */}
-              {submissionStatus === "success" && (
-                <Alert className="mb-4 border-brand-success bg-brand-success/10">
-                  <CheckCircle2 className="h-4 w-4 text-brand-success" />
-                  <AlertDescription className="text-brand-success">Thanks for subscribing! Check your email to confirm your subscription.</AlertDescription>
-                </Alert>
-              )}
-
-              {/* Error State */}
-              {submissionStatus === "error" && (
-                <Alert className="mb-4 border-brand-error bg-brand-error/10">
-                  <AlertCircle className="h-4 w-4 text-brand-error" />
-                  <AlertDescription className="text-brand-error">{errorMessage}</AlertDescription>
-                </Alert>
-              )}
-
-              {/* Subscription Form */}
-              {submissionStatus !== "success" && (
-                <form onSubmit={handleSubscribe} className="flex gap-2 items-center">
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    variant="outline"
-                    className="flex-1 h-10"
-                    value={email}
-                    onChange={e => {
-                      setEmail(e.target.value);
-                      if (submissionStatus === "error") {
-                        setSubmissionStatus("idle");
-                        setErrorMessage("");
-                      }
-                    }}
-                    disabled={isSubmitting}
-                  />
-                  <Button type="submit" variant="default" size="default" className="h-10" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      "Subscribe"
-                    )}
-                  </Button>
-                </form>
-              )}
-
-              {/* Success - Show action to subscribe again */}
-              {submissionStatus === "success" && (
-                <Button variant="outline" size="default" className="h-10 w-full" onClick={handleResetSuccess}>
-                  Subscribe Another Email
-                </Button>
-              )}
-            </div>
+            <NewsletterSubscriptionForm />
           </div>
         )}
+
 
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">

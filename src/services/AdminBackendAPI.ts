@@ -3,11 +3,9 @@ import * as dto from "@open-source-economy/api-types";
 import { api, handleError, projectPath } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
-
 export function getAdminBackendAPI(): AdminBackendAPI {
   return new AdminBackendAPIImpl(api);
 }
-
 export interface AdminBackendAPI {
   getAllDeveloperProfiles(
     params: dto.GetAllDeveloperProfilesParams,
@@ -55,14 +53,11 @@ export interface AdminBackendAPI {
   ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError>;
   createProject(params: dto.CreateProjectParams, body: dto.CreateProjectBody, query: dto.CreateProjectQuery): Promise<dto.CreateProjectResponse | ApiError>;
 }
-
 class AdminBackendAPIImpl implements AdminBackendAPI {
   private api: AxiosInstance;
-
   constructor(api: AxiosInstance) {
     this.api = api;
   }
-
   async getAllDeveloperProfiles(
     params: dto.GetAllDeveloperProfilesParams,
     query: dto.GetAllDeveloperProfilesQuery,
@@ -72,14 +67,12 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
       "getAllDeveloperProfiles",
     );
   }
-
   async getDeveloperProfile(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
     return await handleError<dto.GetDeveloperProfileResponse>(
       () => this.api.get(`${config.api.url}/admin/developer-profile/${params.githubUsername}`, { withCredentials: true, params: query }),
       "getDeveloperProfile",
     );
   }
-
   async createVerificationRecord(
     params: dto.CreateVerificationRecordParams,
     body: dto.CreateVerificationRecordBody,
@@ -90,7 +83,6 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
       "createVerificationRecord",
     );
   }
-
   async syncOrganizationRepositories(
     params: dto.SyncOrganizationRepositoriesParams,
     query: dto.SyncOrganizationRepositoriesQuery,
@@ -100,8 +92,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
       "syncOrganizationRepositories",
     );
   }
-
-  async syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse | ApiError> {
+   async syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse | ApiError> {
     return await handleError<dto.SyncOwnerResponse>(
       () => this.api.post(`${config.api.url}/github/owners/${params.owner}/sync`, {}, { withCredentials: true, params: query }),
       "syncOwner",
