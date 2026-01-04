@@ -20,6 +20,7 @@ export interface AuthBackendAPI {
   deleteSession(): Promise<dto.LogoutResponse | ApiError>;
   getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse | ApiError>;
   getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse | ApiError>;
+  checkEmail(params: dto.CheckEmailParams, body: dto.CheckEmailBody, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse | ApiError>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
@@ -80,6 +81,13 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     return handleError<dto.GetRepositoryUserInviteInfoResponse>(
       () => this.api.get(`${config.api.url}/auth/repository-user-invite-info`, { withCredentials: true, params: query }),
       "getRepositoryUserInviteInfo",
+    );
+  }
+
+  async checkEmail(params: dto.CheckEmailParams, body: dto.CheckEmailBody, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse | ApiError> {
+    return handleError<dto.CheckEmailResponse>(
+      () => this.api.get(`${config.api.url}/auth/check-email`, { withCredentials: true, params: query }),
+      "checkEmail",
     );
   }
 }

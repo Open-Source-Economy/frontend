@@ -45,6 +45,7 @@ import { getPlaceholder } from "./helpers/formHelpers";
 import { MaintainerProjectList } from "./components/MaintainerProjectList";
 import { RequestProjectList } from "./components/RequestProjectList";
 import { MeetingRequestSection } from "./components/MeetingRequestSection";
+import { ValidationError } from "../../components/ui/forms/validation-requirements";
 
 const CONTACT_REASONS = [
   {
@@ -146,6 +147,11 @@ export function ContactPage() {
     updateProject,
     setContactReason,
   } = useContactForm(getInitialContactReason());
+
+  // Helper function to convert string error to ValidationError
+  const getValidationError = (error: string | undefined): ValidationError | undefined => {
+    return error ? { error } : undefined;
+  };
 
   // Update contact reason when URL parameter changes
   useEffect(() => {
@@ -309,7 +315,7 @@ export function ContactPage() {
                                 value={formData.name}
                                 onChange={value => handleInputChange("name", value)}
                                 placeholder="John Doe"
-                                error={fieldErrors.name}
+                                error={getValidationError(fieldErrors.name)}
                                 required
                               />
                               <ValidatedInput
@@ -319,7 +325,7 @@ export function ContactPage() {
                                 value={formData.email}
                                 onChange={value => handleInputChange("email", value)}
                                 placeholder="john@example.com"
-                                error={fieldErrors.email}
+                                error={getValidationError(fieldErrors.email)}
                                 required
                               />
                             </div>
@@ -333,7 +339,7 @@ export function ContactPage() {
                                 value={formData.company}
                                 onChange={value => handleInputChange("company", value)}
                                 placeholder={getPlaceholder("company", companyRequired, formData.contactReason)}
-                                error={fieldErrors.company}
+                                error={getValidationError(fieldErrors.company)}
                                 required={companyRequired}
                               />
                               <ValidatedInput
@@ -343,7 +349,7 @@ export function ContactPage() {
                                 value={formData.linkedinProfile}
                                 onChange={value => handleInputChange("linkedinProfile", value)}
                                 placeholder={getPlaceholder("linkedIn", linkedInRequired, formData.contactReason)}
-                                error={fieldErrors.linkedinProfile}
+                                error={getValidationError(fieldErrors.linkedinProfile)}
                                 required={linkedInRequired}
                               />
                             </div>
@@ -400,7 +406,7 @@ export function ContactPage() {
                               value={formData.subject}
                               onChange={value => handleInputChange("subject", value)}
                               placeholder="Brief description of your inquiry"
-                              error={fieldErrors.subject}
+                              error={getValidationError(fieldErrors.subject)}
                               required
                             />
 
@@ -412,7 +418,7 @@ export function ContactPage() {
                               onChange={value => handleInputChange("message", value)}
                               rows={6}
                               placeholder={selectedReason?.placeholder || "Please provide details about your inquiry..."}
-                              error={fieldErrors.message}
+                              error={getValidationError(fieldErrors.message)}
                               required
                             />
 

@@ -21,6 +21,7 @@ import { ProjectUrlInput } from "./components/ProjectUrlInput";
 import { ModeToggle } from "./components/ModeToggle";
 import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
 import { getUrlConfig } from "./utils/urlHelpers";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -481,7 +482,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {selectedProjectType && (
                 <>
                   {/* Bulk URL Input */}
-                  <FormField label="Project URLs" required error={errors.bulkUrls} hint={urlConfig.bulkHint}>
+                  <FormField label="Project URLs" required error={errors.bulkUrls ? { error: errors.bulkUrls } : undefined} hint={urlConfig.bulkHint}>
                     <Textarea
                       value={bulkUrls}
                       onChange={e => {

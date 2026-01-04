@@ -125,28 +125,38 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
     console.log("upsertProjectItem", { params, body, query });
 
-    const projectItemId = new dto.ProjectItemId(Math.random().toString());
-    const developerProjectItemId = new dto.DeveloperProjectItemId(Math.random().toString());
     const developerProfileId = new dto.DeveloperProfileId(Math.random().toString()); // Need a mock profile ID
 
+    // Process each project item in the array
+    const results: dto.ProjectItemUpsertResult[] = body.projectItems.map(projectItemData => {
+      const projectItemId = new dto.ProjectItemId(Math.random().toString());
+      const developerProjectItemId = new dto.DeveloperProjectItemId(Math.random().toString());
+
+      return {
+        projectItem: {
+          id: projectItemId,
+          projectItemType: projectItemData.projectItemType,
+          sourceIdentifier: projectItemData.sourceIdentifier,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        developerProjectItem: {
+          id: developerProjectItemId,
+          developerProfileId: developerProfileId,
+          projectItemId: projectItemId,
+          roles: projectItemData.roles,
+          mergeRights: projectItemData.mergeRights,
+          comment: projectItemData.comments,
+          customCategories: projectItemData.customCategories,
+          predefinedCategories: projectItemData.predefinedCategories,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      };
+    });
+
     const response: dto.UpsertDeveloperProjectItemResponse = {
-      projectItem: {
-        id: projectItemId,
-        projectItemType: body.projectItemType,
-        sourceIdentifier: body.sourceIdentifier,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      developerProjectItem: {
-        id: developerProjectItemId,
-        developerProfileId: developerProfileId,
-        projectItemId: projectItemId,
-        roles: body.roles,
-        mergeRights: body.mergeRights,
-        comment: body.comments,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      results,
     };
 
     return Promise.resolve(response);

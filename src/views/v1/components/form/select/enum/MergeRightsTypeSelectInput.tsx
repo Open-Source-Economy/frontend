@@ -7,6 +7,7 @@ interface MergeRightsTypeSelectInputProps extends Omit<BaseProps, "label"> {
   value: MergeRightsType | null;
   onChange: (value: MergeRightsType | null) => void;
   required?: boolean;
+  label?: string;
 }
 
 const options: SelectOption[] = Object.values(MergeRightsType).map(value => ({

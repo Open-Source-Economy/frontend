@@ -51,7 +51,7 @@ export function CompanyProduct(props: CompanyProductProps) {
           <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-7 md:!mt-12">
             <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <Link to={paths.SIGN_UP}>Register</Link>
+              <Link to={paths.AUTH.IDENTIFY}>Register</Link>
             </Button>
           </div>
         </section>

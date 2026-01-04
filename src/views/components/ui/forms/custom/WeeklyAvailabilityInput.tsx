@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "src/views/components/ui/forms/input";
 import { FormField } from "src/views/components/ui/forms/form-field";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 interface WeeklyAvailabilityInputProps {
   value?: number;
@@ -9,8 +10,10 @@ interface WeeklyAvailabilityInputProps {
 }
 
 export const WeeklyAvailabilityInput: React.FC<WeeklyAvailabilityInputProps> = ({ value, onChange, error }) => {
+  const validationResult: ValidationError | undefined = error ? { error } : undefined;
+
   return (
-    <FormField label="Weekly Hours" required error={error} hint="Approximate hours per week you're typically available (for planning purposes)">
+    <FormField label="Weekly Hours" required error={validationResult} hint="Approximate hours per week you're typically available (for planning purposes)">
       <div className="relative w-fit">
         <Input
           type="number"

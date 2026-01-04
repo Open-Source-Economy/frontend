@@ -7,6 +7,7 @@ interface DeveloperRoleTypeSelectInputProps extends Omit<BaseProps, "label"> {
   value: DeveloperRoleType | null;
   onChange: (value: DeveloperRoleType | null) => void;
   required?: boolean;
+  label?: string;
 }
 
 const options: SelectOption[] = Object.values(DeveloperRoleType).map(value => ({

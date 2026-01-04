@@ -2,13 +2,14 @@ import React from "react";
 import { ProjectItemType } from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { Input } from "src/views/components/ui/forms/input";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 import { ExternalLink } from "lucide-react";
 
 interface ProjectUrlInputProps {
   projectType: ProjectItemType;
   value: string;
   onChange: (value: string) => void;
-  error?: string;
+  error?: string | ValidationError;
 }
 
 const getUrlConfig = (projectType: ProjectItemType) => {
@@ -36,9 +37,10 @@ const getUrlConfig = (projectType: ProjectItemType) => {
 
 export function ProjectUrlInput({ projectType, value, onChange, error }: ProjectUrlInputProps) {
   const config = getUrlConfig(projectType);
+  const validationError: ValidationError | undefined = typeof error === "string" ? { error } : error;
 
   return (
-    <FormField label={config.label} required error={error} hint={config.hint}>
+    <FormField label={config.label} required error={validationError} hint={config.hint}>
       <div className="relative">
         <Input
           type="url"
@@ -51,7 +53,7 @@ export function ProjectUrlInput({ projectType, value, onChange, error }: Project
         {value && (
           <a
             href={value}
-            target="_blank"
+            target="_blank" // TODO: lololo
             rel="noopener noreferrer"
             className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-accent hover:text-brand-accent-dark transition-colors z-10"
           >

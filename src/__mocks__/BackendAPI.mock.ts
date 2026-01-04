@@ -20,7 +20,7 @@ import {
   StripePriceId,
   StripeProductId,
 } from "@open-source-economy/api-types";
-import { BackendAPI } from "src/services";
+import { BackendAPI } from "src/services/BackendAPI";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
@@ -268,7 +268,7 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
-    return {} as dto.CheckoutResponse;
+    return { redirectUrl: "https://checkout.stripe.com/c/pay/cs_test_a1WpXh4fW6XG9J5vYyZ2M3Q4R5T6U7V8W9X0" };
   }
 
   async setUserPreferredCurrency(
@@ -279,7 +279,7 @@ export class BackendAPIMock implements BackendAPI {
     return {};
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }

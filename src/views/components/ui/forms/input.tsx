@@ -45,14 +45,89 @@ const inputVariants = cva(
   },
 );
 
+/**
+ * Ref interface for validated inputs
+ * Exposes a validate method that can be called imperatively
+ */
+export interface ValidatedInputRef {
+  validate: (showError: boolean) => boolean;
+  getValue: () => string;
+}
+
 interface InputProps extends Omit<React.ComponentProps<"input">, "size">, VariantProps<typeof inputVariants> {
   leftIcon?: React.ComponentType<{ className?: string }>;
   rightIcon?: React.ComponentType<{ className?: string }>;
   loading?: boolean;
+  validator?: (value: string) => string | undefined;
+  externalError?: string; // For external error control (e.g., from FormField)
+  onErrorChange?: (error: string | undefined) => void;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant, size, type, leftIcon: LeftIcon, rightIcon: RightIcon, loading, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>(
+  (
+    { className, variant, size, type, leftIcon: LeftIcon, rightIcon: RightIcon, loading, validator, externalError, onErrorChange, value, onChange, ...props },
+    ref,
+  ) => {
+    const [internalError, setInternalError] = React.useState<string | undefined>(undefined);
+    const [isTouched, setIsTouched] = React.useState(false);
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    // Determine which error to show (external takes precedence)
+    const displayError = externalError ?? internalError;
+    const hasError = Boolean(displayError);
+
+    // Auto-update variant based on error state
+    const effectiveVariant = hasError ? "error" : variant;
+
+    const runValidation = React.useCallback(
+      (currentValue: string, showError: boolean): boolean => {
+        if (!validator) return true;
+
+        const errorMessage = validator(currentValue);
+
+        if (showError || isTouched) {
+          setInternalError(errorMessage);
+          onErrorChange?.(errorMessage);
+        }
+
+        return !errorMessage;
+      },
+      [validator, isTouched, onErrorChange],
+    );
+
+    // Expose validation method via ref
+    React.useImperativeHandle(
+      ref,
+      () => ({
+        validate: (showError: boolean) => {
+          const currentValue = String(value ?? inputRef.current?.value ?? "");
+          return runValidation(currentValue, showError);
+        },
+        getValue: () => {
+          return String(value ?? inputRef.current?.value ?? "");
+        },
+        // Also expose the native input element for compatibility
+        ...(inputRef.current as any),
+      }),
+      [value, runValidation],
+    );
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Clear error on change if touched
+      if (isTouched && validator) {
+        runValidation(e.target.value, false);
+      }
+      onChange?.(e);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsTouched(true);
+      if (validator) {
+        runValidation(e.target.value, true);
+      }
+      props.onBlur?.(e);
+    };
+
     const hasIcons = LeftIcon || RightIcon || loading;
 
     const LoadingIcon = () => (
@@ -71,8 +146,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative group">
           <input
             type={type}
-            className={cn(inputVariants({ variant, size }), LeftIcon && "pl-10", (RightIcon || loading) && "pr-10", className)}
-            ref={ref}
+            className={cn(inputVariants({ variant: effectiveVariant, size }), LeftIcon && "pl-10", (RightIcon || loading) && "pr-10", className)}
+            ref={inputRef}
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
             {...props}
           />
           {LeftIcon && (
@@ -90,7 +168,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       );
     }
 
-    return <input type={type} className={cn(inputVariants({ variant, size }), className)} ref={ref} {...props} />;
+    return (
+      <input
+        type={type}
+        className={cn(inputVariants({ variant: effectiveVariant, size }), className)}
+        ref={inputRef}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        {...props}
+      />
+    );
   },
 );
 

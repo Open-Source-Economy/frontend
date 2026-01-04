@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { NavbarItem } from "../navbar/item/NavbarItem";
 import { Navigation } from "../navbar/item/NavItemData";
 import { useCurrency } from "src/context/CurrencyContext";
+import { paths } from "src/paths";
 
 interface AuthenticationProps {}
 
@@ -18,7 +19,7 @@ export function Authentication(props: AuthenticationProps) {
       />
       <NavbarItem item={Navigation.items.signIn} />
       <Button audience="ALL" level="SECONDARY" size="SMALL" className="!capitalize" asChild>
-        <Link to="/sign-up">Join</Link>
+        <Link to={paths.AUTH.IDENTIFY}>Join</Link>
       </Button>
     </div>
   );

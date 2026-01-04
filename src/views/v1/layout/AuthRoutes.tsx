@@ -19,7 +19,7 @@ export function AuthRoutes(props: { authPage: string }) {
     return <PageLoader message="Authenticating user..." />;
   }
 
-  if (auth.authInfo?.user) {
+  if (auth.authInfo?.authenticatedUser?.user) {
     // If user is authenticated, allow access to the protected route
     return <Outlet />;
   }
@@ -39,13 +39,13 @@ export function NonProdRoutes() {
 export function SuperAdminRoutes() {
   const auth = useAuth();
 
-  const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
+  const allowed = auth.authInfo?.authenticatedUser?.user?.role === UserRole.SUPER_ADMIN;
 
   if (config.api.useMock) {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
-    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.SIGN_IN} />; // TODO: add  404 page
+    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.AUTH.IDENTIFY} />; // TODO: add  404 page
   }
 }
 

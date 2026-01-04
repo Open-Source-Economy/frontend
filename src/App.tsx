@@ -27,7 +27,10 @@ import DevelopedOnboardingComplete from "./views/pages/onboarding/completed/Deve
 import { Pdf } from "./views/pages/Pdf";
 import { ProjectDetailPage } from "./views/pages/project/ProjectDetailPage";
 import { SponsorshipPage } from "./views/pages/supporter/SponsorshipPage";
-import { CheckoutSuccessPage } from "./views/pages/checkout/CheckoutSuccessPage";
+import { CheckoutSuccessPage } from "src/views/pages/checkout/CheckoutSuccessPage";
+import { IdentificationStep } from "src/views/pages/authenticate/steps/IdentificationStep";
+import { GithubNoticeStep } from "src/views/pages/authenticate/steps/GithubNoticeStep";
+import { PasswordStep } from "src/views/pages/authenticate/steps/PasswordStep";
 import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
@@ -72,8 +75,9 @@ const App = () => {
             <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
 
             {/*<Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />*/}
-            {/*<Route path={paths.SIGN_IN} element={<Authenticate type={AuthenticateType.SignIn} />} />*/}
-            {/*<Route path={paths.SIGN_UP} element={<Authenticate type={AuthenticateType.SignUp} />} />*/}
+            <Route path={paths.AUTH.IDENTIFY} element={<IdentificationStep />} />
+            <Route path={paths.AUTH.GITHUB} element={<GithubNoticeStep />} />
+            <Route path={paths.AUTH.PASSWORD} element={<PasswordStep />} />
 
             <Route element={<SuperAdminRoutes />}>
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />

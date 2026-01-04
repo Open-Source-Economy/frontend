@@ -1,7 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Input } from "./input";
 import { Textarea } from "./textarea";
-import { FormField } from "./form-field";
+import { FormField, FormFieldLink } from "./form-field";
+import { ValidationError } from "./validation-requirements";
 import { LucideIcon } from "lucide-react";
 
 // Input ref interface for validation
@@ -23,16 +24,20 @@ interface BaseValidatedFieldProps {
   className?: string;
 }
 
-interface ValidatedInputProps extends BaseValidatedFieldProps {
-  type?: "text" | "email" | "url" | "tel" | "number";
+interface ValidatedInputProps extends Omit<BaseValidatedFieldProps, "error"> {
+  type?: "text" | "email" | "url" | "tel" | "number" | "password";
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
   disabled?: boolean;
   autoComplete?: string;
+  autoFocus?: boolean;
+  link?: FormFieldLink;
+  error?: ValidationError;
 }
 
-interface ValidatedTextareaProps extends BaseValidatedFieldProps {
+interface ValidatedTextareaProps extends Omit<BaseValidatedFieldProps, "error"> {
   rows?: number;
+  error?: ValidationError;
 }
 
 export function ValidatedInput({
@@ -51,9 +56,13 @@ export function ValidatedInput({
   rightIcon,
   disabled,
   autoComplete,
+  autoFocus,
+  link,
 }: ValidatedInputProps) {
+  const hasError = !!error?.error;
+
   return (
-    <FormField label={label} error={error} required={required} description={hint || description} className={className}>
+    <FormField label={label} required={required} description={hint || description} className={className} link={link} error={error}>
       <Input
         id={name}
         name={name}
@@ -61,12 +70,13 @@ export function ValidatedInput({
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        variant={error ? "error" : "default"}
-        data-error={!!error}
+        variant={hasError ? "error" : "default"}
+        data-error={hasError}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
         disabled={disabled}
         autoComplete={autoComplete}
+        autoFocus={autoFocus}
       />
     </FormField>
   );
@@ -84,8 +94,10 @@ export function ValidatedTextarea({
   rows = 6,
   className,
 }: ValidatedTextareaProps) {
+  const hasError = !!error?.error;
+
   return (
-    <FormField label={label} error={error} required={required} description={description} className={className}>
+    <FormField label={label} required={required} description={description} className={className} error={error}>
       <Textarea
         id={name}
         name={name}
@@ -93,8 +105,8 @@ export function ValidatedTextarea({
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        variant={error ? "error" : "default"}
-        data-error={!!error}
+        variant={hasError ? "error" : "default"}
+        data-error={hasError}
       />
     </FormField>
   );
@@ -105,33 +117,55 @@ export function ValidatedTextarea({
  * Allows external control of validation trigger via ref.validate()
  */
 interface ValidatedInputWithRefProps extends Omit<BaseValidatedFieldProps, "error"> {
-  type?: "text" | "email" | "url" | "tel" | "number";
+  type?: "text" | "email" | "url" | "tel" | "number" | "password";
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
   disabled?: boolean;
   autoComplete?: string;
-  validator: (value: string) => string | undefined;
+  autoFocus?: boolean;
+  validator: (value: string) => ValidationError | undefined;
+  link?: FormFieldLink;
 }
 
 export const ValidatedInputWithRef = forwardRef<InputRef, ValidatedInputWithRefProps>(
-  ({ name, label, value, onChange, placeholder, type = "text", leftIcon, rightIcon, validator, hint, disabled, autoComplete }, ref) => {
-    const [internalError, setInternalError] = useState<string | undefined>(undefined);
+  ({ name, label, value, onChange, placeholder, type = "text", leftIcon, rightIcon, validator, hint, disabled, autoComplete, autoFocus, link }, ref) => {
+    const [validationError, setValidationError] = useState<ValidationError | undefined>(undefined);
+    const [hasAttemptedValidation, setHasAttemptedValidation] = useState(false);
 
+    /**
+     * Runs validation when called via ref.validate()
+     * When showInputError is true (button clicked), it:
+     * 1. Validates the current value
+     * 2. Sets the validation error state (if any)
+     * 3. Marks validation as attempted (so errors will be displayed)
+     */
     const runValidation = (showInputError: boolean): boolean => {
-      const errorMessage = validator(value);
+      const error = validator(value);
       if (showInputError) {
-        setInternalError(errorMessage);
+        setValidationError(error);
+        setHasAttemptedValidation(true);
       }
-      return !errorMessage;
+      return !error;
     };
+
+    /**
+     * After validation has been attempted (button clicked), update errors in real-time
+     * as the user types. This provides immediate feedback while editing.
+     */
+    React.useEffect(() => {
+      if (hasAttemptedValidation) {
+        const error = validator(value);
+        setValidationError(error);
+      }
+    }, [value, hasAttemptedValidation, validator]);
 
     useImperativeHandle(
       ref,
       () => ({
         validate: (showInputError: boolean) => runValidation(showInputError),
-        getError: () => internalError,
+        getError: () => validationError?.error,
       }),
-      [value, internalError, validator],
+      [value, validationError, validator],
     );
 
     return (
@@ -144,10 +178,12 @@ export const ValidatedInputWithRef = forwardRef<InputRef, ValidatedInputWithRefP
         type={type}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
-        error={internalError}
         hint={hint}
         disabled={disabled}
         autoComplete={autoComplete}
+        autoFocus={autoFocus}
+        link={link}
+        error={hasAttemptedValidation ? validationError : undefined}
         required
       />
     );

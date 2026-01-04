@@ -2,6 +2,7 @@ import React from "react";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select-field";
 import { Input } from "src/views/components/ui/forms/input";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 import { Currency } from "@open-source-economy/api-types";
 import { CurrencyCompanion } from "src/ultils/companions";
 
@@ -19,8 +20,10 @@ const CurrencySymbol: React.FC<{ currency: Currency }> = ({ currency }) => {
 };
 
 export const ServiceRateInput: React.FC<ServiceRateInputProps> = ({ currency, rate, onCurrencyChange, onRateChange, error }) => {
+  const validationResult: ValidationError | undefined = error ? { error } : undefined;
+
   return (
-    <FormField label="Hourly Rate" required error={error}>
+    <FormField label="Hourly Rate" required error={validationResult}>
       <div className="flex gap-2">
         <div className="w-32">
           <SelectField options={CurrencyCompanion.selectOptions()} value={currency} onChange={value => onCurrencyChange(value as Currency)} />

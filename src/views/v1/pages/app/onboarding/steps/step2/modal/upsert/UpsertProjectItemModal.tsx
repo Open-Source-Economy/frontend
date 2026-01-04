@@ -71,10 +71,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       const params: dto.UpsertDeveloperProjectItemParams = {};
 
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItemType: projectItemType,
-        sourceIdentifier: sourceIdentifier,
-        roles: selectedRole ? [selectedRole] : [],
-        mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
+        projectItems: [
+          {
+            projectItemType: projectItemType,
+            sourceIdentifier: sourceIdentifier,
+            roles: selectedRole ? [selectedRole] : [],
+            mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
+          },
+        ],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
 
@@ -83,10 +87,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
     const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
       props.setShow(false);
-      props.onUpsert({
-        developerProjectItem: response.developerProjectItem,
-        projectItem: response.projectItem,
-      });
+      // Response now returns results array, get first item
+      if (response.results && response.results.length > 0) {
+        const result = response.results[0];
+        props.onUpsert({
+          developerProjectItem: result.developerProjectItem,
+          projectItem: result.projectItem,
+        });
+      }
     };
 
     await handleApiCall(apiCall, setIsLoading, setError, onSuccess);

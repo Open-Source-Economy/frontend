@@ -101,7 +101,7 @@ export class ButtonItemData extends NavItemData {
 export class Navigation {
   static readonly items = {
     // Authentication
-    signIn: new LinkItemData("Sign In", paths.SIGN_IN),
+    signIn: new LinkItemData("Sign In", paths.AUTH.IDENTIFY),
     signOut: new LinkItemData("Sign Out", paths.LOGOUT, { icon: <LogOutIcon /> }),
 
     // Main navigation

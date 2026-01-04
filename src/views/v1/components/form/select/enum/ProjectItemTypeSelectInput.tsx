@@ -7,6 +7,7 @@ interface ProjectItemTypeSelectInputProps extends Omit<BaseProps, "label"> {
   value: ProjectItemType | null;
   onChange: (value: ProjectItemType | null) => void;
   required?: boolean;
+  label?: string;
 }
 
 const options: SelectOption[] = Object.values(ProjectItemType).map(value => ({

@@ -45,7 +45,7 @@ export function SuperAdminRoutes() {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
-    return auth.loading ? <PageTransition isLoading={true} message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.SIGN_IN} />; // TODO: add  404 page
+    return auth.loading ? <PageTransition isLoading={true} message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.AUTH.IDENTIFY} />; // TODO: add  404 page
   }
 }
 

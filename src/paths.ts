@@ -28,8 +28,11 @@ export const paths = {
   },
 
   LOGOUT: "/logout",
-  SIGN_IN: "/sign-in",
-  SIGN_UP: "/sign-up",
+  AUTH: {
+    IDENTIFY: "/auth",
+    GITHUB: "/auth/github",
+    PASSWORD: "/auth/password",
+  },
   ISSUES: "/issues",
   FUND_ISSUES: "/fund-issues",
   MANAGE_ISSUES: "/manage-issues",

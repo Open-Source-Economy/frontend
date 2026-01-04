@@ -130,13 +130,7 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
             validator={value => validateProjectUrl(value, selectedProjectType)}
           />
           <div className="flex flex-col items-start gap-2 self-stretch">
-            <ProjectItemTypeSelectInput
-              value={selectedProjectType}
-              includePlaceholder={false}
-              onChange={setSelectedProjectType}
-              required
-              ref={projectTypeSelectRef}
-            />
+            <ProjectItemTypeSelectInput value={selectedProjectType} onChange={setSelectedProjectType} required ref={projectTypeSelectRef} />
           </div>
         </div>
       </div>

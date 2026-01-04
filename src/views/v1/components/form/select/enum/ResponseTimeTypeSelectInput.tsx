@@ -7,6 +7,7 @@ interface ResponseTimeTypeSelectInputProps extends Omit<BaseProps, "label"> {
   value: ResponseTimeType | null;
   onChange: (value: ResponseTimeType | null) => void;
   required?: boolean;
+  label?: string;
 }
 
 const options: SelectOption[] = Object.values(ResponseTimeType).map(value => ({

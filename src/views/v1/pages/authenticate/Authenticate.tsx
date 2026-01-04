@@ -260,11 +260,7 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link
-              to={props.type === AuthenticateType.SignIn ? paths.SIGN_UP : paths.SIGN_IN}
-              state={location.state}
-              className="gradient-text-normal group relative"
-            >
+            <Link to={paths.AUTH.IDENTIFY} state={location.state} className="gradient-text-normal group relative">
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
             </Link>

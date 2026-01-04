@@ -83,7 +83,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
     if (isServiceProvider) {
       const weeklyCommitmentError = validateWeeklyCommitment(props.state.hourlyWeeklyCommitment);
       if (weeklyCommitmentError) {
-        errors.hourlyWeeklyCommitment = weeklyCommitmentError;
+        errors.hourlyWeeklyCommitment = weeklyCommitmentError.error || "Invalid weekly commitment";
         isValid = false;
       }
 
@@ -93,7 +93,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
       } else {
         const hourlyRateError = validateHourlyRate(props.state.hourlyRate);
         if (hourlyRateError) {
-          errors.hourlyRate = hourlyRateError;
+          errors.hourlyRate = hourlyRateError.error || "Invalid hourly rate";
           isValid = false;
         }
       }

@@ -120,7 +120,7 @@ export function DonationCard({ className }: DonationCardProps) {
     if (customAmount !== null) {
       const customAmountError = validatePositiveInteger(customAmount);
       if (customAmountError) {
-        setError(new ApiError(undefined, undefined, customAmountError));
+        setError(new ApiError(undefined, undefined, customAmountError.error || "Invalid amount"));
         return;
       }
     }

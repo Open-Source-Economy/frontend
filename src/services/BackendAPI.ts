@@ -3,6 +3,7 @@ import { FinancialIssue } from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
 import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/ultils/error/ApiError";
+
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
 import { getMaintainers } from "./data";
@@ -166,7 +167,7 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
-    return handleError(() => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }), "getProjects");
+    return handleError(() => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }), "getProject");
   }
 
   async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
@@ -215,7 +216,7 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse | ApiError> {
     return handleError(() => this.api.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
   }
 
@@ -230,7 +231,7 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse | ApiError> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }

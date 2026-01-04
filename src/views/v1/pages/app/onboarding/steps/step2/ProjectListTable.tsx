@@ -69,13 +69,13 @@ export function ProjectListTable(props: ProjectListTableProps) {
                 <path opacity="0.2" d="M1 0V42" stroke="white" />
               </svg>
               <div className="w-[180px] text-white font-montserrat text-sm font-normal leading-[150%]">
-                {displayedDeveloperRoles[entry.developerProjectItem.roles[0]]?.name || "No role"}
+                {displayedDeveloperRoles[entry.developerProjectItem.roles[0]] || "No role"}
               </div>
               <svg className="w-0 self-stretch stroke-white opacity-20" width="2" height="42" viewBox="0 0 2 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path opacity="0.2" d="M1 0V42" stroke="white" />
               </svg>
               <div className="flex-1 text-white font-montserrat text-sm font-normal leading-[150%]">
-                {displayedMergeRights[entry.developerProjectItem.mergeRights[0]]?.name || "No rights specified"}
+                {displayedMergeRights[entry.developerProjectItem.mergeRights[0]] || "No rights specified"}
               </div>
             </div>
             <div className="flex items-center gap-4">

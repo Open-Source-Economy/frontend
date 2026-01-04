@@ -1,4 +1,8 @@
 import {
+  CheckEmailBody,
+  CheckEmailParams,
+  CheckEmailQuery,
+  CheckEmailResponse,
   CompanyUserRole,
   GetCompanyUserInviteInfoQuery,
   GetCompanyUserInviteInfoResponse,
@@ -8,6 +12,7 @@ import {
   LoginQuery,
   LoginResponse,
   LogoutResponse,
+  Provider,
   RegisterBody,
   RegisterQuery,
   RegisterResponse,
@@ -74,6 +79,15 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
       userGithubOwnerLogin: "lauriane",
       repositoryId: repositoryId,
     };
+  }
+
+  async checkEmail(params: CheckEmailParams, body: CheckEmailBody, query: CheckEmailQuery): Promise<CheckEmailResponse | ApiError> {
+    // For testing: users containing 'exists' or 'active' exist, others are new.
+    const email = query.email;
+    const exists = email.includes("exists") || email.includes("active");
+    // If provider is not "github", leave undefined (locally registered)
+    const provider = email.includes("github") ? Provider.Github : undefined;
+    return Promise.resolve({ exists, provider });
   }
 }
 
