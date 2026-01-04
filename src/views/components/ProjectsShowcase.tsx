@@ -2,7 +2,7 @@ import React, * as react from "react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "src/views/components/ui/badge";
 import { Button } from "src/views/components/ui/forms/button";
-import { SearchInput } from "src/views/components/ui/forms/search-input";
+import { SearchInput } from "src/views/components/ui/forms/inputs/custom/search-input";
 import { FilterSelect } from "src/views/components/ui/filter-select";
 import { Separator } from "src/views/components/ui/separator";
 import { SectionHeader } from "src/views/components/ui/section/section-header";

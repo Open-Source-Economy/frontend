@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "./forms/input";
+import { Input } from "./forms/inputs/input";
 import { Plus, Search } from "lucide-react";
 import { cn } from "../utils";
 import { Chip } from "./chip";

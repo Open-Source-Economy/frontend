@@ -1,6 +1,6 @@
 import React from "react";
 import { TelephoneIcon } from "../../../../ultils/Icons";
-import { ExternalLink } from "../../../components/ui/forms/ExternalLink";
+import { ExternalLink } from "../../../components/ui/forms/external-link";
 import { laurianeCalLink } from "../../data";
 import { Button } from "./Button";
 import { Audience } from "../../../Audience";

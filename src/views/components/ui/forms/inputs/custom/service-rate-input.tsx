@@ -1,7 +1,7 @@
 import React from "react";
 import { FormField } from "src/views/components/ui/forms/form-field";
-import { SelectField } from "src/views/components/ui/forms/select-field";
-import { Input } from "src/views/components/ui/forms/input";
+import { SelectField } from "src/views/components/ui/forms/select/select-field";
+import { Input } from "src/views/components/ui/forms/inputs/input";
 import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 import { Currency } from "@open-source-economy/api-types";
 import { CurrencyCompanion } from "src/ultils/companions";

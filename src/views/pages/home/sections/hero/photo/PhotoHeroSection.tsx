@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { Typography } from "src/views/components/ui/typography";
 import { ImageWithFallback } from "src/views/components/ImageWithFallback";
 import { ArrowRight } from "lucide-react";

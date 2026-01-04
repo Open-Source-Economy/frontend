@@ -10,7 +10,7 @@ import { handleApiCall } from "src/ultils";
 import { ApiError } from "src/ultils/error/ApiError";
 import { CurrencyCompanion, ResponseTimeTypeCompanion, ServiceTypeCompanion } from "src/ultils/companions";
 import { ProjectSelector } from "../components/ProjectSelector";
-import { SelectField } from "src/views/components/ui/forms/select-field";
+import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { InputWithAddon } from "../components/InputWithAddon";
 import { HelpText } from "src/views/components/ui/help-text";
 import { ExpandableCommentSection } from "../../../components";

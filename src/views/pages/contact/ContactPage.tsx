@@ -3,13 +3,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { PageWrapper } from "../PageWrapper";
 import { paths } from "src/paths";
 import { Button } from "../../components/ui/forms/button";
-import { Input } from "../../components/ui/forms/input";
+import { Input } from "../../components/ui/forms/inputs/input";
 import { Label } from "../../components/ui/forms/label";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
-import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/validated-input";
+import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/inputs/validated-input";
 import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
-import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/ExternalLink";
+import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/external-link";
 import {
   AlertCircle,
   ArrowRight,

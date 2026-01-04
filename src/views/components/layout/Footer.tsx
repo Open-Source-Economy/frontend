@@ -1,16 +1,16 @@
 import React from "react";
 import { Logo } from "../brand/Logo";
 import { Button } from "../ui/forms/button";
-import { Input } from "../ui/forms/input";
+import { Input } from "../ui/forms/inputs/input";
 import { Alert, AlertDescription } from "../ui/state/alert";
 import { AlertCircle, AtSign, CheckCircle2, Github, Heart, Linkedin, Loader2, type LucideIcon, Twitter, Youtube } from "lucide-react";
 import { paths } from "src/paths";
-import { ExternalLink } from "../ui/forms/ExternalLink";
+import { ExternalLink } from "../ui/forms/external-link";
 import { Link } from "react-router-dom";
 import { footerNavigation } from "./navigation";
 import { isVisible } from "src/ultils/featureVisibility";
 import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
-import { CurrencySelector } from "../ui/currency-selector";
+import { CurrencySelector } from "../ui/forms/select/currency-selector";
 
 // -----------------------------
 // Types
@@ -248,7 +248,7 @@ export function Footer(props: FooterProps) {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4">
             <div className="flex items-center gap-4">
               <div className="flex flex-col">
-                <CurrencySelector label={"Currency"} variant="compact" className="w-[160px]" />
+                <CurrencySelector label={"Currency"} variant="compact" className="w-[190px]" />
               </div>
             </div>
           </div>

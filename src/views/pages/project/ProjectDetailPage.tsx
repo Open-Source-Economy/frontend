@@ -6,7 +6,7 @@ import { PageWrapper } from "../PageWrapper";
 import { SectionHeader } from "../../components/ui/section/section-header";
 import { ProjectHero } from "./sections/ProjectHero";
 import { buttonVariants } from "../../components/ui/forms";
-import { ExternalLink } from "../../components/ui/forms/ExternalLink";
+import { ExternalLink } from "../../components/ui/forms/external-link";
 import { MaintainersSection } from "./sections/MaintainersSection";
 import { ProjectServiceOffering, ServiceCategoryCard, ServiceOffering } from "./components/ServiceCategoryCard";
 import type * as dto from "@open-source-economy/api-types";

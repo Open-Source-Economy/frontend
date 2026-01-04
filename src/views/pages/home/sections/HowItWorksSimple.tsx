@@ -3,7 +3,7 @@ import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
 import { AlertCircle, ArrowRight, Calendar, Clock, FileText, Globe, Heart, Layers, LucideIcon, Repeat, Rocket, ShieldCheck, Target, Zap } from "lucide-react";
 import { Button } from "../../../components/ui/forms";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { laurianeCalLink } from "src/views/v1/data";
 import { envGroups, isFeatureVisible } from "src/ultils/featureVisibility";
 // -----------------------------

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { ArrowRight, Clock, Shield } from "lucide-react";
 import { Typography } from "src/views/components/ui/typography";
 import { HeroAction } from "src/views/pages/home/sections/hero/HeroSection";

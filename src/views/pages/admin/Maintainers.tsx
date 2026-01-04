@@ -10,8 +10,8 @@ import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
 import { FullDeveloperProfileCompanion, SourceIdentifierCompanion, VerificationRecordCompanion, VerificationStatusCompanion } from "src/ultils/companions";
 import { AlertCircle, ArrowRight, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
-import { Input } from "src/views/components/ui/forms/input";
-import { SelectField } from "src/views/components/ui/forms/select-field";
+import { Input } from "src/views/components/ui/forms/inputs/input";
+import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Badge } from "src/views/components/ui/badge";
 
 export function Maintainers() {

@@ -3,7 +3,7 @@ import { Logo } from "src/views/components/brand/Logo";
 import { Button } from "src/views/components/ui/forms/button";
 import { Code2, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { ExternalLink } from "../ui/forms/ExternalLink";
+import { ExternalLink } from "../ui/forms/external-link";
 import { NavigationLink } from "src/types/navigation";
 import { headerNavigation } from "./navigation";
 import { paths } from "src/paths";

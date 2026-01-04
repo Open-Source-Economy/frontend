@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { Typography } from "src/views/components/ui/typography";
 import { ArrowRight, CheckCircle2, Sparkles, TrendingUp } from "lucide-react";
 import { laurianeCalLink } from "src/views/v1/data";

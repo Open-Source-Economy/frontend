@@ -1,6 +1,6 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { GitMerge, Shield, Users } from "lucide-react";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/ultils/companions";
 

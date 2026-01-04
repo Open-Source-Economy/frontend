@@ -1,6 +1,6 @@
 import React from "react";
 import { DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
-import { SelectField } from "src/views/components/ui/forms/select-field";
+import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/ultils/companions";
 
 interface RoleAndMergeRightsFieldsProps {

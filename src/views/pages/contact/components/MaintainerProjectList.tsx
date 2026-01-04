@@ -1,6 +1,6 @@
 import React from "react";
 import { Label } from "../../../components/ui/forms/label";
-import { Input } from "../../../components/ui/forms/input";
+import { Input } from "../../../components/ui/forms/inputs/input";
 import { FieldError } from "../../../components/ui/forms/field-error";
 import { Plus, X } from "lucide-react";
 import { ProjectEntry } from "../helpers/formHelpers";

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Github } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import { Button } from "../../../components/ui/forms";
-import { ExternalLink } from "../../../components/ui/forms/ExternalLink";
+import { ExternalLink } from "../../../components/ui/forms/external-link";
 import type { ProjectItemDetails } from "@open-source-economy/api-types";
 import { ProjectItemDetailsCompanion } from "src/ultils/companions/ProjectItemDetails.companion";
 import { laurianeCalLink } from "../../../v1/data";

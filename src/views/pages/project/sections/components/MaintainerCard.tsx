@@ -4,7 +4,7 @@ import { Badge } from "../../../../components/ui/badge";
 import { ProjectDeveloperProfile } from "@open-source-economy/api-types";
 import { ProjectDeveloperProfileCompanion } from "src/ultils/companions/ProjectDeveloperProfile.companion";
 import { OwnerCompanion } from "src/ultils/companions/Owner.companion";
-import { ExternalLink } from "../../../../components/ui/forms/ExternalLink";
+import { ExternalLink } from "../../../../components/ui/forms/external-link";
 import { getMaintainerTenure } from "../../data/maintainerTenure";
 import { getMaintainerHighlight } from "../../data/maintainerHighlights";
 import { getMaintainerDescription } from "../../data/maintainerDescriptions";

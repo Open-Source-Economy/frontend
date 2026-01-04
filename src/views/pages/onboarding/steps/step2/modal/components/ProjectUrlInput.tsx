@@ -1,9 +1,9 @@
 import React from "react";
 import { ProjectItemType } from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
-import { Input } from "src/views/components/ui/forms/input";
 import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 import { ExternalLink } from "lucide-react";
+import { Input } from "src/views/components/ui/forms";
 
 interface ProjectUrlInputProps {
   projectType: ProjectItemType;
@@ -53,7 +53,7 @@ export function ProjectUrlInput({ projectType, value, onChange, error }: Project
         {value && (
           <a
             href={value}
-            target="_blank" // TODO: lololo
+            target="_blank" // TODO: lolo
             rel="noopener noreferrer"
             className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-accent hover:text-brand-accent-dark transition-colors z-10"
           >

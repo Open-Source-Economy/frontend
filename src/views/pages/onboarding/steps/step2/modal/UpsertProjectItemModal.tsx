@@ -7,7 +7,7 @@ import { handleApiCall } from "../../../../../../ultils";
 import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Button } from "src/views/components/ui/forms/button";
 import { FormField } from "src/views/components/ui/forms/form-field";
-import { SelectField } from "src/views/components/ui/forms/select-field";
+import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { AlertCircle, Github, ShieldCheck, User } from "lucide-react";
 import { SourceIdentifierCompanion } from "src/ultils/companions";

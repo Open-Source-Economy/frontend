@@ -10,7 +10,7 @@ import { Mail, User } from "lucide-react";
 
 import { Checkbox } from "src/views/components/ui/forms/checkbox";
 import { Label } from "src/views/components/ui/forms/label";
-import { type InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/validated-input";
+import { type InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { validateEmail, validateName } from "src/views/components/ui/forms/validators";
 import { InfoMessage } from "../../../../components/ui/info-message";

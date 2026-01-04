@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CheckCircle2, ChevronLeft, Lock } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/validated-input";
+import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { EmailDisplay } from "../components/auth/EmailDisplay";
 import { TermsCheckbox } from "../components/auth/TermsCheckbox";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";

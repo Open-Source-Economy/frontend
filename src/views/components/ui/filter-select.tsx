@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/views/components/ui/forms/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/views/components/ui/forms/select/select";
 import { LucideIcon } from "lucide-react";
 import { cn } from "src/views/components/utils";
 

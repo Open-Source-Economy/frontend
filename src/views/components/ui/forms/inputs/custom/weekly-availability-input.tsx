@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "src/views/components/ui/forms/input";
+import { Input } from "src/views/components/ui/forms/inputs/input";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 

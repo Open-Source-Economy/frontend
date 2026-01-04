@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
-import { ExternalLink } from "src/views/components/ui/forms/ExternalLink";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { AlertCircle, CheckCircle, Code, Eye, GitFork, Loader2, RefreshCw, Star } from "lucide-react";
 import { RepositoryWithSyncState } from "./types";
 import { MaintainerList } from "../../organizations/components/MaintainerList";

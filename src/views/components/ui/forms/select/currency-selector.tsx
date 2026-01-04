@@ -3,8 +3,8 @@ import * as dto from "@open-source-economy/api-types";
 import { CurrencyCompanion, CurrencyDisplay } from "src/ultils/companions/Currency.companion";
 import { useAuth } from "src/views/auth/AuthContext";
 import { PreferredCurrency } from "src/ultils/PreferredCurrency";
-import { SelectField, SelectOption } from "./forms/select-field";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./forms/select";
+import { SelectField, SelectOption } from "./select-field";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
 interface CurrencySelectorProps {
   variant?: "default" | "compact";

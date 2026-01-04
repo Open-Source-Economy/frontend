@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Github, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/validated-input";
+import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { FormDivider } from "../components/auth/FormDivider";
 import { validateEmail } from "src/views/components/ui/forms/validators";
 import { useLocation, useNavigate } from "react-router-dom";

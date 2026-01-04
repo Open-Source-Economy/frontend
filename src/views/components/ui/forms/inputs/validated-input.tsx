@@ -1,8 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Input } from "./input";
-import { Textarea } from "./textarea";
-import { FormField, FormFieldLink } from "./form-field";
-import { ValidationError } from "./validation-requirements";
+import { Textarea } from "../textarea";
+import { FormField, FormFieldLink } from "../form-field";
+import { ValidationError } from "../validation-requirements";
 import { LucideIcon } from "lucide-react";
 
 // Input ref interface for validation

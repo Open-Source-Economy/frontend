@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
-import { Input } from "src/views/components/ui/forms/input";
+import { Input } from "src/views/components/ui/forms/inputs/input";
 import { Building2, Loader2, RefreshCw } from "lucide-react";
 
 interface BulkSyncControlsProps {
