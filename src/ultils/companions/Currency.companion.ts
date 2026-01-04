@@ -7,14 +7,16 @@ import * as dto from "@open-source-economy/api-types";
 
 export interface CurrencyDisplay {
   symbol: string;
-  label: string;
+  code: string;
+  flag: string;
+  name: string;
 }
 
 const currencyDisplayMap: Record<dto.Currency, CurrencyDisplay> = {
-  [dto.Currency.USD]: { symbol: "$", label: "USD ($)" },
-  [dto.Currency.EUR]: { symbol: "€", label: "EUR (€)" },
-  [dto.Currency.CHF]: { symbol: "Fr", label: "CHF (Fr)" },
-  [dto.Currency.GBP]: { symbol: "£", label: "GBP (£)" },
+  [dto.Currency.USD]: { symbol: "$", code: "USD", flag: "🇺🇸", name: "US Dollar" },
+  [dto.Currency.EUR]: { symbol: "€", code: "EUR", flag: "🇪🇺", name: "Euro" },
+  [dto.Currency.CHF]: { symbol: "Fr", code: "CHF", flag: "🇨🇭", name: "Swiss Franc" },
+  [dto.Currency.GBP]: { symbol: "£", code: "GBP", flag: "🇬🇧", name: "British Pound" },
 };
 
 export namespace CurrencyCompanion {
@@ -22,14 +24,14 @@ export namespace CurrencyCompanion {
    * Get currency symbol
    */
   export function symbol(currency: dto.Currency): string {
-    return currencyDisplayMap[currency]?.symbol || "$";
+    return currencyDisplayMap[currency]?.symbol;
   }
 
   /**
    * Get currency label for select options
    */
   export function label(currency: dto.Currency): string {
-    return currencyDisplayMap[currency]?.label || "USD ($)";
+    return currencyDisplayMap[currency]?.code;
   }
 
   /**
@@ -52,7 +54,7 @@ export namespace CurrencyCompanion {
   export function selectOptions() {
     return Object.entries(currencyDisplayMap).map(([value, display]) => ({
       value,
-      label: display.label,
+      label: display.code,
     }));
   }
 }

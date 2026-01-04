@@ -9,6 +9,8 @@ import { ExternalLink } from "../ui/forms/ExternalLink";
 import { Link } from "react-router-dom";
 import { footerNavigation } from "./navigation";
 import { isVisible } from "src/ultils/featureVisibility";
+import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
+import { CurrencySelector } from "../ui/currency-selector";
 
 // -----------------------------
 // Types
@@ -187,10 +189,17 @@ export function Footer(props: FooterProps) {
 
               {/* Error State */}
               {submissionStatus === "error" && (
-                <Alert className="mb-4 border-brand-error bg-brand-error/10">
-                  <AlertCircle className="h-4 w-4 text-brand-error" />
-                  <AlertDescription className="text-brand-error">{errorMessage}</AlertDescription>
-                </Alert>
+                <div className="mb-4">
+                  <ServerErrorAlert
+                    variant="compact"
+                    message={errorMessage}
+                    showDismiss
+                    onDismiss={() => {
+                      setSubmissionStatus("idle");
+                      setErrorMessage("");
+                    }}
+                  />
+                </div>
               )}
 
               {/* Subscription Form */}
@@ -234,14 +243,25 @@ export function Footer(props: FooterProps) {
           </div>
         )}
 
+        {/* Regional Settings */}
+        <div className="border-t border-border mt-8 pt-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col">
+                <CurrencySelector label={"Currency"} variant="compact" className="w-[160px]" />
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <p className="text-muted-foreground text-sm flex items-center">
-            © Open Source Economy - Non profit organisation -{" "}
+            © Open Source Economy - Non profit organisation - <span className="mx-1" />
             <ExternalLink href={paths.SOCIALS.ZEFIX} className="hover:text-brand-primary transition-colors">
               CHE-440.058.692
-            </ExternalLink>{" "}
-            Switzerland
+            </ExternalLink>
+            <span className="mx-1" />- Switzerland
           </p>
           <p className="text-muted-foreground text-sm flex items-center gap-1">
             Made with <Heart size={14} className="text-brand-highlight" /> by the community
