@@ -10,7 +10,7 @@ import { Step4State } from "../../OnboardingDataSteps";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Clock, DollarSign, TrendingUp } from "lucide-react";
-import { WeeklyAvailabilityInput, ServiceRateInput } from "src/views/components/ui/forms";
+import { ServiceRateInput, WeeklyAvailabilityInput } from "src/views/components/ui/forms";
 import { BiggerOpportunitiesRadioGroup } from "./design-system/BiggerOpportunitiesRadioGroup";
 import { ExpandableCommentSection } from "../../components/ExpandableCommentSection";
 import { PricingInfoBanner } from "./design-system/PricingInfoBanner";

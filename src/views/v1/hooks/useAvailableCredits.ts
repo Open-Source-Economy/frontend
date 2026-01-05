@@ -13,9 +13,12 @@ export function useAvailableCredits(auth: AuthContextState) {
   const [availableCredits, setAvailableCredits] = React.useState<Credit | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const getAvailableCredits = async () => {
     // don't fetch if not authenticated
     if (auth.authInfo?.authenticatedUser) {
+      setIsLoading(true);
       try {
         const authenticatedUser = auth.authInfo?.authenticatedUser;
         const params: GetAvailableCreditsParams = {};
@@ -37,9 +40,11 @@ export function useAvailableCredits(auth: AuthContextState) {
       } catch (err) {
         console.error("Failed to fetch campaign:", err);
         setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching campaign"));
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
-  return { availableCredits, loadAvailableCreditsError: error, reloadAvailableCredits: getAvailableCredits };
+  return { availableCredits, loadAvailableCreditsError: error, reloadAvailableCredits: getAvailableCredits, isLoading };
 }

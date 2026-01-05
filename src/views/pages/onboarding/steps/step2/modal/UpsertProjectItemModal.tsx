@@ -21,7 +21,6 @@ import { ProjectUrlInput } from "./components/ProjectUrlInput";
 import { ModeToggle } from "./components/ModeToggle";
 import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
 import { getUrlConfig } from "./utils/urlHelpers";
-import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 interface UpsertProjectItemModalProps {
   show: boolean;

@@ -1,3 +1,5 @@
+import React from "react";
+
 /**
  * Common navigation link type used across Header, Footer, and other navigation components
  */
@@ -5,6 +7,8 @@ export interface NavigationLink {
   title: string;
   href: string;
   external?: boolean; // true if opens in a new window/tab
+  items?: NavigationLink[]; // Nested items for dropdowns
+  icon: React.ReactNode;
 }
 
 /**
@@ -16,16 +20,9 @@ export interface NavigationSection {
 }
 
 /**
- * @deprecated Use NavigationLink instead
+ * Configuration for the user menu (desktop and mobile)
  */
-export type NavItem = NavigationLink;
-
-/**
- * @deprecated Use NavigationLink instead
- */
-export type FooterLink = NavigationLink;
-
-/**
- * @deprecated Use NavigationSection instead
- */
-export type FooterSection = NavigationSection;
+export interface UserMenuNavigation {
+  sections: NavigationSection[];
+  logout: NavigationLink;
+}

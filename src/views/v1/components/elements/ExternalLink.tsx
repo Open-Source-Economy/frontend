@@ -5,7 +5,7 @@ interface ExternalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export function ExternalLink({ underline = true, className = "", children, ...rest }: ExternalLinkProps) {
-  const underlineClass = underline ? "hover:underline" : "";
+  const underlineClass = underline ? "hover:underline" : "!no-underline";
 
   return (
     <a target="_blank" rel="noopener noreferrer" className={`cursor-pointer ${underlineClass} ${className} underline-offset-2`} {...rest}>

@@ -3,7 +3,7 @@ import { Logo } from "../brand/Logo";
 import { Button } from "../ui/forms/button";
 import { Input } from "../ui/forms/inputs/input";
 import { Alert, AlertDescription } from "../ui/state/alert";
-import { AlertCircle, AtSign, CheckCircle2, Github, Heart, Linkedin, Loader2, type LucideIcon, Twitter, Youtube } from "lucide-react";
+import { AtSign, CheckCircle2, Github, Heart, Linkedin, Loader2, type LucideIcon, Twitter, Youtube } from "lucide-react";
 import { paths } from "src/paths";
 import { ExternalLink } from "../ui/forms/external-link";
 import { Link } from "react-router-dom";

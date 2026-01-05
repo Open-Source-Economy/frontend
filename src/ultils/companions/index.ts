@@ -16,3 +16,4 @@ export * from "./VerificationStatus.companion";
 export * from "./VerificationRecord.companion";
 export * from "./FullDeveloperProfile.companion";
 export * from "./Owner.companion";
+export * from "./AuthenticatedUser.companion";

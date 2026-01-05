@@ -32,6 +32,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
         company: company,
         companyRole: CompanyUserRole.ADMIN,
         repositories: [[repositoryId, repositoryInfo]],
+        serviceTokens: 0,
       },
     };
   }
@@ -43,6 +44,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
         company: company,
         companyRole: CompanyUserRole.ADMIN,
         repositories: [[repositoryId, repositoryInfo]],
+        serviceTokens: 0,
       },
     };
   }
@@ -54,6 +56,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
         company: company,
         companyRole: CompanyUserRole.ADMIN,
         repositories: [[repositoryId, repositoryInfo]],
+        serviceTokens: 0,
       },
     };
   }

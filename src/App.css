@@ -60,10 +60,6 @@
   --brand-highlight: #daa520;         /* Goldenrod - Secondary accents */
   --brand-highlight-light: #f0e68c;   /* Khaki */
   --brand-highlight-dark: #b8860b;    /* Dark Goldenrod */
-  --brand-tier-platinum: #e5e4e2;     /* Soft metallic platinum */
-  --brand-tier-gold: var(--brand-highlight); /* Align gold with highlight */
-  --brand-tier-silver: #c0c0c0;       /* Classic silver tone */
-  --brand-tier-bronze: #cd7f32;       /* Rich bronze accent */
   --brand-success: #10b981;           /* Emerald Green */
   --brand-success-light: #34d399;     /* Light Success */
   --brand-success-dark: #059669;      /* Deep Success */
@@ -73,6 +69,17 @@
   --brand-error: #ef4444;             /* Red */
   --brand-error-light: #f87171;       /* Light Error */
   --brand-error-dark: #dc2626;        /* Dark Error */
+
+  /* Membership Tier Colors - Bronze, Silver, Gold */
+  --brand-tier-bronze: #cd7f32;       /* Bronze */
+  --brand-tier-bronze-light: #e09856; /* Light Bronze */
+  --brand-tier-bronze-dark: #b8722c; /* Dark Bronze */
+  --brand-tier-silver: #c0c0c0;       /* Silver */
+  --brand-tier-silver-light: #d3d3d3; /* Light Silver */
+  --brand-tier-silver-dark: #a8a8a8;  /* Dark Silver */
+  --brand-tier-gold: #ffd700;         /* Gold */
+  --brand-tier-gold-light: #ffe44d;   /* Light Gold */
+  --brand-tier-gold-dark: #daa520;    /* Dark Gold */
 
   /* Premium Dark Blue Card System - Rich navy tones */
   --brand-card-blue: #1a2942;         /* Rich dark blue for cards */
@@ -150,19 +157,19 @@
   --form-padding-y-lg: 1rem;            /* Comfortable large */
 
   /* Modern Form Border Colors - Dark Mode */
-  --form-border: #334155;               /* Subtle dark border */
-  --form-border-hover: #475569;         /* Gentle hover indication */
+  --form-border: #475569;               /* More visible border */
+  --form-border-hover: #64748b;         /* Brighter hover indication */
   --form-border-focus: var(--brand-accent);
   --form-border-error: var(--brand-error);
   --form-border-success: var(--brand-success);
-  --form-border-disabled: #1e293b;
+  --form-border-disabled: #334155;
 
-  /* Modern Form Background Colors - Dark Mode Depth */
-  --form-background: #1a2942;           /* Rich dark blue background */
-  --form-background-hover: #213654;     /* Lighter hover state */
-  --form-background-focus: #0f1829;     /* Focused depth */
-  --form-background-disabled: #1e293b;
-  --form-background-readonly: #334155;
+  /* Modern Form Background Colors - Streamlined without cards */
+  --form-background: #1a2942;           /* Rich navy for inputs */
+  --form-background-hover: #213654;     /* Slightly lighter on hover */
+  --form-background-focus: #1a2942;     /* Maintain contrast when focused */
+  --form-background-disabled: #0f172a;
+  --form-background-readonly: #1e293b;
 
   /* Modern Form Text Colors - Dark Mode */
   --form-text: var(--foreground);
@@ -275,10 +282,6 @@
   --color-brand-highlight: var(--brand-highlight);
   --color-brand-highlight-light: var(--brand-highlight-light);
   --color-brand-highlight-dark: var(--brand-highlight-dark);
-  --color-brand-tier-platinum: var(--brand-tier-platinum);
-  --color-brand-tier-gold: var(--brand-tier-gold);
-  --color-brand-tier-silver: var(--brand-tier-silver);
-  --color-brand-tier-bronze: var(--brand-tier-bronze);
   --color-brand-success: var(--brand-success);
   --color-brand-success-light: var(--brand-success-light);
   --color-brand-success-dark: var(--brand-success-dark);
@@ -288,6 +291,17 @@
   --color-brand-error: var(--brand-error);
   --color-brand-error-light: var(--brand-error-light);
   --color-brand-error-dark: var(--brand-error-dark);
+
+  /* Membership Tier Colors */
+  --color-brand-tier-bronze: var(--brand-tier-bronze);
+  --color-brand-tier-bronze-light: var(--brand-tier-bronze-light);
+  --color-brand-tier-bronze-dark: var(--brand-tier-bronze-dark);
+  --color-brand-tier-silver: var(--brand-tier-silver);
+  --color-brand-tier-silver-light: var(--brand-tier-silver-light);
+  --color-brand-tier-silver-dark: var(--brand-tier-silver-dark);
+  --color-brand-tier-gold: var(--brand-tier-gold);
+  --color-brand-tier-gold-light: var(--brand-tier-gold-light);
+  --color-brand-tier-gold-dark: var(--brand-tier-gold-dark);
 
   /* Premium Card Blue Colors */
   --color-brand-card-blue: var(--brand-card-blue);
@@ -360,8 +374,67 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Custom Scrollbar Styles */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--brand-neutral-300);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-neutral-400);
+  }
+
+  /* Firefox scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-neutral-300) transparent;
+  }
+
+  /* Collapsible Animations */
+  @keyframes expand {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes collapse {
+    from {
+      height: var(--radix-collapsible-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
   }
 }
 

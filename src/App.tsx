@@ -12,7 +12,7 @@ import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails
 import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
 import { FAQPage } from "src/views/pages/faq/FAQPage";
-import { AuthProvider, AuthRoutes, SuperAdminRoutes } from "./views/auth";
+import { AuthProvider, AuthRoutes, Logout, SuperAdminRoutes } from "./views/auth";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
 import { CreateCampaignProductAndPrice } from "./views/v1/pages/admin/createCampaignProductAndPrice";
@@ -74,7 +74,7 @@ const App = () => {
             {/*<Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />*/}
             <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
 
-            {/*<Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />*/}
+            <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
             <Route path={paths.AUTH.IDENTIFY} element={<IdentificationStep />} />
             <Route path={paths.AUTH.GITHUB} element={<GithubNoticeStep />} />
             <Route path={paths.AUTH.PASSWORD} element={<PasswordStep />} />
