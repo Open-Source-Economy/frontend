@@ -31,6 +31,9 @@ import { CheckoutSuccessPage } from "src/views/pages/checkout/CheckoutSuccessPag
 import { IdentificationStep } from "src/views/pages/authenticate/steps/IdentificationStep";
 import { GithubNoticeStep } from "src/views/pages/authenticate/steps/GithubNoticeStep";
 import { PasswordStep } from "src/views/pages/authenticate/steps/PasswordStep";
+import { ForgotPasswordStep } from "src/views/pages/authenticate/steps/ForgotPasswordStep";
+import { ResetPasswordStep } from "src/views/pages/authenticate/steps/ResetPasswordStep";
+
 import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
@@ -78,6 +81,8 @@ const App = () => {
             <Route path={paths.AUTH.IDENTIFY} element={<IdentificationStep />} />
             <Route path={paths.AUTH.GITHUB} element={<GithubNoticeStep />} />
             <Route path={paths.AUTH.PASSWORD} element={<PasswordStep />} />
+            <Route path={paths.AUTH.FORGOT_PASSWORD} element={<ForgotPasswordStep />} />
+            <Route path={paths.AUTH.RESET_PASSWORD} element={<ResetPasswordStep />} />
 
             <Route element={<SuperAdminRoutes />}>
               <Route path={paths.ADMIN.HOME} element={<AdminHome />} />

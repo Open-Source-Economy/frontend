@@ -21,6 +21,8 @@ export interface AuthBackendAPI {
   getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse | ApiError>;
   getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse | ApiError>;
   checkEmail(params: dto.CheckEmailParams, body: dto.CheckEmailBody, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse | ApiError>;
+  forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse> | ApiError>;
+  resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse> | ApiError>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
@@ -88,6 +90,20 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     return handleError<dto.CheckEmailResponse>(
       () => this.api.get(`${config.api.url}/auth/check-email`, { withCredentials: true, params: query }),
       "checkEmail",
+    );
+  }
+
+  async forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse> | ApiError> {
+    return handleError<dto.ResponseBody<dto.ForgotPasswordResponse>>(
+      () => this.api.post(`${config.api.url}/auth/forgot-password`, body, { withCredentials: true }),
+      "forgotPassword",
+    );
+  }
+
+  async resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse> | ApiError> {
+    return handleError<dto.ResponseBody<dto.ResetPasswordResponse>>(
+      () => this.api.post(`${config.api.url}/auth/reset-password`, body, { withCredentials: true, params: query }),
+      "resetPassword",
     );
   }
 }

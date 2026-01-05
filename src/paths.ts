@@ -29,9 +29,12 @@ export const paths = {
 
   LOGOUT: "/logout",
   AUTH: {
-    IDENTIFY: "/auth",
+    IDENTIFY: "/auth/identify",
     GITHUB: "/auth/github",
     PASSWORD: "/auth/password",
+    FORGOT_PASSWORD: "/auth/forgot-password",
+    RESET_PASSWORD: "/auth/reset-password",
+    CALLBACK: "/auth/callback",
   },
   ISSUES: "/issues",
   FUND_ISSUES: "/fund-issues",

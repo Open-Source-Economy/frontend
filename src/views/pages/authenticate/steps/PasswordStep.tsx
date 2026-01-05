@@ -159,7 +159,7 @@ export function PasswordStep() {
               accountDetails?.exists
                 ? {
                     text: "Forgot?",
-                    href: "#", // TODO: Add forgot password route
+                    href: `${paths.AUTH.FORGOT_PASSWORD}${location.search}`,
                   }
                 : undefined
             }
