@@ -12,7 +12,7 @@ export interface InputRef {
 }
 
 interface BaseValidatedFieldProps {
-  label: string;
+  label?: string;
   name: string;
   value: string;
   onChange: (value: string) => void;

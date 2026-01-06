@@ -11,7 +11,7 @@ export interface FormFieldLink {
 }
 
 interface FormFieldProps {
-  label: string;
+  label?: string;
   description?: string;
   hint?: string;
   error?: ValidationError;
@@ -41,18 +41,24 @@ export function FormField({
   const hasSuccess = !!success;
   const helpText = hint || description;
 
+  const hasLabelOrLink = !!(label || link);
+
   return (
-    <div className={cn("space-y-2", className)}>
-      <div className="flex items-center justify-between">
-        <Label className={cn(hasError && "text-brand-error", hasSuccess && "text-brand-success")}>
-          {label} {required && <span className="text-brand-error">*</span>}
-        </Label>
-        {link && (
-          <Link to={link.href} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
-            {link.text}
-          </Link>
-        )}
-      </div>
+    <div className={cn(hasLabelOrLink ? "space-y-2" : "", className)}>
+      {(label || link) && (
+        <div className="flex items-center justify-between">
+          {label && (
+            <Label className={cn(hasError && "text-brand-error", hasSuccess && "text-brand-success")}>
+              {label} {required && <span className="text-brand-error">*</span>}
+            </Label>
+          )}
+          {link && (
+            <Link to={link.href} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
+              {link.text}
+            </Link>
+          )}
+        </div>
+      )}
       {children}
       {helpText && !error && !success && <p className="caption text-brand-neutral-600">{helpText}</p>}
       {error?.error && !error?.requirements && (
