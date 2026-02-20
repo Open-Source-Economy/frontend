@@ -8,8 +8,16 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
-import { FullDeveloperProfileCompanion, SourceIdentifierCompanion, VerificationRecordCompanion, VerificationStatusCompanion } from "src/ultils/companions";
-import { AlertCircle, ArrowRight, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
+import {
+  DeveloperProjectItemEntryCompanion,
+  DeveloperRoleTypeCompanion,
+  FullDeveloperProfileCompanion,
+  MergeRightsTypeCompanion,
+  SourceIdentifierCompanion,
+  VerificationRecordCompanion,
+  VerificationStatusCompanion,
+} from "src/ultils/companions";
+import { AlertCircle, ArrowRight, Download, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
 import { Input } from "src/views/components/ui/forms/inputs/input";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Badge } from "src/views/components/ui/badge";
@@ -123,6 +131,42 @@ export function Maintainers() {
     return { total, verified: approved, actionNeeded };
   }, [profiles]);
 
+  const downloadCSV = () => {
+    const escapeCSV = (value: string): string => `"${value.replace(/"/g, '""')}"`;
+
+    const headers = ["Name", "Email", "GitHub Profile", "Project", "Project URL", "Roles", "Merge Rights"];
+    const rows: string[][] = [];
+
+    for (const profile of profiles) {
+      const name = profile.profileEntry?.user?.name ?? "";
+      const email = profile.profileEntry?.profile.contactEmail ?? "";
+      const githubUsername = FullDeveloperProfileCompanion.getGithubUsername(profile);
+      const githubProfile = githubUsername ? `https://github.com/${githubUsername}` : "";
+
+      if (profile.projects.length === 0) {
+        rows.push([name, email, githubProfile, "", "", "", ""]);
+      } else {
+        for (const entry of profile.projects) {
+          const projectName = SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier);
+          const projectUrl = DeveloperProjectItemEntryCompanion.displayUrl(entry);
+          const roles = entry.developerProjectItem.roles.map(r => DeveloperRoleTypeCompanion.label(r)).join(", ");
+          const mergeRights = entry.developerProjectItem.mergeRights.map(m => MergeRightsTypeCompanion.label(m)).join(", ");
+          rows.push([name, email, githubProfile, projectName, projectUrl, roles, mergeRights]);
+        }
+      }
+    }
+
+    const csvContent = [headers.map(escapeCSV).join(","), ...rows.map(row => row.map(escapeCSV).join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const date = new Date().toISOString().slice(0, 10);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `maintainers-export-${date}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (isLoading) {
     return (
       <PageWrapper>
@@ -138,9 +182,18 @@ export function Maintainers() {
       <div className="min-h-screen bg-[#14233A] p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-white text-3xl font-semibold mb-2">Maintainers Dashboard</h1>
-            <p className="text-brand-neutral-400">Manage and verify developer onboarding profiles</p>
+          <div className="mb-8 flex items-start justify-between">
+            <div>
+              <h1 className="text-white text-3xl font-semibold mb-2">Maintainers Dashboard</h1>
+              <p className="text-brand-neutral-400">Manage and verify developer onboarding profiles</p>
+            </div>
+            <button
+              onClick={downloadCSV}
+              className="flex items-center gap-2 px-4 py-2 bg-brand-accent hover:bg-brand-accent-dark text-white rounded-lg transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Download CSV
+            </button>
           </div>
 
           {/* Statistics */}
