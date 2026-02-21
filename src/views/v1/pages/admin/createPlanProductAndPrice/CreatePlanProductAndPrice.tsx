@@ -24,16 +24,12 @@ export function CreatePlanProductAndPrice(props: CreatePlanProductAndPriceProps)
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.createPlanProductAndPrice(params, body, query);
-
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setSuccess(true);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred");
+      await adminBackendAPI.createPlanProductAndPrice(params, body, query);
+      setError(null);
+      setSuccess(true);
+    } catch (error) {
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     } finally {
       setIsSubmitting(false);
     }

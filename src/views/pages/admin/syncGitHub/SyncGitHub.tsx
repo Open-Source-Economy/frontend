@@ -49,13 +49,9 @@ export function SyncGitHub() {
           break;
       }
 
-      if (response instanceof ApiError) {
-        setError(`Error: ${response.message}`);
-      } else {
-        setResult(JSON.stringify(response, null, 2));
-      }
+      setResult(JSON.stringify(response, null, 2));
     } catch (err: any) {
-      setError(`Failed to sync: ${err.message}`);
+      setError(`Failed to sync: ${err instanceof ApiError ? err.message : err.message}`);
     } finally {
       setLoading(false);
     }

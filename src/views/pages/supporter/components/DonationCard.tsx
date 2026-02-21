@@ -183,15 +183,11 @@ export function DonationCard(props: DonationCardProps) {
       const query: CheckoutQuery = {};
 
       const response = await backendAPI.checkout(params, body, query);
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        // Redirect to Stripe Checkout
-        window.location.href = response.redirectUrl;
-      }
+      // Redirect to Stripe Checkout
+      window.location.href = response.redirectUrl;
     } catch (err) {
       console.error("Failed to initiate checkout:", err);
-      setError(ApiError.from(err));
+      setError(err instanceof ApiError ? err : ApiError.from(err));
     } finally {
       setIsLoading(false);
     }

@@ -24,10 +24,9 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const statusResponse = await auth.checkUserStatus();
-      if (statusResponse instanceof ApiError) setApiError(statusResponse);
-      else setAuthInfo(statusResponse);
+      setAuthInfo(statusResponse);
     } catch (error: unknown) {
-      setApiError(ApiError.from(error));
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -37,13 +36,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const loginResponse = await auth.login(body, query);
-      if (loginResponse instanceof ApiError) setApiError(loginResponse);
-      else {
-        setAuthInfo(loginResponse);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
+      setAuthInfo(loginResponse);
+      if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
     } catch (error: unknown) {
-      setApiError(ApiError.from(error));
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -53,13 +49,10 @@ export function AuthProvider(props: AuthProviderProps) {
     setLoading(true);
     try {
       const registerResponse = await auth.register(body, query);
-      if (registerResponse instanceof ApiError) setApiError(registerResponse);
-      else {
-        setAuthInfo(registerResponse);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
+      setAuthInfo(registerResponse);
+      if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
     } catch (error: unknown) {
-      setApiError(ApiError.from(error));
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setLoading(false);
     }
@@ -72,14 +65,11 @@ export function AuthProvider(props: AuthProviderProps) {
   const logout = async (successCallback?: () => void) => {
     setLoading(true);
     try {
-      const result = await auth.deleteSession();
-      if (result instanceof ApiError) setApiError(result);
-      else {
-        setAuthInfo(null);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-      }
+      await auth.deleteSession();
+      setAuthInfo(null);
+      if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
     } catch (error: unknown) {
-      setApiError(ApiError.from(error));
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setLoading(false);
     }

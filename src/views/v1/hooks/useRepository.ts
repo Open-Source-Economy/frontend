@@ -14,16 +14,9 @@ export function useRepository(repositoryId: RepositoryId) {
       const params: GetRepositoryParams = { owner: repositoryId.ownerId.login, repo: repositoryId.name };
       const query: GetRepositoryQuery = {};
       const response = await backendAPI.getRepository(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-        return;
-      } else {
-        setOwnerAndRepository([response.owner, response.repository]);
-      }
-    } catch (err) {
-      console.error("Error fetching repository:", err);
-      setError(ApiError.from(err));
+      setOwnerAndRepository([response.owner, response.repository]);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

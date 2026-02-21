@@ -22,15 +22,9 @@ export function useAccordion(projectId: ProjectId) {
       const query: dto.GetProjectAccordionQuery = {};
 
       const response = await backendAPI.getProjectAccordion(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setAccordionRes(response);
-      }
-    } catch (err) {
-      console.error("Error fetching accordion:", err);
-      setError(ApiError.from(err));
+      setAccordionRes(response);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setIsLoading(false);
     }

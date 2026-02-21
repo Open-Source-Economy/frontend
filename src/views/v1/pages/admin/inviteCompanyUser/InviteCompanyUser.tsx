@@ -56,18 +56,15 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
       console.log("params", params);
       console.log("body", body);
       console.log("query", query);
-      const result = await adminBackendAPI.sendCompanyRoleInvite(params, body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setName(null);
-        setEmail(null);
-        setCompanyId(null);
-        setSuccess(true);
-      }
+      await adminBackendAPI.sendCompanyRoleInvite(params, body, query);
+      setError(null);
+      setName(null);
+      setEmail(null);
+      setCompanyId(null);
+      setSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
 

@@ -104,8 +104,8 @@ export function ProjectsPage(_: {}) {
     setIsLoading(true);
     setApiError(null);
 
-    const apiCall = async () => {
-      const response = await api.getProjectItemsWithDetails(
+    const apiCall = () =>
+      api.getProjectItemsWithDetails(
         {},
         {
           repositories: {
@@ -121,9 +121,6 @@ export function ProjectsPage(_: {}) {
           },
         },
       );
-      if (response instanceof ApiError) throw response;
-      return response as dto.GetProjectItemsWithDetailsResponse;
-    };
 
     const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
       // Combine all types and sort by popularity

@@ -71,13 +71,9 @@ export function Footer() {
       const query: NewsletterSubscriptionQuery = {};
 
       const response = await api.subscribeToNewsletter(params, body, query);
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setDisplaySuccessMessage(true);
-      }
+      setDisplaySuccessMessage(true);
     } catch (error) {
-      setError(ApiError.from(error));
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setIsLoading(false);
     }

@@ -51,7 +51,7 @@ export function IdentificationStep() {
     try {
       if (companyToken) {
         const info = await authAPI.getCompanyUserInviteInfo({ token: companyToken });
-        if (!(info instanceof ApiError) && info.userEmail) {
+        if (info.userEmail) {
           setEmail(info.userEmail);
           setIsEmailPredefined(true);
           // Update URL with predefined email
@@ -62,11 +62,9 @@ export function IdentificationStep() {
         }
       } else if (repositoryToken) {
         const info = await authAPI.getRepositoryUserInviteInfo({ token: repositoryToken });
-        if (!(info instanceof ApiError)) {
-          if (info.userGithubOwnerLogin) {
-            setGithubLogin(info.userGithubOwnerLogin);
-            setIsGithubAccountPredefined(true);
-          }
+        if (info.userGithubOwnerLogin) {
+          setGithubLogin(info.userGithubOwnerLogin);
+          setIsGithubAccountPredefined(true);
         }
       }
     } catch (err) {

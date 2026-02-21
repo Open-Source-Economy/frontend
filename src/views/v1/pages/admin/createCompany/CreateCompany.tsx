@@ -44,14 +44,11 @@ export function CreateCompany(props: CreateCompanyProps) {
 
     try {
       const result = await adminBackendAPI.createCompany(body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setCreatedCompanyId(result.createdCompanyId);
-      }
+      setError(null);
+      setCreatedCompanyId(result.createdCompanyId);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
 

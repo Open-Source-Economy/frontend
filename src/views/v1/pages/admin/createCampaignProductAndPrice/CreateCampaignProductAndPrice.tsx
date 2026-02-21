@@ -45,17 +45,13 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.createCampaignProductAndPrice(params, body, query);
-
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setSuccess(true);
-        setFormData(emptyFormData);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred");
+      await adminBackendAPI.createCampaignProductAndPrice(params, body, query);
+      setError(null);
+      setSuccess(true);
+      setFormData(emptyFormData);
+    } catch (error) {
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     } finally {
       setIsSubmitting(false);
     }

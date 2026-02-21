@@ -94,16 +94,13 @@ export function InviteRepositoryUser() {
 
     setIsSubmitting(true);
     try {
-      const result = await adminBackendAPI.sendRepositoryRoleInvite(params, body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setFormData(emptyFormData);
-        setSuccess(true);
-      }
+      await adminBackendAPI.sendRepositoryRoleInvite(params, body, query);
+      setError(null);
+      setFormData(emptyFormData);
+      setSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     } finally {
       setIsSubmitting(false);
     }

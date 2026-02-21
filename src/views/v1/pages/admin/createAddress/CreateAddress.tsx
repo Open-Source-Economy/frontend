@@ -41,22 +41,19 @@ export function CreateAddress(props: CreateAddressProps) {
 
     try {
       const result = await adminBackendAPI.createAddress(body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setCreatedAddressId(result.createdAddressId);
-        // Reset form fields
-        setName("");
-        setLine1("");
-        setLine2("");
-        setCity("");
-        setState("");
-        setPostalCode("");
-        setCountry("");
-      }
+      setCreatedAddressId(result.createdAddressId);
+      // Reset form fields
+      setName("");
+      setLine1("");
+      setLine2("");
+      setCity("");
+      setState("");
+      setPostalCode("");
+      setCountry("");
       setError(null);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
 

@@ -101,16 +101,13 @@ export function CreateProject() {
     setSuccess(false);
 
     try {
-      const result = await adminBackendAPI.createProject(params, body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setError(null);
-        setFormData(emptyFormData);
-        setSuccess(true);
-      }
+      await adminBackendAPI.createProject(params, body, query);
+      setError(null);
+      setFormData(emptyFormData);
+      setSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -142,14 +139,11 @@ export function CreateProject() {
         const query: dto.CreateProjectQuery = {};
 
         try {
-          const result = await adminBackendAPI.createProject(params, body, query);
-          if (result instanceof ApiError) {
-            results.push(`❌ ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${result.statusCode} - ${result.message}`);
-          } else {
-            results.push(`✅ ${project.owner}${project.repo ? `/${project.repo}` : ""}: Created successfully`);
-          }
+          await adminBackendAPI.createProject(params, body, query);
+          results.push(`✅ ${project.owner}${project.repo ? `/${project.repo}` : ""}: Created successfully`);
         } catch (error) {
-          results.push(`❌ ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${error instanceof Error ? error.message : "Unknown error"}`);
+          const apiError = error instanceof ApiError ? error : ApiError.from(error);
+          results.push(`❌ ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${apiError.statusCode} - ${apiError.message}`);
         }
       }
 

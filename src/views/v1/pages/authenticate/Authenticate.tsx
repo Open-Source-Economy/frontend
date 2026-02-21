@@ -122,16 +122,13 @@ export function Authenticate(props: AuthenticateProps) {
         token: companyToken,
       };
       const inviteInfo = await authAPI.getCompanyUserInviteInfo(query);
-      if (inviteInfo instanceof ApiError) setError(inviteInfo);
-      else {
-        setName(inviteInfo.userName ?? null);
-        if (inviteInfo.userEmail) {
-          setFormData({ ...formData, email: inviteInfo.userEmail });
-          setIsEmailPredefined(true);
-        }
+      setName(inviteInfo.userName ?? null);
+      if (inviteInfo.userEmail) {
+        setFormData({ ...formData, email: inviteInfo.userEmail });
+        setIsEmailPredefined(true);
       }
     } catch (error: unknown) {
-      setError(ApiError.from(error));
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 
@@ -141,16 +138,13 @@ export function Authenticate(props: AuthenticateProps) {
         token: repositoryToken,
       };
       const inviteInfo = await authAPI.getRepositoryUserInviteInfo(query);
-      if (inviteInfo instanceof ApiError) setError(inviteInfo);
-      else {
-        setName(inviteInfo.userName ?? null);
-        if (inviteInfo.userGithubOwnerLogin) {
-          setGithubLogin(inviteInfo.userGithubOwnerLogin);
-          setIsGithubAccountPredefined(true);
-        }
+      setName(inviteInfo.userName ?? null);
+      if (inviteInfo.userGithubOwnerLogin) {
+        setGithubLogin(inviteInfo.userGithubOwnerLogin);
+        setIsGithubAccountPredefined(true);
       }
     } catch (error: unknown) {
-      setError(ApiError.from(error));
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

@@ -27,19 +27,16 @@ export function useAvailableCredits(auth: AuthContextState) {
         };
 
         const response = await backendAPI.getAvailableCredits(params, query);
-
-        if (response instanceof ApiError) {
-          if (response.statusCode === StatusCodes.UNAUTHORIZED) setAvailableCredits(null);
-          else setError(response);
+        setAvailableCredits({
+          amount: new Decimal(response.creditAmount),
+          unit: CreditUnit.MINUTE,
+        });
+      } catch (error) {
+        if (error instanceof ApiError && error.statusCode === StatusCodes.UNAUTHORIZED) {
+          setAvailableCredits(null);
         } else {
-          setAvailableCredits({
-            amount: new Decimal(response.creditAmount),
-            unit: CreditUnit.MINUTE,
-          });
+          setError(error instanceof ApiError ? error : ApiError.from(error));
         }
-      } catch (err) {
-        console.error("Failed to fetch campaign:", err);
-        setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching campaign"));
       } finally {
         setIsLoading(false);
       }

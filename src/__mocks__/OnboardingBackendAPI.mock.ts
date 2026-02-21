@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+
 import { OnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import { developerBugFixingService, serviceHierarchy } from "./index"; // Assuming these mocks are correctly imported
 
@@ -8,7 +8,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.CreateDeveloperProfileParams,
     body: dto.CreateDeveloperProfileBody,
     query: dto.CreateDeveloperProfileQuery,
-  ): Promise<dto.CreateDeveloperProfileResponse | ApiError> {
+  ): Promise<dto.CreateDeveloperProfileResponse> {
     console.log("createDeveloperProfile", { params, body, query });
     const response: dto.CreateDeveloperProfileResponse = {};
     return Promise.resolve(response);
@@ -19,7 +19,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
     query: dto.UpdateDeveloperContactInfosQuery,
-  ): Promise<dto.UpdateDeveloperContactInfosResponse | ApiError> {
+  ): Promise<dto.UpdateDeveloperContactInfosResponse> {
     console.log("updateDeveloperContactInfos", { params, body, query });
     const response: dto.UpdateDeveloperContactInfosResponse = {
       // Assuming the response for this DTO is an empty object based on your backend DTO
@@ -27,7 +27,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     return Promise.resolve(response);
   }
 
-  async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
+  async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse> {
     console.log("getDeveloperProfile", { params, query });
 
     const projectItemId1 = new dto.ProjectItemId(Math.random().toString());
@@ -104,7 +104,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.SetDeveloperPreferencesParams,
     body: dto.SetDeveloperPreferencesBody,
     query: dto.SetDeveloperPreferencesQuery,
-  ): Promise<dto.SetDeveloperPreferencesResponse | ApiError> {
+  ): Promise<dto.SetDeveloperPreferencesResponse> {
     console.log("setDeveloperPreferences", { params, body, query });
     return Promise.resolve({} as dto.SetDeveloperPreferencesResponse);
   }
@@ -113,7 +113,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.SetDeveloperServiceSettingsParams,
     body: dto.SetDeveloperServiceSettingsBody,
     query: dto.SetDeveloperServiceSettingsQuery,
-  ): Promise<dto.SetDeveloperServiceSettingsResponse | ApiError> {
+  ): Promise<dto.SetDeveloperServiceSettingsResponse> {
     console.log("setDeveloperServiceSettings", { params, body, query });
     return Promise.resolve({} as dto.SetDeveloperServiceSettingsResponse);
   }
@@ -122,7 +122,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
     query: dto.UpsertDeveloperProjectItemQuery,
-  ): Promise<dto.UpsertDeveloperProjectItemResponse | ApiError> {
+  ): Promise<dto.UpsertDeveloperProjectItemResponse> {
     console.log("upsertProjectItem", { params, body, query });
 
     const developerProfileId = new dto.DeveloperProfileId(Math.random().toString()); // Need a mock profile ID
@@ -166,7 +166,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.RemoveDeveloperProjectItemParams,
     body: dto.RemoveDeveloperProjectItemBody,
     query: dto.RemoveDeveloperProjectItemQuery,
-  ): Promise<dto.RemoveDeveloperProjectItemResponse | ApiError> {
+  ): Promise<dto.RemoveDeveloperProjectItemResponse> {
     console.log("removeProjectItem", { params, body, query });
     return Promise.resolve({} as dto.RemoveDeveloperProjectItemResponse);
   }
@@ -174,13 +174,13 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async getPotentialProjectItems(
     params: dto.GetPotentialDeveloperProjectItemsParams,
     query: dto.GetPotentialDeveloperProjectItemsQuery,
-  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse | ApiError> {
+  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse> {
     console.log("getPotentialProjectItems", { params, query });
     const response: dto.GetPotentialDeveloperProjectItemsResponse = {};
     return Promise.resolve(response);
   }
 
-  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<dto.GetServiceHierarchyResponse | ApiError> {
+  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<dto.GetServiceHierarchyResponse> {
     // Updated return type
     console.log("getServiceHierarchy", { params, query });
     const response: dto.GetServiceHierarchyResponse = {
@@ -193,7 +193,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.UpsertDeveloperServiceParams,
     body: dto.UpsertDeveloperServiceBody,
     query: dto.UpsertDeveloperServiceQuery,
-  ): Promise<dto.UpsertDeveloperServiceResponse | ApiError> {
+  ): Promise<dto.UpsertDeveloperServiceResponse> {
     console.log("upsertDeveloperService", { params, body, query });
 
     // Assuming the response contains the upserted developerService, including a generated ID
@@ -221,7 +221,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.UpsertDeveloperServicesParams,
     body: dto.UpsertDeveloperServicesBody,
     query: dto.UpsertDeveloperServicesQuery,
-  ): Promise<dto.UpsertDeveloperServicesResponse | ApiError> {
+  ): Promise<dto.UpsertDeveloperServicesResponse> {
     console.log("upsertDeveloperServices", { params, body, query });
 
     const developerServices: dto.DeveloperService[] = body.upsertDeveloperServices.map(service => {
@@ -249,7 +249,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody,
     query: dto.DeleteDeveloperServiceQuery,
-  ): Promise<dto.DeleteDeveloperServiceResponse | ApiError> {
+  ): Promise<dto.DeleteDeveloperServiceResponse> {
     console.log("deleteDeveloperService", { params, body, query });
     return Promise.resolve({} as dto.DeleteDeveloperServiceResponse);
   }
@@ -258,7 +258,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.CreateCustomServiceParams,
     body: dto.CreateCustomServiceBody,
     query: dto.CreateCustomServiceQuery,
-  ): Promise<dto.CreateCustomServiceResponse | ApiError> {
+  ): Promise<dto.CreateCustomServiceResponse> {
     console.log("createCustomService", { params, body, query });
     return Promise.resolve({} as dto.CreateCustomServiceResponse);
   }
@@ -267,7 +267,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     params: dto.CompleteOnboardingParams,
     body: dto.CompleteOnboardingBody,
     query: dto.CompleteOnboardingQuery,
-  ): Promise<dto.CompleteOnboardingResponse | ApiError> {
+  ): Promise<dto.CompleteOnboardingResponse> {
     console.log("completeOnboarding", { params, body, query });
     return Promise.resolve({} as dto.CompleteOnboardingResponse);
   }

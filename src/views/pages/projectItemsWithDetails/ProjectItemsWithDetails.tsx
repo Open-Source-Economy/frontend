@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getBackendAPI } from "../../../services";
-import { ApiError } from "../../../ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 
 export const ProjectItemsWithDetails: React.FC = () => {
@@ -14,12 +13,7 @@ export const ProjectItemsWithDetails: React.FC = () => {
         setLoading(true);
         const backendAPI = getBackendAPI();
         const result = await backendAPI.getProjectItemsWithDetails({}, {});
-
-        if (result instanceof ApiError) {
-          setError(result.message);
-        } else {
-          setData(result);
-        }
+        setData(result);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");
       } finally {

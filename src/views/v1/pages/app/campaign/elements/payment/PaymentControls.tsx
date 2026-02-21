@@ -70,14 +70,10 @@ export function PaymentControls(props: PaymentControlsProps) {
         const query: CheckoutQuery = {};
 
         const response = await backendAPI.checkout(params, body, query);
-        if (response instanceof ApiError) {
-          setError(response);
-        } else {
-          window.location.href = response.redirectUrl;
-        }
+        window.location.href = response.redirectUrl;
       } catch (error) {
         console.error("Failed to initiate checkout:", error);
-        setError(ApiError.from(error));
+        setError(error instanceof ApiError ? error : ApiError.from(error));
       } finally {
         setIsLoading(false);
       }

@@ -104,8 +104,8 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
     setIsLoading(true);
     setApiError(null);
 
-    const apiCall = async () => {
-      const response = await api.getProjectItemsWithDetails(
+    const apiCall = () =>
+      api.getProjectItemsWithDetails(
         {},
         {
           repositories: {
@@ -123,9 +123,6 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
           },
         },
       );
-      if (response instanceof ApiError) throw response;
-      return response as dto.GetProjectItemsWithDetailsResponse;
-    };
 
     const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
       // Combine all types and sort by popularity

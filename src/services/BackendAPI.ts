@@ -33,11 +33,11 @@ export function getBackendAPI(): BackendAPI {
 export interface BackendAPI {
   /* Getters */
 
-  getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError>;
+  getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue>;
 
-  getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
+  getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]>;
 
-  getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError>;
+  getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse>;
 
   /**
    * Funds a specific issue.
@@ -48,7 +48,7 @@ export interface BackendAPI {
    * @throws {Error} If the amount is not a positive number.
    * @throws {Error} If there are insufficient funds.
    */
-  fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError>;
+  fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void>;
 
   /**
    * Request or approve funding for an issue.
@@ -58,58 +58,58 @@ export interface BackendAPI {
    * @throws {Error} If the userId or issueId is invalid or not found.
    * @throws {Error} If the amount is not a positive number.
    */
-  requestFunding(params: dto.RequestIssueFundingParams, body: dto.RequestIssueFundingBody, query: dto.RequestIssueFundingQuery): Promise<void | ApiError>;
+  requestFunding(params: dto.RequestIssueFundingParams, body: dto.RequestIssueFundingBody, query: dto.RequestIssueFundingQuery): Promise<void>;
 
-  getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError>;
+  getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse>;
 
-  getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse | ApiError>;
+  getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse>;
 
-  getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError>;
+  getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse>;
 
-  getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError>;
+  getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse>;
 
-  getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse | ApiError>;
-
-  // TODO: probably remove this method, and query the data from the project
-  getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError>;
+  getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse>;
 
   // TODO: probably remove this method, and query the data from the project
-  getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError>;
+  getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse>;
 
   // TODO: probably remove this method, and query the data from the project
-  getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError>;
-
-  getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError>;
-
-  getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError>;
+  getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse>;
 
   // TODO: probably remove this method, and query the data from the project
-  getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError>;
+  getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[]>;
 
-  checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse | ApiError>;
+  getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse>;
+
+  getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse>;
+
+  // TODO: probably remove this method, and query the data from the project
+  getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse>;
+
+  checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse>;
 
   setUserPreferredCurrency(
     params: dto.SetUserPreferredCurrencyParams,
     body: dto.SetUserPreferredCurrencyBody,
     query: dto.SetUserPreferredCurrencyQuery,
-  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError>;
+  ): Promise<dto.SetUserPreferredCurrencyResponse>;
 
-  getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse | ApiError>;
+  getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse>;
 
   subscribeToNewsletter(
     params: dto.NewsletterSubscriptionParams,
     body: dto.NewsletterSubscriptionBody,
     query: dto.NewsletterSubscriptionQuery,
-  ): Promise<dto.NewsletterSubscriptionResponse | ApiError>;
+  ): Promise<dto.NewsletterSubscriptionResponse>;
 
-  submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError>;
+  submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse>;
 
   getProjectItemsWithDetails(
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
-  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError>;
+  ): Promise<dto.GetProjectItemsWithDetailsResponse>;
 
-  createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse | ApiError>;
+  createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -119,26 +119,23 @@ class BackendAPIImpl implements BackendAPI {
     this.api = api;
   }
 
-  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
+  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue> {
     const response = await handleError<dto.GetIssueResponse>(
       () => this.api.get(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
     );
-
-    if (response instanceof ApiError) return response;
-    else return response.issue;
+    return response.issue;
   }
 
-  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
     const response = await handleError<dto.GetIssuesResponse>(
       () => this.api.get(`${config.api.url}/projects/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues",
     );
-    if (response instanceof ApiError) return response;
-    else return response.issues;
+    return response.issues;
   }
 
-  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse> {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
@@ -148,7 +145,7 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
+  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void> {
     return handleError(
       () => this.api.post(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
       "fundIssue",
@@ -159,7 +156,7 @@ class BackendAPIImpl implements BackendAPI {
     params: dto.RequestIssueFundingParams,
     body: dto.RequestIssueFundingBody,
     query: dto.RequestIssueFundingQuery,
-  ): Promise<void | ApiError> {
+  ): Promise<void> {
     return handleError(
       () =>
         this.api.post(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, {
@@ -169,65 +166,65 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError> {
+  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
     return handleError(() => this.api.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
   }
 
-  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse | ApiError> {
+  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
     return handleError(() => this.api.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 
-  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
+  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }), "getProject");
   }
 
-  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
+  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects`, { withCredentials: true }), "getProjects");
   }
 
-  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse | ApiError> {
+  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
     return handleError(
       () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}/details`, { withCredentials: true }),
       "getProjectDetails",
     );
   }
 
-  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
+  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
     } else {
-      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+      throw new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
   }
 
-  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError> {
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {
+  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
     return getSponsors(params.owner, params.repo);
   }
 
-  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {
+  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
     return handleError(() => this.api.get(`${config.api.url}/plans`, { withCredentials: true }), "getPlans");
   }
 
-  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError> {
+  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse> {
     let queryParams = "";
     if (query.companyId) queryParams += `companyId=${encodeURIComponent(query.companyId)}`;
 
     return await handleError(() => this.api.get(`${config.api.url}/user/plan?${queryParams}`, { withCredentials: true }), "getUserPlan");
   }
 
-  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
+  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
     return handleError(
       () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
       "getCampaign",
     );
   }
 
-  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse | ApiError> {
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
     return handleError(() => this.api.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
   }
 
@@ -235,40 +232,40 @@ class BackendAPIImpl implements BackendAPI {
     params: dto.SetUserPreferredCurrencyParams,
     body: dto.SetUserPreferredCurrencyBody,
     query: dto.SetUserPreferredCurrencyQuery,
-  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError> {
+  ): Promise<dto.SetUserPreferredCurrencyResponse> {
     return handleError(
       () => this.api.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
       "setUserPreferredCurrency",
     );
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse | ApiError> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
-    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
+    throw new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async subscribeToNewsletter(
     params: dto.NewsletterSubscriptionParams,
     body: dto.NewsletterSubscriptionBody,
     query: dto.NewsletterSubscriptionQuery,
-  ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
+  ): Promise<dto.NewsletterSubscriptionResponse> {
     return handleError(() => this.api.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
   }
 
-  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
+  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
     return handleError(() => this.api.post(`${config.api.url}/contact`, body, { withCredentials: true }), "submitContactForm");
   }
 
   async getProjectItemsWithDetails(
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
-  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
+  ): Promise<dto.GetProjectItemsWithDetailsResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects/items/details`, { withCredentials: true }), "getProjectItemsWithDetails");
   }
 
-  async createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse | ApiError> {
+  async createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse> {
     return handleError(() => this.api.post(`${config.api.url}/stripe/portal`, body, { withCredentials: true }), "createPortalSession");
   }
 }

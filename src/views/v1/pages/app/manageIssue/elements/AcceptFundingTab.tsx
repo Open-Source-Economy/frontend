@@ -36,12 +36,8 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
       const query: RequestIssueFundingQuery = {};
 
       try {
-        const response = await backendAPI.requestFunding(params, body, query);
-        if (response instanceof Error) {
-          setError(response.message);
-        } else {
-          props.reloadFinancialIssue();
-        }
+        await backendAPI.requestFunding(params, body, query);
+        props.reloadFinancialIssue();
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);

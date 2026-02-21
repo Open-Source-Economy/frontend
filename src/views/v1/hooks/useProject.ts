@@ -17,16 +17,9 @@ export function useProject(projectId: ProjectId) {
       };
       const query: GetProjectQuery = {};
       const response = await backendAPI.getProject(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-        return;
-      } else {
-        setProject(response.project);
-      }
-    } catch (err) {
-      console.error("Error fetching project:", err);
-      setError(ApiError.from(err));
+      setProject(response.project);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

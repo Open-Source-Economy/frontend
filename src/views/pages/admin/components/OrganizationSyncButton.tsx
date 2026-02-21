@@ -34,16 +34,11 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
         { offset: 0 }, // Start from beginning
       );
 
-      if (response instanceof ApiError) {
-        setSyncStatus("error");
-        setMessage(response.message);
-      } else {
-        setSyncStatus("success");
-        setMessage(response.message);
-      }
+      setSyncStatus("success");
+      setMessage(response.message);
     } catch (error) {
       setSyncStatus("error");
-      setMessage(error instanceof Error ? error.message : "Sync failed");
+      setMessage(error instanceof ApiError ? error.message : error instanceof Error ? error.message : "Sync failed");
     } finally {
       setIsSyncing(false);
       // Clear status after 5 seconds

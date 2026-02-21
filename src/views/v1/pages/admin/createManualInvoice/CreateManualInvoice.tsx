@@ -50,20 +50,17 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
     const query: CreateManualInvoiceQuery = {};
 
     try {
-      const result = await adminBackendAPI.createManualInvoice(body, query);
-      if (result instanceof ApiError) {
-        setError(`${result.statusCode}: ${result.message}`);
-      } else {
-        setSuccess(true);
-        // Reset form fields
-        setInvoiceNumber(null);
-        setCompanyId(null);
-        setUserId(null);
-        setPaid(false);
-        setCreditAmount(null);
-      }
+      await adminBackendAPI.createManualInvoice(body, query);
+      setSuccess(true);
+      // Reset form fields
+      setInvoiceNumber(null);
+      setCompanyId(null);
+      setUserId(null);
+      setPaid(false);
+      setCreditAmount(null);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      const apiError = error instanceof ApiError ? error : ApiError.from(error);
+      setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
 

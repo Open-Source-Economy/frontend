@@ -1,7 +1,6 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
 import { api, handleError, projectPath } from "./index";
-import { ApiError } from "src/ultils/error/ApiError";
 import { config } from "src/ultils";
 
 export function getAdminBackendAPI(): AdminBackendAPI {
@@ -12,48 +11,48 @@ export interface AdminBackendAPI {
   getAllDeveloperProfiles(
     params: dto.GetAllDeveloperProfilesParams,
     query: dto.GetAllDeveloperProfilesQuery,
-  ): Promise<dto.GetAllDeveloperProfilesResponse | ApiError>;
-  getDeveloperProfile(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError>;
+  ): Promise<dto.GetAllDeveloperProfilesResponse>;
+  getDeveloperProfile(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse>;
   createVerificationRecord(
     params: dto.CreateVerificationRecordParams,
     body: dto.CreateVerificationRecordBody,
     query: dto.CreateVerificationRecordQuery,
-  ): Promise<dto.CreateVerificationRecordResponse | ApiError>;
+  ): Promise<dto.CreateVerificationRecordResponse>;
   syncOrganizationRepositories(
     params: dto.SyncOrganizationRepositoriesParams,
     query: dto.SyncOrganizationRepositoriesQuery,
-  ): Promise<dto.SyncOrganizationRepositoriesResponse | ApiError>;
-  syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse | ApiError>;
+  ): Promise<dto.SyncOrganizationRepositoriesResponse>;
+  syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse>;
   syncRepository(
     params: dto.SyncRepositoryParams,
     body: dto.SyncRepositoryBody,
     query: dto.SyncRepositoryQuery,
-  ): Promise<dto.SyncRepositoryResponse | ApiError>;
-  syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse | ApiError>;
-  createAddress(body: dto.CreateAddressBody, query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse | ApiError>;
-  createCompany(body: dto.CreateCompanyBody, query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse | ApiError>;
+  ): Promise<dto.SyncRepositoryResponse>;
+  syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse>;
+  createAddress(body: dto.CreateAddressBody, query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse>;
+  createCompany(body: dto.CreateCompanyBody, query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse>;
   sendCompanyRoleInvite(
     params: dto.SendCompanyRoleInviteParams,
     body: dto.SendCompanyRoleInviteBody,
     query: dto.SendCompanyRoleInviteQuery,
-  ): Promise<dto.SendCompanyRoleInviteResponse | ApiError>;
+  ): Promise<dto.SendCompanyRoleInviteResponse>;
   sendRepositoryRoleInvite(
     params: dto.SendRepositoryRoleInviteParams,
     body: dto.SendRepositoryRoleInviteBody,
     query: dto.SendRepositoryRoleInviteQuery,
-  ): Promise<dto.SendRepositoryRoleInviteResponse | ApiError>;
+  ): Promise<dto.SendRepositoryRoleInviteResponse>;
   createCampaignProductAndPrice(
     params: dto.CreateCampaignProductAndPriceParams,
     body: dto.CreateCampaignProductAndPriceBody,
     query: dto.CreateCampaignProductAndPriceQuery,
-  ): Promise<dto.CreateCampaignProductAndPriceResponse | ApiError>;
-  createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse | ApiError>;
+  ): Promise<dto.CreateCampaignProductAndPriceResponse>;
+  createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse>;
   createPlanProductAndPrice(
     params: dto.CreatePlanProductAndPriceParams,
     body: dto.CreatePlanProductAndPriceBody,
     query: dto.CreatePlanProductAndPriceQuery,
-  ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError>;
-  createProject(params: dto.CreateProjectParams, body: dto.CreateProjectBody, query: dto.CreateProjectQuery): Promise<dto.CreateProjectResponse | ApiError>;
+  ): Promise<dto.CreatePlanProductAndPriceResponse>;
+  createProject(params: dto.CreateProjectParams, body: dto.CreateProjectBody, query: dto.CreateProjectQuery): Promise<dto.CreateProjectResponse>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -66,14 +65,14 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   async getAllDeveloperProfiles(
     params: dto.GetAllDeveloperProfilesParams,
     query: dto.GetAllDeveloperProfilesQuery,
-  ): Promise<dto.GetAllDeveloperProfilesResponse | ApiError> {
+  ): Promise<dto.GetAllDeveloperProfilesResponse> {
     return await handleError<dto.GetAllDeveloperProfilesResponse>(
       () => this.api.get(`${config.api.url}/admin/profiles`, { withCredentials: true, params: query }),
       "getAllDeveloperProfiles",
     );
   }
 
-  async getDeveloperProfile(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse | ApiError> {
+  async getDeveloperProfile(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse> {
     return await handleError<dto.GetDeveloperProfileResponse>(
       () => this.api.get(`${config.api.url}/admin/developer-profile/${params.githubUsername}`, { withCredentials: true, params: query }),
       "getDeveloperProfile",
@@ -84,7 +83,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.CreateVerificationRecordParams,
     body: dto.CreateVerificationRecordBody,
     query: dto.CreateVerificationRecordQuery,
-  ): Promise<dto.CreateVerificationRecordResponse | ApiError> {
+  ): Promise<dto.CreateVerificationRecordResponse> {
     return await handleError<dto.CreateVerificationRecordResponse>(
       () => this.api.post(`${config.api.url}/admin/verification-record`, body, { withCredentials: true, params: query }),
       "createVerificationRecord",
@@ -94,14 +93,14 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   async syncOrganizationRepositories(
     params: dto.SyncOrganizationRepositoriesParams,
     query: dto.SyncOrganizationRepositoriesQuery,
-  ): Promise<dto.SyncOrganizationRepositoriesResponse | ApiError> {
+  ): Promise<dto.SyncOrganizationRepositoriesResponse> {
     return await handleError<dto.SyncOrganizationRepositoriesResponse>(
       () => this.api.post(`${config.api.url}/admin/organizations/${params.projectItemId}/sync-repositories`, {}, { withCredentials: true, params: query }),
       "syncOrganizationRepositories",
     );
   }
 
-  async syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse | ApiError> {
+  async syncOwner(params: dto.SyncOwnerParams, query: dto.SyncOwnerQuery): Promise<dto.SyncOwnerResponse> {
     return await handleError<dto.SyncOwnerResponse>(
       () => this.api.post(`${config.api.url}/github/owners/${params.owner}/sync`, {}, { withCredentials: true, params: query }),
       "syncOwner",
@@ -112,14 +111,14 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.SyncRepositoryParams,
     body: dto.SyncRepositoryBody,
     query: dto.SyncRepositoryQuery,
-  ): Promise<dto.SyncRepositoryResponse | ApiError> {
+  ): Promise<dto.SyncRepositoryResponse> {
     return await handleError<dto.SyncRepositoryResponse>(
       () => this.api.post(`${config.api.url}/github/repos/${params.owner}/${params.repo}/sync`, body ?? {}, { withCredentials: true, params: query }),
       "syncRepository",
     );
   }
 
-  async syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse | ApiError> {
+  async syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse> {
     const path = params.repo
       ? `${config.api.url}/github/projects/${params.owner}/${params.repo}/sync`
       : `${config.api.url}/github/projects/${params.owner}/sync`;
@@ -127,14 +126,14 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     return await handleError<dto.SyncProjectResponse>(() => this.api.post(path, {}, { withCredentials: true, params: query }), "syncProject");
   }
 
-  async createAddress(body: dto.CreateAddressBody, query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse | ApiError> {
+  async createAddress(body: dto.CreateAddressBody, query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse> {
     return await handleError<dto.CreateAddressResponse>(
       () => this.api.post(`${config.api.url}/admin/address`, body, { withCredentials: true }),
       "createAddress",
     );
   }
 
-  async createCompany(body: dto.CreateCompanyBody, query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse | ApiError> {
+  async createCompany(body: dto.CreateCompanyBody, query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse> {
     return await handleError<dto.CreateCompanyResponse>(
       () => this.api.post(`${config.api.url}/admin/company`, body, { withCredentials: true }),
       "createCompany",
@@ -145,7 +144,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.SendCompanyRoleInviteParams,
     body: dto.SendCompanyRoleInviteBody,
     query: dto.SendCompanyRoleInviteQuery,
-  ): Promise<dto.SendCompanyRoleInviteResponse | ApiError> {
+  ): Promise<dto.SendCompanyRoleInviteResponse> {
     return await handleError<dto.SendCompanyRoleInviteResponse>(
       () => this.api.post(`${config.api.url}/admin/company/admin-invite`, body, { withCredentials: true }),
       "sendCompanyAdminInvite",
@@ -156,14 +155,14 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.SendRepositoryRoleInviteParams,
     body: dto.SendRepositoryRoleInviteBody,
     query: dto.SendRepositoryRoleInviteQuery,
-  ): Promise<dto.SendRepositoryRoleInviteResponse | ApiError> {
+  ): Promise<dto.SendRepositoryRoleInviteResponse> {
     return await handleError<dto.SendRepositoryRoleInviteResponse>(
       () => this.api.post(`${config.api.url}/admin/repository/admin-invite`, body, { withCredentials: true }),
       "sendRepositoryAdminInvite",
     );
   }
 
-  async createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse | ApiError> {
+  async createManualInvoice(body: dto.CreateManualInvoiceBody, query: dto.CreateManualInvoiceQuery): Promise<dto.CreateManualInvoiceResponse> {
     return await handleError<dto.CreateManualInvoiceResponse>(
       () => this.api.post(`${config.api.url}/admin/company/create-manual-invoice`, body, { withCredentials: true }),
       "createManualInvoice",
@@ -174,7 +173,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.CreateCampaignProductAndPriceParams,
     body: dto.CreateCampaignProductAndPriceBody,
     query: dto.CreateCampaignProductAndPriceQuery,
-  ): Promise<dto.CreateCampaignProductAndPriceResponse | ApiError> {
+  ): Promise<dto.CreateCampaignProductAndPriceResponse> {
     return await handleError<dto.CreateCampaignProductAndPriceResponse>(
       () => this.api.post(`${config.api.url}/admin/${projectPath(params.owner, params.repo)}/stripe/product-and-price`, body, { withCredentials: true }),
       "createCampaignProductAndPrice",
@@ -185,7 +184,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.CreatePlanProductAndPriceParams,
     body: dto.CreatePlanProductAndPriceBody,
     query: dto.CreatePlanProductAndPriceQuery,
-  ): Promise<dto.CreatePlanProductAndPriceResponse | ApiError> {
+  ): Promise<dto.CreatePlanProductAndPriceResponse> {
     return await handleError<dto.CreatePlanProductAndPriceResponse>(
       () => this.api.post(`${config.api.url}/admin/plan/product-and-price`, body, { withCredentials: true }),
       "createPlanProductAndPrice",
@@ -196,7 +195,7 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
     params: dto.CreateProjectParams,
     body: dto.CreateProjectBody,
     query: dto.CreateProjectQuery,
-  ): Promise<dto.CreateProjectResponse | ApiError> {
+  ): Promise<dto.CreateProjectResponse> {
     return await handleError<dto.CreateProjectResponse>(
       () => this.api.post(`${config.api.url}/admin/projects/${projectPath(params.owner, params.repo)}`, body, { withCredentials: true }),
       "createProject",

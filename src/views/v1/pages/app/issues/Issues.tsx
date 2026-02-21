@@ -32,13 +32,10 @@ export function Issues(props: IssuesProps) {
         const params: GetIssuesParams = {};
         const query: GetIssueQuery = {};
         const financialIssues = await backendAPI.getAllFinancialIssues(params, query);
-        if (financialIssues instanceof ApiError) setError(financialIssues);
-        else {
-          setFinancialIssues(financialIssues);
-          setFilteredFinancialIssues(financialIssues);
-        }
+        setFinancialIssues(financialIssues);
+        setFilteredFinancialIssues(financialIssues);
       } catch (error) {
-        setError(ApiError.from(error));
+        setError(error instanceof ApiError ? error : ApiError.from(error));
       } finally {
         setIsLoading(false);
       }

@@ -20,7 +20,7 @@ export function AuthProvider(props: AuthProviderProps) {
     checkUserStatus();
   }, []);
 
-  const runAuthCall = async <T,>(apiCall: () => Promise<T | ApiError>, onSuccess?: (response: T) => void) => {
+  const runAuthCall = async <T,>(apiCall: () => Promise<T>, onSuccess?: (response: T) => void) => {
     await handleApiCall(apiCall, setLoading, setApiError, onSuccess);
   };
 

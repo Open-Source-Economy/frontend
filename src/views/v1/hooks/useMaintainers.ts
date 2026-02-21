@@ -22,15 +22,9 @@ export function useMaintainers(projectId: ProjectId) {
       const query: dto.GetMaintainersQuery = {};
 
       const response = await backendAPI.getMaintainers(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setMaintainersRes(response);
-      }
-    } catch (err) {
-      console.error("Error fetching maintainers:", err);
-      setError(ApiError.from(err));
+      setMaintainersRes(response);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setIsLoading(false);
     }

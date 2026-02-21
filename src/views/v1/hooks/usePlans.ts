@@ -2,7 +2,6 @@ import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { StatusCodes } from "http-status-codes";
 import { useAuth } from "src/views/auth";
 
 export function usePlans() {
@@ -23,15 +22,9 @@ export function usePlans() {
         const query: dto.GetPlansQuery = {};
 
         const response = await backendAPI.getPlans(params, query);
-
-        if (response instanceof ApiError) {
-          setError(response);
-        } else {
-          setPlans(response);
-        }
-      } catch (err) {
-        console.error("Failed to fetch plans:", err);
-        setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching plans"));
+        setPlans(response);
+      } catch (error) {
+        setError(error instanceof ApiError ? error : ApiError.from(error));
       }
     }
   };

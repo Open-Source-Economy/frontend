@@ -52,7 +52,7 @@ const createApiInstance = () => {
   return api;
 };
 
-export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T | ApiError> {
+export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T> {
   try {
     const response: AxiosResponse<ResponseBody<T>, any> = await call();
     return response.data.success!;
@@ -64,7 +64,7 @@ export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseB
       const status: StatusCodes | undefined = err.response ? (err.response?.status as StatusCodes) : undefined;
       const statusText = err.response?.statusText ?? err.code;
       const message = errorResponse?.message ?? err.message;
-      return new ApiError(status, statusText, message);
+      throw new ApiError(status, statusText, message);
     } else {
       console.error(`Unexpected error during ${name}:`, err);
       throw err; // Re-throw unexpected errors

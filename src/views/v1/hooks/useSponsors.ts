@@ -23,15 +23,9 @@ export function useSponsors(projectId: ProjectId) {
       const query: dto.GetSponsorsQuery = {};
 
       const response = await backendAPI.getSponsors(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setSponsors(response);
-      }
-    } catch (err) {
-      console.error("Error fetching sponsor:", err);
-      setError(ApiError.from(err));
+      setSponsors(response);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setIsLoading(false);
     }

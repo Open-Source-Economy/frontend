@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FormData, INITIAL_FORM_DATA, ProjectEntry } from "../helpers/formHelpers";
 import { scrollToFirstError, validateForm } from "../helpers/validationHelpers";
 import { getBackendAPI } from "src/services/BackendAPI";
-import { ApiError } from "src/ultils/error/ApiError";
 
 export const useContactForm = (initialContactReason: string) => {
   const [formData, setFormData] = useState<FormData>({
@@ -83,14 +82,8 @@ export const useContactForm = (initialContactReason: string) => {
 
     try {
       const backendAPI = getBackendAPI();
-      const result = await backendAPI.submitContactForm({}, formData, {});
-
-      if (result instanceof ApiError) {
-        console.error("Error submitting contact form:", result);
-        setSubmissionStatus("error");
-      } else {
-        setSubmissionStatus("success");
-      }
+      await backendAPI.submitContactForm({}, formData, {});
+      setSubmissionStatus("success");
     } catch (error) {
       console.error("Error submitting contact form:", error);
       setSubmissionStatus("error");

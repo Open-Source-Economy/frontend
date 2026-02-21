@@ -3,7 +3,6 @@ import { getBackendAPI } from "src/services/BackendAPI";
 import * as model from "@open-source-economy/api-types";
 import { GetProjectServicesParams, GetProjectServicesQuery, GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { StatusCodes } from "http-status-codes";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],
@@ -29,15 +28,9 @@ export function useProjectServices(projectId?: model.ProjectId) {
       const query: GetProjectServicesQuery = {};
 
       const response = await backendAPI.getProjectServices(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setProjectServices(response);
-      }
-    } catch (err) {
-      console.error("Failed to fetch ProjectServices:", err);
-      setError(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unexpected error occurred while fetching ProjectServices"));
+      setProjectServices(response);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

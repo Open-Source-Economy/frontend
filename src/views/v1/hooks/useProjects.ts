@@ -19,15 +19,9 @@ export function useProjects() {
       let params: dto.GetProjectsParams = {};
       const query: dto.GetProjectsQuery = {};
       const response = await backendAPI.getProjects(params, query);
-
-      if (response instanceof ApiError) {
-        setError(response);
-      } else {
-        setProjects(response.projects);
-      }
-    } catch (err) {
-      console.error("Error fetching project:", err);
-      setError(ApiError.from(err));
+      setProjects(response.projects);
+    } catch (error) {
+      setError(error instanceof ApiError ? error : ApiError.from(error));
     } finally {
       setLoading(false);
     }

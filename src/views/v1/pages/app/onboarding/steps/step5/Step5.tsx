@@ -46,11 +46,7 @@ export function Step5(props: Step5Props) {
       setApiError(null);
       setLocalError(null);
 
-      const apiCall = async () => {
-        const serviceHierarchyResponse = await api.getServiceHierarchy({}, {});
-        if (serviceHierarchyResponse instanceof ApiError) throw serviceHierarchyResponse;
-        return serviceHierarchyResponse as dto.GetServiceHierarchyResponse;
-      };
+      const apiCall = () => api.getServiceHierarchy({}, {});
 
       const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
         setServiceCategories(response.items);
