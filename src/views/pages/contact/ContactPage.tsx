@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/contact");
 import { PageWrapper } from "../PageWrapper";
 import { paths } from "src/paths";
 import { Button } from "../../components/ui/forms/button";
@@ -123,11 +125,11 @@ const CONTACT_REASONS = [
 ];
 
 export function ContactPage() {
-  const [searchParams] = useSearchParams();
+  const searchParams = routeApi.useSearch();
 
   // Get initial contact reason from URL parameter
   const getInitialContactReason = (): string => {
-    const reasonParam = searchParams.get("reason");
+    const reasonParam = searchParams.reason;
     if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
       return reasonParam;
     }
@@ -155,11 +157,11 @@ export function ContactPage() {
 
   // Update contact reason when URL parameter changes
   useEffect(() => {
-    const reasonParam = searchParams.get("reason");
+    const reasonParam = searchParams.reason;
     if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
       setContactReason(reasonParam);
     }
-  }, [searchParams, setContactReason]);
+  }, [searchParams.reason, setContactReason]);
 
   const selectedReason = CONTACT_REASONS.find(r => r.id === formData.contactReason);
   const companyRequired = isCompanyRequired(formData.contactReason);

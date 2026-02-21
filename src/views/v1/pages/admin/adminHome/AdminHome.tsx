@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { paths } from "src/paths";
 

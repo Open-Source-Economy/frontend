@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/components/ui/forms/button";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { Typography } from "src/views/components/ui/typography";
@@ -90,7 +90,7 @@ export function PhotoHeroSection(props: PhotoHeroSectionProps) {
                   // Internal link
                   if (action.href && !action.external) {
                     return (
-                      <Link key={index} to={action.href}>
+                      <Link key={index} to={action.href as string}>
                         <Button
                           variant={action.variant || "default"}
                           size="lg"

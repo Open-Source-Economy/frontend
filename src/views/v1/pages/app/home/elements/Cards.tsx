@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, type To } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button, ExternalLink } from "src/views/v1/components";
 import { Project } from "@open-source-economy/api-types";
 import type { Audience } from "../../../../../Audience";
@@ -13,7 +13,7 @@ export interface CardsProps {
   project?: Project;
   audience?: Audience;
   action?: string;
-  to?: To;
+  to?: string;
   isLoading?: boolean;
 }
 

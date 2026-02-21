@@ -9,7 +9,7 @@ import { ApiError } from "../../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { ExternalLink } from "../../components";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { stripeHooks } from "src/api";
 
 type FooterLink = {

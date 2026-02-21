@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { UserProfileSection } from "./UserProfileSection";
 import { UserMenuNavigation } from "src/types/navigation";
 import { AuthenticatedUser } from "@open-source-economy/api-types";
@@ -24,7 +24,7 @@ export function MobileUserMenu(props: MobileUserMenuProps) {
             {section.links.map(item => (
               <Link
                 key={item.title}
-                to={item.href}
+                to={item.href as string}
                 className="flex items-center gap-3 px-2 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors"
                 onClick={props.onItemClick}
               >
@@ -35,7 +35,7 @@ export function MobileUserMenu(props: MobileUserMenuProps) {
           </div>
         ))}
         <Link
-          to={props.menuConfig.logout.href}
+          to={props.menuConfig.logout.href as string}
           className="flex items-center gap-3 px-2 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-md transition-colors w-full text-left"
           onClick={props.onItemClick}
         >

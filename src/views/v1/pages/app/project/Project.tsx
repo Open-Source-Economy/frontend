@@ -8,7 +8,7 @@ import { WhyNeedFunding } from "./elements";
 import { H3WithSubtitle } from "src/views/v1/components/title/H3WithSubtitle";
 import { config, Env } from "src/ultils";
 import { Button } from "src/views/v1/components";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";

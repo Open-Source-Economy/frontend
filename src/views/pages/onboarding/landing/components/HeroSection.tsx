@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Code2, Github, MessageCircle } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { paths } from "../../../../../paths";

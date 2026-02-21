@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Save } from "lucide-react";
 import { paths } from "../../../../paths";
 

@@ -7,7 +7,7 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { useCreditCounter } from "src/views/v1/hooks";
 import { useAuth } from "src/views/auth/AuthContext";
 import { Audience } from "src/views/index";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { paths } from "../../../../../../paths";
 import { projectHooks } from "src/api";
 

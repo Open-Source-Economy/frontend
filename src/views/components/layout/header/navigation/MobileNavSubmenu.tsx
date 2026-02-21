@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { NavigationLink } from "src/types/navigation";
 
@@ -30,7 +30,7 @@ export function MobileNavSubmenu(props: MobileNavSubmenuProps) {
           {props.items.map(item => (
             <Link
               key={item.href}
-              to={item.href}
+              to={item.href as string}
               onClick={props.onClose}
               className="block w-full text-left text-muted-foreground hover:text-brand-primary hover:bg-surface/50 transition-colors duration-200 px-3 py-2.5 rounded-md"
             >

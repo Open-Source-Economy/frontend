@@ -3,7 +3,7 @@ import { Checkbox } from "src/views/components/ui/forms/checkbox";
 import { Label } from "src/views/components/ui/forms/label";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { paths } from "src/paths";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 interface TermsCheckboxProps {
   checked: boolean;

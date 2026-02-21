@@ -3,15 +3,9 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import "./App.css";
 import App from "./App";
-import { BackToTop } from "./views/v1/components/common/BackToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-root.render(
-  <>
-    <App />
-    <BackToTop />
-  </>,
-);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { PageWrapper } from "../PageWrapper";
 import { Button } from "../../components/ui/forms/button";
 import { Badge } from "../../components/ui/badge";

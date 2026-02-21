@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { NavDropdown } from "./NavDropdown";
 import { MobileNavSubmenu } from "./MobileNavSubmenu";
 import { ExternalLink } from "src/views/v1/components/elements/ExternalLink";
@@ -44,7 +44,7 @@ export function NavItems(props: NavItemsProps) {
         }
 
         return (
-          <Link key={item.title} to={item.href} onClick={props.variant === "mobile" ? props.onMobileClose : undefined} className={`${commonClasses} !no-underline`}>
+          <Link key={item.title} to={item.href as string} onClick={props.variant === "mobile" ? props.onMobileClose : undefined} className={`${commonClasses} !no-underline`}>
             {item.title}
           </Link>
         );

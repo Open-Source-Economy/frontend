@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Label } from "./label";
 import { cn } from "../../utils";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
@@ -45,7 +45,7 @@ export function FormField(props: FormFieldProps) {
             </Label>
           )}
           {props.link && (
-            <Link to={props.link.href} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
+            <Link to={props.link.href as string} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
               {props.link.text}
             </Link>
           )}

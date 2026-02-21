@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { paths } from "src/paths";
 import { AuthStepHeader } from "./components/auth/AuthStepHeader";
 import { PageWrapper } from "../PageWrapper";

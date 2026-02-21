@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PageWrapper } from "../PageWrapper";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../../../auth/AuthContext";
 import logo from "src/assets/v1/logo.png";
 import github from "src/assets/v1/github.png";
@@ -31,9 +31,9 @@ export function Authenticate(props: AuthenticateProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const queryParams = new URLSearchParams(location.search);
-  const repositoryToken: string | null = queryParams.get("repository_token");
-  const companyToken: string | null = queryParams.get("company_token");
+  const searchParams = (location.search ?? {}) as Record<string, string | undefined>;
+  const repositoryToken: string | null = searchParams.repository_token ?? null;
+  const companyToken: string | null = searchParams.company_token ?? null;
 
   const [name, setName] = useState<string | null>(null);
   const [githubLogin, setGithubLogin] = useState("");
@@ -108,7 +108,7 @@ export function Authenticate(props: AuthenticateProps) {
 
     const successCallback = () => {
       console.log("Authentication successful, redirecting to:", from || paths.HOME);
-      navigate(from || paths.HOME, { replace: true });
+      navigate({ to: (from || paths.HOME) as string, replace: true });
     }; // Redirect to the original page after registration
 
     if (props.type === AuthenticateType.SignIn) {

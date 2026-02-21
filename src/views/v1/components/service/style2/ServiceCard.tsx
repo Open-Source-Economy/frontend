@@ -1,6 +1,6 @@
 import React from "react";
 import check from "src/assets/v1/checkmark.png";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ServiceType } from "@open-source-economy/api-types";
 import { displayedServices } from "./DisplayedService";
 

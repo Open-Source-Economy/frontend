@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/v1/components/elements/Button";
 import startimg from "src/assets/v1/star.png";
 import { Audience, textColorVariants } from "../../../../../../Audience";

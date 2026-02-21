@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "../pages/authenticate/AuthContext";
 import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
@@ -25,7 +25,7 @@ export function AuthRoutes(props: { authPage: string }) {
   }
 
   // Ensure we're passing the full location object
-  return <Navigate to={props.authPage} state={{ from: { pathname: location.pathname } }} replace />;
+  return <Navigate to={props.authPage as string} state={{ from: { pathname: location.pathname } } as any} replace />;
 }
 
 export function NonProdRoutes() {
@@ -45,7 +45,13 @@ export function SuperAdminRoutes() {
     return <Outlet />;
   } else {
     // TODO: add redirect "redirect" if it could be admin
-    return auth.loading ? <PageLoader message="Checking permissions..." /> : allowed ? <Outlet /> : <Navigate to={paths.AUTH.IDENTIFY} />; // TODO: add  404 page
+    return auth.loading ? (
+      <PageLoader message="Checking permissions..." />
+    ) : allowed ? (
+      <Outlet />
+    ) : (
+      <Navigate to={paths.AUTH.IDENTIFY as string} search={{ repository_token: undefined, company_token: undefined, email: undefined }} />
+    ); // TODO: add  404 page
   }
 }
 
@@ -56,5 +62,5 @@ export function Logout(props: { redirect: string }) {
     auth.logout();
   }, []);
 
-  return auth.loading ? <PageLoader message="Logging out..." /> : <Navigate to={props.redirect} />;
+  return auth.loading ? <PageLoader message="Logging out..." /> : <Navigate to={props.redirect as string} />;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { DonationCard } from "./components/DonationCard";
 import { ArrowRight, Briefcase, Code, Globe, Heart, Package, Target, TrendingUp, Users } from "lucide-react";
 import { PageWrapper } from "../PageWrapper";

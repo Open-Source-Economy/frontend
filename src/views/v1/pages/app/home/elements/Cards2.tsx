@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, To } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button, ExternalLink } from "src/views/v1/components";
 import { Owner, Repository } from "@open-source-economy/api-types";
 import { Audience } from "../../../../../Audience";
@@ -9,7 +9,7 @@ export interface Cards2Props {
   repository: Repository;
   audience: Audience;
   action?: string;
-  to?: To;
+  to?: string;
 }
 
 export function Cards2(props: Cards2Props) {

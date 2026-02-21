@@ -4,7 +4,7 @@ import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/i
 import { validateEmail } from "src/views/components/ui/forms/validators";
 import { Mail, ChevronLeft } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 import { paths } from "src/paths";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
@@ -15,8 +15,8 @@ export function ForgotPasswordStep() {
   const location = useLocation();
   const forgotPasswordMutation = authHooks.useForgotPasswordMutation();
 
-  const queryParams = new URLSearchParams(location.search);
-  const [email, setEmail] = useState(queryParams.get("email") || "");
+  const searchParams = location.search as { email?: string };
+  const [email, setEmail] = useState(searchParams.email || "");
   const [isSuccess, setIsSuccess] = useState(false);
 
   const emailInputRef = useRef<InputRef>(null);
@@ -47,7 +47,7 @@ export function ForgotPasswordStep() {
           <p className="text-brand-neutral-500 text-center">
             If an account exists for <strong>{email}</strong>, you will receive an email shortly.
           </p>
-          <Button onClick={() => navigate(paths.AUTH.IDENTIFY)} className="w-full h-11">
+          <Button onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string })} className="w-full h-11">
             Back to Sign In
           </Button>
         </div>
@@ -80,7 +80,7 @@ export function ForgotPasswordStep() {
             </Button>
 
             <Button
-              onClick={() => navigate(paths.AUTH.PASSWORD + location.search)}
+              onClick={() => navigate({ to: paths.AUTH.PASSWORD as string, search: searchParams })}
               variant="ghost"
               className="w-full h-11 text-brand-neutral-700"
               leftIcon={ChevronLeft}

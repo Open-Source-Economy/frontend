@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Award, Calendar, Clock, ShieldCheck } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 
 import { PageWrapper } from "../PageWrapper";
 import { SectionHeader } from "../../components/ui/section/section-header";
@@ -27,7 +27,7 @@ import { FeaturedVendors } from "../home/sections/vendors/FeaturedVendors";
 type ServiceOfferingByCategory = Map<ServiceType, ServiceOffering[]>;
 
 export function ProjectDetailPage() {
-  const params = useParams<{ ownerParam?: string; repoParam?: string }>();
+  const params = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
   const [showAllMaintainers, setShowAllMaintainers] = useState(false);
   const [expandedServiceCategories, setExpandedServiceCategories] = useState<Set<ServiceType>>(new Set());
 

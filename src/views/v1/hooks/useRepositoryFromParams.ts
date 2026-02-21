@@ -1,8 +1,8 @@
 import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
-import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 
 export function useRepositoryFromParams(): RepositoryId | null {
-  const { ownerParam, repoParam } = useParams();
+  const { ownerParam, repoParam } = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
 
   if (ownerParam && repoParam) {
     const ownerId = new OwnerId(ownerParam);

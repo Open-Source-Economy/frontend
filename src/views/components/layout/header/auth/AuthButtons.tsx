@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { buttonVariants } from "../../../ui/forms/button";
 import { cn } from "src/views/components/utils";
 import { NavigationLink } from "src/types/navigation";
@@ -34,7 +34,7 @@ function AuthButton(props: { link: NavigationLink; variant: "desktop" | "mobile"
   }
 
   return (
-    <Link to={props.link.href || "#"} className={cn(buttonVariants({ variant: btnVariant, size: btnSize }), mobileClasses, "!no-underline")}>
+    <Link to={(props.link.href || "#") as string} className={cn(buttonVariants({ variant: btnVariant, size: btnSize }), mobileClasses, "!no-underline")}>
       {props.link.title}
     </Link>
   );

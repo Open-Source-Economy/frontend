@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 import { IssueId } from "@open-source-economy/api-types";
 import { useRepositoryFromParams } from "./useRepositoryFromParams";
 
 export function useIssueIdFromParams(): IssueId | null {
-  const { ownerParam, repoParam, numberParam } = useParams();
+  const { ownerParam, repoParam, numberParam } = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string; numberParam?: string };
   const repositoryId = useRepositoryFromParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 

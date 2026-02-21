@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, HelpCircle, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { paths } from "../../../../../paths";
@@ -31,7 +31,7 @@ export const ActionsSection: React.FC = () => {
       <div className="text-center">
         <Button
           size="lg"
-          onClick={() => navigate(paths.HOME)}
+          onClick={() => navigate({ to: paths.HOME as string })}
           className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark"
         >
           Back to Home

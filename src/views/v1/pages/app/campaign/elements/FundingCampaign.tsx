@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 import { Currency, GetCampaignResponse, ProjectId } from "@open-source-economy/api-types";
 import { config, Env } from "../../../../../../ultils";
 import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
@@ -17,7 +17,7 @@ interface FundingCampaignProps {
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
-  const { checkout_error } = useParams();
+  const { checkout_error } = useParams({ strict: false }) as { checkout_error?: string };
   const checkoutErrorParamName = "checkout_error";
   const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;

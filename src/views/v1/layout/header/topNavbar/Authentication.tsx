@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../../../components";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { NavbarItem } from "../navbar/item/NavbarItem";
 import { Navigation } from "../navbar/item/NavItemData";
 import { useCurrency } from "src/context/CurrencyContext";

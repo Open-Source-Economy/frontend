@@ -6,7 +6,7 @@ import { EmailDisplay } from "../components/auth/EmailDisplay";
 import { TermsCheckbox } from "../components/auth/TermsCheckbox";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { validatePassword, validatePasswordMatch } from "src/views/components/ui/forms/validators";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -34,8 +34,8 @@ export function PasswordStep() {
   const confirmPasswordInputRef = useRef<InputRef>(null);
 
   // Unpack State & URL
-  const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email");
+  const searchParams = location.search as { email?: string; repository_token?: string; company_token?: string };
+  const email = searchParams.email ?? null;
 
   // Transient navigation state
   const [accountDetails, setAccountDetails] = useState<{
@@ -46,14 +46,14 @@ export function PasswordStep() {
   const isEmailPredefined = (location.state as any)?.isEmailPredefined || false;
 
   // Tokens for submission
-  const repositoryToken = queryParams.get("repository_token");
-  const companyToken = queryParams.get("company_token");
+  const repositoryToken = searchParams.repository_token ?? null;
+  const companyToken = searchParams.company_token ?? null;
   const redirectPath = (location.state as any)?.from?.pathname || paths.HOME;
 
   // Recovery Logic: If deep linked or refreshed, restore account details
   useEffect(() => {
     if (!email) {
-      navigate(paths.AUTH.IDENTIFY);
+      navigate({ to: paths.AUTH.IDENTIFY as string });
       return;
     }
 
@@ -87,7 +87,7 @@ export function PasswordStep() {
     }
 
     const successCallback = () => {
-      navigate(redirectPath, { replace: true });
+      navigate({ to: redirectPath as string, replace: true });
     };
 
     if (accountDetails?.exists) {
@@ -125,7 +125,7 @@ export function PasswordStep() {
   return (
     <AuthPageWrapper title={title} description={description}>
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
-        <EmailDisplay email={email} onEdit={!isEmailPredefined ? () => navigate(`${paths.AUTH.IDENTIFY}${location.search}`) : undefined} />
+        <EmailDisplay email={email} onEdit={!isEmailPredefined ? () => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams }) : undefined} />
 
         <form onSubmit={handleFinalAuth} className="space-y-4">
           {/* Password Field */}
@@ -144,7 +144,7 @@ export function PasswordStep() {
               accountDetails?.exists
                 ? {
                     text: "Forgot?",
-                    href: `${paths.AUTH.FORGOT_PASSWORD}${location.search}`,
+                    href: `${paths.AUTH.FORGOT_PASSWORD}${location.searchStr}`,
                   }
                 : undefined
             }
@@ -188,7 +188,7 @@ export function PasswordStep() {
 
             <Button
               onClick={() => {
-                navigate(`${paths.AUTH.IDENTIFY}${location.search}`);
+                navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams });
               }}
               variant="ghost"
               className="w-full h-11 text-brand-neutral-700"

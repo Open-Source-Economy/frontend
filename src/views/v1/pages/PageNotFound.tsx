@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { MascotIcon } from "src/ultils/Icons";
 import notFound from "src/assets/v1/404.webp";
 import hero from "src/assets/v1/hero-bg.webp";

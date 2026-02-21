@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
 import { paths } from "../../../../../../paths";
 import { PageWrapper } from "../../../PageWrapper";
@@ -11,7 +11,7 @@ export default function OnboardingLandingPage() {
 
   const handleGitHubSignIn = () => {
     if ((auth.authInfo as any)?.user) {
-      navigate(paths.DEVELOPER_ONBOARDING);
+      navigate({ to: paths.DEVELOPER_ONBOARDING as string });
     } else {
       auth.loginWithGitHub(paths.DEVELOPER_ONBOARDING);
     }

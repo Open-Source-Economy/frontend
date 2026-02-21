@@ -3,7 +3,7 @@ import faqImage from "src/assets/v1/faq.webp";
 import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import { Button } from "src/views/v1/components";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
 import { projectHooks } from "src/api";

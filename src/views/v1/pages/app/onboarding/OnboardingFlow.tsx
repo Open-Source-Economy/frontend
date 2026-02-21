@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 
 import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
 
@@ -50,7 +50,7 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
 });
 
 export default function OnboardingFlow() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearch({ strict: false }) as Record<string, string | undefined>;
   const navigate = useNavigate();
   const auth = useAuth();
 
@@ -59,7 +59,7 @@ export default function OnboardingFlow() {
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
 
-  const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
+  const currentUrlStep = parseInt(searchParams.step || OnboardingDataSteps.Step1.toString());
 
   const params: dto.GetDeveloperProfileParams = {};
   const query: dto.GetDeveloperProfileQuery = {};
@@ -71,7 +71,7 @@ export default function OnboardingFlow() {
 
     // If the URL step is invalid, redirect to Step1
     if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step5) {
-      setSearchParams({ step: currentStep.toString() });
+      navigate({ search: { step: currentStep.toString() } as any, replace: true });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
@@ -80,10 +80,10 @@ export default function OnboardingFlow() {
       const newState = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
       setState(newState);
     }
-  }, [currentUrlStep, setSearchParams, profileQuery.data]); // TODO: lolo not sure about it Depend on currentUrlStep and setSearchParams
+  }, [currentUrlStep, navigate, profileQuery.data]); // TODO: lolo not sure about it Depend on currentUrlStep and navigate
 
   const goToStep = (step: OnboardingDataSteps) => {
-    setSearchParams({ step: step.toString() });
+    navigate({ search: { step: step.toString() } as any, replace: true });
     setState(prevState => ({ ...prevState, currentStep: step }));
   };
 
@@ -91,7 +91,7 @@ export default function OnboardingFlow() {
     if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+      navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
     }
   };
 
@@ -100,7 +100,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate(paths.DEVELOPER_LANDING);
+      navigate({ to: paths.DEVELOPER_LANDING as string });
     }
   };
 

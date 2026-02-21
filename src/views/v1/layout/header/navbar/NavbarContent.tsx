@@ -1,6 +1,6 @@
 import type React from "react";
 import { type Dispatch, type SetStateAction } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/v1/components";
 import { useAuth } from "src/views/auth";
 import { MobileNavbar } from "./MobileNavbar";

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
@@ -350,7 +350,7 @@ export function Maintainers() {
                       {/* Action Button */}
                       {githubUsername && (
                         <Link
-                          to={paths.ADMIN.MAINTAINER(githubUsername)}
+                          to={paths.ADMIN.MAINTAINER(githubUsername) as string}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 bg-brand-accent hover:bg-brand-accent-dark text-white rounded-lg transition-colors"

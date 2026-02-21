@@ -7,7 +7,6 @@ import { Maintainers } from "../project/elements/Maintainers";
 import { ProjectTitle } from "src/views/v1/components/title";
 import { config, Env } from "src/ultils";
 import { Button } from "src/views/v1/components";
-import { Link } from "react-router-dom";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Sponsor } from "./elements/sponsor/Sponsor";
@@ -45,7 +44,7 @@ export function Campaign(props: CampaignProps) {
           <AQuestion description={campaign?.aQuestion}>
             {config.env !== Env.Production && (
               <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
-                <Link to="#">FAQ</Link>
+                <a href="#">FAQ</a>
               </Button>
             )}
             <BookACallButton />

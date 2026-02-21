@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import sec2icon2 from "src/assets/v1/icon/sec2img3.png";
 import sec2icon1 from "src/assets/v1/icon/sec2img.png";
 import startimg from "src/assets/v1/star.png";

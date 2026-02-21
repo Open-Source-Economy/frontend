@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, getRouteApi } from "@tanstack/react-router";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
@@ -24,8 +24,10 @@ import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
 import { OrganizationSyncButton } from "./components/OrganizationSyncButton";
 
+const routeApi = getRouteApi("/admin/maintainer/$githubUsername");
+
 export function Maintainer() {
-  const { githubUsername } = useParams<{ githubUsername: string }>();
+  const { githubUsername } = routeApi.useParams();
   const [profile, setProfile] = useState<dto.FullDeveloperProfile | null>(null);
   const [apiError, setApiError] = useState<ApiError | null>(null);
 

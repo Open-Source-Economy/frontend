@@ -8,7 +8,7 @@ import { ServiceType } from "@open-source-economy/api-types";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
 import { Button } from "../../../components";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { paths } from "../../../../../paths";
 
 interface CompanyProductProps {}

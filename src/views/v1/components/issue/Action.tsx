@@ -1,7 +1,7 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "@open-source-economy/api-types";
 import { Button, ExternalLink } from "src/views/v1/components/index";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Audience } from "src/views/index";
 import { paths } from "src/paths";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../ui/dropdown-menu";
 import { NavigationLink } from "src/types/navigation";
@@ -26,7 +26,7 @@ export function NavDropdown(props: NavDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" sideOffset={8} className="w-56">
         {props.items.map(item => (
-          <Link key={item.href} to={item.href} className="w-full">
+          <Link key={item.href} to={item.href as string} className="w-full">
             <DropdownMenuItem className="cursor-pointer">{item.title}</DropdownMenuItem>
           </Link>
         ))}

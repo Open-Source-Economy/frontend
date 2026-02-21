@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
 import { UserRole } from "@open-source-economy/api-types";
 import { config, Env } from "src/ultils";
@@ -25,7 +25,7 @@ export function AuthRoutes(props: { authPage: string }) {
   }
 
   // Ensure we're passing the full location object
-  return <Navigate to={props.authPage} state={{ from: { pathname: location.pathname } }} replace />;
+  return <Navigate to={props.authPage as string} />;
 }
 
 export function NonProdRoutes() {

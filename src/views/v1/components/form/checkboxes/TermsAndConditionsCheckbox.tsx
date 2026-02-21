@@ -1,5 +1,5 @@
 import React, { forwardRef, InputHTMLAttributes, Ref } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { CheckboxInput } from "./CheckboxInput";
 import { BaseProps, BaseRef } from "../Base";
 

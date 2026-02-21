@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ButtonItemData, ExternalLinkItemData, LinkItemData, type NavItemData } from "./NavItemData";
 import { ExternalLink } from "../../../../components";
 

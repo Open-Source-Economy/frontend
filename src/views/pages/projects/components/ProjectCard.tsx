@@ -7,7 +7,7 @@ import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/ap
 import { ProjectItemWithDetailsCardView, ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { DeveloperRoleTypeCompanion } from "src/ultils/companions/DeveloperRoleType.companion";
 import { Button } from "src/views/components/ui/forms/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { paths } from "src/paths";
 
 interface ProjectCardProps {
@@ -67,7 +67,7 @@ export function ProjectCard(props: ProjectCardProps) {
     e.stopPropagation();
     const ownerRepo = resolveOwnerRepo();
     if (ownerRepo?.owner) {
-      navigate(paths.PROJECT_DETAIL(ownerRepo.owner, ownerRepo.repo));
+      navigate({ to: paths.PROJECT_DETAIL(ownerRepo.owner, ownerRepo.repo) as string });
     } else if (props.onViewProject) {
       props.onViewProject(view.projectId.uuid);
     }

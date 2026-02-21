@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Code2 } from "lucide-react";
 import { paths } from "src/paths";
 import { Button } from "../../ui/forms/button";

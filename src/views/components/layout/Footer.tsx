@@ -4,7 +4,7 @@ import { paths } from "src/paths";
 import { footerNavigation } from "./navigation";
 import { Logo } from "../brand/Logo";
 import { ExternalLink } from "../ui/forms/external-link";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { CurrencySelector } from "../ui/forms/select/currency-selector";
 import { NewsletterSection } from "./NewsletterSection";
 
@@ -45,7 +45,7 @@ function FooterAnchor({ href, external, children, className }: { href: string; e
       {children}
     </ExternalLink>
   ) : (
-    <Link to={href} className={className}>
+    <Link to={href as string} className={className}>
       {children}
     </Link>
   );

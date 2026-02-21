@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { paths } from "../../../../../../paths";
 import { laurianeCalDevLink } from "../../../../data";
 import { PageWrapper } from "../../../PageWrapper";
@@ -14,7 +14,7 @@ export default function DevelopedOnboardingComplete(props: DevelopedOnboardingCo
     window.open(laurianeCalDevLink, "_blank");
     // Also navigate to dashboard after opening the booking link
     setTimeout(() => {
-      navigate(paths.HOME);
+      navigate({ to: paths.HOME as string });
     }, 1000);
   };
 

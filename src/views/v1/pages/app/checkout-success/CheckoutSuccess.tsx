@@ -1,6 +1,6 @@
 import React from "react";
 import { PageWrapper } from "../../PageWrapper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useSearch } from "@tanstack/react-router";
 import catimg from "src/assets/v1/catimg.png";
 import FeatureItem from "./Feature";
 import { Button } from "src/views/v1/components";
@@ -15,10 +15,9 @@ interface CheckoutSuccessProps {}
 export function CheckoutSuccess(props: CheckoutSuccessProps) {
   const audience: Audience = Audience.ALL;
 
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const session_id = queryParams.get("session_id");
-  const mode = queryParams.get("mode");
+  const searchParams = useSearch({ strict: false }) as Record<string, string | undefined>;
+  const session_id = searchParams.session_id ?? null;
+  const mode = searchParams.mode ?? null;
 
   return (
     <PageWrapper>

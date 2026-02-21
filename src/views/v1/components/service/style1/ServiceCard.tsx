@@ -5,7 +5,7 @@ import { ServiceType } from "@open-source-economy/api-types";
 import { displayedServices } from "src/views/v1/components/service/style1/DisplayedService";
 import { Audience } from "../../../../Audience";
 import { Button } from "../../elements";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { ServiceButton } from "../ServiceButton";
 
 interface ServiceCardProps {

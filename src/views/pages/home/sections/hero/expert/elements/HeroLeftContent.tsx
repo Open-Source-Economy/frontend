@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/components/ui/forms/button";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { ArrowRight, Clock, Shield } from "lucide-react";
@@ -46,7 +46,7 @@ export function HeroLeftContent(props: HeroLeftContentProps) {
                 // Internal link
                 if (action.href && !action.external) {
                   return (
-                    <Link key={index} to={action.href}>
+                    <Link key={index} to={action.href as string}>
                       <Button variant={action.variant} size="lg" rightIcon={action.icon ? ArrowRight : undefined} icon={action.icon}>
                         {action.text}
                       </Button>

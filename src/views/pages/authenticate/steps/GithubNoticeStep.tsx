@@ -2,19 +2,18 @@ import React from "react";
 import { Github } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { EmailDisplay } from "../components/auth/EmailDisplay";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 
 export function GithubNoticeStep() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const searchParams = useSearch({ strict: false }) as Record<string, string | undefined>;
   const auth = useAuth();
 
-  // Get email from URL params
-  const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email") || "";
+  // Get email from search params
+  const email = searchParams.email || "";
 
   const handleGithubAuth = () => {
     auth.loginWithGitHub();
@@ -38,7 +37,7 @@ export function GithubNoticeStep() {
 
         <button
           onClick={() => {
-            navigate(paths.AUTH.IDENTIFY);
+            navigate({ to: paths.AUTH.IDENTIFY as string });
           }}
           className="w-full text-center text-sm font-bold text-brand-neutral-400 uppercase tracking-widest hover:text-brand-accent transition-colors py-2"
         >

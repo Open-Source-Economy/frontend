@@ -1,26 +1,36 @@
-import { Outlet, useOutletContext, useParams } from "react-router-dom";
+import { Outlet, useParams } from "@tanstack/react-router";
 
 import { useRepositoryFromParams } from "../hooks";
 import { IssueId } from "@open-source-economy/api-types";
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { PageNotFound } from "../pages/PageNotFound";
 
 type IssueContextType = {
   issueId: IssueId;
 };
 
-export function useIssueContext() {
-  return useOutletContext<IssueContextType>();
+const IssueContextReact = createContext<IssueContextType | null>(null);
+
+export function useIssueContext(): IssueContextType {
+  const context = useContext(IssueContextReact);
+  if (!context) {
+    throw new Error("useIssueContext must be used within an IssueRoutes");
+  }
+  return context;
 }
 
 export function IssueRoutes() {
-  const { numberParam } = useParams();
+  const { numberParam } = useParams({ strict: false }) as { numberParam?: string };
   const repositoryId = useRepositoryFromParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
   if (repositoryId && number !== undefined) {
     const issueId = new IssueId(repositoryId, number);
-    return <Outlet context={{ issueId }} />;
+    return (
+      <IssueContextReact.Provider value={{ issueId }}>
+        <Outlet />
+      </IssueContextReact.Provider>
+    );
   }
 
   return <PageNotFound />;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "src/views/v1/components/elements/Button";
 import { IssueId, OwnerId, RepositoryId } from "@open-source-economy/api-types";
 import { Audience } from "src/views/index";
@@ -40,8 +40,8 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
       const issueId = extractGitHubIssueInfo(url);
       if (issueId) {
         setIsValidUrl(true);
-        if (props.audience === Audience.DEVELOPER) navigate(paths.manageIssue(issueId));
-        else if (props.audience === Audience.USER) navigate(paths.fundIssue(issueId));
+        if (props.audience === Audience.DEVELOPER) navigate({ to: paths.manageIssue(issueId) as string });
+        else if (props.audience === Audience.USER) navigate({ to: paths.fundIssue(issueId) as string });
       } else {
         setIsValidUrl(false);
       }

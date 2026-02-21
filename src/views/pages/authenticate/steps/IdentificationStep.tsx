@@ -4,7 +4,7 @@ import { Button } from "src/views/components/ui/forms/button";
 import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { FormDivider } from "../components/auth/FormDivider";
 import { validateEmail } from "src/views/components/ui/forms/validators";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, getRouteApi } from "@tanstack/react-router";
 import { Provider } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
@@ -13,9 +13,11 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { authHooks } from "src/api";
 
+const routeApi = getRouteApi("/auth/identify");
+
 export function IdentificationStep() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const searchParams = routeApi.useSearch() as { repository_token?: string; company_token?: string; email?: string };
   const auth = useAuth();
   const checkEmailMutation = authHooks.useCheckEmailMutation();
 
@@ -27,10 +29,9 @@ export function IdentificationStep() {
   const emailInputRef = useRef<InputRef>(null);
 
   // Query Params & Tokens
-  const queryParams = new URLSearchParams(location.search);
-  const repositoryToken = queryParams.get("repository_token");
-  const companyToken = queryParams.get("company_token");
-  const urlEmail = queryParams.get("email");
+  const repositoryToken = searchParams.repository_token ?? null;
+  const companyToken = searchParams.company_token ?? null;
+  const urlEmail = searchParams.email ?? null;
 
   // Invite info queries (enabled only when tokens are present)
   const {
@@ -76,9 +77,7 @@ export function IdentificationStep() {
   const apiError = combinedError ? (combinedError instanceof ApiError ? combinedError : ApiError.from(combinedError)) : null;
 
   const updateUrlEmail = (newEmail: string) => {
-    const newParams = new URLSearchParams(location.search);
-    newParams.set("email", newEmail);
-    navigate(`${location.pathname}?${newParams.toString()}`, { replace: true });
+    navigate({ to: "/auth/identify", search: { ...searchParams, email: newEmail } as any, replace: true });
   };
 
   const handleGithubAuth = () => {
@@ -90,16 +89,14 @@ export function IdentificationStep() {
       const result = await checkEmailMutation.mutateAsync({ params: {}, body: {}, query: { email: emailToCheck } });
       const nextPath = result.provider === Provider.Github ? paths.AUTH.GITHUB : paths.AUTH.PASSWORD;
 
-      // Explicitly set email in params to ensure it is passed even if location.search is stale
-      const params = new URLSearchParams(location.search);
-      params.set("email", emailToCheck);
-
-      navigate(`${nextPath}?${params.toString()}`, {
+      navigate({
+        to: nextPath as string,
+        search: { ...searchParams, email: emailToCheck } as any,
         state: {
           email: emailToCheck,
           accountDetails: result,
           isEmailPredefined: isPredefined,
-        },
+        } as any,
       });
     } catch {
       // Error tracked by checkEmailMutation.error

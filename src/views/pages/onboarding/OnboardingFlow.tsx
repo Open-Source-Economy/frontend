@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/_authenticated/developer-onboarding");
 
 import { useAuth } from "src/views/auth/AuthContext";
 import { onboardingHooks } from "src/api";
@@ -52,7 +54,7 @@ const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
 });
 
 export default function OnboardingFlow() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = routeApi.useSearch();
   const navigate = useNavigate();
   const auth = useAuth();
 
@@ -62,7 +64,7 @@ export default function OnboardingFlow() {
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
   const [isSaving, setIsSaving] = useState(false);
 
-  const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
+  const currentUrlStep = searchParams.step ?? OnboardingDataSteps.Step1;
 
   const params: dto.GetDeveloperProfileParams = {};
   const query: dto.GetDeveloperProfileQuery = {};
@@ -76,7 +78,7 @@ export default function OnboardingFlow() {
 
     // If the URL step is invalid, redirect to Step1
     if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step5) {
-      setSearchParams({ step: currentStep.toString() });
+      navigate({ search: { step: currentStep } as any, replace: true });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
@@ -85,10 +87,10 @@ export default function OnboardingFlow() {
       const state = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
       setState(state);
     }
-  }, [currentUrlStep, setSearchParams, profileQuery.data]);
+  }, [currentUrlStep, navigate, profileQuery.data]);
 
   const goToStep = (step: OnboardingDataSteps) => {
-    setSearchParams({ step: step.toString() });
+    navigate({ search: { step } as any, replace: true });
     setState(prevState => ({ ...prevState, currentStep: step }));
   };
 
@@ -98,7 +100,7 @@ export default function OnboardingFlow() {
     if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+      navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
     }
   };
 
@@ -107,7 +109,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate(paths.DEVELOPER_LANDING);
+      navigate({ to: paths.DEVELOPER_LANDING as string });
     }
   };
 
@@ -291,7 +293,7 @@ export default function OnboardingFlow() {
                     totalSteps={5}
                     isSaving={isSaving}
                     onBack={goToPrevStep}
-                    onCancel={() => navigate(paths.DEVELOPER_LANDING)}
+                    onCancel={() => navigate({ to: paths.DEVELOPER_LANDING as string })}
                     onNext={handleContinue}
                   />
                 </div>

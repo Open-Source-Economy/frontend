@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu";
 import { UserProfileSection } from "./UserProfileSection";
 import { TokenDisplay } from "../../../user/TokenDisplay";
@@ -36,7 +36,7 @@ export function UserMenuDropdown(props: UserMenuDropdownProps) {
               )}
               <DropdownMenuGroup>
                 {section.links.map(item => (
-                  <Link key={item.title} to={item.href} className="!no-underline">
+                  <Link key={item.title} to={item.href as string} className="!no-underline">
                     <DropdownMenuItem className="cursor-pointer flex items-center gap-2">
                       {item.icon}
                       <span>{item.title}</span>
@@ -50,7 +50,7 @@ export function UserMenuDropdown(props: UserMenuDropdownProps) {
 
         <DropdownMenuSeparator />
         <div className="px-2 py-2">
-          <Link to={props.menuConfig.logout.href} className="!no-underline">
+          <Link to={props.menuConfig.logout.href as string} className="!no-underline">
             <DropdownMenuItem className="cursor-pointer flex items-center gap-2 text-red-400 focus:text-red-400 focus:bg-red-400/10">
               {props.menuConfig.logout.icon}
               <span>{props.menuConfig.logout.title}</span>

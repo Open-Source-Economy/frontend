@@ -4,7 +4,9 @@ import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/i
 import { validatePassword, validatePasswordMatch } from "src/views/components/ui/forms/validators";
 import { Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/auth/reset-password");
 import { paths } from "src/paths";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
@@ -12,8 +14,8 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 
 export function ResetPasswordStep() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
+  const { token: tokenParam } = routeApi.useSearch();
+  const token = tokenParam || null;
   const resetPasswordMutation = authHooks.useResetPasswordMutation();
 
   const [password, setPassword] = useState("");
@@ -48,7 +50,7 @@ export function ResetPasswordStep() {
 
     try {
       await resetPasswordMutation.mutateAsync({ body: { password }, query: { token } });
-      navigate(paths.AUTH.IDENTIFY, { state: { message: "Password reset successfully. Please login." } });
+      navigate({ to: paths.AUTH.IDENTIFY as string });
     } catch {
       // Error tracked by resetPasswordMutation.error
     }
@@ -57,7 +59,7 @@ export function ResetPasswordStep() {
   if (!token) {
     return (
       <AuthPageWrapper title="Invalid Link" description="This password reset link is invalid or has expired.">
-        <Button onClick={() => navigate(paths.AUTH.FORGOT_PASSWORD)} className="w-full">
+        <Button onClick={() => navigate({ to: paths.AUTH.FORGOT_PASSWORD as string })} className="w-full">
           Request New Link
         </Button>
       </AuthPageWrapper>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Logo } from "src/views/components/brand/Logo";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { headerNavigation, userMenuNavigation } from "./navigation";
 import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";

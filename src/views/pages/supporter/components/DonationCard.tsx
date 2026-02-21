@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 import { Button } from "../../../components/ui/forms/button";
 import { Card, CardContent } from "../../../components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/forms/select/select";
@@ -23,7 +23,8 @@ interface DonationCardProps {
 }
 
 export function DonationCard(props: DonationCardProps) {
-  const { checkout_error } = useParams();
+  const params = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
+  const checkout_error = new URLSearchParams(window.location.search).get("checkout_error");
   const { preferredCurrency, setPreferredCurrency } = useCurrency();
   const displayedCurrency = displayedCurrencies[preferredCurrency];
 

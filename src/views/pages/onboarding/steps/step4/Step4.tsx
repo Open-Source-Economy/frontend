@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -120,7 +120,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
     if (success && skipStep5) {
       try {
         await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
-        navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
+        navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
       } catch {
         // error tracked by completeOnboarding.error
       }

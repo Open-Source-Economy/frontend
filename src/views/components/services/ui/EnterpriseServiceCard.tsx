@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { LucideIcon } from "lucide-react";
 import { Button } from "../../ui/forms/button";
 import { paths } from "src/paths";
