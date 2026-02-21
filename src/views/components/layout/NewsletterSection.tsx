@@ -6,9 +6,7 @@ import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
 import { ValidatedInputWithRef, type InputRef } from "../ui/forms/inputs/validated-input";
 import { validateEmail } from "../ui/forms/validators";
-import { getBackendAPI } from "src/services";
-import { handleApiCall } from "src/ultils";
-import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "@open-source-economy/api-types";
+import { stripeHooks } from "src/api";
 
 // -----------------------------
 // Newsletter Section Component
@@ -17,10 +15,11 @@ interface NewsletterSectionProps {}
 
 export function NewsletterSection(props: NewsletterSectionProps) {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ApiError | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const emailInputRef = useRef<InputRef>(null);
+
+  const newsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
+  const error = newsletterMutation.error ? (newsletterMutation.error instanceof ApiError ? newsletterMutation.error : ApiError.from(newsletterMutation.error)) : null;
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,37 +32,34 @@ export function NewsletterSection(props: NewsletterSectionProps) {
       return;
     }
 
-    const backendAPI = getBackendAPI();
-    const params: NewsletterSubscriptionParams = {};
-    const body: NewsletterSubscriptionBody = { email };
-    const query: NewsletterSubscriptionQuery = {};
-
-    await handleApiCall(
-      () => backendAPI.subscribeToNewsletter(params, body, query),
-      setIsLoading,
-      setError,
-      () => {
-        setIsSuccess(true);
-        setEmail("");
-      },
-    );
+    try {
+      await newsletterMutation.mutateAsync({
+        params: {},
+        body: { email },
+        query: {},
+      });
+      setIsSuccess(true);
+      setEmail("");
+    } catch {
+      // Error is tracked by newsletterMutation.error
+    }
   };
 
   const handleResetSuccess = () => {
     setIsSuccess(false);
     setEmail("");
-    setError(null);
+    newsletterMutation.reset();
   };
 
   const handleEmailChange = (newEmail: string) => {
     setEmail(newEmail);
     if (error) {
-      setError(null);
+      newsletterMutation.reset();
     }
   };
 
   const handleErrorDismiss = () => {
-    setError(null);
+    newsletterMutation.reset();
   };
 
   return (
@@ -108,13 +104,13 @@ export function NewsletterSection(props: NewsletterSectionProps) {
                   }
                 }}
                 placeholder="Enter your email"
-                disabled={isLoading}
+                disabled={newsletterMutation.isPending}
                 leftIcon={Mail}
                 validator={validateEmail}
               />
             </div>
-            <Button type="submit" variant="default" size="default" className="h-10" disabled={isLoading}>
-              {isLoading ? (
+            <Button type="submit" variant="default" size="default" className="h-10" disabled={newsletterMutation.isPending}>
+              {newsletterMutation.isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Subscribing...

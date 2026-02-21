@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { AlertCircle, CheckCircle, Loader2, RefreshCw } from "lucide-react";
-import { getAdminBackendAPI } from "src/services";
+import { adminHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 
 interface OrganizationSyncButtonProps {
@@ -17,22 +17,20 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
   const size = props.size ?? "sm";
   const className = props.className ?? "";
 
-  const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>("");
 
-  const adminAPI = getAdminBackendAPI();
+  const syncOrgRepos = adminHooks.useSyncOrganizationRepositoriesMutation();
 
   const handleSync = async () => {
-    setIsSyncing(true);
     setSyncStatus("idle");
     setMessage("");
 
     try {
-      const response = await adminAPI.syncOrganizationRepositories(
-        { projectItemId: props.projectItemId },
-        { offset: 0 }, // Start from beginning
-      );
+      const response = await syncOrgRepos.mutateAsync({
+        params: { projectItemId: props.projectItemId },
+        query: { offset: 0 }, // Start from beginning
+      });
 
       setSyncStatus("success");
       setMessage(response.message);
@@ -40,7 +38,6 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
       setSyncStatus("error");
       setMessage(error instanceof ApiError ? error.message : error instanceof Error ? error.message : "Sync failed");
     } finally {
-      setIsSyncing(false);
       // Clear status after 5 seconds
       setTimeout(() => {
         setSyncStatus("idle");
@@ -50,7 +47,7 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
   };
 
   const getIconComponent = () => {
-    if (isSyncing) return Loader2;
+    if (syncOrgRepos.isPending) return Loader2;
     if (syncStatus === "success") return CheckCircle;
     if (syncStatus === "error") return AlertCircle;
     return RefreshCw;
@@ -63,7 +60,7 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
   };
 
   const getButtonText = () => {
-    if (isSyncing) return "Syncing...";
+    if (syncOrgRepos.isPending) return "Syncing...";
     if (syncStatus === "success") return "Synced!";
     if (syncStatus === "error") return "Failed";
     return "Sync Repos";
@@ -71,7 +68,7 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
 
   return (
     <div className={className}>
-      <Button onClick={handleSync} disabled={isSyncing} variant={getButtonVariant()} size={size} className="whitespace-nowrap" leftIcon={getIconComponent()}>
+      <Button onClick={handleSync} disabled={syncOrgRepos.isPending} variant={getButtonVariant()} size={size} className="whitespace-nowrap" leftIcon={getIconComponent()}>
         {getButtonText()}
       </Button>
 

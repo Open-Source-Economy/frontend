@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
-import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { PreferenceType } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "../../../../../../../ultils";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
 import { FundingCardGrid } from "./FundingCardGrid";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../../../../../../../paths";
+import { onboardingHooks } from "src/api";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
@@ -25,8 +23,7 @@ export function Step3(props: Step3Props) {
   const [preferences, setPreferences] = useState<Step3State>(validatedState);
   const [showServiceModel, setShowServiceModel] = useState(false);
 
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const setDeveloperPreferencesMutation = onboardingHooks.useSetDeveloperPreferencesMutation();
 
   useEffect(() => {
     // Only save if at least one preference is set
@@ -36,7 +33,7 @@ export function Step3(props: Step3Props) {
   }, [preferences]);
 
   const savePreferences = async () => {
-    const apiCall = async () => {
+    try {
       const params: dto.SetDeveloperPreferencesParams = {};
       const body: dto.SetDeveloperPreferencesBody = {
         royaltiesPreference: preferences.royaltiesPreference,
@@ -45,14 +42,11 @@ export function Step3(props: Step3Props) {
       };
       const query: dto.SetDeveloperPreferencesQuery = {};
 
-      return await getOnboardingBackendAPI().setDeveloperPreferences(params, body, query);
-    };
-
-    const onSuccess = (response: dto.SetDeveloperPreferencesResponse) => {
+      const response = await setDeveloperPreferencesMutation.mutateAsync({ params, body, query });
       console.log("Preferences saved successfully:", response);
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // error tracked by setDeveloperPreferencesMutation.error
+    }
   };
 
   const handleToggleChange = async (option: IncomeStreamPreferences, enabled: boolean) => {
@@ -92,6 +86,9 @@ export function Step3(props: Step3Props) {
   const incomeStreamsForGrid: IncomeStreamPreferences[] = [];
   if (preferences.royaltiesPreference === PreferenceType.YES) incomeStreamsForGrid.push("royalties");
   if (preferences.servicesPreference === PreferenceType.YES) incomeStreamsForGrid.push("services");
+
+  const isLoading = setDeveloperPreferencesMutation.isPending;
+  const apiError = setDeveloperPreferencesMutation.error;
 
   return (
     <>

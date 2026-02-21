@@ -1,8 +1,9 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { authHooks } from "src/api";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -11,50 +12,26 @@ interface AuthProviderProps {
 export function AuthProvider(props: AuthProviderProps) {
   const auth = getAuthBackendAPI();
 
-  const [loading, setLoading] = useState(true);
-  const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-
-  useEffect(() => {
-    setLoading(false);
-    checkUserStatus();
-  }, []);
-
-  const checkUserStatus = async () => {
-    setLoading(true);
-    try {
-      const statusResponse = await auth.checkUserStatus();
-      setAuthInfo(statusResponse);
-    } catch (error: unknown) {
-      setApiError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setLoading(false);
-    }
-  };
+  const statusQuery = authHooks.useUserStatusQuery();
+  const loginMutation = authHooks.useLoginMutation();
+  const registerMutation = authHooks.useRegisterMutation();
+  const logoutMutation = authHooks.useLogoutMutation();
 
   const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
-    setLoading(true);
     try {
-      const loginResponse = await auth.login(body, query);
-      setAuthInfo(loginResponse);
+      await loginMutation.mutateAsync({ body, query });
       if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-    } catch (error: unknown) {
-      setApiError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setLoading(false);
+    } catch {
+      // error tracked by loginMutation.error
     }
   };
 
   const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
-    setLoading(true);
     try {
-      const registerResponse = await auth.register(body, query);
-      setAuthInfo(registerResponse);
+      await registerMutation.mutateAsync({ body, query });
       if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-    } catch (error: unknown) {
-      setApiError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setLoading(false);
+    } catch {
+      // error tracked by registerMutation.error
     }
   };
 
@@ -63,22 +40,21 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const logout = async (successCallback?: () => void) => {
-    setLoading(true);
     try {
-      await auth.deleteSession();
-      setAuthInfo(null);
+      await logoutMutation.mutateAsync();
       if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
-    } catch (error: unknown) {
-      setApiError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setLoading(false);
+    } catch {
+      // error tracked by logoutMutation.error
     }
   };
 
+  const loading = statusQuery.isLoading || loginMutation.isPending || registerMutation.isPending || logoutMutation.isPending;
+  const error = loginMutation.error || registerMutation.error || logoutMutation.error || (statusQuery.error ? statusQuery.error : null);
+
   const state: AuthContextState = {
     loading: loading,
-    authInfo: authInfo,
-    error: apiError,
+    authInfo: statusQuery.data ?? null,
+    error: error ? (error instanceof ApiError ? error : ApiError.from(error)) : null,
     login,
     logout,
     loginWithGitHub,

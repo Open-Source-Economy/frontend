@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { CompanyId, CompanyUserRole, SendCompanyRoleInviteBody, SendCompanyRoleInviteParams, SendCompanyRoleInviteQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 
 import { Audience } from "../../../../Audience";
 import { AudienceTitle } from "src/views/v1/components";
+import { adminHooks } from "src/api";
 
 interface InviteCompanyUserProps {}
 
 export function InviteCompanyUser(props: InviteCompanyUserProps) {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [companyId, setCompanyId] = useState<CompanyId | null>(null);
 
   const [success, setSuccess] = useState<boolean | null>(null);
+
+  const sendCompanyRoleInvite = adminHooks.useSendCompanyRoleInviteMutation();
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -56,7 +56,7 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
       console.log("params", params);
       console.log("body", body);
       console.log("query", query);
-      await adminBackendAPI.sendCompanyRoleInvite(params, body, query);
+      await sendCompanyRoleInvite.mutateAsync({ params, body, query });
       setError(null);
       setName(null);
       setEmail(null);

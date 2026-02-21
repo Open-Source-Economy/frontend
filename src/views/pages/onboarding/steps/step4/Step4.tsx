@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OnboardingStepProps } from "../OnboardingStepProps";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingHooks } from "src/api";
+import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType, PreferenceType } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "../../../../../ultils";
 import { Step4State } from "../../OnboardingDataSteps";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { BrandModalSection } from "src/views/components/ui/brand-modal";
@@ -29,9 +28,13 @@ interface Step4FormErrors {
 
 export function Step4(props: Step4AvailabilityRateProps) {
   const navigate = useNavigate();
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState<Step4FormErrors>({});
+
+  const setServiceSettings = onboardingHooks.useSetDeveloperServiceSettingsMutation();
+  const completeOnboarding = onboardingHooks.useCompleteOnboardingMutation();
+
+  const mutationError = setServiceSettings.error || completeOnboarding.error;
+  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
 
   // Check if user selected "Yes" to Service Provider
   const isServiceProvider = props.servicesPreference === PreferenceType.YES;
@@ -53,8 +56,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
   }, [props.state.openToOtherOpportunity]);
 
   const saveSettingsToDatabase = async (): Promise<boolean> => {
-    const onboardingAPI = getOnboardingBackendAPI();
-    const apiCall = async () => {
+    try {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
         hourlyWeeklyCommitment: isServiceProvider ? props.state.hourlyWeeklyCommitment! : undefined,
@@ -66,14 +68,16 @@ export function Step4(props: Step4AvailabilityRateProps) {
         hourlyRateComment: props.state.hourlyRateComment || undefined,
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
-      return await onboardingAPI.setDeveloperServiceSettings(params, body, query);
-    };
-
-    return await handleApiCall(apiCall, setIsLoading, setApiError);
+      await setServiceSettings.mutateAsync({ params, body, query });
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   const handleNext = async (): Promise<boolean> => {
-    setApiError(null);
+    setServiceSettings.reset();
+    completeOnboarding.reset();
 
     const errors: Step4FormErrors = {};
     let isValid = true;
@@ -114,15 +118,12 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
     // If user selected "Not interested" for Service Provider, skip Step 5 and complete onboarding
     if (success && skipStep5) {
-      const completeApiCall = async () => {
-        return await getOnboardingBackendAPI().completeOnboarding({}, {}, {});
-      };
-
-      const onComplete = () => {
+      try {
+        await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
         navigate(paths.DEVELOPER_ONBOARDING_COMPLETED);
-      };
-
-      await handleApiCall(completeApiCall, setIsLoading, setApiError, onComplete);
+      } catch {
+        // error tracked by completeOnboarding.error
+      }
       return false; // Don't proceed to Step 5
     }
 

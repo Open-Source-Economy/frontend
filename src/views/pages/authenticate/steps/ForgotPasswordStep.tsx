@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "src/views/auth/AuthContext";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { validateEmail } from "src/views/components/ui/forms/validators";
@@ -7,44 +6,38 @@ import { Mail, ChevronLeft } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { paths } from "src/paths";
-import { getAuthBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import * as dto from "@open-source-economy/api-types";
-import { handleApiCall } from "src/ultils/handleApiCall";
+import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 
 export function ForgotPasswordStep() {
   const navigate = useNavigate();
   const location = useLocation();
-  const authAPI = getAuthBackendAPI();
+  const forgotPasswordMutation = authHooks.useForgotPasswordMutation();
 
   const queryParams = new URLSearchParams(location.search);
   const [email, setEmail] = useState(queryParams.get("email") || "");
-  const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const emailInputRef = useRef<InputRef>(null);
 
+  const forgotPasswordError = forgotPasswordMutation.error
+    ? forgotPasswordMutation.error instanceof ApiError
+      ? forgotPasswordMutation.error
+      : ApiError.from(forgotPasswordMutation.error)
+    : null;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setApiError(null);
     const isEmailValid = emailInputRef.current?.validate(true) ?? false;
     if (!isEmailValid) return;
 
-    setIsLoading(true);
-
-    const apiCall = async () => {
-      // @ts-ignore - DTOs might not be available in types yet if package not updated
-      return await authAPI.forgotPassword({ email }, {}, {});
-    };
-
-    const onSuccess = () => {
+    try {
+      await forgotPasswordMutation.mutateAsync({ body: { email } });
       setIsSuccess(true);
-      setIsLoading(false);
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // Error tracked by forgotPasswordMutation.error
+    }
   };
 
   if (isSuccess) {
@@ -79,10 +72,10 @@ export function ForgotPasswordStep() {
             autoFocus
           />
 
-          {apiError && <ServerErrorAlert error={apiError} />}
+          {forgotPasswordError && <ServerErrorAlert error={forgotPasswordError} />}
 
           <div className="space-y-3 pt-2">
-            <Button type="submit" loading={isLoading} className="w-full h-11">
+            <Button type="submit" loading={forgotPasswordMutation.isPending} className="w-full h-11">
               Send Reset Link
             </Button>
 

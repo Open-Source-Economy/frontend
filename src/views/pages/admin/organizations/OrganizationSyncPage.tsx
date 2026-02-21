@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services";
-import { projectHooks } from "src/api";
+import { adminHooks, projectHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
 import { Building2, GitBranch, Users } from "lucide-react";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions";
 import { OrganizationWithSyncState } from "./components/types";
@@ -30,7 +28,8 @@ export function OrganizationSyncPage() {
   const [msPerRepo, setMsPerRepo] = useState<number>(1000);
   const [globalFetchDetails, setGlobalFetchDetails] = useState(true);
 
-  const adminAPI = getAdminBackendAPI();
+  const syncOrgRepos = adminHooks.useSyncOrganizationRepositoriesMutation();
+  const syncOwnerMutation = adminHooks.useSyncOwnerMutation();
 
   // Fetch organizations using TanStack Query
   const {
@@ -65,11 +64,12 @@ export function OrganizationSyncPage() {
   const handleSync = async (projectItemId: string, offset: number = 0, batchSize?: number, fetchDetails: boolean = false) => {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
 
-    const apiCall = async () => {
-      return await adminAPI.syncOrganizationRepositories({ projectItemId }, { offset, batchSize, fetchDetails });
-    };
+    try {
+      const response = await syncOrgRepos.mutateAsync({
+        params: { projectItemId },
+        query: { offset, batchSize, fetchDetails },
+      });
 
-    const onSuccess = (response: dto.SyncOrganizationRepositoriesResponse) => {
       setOrganizations(prev => prev.map(org => (org.projectItem.id.uuid === projectItemId ? { ...org, lastSyncMessage: response.message } : org)));
 
       setTimeout(() => {
@@ -79,28 +79,25 @@ export function OrganizationSyncPage() {
           return newSet;
         });
       }, 2000);
-    };
-
-    const noopLoading = () => {};
-    const success = await handleApiCall(apiCall, noopLoading, setApiError, onSuccess);
-
-    if (!success) {
+    } catch (error) {
       setSyncingIds(prev => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
       });
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 
   const handleSyncOwner = async (ownerLogin: string, projectItemId: string) => {
     setSyncingOwnerIds(prev => new Set(prev).add(projectItemId));
 
-    const apiCall = async () => {
-      return await adminAPI.syncOwner({ owner: ownerLogin }, {});
-    };
+    try {
+      const response = await syncOwnerMutation.mutateAsync({
+        params: { owner: ownerLogin },
+        query: {},
+      });
 
-    const onSuccess = (response: any) => {
       const owner = response?.owner || response;
 
       if (!owner || !owner.id) {
@@ -121,17 +118,13 @@ export function OrganizationSyncPage() {
           return newSet;
         });
       }, 1000);
-    };
-
-    const noopLoading = () => {};
-    const success = await handleApiCall(apiCall, noopLoading, setApiError, onSuccess);
-
-    if (!success) {
+    } catch (error) {
       setSyncingOwnerIds(prev => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
       });
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

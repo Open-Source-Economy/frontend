@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
-import { getOnboardingBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import * as dto from "@open-source-economy/api-types";
-import { handleApiCall } from "../../../../../../../ultils";
+import { onboardingHooks } from "src/api";
 
 import { EmailInput, GenericInputRef, NameInput } from "../../../../../components/form";
 import { FormSection } from "./FormSection";
@@ -14,10 +13,10 @@ import { ButtonGroup } from "../../landing/components/ButtonGroup";
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
 export default function Step1(props: Step1Props) {
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(true);
-  const onboardingAPI = getOnboardingBackendAPI();
+
+  const createProfileMutation = onboardingHooks.useCreateDeveloperProfileMutation();
+  const updateContactInfosMutation = onboardingHooks.useUpdateDeveloperContactInfosMutation();
 
   // Refs for inputs, including the new checkbox, typed with their respective ref interfaces
   const nameInputRef = useRef<GenericInputRef>(null);
@@ -41,8 +40,7 @@ export default function Step1(props: Step1Props) {
 
   const handleNext = async () => {
     if (validateForm()) {
-      const apiCall = async () => {
-        let result;
+      try {
         if (props.state.developerProfileId) {
           const params: dto.UpdateDeveloperContactInfosParams = {};
           const body: dto.UpdateDeveloperContactInfosBody = {
@@ -50,7 +48,7 @@ export default function Step1(props: Step1Props) {
             email: props.state.contactEmail!,
           };
           const query: dto.UpdateDeveloperContactInfosQuery = {};
-          result = await onboardingAPI.updateDeveloperContactInfos(params, body, query);
+          await updateContactInfosMutation.mutateAsync({ params, body, query });
         } else {
           const params: dto.CreateDeveloperProfileParams = {};
           const body: dto.CreateDeveloperProfileBody = {
@@ -59,16 +57,12 @@ export default function Step1(props: Step1Props) {
             agreedToTerms: props.state.agreedToTerms!,
           };
           const query: dto.CreateDeveloperProfileQuery = {};
-          result = await onboardingAPI.createDeveloperProfile(params, body, query);
+          await createProfileMutation.mutateAsync({ params, body, query });
         }
-        return result;
-      };
-
-      const onSuccess = () => {
         props.onNext();
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      } catch {
+        // error tracked by mutation.error
+      }
     }
   };
 
@@ -80,6 +74,9 @@ export default function Step1(props: Step1Props) {
     // Handle terms and conditions link click
     window.open("/terms-and-conditions.pdf", "_blank");
   };
+
+  const isLoading = createProfileMutation.isPending || updateContactInfosMutation.isPending;
+  const apiError = createProfileMutation.error || updateContactInfosMutation.error;
 
   return (
     <>

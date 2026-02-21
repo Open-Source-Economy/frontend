@@ -4,15 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../auth/AuthContext";
 import logo from "src/assets/v1/logo.png";
 import github from "src/assets/v1/github.png";
-import {
-  GetCompanyUserInviteInfoQuery,
-  GetRepositoryUserInviteInfoQuery,
-  LoginBody,
-  LoginQuery,
-  RegisterBody,
-  RegisterQuery,
-} from "@open-source-economy/api-types";
-import { getAuthBackendAPI } from "src/services";
+import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { Button, EmailInput, PasswordInput } from "src/views/v1/components";
 import { TermsAgreement } from "src/views/v1/pages/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -22,6 +14,7 @@ import { ApiErrorModal } from "src/views/v1/components/common/ApiErrorModal";
 import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/v1/components/old-form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
+import { authHooks } from "src/api";
 
 export enum AuthenticateType {
   SignIn,
@@ -34,7 +27,6 @@ interface AuthenticateProps {
 
 export function Authenticate(props: AuthenticateProps) {
   const auth = useAuth();
-  const authAPI = getAuthBackendAPI();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,10 +57,36 @@ export function Authenticate(props: AuthenticateProps) {
   const [error, setError] = useState<ApiError | null>(null);
   const [showError, setShowError] = useState(false);
 
+  const companyInviteQuery = authHooks.useCompanyUserInviteInfoQuery({ token: companyToken ?? "" }, !!companyToken);
+  const repositoryInviteQuery = authHooks.useRepositoryUserInviteInfoQuery({ token: repositoryToken ?? "" }, !!repositoryToken);
+
   useEffect(() => {
-    if (companyToken) fetchCompanyUserInviteInfo(companyToken);
-    if (repositoryToken) fetchRepositoryUserInviteInfo(repositoryToken);
-  }, []);
+    if (companyInviteQuery.data) {
+      setName(companyInviteQuery.data.userName ?? null);
+      if (companyInviteQuery.data.userEmail) {
+        setFormData(prev => ({ ...prev, email: companyInviteQuery.data!.userEmail! }));
+        setIsEmailPredefined(true);
+      }
+    }
+    if (companyInviteQuery.error) {
+      const err = companyInviteQuery.error;
+      setError(err instanceof ApiError ? err : ApiError.from(err));
+    }
+  }, [companyInviteQuery.data, companyInviteQuery.error]);
+
+  useEffect(() => {
+    if (repositoryInviteQuery.data) {
+      setName(repositoryInviteQuery.data.userName ?? null);
+      if (repositoryInviteQuery.data.userGithubOwnerLogin) {
+        setGithubLogin(repositoryInviteQuery.data.userGithubOwnerLogin);
+        setIsGithubAccountPredefined(true);
+      }
+    }
+    if (repositoryInviteQuery.error) {
+      const err = repositoryInviteQuery.error;
+      setError(err instanceof ApiError ? err : ApiError.from(err));
+    }
+  }, [repositoryInviteQuery.data, repositoryInviteQuery.error]);
 
   const handleLogInWithGithub = async () => {
     auth.loginWithGitHub();
@@ -113,38 +131,6 @@ export function Authenticate(props: AuthenticateProps) {
         repositoryToken: repositoryToken ?? undefined,
       };
       auth.register(body, query, successCallback);
-    }
-  };
-
-  const fetchCompanyUserInviteInfo = async (companyToken: string) => {
-    try {
-      const query: GetCompanyUserInviteInfoQuery = {
-        token: companyToken,
-      };
-      const inviteInfo = await authAPI.getCompanyUserInviteInfo(query);
-      setName(inviteInfo.userName ?? null);
-      if (inviteInfo.userEmail) {
-        setFormData({ ...formData, email: inviteInfo.userEmail });
-        setIsEmailPredefined(true);
-      }
-    } catch (error: unknown) {
-      setError(error instanceof ApiError ? error : ApiError.from(error));
-    }
-  };
-
-  const fetchRepositoryUserInviteInfo = async (repositoryToken: string) => {
-    try {
-      const query: GetRepositoryUserInviteInfoQuery = {
-        token: repositoryToken,
-      };
-      const inviteInfo = await authAPI.getRepositoryUserInviteInfo(query);
-      setName(inviteInfo.userName ?? null);
-      if (inviteInfo.userGithubOwnerLogin) {
-        setGithubLogin(inviteInfo.userGithubOwnerLogin);
-        setIsGithubAccountPredefined(true);
-      }
-    } catch (error: unknown) {
-      setError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

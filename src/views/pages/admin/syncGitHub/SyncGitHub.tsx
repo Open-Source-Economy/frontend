@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services";
+import { adminHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function SyncGitHub() {
   const [ownerInput, setOwnerInput] = useState("");
   const [repoInput, setRepoInput] = useState("");
   const [syncType, setSyncType] = useState<"owner" | "repository" | "project">("owner");
-  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const adminAPI = getAdminBackendAPI();
+  const syncOwnerMutation = adminHooks.useSyncOwnerMutation();
+  const syncRepositoryMutation = adminHooks.useSyncRepositoryMutation();
+  const syncProjectMutation = adminHooks.useSyncProjectMutation();
+
+  const loading = syncOwnerMutation.isPending || syncRepositoryMutation.isPending || syncProjectMutation.isPending;
 
   const handleSync = async () => {
     if (!ownerInput.trim()) {
@@ -19,7 +22,6 @@ export function SyncGitHub() {
       return;
     }
 
-    setLoading(true);
     setError(null);
     setResult(null);
 
@@ -28,32 +30,29 @@ export function SyncGitHub() {
 
       switch (syncType) {
         case "owner":
-          response = await adminAPI.syncOwner({ owner: ownerInput }, {});
+          response = await syncOwnerMutation.mutateAsync({ params: { owner: ownerInput }, query: {} });
           break;
         case "repository":
           if (!repoInput.trim()) {
             setError("Please enter a repository name");
-            setLoading(false);
             return;
           }
-          response = await adminAPI.syncRepository({ owner: ownerInput, repo: repoInput }, {}, {});
+          response = await syncRepositoryMutation.mutateAsync({ params: { owner: ownerInput, repo: repoInput }, body: {}, query: {} });
           break;
         case "project":
-          response = await adminAPI.syncProject(
-            {
+          response = await syncProjectMutation.mutateAsync({
+            params: {
               owner: ownerInput,
               repo: repoInput.trim() || undefined,
             },
-            {},
-          );
+            query: {},
+          });
           break;
       }
 
       setResult(JSON.stringify(response, null, 2));
     } catch (err: any) {
       setError(`Failed to sync: ${err instanceof ApiError ? err.message : err.message}`);
-    } finally {
-      setLoading(false);
     }
   };
 

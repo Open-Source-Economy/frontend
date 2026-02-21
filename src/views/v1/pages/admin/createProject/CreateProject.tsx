@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
+import { adminHooks } from "src/api";
 
 interface FormData {
   owner: string;
@@ -23,14 +23,14 @@ const emptyBulkFormData: BulkFormData = {
 };
 
 export function CreateProject() {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const [formData, setFormData] = useState<FormData>(emptyFormData);
   const [bulkFormData, setBulkFormData] = useState<BulkFormData>(emptyBulkFormData);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<"single" | "bulk">("single");
+
+  const createProject = adminHooks.useCreateProjectMutation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -93,23 +93,19 @@ export function CreateProject() {
       repo: formData.repo,
     };
     const body: dto.CreateProjectBody = {};
-
     const query: dto.CreateProjectQuery = {};
 
-    setIsSubmitting(true);
     setError(null);
     setSuccess(false);
 
     try {
-      await adminBackendAPI.createProject(params, body, query);
+      await createProject.mutateAsync({ params, body, query });
       setError(null);
       setFormData(emptyFormData);
       setSuccess(true);
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -139,17 +135,17 @@ export function CreateProject() {
         const query: dto.CreateProjectQuery = {};
 
         try {
-          await adminBackendAPI.createProject(params, body, query);
-          results.push(`✅ ${project.owner}${project.repo ? `/${project.repo}` : ""}: Created successfully`);
+          await createProject.mutateAsync({ params, body, query });
+          results.push(`OK ${project.owner}${project.repo ? `/${project.repo}` : ""}: Created successfully`);
         } catch (error) {
           const apiError = error instanceof ApiError ? error : ApiError.from(error);
-          results.push(`❌ ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${apiError.statusCode} - ${apiError.message}`);
+          results.push(`FAIL ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${apiError.statusCode} - ${apiError.message}`);
         }
       }
 
       // Show results summary
-      const successCount = results.filter(r => r.startsWith("✅")).length;
-      const failureCount = results.filter(r => r.startsWith("❌")).length;
+      const successCount = results.filter(r => r.startsWith("OK")).length;
+      const failureCount = results.filter(r => r.startsWith("FAIL")).length;
 
       if (failureCount > 0) {
         setError(`Completed with ${successCount} successes and ${failureCount} failures:\n${results.join("\n")}`);
@@ -163,6 +159,8 @@ export function CreateProject() {
       setIsSubmitting(false);
     }
   };
+
+  const isBusy = createProject.isPending || isSubmitting;
 
   return (
     <PageWrapper>
@@ -224,9 +222,9 @@ export function CreateProject() {
                 <button
                   type="submit"
                   className="sm:px-14 px-[20px] py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  disabled={isSubmitting}
+                  disabled={isBusy}
                 >
-                  {isSubmitting ? "Creating..." : "Create Project"}
+                  {createProject.isPending ? "Creating..." : "Create Project"}
                 </button>
 
                 {error && <p className="text-red-500 mt-4 text-center whitespace-pre-line">{error}</p>}
@@ -253,7 +251,7 @@ export function CreateProject() {
                 <button
                   type="submit"
                   className="sm:px-14 px-[20px] py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  disabled={isSubmitting}
+                  disabled={isBusy}
                 >
                   {isSubmitting ? "Creating Projects..." : "Create Projects"}
                 </button>

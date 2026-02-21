@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { AddressId, CreateAddressBody, CreateAddressQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { adminHooks } from "src/api";
 
 interface CreateAddressProps {}
 
 export function CreateAddress(props: CreateAddressProps) {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const [error, setError] = useState<string | null>(null);
   const [createdAddressId, setCreatedAddressId] = useState<AddressId | null>(null);
   const [name, setName] = useState<string>("");
@@ -18,6 +16,8 @@ export function CreateAddress(props: CreateAddressProps) {
   const [state, setState] = useState<string>("");
   const [postalCode, setPostalCode] = useState<string>("");
   const [country, setCountry] = useState<string>("");
+
+  const createAddress = adminHooks.useCreateAddressMutation();
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setter(event.target.value);
@@ -40,7 +40,7 @@ export function CreateAddress(props: CreateAddressProps) {
     const query: CreateAddressQuery = {};
 
     try {
-      const result = await adminBackendAPI.createAddress(body, query);
+      const result = await createAddress.mutateAsync({ body, query });
       setCreatedAddressId(result.createdAddressId);
       // Reset form fields
       setName("");

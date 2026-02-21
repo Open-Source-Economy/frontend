@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
-import { getOnboardingBackendAPI } from "src/services";
 
 import Step1 from "./steps/step1/Step1";
 import Step2 from "./steps/step2/Step2";
 
 import { paths } from "../../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
-import { ApiError } from "src/ultils/error/ApiError";
 import { PageLoader } from "../../../components/common/PageLoader";
 import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
@@ -19,9 +17,9 @@ import { Step4 } from "./steps/step4";
 import { Step5 } from "./steps/step5";
 import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
 import ProgressBar from "./components/ProgressBar";
-import { handleApiCall } from "../../../../../ultils";
 import ErrorDisplay from "./components/ErrorDisplay";
 import { StepHeader } from "./landing/components";
+import { onboardingHooks } from "src/api";
 
 const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
@@ -55,16 +53,17 @@ export default function OnboardingFlow() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const auth = useAuth();
-  const onboardingAPI = getOnboardingBackendAPI();
 
   const preferredCurrency: Currency = PreferredCurrency.get(auth);
 
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
+
+  const params: dto.GetDeveloperProfileParams = {};
+  const query: dto.GetDeveloperProfileQuery = {};
+  const profileQuery = onboardingHooks.useDeveloperProfileQuery(params, query);
 
   // TODO: lolo
   useEffect(() => {
@@ -77,21 +76,11 @@ export default function OnboardingFlow() {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
 
-    const apiCall = async () => {
-      const params: dto.GetDeveloperProfileParams = {};
-      const query: dto.GetDeveloperProfileQuery = {};
-      return await onboardingAPI.getDeveloperProfile(params, query);
-    };
-
-    const onSuccess = (response: dto.GetDeveloperProfileResponse) => {
-      if (response.profile) {
-        const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile, preferredCurrency);
-        setState(state);
-      }
-    };
-
-    handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  }, [currentUrlStep, setSearchParams]); // TODO: lolo not sure about it Depend on currentUrlStep and setSearchParams
+    if (profileQuery.data?.profile) {
+      const newState = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
+      setState(newState);
+    }
+  }, [currentUrlStep, setSearchParams, profileQuery.data]); // TODO: lolo not sure about it Depend on currentUrlStep and setSearchParams
 
   const goToStep = (step: OnboardingDataSteps) => {
     setSearchParams({ step: step.toString() });
@@ -175,8 +164,8 @@ export default function OnboardingFlow() {
     <PageWrapper>
       {/* Corrected: The outer curly brace for the conditional rendering was missing. */}
       <div className="bg-[#0e1f35] min-h-screen">
-        <ErrorDisplay message={apiError?.message} />
-        {isLoading ? (
+        <ErrorDisplay message={profileQuery.error?.message} />
+        {profileQuery.isLoading ? (
           <PageLoader message="Loading onboarding steps..." />
         ) : (
           <>

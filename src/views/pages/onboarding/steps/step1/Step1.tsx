@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import * as dto from "@open-source-economy/api-types";
-import { handleApiCall } from "../../../../../ultils";
 import { Mail, User } from "lucide-react";
 
 import { Checkbox } from "src/views/components/ui/forms/checkbox";
@@ -21,12 +20,15 @@ import { isVisible } from "src/ultils/featureVisibility";
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
 export default function Step1(props: Step1Props) {
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(true);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const onboardingAPI = getOnboardingBackendAPI();
+  const createProfile = onboardingHooks.useCreateDeveloperProfileMutation();
+  const updateContactInfos = onboardingHooks.useUpdateDeveloperContactInfosMutation();
+
+  const isLoading = createProfile.isPending || updateContactInfos.isPending;
+  const mutationError = createProfile.error || updateContactInfos.error;
+  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
 
   // Refs for inputs
   const nameInputRef = useRef<InputRef>(null);
@@ -56,33 +58,31 @@ export default function Step1(props: Step1Props) {
   };
 
   const handleNext = async (): Promise<boolean> => {
-    if (validateForm()) {
-      const apiCall = async () => {
-        let result;
-        if (props.state.developerProfileId) {
-          const params: dto.UpdateDeveloperContactInfosParams = {};
-          const body: dto.UpdateDeveloperContactInfosBody = {
-            name: props.state.name!,
-            email: props.state.contactEmail!,
-          };
-          const query: dto.UpdateDeveloperContactInfosQuery = {};
-          result = await onboardingAPI.updateDeveloperContactInfos(params, body, query);
-        } else {
-          const params: dto.CreateDeveloperProfileParams = {};
-          const body: dto.CreateDeveloperProfileBody = {
-            name: props.state.name!,
-            email: props.state.contactEmail!,
-            agreedToTerms: props.state.agreedToTerms!,
-          };
-          const query: dto.CreateDeveloperProfileQuery = {};
-          result = await onboardingAPI.createDeveloperProfile(params, body, query);
-        }
-        return result;
-      };
+    if (!validateForm()) return false;
 
-      return await handleApiCall(apiCall, setIsLoading, setApiError);
+    try {
+      if (props.state.developerProfileId) {
+        const params: dto.UpdateDeveloperContactInfosParams = {};
+        const body: dto.UpdateDeveloperContactInfosBody = {
+          name: props.state.name!,
+          email: props.state.contactEmail!,
+        };
+        const query: dto.UpdateDeveloperContactInfosQuery = {};
+        await updateContactInfos.mutateAsync({ params, body, query });
+      } else {
+        const params: dto.CreateDeveloperProfileParams = {};
+        const body: dto.CreateDeveloperProfileBody = {
+          name: props.state.name!,
+          email: props.state.contactEmail!,
+          agreedToTerms: props.state.agreedToTerms!,
+        };
+        const query: dto.CreateDeveloperProfileQuery = {};
+        await createProfile.mutateAsync({ params, body, query });
+      }
+      return true;
+    } catch {
+      return false;
     }
-    return false;
   };
 
   const handleInputChange = (field: keyof Step1State, value: string | boolean) => {

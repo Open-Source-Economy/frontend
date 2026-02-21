@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { getOnboardingBackendAPI } from "src/services/OnboardingBackendAPI";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/upsert/UpsertProjectItemModal";
-import { ApiError } from "../../../../../../../ultils/error/ApiError";
 import { DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model";
-import { handleApiCall } from "../../../../../../../ultils";
 import { ButtonGroup } from "../../landing/components/ButtonGroup";
 import { ProjectsSection } from "./ProjectsSection";
 import { DeleteProjectModal } from "./modal/delete/DeleteProjectModal";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
+import { onboardingHooks } from "src/api";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
@@ -24,22 +22,16 @@ const Step2: React.FC<Step2Props> = props => {
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const api = getOnboardingBackendAPI();
+  const removeProjectItemMutation = onboardingHooks.useRemoveProjectItemMutation();
 
   const handleAddProject = () => {
     setEditingProject(null);
-    setApiError(null);
     setShowUpsertModal(true);
   };
 
   // Function to handle editing an existing project
   const handleEditProject = (entry: DeveloperProjectItemEntry) => {
     setEditingProject(entry);
-    setApiError(null);
     setShowUpsertModal(true);
   };
 
@@ -57,7 +49,6 @@ const Step2: React.FC<Step2Props> = props => {
     }
     setProjects(updatedProjects);
     props.updateState({ projects: updatedProjects });
-    setApiError(null);
   };
 
   const handleShowDeleteModal = (project: DeveloperProjectItemEntry) => {
@@ -66,25 +57,26 @@ const Step2: React.FC<Step2Props> = props => {
   };
 
   const handleConfirmDelete = async (developerProjectItemId: DeveloperProjectItemId) => {
-    const apiCall = async () => {
+    try {
       const params: dto.RemoveDeveloperProjectItemParams = {};
       const body: dto.RemoveDeveloperProjectItemBody = {
         developerProjectItemId,
       };
       const query: dto.RemoveDeveloperProjectItemQuery = {};
-      return await api.removeProjectItem(params, body, query);
-    };
+      await removeProjectItemMutation.mutateAsync({ params, body, query });
 
-    const onSuccess = () => {
       const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid);
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
       setShowDeleteModal(false);
       setDeletingProject(null);
-    };
-
-    await handleApiCall(apiCall, setIsDeleting, setApiError, onSuccess);
+    } catch {
+      // error tracked by removeProjectItemMutation.error
+    }
   };
+
+  const isLoading = removeProjectItemMutation.isPending;
+  const apiError = removeProjectItemMutation.error;
 
   return (
     <>
@@ -122,7 +114,7 @@ const Step2: React.FC<Step2Props> = props => {
           setShow={setShowDeleteModal}
           project={deletingProject}
           onConfirmDelete={handleConfirmDelete}
-          isDeleting={isDeleting}
+          isDeleting={removeProjectItemMutation.isPending}
         />
       )}
     </>

@@ -5,8 +5,7 @@ import { BrandModal, BrandModalSection } from "src/views/components/ui/brand-mod
 import { InfoMessage } from "src/views/components/ui/info-message";
 import { Button } from "src/views/components/ui/forms/button";
 import { Switch } from "src/views/components/ui/switch";
-import { getOnboardingBackendAPI } from "src/services";
-import { handleApiCall } from "src/ultils";
+import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 import { CurrencyCompanion, ResponseTimeTypeCompanion, ServiceTypeCompanion } from "src/ultils/companions";
 import { ProjectSelector } from "../components/ProjectSelector";
@@ -37,7 +36,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   onUpsertDeveloperService,
   onAddProject,
 }) => {
-  const api = getOnboardingBackendAPI();
+  const upsertDeveloperService = onboardingHooks.useUpsertDeveloperServiceMutation();
 
   // State
   const [selectedProjectIds, setSelectedProjectIds] = useState<dto.DeveloperProjectItemId[]>([]);
@@ -46,8 +45,13 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   const [responseTimeHours, setResponseTimeHours] = useState<dto.ResponseTimeType | undefined>(undefined);
   const [comment, setComment] = useState<string>("");
   const [showCommentField, setShowCommentField] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
+
+  const isLoading = upsertDeveloperService.isPending;
+  const apiError = upsertDeveloperService.error
+    ? upsertDeveloperService.error instanceof ApiError
+      ? upsertDeveloperService.error
+      : ApiError.from(upsertDeveloperService.error)
+    : null;
 
   const currencySymbol = CurrencyCompanion.symbol(defaultRate.currency);
 
@@ -60,23 +64,19 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       setResponseTimeHours(developerServiceEntry.developerService?.responseTimeHours ?? undefined);
       setComment(developerServiceEntry.developerService?.comment || "");
       setShowCommentField(!!developerServiceEntry.developerService?.comment);
-      setApiError(null);
+      upsertDeveloperService.reset();
     }
   }, [isOpen, developerServiceEntry]);
 
   const handleSave = async () => {
     if (!developerServiceEntry) return;
 
-    setIsLoading(true);
-    setApiError(null);
-
     // Validation
     if (selectedProjectIds.length === 0) {
-      setIsLoading(false);
       return;
     }
 
-    const apiCall = async () => {
+    try {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: developerServiceEntry.service.id,
         developerProjectItemIds: selectedProjectIds,
@@ -84,15 +84,13 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
         responseTimeHours: developerServiceEntry.service.hasResponseTime ? responseTimeHours : undefined,
         comment: comment || undefined,
       };
-      return await api.upsertDeveloperService({}, body, {});
-    };
+      const response = await upsertDeveloperService.mutateAsync({ params: {}, body, query: {} });
 
-    const onSuccess = (response: dto.UpsertDeveloperServiceResponse) => {
       onUpsertDeveloperService(response.developerService);
       onClose();
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // error tracked by upsertDeveloperService.error
+    }
   };
 
   if (!developerServiceEntry) return null;

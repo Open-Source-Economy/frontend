@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingHooks } from "src/api";
+import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { PreferenceType } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "../../../../../ultils";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ParticipationCard } from "./design-system/ParticipationCard";
@@ -18,9 +17,15 @@ export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
 
   const [preferences, setPreferences] = useState<Step3State>(validatedState);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const setDeveloperPreferences = onboardingHooks.useSetDeveloperPreferencesMutation();
+
+  const apiError = setDeveloperPreferences.error
+    ? setDeveloperPreferences.error instanceof ApiError
+      ? setDeveloperPreferences.error
+      : ApiError.from(setDeveloperPreferences.error)
+    : null;
 
   // Check if there are any errors
   const hasErrors = Object.keys(errors).length > 0;
@@ -73,7 +78,7 @@ export function Step3(props: Step3Props) {
   }, [preferences]);
 
   const savePreferences = async () => {
-    const apiCall = async () => {
+    try {
       const params: dto.SetDeveloperPreferencesParams = {};
       const body: dto.SetDeveloperPreferencesBody = {
         royaltiesPreference: preferences.royaltiesPreference,
@@ -82,14 +87,11 @@ export function Step3(props: Step3Props) {
       };
       const query: dto.SetDeveloperPreferencesQuery = {};
 
-      return await getOnboardingBackendAPI().setDeveloperPreferences(params, body, query);
-    };
-
-    const onSuccess = (response: dto.SetDeveloperPreferencesResponse) => {
+      const response = await setDeveloperPreferences.mutateAsync({ params, body, query });
       console.log("Preferences saved successfully:", response);
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // error tracked by setDeveloperPreferences.error
+    }
   };
 
   // Validation: All options must have a preference selected (excluding donations which is removed)

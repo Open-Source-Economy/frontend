@@ -8,7 +8,6 @@ import { CheckboxField } from "../../../components/ui/forms/checkbox-field";
 import { type InputRef, ValidatedInputWithRef } from "../../../components/ui/forms/inputs/validated-input";
 import { validateGitHubOwnerUrl, validatePositiveInteger } from "../../../components/ui/forms/validators";
 import { AlertCircle, Github, Heart, Shield, TrendingUp } from "lucide-react";
-import { getBackendAPI } from "src/services";
 import { CampaignPriceType, CampaignProductType, CheckoutBody, CheckoutParams, CheckoutQuery, Currency, Price } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { paths } from "src/paths";
@@ -17,14 +16,13 @@ import { NumberUtils } from "src/ultils/NumberUtils";
 import { openSourceEconomyProjectId } from "../../../../services/data/projects";
 import { GithubUrls } from "src/ultils/GithubUrls";
 import { useCurrency } from "../../../../context/CurrencyContext";
-import { projectHooks } from "src/api";
+import { projectHooks, stripeHooks } from "src/api";
 
 interface DonationCardProps {
   className?: string;
 }
 
 export function DonationCard(props: DonationCardProps) {
-  const backendAPI = getBackendAPI();
   const { checkout_error } = useParams();
   const { preferredCurrency, setPreferredCurrency } = useCurrency();
   const displayedCurrency = displayedCurrencies[preferredCurrency];
@@ -62,9 +60,16 @@ export function DonationCard(props: DonationCardProps) {
     [listPublicly],
   );
 
-  // Checkout state
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<ApiError | null>(null);
+  // Checkout mutation
+  const checkoutMutation = stripeHooks.useCheckoutMutation();
+  const [clientError, setClientError] = useState<string | null>(null);
+  const error = clientError
+    ? new ApiError(undefined, undefined, clientError)
+    : checkoutMutation.error
+      ? checkoutMutation.error instanceof ApiError
+        ? checkoutMutation.error
+        : ApiError.from(checkoutMutation.error)
+      : null;
 
   // Handle custom amount change - only allow positive integers
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,30 +109,33 @@ export function DonationCard(props: DonationCardProps) {
   const paymentCancelUrl = `${window.location.href.split("?")[0]}?${checkoutErrorParamName}=true`;
 
   const handleCheckout = async () => {
+    // Clear any previous client error
+    setClientError(null);
+
     // Validate custom amount if entered
     if (customAmount !== null) {
       const customAmountError = validatePositiveInteger(customAmount);
       if (customAmountError) {
-        setError(new ApiError(undefined, undefined, customAmountError.error || "Invalid amount"));
+        setClientError(customAmountError.error || "Invalid amount");
         return;
       }
     }
 
     // Check if either a price is selected or a custom amount is entered
     if (!selectedPrice && (!customAmount || customAmount <= 0)) {
-      setError(new ApiError(undefined, undefined, "Please select an amount or enter a custom amount"));
+      setClientError("Please select an amount or enter a custom amount");
       return;
     }
 
     // For custom amounts, we need to handle them differently
     // This is a placeholder - you may need to create a custom price or use a different Stripe flow
     if (customAmount && customAmount > 0 && !selectedPrice) {
-      setError(new ApiError(undefined, undefined, "Custom amounts are not yet supported. Please select a predefined amount."));
+      setClientError("Custom amounts are not yet supported. Please select a predefined amount.");
       return;
     }
 
     if (!selectedPrice) {
-      setError(new ApiError(undefined, undefined, "Please select an amount"));
+      setClientError("Please select an amount");
       return;
     }
 
@@ -141,9 +149,6 @@ export function DonationCard(props: DonationCardProps) {
     }
 
     // Only proceed to backend if all validations pass
-    setIsLoading(true);
-    setError(null);
-
     try {
       // Extract OwnerId from GitHub profile if listPublicly is true
       let metadata: Record<string, string> | undefined = undefined;
@@ -170,14 +175,11 @@ export function DonationCard(props: DonationCardProps) {
       };
       const query: CheckoutQuery = {};
 
-      const response = await backendAPI.checkout(params, body, query);
+      const response = await checkoutMutation.mutateAsync({ params, body, query });
       // Redirect to Stripe Checkout
       window.location.href = response.redirectUrl;
-    } catch (err) {
-      console.error("Failed to initiate checkout:", err);
-      setError(err instanceof ApiError ? err : ApiError.from(err));
-    } finally {
-      setIsLoading(false);
+    } catch {
+      // Error is tracked by checkoutMutation.error
     }
   };
 
@@ -358,8 +360,8 @@ export function DonationCard(props: DonationCardProps) {
             size="lg"
             className="w-full"
             leftIcon={Heart}
-            disabled={(!selectedPrice && (!customAmount || customAmount <= 0)) || isLoading}
-            loading={isLoading}
+            disabled={(!selectedPrice && (!customAmount || customAmount <= 0)) || checkoutMutation.isPending}
+            loading={checkoutMutation.isPending}
             loadingText="Processing..."
             onClick={handleCheckout}
           >

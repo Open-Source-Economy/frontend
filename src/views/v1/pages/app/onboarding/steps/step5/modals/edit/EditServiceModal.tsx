@@ -4,11 +4,9 @@ import { CommentIcon, CommentSection, ProjectSelection, ResponseTimeSection } fr
 import { ModalBackdrop } from "../ModalBackdrop";
 import { CloseIcon } from "../../icons";
 import { ProjectNotOnListModal } from "../../ui/ProjectNotOnListModal";
-import { getOnboardingBackendAPI } from "../../../../../../../../../services";
-import { handleApiCall } from "../../../../../../../../../ultils";
-import { ApiError } from "../../../../../../../../../ultils/error/ApiError";
 import { HourlyRateDisplaySection, HourlyRateEditingSection } from "./components/hourlyRate";
 import { ProjectItemId } from "@open-source-economy/api-types/dist/model/project/ProjectItem";
+import { onboardingHooks } from "src/api";
 
 export interface Rate {
   amount: number;
@@ -26,7 +24,7 @@ interface EditServiceModalProps {
 }
 
 export function EditServiceModal(props: EditServiceModalProps) {
-  const api = getOnboardingBackendAPI();
+  const upsertDeveloperServiceMutation = onboardingHooks.useUpsertDeveloperServiceMutation();
 
   // --- State Variables ---
   const [isEditingRate, setIsEditingRate] = useState(false);
@@ -42,8 +40,6 @@ export function EditServiceModal(props: EditServiceModalProps) {
 
   const [responseTime, setResponseTime] = useState<dto.ResponseTimeType | null>(props.developerServiceEntry.developerService?.responseTimeHours || null);
   const [comment, setComment] = useState<string | null>(props.developerServiceEntry.developerService?.comment || null);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [inputError, setInputError] = useState<string | null>(null);
 
   // Synchronize local state with props when the modal opens
@@ -56,29 +52,25 @@ export function EditServiceModal(props: EditServiceModalProps) {
       // Reset other states
       setIsEditingRate(false);
       setShowComments(false);
-      setApiError(null);
       setInputError(null);
+      upsertDeveloperServiceMutation.reset();
     }
   }, [props.isOpen, props.developerServiceEntry]);
 
   const handleSave = async () => {
-    setIsLoading(true);
-    setApiError(null);
     setInputError(null);
 
     // --- Validation ---
     if (selectedDeveloperProjectItemIds.length === 0) {
       setInputError("Please select at least one project.");
-      setIsLoading(false);
       return;
     }
     if (props.developerServiceEntry.service.hasResponseTime && responseTime === null) {
       setInputError("Please select a valid response time.");
-      setIsLoading(false);
       return;
     }
 
-    const apiCall = async () => {
+    try {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: props.developerServiceEntry.service.id,
         developerProjectItemIds: selectedDeveloperProjectItemIds,
@@ -86,15 +78,13 @@ export function EditServiceModal(props: EditServiceModalProps) {
         responseTimeHours: props.developerServiceEntry.service.hasResponseTime ? responseTime || undefined : undefined,
         comment: comment || undefined,
       };
-      return await api.upsertDeveloperService({}, body, {});
-    };
+      const response = await upsertDeveloperServiceMutation.mutateAsync({ params: {}, body, query: {} });
 
-    const onSuccess = (response: dto.UpsertDeveloperServiceResponse) => {
       props.onUpsertDeveloperService(response.developerService);
       props.onClose();
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // error tracked by upsertDeveloperServiceMutation.error
+    }
   };
 
   const handleProjectChange = (newSelectedProjects: ProjectItemId[]) => {
@@ -116,6 +106,8 @@ export function EditServiceModal(props: EditServiceModalProps) {
   const handleCancelAddProject = () => {
     setShowProjectNotOnListModal(false);
   };
+
+  const isLoading = upsertDeveloperServiceMutation.isPending;
 
   return (
     <>

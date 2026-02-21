@@ -2,22 +2,23 @@ import React from "react";
 import { CounterInput } from "src/views/v1/pages/app/manageIssue/elements/CounterInput";
 import check from "src/assets/v1/checkmark.png";
 import { useCreditCounter, useIssueIdFromParams } from "src/views/v1/hooks";
-import { getBackendAPI } from "src/services";
 import { RequestIssueFundingBody, RequestIssueFundingParams, RequestIssueFundingQuery } from "@open-source-economy/api-types";
 import { Button } from "src/views/v1/components";
 import { credit } from "src/model";
+import { projectHooks } from "src/api";
 
 interface AcceptFundingTabProps {
   reloadFinancialIssue: () => void;
 }
 
 export function AcceptFundingTab(props: AcceptFundingTabProps) {
-  const backendAPI = getBackendAPI();
   const issueId = useIssueIdFromParams();
 
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [error, setError] = React.useState<string | null>(null);
   const [noRequestedAmount, setNoRequestedAmount] = React.useState(false);
+
+  const requestFundingMutation = projectHooks.useRequestFundingMutation();
 
   const requestAmount = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
       const query: RequestIssueFundingQuery = {};
 
       try {
-        await backendAPI.requestFunding(params, body, query);
+        await requestFundingMutation.mutateAsync({ params, body, query });
         props.reloadFinancialIssue();
       } catch (error) {
         if (error instanceof Error) {

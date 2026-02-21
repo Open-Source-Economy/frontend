@@ -10,7 +10,7 @@ import {
   SendRepositoryRoleInviteQuery,
 } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
+import { adminHooks } from "src/api";
 
 interface FormData {
   name: string;
@@ -35,11 +35,11 @@ const emptyFormData: FormData = {
 };
 
 export function InviteRepositoryUser() {
-  const adminBackendAPI = getAdminBackendAPI();
   const [formData, setFormData] = useState<FormData>(emptyFormData);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const sendRepositoryRoleInvite = adminHooks.useSendRepositoryRoleInviteMutation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -92,17 +92,14 @@ export function InviteRepositoryUser() {
     };
     const query: SendRepositoryRoleInviteQuery = {};
 
-    setIsSubmitting(true);
     try {
-      await adminBackendAPI.sendRepositoryRoleInvite(params, body, query);
+      await sendRepositoryRoleInvite.mutateAsync({ params, body, query });
       setError(null);
       setFormData(emptyFormData);
       setSuccess(true);
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -204,8 +201,12 @@ export function InviteRepositoryUser() {
                 ))}
               </select>
 
-              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer disabled:opacity-50" disabled={isSubmitting}>
-                {isSubmitting ? "Inviting..." : "Invite User"}
+              <button
+                type="submit"
+                className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer disabled:opacity-50"
+                disabled={sendRepositoryRoleInvite.isPending}
+              >
+                {sendRepositoryRoleInvite.isPending ? "Inviting..." : "Invite User"}
               </button>
             </form>
 

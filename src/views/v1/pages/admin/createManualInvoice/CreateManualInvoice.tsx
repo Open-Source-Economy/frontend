@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { CompanyId, CreateManualInvoiceBody, CreateManualInvoiceQuery, UserId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { adminHooks } from "src/api";
 
 interface CreateManualInvoiceProps {}
 
 export function CreateManualInvoice(props: CreateManualInvoiceProps) {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [invoiceNumber, setInvoiceNumber] = useState<number | null>(null);
@@ -16,6 +14,8 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
   const [userId, setUserId] = useState<string | null>(null);
   const [paid, setPaid] = useState<boolean>(false);
   const [creditAmount, setCreditAmount] = useState<number | null>(null);
+
+  const createManualInvoice = adminHooks.useCreateManualInvoiceMutation();
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<any>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setter(event.target.value ? event.target.value : null);
@@ -50,7 +50,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
     const query: CreateManualInvoiceQuery = {};
 
     try {
-      await adminBackendAPI.createManualInvoice(body, query);
+      await createManualInvoice.mutateAsync({ body, query });
       setSuccess(true);
       // Reset form fields
       setInvoiceNumber(null);

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import { AddressId, CompanyId, CreateCompanyBody, CreateCompanyQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { adminHooks } from "src/api";
 
 interface CreateCompanyProps {}
 
 export function CreateCompany(props: CreateCompanyProps) {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
   const [taxId, setTaxId] = useState<string | null>(null);
   const [addressId, setAddressId] = useState<string | null>(null);
   const [createdCompanyId, setCreatedCompanyId] = useState<CompanyId | null>(null);
+
+  const createCompany = adminHooks.useCreateCompanyMutation();
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -43,7 +43,7 @@ export function CreateCompany(props: CreateCompanyProps) {
     const query: CreateCompanyQuery = {};
 
     try {
-      const result = await adminBackendAPI.createCompany(body, query);
+      const result = await createCompany.mutateAsync({ body, query });
       setError(null);
       setCreatedCompanyId(result.createdCompanyId);
     } catch (error) {

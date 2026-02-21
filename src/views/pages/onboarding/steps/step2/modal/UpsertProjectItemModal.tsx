@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectCategory, ProjectItemType } from "@open-source-economy/api-types";
-import { getOnboardingBackendAPI } from "../../../../../../services";
-import { ApiError } from "../../../../../../ultils/error/ApiError";
-import { handleApiCall } from "../../../../../../ultils";
+import { onboardingHooks } from "src/api";
+import { ApiError } from "src/ultils/error/ApiError";
 import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Button } from "src/views/components/ui/forms/button";
 import { FormField } from "src/views/components/ui/forms/form-field";
@@ -56,7 +55,8 @@ const createProjectItemData = (
 };
 
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
-  const api = getOnboardingBackendAPI();
+  const upsertProjectItem = onboardingHooks.useUpsertProjectItemMutation();
+  const removeProjectItem = onboardingHooks.useRemoveProjectItemMutation();
 
   const [isBulkMode, setIsBulkMode] = useState(false);
   const [bulkUrls, setBulkUrls] = useState("");
@@ -74,8 +74,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [customCategories, setCustomCategories] = useState<string[]>(props.entry?.developerProjectItem.customCategories || []);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [error, setError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const mutationError = upsertProjectItem.error || removeProjectItem.error;
+  const error = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
+  const isLoading = upsertProjectItem.isPending || removeProjectItem.isPending;
 
   // Memoize validation result to avoid recalculating on every render
   const bulkValidationResult = useMemo(() => {
@@ -120,7 +122,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       setBulkUrls("");
     }
     setErrors({});
-    setError(null);
+    upsertProjectItem.reset();
+    removeProjectItem.reset();
   }, [props.show, props.entry]);
 
   const validateForm = (): boolean => {
@@ -257,7 +260,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       (selectedProjectType !== props.entry.projectItem.projectItemType ||
         !SourceIdentifierCompanion.equals(sourceIdentifier, props.entry.projectItem.sourceIdentifier));
 
-    const apiCall = async () => {
+    try {
       // If editing and the project identifier changed, delete the old entry first
       if (isEditingWithChangedProject && props.entry) {
         const deleteParams: dto.RemoveDeveloperProjectItemParams = {};
@@ -265,7 +268,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           developerProjectItemId: props.entry.developerProjectItem.id,
         };
         const deleteQuery: dto.RemoveDeveloperProjectItemQuery = {};
-        await api.removeProjectItem(deleteParams, deleteBody, deleteQuery);
+        await removeProjectItem.mutateAsync({ params: deleteParams, body: deleteBody, query: deleteQuery });
       }
 
       // Then create or update the project item (single item as array of 1)
@@ -276,10 +279,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         ],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
-      return await api.upsertProjectItem(params, body, query);
-    };
+      const response = await upsertProjectItem.mutateAsync({ params, body, query });
 
-    const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
       props.setShow(false);
       // Response now returns results array, get first item for single mode
       if (response.results && response.results.length > 0) {
@@ -294,9 +295,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           projectItem: result.projectItem,
         });
       }
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
+    } catch {
+      // error tracked by mutation.error
+    }
   };
 
   const handleBulkSave = async () => {
@@ -310,16 +311,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       createProjectItemData(projectData.sourceIdentifier, projectData.projectType, selectedRole, selectedMergeRights, predefinedCategories, customCategories),
     );
 
-    const apiCall = async () => {
+    try {
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
         projectItems: projectItems,
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
-      return await api.upsertProjectItem(params, body, query);
-    };
+      const response = await upsertProjectItem.mutateAsync({ params, body, query });
 
-    const onSuccess = (response: dto.UpsertDeveloperProjectItemResponse) => {
       props.setShow(false);
       // Call onUpsert for each result
       if (response.results && response.results.length > 0) {
@@ -335,9 +334,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           });
         });
       }
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setError, onSuccess);
+    } catch {
+      // error tracked by mutation.error
+    }
   };
 
   const clearError = (field: string) => {

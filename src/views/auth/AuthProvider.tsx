@@ -1,10 +1,9 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
 import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils/handleApiCall";
 import { authHooks } from "src/api";
 
 interface AuthProviderProps {
@@ -18,15 +17,25 @@ export function AuthProvider(props: AuthProviderProps) {
   // TanStack Query for initial user status check
   const { data: queriedAuthInfo, isLoading: statusLoading, error: statusError } = authHooks.useUserStatusQuery();
 
-  // Mutation state (will be converted to useMutation in a later phase)
-  const [mutationLoading, setMutationLoading] = useState(false);
-  const [mutationError, setMutationError] = useState<ApiError | null>(null);
+  // Mutation hooks
+  const loginMutation = authHooks.useLoginMutation();
+  const registerMutation = authHooks.useRegisterMutation();
+  const logoutMutation = authHooks.useLogoutMutation();
 
   // Combined loading: true when either initial status check or a mutation is in progress
-  const loading = statusLoading || mutationLoading;
+  const loading = statusLoading || loginMutation.isPending || registerMutation.isPending || logoutMutation.isPending;
 
   // Combined error: mutation errors take precedence over query errors
-  const apiError = mutationError || (statusError ? (statusError instanceof ApiError ? statusError : ApiError.from(statusError)) : null);
+  const mutationError = loginMutation.error || registerMutation.error || logoutMutation.error;
+  const apiError = mutationError
+    ? mutationError instanceof ApiError
+      ? mutationError
+      : ApiError.from(mutationError)
+    : statusError
+      ? statusError instanceof ApiError
+        ? statusError
+        : ApiError.from(statusError)
+      : null;
 
   // Auth info comes from the query cache
   const authInfo = queriedAuthInfo ?? null;
@@ -36,27 +45,23 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
-    await handleApiCall(
-      () => auth.login(body, query),
-      setMutationLoading,
-      setMutationError,
-      (response: AuthInfo) => {
-        updateAuthCache(response);
-        if (successCallback) setTimeout(successCallback, 0);
-      },
-    );
+    try {
+      const response = await loginMutation.mutateAsync({ body, query });
+      updateAuthCache(response);
+      if (successCallback) setTimeout(successCallback, 0);
+    } catch {
+      // Error automatically tracked by loginMutation.error
+    }
   };
 
   const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
-    await handleApiCall(
-      () => auth.register(body, query),
-      setMutationLoading,
-      setMutationError,
-      (response: AuthInfo) => {
-        updateAuthCache(response);
-        if (successCallback) setTimeout(successCallback, 0);
-      },
-    );
+    try {
+      const response = await registerMutation.mutateAsync({ body, query });
+      updateAuthCache(response);
+      if (successCallback) setTimeout(successCallback, 0);
+    } catch {
+      // Error automatically tracked by registerMutation.error
+    }
   };
 
   const loginWithGitHub = async () => {
@@ -64,15 +69,13 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const logout = async (successCallback?: () => void) => {
-    await handleApiCall(
-      () => auth.deleteSession(),
-      setMutationLoading,
-      setMutationError,
-      () => {
-        updateAuthCache(null);
-        if (successCallback) setTimeout(successCallback, 0);
-      },
-    );
+    try {
+      await logoutMutation.mutateAsync();
+      updateAuthCache(null);
+      if (successCallback) setTimeout(successCallback, 0);
+    } catch {
+      // Error automatically tracked by logoutMutation.error
+    }
   };
 
   const state: AuthContextState = {

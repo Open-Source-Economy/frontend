@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getAdminBackendAPI } from "src/services/AdminBackendAPI";
 import * as dto from "@open-source-economy/api-types";
+import { adminHooks } from "src/api";
 
 interface CreateCampaignProductAndPriceProps {}
 
 export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPriceProps) {
-  const adminBackendAPI = getAdminBackendAPI();
-
   const emptyFormData = {
     owner: "",
     repo: "",
@@ -17,7 +15,8 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
   const [formData, setFormData] = useState(emptyFormData);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const createCampaignProductAndPrice = adminHooks.useCreateCampaignProductAndPriceMutation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -43,17 +42,14 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
     };
     const query: dto.CreateCampaignProductAndPriceQuery = {};
 
-    setIsSubmitting(true);
     try {
-      await adminBackendAPI.createCampaignProductAndPrice(params, body, query);
+      await createCampaignProductAndPrice.mutateAsync({ params, body, query });
       setError(null);
       setSuccess(true);
       setFormData(emptyFormData);
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -86,8 +82,12 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
                 onChange={handleInputChange}
               />
 
-              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={isSubmitting}>
-                {isSubmitting ? "Creating..." : "Create Product & Price"}
+              <button
+                type="submit"
+                className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer"
+                disabled={createCampaignProductAndPrice.isPending}
+              >
+                {createCampaignProductAndPrice.isPending ? "Creating..." : "Create Product & Price"}
               </button>
             </form>
 

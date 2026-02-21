@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services";
-import { projectHooks } from "src/api";
+import { adminHooks, projectHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
 import { Code, GitBranch, Users } from "lucide-react";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions";
 import { RepositoryWithSyncState } from "./components/types";
@@ -28,7 +26,7 @@ export function RepositorySyncPage() {
   const [msPerRepo, setMsPerRepo] = useState<number>(2000); // 2 seconds per repo for safety
   const [globalFetchDetails, setGlobalFetchDetails] = useState(true);
 
-  const adminAPI = getAdminBackendAPI();
+  const syncRepositoryMutation = adminHooks.useSyncRepositoryMutation();
 
   // Fetch repositories using TanStack Query
   const {
@@ -63,15 +61,16 @@ export function RepositorySyncPage() {
   const handleSync = async (owner: string, repo: string, projectItemId: string) => {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
 
-    const apiCall = async () => {
-      return await adminAPI.syncRepository({ owner, repo }, {}, {});
-    };
+    try {
+      const response = await syncRepositoryMutation.mutateAsync({
+        params: { owner, repo },
+        body: {},
+        query: {},
+      });
 
-    const onSuccess = (response: dto.SyncRepositoryResponse) => {
-      const successData = response;
       setRepositories(prev =>
         prev.map(r =>
-          r.projectItem.id.uuid === projectItemId ? { ...r, repository: successData.repository, lastSyncMessage: "Repository synced successfully" } : r,
+          r.projectItem.id.uuid === projectItemId ? { ...r, repository: response.repository, lastSyncMessage: "Repository synced successfully" } : r,
         ),
       );
 
@@ -82,17 +81,13 @@ export function RepositorySyncPage() {
           return newSet;
         });
       }, 2000);
-    };
-
-    const noopLoading = () => {};
-    const success = await handleApiCall(apiCall, noopLoading, setApiError, onSuccess);
-
-    if (!success) {
+    } catch (error) {
       setSyncingIds(prev => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
       });
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
     }
   };
 

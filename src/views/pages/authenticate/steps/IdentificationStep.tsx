@@ -5,10 +5,8 @@ import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/i
 import { FormDivider } from "../components/auth/FormDivider";
 import { validateEmail } from "src/views/components/ui/forms/validators";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CheckEmailResponse, Provider } from "@open-source-economy/api-types";
-import { getAuthBackendAPI } from "src/services";
+import { Provider } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
-import { handleApiCall } from "src/ultils/handleApiCall";
 import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/ultils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
@@ -19,11 +17,9 @@ export function IdentificationStep() {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
-  const authAPI = getAuthBackendAPI();
+  const checkEmailMutation = authHooks.useCheckEmailMutation();
 
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [githubLogin, setGithubLogin] = useState("");
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
@@ -73,14 +69,11 @@ export function IdentificationStep() {
     }
   }, [repoInviteData]);
 
-  // Surface invite query errors
-  useEffect(() => {
-    const err = companyError || repoError;
-    if (err) {
-      console.error("Token fetch error", err);
-      setApiError(ApiError.from(err));
-    }
-  }, [companyError, repoError]);
+  // Derive combined error from invite queries and checkEmail mutation
+  const inviteError = companyError || repoError;
+  const checkEmailError = checkEmailMutation.error;
+  const combinedError = checkEmailError || inviteError;
+  const apiError = combinedError ? (combinedError instanceof ApiError ? combinedError : ApiError.from(combinedError)) : null;
 
   const updateUrlEmail = (newEmail: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -93,11 +86,8 @@ export function IdentificationStep() {
   };
 
   const checkEmailAndNavigate = async (emailToCheck: string, isPredefined: boolean) => {
-    const apiCall = async () => {
-      return await authAPI.checkEmail({}, {}, { email: emailToCheck });
-    };
-
-    const onSuccess = (result: CheckEmailResponse) => {
+    try {
+      const result = await checkEmailMutation.mutateAsync({ params: {}, body: {}, query: { email: emailToCheck } });
       const nextPath = result.provider === Provider.Github ? paths.AUTH.GITHUB : paths.AUTH.PASSWORD;
 
       // Explicitly set email in params to ensure it is passed even if location.search is stale
@@ -111,9 +101,9 @@ export function IdentificationStep() {
           isEmailPredefined: isPredefined,
         },
       });
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // Error tracked by checkEmailMutation.error
+    }
   };
 
   const handleEmailContinue = async (e: React.FormEvent) => {
@@ -160,7 +150,7 @@ export function IdentificationStep() {
 
               {apiError && <ServerErrorAlert error={apiError} />}
 
-              <Button type="submit" loading={isLoading || companyLoading || repoLoading} className="w-full h-11">
+              <Button type="submit" loading={checkEmailMutation.isPending || companyLoading || repoLoading} className="w-full h-11">
                 Continue
               </Button>
             </form>

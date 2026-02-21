@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingHooks } from "src/api";
+import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "../../../../../ultils/error/ApiError";
-import { handleApiCall } from "../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step5State } from "../../OnboardingDataSteps";
 import { DeleteServiceModal } from "./modals/DeleteServiceModal";
@@ -21,45 +20,30 @@ export interface Step5Props extends OnboardingStepProps<Step5State> {
 
 // --- Main Component ---
 export function Step5(props: Step5Props) {
-  const [serviceCategories, setServiceCategories] = useState<dto.ServiceHierarchyItem[]>([]);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
-  const [isDeletingService, setIsDeletingService] = useState(false);
   const [showServiceSelectionModal, setShowServiceSelectionModal] = useState(false);
   const [currentServiceForSelection, setCurrentServiceForSelection] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
 
-  const api = getOnboardingBackendAPI();
+  const serviceHierarchyQuery = onboardingHooks.useServiceHierarchyQuery({}, {});
+  const upsertDeveloperServices = onboardingHooks.useUpsertDeveloperServicesMutation();
+  const deleteDeveloperService = onboardingHooks.useDeleteDeveloperServiceMutation();
+  const completeOnboarding = onboardingHooks.useCompleteOnboardingMutation();
+
+  const serviceCategories = serviceHierarchyQuery.data?.items ?? [];
+  const isLoading = serviceHierarchyQuery.isLoading || upsertDeveloperServices.isPending;
+  const isDeletingService = deleteDeveloperService.isPending;
+  const mutationError = serviceHierarchyQuery.error || upsertDeveloperServices.error || deleteDeveloperService.error || completeOnboarding.error;
+  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
 
   const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
     props.state.developerProjectItems.map(entry => [entry.developerProjectItem.id, entry.projectItem.sourceIdentifier]),
   );
-
-  // Fetches service hierarchy on initial mount
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      setIsLoading(true);
-      setApiError(null);
-      setLocalError(null);
-
-      const apiCall = () => api.getServiceHierarchy({}, {});
-
-      const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
-        setServiceCategories(response.items);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    };
-
-    fetchInitialData();
-  }, []);
 
   const onAddInitialServices = async (services: dto.Service[]) => {
     const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
@@ -87,7 +71,7 @@ export function Step5(props: Step5Props) {
   };
 
   const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
-    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+    const upsertDeveloperServiceBodies: dto.UpsertDeveloperServiceBody[] = services.map(service => {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: service.id,
         developerProjectItemIds: props.state.developerProjectItems.map(item => item.developerProjectItem.id),
@@ -95,14 +79,15 @@ export function Step5(props: Step5Props) {
       return body;
     });
 
-    const apiCall = async () => {
+    try {
       const body: dto.UpsertDeveloperServicesBody = {
-        upsertDeveloperServices: upsertDeveloperServices,
+        upsertDeveloperServices: upsertDeveloperServiceBodies,
       };
-      return await api.upsertDeveloperServices({}, body, {});
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      const response = await upsertDeveloperServices.mutateAsync({ params: {}, body, query: {} });
+      onSuccess(response);
+    } catch {
+      // error tracked by upsertDeveloperServices.error
+    }
   };
 
   const onAddServices = (services: dto.Service[]) => {
@@ -138,34 +123,28 @@ export function Step5(props: Step5Props) {
   };
 
   const handleConfirmDeleteDeveloperService = async (developerServiceEntry: dto.DeveloperServiceEntry) => {
-    setIsDeletingService(true);
-
     const developerService = developerServiceEntry.developerService;
     if (developerService) {
-      const apiCall = async () => {
+      try {
         const body: dto.DeleteDeveloperServiceBody = {
           developerServiceId: developerService.id,
         };
-        return await api.deleteDeveloperService({}, body, {});
-      };
+        await deleteDeveloperService.mutateAsync({ params: {}, body, query: {} });
 
-      const onSuccess = () => {
         const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== developerServiceEntry.service.id.uuid);
         props.updateState({ developerServices: updatedServices });
 
         setShowDeleteDeveloperServiceModal(false);
         setServiceToDelete(null);
-        setIsDeletingService(false);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      } catch {
+        // error tracked by deleteDeveloperService.error
+      }
     }
   };
 
   const handleCancelDeleteDeveloperService = () => {
     setShowDeleteDeveloperServiceModal(false);
     setServiceToDelete(null);
-    setIsDeletingService(false);
   };
 
   const handleEditDeveloperService = (entry: dto.DeveloperServiceEntry) => {
@@ -232,13 +211,14 @@ export function Step5(props: Step5Props) {
     }
 
     setLocalError(null); // Clear local error before starting API call
-    setApiError(null); // Clear API error before starting API call
+    completeOnboarding.reset(); // Clear API error before starting API call
 
-    const apiCall = async () => {
-      return await api.completeOnboarding({}, {}, {});
-    };
-
-    return await handleApiCall(apiCall, setIsLoading, setApiError);
+    try {
+      await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   // Register onNext handler with parent

@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "src/views/auth/AuthContext";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { validatePassword, validatePasswordMatch } from "src/views/components/ui/forms/validators";
@@ -7,29 +6,34 @@ import { Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { paths } from "src/paths";
-import { getAuthBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import * as dto from "@open-source-economy/api-types";
-import { handleApiCall } from "src/ultils/handleApiCall";
+import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 
 export function ResetPasswordStep() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const authAPI = getAuthBackendAPI();
+  const resetPasswordMutation = authHooks.useResetPasswordMutation();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
+  const [tokenError, setTokenError] = useState<ApiError | null>(null);
 
   const passwordInputRef = useRef<InputRef>(null);
   const confirmPasswordInputRef = useRef<InputRef>(null);
 
+  const resetPasswordError = resetPasswordMutation.error
+    ? resetPasswordMutation.error instanceof ApiError
+      ? resetPasswordMutation.error
+      : ApiError.from(resetPasswordMutation.error)
+    : null;
+
+  const apiError = tokenError || resetPasswordError;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setApiError(null);
+    setTokenError(null);
 
     const isPasswordValid = passwordInputRef.current?.validate(true) ?? false;
     if (!isPasswordValid) return;
@@ -38,22 +42,16 @@ export function ResetPasswordStep() {
     if (!isConfirmPasswordValid) return;
 
     if (!token) {
-      setApiError(new ApiError(400, "Invalid or missing token"));
+      setTokenError(new ApiError(400, "Invalid or missing token"));
       return;
     }
 
-    setIsLoading(true);
-
-    const apiCall = async () => {
-      // @ts-ignore
-      return await authAPI.resetPassword({ password }, { token }, {});
-    };
-
-    const onSuccess = () => {
+    try {
+      await resetPasswordMutation.mutateAsync({ body: { password }, query: { token } });
       navigate(paths.AUTH.IDENTIFY, { state: { message: "Password reset successfully. Please login." } });
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // Error tracked by resetPasswordMutation.error
+    }
   };
 
   if (!token) {
@@ -99,7 +97,7 @@ export function ResetPasswordStep() {
           {apiError && <ServerErrorAlert error={apiError} />}
 
           <div className="space-y-3 pt-2">
-            <Button type="submit" loading={isLoading} className="w-full h-11">
+            <Button type="submit" loading={resetPasswordMutation.isPending} className="w-full h-11">
               Reset Password
             </Button>
           </div>

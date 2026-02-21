@@ -1,9 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
-import { getOnboardingBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "../../../../../../../ultils";
 import { Step4State } from "../../OnboardingDataSteps";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
@@ -12,6 +9,7 @@ import { OnboardingSectionWrapper } from "./OnboardingSectionWrapper";
 import { WeeklyCommitmentInput, WeeklyCommitmentInputRef } from "../../../../../components/form/input/number";
 import { OpportunitySelector, OpportunitySelectorRef } from "./OpportunitySelector";
 import { HourlyRateInput, HourlyRateInputRef } from "../../../../../components/form";
+import { onboardingHooks } from "src/api";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {}
 
@@ -20,8 +18,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
   const largerOpportunitiesRef = useRef<OpportunitySelectorRef>(null);
   const indicativeRateRef = useRef<HourlyRateInputRef>(null);
 
-  const [apiError, setApiError] = useState<ApiError | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const setServiceSettingsMutation = onboardingHooks.useSetDeveloperServiceSettingsMutation();
 
   const validateForm = (showInputError: boolean): boolean => {
     // Call the validate method on each section's ref
@@ -33,40 +30,30 @@ export function Step4(props: Step4AvailabilityRateProps) {
     return isWeeklyCommitmentValid && isLargerOpportunitiesValid && isIndicativeRateValid;
   };
 
-  const saveSettingsToDatabase = async (): Promise<boolean> => {
-    const onboardingAPI = getOnboardingBackendAPI();
-    const apiCall = async () => {
-      const params: dto.SetDeveloperServiceSettingsParams = {};
-      const body: dto.SetDeveloperServiceSettingsBody = {
-        hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
-        hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || undefined,
-        openToOtherOpportunity: props.state.openToOtherOpportunity!,
-        openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || undefined,
-        hourlyRate: props.state.hourlyRate!,
-        currency: props.state.currency!,
-        hourlyRateComment: props.state.hourlyRateComment || undefined,
-      };
-      const query: dto.SetDeveloperServiceSettingsQuery = {};
-      return await onboardingAPI.setDeveloperServiceSettings(params, body, query);
-    };
-
-    let isSuccess = false;
-    const onSuccess = () => {
-      isSuccess = true;
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    return isSuccess;
-  };
-
   const handleNext = async () => {
     if (validateForm(true)) {
-      const success = await saveSettingsToDatabase();
-      if (success) {
+      try {
+        const params: dto.SetDeveloperServiceSettingsParams = {};
+        const body: dto.SetDeveloperServiceSettingsBody = {
+          hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment!,
+          hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || undefined,
+          openToOtherOpportunity: props.state.openToOtherOpportunity!,
+          openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || undefined,
+          hourlyRate: props.state.hourlyRate!,
+          currency: props.state.currency!,
+          hourlyRateComment: props.state.hourlyRateComment || undefined,
+        };
+        const query: dto.SetDeveloperServiceSettingsQuery = {};
+        await setServiceSettingsMutation.mutateAsync({ params, body, query });
         props.onNext();
+      } catch {
+        // error tracked by setServiceSettingsMutation.error
       }
     }
   };
+
+  const isLoading = setServiceSettingsMutation.isPending;
+  const apiError = setServiceSettingsMutation.error;
 
   return (
     <>

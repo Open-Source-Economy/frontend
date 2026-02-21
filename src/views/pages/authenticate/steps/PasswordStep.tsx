@@ -11,15 +11,14 @@ import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { getAuthBackendAPI } from "src/services";
-import { handleApiCall } from "src/ultils/handleApiCall";
+import { authHooks } from "src/api";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 
 export function PasswordStep() {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const authAPI = getAuthBackendAPI();
+  const checkEmailMutation = authHooks.useCheckEmailMutation();
 
   // State
   const [password, setPassword] = useState("");
@@ -29,10 +28,6 @@ export function PasswordStep() {
   // Validation State
   const [hasAttemptedPasswordValidation, setHasAttemptedPasswordValidation] = useState(false);
   const [hasAttemptedTermsValidation, setHasAttemptedTermsValidation] = useState(false);
-
-  // Loading & Error
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   // Refs
   const passwordInputRef = useRef<InputRef>(null);
@@ -68,21 +63,16 @@ export function PasswordStep() {
   }, [email, accountDetails]);
 
   const restoreAccountDetails = async (emailToRestore: string) => {
-    setIsLoading(true);
-    const apiCall = async () => {
-      return await authAPI.checkEmail({}, {}, { email: emailToRestore });
-    };
-
-    const onSuccess = (result: dto.CheckEmailResponse) => {
+    try {
+      const result = await checkEmailMutation.mutateAsync({ params: {}, body: {}, query: { email: emailToRestore } });
       setAccountDetails(result);
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // Error tracked by checkEmailMutation.error
+    }
   };
 
   const handleFinalAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    setApiError(null);
     setHasAttemptedPasswordValidation(true);
 
     const isPasswordValid = passwordInputRef.current?.validate(true) ?? false;
@@ -96,37 +86,32 @@ export function PasswordStep() {
       if (!termsAccepted) return;
     }
 
-    setIsLoading(true);
-
     const successCallback = () => {
       navigate(redirectPath, { replace: true });
     };
 
-    try {
-      if (accountDetails?.exists) {
-        // Login
-        const body: dto.LoginBody = { email: email!, password };
-        auth.login(body, {}, successCallback);
-      } else {
-        // Registration
-        const body: dto.RegisterBody = {
-          email: email!,
-          password,
-          name: null,
-        };
-        const query: dto.RegisterQuery = {
-          companyToken: companyToken ?? undefined,
-          repositoryToken: repositoryToken ?? undefined,
-        };
-        auth.register(body, query, successCallback);
-      }
-    } catch (err) {
-      setApiError(ApiError.from(err));
-      setIsLoading(false);
+    if (accountDetails?.exists) {
+      // Login
+      const body: dto.LoginBody = { email: email!, password };
+      auth.login(body, {}, successCallback);
+    } else {
+      // Registration
+      const body: dto.RegisterBody = {
+        email: email!,
+        password,
+        name: null,
+      };
+      const query: dto.RegisterQuery = {
+        companyToken: companyToken ?? undefined,
+        repositoryToken: repositoryToken ?? undefined,
+      };
+      auth.register(body, query, successCallback);
     }
   };
 
-  if (!email || (!accountDetails && isLoading)) {
+  const checkEmailError = checkEmailMutation.error ? (checkEmailMutation.error instanceof ApiError ? checkEmailMutation.error : ApiError.from(checkEmailMutation.error)) : null;
+
+  if (!email || (!accountDetails && checkEmailMutation.isPending)) {
     return (
       <div className="flex justify-center items-center py-10">
         <div /* Simple loader placeholder */ className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
@@ -194,10 +179,10 @@ export function PasswordStep() {
             </>
           )}
 
-          {(apiError || auth.error) && <ServerErrorAlert error={apiError ?? auth.error ?? undefined} />}
+          {(checkEmailError || auth.error) && <ServerErrorAlert error={checkEmailError ?? auth.error ?? undefined} />}
 
           <div className="space-y-3 pt-2">
-            <Button type="submit" loading={auth.loading || isLoading} className="w-full h-11">
+            <Button type="submit" loading={checkEmailMutation.isPending || auth.loading} className="w-full h-11">
               {accountDetails?.exists ? "Sign In" : "Create Account"}
             </Button>
 

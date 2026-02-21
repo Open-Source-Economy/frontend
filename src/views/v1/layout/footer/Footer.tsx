@@ -4,13 +4,13 @@ import { SocialMedia } from "src/views/v1/components/socialMedia/SocialMedia";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { getBackendAPI } from "../../../../services";
 import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { ExternalLink } from "../../components";
 import { Link } from "react-router-dom";
+import { stripeHooks } from "src/api";
 
 type FooterLink = {
   text: string;
@@ -55,27 +55,24 @@ const legalLinks: FooterLink[] = [
 export function Footer() {
   const successMessage = "You have successfully subscribed to the newsletter!";
   const [email, setEmail] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [displaySuccessMessage, setDisplaySuccessMessage] = useState<boolean>(false);
 
+  const subscribeToNewsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
+
   const handleSubscribe = async () => {
-    setIsLoading(true);
     setError(null);
     setDisplaySuccessMessage(false);
 
     try {
-      const api = getBackendAPI();
       const params: NewsletterSubscriptionParams = {};
       const body: NewsletterSubscriptionBody = { email };
       const query: NewsletterSubscriptionQuery = {};
 
-      const response = await api.subscribeToNewsletter(params, body, query);
+      await subscribeToNewsletterMutation.mutateAsync({ params, body, query });
       setDisplaySuccessMessage(true);
     } catch (error) {
       setError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -107,6 +104,8 @@ export function Footer() {
       </ul>
     </div>
   );
+
+  const isLoading = subscribeToNewsletterMutation.isPending;
 
   return (
     <div className="bg-[url('./assets/v1/bg-2.svg')] max-[1100px]:bg-none bg-cover bg-right relative overflow-hidden">

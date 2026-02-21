@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services";
 import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
 import {
   CurrencyCompanion,
@@ -41,8 +39,7 @@ export function Maintainer() {
   const [projectStatus, setProjectStatus] = useState<dto.VerificationStatus>(dto.VerificationStatus.PENDING_REVIEW);
   const [projectNotes, setProjectNotes] = useState("");
 
-  const [isUpdating, setIsUpdating] = useState(false);
-  const adminAPI = getAdminBackendAPI();
+  const createVerification = adminHooks.useCreateVerificationRecordMutation();
 
   // Fetch profile using TanStack Query
   const {
@@ -78,21 +75,18 @@ export function Maintainer() {
   const handleSaveProfileVerification = async () => {
     if (!profile?.profileEntry?.profile.id) return;
 
-    setIsUpdating(true);
-    const apiCall = async () => {
-      return await adminAPI.createVerificationRecord(
-        {},
-        {
+    try {
+      const response = await createVerification.mutateAsync({
+        params: {},
+        body: {
           entityType: dto.VerificationEntityType.DEVELOPER_PROFILE,
           entityId: profile.profileEntry!.profile.id.uuid,
           status: profileStatus,
           notes: profileNotes.trim() || undefined,
         },
-        {},
-      );
-    };
+        query: {},
+      });
 
-    const onSuccess = (response: any) => {
       // Add the new verification record to the profile entry
       setProfile(prev => {
         if (!prev || !prev.profileEntry) return prev;
@@ -109,27 +103,24 @@ export function Maintainer() {
         };
       });
       setIsEditingProfile(false);
-    };
-
-    await handleApiCall(apiCall, setIsUpdating, setApiError, onSuccess);
+    } catch (error) {
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
+    }
   };
 
   const handleSaveProjectVerification = async (projectEntry: dto.DeveloperProjectItemEntry) => {
-    setIsUpdating(true);
-    const apiCall = async () => {
-      return await adminAPI.createVerificationRecord(
-        {},
-        {
+    try {
+      const response = await createVerification.mutateAsync({
+        params: {},
+        body: {
           entityType: dto.VerificationEntityType.DEVELOPER_PROJECT_ITEM,
           entityId: projectEntry.developerProjectItem.id.uuid,
           status: projectStatus,
           notes: projectNotes.trim() || undefined,
         },
-        {},
-      );
-    };
+        query: {},
+      });
 
-    const onSuccess = (response: any) => {
       // Add the new verification record to the project entry
       setProfile(prev => {
         if (!prev) return prev;
@@ -149,9 +140,9 @@ export function Maintainer() {
         };
       });
       setEditingProjectId(null);
-    };
-
-    await handleApiCall(apiCall, setIsUpdating, setApiError, onSuccess);
+    } catch (error) {
+      setApiError(error instanceof ApiError ? error : ApiError.from(error));
+    }
   };
 
   const startEditingProject = (projectEntry: dto.DeveloperProjectItemEntry) => {
@@ -334,8 +325,8 @@ export function Maintainer() {
                     <p className="text-xs text-brand-neutral-500 mt-1">These notes will be visible to the developer</p>
                   </div>
                   <div className="flex gap-2">
-                    <Button onClick={handleSaveProfileVerification} disabled={isUpdating} size="sm">
-                      {isUpdating ? "Saving..." : "Save Changes"}
+                    <Button onClick={handleSaveProfileVerification} disabled={createVerification.isPending} size="sm">
+                      {createVerification.isPending ? "Saving..." : "Save Changes"}
                     </Button>
                     <Button onClick={() => setIsEditingProfile(false)} variant="outline" size="sm">
                       Cancel
@@ -509,8 +500,8 @@ export function Maintainer() {
                               />
                             </div>
                             <div className="flex gap-2">
-                              <Button onClick={() => handleSaveProjectVerification(entry)} disabled={isUpdating} size="sm">
-                                {isUpdating ? "Saving..." : "Save"}
+                              <Button onClick={() => handleSaveProjectVerification(entry)} disabled={createVerification.isPending} size="sm">
+                                {createVerification.isPending ? "Saving..." : "Save"}
                               </Button>
                               <Button onClick={() => setEditingProjectId(null)} variant="outline" size="sm">
                                 Cancel

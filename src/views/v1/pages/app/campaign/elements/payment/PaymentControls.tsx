@@ -14,9 +14,9 @@ import {
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/v1/data";
 import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { getBackendAPI } from "../../../../../../../services";
 import { config, Env } from "../../../../../../../ultils";
 import { NumberUtils } from "../../../../../../../ultils/NumberUtils";
+import { stripeHooks } from "src/api";
 
 interface PaymentControlsProps {
   projectId: ProjectId;
@@ -27,7 +27,6 @@ interface PaymentControlsProps {
 }
 
 export function PaymentControls(props: PaymentControlsProps) {
-  const backendAPI = getBackendAPI();
   const displayedCurrency = displayedCurrencies[props.preferredCurrency];
 
   const [priceType, setPriceType] = useState<CampaignPriceType>(CampaignPriceType.MONTHLY);
@@ -37,8 +36,9 @@ export function PaymentControls(props: PaymentControlsProps) {
   const [customAmount, setCustomAmount] = useState<string>("");
   const [selectedPrice, setSelectedPrice] = useState<Price | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | null>(null);
+
+  const checkoutMutation = stripeHooks.useCheckoutMutation();
 
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -52,7 +52,6 @@ export function PaymentControls(props: PaymentControlsProps) {
     if (!selectedPrice) {
       return;
     } else {
-      setIsLoading(true);
       try {
         const params: CheckoutParams = {};
         const body: CheckoutBody = {
@@ -69,13 +68,11 @@ export function PaymentControls(props: PaymentControlsProps) {
         };
         const query: CheckoutQuery = {};
 
-        const response = await backendAPI.checkout(params, body, query);
+        const response = await checkoutMutation.mutateAsync({ params, body, query });
         window.location.href = response.redirectUrl;
       } catch (error) {
         console.error("Failed to initiate checkout:", error);
         setError(error instanceof ApiError ? error : ApiError.from(error));
-      } finally {
-        setIsLoading(false);
       }
     }
   };
@@ -87,6 +84,8 @@ export function PaymentControls(props: PaymentControlsProps) {
       setSelectedPrice(null);
     }
   }, [props.prices, priceType, props.preferredCurrency, campaignProductType, selectedPriceIndex]);
+
+  const isLoading = checkoutMutation.isPending;
 
   return (
     <>

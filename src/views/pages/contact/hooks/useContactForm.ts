@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormData, INITIAL_FORM_DATA, ProjectEntry } from "../helpers/formHelpers";
 import { scrollToFirstError, validateForm } from "../helpers/validationHelpers";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { stripeHooks } from "src/api";
 
 export const useContactForm = (initialContactReason: string) => {
   const [formData, setFormData] = useState<FormData>({
@@ -9,9 +9,10 @@ export const useContactForm = (initialContactReason: string) => {
     contactReason: initialContactReason,
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const contactMutation = stripeHooks.useSubmitContactFormMutation();
   const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const isSubmitting = contactMutation.isPending;
 
   const handleInputChange = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({
@@ -77,18 +78,17 @@ export const useContactForm = (initialContactReason: string) => {
       return;
     }
 
-    setIsSubmitting(true);
     setSubmissionStatus("idle");
 
     try {
-      const backendAPI = getBackendAPI();
-      await backendAPI.submitContactForm({}, formData, {});
+      await contactMutation.mutateAsync({
+        params: {},
+        body: formData,
+        query: {},
+      });
       setSubmissionStatus("success");
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
+    } catch {
       setSubmissionStatus("error");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -96,6 +96,7 @@ export const useContactForm = (initialContactReason: string) => {
     setFormData(INITIAL_FORM_DATA);
     setSubmissionStatus("idle");
     setFieldErrors({});
+    contactMutation.reset();
   };
 
   const setContactReason = (reason: string) => {

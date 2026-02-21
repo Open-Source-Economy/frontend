@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useAuth } from "src/views/auth/AuthContext";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingHooks } from "src/api";
 
 import Step1 from "./steps/step1/Step1";
 import Step2 from "./steps/step2/Step2";
@@ -20,7 +20,6 @@ import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
 import { WizardStepIndicator } from "./components/WizardStepIndicator";
 import { WizardNavigation } from "./components/WizardNavigation";
 import { StepSidebar } from "./components/StepSidebar";
-import { handleApiCall } from "../../../ultils";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { PageWrapper } from "../PageWrapper";
 
@@ -56,17 +55,21 @@ export default function OnboardingFlow() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const auth = useAuth();
-  const onboardingAPI = getOnboardingBackendAPI();
 
   const preferredCurrency: Currency = PreferredCurrency.get(auth);
 
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const currentUrlStep = parseInt(searchParams.get("step") || OnboardingDataSteps.Step1.toString());
+
+  const params: dto.GetDeveloperProfileParams = {};
+  const query: dto.GetDeveloperProfileQuery = {};
+  const profileQuery = onboardingHooks.useDeveloperProfileQuery(params, query);
+
+  const isLoading = profileQuery.isLoading;
+  const apiError = profileQuery.error ? (profileQuery.error instanceof ApiError ? profileQuery.error : ApiError.from(profileQuery.error)) : null;
 
   useEffect(() => {
     let currentStep = OnboardingDataSteps.Step1;
@@ -78,21 +81,11 @@ export default function OnboardingFlow() {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
 
-    const apiCall = async () => {
-      const params: dto.GetDeveloperProfileParams = {};
-      const query: dto.GetDeveloperProfileQuery = {};
-      return await onboardingAPI.getDeveloperProfile(params, query);
-    };
-
-    const onSuccess = (response: dto.GetDeveloperProfileResponse) => {
-      if (response.profile) {
-        const state = transformFullDeveloperProfileToOnboardingState(currentStep, response.profile, preferredCurrency);
-        setState(state);
-      }
-    };
-
-    handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  }, [currentUrlStep, setSearchParams]);
+    if (profileQuery.data?.profile) {
+      const state = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
+      setState(state);
+    }
+  }, [currentUrlStep, setSearchParams, profileQuery.data]);
 
   const goToStep = (step: OnboardingDataSteps) => {
     setSearchParams({ step: step.toString() });

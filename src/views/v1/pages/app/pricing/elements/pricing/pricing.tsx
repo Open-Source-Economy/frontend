@@ -6,10 +6,10 @@ import { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
 import { NumberUtils } from "../../../../../../../ultils/NumberUtils";
 import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { getBackendAPI } from "../../../../../../../services";
 import { paths } from "../../../../../../../paths";
 import { PreferredCurrency } from "../../../../../../../ultils/PreferredCurrency";
 import { useAuth } from "../../../../../../auth";
+import { stripeHooks } from "src/api";
 
 export enum PricingCategory {
   GET_STARTED, // user can select this plan (they don't have a plan yet)
@@ -30,17 +30,15 @@ export function Pricing(props: PricingProps) {
   const auth = useAuth();
   const preferredCurrency: Currency = PreferredCurrency.get(auth);
 
-  const backendAPI = getBackendAPI();
+  const checkoutMutation = stripeHooks.useCheckoutMutation();
 
   const checkoutErrorParamName = "checkout_error";
   const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | null>(null); // TODO: Display error
 
   const handleCheckout = async (price: StripePrice) => {
-    setIsLoading(true);
     try {
       const params: CheckoutParams = {};
       const body: CheckoutBody = {
@@ -57,15 +55,15 @@ export function Pricing(props: PricingProps) {
       };
       const query: CheckoutQuery = {};
 
-      const response = await backendAPI.checkout(params, body, query);
+      const response = await checkoutMutation.mutateAsync({ params, body, query });
       window.location.href = response.redirectUrl;
     } catch (error) {
       console.error("Failed to initiate checkout:", error);
       setError(error instanceof ApiError ? error : ApiError.from(error));
-    } finally {
-      setIsLoading(false);
     }
   };
+
+  const isLoading = checkoutMutation.isPending;
 
   return (
     <>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Button } from "src/views/v1/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery, IssueId } from "@open-source-economy/api-types";
 import { credit, Credit, CreditUnit } from "src/model";
-import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { useCreditCounter } from "src/views/v1/hooks";
 import { useAuth } from "src/views/auth/AuthContext";
@@ -20,15 +19,19 @@ interface CreditFundingProps {
 export function CreditFunding(props: CreditFundingProps) {
   const audience = Audience.USER;
   const auth = useAuth();
-  const backendAPI = getBackendAPI();
 
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [enoughFund, setEnoughFund] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | string | null>(null);
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
-    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
-  });
+  const fundIssueMutation = projectHooks.useFundIssueMutation();
+
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+    {},
+    {
+      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+    },
+  );
   const availableCredits: Credit | null = availableCreditsResponse
     ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
     : null;
@@ -48,7 +51,7 @@ export function CreditFunding(props: CreditFundingProps) {
       };
       const query: FundIssueQuery = {};
       try {
-        await backendAPI.fundIssue(params, body, query);
+        await fundIssueMutation.mutateAsync({ params, body, query });
         //   TODO: reload
         // display success message
         props.onIssueFundingSuccess();

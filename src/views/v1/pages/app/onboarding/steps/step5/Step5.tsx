@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getOnboardingBackendAPI } from "src/services";
+import React, { useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { handleApiCall } from "../../../../../../../ultils";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 
 import { DeveloperServiceCategory } from "./components/DeveloperServiceCategory";
@@ -14,6 +11,7 @@ import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { Button } from "../../../../../components";
 import { AddServiceModal } from "./modals/add/AddServiceModal";
+import { onboardingHooks } from "src/api";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {}
 
@@ -21,45 +19,60 @@ export interface Step5Props extends OnboardingStepProps<Step5State> {}
 export function Step5(props: Step5Props) {
   const [serviceCategories, setServiceCategories] = useState<dto.ServiceHierarchyItem[]>([]);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
-  const [isDeletingService, setIsDeletingService] = useState(false);
   const [showServiceSelectionModal, setShowServiceSelectionModal] = useState(false);
   const [currentServiceForSelection, setCurrentServiceForSelection] = useState<dto.DeveloperServiceEntry | null>(null);
 
-  const api = getOnboardingBackendAPI();
+  const serviceHierarchyQuery = onboardingHooks.useServiceHierarchyQuery({}, {});
+  const upsertDeveloperServicesMutation = onboardingHooks.useUpsertDeveloperServicesMutation();
+  const deleteDeveloperServiceMutation = onboardingHooks.useDeleteDeveloperServiceMutation();
+  const completeOnboardingMutation = onboardingHooks.useCompleteOnboardingMutation();
+
+  // Update serviceCategories when query data changes
+  React.useEffect(() => {
+    if (serviceHierarchyQuery.data?.items) {
+      setServiceCategories(serviceHierarchyQuery.data.items);
+    }
+  }, [serviceHierarchyQuery.data]);
 
   const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
     props.state.developerProjectItems.map(entry => [entry.developerProjectItem.id, entry.projectItem.sourceIdentifier]),
   );
 
-  // Fetches service hierarchy on initial mount
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      setIsLoading(true);
-      setApiError(null);
-      setLocalError(null);
-
-      const apiCall = () => api.getServiceHierarchy({}, {});
-
-      const onSuccess = (response: dto.GetServiceHierarchyResponse) => {
-        setServiceCategories(response.items);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    };
-
-    fetchInitialData();
-  }, []);
-
   const onAddInitialServices = async (services: dto.Service[]) => {
-    const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
+    // Validate that we have at least one project item before proceeding
+    if (props.state.developerProjectItems.length === 0) {
+      setLocalError("Please ensure that at least one project is listed for each service.");
+      return;
+    }
+
+    const developerProjectItemIds = props.state.developerProjectItems.map(item => item.developerProjectItem.id);
+
+    // Ensure we have at least one project item ID (double-check for safety)
+    if (developerProjectItemIds.length === 0) {
+      setLocalError("Please ensure that at least one project is listed for each service.");
+      return;
+    }
+
+    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+      const body: dto.UpsertDeveloperServiceBody = {
+        serviceId: service.id,
+        developerProjectItemIds: developerProjectItemIds,
+      };
+      return body;
+    });
+
+    try {
+      const body: dto.UpsertDeveloperServicesBody = {
+        upsertDeveloperServices: upsertDeveloperServices,
+      };
+      const response = await upsertDeveloperServicesMutation.mutateAsync({ params: {}, body, query: {} });
+
       const servicesMap = new Map<string, dto.Service>(services.map(service => [service.id.uuid, service]));
 
       const newEntries: dto.DeveloperServiceEntry[] = response.developerServices
@@ -79,44 +92,9 @@ export function Step5(props: Step5Props) {
 
       const updatedServices = [...props.state.developerServices, ...newEntries];
       props.updateState({ developerServices: updatedServices });
-    };
-
-    await onSaveNewServices(services, onSuccess);
-  };
-
-  const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
-    // Validate that we have at least one project item before proceeding
-    if (props.state.developerProjectItems.length === 0) {
-      setLocalError("Please ensure that at least one project is listed for each service.");
-      setIsLoading(false);
-      return;
+    } catch {
+      // error tracked by upsertDeveloperServicesMutation.error
     }
-
-    const developerProjectItemIds = props.state.developerProjectItems.map(item => item.developerProjectItem.id);
-
-    // Ensure we have at least one project item ID (double-check for safety)
-    if (developerProjectItemIds.length === 0) {
-      setLocalError("Please ensure that at least one project is listed for each service.");
-      setIsLoading(false);
-      return;
-    }
-
-    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
-      const body: dto.UpsertDeveloperServiceBody = {
-        serviceId: service.id,
-        developerProjectItemIds: developerProjectItemIds,
-      };
-      return body;
-    });
-
-    const apiCall = async () => {
-      const body: dto.UpsertDeveloperServicesBody = {
-        upsertDeveloperServices: upsertDeveloperServices,
-      };
-      return await api.upsertDeveloperServices({}, body, {});
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
   };
 
   const onAddServices = (services: dto.Service[]) => {
@@ -152,34 +130,28 @@ export function Step5(props: Step5Props) {
   };
 
   const handleConfirmDeleteDeveloperService = async (developerServiceEntry: dto.DeveloperServiceEntry) => {
-    setIsDeletingService(true);
-
     const developerService = developerServiceEntry.developerService;
     if (developerService) {
-      const apiCall = async () => {
+      try {
         const body: dto.DeleteDeveloperServiceBody = {
           developerServiceId: developerService.id,
         };
-        return await api.deleteDeveloperService({}, body, {});
-      };
+        await deleteDeveloperServiceMutation.mutateAsync({ params: {}, body, query: {} });
 
-      const onSuccess = () => {
         const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== developerServiceEntry.service.id.uuid);
         props.updateState({ developerServices: updatedServices });
 
         setShowDeleteDeveloperServiceModal(false);
         setServiceToDelete(null);
-        setIsDeletingService(false);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+      } catch {
+        // error tracked by deleteDeveloperServiceMutation.error
+      }
     }
   };
 
   const handleCancelDeleteDeveloperService = () => {
     setShowDeleteDeveloperServiceModal(false);
     setServiceToDelete(null);
-    setIsDeletingService(false);
   };
 
   const handleEditDeveloperService = (entry: dto.DeveloperServiceEntry) => {
@@ -231,15 +203,12 @@ export function Step5(props: Step5Props) {
 
     setLocalError(null); // Clear local error before starting API call
 
-    const apiCall = async () => {
-      return await api.completeOnboarding({}, {}, {});
-    };
-
-    const onSuccess = () => {
+    try {
+      await completeOnboardingMutation.mutateAsync({ params: {}, body: {}, query: {} });
       props.onNext();
-    };
-
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
+    } catch {
+      // error tracked by completeOnboardingMutation.error
+    }
   };
 
   const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
@@ -250,6 +219,14 @@ export function Step5(props: Step5Props) {
 
   // Group developer services by category
   const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
+
+  const isLoading =
+    serviceHierarchyQuery.isLoading ||
+    upsertDeveloperServicesMutation.isPending ||
+    deleteDeveloperServiceMutation.isPending ||
+    completeOnboardingMutation.isPending;
+  const apiError =
+    serviceHierarchyQuery.error || upsertDeveloperServicesMutation.error || deleteDeveloperServiceMutation.error || completeOnboardingMutation.error;
 
   return (
     <div>
@@ -309,7 +286,7 @@ export function Step5(props: Step5Props) {
         onClose={handleCancelDeleteDeveloperService}
         developerServiceEntry={serviceToDelete}
         onConfirmDelete={handleConfirmDeleteDeveloperService}
-        isDeleting={isDeletingService}
+        isDeleting={deleteDeveloperServiceMutation.isPending}
       />
 
       {currentServiceForSelection && (
