@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { queryClient } from "src/api/queryClient";
 import { CreateAddress, CreateCompany, CreateManualInvoice, CreateProject, InviteCompanyUser } from "./views";
 import { paths } from "src/paths";
 import { CurrencyProvider } from "./context/CurrencyContext";
@@ -39,110 +42,113 @@ import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <AuthProvider>
-        <CurrencyProvider>
-          <Routes>
-            {/*<Route element={<NonProdRoutes />}>*/}
-            {/*  <Route path="/blog" element={<MdConversion />} />*/}
-            {/*  <Route path="/who-built-it" element={<CompanyProduct />} />*/}
-            {/*  <Route path="/buy-dows" element={<Payment />} />*/}
-            {/*  <Route path="/support-ticket" element={<SupportCreateTicket />} />*/}
-            {/*  <Route path="/support" element={<Support />} />*/}
-            {/*</Route>*/}
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <AuthProvider>
+          <CurrencyProvider>
+            <Routes>
+              {/*<Route element={<NonProdRoutes />}>*/}
+              {/*  <Route path="/blog" element={<MdConversion />} />*/}
+              {/*  <Route path="/who-built-it" element={<CompanyProduct />} />*/}
+              {/*  <Route path="/buy-dows" element={<Payment />} />*/}
+              {/*  <Route path="/support-ticket" element={<SupportCreateTicket />} />*/}
+              {/*  <Route path="/support" element={<Support />} />*/}
+              {/*</Route>*/}
 
-            <Route path={paths.HOME} element={<HomePage />} />
-            <Route path={paths.PROJECTS} element={<ProjectsPage />} />
-            <Route path={paths.SERVICES} element={<ServicesPage />} />
-            <Route path={paths.PROJECT_DETAIL_ROUTE_REPO} element={<ProjectDetailPage />} />
-            <Route path={paths.PROJECT_DETAIL_ROUTE_OWNER} element={<ProjectDetailPage />} />
-            <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
-            <Route path={paths.CONTACT} element={<ContactPage />} />
-            <Route path={paths.FAQ} element={<FAQPage />} />
-            <Route path={paths.PRIVACY} element={<PrivacyPolicyPage />} />
-            <Route path={paths.SPONSORSHIP} element={<SponsorshipPage />} />
-            <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccessPage />} />
+              <Route path={paths.HOME} element={<HomePage />} />
+              <Route path={paths.PROJECTS} element={<ProjectsPage />} />
+              <Route path={paths.SERVICES} element={<ServicesPage />} />
+              <Route path={paths.PROJECT_DETAIL_ROUTE_REPO} element={<ProjectDetailPage />} />
+              <Route path={paths.PROJECT_DETAIL_ROUTE_OWNER} element={<ProjectDetailPage />} />
+              <Route path={paths.PROJECT_ITEMS_WITH_DETAILS} element={<ProjectItemsWithDetails />} />
+              <Route path={paths.CONTACT} element={<ContactPage />} />
+              <Route path={paths.FAQ} element={<FAQPage />} />
+              <Route path={paths.PRIVACY} element={<PrivacyPolicyPage />} />
+              <Route path={paths.SPONSORSHIP} element={<SponsorshipPage />} />
+              <Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccessPage />} />
 
-            {/*<Route element={<IssueRoutes />}>*/}
-            {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />*/}
-            {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />*/}
-            {/*</Route>*/}
+              {/*<Route element={<IssueRoutes />}>*/}
+              {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support`} element={<Support />} />*/}
+              {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/support-ticket`} element={<SupportCreateTicket />} />*/}
+              {/*</Route>*/}
 
-            {/*<Route path={paths.DEVELOPER_OLD} element={<UserDeveloper {...developerProps} />} />*/}
-            {/*/!*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*!/*/}
-            {/*<Route path={paths.USER} element={<CompanyProduct />} />*/}
-            {/*<Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />*/}
-            <Route path={paths.PRICING} element={<PricingPage />} />
+              {/*<Route path={paths.DEVELOPER_OLD} element={<UserDeveloper {...developerProps} />} />*/}
+              {/*/!*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*!/*/}
+              {/*<Route path={paths.USER} element={<CompanyProduct />} />*/}
+              {/*<Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />*/}
+              <Route path={paths.PRICING} element={<PricingPage />} />
 
-            {/*<Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />*/}
-            <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
+              {/*<Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />*/}
+              <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />
 
-            <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
-            <Route path={paths.AUTH.IDENTIFY} element={<IdentificationStep />} />
-            <Route path={paths.AUTH.GITHUB} element={<GithubNoticeStep />} />
-            <Route path={paths.AUTH.PASSWORD} element={<PasswordStep />} />
-            <Route path={paths.AUTH.FORGOT_PASSWORD} element={<ForgotPasswordStep />} />
-            <Route path={paths.AUTH.RESET_PASSWORD} element={<ResetPasswordStep />} />
+              <Route path={paths.LOGOUT} element={<Logout redirect={paths.HOME} />} />
+              <Route path={paths.AUTH.IDENTIFY} element={<IdentificationStep />} />
+              <Route path={paths.AUTH.GITHUB} element={<GithubNoticeStep />} />
+              <Route path={paths.AUTH.PASSWORD} element={<PasswordStep />} />
+              <Route path={paths.AUTH.FORGOT_PASSWORD} element={<ForgotPasswordStep />} />
+              <Route path={paths.AUTH.RESET_PASSWORD} element={<ResetPasswordStep />} />
 
-            <Route element={<SuperAdminRoutes />}>
-              <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
-              <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
-              <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
-              <Route path={paths.ADMIN.REPOSITORY_SYNC} element={<RepositorySyncPage />} />
-              <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
-              <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
-              <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
-              <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
-              <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
-              <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
-              <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
-              <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
-              <Route path={paths.ADMIN.MAINTAINER_ROUTE} element={<Maintainer />} />
-            </Route>
+              <Route element={<SuperAdminRoutes />}>
+                <Route path={paths.ADMIN.HOME} element={<AdminHome />} />
+                <Route path={paths.ADMIN.MAINTAINERS} element={<Maintainers />} />
+                <Route path={paths.ADMIN.ORGANIZATION_SYNC} element={<OrganizationSyncPage />} />
+                <Route path={paths.ADMIN.REPOSITORY_SYNC} element={<RepositorySyncPage />} />
+                <Route path={paths.ADMIN.INVITE_COMPANY_USER} element={<InviteCompanyUser />} />
+                <Route path={paths.ADMIN.INVITE_REPOSITORY_USER} element={<InviteRepositoryUser />} />
+                <Route path={paths.ADMIN.CREATE_COMPANY} element={<CreateCompany />} />
+                <Route path={paths.ADMIN.CREATE_ADDRESS} element={<CreateAddress />} />
+                <Route path={paths.ADMIN.CREATE_MANUAL_INVOICE} element={<CreateManualInvoice />} />
+                <Route path={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE} element={<CreateCampaignProductAndPrice />} />
+                <Route path={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE} element={<CreatePlanProductAndPrice />} />
+                <Route path={paths.ADMIN.CREATE_PROJECT} element={<CreateProject />} />
+                <Route path={paths.ADMIN.MAINTAINER_ROUTE} element={<Maintainer />} />
+              </Route>
 
-            {/*<Route element={<ProjectRoute />}>*/}
-            {/*  /!* Repository paths *!/*/}
-            {/*  <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
-            {/*  <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
+              {/*<Route element={<ProjectRoute />}>*/}
+              {/*  /!* Repository paths *!/*/}
+              {/*  <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
+              {/*  <Route path={`/projects/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
 
-            {/*  /!* Owner-only paths *!/*/}
-            {/*  <Route path={`/projects/:${paths.params.owner}`} element={<Project />} />*/}
-            {/*  <Route path={`/projects/:${paths.params.owner}/campaign`} element={<Campaign />} />*/}
+              {/*  /!* Owner-only paths *!/*/}
+              {/*  <Route path={`/projects/:${paths.params.owner}`} element={<Project />} />*/}
+              {/*  <Route path={`/projects/:${paths.params.owner}/campaign`} element={<Campaign />} />*/}
 
-            {/*  /!* TODO: old path: to delete *!/*/}
-            {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
-            {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
-            {/*  <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
-            {/*  <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
-            {/*</Route>*/}
-            {/*<Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />*/}
+              {/*  /!* TODO: old path: to delete *!/*/}
+              {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
+              {/*  <Route path={`/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
+              {/*  <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}`} element={<Project />} />*/}
+              {/*  <Route path={`/project/:${paths.params.owner}/:${paths.params.repo}/campaign`} element={<Campaign />} />*/}
+              {/*</Route>*/}
+              {/*<Route path={paths.CHECKOUT_SUCCESS} element={<CheckoutSuccess />} />*/}
 
-            {/*<Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>*/}
-            {/*  /!*<Route path={paths.PROJECTS} element={<Projects />} />*!/*/}
-            {/*  <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />*/}
-            {/*  <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />*/}
-            {/*  <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />*/}
-            {/*  <Route element={<IssueRoutes />}>*/}
-            {/*    <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />*/}
-            {/*    <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />*/}
-            {/*  </Route>*/}
+              {/*<Route element={<AuthRoutes authPage={paths.SIGN_UP} />}>*/}
+              {/*  /!*<Route path={paths.PROJECTS} element={<Projects />} />*!/*/}
+              {/*  <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />*/}
+              {/*  <Route path={paths.FUND_ISSUES} element={<Issues audience={Audience.USER} />} />*/}
+              {/*  <Route path={paths.MANAGE_ISSUES} element={<Issues audience={Audience.DEVELOPER} />} />*/}
+              {/*  <Route element={<IssueRoutes />}>*/}
+              {/*    <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/manage`} element={<ManageIssue />} />*/}
+              {/*    <Route path={`/:${paths.params.owner}/:${paths.params.repo}/issues/:${paths.params.number}/fund`} element={<FundIssue />} />*/}
+              {/*  </Route>*/}
 
-            {/*  <Route path={paths.DASHBOARD} element={<Dashboard />} />*/}
-            {/*</Route>*/}
+              {/*  <Route path={paths.DASHBOARD} element={<Dashboard />} />*/}
+              {/*</Route>*/}
 
-            <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
-            <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
-              <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
-              <Route path={paths.DEVELOPER_ONBOARDING_COMPLETED} element={<DevelopedOnboardingComplete />} />
-            </Route>
+              <Route path={paths.DEVELOPER_LANDING} element={<OnboardingLandingPage />} />
+              <Route element={<AuthRoutes authPage={paths.DEVELOPER_LANDING} />}>
+                <Route path={paths.DEVELOPER_ONBOARDING} element={<OnboardingFlow />} />
+                <Route path={paths.DEVELOPER_ONBOARDING_COMPLETED} element={<DevelopedOnboardingComplete />} />
+              </Route>
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          <Analytics />
-        </CurrencyProvider>
-      </AuthProvider>
-    </BrowserRouter>
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+            <Analytics />
+          </CurrencyProvider>
+        </AuthProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
