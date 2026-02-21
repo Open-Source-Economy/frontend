@@ -55,7 +55,10 @@ const variantStyles = {
   },
 };
 
-export function InfoMessage({ icon: Icon, children, variant = "info", title, className = "" }: InfoMessageProps) {
+export function InfoMessage(props: InfoMessageProps) {
+  const Icon = props.icon;
+  const variant = props.variant ?? "info";
+  const className = props.className ?? "";
   const styles = variantStyles[variant];
 
   return (
@@ -63,9 +66,9 @@ export function InfoMessage({ icon: Icon, children, variant = "info", title, cla
       <div className="flex items-start gap-2">
         {Icon && <Icon className={cn("w-4 h-4 mt-0.5 flex-shrink-0", styles.icon)} />}
         <p className={cn("text-xs sm:text-sm leading-relaxed", styles.text)}>
-          {title && <span className={cn("font-medium", styles.title)}>{title}</span>}
-          {title && " "}
-          {children}
+          {props.title && <span className={cn("font-medium", styles.title)}>{props.title}</span>}
+          {props.title && " "}
+          {props.children}
         </p>
       </div>
     </div>

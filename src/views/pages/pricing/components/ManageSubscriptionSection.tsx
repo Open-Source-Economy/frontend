@@ -10,7 +10,9 @@ interface ManageSubscriptionSectionProps {
   isLoading?: boolean;
 }
 
-export function ManageSubscriptionSection({ planName, billingCycle, onManageBilling, isLoading = false }: ManageSubscriptionSectionProps) {
+export function ManageSubscriptionSection(props: ManageSubscriptionSectionProps) {
+  const isLoading = props.isLoading ?? false;
+
   return (
     <div className="mb-12">
       <div className="bg-gradient-to-r from-brand-accent/5 to-brand-highlight/5 rounded-2xl border-2 border-brand-accent/20 p-8 shadow-sm">
@@ -27,15 +29,15 @@ export function ManageSubscriptionSection({ planName, billingCycle, onManageBill
                 </span>
               </div>
               <p className="text-brand-neutral-600">
-                You are currently on the <span className="font-bold text-brand-neutral-800">{planName}</span> plan (billed{" "}
-                {billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
+                You are currently on the <span className="font-bold text-brand-neutral-800">{props.planName}</span> plan (billed{" "}
+                {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
               </p>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <Button
-              onClick={onManageBilling}
+              onClick={props.onManageBilling}
               loading={isLoading}
               className="bg-brand-neutral-900 hover:bg-brand-neutral-800 text-white gap-2 h-12 px-6 shadow-md"
             >

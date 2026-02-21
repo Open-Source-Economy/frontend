@@ -40,70 +40,47 @@ interface ValidatedTextareaProps extends Omit<BaseValidatedFieldProps, "error"> 
   error?: ValidationError;
 }
 
-export function ValidatedInput({
-  label,
-  name,
-  value,
-  onChange,
-  error,
-  required = false,
-  placeholder,
-  description,
-  hint,
-  type = "text",
-  className,
-  leftIcon,
-  rightIcon,
-  disabled,
-  autoComplete,
-  autoFocus,
-  link,
-}: ValidatedInputProps) {
-  const hasError = !!error?.error;
+export function ValidatedInput(props: ValidatedInputProps) {
+  const required = props.required ?? false;
+  const type = props.type ?? "text";
+
+  const hasError = !!props.error?.error;
 
   return (
-    <FormField label={label} required={required} description={hint || description} className={className} link={link} error={error}>
+    <FormField label={props.label} required={required} description={props.hint || props.description} className={props.className} link={props.link} error={props.error}>
       <Input
-        id={name}
-        name={name}
+        id={props.name}
+        name={props.name}
         type={type}
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        placeholder={placeholder}
+        value={props.value}
+        onChange={e => props.onChange(e.target.value)}
+        placeholder={props.placeholder}
         variant={hasError ? "error" : "default"}
         data-error={hasError}
-        leftIcon={leftIcon}
-        rightIcon={rightIcon}
-        disabled={disabled}
-        autoComplete={autoComplete}
-        autoFocus={autoFocus}
+        leftIcon={props.leftIcon}
+        rightIcon={props.rightIcon}
+        disabled={props.disabled}
+        autoComplete={props.autoComplete}
+        autoFocus={props.autoFocus}
       />
     </FormField>
   );
 }
 
-export function ValidatedTextarea({
-  label,
-  name,
-  value,
-  onChange,
-  error,
-  required = false,
-  placeholder,
-  description,
-  rows = 6,
-  className,
-}: ValidatedTextareaProps) {
-  const hasError = !!error?.error;
+export function ValidatedTextarea(props: ValidatedTextareaProps) {
+  const required = props.required ?? false;
+  const rows = props.rows ?? 6;
+
+  const hasError = !!props.error?.error;
 
   return (
-    <FormField label={label} required={required} description={description} className={className} error={error}>
+    <FormField label={props.label} required={required} description={props.description} className={props.className} error={props.error}>
       <Textarea
-        id={name}
-        name={name}
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        placeholder={placeholder}
+        id={props.name}
+        name={props.name}
+        value={props.value}
+        onChange={e => props.onChange(e.target.value)}
+        placeholder={props.placeholder}
         rows={rows}
         variant={hasError ? "error" : "default"}
         data-error={hasError}

@@ -7,7 +7,7 @@ interface EmailDisplayProps {
   onEdit?: () => void;
 }
 
-export function EmailDisplay({ email, onEdit }: EmailDisplayProps) {
+export function EmailDisplay(props: EmailDisplayProps) {
   return (
     <div className="flex items-center gap-3 p-3 bg-brand-secondary/20 border border-brand-neutral-400/30 rounded-xl mb-6">
       <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-accent/10 text-brand-accent">
@@ -15,10 +15,10 @@ export function EmailDisplay({ email, onEdit }: EmailDisplayProps) {
       </div>
       <div className="flex-1 overflow-hidden">
         <p className="text-xs text-brand-neutral-500 font-medium uppercase tracking-wider mb-0.5">Continuing as</p>
-        <p className="text-sm font-bold text-brand-neutral-900 truncate">{email}</p>
+        <p className="text-sm font-bold text-brand-neutral-900 truncate">{props.email}</p>
       </div>
-      {onEdit && (
-        <Button onClick={onEdit} variant="ghost" size="sm" className="h-8 w-8 text-brand-neutral-400 hover:text-brand-accent p-0">
+      {props.onEdit && (
+        <Button onClick={props.onEdit} variant="ghost" size="sm" className="h-8 w-8 text-brand-neutral-400 hover:text-brand-accent p-0">
           <Edit2 className="w-4 h-4" />
         </Button>
       )}

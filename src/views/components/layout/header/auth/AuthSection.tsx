@@ -17,25 +17,25 @@ interface AuthSectionProps {
   menuConfig: UserMenuNavigation;
 }
 
-export function AuthSection({ isLoading, authenticatedUser, login, cta, variant, menuConfig }: AuthSectionProps) {
-  if (isLoading) {
+export function AuthSection(props: AuthSectionProps) {
+  if (props.isLoading) {
     // If skeleton is missing, we could just render nothing or a spinner.
     // Assuming we might need to fix import if skeleton is missing.
     return <div className="animate-pulse bg-gray-200 h-10 w-10 rounded-full" />;
   }
 
-  if (authenticatedUser) {
-    if (variant === "mobile") {
-      return <MobileUserMenu authenticatedUser={authenticatedUser} menuConfig={menuConfig} />;
+  if (props.authenticatedUser) {
+    if (props.variant === "mobile") {
+      return <MobileUserMenu authenticatedUser={props.authenticatedUser} menuConfig={props.menuConfig} />;
     }
 
     return (
       <div className="flex items-center gap-3">
-        <TokenDisplay tokens={authenticatedUser.serviceTokens} variant="badge" />
-        <UserMenuDropdown authenticatedUser={authenticatedUser} menuConfig={menuConfig} />
+        <TokenDisplay tokens={props.authenticatedUser.serviceTokens} variant="badge" />
+        <UserMenuDropdown authenticatedUser={props.authenticatedUser} menuConfig={props.menuConfig} />
       </div>
     );
   }
 
-  return <AuthButtons login={login} cta={cta} variant={variant} />;
+  return <AuthButtons login={props.login} cta={props.cta} variant={props.variant} />;
 }

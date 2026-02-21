@@ -12,12 +12,12 @@ interface InfoTooltipProps {
   className?: string;
 }
 
-export function InfoTooltip({ content, description, link, className }: InfoTooltipProps) {
+export function InfoTooltip(props: InfoTooltipProps) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={300}>
         <TooltipTrigger asChild>
-          <div className={`inline-flex items-center justify-center ${className}`}>
+          <div className={`inline-flex items-center justify-center ${props.className}`}>
             <Info className="w-4 h-4 text-brand-neutral-400 hover:text-brand-accent transition-colors" />
           </div>
         </TooltipTrigger>
@@ -26,16 +26,16 @@ export function InfoTooltip({ content, description, link, className }: InfoToolt
           sideOffset={6}
         >
           <div className="space-y-1.5">
-            <p className="text-[11px] leading-snug text-brand-neutral-900">{content}</p>
-            {description && <p className="text-[10px] leading-snug text-brand-neutral-600">{description}</p>}
-            {link && (
+            <p className="text-[11px] leading-snug text-brand-neutral-900">{props.content}</p>
+            {props.description && <p className="text-[10px] leading-snug text-brand-neutral-600">{props.description}</p>}
+            {props.link && (
               <a
-                href={link.href}
+                href={props.link.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[10px] leading-snug text-brand-accent hover:text-brand-accent-light underline hover:no-underline transition-all font-medium"
               >
-                {link.text}
+                {props.link.text}
               </a>
             )}
           </div>

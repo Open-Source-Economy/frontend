@@ -12,9 +12,9 @@ interface BulkSyncStatusBadgeProps {
   estimatedWaitSeconds: number;
 }
 
-export function BulkSyncStatusBadge({ isCompleted, isSyncing, isInQueue, queuePosition, queueTotal, estimatedWaitSeconds }: BulkSyncStatusBadgeProps) {
+export function BulkSyncStatusBadge(props: BulkSyncStatusBadgeProps) {
   const getBulkSyncStatus = (): BulkSyncStatus | null => {
-    if (isCompleted) {
+    if (props.isCompleted) {
       return {
         text: "Completed",
         bgColor: "bg-green-500/20",
@@ -23,7 +23,7 @@ export function BulkSyncStatusBadge({ isCompleted, isSyncing, isInQueue, queuePo
         icon: CheckCircle,
       };
     }
-    if (isSyncing) {
+    if (props.isSyncing) {
       return {
         text: "Syncing...",
         bgColor: "bg-blue-500/20",
@@ -32,11 +32,11 @@ export function BulkSyncStatusBadge({ isCompleted, isSyncing, isInQueue, queuePo
         icon: Loader2,
       };
     }
-    if (isInQueue && queuePosition) {
-      const waitTimeText = estimatedWaitSeconds > 0 ? ` - ~${formatWaitTime(estimatedWaitSeconds)}` : "";
+    if (props.isInQueue && props.queuePosition) {
+      const waitTimeText = props.estimatedWaitSeconds > 0 ? ` - ~${formatWaitTime(props.estimatedWaitSeconds)}` : "";
 
       return {
-        text: `Pending (${queuePosition}/${queueTotal})${waitTimeText}`,
+        text: `Pending (${props.queuePosition}/${props.queueTotal})${waitTimeText}`,
         bgColor: "bg-yellow-500/20",
         textColor: "text-yellow-300",
         borderColor: "border-yellow-500/30",

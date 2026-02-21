@@ -14,19 +14,10 @@ interface PricingCardHeaderProps {
   planId?: PlanProductType;
 }
 
-export function PricingCardHeader({
-  name,
-  description,
-  displayPrice,
-  originalPrice,
-  billingCycle,
-  buttonState,
-  onButtonClick,
-  planId,
-}: PricingCardHeaderProps) {
+export function PricingCardHeader(props: PricingCardHeaderProps) {
   // Get tier badge styling
   const getTierBadge = () => {
-    switch (planId) {
+    switch (props.planId) {
       case PlanProductType.START_UP_PLAN:
         return {
           label: "Bronze Tier",
@@ -65,14 +56,14 @@ export function PricingCardHeader({
       {/* Pricing */}
       <div className="mb-6">
         <div className="flex items-center justify-center gap-3">
-          {originalPrice && <span className="text-xl text-brand-neutral-500 line-through">${originalPrice}</span>}
-          <span className="text-5xl text-brand-neutral-900">${displayPrice}</span>
+          {props.originalPrice && <span className="text-xl text-brand-neutral-500 line-through">${props.originalPrice}</span>}
+          <span className="text-5xl text-brand-neutral-900">${props.displayPrice}</span>
         </div>
-        <div className="text-sm text-brand-neutral-600 mt-2">per month, billed {billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}</div>
+        <div className="text-sm text-brand-neutral-600 mt-2">per month, billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}</div>
       </div>
 
       {/* CTA Button */}
-      <PricingCardButton state={buttonState} onClick={onButtonClick} />
+      <PricingCardButton state={props.buttonState} onClick={props.onButtonClick} />
     </div>
   );
 }

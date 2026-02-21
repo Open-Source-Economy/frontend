@@ -26,7 +26,9 @@ interface MonthlyFundingGoalsProps {
   tiers: FundingTier[];
 }
 
-export function MonthlyFundingGoals({ currentMonthlyDonations, tiers }: MonthlyFundingGoalsProps) {
+export function MonthlyFundingGoals(props: MonthlyFundingGoalsProps) {
+  const currentMonthlyDonations = props.currentMonthlyDonations;
+  const tiers = props.tiers;
   return (
     <div className="max-w-4xl">
       <div className="mb-12">

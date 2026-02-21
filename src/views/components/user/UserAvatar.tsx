@@ -8,8 +8,8 @@ interface UserAvatarProps {
   className?: string;
 }
 
-export function UserAvatar({ user, className }: UserAvatarProps) {
-  const avatarSrc = AuthenticatedUserCompanion.getAvatar(user);
+export function UserAvatar(props: UserAvatarProps) {
+  const avatarSrc = AuthenticatedUserCompanion.getAvatar(props.user);
   // We removed initials logic as per user request to remove redundancy/simplify
   // But UserAvatar usually has a fallback.
   // The user said: 'I would like to remove the initials, but then I see that there is too much redundancy in the code'
@@ -25,7 +25,7 @@ export function UserAvatar({ user, className }: UserAvatarProps) {
   // If I put empty string in fallback, it renders empty circle.
 
   return (
-    <Avatar className={className}>
+    <Avatar className={props.className}>
       <AvatarImage src={avatarSrc} alt="User Avatar" className="object-cover" />
       <AvatarFallback className="bg-brand-accent text-white">{/* Intentionally empty as per request to remove initials */}</AvatarFallback>
     </Avatar>

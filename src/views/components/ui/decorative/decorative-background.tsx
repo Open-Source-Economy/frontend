@@ -7,7 +7,11 @@ interface DecorativeBackgroundProps {
   className?: string;
 }
 
-export function DecorativeBackground({ variant, intensity = "medium", animated = true, className = "" }: DecorativeBackgroundProps) {
+export function DecorativeBackground(props: DecorativeBackgroundProps) {
+  const intensity = props.intensity ?? "medium";
+  const animated = props.animated ?? true;
+  const className = props.className ?? "";
+
   const getVariantStyles = () => {
     const baseStyles = "absolute inset-0 rounded-2xl";
     const intensityMap = {
@@ -18,7 +22,7 @@ export function DecorativeBackground({ variant, intensity = "medium", animated =
 
     const opacity = intensityMap[intensity];
 
-    switch (variant) {
+    switch (props.variant) {
       case "primary":
         return `${baseStyles} bg-gradient-to-br from-brand-primary/${opacity} via-brand-primary-light/5 to-transparent`;
       case "accent":

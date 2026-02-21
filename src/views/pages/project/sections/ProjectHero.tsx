@@ -11,18 +11,18 @@ interface ProjectHeroProps {
   project: ProjectItemDetails;
 }
 
-export function ProjectHero({ project }: ProjectHeroProps) {
-  const displayName = useMemo(() => ProjectItemDetailsCompanion.getDisplayName(project), [project]);
+export function ProjectHero(props: ProjectHeroProps) {
+  const displayName = useMemo(() => ProjectItemDetailsCompanion.getDisplayName(props.project), [props.project]);
 
-  const description = useMemo(() => ProjectItemDetailsCompanion.getDescription(project), [project]);
+  const description = useMemo(() => ProjectItemDetailsCompanion.getDescription(props.project), [props.project]);
 
-  const githubUrl = useMemo(() => ProjectItemDetailsCompanion.getGithubUrl(project), [project]);
+  const githubUrl = useMemo(() => ProjectItemDetailsCompanion.getGithubUrl(props.project), [props.project]);
 
   const formattedStats = useMemo(() => {
-    return ProjectItemDetailsCompanion.getProjectItemsStats([project]);
-  }, [project]);
+    return ProjectItemDetailsCompanion.getProjectItemsStats([props.project]);
+  }, [props.project]);
 
-  const language = project.repository?.language ?? null;
+  const language = props.project.repository?.language ?? null;
 
   return (
     <div className="bg-gradient-to-br from-brand-secondary via-brand-card-blue to-brand-secondary-dark border-b border-brand-neutral-300">

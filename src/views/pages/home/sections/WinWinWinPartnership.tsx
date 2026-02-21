@@ -53,12 +53,14 @@ interface BulletPointProps {
   accent: AccentVariant;
 }
 
-const BulletPoint: React.FC<BulletPointProps> = ({ text, accent }) => (
-  <div className="flex items-start gap-3 text-left">
-    <CheckCircle2 className={`w-4 h-4 text-brand-${accent} flex-shrink-0 mt-0.5`} />
-    <span className="text-sm text-brand-neutral-600 leading-relaxed">{text}</span>
-  </div>
-);
+function BulletPoint(props: BulletPointProps) {
+  return (
+    <div className="flex items-start gap-3 text-left">
+      <CheckCircle2 className={`w-4 h-4 text-brand-${props.accent} flex-shrink-0 mt-0.5`} />
+      <span className="text-sm text-brand-neutral-600 leading-relaxed">{props.text}</span>
+    </div>
+  );
+}
 
 interface PartnershipCardProps {
   icon: LucideIcon;
@@ -68,7 +70,9 @@ interface PartnershipCardProps {
   accent: AccentVariant;
 }
 
-function PartnershipCard({ icon: Icon, title, intro, benefits, accent }: PartnershipCardProps) {
+function PartnershipCard(props: PartnershipCardProps) {
+  const Icon = props.icon;
+
   return (
     <div className="group relative bg-gradient-to-br from-brand-card-blue to-brand-card-blue-dark rounded-2xl p-10 border border-brand-neutral-300/20 text-center hover:border-brand-neutral-300/40 hover:shadow-2xl transition-all duration-500">
       <div className="absolute inset-0 bg-gradient-to-br from-brand-neutral-300/0 to-brand-neutral-300/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -76,21 +80,21 @@ function PartnershipCard({ icon: Icon, title, intro, benefits, accent }: Partner
       <div className="relative z-10">
         {/* Icon */}
         <div
-          className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-${accent}/20 to-brand-${accent}/5 flex items-center justify-center mb-8 mx-auto group-hover:from-brand-${accent}/30 group-hover:to-brand-${accent}/10 transition-all duration-500`}
+          className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-${props.accent}/20 to-brand-${props.accent}/5 flex items-center justify-center mb-8 mx-auto group-hover:from-brand-${props.accent}/30 group-hover:to-brand-${props.accent}/10 transition-all duration-500`}
         >
-          <Icon className={`w-8 h-8 text-brand-${accent}`} />
+          <Icon className={`w-8 h-8 text-brand-${props.accent}`} />
         </div>
 
         {/* Title */}
-        <h3 className={`text-2xl md:text-3xl text-brand-${accent} mb-5`}>{title}</h3>
+        <h3 className={`text-2xl md:text-3xl text-brand-${props.accent} mb-5`}>{props.title}</h3>
 
         {/* Intro */}
-        <p className="text-brand-neutral-700 mb-6">{intro}</p>
+        <p className="text-brand-neutral-700 mb-6">{props.intro}</p>
 
         {/* Benefits */}
         <div className="space-y-3 max-w-sm mx-auto">
-          {benefits.map((benefit, index) => (
-            <BulletPoint key={index} text={benefit} accent={accent} />
+          {props.benefits.map((benefit, index) => (
+            <BulletPoint key={index} text={benefit} accent={props.accent} />
           ))}
         </div>
       </div>
@@ -101,11 +105,11 @@ function PartnershipCard({ icon: Icon, title, intro, benefits, accent }: Partner
 // -----------------------------
 // Main section component
 // -----------------------------
-export function WinWinWinPartnership({ className }: WinWinWinPartnershipProps) {
+export function WinWinWinPartnership(props: WinWinWinPartnershipProps) {
   const { title, description, cards } = winWinWinContent;
 
   return (
-    <section className={`py-24 lg:py-40 bg-gradient-to-b from-brand-card-blue via-brand-secondary/95 to-brand-success/10 ${className ?? ""}`}>
+    <section className={`py-24 lg:py-40 bg-gradient-to-b from-brand-card-blue via-brand-secondary/95 to-brand-success/10 ${props.className ?? ""}`}>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16 lg:mb-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-brand-neutral-950 mb-6 tracking-tight">{title}</h1>

@@ -9,13 +9,13 @@ interface ProjectRowActionsProps {
   onDelete: (project: DeveloperProjectItemEntry) => void;
 }
 
-export function ProjectRowActions({ project, onEdit, onDelete }: ProjectRowActionsProps) {
+export function ProjectRowActions(props: ProjectRowActionsProps) {
   return (
     <div className="flex items-center gap-1.5">
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => onEdit(project)}
+        onClick={() => props.onEdit(props.project)}
         className="h-9 w-9 p-0 text-brand-accent hover:text-brand-accent-light hover:bg-brand-accent/10 transition-all"
         title="Edit project"
       >
@@ -24,7 +24,7 @@ export function ProjectRowActions({ project, onEdit, onDelete }: ProjectRowActio
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => onDelete(project)}
+        onClick={() => props.onDelete(props.project)}
         className="h-9 w-9 p-0 text-brand-error hover:text-brand-error-light hover:bg-brand-error/10 transition-all"
         title="Remove project"
       >

@@ -81,25 +81,20 @@ function DismissBtn({ onClick, size = "md" }: { onClick: () => void; size?: "sm"
 // -----------------------------
 // Main component
 // -----------------------------
-export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
-  error,
-  message,
-  title,
-  showRetry = false,
-  retryText = "Try Again",
-  onRetry,
-  showDismiss = false,
-  onDismiss,
-  className = "",
-  variant = "default",
-}) => {
-  const errorObj = React.useMemo(() => toApiError(error, message), [error, message]);
+export function ServerErrorAlert(props: ServerErrorAlertProps) {
+  const showRetry = props.showRetry ?? false;
+  const retryText = props.retryText ?? "Try Again";
+  const showDismiss = props.showDismiss ?? false;
+  const className = props.className ?? "";
+  const variant = props.variant ?? "default";
+
+  const errorObj = React.useMemo(() => toApiError(props.error, props.message), [props.error, props.message]);
   const {
     title: displayTitle,
     message: displayMessage,
     showStatusCode,
     showStackTrace,
-  } = React.useMemo(() => getDisplayCopy(errorObj, title), [errorObj, title]);
+  } = React.useMemo(() => getDisplayCopy(errorObj, props.title), [errorObj, props.title]);
 
   if (variant === "compact") {
     return (
@@ -123,7 +118,7 @@ export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
                 <p className="text-xs text-brand-error/80 leading-relaxed">{displayMessage}</p>
               </div>
             </div>
-            {showDismiss && onDismiss && <DismissBtn onClick={onDismiss} size="sm" />}
+            {showDismiss && props.onDismiss && <DismissBtn onClick={props.onDismiss} size="sm" />}
           </div>
         </div>
       </div>
@@ -172,18 +167,18 @@ export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
 
               {(showRetry || showDismiss) && (
                 <div className="flex items-center gap-3 pt-2">
-                  {showRetry && onRetry && (
+                  {showRetry && props.onRetry && (
                     <button
-                      onClick={onRetry}
+                      onClick={props.onRetry}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-error/15 hover:bg-brand-error/25 border border-brand-error/40 hover:border-brand-error/60 text-sm font-medium text-brand-error transition-all duration-200 shadow-lg shadow-brand-error/10 hover:shadow-brand-error/20 group"
                     >
                       <RefreshCw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
                       {retryText}
                     </button>
                   )}
-                  {showDismiss && onDismiss && (
+                  {showDismiss && props.onDismiss && (
                     <button
-                      onClick={onDismiss}
+                      onClick={props.onDismiss}
                       className="px-4 py-2 rounded-lg text-sm font-medium text-brand-error/70 hover:text-brand-error hover:bg-brand-error/10 transition-all duration-200"
                     >
                       Dismiss
@@ -193,7 +188,7 @@ export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
               )}
             </div>
 
-            {showDismiss && onDismiss && !showRetry && <DismissBtn onClick={onDismiss} />}
+            {showDismiss && props.onDismiss && !showRetry && <DismissBtn onClick={props.onDismiss} />}
           </div>
         </div>
       </div>
@@ -225,10 +220,10 @@ export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
               <h4 className="text-lg font-semibold text-brand-error leading-snug">{displayTitle}</h4>
               <p className="text-sm text-brand-error/80 leading-relaxed">{displayMessage}</p>
 
-              {showRetry && onRetry && (
+              {showRetry && props.onRetry && (
                 <div className="pt-1">
                   <button
-                    onClick={onRetry}
+                    onClick={props.onRetry}
                     className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-brand-error/15 hover:bg-brand-error/25 border border-brand-error/40 hover:border-brand-error/60 text-xs font-medium text-brand-error transition-all duration-200 shadow-md shadow-brand-error/10 hover:shadow-brand-error/20 group"
                   >
                     <RefreshCw className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" />
@@ -239,9 +234,9 @@ export const ServerErrorAlert: React.FC<ServerErrorAlertProps> = ({
             </div>
           </div>
 
-          {showDismiss && onDismiss && <DismissBtn onClick={onDismiss} size="sm" />}
+          {showDismiss && props.onDismiss && <DismissBtn onClick={props.onDismiss} size="sm" />}
         </div>
       </div>
     </div>
   );
-};
+}

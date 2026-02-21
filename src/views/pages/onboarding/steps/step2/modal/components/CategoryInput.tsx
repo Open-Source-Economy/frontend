@@ -12,16 +12,13 @@ interface CategoryInputProps {
   hint?: string;
 }
 
-export function CategoryInput({
-  predefinedCategories,
-  customCategories,
-  onChange,
-  label = "Categories (Optional)",
-  hint = "Select from suggestions or type your own. You can add multiple categories.",
-}: CategoryInputProps) {
+export function CategoryInput(props: CategoryInputProps) {
+  const label = props.label ?? "Categories (Optional)";
+  const hint = props.hint ?? "Select from suggestions or type your own. You can add multiple categories.";
+
   const allCategories = useMemo(() => {
-    return [...predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...customCategories];
-  }, [predefinedCategories, customCategories]);
+    return [...props.predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...props.customCategories];
+  }, [props.predefinedCategories, props.customCategories]);
 
   const handleChange = (allValues: string[]) => {
     const predefined: ProjectCategory[] = [];
@@ -36,14 +33,14 @@ export function CategoryInput({
       }
     });
 
-    onChange(predefined, custom);
+    props.onChange(predefined, custom);
   };
 
   const suggestions = useMemo(() => {
     return Object.values(ProjectCategory)
-      .filter(category => !predefinedCategories.includes(category))
+      .filter(category => !props.predefinedCategories.includes(category))
       .map(category => ProjectCategoryCompanion.toLabel(category));
-  }, [predefinedCategories]);
+  }, [props.predefinedCategories]);
 
   return (
     <FormField label={label} hint={hint}>

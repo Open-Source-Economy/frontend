@@ -64,7 +64,8 @@ interface PlatformSponsorsProps {
   onBecomeSponsorClick?: () => void;
 }
 
-export function PlatformSponsors({ className = "" }: PlatformSponsorsProps) {
+export function PlatformSponsors(props: PlatformSponsorsProps) {
+  const className = props.className ?? "";
   // Platform sponsors with realistic companies supporting open source
   const sponsors: Sponsor[] = [
     createSponsor("Gold", {

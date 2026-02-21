@@ -16,14 +16,14 @@ interface MaintainerCardProps {
   projectName: string;
 }
 
-export function MaintainerCard({ developer, projectName }: MaintainerCardProps) {
-  const displayName = ProjectDeveloperProfileCompanion.getDisplayName(developer);
-  const avatar = useMemo(() => ProjectDeveloperProfileCompanion.getAvatarUrl(developer), [developer]);
-  const verified = ProjectDeveloperProfileCompanion.isVerified(developer);
-  const yearsOnProject = getMaintainerTenure(developer.profileEntry?.owner?.id.login);
-  const maintainerHighlight = getMaintainerHighlight(developer.profileEntry?.owner?.id.login);
-  const maintainerDescription = getMaintainerDescription(developer.profileEntry?.owner?.id.login);
-  const twitterUrl = OwnerCompanion.getTwitterUrl(developer.profileEntry?.owner);
+export function MaintainerCard(props: MaintainerCardProps) {
+  const displayName = ProjectDeveloperProfileCompanion.getDisplayName(props.developer);
+  const avatar = useMemo(() => ProjectDeveloperProfileCompanion.getAvatarUrl(props.developer), [props.developer]);
+  const verified = ProjectDeveloperProfileCompanion.isVerified(props.developer);
+  const yearsOnProject = getMaintainerTenure(props.developer.profileEntry?.owner?.id.login);
+  const maintainerHighlight = getMaintainerHighlight(props.developer.profileEntry?.owner?.id.login);
+  const maintainerDescription = getMaintainerDescription(props.developer.profileEntry?.owner?.id.login);
+  const twitterUrl = OwnerCompanion.getTwitterUrl(props.developer.profileEntry?.owner);
 
   return (
     <div
@@ -44,7 +44,7 @@ export function MaintainerCard({ developer, projectName }: MaintainerCardProps) 
 
       {/* Availability Badge - Top Right */}
       <div className="absolute top-5 right-5 z-10">
-        <StatusBadge settings={developer.settings} />
+        <StatusBadge settings={props.developer.settings} />
       </div>
 
       <div className="flex gap-4 flex-1 relative z-[1]">
@@ -65,7 +65,7 @@ export function MaintainerCard({ developer, projectName }: MaintainerCardProps) 
           {/* Header */}
           <div className="mb-3">
             <h3 className="text-brand-neutral-900 mb-0.5">{displayName}</h3>
-            <p className="text-brand-neutral-600 mb-2">{DeveloperRoleTypeCompanion.label(developer.project.developerProjectItem.roles[0])}</p>
+            <p className="text-brand-neutral-600 mb-2">{DeveloperRoleTypeCompanion.label(props.developer.project.developerProjectItem.roles[0])}</p>
 
             {/* Inline Badges */}
             <div className="flex flex-wrap items-center gap-1.5">
@@ -75,10 +75,10 @@ export function MaintainerCard({ developer, projectName }: MaintainerCardProps) 
                 </Badge>
               )}
 
-              {developer.project.developerProjectItem.mergeRights.length > 0 && (
+              {props.developer.project.developerProjectItem.mergeRights.length > 0 && (
                 <Badge variant="outline" className="text-xs bg-brand-neutral-200/20 text-brand-neutral-600 border-brand-neutral-400/30">
                   <GitMerge className="mr-1 h-3 w-3" />
-                  {MergeRightsTypeCompanion.label(developer.project.developerProjectItem.mergeRights[0])}
+                  {MergeRightsTypeCompanion.label(props.developer.project.developerProjectItem.mergeRights[0])}
                 </Badge>
               )}
             </div>
@@ -115,8 +115,8 @@ export function MaintainerCard({ developer, projectName }: MaintainerCardProps) 
 
           {/* Social Links */}
           <div className="flex gap-1.5">
-            {developer.profileEntry?.owner?.htmlUrl && (
-              <ExternalLink href={developer.profileEntry?.owner?.htmlUrl} aria-label="GitHub" underline={false} className="group/social">
+            {props.developer.profileEntry?.owner?.htmlUrl && (
+              <ExternalLink href={props.developer.profileEntry?.owner?.htmlUrl} aria-label="GitHub" underline={false} className="group/social">
                 <Github className="h-3.5 w-3.5 transition-all duration-200 group-hover/social:text-brand-accent" />
               </ExternalLink>
             )}

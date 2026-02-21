@@ -12,7 +12,11 @@ interface EnhancedImageContainerProps {
   variant?: "standard" | "premium" | "enterprise";
 }
 
-export function EnhancedImageContainer({ src, alt, className = "", showDecorations = true, variant = "standard" }: EnhancedImageContainerProps) {
+export function EnhancedImageContainer(props: EnhancedImageContainerProps) {
+  const className = props.className ?? "";
+  const showDecorations = props.showDecorations ?? true;
+  const variant = props.variant ?? "standard";
+
   const getVariantStyles = () => {
     switch (variant) {
       case "premium":
@@ -63,7 +67,7 @@ export function EnhancedImageContainer({ src, alt, className = "", showDecoratio
           <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         )}
 
-        <ImageWithFallback src={src} alt={alt} className={`w-full h-auto rounded-xl ${styles.shadow} transition-all duration-500`} />
+        <ImageWithFallback src={props.src} alt={props.alt} className={`w-full h-auto rounded-xl ${styles.shadow} transition-all duration-500`} />
 
         {/* Overlay effects */}
         {variant === "enterprise" && (

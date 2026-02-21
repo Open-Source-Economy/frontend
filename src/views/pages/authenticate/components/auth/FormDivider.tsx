@@ -4,7 +4,9 @@ interface FormDividerProps {
   text?: string;
 }
 
-export function FormDivider({ text = "or" }: FormDividerProps) {
+export function FormDivider(props: FormDividerProps) {
+  const text = props.text ?? "or";
+
   return (
     <div className="relative py-2">
       <div className="absolute inset-0 flex items-center">

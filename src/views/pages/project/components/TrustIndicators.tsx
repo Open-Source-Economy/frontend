@@ -37,17 +37,17 @@ const BADGE_TONE_STYLES: Record<TrustIndicatorTone, { container: string; icon: s
   },
 };
 
-export function TrustIndicatorGroup({ items, variant, className }: TrustIndicatorGroupProps) {
-  if (items.length === 0) {
+export function TrustIndicatorGroup(props: TrustIndicatorGroupProps) {
+  if (props.items.length === 0) {
     return null;
   }
 
-  const wrapperClassName = ["flex flex-wrap items-center justify-center gap-3", className].filter(Boolean).join(" ");
+  const wrapperClassName = ["flex flex-wrap items-center justify-center gap-3", props.className].filter(Boolean).join(" ");
 
   return (
     <div className={wrapperClassName}>
-      {items.map(item => (
-        <TrustIndicatorPill key={item.label} item={item} variant={variant} />
+      {props.items.map(item => (
+        <TrustIndicatorPill key={item.label} item={item} variant={props.variant} />
       ))}
     </div>
   );
@@ -58,26 +58,26 @@ interface TrustIndicatorPillProps {
   variant: TrustIndicatorVariant;
 }
 
-function TrustIndicatorPill({ item, variant }: TrustIndicatorPillProps) {
-  const Icon = item.icon;
+function TrustIndicatorPill(props: TrustIndicatorPillProps) {
+  const Icon = props.item.icon;
 
-  if (variant === "card") {
+  if (props.variant === "card") {
     return (
       <div className={CARD_CONTAINER_CLASS}>
         <div className={CARD_ICON_WRAPPER_CLASS}>
           <Icon className="w-3.5 h-3.5 text-brand-accent" />
         </div>
-        <span className="text-brand-neutral-800 text-sm">{item.label}</span>
+        <span className="text-brand-neutral-800 text-sm">{props.item.label}</span>
       </div>
     );
   }
 
-  const tone = BADGE_TONE_STYLES[item.tone ?? "accent"];
+  const tone = BADGE_TONE_STYLES[props.item.tone ?? "accent"];
 
   return (
     <div className={[BADGE_BASE_CLASS, tone.container].join(" ")}>
       <Icon className={["w-4 h-4", tone.icon].join(" ")} />
-      <span className="text-brand-neutral-700 text-sm">{item.label}</span>
+      <span className="text-brand-neutral-700 text-sm">{props.item.label}</span>
     </div>
   );
 }

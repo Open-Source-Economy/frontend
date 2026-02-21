@@ -71,64 +71,58 @@ const visibilityClasses = {
   },
 };
 
-export function SectionHeader({
-  title,
-  description,
-  badge,
-  titleLevel = "h2",
-  align = "center",
-  maxWidth = "3xl",
-  spacing = "lg",
-  visibility = "normal",
-  className,
-  titleId,
-  descriptionId,
-}: SectionHeaderProps) {
+export function SectionHeader(props: SectionHeaderProps) {
+  const titleLevel = props.titleLevel ?? "h2";
+  const align = props.align ?? "center";
+  const maxWidth = props.maxWidth ?? "3xl";
+  const spacing = props.spacing ?? "lg";
+  const visibility = props.visibility ?? "normal";
+
   const headerClasses = cn(
     alignClasses[align],
     maxWidth !== "none" && align === "center" && "mx-auto",
     maxWidth !== "none" && maxWidthClasses[maxWidth],
     spacingClasses[spacing],
-    className,
+    props.className,
   );
 
   const renderTitle = () => {
     const titleProps = {
-      id: titleId,
-      className: `${visibilityClasses[visibility].title} ${description ? "mb-4" : ""}`,
+      id: props.titleId,
+      className: `${visibilityClasses[visibility].title} ${props.description ? "mb-4" : ""}`,
     };
 
     switch (titleLevel) {
       case "h1":
-        return <Typography.H1 {...titleProps}>{title}</Typography.H1>;
+        return <Typography.H1 {...titleProps}>{props.title}</Typography.H1>;
       case "h2":
-        return <Typography.H2 {...titleProps}>{title}</Typography.H2>;
+        return <Typography.H2 {...titleProps}>{props.title}</Typography.H2>;
       case "h3":
-        return <Typography.H3 {...titleProps}>{title}</Typography.H3>;
+        return <Typography.H3 {...titleProps}>{props.title}</Typography.H3>;
       case "h4":
-        return <Typography.H4 {...titleProps}>{title}</Typography.H4>;
+        return <Typography.H4 {...titleProps}>{props.title}</Typography.H4>;
       case "h5":
-        return <Typography.H5 {...titleProps}>{title}</Typography.H5>;
+        return <Typography.H5 {...titleProps}>{props.title}</Typography.H5>;
       case "h6":
-        return <Typography.H6 {...titleProps}>{title}</Typography.H6>;
+        return <Typography.H6 {...titleProps}>{props.title}</Typography.H6>;
       default:
-        return <Typography.H2 {...titleProps}>{title}</Typography.H2>;
+        return <Typography.H2 {...titleProps}>{props.title}</Typography.H2>;
     }
   };
 
   return (
     <div className={headerClasses}>
-      {badge && (
+      {props.badge && (
         <Badge variant="secondary" className={`mb-4 ${visibilityClasses[visibility].badge}`}>
-          {badge}
+          {props.badge}
         </Badge>
       )}
 
       {renderTitle()}
 
-      {description && (
-        <Typography.Lead id={descriptionId} className={visibilityClasses[visibility].description}>
-          {description}
+      {props.description && (
+        <Typography.Lead id={props.descriptionId} className={visibilityClasses[visibility].description}>
+          {props.description}
         </Typography.Lead>
       )}
     </div>

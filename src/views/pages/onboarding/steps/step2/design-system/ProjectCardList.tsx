@@ -8,11 +8,11 @@ interface ProjectCardListProps {
   onDelete: (project: DeveloperProjectItemEntry) => void;
 }
 
-export function ProjectCardList({ projects, onEdit, onDelete }: ProjectCardListProps) {
+export function ProjectCardList(props: ProjectCardListProps) {
   return (
     <div className="md:hidden space-y-3">
-      {projects.map(project => (
-        <ProjectCard key={project.developerProjectItem.id.uuid} project={project} onEdit={onEdit} onDelete={onDelete} />
+      {props.projects.map(project => (
+        <ProjectCard key={project.developerProjectItem.id.uuid} project={project} onEdit={props.onEdit} onDelete={props.onDelete} />
       ))}
     </div>
   );

@@ -53,21 +53,21 @@ const DISTRIBUTION_CONFIG: DistributionConfigEntry[] = [
   },
 ];
 
-function DistributionBar({ distribution, total }: { distribution: FundDistributionVisualizationProps["distribution"]; total: number }) {
-  if (!total) {
+function DistributionBar(props: { distribution: FundDistributionVisualizationProps["distribution"]; total: number }) {
+  if (!props.total) {
     return null;
   }
 
   return (
     <div className="flex h-16 rounded-lg overflow-hidden border border-brand-neutral-300">
       {DISTRIBUTION_CONFIG.map(({ key, accentColor }) => {
-        const value = distribution[key];
+        const value = props.distribution[key];
         return (
           <div
             key={key}
             className={`flex items-center justify-center transition-all bg-brand-${accentColor}`}
             style={{
-              width: `${(value / total) * 100}%`,
+              width: `${(value / props.total) * 100}%`,
             }}
           >
             <span className="text-white">{value}%</span>
@@ -78,23 +78,23 @@ function DistributionBar({ distribution, total }: { distribution: FundDistributi
   );
 }
 
-function DistributionCard({ item, value }: { item: DistributionConfigEntry; value: number }) {
-  const { Icon, label, description, accentColor } = item;
+function DistributionCard(props: { item: DistributionConfigEntry; value: number }) {
+  const Icon = props.item.Icon;
 
   return (
-    <div className={`p-4 rounded-lg border bg-brand-${accentColor}/5 border-brand-${accentColor}/20`}>
-      <div className={`flex items-center gap-2 mb-2 text-brand-${accentColor}`}>
+    <div className={`p-4 rounded-lg border bg-brand-${props.item.accentColor}/5 border-brand-${props.item.accentColor}/20`}>
+      <div className={`flex items-center gap-2 mb-2 text-brand-${props.item.accentColor}`}>
         <Icon className="h-5 w-5" />
-        <span>{value}%</span>
+        <span>{props.value}%</span>
       </div>
-      <h5 className="text-brand-neutral-800 mb-1">{label}</h5>
-      <p className="text-brand-neutral-600 text-sm">{description}</p>
+      <h5 className="text-brand-neutral-800 mb-1">{props.item.label}</h5>
+      <p className="text-brand-neutral-600 text-sm">{props.item.description}</p>
     </div>
   );
 }
 
-export function FundDistributionVisualization({ distribution, projectName }: FundDistributionVisualizationProps) {
-  const total = distribution.serviceProvider + distribution.openSourceEconomy + distribution.project + distribution.dependencies;
+export function FundDistributionVisualization(props: FundDistributionVisualizationProps) {
+  const total = props.distribution.serviceProvider + props.distribution.openSourceEconomy + props.distribution.project + props.distribution.dependencies;
 
   return (
     <div className="bg-[rgba(26,41,66,0)] border border-brand-neutral-300 rounded-xl p-8">
@@ -106,13 +106,13 @@ export function FundDistributionVisualization({ distribution, projectName }: Fun
 
       {/* Visual Distribution Bar */}
       <div className="mb-8">
-        <DistributionBar distribution={distribution} total={total} />
+        <DistributionBar distribution={props.distribution} total={total} />
       </div>
 
       {/* Breakdown */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {DISTRIBUTION_CONFIG.map(item => (
-          <DistributionCard key={item.key} item={item} value={distribution[item.key]} />
+          <DistributionCard key={item.key} item={item} value={props.distribution[item.key]} />
         ))}
       </div>
 

@@ -12,17 +12,19 @@ interface CurrencySelectorProps {
   className?: string;
 }
 
-function CurrencyItem({ display }: { display: CurrencyDisplay }) {
+function CurrencyItem(props: { display: CurrencyDisplay }) {
   return (
     <div className="flex items-center gap-2">
-      <span>{display.flag}</span>
-      <span>{display.name}</span>
-      <span className="text-muted-foreground">({display.symbol})</span>
+      <span>{props.display.flag}</span>
+      <span>{props.display.name}</span>
+      <span className="text-muted-foreground">({props.display.symbol})</span>
     </div>
   );
 }
 
-export function CurrencySelector({ variant = "default", label, className }: CurrencySelectorProps) {
+export function CurrencySelector(props: CurrencySelectorProps) {
+  const variant = props.variant ?? "default";
+
   const authState = useAuth();
   const value = PreferredCurrency.get(authState);
   const onValueChange = (currency: dto.Currency) => {
@@ -46,12 +48,12 @@ export function CurrencySelector({ variant = "default", label, className }: Curr
 
     return (
       <SelectField
-        label={label}
+        label={props.label}
         value={value}
         onChange={val => onValueChange(val as dto.Currency)}
         options={currencyOptions}
         placeholder="Select currency"
-        className={className}
+        className={props.className}
       />
     );
   }
@@ -59,9 +61,9 @@ export function CurrencySelector({ variant = "default", label, className }: Curr
   // Compact variant with custom rendering for minimal footer display
   return (
     <div>
-      {label && <label className="text-xs text-muted-foreground mb-1">{label}</label>}
+      {props.label && <label className="text-xs text-muted-foreground mb-1">{props.label}</label>}
       <Select value={value} onValueChange={val => onValueChange(val as dto.Currency)}>
-        <SelectTrigger className={`cursor-pointer ${className}`} variant="ghost" size="sm">
+        <SelectTrigger className={`cursor-pointer ${props.className}`} variant="ghost" size="sm">
           <SelectValue>
             <CurrencyItem display={currentDisplay} />
           </SelectValue>

@@ -15,7 +15,7 @@ import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, Newslett
 // -----------------------------
 interface NewsletterSectionProps {}
 
-export function NewsletterSection({}: NewsletterSectionProps) {
+export function NewsletterSection(props: NewsletterSectionProps) {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);

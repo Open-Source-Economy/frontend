@@ -31,17 +31,18 @@ export interface ChipProps extends VariantProps<typeof chipVariants> {
   disabled?: boolean;
 }
 
-export const Chip: React.FC<ChipProps> = ({ children, onRemove, size, interactive, className, disabled = false }) => {
-  const isInteractive = interactive ?? onRemove !== undefined;
+export function Chip(props: ChipProps) {
+  const disabled = props.disabled ?? false;
+  const isInteractive = props.interactive ?? props.onRemove !== undefined;
 
   return (
-    <span className={cn(chipVariants({ size, interactive: isInteractive }), "text-brand-accent", className)}>
-      <span>{children}</span>
-      {onRemove && (
+    <span className={cn(chipVariants({ size: props.size, interactive: isInteractive }), "text-brand-accent", props.className)}>
+      <span>{props.children}</span>
+      {props.onRemove && (
         <button
-          onClick={onRemove}
+          onClick={props.onRemove}
           className="text-brand-accent/70 hover:text-brand-error transition-colors cursor-pointer"
-          aria-label={`Remove ${children}`}
+          aria-label={`Remove ${props.children}`}
           type="button"
           disabled={disabled}
         >
@@ -50,4 +51,4 @@ export const Chip: React.FC<ChipProps> = ({ children, onRemove, size, interactiv
       )}
     </span>
   );
-};
+}

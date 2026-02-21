@@ -68,10 +68,10 @@ interface StatusBadgeProps {
 }
 
 // Status Badge with Tooltip Component
-export function StatusBadge({ settings }: StatusBadgeProps) {
+export function StatusBadge(props: StatusBadgeProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const hoverTimeoutRef = useRef<number | null>(null);
-  const config = getStatusConfig(settings);
+  const config = getStatusConfig(props.settings);
 
   // Don't render if no config (no badge to show)
   if (!config) {

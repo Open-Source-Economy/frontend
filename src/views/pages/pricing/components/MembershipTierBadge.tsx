@@ -7,7 +7,9 @@ interface MembershipTierBadgeProps {
   compact?: boolean;
 }
 
-export function MembershipTierBadge({ tier, compact = false }: MembershipTierBadgeProps) {
+export function MembershipTierBadge(props: MembershipTierBadgeProps) {
+  const compact = props.compact ?? false;
+
   const tierConfig = {
     [PlanProductType.INDIVIDUAL_PLAN]: {
       label: "Basic",
@@ -35,7 +37,7 @@ export function MembershipTierBadge({ tier, compact = false }: MembershipTierBad
     },
   };
 
-  const config = tierConfig[tier];
+  const config = tierConfig[props.tier];
   const Icon = config.icon;
 
   if (compact) {

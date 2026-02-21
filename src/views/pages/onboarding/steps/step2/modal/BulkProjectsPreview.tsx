@@ -66,7 +66,9 @@ interface ProjectChipsProps {
   showTitle?: boolean;
 }
 
-const ProjectChips: React.FC<ProjectChipsProps> = ({ items, variant, showTitle = false }) => {
+function ProjectChips(props: ProjectChipsProps) {
+  const showTitle = props.showTitle ?? false;
+
   const variantClasses = {
     accent: "bg-brand-accent/10 text-brand-accent border-brand-accent/20",
     highlight: "bg-brand-highlight/10 text-brand-highlight border-brand-highlight/20",
@@ -75,18 +77,18 @@ const ProjectChips: React.FC<ProjectChipsProps> = ({ items, variant, showTitle =
   };
 
   const baseClasses = "inline-flex items-center px-2 py-1 rounded-md text-xs font-mono border";
-  const truncateClasses = variant === "neutral" ? "max-w-full truncate" : "";
+  const truncateClasses = props.variant === "neutral" ? "max-w-full truncate" : "";
 
   return (
     <div className="flex flex-wrap gap-1.5">
-      {items.map((item, idx) => (
-        <span key={idx} className={`${baseClasses} ${variantClasses[variant]} ${truncateClasses}`} title={showTitle ? item : undefined}>
+      {props.items.map((item, idx) => (
+        <span key={idx} className={`${baseClasses} ${variantClasses[props.variant]} ${truncateClasses}`} title={showTitle ? item : undefined}>
           {item}
         </span>
       ))}
     </div>
   );
-};
+}
 
 // Component for displaying a section of valid projects
 interface ValidProjectsSectionProps {
@@ -95,18 +97,18 @@ interface ValidProjectsSectionProps {
   variant: "accent" | "highlight" | "neutral";
 }
 
-const ValidProjectsSection: React.FC<ValidProjectsSectionProps> = ({ title, items, variant }) => {
-  if (items.length === 0) return null;
+function ValidProjectsSection(props: ValidProjectsSectionProps) {
+  if (props.items.length === 0) return null;
 
   return (
     <div className="space-y-1">
       <div className="text-xs font-medium text-brand-neutral-600 uppercase tracking-wider">
-        {title} ({items.length})
+        {props.title} ({props.items.length})
       </div>
-      <ProjectChips items={items} variant={variant} showTitle={variant === "neutral"} />
+      <ProjectChips items={props.items} variant={props.variant} showTitle={props.variant === "neutral"} />
     </div>
   );
-};
+}
 
 // Component for displaying an error section
 interface ErrorSectionProps {
@@ -116,29 +118,29 @@ interface ErrorSectionProps {
   items: string[];
 }
 
-const ErrorSection: React.FC<ErrorSectionProps> = ({ title, count, explanation, items }) => {
-  if (items.length === 0) return null;
+function ErrorSection(props: ErrorSectionProps) {
+  if (props.items.length === 0) return null;
 
   return (
     <div className="space-y-2">
       <div className="text-xs font-medium text-red-800">
-        {title} ({count})
+        {props.title} ({props.count})
       </div>
-      {explanation && <div className="text-xs text-red-700">{explanation}</div>}
-      <ProjectChips items={items} variant="error" showTitle={true} />
+      {props.explanation && <div className="text-xs text-red-700">{props.explanation}</div>}
+      <ProjectChips items={props.items} variant="error" showTitle={true} />
     </div>
   );
-};
+}
 
-export function BulkProjectsPreview({ validationResult, selectedProjectType }: BulkProjectsPreviewProps) {
-  const { repositories, owners, urls } = groupProjectsByType(validationResult.validProjects);
-  const { duplicateNames, conflictNames, typeMismatchNames, invalidFormatNames } = extractErrorsByType(validationResult.errors);
+export function BulkProjectsPreview(props: BulkProjectsPreviewProps) {
+  const { repositories, owners, urls } = groupProjectsByType(props.validationResult.validProjects);
+  const { duplicateNames, conflictNames, typeMismatchNames, invalidFormatNames } = extractErrorsByType(props.validationResult.errors);
 
   const invalidUrls = [...typeMismatchNames, ...invalidFormatNames];
   const hasErrors = invalidUrls.length > 0 || conflictNames.length > 0 || duplicateNames.length > 0;
-  const typeErrorExplanation = getTypeErrorExplanation(typeMismatchNames, invalidFormatNames, selectedProjectType);
+  const typeErrorExplanation = getTypeErrorExplanation(typeMismatchNames, invalidFormatNames, props.selectedProjectType);
 
-  const ownersTitle = selectedProjectType === ProjectItemType.GITHUB_OWNER ? "Organizations/Users" : "Owners";
+  const ownersTitle = props.selectedProjectType === ProjectItemType.GITHUB_OWNER ? "Organizations/Users" : "Owners";
 
   return (
     <div className="space-y-2">

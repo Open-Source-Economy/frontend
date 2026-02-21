@@ -17,7 +17,9 @@ interface SelectFilterProps {
   disabled?: boolean;
 }
 
-export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, label, tooltip, isUpgraded, disabled = false }: SelectFilterProps) {
+export function SelectFilter(props: SelectFilterProps) {
+  const disabled = props.disabled ?? false;
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -37,21 +39,21 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
   // Don't reset when a value is intentionally selected
   React.useEffect(() => {
     // Skip initial render
-    if (labelValues.length > 0) {
+    if (props.labelValues.length > 0) {
       setSelectedValue("");
     }
-  }, [JSON.stringify(labelValues.map(item => item.value))]);
+  }, [JSON.stringify(props.labelValues.map(item => item.value))]);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
-    onFilterChange(value);
+    props.onFilterChange(value);
     setIsOpen(false);
   };
 
   // Update selectedValue if it comes from parent as a prop
   React.useEffect(() => {
     // Find if there's a pre-selected item in labelValues
-    const preSelectedItem = labelValues.find(item => item.isSelected);
+    const preSelectedItem = props.labelValues.find(item => item.isSelected);
     if (preSelectedItem) {
       setSelectedValue(preSelectedItem.value);
     }
@@ -65,10 +67,10 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
-      {label && (
+      {props.label && (
         <div className="flex items-center justify-between gap-2 mb-1">
-          <label className="text-[#FFFFFF99] 3xl:text-lg font-medium">{label}</label>
-          {tooltip && (
+          <label className="text-[#FFFFFF99] 3xl:text-lg font-medium">{props.label}</label>
+          {props.tooltip && (
             <div className="relative flex items-center">
               <div className="text-primary-user flex items-center gap-1 justify-center text-sm">
                 Beta Function
@@ -76,21 +78,21 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
                   <ToolTipIcon />
                   <div
                     className="absolute z-50  md:left-1/2 top-full transform -right-4 md:-translate-x-1/2 mt-2  !duration-300 transition-all
-                    min-w-[200px] sm:min-w-[287px] max-w-[287px] 
-                    hidden group-hover:block 
-                    !p-3 3xl:!p-4 
-                    bg-primary-user text-white rounded-lg 
+                    min-w-[200px] sm:min-w-[287px] max-w-[287px]
+                    hidden group-hover:block
+                    !p-3 3xl:!p-4
+                    bg-primary-user text-white rounded-lg
                     text-[11px] !leading-[160%]"
                   >
                     {/* Arrow - centered */}
                     <div
                       className="absolute -top-2 md:left-1/2 transform right-[15px] md:-translate-x-1/2
-                      w-0 h-0 
-                      border-l-8 border-l-transparent 
-                      border-r-8 border-r-transparent 
+                      w-0 h-0
+                      border-l-8 border-l-transparent
+                      border-r-8 border-r-transparent
                       border-b-8 border-b-primary-user"
                     ></div>
-                    {tooltip}
+                    {props.tooltip}
                   </div>
                 </div>
               </div>
@@ -98,10 +100,10 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
           )}
         </div>
       )}
-      <div className={`relative ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`} onClick={handleDropdownClick} aria-label={ariaLabel}>
+      <div className={`relative ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`} onClick={handleDropdownClick} aria-label={props.ariaLabel}>
         <div className="bg-[#202F45] w-full rounded-[10px] p-3 flex items-center justify-between">
           <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "} 3xl:text-lg`}>
-            {selectedValue ? labelValues.find(item => item.value === selectedValue)?.label : placeholder}
+            {selectedValue ? props.labelValues.find(item => item.value === selectedValue)?.label : props.placeholder}
           </span>
 
           <svg
@@ -118,16 +120,16 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
             />
           </svg>
         </div>
-        {isOpen && !disabled && labelValues.length > 0 && (
+        {isOpen && !disabled && props.labelValues.length > 0 && (
           <div className="absolute z-50 w-full mt-2 bg-[#202F45] rounded-[10px] shadow-lg overflow-hidden max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6E7591] scrollbar-track-[#202F45]">
-            {labelValues.map((item, index) => (
+            {props.labelValues.map((item, index) => (
               <div
                 key={index}
                 className="flex items-center group justify-between py-2.5 px-3 font-medium hover:bg-[rgba(255,255,255,0.10)] cursor-pointer"
                 onClick={() => handleSelect(item.value)}
               >
                 <span
-                  className={`bg-white text-transparent bg-clip-text 
+                  className={`bg-white text-transparent bg-clip-text
                    ${selectedValue === item.value ? "bg-gradient-custom" : "group-hover:bg-gradient-custom"}
                   `}
                 >
@@ -157,7 +159,7 @@ export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placehold
         )}
       </div>
 
-      {isUpgraded && <IsUpgraded />}
+      {props.isUpgraded && <IsUpgraded />}
     </div>
   );
 }

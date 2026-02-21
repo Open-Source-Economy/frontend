@@ -14,8 +14,8 @@ interface MaintainerListProps {
   developers: MaintainerDeveloper[];
 }
 
-export function MaintainerList({ developers }: MaintainerListProps) {
-  if (!developers || developers.length === 0) {
+export function MaintainerList(props: MaintainerListProps) {
+  if (!props.developers || props.developers.length === 0) {
     return null;
   }
 
@@ -23,10 +23,10 @@ export function MaintainerList({ developers }: MaintainerListProps) {
     <div className="mt-4 p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
       <div className="flex items-start gap-2 mb-3">
         <Users className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-        <p className="text-sm font-semibold text-purple-300">Registered Maintainers ({developers.length})</p>
+        <p className="text-sm font-semibold text-purple-300">Registered Maintainers ({props.developers.length})</p>
       </div>
       <div className="space-y-2">
-        {developers.map((dev, idx) => (
+        {props.developers.map((dev, idx) => (
           <div
             key={`${dev.developerProfile.id.uuid}-${idx}`}
             className="flex items-start gap-3 p-2 bg-purple-500/10 border border-purple-500/20 rounded hover:bg-purple-500/20 transition-colors"

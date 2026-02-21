@@ -12,7 +12,9 @@ type FeaturedVendor = Omit<VendorCardProps, "ctaLink" | "onLearnMore"> & {
   href: string;
 };
 
-export function FeaturedVendors({ className = "", anchorId = "featured-vendors" }: FeaturedVendorsProps) {
+export function FeaturedVendors(props: FeaturedVendorsProps) {
+  const className = props.className ?? "";
+  const anchorId = props.anchorId ?? "featured-vendors";
   // Sample vendor data - would come from API in production
   const vendors: FeaturedVendor[] = [
     ...(isVisible("epicmaxSponsor")

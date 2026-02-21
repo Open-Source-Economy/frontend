@@ -16,8 +16,8 @@ interface PageTransitionProps {
  * - Smooth entrance and exit
  * - Optional loading message
  */
-export const PageTransition: React.FC<PageTransitionProps> = ({ isLoading, message }) => {
-  if (!isLoading) return null;
+export function PageTransition(props: PageTransitionProps) {
+  if (!props.isLoading) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in duration-200">
@@ -31,8 +31,8 @@ export const PageTransition: React.FC<PageTransitionProps> = ({ isLoading, messa
         </div>
 
         {/* Optional message */}
-        {message && <p className="text-brand-neutral-600 text-base font-medium">{message}</p>}
+        {props.message && <p className="text-brand-neutral-600 text-base font-medium">{props.message}</p>}
       </div>
     </div>
   );
-};
+}

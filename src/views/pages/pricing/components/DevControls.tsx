@@ -13,13 +13,7 @@ interface DevControlsProps {
     onPlanBillingChange: (billing: PlanPriceType) => void;
 }
 
-export function DevControls({
-    currentPlanTier,
-    currentPlanBilling,
-    plans,
-    onPlanTierChange,
-    onPlanBillingChange
-}: DevControlsProps) {
+export function DevControls(props: DevControlsProps) {
     if (!isVisible('devControls')) return null;
 
     return (
@@ -30,25 +24,25 @@ export function DevControls({
                     <div className="flex items-center gap-2">
                         <label className="text-sm text-yellow-900">Current Plan:</label>
                         <select
-                            value={currentPlanTier || 'none'}
+                            value={props.currentPlanTier || 'none'}
                             onChange={(e) => {
                                 const val = e.target.value;
-                                onPlanTierChange(val === 'none' ? null : val as PlanProductType);
+                                props.onPlanTierChange(val === 'none' ? null : val as PlanProductType);
                             }}
                             className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
                         >
                             <option value="none">No Plan</option>
-                            {plans.map(plan => (
+                            {props.plans.map(plan => (
                                 <option key={plan.id} value={plan.id}>{plan.name}</option>
                             ))}
                         </select>
                     </div>
-                    {currentPlanTier && (
+                    {props.currentPlanTier && (
                         <div className="flex items-center gap-2">
                             <label className="text-sm text-yellow-900">Current Billing:</label>
                             <select
-                                value={currentPlanBilling}
-                                onChange={(e) => onPlanBillingChange(e.target.value as PlanPriceType)}
+                                value={props.currentPlanBilling}
+                                onChange={(e) => props.onPlanBillingChange(e.target.value as PlanPriceType)}
                                 className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
                             >
                                 <option value={PlanPriceType.MONTHLY}>Monthly</option>

@@ -11,14 +11,14 @@ interface ProjectCardProps {
   onDelete: (project: DeveloperProjectItemEntry) => void;
 }
 
-export function ProjectCard({ project, onEdit, onDelete }: ProjectCardProps) {
-  const url = getProjectDisplayUrl(project);
-  const displayName = getProjectDisplayName(project);
-  const role = getRoleLabel(project);
-  const access = getAccessValue(project);
+export function ProjectCard(props: ProjectCardProps) {
+  const url = getProjectDisplayUrl(props.project);
+  const displayName = getProjectDisplayName(props.project);
+  const role = getRoleLabel(props.project);
+  const access = getAccessValue(props.project);
   const accessLabel = MergeRightsTypeCompanion.label(access);
   const accessClassName = MergeRightsTypeCompanion.className(access);
-  const isGithubProject = isGitHubProject(project);
+  const isGithubProject = isGitHubProject(props.project);
 
   return (
     <div className="rounded-xl border border-brand-neutral-300/30 bg-brand-card-blue/20 p-4 space-y-3">
@@ -47,7 +47,7 @@ export function ProjectCard({ project, onEdit, onDelete }: ProjectCardProps) {
 
         {/* Action Buttons */}
         <div className="flex-shrink-0">
-          <ProjectRowActions project={project} onEdit={onEdit} onDelete={onDelete} />
+          <ProjectRowActions project={props.project} onEdit={props.onEdit} onDelete={props.onDelete} />
         </div>
       </div>
 

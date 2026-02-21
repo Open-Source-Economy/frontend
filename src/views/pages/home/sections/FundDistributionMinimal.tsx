@@ -98,43 +98,45 @@ interface AllocationCardProps {
   negotiable?: boolean;
 }
 
-function AllocationCard({ percentage, title, subtitle, icon: Icon, color, description, descriptionNote, usage, negotiable }: AllocationCardProps) {
+function AllocationCard(props: AllocationCardProps) {
+  const Icon = props.icon;
+
   return (
-    <Card className={`group border border-border/50 hover:border-${color}/30 hover:shadow-lg transition-all duration-300`}>
+    <Card className={`group border border-border/50 hover:border-${props.color}/30 hover:shadow-lg transition-all duration-300`}>
       <CardContent className="p-6 flex flex-col h-full">
         {/* Header with Icon on Left and Percentage on Right */}
         <div className="flex items-center justify-between mb-4">
           <div
-            className={`w-12 h-12 rounded-xl bg-gradient-to-br from-${color}/10 to-${color}/20 flex items-center justify-center text-${color} group-hover:scale-110 transition-transform duration-300`}
+            className={`w-12 h-12 rounded-xl bg-gradient-to-br from-${props.color}/10 to-${props.color}/20 flex items-center justify-center text-${props.color} group-hover:scale-110 transition-transform duration-300`}
           >
             <Icon className="w-5 h-5" />
           </div>
 
           <div className="text-right">
-            <div className={`text-3xl font-bold text-${color}`}>~{percentage}%</div>
-            {negotiable && <span className="text-xs text-muted-foreground italic">negotiable</span>}
+            <div className={`text-3xl font-bold text-${props.color}`}>~{props.percentage}%</div>
+            {props.negotiable && <span className="text-xs text-muted-foreground italic">negotiable</span>}
           </div>
         </div>
 
-        <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-        <p className="text-xs text-muted-foreground mb-4">{subtitle}</p>
+        <h3 className="font-semibold text-foreground mb-1">{props.title}</h3>
+        <p className="text-xs text-muted-foreground mb-4">{props.subtitle}</p>
 
         {/* Description per allocation */}
         <p className="text-sm text-muted-foreground mb-4 flex-grow">
-          {description}
-          {descriptionNote && <span className="block mt-2 text-xs text-brand-accent/70 italic">{descriptionNote}</span>}
+          {props.description}
+          {props.descriptionNote && <span className="block mt-2 text-xs text-brand-accent/70 italic">{props.descriptionNote}</span>}
         </p>
 
         {/* Bottom Section - Always Aligned */}
         <div className="mt-auto">
-          <Progress value={percentage} className={`h-2 bg-brand-neutral-300 [&>div]:bg-${color} mb-3`} />
+          <Progress value={props.percentage} className={`h-2 bg-brand-neutral-300 [&>div]:bg-${props.color} mb-3`} />
 
           {/* Fund Usage Bullet Points */}
-          {usage && usage.length > 0 && (
+          {props.usage && props.usage.length > 0 && (
             <div className="text-left space-y-1">
-              {usage.map((u, i) => (
+              {props.usage.map((u, i) => (
                 <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                  <div className={`w-1 h-1 rounded-full bg-${color} mt-1.5 flex-shrink-0`} />
+                  <div className={`w-1 h-1 rounded-full bg-${props.color} mt-1.5 flex-shrink-0`} />
                   <span>{u}</span>
                 </div>
               ))}
@@ -149,13 +151,13 @@ function AllocationCard({ percentage, title, subtitle, icon: Icon, color, descri
 // ---------------------------------------
 // Main component
 // ---------------------------------------
-export function FundDistributionMinimal({ className }: FundDistributionMinimalProps) {
+export function FundDistributionMinimal(props: FundDistributionMinimalProps) {
   const { badge, title, description, note, allocations, summary } = fundDistributionContent;
   const BadgeIcon = badge.icon;
   const SummaryIcon = summary.labelIcon;
 
   return (
-    <section className={`py-16 lg:py-20 ${className ?? ""}`}>
+    <section className={`py-16 lg:py-20 ${props.className ?? ""}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

@@ -24,54 +24,46 @@ interface FormFieldProps {
   link?: FormFieldLink;
 }
 
-export function FormField({
-  label,
-  description,
-  hint,
-  error,
-  success,
-  required = false,
-  className,
-  children,
-  showErrorIcon = true,
-  showSuccessIcon = true,
-  link,
-}: FormFieldProps) {
-  const hasError = !!error?.error;
-  const hasSuccess = !!success;
-  const helpText = hint || description;
+export function FormField(props: FormFieldProps) {
+  const required = props.required ?? false;
+  const showErrorIcon = props.showErrorIcon ?? true;
+  const showSuccessIcon = props.showSuccessIcon ?? true;
 
-  const hasLabelOrLink = !!(label || link);
+  const hasError = !!props.error?.error;
+  const hasSuccess = !!props.success;
+  const helpText = props.hint || props.description;
+
+  const hasLabelOrLink = !!(props.label || props.link);
 
   return (
-    <div className={cn(hasLabelOrLink ? "space-y-2" : "", className)}>
-      {(label || link) && (
+    <div className={cn(hasLabelOrLink ? "space-y-2" : "", props.className)}>
+      {(props.label || props.link) && (
         <div className="flex items-center justify-between">
-          {label && (
+          {props.label && (
             <Label className={cn(hasError && "text-brand-error", hasSuccess && "text-brand-success")}>
-              {label} {required && <span className="text-brand-error">*</span>}
+              {props.label} {required && <span className="text-brand-error">*</span>}
             </Label>
           )}
-          {link && (
-            <Link to={link.href} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
-              {link.text}
+          {props.link && (
+            <Link to={props.link.href} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
+              {props.link.text}
             </Link>
           )}
         </div>
       )}
-      {children}
-      {helpText && !error && !success && <p className="caption text-brand-neutral-600">{helpText}</p>}
-      {error?.error && !error?.requirements && (
+      {props.children}
+      {helpText && !props.error && !props.success && <p className="caption text-brand-neutral-600">{helpText}</p>}
+      {props.error?.error && !props.error?.requirements && (
         <p className="text-brand-error text-sm mt-2 flex items-center gap-1.5">
           {showErrorIcon && <AlertCircle className="w-3.5 h-3.5" />}
-          {error.error}
+          {props.error.error}
         </p>
       )}
-      {error && <RequirementsIndicator validation={error} />}
-      {success && (
+      {props.error && <RequirementsIndicator validation={props.error} />}
+      {props.success && (
         <p className="text-brand-success text-sm mt-2 flex items-center gap-1.5">
           {showSuccessIcon && <CheckCircle2 className="w-3.5 h-3.5" />}
-          {success}
+          {props.success}
         </p>
       )}
     </div>

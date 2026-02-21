@@ -23,25 +23,13 @@ interface PricingCardProps {
   planId?: PlanProductType;
 }
 
-export function PricingCard({
-  name,
-  description,
-  monthlyPrice,
-  annualPrice,
-  billingCycle,
-  sections,
-  highlighted,
-  previousPlanName,
-  onButtonClick,
-  buttonState,
-  planId,
-}: PricingCardProps) {
-  const displayPrice = billingCycle === PlanPriceType.ANNUALLY ? annualPrice : monthlyPrice;
-  const originalPrice = billingCycle === PlanPriceType.ANNUALLY ? monthlyPrice : null;
+export function PricingCard(props: PricingCardProps) {
+  const displayPrice = props.billingCycle === PlanPriceType.ANNUALLY ? props.annualPrice : props.monthlyPrice;
+  const originalPrice = props.billingCycle === PlanPriceType.ANNUALLY ? props.monthlyPrice : null;
 
   // Determine tier-specific border color
   const getTierBorderColor = () => {
-    switch (planId) {
+    switch (props.planId) {
       case PlanProductType.START_UP_PLAN:
         return "border-brand-tier-bronze/30 hover:border-brand-tier-bronze/60";
       case PlanProductType.SCALE_UP_PLAN:
@@ -49,31 +37,31 @@ export function PricingCard({
       case PlanProductType.ENTERPRISE_PLAN:
         return "border-brand-tier-gold/30 hover:border-brand-tier-gold/60";
       default:
-        return highlighted ? "border-brand-accent" : "border-brand-neutral-300 hover:border-brand-accent/50";
+        return props.highlighted ? "border-brand-accent" : "border-brand-neutral-300 hover:border-brand-accent/50";
     }
   };
 
   return (
     <div
       className={`relative rounded-xl border-2 p-6 transition-all duration-300 bg-card flex flex-col ${getTierBorderColor()} ${
-        highlighted ? "shadow-lg" : "hover:shadow-md"
+        props.highlighted ? "shadow-lg" : "hover:shadow-md"
       }`}
     >
       {/* Plan Header */}
       <PricingCardHeader
-        name={name}
-        description={description}
+        name={props.name}
+        description={props.description}
         displayPrice={displayPrice}
         originalPrice={originalPrice}
-        billingCycle={billingCycle}
-        onButtonClick={onButtonClick}
-        buttonState={buttonState}
-        planId={planId}
+        billingCycle={props.billingCycle}
+        onButtonClick={props.onButtonClick}
+        buttonState={props.buttonState}
+        planId={props.planId}
       />
 
       {/* Feature Sections */}
       <div className="flex flex-col flex-1 gap-6">
-        {sections.map((section, sectionIndex) => {
+        {props.sections.map((section, sectionIndex) => {
           const isCoreBenefit = sectionIndex === 0;
           const isOpenSourceImpact = section.title.includes("Open Source Impact");
           const isRecognition = section.title.includes("Recognition");
@@ -91,12 +79,12 @@ export function PricingCard({
               ) : isCoreBenefit ? (
                 <>
                   <CoreBenefitSection title={section.title} subtitle={section.subtitle} />
-                  <PlanAccessSection features={section.features} previousPlanName={previousPlanName} />
+                  <PlanAccessSection features={section.features} previousPlanName={props.previousPlanName} />
                 </>
               ) : isPlanAccess ? (
-                <PlanAccessSection features={section.features} previousPlanName={previousPlanName} />
+                <PlanAccessSection features={section.features} previousPlanName={props.previousPlanName} />
               ) : (
-                <RecognitionSection title={section.title} subtitle={section.subtitle} features={section.features} tier={planId} />
+                <RecognitionSection title={section.title} subtitle={section.subtitle} features={section.features} tier={props.planId} />
               )}
             </div>
           );

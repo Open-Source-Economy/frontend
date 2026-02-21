@@ -7,11 +7,13 @@ interface BenefitsSectionProps {
   iconColor?: "accent" | "bronze" | "silver" | "gold";
 }
 
-export function BenefitsSection({ title, benefits, iconColor = "accent" }: BenefitsSectionProps) {
+export function BenefitsSection(props: BenefitsSectionProps) {
+  const iconColor = props.iconColor ?? "accent";
+
   return (
     <div className="space-y-3">
-      <p className="text-brand-neutral-500 text-xs uppercase tracking-wide mb-2">{title}</p>
-      {benefits.map((benefit, index) => (
+      <p className="text-brand-neutral-500 text-xs uppercase tracking-wide mb-2">{props.title}</p>
+      {props.benefits.map((benefit, index) => (
         <BenefitItem key={index} text={benefit} iconColor={iconColor} />
       ))}
     </div>

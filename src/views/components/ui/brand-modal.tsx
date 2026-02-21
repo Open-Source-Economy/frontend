@@ -29,43 +29,33 @@ const sizeClasses = {
   "3xl": "sm:max-w-3xl",
 };
 
-export const BrandModal: React.FC<BrandModalProps> = ({
-  open,
-  onClose,
-  title,
-  description,
-  children,
-  footer,
-  size = "lg",
-  className,
-  headerClassName,
-  contentClassName,
-  footerClassName,
-  preventAutoFocus = false,
-}) => {
+export function BrandModal(props: BrandModalProps) {
+  const size = props.size ?? "lg";
+  const preventAutoFocus = props.preventAutoFocus ?? false;
+
   return (
-    <Dialog open={open} onOpenChange={isOpen => !isOpen && onClose()}>
+    <Dialog open={props.open} onOpenChange={isOpen => !isOpen && props.onClose()}>
       <DialogContent
-        className={cn(sizeClasses[size], "bg-brand-secondary-dark border border-brand-neutral-300/10", "max-h-[85vh] flex flex-col p-0", className)}
+        className={cn(sizeClasses[size], "bg-brand-secondary-dark border border-brand-neutral-300/10", "max-h-[85vh] flex flex-col p-0", props.className)}
         onOpenAutoFocus={preventAutoFocus ? e => e.preventDefault() : undefined}
       >
         {/* Fixed Header */}
-        {(title || description) && (
-          <DialogHeader className={cn("space-y-3 px-6 pt-6 pb-4 flex-shrink-0", headerClassName)}>
-            {title && <DialogTitle className="text-brand-neutral-900">{title}</DialogTitle>}
-            {description && <DialogDescription className="text-brand-neutral-600">{description}</DialogDescription>}
+        {(props.title || props.description) && (
+          <DialogHeader className={cn("space-y-3 px-6 pt-6 pb-4 flex-shrink-0", props.headerClassName)}>
+            {props.title && <DialogTitle className="text-brand-neutral-900">{props.title}</DialogTitle>}
+            {props.description && <DialogDescription className="text-brand-neutral-600">{props.description}</DialogDescription>}
           </DialogHeader>
         )}
 
         {/* Scrollable Content Area */}
-        <div className={cn("overflow-y-auto px-6 flex-1", contentClassName)}>{children}</div>
+        <div className={cn("overflow-y-auto px-6 flex-1", props.contentClassName)}>{props.children}</div>
 
         {/* Fixed Footer */}
-        {footer && <DialogFooter className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", footerClassName)}>{footer}</DialogFooter>}
+        {props.footer && <DialogFooter className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", props.footerClassName)}>{props.footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );
-};
+}
 
 /**
  * BrandModalSection - Section wrapper for organized modal content
@@ -87,29 +77,31 @@ const iconColorClasses = {
   error: "bg-brand-error/10 text-brand-error",
 };
 
-export const BrandModalSection: React.FC<BrandModalSectionProps> = ({ icon, title, description, iconColor = "accent", children, className }) => {
+export function BrandModalSection(props: BrandModalSectionProps) {
+  const iconColor = props.iconColor ?? "accent";
+
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-4", props.className)}>
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-2">
-        {icon && (
+        {props.icon && (
           <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0", iconColorClasses[iconColor])}>
-            {React.cloneElement(icon as React.ReactElement, {
+            {React.cloneElement(props.icon as React.ReactElement, {
               className: "w-4 h-4",
             })}
           </div>
         )}
         <div>
-          <h3 className="text-brand-neutral-800">{title}</h3>
-          {description && <p className="text-xs text-brand-neutral-600">{description}</p>}
+          <h3 className="text-brand-neutral-800">{props.title}</h3>
+          {props.description && <p className="text-xs text-brand-neutral-600">{props.description}</p>}
         </div>
       </div>
 
       {/* Section Content */}
-      <div className="bg-brand-card-blue/30 rounded-xl border border-brand-neutral-300/10 p-5">{children}</div>
+      <div className="bg-brand-card-blue/30 rounded-xl border border-brand-neutral-300/10 p-5">{props.children}</div>
     </div>
   );
-};
+}
 
 /**
  * BrandModalAlert - Alert box for modal content
@@ -149,21 +141,21 @@ const alertTypeClasses = {
   },
 };
 
-export const BrandModalAlert: React.FC<BrandModalAlertProps> = ({ type, icon, title, children, className }) => {
-  const classes = alertTypeClasses[type];
+export function BrandModalAlert(props: BrandModalAlertProps) {
+  const classes = alertTypeClasses[props.type];
 
   return (
-    <div className={cn("border rounded-xl p-5", classes.container, className)}>
+    <div className={cn("border rounded-xl p-5", classes.container, props.className)}>
       <div className="flex items-start gap-3">
-        {icon &&
-          React.cloneElement(icon as React.ReactElement, {
+        {props.icon &&
+          React.cloneElement(props.icon as React.ReactElement, {
             className: cn("w-5 h-5 flex-shrink-0 mt-0.5", classes.icon),
           })}
         <div className="space-y-2">
-          {title && <p className={classes.title}>{title}</p>}
-          <div className={cn("text-sm leading-relaxed", classes.text)}>{children}</div>
+          {props.title && <p className={classes.title}>{props.title}</p>}
+          <div className={cn("text-sm leading-relaxed", classes.text)}>{props.children}</div>
         </div>
       </div>
     </div>
   );
-};
+}

@@ -11,7 +11,7 @@ import { useIssueContext } from "../../../layout/IssueRoutes";
 
 interface FundIssueProps {}
 
-export function FundIssue({}: FundIssueProps) {
+export function FundIssue(props: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();

@@ -7,14 +7,16 @@ interface ActionLinkProps {
   onClick: () => void;
 }
 
-export function ActionLink({ icon: Icon, label, onClick }: ActionLinkProps) {
+export function ActionLink(props: ActionLinkProps) {
+  const Icon = props.icon;
+
   return (
     <button
-      onClick={onClick}
+      onClick={props.onClick}
       className="flex items-center gap-2 text-brand-neutral-600 hover:text-brand-accent transition-colors cursor-pointer hover:underline"
     >
       <Icon className="w-4 h-4" />
-      <span>{label}</span>
+      <span>{props.label}</span>
     </button>
   );
 }

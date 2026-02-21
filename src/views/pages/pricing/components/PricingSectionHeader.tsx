@@ -8,7 +8,7 @@ interface PricingSectionHeaderProps {
   savingsPercentage: number;
 }
 
-export function PricingSectionHeader({ billingCycle, onBillingCycleChange, savingsPercentage }: PricingSectionHeaderProps) {
+export function PricingSectionHeader(props: PricingSectionHeaderProps) {
   return (
     <div className="text-center mb-12">
       <h1 className="text-brand-neutral-900 mb-4">Simple, Transparent Pricing</h1>
@@ -17,7 +17,7 @@ export function PricingSectionHeader({ billingCycle, onBillingCycleChange, savin
         source maintainers.
       </p>
 
-      <BillingToggle billingCycle={billingCycle} onBillingCycleChange={onBillingCycleChange} savingsPercentage={savingsPercentage} />
+      <BillingToggle billingCycle={props.billingCycle} onBillingCycleChange={props.onBillingCycleChange} savingsPercentage={props.savingsPercentage} />
     </div>
   );
 }

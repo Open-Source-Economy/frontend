@@ -20,9 +20,10 @@ export interface VendorCardProps {
   onLearnMore?: () => void;
 }
 
-export function VendorCard({ name, domain, tagline, description, metrics, ctaText = "Learn More", ctaLink, onLearnMore }: VendorCardProps) {
-  const logoUrl = domain ? `https://logo.clearbit.com/${domain}` : null;
-  const vendorInitials = name
+export function VendorCard(props: VendorCardProps) {
+  const ctaText = props.ctaText ?? "Learn More";
+  const logoUrl = props.domain ? `https://logo.clearbit.com/${props.domain}` : null;
+  const vendorInitials = props.name
     .split(" ")
     .map(word => word[0])
     .join("")
@@ -30,10 +31,10 @@ export function VendorCard({ name, domain, tagline, description, metrics, ctaTex
     .toUpperCase();
 
   const handleClick = () => {
-    if (ctaLink) {
-      window.open(ctaLink, "_blank", "noopener,noreferrer");
-    } else if (onLearnMore) {
-      onLearnMore();
+    if (props.ctaLink) {
+      window.open(props.ctaLink, "_blank", "noopener,noreferrer");
+    } else if (props.onLearnMore) {
+      props.onLearnMore();
     }
   };
 
@@ -68,7 +69,7 @@ export function VendorCard({ name, domain, tagline, description, metrics, ctaTex
           {logoUrl && (
             <img
               src={logoUrl}
-              alt={`${name} logo`}
+              alt={`${props.name} logo`}
               className="w-full h-full object-contain p-3"
               onError={e => {
                 const target = e.target as HTMLImageElement;
@@ -86,18 +87,18 @@ export function VendorCard({ name, domain, tagline, description, metrics, ctaTex
 
         {/* Vendor Name */}
         <div>
-          <h3 className="text-brand-neutral-900 mb-2 group-hover:text-brand-neutral-950 transition-colors">{name}</h3>
+          <h3 className="text-brand-neutral-900 mb-2 group-hover:text-brand-neutral-950 transition-colors">{props.name}</h3>
 
           {/* Tagline */}
-          <p className="text-brand-accent italic text-sm">{tagline}</p>
+          <p className="text-brand-accent italic text-sm">{props.tagline}</p>
         </div>
 
         {/* Description */}
-        <p className="text-brand-neutral-600 leading-relaxed">{description}</p>
+        <p className="text-brand-neutral-600 leading-relaxed">{props.description}</p>
 
         {/* Metrics */}
         <div className="flex flex-wrap justify-center gap-3 w-full mt-auto">
-          {metrics.map((metric, idx) => {
+          {props.metrics.map((metric, idx) => {
             return (
               <Badge
                 key={idx}

@@ -7,7 +7,10 @@ interface TokenDisplayProps {
   className?: string;
 }
 
-export function TokenDisplay({ tokens = 0, variant = "compact", className = "" }: TokenDisplayProps) {
+export function TokenDisplay(props: TokenDisplayProps) {
+  const tokens = props.tokens ?? 0;
+  const variant = props.variant ?? "compact";
+  const className = props.className ?? "";
   // Button variant removed to match reference
 
   if (variant === "badge") {

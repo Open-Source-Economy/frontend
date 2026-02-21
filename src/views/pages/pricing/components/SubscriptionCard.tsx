@@ -16,21 +16,13 @@ interface SubscriptionCardProps {
   onManageSubscription: () => void;
 }
 
-export function SubscriptionCard({
-  tier,
-  billing,
-  commonBenefits,
-  tierBenefits,
-  onDownloadInvoices,
-  onUpdatePayment,
-  onManageSubscription,
-}: SubscriptionCardProps) {
+export function SubscriptionCard(props: SubscriptionCardProps) {
   return (
-    <div className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(tier as any)} shadow-xl overflow-hidden`}>
+    <div className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(props.tier as any)} shadow-xl overflow-hidden`}>
       {/* Main Content Row */}
       <div className="flex items-center gap-6 p-6">
         {/* Icon */}
-        <div className={`${getTierColor(tier as any)} rounded-xl p-4 flex-shrink-0`}>
+        <div className={`${getTierColor(props.tier as any)} rounded-xl p-4 flex-shrink-0`}>
           <CreditCard className="w-8 h-8 text-brand-secondary" />
         </div>
 
@@ -43,13 +35,13 @@ export function SubscriptionCard({
             </span>
           </div>
           <p className="text-brand-neutral-600 text-sm">
-            You are currently on the <span className="text-white">{getPlanName(tier as any)}</span> plan (billed {getBillingDisplay(billing)}).
+            You are currently on the <span className="text-white">{getPlanName(props.tier as any)}</span> plan (billed {getBillingDisplay(props.billing)}).
           </p>
         </div>
 
         {/* Action Button */}
         <div className="flex-shrink-0">
-          <Button onClick={onManageSubscription} className="bg-brand-accent hover:bg-brand-accent-dark text-brand-secondary px-6">
+          <Button onClick={props.onManageSubscription} className="bg-brand-accent hover:bg-brand-accent-dark text-brand-secondary px-6">
             Customer Portal
           </Button>
         </div>
@@ -60,22 +52,22 @@ export function SubscriptionCard({
         <h4 className="text-white mb-4 text-sm uppercase tracking-wider">Active Benefits</h4>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <BenefitsSection title="Core Mission Benefits" benefits={commonBenefits} iconColor="accent" />
+          <BenefitsSection title="Core Mission Benefits" benefits={props.commonBenefits} iconColor="accent" />
 
-          <BenefitsSection title={`${getPlanName(tier as any)} Tier Benefits`} benefits={tierBenefits} iconColor={tier as any} />
+          <BenefitsSection title={`${getPlanName(props.tier as any)} Tier Benefits`} benefits={props.tierBenefits} iconColor={props.tier as any} />
         </div>
       </div>
 
       {/* Action Links Row */}
       <div className="px-6 pb-6 flex items-center justify-between gap-6 text-sm border-t border-brand-neutral-300/20 pt-4">
         <div className="flex items-center gap-6">
-          <ActionLink icon={FileText} label="Download Invoice PDFs" onClick={onDownloadInvoices} />
+          <ActionLink icon={FileText} label="Download Invoice PDFs" onClick={props.onDownloadInvoices} />
 
-          <ActionLink icon={Edit3} label="Update Payment Method" onClick={onUpdatePayment} />
+          <ActionLink icon={Edit3} label="Update Payment Method" onClick={props.onUpdatePayment} />
         </div>
 
         <Button
-          onClick={onManageSubscription}
+          onClick={props.onManageSubscription}
           className="bg-brand-error/10 hover:bg-brand-error/20 border border-brand-error/30 hover:border-brand-error/50 text-brand-error hover:text-brand-error transition-colors"
         >
           <ExternalLink className="w-4 h-4 mr-2" />

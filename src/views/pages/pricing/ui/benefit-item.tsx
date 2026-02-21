@@ -6,7 +6,9 @@ interface BenefitItemProps {
   iconColor?: "accent" | "bronze" | "silver" | "gold";
 }
 
-export function BenefitItem({ text, iconColor = "accent" }: BenefitItemProps) {
+export function BenefitItem(props: BenefitItemProps) {
+  const iconColor = props.iconColor ?? "accent";
+
   const getIconColorClasses = () => {
     switch (iconColor) {
       case "bronze":
@@ -39,7 +41,7 @@ export function BenefitItem({ text, iconColor = "accent" }: BenefitItemProps) {
       <div className={`w-5 h-5 rounded-full ${colors.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
         <Check className={`w-3 h-3 ${colors.text}`} />
       </div>
-      <span className="text-brand-neutral-400 text-sm leading-relaxed">{text}</span>
+      <span className="text-brand-neutral-400 text-sm leading-relaxed">{props.text}</span>
     </div>
   );
 }

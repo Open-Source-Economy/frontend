@@ -8,14 +8,16 @@ interface StatisticCardProps {
   label: string;
 }
 
-export function StatisticCard({ icon: Icon, iconColor, value, label }: StatisticCardProps) {
+export function StatisticCard(props: StatisticCardProps) {
+  const Icon = props.icon;
+
   return (
     <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
       <div className="flex items-center gap-3">
-        <Icon className={`w-8 h-8 ${iconColor}`} />
+        <Icon className={`w-8 h-8 ${props.iconColor}`} />
         <div>
-          <div className="text-2xl font-bold text-white">{value}</div>
-          <div className="text-sm text-gray-400">{label}</div>
+          <div className="text-2xl font-bold text-white">{props.value}</div>
+          <div className="text-sm text-gray-400">{props.label}</div>
         </div>
       </div>
     </div>

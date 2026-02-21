@@ -8,23 +8,25 @@ interface SelectFilterProps {
   showBorder?: boolean;
 }
 
-export function SelectFilter({ ariaLabel, labelValues, onFilterChange, placeholder, showBorder = true }: SelectFilterProps) {
+export function SelectFilter(props: SelectFilterProps) {
+  const showBorder = props.showBorder ?? true;
+
   return (
     <select
-      aria-label={ariaLabel}
-      onChange={e => onFilterChange(e.target.value)}
+      aria-label={props.ariaLabel}
+      onChange={e => props.onFilterChange(e.target.value)}
       style={{ backgroundSize: "10px" }}
       className={`form-select text-[#8693A4] w-100 text-lg cursor-pointer rounded-[9px] outline-none p-3 lg:w-[196px] w-[260px] ${
         showBorder ? "border-1 bg-transparent border-[#8693A4]" : "border-none bg-[#202F45]"
       }`}
       defaultValue=""
     >
-      {placeholder && (
+      {props.placeholder && (
         <option value="" disabled hidden>
-          {placeholder}
+          {props.placeholder}
         </option>
       )}
-      {labelValues.map((category, index) => (
+      {props.labelValues.map((category, index) => (
         <option key={index} value={category.value} className="text-black">
           {category.label}
         </option>

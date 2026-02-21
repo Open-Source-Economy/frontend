@@ -35,24 +35,24 @@ const getUrlConfig = (projectType: ProjectItemType) => {
   }
 };
 
-export function ProjectUrlInput({ projectType, value, onChange, error }: ProjectUrlInputProps) {
-  const config = getUrlConfig(projectType);
-  const validationError: ValidationError | undefined = typeof error === "string" ? { error } : error;
+export function ProjectUrlInput(props: ProjectUrlInputProps) {
+  const config = getUrlConfig(props.projectType);
+  const validationError: ValidationError | undefined = typeof props.error === "string" ? { error: props.error } : props.error;
 
   return (
     <FormField label={config.label} required error={validationError} hint={config.hint}>
       <div className="relative">
         <Input
           type="url"
-          value={value}
-          onChange={e => onChange(e.target.value)}
+          value={props.value}
+          onChange={e => props.onChange(e.target.value)}
           placeholder={config.placeholder}
           className="pr-10"
-          variant={error ? "error" : "default"}
+          variant={props.error ? "error" : "default"}
         />
-        {value && (
+        {props.value && (
           <a
-            href={value}
+            href={props.value}
             target="_blank" // TODO: lolo
             rel="noopener noreferrer"
             className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-accent hover:text-brand-accent-dark transition-colors z-10"

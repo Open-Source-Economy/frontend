@@ -22,27 +22,14 @@ interface RepositoryCardProps {
   onToggleSelection: (id: string) => void;
 }
 
-export function RepositoryCard({
-  repository,
-  isSyncing,
-  isSelected,
-  canSync,
-  isBulkSyncing,
-  isInQueue,
-  isCompleted,
-  queuePosition,
-  queueTotal,
-  estimatedWaitSeconds,
-  onSync,
-  onToggleSelection,
-}: RepositoryCardProps) {
+export function RepositoryCard(props: RepositoryCardProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const { projectItem, repository: repo, developers, lastSyncMessage } = repository;
+  const { projectItem, repository: repo, developers, lastSyncMessage } = props.repository;
 
   const handleSync = () => {
     if (repo?.id) {
-      onSync(repo.id.ownerId.login, repo.id.name);
+      props.onSync(repo.id.ownerId.login, repo.id.name);
     } else {
       alert("Repository information not available");
     }
@@ -50,29 +37,29 @@ export function RepositoryCard({
 
   return (
     <div
-      className={`p-6 hover:bg-white/5 transition-colors ${isCompleted ? "bg-green-500/5" : isSyncing ? "bg-blue-500/5" : isInQueue ? "bg-yellow-500/5" : ""}`}
+      className={`p-6 hover:bg-white/5 transition-colors ${props.isCompleted ? "bg-green-500/5" : props.isSyncing ? "bg-blue-500/5" : props.isInQueue ? "bg-yellow-500/5" : ""}`}
     >
       {/* Bulk Sync Status Badge */}
-      {isBulkSyncing && (
+      {props.isBulkSyncing && (
         <BulkSyncStatusBadge
-          isCompleted={isCompleted}
-          isSyncing={isSyncing}
-          isInQueue={isInQueue}
-          queuePosition={queuePosition}
-          queueTotal={queueTotal}
-          estimatedWaitSeconds={estimatedWaitSeconds}
+          isCompleted={props.isCompleted}
+          isSyncing={props.isSyncing}
+          isInQueue={props.isInQueue}
+          queuePosition={props.queuePosition}
+          queueTotal={props.queueTotal}
+          estimatedWaitSeconds={props.estimatedWaitSeconds}
         />
       )}
 
       <div className="flex items-start justify-between gap-4">
         {/* Selection Checkbox */}
         <div className="flex items-start pt-1">
-          {canSync ? (
+          {props.canSync ? (
             <input
               type="checkbox"
-              checked={isSelected}
-              onChange={() => onToggleSelection(projectItem.id.uuid)}
-              disabled={isBulkSyncing}
+              checked={props.isSelected}
+              onChange={() => props.onToggleSelection(projectItem.id.uuid)}
+              disabled={props.isBulkSyncing}
               className="w-5 h-5 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50"
             />
           ) : (
@@ -169,7 +156,7 @@ export function RepositoryCard({
           )}
 
           {/* Warning for non-syncable repositories */}
-          {!canSync && (
+          {!props.canSync && (
             <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-red-300">
@@ -195,14 +182,14 @@ export function RepositoryCard({
         <div className="flex flex-col gap-2">
           <Button
             onClick={handleSync}
-            disabled={!canSync || isSyncing || isBulkSyncing}
+            disabled={!props.canSync || props.isSyncing || props.isBulkSyncing}
             className="whitespace-nowrap"
-            leftIcon={isSyncing ? Loader2 : RefreshCw}
+            leftIcon={props.isSyncing ? Loader2 : RefreshCw}
           >
-            {isSyncing ? "Syncing..." : "Sync Repository"}
+            {props.isSyncing ? "Syncing..." : "Sync Repository"}
           </Button>
 
-          {canSync && (
+          {props.canSync && (
             <Button variant="outline" onClick={() => setShowAdvanced(!showAdvanced)} className="whitespace-nowrap text-sm">
               {showAdvanced ? "Hide" : "Show"} Details
             </Button>
@@ -211,7 +198,7 @@ export function RepositoryCard({
       </div>
 
       {/* Details Panel */}
-      {showAdvanced && canSync && repo && (
+      {showAdvanced && props.canSync && repo && (
         <div className="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
           <h4 className="text-white font-semibold mb-3">Repository Details</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">

@@ -71,9 +71,9 @@ const ICON_TEXT_CLASS: Record<ColorScheme, string> = {
   accent: "text-brand-accent",
 };
 
-export function ServiceColumn({ title, description, mainIcon, services, colorScheme }: ServiceColumnProps) {
-  const colors = COLOR_CLASSES[colorScheme];
-  const iconTextColor = ICON_TEXT_CLASS[colorScheme];
+export function ServiceColumn(props: ServiceColumnProps) {
+  const colors = COLOR_CLASSES[props.colorScheme];
+  const iconTextColor = ICON_TEXT_CLASS[props.colorScheme];
 
   return (
     <div className="group relative">
@@ -104,7 +104,7 @@ export function ServiceColumn({ title, description, mainIcon, services, colorSch
             >
               {/* Inner glow */}
               <div className="absolute inset-2 bg-gradient-to-br from-white/20 to-transparent rounded-xl opacity-60"></div>
-              <div className="relative text-white drop-shadow-sm">{mainIcon}</div>
+              <div className="relative text-white drop-shadow-sm">{props.mainIcon}</div>
             </div>
 
             {/* Floating particles effect */}
@@ -117,8 +117,8 @@ export function ServiceColumn({ title, description, mainIcon, services, colorSch
           </div>
 
           <div className="space-y-3">
-            <h3 className={`font-semibold text-xl ${colors.titleHover} transition-colors duration-300 tracking-tight`}>{title}</h3>
-            <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto lg:mx-0">{description}</p>
+            <h3 className={`font-semibold text-xl ${colors.titleHover} transition-colors duration-300 tracking-tight`}>{props.title}</h3>
+            <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto lg:mx-0">{props.description}</p>
 
             {/* Subtle accent line */}
             <div
@@ -128,7 +128,7 @@ export function ServiceColumn({ title, description, mainIcon, services, colorSch
         </div>
 
         <div className="space-y-4">
-          {services.map((service, index) => (
+          {props.services.map((service, index) => (
             <div key={service.name} className="group/item relative overflow-hidden">
               <div
                 className={`flex items-start gap-3 p-4 md:p-5 rounded-xl bg-gradient-to-r from-brand-neutral-50/50 to-transparent border border-brand-neutral-200/50 ${colors.itemBorderHover} hover:bg-gradient-to-r ${colors.itemBgHover} transition-all duration-300 hover:shadow-md`}

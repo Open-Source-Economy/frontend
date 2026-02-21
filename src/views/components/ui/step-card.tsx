@@ -9,7 +9,10 @@ interface StepCardProps {
   className?: string;
 }
 
-export function StepCard({ icon: Icon, title, description, index, className = "" }: StepCardProps) {
+export function StepCard(props: StepCardProps) {
+  const Icon = props.icon;
+  const className = props.className ?? "";
+
   return (
     <div className={`relative flex flex-col items-center text-center ${className}`}>
       {/* Gradient circle icon */}
@@ -20,10 +23,10 @@ export function StepCard({ icon: Icon, title, description, index, className = ""
       </div>
 
       {/* Title */}
-      <h3 className="text-brand-neutral-900 mb-3">{title}</h3>
+      <h3 className="text-brand-neutral-900 mb-3">{props.title}</h3>
 
       {/* Description */}
-      <p className="text-brand-neutral-600 max-w-xs mx-auto">{description}</p>
+      <p className="text-brand-neutral-600 max-w-xs mx-auto">{props.description}</p>
     </div>
   );
 }

@@ -12,23 +12,23 @@ interface PricingCardsGridProps {
   onPlanClick: (planId: PlanProductType) => void;
 }
 
-export function PricingCardsGrid({ plans, billingCycle, currentPlanTier, currentPlanBilling, onPlanClick }: PricingCardsGridProps) {
+export function PricingCardsGrid(props: PricingCardsGridProps) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        {plans.map(plan => (
+        {props.plans.map(plan => (
           <PricingCard
             key={plan.id}
             name={plan.name}
             description={plan.description}
             monthlyPrice={plan.monthlyPrice}
             annualPrice={plan.annualPrice}
-            billingCycle={billingCycle}
+            billingCycle={props.billingCycle}
             sections={plan.sections}
             highlighted={plan.highlighted}
             previousPlanName={plan.previousPlanName}
-            onButtonClick={() => onPlanClick(plan.id)}
-            buttonState={getPlanButtonState(plan.id, currentPlanTier, currentPlanBilling, billingCycle, plans)}
+            onButtonClick={() => props.onPlanClick(plan.id)}
+            buttonState={getPlanButtonState(plan.id, props.currentPlanTier, props.currentPlanBilling, props.billingCycle, props.plans)}
             planId={plan.id}
           />
         ))}

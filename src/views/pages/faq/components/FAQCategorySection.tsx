@@ -8,9 +8,9 @@ interface FAQCategorySectionProps {
   categoryIndex: number;
 }
 
-export function FAQCategorySection({ category, categoryIndex }: FAQCategorySectionProps) {
-  const Icon = iconMap[category.icon];
-  const categoryId = category.category.toLowerCase().replace(/\s+/g, "-");
+export function FAQCategorySection(props: FAQCategorySectionProps) {
+  const Icon = iconMap[props.category.icon];
+  const categoryId = props.category.category.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div className="scroll-mt-20" id={categoryId}>
@@ -20,17 +20,17 @@ export function FAQCategorySection({ category, categoryIndex }: FAQCategorySecti
           <div className="w-10 h-10 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center">
             <Icon className="h-5 w-5 text-brand-accent" />
           </div>
-          <h2 className="text-brand-neutral-900">{category.category}</h2>
+          <h2 className="text-brand-neutral-900">{props.category.category}</h2>
         </div>
-        <p className="text-brand-neutral-600 ml-13">{category.description}</p>
+        <p className="text-brand-neutral-600 ml-13">{props.category.description}</p>
       </div>
 
       {/* Questions Accordion */}
       <Accordion type="single" collapsible className="space-y-3">
-        {category.questions.map((faq, qIdx) => (
+        {props.category.questions.map((faq, qIdx) => (
           <AccordionItem
             key={qIdx}
-            value={`${categoryIndex}-${qIdx}`}
+            value={`${props.categoryIndex}-${qIdx}`}
             className="bg-brand-card-blue border border-brand-neutral-300 rounded-lg overflow-hidden hover:border-brand-accent/50 transition-colors"
           >
             <AccordionTrigger className="px-5 py-4 hover:no-underline text-left">

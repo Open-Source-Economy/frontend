@@ -12,7 +12,7 @@ interface ProjectsTableProps {
   onDelete: (project: DeveloperProjectItemEntry) => void;
 }
 
-export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps) {
+export function ProjectsTable(props: ProjectsTableProps) {
   return (
     <div className="hidden md:block rounded-xl border border-brand-neutral-300/30 overflow-hidden bg-brand-card-blue/20">
       <div className="overflow-x-auto">
@@ -27,7 +27,7 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
             </tr>
           </thead>
           <tbody className="divide-y divide-brand-neutral-300/20">
-            {projects.map(project => {
+            {props.projects.map(project => {
               const url = getProjectDisplayUrl(project);
               const displayName = getProjectDisplayName(project);
               const role = getRoleLabel(project);
@@ -85,7 +85,7 @@ export function ProjectsTable({ projects, onEdit, onDelete }: ProjectsTableProps
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center justify-end">
-                      <ProjectRowActions project={project} onEdit={onEdit} onDelete={onDelete} />
+                      <ProjectRowActions project={project} onEdit={props.onEdit} onDelete={props.onDelete} />
                     </div>
                   </td>
                 </tr>

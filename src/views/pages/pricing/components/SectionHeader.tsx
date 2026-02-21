@@ -7,14 +7,16 @@ interface SectionHeaderProps {
   titleClassName?: string;
 }
 
-export function SectionHeader({ title, subtitle, titleClassName = "text-brand-accent" }: SectionHeaderProps) {
+export function SectionHeader(props: SectionHeaderProps) {
+  const titleClassName = props.titleClassName ?? "text-brand-accent";
+
   return (
     <div>
-      <h4 className={`mb-0.5 ${titleClassName}`}>{title}</h4>
+      <h4 className={`mb-0.5 ${titleClassName}`}>{props.title}</h4>
       <SectionSubtitle
-        text={subtitle || ""}
+        text={props.subtitle || ""}
         tooltip={
-          subtitle?.includes("rolls over")
+          props.subtitle?.includes("rolls over")
             ? {
               content: "Credits roll over monthly and expire after 6 months.",
               description: "Expired credits become donations to the project and ecosystem.",
@@ -23,7 +25,7 @@ export function SectionHeader({ title, subtitle, titleClassName = "text-brand-ac
                 href: "#",
               },
             }
-            : subtitle?.includes("Credits vary by tier")
+            : props.subtitle?.includes("Credits vary by tier")
               ? {
                 content: "Service credits can be used to access maintainer support, priority bug fixes, feature requests, and consultation hours.",
                 description: "Each tier provides different credit amounts to match your team's needs.",

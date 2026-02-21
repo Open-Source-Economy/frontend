@@ -13,7 +13,7 @@ interface CurrencyContextType {
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
-export function CurrencyProvider({ children }: { children: React.ReactNode }) {
+export function CurrencyProvider(props: { children: React.ReactNode }) {
   const auth = useAuth();
   const [preferredCurrency, setPreferredCurrency] = useState<Currency>(PreferredCurrency.get(auth));
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
@@ -36,7 +36,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         setShowCurrencyModal,
       }}
     >
-      {children}
+      {props.children}
     </CurrencyContext.Provider>
   );
 }

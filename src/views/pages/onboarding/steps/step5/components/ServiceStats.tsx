@@ -6,10 +6,10 @@ interface ServiceStatsProps {
   servicesByType: Record<dto.ServiceType, dto.DeveloperServiceEntry[]>;
 }
 
-export const ServiceStats: React.FC<ServiceStatsProps> = ({ services, servicesByType }) => {
-  const totalServices = (services || []).length;
+export function ServiceStats(props: ServiceStatsProps) {
+  const totalServices = (props.services || []).length;
   const enabledServices = totalServices; // All services are considered enabled in our current model
-  const categories = Object.keys(servicesByType).length;
+  const categories = Object.keys(props.servicesByType).length;
 
   return (
     <div className="flex items-center gap-8">
@@ -29,4 +29,4 @@ export const ServiceStats: React.FC<ServiceStatsProps> = ({ services, servicesBy
       </div>
     </div>
   );
-};
+}

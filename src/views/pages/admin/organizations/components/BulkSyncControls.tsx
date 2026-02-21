@@ -19,28 +19,14 @@ interface BulkSyncControlsProps {
   bulkSyncProgress?: { current: number; total: number } | null;
 }
 
-export function BulkSyncControls({
-  searchTerm,
-  onSearchChange,
-  msPerRepo,
-  onMsPerRepoChange,
-  globalFetchDetails,
-  onGlobalFetchDetailsChange,
-  isBulkSyncing,
-  syncableCount,
-  selectedCount,
-  isAllSelected,
-  onToggleSelectAll,
-  onBulkSync,
-  bulkSyncProgress,
-}: BulkSyncControlsProps) {
+export function BulkSyncControls(props: BulkSyncControlsProps) {
   return (
     <div className="mb-6 flex gap-4 items-center flex-wrap">
       <Input
         type="text"
         placeholder="Search organizations and users..."
-        value={searchTerm}
-        onChange={e => onSearchChange(e.target.value)}
+        value={props.searchTerm}
+        onChange={e => props.onSearchChange(e.target.value)}
         className="max-w-md"
         leftIcon={Building2}
       />
@@ -54,10 +40,10 @@ export function BulkSyncControls({
             min={100}
             max={10000}
             step={100}
-            value={msPerRepo}
-            onChange={e => onMsPerRepoChange(parseInt(e.target.value) || 1000)}
+            value={props.msPerRepo}
+            onChange={e => props.onMsPerRepoChange(parseInt(e.target.value) || 1000)}
             className="w-24"
-            disabled={isBulkSyncing}
+            disabled={props.isBulkSyncing}
           />
           <span className="text-sm text-gray-400">ms</span>
         </div>
@@ -67,9 +53,9 @@ export function BulkSyncControls({
           <input
             type="checkbox"
             id="global-fetch-details"
-            checked={globalFetchDetails}
-            onChange={e => onGlobalFetchDetailsChange(e.target.checked)}
-            disabled={isBulkSyncing}
+            checked={props.globalFetchDetails}
+            onChange={e => props.onGlobalFetchDetailsChange(e.target.checked)}
+            disabled={props.isBulkSyncing}
             className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <label htmlFor="global-fetch-details" className="text-sm text-gray-300 whitespace-nowrap cursor-pointer">
@@ -77,20 +63,20 @@ export function BulkSyncControls({
           </label>
         </div>
 
-        <Button variant="outline" size="sm" onClick={onToggleSelectAll} disabled={isBulkSyncing || syncableCount === 0}>
-          {isAllSelected && syncableCount > 0 ? "Deselect All" : "Select All"}
+        <Button variant="outline" size="sm" onClick={props.onToggleSelectAll} disabled={props.isBulkSyncing || props.syncableCount === 0}>
+          {props.isAllSelected && props.syncableCount > 0 ? "Deselect All" : "Select All"}
         </Button>
 
-        <Button onClick={onBulkSync} disabled={selectedCount === 0 || isBulkSyncing} className="bg-green-600 hover:bg-green-700">
-          {isBulkSyncing ? (
+        <Button onClick={props.onBulkSync} disabled={props.selectedCount === 0 || props.isBulkSyncing} className="bg-green-600 hover:bg-green-700">
+          {props.isBulkSyncing ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Syncing {bulkSyncProgress?.current}/{bulkSyncProgress?.total}
+              Syncing {props.bulkSyncProgress?.current}/{props.bulkSyncProgress?.total}
             </>
           ) : (
             <>
               <RefreshCw className="w-4 h-4 mr-2" />
-              Sync Selected ({selectedCount})
+              Sync Selected ({props.selectedCount})
             </>
           )}
         </Button>

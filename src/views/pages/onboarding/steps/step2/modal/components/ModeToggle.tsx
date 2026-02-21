@@ -7,13 +7,13 @@ interface ModeToggleProps {
   onModeChange: (isBulk: boolean) => void;
 }
 
-export function ModeToggle({ isBulkMode, onModeChange }: ModeToggleProps) {
+export function ModeToggle(props: ModeToggleProps) {
   return (
     <ToggleGroup
       type="single"
-      value={isBulkMode ? "bulk" : "single"}
+      value={props.isBulkMode ? "bulk" : "single"}
       onValueChange={value => {
-        if (value) onModeChange(value === "bulk");
+        if (value) props.onModeChange(value === "bulk");
       }}
       variant="subtle"
       className="mb-5"

@@ -12,7 +12,11 @@ interface OrganizationSyncButtonProps {
   className?: string;
 }
 
-export function OrganizationSyncButton({ projectItemId, organizationLogin, variant = "outline", size = "sm", className = "" }: OrganizationSyncButtonProps) {
+export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
+  const variant = props.variant ?? "outline";
+  const size = props.size ?? "sm";
+  const className = props.className ?? "";
+
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>("");
@@ -26,7 +30,7 @@ export function OrganizationSyncButton({ projectItemId, organizationLogin, varia
 
     try {
       const response = await adminAPI.syncOrganizationRepositories(
-        { projectItemId },
+        { projectItemId: props.projectItemId },
         { offset: 0 }, // Start from beginning
       );
 

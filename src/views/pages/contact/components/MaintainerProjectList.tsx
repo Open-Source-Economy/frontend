@@ -13,7 +13,7 @@ interface MaintainerProjectListProps {
   error?: string;
 }
 
-export function MaintainerProjectList({ projects, onAdd, onRemove, onUpdate, error }: MaintainerProjectListProps) {
+export function MaintainerProjectList(props: MaintainerProjectListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -22,7 +22,7 @@ export function MaintainerProjectList({ projects, onAdd, onRemove, onUpdate, err
         </Label>
         <button
           type="button"
-          onClick={onAdd}
+          onClick={props.onAdd}
           className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group"
         >
           <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -31,14 +31,14 @@ export function MaintainerProjectList({ projects, onAdd, onRemove, onUpdate, err
       </div>
 
       <div className="space-y-4">
-        {projects.map((project, index) => (
+        {props.projects.map((project, index) => (
           <div key={index} className="bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg p-4 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-brand-neutral-700">Project {index + 1}</span>
-              {projects.length > 1 && (
+              {props.projects.length > 1 && (
                 <button
                   type="button"
-                  onClick={() => onRemove(index)}
+                  onClick={() => props.onRemove(index)}
                   className="text-brand-error hover:text-brand-error-dark transition-colors p-1.5 hover:bg-brand-error/10 rounded-lg group"
                   aria-label="Remove project"
                 >
@@ -56,10 +56,10 @@ export function MaintainerProjectList({ projects, onAdd, onRemove, onUpdate, err
                   id={`project-url-${index}`}
                   type="url"
                   value={project.url}
-                  onChange={e => onUpdate(index, "url", e.target.value)}
+                  onChange={e => props.onUpdate(index, "url", e.target.value)}
                   placeholder="https://github.com/yourname/project"
-                  className={error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
-                  data-error={error && index === 0}
+                  className={props.error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
+                  data-error={props.error && index === 0}
                 />
               </div>
 
@@ -71,14 +71,14 @@ export function MaintainerProjectList({ projects, onAdd, onRemove, onUpdate, err
                   id={`project-role-${index}`}
                   type="text"
                   value={project.role || ""}
-                  onChange={e => onUpdate(index, "role", e.target.value)}
+                  onChange={e => props.onUpdate(index, "role", e.target.value)}
                   placeholder="e.g., Core Maintainer, Creator"
                 />
               </div>
             </div>
           </div>
         ))}
-        <FieldError error={error} />
+        <FieldError error={props.error} />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ interface RequestProjectListProps {
   error?: string;
 }
 
-export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error }: RequestProjectListProps) {
+export function RequestProjectList(props: RequestProjectListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -22,7 +22,7 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error 
         </Label>
         <button
           type="button"
-          onClick={onAdd}
+          onClick={props.onAdd}
           className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group"
         >
           <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -31,7 +31,7 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error 
       </div>
 
       <div className="space-y-3">
-        {projects.map((project, index) => (
+        {props.projects.map((project, index) => (
           <div key={index} className="flex items-center gap-3">
             <div className="flex-1">
               <Label htmlFor={`project-url-${index}`} className="sr-only">
@@ -42,16 +42,16 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error 
                 type="url"
                 required
                 value={project.url}
-                onChange={e => onUpdate(index, "url", e.target.value)}
+                onChange={e => props.onUpdate(index, "url", e.target.value)}
                 placeholder="https://github.com/org/project"
-                className={error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
-                data-error={error && index === 0}
+                className={props.error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
+                data-error={props.error && index === 0}
               />
             </div>
-            {projects.length > 1 && (
+            {props.projects.length > 1 && (
               <button
                 type="button"
-                onClick={() => onRemove(index)}
+                onClick={() => props.onRemove(index)}
                 className="text-brand-error hover:text-brand-error-dark transition-colors p-2 hover:bg-brand-error/10 rounded-lg group"
                 aria-label="Remove project"
               >
@@ -60,7 +60,7 @@ export function RequestProjectList({ projects, onAdd, onRemove, onUpdate, error 
             )}
           </div>
         ))}
-        <FieldError error={error} />
+        <FieldError error={props.error} />
       </div>
     </div>
   );

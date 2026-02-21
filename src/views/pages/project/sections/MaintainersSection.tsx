@@ -14,9 +14,11 @@ interface MaintainersSectionProps {
   onToggleShowAll: () => void;
 }
 
-export function MaintainersSection({ developers, projectName, showAllMaintainers, onToggleShowAll }: MaintainersSectionProps) {
+export function MaintainersSection(props: MaintainersSectionProps) {
   const displayedMaintainers =
-    showAllMaintainers || developers.length <= DEFAULT_MAINTAINER_DISPLAY_COUNT ? developers : developers.slice(0, DEFAULT_MAINTAINER_DISPLAY_COUNT);
+    props.showAllMaintainers || props.developers.length <= DEFAULT_MAINTAINER_DISPLAY_COUNT
+      ? props.developers
+      : props.developers.slice(0, DEFAULT_MAINTAINER_DISPLAY_COUNT);
 
   return (
     <section>
@@ -26,14 +28,14 @@ export function MaintainersSection({ developers, projectName, showAllMaintainers
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {displayedMaintainers.map(developer => (
-              <MaintainerCard key={ProjectDeveloperProfileCompanion.getStableIdentifier(developer)} developer={developer} projectName={projectName} />
+              <MaintainerCard key={ProjectDeveloperProfileCompanion.getStableIdentifier(developer)} developer={developer} projectName={props.projectName} />
             ))}
           </div>
 
-          {developers.length > DEFAULT_MAINTAINER_DISPLAY_COUNT && (
+          {props.developers.length > DEFAULT_MAINTAINER_DISPLAY_COUNT && (
             <div className="mt-6 text-center">
-              <Button variant="outline" onClick={onToggleShowAll} className="text-brand-neutral-700 hover:text-brand-accent border-brand-neutral-300">
-                {showAllMaintainers ? "Show Less" : `See All ${developers.length} Maintainers`}
+              <Button variant="outline" onClick={props.onToggleShowAll} className="text-brand-neutral-700 hover:text-brand-accent border-brand-neutral-300">
+                {props.showAllMaintainers ? "Show Less" : `See All ${props.developers.length} Maintainers`}
               </Button>
             </div>
           )}

@@ -11,16 +11,16 @@ interface TermsCheckboxProps {
   error?: string;
 }
 
-export function TermsCheckbox({ checked, onCheckedChange, error }: TermsCheckboxProps) {
-  const hasError = !!error;
+export function TermsCheckbox(props: TermsCheckboxProps) {
+  const hasError = !!props.error;
 
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-start gap-3">
         <Checkbox
           id="terms"
-          checked={checked}
-          onCheckedChange={checkedState => onCheckedChange(checkedState === true)}
+          checked={props.checked}
+          onCheckedChange={checkedState => props.onCheckedChange(checkedState === true)}
           className={`mt-0.5 ${hasError ? "border-brand-error" : ""}`}
         />
         <div className="flex-1">
@@ -42,7 +42,7 @@ export function TermsCheckbox({ checked, onCheckedChange, error }: TermsCheckbox
           </Label>
         </div>
       </div>
-      {error && <ServerErrorAlert error={error} variant="compact" />}
+      {props.error && <ServerErrorAlert error={props.error} variant="compact" />}
     </div>
   );
 }

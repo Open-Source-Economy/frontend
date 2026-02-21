@@ -9,14 +9,14 @@ interface DecorativeOrbProps {
   className?: string;
 }
 
-export function DecorativeOrb({
-  size = "medium",
-  position = "top-right",
-  variant = "primary",
-  intensity = "medium",
-  animated = true,
-  className = "",
-}: DecorativeOrbProps) {
+export function DecorativeOrb(props: DecorativeOrbProps) {
+  const size = props.size ?? "medium";
+  const position = props.position ?? "top-right";
+  const variant = props.variant ?? "primary";
+  const intensity = props.intensity ?? "medium";
+  const animated = props.animated ?? true;
+  const className = props.className ?? "";
+
   const getSizeClasses = () => {
     switch (size) {
       case "small":

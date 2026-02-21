@@ -8,13 +8,13 @@ interface SubscriptionManagementProps {
   currentPlanBilling: PlanPriceType | null;
 }
 
-export function SubscriptionManagement({ currentPlanTier, currentPlanBilling }: SubscriptionManagementProps) {
+export function SubscriptionManagement(props: SubscriptionManagementProps) {
   // Only show if user has an active subscription
-  if (!currentPlanTier) {
+  if (!props.currentPlanTier) {
     return null;
   }
 
-  const benefits = getActiveBenefits(currentPlanTier);
+  const benefits = getActiveBenefits(props.currentPlanTier);
 
   const handleDownloadInvoices = () => {
     console.log("Download invoices");
@@ -31,8 +31,8 @@ export function SubscriptionManagement({ currentPlanTier, currentPlanBilling }: 
   return (
     <div className="mt-16 max-w-5xl mx-auto">
       <SubscriptionCard
-        tier={currentPlanTier}
-        billing={currentPlanBilling}
+        tier={props.currentPlanTier}
+        billing={props.currentPlanBilling}
         commonBenefits={benefits.common}
         tierBenefits={benefits.tier}
         onDownloadInvoices={handleDownloadInvoices}

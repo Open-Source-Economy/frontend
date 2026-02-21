@@ -11,13 +11,13 @@ interface NavItemsProps {
   onMobileClose?: () => void;
 }
 
-export function NavItems({ items, variant, onMobileClose }: NavItemsProps) {
+export function NavItems(props: NavItemsProps) {
   return (
     <>
-      {items.map(item => {
+      {props.items.map(item => {
         if (item.items && item.items.length > 0) {
-          if (variant === "mobile") {
-            return <MobileNavSubmenu key={item.title} title={item.title} items={item.items} onClose={onMobileClose} />;
+          if (props.variant === "mobile") {
+            return <MobileNavSubmenu key={item.title} title={item.title} items={item.items} onClose={props.onMobileClose} />;
           }
 
           return <NavDropdown key={item.title} title={item.title} items={item.items} />;
@@ -25,7 +25,7 @@ export function NavItems({ items, variant, onMobileClose }: NavItemsProps) {
 
         const isExternal = item.external;
         const commonClasses =
-          variant === "mobile"
+          props.variant === "mobile"
             ? "w-full text-left text-foreground hover:text-brand-primary hover:bg-surface/50 transition-colors duration-200 px-4 py-3 border-b border-border/30 block"
             : "text-muted-foreground hover:text-brand-primary transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0";
 
@@ -35,7 +35,7 @@ export function NavItems({ items, variant, onMobileClose }: NavItemsProps) {
               key={item.title}
               href={item.href}
               underline={false}
-              onClick={variant === "mobile" ? onMobileClose : undefined}
+              onClick={props.variant === "mobile" ? props.onMobileClose : undefined}
               className={commonClasses}
             >
               {item.title}
@@ -44,7 +44,7 @@ export function NavItems({ items, variant, onMobileClose }: NavItemsProps) {
         }
 
         return (
-          <Link key={item.title} to={item.href} onClick={variant === "mobile" ? onMobileClose : undefined} className={`${commonClasses} !no-underline`}>
+          <Link key={item.title} to={item.href} onClick={props.variant === "mobile" ? props.onMobileClose : undefined} className={`${commonClasses} !no-underline`}>
             {item.title}
           </Link>
         );

@@ -15,27 +15,23 @@ interface FilterSelectProps {
   size?: "sm" | "default" | "lg";
 }
 
-export function FilterSelect({
-  value,
-  onValueChange,
-  placeholder,
-  icon: Icon,
-  width = "w-[180px]",
-  options,
-  className = "",
-  variant = "default",
-  size = "default",
-}: FilterSelectProps) {
+export function FilterSelect(props: FilterSelectProps) {
+  const Icon = props.icon;
+  const width = props.width ?? "w-[180px]";
+  const className = props.className ?? "";
+  const variant = props.variant ?? "default";
+  const size = props.size ?? "default";
+
   return (
-    <Select value={value} onValueChange={onValueChange}>
+    <Select value={props.value} onValueChange={props.onValueChange}>
       <SelectTrigger className={cn(width, className)} variant={variant} size={size}>
         <div className="flex items-center gap-3 w-full">
           <Icon size={16} className="text-[color:var(--form-text-placeholder)] flex-shrink-0" />
-          <SelectValue placeholder={placeholder} className="flex-1 text-left" />
+          <SelectValue placeholder={props.placeholder} className="flex-1 text-left" />
         </div>
       </SelectTrigger>
       <SelectContent>
-        {options.map(option => (
+        {props.options.map(option => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>

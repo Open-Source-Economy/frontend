@@ -618,18 +618,19 @@ const getProjectIcon = (project: Project) => {
   );
 };
 
-export function ProjectsShowcase({
-  title = "Open Source Projects",
-  description = "Discover and connect with the world's most important open source projects. Our platform provides direct access to expert maintainers and comprehensive project support.",
-  projects = defaultProjects,
-  variant = "grid",
-  showSearch = true,
-  showFilters = true,
-  showStats = true,
-  maxProjects,
-  className = "",
-  onNavigation,
-}: ProjectsShowcaseProps) {
+export function ProjectsShowcase(props: ProjectsShowcaseProps) {
+  const title = props.title ?? "Open Source Projects";
+  const description =
+    props.description ??
+    "Discover and connect with the world's most important open source projects. Our platform provides direct access to expert maintainers and comprehensive project support.";
+  const projects = props.projects ?? defaultProjects;
+  const variant = props.variant ?? "grid";
+  const showSearch = props.showSearch ?? true;
+  const showFilters = props.showFilters ?? true;
+  const showStats = props.showStats ?? true;
+  const maxProjects = props.maxProjects;
+  const className = props.className ?? "";
+  const onNavigation = props.onNavigation;
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
   const [selectedStatus, setSelectedStatus] = React.useState<string>("all");

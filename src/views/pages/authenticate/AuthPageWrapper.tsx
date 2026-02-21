@@ -10,17 +10,17 @@ export interface AuthPageWrapperProps {
   description: string;
 }
 
-export function AuthPageWrapper({ children, title, description }: AuthPageWrapperProps) {
+export function AuthPageWrapper(props: AuthPageWrapperProps) {
   return (
     <PageWrapper>
       <div className="min-h-screen bg-gradient-to-b from-brand-secondary via-brand-neutral-100 to-brand-secondary-dark flex flex-col">
         <main className="flex-1 flex items-center justify-center py-20 px-6 relative overflow-hidden">
           <div className="container mx-auto max-w-[420px] relative z-10">
             {/* Header */}
-            <AuthStepHeader title={title} description={description} />
+            <AuthStepHeader title={props.title} description={props.description} />
 
             {/* Form Content */}
-            <div className="space-y-5">{children}</div>
+            <div className="space-y-5">{props.children}</div>
 
             {/* Additional Help Link */}
             <div className="mt-8 text-center">

@@ -13,20 +13,20 @@ interface RecognitionSectionProps {
   tier?: PlanProductType;
 }
 
-export function RecognitionSection({ title, subtitle, features, tier }: RecognitionSectionProps) {
+export function RecognitionSection(props: RecognitionSectionProps) {
   return (
     <>
       <div className="mb-3">
-        <h4 className="text-brand-neutral-900 mb-1.5">{title}</h4>
-        {tier && (
+        <h4 className="text-brand-neutral-900 mb-1.5">{props.title}</h4>
+        {props.tier && (
           <div className="mb-2">
-            <MembershipTierBadge tier={tier} compact />
+            <MembershipTierBadge tier={props.tier} compact />
           </div>
         )}
-        {subtitle && <SectionSubtitle text={subtitle} />}
+        {props.subtitle && <SectionSubtitle text={props.subtitle} />}
       </div>
 
-      <FeatureList features={features} gap="compact" />
+      <FeatureList features={props.features} gap="compact" />
     </>
   );
 }

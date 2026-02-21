@@ -12,19 +12,11 @@ interface AmountSelectorProps {
   className?: string;
 }
 
-export function AmountSelector({
-  suggestedAmounts,
-  selectedAmount,
-  customAmount,
-  currencySymbol,
-  onSelectAmount,
-  onCustomAmountChange,
-  className,
-}: AmountSelectorProps) {
+export function AmountSelector(props: AmountSelectorProps) {
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "" || parseFloat(value) > 0) {
-      onCustomAmountChange(value);
+      props.onCustomAmountChange(value);
     }
   };
 
@@ -44,15 +36,15 @@ export function AmountSelector({
   };
 
   return (
-    <div className={cn("grid grid-cols-3 gap-2.5", className)}>
-      {suggestedAmounts.map(amount => (
+    <div className={cn("grid grid-cols-3 gap-2.5", props.className)}>
+      {props.suggestedAmounts.map(amount => (
         <button
           key={amount}
-          onClick={() => onSelectAmount(amount)}
-          className={`${getButtonClasses(selectedAmount === amount && !customAmount)} cursor-pointer`}
+          onClick={() => props.onSelectAmount(amount)}
+          className={`${getButtonClasses(props.selectedAmount === amount && !props.customAmount)} cursor-pointer`}
         >
           <div className="text-xl">
-            {currencySymbol}
+            {props.currencySymbol}
             {amount}
           </div>
         </button>
@@ -60,16 +52,16 @@ export function AmountSelector({
       <div
         className={cn(
           "p-3 rounded-lg border-2 transition-all duration-300 flex items-center justify-center",
-          customAmount ? "border-brand-accent bg-brand-accent/10 shadow-lg shadow-brand-accent/20" : "border-brand-neutral-300 hover:border-brand-accent/50",
+          props.customAmount ? "border-brand-accent bg-brand-accent/10 shadow-lg shadow-brand-accent/20" : "border-brand-neutral-300 hover:border-brand-accent/50",
         )}
       >
         <div className="flex items-center justify-center w-full">
-          <span className="text-brand-neutral-600 text-lg">{currencySymbol}</span>
+          <span className="text-brand-neutral-600 text-lg">{props.currencySymbol}</span>
           <Input
             type="number"
             min="1"
             step="1"
-            value={customAmount}
+            value={props.customAmount}
             onChange={handleCustomAmountChange}
             onKeyDown={handleKeyDown}
             placeholder="Custom"

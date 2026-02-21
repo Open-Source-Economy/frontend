@@ -10,15 +10,15 @@ interface MobileUserMenuProps {
   onItemClick?: () => void;
 }
 
-export function MobileUserMenu({ authenticatedUser, menuConfig, onItemClick }: MobileUserMenuProps) {
+export function MobileUserMenu(props: MobileUserMenuProps) {
   return (
     <div className="space-y-4 pt-4 border-t border-white/10">
       <div className="flex items-center gap-3 px-2">
-        <UserProfileSection user={authenticatedUser} variant="inline" />
+        <UserProfileSection user={props.authenticatedUser} variant="inline" />
       </div>
 
       <div className="space-y-4">
-        {menuConfig.sections.map((section, index) => (
+        {props.menuConfig.sections.map((section, index) => (
           <div key={index} className="space-y-1">
             {section.title && <div className="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{section.title}</div>}
             {section.links.map(item => (
@@ -26,7 +26,7 @@ export function MobileUserMenu({ authenticatedUser, menuConfig, onItemClick }: M
                 key={item.title}
                 to={item.href}
                 className="flex items-center gap-3 px-2 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors"
-                onClick={onItemClick}
+                onClick={props.onItemClick}
               >
                 {item.icon}
                 {item.title}
@@ -35,12 +35,12 @@ export function MobileUserMenu({ authenticatedUser, menuConfig, onItemClick }: M
           </div>
         ))}
         <Link
-          to={menuConfig.logout.href}
+          to={props.menuConfig.logout.href}
           className="flex items-center gap-3 px-2 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-md transition-colors w-full text-left"
-          onClick={onItemClick}
+          onClick={props.onItemClick}
         >
-          {menuConfig.logout.icon}
-          {menuConfig.logout.title}
+          {props.menuConfig.logout.icon}
+          {props.menuConfig.logout.title}
         </Link>
       </div>
     </div>

@@ -5,11 +5,11 @@ interface PaymentInfoProps {
   onEdit: () => void;
 }
 
-export function PaymentInfo({ cardType, lastFourDigits, expiryDate, onEdit }: PaymentInfoProps) {
+export function PaymentInfo(props: PaymentInfoProps) {
   return (
     <div className="flex items-center gap-8 text-white w-full">
-      <span>{`${cardType} ${lastFourDigits}`}</span>
-      <span>{`Expires ${expiryDate}`}</span>
+      <span>{`${props.cardType} ${props.lastFourDigits}`}</span>
+      <span>{`Expires ${props.expiryDate}`}</span>
     </div>
   );
 }

@@ -27,60 +27,44 @@ interface OrganizationCardProps {
   onToggleSelection: (id: string) => void;
 }
 
-export function OrganizationCard({
-  organization,
-  isSyncing,
-  isSyncingOwner,
-  isSelected,
-  canSync,
-  isBulkSyncing,
-  isInQueue,
-  isCompleted,
-  queuePosition,
-  queueTotal,
-  estimatedWaitSeconds,
-  globalFetchDetails,
-  onSync,
-  onSyncOwner,
-  onToggleSelection,
-}: OrganizationCardProps) {
+export function OrganizationCard(props: OrganizationCardProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [offset, setOffset] = useState(0);
   const [batchSize, setBatchSize] = useState(500);
-  const [fetchDetails, setFetchDetails] = useState(globalFetchDetails);
+  const [fetchDetails, setFetchDetails] = useState(props.globalFetchDetails);
 
   // Sync local fetchDetails with global setting when it changes
   React.useEffect(() => {
-    setFetchDetails(globalFetchDetails);
-  }, [globalFetchDetails]);
+    setFetchDetails(props.globalFetchDetails);
+  }, [props.globalFetchDetails]);
 
-  const { projectItem, owner, developers, lastSyncMessage } = organization;
+  const { projectItem, owner, developers, lastSyncMessage } = props.organization;
 
   return (
     <div
-      className={`p-6 hover:bg-white/5 transition-colors ${isCompleted ? "bg-green-500/5" : isSyncing ? "bg-blue-500/5" : isInQueue ? "bg-yellow-500/5" : ""}`}
+      className={`p-6 hover:bg-white/5 transition-colors ${props.isCompleted ? "bg-green-500/5" : props.isSyncing ? "bg-blue-500/5" : props.isInQueue ? "bg-yellow-500/5" : ""}`}
     >
       {/* Bulk Sync Status Badge */}
-      {isBulkSyncing && (
+      {props.isBulkSyncing && (
         <BulkSyncStatusBadge
-          isCompleted={isCompleted}
-          isSyncing={isSyncing}
-          isInQueue={isInQueue}
-          queuePosition={queuePosition}
-          queueTotal={queueTotal}
-          estimatedWaitSeconds={estimatedWaitSeconds}
+          isCompleted={props.isCompleted}
+          isSyncing={props.isSyncing}
+          isInQueue={props.isInQueue}
+          queuePosition={props.queuePosition}
+          queueTotal={props.queueTotal}
+          estimatedWaitSeconds={props.estimatedWaitSeconds}
         />
       )}
 
       <div className="flex items-start justify-between gap-4">
         {/* Selection Checkbox */}
         <div className="flex items-start pt-1">
-          {canSync ? (
+          {props.canSync ? (
             <input
               type="checkbox"
-              checked={isSelected}
-              onChange={() => onToggleSelection(projectItem.id.uuid)}
-              disabled={isBulkSyncing}
+              checked={props.isSelected}
+              onChange={() => props.onToggleSelection(projectItem.id.uuid)}
+              disabled={props.isBulkSyncing}
               className="w-5 h-5 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50"
             />
           ) : (
@@ -159,7 +143,7 @@ export function OrganizationCard({
           )}
 
           {/* Warning for non-syncable owners */}
-          {!canSync && (
+          {!props.canSync && (
             <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-red-300">
@@ -192,29 +176,29 @@ export function OrganizationCard({
               // Check if sourceIdentifier is an object with login property
               if (sourceId && typeof sourceId === "object" && "login" in sourceId) {
                 const ownerId = sourceId as dto.OwnerId;
-                onSyncOwner(ownerId.login, projectItem.id.uuid);
+                props.onSyncOwner(ownerId.login, projectItem.id.uuid);
               } else {
                 alert("Unable to sync: owner login not found in project item");
               }
             }}
-            disabled={isSyncingOwner}
+            disabled={props.isSyncingOwner}
             variant="outline"
             className="whitespace-nowrap"
-            leftIcon={isSyncingOwner ? Loader2 : RefreshCw}
+            leftIcon={props.isSyncingOwner ? Loader2 : RefreshCw}
           >
-            {isSyncingOwner ? "Syncing..." : "Sync Owner Data"}
+            {props.isSyncingOwner ? "Syncing..." : "Sync Owner Data"}
           </Button>
 
           {/* Sync Repositories - Only visible when publicRepos is available */}
-          {canSync && (
+          {props.canSync && (
             <>
               <Button
-                onClick={() => onSync(projectItem.id.uuid, offset, batchSize, fetchDetails)}
-                disabled={isSyncing || isBulkSyncing || isSyncingOwner}
+                onClick={() => props.onSync(projectItem.id.uuid, offset, batchSize, fetchDetails)}
+                disabled={props.isSyncing || props.isBulkSyncing || props.isSyncingOwner}
                 className="whitespace-nowrap"
-                leftIcon={isSyncing ? Loader2 : RefreshCw}
+                leftIcon={props.isSyncing ? Loader2 : RefreshCw}
               >
-                {isSyncing ? "Syncing..." : "Sync Repositories"}
+                {props.isSyncing ? "Syncing..." : "Sync Repositories"}
               </Button>
 
               <Button variant="outline" onClick={() => setShowAdvanced(!showAdvanced)} className="whitespace-nowrap text-sm">
@@ -226,7 +210,7 @@ export function OrganizationCard({
       </div>
 
       {/* Advanced Options */}
-      {showAdvanced && canSync && (
+      {showAdvanced && props.canSync && (
         <div className="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
           <h4 className="text-white font-semibold mb-3">Sync Options</h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -24,7 +24,7 @@ interface DonationCardProps {
   className?: string;
 }
 
-export function DonationCard({ className }: DonationCardProps) {
+export function DonationCard(props: DonationCardProps) {
   const backendAPI = getBackendAPI();
   const { checkout_error } = useParams();
   const { preferredCurrency, setPreferredCurrency } = useCurrency();
@@ -198,7 +198,7 @@ export function DonationCard({ className }: DonationCardProps) {
   };
 
   return (
-    <div className={className}>
+    <div className={props.className}>
       {/* Checkout Error Banner */}
       {checkout_error && (
         <div className="mb-6">

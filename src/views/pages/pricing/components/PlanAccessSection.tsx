@@ -9,7 +9,7 @@ interface PlanAccessSectionProps {
   previousPlanName?: string;
 }
 
-export function PlanAccessSection({ features, previousPlanName }: PlanAccessSectionProps) {
+export function PlanAccessSection(props: PlanAccessSectionProps) {
   return (
     <div className="pt-4 border-t border-brand-neutral-300 mt-2">
       <SectionHeader
@@ -19,18 +19,18 @@ export function PlanAccessSection({ features, previousPlanName }: PlanAccessSect
       />
 
       {/* Show "Everything in previous plan +" for upgrade tiers */}
-      {previousPlanName && (
+      {props.previousPlanName && (
         <FeatureItem
           text={
             <>
-              Everything in <span className="text-brand-neutral-900">{previousPlanName}</span> +
+              Everything in <span className="text-brand-neutral-900">{props.previousPlanName}</span> +
             </>
           }
           included={true}
         />
       )}
 
-      <FeatureList features={features} />
+      <FeatureList features={props.features} />
     </div>
   );
 }

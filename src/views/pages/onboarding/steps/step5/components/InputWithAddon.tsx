@@ -11,17 +11,20 @@ interface InputWithAddonProps {
   className?: string;
 }
 
-export function InputWithAddon({ prefix, suffix, value, displayMode = false, icon: Icon, className }: InputWithAddonProps) {
+export function InputWithAddon(props: InputWithAddonProps) {
+  const displayMode = props.displayMode ?? false;
+  const Icon = props.icon;
+
   // Display mode: compact read-only display with icon
   if (displayMode) {
     return (
-      <div className={cn("flex items-center gap-2 p-3 bg-brand-card-blue/50 border border-brand-neutral-300/30 rounded-lg w-fit", className)}>
+      <div className={cn("flex items-center gap-2 p-3 bg-brand-card-blue/50 border border-brand-neutral-300/30 rounded-lg w-fit", props.className)}>
         {Icon && <Icon className="w-4 h-4 text-brand-highlight" />}
         <span className="text-sm text-brand-neutral-900">
-          {prefix}
-          {value}
+          {props.prefix}
+          {props.value}
         </span>
-        <span className="text-xs text-brand-neutral-500">{suffix}</span>
+        <span className="text-xs text-brand-neutral-500">{props.suffix}</span>
       </div>
     );
   }

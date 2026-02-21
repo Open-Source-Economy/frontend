@@ -13,19 +13,19 @@ interface UserMenuDropdownProps {
   menuConfig: UserMenuNavigation;
 }
 
-export function UserMenuDropdown({ authenticatedUser, menuConfig }: UserMenuDropdownProps) {
+export function UserMenuDropdown(props: UserMenuDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2 hover:opacity-80 transition-opacity outline-none cursor-pointer">
-        <UserAvatar user={authenticatedUser} className="h-10 w-10 border-2 border-brand-accent" />
+        <UserAvatar user={props.authenticatedUser} className="h-10 w-10 border-2 border-brand-accent" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <UserProfileSection user={authenticatedUser} variant="header" />
+        <UserProfileSection user={props.authenticatedUser} variant="header" />
 
         <div className="px-2 pt-2 pb-3 border-t border-border/50">
-          <TokenDisplay tokens={authenticatedUser.serviceTokens} variant="full" />
+          <TokenDisplay tokens={props.authenticatedUser.serviceTokens} variant="full" />
         </div>
-        {menuConfig.sections.map((section, index) => (
+        {props.menuConfig.sections.map((section, index) => (
           <React.Fragment key={index}>
             {index > 0 && <DropdownMenuSeparator />}
             <div className="px-2 py-2">
@@ -50,10 +50,10 @@ export function UserMenuDropdown({ authenticatedUser, menuConfig }: UserMenuDrop
 
         <DropdownMenuSeparator />
         <div className="px-2 py-2">
-          <Link to={menuConfig.logout.href} className="!no-underline">
+          <Link to={props.menuConfig.logout.href} className="!no-underline">
             <DropdownMenuItem className="cursor-pointer flex items-center gap-2 text-red-400 focus:text-red-400 focus:bg-red-400/10">
-              {menuConfig.logout.icon}
-              <span>{menuConfig.logout.title}</span>
+              {props.menuConfig.logout.icon}
+              <span>{props.menuConfig.logout.title}</span>
             </DropdownMenuItem>
           </Link>
         </div>

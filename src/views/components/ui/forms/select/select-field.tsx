@@ -26,26 +26,18 @@ interface SelectFieldProps {
  * Following DRY principles for consistent select field patterns
  * Supports both simple string arrays and { value, label } objects
  */
-export function SelectField({
-  label,
-  value,
-  onChange,
-  options,
-  placeholder = "Select an option",
-  required = false,
-  description,
-  hint,
-  error,
-  className,
-}: SelectFieldProps) {
+export function SelectField(props: SelectFieldProps) {
+  const placeholder = props.placeholder ?? "Select an option";
+  const required = props.required ?? false;
+
   // Normalize options to { value, label } format
-  const normalizedOptions: SelectOption[] = options.map(option => (typeof option === "string" ? { value: option, label: option } : option));
+  const normalizedOptions: SelectOption[] = props.options.map(option => (typeof option === "string" ? { value: option, label: option } : option));
 
   return (
-    <div className={cn("space-y-2", className)}>
-      {label && <Label className={cn(error && "text-brand-error", required && "after:content-['*'] after:ml-1 after:text-brand-error")}>{label}</Label>}
-      <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className={cn("w-full", error && "border-brand-error")}>
+    <div className={cn("space-y-2", props.className)}>
+      {props.label && <Label className={cn(props.error && "text-brand-error", required && "after:content-['*'] after:ml-1 after:text-brand-error")}>{props.label}</Label>}
+      <Select value={props.value} onValueChange={props.onChange}>
+        <SelectTrigger className={cn("w-full", props.error && "border-brand-error")}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
@@ -56,8 +48,8 @@ export function SelectField({
           ))}
         </SelectContent>
       </Select>
-      {(description || hint) && !error && <p className="text-xs text-brand-neutral-500">{description || hint}</p>}
-      {error && <p className="text-sm text-brand-error">{error}</p>}
+      {(props.description || props.hint) && !props.error && <p className="text-xs text-brand-neutral-500">{props.description || props.hint}</p>}
+      {props.error && <p className="text-sm text-brand-error">{props.error}</p>}
     </div>
   );
 }

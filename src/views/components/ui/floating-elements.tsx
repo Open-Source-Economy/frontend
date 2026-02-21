@@ -5,7 +5,9 @@ interface FloatingElementsProps {
   className?: string;
 }
 
-export function FloatingElements({ count = 3, className = "" }: FloatingElementsProps) {
+export function FloatingElements(props: FloatingElementsProps) {
+  const count = props.count ?? 3;
+  const className = props.className ?? "";
   const elements = Array.from({ length: count }, (_, i) => i);
 
   const getElementStyles = (index: number) => {

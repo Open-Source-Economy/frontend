@@ -10,7 +10,9 @@ interface NavDropdownProps {
   variant?: "default" | "admin";
 }
 
-export function NavDropdown({ title, items, variant = "default" }: NavDropdownProps) {
+export function NavDropdown(props: NavDropdownProps) {
+  const variant = props.variant ?? "default";
+
   const triggerClassName =
     variant === "admin"
       ? "flex items-center gap-1 text-brand-primary hover:text-brand-primary-dark font-medium transition-colors duration-200 cursor-pointer outline-none"
@@ -19,11 +21,11 @@ export function NavDropdown({ title, items, variant = "default" }: NavDropdownPr
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={triggerClassName}>
-        {title}
+        {props.title}
         <ChevronDown className="w-4 h-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" sideOffset={8} className="w-56">
-        {items.map(item => (
+        {props.items.map(item => (
           <Link key={item.href} to={item.href} className="w-full">
             <DropdownMenuItem className="cursor-pointer">{item.title}</DropdownMenuItem>
           </Link>

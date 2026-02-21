@@ -9,16 +9,18 @@ interface RadioOptionProps {
   className?: string;
 }
 
-export const RadioOption: React.FC<RadioOptionProps> = ({ value, id, label, className = "" }) => {
+export function RadioOption(props: RadioOptionProps) {
+  const className = props.className ?? "";
+
   return (
     <div className={`flex items-center gap-2 group ${className}`}>
-      <RadioGroupItem value={value} id={id} />
+      <RadioGroupItem value={props.value} id={props.id} />
       <Label
-        htmlFor={id}
+        htmlFor={props.id}
         className="cursor-pointer text-brand-neutral-900 mb-0 leading-none transition-colors group-has-[[data-state=checked]]:text-brand-accent"
       >
-        {label}
+        {props.label}
       </Label>
     </div>
   );
-};
+}

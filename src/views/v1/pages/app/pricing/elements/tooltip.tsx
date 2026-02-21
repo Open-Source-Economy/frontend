@@ -5,7 +5,7 @@ interface InfoTooltipProps {
   content: string;
 }
 
-export function InfoTooltip({ content }: InfoTooltipProps) {
+export function InfoTooltip(props: InfoTooltipProps) {
   return (
     <Tooltip.Provider delayDuration={100}>
       <Tooltip.Root>
@@ -21,7 +21,7 @@ export function InfoTooltip({ content }: InfoTooltipProps) {
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className="max-w-xs rounded-lg bg-theme-pink px-3 py-2 text-sm text-white shadow-lg" sideOffset={5} side="bottom">
-            {content}
+            {props.content}
             <Tooltip.Arrow className="fill-theme-pink" />
           </Tooltip.Content>
         </Tooltip.Portal>

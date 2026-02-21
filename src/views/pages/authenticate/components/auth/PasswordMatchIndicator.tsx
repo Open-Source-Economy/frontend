@@ -5,12 +5,12 @@ interface PasswordMatchIndicatorProps {
   passwordsMatch: boolean;
 }
 
-export function PasswordMatchIndicator({ passwordConfirm, passwordsMatch }: PasswordMatchIndicatorProps) {
-  if (!passwordConfirm) return null;
+export function PasswordMatchIndicator(props: PasswordMatchIndicatorProps) {
+  if (!props.passwordConfirm) return null;
 
   return (
-    <div className={`text-[10px] font-bold uppercase tracking-widest mt-1 ${passwordsMatch ? "text-brand-success" : "text-brand-error"}`}>
-      {passwordsMatch ? "Passwords match" : "Passwords do not match"}
+    <div className={`text-[10px] font-bold uppercase tracking-widest mt-1 ${props.passwordsMatch ? "text-brand-success" : "text-brand-error"}`}>
+      {props.passwordsMatch ? "Passwords match" : "Passwords do not match"}
     </div>
   );
 }

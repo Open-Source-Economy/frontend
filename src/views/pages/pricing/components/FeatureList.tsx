@@ -9,10 +9,12 @@ interface FeatureListProps {
   gap?: "normal" | "compact";
 }
 
-export function FeatureList({ features, gap = "normal" }: FeatureListProps) {
+export function FeatureList(props: FeatureListProps) {
+  const gap = props.gap ?? "normal";
+
   return (
     <ul className="space-y-2 p-[0px] mt-2">
-      {features.map((feature, featureIndex) => (
+      {props.features.map((feature, featureIndex) => (
         <li key={featureIndex}>
           <FeatureItem text={feature.text} included={feature.included} isNew={feature.isNew} hasInfo={feature.hasInfo} infoText={feature.infoText} />
         </li>

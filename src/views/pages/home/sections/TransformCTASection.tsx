@@ -9,7 +9,7 @@ interface TransformCTASectionProps {
   className?: string;
 }
 
-export function TransformCTASection({ className }: TransformCTASectionProps) {
+export function TransformCTASection(props: TransformCTASectionProps) {
   const benefits = [
     "Direct access to expert maintainers",
     "Transparent, mission-driven pricing",
@@ -18,7 +18,7 @@ export function TransformCTASection({ className }: TransformCTASectionProps) {
   ];
 
   return (
-    <section className={`relative overflow-hidden ${className ?? ""}`}>
+    <section className={`relative overflow-hidden ${props.className ?? ""}`}>
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary via-brand-secondary-dark to-brand-neutral-100" />
 
