@@ -3,6 +3,15 @@ import { FinancialIssue } from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
 import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/ultils/error/ApiError";
+import { useAuth } from "../views/auth";
+
+// Temporary local definitions until api-types package is updated/linked
+export interface CreatePortalSessionBody {
+  returnUrl: string;
+}
+export interface CreatePortalSessionResponse {
+  url: string;
+}
 
 import { config } from "src/ultils";
 import { StatusCodes } from "http-status-codes";
@@ -99,6 +108,8 @@ export interface BackendAPI {
     params: dto.GetProjectItemsWithDetailsParams,
     query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError>;
+
+  createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse | ApiError>;
 }
 
 class BackendAPIImpl implements BackendAPI {
@@ -255,5 +266,9 @@ class BackendAPIImpl implements BackendAPI {
     query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
     return handleError(() => this.api.get(`${config.api.url}/projects/items/details`, { withCredentials: true }), "getProjectItemsWithDetails");
+  }
+
+  async createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse | ApiError> {
+    return handleError(() => this.api.post(`${config.api.url}/stripe/portal`, body, { withCredentials: true }), "createPortalSession");
   }
 }

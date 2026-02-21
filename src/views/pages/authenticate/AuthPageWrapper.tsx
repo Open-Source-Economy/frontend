@@ -37,3 +37,4 @@ export function AuthPageWrapper({ children, title, description }: AuthPageWrappe
     </PageWrapper>
   );
 }
+

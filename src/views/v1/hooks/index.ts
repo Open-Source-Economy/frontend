@@ -8,3 +8,4 @@ export * from "./useMaintainers";
 export * from "./usePlans";
 export * from "./useProjectServices";
 export * from "./useAvailableCredits";
+export * from "./useUserPlan";

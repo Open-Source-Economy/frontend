@@ -61,6 +61,9 @@ export const features = {
   /** Project verification notice in onboarding Step 2 */
   projectVerificationNotice: envGroups.localOnly,
 
+  /** Dev Controls on Pricing Page */
+  devControls: envGroups.localAndDev,
+
   // Add more features here as needed
   // Custom combinations:
   // exampleFeature: [Env.Local, Env.Staging] as const,

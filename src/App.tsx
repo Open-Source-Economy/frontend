@@ -12,6 +12,7 @@ import { ProjectItemsWithDetails } from "src/views/pages/projectItemsWithDetails
 import { ContactPage } from "src/views/pages/contact/ContactPage";
 import { PrivacyPolicyPage } from "src/views/pages/PrivacyPolicyPage";
 import { FAQPage } from "src/views/pages/faq/FAQPage";
+import { PricingPage } from "src/views/pages/pricing/PricingPage";
 import { AuthProvider, AuthRoutes, Logout, SuperAdminRoutes } from "./views/auth";
 import { AdminHome } from "./views/v1/pages/admin/adminHome/AdminHome";
 import { InviteRepositoryUser } from "./views/v1/pages/admin/inviteRepositoryUser";
@@ -72,7 +73,7 @@ const App = () => {
             {/*/!*<Route path={paths.USER} element={<UserDeveloper {...userProps} />} />*!/*/}
             {/*<Route path={paths.USER} element={<CompanyProduct />} />*/}
             {/*<Route path={paths.HOW_ITS_WORK} element={<HowItWorks />} />*/}
-            {/*<Route path={paths.PRICING} element={<Pricing />} />*/}
+            <Route path={paths.PRICING} element={<PricingPage />} />
 
             {/*<Route path={paths.WHITE_PAPER} element={<Pdf location={"/white-paper.pdf"} />} />*/}
             <Route path={paths.TERMS_AND_CONDITIONS} element={<Pdf location={"/terms-and-conditions.pdf"} />} />

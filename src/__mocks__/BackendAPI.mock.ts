@@ -20,7 +20,7 @@ import {
   StripePriceId,
   StripeProductId,
 } from "@open-source-economy/api-types";
-import { BackendAPI } from "src/services/BackendAPI";
+import { BackendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services/BackendAPI";
 import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
@@ -325,6 +325,10 @@ export class BackendAPIMock implements BackendAPI {
 
   async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
     return Promise.resolve({});
+  }
+
+  async createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse | ApiError> {
+    return Promise.resolve({ url: "https://billing.stripe.com/p/session/test_123" });
   }
 }
 
