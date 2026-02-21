@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -9,20 +9,18 @@ import { Mail, User } from "lucide-react";
 
 import { Checkbox } from "src/views/components/ui/forms/checkbox";
 import { Label } from "src/views/components/ui/forms/label";
-import { type InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { FieldError } from "src/views/components/ui/forms/field-error";
-import { validateEmail, validateName } from "src/views/components/ui/forms/validators";
 import { InfoMessage } from "../../../../components/ui/info-message";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { paths } from "../../../../../paths";
 import { isVisible } from "src/ultils/featureVisibility";
+import { useZodForm, RhfFormInput } from "src/views/components/ui/forms/rhf";
+import { onboardingStep1Schema, type OnboardingStep1FormData } from "src/views/components/ui/forms/schemas";
+import { FormProvider } from "react-hook-form";
 
 export interface Step1Props extends OnboardingStepProps<Step1State> {}
 
 export default function Step1(props: Step1Props) {
-  const [isFormValid, setIsFormValid] = useState(true);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
   const createProfile = onboardingHooks.useCreateDeveloperProfileMutation();
   const updateContactInfos = onboardingHooks.useUpdateDeveloperContactInfosMutation();
 
@@ -30,155 +28,138 @@ export default function Step1(props: Step1Props) {
   const mutationError = createProfile.error || updateContactInfos.error;
   const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
 
-  // Refs for inputs
-  const nameInputRef = useRef<InputRef>(null);
-  const emailInputRef = useRef<InputRef>(null);
+  const form = useZodForm(onboardingStep1Schema, {
+    defaultValues: {
+      name: props.state.name || "",
+      contactEmail: props.state.contactEmail || "",
+      agreedToTerms: (props.state.agreedToTerms || false) as any,
+    },
+  });
 
-  const validateForm = (): boolean => {
-    const showInputError: boolean = true;
-    let isFormValid = true;
+  // Sync RHF -> parent state
+  useEffect(() => {
+    const sub = form.watch(values => {
+      props.updateState({
+        name: values.name ?? undefined,
+        contactEmail: values.contactEmail ?? undefined,
+        agreedToTerms: values.agreedToTerms === true,
+      });
+    });
+    return () => sub.unsubscribe();
+  }, [form, props.updateState]);
 
-    const isNameValid = nameInputRef.current?.validate(showInputError) ?? false;
-    const isEmailValid = emailInputRef.current?.validate(showInputError) ?? false;
-    const isTermsValid = props.state.agreedToTerms || false;
-
-    if (!isNameValid || !isEmailValid || !isTermsValid) {
-      isFormValid = false;
-
-      // Set errors for terms if needed
-      if (!isTermsValid) {
-        setErrors({ ...errors, agreedToTerms: "You must accept the Terms and Conditions to continue" });
-      } else {
-        setErrors({ ...errors, agreedToTerms: "" });
-      }
-    }
-
-    setIsFormValid(isFormValid);
-    return isFormValid;
-  };
-
-  const handleNext = async (): Promise<boolean> => {
-    if (!validateForm()) return false;
-
-    try {
-      if (props.state.developerProfileId) {
-        const params: dto.UpdateDeveloperContactInfosParams = {};
-        const body: dto.UpdateDeveloperContactInfosBody = {
-          name: props.state.name!,
-          email: props.state.contactEmail!,
-        };
-        const query: dto.UpdateDeveloperContactInfosQuery = {};
-        await updateContactInfos.mutateAsync({ params, body, query });
-      } else {
-        const params: dto.CreateDeveloperProfileParams = {};
-        const body: dto.CreateDeveloperProfileBody = {
-          name: props.state.name!,
-          email: props.state.contactEmail!,
-          agreedToTerms: props.state.agreedToTerms!,
-        };
-        const query: dto.CreateDeveloperProfileQuery = {};
-        await createProfile.mutateAsync({ params, body, query });
-      }
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  const handleInputChange = (field: keyof Step1State, value: string | boolean) => {
-    props.updateState({ [field]: value });
-  };
-
-  React.useEffect(() => {
+  // Register next-step handler
+  useEffect(() => {
     if (props.setOnNext) {
+      const handleNext = async (): Promise<boolean> => {
+        const isValid = await form.trigger();
+        if (!isValid) return false;
+
+        const values = form.getValues();
+
+        try {
+          if (props.state.developerProfileId) {
+            const params: dto.UpdateDeveloperContactInfosParams = {};
+            const body: dto.UpdateDeveloperContactInfosBody = {
+              name: values.name,
+              email: values.contactEmail,
+            };
+            const query: dto.UpdateDeveloperContactInfosQuery = {};
+            await updateContactInfos.mutateAsync({ params, body, query });
+          } else {
+            const params: dto.CreateDeveloperProfileParams = {};
+            const body: dto.CreateDeveloperProfileBody = {
+              name: values.name,
+              email: values.contactEmail,
+              agreedToTerms: values.agreedToTerms,
+            };
+            const query: dto.CreateDeveloperProfileQuery = {};
+            await createProfile.mutateAsync({ params, body, query });
+          }
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
       props.setOnNext(handleNext);
       return () => props.setOnNext?.(null);
     }
-  }, [props.setOnNext, props.state.name, props.state.contactEmail, props.state.agreedToTerms]);
+  }, [props.setOnNext, props.state.developerProfileId]);
 
   return (
     <div>
-      {/* Error Display */}
       {apiError && <ServerErrorAlert error={apiError} variant="compact" />}
 
-      {/*/!* Loading Indicator *!/*/}
-      {/*{isLoading && <LoadingState variant="spinner" size="md" />}*/}
+      <FormProvider {...form}>
+        <div className="space-y-5 sm:space-y-6">
+          <RhfFormInput<OnboardingStep1FormData>
+            name="name"
+            label="Full Name"
+            placeholder="Jane Doe"
+            leftIcon={User}
+            disabled={isLoading}
+            required
+          />
 
-      {/* Form */}
-      <div className="space-y-5 sm:space-y-6">
-        {/* Full Name */}
-        <ValidatedInputWithRef
-          ref={nameInputRef}
-          name="fullName"
-          label="Full Name"
-          value={props.state.name || ""}
-          disabled={isLoading}
-          onChange={value => handleInputChange("name", value)}
-          placeholder="Jane Doe"
-          leftIcon={User}
-          validator={validateName}
-        />
+          <RhfFormInput<OnboardingStep1FormData>
+            name="contactEmail"
+            label="Email Address"
+            type="email"
+            placeholder="jane@example.com"
+            leftIcon={Mail}
+            disabled={isLoading}
+            hint="We'll use this to contact you about opportunities and send important updates."
+            required
+          />
 
-        {/* Email Address */}
-        <ValidatedInputWithRef
-          ref={emailInputRef}
-          name="email"
-          label="Email Address"
-          type="email"
-          value={props.state.contactEmail || ""}
-          disabled={isLoading}
-          onChange={value => handleInputChange("contactEmail", value)}
-          placeholder="jane@example.com"
-          leftIcon={Mail}
-          validator={validateEmail}
-          hint="We'll use this to contact you about opportunities and send important updates."
-        />
-
-        {/* Terms and Conditions */}
-        <div className="mt-6 sm:mt-8">
-          <div className="flex items-start gap-3">
-            <Checkbox
-              id="termsAccepted"
-              checked={props.state.agreedToTerms || false}
-              onCheckedChange={(checked: boolean) => handleInputChange("agreedToTerms", checked)}
-              disabled={isLoading}
-              className="mt-0.5"
-            />
-            <Label htmlFor="termsAccepted" className="flex-1 text-sm text-brand-neutral-700 cursor-pointer leading-relaxed">
-              By submitting this form, I agree to the{" "}
-              <Link
-                to={paths.TERMS_AND_CONDITIONS}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
-              >
-                Terms and Conditions
-              </Link>{" "}
-              <span className="text-brand-error">*</span>
-            </Label>
+          <div className="mt-6 sm:mt-8">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="termsAccepted"
+                checked={form.watch("agreedToTerms") === true}
+                onCheckedChange={(checked: boolean) => {
+                  form.setValue("agreedToTerms", checked as any, { shouldValidate: form.formState.isSubmitted });
+                }}
+                disabled={isLoading}
+                className="mt-0.5"
+              />
+              <Label htmlFor="termsAccepted" className="flex-1 text-sm text-brand-neutral-700 cursor-pointer leading-relaxed">
+                By submitting this form, I agree to the{" "}
+                <Link
+                  to={paths.TERMS_AND_CONDITIONS}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
+                >
+                  Terms and Conditions
+                </Link>{" "}
+                <span className="text-brand-error">*</span>
+              </Label>
+            </div>
+            <FieldError error={form.formState.errors.agreedToTerms?.message as string | undefined} className="mt-2" />
           </div>
-          <FieldError error={errors.agreedToTerms} className="mt-2" />
+
+          <InfoMessage variant="muted" className="mt-6 sm:mt-8">
+            Your information is secure and will only be used to connect you with enterprise opportunities. We never share your contact details without your
+            permission
+            {isVisible("privacyPolicy") && (
+              <>
+                {" "}
+                — learn more in our{" "}
+                <Link
+                  to={paths.PRIVACY}
+                  target="_blank"
+                  className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
+                >
+                  Privacy Policy
+                </Link>
+              </>
+            )}
+            .
+          </InfoMessage>
         </div>
-        {/* Privacy Notice - Subtle */}
-        <InfoMessage variant="muted" className="mt-6 sm:mt-8">
-          Your information is secure and will only be used to connect you with enterprise opportunities. We never share your contact details without your
-          permission
-          {isVisible("privacyPolicy") && (
-            <>
-              {" "}
-              — learn more in our{" "}
-              <Link
-                to={paths.PRIVACY}
-                target="_blank"
-                className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
-              >
-                Privacy Policy
-              </Link>
-            </>
-          )}
-          .
-        </InfoMessage>
-      </div>
+      </FormProvider>
     </div>
   );
 }

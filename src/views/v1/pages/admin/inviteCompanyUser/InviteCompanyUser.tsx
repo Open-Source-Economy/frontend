@@ -1,72 +1,51 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { CompanyId, CompanyUserRole, SendCompanyRoleInviteBody, SendCompanyRoleInviteParams, SendCompanyRoleInviteQuery } from "@open-source-economy/api-types";
+import { CompanyId, CompanyUserRole } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
-
 import { Audience } from "../../../../Audience";
 import { AudienceTitle } from "src/views/v1/components";
 import { adminHooks } from "src/api";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { inviteCompanyUserSchema, InviteCompanyUserFormData } from "src/views/components/ui/forms/schemas";
 
 interface InviteCompanyUserProps {}
 
 export function InviteCompanyUser(props: InviteCompanyUserProps) {
   const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
-  const [companyId, setCompanyId] = useState<CompanyId | null>(null);
-
   const [success, setSuccess] = useState<boolean | null>(null);
 
   const sendCompanyRoleInvite = adminHooks.useSendCompanyRoleInviteMutation();
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  const form = useZodForm(inviteCompanyUserSchema, {
+    defaultValues: {
+      name: "",
+      email: "",
+      companyId: "",
+    },
+  });
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handleCompanyIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCompanyId(new CompanyId(event.target.value));
-  };
-
-  const handleLocalAuthentication = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (email === null) {
-      setError("Email is required");
-      return;
-    }
-
-    if (companyId === null) {
-      setError("companyId is required");
-      return;
-    }
-    const params: SendCompanyRoleInviteParams = {};
-    const body: SendCompanyRoleInviteBody = {
-      userName: name,
-      userEmail: email,
-      companyId: companyId,
-      companyUserRole: CompanyUserRole.ADMIN,
-    };
-
-    const query: SendCompanyRoleInviteQuery = {};
-
+  const onSubmit = async (data: InviteCompanyUserFormData) => {
+    setError(null);
     try {
-      console.log("params", params);
-      console.log("body", body);
-      console.log("query", query);
-      await sendCompanyRoleInvite.mutateAsync({ params, body, query });
-      setError(null);
-      setName(null);
-      setEmail(null);
-      setCompanyId(null);
+      await sendCompanyRoleInvite.mutateAsync({
+        params: {},
+        body: {
+          userName: data.name,
+          userEmail: data.email,
+          companyId: new CompanyId(data.companyId),
+          companyUserRole: CompanyUserRole.ADMIN,
+        },
+        query: {},
+      });
+      form.reset();
       setSuccess(true);
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
+
+  const formErrors = form.formState.errors;
 
   return (
     <PageWrapper>
@@ -75,35 +54,32 @@ export function InviteCompanyUser(props: InviteCompanyUserProps) {
           <AudienceTitle audience={Audience.DEVELOPER} whiteText={"Invite "} coloredText={"Company User"} />
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
-              onSubmit={handleLocalAuthentication}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
               <input
                 type="text"
                 placeholder="Company User Name"
                 className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
-                value={name ?? ""}
-                onChange={handleNameChange}
-                required
+                {...form.register("name")}
               />
+              {formErrors.name && <p className="text-red-500 text-sm mb-2">{formErrors.name.message}</p>}
 
               <input
                 type="email"
                 placeholder="Email"
                 className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
-                value={email ?? ""}
-                onChange={handleEmailChange}
-                required
+                {...form.register("email")}
               />
+              {formErrors.email && <p className="text-red-500 text-sm mb-2">{formErrors.email.message}</p>}
 
               <input
                 type="text"
                 placeholder="Company Id"
                 className=" w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3"
-                value={companyId?.uuid ?? ""}
-                onChange={handleCompanyIdChange}
-                required
+                {...form.register("companyId")}
               />
+              {formErrors.companyId && <p className="text-red-500 text-sm mb-2">{formErrors.companyId.message}</p>}
 
               <button type="submit" className="sm:px-14 px-[20px]  py-3  findbutton cursor-pointer">
                 Invite user

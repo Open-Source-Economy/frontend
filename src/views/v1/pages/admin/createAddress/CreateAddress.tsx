@@ -1,56 +1,48 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { AddressId, CreateAddressBody, CreateAddressQuery } from "@open-source-economy/api-types";
+import { AddressId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { createAddressSchema, CreateAddressFormData } from "src/views/components/ui/forms/schemas";
 
 interface CreateAddressProps {}
 
 export function CreateAddress(props: CreateAddressProps) {
   const [error, setError] = useState<string | null>(null);
   const [createdAddressId, setCreatedAddressId] = useState<AddressId | null>(null);
-  const [name, setName] = useState<string>("");
-  const [line1, setLine1] = useState<string>("");
-  const [line2, setLine2] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [state, setState] = useState<string>("");
-  const [postalCode, setPostalCode] = useState<string>("");
-  const [country, setCountry] = useState<string>("");
 
   const createAddress = adminHooks.useCreateAddressMutation();
 
-  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setter(event.target.value);
-  };
+  const form = useZodForm(createAddressSchema, {
+    defaultValues: {
+      name: "",
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      country: "",
+    },
+  });
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (data: CreateAddressFormData) => {
     setError(null);
-
-    const body: CreateAddressBody = {
-      name: name || undefined,
-      line1: line1 || undefined,
-      line2: line2 || undefined,
-      city: city || undefined,
-      state: state || undefined,
-      postalCode: postalCode || undefined,
-      country: country || undefined,
-    };
-
-    const query: CreateAddressQuery = {};
-
     try {
-      const result = await createAddress.mutateAsync({ body, query });
+      const result = await createAddress.mutateAsync({
+        body: {
+          name: data.name || undefined,
+          line1: data.line1 || undefined,
+          line2: data.line2 || undefined,
+          city: data.city || undefined,
+          state: data.state || undefined,
+          postalCode: data.postalCode || undefined,
+          country: data.country || undefined,
+        },
+        query: {},
+      });
       setCreatedAddressId(result.createdAddressId);
-      // Reset form fields
-      setName("");
-      setLine1("");
-      setLine2("");
-      setCity("");
-      setState("");
-      setPostalCode("");
-      setCountry("");
-      setError(null);
+      form.reset();
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
@@ -68,59 +60,52 @@ export function CreateAddress(props: CreateAddressProps) {
           </h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
               <input
                 type="text"
                 placeholder="Name"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={name}
-                onChange={handleInputChange(setName)}
+                {...form.register("name")}
               />
               <input
                 type="text"
                 placeholder="Line 1"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={line1}
-                onChange={handleInputChange(setLine1)}
+                {...form.register("line1")}
               />
               <input
                 type="text"
                 placeholder="Line 2"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={line2}
-                onChange={handleInputChange(setLine2)}
+                {...form.register("line2")}
               />
               <input
                 type="text"
                 placeholder="City"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={city}
-                onChange={handleInputChange(setCity)}
+                {...form.register("city")}
               />
               <input
                 type="text"
                 placeholder="State"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={state}
-                onChange={handleInputChange(setState)}
+                {...form.register("state")}
               />
               <input
                 type="text"
                 placeholder="Postal Code"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={postalCode}
-                onChange={handleInputChange(setPostalCode)}
+                {...form.register("postalCode")}
               />
               <input
                 type="text"
                 placeholder="Country"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={country}
-                onChange={handleInputChange(setCountry)}
-                required
+                {...form.register("country")}
               />
+              {form.formState.errors.country && <p className="text-red-500 text-sm mb-2">{form.formState.errors.country.message}</p>}
 
               <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">
                 Create Address

@@ -1,7 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { AuthPageWrapper } from "../AuthPageWrapper";
-import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/inputs/validated-input";
-import { validateEmail } from "src/views/components/ui/forms/validators";
 import { Mail, ChevronLeft } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, useLocation } from "@tanstack/react-router";
@@ -9,6 +7,8 @@ import { paths } from "src/paths";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
+import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
+import { forgotPasswordFormSchema, type ForgotPasswordFormData } from "src/views/components/ui/forms/schemas";
 
 export function ForgotPasswordStep() {
   const navigate = useNavigate();
@@ -16,10 +16,11 @@ export function ForgotPasswordStep() {
   const forgotPasswordMutation = authHooks.useForgotPasswordMutation();
 
   const searchParams = location.search as { email?: string };
-  const [email, setEmail] = useState(searchParams.email || "");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const emailInputRef = useRef<InputRef>(null);
+  const form = useZodForm(forgotPasswordFormSchema, {
+    defaultValues: { email: searchParams.email || "" },
+  });
 
   const forgotPasswordError = forgotPasswordMutation.error
     ? forgotPasswordMutation.error instanceof ApiError
@@ -27,13 +28,9 @@ export function ForgotPasswordStep() {
       : ApiError.from(forgotPasswordMutation.error)
     : null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const isEmailValid = emailInputRef.current?.validate(true) ?? false;
-    if (!isEmailValid) return;
-
+  const handleSubmit = async (data: ForgotPasswordFormData) => {
     try {
-      await forgotPasswordMutation.mutateAsync({ body: { email } });
+      await forgotPasswordMutation.mutateAsync({ body: { email: data.email } });
       setIsSuccess(true);
     } catch {
       // Error tracked by forgotPasswordMutation.error
@@ -45,7 +42,7 @@ export function ForgotPasswordStep() {
       <AuthPageWrapper title="Check your email" description="We have sent you a password reset link.">
         <div className="space-y-5">
           <p className="text-brand-neutral-500 text-center">
-            If an account exists for <strong>{email}</strong>, you will receive an email shortly.
+            If an account exists for <strong>{form.getValues("email")}</strong>, you will receive an email shortly.
           </p>
           <Button onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string })} className="w-full h-11">
             Back to Sign In
@@ -58,19 +55,8 @@ export function ForgotPasswordStep() {
   return (
     <AuthPageWrapper title="Forgot Password" description="Enter your email to reset your password">
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <ValidatedInputWithRef
-            ref={emailInputRef}
-            name="email"
-            label="Email"
-            type="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="name@example.com"
-            leftIcon={Mail}
-            validator={validateEmail}
-            autoFocus
-          />
+        <Form form={form} onSubmit={handleSubmit} className="space-y-4">
+          <RhfFormInput<ForgotPasswordFormData> name="email" label="Email" type="email" placeholder="name@example.com" leftIcon={Mail} autoFocus required />
 
           {forgotPasswordError && <ServerErrorAlert error={forgotPasswordError} />}
 
@@ -89,7 +75,7 @@ export function ForgotPasswordStep() {
               Back
             </Button>
           </div>
-        </form>
+        </Form>
       </div>
     </AuthPageWrapper>
   );

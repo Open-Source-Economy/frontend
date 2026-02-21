@@ -1,45 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/forms/button";
 import { Alert, AlertDescription } from "../ui/state/alert";
 import { CheckCircle2, Loader2, Mail } from "lucide-react";
 import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { ValidatedInputWithRef, type InputRef } from "../ui/forms/inputs/validated-input";
-import { validateEmail } from "../ui/forms/validators";
 import { stripeHooks } from "src/api";
+import { useZodForm, Form, RhfFormInput } from "../ui/forms/rhf";
+import { newsletterFormSchema, type NewsletterFormData } from "../ui/forms/schemas";
 
-// -----------------------------
-// Newsletter Section Component
-// -----------------------------
 interface NewsletterSectionProps {}
 
 export function NewsletterSection(props: NewsletterSectionProps) {
-  const [email, setEmail] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const emailInputRef = useRef<InputRef>(null);
+
+  const form = useZodForm(newsletterFormSchema, {
+    defaultValues: { email: "" },
+  });
 
   const newsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
   const error = newsletterMutation.error ? (newsletterMutation.error instanceof ApiError ? newsletterMutation.error : ApiError.from(newsletterMutation.error)) : null;
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate email using the ref
-    const showInputError = true;
-    const isEmailValid = emailInputRef.current?.validate(showInputError) ?? false;
-
-    if (!isEmailValid) {
-      return;
-    }
-
+  const handleSubscribe = async (data: NewsletterFormData) => {
     try {
       await newsletterMutation.mutateAsync({
         params: {},
-        body: { email },
+        body: { email: data.email },
         query: {},
       });
       setIsSuccess(true);
-      setEmail("");
+      form.reset();
     } catch {
       // Error is tracked by newsletterMutation.error
     }
@@ -47,15 +36,8 @@ export function NewsletterSection(props: NewsletterSectionProps) {
 
   const handleResetSuccess = () => {
     setIsSuccess(false);
-    setEmail("");
+    form.reset();
     newsletterMutation.reset();
-  };
-
-  const handleEmailChange = (newEmail: string) => {
-    setEmail(newEmail);
-    if (error) {
-      newsletterMutation.reset();
-    }
   };
 
   const handleErrorDismiss = () => {
@@ -90,23 +72,15 @@ export function NewsletterSection(props: NewsletterSectionProps) {
 
         {/* Subscription Form */}
         {!isSuccess && (
-          <form onSubmit={handleSubscribe} className="flex gap-2 items-center">
+          <Form form={form} onSubmit={handleSubscribe} className="flex gap-2 items-center">
             <div className="flex-1">
-              <ValidatedInputWithRef
-                ref={emailInputRef}
+              <RhfFormInput<NewsletterFormData>
                 name="email"
                 type="email"
-                value={email}
-                onChange={value => {
-                  handleEmailChange(value);
-                  if (error) {
-                    handleErrorDismiss();
-                  }
-                }}
                 placeholder="Enter your email"
                 disabled={newsletterMutation.isPending}
                 leftIcon={Mail}
-                validator={validateEmail}
+                required
               />
             </div>
             <Button type="submit" variant="default" size="default" className="h-10" disabled={newsletterMutation.isPending}>
@@ -119,7 +93,7 @@ export function NewsletterSection(props: NewsletterSectionProps) {
                 "Subscribe"
               )}
             </Button>
-          </form>
+          </Form>
         )}
 
         {/* Success - Show action to subscribe again */}

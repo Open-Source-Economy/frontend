@@ -1,68 +1,51 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { CompanyId, CreateManualInvoiceBody, CreateManualInvoiceQuery, UserId } from "@open-source-economy/api-types";
+import { CompanyId, UserId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { createManualInvoiceSchema, CreateManualInvoiceFormData } from "src/views/components/ui/forms/schemas";
 
 interface CreateManualInvoiceProps {}
 
 export function CreateManualInvoice(props: CreateManualInvoiceProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-  const [invoiceNumber, setInvoiceNumber] = useState<number | null>(null);
-  const [companyId, setCompanyId] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
-  const [paid, setPaid] = useState<boolean>(false);
-  const [creditAmount, setCreditAmount] = useState<number | null>(null);
 
   const createManualInvoice = adminHooks.useCreateManualInvoiceMutation();
 
-  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<any>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setter(event.target.value ? event.target.value : null);
-  };
+  const form = useZodForm(createManualInvoiceSchema, {
+    defaultValues: {
+      invoiceNumber: "",
+      companyId: "",
+      userId: "",
+      paid: false,
+      creditAmount: "",
+    },
+  });
 
-  const handleCheckboxChange = (setter: React.Dispatch<React.SetStateAction<boolean>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setter(event.target.checked);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (data: CreateManualInvoiceFormData) => {
     setError(null);
-
-    let missingFields = [];
-    if (invoiceNumber === null) missingFields.push("Invoice Number");
-    if ((companyId === null && userId === null) || (companyId !== null && userId !== null))
-      missingFields.push("Either Company ID or User ID must be defined, but not both");
-    if (creditAmount === null) missingFields.push("Credit Amount");
-    if (missingFields.length > 0) {
-      setError(`Please fill in the following required fields: ${missingFields.join(", ")}`);
-      return;
-    }
-
-    const body: CreateManualInvoiceBody = {
-      number: invoiceNumber!, // TODO: do something else ugly here
-      companyId: companyId !== null ? new CompanyId(companyId) : undefined,
-      userId: userId !== null ? new UserId(userId) : undefined,
-      paid: paid!,
-      creditAmount: creditAmount!,
-    };
-
-    const query: CreateManualInvoiceQuery = {};
-
     try {
-      await createManualInvoice.mutateAsync({ body, query });
+      await createManualInvoice.mutateAsync({
+        body: {
+          number: Number(data.invoiceNumber),
+          companyId: data.companyId ? new CompanyId(data.companyId) : undefined,
+          userId: data.userId ? new UserId(data.userId) : undefined,
+          paid: data.paid,
+          creditAmount: Number(data.creditAmount),
+        },
+        query: {},
+      });
       setSuccess(true);
-      // Reset form fields
-      setInvoiceNumber(null);
-      setCompanyId(null);
-      setUserId(null);
-      setPaid(false);
-      setCreditAmount(null);
+      form.reset();
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
+
+  const formErrors = form.formState.errors;
 
   return (
     <PageWrapper>
@@ -75,46 +58,53 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
           </h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
               <input
                 type="number"
                 placeholder="Invoice Number"
-                name="invoiceNumber"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={invoiceNumber ?? ""}
-                onChange={handleInputChange(setInvoiceNumber)}
-                required
+                {...form.register("invoiceNumber")}
               />
+              {formErrors.invoiceNumber && <p className="text-red-500 text-sm mb-2">{formErrors.invoiceNumber.message}</p>}
+
               <input
                 type="text"
                 placeholder="Company ID (optional)"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={companyId ?? ""}
-                onChange={handleInputChange(setCompanyId)}
+                {...form.register("companyId")}
               />
+              {formErrors.companyId && <p className="text-red-500 text-sm mb-2">{formErrors.companyId.message}</p>}
+
               <input
                 type="text"
                 placeholder="User ID (optional)"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={userId ?? ""}
-                onChange={handleInputChange(setUserId)}
+                {...form.register("userId")}
               />
+
               <div className="w-full sm:w-[400px] flex items-center mb-4">
-                <input type="checkbox" id="paid" checked={paid} onChange={handleCheckboxChange(setPaid)} className="mr-3" />
+                <input
+                  type="checkbox"
+                  id="paid"
+                  checked={form.watch("paid")}
+                  onChange={e => form.setValue("paid", e.target.checked)}
+                  className="mr-3"
+                />
                 <label htmlFor="paid" className="text-white">
                   Paid
                 </label>
               </div>
+
               <input
                 type="number"
                 placeholder="Credit Amount"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={creditAmount ?? ""}
-                onChange={handleInputChange(setCreditAmount)}
-                required
+                {...form.register("creditAmount")}
               />
+              {formErrors.creditAmount && <p className="text-red-500 text-sm mb-2">{formErrors.creditAmount.message}</p>}
+
               <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">
                 Create Manual Invoice
               </button>

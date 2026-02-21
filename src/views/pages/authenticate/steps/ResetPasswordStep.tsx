@@ -1,7 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { AuthPageWrapper } from "../AuthPageWrapper";
-import { ValidatedInputWithRef, InputRef } from "src/views/components/ui/forms/inputs/validated-input";
-import { validatePassword, validatePasswordMatch } from "src/views/components/ui/forms/validators";
 import { Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
@@ -11,6 +9,9 @@ import { paths } from "src/paths";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
+import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
+import { resetPasswordFormSchema, type ResetPasswordFormData } from "src/views/components/ui/forms/schemas";
+import { passwordTransformError } from "src/views/components/ui/forms/schemas/password-requirements";
 
 export function ResetPasswordStep() {
   const navigate = useNavigate();
@@ -18,12 +19,14 @@ export function ResetPasswordStep() {
   const token = tokenParam || null;
   const resetPasswordMutation = authHooks.useResetPasswordMutation();
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [tokenError, setTokenError] = useState<ApiError | null>(null);
 
-  const passwordInputRef = useRef<InputRef>(null);
-  const confirmPasswordInputRef = useRef<InputRef>(null);
+  const form = useZodForm(resetPasswordFormSchema, {
+    defaultValues: { password: "", confirmPassword: "" },
+  });
+
+  const confirmPasswordValue = form.watch("confirmPassword");
+  const passwordValue = form.watch("password");
 
   const resetPasswordError = resetPasswordMutation.error
     ? resetPasswordMutation.error instanceof ApiError
@@ -33,15 +36,8 @@ export function ResetPasswordStep() {
 
   const apiError = tokenError || resetPasswordError;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: ResetPasswordFormData) => {
     setTokenError(null);
-
-    const isPasswordValid = passwordInputRef.current?.validate(true) ?? false;
-    if (!isPasswordValid) return;
-
-    const isConfirmPasswordValid = confirmPasswordInputRef.current?.validate(true) ?? false;
-    if (!isConfirmPasswordValid) return;
 
     if (!token) {
       setTokenError(new ApiError(400, "Invalid or missing token"));
@@ -49,7 +45,7 @@ export function ResetPasswordStep() {
     }
 
     try {
-      await resetPasswordMutation.mutateAsync({ body: { password }, query: { token } });
+      await resetPasswordMutation.mutateAsync({ body: { password: data.password }, query: { token } });
       navigate({ to: paths.AUTH.IDENTIFY as string });
     } catch {
       // Error tracked by resetPasswordMutation.error
@@ -69,31 +65,26 @@ export function ResetPasswordStep() {
   return (
     <AuthPageWrapper title="Reset Password" description="Enter your new password">
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <ValidatedInputWithRef
-            ref={passwordInputRef}
+        <Form form={form} onSubmit={handleSubmit} className="space-y-4">
+          <RhfFormInput<ResetPasswordFormData>
             name="password"
             label="New Password"
             type="password"
-            value={password}
-            onChange={setPassword}
             placeholder="Enter new password"
             leftIcon={Lock}
-            validator={validatePassword}
             autoFocus
+            required
+            transformError={passwordTransformError}
           />
 
-          <ValidatedInputWithRef
-            ref={confirmPasswordInputRef}
+          <RhfFormInput<ResetPasswordFormData>
             name="confirmPassword"
             label="Confirm Password"
             type="password"
-            value={confirmPassword}
-            onChange={setConfirmPassword}
             placeholder="Re-enter new password"
             leftIcon={Lock}
-            rightIcon={confirmPassword && password === confirmPassword ? CheckCircle2 : undefined}
-            validator={value => validatePasswordMatch(password, value)}
+            rightIcon={confirmPasswordValue && passwordValue === confirmPasswordValue ? CheckCircle2 : undefined}
+            required
           />
 
           {apiError && <ServerErrorAlert error={apiError} />}
@@ -103,7 +94,7 @@ export function ResetPasswordStep() {
               Reset Password
             </Button>
           </div>
-        </form>
+        </Form>
       </div>
     </AuthPageWrapper>
   );

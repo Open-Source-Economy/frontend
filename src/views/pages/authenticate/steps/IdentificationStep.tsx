@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Github, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { FormDivider } from "../components/auth/FormDivider";
-import { validateEmail } from "src/views/components/ui/forms/validators";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
 import { Provider } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
@@ -12,6 +10,8 @@ import { ApiError } from "src/ultils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { authHooks } from "src/api";
+import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
+import { identificationFormSchema, type IdentificationFormData } from "src/views/components/ui/forms/schemas";
 
 const routeApi = getRouteApi("/auth/identify");
 
@@ -21,12 +21,13 @@ export function IdentificationStep() {
   const auth = useAuth();
   const checkEmailMutation = authHooks.useCheckEmailMutation();
 
-  const [email, setEmail] = useState("");
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
   const [githubLogin, setGithubLogin] = useState("");
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
 
-  const emailInputRef = useRef<InputRef>(null);
+  const form = useZodForm(identificationFormSchema, {
+    defaultValues: { email: "" },
+  });
 
   // Query Params & Tokens
   const repositoryToken = searchParams.repository_token ?? null;
@@ -48,14 +49,14 @@ export function IdentificationStep() {
   // Initialize email from URL params
   useEffect(() => {
     if (urlEmail) {
-      setEmail(urlEmail);
+      form.setValue("email", urlEmail);
     }
   }, [urlEmail]);
 
   // React to company invite data
   useEffect(() => {
     if (companyInviteData?.userEmail) {
-      setEmail(companyInviteData.userEmail);
+      form.setValue("email", companyInviteData.userEmail);
       setIsEmailPredefined(true);
       updateUrlEmail(companyInviteData.userEmail);
       checkEmailAndNavigate(companyInviteData.userEmail, true);
@@ -103,16 +104,11 @@ export function IdentificationStep() {
     }
   };
 
-  const handleEmailContinue = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const isEmailValid = emailInputRef.current?.validate(true) ?? false;
-    if (!isEmailValid) return;
-
+  const handleEmailContinue = async (data: IdentificationFormData) => {
     // Ensure URL reflects the email being checked
-    updateUrlEmail(email);
+    updateUrlEmail(data.email);
 
-    await checkEmailAndNavigate(email, isEmailPredefined);
+    await checkEmailAndNavigate(data.email, isEmailPredefined);
   };
 
   return (
@@ -131,18 +127,15 @@ export function IdentificationStep() {
           <>
             <FormDivider />
 
-            <form onSubmit={handleEmailContinue} className="space-y-4">
-              <ValidatedInputWithRef
-                ref={emailInputRef}
+            <Form form={form} onSubmit={handleEmailContinue} className="space-y-4">
+              <RhfFormInput<IdentificationFormData>
                 name="email"
                 label="Email"
                 type="email"
-                value={email}
-                onChange={value => setEmail(value)}
                 disabled={isEmailPredefined}
                 placeholder="you@example.com"
                 leftIcon={Mail}
-                validator={validateEmail}
+                required
               />
 
               {apiError && <ServerErrorAlert error={apiError} />}
@@ -150,7 +143,7 @@ export function IdentificationStep() {
               <Button type="submit" loading={checkEmailMutation.isPending || companyLoading || repoLoading} className="w-full h-11">
                 Continue
               </Button>
-            </form>
+            </Form>
           </>
         )}
       </div>

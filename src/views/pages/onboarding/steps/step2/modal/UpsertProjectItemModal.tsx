@@ -20,6 +20,8 @@ import { ProjectUrlInput } from "./components/ProjectUrlInput";
 import { ModeToggle } from "./components/ModeToggle";
 import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
 import { getUrlConfig } from "./utils/urlHelpers";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { upsertProjectItemSchema, type UpsertProjectItemFormData } from "src/views/components/ui/forms/schemas";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -60,20 +62,23 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const [isBulkMode, setIsBulkMode] = useState(false);
   const [bulkUrls, setBulkUrls] = useState("");
+  const [bulkErrors, setBulkErrors] = useState<string | undefined>();
 
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.entry?.projectItem.projectItemType || null);
-
-  const [url, setUrl] = useState<string>("");
-
-  const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(props.entry?.developerProjectItem.roles?.[0] || null);
-
-  const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(props.entry?.developerProjectItem.mergeRights?.[0] || null);
-
-  // Category states
+  // Category states (not in RHF since they're optional arrays with custom UI)
   const [predefinedCategories, setPredefinedCategories] = useState<ProjectCategory[]>(props.entry?.developerProjectItem.predefinedCategories || []);
   const [customCategories, setCustomCategories] = useState<string[]>(props.entry?.developerProjectItem.customCategories || []);
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const form = useZodForm(upsertProjectItemSchema, {
+    defaultValues: {
+      projectType: props.entry?.projectItem.projectItemType || "",
+      url: "",
+      role: props.entry?.developerProjectItem.roles?.[0] || "",
+      mergeRights: props.entry?.developerProjectItem.mergeRights?.[0] || "",
+    },
+  });
+
+  const selectedProjectType = form.watch("projectType") as ProjectItemType | "";
+  const url = form.watch("url");
 
   const mutationError = upsertProjectItem.error || removeProjectItem.error;
   const error = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
@@ -84,35 +89,30 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     if (!isBulkMode || !bulkUrls.trim() || !selectedProjectType) {
       return null;
     }
-    return BulkProjectUrlParser.validateBulkUrls(bulkUrls, selectedProjectType, props.existingProjects || [], props.entry, false);
+    return BulkProjectUrlParser.validateBulkUrls(bulkUrls, selectedProjectType as ProjectItemType, props.existingProjects || [], props.entry, false);
   }, [isBulkMode, bulkUrls, selectedProjectType, props.existingProjects, props.entry]);
 
   // Initialize form data from entry when modal opens
   useEffect(() => {
     if (props.show && props.entry) {
-      // When editing, pre-populate all fields
-      setSelectedProjectType(props.entry.projectItem.projectItemType);
+      form.setValue("projectType", props.entry.projectItem.projectItemType);
 
       // Convert sourceIdentifier to URL
       const si = props.entry.projectItem.sourceIdentifier as any;
       if (typeof si === "object" && si.name && si.ownerId?.login) {
-        setUrl(GithubUrls.generateRepositoryUrl(si));
+        form.setValue("url", GithubUrls.generateRepositoryUrl(si));
       } else if (typeof si === "object" && si.login) {
-        setUrl(GithubUrls.generateOwnerUrl(si));
+        form.setValue("url", GithubUrls.generateOwnerUrl(si));
       } else if (typeof si === "string") {
-        setUrl(si);
+        form.setValue("url", si);
       }
 
-      setSelectedRole(props.entry.developerProjectItem.roles?.[0] || null);
-      setSelectedMergeRights(props.entry.developerProjectItem.mergeRights?.[0] || null);
+      form.setValue("role", props.entry.developerProjectItem.roles?.[0] || "");
+      form.setValue("mergeRights", props.entry.developerProjectItem.mergeRights?.[0] || "");
       setPredefinedCategories(props.entry.developerProjectItem.predefinedCategories || []);
       setCustomCategories(props.entry.developerProjectItem.customCategories || []);
     } else if (props.show && !props.entry) {
-      // When adding new entry, start with just project type
-      setSelectedProjectType(null);
-      setUrl("");
-      setSelectedRole(null);
-      setSelectedMergeRights(null);
+      form.reset({ projectType: "", url: "", role: "", mergeRights: "" });
       setPredefinedCategories([]);
       setCustomCategories([]);
     }
@@ -120,122 +120,95 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     if (props.show) {
       setIsBulkMode(false);
       setBulkUrls("");
+      setBulkErrors(undefined);
     }
-    setErrors({});
+    form.clearErrors();
     upsertProjectItem.reset();
     removeProjectItem.reset();
   }, [props.show, props.entry]);
 
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
+  const validateUrlForType = (): string | undefined => {
+    const urlValue = form.getValues("url");
+    const projectType = form.getValues("projectType") as ProjectItemType;
 
-    if (!selectedProjectType) {
-      newErrors.projectType = "Please select a project type";
-    }
+    if (!urlValue?.trim()) return "Project URL is required";
 
-    if (!url?.trim()) {
-      newErrors.url = "Project URL is required";
-    } else {
-      // Validate based on project type
-      if (selectedProjectType === ProjectItemType.GITHUB_REPOSITORY) {
-        const repo = GithubUrls.extractRepositoryId(url, true);
-        if (!repo) {
-          newErrors.url = "Enter a valid GitHub repository (owner/repo or https://github.com/owner/repo).";
-        }
-      } else if (selectedProjectType === ProjectItemType.GITHUB_OWNER) {
-        const owner = GithubUrls.extractOwnerId(url, true);
-        if (!owner) {
-          newErrors.url = "Enter a valid GitHub organization/user (owner or https://github.com/owner).";
-        }
-      } else if (selectedProjectType === ProjectItemType.URL) {
-        try {
-          new URL(url);
-        } catch {
-          newErrors.url = "Please enter a valid URL.";
-        }
+    if (projectType === ProjectItemType.GITHUB_REPOSITORY) {
+      const repo = GithubUrls.extractRepositoryId(urlValue, true);
+      if (!repo) return "Enter a valid GitHub repository (owner/repo or https://github.com/owner/repo).";
+    } else if (projectType === ProjectItemType.GITHUB_OWNER) {
+      const owner = GithubUrls.extractOwnerId(urlValue, true);
+      if (!owner) return "Enter a valid GitHub organization/user (owner or https://github.com/owner).";
+    } else if (projectType === ProjectItemType.URL) {
+      try {
+        new URL(urlValue);
+      } catch {
+        return "Please enter a valid URL.";
       }
     }
 
-    if (!selectedRole) {
-      newErrors.role = "Please select your role";
+    // Check for conflicts with existing projects
+    const existingProjects = props.existingProjects || [];
+    const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(urlValue);
+    const existingSourceIdentifiers = existingProjects
+      .filter(existing => {
+        if (
+          props.entry &&
+          SourceIdentifierCompanion.equals(existing.projectItem.sourceIdentifier, props.entry.projectItem.sourceIdentifier) &&
+          existing.projectItem.projectItemType === props.entry.projectItem.projectItemType
+        ) {
+          return false;
+        }
+        return existing.projectItem.projectItemType === projectType;
+      })
+      .map(existing => existing.projectItem.sourceIdentifier);
+
+    const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls([sourceIdentifier], existingSourceIdentifiers);
+    if (conflictingSourceIdentifiers.length > 0) {
+      const displayName = SourceIdentifierCompanion.displayName(conflictingSourceIdentifiers[0]);
+      return `This project already exists: ${displayName}. Please edit the existing entry or choose a different project.`;
     }
 
-    if (!selectedMergeRights) {
-      newErrors.mergeRights = "Please select merge rights";
-    }
-
-    // Check for conflicts with existing projects (if editing, exclude the current entry)
-    if (url && selectedProjectType && Object.keys(newErrors).length === 0) {
-      const existingProjects = props.existingProjects || [];
-      const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(url);
-
-      // Filter existing projects by type and exclude the entry being edited
-      const existingSourceIdentifiers = existingProjects
-        .filter(existing => {
-          if (
-            props.entry &&
-            SourceIdentifierCompanion.equals(existing.projectItem.sourceIdentifier, props.entry.projectItem.sourceIdentifier) &&
-            existing.projectItem.projectItemType === props.entry.projectItem.projectItemType
-          ) {
-            return false;
-          }
-          return existing.projectItem.projectItemType === selectedProjectType;
-        })
-        .map(existing => existing.projectItem.sourceIdentifier);
-
-      const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls([sourceIdentifier], existingSourceIdentifiers);
-
-      if (conflictingSourceIdentifiers.length > 0) {
-        const displayName = SourceIdentifierCompanion.displayName(conflictingSourceIdentifiers[0]);
-        newErrors.url = `This project already exists: ${displayName}. Please edit the existing entry or choose a different project.`;
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return undefined;
   };
 
   const validateBulkForm = (): { valid: boolean; projects: Array<{ sourceIdentifier: dto.SourceIdentifier; projectType: ProjectItemType }> } => {
-    const newErrors: Record<string, string> = {};
+    let hasErrors = false;
 
-    // Validate shared fields
-    if (!selectedRole) {
-      newErrors.role = "Please select a role for all projects";
+    // Validate shared fields via RHF
+    const roleValue = form.getValues("role");
+    const mergeRightsValue = form.getValues("mergeRights");
+    const projectTypeValue = form.getValues("projectType");
+
+    if (!roleValue) {
+      form.setError("role", { message: "Please select a role for all projects" });
+      hasErrors = true;
     }
-
-    if (!selectedMergeRights) {
-      newErrors.mergeRights = "Please select merge rights for all projects";
+    if (!mergeRightsValue) {
+      form.setError("mergeRights", { message: "Please select merge rights for all projects" });
+      hasErrors = true;
     }
-
-    if (!selectedProjectType) {
-      newErrors.projectType = "Please select a project type for all projects";
-      setErrors(newErrors);
+    if (!projectTypeValue) {
+      form.setError("projectType", { message: "Please select a project type for all projects" });
       return { valid: false, projects: [] };
     }
 
-    // Use memoized validation result
     if (!bulkValidationResult) {
-      newErrors.bulkUrls = "Please enter at least one project URL";
-      setErrors(newErrors);
+      setBulkErrors("Please enter at least one project URL");
       return { valid: false, projects: [] };
     }
 
-    // Check if there are any projects at all
     if (bulkValidationResult.validProjects.length === 0 && bulkValidationResult.errors.length === 0) {
-      newErrors.bulkUrls = "Please enter at least one project URL";
-      setErrors(newErrors);
+      setBulkErrors("Please enter at least one project URL");
       return { valid: false, projects: [] };
     }
 
-    // Format errors into error message string
     if (bulkValidationResult.errors.length > 0) {
-      newErrors.bulkUrls = BulkProjectUrlParser.formatValidationErrors(bulkValidationResult.errors, 3);
+      setBulkErrors(BulkProjectUrlParser.formatValidationErrors(bulkValidationResult.errors, 3));
+      hasErrors = true;
     }
 
-    const projects = bulkValidationResult.validProjects;
-
-    setErrors(newErrors);
-    return { valid: Object.keys(newErrors).length === 0, projects };
+    return { valid: !hasErrors, projects: bulkValidationResult.validProjects };
   };
 
   const handleSave = async () => {
@@ -244,20 +217,25 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       return;
     }
 
-    if (!validateForm()) {
+    // Trigger RHF validation for base fields
+    const isValid = await form.trigger();
+    if (!isValid) return;
+
+    // Additional URL validation (type-specific + conflict check)
+    const urlError = validateUrlForType();
+    if (urlError) {
+      form.setError("url", { message: urlError });
       return;
     }
 
-    if (!selectedProjectType) {
-      return;
-    }
-
-    const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(url);
+    const projectType = form.getValues("projectType") as ProjectItemType;
+    const urlValue = form.getValues("url");
+    const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(urlValue);
 
     // Check if we're editing and the project identifier has changed
     const isEditingWithChangedProject =
       props.entry &&
-      (selectedProjectType !== props.entry.projectItem.projectItemType ||
+      (projectType !== props.entry.projectItem.projectItemType ||
         !SourceIdentifierCompanion.equals(sourceIdentifier, props.entry.projectItem.sourceIdentifier));
 
     try {
@@ -271,21 +249,19 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         await removeProjectItem.mutateAsync({ params: deleteParams, body: deleteBody, query: deleteQuery });
       }
 
-      // Then create or update the project item (single item as array of 1)
+      const roleValue = form.getValues("role") as DeveloperRoleType;
+      const mergeRightsValue = form.getValues("mergeRights") as MergeRightsType;
+
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItems: [
-          createProjectItemData(sourceIdentifier, selectedProjectType!, selectedRole, selectedMergeRights, predefinedCategories, customCategories),
-        ],
+        projectItems: [createProjectItemData(sourceIdentifier, projectType, roleValue, mergeRightsValue, predefinedCategories, customCategories)],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
       const response = await upsertProjectItem.mutateAsync({ params, body, query });
 
       props.setShow(false);
-      // Response now returns results array, get first item for single mode
       if (response.results && response.results.length > 0) {
         const result = response.results[0];
-        // Ensure we create a new object reference with all properties including categories
         props.onUpsert({
           developerProjectItem: {
             ...result.developerProjectItem,
@@ -306,9 +282,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       return;
     }
 
-    // Convert projects to ProjectItemData format
+    const roleValue = form.getValues("role") as DeveloperRoleType;
+    const mergeRightsValue = form.getValues("mergeRights") as MergeRightsType;
+
     const projectItems: dto.ProjectItemData[] = projects.map(projectData =>
-      createProjectItemData(projectData.sourceIdentifier, projectData.projectType, selectedRole, selectedMergeRights, predefinedCategories, customCategories),
+      createProjectItemData(projectData.sourceIdentifier, projectData.projectType, roleValue, mergeRightsValue, predefinedCategories, customCategories),
     );
 
     try {
@@ -320,10 +298,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       const response = await upsertProjectItem.mutateAsync({ params, body, query });
 
       props.setShow(false);
-      // Call onUpsert for each result
       if (response.results && response.results.length > 0) {
         response.results.forEach(result => {
-          // Ensure we create a new object reference with all properties including categories
           props.onUpsert({
             developerProjectItem: {
               ...result.developerProjectItem,
@@ -339,17 +315,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     }
   };
 
-  const clearError = (field: string) => {
-    if (errors[field]) {
-      setErrors(prev => {
-        const { [field]: _, ...rest } = prev;
-        return rest;
-      });
-    }
-  };
-
-  const urlConfig = getUrlConfig(selectedProjectType);
-
+  const formErrors = form.formState.errors;
+  const urlConfig = getUrlConfig(selectedProjectType as ProjectItemType | null);
   const mode = props.entry ? "edit" : "add";
 
   return (
@@ -374,7 +341,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           </Button>
           <Button
             onClick={handleSave}
-            disabled={isLoading || (isBulkMode && (!!errors.bulkUrls || !!errors.role || !!errors.mergeRights || !!errors.projectType))}
+            disabled={isLoading || (isBulkMode && (!!bulkErrors || !!formErrors.role || !!formErrors.mergeRights || !!formErrors.projectType))}
             className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? "Saving..." : mode === "add" ? (isBulkMode ? "Add Projects" : "Add Project") : "Save Changes"}
@@ -387,18 +354,16 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         <BrandModalSection icon={<User />} title="Your Contribution" description={"Tell us about your role and permissions"} iconColor="highlight">
           <RoleAndMergeRightsFields
             isBulkMode={isBulkMode}
-            selectedRole={selectedRole}
-            selectedMergeRights={selectedMergeRights}
+            selectedRole={(form.watch("role") as DeveloperRoleType) || null}
+            selectedMergeRights={(form.watch("mergeRights") as MergeRightsType) || null}
             onRoleChange={role => {
-              setSelectedRole(role);
-              clearError("role");
+              form.setValue("role", role || "", { shouldValidate: form.formState.isSubmitted });
             }}
             onMergeRightsChange={mergeRights => {
-              setSelectedMergeRights(mergeRights);
-              clearError("mergeRights");
+              form.setValue("mergeRights", mergeRights || "", { shouldValidate: form.formState.isSubmitted });
             }}
-            roleError={errors.role}
-            mergeRightsError={errors.mergeRights}
+            roleError={formErrors.role?.message}
+            mergeRightsError={formErrors.mergeRights?.message}
           />
         </BrandModalSection>
 
@@ -423,10 +388,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                     options={projectTypeOptions}
                     value={selectedProjectType || ""}
                     onChange={value => {
-                      setSelectedProjectType(value as ProjectItemType);
-                      clearError("projectType");
+                      form.setValue("projectType", value, { shouldValidate: form.formState.isSubmitted });
                     }}
-                    error={errors.projectType}
+                    error={formErrors.projectType?.message}
                   />
                 </div>
 
@@ -434,13 +398,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                 {selectedProjectType && (
                   <div className="md:col-span-2">
                     <ProjectUrlInput
-                      projectType={selectedProjectType}
+                      projectType={selectedProjectType as ProjectItemType}
                       value={url}
                       onChange={value => {
-                        setUrl(value);
-                        clearError("url");
+                        form.setValue("url", value, { shouldValidate: form.formState.isSubmitted });
                       }}
-                      error={errors.url}
+                      error={formErrors.url?.message}
                     />
                   </div>
                 )}
@@ -469,10 +432,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   options={projectTypeOptions}
                   value={selectedProjectType || ""}
                   onChange={value => {
-                    setSelectedProjectType(value as ProjectItemType);
-                    clearError("projectType");
+                    form.setValue("projectType", value, { shouldValidate: form.formState.isSubmitted });
                   }}
-                  error={errors.projectType}
+                  error={formErrors.projectType?.message}
                 />
               </div>
 
@@ -480,22 +442,24 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {selectedProjectType && (
                 <>
                   {/* Bulk URL Input */}
-                  <FormField label="Project URLs" required error={errors.bulkUrls ? { error: errors.bulkUrls } : undefined} hint={urlConfig.bulkHint}>
+                  <FormField label="Project URLs" required error={bulkErrors ? { error: bulkErrors } : undefined} hint={urlConfig.bulkHint}>
                     <Textarea
                       value={bulkUrls}
                       onChange={e => {
                         setBulkUrls(e.target.value);
-                        clearError("bulkUrls");
+                        setBulkErrors(undefined);
                       }}
                       placeholder={urlConfig.bulkPlaceholder}
                       rows={8}
-                      variant={errors.bulkUrls ? "error" : "default"}
+                      variant={bulkErrors ? "error" : "default"}
                       className="font-mono text-sm"
                     />
                   </FormField>
 
-                  {/* Parsed Projects Preview - Shows both valid and invalid projects */}
-                  {bulkValidationResult && <BulkProjectsPreview validationResult={bulkValidationResult} selectedProjectType={selectedProjectType} />}
+                  {/* Parsed Projects Preview */}
+                  {bulkValidationResult && (
+                    <BulkProjectsPreview validationResult={bulkValidationResult} selectedProjectType={selectedProjectType as ProjectItemType} />
+                  )}
 
                   {/* Shared Categories */}
                   <CategoryInput

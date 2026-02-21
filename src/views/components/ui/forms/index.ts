@@ -5,7 +5,7 @@ export { Checkbox } from "./checkbox";
 export { CheckboxField } from "./checkbox-field";
 export { FieldError } from "./field-error";
 export { FormField } from "./form-field";
-export { validateName, validateEmail, validateRequired, validateGitHubOwnerUrl, validatePositiveInteger } from "./validators";
+export { validateGitHubOwnerUrl, validatePositiveInteger } from "./validators";
 
 export * from "./inputs";
 

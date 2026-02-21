@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle2, ChevronLeft, Lock } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
 import { EmailDisplay } from "../components/auth/EmailDisplay";
 import { TermsCheckbox } from "../components/auth/TermsCheckbox";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { validatePassword, validatePasswordMatch } from "src/views/components/ui/forms/validators";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
@@ -13,25 +11,15 @@ import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { authHooks } from "src/api";
 import { AuthPageWrapper } from "../AuthPageWrapper";
+import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
+import { registrationFormSchema, loginFormSchema, type RegistrationFormData, type LoginFormData } from "src/views/components/ui/forms/schemas";
+import { passwordTransformError } from "src/views/components/ui/forms/schemas/password-requirements";
 
 export function PasswordStep() {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const checkEmailMutation = authHooks.useCheckEmailMutation();
-
-  // State
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
-
-  // Validation State
-  const [hasAttemptedPasswordValidation, setHasAttemptedPasswordValidation] = useState(false);
-  const [hasAttemptedTermsValidation, setHasAttemptedTermsValidation] = useState(false);
-
-  // Refs
-  const passwordInputRef = useRef<InputRef>(null);
-  const confirmPasswordInputRef = useRef<InputRef>(null);
 
   // Unpack State & URL
   const searchParams = location.search as { email?: string; repository_token?: string; company_token?: string };
@@ -44,11 +32,23 @@ export function PasswordStep() {
   } | null>((location.state as any)?.accountDetails || null);
 
   const isEmailPredefined = (location.state as any)?.isEmailPredefined || false;
+  const isRegistering = !accountDetails?.exists;
 
   // Tokens for submission
   const repositoryToken = searchParams.repository_token ?? null;
   const companyToken = searchParams.company_token ?? null;
   const redirectPath = (location.state as any)?.from?.pathname || paths.HOME;
+
+  // RHF forms — one for login, one for registration
+  const loginForm = useZodForm(loginFormSchema, {
+    defaultValues: { password: "" },
+  });
+
+  const registrationForm = useZodForm(registrationFormSchema, {
+    defaultValues: { password: "", confirmPassword: "", termsAccepted: false as any },
+  });
+
+  const form = isRegistering ? registrationForm : loginForm;
 
   // Recovery Logic: If deep linked or refreshed, restore account details
   useEffect(() => {
@@ -71,42 +71,28 @@ export function PasswordStep() {
     }
   };
 
-  const handleFinalAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setHasAttemptedPasswordValidation(true);
-
-    const isPasswordValid = passwordInputRef.current?.validate(true) ?? false;
-    if (!isPasswordValid) return;
-
-    if (!accountDetails?.exists) {
-      const isConfirmPasswordValid = confirmPasswordInputRef.current?.validate(true) ?? false;
-      if (!isConfirmPasswordValid) return;
-
-      setHasAttemptedTermsValidation(true);
-      if (!termsAccepted) return;
-    }
-
+  const handleLoginSubmit = async (data: LoginFormData) => {
     const successCallback = () => {
       navigate({ to: redirectPath as string, replace: true });
     };
+    const body: dto.LoginBody = { email: email!, password: data.password };
+    auth.login(body, {}, successCallback);
+  };
 
-    if (accountDetails?.exists) {
-      // Login
-      const body: dto.LoginBody = { email: email!, password };
-      auth.login(body, {}, successCallback);
-    } else {
-      // Registration
-      const body: dto.RegisterBody = {
-        email: email!,
-        password,
-        name: null,
-      };
-      const query: dto.RegisterQuery = {
-        companyToken: companyToken ?? undefined,
-        repositoryToken: repositoryToken ?? undefined,
-      };
-      auth.register(body, query, successCallback);
-    }
+  const handleRegistrationSubmit = async (data: RegistrationFormData) => {
+    const successCallback = () => {
+      navigate({ to: redirectPath as string, replace: true });
+    };
+    const body: dto.RegisterBody = {
+      email: email!,
+      password: data.password,
+      name: null,
+    };
+    const query: dto.RegisterQuery = {
+      companyToken: companyToken ?? undefined,
+      repositoryToken: repositoryToken ?? undefined,
+    };
+    auth.register(body, query, successCallback);
   };
 
   const checkEmailError = checkEmailMutation.error ? (checkEmailMutation.error instanceof ApiError ? checkEmailMutation.error : ApiError.from(checkEmailMutation.error)) : null;
@@ -114,7 +100,7 @@ export function PasswordStep() {
   if (!email || (!accountDetails && checkEmailMutation.isPending)) {
     return (
       <div className="flex justify-center items-center py-10">
-        <div /* Simple loader placeholder */ className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
       </div>
     );
   }
@@ -122,82 +108,98 @@ export function PasswordStep() {
   const title = accountDetails?.exists ? "Welcome Back" : "Join the Movement";
   const description = accountDetails?.exists ? "Enter your password to continue" : "Set up your account to get started";
 
+  const confirmPasswordValue = registrationForm.watch("confirmPassword");
+  const passwordValue = registrationForm.watch("password");
+
   return (
     <AuthPageWrapper title={title} description={description}>
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
         <EmailDisplay email={email} onEdit={!isEmailPredefined ? () => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams }) : undefined} />
 
-        <form onSubmit={handleFinalAuth} className="space-y-4">
-          {/* Password Field */}
-          <ValidatedInputWithRef
-            ref={passwordInputRef}
-            name="password"
-            label="Password"
-            type="password"
-            value={password}
-            onChange={value => setPassword(value)}
-            placeholder="Enter your password"
-            leftIcon={Lock}
-            validator={validatePassword}
-            autoFocus
-            link={
-              accountDetails?.exists
-                ? {
-                    text: "Forgot?",
-                    href: `${paths.AUTH.FORGOT_PASSWORD}${location.searchStr}`,
-                  }
-                : undefined
-            }
-          />
+        {isRegistering ? (
+          <Form form={registrationForm} onSubmit={handleRegistrationSubmit} className="space-y-4">
+            <RhfFormInput<RegistrationFormData>
+              name="password"
+              label="Password"
+              type="password"
+              placeholder="Enter your password"
+              leftIcon={Lock}
+              autoFocus
+              required
+              transformError={passwordTransformError}
+            />
 
-          {/* Confirm Password Field (Registration only) */}
-          {!accountDetails?.exists && (
-            <>
-              <ValidatedInputWithRef
-                ref={confirmPasswordInputRef}
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                value={confirmPassword}
-                onChange={setConfirmPassword}
-                placeholder="Re-enter your password"
-                leftIcon={Lock}
-                rightIcon={confirmPassword && password === confirmPassword ? CheckCircle2 : undefined}
-                validator={value => validatePasswordMatch(password, value)}
-              />
+            <RhfFormInput<RegistrationFormData>
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              placeholder="Re-enter your password"
+              leftIcon={Lock}
+              rightIcon={confirmPasswordValue && passwordValue === confirmPasswordValue ? CheckCircle2 : undefined}
+              required
+            />
 
-              <TermsCheckbox
-                checked={termsAccepted}
-                onCheckedChange={checked => {
-                  setTermsAccepted(checked);
-                  if (checked) {
-                    setHasAttemptedTermsValidation(false);
-                  }
-                }}
-                error={hasAttemptedTermsValidation && !termsAccepted ? "Please accept the Terms & Conditions" : undefined}
-              />
-            </>
-          )}
-
-          {(checkEmailError || auth.error) && <ServerErrorAlert error={checkEmailError ?? auth.error ?? undefined} />}
-
-          <div className="space-y-3 pt-2">
-            <Button type="submit" loading={checkEmailMutation.isPending || auth.loading} className="w-full h-11">
-              {accountDetails?.exists ? "Sign In" : "Create Account"}
-            </Button>
-
-            <Button
-              onClick={() => {
-                navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams });
+            <TermsCheckbox
+              checked={registrationForm.watch("termsAccepted") === true}
+              onCheckedChange={checked => {
+                registrationForm.setValue("termsAccepted", checked as any, { shouldValidate: registrationForm.formState.isSubmitted });
               }}
-              variant="ghost"
-              className="w-full h-11 text-brand-neutral-700"
-              leftIcon={ChevronLeft}
-            >
-              Back
-            </Button>
-          </div>
-        </form>
+              error={registrationForm.formState.errors.termsAccepted?.message as string | undefined}
+            />
+
+            {(checkEmailError || auth.error) && <ServerErrorAlert error={checkEmailError ?? auth.error ?? undefined} />}
+
+            <div className="space-y-3 pt-2">
+              <Button type="submit" loading={checkEmailMutation.isPending || auth.loading} className="w-full h-11">
+                Create Account
+              </Button>
+
+              <Button
+                onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams })}
+                variant="ghost"
+                className="w-full h-11 text-brand-neutral-700"
+                leftIcon={ChevronLeft}
+                type="button"
+              >
+                Back
+              </Button>
+            </div>
+          </Form>
+        ) : (
+          <Form form={loginForm} onSubmit={handleLoginSubmit} className="space-y-4">
+            <RhfFormInput<LoginFormData>
+              name="password"
+              label="Password"
+              type="password"
+              placeholder="Enter your password"
+              leftIcon={Lock}
+              autoFocus
+              required
+              link={{
+                text: "Forgot?",
+                href: `${paths.AUTH.FORGOT_PASSWORD}${location.searchStr}`,
+              }}
+            />
+
+            {(checkEmailError || auth.error) && <ServerErrorAlert error={checkEmailError ?? auth.error ?? undefined} />}
+
+            <div className="space-y-3 pt-2">
+              <Button type="submit" loading={checkEmailMutation.isPending || auth.loading} className="w-full h-11">
+                Sign In
+              </Button>
+
+              <Button
+                onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams })}
+                variant="ghost"
+                className="w-full h-11 text-brand-neutral-700"
+                leftIcon={ChevronLeft}
+                type="button"
+              >
+                Back
+              </Button>
+            </div>
+          </Form>
+        )}
       </div>
     </AuthPageWrapper>
   );

@@ -8,7 +8,6 @@ import { Button } from "../../components/ui/forms/button";
 import { Input } from "../../components/ui/forms/inputs/input";
 import { Label } from "../../components/ui/forms/label";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
-import { ValidatedInput, ValidatedTextarea } from "../../components/ui/forms/inputs/validated-input";
 import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
 import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/external-link";
@@ -47,7 +46,9 @@ import { getPlaceholder } from "./helpers/formHelpers";
 import { MaintainerProjectList } from "./components/MaintainerProjectList";
 import { RequestProjectList } from "./components/RequestProjectList";
 import { MeetingRequestSection } from "./components/MeetingRequestSection";
-import { ValidationError } from "../../components/ui/forms/validation-requirements";
+import { RhfFormInput, RhfFormTextarea } from "../../components/ui/forms/rhf";
+import { type ContactFormData } from "../../components/ui/forms/schemas";
+import { FormProvider } from "react-hook-form";
 
 const CONTACT_REASONS = [
   {
@@ -136,24 +137,8 @@ export function ContactPage() {
     return "";
   };
 
-  const {
-    formData,
-    isSubmitting,
-    submissionStatus,
-    fieldErrors,
-    handleInputChange,
-    handleSubmit,
-    handleNewMessage,
-    addProject,
-    removeProject,
-    updateProject,
-    setContactReason,
-  } = useContactForm(getInitialContactReason());
-
-  // Helper function to convert string error to ValidationError
-  const getValidationError = (error: string | undefined): ValidationError | undefined => {
-    return error ? { error } : undefined;
-  };
+  const { form, isSubmitting, submissionStatus, onSubmit, handleNewMessage, addProject, removeProject, updateProject, setContactReason } =
+    useContactForm(getInitialContactReason());
 
   // Update contact reason when URL parameter changes
   useEffect(() => {
@@ -163,13 +148,17 @@ export function ContactPage() {
     }
   }, [searchParams.reason, setContactReason]);
 
-  const selectedReason = CONTACT_REASONS.find(r => r.id === formData.contactReason);
-  const companyRequired = isCompanyRequired(formData.contactReason);
-  const linkedInRequired = isLinkedInRequired(formData.contactReason);
-  const showGitHubProfile = shouldShowGitHubProfile(formData.contactReason);
-  const gitHubRequired = isGitHubRequired(formData.contactReason);
-  const showMeetingRequest = shouldShowMeetingRequest(formData.contactReason);
-  const showProjects = shouldShowProjects(formData.contactReason);
+  const contactReason = form.watch("contactReason");
+  const selectedReason = CONTACT_REASONS.find(r => r.id === contactReason);
+  const companyRequired = isCompanyRequired(contactReason);
+  const linkedInRequired = isLinkedInRequired(contactReason);
+  const showGitHubProfile = shouldShowGitHubProfile(contactReason);
+  const gitHubRequired = isGitHubRequired(contactReason);
+  const showMeetingRequest = shouldShowMeetingRequest(contactReason);
+  const showProjects = shouldShowProjects(contactReason);
+
+  const fieldErrors = form.formState.errors;
+  const projects = form.watch("projects");
 
   return (
     <PageWrapper>
@@ -207,12 +196,12 @@ export function ContactPage() {
                       label={reason.label}
                       description={reason.description}
                       icon={reason.icon}
-                      isSelected={formData.contactReason === reason.id}
+                      isSelected={contactReason === reason.id}
                       hasError={!!fieldErrors.contactReason}
-                      onClick={() => handleInputChange("contactReason", reason.id)}
+                      onClick={() => setContactReason(reason.id)}
                     />
                   ))}
-                  <FieldError error={fieldErrors.contactReason} className="pt-1" />
+                  <FieldError error={fieldErrors.contactReason?.message as string | undefined} className="pt-1" />
                 </div>
 
                 {/* Contact Info */}
@@ -226,25 +215,6 @@ export function ContactPage() {
                       </a>
                     </div>
                   </div>
-
-                  {/*<div className="flex items-start gap-3">*/}
-                  {/*  <Clock className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />*/}
-                  {/*  <div>*/}
-                  {/*    <div className="text-brand-neutral-700 mb-1">Response Time</div>*/}
-                  {/*    <p className="text-brand-neutral-600">Within 24 hours</p>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
-
-                  {/*<div className="flex items-start gap-3">*/}
-                  {/*  <HelpCircle className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />*/}
-                  {/*  <div>*/}
-                  {/*    <div className="text-brand-neutral-700 mb-1">Quick Help</div>*/}
-                  {/*    <Link to={paths.FAQ} className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1 group">*/}
-                  {/*      Visit FAQ*/}
-                  {/*      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />*/}
-                  {/*    </Link>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
                 </div>
 
                 {/* Open Source Section */}
@@ -297,184 +267,160 @@ export function ContactPage() {
                         <p className="text-brand-neutral-600">{selectedReason ? selectedReason.details : "Select an inquiry type to get started"}</p>
                       </div>
 
-                      <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                        {!formData.contactReason ? (
-                          <div className="bg-brand-neutral-200 border border-brand-neutral-300 rounded-lg p-12 flex items-center justify-center gap-6">
-                            <ArrowRight className="w-12 h-12 text-brand-neutral-500 rotate-180 flex-shrink-0" />
-                            <div className="text-left">
-                              <h3 className="text-brand-neutral-900 mb-2">Select an Inquiry Type</h3>
-                              <p className="text-brand-neutral-600">Choose an option from the left to get started with your message</p>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            {/* Name and Email Row */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              <ValidatedInput
-                                label="Name"
-                                name="name"
-                                type="text"
-                                value={formData.name}
-                                onChange={value => handleInputChange("name", value)}
-                                placeholder="John Doe"
-                                error={getValidationError(fieldErrors.name)}
-                                required
-                              />
-                              <ValidatedInput
-                                label="Email"
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={value => handleInputChange("email", value)}
-                                placeholder="john@example.com"
-                                error={getValidationError(fieldErrors.email)}
-                                required
-                              />
-                            </div>
-
-                            {/* Company and LinkedIn Profile Row */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              <ValidatedInput
-                                label="Company / Organization"
-                                name="company"
-                                type="text"
-                                value={formData.company}
-                                onChange={value => handleInputChange("company", value)}
-                                placeholder={getPlaceholder("company", companyRequired, formData.contactReason)}
-                                error={getValidationError(fieldErrors.company)}
-                                required={companyRequired}
-                              />
-                              <ValidatedInput
-                                label="LinkedIn Profile"
-                                name="linkedinProfile"
-                                type="url"
-                                value={formData.linkedinProfile}
-                                onChange={value => handleInputChange("linkedinProfile", value)}
-                                placeholder={getPlaceholder("linkedIn", linkedInRequired, formData.contactReason)}
-                                error={getValidationError(fieldErrors.linkedinProfile)}
-                                required={linkedInRequired}
-                              />
-                            </div>
-
-                            {/* Conditional Field: GitHub Profile */}
-                            {showGitHubProfile && (
-                              <div>
-                                <Label htmlFor="githubProfile">
-                                  GitHub Profile
-                                  {gitHubRequired && <span className="text-brand-error"> *</span>}
-                                </Label>
-                                <Input
-                                  id="githubProfile"
-                                  type="url"
-                                  required={gitHubRequired}
-                                  value={formData.githubProfile || ""}
-                                  onChange={e => handleInputChange("githubProfile", e.target.value)}
-                                  placeholder={getPlaceholder("github", gitHubRequired, formData.contactReason)}
-                                />
-                                {gitHubRequired && (
-                                  <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
-                                    <Info className="w-4 h-4 flex-shrink-0 text-brand-neutral-500" />
-                                    <span>We'll review your GitHub profile to verify your open source contributions and expertise.</span>
-                                  </p>
-                                )}
+                      <FormProvider {...form}>
+                        <form onSubmit={onSubmit} noValidate className="space-y-6">
+                          {!contactReason ? (
+                            <div className="bg-brand-neutral-200 border border-brand-neutral-300 rounded-lg p-12 flex items-center justify-center gap-6">
+                              <ArrowRight className="w-12 h-12 text-brand-neutral-500 rotate-180 flex-shrink-0" />
+                              <div className="text-left">
+                                <h3 className="text-brand-neutral-900 mb-2">Select an Inquiry Type</h3>
+                                <p className="text-brand-neutral-600">Choose an option from the left to get started with your message</p>
                               </div>
-                            )}
-
-                            {/* Conditional Field: Projects */}
-                            {showProjects &&
-                              (formData.contactReason === ContactReason.MAINTAINER ? (
-                                <MaintainerProjectList
-                                  projects={formData.projects}
-                                  onAdd={addProject}
-                                  onRemove={removeProject}
-                                  onUpdate={updateProject}
-                                  error={fieldErrors.projects}
-                                />
-                              ) : (
-                                <RequestProjectList
-                                  projects={formData.projects}
-                                  onAdd={addProject}
-                                  onRemove={removeProject}
-                                  onUpdate={updateProject}
-                                  error={fieldErrors.projects}
-                                />
-                              ))}
-
-                            {/* Subject */}
-                            <ValidatedInput
-                              label="Subject"
-                              name="subject"
-                              type="text"
-                              value={formData.subject}
-                              onChange={value => handleInputChange("subject", value)}
-                              placeholder="Brief description of your inquiry"
-                              error={getValidationError(fieldErrors.subject)}
-                              required
-                            />
-
-                            {/* Message */}
-                            <ValidatedTextarea
-                              label="Message"
-                              name="message"
-                              value={formData.message}
-                              onChange={value => handleInputChange("message", value)}
-                              rows={6}
-                              placeholder={selectedReason?.placeholder || "Please provide details about your inquiry..."}
-                              error={getValidationError(fieldErrors.message)}
-                              required
-                            />
-
-                            {/* Meeting Request Section */}
-                            {showMeetingRequest && (
-                              <MeetingRequestSection
-                                requestMeeting={formData.requestMeeting}
-                                meetingNotes={formData.meetingNotes}
-                                onRequestMeetingChange={checked => handleInputChange("requestMeeting", checked)}
-                                onMeetingNotesChange={notes => handleInputChange("meetingNotes", notes)}
-                              />
-                            )}
-
-                            {/* Error State */}
-                            {submissionStatus === "error" && (
-                              <Alert variant="destructive">
-                                <AlertCircle className="h-4 w-4" />
-                                <AlertTitle>Error</AlertTitle>
-                                <AlertDescription>
-                                  There was a problem sending your message. Please try again or contact us directly at {contactEmail}
-                                </AlertDescription>
-                              </Alert>
-                            )}
-
-                            {/* Privacy Policy Acceptance */}
-                            <div className="pt-6 border-t border-brand-neutral-300">
-                              <p className="text-brand-neutral-600 text-sm text-center">
-                                By clicking "Send Message", you agree to our{" "}
-                                <Link to={paths.PRIVACY} className="text-brand-accent hover:underline">
-                                  Privacy Policy
-                                </Link>{" "}
-                                and consent to the collection and processing of your information.
-                              </p>
                             </div>
+                          ) : (
+                            <>
+                              {/* Name and Email Row */}
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <RhfFormInput<ContactFormData> name="name" label="Name" type="text" placeholder="John Doe" required />
+                                <RhfFormInput<ContactFormData> name="email" label="Email" type="email" placeholder="john@example.com" required />
+                              </div>
 
-                            {/* Submit Button */}
-                            <div className="pt-6">
-                              <Button type="submit" className="w-full sm:w-auto" disabled={isSubmitting}>
-                                {isSubmitting ? (
-                                  <>
-                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                    Sending...
-                                  </>
+                              {/* Company and LinkedIn Profile Row */}
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <RhfFormInput<ContactFormData>
+                                  name="company"
+                                  label="Company / Organization"
+                                  type="text"
+                                  placeholder={getPlaceholder("company", companyRequired, contactReason)}
+                                  required={companyRequired}
+                                />
+                                <RhfFormInput<ContactFormData>
+                                  name="linkedinProfile"
+                                  label="LinkedIn Profile"
+                                  type="url"
+                                  placeholder={getPlaceholder("linkedIn", linkedInRequired, contactReason)}
+                                  required={linkedInRequired}
+                                />
+                              </div>
+
+                              {/* Conditional Field: GitHub Profile */}
+                              {showGitHubProfile && (
+                                <div>
+                                  <Label htmlFor="githubProfile">
+                                    GitHub Profile
+                                    {gitHubRequired && <span className="text-brand-error"> *</span>}
+                                  </Label>
+                                  <Input
+                                    id="githubProfile"
+                                    type="url"
+                                    required={gitHubRequired}
+                                    value={form.watch("githubProfile") || ""}
+                                    onChange={e => form.setValue("githubProfile", e.target.value, { shouldValidate: form.formState.isSubmitted })}
+                                    placeholder={getPlaceholder("github", gitHubRequired, contactReason)}
+                                    variant={fieldErrors.githubProfile ? "error" : "default"}
+                                  />
+                                  {gitHubRequired && (
+                                    <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
+                                      <Info className="w-4 h-4 flex-shrink-0 text-brand-neutral-500" />
+                                      <span>We'll review your GitHub profile to verify your open source contributions and expertise.</span>
+                                    </p>
+                                  )}
+                                  <FieldError error={fieldErrors.githubProfile?.message as string | undefined} className="mt-1" />
+                                </div>
+                              )}
+
+                              {/* Conditional Field: Projects */}
+                              {showProjects &&
+                                (contactReason === ContactReason.MAINTAINER ? (
+                                  <MaintainerProjectList
+                                    projects={projects}
+                                    onAdd={addProject}
+                                    onRemove={removeProject}
+                                    onUpdate={updateProject}
+                                    error={fieldErrors.projects?.message as string | undefined}
+                                  />
                                 ) : (
-                                  <>
-                                    <Send className="w-4 h-4 mr-2" />
-                                    Send Message
-                                  </>
-                                )}
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                      </form>
+                                  <RequestProjectList
+                                    projects={projects}
+                                    onAdd={addProject}
+                                    onRemove={removeProject}
+                                    onUpdate={updateProject}
+                                    error={fieldErrors.projects?.message as string | undefined}
+                                  />
+                                ))}
+
+                              {/* Subject */}
+                              <RhfFormInput<ContactFormData>
+                                name="subject"
+                                label="Subject"
+                                type="text"
+                                placeholder="Brief description of your inquiry"
+                                required
+                              />
+
+                              {/* Message */}
+                              <RhfFormTextarea<ContactFormData>
+                                name="message"
+                                label="Message"
+                                rows={6}
+                                placeholder={selectedReason?.placeholder || "Please provide details about your inquiry..."}
+                                required
+                              />
+
+                              {/* Meeting Request Section */}
+                              {showMeetingRequest && (
+                                <MeetingRequestSection
+                                  requestMeeting={form.watch("requestMeeting") || false}
+                                  meetingNotes={form.watch("meetingNotes") || ""}
+                                  onRequestMeetingChange={checked =>
+                                    form.setValue("requestMeeting", checked as boolean, { shouldValidate: form.formState.isSubmitted })
+                                  }
+                                  onMeetingNotesChange={notes => form.setValue("meetingNotes", notes, { shouldValidate: form.formState.isSubmitted })}
+                                />
+                              )}
+
+                              {/* Error State */}
+                              {submissionStatus === "error" && (
+                                <Alert variant="destructive">
+                                  <AlertCircle className="h-4 w-4" />
+                                  <AlertTitle>Error</AlertTitle>
+                                  <AlertDescription>
+                                    There was a problem sending your message. Please try again or contact us directly at {contactEmail}
+                                  </AlertDescription>
+                                </Alert>
+                              )}
+
+                              {/* Privacy Policy Acceptance */}
+                              <div className="pt-6 border-t border-brand-neutral-300">
+                                <p className="text-brand-neutral-600 text-sm text-center">
+                                  By clicking "Send Message", you agree to our{" "}
+                                  <Link to={paths.PRIVACY} className="text-brand-accent hover:underline">
+                                    Privacy Policy
+                                  </Link>{" "}
+                                  and consent to the collection and processing of your information.
+                                </p>
+                              </div>
+
+                              {/* Submit Button */}
+                              <div className="pt-6">
+                                <Button type="submit" className="w-full sm:w-auto" disabled={isSubmitting}>
+                                  {isSubmitting ? (
+                                    <>
+                                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                      Sending...
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Send className="w-4 h-4 mr-2" />
+                                      Send Message
+                                    </>
+                                  )}
+                                </Button>
+                              </div>
+                            </>
+                          )}
+                        </form>
+                      </FormProvider>
                     </>
                   )}
                 </div>

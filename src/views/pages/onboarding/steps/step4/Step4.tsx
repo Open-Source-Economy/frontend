@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { onboardingHooks } from "src/api";
@@ -13,22 +13,17 @@ import { ServiceRateInput, WeeklyAvailabilityInput } from "src/views/components/
 import { BiggerOpportunitiesRadioGroup } from "./design-system/BiggerOpportunitiesRadioGroup";
 import { ExpandableCommentSection } from "../../components/ExpandableCommentSection";
 import { PricingInfoBanner } from "./design-system/PricingInfoBanner";
-import { validateHourlyRate, validateWeeklyCommitment } from "src/views/components/ui/forms/validators";
 import { paths } from "src/paths";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { onboardingStep4Schema } from "src/views/components/ui/forms/schemas";
+import { useState } from "react";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {
   servicesPreference?: PreferenceType | null;
 }
 
-interface Step4FormErrors {
-  hourlyWeeklyCommitment?: string;
-  openToOtherOpportunity?: string;
-  hourlyRate?: string;
-}
-
 export function Step4(props: Step4AvailabilityRateProps) {
   const navigate = useNavigate();
-  const [formErrors, setFormErrors] = useState<Step4FormErrors>({});
 
   const setServiceSettings = onboardingHooks.useSetDeveloperServiceSettingsMutation();
   const completeOnboarding = onboardingHooks.useCompleteOnboardingMutation();
@@ -41,31 +36,66 @@ export function Step4(props: Step4AvailabilityRateProps) {
   // Check if user is not interested in being a service provider at all
   const skipStep5 = props.servicesPreference === PreferenceType.NOT_INTERESTED;
 
+  const form = useZodForm(onboardingStep4Schema, {
+    defaultValues: {
+      isServiceProvider,
+      hourlyWeeklyCommitment: props.state.hourlyWeeklyCommitment,
+      hourlyRate: props.state.hourlyRate,
+      currency: props.state.currency || "",
+      openToOtherOpportunity: props.state.openToOtherOpportunity || "",
+      hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || "",
+      hourlyRateComment: props.state.hourlyRateComment || "",
+      openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || "",
+    },
+  });
+
+  // Keep isServiceProvider in sync
+  useEffect(() => {
+    form.setValue("isServiceProvider", isServiceProvider);
+  }, [isServiceProvider]);
+
   // Comment expansion states
   const [isWeeklyHoursCommentExpanded, setIsWeeklyHoursCommentExpanded] = useState(!!props.state.hourlyWeeklyCommitmentComment);
   const [isCommentExpanded, setIsCommentExpanded] = useState(!!props.state.hourlyRateComment);
   const [isBiggerOpportunitiesCommentExpanded, setIsBiggerOpportunitiesCommentExpanded] = useState(!!props.state.openToOtherOpportunityComment);
 
   // Convert OpenToOtherOpportunityType to boolean | null for BiggerOpportunitiesRadioGroup
+  const openToOtherValue = form.watch("openToOtherOpportunity");
   const biggerOpportunitiesValue = useMemo(() => {
-    const val = props.state.openToOtherOpportunity;
-    if (val === OpenToOtherOpportunityType.YES) return true;
-    if (val === OpenToOtherOpportunityType.NO) return false;
-    if (val === OpenToOtherOpportunityType.MAYBE) return null;
+    if (openToOtherValue === OpenToOtherOpportunityType.YES) return true;
+    if (openToOtherValue === OpenToOtherOpportunityType.NO) return false;
+    if (openToOtherValue === OpenToOtherOpportunityType.MAYBE) return null;
     return undefined;
-  }, [props.state.openToOtherOpportunity]);
+  }, [openToOtherValue]);
+
+  // Sync RHF -> parent state
+  useEffect(() => {
+    const sub = form.watch(values => {
+      props.updateState({
+        hourlyWeeklyCommitment: values.hourlyWeeklyCommitment ?? undefined,
+        hourlyRate: values.hourlyRate ?? undefined,
+        currency: (values.currency as Currency) || null,
+        openToOtherOpportunity: (values.openToOtherOpportunity as OpenToOtherOpportunityType) || undefined,
+        hourlyWeeklyCommitmentComment: values.hourlyWeeklyCommitmentComment || undefined,
+        hourlyRateComment: values.hourlyRateComment || undefined,
+        openToOtherOpportunityComment: values.openToOtherOpportunityComment || undefined,
+      });
+    });
+    return () => sub.unsubscribe();
+  }, [form, props.updateState]);
 
   const saveSettingsToDatabase = async (): Promise<boolean> => {
+    const values = form.getValues();
     try {
       const params: dto.SetDeveloperServiceSettingsParams = {};
       const body: dto.SetDeveloperServiceSettingsBody = {
-        hourlyWeeklyCommitment: isServiceProvider ? props.state.hourlyWeeklyCommitment! : undefined,
-        hourlyWeeklyCommitmentComment: props.state.hourlyWeeklyCommitmentComment || undefined,
-        openToOtherOpportunity: props.state.openToOtherOpportunity!,
-        openToOtherOpportunityComment: props.state.openToOtherOpportunityComment || undefined,
-        hourlyRate: isServiceProvider ? props.state.hourlyRate! : undefined,
-        currency: isServiceProvider ? props.state.currency! : undefined,
-        hourlyRateComment: props.state.hourlyRateComment || undefined,
+        hourlyWeeklyCommitment: isServiceProvider ? values.hourlyWeeklyCommitment! : undefined,
+        hourlyWeeklyCommitmentComment: values.hourlyWeeklyCommitmentComment || undefined,
+        openToOtherOpportunity: values.openToOtherOpportunity as OpenToOtherOpportunityType,
+        openToOtherOpportunityComment: values.openToOtherOpportunityComment || undefined,
+        hourlyRate: isServiceProvider ? values.hourlyRate! : undefined,
+        currency: isServiceProvider ? (values.currency as Currency) : undefined,
+        hourlyRateComment: values.hourlyRateComment || undefined,
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
       await setServiceSettings.mutateAsync({ params, body, query });
@@ -75,91 +105,50 @@ export function Step4(props: Step4AvailabilityRateProps) {
     }
   };
 
-  const handleNext = async (): Promise<boolean> => {
-    setServiceSettings.reset();
-    completeOnboarding.reset();
+  // Register handler with parent
+  useEffect(() => {
+    const handleNext = async (): Promise<boolean> => {
+      setServiceSettings.reset();
+      completeOnboarding.reset();
 
-    const errors: Step4FormErrors = {};
-    let isValid = true;
+      const isValid = await form.trigger();
+      if (!isValid) return false;
 
-    // Validate service provider fields only if user selected "Yes" to Service Provider
-    if (isServiceProvider) {
-      const weeklyCommitmentError = validateWeeklyCommitment(props.state.hourlyWeeklyCommitment);
-      if (weeklyCommitmentError) {
-        errors.hourlyWeeklyCommitment = weeklyCommitmentError.error || "Invalid weekly commitment";
-        isValid = false;
-      }
+      const success = await saveSettingsToDatabase();
 
-      if (!props.state.currency) {
-        errors.hourlyRate = "Currency must be specified";
-        isValid = false;
-      } else {
-        const hourlyRateError = validateHourlyRate(props.state.hourlyRate);
-        if (hourlyRateError) {
-          errors.hourlyRate = hourlyRateError.error || "Invalid hourly rate";
-          isValid = false;
+      // If user selected "Not interested" for Service Provider, skip Step 5 and complete onboarding
+      if (success && skipStep5) {
+        try {
+          await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
+          navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
+        } catch {
+          // error tracked by completeOnboarding.error
         }
+        return false; // Don't proceed to Step 5
       }
-    }
 
-    // Always validate bigger opportunities
-    if (props.state.openToOtherOpportunity === undefined) {
-      errors.openToOtherOpportunity = "Please indicate if you're open to bigger opportunities";
-      isValid = false;
-    }
+      return success;
+    };
 
-    setFormErrors(errors);
-
-    if (!isValid) {
-      return false;
-    }
-
-    const success = await saveSettingsToDatabase();
-
-    // If user selected "Not interested" for Service Provider, skip Step 5 and complete onboarding
-    if (success && skipStep5) {
-      try {
-        await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
-        navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
-      } catch {
-        // error tracked by completeOnboarding.error
-      }
-      return false; // Don't proceed to Step 5
-    }
-
-    return success;
-  };
+    props.setOnNext?.(handleNext);
+    return () => props.setOnNext?.(null);
+  }, [props.setOnNext, isServiceProvider, skipStep5]);
 
   // Reset form errors when entering this step
   useEffect(() => {
-    setFormErrors({});
+    form.clearErrors();
   }, [props.currentStep]);
-
-  // Register handler with parent
-  useEffect(() => {
-    props.setOnNext?.(handleNext);
-    return () => props.setOnNext?.(null);
-  }, [
-    props.setOnNext,
-    props.state.hourlyWeeklyCommitment,
-    props.state.hourlyWeeklyCommitmentComment,
-    props.state.openToOtherOpportunity,
-    props.state.openToOtherOpportunityComment,
-    props.state.hourlyRate,
-    props.state.hourlyRateComment,
-    props.state.currency,
-  ]);
 
   // Handle bigger opportunities change
   const handleBiggerOpportunitiesChange = (value: boolean | null) => {
-    if (value === true) {
-      props.updateState({ openToOtherOpportunity: OpenToOtherOpportunityType.YES });
-    } else if (value === false) {
-      props.updateState({ openToOtherOpportunity: OpenToOtherOpportunityType.NO });
-    } else if (value === null) {
-      props.updateState({ openToOtherOpportunity: OpenToOtherOpportunityType.MAYBE });
-    }
+    let opType: OpenToOtherOpportunityType;
+    if (value === true) opType = OpenToOtherOpportunityType.YES;
+    else if (value === false) opType = OpenToOtherOpportunityType.NO;
+    else opType = OpenToOtherOpportunityType.MAYBE;
+    form.setValue("openToOtherOpportunity", opType, { shouldValidate: form.formState.isSubmitted });
   };
+
+  const formErrors = form.formState.errors;
 
   return (
     <div className="space-y-8">
@@ -180,19 +169,19 @@ export function Step4(props: Step4AvailabilityRateProps) {
             >
               <div className="space-y-6">
                 <WeeklyAvailabilityInput
-                  value={props.state.hourlyWeeklyCommitment}
-                  onChange={value => props.updateState({ hourlyWeeklyCommitment: value })}
-                  error={formErrors.hourlyWeeklyCommitment}
+                  value={form.watch("hourlyWeeklyCommitment")}
+                  onChange={value => form.setValue("hourlyWeeklyCommitment", value, { shouldValidate: form.formState.isSubmitted })}
+                  error={formErrors.hourlyWeeklyCommitment?.message}
                 />
 
                 {/* Optional Comment Section */}
                 <ExpandableCommentSection
                   isExpanded={isWeeklyHoursCommentExpanded}
                   onToggleExpanded={setIsWeeklyHoursCommentExpanded}
-                  value={props.state.hourlyWeeklyCommitmentComment || ""}
-                  onChange={value => props.updateState({ hourlyWeeklyCommitmentComment: value })}
+                  value={form.watch("hourlyWeeklyCommitmentComment") || ""}
+                  onChange={value => form.setValue("hourlyWeeklyCommitmentComment", value)}
                   onDelete={() => {
-                    props.updateState({ hourlyWeeklyCommitmentComment: "" });
+                    form.setValue("hourlyWeeklyCommitmentComment", "");
                     setIsWeeklyHoursCommentExpanded(false);
                   }}
                   placeholder="Any additional details about your availability (e.g., timezone preferences, specific days, schedule variations)..."
@@ -209,11 +198,11 @@ export function Step4(props: Step4AvailabilityRateProps) {
             >
               <div className="space-y-6">
                 <ServiceRateInput
-                  currency={props.state.currency || Currency.USD}
-                  rate={props.state.hourlyRate || 0}
-                  onCurrencyChange={(value: Currency) => props.updateState({ currency: value })}
-                  onRateChange={(value: number) => props.updateState({ hourlyRate: value })}
-                  error={formErrors.hourlyRate}
+                  currency={(form.watch("currency") as Currency) || Currency.USD}
+                  rate={form.watch("hourlyRate") || 0}
+                  onCurrencyChange={(value: Currency) => form.setValue("currency", value, { shouldValidate: form.formState.isSubmitted })}
+                  onRateChange={(value: number) => form.setValue("hourlyRate", value, { shouldValidate: form.formState.isSubmitted })}
+                  error={formErrors.hourlyRate?.message}
                 />
 
                 {/* Pricing Information */}
@@ -223,10 +212,10 @@ export function Step4(props: Step4AvailabilityRateProps) {
                 <ExpandableCommentSection
                   isExpanded={isCommentExpanded}
                   onToggleExpanded={setIsCommentExpanded}
-                  value={props.state.hourlyRateComment || ""}
-                  onChange={value => props.updateState({ hourlyRateComment: value })}
+                  value={form.watch("hourlyRateComment") || ""}
+                  onChange={value => form.setValue("hourlyRateComment", value)}
                   onDelete={() => {
-                    props.updateState({ hourlyRateComment: "" });
+                    form.setValue("hourlyRateComment", "");
                     setIsCommentExpanded(false);
                   }}
                   placeholder="Any additional details about your rates or pricing preferences..."
@@ -242,17 +231,17 @@ export function Step4(props: Step4AvailabilityRateProps) {
             <BiggerOpportunitiesRadioGroup
               value={biggerOpportunitiesValue}
               onChange={handleBiggerOpportunitiesChange}
-              error={formErrors.openToOtherOpportunity}
+              error={formErrors.openToOtherOpportunity?.message}
             />
 
             {/* Optional Comment Section */}
             <ExpandableCommentSection
               isExpanded={isBiggerOpportunitiesCommentExpanded}
               onToggleExpanded={setIsBiggerOpportunitiesCommentExpanded}
-              value={props.state.openToOtherOpportunityComment || ""}
-              onChange={value => props.updateState({ openToOtherOpportunityComment: value })}
+              value={form.watch("openToOtherOpportunityComment") || ""}
+              onChange={value => form.setValue("openToOtherOpportunityComment", value)}
               onDelete={() => {
-                props.updateState({ openToOtherOpportunityComment: "" });
+                form.setValue("openToOtherOpportunityComment", "");
                 setIsBiggerOpportunitiesCommentExpanded(false);
               }}
               placeholder="What types of bigger opportunities interest you? Any specific requirements or preferences..."

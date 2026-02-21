@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
 import { onboardingHooks } from "src/api";
@@ -10,14 +10,13 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ParticipationCard } from "./design-system/ParticipationCard";
 import { participationCardConfigs, ParticipationModelOption } from "./design-system/participationCardConfigs";
 import { ServiceProviderCard } from "./design-system/ServiceProviderCard";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { onboardingStep3Schema } from "src/views/components/ui/forms/schemas";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
 
 export function Step3(props: Step3Props) {
   const validatedState = props.state || {};
-
-  const [preferences, setPreferences] = useState<Step3State>(validatedState);
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const setDeveloperPreferences = onboardingHooks.useSetDeveloperPreferencesMutation();
 
@@ -27,8 +26,88 @@ export function Step3(props: Step3Props) {
       : ApiError.from(setDeveloperPreferences.error)
     : null;
 
+  const form = useZodForm(onboardingStep3Schema, {
+    defaultValues: {
+      servicesPreference: validatedState.servicesPreference || "",
+      royaltiesPreference: validatedState.royaltiesPreference || "",
+      communitySupporterPreference: validatedState.communitySupporterPreference || "",
+    },
+  });
+
+  // Additional participation options (excluding service_provider which has its own card)
+  const additionalOptions: ParticipationModelOption[] = [ParticipationModelOption.COMMON_POT, ParticipationModelOption.COMMUNITY_SUPPORTER];
+
+  // Map between ParticipationModelOption and form field names
+  const getPreferenceField = (option: ParticipationModelOption): "servicesPreference" | "royaltiesPreference" | "communitySupporterPreference" => {
+    const mapping = {
+      [ParticipationModelOption.SERVICE_PROVIDER]: "servicesPreference" as const,
+      [ParticipationModelOption.COMMON_POT]: "royaltiesPreference" as const,
+      [ParticipationModelOption.COMMUNITY_SUPPORTER]: "communitySupporterPreference" as const,
+    };
+    return mapping[option];
+  };
+
+  // Handle selection for three-state model
+  const handleSelect = (option: ParticipationModelOption, state: PreferenceType) => {
+    const field = getPreferenceField(option);
+    form.setValue(field, state, { shouldValidate: form.formState.isSubmitted });
+  };
+
+  const getSelectionState = (option: ParticipationModelOption): PreferenceType | null | undefined => {
+    const field = getPreferenceField(option);
+    const value = form.watch(field);
+    return (value as PreferenceType) || undefined;
+  };
+
+  // Sync RHF -> parent state
+  useEffect(() => {
+    const sub = form.watch(values => {
+      const newState: Partial<Step3State> = {};
+      if (values.servicesPreference) newState.servicesPreference = values.servicesPreference as PreferenceType;
+      if (values.royaltiesPreference) newState.royaltiesPreference = values.royaltiesPreference as PreferenceType;
+      if (values.communitySupporterPreference) newState.communitySupporterPreference = values.communitySupporterPreference as PreferenceType;
+      if (Object.keys(newState).length > 0) {
+        props.updateState(newState);
+      }
+    });
+    return () => sub.unsubscribe();
+  }, [form, props.updateState]);
+
+  // Auto-save preferences when they change
+  useEffect(() => {
+    const values = form.getValues();
+    if (values.servicesPreference || values.royaltiesPreference || values.communitySupporterPreference) {
+      savePreferences();
+    }
+  }, [form.watch("servicesPreference"), form.watch("royaltiesPreference"), form.watch("communitySupporterPreference")]);
+
+  const savePreferences = async () => {
+    const values = form.getValues();
+    try {
+      const params: dto.SetDeveloperPreferencesParams = {};
+      const body: dto.SetDeveloperPreferencesBody = {
+        royaltiesPreference: (values.royaltiesPreference as PreferenceType) || undefined,
+        servicesPreference: (values.servicesPreference as PreferenceType) || undefined,
+        communitySupporterPreference: (values.communitySupporterPreference as PreferenceType) || undefined,
+      };
+      const query: dto.SetDeveloperPreferencesQuery = {};
+      await setDeveloperPreferences.mutateAsync({ params, body, query });
+    } catch {
+      // error tracked by setDeveloperPreferences.error
+    }
+  };
+
+  // Register onNext validation
+  useEffect(() => {
+    props.setOnNext?.(async () => {
+      const isValid = await form.trigger();
+      return isValid;
+    });
+    return () => props.setOnNext?.(null);
+  }, [props.setOnNext, form]);
+
   // Check if there are any errors
-  const hasErrors = Object.keys(errors).length > 0;
+  const hasErrors = form.formState.isSubmitted && Object.keys(form.formState.errors).length > 0;
 
   // Helper to check if a specific card should show error state
   const hasCardError = (option: ParticipationModelOption): boolean => {
@@ -37,95 +116,13 @@ export function Step3(props: Step3Props) {
     return state === undefined || state === null;
   };
 
-  // Additional participation options (excluding service_provider which has its own card)
-  const additionalOptions: ParticipationModelOption[] = [ParticipationModelOption.COMMON_POT, ParticipationModelOption.COMMUNITY_SUPPORTER];
-
-  // Map between ParticipationModelOption and Step3State fields
-  const getPreferenceField = (option: ParticipationModelOption): keyof Step3State => {
-    const mapping: Record<ParticipationModelOption, keyof Step3State> = {
-      [ParticipationModelOption.SERVICE_PROVIDER]: "servicesPreference",
-      [ParticipationModelOption.COMMON_POT]: "royaltiesPreference",
-      [ParticipationModelOption.COMMUNITY_SUPPORTER]: "communitySupporterPreference",
-    };
-    return mapping[option];
-  };
-
-  // Handle selection for three-state model
-  const handleSelect = (option: ParticipationModelOption, state: PreferenceType) => {
-    const field = getPreferenceField(option);
-    const newPreferences = {
-      ...preferences,
-      [field]: state,
-    };
-    setPreferences(newPreferences);
-    props.updateState(newPreferences);
-
-    // Clear errors when user makes a selection
-    setErrors({});
-  };
-
-  const getSelectionState = (option: ParticipationModelOption): PreferenceType | null | undefined => {
-    const field = getPreferenceField(option);
-    return preferences[field];
-  };
-
-  // Auto-save preferences when they change
-  useEffect(() => {
-    // Only save if at least one preference is set (excluding donations which is removed)
-    if (preferences.servicesPreference || preferences.royaltiesPreference || preferences.communitySupporterPreference) {
-      savePreferences();
-    }
-  }, [preferences]);
-
-  const savePreferences = async () => {
-    try {
-      const params: dto.SetDeveloperPreferencesParams = {};
-      const body: dto.SetDeveloperPreferencesBody = {
-        royaltiesPreference: preferences.royaltiesPreference,
-        servicesPreference: preferences.servicesPreference,
-        communitySupporterPreference: preferences.communitySupporterPreference,
-      };
-      const query: dto.SetDeveloperPreferencesQuery = {};
-
-      const response = await setDeveloperPreferences.mutateAsync({ params, body, query });
-      console.log("Preferences saved successfully:", response);
-    } catch {
-      // error tracked by setDeveloperPreferences.error
-    }
-  };
-
-  // Validation: All options must have a preference selected (excluding donations which is removed)
-  const validateStep = (): boolean => {
-    const allPreferencesSet =
-      preferences.servicesPreference !== undefined &&
-      preferences.servicesPreference !== null &&
-      preferences.royaltiesPreference !== undefined &&
-      preferences.royaltiesPreference !== null &&
-      preferences.communitySupporterPreference !== undefined &&
-      preferences.communitySupporterPreference !== null;
-
-    if (!allPreferencesSet) {
-      setErrors({ participationModel: "Please select a preference (Yes, Maybe later, or Not interested) for each option" });
-      return false;
-    }
-
-    setErrors({});
-    return true;
-  };
-
-  // Register onNext validation
-  useEffect(() => {
-    props.setOnNext?.(() => validateStep());
-    return () => props.setOnNext?.(null);
-  }, [props.setOnNext, preferences]);
+  // Overall error message
+  const overallError = hasErrors ? "Please select a preference (Yes, Maybe later, or Not interested) for each option" : undefined;
 
   return (
     <div className="space-y-8">
       {/* Error Display */}
       {apiError && <ServerErrorAlert error={apiError} variant="compact" />}
-
-      {/*/!* Loading Indicator *!/*/}
-      {/*{isLoading && <LoadingState variant="spinner" size="md" />}*/}
 
       {/* Participation Model Options */}
       <div className="space-y-6 max-w-5xl mx-auto">
@@ -158,7 +155,7 @@ export function Step3(props: Step3Props) {
       </div>
 
       {/* Error Display */}
-      <FieldError error={errors.participationModel} className="justify-center" />
+      <FieldError error={overallError} className="justify-center" />
     </div>
   );
 }

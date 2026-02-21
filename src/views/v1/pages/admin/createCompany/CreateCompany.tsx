@@ -1,51 +1,40 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { AddressId, CompanyId, CreateCompanyBody, CreateCompanyQuery } from "@open-source-economy/api-types";
+import { AddressId, CompanyId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { createCompanySchema, CreateCompanyFormData } from "src/views/components/ui/forms/schemas";
 
 interface CreateCompanyProps {}
 
 export function CreateCompany(props: CreateCompanyProps) {
   const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [taxId, setTaxId] = useState<string | null>(null);
-  const [addressId, setAddressId] = useState<string | null>(null);
   const [createdCompanyId, setCreatedCompanyId] = useState<CompanyId | null>(null);
 
   const createCompany = adminHooks.useCreateCompanyMutation();
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  const form = useZodForm(createCompanySchema, {
+    defaultValues: {
+      name: "",
+      taxId: "",
+      addressId: "",
+    },
+  });
 
-  const handleTaxIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaxId(event.target.value);
-  };
-
-  const handleAddressIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddressId(event.target.value);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    if (name === null) {
-      setError("name is required");
-      event.preventDefault();
-      return;
-    }
-    event.preventDefault();
-    const body: CreateCompanyBody = {
-      taxId,
-      name,
-      addressId: addressId ? new AddressId(addressId) : null,
-    };
-
-    const query: CreateCompanyQuery = {};
-
+  const onSubmit = async (data: CreateCompanyFormData) => {
+    setError(null);
     try {
-      const result = await createCompany.mutateAsync({ body, query });
-      setError(null);
+      const result = await createCompany.mutateAsync({
+        body: {
+          name: data.name,
+          taxId: data.taxId || null,
+          addressId: data.addressId ? new AddressId(data.addressId) : null,
+        },
+        query: {},
+      });
       setCreatedCompanyId(result.createdCompanyId);
+      form.reset();
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
@@ -59,32 +48,29 @@ export function CreateCompany(props: CreateCompanyProps) {
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Fund a Company</h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
               <input
                 type="text"
                 placeholder="Name"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={name ?? ""}
-                onChange={handleNameChange}
-                required
+                {...form.register("name")}
               />
+              {form.formState.errors.name && <p className="text-red-500 text-sm mb-2">{form.formState.errors.name.message}</p>}
 
               <input
                 type="text"
                 placeholder="Tax Id"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={taxId ?? ""}
-                onChange={handleTaxIdChange}
+                {...form.register("taxId")}
               />
 
               <input
                 type="text"
                 placeholder="Address Id"
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
-                value={addressId ?? ""}
-                onChange={handleAddressIdChange}
+                {...form.register("addressId")}
               />
 
               <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">

@@ -1,107 +1,58 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import {
-  Currency,
-  OwnerId,
-  RepositoryId,
-  RepositoryUserRole,
-  SendRepositoryRoleInviteBody,
-  SendRepositoryRoleInviteParams,
-  SendRepositoryRoleInviteQuery,
-} from "@open-source-economy/api-types";
+import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
-
-interface FormData {
-  name: string;
-  email: string;
-  sendEmail: boolean;
-  githubOwnerLogin: string;
-  repositoryOwnerLogin: string;
-  repositoryName: string;
-  rate: string;
-  currency: Currency | undefined;
-}
-
-const emptyFormData: FormData = {
-  name: "",
-  email: "",
-  sendEmail: true,
-  githubOwnerLogin: "",
-  repositoryOwnerLogin: "",
-  repositoryName: "",
-  rate: "",
-  currency: undefined,
-};
+import { useZodForm } from "src/views/components/ui/forms/rhf";
+import { inviteRepositoryUserSchema, InviteRepositoryUserFormData } from "src/views/components/ui/forms/schemas";
 
 export function InviteRepositoryUser() {
-  const [formData, setFormData] = useState<FormData>(emptyFormData);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
   const sendRepositoryRoleInvite = adminHooks.useSendRepositoryRoleInviteMutation();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const form = useZodForm(inviteRepositoryUserSchema, {
+    defaultValues: {
+      name: "",
+      email: "",
+      sendEmail: true,
+      githubOwnerLogin: "",
+      repositoryOwnerLogin: "",
+      repositoryName: "",
+      rate: "",
+      currency: "",
+    },
+  });
 
-  const validateForm = (): string | null => {
-    if (formData.sendEmail && !formData.email) return "Email is required when Send Email is enabled";
-    if (!formData.githubOwnerLogin) return "GitHub Owner Login is required";
-    if (!formData.repositoryOwnerLogin) return "Repository Owner Login is required";
-    if (!formData.repositoryName) return "Repository Name is required";
-
-    // Either both dowRate and dowCurrency should be provided, or neither
-    const hasRate = formData.rate !== "";
-    const hasCurrency = formData.currency !== undefined;
-
-    if (hasRate !== hasCurrency) {
-      return "Both DOW Rate and Currency must be provided together";
-    }
-
-    if (hasRate) {
-      const dowRateNumber = Number(formData.rate);
-      if (isNaN(dowRateNumber) || dowRateNumber <= 0) {
-        return "DOW Rate must be a positive number";
-      }
-    }
-
-    return null;
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const validationError = validateForm();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    const params: SendRepositoryRoleInviteParams = {};
-    const body: SendRepositoryRoleInviteBody = {
-      userName: formData.name || null,
-      userEmail: formData.email,
-      sendEmail: formData.sendEmail,
-      userGithubOwnerLogin: formData.githubOwnerLogin,
-      repositoryId: new RepositoryId(new OwnerId(formData.repositoryOwnerLogin), formData.repositoryName),
-      repositoryUserRole: RepositoryUserRole.ADMIN,
-      rate: formData.rate ? Number(formData.rate) : undefined,
-      currency: formData.currency,
-    };
-    const query: SendRepositoryRoleInviteQuery = {};
-
+  const onSubmit = async (data: InviteRepositoryUserFormData) => {
+    setError(null);
     try {
-      await sendRepositoryRoleInvite.mutateAsync({ params, body, query });
+      await sendRepositoryRoleInvite.mutateAsync({
+        params: {},
+        body: {
+          userName: data.name || null,
+          userEmail: data.email,
+          sendEmail: data.sendEmail,
+          userGithubOwnerLogin: data.githubOwnerLogin,
+          repositoryId: new RepositoryId(new OwnerId(data.repositoryOwnerLogin), data.repositoryName),
+          repositoryUserRole: RepositoryUserRole.ADMIN,
+          rate: data.rate ? Number(data.rate) : undefined,
+          currency: data.currency ? (data.currency as Currency) : undefined,
+        },
+        query: {},
+      });
       setError(null);
-      setFormData(emptyFormData);
+      form.reset();
       setSuccess(true);
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
       setError(`${apiError.statusCode}: ${apiError.message}`);
     }
   };
+
+  const formErrors = form.formState.errors;
+  const sendEmail = form.watch("sendEmail");
 
   return (
     <PageWrapper>
@@ -110,36 +61,32 @@ export function InviteRepositoryUser() {
           <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Invite a Repository Admin</h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
               <input
                 type="text"
-                name="name"
                 placeholder="User Name (optional)"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.name}
-                onChange={handleInputChange}
+                {...form.register("name")}
               />
 
               <input
                 type="email"
-                name="email"
                 placeholder="Email"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.email}
-                onChange={handleInputChange}
-                required={formData.sendEmail}
+                {...form.register("email")}
+                required={sendEmail}
               />
+              {formErrors.email && <p className="text-red-500 text-sm mb-2">{formErrors.email.message}</p>}
 
               <div className="w-[100%] sm:w-[400px] flex items-center mb-4">
                 <input
                   type="checkbox"
-                  name="sendEmail"
                   id="sendEmail"
                   className="mr-2 h-4 w-4 text-blue-600 bg-[#202F45] border-0"
-                  checked={formData.sendEmail}
-                  onChange={e => setFormData(prev => ({ ...prev, sendEmail: e.target.checked }))}
+                  checked={sendEmail}
+                  onChange={e => form.setValue("sendEmail", e.target.checked, { shouldValidate: form.formState.isSubmitted })}
                 />
                 <label htmlFor="sendEmail" className="text-white">
                   Send email invitation
@@ -148,50 +95,41 @@ export function InviteRepositoryUser() {
 
               <input
                 type="text"
-                name="githubOwnerLogin"
                 placeholder="GitHub Owner Login"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.githubOwnerLogin}
-                onChange={handleInputChange}
-                required
+                {...form.register("githubOwnerLogin")}
               />
+              {formErrors.githubOwnerLogin && <p className="text-red-500 text-sm mb-2">{formErrors.githubOwnerLogin.message}</p>}
 
               <input
                 type="text"
-                name="repositoryOwnerLogin"
                 placeholder="Repository Owner Login"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.repositoryOwnerLogin}
-                onChange={handleInputChange}
-                required
+                {...form.register("repositoryOwnerLogin")}
               />
+              {formErrors.repositoryOwnerLogin && <p className="text-red-500 text-sm mb-2">{formErrors.repositoryOwnerLogin.message}</p>}
 
               <input
                 type="text"
-                name="repositoryName"
                 placeholder="Repository Name"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.repositoryName}
-                onChange={handleInputChange}
-                required
+                {...form.register("repositoryName")}
               />
+              {formErrors.repositoryName && <p className="text-red-500 text-sm mb-2">{formErrors.repositoryName.message}</p>}
 
               <input
                 type="number"
-                name="dowRate"
                 placeholder="DOW Rate"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.rate}
-                onChange={handleInputChange}
+                {...form.register("rate")}
                 min="0"
                 step="any"
               />
+              {formErrors.rate && <p className="text-red-500 text-sm mb-2">{formErrors.rate.message}</p>}
 
               <select
-                name="dowCurrency"
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
-                value={formData.currency || ""}
-                onChange={handleInputChange}
+                {...form.register("currency")}
               >
                 <option value="">Select Currency</option>
                 {Object.values(Currency).map(currency => (
