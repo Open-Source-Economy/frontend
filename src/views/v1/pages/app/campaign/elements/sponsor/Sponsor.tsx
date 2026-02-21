@@ -1,23 +1,22 @@
 import type React from "react";
-import { useEffect } from "react";
 import { SponsorCard } from "./SponsorCard";
 import { getCardWidth } from "./utils";
 import { DividerTitle } from "../../../../../components";
-import { useSponsors } from "../../../../../hooks/useSponsors";
-import { ProjectId } from "@open-source-economy/api-types";
+import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
+import { projectHooks } from "src/api";
 
 interface SponsorProps {
   projectId: ProjectId;
 }
 
 export function Sponsor(props: SponsorProps) {
-  const { sponsors, isLoading, error, reloadSponsors } = useSponsors(props.projectId);
+  const sponsorParams = {
+    owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
+    repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+  };
+  const { data: sponsors, isLoading, error } = projectHooks.useSponsorsQuery(sponsorParams, {});
 
-  useEffect(() => {
-    reloadSponsors();
-  }, []);
-
-  if (sponsors === null || sponsors.length === 0) {
+  if (!sponsors || sponsors.length === 0) {
     return <></>;
   } else {
     return (

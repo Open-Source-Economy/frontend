@@ -2,7 +2,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { Services } from "src/views/v1/components/service";
 import { Maintainers } from "src/views/v1/pages/app/project/elements/Maintainers";
 import { Highlight } from "src/views/v1/pages/app/project/elements/highlight/HighLight";
-import React, { useEffect } from "react";
+import React from "react";
 import { ProjectTitle } from "src/views/v1/components/title";
 import { WhyNeedFunding } from "./elements";
 import { H3WithSubtitle } from "src/views/v1/components/title/H3WithSubtitle";
@@ -10,24 +10,28 @@ import { config, Env } from "src/ultils";
 import { Button } from "src/views/v1/components";
 import { Link } from "react-router-dom";
 import { useProjectContext } from "../../../layout/ProjectRoute";
-import { useProject } from "../../../hooks/useProject";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
 import { paths } from "src/paths";
 import { getDescription } from "../../../../../services/data/disclaimers/pekkoDisclaimer";
+import { projectHooks } from "src/api";
+import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 
 interface ProjectProps {}
 
 export function Project(props: ProjectProps) {
   const { projectId } = useProjectContext();
-  const { project, error, reloadProject } = useProject(projectId);
+
+  const projectParams = {
+    owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
+    repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+  };
+
+  const { data: projectResponse } = projectHooks.useProjectQuery(projectParams, {});
+  const project = projectResponse?.project ?? null;
 
   // TODO: to be refactored
   const disclaimer = getDescription(projectId)?.disclaimer;
-
-  useEffect(() => {
-    reloadProject();
-  }, []);
 
   return (
     <PageWrapper>

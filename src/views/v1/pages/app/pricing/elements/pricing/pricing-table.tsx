@@ -4,8 +4,7 @@ import backdropSVG from "src/assets/v1/backdrop.svg";
 import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
-import { usePlans } from "../../../../../hooks";
-import { useUserPlan } from "../../../../../hooks/useUserPlan";
+import { projectHooks } from "src/api";
 
 interface PricingTableProps {}
 
@@ -15,8 +14,8 @@ export function PricingTable(props: PricingTableProps) {
   const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);
   const [activePriceType, setActivePriceType] = useState<PlanPriceType | null>(null);
 
-  const { plans, loadPlansError, reloadPlans } = usePlans();
-  const { userPlan, loadUserPlanError, reloadUserPlan } = useUserPlan();
+  const { data: plans } = projectHooks.usePlansQuery({}, {});
+  const { data: userPlan } = projectHooks.useUserPlanQuery({}, {});
 
   const pricingCategory = (type: PlanProductType, activePlan: PlanProductType | null, activePriceType: PlanPriceType | null): PricingCategory => {
     const orderMap: Record<PlanProductType, number> = {
@@ -34,11 +33,6 @@ export function PricingTable(props: PricingTableProps) {
     } else if (orderMap[type] < orderMap[activePlan]) return PricingCategory.DOWNGRADE;
     else return PricingCategory.UPGRADE;
   };
-
-  useEffect(() => {
-    reloadPlans();
-    reloadUserPlan();
-  }, []);
 
   useEffect(() => {
     setActivePlan(userPlan?.productType ?? null);

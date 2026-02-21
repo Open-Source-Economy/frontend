@@ -1,20 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { paths } from "src/paths";
-import { useRepositories } from "src/views/v1/hooks";
 import { Cards2 } from "src/views/v1/pages/app/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
+import { useQueries } from "@tanstack/react-query";
+import { Owner, Repository } from "@open-source-economy/api-types";
+import { getBackendAPI } from "src/services";
 
 interface ProjectsProps {}
 
-export function Projects(props: ProjectsProps) {
-  const { repositories, error, reloadRepositories } = useRepositories(repositoryIds);
+const backendAPI = getBackendAPI();
 
-  useEffect(() => {
-    reloadRepositories();
-  }, []);
+export function Projects(props: ProjectsProps) {
+  const repositoryQueries = useQueries({
+    queries: repositoryIds.map(repositoryId => ({
+      queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
+      queryFn: () => backendAPI.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
+    })),
+  });
+
+  const repositories: [Owner, Repository][] = repositoryQueries
+    .filter(q => q.isSuccess && q.data)
+    .map(q => [q.data!.owner, q.data!.repository]);
+  const error = repositoryQueries.find(q => q.error)?.error ?? null;
 
   return (
     <PageWrapper>
@@ -35,7 +45,7 @@ export function Projects(props: ProjectsProps) {
         <div className="dig-into-details relative flex !max-w-[1320px] !w-full flex-col items-center justify-center text-center gap-[80px] lg:gap-[130px]">
           <div className="flex flex-wrap z-[10]  w-full gap-4 justify-center ">
             {/*TODO*/}
-            {error && <div>{error.toSting()}</div>}
+            {error && <div>{error.message}</div>}
 
             {repositories.map(([owner, repository], index) => (
               <>

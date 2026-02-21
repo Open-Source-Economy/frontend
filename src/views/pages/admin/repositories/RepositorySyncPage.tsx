@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services";
+import { projectHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { Code, GitBranch, Users } from "lucide-react";
-import { getBackendAPI } from "src/services/BackendAPI";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions";
 import { RepositoryWithSyncState } from "./components/types";
 import { RepositoryCard } from "./components/RepositoryCard";
@@ -16,7 +16,6 @@ import { StatisticCard } from "../organizations/components/StatisticCard";
 
 export function RepositorySyncPage() {
   const [repositories, setRepositories] = useState<RepositoryWithSyncState[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,53 +29,36 @@ export function RepositorySyncPage() {
   const [globalFetchDetails, setGlobalFetchDetails] = useState(true);
 
   const adminAPI = getAdminBackendAPI();
-  const backendAPI = getBackendAPI();
 
-  // Fetch all project items and filter repositories
-  const fetchRepositories = async () => {
-    try {
-      const apiCall = async () => {
-        return await backendAPI.getProjectItemsWithDetails(
-          {},
-          {
-            repositories: {}, // Fetch all GITHUB_REPOSITORY type project items
-            owners: { limit: 0 },
-            urls: { limit: 0 },
-          },
-        );
-      };
+  // Fetch repositories using TanStack Query
+  const {
+    data: projectItemsData,
+    isLoading: isLoadingQuery,
+    error: queryError,
+  } = projectHooks.useProjectItemsWithDetailsQuery(
+    {},
+    {
+      repositories: {}, // Fetch all GITHUB_REPOSITORY type project items
+      owners: { limit: 0 },
+      urls: { limit: 0 },
+    },
+  );
 
-      const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-        if (!response || !response.repositories) {
-          console.warn("No repositories in response");
-          setRepositories([]);
-          return;
-        }
+  const baseRepositories = useMemo(() => {
+    if (!projectItemsData?.repositories || !Array.isArray(projectItemsData.repositories)) return [];
+    return projectItemsData.repositories.map(item => ({
+      ...item,
+      syncInProgress: false,
+    }));
+  }, [projectItemsData]);
 
-        if (!Array.isArray(response.repositories)) {
-          console.error("response.repositories is not an array:", response.repositories);
-          setRepositories([]);
-          return;
-        }
-
-        const repos: RepositoryWithSyncState[] = response.repositories.map(item => ({
-          ...item,
-          syncInProgress: false,
-        }));
-        setRepositories(repos);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    } catch (error) {
-      console.error("Error in fetchRepositories:", error);
-      setApiError(ApiError.from(error));
-      setIsLoading(false);
-    }
-  };
-
+  // Sync query data into local state (needed because sync mutations update repositories locally)
   useEffect(() => {
-    fetchRepositories();
-  }, []);
+    setRepositories(baseRepositories);
+  }, [baseRepositories]);
+
+  const isLoading = isLoadingQuery;
+  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
 
   const handleSync = async (owner: string, repo: string, projectItemId: string) => {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
@@ -227,9 +209,9 @@ export function RepositorySyncPage() {
             <p className="text-gray-400">Sync individual GitHub repositories to update their metadata and information.</p>
           </div>
 
-          {apiError && (
+          {displayError && (
             <div className="mb-6">
-              <ServerErrorAlert error={apiError} onDismiss={() => setApiError(null)} />
+              <ServerErrorAlert error={displayError} onDismiss={() => setApiError(null)} />
             </div>
           )}
 

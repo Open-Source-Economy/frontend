@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { DividerTitle, Services } from "src/views/v1/components";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
 import { paths } from "../../../../../paths";
-import { ServiceType } from "@open-source-economy/api-types";
+import { Owner, Repository, ServiceType } from "@open-source-economy/api-types";
 import { Cards2 } from "../home/elements";
-import { useRepositories } from "../../../hooks";
 import { repositoryIds } from "../../../../../services/data";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
 import { ServiceButton } from "../../../components/service/ServiceButton";
+import { useQueries } from "@tanstack/react-query";
+import { getBackendAPI } from "src/services";
 
 interface DashboardProps {}
+
+const backendAPI = getBackendAPI();
 
 export function Dashboard(props: DashboardProps) {
   const audience = Audience.USER;
@@ -22,11 +25,17 @@ export function Dashboard(props: DashboardProps) {
     },
   };
 
-  const { repositories, error, reloadRepositories } = useRepositories(repositoryIds);
+  const repositoryQueries = useQueries({
+    queries: repositoryIds.map(repositoryId => ({
+      queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
+      queryFn: () => backendAPI.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
+    })),
+  });
 
-  useEffect(() => {
-    reloadRepositories();
-  }, []);
+  const repositories: [Owner, Repository][] = repositoryQueries
+    .filter(q => q.isSuccess && q.data)
+    .map(q => [q.data!.owner, q.data!.repository]);
+  const error = repositoryQueries.find(q => q.error)?.error ?? null;
 
   return (
     <PageWrapper>
@@ -61,7 +70,7 @@ export function Dashboard(props: DashboardProps) {
           <div className="dig-into-details relative flex !max-w-[1320px] !w-full flex-col items-center justify-center text-center gap-[80px] lg:gap-[130px]">
             <div className="flex flex-wrap z-[10]  w-full gap-4 justify-center ">
               {/*TODO*/}
-              {error && <div>{error.toSting()}</div>}
+              {error && <div>{error.message}</div>}
 
               {/* {repositories.map(([owner, repository], index) => (
                 <>

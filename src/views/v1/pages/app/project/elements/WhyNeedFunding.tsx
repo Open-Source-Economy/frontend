@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import faqImage from "src/assets/v1/faq.webp";
 import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import { Button } from "src/views/v1/components";
 import { Link } from "react-router-dom";
-import { ProjectId } from "@open-source-economy/api-types";
+import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
-import { useAccordion } from "../../../../hooks/useAccordion";
+import { projectHooks } from "src/api";
 
 interface WhyNeedFundingProps {
   projectId: ProjectId;
@@ -15,11 +15,11 @@ interface WhyNeedFundingProps {
 export function WhyNeedFunding(props: WhyNeedFundingProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const { accordionRes, isLoading, error, reloadAccordion } = useAccordion(props.projectId);
-
-  useEffect(() => {
-    reloadAccordion();
-  }, []);
+  const accordionParams = {
+    owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
+    repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+  };
+  const { data: accordionRes, isLoading, error } = projectHooks.useProjectAccordionQuery(accordionParams, {});
 
   const handleToggle = (index: number): void => {
     setOpenIndex(openIndex === index ? null : index);

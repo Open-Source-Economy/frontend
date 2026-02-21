@@ -9,16 +9,15 @@ import { type InputRef, ValidatedInputWithRef } from "../../../components/ui/for
 import { validateGitHubOwnerUrl, validatePositiveInteger } from "../../../components/ui/forms/validators";
 import { AlertCircle, Github, Heart, Shield, TrendingUp } from "lucide-react";
 import { getBackendAPI } from "src/services";
-import * as dto from "@open-source-economy/api-types";
 import { CampaignPriceType, CampaignProductType, CheckoutBody, CheckoutParams, CheckoutQuery, Currency, Price } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { paths } from "src/paths";
 import { displayedCurrencies } from "src/views/v1/data";
 import { NumberUtils } from "src/ultils/NumberUtils";
-import { handleApiCall } from "src/ultils/handleApiCall";
 import { openSourceEconomyProjectId } from "../../../../services/data/projects";
 import { GithubUrls } from "src/ultils/GithubUrls";
 import { useCurrency } from "../../../../context/CurrencyContext";
+import { projectHooks } from "src/api";
 
 interface DonationCardProps {
   className?: string;
@@ -30,28 +29,17 @@ export function DonationCard(props: DonationCardProps) {
   const { preferredCurrency, setPreferredCurrency } = useCurrency();
   const displayedCurrency = displayedCurrencies[preferredCurrency];
 
-  // Campaign state
-  const [campaign, setCampaign] = useState<dto.GetCampaignResponse | null>(null);
-  const [loadCampaignError, setLoadCampaignError] = useState<ApiError | null>(null);
-  const [isLoadingCampaign, setIsLoadingCampaign] = useState(false);
-
-  // Fetch campaign on mount
-  useEffect(() => {
-    const apiCall = async () => {
-      const params: dto.GetCampaignParams = {
-        owner: openSourceEconomyProjectId.login,
-        repo: undefined,
-      };
-      const query: dto.GetCampaignQuery = {};
-      return await backendAPI.getCampaign(params, query);
-    };
-
-    const onSuccess = (response: dto.GetCampaignResponse) => {
-      setCampaign(response);
-    };
-
-    handleApiCall(apiCall, setIsLoadingCampaign, setLoadCampaignError, onSuccess);
-  }, []);
+  // Campaign query
+  const {
+    data: campaign,
+    isLoading: isLoadingCampaign,
+    error: loadCampaignQueryError,
+  } = projectHooks.useCampaignQuery({ owner: openSourceEconomyProjectId.login, repo: undefined }, {});
+  const loadCampaignError = loadCampaignQueryError
+    ? loadCampaignQueryError instanceof ApiError
+      ? loadCampaignQueryError
+      : ApiError.from(loadCampaignQueryError)
+    : null;
 
   // Donation form state
   const [priceType, setPriceType] = useState<CampaignPriceType>(CampaignPriceType.MONTHLY);

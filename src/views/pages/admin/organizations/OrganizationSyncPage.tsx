@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services";
+import { projectHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils";
 import { Building2, GitBranch, Users } from "lucide-react";
-import { getBackendAPI } from "src/services/BackendAPI";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions";
 import { OrganizationWithSyncState } from "./components/types";
 import { OrganizationCard } from "./components/OrganizationCard";
@@ -17,7 +17,6 @@ import { calculateEstimatedWaitTime } from "./components/utils";
 
 export function OrganizationSyncPage() {
   const [organizations, setOrganizations] = useState<OrganizationWithSyncState[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,53 +31,36 @@ export function OrganizationSyncPage() {
   const [globalFetchDetails, setGlobalFetchDetails] = useState(true);
 
   const adminAPI = getAdminBackendAPI();
-  const backendAPI = getBackendAPI();
 
-  // Fetch all project items and filter organizations
-  const fetchOrganizations = async () => {
-    try {
-      const apiCall = async () => {
-        return await backendAPI.getProjectItemsWithDetails(
-          {},
-          {
-            repositories: { limit: 0 },
-            owners: {},
-            urls: { limit: 0 },
-          },
-        );
-      };
+  // Fetch organizations using TanStack Query
+  const {
+    data: projectItemsData,
+    isLoading: isLoadingQuery,
+    error: queryError,
+  } = projectHooks.useProjectItemsWithDetailsQuery(
+    {},
+    {
+      repositories: { limit: 0 },
+      owners: {},
+      urls: { limit: 0 },
+    },
+  );
 
-      const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-        if (!response || !response.owners) {
-          console.warn("No owners in response");
-          setOrganizations([]);
-          return;
-        }
+  const baseOrganizations = useMemo(() => {
+    if (!projectItemsData?.owners || !Array.isArray(projectItemsData.owners)) return [];
+    return projectItemsData.owners.map(item => ({
+      ...item,
+      syncInProgress: false,
+    }));
+  }, [projectItemsData]);
 
-        if (!Array.isArray(response.owners)) {
-          console.error("response.owners is not an array:", response.owners);
-          setOrganizations([]);
-          return;
-        }
-
-        const orgs: OrganizationWithSyncState[] = response.owners.map(item => ({
-          ...item,
-          syncInProgress: false,
-        }));
-        setOrganizations(orgs);
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    } catch (error) {
-      console.error("Error in fetchOrganizations:", error);
-      setApiError(ApiError.from(error));
-      setIsLoading(false);
-    }
-  };
-
+  // Sync query data into local state (needed because sync mutations update organizations locally)
   useEffect(() => {
-    fetchOrganizations();
-  }, []);
+    setOrganizations(baseOrganizations);
+  }, [baseOrganizations]);
+
+  const isLoading = isLoadingQuery;
+  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
 
   const handleSync = async (projectItemId: string, offset: number = 0, batchSize?: number, fetchDetails: boolean = false) => {
     setSyncingIds(prev => new Set(prev).add(projectItemId));
@@ -263,9 +245,9 @@ export function OrganizationSyncPage() {
             <p className="text-gray-400">Sync repositories from GitHub organizations and users to create individual project items.</p>
           </div>
 
-          {apiError && (
+          {displayError && (
             <div className="mb-6">
-              <ServerErrorAlert error={apiError} onDismiss={() => setApiError(null)} />
+              <ServerErrorAlert error={displayError} onDismiss={() => setApiError(null)} />
             </div>
           )}
 

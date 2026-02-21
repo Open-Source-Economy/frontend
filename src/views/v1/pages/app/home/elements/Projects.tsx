@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import backdropSVG from "src/assets/v1/backdrop.svg";
 import { Cards } from "src/views/v1/pages/app/home/elements/Cards";
 import { Audience } from "../../../../../Audience";
-import { useProjects } from "../../../../hooks/useProjects";
 import { ProjectUtils } from "@open-source-economy/api-types";
+import { projectHooks } from "src/api";
 
 interface ProjectsProps {}
 
 export function Projects(props: ProjectsProps) {
-  const { projects, error, reloadProjects, loading } = useProjects();
-
-  useEffect(() => {
-    reloadProjects();
-  }, []);
+  const { data: projectsResponse, isLoading: loading, error } = projectHooks.useProjectsQuery({}, {});
+  const projects = projectsResponse?.projects ?? [];
 
   return (
     <>
@@ -25,7 +22,7 @@ export function Projects(props: ProjectsProps) {
           <h1 className="text-center font-mich text-[28px] font-[400] lg:text-[42px]">Projects with Onboarded Maintainers</h1>
           <div className="flex flex-wrap z-[10] w-full justify-center gap-4">
             {/*TODO*/}
-            {error && <div>{error.toSting()}</div>}
+            {error && <div>{error.message}</div>}
 
             {loading ? (
               <>

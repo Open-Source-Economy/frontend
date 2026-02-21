@@ -1,10 +1,16 @@
 import offerLeftLinear from "src/assets/v1/offer-linear.webp";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
-import React, { useEffect } from "react";
-import { useProjectServices } from "src/views/v1/hooks";
-import { ProjectId, ServiceType } from "@open-source-economy/api-types";
+import React from "react";
+import * as model from "@open-source-economy/api-types";
+import { GetProjectServicesResponse, OwnerId, ProjectId, RepositoryId, ServiceType } from "@open-source-economy/api-types";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
+import { projectHooks } from "src/api";
+
+const DEFAULT_SERVICES: GetProjectServicesResponse = {
+  services: [ServiceType.DEVELOPMENT],
+  comingSoonServices: [ServiceType.SUPPORT, ServiceType.SECURITY_AND_COMPLIANCE, ServiceType.ADVISORY],
+};
 
 interface ServicesProps {
   projectId?: ProjectId;
@@ -12,11 +18,14 @@ interface ServicesProps {
 }
 
 export function Services(props: ServicesProps) {
-  const { projectServices, error, reloadProjectServices } = useProjectServices(props.projectId);
-
-  useEffect(() => {
-    reloadProjectServices();
-  }, []);
+  const serviceParams = props.projectId
+    ? {
+        owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
+        repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+      }
+    : { owner: "" };
+  const { data: projectServicesData, error } = projectHooks.useProjectServicesQuery(serviceParams, {});
+  const projectServices = projectServicesData || DEFAULT_SERVICES;
 
   return (
     <section className="relative pt-6 xl:pt-10 pb-10 xl:pb-16">

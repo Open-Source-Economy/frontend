@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { getAdminBackendAPI } from "src/services";
+import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
 import { paths } from "src/paths";
 import {
   DeveloperProjectItemEntryCompanion,
@@ -23,48 +22,23 @@ import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Badge } from "src/views/components/ui/badge";
 
 export function Maintainers() {
-  const [allProfiles, setAllProfiles] = useState<dto.FullDeveloperProfile[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<dto.VerificationStatus | "all">("all");
   const [expandedProfiles, setExpandedProfiles] = useState<Set<string>>(new Set());
   const [useLocalSearch, setUseLocalSearch] = useState(true);
-  const adminAPI = getAdminBackendAPI();
 
-  const fetchProfiles = async () => {
-    const apiCall = async () => {
-      // If using local search, fetch all profiles without filters
-      // If using backend search, pass filters to the backend
-      if (useLocalSearch) {
-        return await adminAPI.getAllDeveloperProfiles({}, {});
-      } else {
-        return await adminAPI.getAllDeveloperProfiles(
-          {},
-          {
-            verificationStatus: statusFilter === "all" ? undefined : statusFilter,
-            searchTerm: searchTerm.trim() || undefined,
-          },
-        );
-      }
-    };
+  // Build query params based on search mode
+  const queryParams: dto.GetAllDeveloperProfilesQuery = useLocalSearch
+    ? {}
+    : {
+        verificationStatus: statusFilter === "all" ? undefined : statusFilter,
+        searchTerm: searchTerm.trim() || undefined,
+      };
 
-    const onSuccess = (response: any) => {
-      setAllProfiles(response.profiles);
-    };
+  const { data: profilesResponse, isLoading, error: queryError, refetch } = adminHooks.useAllDeveloperProfilesQuery({}, queryParams);
 
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  };
-
-  useEffect(
-    () => {
-      fetchProfiles();
-      // When using local search, only fetch once (when mode changes)
-      // When using backend search, refetch when search term or filter changes
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    useLocalSearch ? [useLocalSearch] : [useLocalSearch, statusFilter, searchTerm],
-  );
+  const allProfiles = profilesResponse?.profiles ?? [];
+  const apiError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : null;
 
   // Filtering logic - local or backend
   const profiles = useMemo(() => {

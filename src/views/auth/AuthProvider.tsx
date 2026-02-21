@@ -1,52 +1,60 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
 import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { handleApiCall } from "src/ultils/handleApiCall";
+import { authHooks } from "src/api";
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export function AuthProvider(props: AuthProviderProps) {
+  const queryClient = useQueryClient();
   const auth = getAuthBackendAPI();
 
-  const [loading, setLoading] = useState(true);
-  const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
+  // TanStack Query for initial user status check
+  const { data: queriedAuthInfo, isLoading: statusLoading, error: statusError } = authHooks.useUserStatusQuery();
 
-  useEffect(() => {
-    checkUserStatus();
-  }, []);
+  // Mutation state (will be converted to useMutation in a later phase)
+  const [mutationLoading, setMutationLoading] = useState(false);
+  const [mutationError, setMutationError] = useState<ApiError | null>(null);
 
-  const runAuthCall = async <T,>(apiCall: () => Promise<T>, onSuccess?: (response: T) => void) => {
-    await handleApiCall(apiCall, setLoading, setApiError, onSuccess);
-  };
+  // Combined loading: true when either initial status check or a mutation is in progress
+  const loading = statusLoading || mutationLoading;
 
-  const checkUserStatus = async () => {
-    await runAuthCall<AuthInfo>(
-      () => auth.checkUserStatus(),
-      response => setAuthInfo(response),
-    );
+  // Combined error: mutation errors take precedence over query errors
+  const apiError = mutationError || (statusError ? (statusError instanceof ApiError ? statusError : ApiError.from(statusError)) : null);
+
+  // Auth info comes from the query cache
+  const authInfo = queriedAuthInfo ?? null;
+
+  const updateAuthCache = (newAuthInfo: AuthInfo | null) => {
+    queryClient.setQueryData(["auth", "status"], newAuthInfo);
   };
 
   const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
-    await runAuthCall<AuthInfo>(
+    await handleApiCall(
       () => auth.login(body, query),
-      response => {
-        setAuthInfo(response);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
+      setMutationLoading,
+      setMutationError,
+      (response: AuthInfo) => {
+        updateAuthCache(response);
+        if (successCallback) setTimeout(successCallback, 0);
       },
     );
   };
 
   const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
-    await runAuthCall<AuthInfo>(
+    await handleApiCall(
       () => auth.register(body, query),
-      response => {
-        setAuthInfo(response);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
+      setMutationLoading,
+      setMutationError,
+      (response: AuthInfo) => {
+        updateAuthCache(response);
+        if (successCallback) setTimeout(successCallback, 0);
       },
     );
   };
@@ -56,11 +64,13 @@ export function AuthProvider(props: AuthProviderProps) {
   };
 
   const logout = async (successCallback?: () => void) => {
-    await runAuthCall(
+    await handleApiCall(
       () => auth.deleteSession(),
+      setMutationLoading,
+      setMutationError,
       () => {
-        setAuthInfo(null);
-        if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
+        updateAuthCache(null);
+        if (successCallback) setTimeout(successCallback, 0);
       },
     );
   };

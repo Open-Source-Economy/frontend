@@ -1,16 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
 import { SearchAndFiltersSection } from "src/views/pages/projects/components/SearchAndFiltersSection";
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { RequestProjectSection } from "src/views/pages/projects/sections/RequestProjectSection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import * as dto from "@open-source-economy/api-types";
 import { ProjectCategory, ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion, ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
-import { getBackendAPI } from "src/services";
+import { projectHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 
 // ------------------------------------
@@ -90,66 +88,54 @@ function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | nul
 // Component
 // ------------------------------------
 export function ProjectsPage(_: {}) {
-  const api = useMemo(() => getBackendAPI(), []);
-
-  const [projectItems, setProjectItems] = useState<ProjectItemWithDetails[] | null>(null);
-  const [stats, setStats] = useState<ProjectStats | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
-  const fetchProjectItems = useCallback(async () => {
-    setIsLoading(true);
-    setApiError(null);
+  const {
+    data: projectItemsResponse,
+    isLoading,
+    error,
+    refetch,
+  } = projectHooks.useProjectItemsWithDetailsQuery(
+    {},
+    {
+      repositories: {
+        sortBy: ProjectItemSortField.STARGAZERS,
+        sortOrder: SortOrder.DESC,
+      },
+      owners: {
+        sortBy: ProjectItemSortField.FOLLOWERS,
+        sortOrder: SortOrder.DESC,
+      },
+      urls: {
+        limit: 0,
+      },
+    },
+  );
 
-    const apiCall = () =>
-      api.getProjectItemsWithDetails(
-        {},
-        {
-          repositories: {
-            sortBy: ProjectItemSortField.STARGAZERS,
-            sortOrder: SortOrder.DESC,
-          },
-          owners: {
-            sortBy: ProjectItemSortField.FOLLOWERS,
-            sortOrder: SortOrder.DESC,
-          },
-          urls: {
-            limit: 0,
-          },
-        },
-      );
+  const projectItems = useMemo(() => {
+    if (!projectItemsResponse) return null;
+    const allProjects = [...projectItemsResponse.repositories, ...projectItemsResponse.owners, ...projectItemsResponse.urls];
+    allProjects.sort((a, b) => {
+      const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
+      const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
+      return bPopularity - aPopularity;
+    });
+    return allProjects;
+  }, [projectItemsResponse]);
 
-    const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-      // Combine all types and sort by popularity
-      const allProjects = [...response.repositories, ...response.owners, ...response.urls];
-
-      // Sort by popularity: repositories by stars, owners by followers, URLs last
-      allProjects.sort((a, b) => {
-        const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
-        const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
-        return bPopularity - aPopularity; // Descending order
-      });
-
-      setProjectItems(allProjects);
-
-      // Use stats from API response and format numbers
-      setStats({
-        totalProjects: response.stats.totalProjects,
-        totalMaintainers: response.stats.totalMaintainers,
-        totalStars: NumberUtils.formatCompactNumber(response.stats.totalStars),
-        totalForks: NumberUtils.formatCompactNumber(response.stats.totalForks),
-      });
+  const stats = useMemo(() => {
+    if (!projectItemsResponse) return null;
+    return {
+      totalProjects: projectItemsResponse.stats.totalProjects,
+      totalMaintainers: projectItemsResponse.stats.totalMaintainers,
+      totalStars: NumberUtils.formatCompactNumber(projectItemsResponse.stats.totalStars),
+      totalForks: NumberUtils.formatCompactNumber(projectItemsResponse.stats.totalForks),
     };
+  }, [projectItemsResponse]);
 
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  }, [api]);
-
-  useEffect(() => {
-    fetchProjectItems();
-  }, [fetchProjectItems]);
+  const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;
 
   // Extract unique languages from all project items
   const availableLanguages = useMemo(() => {
@@ -230,7 +216,7 @@ export function ProjectsPage(_: {}) {
       {apiError && !isLoading && (
         <div className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto">
-            <ServerErrorAlert error={apiError} title={projectsPageContent.error.title} showRetry={true} onRetry={fetchProjectItems} />
+            <ServerErrorAlert error={apiError} title={projectsPageContent.error.title} showRetry={true} onRetry={() => refetch()} />
           </div>
         </div>
       )}

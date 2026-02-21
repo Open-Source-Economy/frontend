@@ -2,14 +2,15 @@ import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/v1/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery, IssueId } from "@open-source-economy/api-types";
-import { credit } from "src/model";
+import { credit, Credit, CreditUnit } from "src/model";
 import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
-import { useAvailableCredits, useCreditCounter } from "src/views/v1/hooks";
+import { useCreditCounter } from "src/views/v1/hooks";
 import { useAuth } from "src/views/auth/AuthContext";
 import { Audience } from "src/views/index";
 import { Link } from "react-router-dom";
 import { paths } from "../../../../../../paths";
+import { projectHooks } from "src/api";
 
 interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
@@ -25,7 +26,12 @@ export function CreditFunding(props: CreditFundingProps) {
   const [enoughFund, setEnoughFund] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | string | null>(null);
 
-  const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
+    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+  });
+  const availableCredits: Credit | null = availableCreditsResponse
+    ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
+    : null;
 
   const fundIssue = async () => {
     if (!counter || counter.amount.isZero()) {
@@ -52,10 +58,6 @@ export function CreditFunding(props: CreditFundingProps) {
       }
     }
   };
-
-  useEffect(() => {
-    reloadAvailableCredits();
-  }, []);
 
   useEffect(() => {
     if (availableCredits?.amount.isZero()) setEnoughFund(false);

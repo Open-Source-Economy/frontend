@@ -4,7 +4,6 @@ import bgimage from "src/assets/v1/Group258.svg";
 import bgimage2 from "src/assets/v1/issuebg2.png";
 import bgimage3 from "src/assets/v1/issuebg3.png";
 import { IssueCard } from "src/views/v1/components/issue";
-import { useFinancialIssue } from "src/views/v1/hooks/useFinancialIssue";
 import { SolveIssueOnGithub } from "src/views/v1/pages/app/manageIssue/elements/SolveIssueOnGithub";
 import { financialIssueUtils } from "@open-source-economy/api-types";
 import { ManageTab } from "src/views/v1/pages/app/manageIssue/elements/ManageTab";
@@ -16,6 +15,7 @@ import { AudienceTitle } from "src/views/v1/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 import { ShowApiError } from "../../../components/common/ShowApiError";
 import { ApiError } from "src/ultils/error/ApiError";
+import { projectHooks } from "src/api";
 
 interface ManageIssueProps {}
 
@@ -23,11 +23,10 @@ export function ManageIssue(props: ManageIssueProps) {
   const audience = Audience.DEVELOPER;
   const { issueId } = useIssueContext();
   const [error, setError] = useState<ApiError | null>(null);
-  const { financialIssue, loadFinancialIssueError, reloadFinancialIssue } = useFinancialIssue(issueId);
-
-  useEffect(() => {
-    reloadFinancialIssue();
-  }, []);
+  const { data: financialIssue, error: loadFinancialIssueError, refetch: reloadFinancialIssue } = projectHooks.useFinancialIssueQuery(
+    { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
+    {},
+  );
 
   useEffect(() => {
     if (financialIssue?.issue?.closedAt) {
@@ -46,7 +45,7 @@ export function ManageIssue(props: ManageIssueProps) {
 
                 {(loadFinancialIssueError || error) && (
                   <div className="xl:mt-12">
-                    <ShowApiError error={(loadFinancialIssueError || error)!} />
+                    <ShowApiError error={error ? error : loadFinancialIssueError instanceof ApiError ? loadFinancialIssueError : ApiError.from(loadFinancialIssueError)} />
                   </div>
                 )}
 

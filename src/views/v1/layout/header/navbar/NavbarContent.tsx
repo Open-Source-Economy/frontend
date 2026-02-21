@@ -1,5 +1,5 @@
 import type React from "react";
-import { type Dispatch, type SetStateAction, useEffect } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/v1/components";
 import { useAuth } from "src/views/auth";
@@ -11,7 +11,9 @@ import { NavbarItem } from "./item/NavbarItem";
 import { Nav } from "react-bootstrap";
 import { paths } from "src/paths";
 import { Navigation, type NavItemData } from "./item/NavItemData";
-import { useAvailableCredits } from "../../../hooks";
+import { projectHooks } from "src/api";
+import { Credit, CreditUnit } from "src/model";
+import Decimal from "decimal.js";
 
 interface AppNavbarProps {
   setShowOffcanvas: Dispatch<SetStateAction<boolean>>;
@@ -25,7 +27,12 @@ interface AppNavbarProps {
 export function NavbarContent(props: AppNavbarProps) {
   const auth = useAuth();
 
-  const { availableCredits, loadAvailableCreditsError, reloadAvailableCredits } = useAvailableCredits(auth);
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
+    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+  });
+  const availableCredits: Credit | null = availableCreditsResponse
+    ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
+    : null;
 
   const currencyNavItem = Navigation.currency(props.selectedCurrency, () => {
     props.setShowCurrencyModal(!props.showCurrencyModal);
@@ -63,10 +70,6 @@ export function NavbarContent(props: AppNavbarProps) {
   ];
   const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
   const nonAuthNavbarItems: NavItemData[] = [/*Navigation.items.blog,*/ /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
-
-  useEffect(() => {
-    reloadAvailableCredits();
-  }, []);
 
   const whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>

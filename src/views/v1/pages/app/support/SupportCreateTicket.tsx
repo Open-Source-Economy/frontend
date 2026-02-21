@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useAvailableCredits, useCreditCounter, useFinancialIssue } from "src/views/v1/hooks";
+import { useCreditCounter } from "src/views/v1/hooks";
 import { useIssueContext } from "src/views/v1/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
-import { credit, CreditUnit } from "src/model";
+import { credit, Credit, CreditUnit } from "src/model";
 import { Priority, ServiceType } from "@open-source-economy/api-types";
 import { Header } from "src/views/v1/layout";
 import { SelectFilter } from "./SelectFilter";
@@ -14,31 +14,33 @@ import { BaseInput } from "src/views/v1/components/old-form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
 import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 import { useAuth } from "../../../../auth";
+import { projectHooks } from "src/api";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");
   const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
   const { issueId } = useIssueContext();
-  const { financialIssue, reloadFinancialIssue } = useFinancialIssue(issueId);
+  const { data: financialIssue } = projectHooks.useFinancialIssueQuery(
+    { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
+    {},
+  );
   const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [selectedSeverity, setSelectedSeverity] = useState("");
   const audience = Audience.DEVELOPER;
   console.log(issueId);
   console.log(audience);
-  useEffect(() => {
-    reloadFinancialIssue();
-  }, []);
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [enoughFund, setEnoughFund] = useState<boolean>(true);
   const auth = useAuth();
 
-  const { availableCredits, reloadAvailableCredits } = useAvailableCredits(auth);
-
-  useEffect(() => {
-    reloadAvailableCredits();
-  }, []);
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
+    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+  });
+  const availableCredits: Credit | null = availableCreditsResponse
+    ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
+    : null;
 
   console.log(audience);
   useEffect(() => {

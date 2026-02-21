@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 
 import { PageWrapper } from "../../PageWrapper";
 import { AQuestion, FundingCampaign, UseOfFunds, WhyDoWeNeedYourHelp } from "./elements";
@@ -8,23 +8,29 @@ import { ProjectTitle } from "src/views/v1/components/title";
 import { config, Env } from "src/ultils";
 import { Button } from "src/views/v1/components";
 import { Link } from "react-router-dom";
-import { useCampaign } from "../../../hooks/useCampaign";
-import { useProject } from "../../../hooks/useProject";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Sponsor } from "./elements/sponsor/Sponsor";
+import { projectHooks } from "src/api";
+import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import { getCampaignDescription } from "src/services/data";
 
 interface CampaignProps {}
 
 export function Campaign(props: CampaignProps) {
   const { projectId } = useProjectContext();
-  const { project, error, reloadProject } = useProject(projectId);
-  const { campaign, loadCampaignError, reloadCampaign } = useCampaign(projectId);
 
-  useEffect(() => {
-    reloadProject();
-    reloadCampaign();
-  }, []);
+  const projectParams = {
+    owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
+    repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+  };
+
+  const { data: projectResponse, error } = projectHooks.useProjectQuery(projectParams, {});
+  const project = projectResponse?.project ?? null;
+
+  const { data: campaignResponse, error: loadCampaignError } = projectHooks.useCampaignQuery(projectParams, {});
+  const campaignDescription = useMemo(() => getCampaignDescription(projectId), [projectId]);
+  const campaign = campaignResponse ? { ...campaignResponse, ...campaignDescription } : null;
 
   return (
     <>

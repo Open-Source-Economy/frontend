@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ParticipantCard } from "./ParticipantCard";
 import offerLeftLinear from "src/assets/v1/offer-linear.webp";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import { Button, H3WithSubtitle } from "src/views/v1/components";
-import { useMaintainers } from "../../../../hooks";
-import { ProjectId } from "@open-source-economy/api-types";
+import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
+import { projectHooks } from "src/api";
 
 interface MaintainersProps {
   projectId: ProjectId;
@@ -12,13 +12,13 @@ interface MaintainersProps {
 }
 
 export function Maintainers(props: MaintainersProps) {
-  const { maintainersRes, isLoading, error, reloadMaintainers } = useMaintainers(props.projectId);
+  const maintainerParams = {
+    owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
+    repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+  };
+  const { data: maintainersRes, isLoading, error } = projectHooks.useMaintainersQuery(maintainerParams, {});
 
-  useEffect(() => {
-    reloadMaintainers();
-  }, []);
-
-  if (maintainersRes === null || maintainersRes.maintainers?.length === 0) {
+  if (!maintainersRes || maintainersRes.maintainers?.length === 0) {
     return null;
   } else {
     return (

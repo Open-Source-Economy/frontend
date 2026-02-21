@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/views/v1/components/issue";
 import { CreditFunding, DisclaimerModal } from "./elements";
 import bgimage from "src/assets/v1/Group258.svg";
-import { useFinancialIssue } from "src/views/v1/hooks";
 import { Audience } from "src/views/index";
 
 import { AudienceTitle } from "src/views/v1/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
+import { projectHooks } from "src/api";
 
 interface FundIssueProps {}
 
@@ -15,12 +15,11 @@ export function FundIssue(props: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();
-  const { financialIssue, loadFinancialIssueError, reloadFinancialIssue } = useFinancialIssue(issueId);
+  const { data: financialIssue, error: loadFinancialIssueError } = projectHooks.useFinancialIssueQuery(
+    { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
+    {},
+  );
   const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    reloadFinancialIssue();
-  }, []);
 
   return (
     <PageWrapper>

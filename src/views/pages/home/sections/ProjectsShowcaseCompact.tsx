@@ -1,17 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/views/components/ui/forms/button";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { ArrowRight } from "lucide-react";
-import * as dto from "@open-source-economy/api-types";
-import { ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
-import type { ProjectStats } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import { ProjectItemSortField, SortOrder } from "@open-source-economy/api-types";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
 import { ApiError } from "src/ultils/error/ApiError";
-import { handleApiCall } from "src/ultils";
-import { getBackendAPI } from "src/services";
+import { projectHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { paths } from "src/paths";
 
@@ -89,71 +86,56 @@ function ErrorBlock({ error, onRetry }: { error: ApiError; onRetry: () => void }
 /* ---------- Main component ---------- */
 
 export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
-  const api = useMemo(() => getBackendAPI(), []);
-
   const title = props.title ?? projectsShowcaseContent.hero.title;
   const description = props.description ?? projectsShowcaseContent.hero.description;
   const maxProjects = props.maxProjects ?? 6;
 
-  const [projectItems, setProjectItems] = useState<ProjectItemWithDetails[] | null>(null);
-  const [stats, setStats] = useState<ProjectStats | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [apiError, setApiError] = useState<ApiError | null>(null);
+  const {
+    data: projectItemsResponse,
+    isLoading,
+    error,
+    refetch,
+  } = projectHooks.useProjectItemsWithDetailsQuery(
+    {},
+    {
+      repositories: {
+        sortBy: ProjectItemSortField.STARGAZERS,
+        sortOrder: SortOrder.DESC,
+        limit: maxProjects,
+      },
+      owners: {
+        sortBy: ProjectItemSortField.FOLLOWERS,
+        sortOrder: SortOrder.DESC,
+        limit: maxProjects,
+      },
+      urls: {
+        limit: 0,
+      },
+    },
+  );
 
-  const fetchProjectItems = useCallback(async () => {
-    setIsLoading(true);
-    setApiError(null);
+  const projectItems = useMemo(() => {
+    if (!projectItemsResponse) return null;
+    const allProjects = [...projectItemsResponse.repositories, ...projectItemsResponse.owners, ...projectItemsResponse.urls];
+    allProjects.sort((a, b) => {
+      const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
+      const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
+      return bPopularity - aPopularity;
+    });
+    return allProjects.slice(0, maxProjects);
+  }, [projectItemsResponse, maxProjects]);
 
-    const apiCall = () =>
-      api.getProjectItemsWithDetails(
-        {},
-        {
-          repositories: {
-            sortBy: ProjectItemSortField.STARGAZERS,
-            sortOrder: SortOrder.DESC,
-            limit: maxProjects,
-          },
-          owners: {
-            sortBy: ProjectItemSortField.FOLLOWERS,
-            sortOrder: SortOrder.DESC,
-            limit: maxProjects,
-          },
-          urls: {
-            limit: 0,
-          },
-        },
-      );
-
-    const onSuccess = (response: dto.GetProjectItemsWithDetailsResponse) => {
-      // Combine all types and sort by popularity
-      const allProjects = [...response.repositories, ...response.owners, ...response.urls];
-
-      // Sort by popularity: repositories by stars, owners by followers, URLs last
-      allProjects.sort((a, b) => {
-        const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
-        const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
-        return bPopularity - aPopularity; // Descending order
-      });
-
-      // Limit to maxProjects after sorting
-      const limitedProjects = allProjects.slice(0, maxProjects);
-      setProjectItems(limitedProjects);
-
-      // Use stats from API response and format numbers
-      setStats({
-        totalProjects: response.stats.totalProjects,
-        totalMaintainers: response.stats.totalMaintainers,
-        totalStars: NumberUtils.formatCompactNumber(response.stats.totalStars),
-        totalForks: NumberUtils.formatCompactNumber(response.stats.totalForks),
-      });
+  const stats = useMemo(() => {
+    if (!projectItemsResponse) return null;
+    return {
+      totalProjects: projectItemsResponse.stats.totalProjects,
+      totalMaintainers: projectItemsResponse.stats.totalMaintainers,
+      totalStars: NumberUtils.formatCompactNumber(projectItemsResponse.stats.totalStars),
+      totalForks: NumberUtils.formatCompactNumber(projectItemsResponse.stats.totalForks),
     };
+  }, [projectItemsResponse]);
 
-    await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-  }, [api, maxProjects]);
-
-  useEffect(() => {
-    fetchProjectItems();
-  }, [fetchProjectItems]);
+  const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;
 
   return (
     <section className={`py-16 md:py-24 transition-all duration-1000 ease-in-out ${props.className ?? ""}`}>
@@ -167,7 +149,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
         {isLoading && <LoadingBlock />}
 
         {/* Error State */}
-        {apiError && !isLoading && <ErrorBlock error={apiError} onRetry={fetchProjectItems} />}
+        {apiError && !isLoading && <ErrorBlock error={apiError} onRetry={() => refetch()} />}
 
         {/* Projects Grid - Compact Version */}
         {!isLoading && !apiError && (

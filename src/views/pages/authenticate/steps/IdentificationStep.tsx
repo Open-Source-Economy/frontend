@@ -13,6 +13,7 @@ import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/ultils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { AuthPageWrapper } from "../AuthPageWrapper";
+import { authHooks } from "src/api";
 
 export function IdentificationStep() {
   const navigate = useNavigate();
@@ -35,45 +36,51 @@ export function IdentificationStep() {
   const companyToken = queryParams.get("company_token");
   const urlEmail = queryParams.get("email");
 
-  // Initialize state from URL params
+  // Invite info queries (enabled only when tokens are present)
+  const {
+    data: companyInviteData,
+    isLoading: companyLoading,
+    error: companyError,
+  } = authHooks.useCompanyUserInviteInfoQuery({ token: companyToken ?? "" }, !!companyToken);
+  const {
+    data: repoInviteData,
+    isLoading: repoLoading,
+    error: repoError,
+  } = authHooks.useRepositoryUserInviteInfoQuery({ token: repositoryToken ?? "" }, !!repositoryToken);
+
+  // Initialize email from URL params
   useEffect(() => {
     if (urlEmail) {
       setEmail(urlEmail);
     }
+  }, [urlEmail]);
 
-    if (companyToken || repositoryToken) {
-      handleTokens();
+  // React to company invite data
+  useEffect(() => {
+    if (companyInviteData?.userEmail) {
+      setEmail(companyInviteData.userEmail);
+      setIsEmailPredefined(true);
+      updateUrlEmail(companyInviteData.userEmail);
+      checkEmailAndNavigate(companyInviteData.userEmail, true);
     }
-  }, [companyToken, repositoryToken, urlEmail]);
+  }, [companyInviteData]);
 
-  const handleTokens = async () => {
-    setIsLoading(true);
-    try {
-      if (companyToken) {
-        const info = await authAPI.getCompanyUserInviteInfo({ token: companyToken });
-        if (info.userEmail) {
-          setEmail(info.userEmail);
-          setIsEmailPredefined(true);
-          // Update URL with predefined email
-          updateUrlEmail(info.userEmail);
+  // React to repository invite data
+  useEffect(() => {
+    if (repoInviteData?.userGithubOwnerLogin) {
+      setGithubLogin(repoInviteData.userGithubOwnerLogin);
+      setIsGithubAccountPredefined(true);
+    }
+  }, [repoInviteData]);
 
-          // Auto-check email
-          await checkEmailAndNavigate(info.userEmail, true);
-        }
-      } else if (repositoryToken) {
-        const info = await authAPI.getRepositoryUserInviteInfo({ token: repositoryToken });
-        if (info.userGithubOwnerLogin) {
-          setGithubLogin(info.userGithubOwnerLogin);
-          setIsGithubAccountPredefined(true);
-        }
-      }
-    } catch (err) {
+  // Surface invite query errors
+  useEffect(() => {
+    const err = companyError || repoError;
+    if (err) {
       console.error("Token fetch error", err);
       setApiError(ApiError.from(err));
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, [companyError, repoError]);
 
   const updateUrlEmail = (newEmail: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -153,7 +160,7 @@ export function IdentificationStep() {
 
               {apiError && <ServerErrorAlert error={apiError} />}
 
-              <Button type="submit" loading={isLoading} className="w-full h-11">
+              <Button type="submit" loading={isLoading || companyLoading || repoLoading} className="w-full h-11">
                 Continue
               </Button>
             </form>

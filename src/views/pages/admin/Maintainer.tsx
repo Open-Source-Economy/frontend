@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { getAdminBackendAPI } from "src/services";
+import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
@@ -28,7 +29,6 @@ import { OrganizationSyncButton } from "./components/OrganizationSyncButton";
 export function Maintainer() {
   const { githubUsername } = useParams<{ githubUsername: string }>();
   const [profile, setProfile] = useState<dto.FullDeveloperProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [apiError, setApiError] = useState<ApiError | null>(null);
 
   // Profile verification editing
@@ -44,37 +44,36 @@ export function Maintainer() {
   const [isUpdating, setIsUpdating] = useState(false);
   const adminAPI = getAdminBackendAPI();
 
+  // Fetch profile using TanStack Query
+  const {
+    data: profileResponse,
+    isLoading,
+    error: queryError,
+  } = adminHooks.useDeveloperProfileQuery({ githubUsername: githubUsername ?? "" }, {}, !!githubUsername);
+
+  const profileData = profileResponse?.profile ?? null;
+
+  // Sync query data into local state (needed because mutations update profile locally)
   useEffect(() => {
-    if (!githubUsername) return;
+    if (profileData) {
+      setProfile(profileData);
+      if (profileData.profileEntry) {
+        const currentStatus = VerificationRecordCompanion.getCurrentStatus(
+          profileData.profileEntry.verificationRecords,
+          profileData.profileEntry.profile.id.uuid,
+        );
+        const currentNotes = VerificationRecordCompanion.getCurrentNotes(
+          profileData.profileEntry.verificationRecords,
+          profileData.profileEntry.profile.id.uuid,
+        );
+        setProfileStatus(currentStatus);
+        setProfileNotes(currentNotes || "");
+      }
+    }
+  }, [profileData]);
 
-    const fetchProfile = async () => {
-      const apiCall = async () => {
-        const params = { githubUsername };
-        const query = {};
-        return await getAdminBackendAPI().getDeveloperProfile(params, query);
-      };
-
-      const onSuccess = (response: dto.GetDeveloperProfileResponse) => {
-        setProfile(response.profile);
-        if (response.profile?.profileEntry) {
-          const currentStatus = VerificationRecordCompanion.getCurrentStatus(
-            response.profile.profileEntry.verificationRecords,
-            response.profile.profileEntry.profile.id.uuid,
-          );
-          const currentNotes = VerificationRecordCompanion.getCurrentNotes(
-            response.profile.profileEntry.verificationRecords,
-            response.profile.profileEntry.profile.id.uuid,
-          );
-          setProfileStatus(currentStatus);
-          setProfileNotes(currentNotes || "");
-        }
-      };
-
-      await handleApiCall(apiCall, setIsLoading, setApiError, onSuccess);
-    };
-
-    fetchProfile();
-  }, [githubUsername]);
+  // Combine query error with mutation apiError
+  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
 
   const handleSaveProfileVerification = async () => {
     if (!profile?.profileEntry?.profile.id) return;
@@ -173,7 +172,7 @@ export function Maintainer() {
     );
   }
 
-  if (apiError) {
+  if (displayError) {
     return (
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] p-8">
@@ -182,7 +181,7 @@ export function Maintainer() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Link>
-            <ServerErrorAlert error={apiError} />
+            <ServerErrorAlert error={displayError} />
           </div>
         </div>
       </PageWrapper>
