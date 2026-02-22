@@ -23,7 +23,7 @@ export function SubscriptionDetails(props: SubscriptionDetailsProps) {
       </div>
 
       <div className="space-y-2.5">
-        {props.plan.features.map((feature, index) => (
+        {props.plan.features.map((feature, _index) => (
           <div key={feature.name} className={`flex items-center gap-2 ${!feature.included && "opacity-30"}`}>
             {feature.included ? <Check className="h-5 w-5 text-theme-pink shrink-0" /> : <X className="h-4 w-4 text-theme-pink shrink-0" />}
             <p className="text-sm">

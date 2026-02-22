@@ -18,7 +18,7 @@ export function ProjectHero(props: ProjectHeroProps) {
 
   const githubUrl = useMemo(() => ProjectItemDetailsCompanion.getGithubUrl(props.project), [props.project]);
 
-  const formattedStats = useMemo(() => {
+  const _formattedStats = useMemo(() => {
     return ProjectItemDetailsCompanion.getProjectItemsStats([props.project]);
   }, [props.project]);
 

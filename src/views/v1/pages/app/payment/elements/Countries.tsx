@@ -2,7 +2,7 @@ import React from "react";
 
 interface CountriesProps {}
 
-export function Countries(props: CountriesProps) {
+export function Countries(_props: CountriesProps) {
   return (
     <>
       <option className="text-black" value="Afghanistan">

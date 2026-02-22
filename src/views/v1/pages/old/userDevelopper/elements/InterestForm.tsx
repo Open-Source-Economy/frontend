@@ -8,7 +8,7 @@ const profileOptions = ["Your Profile", "Profile 1", "Profile 2", "Profile 3"];
 
 const projectOptions = ["In which open source project? (if applicable)", "Project 1", "Project 2", "Project 3"];
 
-export function InterestForm(props: InterestFormProps) {
+export function InterestForm(_props: InterestFormProps) {
   const [isOpenDropdown1, setIsOpenDropdown1] = useState(false);
   const [selectedOption1, setSelectedOption1] = useState(profileOptions[0]);
   const [isOpenDropdown2, setIsOpenDropdown2] = useState(false);

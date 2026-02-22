@@ -7,7 +7,7 @@ interface SocialMediaLink {
   title: string;
 }
 
-const GradientDefs = () => (
+const _GradientDefs = () => (
   <defs>
     <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stopColor="#FF7E4B" />
@@ -148,7 +148,7 @@ const socialMediaLinks: SocialMediaLink[] = [
 export function SocialMedia() {
   return (
     <>
-      {socialMediaLinks.map((link, index) => (
+      {socialMediaLinks.map((link, _index) => (
         <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" title={link.title}>
           {link.icon}
         </a>

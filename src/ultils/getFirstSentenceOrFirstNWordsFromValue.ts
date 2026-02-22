@@ -2,7 +2,7 @@ export function getFirstSentenceOrFirstNWordsFromValue(value: string, N: number)
   if (!value || !N) return "";
 
   // Get first paragraph
-  var index: number = value.indexOf("\n");
+  let index: number = value.indexOf("\n");
   if (index !== -1) {
     value = value.substring(0, index);
   }

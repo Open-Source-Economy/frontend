@@ -33,9 +33,7 @@ export function RhfFormTextarea<T extends FieldValues>({
 
   return (
     <RhfFormField<T> name={name} label={label} required={required} hint={hint} className={className} transformError={transformError}>
-      {field => (
-        <Textarea {...field} id={name} placeholder={placeholder} rows={rows} variant={hasError ? "error" : "default"} disabled={disabled} />
-      )}
+      {field => <Textarea {...field} id={name} placeholder={placeholder} rows={rows} variant={hasError ? "error" : "default"} disabled={disabled} />}
     </RhfFormField>
   );
 }

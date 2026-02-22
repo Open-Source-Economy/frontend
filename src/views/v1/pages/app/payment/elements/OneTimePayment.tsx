@@ -7,7 +7,7 @@ import { useCreditCounter } from "src/views/v1/hooks";
 
 interface OneTimePaymentProps {}
 
-export function OneTimePayment(props: OneTimePaymentProps) {
+export function OneTimePayment(_props: OneTimePaymentProps) {
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
 
   return (

@@ -90,7 +90,7 @@ export const credit = {
     }
   },
   displayUnit: (credit: Credit | null): string => {
-    let unit = "";
+    let unit: string;
     if (!credit) {
       return "";
     } else if (credit.unit === CreditUnit.MINUTE) {

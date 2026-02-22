@@ -52,7 +52,7 @@ export namespace MergeRightsTypeCompanion {
    * @returns Array of { value, label } objects for all merge rights types
    */
   export function options(): Array<{ value: dto.MergeRightsType; label: string }> {
-    return Object.entries(dto.MergeRightsType).map(([key, value]) => ({
+    return Object.entries(dto.MergeRightsType).map(([_key, value]) => ({
       value: value as dto.MergeRightsType,
       label: label(value as dto.MergeRightsType),
     }));

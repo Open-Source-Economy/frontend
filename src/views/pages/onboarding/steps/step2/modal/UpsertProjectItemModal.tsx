@@ -21,7 +21,7 @@ import { ModeToggle } from "./components/ModeToggle";
 import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
 import { getUrlConfig } from "./utils/urlHelpers";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
-import { upsertProjectItemSchema, type UpsertProjectItemFormData } from "src/views/components/ui/forms/schemas";
+import { upsertProjectItemSchema, type UpsertProjectItemFormData as _UpsertProjectItemFormData } from "src/views/components/ui/forms/schemas";
 
 interface UpsertProjectItemModalProps {
   show: boolean;

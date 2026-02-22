@@ -13,7 +13,7 @@ export interface StepSidebarProps {
  * StepSidebar - Desktop-only left sidebar showing step context
  * Displays large step number and description for clarity
  */
-export const StepSidebar: React.FC<StepSidebarProps> = ({ stepNumber, title, description }) => {
+export const StepSidebar: React.FC<StepSidebarProps> = ({ stepNumber, title: _title, description: _description }) => {
   return (
     <div className="hidden lg:flex flex-col min-w-[180px] pr-6 border-r border-brand-neutral-300/30 self-start sticky top-8">
       {/* Large Step Number - Subtle & Elegant */}

@@ -1,7 +1,7 @@
 import offerLeftLinear from "src/assets/v1/offer-linear.webp";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import React from "react";
-import * as model from "@open-source-economy/api-types";
+import * as _model from "@open-source-economy/api-types";
 import { GetProjectServicesResponse, OwnerId, ProjectId, RepositoryId, ServiceType } from "@open-source-economy/api-types";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
@@ -24,7 +24,7 @@ export function Services(props: ServicesProps) {
         repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
       }
     : { owner: "" };
-  const { data: projectServicesData, error } = projectHooks.useProjectServicesQuery(serviceParams, {});
+  const { data: projectServicesData, error: _error } = projectHooks.useProjectServicesQuery(serviceParams, {});
   const projectServices = projectServicesData || DEFAULT_SERVICES;
 
   return (
@@ -33,7 +33,9 @@ export function Services(props: ServicesProps) {
       <img src={offerLeftLinear} alt="" className="absolute max-w-[970px] w-full -z-10 pointer-events-none left-[-2%] top-0 md:-top-[15%] xl:-top-[26%]" />
       <div className="px-4 max-w-[1164px] 2xl:max-w-[1250px] 3xl:max-w-[1440px] mx-auto relative z-20">
         <div className="grid lg:place-items-start place-items-center grid-cols-1 900:grid-cols-2 gap-5 3xl:gap-10">
-          {projectServices?.services.map((serviceType, index) => <ServiceCard key={index} serviceType={serviceType} button={props.buttons?.[serviceType]} />)}
+          {projectServices?.services.map((serviceType, index) => (
+            <ServiceCard key={index} serviceType={serviceType} button={props.buttons?.[serviceType]} />
+          ))}
           {projectServices?.comingSoonServices.map((serviceType, index) => (
             <ServiceCard key={index} serviceType={serviceType} comingSoon={true} button={props.buttons?.[serviceType]} />
           ))}

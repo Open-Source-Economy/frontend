@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet, ScrollRestoration } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { TanStackRouterDevtools as _TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { AuthProvider } from "src/views/auth";
 import { CurrencyProvider } from "src/context/CurrencyContext";
 import { BackToTop } from "src/views/v1/components/common/BackToTop";

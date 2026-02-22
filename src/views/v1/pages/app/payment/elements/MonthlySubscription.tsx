@@ -5,8 +5,8 @@ import { useCreditCounter } from "src/views/v1/hooks";
 
 interface MonthlySubscriptionProps {}
 
-export function MonthlySubscription(props: MonthlySubscriptionProps) {
-  const { counter, handleInputChange, increment, decrement } = useCreditCounter();
+export function MonthlySubscription(_props: MonthlySubscriptionProps) {
+  const { counter, handleInputChange, increment: _increment, decrement: _decrement } = useCreditCounter();
 
   return (
     <>

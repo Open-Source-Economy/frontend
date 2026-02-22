@@ -23,7 +23,7 @@ export namespace ProjectDeveloperProfileCompanion {
     );
   }
 
-  export function getAvatarUrl(developer: ProjectDeveloperProfile, loginFallback?: string): string | undefined {
+  export function getAvatarUrl(developer: ProjectDeveloperProfile, _loginFallback?: string): string | undefined {
     return developer.profileEntry?.owner?.displayAvatarUrl;
   }
 

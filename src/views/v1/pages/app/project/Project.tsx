@@ -19,7 +19,7 @@ import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 
 interface ProjectProps {}
 
-export function Project(props: ProjectProps) {
+export function Project(_props: ProjectProps) {
   const { projectId } = useProjectContext();
 
   const projectParams = {

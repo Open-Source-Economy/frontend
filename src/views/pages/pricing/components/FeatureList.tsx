@@ -1,6 +1,6 @@
 import React from "react";
-import { Check, X } from "lucide-react";
-import { InfoTooltip } from "../ui/info-tooltip";
+import { Check as _Check, X as _X } from "lucide-react";
+import { InfoTooltip as _InfoTooltip } from "../ui/info-tooltip";
 import { Feature } from "./types";
 import { FeatureItem } from "./FeatureItem";
 
@@ -10,7 +10,7 @@ interface FeatureListProps {
 }
 
 export function FeatureList(props: FeatureListProps) {
-  const gap = props.gap ?? "normal";
+  const _gap = props.gap ?? "normal";
 
   return (
     <ul className="space-y-2 p-[0px] mt-2">

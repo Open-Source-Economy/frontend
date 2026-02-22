@@ -19,17 +19,17 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
   const integerInputRef = React.useRef<GenericInputRef>(null);
   const currencyInputRef = React.useRef<GenericInputRef>(null);
 
-  const [currency, setCurrency] = useState<Currency>(props.currency);
+  const [_currency, setCurrency] = useState<Currency>(props.currency);
   const [hourlyRate, setHourlyRate] = useState<number | null>(props.hourlyRate);
-  const [error, setError] = useState<string | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [error, _setError] = useState<string | null>(null);
+  const [_isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useImperativeHandle(
     hourlyRateRef,
     () => ({
       validate: (showInputError: boolean) => {
         const rateValidation = integerInputRef.current?.validate(showInputError) ?? false;
-        const currencyValidation = props.onCurrencyChange ? currencyInputRef.current?.validate(showInputError) ?? false : true;
+        const currencyValidation = props.onCurrencyChange ? (currencyInputRef.current?.validate(showInputError) ?? false) : true;
         return rateValidation && currencyValidation;
       },
     }),
@@ -42,7 +42,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     props.onHourlyRateChange(numericValue);
   };
 
-  const handleCurrencySelect = (selectedCurrency: Currency | null) => {
+  const _handleCurrencySelect = (selectedCurrency: Currency | null) => {
     if (props.onCurrencyChange && selectedCurrency) {
       props.onCurrencyChange(selectedCurrency);
       setCurrency(selectedCurrency);

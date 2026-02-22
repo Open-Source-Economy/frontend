@@ -64,7 +64,7 @@ const SECTIONS = [
 
 interface HowItWorksProps {}
 
-export function HowItWorks(props: HowItWorksProps) {
+export function HowItWorks(_props: HowItWorksProps) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 md:gap-16 py-10 md:py-20">
       <div data-aos="fade-up" className="flex flex-col items-center gap-4 max-lg:px-4 text-center">

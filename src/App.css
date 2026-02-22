@@ -6,19 +6,19 @@
   --font-size: 16px;
 
   /* Typography Scale - Professional Design System */
-  --text-xs: 0.75rem;      /* 12px */
-  --text-sm: 0.875rem;     /* 14px */
-  --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
-  --text-xl: 1.25rem;      /* 20px */
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-3xl: 1.875rem;    /* 30px */
-  --text-4xl: 2.25rem;     /* 36px */
-  --text-5xl: 3rem;        /* 48px */
-  --text-6xl: 3.75rem;     /* 60px */
-  --text-7xl: 4.5rem;      /* 72px */
-  --text-8xl: 6rem;        /* 96px */
-  --text-9xl: 8rem;        /* 128px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+  --text-7xl: 4.5rem; /* 72px */
+  --text-8xl: 6rem; /* 96px */
+  --text-9xl: 8rem; /* 128px */
 
   /* Line Heights - Optimized for readability */
   --leading-tight: 1.25;
@@ -48,77 +48,77 @@
 
   /* Open Source Economy Premium Dark Brand System - CONSOLIDATED */
   /* Brand colors defined first as source of truth - WARM PALETTE */
-  --brand-primary: #ff7f50;           /* Sienna - Warm primary brand color */
-  --brand-primary-light: #ffa07a;     /* Sandy Brown */
-  --brand-primary-dark: #ff6347;      /* Saddle Brown */
-  --brand-secondary: #0f172a;         /* Deep Dark - Secondary brand color */
-  --brand-secondary-light: #1e293b;   /* Medium Dark */
-  --brand-secondary-dark: #020617;    /* Ultra Deep */
-  --brand-accent: #ff7f50;            /* Coral Orange - Primary accent color */
-  --brand-accent-light: #ffa07a;      /* Light Salmon */
-  --brand-accent-dark: #ff6347;       /* Tomato */
-  --brand-highlight: #daa520;         /* Goldenrod - Secondary accents */
-  --brand-highlight-light: #f0e68c;   /* Khaki */
-  --brand-highlight-dark: #b8860b;    /* Dark Goldenrod */
-  --brand-success: #10b981;           /* Emerald Green */
-  --brand-success-light: #34d399;     /* Light Success */
-  --brand-success-dark: #059669;      /* Deep Success */
-  --brand-warning: #fbbf24;           /* Amber */
-  --brand-warning-light: #fde047;     /* Light Amber */
-  --brand-warning-dark: #f59e0b;      /* Rich Amber */
-  --brand-error: #ef4444;             /* Red */
-  --brand-error-light: #f87171;       /* Light Error */
-  --brand-error-dark: #dc2626;        /* Dark Error */
+  --brand-primary: #ff7f50; /* Sienna - Warm primary brand color */
+  --brand-primary-light: #ffa07a; /* Sandy Brown */
+  --brand-primary-dark: #ff6347; /* Saddle Brown */
+  --brand-secondary: #0f172a; /* Deep Dark - Secondary brand color */
+  --brand-secondary-light: #1e293b; /* Medium Dark */
+  --brand-secondary-dark: #020617; /* Ultra Deep */
+  --brand-accent: #ff7f50; /* Coral Orange - Primary accent color */
+  --brand-accent-light: #ffa07a; /* Light Salmon */
+  --brand-accent-dark: #ff6347; /* Tomato */
+  --brand-highlight: #daa520; /* Goldenrod - Secondary accents */
+  --brand-highlight-light: #f0e68c; /* Khaki */
+  --brand-highlight-dark: #b8860b; /* Dark Goldenrod */
+  --brand-success: #10b981; /* Emerald Green */
+  --brand-success-light: #34d399; /* Light Success */
+  --brand-success-dark: #059669; /* Deep Success */
+  --brand-warning: #fbbf24; /* Amber */
+  --brand-warning-light: #fde047; /* Light Amber */
+  --brand-warning-dark: #f59e0b; /* Rich Amber */
+  --brand-error: #ef4444; /* Red */
+  --brand-error-light: #f87171; /* Light Error */
+  --brand-error-dark: #dc2626; /* Dark Error */
 
   /* Membership Tier Colors - Bronze, Silver, Gold */
-  --brand-tier-bronze: #cd7f32;       /* Bronze */
+  --brand-tier-bronze: #cd7f32; /* Bronze */
   --brand-tier-bronze-light: #e09856; /* Light Bronze */
   --brand-tier-bronze-dark: #b8722c; /* Dark Bronze */
-  --brand-tier-silver: #c0c0c0;       /* Silver */
+  --brand-tier-silver: #c0c0c0; /* Silver */
   --brand-tier-silver-light: #d3d3d3; /* Light Silver */
-  --brand-tier-silver-dark: #a8a8a8;  /* Dark Silver */
-  --brand-tier-gold: #ffd700;         /* Gold */
-  --brand-tier-gold-light: #ffe44d;   /* Light Gold */
-  --brand-tier-gold-dark: #daa520;    /* Dark Gold */
+  --brand-tier-silver-dark: #a8a8a8; /* Dark Silver */
+  --brand-tier-gold: #ffd700; /* Gold */
+  --brand-tier-gold-light: #ffe44d; /* Light Gold */
+  --brand-tier-gold-dark: #daa520; /* Dark Gold */
 
   /* Premium Dark Blue Card System - Rich navy tones */
-  --brand-card-blue: #1a2942;         /* Rich dark blue for cards */
-  --brand-card-blue-light: #213654;   /* Lighter card blue */
-  --brand-card-blue-dark: #0f1829;    /* Deeper card blue */
+  --brand-card-blue: #1a2942; /* Rich dark blue for cards */
+  --brand-card-blue-light: #213654; /* Lighter card blue */
+  --brand-card-blue-dark: #0f1829; /* Deeper card blue */
 
-  --brand-neutral-50: #020617;        /* Ultra deep */
-  --brand-neutral-100: #0f172a;       /* Deep dark */
-  --brand-neutral-200: #1e293b;       /* Card backgrounds */
-  --brand-neutral-300: #334155;       /* Borders */
-  --brand-neutral-400: #475569;       /* Subtle elements */
-  --brand-neutral-500: #64748b;       /* Placeholder text */
-  --brand-neutral-600: #94a3b8;       /* Secondary text */
-  --brand-neutral-700: #cbd5e1;       /* Body text */
-  --brand-neutral-800: #e2e8f0;       /* Headings */
-  --brand-neutral-900: #f1f5f9;       /* Primary text */
-  --brand-neutral-950: #f8fafc;       /* Maximum contrast */
+  --brand-neutral-50: #020617; /* Ultra deep */
+  --brand-neutral-100: #0f172a; /* Deep dark */
+  --brand-neutral-200: #1e293b; /* Card backgrounds */
+  --brand-neutral-300: #334155; /* Borders */
+  --brand-neutral-400: #475569; /* Subtle elements */
+  --brand-neutral-500: #64748b; /* Placeholder text */
+  --brand-neutral-600: #94a3b8; /* Secondary text */
+  --brand-neutral-700: #cbd5e1; /* Body text */
+  --brand-neutral-800: #e2e8f0; /* Headings */
+  --brand-neutral-900: #f1f5f9; /* Primary text */
+  --brand-neutral-950: #f8fafc; /* Maximum contrast */
 
   /* System Colors - Essential system colors only */
-  --background: var(--brand-secondary);               /* Deep dark background */
-  --foreground: var(--brand-neutral-900);             /* Primary text */
-  --card: var(--brand-card-blue);                     /* Rich dark blue cards */
-  --card-foreground: var(--brand-neutral-900);        /* Card text */
-  --popover: var(--brand-card-blue);                  /* Rich dark blue popovers */
-  --popover-foreground: var(--brand-neutral-900);     /* Popover text */
-  --destructive: var(--brand-error);                  /* Error states */
-  --destructive-foreground: #ffffff;                  /* White on red */
-  --border: var(--brand-neutral-300);                 /* Standard borders */
-  --input: var(--brand-card-blue);                    /* Rich blue input backgrounds */
-  --input-background: var(--brand-card-blue);         /* Rich blue input backgrounds */
-  --switch-background: var(--brand-neutral-300);      /* Switch backgrounds */
-  --ring: var(--brand-accent);                        /* Focus rings */
+  --background: var(--brand-secondary); /* Deep dark background */
+  --foreground: var(--brand-neutral-900); /* Primary text */
+  --card: var(--brand-card-blue); /* Rich dark blue cards */
+  --card-foreground: var(--brand-neutral-900); /* Card text */
+  --popover: var(--brand-card-blue); /* Rich dark blue popovers */
+  --popover-foreground: var(--brand-neutral-900); /* Popover text */
+  --destructive: var(--brand-error); /* Error states */
+  --destructive-foreground: #ffffff; /* White on red */
+  --border: var(--brand-neutral-300); /* Standard borders */
+  --input: var(--brand-card-blue); /* Rich blue input backgrounds */
+  --input-background: var(--brand-card-blue); /* Rich blue input backgrounds */
+  --switch-background: var(--brand-neutral-300); /* Switch backgrounds */
+  --ring: var(--brand-accent); /* Focus rings */
 
   /* Chart Colors - Consistent purple scale */
-  --chart-1: var(--brand-accent);                     /* Primary chart color */
-  --chart-2: var(--brand-accent-dark);                /* Secondary chart color */
-  --chart-3: #7c3aed;                                 /* Tertiary purple */
-  --chart-4: #6d28d9;                                 /* Deep purple */
-  --chart-5: #5b21b6;                                 /* Deepest purple */
+  --chart-1: var(--brand-accent); /* Primary chart color */
+  --chart-2: var(--brand-accent-dark); /* Secondary chart color */
+  --chart-3: #7c3aed; /* Tertiary purple */
+  --chart-4: #6d28d9; /* Deep purple */
+  --chart-5: #5b21b6; /* Deepest purple */
 
   /* Layout */
   --radius: 0.625rem;
@@ -126,15 +126,14 @@
   --font-weight-normal: 400;
 
   /* Sidebar - Mapped to brand colors */
-  --sidebar: var(--brand-secondary);                  /* Deep dark */
-  --sidebar-foreground: var(--brand-neutral-800);     /* Light text */
-  --sidebar-primary: var(--brand-accent);             /* Purple accent */
+  --sidebar: var(--brand-secondary); /* Deep dark */
+  --sidebar-foreground: var(--brand-neutral-800); /* Light text */
+  --sidebar-primary: var(--brand-accent); /* Purple accent */
   --sidebar-primary-foreground: var(--brand-secondary); /* Dark on purple */
-  --sidebar-accent: var(--brand-neutral-200);         /* Card background */
+  --sidebar-accent: var(--brand-neutral-200); /* Card background */
   --sidebar-accent-foreground: var(--brand-neutral-800); /* Light text */
-  --sidebar-border: var(--brand-neutral-300);         /* Standard border */
-  --sidebar-ring: var(--brand-accent);                /* Purple focus */
-
+  --sidebar-border: var(--brand-neutral-300); /* Standard border */
+  --sidebar-ring: var(--brand-accent); /* Purple focus */
 
   /* Logo specific colors */
   --logo-icon-primary: var(--brand-primary);
@@ -143,41 +142,41 @@
   --logo-text-secondary: var(--muted-foreground);
 
   /* Modern Form Element Styling System - Dark Mode */
-  --form-border-radius: 0.75rem;        /* More modern, softer corners */
-  --form-border-radius-sm: 0.5rem;      /* Small elements */
-  --form-border-radius-lg: 1rem;        /* Large elements */
-  --form-height: 2.75rem;               /* More spacious default */
-  --form-height-sm: 2.25rem;            /* Comfortable small */
-  --form-height-lg: 3.25rem;            /* Generous large */
-  --form-padding-x: 1rem;               /* More breathing room */
-  --form-padding-y: 0.75rem;            /* Better vertical balance */
-  --form-padding-x-sm: 0.75rem;         /* Proportional small */
-  --form-padding-y-sm: 0.5rem;          /* Balanced small */
-  --form-padding-x-lg: 1.25rem;         /* Spacious large */
-  --form-padding-y-lg: 1rem;            /* Comfortable large */
+  --form-border-radius: 0.75rem; /* More modern, softer corners */
+  --form-border-radius-sm: 0.5rem; /* Small elements */
+  --form-border-radius-lg: 1rem; /* Large elements */
+  --form-height: 2.75rem; /* More spacious default */
+  --form-height-sm: 2.25rem; /* Comfortable small */
+  --form-height-lg: 3.25rem; /* Generous large */
+  --form-padding-x: 1rem; /* More breathing room */
+  --form-padding-y: 0.75rem; /* Better vertical balance */
+  --form-padding-x-sm: 0.75rem; /* Proportional small */
+  --form-padding-y-sm: 0.5rem; /* Balanced small */
+  --form-padding-x-lg: 1.25rem; /* Spacious large */
+  --form-padding-y-lg: 1rem; /* Comfortable large */
 
   /* Modern Form Border Colors - Dark Mode */
-  --form-border: #475569;               /* More visible border */
-  --form-border-hover: #64748b;         /* Brighter hover indication */
+  --form-border: #475569; /* More visible border */
+  --form-border-hover: #64748b; /* Brighter hover indication */
   --form-border-focus: var(--brand-accent);
   --form-border-error: var(--brand-error);
   --form-border-success: var(--brand-success);
   --form-border-disabled: #334155;
 
   /* Modern Form Background Colors - Streamlined without cards */
-  --form-background: #1a2942;           /* Rich navy for inputs */
-  --form-background-hover: #213654;     /* Slightly lighter on hover */
-  --form-background-focus: #1a2942;     /* Maintain contrast when focused */
+  --form-background: #1a2942; /* Rich navy for inputs */
+  --form-background-hover: #213654; /* Slightly lighter on hover */
+  --form-background-focus: #1a2942; /* Maintain contrast when focused */
   --form-background-disabled: #0f172a;
   --form-background-readonly: #1e293b;
 
   /* Modern Form Text Colors - Dark Mode */
   --form-text: var(--foreground);
-  --form-text-placeholder: #64748b;     /* Refined placeholder */
+  --form-text-placeholder: #64748b; /* Refined placeholder */
   --form-text-disabled: #64748b;
   --form-text-error: var(--brand-error);
   --form-text-success: var(--brand-success);
-  --form-text-label: #94a3b8;           /* Refined label color */
+  --form-text-label: #94a3b8; /* Refined label color */
   --form-text-label-focus: var(--brand-accent);
 
   /* Modern Dark Mode Elevations */
@@ -188,10 +187,10 @@
   --form-elevation-success: 0 4px 6px -1px rgb(16 185 129 / 0.25), 0 2px 4px -2px rgb(16 185 129 / 0.25);
 
   /* Modern Dark Mode Focus System */
-  --form-ring-width: 0;                 /* No traditional rings */
-  --form-ring-modern-width: 2px;        /* Modern subtle border ring */
+  --form-ring-width: 0; /* No traditional rings */
+  --form-ring-modern-width: 2px; /* Modern subtle border ring */
   --form-ring-color: var(--brand-accent);
-  --form-ring-opacity: 0.15;            /* More subtle */
+  --form-ring-opacity: 0.15; /* More subtle */
 
   /* Modern Dark Mode Gradients */
   --form-accent-gradient: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-warning) 100%);
@@ -203,8 +202,6 @@
   --form-transition-fast: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --form-transition-slow: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
-
 
 @theme inline {
   /* Typography Scale */
@@ -573,7 +570,9 @@
     letter-spacing: var(--tracking-normal);
   }
 
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-normal);
     line-height: var(--leading-normal);
@@ -594,7 +593,8 @@
   }
 
   /* Lists */
-  ul, ol {
+  ul,
+  ol {
     margin-bottom: 1rem;
     padding-left: 1.5rem;
   }
@@ -802,7 +802,7 @@ html {
   }
 
   .text-code {
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
     font-size: var(--text-sm);
     font-weight: var(--font-weight-normal);
     background-color: var(--muted);

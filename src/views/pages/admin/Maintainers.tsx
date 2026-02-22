@@ -35,7 +35,7 @@ export function Maintainers() {
         searchTerm: searchTerm.trim() || undefined,
       };
 
-  const { data: profilesResponse, isLoading, error: queryError, refetch } = adminHooks.useAllDeveloperProfilesQuery({}, queryParams);
+  const { data: profilesResponse, isLoading, error: queryError, refetch: _refetch } = adminHooks.useAllDeveloperProfilesQuery({}, queryParams);
 
   const allProfiles = profilesResponse?.profiles ?? [];
   const apiError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : null;

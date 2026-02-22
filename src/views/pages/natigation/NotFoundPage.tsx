@@ -6,7 +6,7 @@ import { Button } from "src/views/components/ui/forms/button";
 
 interface NotFoundPageProps {}
 
-export function NotFoundPage(props: NotFoundPageProps) {
+export function NotFoundPage(_props: NotFoundPageProps) {
   // const quickLinks = [
   //   {
   //     icon: Home,

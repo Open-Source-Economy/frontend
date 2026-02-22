@@ -9,7 +9,7 @@ import { paths } from "../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
-  const location = useLocation();
+  const _location = useLocation();
 
   if (config.api.useMock) {
     return <Outlet />;

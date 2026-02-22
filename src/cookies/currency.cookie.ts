@@ -32,7 +32,7 @@ class CurrencyCookie implements ICurrencyHandler {
       const currency = value as Currency;
 
       return this.isValidCurrency(currency) ? currency : this.defaultCurrency;
-    } catch (error) {
+    } catch (_error) {
       return this.defaultCurrency;
     }
   }
@@ -68,7 +68,7 @@ class CurrencyCookie implements ICurrencyHandler {
       // Verify immediately after setting
       const _ = document.cookie.split(";").map(c => c.trim());
     } catch (error) {
-      throw error;
+      throw error as Error;
     }
   }
 
@@ -76,11 +76,7 @@ class CurrencyCookie implements ICurrencyHandler {
    * Removes the currency cookie.
    */
   public remove(): void {
-    try {
-      document.cookie = `${this.cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-    } catch (error) {
-      throw error;
-    }
+    document.cookie = `${this.cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
   }
 
   /**

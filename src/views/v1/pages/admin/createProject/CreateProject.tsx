@@ -52,7 +52,7 @@ export function CreateProject() {
         const cleanUrl = url.replace(/\/$/, "");
 
         // Match GitHub URL pattern
-        const match = cleanUrl.match(/github\.com\/([^\/]+)(?:\/([^\/]+))?/);
+        const match = cleanUrl.match(/github\.com\/([^/]+)(?:\/([^/]+))?/);
 
         if (match) {
           const [, owner, repo] = match;

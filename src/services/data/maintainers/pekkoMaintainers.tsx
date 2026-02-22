@@ -37,7 +37,7 @@ const mdedetrich: Maintainer = {
   mascotAlt: "Only the best for Pekko!",
 };
 
-const jrudolph: Maintainer = {
+const _jrudolph: Maintainer = {
   displayName: "Johannes Rudolph",
   githubUsername: "jrudolph",
   githubAvatar: "https://avatars.githubusercontent.com/u/9868?v=4",

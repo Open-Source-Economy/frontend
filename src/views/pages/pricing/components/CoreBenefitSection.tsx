@@ -1,7 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 import { SectionHeader } from "./SectionHeader";
-import { Feature } from "./types";
+import { Feature as _Feature } from "./types";
 
 interface CoreBenefitSectionProps {
   title: string;
@@ -9,7 +9,7 @@ interface CoreBenefitSectionProps {
   description?: string;
 }
 
-export function CoreBenefitSection({ title, subtitle, description }: CoreBenefitSectionProps) {
+export function CoreBenefitSection({ title, subtitle, description: _description }: CoreBenefitSectionProps) {
   return (
     <>
       {/* Part 1: Universal Credits Access */}

@@ -5,7 +5,7 @@ import { CardSize } from "@open-source-economy/api-types";
 import { SponsorDescription } from "../../../model";
 
 // example data
-const sponsorData: SponsorDescription[] = [
+const _sponsorData: SponsorDescription[] = [
   {
     imgUrl: swissBorg,
     main: true,
@@ -80,7 +80,7 @@ const sponsorData: SponsorDescription[] = [
     size: "large" as CardSize,
   },
 ];
-const alternateSponsorData: SponsorDescription[] = [
+const _alternateSponsorData: SponsorDescription[] = [
   {
     size: "small" as CardSize,
     imgUrl: softwareMill,
@@ -172,7 +172,7 @@ const alternateSponsorData: SponsorDescription[] = [
     ],
   },
 ];
-const otherSponsorData: SponsorDescription[] = [
+const _otherSponsorData: SponsorDescription[] = [
   {
     imgUrl: swissBorg,
     size: "large" as CardSize,
@@ -236,7 +236,7 @@ const otherSponsorData: SponsorDescription[] = [
     position: 5,
   },
 ];
-const withOutExtraLarge: SponsorDescription[] = [
+const _withOutExtraLarge: SponsorDescription[] = [
   {
     imgUrl: swissBorg,
     size: "large" as CardSize,
@@ -284,7 +284,7 @@ const withOutExtraLarge: SponsorDescription[] = [
     position: 5,
   },
 ];
-const withoutLarge: SponsorDescription[] = [
+const _withoutLarge: SponsorDescription[] = [
   {
     size: "small" as CardSize,
     imgUrl: softwareMill,
@@ -329,7 +329,7 @@ const withoutLarge: SponsorDescription[] = [
     ],
   },
 ];
-const withoutSmallData: SponsorDescription[] = [
+const _withoutSmallData: SponsorDescription[] = [
   {
     imgUrl: swissBorg,
     title: "Empowering Your Financial Freedom",

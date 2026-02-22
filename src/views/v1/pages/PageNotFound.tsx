@@ -8,7 +8,7 @@ import { paths } from "src/paths";
 
 interface PageNotFoundProps {}
 
-export function PageNotFound(props: PageNotFoundProps) {
+export function PageNotFound(_props: PageNotFoundProps) {
   return (
     <div className="flex h-screen justify-center items-center flex-col !bg-secondary relative overflow-hidden">
       <img src={faq} className="absolute hidden xl:block max-w-[870px] max-h-[800px] w-full -left-[20%] -top-[15%]" alt="" />

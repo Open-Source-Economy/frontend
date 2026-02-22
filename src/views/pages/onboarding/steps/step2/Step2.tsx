@@ -33,7 +33,11 @@ const Step2: React.FC<Step2Props> = props => {
 
   const removeProjectItem = onboardingHooks.useRemoveProjectItemMutation();
 
-  const apiError = removeProjectItem.error ? (removeProjectItem.error instanceof ApiError ? removeProjectItem.error : ApiError.from(removeProjectItem.error)) : null;
+  const apiError = removeProjectItem.error
+    ? removeProjectItem.error instanceof ApiError
+      ? removeProjectItem.error
+      : ApiError.from(removeProjectItem.error)
+    : null;
   const isDeleting = removeProjectItem.isPending;
 
   // Register onNext: validate that at least one project is added
@@ -147,7 +151,7 @@ const Step2: React.FC<Step2Props> = props => {
   };
 
   // Determine if we should show validation error
-  const hasValidationError = projects.length === 0;
+  const _hasValidationError = projects.length === 0;
   const hasApiError = !!apiError?.message;
 
   return (

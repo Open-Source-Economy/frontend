@@ -2,7 +2,7 @@ import React from "react";
 
 interface GitHubIconProps {}
 
-export function GitHubIcon(props: GitHubIconProps) {
+export function GitHubIcon(_props: GitHubIconProps) {
   return (
     <>
       <svg className="w-[21px] h-[21px] flex-shrink-0" width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">

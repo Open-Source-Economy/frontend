@@ -68,7 +68,14 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
 
   return (
     <div className={className}>
-      <Button onClick={handleSync} disabled={syncOrgRepos.isPending} variant={getButtonVariant()} size={size} className="whitespace-nowrap" leftIcon={getIconComponent()}>
+      <Button
+        onClick={handleSync}
+        disabled={syncOrgRepos.isPending}
+        variant={getButtonVariant()}
+        size={size}
+        className="whitespace-nowrap"
+        leftIcon={getIconComponent()}
+      >
         {getButtonText()}
       </Button>
 

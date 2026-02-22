@@ -40,7 +40,7 @@ export function EditServiceModal(props: EditServiceModalProps) {
 
   const [responseTime, setResponseTime] = useState<dto.ResponseTimeType | null>(props.developerServiceEntry.developerService?.responseTimeHours || null);
   const [comment, setComment] = useState<string | null>(props.developerServiceEntry.developerService?.comment || null);
-  const [inputError, setInputError] = useState<string | null>(null);
+  const [_inputError, setInputError] = useState<string | null>(null);
 
   // Synchronize local state with props when the modal opens
   useEffect(() => {

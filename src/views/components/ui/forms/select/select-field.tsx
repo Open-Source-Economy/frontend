@@ -35,7 +35,9 @@ export function SelectField(props: SelectFieldProps) {
 
   return (
     <div className={cn("space-y-2", props.className)}>
-      {props.label && <Label className={cn(props.error && "text-brand-error", required && "after:content-['*'] after:ml-1 after:text-brand-error")}>{props.label}</Label>}
+      {props.label && (
+        <Label className={cn(props.error && "text-brand-error", required && "after:content-['*'] after:ml-1 after:text-brand-error")}>{props.label}</Label>
+      )}
       <Select value={props.value} onValueChange={props.onChange}>
         <SelectTrigger className={cn("w-full", props.error && "border-brand-error")}>
           <SelectValue placeholder={placeholder} />

@@ -8,7 +8,7 @@ import { createCompanySchema, CreateCompanyFormData } from "src/views/components
 
 interface CreateCompanyProps {}
 
-export function CreateCompany(props: CreateCompanyProps) {
+export function CreateCompany(_props: CreateCompanyProps) {
   const [error, setError] = useState<string | null>(null);
   const [createdCompanyId, setCreatedCompanyId] = useState<CompanyId | null>(null);
 

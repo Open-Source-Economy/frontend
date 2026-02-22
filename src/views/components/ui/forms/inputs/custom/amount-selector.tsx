@@ -52,7 +52,9 @@ export function AmountSelector(props: AmountSelectorProps) {
       <div
         className={cn(
           "p-3 rounded-lg border-2 transition-all duration-300 flex items-center justify-center",
-          props.customAmount ? "border-brand-accent bg-brand-accent/10 shadow-lg shadow-brand-accent/20" : "border-brand-neutral-300 hover:border-brand-accent/50",
+          props.customAmount
+            ? "border-brand-accent bg-brand-accent/10 shadow-lg shadow-brand-accent/20"
+            : "border-brand-neutral-300 hover:border-brand-accent/50",
         )}
       >
         <div className="flex items-center justify-center w-full">

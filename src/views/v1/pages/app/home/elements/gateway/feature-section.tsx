@@ -8,7 +8,7 @@ import { FeatureBox, FeatureBoxProps } from "./FeatureBox";
 
 interface FeaturesSectionProps {}
 
-export function FeaturesSection(props: FeaturesSectionProps) {
+export function FeaturesSection(_props: FeaturesSectionProps) {
   const features: FeatureBoxProps[] = [
     {
       title: "Developers",

@@ -37,4 +37,3 @@ export function AuthPageWrapper(props: AuthPageWrapperProps) {
     </PageWrapper>
   );
 }
-

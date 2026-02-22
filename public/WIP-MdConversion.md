@@ -37,7 +37,6 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
    Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
 
 3. Third item
-
    1. Indented item
 
       Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
@@ -55,7 +54,6 @@ Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit 
 - Second item
 
 - Third item
-
   - Indented item
 
     Nulla vel dapibus enim, vehicula vehicula mi. Integer laoreet sit amet ante sit amet lobortis. Suspendisse eget nisi eu lectus ornare lobortis.
@@ -125,7 +123,6 @@ To add a link to an image, enclose the Markdown for the image in brackets, and t
 ## Video
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=BMwHE8Po-oc)
-
 
 <video controls>
   <source src="https://videos.pexels.com/video-files/5473795/5473795-uhd_2732_1440_25fps.mp4" type="video/mp4">

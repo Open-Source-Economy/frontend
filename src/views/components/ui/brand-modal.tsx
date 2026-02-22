@@ -51,7 +51,9 @@ export function BrandModal(props: BrandModalProps) {
         <div className={cn("overflow-y-auto px-6 flex-1", props.contentClassName)}>{props.children}</div>
 
         {/* Fixed Footer */}
-        {props.footer && <DialogFooter className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", props.footerClassName)}>{props.footer}</DialogFooter>}
+        {props.footer && (
+          <DialogFooter className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", props.footerClassName)}>{props.footer}</DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

@@ -25,19 +25,22 @@ const SupportCreateTicket = () => {
     {},
   );
   const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [selectedSeverity, setSelectedSeverity] = useState("");
+  const [_selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [_selectedSeverity, setSelectedSeverity] = useState("");
   const audience = Audience.DEVELOPER;
   console.log(issueId);
   console.log(audience);
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [enoughFund, setEnoughFund] = useState<boolean>(true);
+  const [_enoughFund, setEnoughFund] = useState<boolean>(true);
   const auth = useAuth();
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
-    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
-  });
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+    {},
+    {
+      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+    },
+  );
   const availableCredits: Credit | null = availableCreditsResponse
     ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
     : null;

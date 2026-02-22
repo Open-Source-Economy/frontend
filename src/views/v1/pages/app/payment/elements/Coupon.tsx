@@ -3,7 +3,7 @@ import couponimg from "src/assets/v1/codeimg.png";
 
 interface CouponProps {}
 
-export function Coupon(props: CouponProps) {
+export function Coupon(_props: CouponProps) {
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center">

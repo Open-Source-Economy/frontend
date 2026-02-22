@@ -18,13 +18,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src/**/*",
-    "src/routeTree.gen.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "scripts",
-    "dist"
-  ]
+  "include": ["src/**/*", "src/routeTree.gen.ts"],
+  "exclude": ["node_modules", "scripts", "dist"]
 }

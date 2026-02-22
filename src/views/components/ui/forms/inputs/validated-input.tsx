@@ -47,7 +47,14 @@ export function ValidatedInput(props: ValidatedInputProps) {
   const hasError = !!props.error?.error;
 
   return (
-    <FormField label={props.label} required={required} description={props.hint || props.description} className={props.className} link={props.link} error={props.error}>
+    <FormField
+      label={props.label}
+      required={required}
+      description={props.hint || props.description}
+      className={props.className}
+      link={props.link}
+      error={props.error}
+    >
       <Input
         id={props.name}
         name={props.name}

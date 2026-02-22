@@ -33,7 +33,8 @@ const searchInputVariants = cva(
 );
 
 interface SearchInputProps
-  extends Omit<
+  extends
+    Omit<
       React.ComponentProps<"input">,
       // avoid clashes with our variants and controlled props
       "size" | "onChange" | "value"

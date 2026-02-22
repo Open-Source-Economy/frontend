@@ -37,17 +37,19 @@ export const DigIntoDetails = () => {
         <h1 className="text-center font-mich text-[28px] font-[400] lg:text-[42px]">Dig into the details</h1>
         <div className="dig-grid z-[10] grid w-full px-[20px] lg:grid-cols-3  lg:px-0">
           {/* 1  */}
-          {videoData?.map(video => <VideoCom key={video.id} delay={video.delay} thumbnail={video.thumbnail} source={video.src} id={video.id} />)}
+          {videoData?.map(video => (
+            <VideoCom key={video.id} delay={video.delay} thumbnail={video.thumbnail} source={video.src} id={video.id} />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-const VideoCom = ({ source, id, delay, thumbnail }: { source: string; id: number; delay: string; thumbnail: any }) => {
+const VideoCom = ({ source: _source, id: _id, delay, thumbnail }: { source: string; id: number; delay: string; thumbnail: any }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const handlePlayClick = () => {
+  const _handlePlayClick = () => {
     // Function to handle play button click
     setIsPlaying(true); // Set the state to indicate video is playing
     const video = document.getElementById("myVideo"); // Get the video element by its ID

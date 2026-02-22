@@ -47,7 +47,7 @@ const footerSections: FooterSection[] = [
   },
 ];
 
-const legalLinks: FooterLink[] = [
+const _legalLinks: FooterLink[] = [
   { text: "Privacy policy", href: paths.PRIVACY },
   { text: "", href: paths.TERMS },
 ];
@@ -88,7 +88,7 @@ export function Footer() {
     <div>
       <h3 className="text-pink-500 font-semibold mb-4">{section.title}</h3>
       <ul className="space-y-2">
-        {section.links.map((link, index) => (
+        {section.links.map((link, _index) => (
           <li key={link.text}>
             {link.external ? (
               <ExternalLink href={link.href} className="hover:underline">

@@ -2,7 +2,7 @@ import React from "react";
 
 interface PriceItemsProps {}
 
-export function PriceItems(props: PriceItemsProps) {
+export function PriceItems(_props: PriceItemsProps) {
   return (
     <>
       <div className="flex justify-between items-center mt-4">

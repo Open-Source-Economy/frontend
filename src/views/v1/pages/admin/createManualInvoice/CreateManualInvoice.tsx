@@ -8,7 +8,7 @@ import { createManualInvoiceSchema, CreateManualInvoiceFormData } from "src/view
 
 interface CreateManualInvoiceProps {}
 
-export function CreateManualInvoice(props: CreateManualInvoiceProps) {
+export function CreateManualInvoice(_props: CreateManualInvoiceProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
@@ -85,13 +85,7 @@ export function CreateManualInvoice(props: CreateManualInvoiceProps) {
               />
 
               <div className="w-full sm:w-[400px] flex items-center mb-4">
-                <input
-                  type="checkbox"
-                  id="paid"
-                  checked={form.watch("paid")}
-                  onChange={e => form.setValue("paid", e.target.checked)}
-                  className="mr-3"
-                />
+                <input type="checkbox" id="paid" checked={form.watch("paid")} onChange={e => form.setValue("paid", e.target.checked)} className="mr-3" />
                 <label htmlFor="paid" className="text-white">
                   Paid
                 </label>

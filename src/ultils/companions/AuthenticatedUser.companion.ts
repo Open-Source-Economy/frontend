@@ -1,4 +1,4 @@
-import { AuthenticatedUser, LocalUser, ThirdPartyUser } from "@open-source-economy/api-types";
+import { AuthenticatedUser, LocalUser as _LocalUser, ThirdPartyUser as _ThirdPartyUser } from "@open-source-economy/api-types";
 
 export const AuthenticatedUserCompanion = {
   getAvatar(user: AuthenticatedUser): string | undefined {

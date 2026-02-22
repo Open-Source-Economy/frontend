@@ -6,8 +6,8 @@ import { config, Env } from "../../../../../ultils";
 
 interface PricingProps {}
 
-export function Pricing(props: PricingProps) {
-  const [paymentInfo, setPaymentInfo] = useState({
+export function Pricing(_props: PricingProps) {
+  const [_paymentInfo, _setPaymentInfo] = useState({
     cardType: "Visa",
     lastFourDigits: "9097",
     expiryDate: "01/29",

@@ -78,7 +78,7 @@ export function UniqueSellingPoints(props: UniqueSellingPointsProps) {
 
         {/* Selling Points Grid - 3x2 Layout */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {sellingPoints.map((point, index) => (
+          {sellingPoints.map((point, _index) => (
             <div
               key={point.title}
               className="group relative bg-gradient-to-br from-card via-card to-brand-primary/5 border border-border/50 rounded-xl p-8 lg:p-10 text-center hover:border-brand-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"

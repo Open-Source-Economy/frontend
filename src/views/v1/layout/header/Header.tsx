@@ -11,7 +11,7 @@ import { useCurrency } from "../../../../context/CurrencyContext";
 
 interface HeaderProps {}
 
-export function Header(props: HeaderProps) {
+export function Header(_props: HeaderProps) {
   const auth = useAuth();
   const { preferredCurrency, showCurrencyModal, setShowCurrencyModal, setPreferredCurrency } = useCurrency();
 

@@ -128,7 +128,7 @@ export function ServiceColumn(props: ServiceColumnProps) {
         </div>
 
         <div className="space-y-4">
-          {props.services.map((service, index) => (
+          {props.services.map((service, _index) => (
             <div key={service.name} className="group/item relative overflow-hidden">
               <div
                 className={`flex items-start gap-3 p-4 md:p-5 rounded-xl bg-gradient-to-r from-brand-neutral-50/50 to-transparent border border-brand-neutral-200/50 ${colors.itemBorderHover} hover:bg-gradient-to-r ${colors.itemBgHover} transition-all duration-300 hover:shadow-md`}

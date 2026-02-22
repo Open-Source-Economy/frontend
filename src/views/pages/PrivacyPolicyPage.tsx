@@ -4,7 +4,7 @@ import { PageWrapper } from "src/views/pages/PageWrapper";
 
 interface PrivacyPolicyPageProps {}
 
-export function PrivacyPolicyPage(props: PrivacyPolicyPageProps) {
+export function PrivacyPolicyPage(_props: PrivacyPolicyPageProps) {
   const sections = [
     {
       icon: Shield,

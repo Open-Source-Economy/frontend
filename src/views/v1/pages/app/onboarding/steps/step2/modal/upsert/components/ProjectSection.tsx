@@ -55,7 +55,7 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
     validate: (showInputError: boolean) => {
       const isTypeValid = projectTypeSelectRef.current?.validate(showInputError) ?? false;
       const needsUrl = !!selectedProjectType;
-      const isUrlValid = needsUrl ? urlInputRef.current?.validate(showInputError) ?? false : true;
+      const isUrlValid = needsUrl ? (urlInputRef.current?.validate(showInputError) ?? false) : true;
       return isTypeValid && isUrlValid;
     },
   }));

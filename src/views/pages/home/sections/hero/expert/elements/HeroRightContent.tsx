@@ -4,7 +4,7 @@ import { DecorativeOrb } from "src/views/components/ui/decorative/decorative-orb
 
 interface HeroRightContentProps {}
 
-export function HeroRightContent(props: HeroRightContentProps) {
+export function HeroRightContent(_props: HeroRightContentProps) {
   return (
     <div className={`relative lg:order-last min-h-[500px] flex items-center`}>
       {/* Main Content */}

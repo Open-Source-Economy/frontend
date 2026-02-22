@@ -8,7 +8,7 @@ import { projectHooks } from "src/api";
 
 interface PricingTableProps {}
 
-export function PricingTable(props: PricingTableProps) {
+export function PricingTable(_props: PricingTableProps) {
   const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
 
   const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);

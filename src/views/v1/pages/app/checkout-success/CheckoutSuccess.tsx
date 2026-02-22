@@ -12,12 +12,12 @@ import { paths } from "src/paths";
 
 interface CheckoutSuccessProps {}
 
-export function CheckoutSuccess(props: CheckoutSuccessProps) {
+export function CheckoutSuccess(_props: CheckoutSuccessProps) {
   const audience: Audience = Audience.ALL;
 
   const searchParams = useSearch({ strict: false }) as Record<string, string | undefined>;
-  const session_id = searchParams.session_id ?? null;
-  const mode = searchParams.mode ?? null;
+  const _session_id = searchParams.session_id ?? null;
+  const _mode = searchParams.mode ?? null;
 
   return (
     <PageWrapper>

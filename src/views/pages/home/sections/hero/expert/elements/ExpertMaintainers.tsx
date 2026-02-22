@@ -6,7 +6,7 @@ import { Avatar } from "src/views/components/ui/avatar";
 
 interface ExpertMaintainersProps {}
 
-export function ExpertMaintainers(props: ExpertMaintainersProps) {
+export function ExpertMaintainers(_props: ExpertMaintainersProps) {
   // Featured open source experts and their projects
   const experts = [
     {

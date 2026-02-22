@@ -7,7 +7,7 @@ import { paths } from "src/paths";
 import { isVisible } from "src/ultils/featureVisibility";
 
 export function SponsorshipPage() {
-  const fundingTiers = [
+  const _fundingTiers = [
     {
       id: 1,
       title: "Foundation",
@@ -71,7 +71,7 @@ export function SponsorshipPage() {
     },
   ];
 
-  const impactStats = [
+  const _impactStats = [
     {
       icon: Code,
       value: "2,500+",

@@ -178,7 +178,9 @@ export function UserDeveloper(props: UserDeveloperProps) {
         <section className="!px-4 relative flex flex-col">
           <div className="flex justify-center z-20 relative flex-wrap items-center">
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <a href={laurianeCalDevLink} target="_blank" rel="noopener noreferrer">Book a meeting</a>
+              <a href={laurianeCalDevLink} target="_blank" rel="noopener noreferrer">
+                Book a meeting
+              </a>
             </Button>
           </div>
         </section>
@@ -223,7 +225,9 @@ export function UserDeveloper(props: UserDeveloperProps) {
             <section className="!px-4 relative flex flex-col">
               <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-3 md:!mt-5 xl:mt-9">
                 <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-                  <a href={laurianeCalDevLink} target="_blank" rel="noopener noreferrer">Book a meeting</a>
+                  <a href={laurianeCalDevLink} target="_blank" rel="noopener noreferrer">
+                    Book a meeting
+                  </a>
                 </Button>
               </div>
             </section>

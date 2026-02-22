@@ -44,7 +44,12 @@ export function NavItems(props: NavItemsProps) {
         }
 
         return (
-          <Link key={item.title} to={item.href as string} onClick={props.variant === "mobile" ? props.onMobileClose : undefined} className={`${commonClasses} !no-underline`}>
+          <Link
+            key={item.title}
+            to={item.href as string}
+            onClick={props.variant === "mobile" ? props.onMobileClose : undefined}
+            className={`${commonClasses} !no-underline`}
+          >
             {item.title}
           </Link>
         );

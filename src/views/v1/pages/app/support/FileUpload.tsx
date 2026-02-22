@@ -94,7 +94,7 @@ export default function FileUpload() {
   };
 
   const simulateFileUpload = (fileId: string) => {
-    let progress = 0;
+    const _progress = 0;
     const interval = setInterval(() => {
       setFiles(prevFiles =>
         prevFiles.map(file => {

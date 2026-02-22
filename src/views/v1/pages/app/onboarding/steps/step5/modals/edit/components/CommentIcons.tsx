@@ -1,6 +1,6 @@
 import React from "react";
 
-export function CommentIcon(props: {}) {
+export function CommentIcon(_props: {}) {
   return (
     <>
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,7 @@ export function CommentIcon(props: {}) {
   );
 }
 
-export function CloseIcon(props: {}) {
+export function CloseIcon(_props: {}) {
   return (
     <>
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

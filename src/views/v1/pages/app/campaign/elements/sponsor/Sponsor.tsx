@@ -14,7 +14,7 @@ export function Sponsor(props: SponsorProps) {
     owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
     repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
   };
-  const { data: sponsors, isLoading, error } = projectHooks.useSponsorsQuery(sponsorParams, {});
+  const { data: sponsors, isLoading: _isLoading, error: _error } = projectHooks.useSponsorsQuery(sponsorParams, {});
 
   if (!sponsors || sponsors.length === 0) {
     return <></>;

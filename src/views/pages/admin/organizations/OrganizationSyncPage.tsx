@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { adminHooks, projectHooks } from "src/api";
-import * as dto from "@open-source-economy/api-types";
+import * as _dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";

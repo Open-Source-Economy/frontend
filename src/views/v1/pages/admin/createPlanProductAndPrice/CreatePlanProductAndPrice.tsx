@@ -6,7 +6,7 @@ import { adminHooks } from "src/api";
 
 interface CreatePlanProductAndPriceProps {}
 
-export function CreatePlanProductAndPrice(props: CreatePlanProductAndPriceProps) {
+export function CreatePlanProductAndPrice(_props: CreatePlanProductAndPriceProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean | null>(null);
 

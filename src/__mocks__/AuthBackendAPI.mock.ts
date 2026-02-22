@@ -15,7 +15,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async login(body: dto.LoginBody, query: dto.LoginQuery): Promise<dto.LoginResponse> {
+  async login(_body: dto.LoginBody, _query: dto.LoginQuery): Promise<dto.LoginResponse> {
     return {
       authenticatedUser: {
         user: user,
@@ -27,7 +27,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async register(body: dto.RegisterBody, query: dto.RegisterQuery): Promise<dto.RegisterResponse> {
+  async register(_body: dto.RegisterBody, _query: dto.RegisterQuery): Promise<dto.RegisterResponse> {
     return {
       authenticatedUser: {
         user: user,
@@ -47,14 +47,14 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     return Promise.resolve({});
   }
 
-  async getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse> {
+  async getCompanyUserInviteInfo(_query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse> {
     return {
       userName: "Lauriane",
       userEmail: "lauriane@gmail.com",
     };
   }
 
-  async getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse> {
+  async getRepositoryUserInviteInfo(_query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse> {
     return {
       userName: "Lauriane",
       userGithubOwnerLogin: "lauriane",
@@ -71,12 +71,12 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     return Promise.resolve({ exists, provider });
   }
 
-  async forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
+  async forgotPassword(_body: dto.ForgotPasswordBody, _query: {}, _params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return { success: {} };
   }
 
-  async resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
+  async resetPassword(_body: dto.ResetPasswordBody, _query: dto.ResetPasswordQuery, _params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return { success: {} };
   }

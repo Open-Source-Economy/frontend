@@ -16,8 +16,8 @@ interface DashboardProps {}
 
 const backendAPI = getBackendAPI();
 
-export function Dashboard(props: DashboardProps) {
-  const audience = Audience.USER;
+export function Dashboard(_props: DashboardProps) {
+  const _audience = Audience.USER;
   const buttons: { [key in ServiceType]?: ServiceButton } = {
     [ServiceType.DEVELOPMENT]: {
       to: paths.FUND_ISSUES,
@@ -32,9 +32,7 @@ export function Dashboard(props: DashboardProps) {
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries
-    .filter(q => q.isSuccess && q.data)
-    .map(q => [q.data!.owner, q.data!.repository]);
+  const repositories: [Owner, Repository][] = repositoryQueries.filter(q => q.isSuccess && q.data).map(q => [q.data!.owner, q.data!.repository]);
   const error = repositoryQueries.find(q => q.error)?.error ?? null;
 
   return (

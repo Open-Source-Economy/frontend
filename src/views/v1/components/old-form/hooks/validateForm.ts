@@ -43,7 +43,7 @@ export function validateForm(type: AuthenticateType, data: FormData): FormValida
     const validation: PasswordValidation = {
       minLength: password.length >= 6,
       hasNumber: /\d/.test(password),
-      hasSymbol: /[!@#$%^&*(),.?";:{}|<>_\-'\+\=\[\]~`\\]/.test(password),
+      hasSymbol: /[!@#$%^&*(),.?";:{}|<>_\-'+=[~`\\]/.test(password),
       isEmpty: password.trim() === "",
     };
 

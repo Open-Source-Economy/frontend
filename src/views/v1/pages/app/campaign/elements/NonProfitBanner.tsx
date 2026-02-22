@@ -3,7 +3,7 @@ import { CodeIcon, DollarSign } from "src/ultils/Icons";
 
 interface CompanyBannerProps {}
 
-export function NonProfitBanner(props: CompanyBannerProps) {
+export function NonProfitBanner(_props: CompanyBannerProps) {
   return (
     <>
       {/* Top Bar */}

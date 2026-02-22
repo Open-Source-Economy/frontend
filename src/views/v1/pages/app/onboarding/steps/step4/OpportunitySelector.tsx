@@ -15,7 +15,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
   const [error, setError] = useState<string | undefined>(undefined);
 
   const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
-    let errorMessage: string | undefined = undefined;
+    const errorMessage: string | undefined = undefined;
     if (props.required && currentValue === null && showInputError) {
       setError(`Please select an option`);
     }

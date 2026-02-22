@@ -11,7 +11,7 @@ interface CheckboxProps extends React.ComponentProps<typeof CheckboxPrimitive.Ro
 }
 
 const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
-  ({ className, variant = "default", size = "default", ...props }, ref) => {
+  ({ className, variant: _variant = "default", size = "default", ...props }, ref) => {
     const sizeClasses = {
       sm: "w-4 h-4",
       default: "w-5 h-5",

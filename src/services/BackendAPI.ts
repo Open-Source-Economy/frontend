@@ -3,7 +3,7 @@ import { FinancialIssue } from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
 import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/ultils/error/ApiError";
-import { useAuth } from "../views/auth";
+import { useAuth as _useAuth } from "../views/auth";
 
 // Temporary local definitions until api-types package is updated/linked
 export interface CreatePortalSessionBody {
@@ -119,7 +119,7 @@ class BackendAPIImpl implements BackendAPI {
     this.api = api;
   }
 
-  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(params: dto.GetIssueParams, _query: dto.GetIssueQuery): Promise<FinancialIssue> {
     const response = await handleError<dto.GetIssueResponse>(
       () => this.api.get(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}`, { withCredentials: true }),
       "getFinancialIssue",
@@ -127,7 +127,7 @@ class BackendAPIImpl implements BackendAPI {
     return response.issue;
   }
 
-  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
+  async getAllFinancialIssues(_params: dto.GetIssuesParams, _query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
     const response = await handleError<dto.GetIssuesResponse>(
       () => this.api.get(`${config.api.url}/projects/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues",
@@ -145,18 +145,14 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void> {
+  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, _query: dto.FundIssueQuery): Promise<void> {
     return handleError(
       () => this.api.post(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}/funding`, body, { withCredentials: true }),
       "fundIssue",
     );
   }
 
-  async requestFunding(
-    params: dto.RequestIssueFundingParams,
-    body: dto.RequestIssueFundingBody,
-    query: dto.RequestIssueFundingQuery,
-  ): Promise<void> {
+  async requestFunding(params: dto.RequestIssueFundingParams, body: dto.RequestIssueFundingBody, _query: dto.RequestIssueFundingQuery): Promise<void> {
     return handleError(
       () =>
         this.api.post(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}/funding/requests`, body, {
@@ -166,30 +162,30 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
+  async getOwner(params: dto.GetOwnerParams, _query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
     return handleError(() => this.api.get(`${config.api.url}/github/owners/${params.owner}`, { withCredentials: true }), "getOwner");
   }
 
-  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
+  async getRepository(params: dto.GetRepositoryParams, _query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
     return handleError(() => this.api.get(`${config.api.url}/github/repos/${params.owner}/${params.repo}`, { withCredentials: true }), "getRepository");
   }
 
-  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
+  async getProject(params: dto.GetProjectParams, _query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }), "getProject");
   }
 
-  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
+  async getProjects(_params: dto.GetProjectsParams, _query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects`, { withCredentials: true }), "getProjects");
   }
 
-  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
+  async getProjectDetails(params: dto.GetProjectDetailsParams, _query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
     return handleError(
       () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}/details`, { withCredentials: true }),
       "getProjectDetails",
     );
   }
 
-  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
+  async getMaintainers(params: dto.GetMaintainersParams, _query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -198,15 +194,15 @@ class BackendAPIImpl implements BackendAPI {
     }
   }
 
-  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, _query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
+  async getSponsors(params: dto.GetSponsorsParams, _query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
     return getSponsors(params.owner, params.repo);
   }
 
-  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
+  async getPlans(_params: dto.GetPlansParams, _query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
     return handleError(() => this.api.get(`${config.api.url}/plans`, { withCredentials: true }), "getPlans");
   }
 
@@ -217,21 +213,21 @@ class BackendAPIImpl implements BackendAPI {
     return await handleError(() => this.api.get(`${config.api.url}/user/plan?${queryParams}`, { withCredentials: true }), "getUserPlan");
   }
 
-  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
+  async getCampaign(params: dto.GetCampaignParams, _query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
     return handleError(
       () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}/campaigns`, { withCredentials: true }),
       "getCampaign",
     );
   }
 
-  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, _query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
     return handleError(() => this.api.post(`${config.api.url}/stripe/checkout`, body, { withCredentials: true }), "checkout");
   }
 
   async setUserPreferredCurrency(
     params: dto.SetUserPreferredCurrencyParams,
     body: dto.SetUserPreferredCurrencyBody,
-    query: dto.SetUserPreferredCurrencyQuery,
+    _query: dto.SetUserPreferredCurrencyQuery,
   ): Promise<dto.SetUserPreferredCurrencyResponse> {
     return handleError(
       () => this.api.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
@@ -239,7 +235,7 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, _query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
@@ -249,18 +245,18 @@ class BackendAPIImpl implements BackendAPI {
   async subscribeToNewsletter(
     params: dto.NewsletterSubscriptionParams,
     body: dto.NewsletterSubscriptionBody,
-    query: dto.NewsletterSubscriptionQuery,
+    _query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse> {
     return handleError(() => this.api.post(`${config.api.url}/newsletter`, body, { withCredentials: true }), "subscribeToNewsletter");
   }
 
-  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
+  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, _query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
     return handleError(() => this.api.post(`${config.api.url}/contact`, body, { withCredentials: true }), "submitContactForm");
   }
 
   async getProjectItemsWithDetails(
-    params: dto.GetProjectItemsWithDetailsParams,
-    query: dto.GetProjectItemsWithDetailsQuery,
+    _params: dto.GetProjectItemsWithDetailsParams,
+    _query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse> {
     return handleError(() => this.api.get(`${config.api.url}/projects/items/details`, { withCredentials: true }), "getProjectItemsWithDetails");
   }

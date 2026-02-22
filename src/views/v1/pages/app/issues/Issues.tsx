@@ -19,7 +19,7 @@ interface IssuesProps {
   audience: Audience;
 }
 export function Issues(props: IssuesProps) {
-  const auth = useAuth();
+  const _auth = useAuth();
   const { data: financialIssues, isLoading, error } = projectHooks.useAllFinancialIssuesQuery({}, {});
   const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);

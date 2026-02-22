@@ -3,7 +3,7 @@ import { FeatureCard } from "./FeatureCard";
 
 interface SpiritSectionProps {}
 
-export function SpiritSection(props: SpiritSectionProps) {
+export function SpiritSection(_props: SpiritSectionProps) {
   const focusFeatures = [
     { text: "We help you get paid for your OSS work" },
     { text: "You choose: the what, the how, and the price" },

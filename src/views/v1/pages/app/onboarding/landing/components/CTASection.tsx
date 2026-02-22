@@ -4,7 +4,7 @@ import { Audience } from "src/views/index";
 
 interface CTASectionProps {}
 
-export function CTASection(props: CTASectionProps) {
+export function CTASection(_props: CTASectionProps) {
   return (
     <div className="flex px-4 sm:px-8 md:px-16 lg:px-32 xl:px-[200px] flex-col items-center gap-6 sm:gap-8 self-stretch">
       <div className="flex h-[105px] flex-col items-center gap-4 self-stretch">

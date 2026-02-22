@@ -8,7 +8,7 @@ export interface DevelopedOnboardingCompleteProps {}
  * DevelopedOnboardingComplete - Displayed after successful onboarding submission
  * Modern, streamlined design with brand colors
  */
-export default function DevelopedOnboardingComplete(props: DevelopedOnboardingCompleteProps) {
+export default function DevelopedOnboardingComplete(_props: DevelopedOnboardingCompleteProps) {
   return (
     <PageWrapper>
       <div className="min-h-screen bg-gradient-to-b from-brand-secondary via-brand-neutral-100 to-brand-secondary-dark">

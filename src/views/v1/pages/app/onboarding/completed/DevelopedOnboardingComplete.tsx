@@ -6,7 +6,7 @@ import { PageWrapper } from "../../../PageWrapper";
 
 export interface DevelopedOnboardingCompleteProps {}
 
-export default function DevelopedOnboardingComplete(props: DevelopedOnboardingCompleteProps) {
+export default function DevelopedOnboardingComplete(_props: DevelopedOnboardingCompleteProps) {
   const navigate = useNavigate();
 
   const handleBookMeeting = () => {

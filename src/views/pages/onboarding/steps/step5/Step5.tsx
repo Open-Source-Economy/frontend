@@ -23,7 +23,7 @@ export function Step5(props: Step5Props) {
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
-  const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [_currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showServiceSelectionModal, setShowServiceSelectionModal] = useState(false);
@@ -239,7 +239,7 @@ export function Step5(props: Step5Props) {
   const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
 
   // Create servicesByType for stats
-  const servicesByType = groupedDeveloperServices.reduce(
+  const _servicesByType = groupedDeveloperServices.reduce(
     (acc, group) => {
       acc[group.category] = group.developerServices;
       return acc;

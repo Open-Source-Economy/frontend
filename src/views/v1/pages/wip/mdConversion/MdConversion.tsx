@@ -6,10 +6,10 @@ import "./Blog.css";
 
 interface MdConversionProps {}
 
-export function MdConversion(props: MdConversionProps) {
+export function MdConversion(_props: MdConversionProps) {
   const filePath = "/WIP-MdConversion.md";
   const [markdownText, setMarkdownText] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(filePath)

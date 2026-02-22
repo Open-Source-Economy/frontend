@@ -26,11 +26,11 @@ export function ProjectSelection(props: ProjectSelectionProps) {
   ];
 
   // Get selected projects
-  const selectedProjects = props.projects.filter(entry =>
+  const _selectedProjects = props.projects.filter(entry =>
     props.selectedProjectItemIds.some(selectedId => selectedId.uuid === entry.developerProjectItem.id.uuid),
   );
 
-  const handleRemoveProject = (projectId: ProjectItemId) => {
+  const _handleRemoveProject = (projectId: ProjectItemId) => {
     const newSelectedProjects = props.selectedProjectItemIds.filter(id => id.uuid !== projectId.uuid);
     props.onProjectChange(newSelectedProjects);
   };

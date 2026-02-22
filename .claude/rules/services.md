@@ -35,10 +35,7 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
-    return handleError(
-      () => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }),
-      "getProject",
-    );
+    return handleError(() => this.api.get(`${config.api.url}/projects/${projectPath(params.owner, params.repo)}`, { withCredentials: true }), "getProject");
   }
 }
 ```

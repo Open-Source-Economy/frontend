@@ -8,7 +8,7 @@ import { createAddressSchema, CreateAddressFormData } from "src/views/components
 
 interface CreateAddressProps {}
 
-export function CreateAddress(props: CreateAddressProps) {
+export function CreateAddress(_props: CreateAddressProps) {
   const [error, setError] = useState<string | null>(null);
   const [createdAddressId, setCreatedAddressId] = useState<AddressId | null>(null);
 

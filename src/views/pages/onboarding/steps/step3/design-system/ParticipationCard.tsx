@@ -23,7 +23,7 @@ interface ParticipationCardProps {
 }
 
 // DRY: Layout spacing constants
-const LAYOUT = {
+const _LAYOUT = {
   BADGE_TOP: "top-4",
   ICON_SIZE: "w-14 h-14",
   ICON_INNER_SIZE: "w-7 h-7",
@@ -40,15 +40,15 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
   const { title, description, icon: Icon, features, colorScheme } = config;
   const { primary, primaryDark } = colorScheme;
 
-  const isSelected = selectedState === PreferenceType.YES;
+  const _isSelected = selectedState === PreferenceType.YES;
 
   // DRY: Helper functions for dynamic classes
   const getPrimaryClasses = (opacity?: string) => `text-${primary}${opacity ? `/${opacity}` : ""}`;
   const getBgPrimaryClasses = (opacity?: string) => `bg-${primary}${opacity ? `/${opacity}` : ""}`;
-  const getBorderPrimaryClasses = (opacity?: string) => `border-${primary}${opacity ? `/${opacity}` : ""}`;
-  const getShadowPrimaryClasses = (opacity?: string) => `shadow-${primary}${opacity ? `/${opacity}` : ""}`;
+  const _getBorderPrimaryClasses = (opacity?: string) => `border-${primary}${opacity ? `/${opacity}` : ""}`;
+  const _getShadowPrimaryClasses = (opacity?: string) => `shadow-${primary}${opacity ? `/${opacity}` : ""}`;
 
-  const getGradientBg = () => `bg-gradient-to-br from-${primary} ${primaryDark ? `to-${primaryDark}` : `to-${primary}`}`;
+  const _getGradientBg = () => `bg-gradient-to-br from-${primary} ${primaryDark ? `to-${primaryDark}` : `to-${primary}`}`;
 
   return (
     <div

@@ -54,7 +54,7 @@ function FooterAnchor({ href, external, children, className }: { href: string; e
 // -----------------------------
 // Main component
 // -----------------------------
-export function Footer(props: FooterProps) {
+export function Footer(_props: FooterProps) {
   const sections = footerContent.sections;
   const socialLinks = footerContent.social;
 

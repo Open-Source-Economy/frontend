@@ -19,14 +19,15 @@ import { projectHooks } from "src/api";
 
 interface ManageIssueProps {}
 
-export function ManageIssue(props: ManageIssueProps) {
+export function ManageIssue(_props: ManageIssueProps) {
   const audience = Audience.DEVELOPER;
   const { issueId } = useIssueContext();
   const [error, setError] = useState<ApiError | null>(null);
-  const { data: financialIssue, error: loadFinancialIssueError, refetch: reloadFinancialIssue } = projectHooks.useFinancialIssueQuery(
-    { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
-    {},
-  );
+  const {
+    data: financialIssue,
+    error: loadFinancialIssueError,
+    refetch: reloadFinancialIssue,
+  } = projectHooks.useFinancialIssueQuery({ owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number }, {});
 
   useEffect(() => {
     if (financialIssue?.issue?.closedAt) {
@@ -45,7 +46,9 @@ export function ManageIssue(props: ManageIssueProps) {
 
                 {(loadFinancialIssueError || error) && (
                   <div className="xl:mt-12">
-                    <ShowApiError error={error ? error : loadFinancialIssueError instanceof ApiError ? loadFinancialIssueError : ApiError.from(loadFinancialIssueError)} />
+                    <ShowApiError
+                      error={error ? error : loadFinancialIssueError instanceof ApiError ? loadFinancialIssueError : ApiError.from(loadFinancialIssueError)}
+                    />
                   </div>
                 )}
 

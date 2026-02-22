@@ -4,7 +4,7 @@ import danger from "src/assets/v1/danger.png";
 
 interface CardProps {}
 
-export function Card(props: CardProps) {
+export function Card(_props: CardProps) {
   const [error, setError] = useState<Error | null>(null);
   return (
     <>

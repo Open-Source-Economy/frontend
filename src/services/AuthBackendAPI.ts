@@ -92,14 +92,14 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     );
   }
 
-  async forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
+  async forgotPassword(body: dto.ForgotPasswordBody, _query: {}, _params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
     return handleError<dto.ResponseBody<dto.ForgotPasswordResponse>>(
       () => this.api.post(`${config.api.url}/auth/forgot-password`, body, { withCredentials: true }),
       "forgotPassword",
     );
   }
 
-  async resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
+  async resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, _params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
     return handleError<dto.ResponseBody<dto.ResetPasswordResponse>>(
       () => this.api.post(`${config.api.url}/auth/reset-password`, body, { withCredentials: true, params: query }),
       "resetPassword",

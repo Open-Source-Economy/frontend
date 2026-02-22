@@ -62,7 +62,7 @@ const SECTIONS = [
 
 interface HowItWorksProps {}
 
-export function HowItWorks(props: HowItWorksProps) {
+export function HowItWorks(_props: HowItWorksProps) {
   return (
     <PageWrapper>
       <div className="flex w-full flex-col items-center justify-center gap-12 md:gap-24 py-12 md:py-24">

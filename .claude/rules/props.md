@@ -10,7 +10,11 @@
 // CORRECT - use props. prefix
 export function MyComponent(props: MyComponentProps) {
   const size = props.size ?? "md";
-  return <div className={size} onClick={props.onClick}>{props.name}</div>;
+  return (
+    <div className={size} onClick={props.onClick}>
+      {props.name}
+    </div>
+  );
 }
 ```
 
@@ -19,7 +23,11 @@ export function MyComponent(props: MyComponentProps) {
 ```tsx
 // WRONG - destructured props
 export function MyComponent({ name, onClick, size = "md" }: MyComponentProps) {
-  return <div className={size} onClick={onClick}>{name}</div>;
+  return (
+    <div className={size} onClick={onClick}>
+      {name}
+    </div>
+  );
 }
 ```
 

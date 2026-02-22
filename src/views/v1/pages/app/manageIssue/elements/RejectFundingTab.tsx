@@ -3,7 +3,7 @@ import check from "src/assets/v1/checkmark.png";
 
 interface RejectFundingTabProps {}
 
-export function RejectFundingTab(props: RejectFundingTabProps) {
+export function RejectFundingTab(_props: RejectFundingTabProps) {
   return (
     <>
       <div className="px-10 md:px-12 xl:px-14 2xl:px-[70px]">

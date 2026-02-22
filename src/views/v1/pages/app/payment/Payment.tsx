@@ -5,9 +5,9 @@ import { PaymentOptions } from "src/views/v1/pages/app/payment/elements/PaymentO
 
 interface PaymentProps {}
 
-export function Payment(props: PaymentProps) {
-  const [modal, setModal] = useState(false);
-  const [counter, setCounter] = useState(10);
+export function Payment(_props: PaymentProps) {
+  const [_modal, _setModal] = useState(false);
+  const [_counter, _setCounter] = useState(10);
 
   // const inputRef = useRef<HTMLInputElement>(null);
   // const inputRef2 = useRef<HTMLInputElement>(null);

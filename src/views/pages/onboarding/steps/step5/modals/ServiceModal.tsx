@@ -34,7 +34,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   defaultRate,
   projects,
   onUpsertDeveloperService,
-  onAddProject,
+  onAddProject: _onAddProject,
 }) => {
   const upsertDeveloperService = onboardingHooks.useUpsertDeveloperServiceMutation();
 
@@ -98,7 +98,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   const service = developerServiceEntry.service;
   const serviceTypeInfo = ServiceTypeCompanion.info(service.serviceType);
   const canSave = selectedProjectIds.length > 0;
-  const displayRate = useCustomRate && hourlyRate ? parseFloat(hourlyRate) : defaultRate.amount;
+  const _displayRate = useCustomRate && hourlyRate ? parseFloat(hourlyRate) : defaultRate.amount;
 
   return (
     <BrandModal

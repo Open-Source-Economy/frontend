@@ -27,9 +27,12 @@ interface AppNavbarProps {
 export function NavbarContent(props: AppNavbarProps) {
   const auth = useAuth();
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery({}, {
-    companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
-  });
+  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+    {},
+    {
+      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+    },
+  );
   const availableCredits: Credit | null = availableCreditsResponse
     ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
     : null;
@@ -71,7 +74,7 @@ export function NavbarContent(props: AppNavbarProps) {
   const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
   const nonAuthNavbarItems: NavItemData[] = [/*Navigation.items.blog,*/ /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
 
-  const whitePaper = (
+  const _whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
       <Link to={paths.WHITE_PAPER} target="_blank">
         WHITE PAPER
@@ -79,7 +82,7 @@ export function NavbarContent(props: AppNavbarProps) {
     </Button>
   );
 
-  const supportProjects = (
+  const _supportProjects = (
     <Button audience="ALL" level="PRIMARY" size="LARGE" asChild>
       <Link to={paths.PROJECTS}>Support Projects</Link>
     </Button>

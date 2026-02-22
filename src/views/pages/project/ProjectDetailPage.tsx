@@ -41,7 +41,7 @@ export function ProjectDetailPage() {
   }, [services, serviceOfferings]);
 
   const projectName = useMemo(() => {
-    const fallbackName = owner && repo ? `${owner}/${repo}` : owner ?? repo ?? "";
+    const fallbackName = owner && repo ? `${owner}/${repo}` : (owner ?? repo ?? "");
 
     if (!projectDetails) {
       return fallbackName;

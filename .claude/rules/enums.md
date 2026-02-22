@@ -15,7 +15,7 @@ dto.MergeRightsType.FULL_COMMITTER;
 
 // WRONG - hardcoded strings
 "approved" as dto.VerificationStatus;
-"maintainer";
+("maintainer");
 "full_committer" as dto.MergeRightsType;
 ```
 

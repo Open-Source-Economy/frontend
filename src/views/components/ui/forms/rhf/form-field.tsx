@@ -14,16 +14,7 @@ interface RhfFormFieldProps<T extends FieldValues> {
   children: (field: ControllerRenderProps<T, FieldPath<T>>) => React.ReactNode;
 }
 
-export function RhfFormField<T extends FieldValues>({
-  name,
-  label,
-  required,
-  hint,
-  link,
-  className,
-  transformError,
-  children,
-}: RhfFormFieldProps<T>) {
+export function RhfFormField<T extends FieldValues>({ name, label, required, hint, link, className, transformError, children }: RhfFormFieldProps<T>) {
   const { control } = useFormContext<T>();
 
   return (

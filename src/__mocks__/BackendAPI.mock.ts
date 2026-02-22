@@ -32,12 +32,12 @@ import { getProjectAccordion } from "../services/data/accordions/getAccordions";
 import { projectItemsDatabase } from "./projectItemsData";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(_params: dto.GetIssueParams, _query: dto.GetIssueQuery): Promise<FinancialIssue> {
     const financialIssues = await this.getAllFinancialIssues({}, {});
     return financialIssues[0];
   }
 
-  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
+  async getAllFinancialIssues(_params: dto.GetIssuesParams, _query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
     const financialIssues: FinancialIssue[] = [];
 
     const requestedCreditAmount = 12;
@@ -56,11 +56,11 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse> {
+  async getAvailableCredits(_params: dto.GetAvailableCreditsParams, _query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse> {
     return Promise.resolve({ creditAmount: 60 });
   }
 
-  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void> {
+  async fundIssue(_params: dto.FundIssueParams, _body: dto.FundIssueBody, _query: dto.FundIssueQuery): Promise<void> {
     return Promise.resolve(undefined);
   }
 
@@ -68,28 +68,24 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(
-    params: dto.RequestIssueFundingParams,
-    body: dto.RequestIssueFundingBody,
-    query: dto.RequestIssueFundingQuery,
-  ): Promise<void> {
+  async requestFunding(_params: dto.RequestIssueFundingParams, _body: dto.RequestIssueFundingBody, _query: dto.RequestIssueFundingQuery): Promise<void> {
     return Promise.resolve(undefined);
   }
 
-  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
+  async getOwner(_params: dto.GetOwnerParams, _query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
     return {
       owner: owner,
     };
   }
 
-  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
+  async getRepository(_params: dto.GetRepositoryParams, _query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
     };
   }
 
-  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
+  async getProject(params: dto.GetProjectParams, _query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
     return {
       project: {
         id: ProjectUtils.getId(params.owner, params.repo),
@@ -99,7 +95,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
+  async getProjects(_params: dto.GetProjectsParams, _query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
     const repo = repository();
     return {
       projects: [
@@ -116,7 +112,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProjectDetails(params: dto.GetProjectDetailsParams, query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
+  async getProjectDetails(params: dto.GetProjectDetailsParams, _query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
     const projectItem =
       projectItemsDatabase.find(item => {
         const source = item.projectItem.sourceIdentifier;
@@ -124,7 +120,7 @@ export class BackendAPIMock implements BackendAPI {
           return source.includes(params.owner) && (!params.repo || source.includes(params.repo));
         }
         if ("ownerId" in source && "name" in source) {
-          return source.ownerId.login === params.owner && (!!params.repo ? source.name === params.repo : true);
+          return source.ownerId.login === params.owner && (params.repo ? source.name === params.repo : true);
         }
         if ("login" in source) {
           return source.login === params.owner && !params.repo;
@@ -175,7 +171,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
+  async getMaintainers(params: dto.GetMaintainersParams, _query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -184,15 +180,15 @@ export class BackendAPIMock implements BackendAPI {
     }
   }
 
-  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, _query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
+  async getSponsors(params: dto.GetSponsorsParams, _query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
     return getSponsors(params.owner, params.repo);
   }
 
-  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
+  async getCampaign(_params: dto.GetCampaignParams, _query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
     return {
       prices: getPrices(),
       raisedAmount: {
@@ -212,7 +208,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
+  async getPlans(_params: dto.GetPlansParams, _query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
     // Extract enum values properly, avoiding TypeScript enum peculiarities
     const planTypes = Object.keys(PlanProductType)
       .filter(key => isNaN(Number(key)))
@@ -262,23 +258,23 @@ export class BackendAPIMock implements BackendAPI {
     return { plans };
   }
 
-  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse> {
+  async getUserPlan(_params: dto.GetUserPlanParams, _query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse> {
     return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
   }
 
-  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
+  async checkout(_params: dto.CheckoutParams, _body: dto.CheckoutBody, _query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
     return { redirectUrl: "https://checkout.stripe.com/c/pay/cs_test_a1WpXh4fW6XG9J5vYyZ2M3Q4R5T6U7V8W9X0" };
   }
 
   async setUserPreferredCurrency(
-    params: dto.SetUserPreferredCurrencyParams,
-    body: dto.SetUserPreferredCurrencyBody,
-    query: dto.SetUserPreferredCurrencyQuery,
+    _params: dto.SetUserPreferredCurrencyParams,
+    _body: dto.SetUserPreferredCurrencyBody,
+    _query: dto.SetUserPreferredCurrencyQuery,
   ): Promise<dto.SetUserPreferredCurrencyResponse> {
     return {};
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, _query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
@@ -286,16 +282,16 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async subscribeToNewsletter(
-    params: dto.NewsletterSubscriptionParams,
-    body: dto.NewsletterSubscriptionBody,
-    query: dto.NewsletterSubscriptionQuery,
+    _params: dto.NewsletterSubscriptionParams,
+    _body: dto.NewsletterSubscriptionBody,
+    _query: dto.NewsletterSubscriptionQuery,
   ): Promise<dto.NewsletterSubscriptionResponse> {
     return Promise.resolve({ success: {} });
   }
 
   async getProjectItemsWithDetails(
-    params: dto.GetProjectItemsWithDetailsParams,
-    query: dto.GetProjectItemsWithDetailsQuery,
+    _params: dto.GetProjectItemsWithDetailsParams,
+    _query: dto.GetProjectItemsWithDetailsQuery,
   ): Promise<dto.GetProjectItemsWithDetailsResponse> {
     // Group project items by type
     const repositories = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY);
@@ -322,11 +318,11 @@ export class BackendAPIMock implements BackendAPI {
     });
   }
 
-  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
+  async submitContactForm(_params: dto.ContactFormParams, _body: dto.ContactFormBody, _query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
     return Promise.resolve({});
   }
 
-  async createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse> {
+  async createPortalSession(_body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse> {
     return Promise.resolve({ url: "https://billing.stripe.com/p/session/test_123" });
   }
 }

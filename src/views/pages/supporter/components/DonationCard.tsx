@@ -23,7 +23,7 @@ interface DonationCardProps {
 }
 
 export function DonationCard(props: DonationCardProps) {
-  const params = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
+  const _params = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
   const checkout_error = new URLSearchParams(window.location.search).get("checkout_error");
   const { preferredCurrency, setPreferredCurrency } = useCurrency();
   const displayedCurrency = displayedCurrencies[preferredCurrency];
@@ -31,7 +31,7 @@ export function DonationCard(props: DonationCardProps) {
   // Campaign query
   const {
     data: campaign,
-    isLoading: isLoadingCampaign,
+    isLoading: _isLoadingCampaign,
     error: loadCampaignQueryError,
   } = projectHooks.useCampaignQuery({ owner: openSourceEconomyProjectId.login, repo: undefined }, {});
   const loadCampaignError = loadCampaignQueryError

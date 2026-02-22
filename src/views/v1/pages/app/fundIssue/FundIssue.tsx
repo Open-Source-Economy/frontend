@@ -11,11 +11,11 @@ import { projectHooks } from "src/api";
 
 interface FundIssueProps {}
 
-export function FundIssue(props: FundIssueProps) {
+export function FundIssue(_props: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();
-  const { data: financialIssue, error: loadFinancialIssueError } = projectHooks.useFinancialIssueQuery(
+  const { data: financialIssue, error: _loadFinancialIssueError } = projectHooks.useFinancialIssueQuery(
     { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
     {},
   );

@@ -6,7 +6,7 @@ import { adminHooks } from "src/api";
 
 interface CreateCampaignProductAndPriceProps {}
 
-export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPriceProps) {
+export function CreateCampaignProductAndPrice(_props: CreateCampaignProductAndPriceProps) {
   const emptyFormData = {
     owner: "",
     repo: "",
@@ -82,11 +82,7 @@ export function CreateCampaignProductAndPrice(props: CreateCampaignProductAndPri
                 onChange={handleInputChange}
               />
 
-              <button
-                type="submit"
-                className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer"
-                disabled={createCampaignProductAndPrice.isPending}
-              >
+              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={createCampaignProductAndPrice.isPending}>
                 {createCampaignProductAndPrice.isPending ? "Creating..." : "Create Product & Price"}
               </button>
             </form>

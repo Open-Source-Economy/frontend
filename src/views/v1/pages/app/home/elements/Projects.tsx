@@ -7,7 +7,7 @@ import { projectHooks } from "src/api";
 
 interface ProjectsProps {}
 
-export function Projects(props: ProjectsProps) {
+export function Projects(_props: ProjectsProps) {
   const { data: projectsResponse, isLoading: loading, error } = projectHooks.useProjectsQuery({}, {});
   const projects = projectsResponse?.projects ?? [];
 

@@ -18,22 +18,22 @@ export function SectionHeader(props: SectionHeaderProps) {
         tooltip={
           props.subtitle?.includes("rolls over")
             ? {
-              content: "Credits roll over monthly and expire after 6 months.",
-              description: "Expired credits become donations to the project and ecosystem.",
-              link: {
-                text: "Learn more about credits →",
-                href: "#",
-              },
-            }
-            : props.subtitle?.includes("Credits vary by tier")
-              ? {
-                content: "Service credits can be used to access maintainer support, priority bug fixes, feature requests, and consultation hours.",
-                description: "Each tier provides different credit amounts to match your team's needs.",
+                content: "Credits roll over monthly and expire after 6 months.",
+                description: "Expired credits become donations to the project and ecosystem.",
                 link: {
-                  text: "Learn more about service credits →",
+                  text: "Learn more about credits →",
                   href: "#",
                 },
               }
+            : props.subtitle?.includes("Credits vary by tier")
+              ? {
+                  content: "Service credits can be used to access maintainer support, priority bug fixes, feature requests, and consultation hours.",
+                  description: "Each tier provides different credit amounts to match your team's needs.",
+                  link: {
+                    text: "Learn more about service credits →",
+                    href: "#",
+                  },
+                }
               : undefined
         }
       />

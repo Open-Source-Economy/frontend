@@ -16,7 +16,7 @@ export function Maintainers(props: MaintainersProps) {
     owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
     repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
   };
-  const { data: maintainersRes, isLoading, error } = projectHooks.useMaintainersQuery(maintainerParams, {});
+  const { data: maintainersRes, isLoading: _isLoading, error } = projectHooks.useMaintainersQuery(maintainerParams, {});
 
   if (!maintainersRes || maintainersRes.maintainers?.length === 0) {
     return null;
@@ -47,7 +47,9 @@ export function Maintainers(props: MaintainersProps) {
         <div className="xl:max-w-[98%] 1400:max-w-[90%] 1500:max-w-[84%] 3xl:!max-w-[1560px] !px-4 xl:!px-0  mx-auto text-center">
           {/* Participants List */}
           <div className="flex justify-center flex-wrap gap-14 sm:gap-8">
-            {maintainersRes.maintainers?.map((maintainer, index) => <ParticipantCard maintainer={maintainer} key={index} />)}
+            {maintainersRes.maintainers?.map((maintainer, index) => (
+              <ParticipantCard maintainer={maintainer} key={index} />
+            ))}
           </div>
 
           {/* View All Button */}

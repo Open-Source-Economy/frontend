@@ -11,7 +11,7 @@ import { plans as mockPlans, SAVINGS_PERCENTAGE } from "./components/plans-data"
 import { projectHooks } from "src/api";
 import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 
-interface PricingPageProps { }
+interface PricingPageProps {}
 
 // Helper: Check if a plan ID maps to a real product type
 const getRealProductType = (id: any): PlanProductType | undefined => {
@@ -21,7 +21,7 @@ const getRealProductType = (id: any): PlanProductType | undefined => {
   return undefined;
 };
 
-export function PricingPage(props: PricingPageProps) {
+export function PricingPage(_props: PricingPageProps) {
   const [billingCycle, setBillingCycle] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
 
   // TODO: Fetch current user plan state properly

@@ -15,7 +15,12 @@ export function MeetingRequestSection(props: MeetingRequestSectionProps) {
   return (
     <div className="p-5 bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg space-y-4">
       <div className="flex items-start gap-3">
-        <Checkbox id="requestMeeting" checked={props.requestMeeting} onCheckedChange={checked => props.onRequestMeetingChange(checked === true)} className="mt-1" />
+        <Checkbox
+          id="requestMeeting"
+          checked={props.requestMeeting}
+          onCheckedChange={checked => props.onRequestMeetingChange(checked === true)}
+          className="mt-1"
+        />
         <div className="flex-1">
           <Label htmlFor="requestMeeting" className="cursor-pointer text-brand-neutral-800 flex items-center gap-2">
             <Video className="w-4 h-4 text-brand-neutral-600" />

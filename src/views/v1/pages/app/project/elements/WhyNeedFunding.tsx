@@ -19,7 +19,7 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
     owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
     repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
   };
-  const { data: accordionRes, isLoading, error } = projectHooks.useProjectAccordionQuery(accordionParams, {});
+  const { data: accordionRes, isLoading: _isLoading, error: _error } = projectHooks.useProjectAccordionQuery(accordionParams, {});
 
   const handleToggle = (index: number): void => {
     setOpenIndex(openIndex === index ? null : index);

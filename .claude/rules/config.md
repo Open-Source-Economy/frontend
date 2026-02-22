@@ -21,9 +21,9 @@ features.devControls; // checks current environment
 
 Only in config files:
 
-| File                            | Purpose                        |
-| ------------------------------- | ------------------------------ |
-| `src/ultils/config.ts`          | Loads and validates config     |
+| File                              | Purpose                         |
+| --------------------------------- | ------------------------------- |
+| `src/ultils/config.ts`            | Loads and validates config      |
 | `src/ultils/featureVisibility.ts` | Environment-based feature flags |
 
 ## Wrong Pattern

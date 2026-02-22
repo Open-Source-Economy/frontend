@@ -15,7 +15,7 @@ export const ServiceProviderCard: React.FC<ServiceProviderCardProps> = ({ select
   const config = participationCardConfigs[ParticipationModelOption.SERVICE_PROVIDER];
   const Icon = config.icon;
   const BadgeIcon = config.badge?.icon;
-  const isSelected = selectedState === PreferenceType.YES;
+  const _isSelected = selectedState === PreferenceType.YES;
 
   return (
     <div

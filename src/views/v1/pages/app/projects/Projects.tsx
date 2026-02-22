@@ -13,7 +13,7 @@ interface ProjectsProps {}
 
 const backendAPI = getBackendAPI();
 
-export function Projects(props: ProjectsProps) {
+export function Projects(_props: ProjectsProps) {
   const repositoryQueries = useQueries({
     queries: repositoryIds.map(repositoryId => ({
       queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
@@ -21,9 +21,7 @@ export function Projects(props: ProjectsProps) {
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries
-    .filter(q => q.isSuccess && q.data)
-    .map(q => [q.data!.owner, q.data!.repository]);
+  const repositories: [Owner, Repository][] = repositoryQueries.filter(q => q.isSuccess && q.data).map(q => [q.data!.owner, q.data!.repository]);
   const error = repositoryQueries.find(q => q.error)?.error ?? null;
 
   return (
@@ -47,7 +45,7 @@ export function Projects(props: ProjectsProps) {
             {/*TODO*/}
             {error && <div>{error.message}</div>}
 
-            {repositories.map(([owner, repository], index) => (
+            {repositories.map(([owner, repository], _index) => (
               <>
                 <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={paths.campaign(repository.id)} />
               </>

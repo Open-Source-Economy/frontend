@@ -22,7 +22,7 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
   onBack,
   onCancel,
   onNext,
-  onNavItemClick,
+  onNavItemClick: _onNavItemClick,
 }) => {
   return (
     <>

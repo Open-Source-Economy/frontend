@@ -48,7 +48,7 @@ export function PasswordStep() {
     defaultValues: { password: "", confirmPassword: "", termsAccepted: false as any },
   });
 
-  const form = isRegistering ? registrationForm : loginForm;
+  const _form = isRegistering ? registrationForm : loginForm;
 
   // Recovery Logic: If deep linked or refreshed, restore account details
   useEffect(() => {
@@ -95,7 +95,11 @@ export function PasswordStep() {
     auth.register(body, query, successCallback);
   };
 
-  const checkEmailError = checkEmailMutation.error ? (checkEmailMutation.error instanceof ApiError ? checkEmailMutation.error : ApiError.from(checkEmailMutation.error)) : null;
+  const checkEmailError = checkEmailMutation.error
+    ? checkEmailMutation.error instanceof ApiError
+      ? checkEmailMutation.error
+      : ApiError.from(checkEmailMutation.error)
+    : null;
 
   if (!email || (!accountDetails && checkEmailMutation.isPending)) {
     return (

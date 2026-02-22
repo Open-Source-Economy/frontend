@@ -15,7 +15,7 @@ import { PlatformSponsors } from "./sections/supporters/PlatformSponsors";
 
 interface HomeProps {}
 
-export function HomePage(props: HomeProps) {
+export function HomePage(_props: HomeProps) {
   return (
     <PageWrapper>
       <section className="relative overflow-hidden bg-gradient-to-b from-brand-neutral-100 via-brand-secondary to-brand-secondary-dark">

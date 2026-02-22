@@ -55,7 +55,7 @@ export namespace DeveloperRoleTypeCompanion {
    * @returns Array of { value, label } objects for all developer roles
    */
   export function options(): Array<{ value: dto.DeveloperRoleType; label: string }> {
-    return Object.entries(dto.DeveloperRoleType).map(([key, value]) => ({
+    return Object.entries(dto.DeveloperRoleType).map(([_key, value]) => ({
       value: value as dto.DeveloperRoleType,
       label: label(value as dto.DeveloperRoleType),
     }));

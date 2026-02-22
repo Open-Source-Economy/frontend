@@ -10,7 +10,7 @@ import { inviteCompanyUserSchema, InviteCompanyUserFormData } from "src/views/co
 
 interface InviteCompanyUserProps {}
 
-export function InviteCompanyUser(props: InviteCompanyUserProps) {
+export function InviteCompanyUser(_props: InviteCompanyUserProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean | null>(null);
 

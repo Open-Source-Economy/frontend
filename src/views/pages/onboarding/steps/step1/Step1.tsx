@@ -93,14 +93,7 @@ export default function Step1(props: Step1Props) {
 
       <FormProvider {...form}>
         <div className="space-y-5 sm:space-y-6">
-          <RhfFormInput<OnboardingStep1FormData>
-            name="name"
-            label="Full Name"
-            placeholder="Jane Doe"
-            leftIcon={User}
-            disabled={isLoading}
-            required
-          />
+          <RhfFormInput<OnboardingStep1FormData> name="name" label="Full Name" placeholder="Jane Doe" leftIcon={User} disabled={isLoading} required />
 
           <RhfFormInput<OnboardingStep1FormData>
             name="contactEmail"

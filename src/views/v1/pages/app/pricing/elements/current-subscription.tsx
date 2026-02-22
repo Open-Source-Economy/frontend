@@ -58,7 +58,12 @@ export function CurrentSubscription(props: CurrentSubscriptionProps) {
 
       <Card className="lg:col-span-3" data-aos="fade-up" data-aos-delay="100">
         <CardHeader icon={PaymentInfoIcon} title="Payment Info" action={props.onEditPayment ? { label: "Edit", onClick: props.onEditPayment } : undefined} />
-        <PaymentInfo cardType={props.payment.cardType} lastFourDigits={props.payment.lastFourDigits} expiryDate={props.payment.expiryDate} onEdit={props.onEditPayment} />
+        <PaymentInfo
+          cardType={props.payment.cardType}
+          lastFourDigits={props.payment.lastFourDigits}
+          expiryDate={props.payment.expiryDate}
+          onEdit={props.onEditPayment}
+        />
       </Card>
 
       <Card className="lg:col-span-3" data-aos="fade-up" data-aos-delay="200">

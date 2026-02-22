@@ -8,7 +8,7 @@ import { paths } from "src/paths";
 
 interface AuthenticationProps {}
 
-export function Authentication(props: AuthenticationProps) {
+export function Authentication(_props: AuthenticationProps) {
   const { preferredCurrency, showCurrencyModal, setShowCurrencyModal } = useCurrency();
   return (
     <div className="flex items-center gap-3">

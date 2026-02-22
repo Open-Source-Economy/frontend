@@ -4,7 +4,7 @@ import { useAuth } from "src/views/auth";
 
 interface TopNavbarProps {}
 
-export function TopNavbar(props: TopNavbarProps) {
+export function TopNavbar(_props: TopNavbarProps) {
   const auth = useAuth();
 
   if (auth.loading) return <></>;

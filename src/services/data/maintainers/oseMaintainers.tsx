@@ -1,7 +1,7 @@
 import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
 import { Maintainer } from "@open-source-economy/api-types";
 
-const lauriane: Maintainer = {
+const _lauriane: Maintainer = {
   displayName: "Lauriane Mollier",
   githubUsername: "laurianemollier",
   githubAvatar: "https://avatars.githubusercontent.com/u/6135171?v=4",

@@ -36,7 +36,7 @@ export function Pricing(props: PricingProps) {
   const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
-  const [error, setError] = useState<ApiError | null>(null); // TODO: Display error
+  const [_error, setError] = useState<ApiError | null>(null); // TODO: Display error
 
   const handleCheckout = async (price: StripePrice) => {
     try {

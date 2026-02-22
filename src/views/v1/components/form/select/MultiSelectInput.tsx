@@ -171,7 +171,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
       {/* Dropdown Options */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-[#202F45] rounded-md z-50 border border-[#202F45] max-h-[400px] overflow-y-auto">
-          {options.map((option, index) => {
+          {options.map((option, _index) => {
             let isSelected = value.includes(option.value);
 
             // For "All projects" option, check if all projects are selected

@@ -633,10 +633,10 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   const onNavigation = props.onNavigation;
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
-  const [selectedStatus, setSelectedStatus] = React.useState<string>("all");
+  const [selectedStatus, _setSelectedStatus] = React.useState<string>("all");
   const [selectedMaintainerType, setSelectedMaintainerType] = React.useState<string>("all");
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>("all");
-  const [showAll, setShowAll] = React.useState(false);
+  const [showAll, _setShowAll] = React.useState(false);
   const [expandedCategories, setExpandedCategories] = React.useState<Set<string>>(new Set());
 
   // Filter and search logic
@@ -686,7 +686,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
     return cats.sort();
   }, [projects]);
 
-  const maintainerTypes = React.useMemo(() => {
+  const _maintainerTypes = React.useMemo(() => {
     const types = new Set<string>();
     projects.forEach(p => {
       if (p.primaryMaintainerType) types.add(p.primaryMaintainerType);
@@ -1106,7 +1106,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                             {/* Maintainer Types */}
                             <div className="flex flex-wrap gap-1.5">
                               {project.maintainerTypes && project.maintainerTypes.length > 0 ? (
-                                project.maintainerTypes.slice(0, 2).map((type, index) => (
+                                project.maintainerTypes.slice(0, 2).map((type, _index) => (
                                   <Badge
                                     key={type}
                                     variant="outline"
@@ -1147,7 +1147,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                               </Badge>
                             )}
                             {project.supportedEcosystems &&
-                              project.supportedEcosystems.slice(0, 2).map((ecosystem, index) => (
+                              project.supportedEcosystems.slice(0, 2).map((ecosystem, _index) => (
                                 <Badge
                                   key={ecosystem}
                                   variant="outline"
@@ -1240,7 +1240,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
               { label: "Combined Stars", value: stats.totalStars, icon: Star },
               { label: "Expert Maintainers", value: stats.totalMaintainers, icon: Users },
               { label: "Featured Projects", value: stats.featuredProjects, icon: TrendingUp },
-            ].map((stat, index) => (
+            ].map((stat, _index) => (
               <div key={stat.label} className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-brand-accent/5 rounded-xl blur-sm group-hover:blur-none transition-all duration-300" />
                 <div className="relative p-6 bg-background/80 backdrop-blur-sm border border-brand-primary/10 rounded-xl hover:border-brand-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/5">

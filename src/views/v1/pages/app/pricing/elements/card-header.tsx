@@ -20,7 +20,11 @@ export function CardHeader(props: SectionHeaderProps) {
         <h2 className="text-theme-pink font-michroma text-lg -mt-1">{props.title}</h2>
       </div>
       {props.action && (
-        <button type="button" onClick={props.action.onClick} className="text-white flex items-center gap-1 hover:text-[#FF57D5] transition-colors hover:underline">
+        <button
+          type="button"
+          onClick={props.action.onClick}
+          className="text-white flex items-center gap-1 hover:text-[#FF57D5] transition-colors hover:underline"
+        >
           {props.action.label} <ArrowRight className="w-4 h-4" />
         </button>
       )}

@@ -22,7 +22,7 @@ export function Step5(props: Step5Props) {
   const [localError, setLocalError] = useState<string | null>(null);
 
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
-  const [currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
+  const [_currentService, setCurrentService] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showDeleteDeveloperServiceModal, setShowDeleteDeveloperServiceModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<dto.DeveloperServiceEntry | null>(null);
   const [showServiceSelectionModal, setShowServiceSelectionModal] = useState(false);

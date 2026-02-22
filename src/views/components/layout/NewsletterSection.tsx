@@ -10,7 +10,7 @@ import { newsletterFormSchema, type NewsletterFormData } from "../ui/forms/schem
 
 interface NewsletterSectionProps {}
 
-export function NewsletterSection(props: NewsletterSectionProps) {
+export function NewsletterSection(_props: NewsletterSectionProps) {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const form = useZodForm(newsletterFormSchema, {
@@ -18,7 +18,11 @@ export function NewsletterSection(props: NewsletterSectionProps) {
   });
 
   const newsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
-  const error = newsletterMutation.error ? (newsletterMutation.error instanceof ApiError ? newsletterMutation.error : ApiError.from(newsletterMutation.error)) : null;
+  const error = newsletterMutation.error
+    ? newsletterMutation.error instanceof ApiError
+      ? newsletterMutation.error
+      : ApiError.from(newsletterMutation.error)
+    : null;
 
   const handleSubscribe = async (data: NewsletterFormData) => {
     try {

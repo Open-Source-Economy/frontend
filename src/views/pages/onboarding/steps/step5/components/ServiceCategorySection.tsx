@@ -25,7 +25,7 @@ export const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({
   onRemoveDeveloperService,
   onEditDeveloperService,
   showAddCustomService,
-  onAddCustomService,
+  onAddCustomService: _onAddCustomService,
   showError,
 }) => {
   const serviceTypeInfo = ServiceTypeCompanion.info(groupedEntry.category);

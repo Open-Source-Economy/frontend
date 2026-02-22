@@ -74,13 +74,13 @@ const apiError = error ? (error instanceof ApiError ? error : ApiError.from(erro
 
 ## Hook Feature Files
 
-| File | Export | Purpose |
-|------|--------|---------|
-| `project.hooks.ts` | `projectHooks` | Projects, issues, sponsors, plans, campaigns |
-| `auth.hooks.ts` | `authHooks` | Login, register, logout, invites, password reset |
-| `onboarding.hooks.ts` | `onboardingHooks` | Developer onboarding profile |
-| `admin.hooks.ts` | `adminHooks` | Admin operations, sync, invites |
-| `stripe.hooks.ts` | `stripeHooks` | Checkout, portal sessions |
+| File                  | Export            | Purpose                                          |
+| --------------------- | ----------------- | ------------------------------------------------ |
+| `project.hooks.ts`    | `projectHooks`    | Projects, issues, sponsors, plans, campaigns     |
+| `auth.hooks.ts`       | `authHooks`       | Login, register, logout, invites, password reset |
+| `onboarding.hooks.ts` | `onboardingHooks` | Developer onboarding profile                     |
+| `admin.hooks.ts`      | `adminHooks`      | Admin operations, sync, invites                  |
+| `stripe.hooks.ts`     | `stripeHooks`     | Checkout, portal sessions                        |
 
 ## Rules
 

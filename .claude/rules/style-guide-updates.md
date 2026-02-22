@@ -6,10 +6,10 @@ When the user asks to change a coding convention or style rule:
 
 ### 1. Update the Rules
 
-| File                         | Purpose                    |
-| ---------------------------- | -------------------------- |
-| `.claude/rules/*.md`         | AI-readable, compact rules |
-| `.claude/CLAUDE.md`          | Project-level instructions |
+| File                 | Purpose                    |
+| -------------------- | -------------------------- |
+| `.claude/rules/*.md` | AI-readable, compact rules |
+| `.claude/CLAUDE.md`  | Project-level instructions |
 
 ### 2. Update Steps
 
@@ -20,12 +20,12 @@ When the user asks to change a coding convention or style rule:
 
 ### 3. File Mapping
 
-| Topic        | .claude/rules/ File      |
-| ------------ | ------------------------ |
-| Code quality | code-quality.md          |
-| Config       | config.md                |
-| Enums        | enums.md                 |
-| Barrels      | barrels.md               |
+| Topic        | .claude/rules/ File |
+| ------------ | ------------------- |
+| Code quality | code-quality.md     |
+| Config       | config.md           |
+| Enums        | enums.md            |
+| Barrels      | barrels.md          |
 
 ### 4. Example
 

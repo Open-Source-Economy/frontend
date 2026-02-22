@@ -13,7 +13,7 @@ import { paths } from "../../../../../paths";
 
 interface CompanyProductProps {}
 
-export function CompanyProduct(props: CompanyProductProps) {
+export function CompanyProduct(_props: CompanyProductProps) {
   const buttonPaths: { [key in ServiceType]?: string } = {
     [ServiceType.DEVELOPMENT]: paths.DASHBOARD,
     // [ServiceType.OPERATION]: paths.DASHBOARD,

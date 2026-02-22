@@ -16,7 +16,7 @@ import { getCampaignDescription } from "src/services/data";
 
 interface CampaignProps {}
 
-export function Campaign(props: CampaignProps) {
+export function Campaign(_props: CampaignProps) {
   const { projectId } = useProjectContext();
 
   const projectParams = {

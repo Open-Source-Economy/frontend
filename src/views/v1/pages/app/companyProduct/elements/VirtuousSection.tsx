@@ -6,7 +6,7 @@ import { VirtuousCard } from "./VirtuousCard";
 
 interface VirtuousSectionProps {}
 
-export function VirtuousSection(props: VirtuousSectionProps) {
+export function VirtuousSection(_props: VirtuousSectionProps) {
   return (
     <main className="relative w-full">
       {/* ====== BOTTOM LINEAR BACKGROUND ========= */}

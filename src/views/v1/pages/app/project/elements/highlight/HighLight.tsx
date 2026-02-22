@@ -6,7 +6,7 @@ import { DividerTitle } from "src/views/v1/components";
 
 interface HighlightProps {}
 
-export function Highlight(props: HighlightProps) {
+export function Highlight(_props: HighlightProps) {
   return (
     <section className="relative pt-10 md:pt-16 3xl:pt-20 pb-10 2xl:pb-28">
       {/* ==== LEFT LINEAR BACKGROUND ==== */}

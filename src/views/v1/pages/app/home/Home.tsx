@@ -6,7 +6,7 @@ import { config, Env } from "src/ultils";
 
 interface HomeProps {}
 
-export function Home(props: HomeProps) {
+export function Home(_props: HomeProps) {
   return (
     <PageWrapper>
       <div className="boxlayer mt-[20px]">

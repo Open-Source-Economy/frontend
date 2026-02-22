@@ -11,7 +11,7 @@ interface ProgressStepProps {
   isCompleted: boolean;
 }
 
-function ProgressStep({ step, label, isActive, isCompleted }: ProgressStepProps) {
+function ProgressStep({ step: _step, label, isActive, isCompleted }: ProgressStepProps) {
   return (
     <div className="box-border content-stretch flex flex-col gap-1 items-start justify-center p-0 relative shrink-0 w-[140px]">
       <div
@@ -41,7 +41,7 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
 
   return (
     <div className="box-border content-stretch flex flex-row items-center justify-between p-0 relative w-[900px] mx-auto">
-      {steps.map((stepData, index) => (
+      {steps.map((stepData, _index) => (
         <React.Fragment key={stepData.step}>
           <ProgressStep step={stepData.step} label={stepData.label} isActive={currentStep === stepData.step} isCompleted={currentStep > stepData.step} />
         </React.Fragment>
