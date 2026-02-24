@@ -34,11 +34,15 @@ export function EditServiceModal(props: EditServiceModalProps) {
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
 
   const [selectedDeveloperProjectItemIds, setSelectedDeveloperProjectItemIds] = useState<dto.DeveloperProjectItemId[]>(
-    props.developerServiceEntry.developerService?.developerProjectItemIds || [],
+    props.developerServiceEntry.developerService?.developerProjectItemIds || []
   );
-  const [hourlyRate, setHourlyRate] = useState<number | null>(props.developerServiceEntry.developerService?.hourlyRate || null);
+  const [hourlyRate, setHourlyRate] = useState<number | null>(
+    props.developerServiceEntry.developerService?.hourlyRate || null
+  );
 
-  const [responseTime, setResponseTime] = useState<dto.ResponseTimeType | null>(props.developerServiceEntry.developerService?.responseTimeHours || null);
+  const [responseTime, setResponseTime] = useState<dto.ResponseTimeType | null>(
+    props.developerServiceEntry.developerService?.responseTimeHours || null
+  );
   const [comment, setComment] = useState<string | null>(props.developerServiceEntry.developerService?.comment || null);
   const [_inputError, setInputError] = useState<string | null>(null);
 
@@ -111,20 +115,30 @@ export function EditServiceModal(props: EditServiceModalProps) {
 
   return (
     <>
-      <ModalBackdrop isOpen={props.isOpen} onClose={props.onClose} className="relative w-full max-w-[800px] mx-4 bg-[#0E1F35] rounded-[50px] p-9">
+      <ModalBackdrop
+        isOpen={props.isOpen}
+        onClose={props.onClose}
+        className="relative w-full max-w-[800px] mx-4 bg-[#0E1F35] rounded-[50px] p-9"
+      >
         {/* Header */}
         <div className="flex flex-col items-start gap-4 self-stretch mb-8">
           <div className="flex items-center gap-2.5 self-stretch">
-            <div className="flex-1 text-[#FF7E4B] font-montserrat text-base font-normal leading-[150%]">Open Source Development</div>
+            <div className="flex-1 text-[#FF7E4B] font-montserrat text-base font-normal leading-[150%]">
+              Open Source Development
+            </div>
             <button onClick={props.onClose} className="flex w-6 h-6 items-center justify-center">
               <CloseIcon className="w-6 h-6" />
             </button>
           </div>
           <div className="flex justify-center items-center gap-2.5 self-stretch">
-            <h2 className="flex-1 text-white font-michroma text-[28px] font-normal leading-[130%]">{props.developerServiceEntry.service.name}</h2>
+            <h2 className="flex-1 text-white font-michroma text-[28px] font-normal leading-[130%]">
+              {props.developerServiceEntry.service.name}
+            </h2>
           </div>
           <div className="flex justify-center items-center gap-2.5 self-stretch">
-            <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">Configure this service for your projects.</p>
+            <p className="flex-1 text-white font-montserrat text-lg font-normal leading-[150%] opacity-60">
+              Configure this service for your projects.
+            </p>
           </div>
         </div>
 
@@ -159,11 +173,13 @@ export function EditServiceModal(props: EditServiceModalProps) {
           )}
         </div>
 
-        {props.developerServiceEntry.service.hasResponseTime && <ResponseTimeSection value={responseTime} onChange={setResponseTime} />}
+        {props.developerServiceEntry.service.hasResponseTime && (
+          <ResponseTimeSection value={responseTime} onChange={setResponseTime} />
+        )}
 
         {showComments && (
           <CommentSection
-            onToggle={() => setShowComments(prev => !prev)}
+            onToggle={() => setShowComments((prev) => !prev)}
             onClose={() => setShowComments(false)}
             show={showComments}
             value={comment || ""}
@@ -175,7 +191,10 @@ export function EditServiceModal(props: EditServiceModalProps) {
 
         {/* Bottom Actions */}
         <div className="flex justify-end items-center gap-6 self-stretch mt-8">
-          <button onClick={() => setShowComments(prev => !prev)} className="w-12 h-12 flex items-center justify-center hover:opacity-70 transition-opacity">
+          <button
+            onClick={() => setShowComments((prev) => !prev)}
+            className="w-12 h-12 flex items-center justify-center hover:opacity-70 transition-opacity"
+          >
             <CommentIcon />
           </button>
           <button
@@ -191,7 +210,11 @@ export function EditServiceModal(props: EditServiceModalProps) {
       </ModalBackdrop>
 
       {/* Project Not On List Confirmation Modal */}
-      <ProjectNotOnListModal isOpen={showProjectNotOnListModal} onClose={handleCancelAddProject} onConfirm={handleConfirmAddProject} />
+      <ProjectNotOnListModal
+        isOpen={showProjectNotOnListModal}
+        onClose={handleCancelAddProject}
+        onConfirm={handleConfirmAddProject}
+      />
     </>
   );
 }

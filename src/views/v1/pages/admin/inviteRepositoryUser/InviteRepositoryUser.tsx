@@ -86,7 +86,9 @@ export function InviteRepositoryUser() {
                   id="sendEmail"
                   className="mr-2 h-4 w-4 text-blue-600 bg-[#202F45] border-0"
                   checked={sendEmail}
-                  onChange={e => form.setValue("sendEmail", e.target.checked, { shouldValidate: form.formState.isSubmitted })}
+                  onChange={(e) =>
+                    form.setValue("sendEmail", e.target.checked, { shouldValidate: form.formState.isSubmitted })
+                  }
                 />
                 <label htmlFor="sendEmail" className="text-white">
                   Send email invitation
@@ -99,7 +101,9 @@ export function InviteRepositoryUser() {
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("githubOwnerLogin")}
               />
-              {formErrors.githubOwnerLogin && <p className="text-red-500 text-sm mb-2">{formErrors.githubOwnerLogin.message}</p>}
+              {formErrors.githubOwnerLogin && (
+                <p className="text-red-500 text-sm mb-2">{formErrors.githubOwnerLogin.message}</p>
+              )}
 
               <input
                 type="text"
@@ -107,7 +111,9 @@ export function InviteRepositoryUser() {
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("repositoryOwnerLogin")}
               />
-              {formErrors.repositoryOwnerLogin && <p className="text-red-500 text-sm mb-2">{formErrors.repositoryOwnerLogin.message}</p>}
+              {formErrors.repositoryOwnerLogin && (
+                <p className="text-red-500 text-sm mb-2">{formErrors.repositoryOwnerLogin.message}</p>
+              )}
 
               <input
                 type="text"
@@ -115,7 +121,9 @@ export function InviteRepositoryUser() {
                 className="w-[100%] sm:w-[400px] border-0 outline-none bg-[#202F45] text-[#ffffff] text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("repositoryName")}
               />
-              {formErrors.repositoryName && <p className="text-red-500 text-sm mb-2">{formErrors.repositoryName.message}</p>}
+              {formErrors.repositoryName && (
+                <p className="text-red-500 text-sm mb-2">{formErrors.repositoryName.message}</p>
+              )}
 
               <input
                 type="number"
@@ -132,7 +140,7 @@ export function InviteRepositoryUser() {
                 {...form.register("currency")}
               >
                 <option value="">Select Currency</option>
-                {Object.values(Currency).map(currency => (
+                {Object.values(Currency).map((currency) => (
                   <option key={currency} value={currency}>
                     {currency}
                   </option>

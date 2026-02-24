@@ -13,7 +13,12 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
   const [showComment, setShowComment] = useState(false);
 
   const commentButtonComponent = (
-    <CommentInput isExpanded={false} onToggle={() => setShowComment(!showComment)} value={props.commentValue} onChange={props.onCommentChange} />
+    <CommentInput
+      isExpanded={false}
+      onToggle={() => setShowComment(!showComment)}
+      value={props.commentValue}
+      onChange={props.onCommentChange}
+    />
   );
 
   return (
@@ -28,7 +33,11 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
       {/* Content Section */}
       <div className="flex flex-col items-start gap-3 self-stretch">
         {/* Subtitle */}
-        {props.subtitle && <div className="text-white font-montserrat text-base font-normal leading-[1.5] opacity-60">{props.subtitle}</div>}
+        {props.subtitle && (
+          <div className="text-white font-montserrat text-base font-normal leading-[1.5] opacity-60">
+            {props.subtitle}
+          </div>
+        )}
 
         {/* Main Content - passed as children render prop with comment button */}
         {props.children(showComment, commentButtonComponent)}
@@ -38,7 +47,7 @@ export function OnboardingSectionWrapper(props: OnboardingSectionWrapperProps) {
           <div className="flex min-h-12 items-start gap-2 self-stretch rounded-md bg-[#202F45] p-3 relative">
             <textarea
               value={props.commentValue}
-              onChange={e => props.onCommentChange(e.target.value)}
+              onChange={(e) => props.onCommentChange(e.target.value)}
               placeholder="Comments (only visible to Open Source Economy team)"
               className="w-full bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 border-none resize-y"
               style={{

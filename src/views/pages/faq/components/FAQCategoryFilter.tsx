@@ -14,17 +14,20 @@ export function FAQCategoryFilter(props: FAQCategoryFilterProps) {
       "px-4 py-2 rounded-lg border transition-all",
       isSelected
         ? "bg-brand-accent border-brand-accent text-white"
-        : "bg-brand-card-blue border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50",
+        : "bg-brand-card-blue border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50"
     );
 
   return (
     <section className="bg-brand-secondary py-6 border-b border-brand-neutral-300 sticky top-0 z-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <div className="flex flex-wrap gap-2 justify-center">
-          <button onClick={() => props.onCategoryChange(null)} className={getButtonClasses(props.selectedCategory === null)}>
+          <button
+            onClick={() => props.onCategoryChange(null)}
+            className={getButtonClasses(props.selectedCategory === null)}
+          >
             All Topics
           </button>
-          {faqData.map(category => {
+          {faqData.map((category) => {
             const Icon = iconMap[category.icon];
             const isSelected = props.selectedCategory === category.category;
             return (

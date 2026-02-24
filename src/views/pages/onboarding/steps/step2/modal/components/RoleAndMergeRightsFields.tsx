@@ -21,7 +21,7 @@ export function RoleAndMergeRightsFields(props: RoleAndMergeRightsFieldsProps) {
         required
         options={DeveloperRoleTypeCompanion.options()}
         value={props.selectedRole || ""}
-        onChange={value => props.onRoleChange(value as DeveloperRoleType)}
+        onChange={(value) => props.onRoleChange(value as DeveloperRoleType)}
         error={props.roleError}
       />
 
@@ -30,7 +30,7 @@ export function RoleAndMergeRightsFields(props: RoleAndMergeRightsFieldsProps) {
         required
         options={MergeRightsTypeCompanion.options()}
         value={props.selectedMergeRights || ""}
-        onChange={value => props.onMergeRightsChange(value as MergeRightsType)}
+        onChange={(value) => props.onMergeRightsChange(value as MergeRightsType)}
         error={props.mergeRightsError}
       />
     </div>

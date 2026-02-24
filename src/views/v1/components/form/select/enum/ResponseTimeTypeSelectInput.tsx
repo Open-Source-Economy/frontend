@@ -10,19 +10,22 @@ interface ResponseTimeTypeSelectInputProps extends Omit<BaseProps, "label"> {
   label?: string;
 }
 
-const options: SelectOption[] = Object.values(ResponseTimeType).map(value => ({
+const options: SelectOption[] = Object.values(ResponseTimeType).map((value) => ({
   value,
   label: value,
 }));
 
-export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(props: ResponseTimeTypeSelectInputProps, ref: Ref<SelectInputRef>) {
+export const ResponseTimeTypeSelectInput = forwardRef(function ResponseTimeTypeSelectInput(
+  props: ResponseTimeTypeSelectInputProps,
+  ref: Ref<SelectInputRef>
+) {
   return (
     <SelectInput
       ref={ref}
       label={props.label || "Response Time"}
       required={props.required}
       value={props.value || ""}
-      onChange={e => props.onChange(e.target.value ? (e.target.value as ResponseTimeType) : null)}
+      onChange={(e) => props.onChange(e.target.value ? (e.target.value as ResponseTimeType) : null)}
       options={options}
     />
   );

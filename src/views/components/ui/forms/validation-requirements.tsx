@@ -41,12 +41,14 @@ export function RequirementsIndicator(props: RequirementsIndicatorProps) {
   // Don't show if no requirements or all requirements are met
   if (!props.validation.requirements || props.validation.requirements.length === 0) return null;
 
-  const allMet = props.validation.requirements.every(req => req.met);
+  const allMet = props.validation.requirements.every((req) => req.met);
   if (allMet) return null;
 
   return (
     <div className={`mt-2 space-y-1.5 ${className}`}>
-      {props.validation.title && <p className="text-xs font-medium text-brand-neutral-600 mb-1.5">{props.validation.title}</p>}
+      {props.validation.title && (
+        <p className="text-xs font-medium text-brand-neutral-600 mb-1.5">{props.validation.title}</p>
+      )}
       <div className="space-y-1">
         {props.validation.requirements.map((req, index) => (
           <div key={index} className="flex items-center gap-2 text-xs">

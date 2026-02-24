@@ -17,15 +17,18 @@ export function CategoryInput(props: CategoryInputProps) {
   const hint = props.hint ?? "Select from suggestions or type your own. You can add multiple categories.";
 
   const allCategories = useMemo(() => {
-    return [...props.predefinedCategories.map(category => ProjectCategoryCompanion.toLabel(category)), ...props.customCategories];
+    return [
+      ...props.predefinedCategories.map((category) => ProjectCategoryCompanion.toLabel(category)),
+      ...props.customCategories,
+    ];
   }, [props.predefinedCategories, props.customCategories]);
 
   const handleChange = (allValues: string[]) => {
     const predefined: ProjectCategory[] = [];
     const custom: string[] = [];
 
-    allValues.forEach(item => {
-      const enumValue = Object.values(ProjectCategory).find(cat => ProjectCategoryCompanion.toLabel(cat) === item);
+    allValues.forEach((item) => {
+      const enumValue = Object.values(ProjectCategory).find((cat) => ProjectCategoryCompanion.toLabel(cat) === item);
       if (enumValue) {
         predefined.push(enumValue);
       } else {
@@ -38,8 +41,8 @@ export function CategoryInput(props: CategoryInputProps) {
 
   const suggestions = useMemo(() => {
     return Object.values(ProjectCategory)
-      .filter(category => !props.predefinedCategories.includes(category))
-      .map(category => ProjectCategoryCompanion.toLabel(category));
+      .filter((category) => !props.predefinedCategories.includes(category))
+      .map((category) => ProjectCategoryCompanion.toLabel(category));
   }, [props.predefinedCategories]);
 
   return (

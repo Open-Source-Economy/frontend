@@ -20,7 +20,7 @@ export function TermsCheckbox(props: TermsCheckboxProps) {
         <Checkbox
           id="terms"
           checked={props.checked}
-          onCheckedChange={checkedState => props.onCheckedChange(checkedState === true)}
+          onCheckedChange={(checkedState) => props.onCheckedChange(checkedState === true)}
           className={`mt-0.5 ${hasError ? "border-brand-error" : ""}`}
         />
         <div className="flex-1">

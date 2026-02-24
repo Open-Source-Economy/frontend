@@ -19,15 +19,22 @@ export function MobileNavSubmenu(props: MobileNavSubmenuProps) {
   return (
     <div className="border-b border-border/30">
       {/* Accordion Header */}
-      <button onClick={() => setIsExpanded(!isExpanded)} className="w-full flex items-center justify-between px-4 py-3 hover:bg-surface/50 transition-colors">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-surface/50 transition-colors"
+      >
         <span className={titleClassName}>{props.title}</span>
-        {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+        {isExpanded ? (
+          <ChevronUp className="w-4 h-4 text-muted-foreground" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+        )}
       </button>
 
       {/* Accordion Content */}
       {isExpanded && (
         <div className="pl-6 pr-4 pt-2 pb-3 space-y-1">
-          {props.items.map(item => (
+          {props.items.map((item) => (
             <Link
               key={item.href}
               to={item.href as string}

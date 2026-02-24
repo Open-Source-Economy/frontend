@@ -34,20 +34,20 @@ export function CreateProject() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleBulkInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setBulkFormData(prev => ({ ...prev, [name]: value }));
+    setBulkFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const parseGithubUrls = (urls: string): Array<{ owner: string; repo?: string }> => {
     return urls
       .split(",")
-      .map(url => url.trim())
-      .filter(url => url.length > 0)
-      .map(url => {
+      .map((url) => url.trim())
+      .filter((url) => url.length > 0)
+      .map((url) => {
         // Remove trailing slash if present
         const cleanUrl = url.replace(/\/$/, "");
 
@@ -139,13 +139,15 @@ export function CreateProject() {
           results.push(`OK ${project.owner}${project.repo ? `/${project.repo}` : ""}: Created successfully`);
         } catch (error) {
           const apiError = error instanceof ApiError ? error : ApiError.from(error);
-          results.push(`FAIL ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${apiError.statusCode} - ${apiError.message}`);
+          results.push(
+            `FAIL ${project.owner}${project.repo ? `/${project.repo}` : ""}: ${apiError.statusCode} - ${apiError.message}`
+          );
         }
       }
 
       // Show results summary
-      const successCount = results.filter(r => r.startsWith("OK")).length;
-      const failureCount = results.filter(r => r.startsWith("FAIL")).length;
+      const successCount = results.filter((r) => r.startsWith("OK")).length;
+      const failureCount = results.filter((r) => r.startsWith("FAIL")).length;
 
       if (failureCount > 0) {
         setError(`Completed with ${successCount} successes and ${failureCount} failures:\n${results.join("\n")}`);
@@ -228,7 +230,9 @@ export function CreateProject() {
                 </button>
 
                 {error && <p className="text-red-500 mt-4 text-center whitespace-pre-line">{error}</p>}
-                {success && <p className="text-green-500 mt-4 text-center font-medium">Project created successfully!</p>}
+                {success && (
+                  <p className="text-green-500 mt-4 text-center font-medium">Project created successfully!</p>
+                )}
               </form>
             ) : (
               <form
@@ -245,7 +249,9 @@ export function CreateProject() {
                     onChange={handleBulkInputChange}
                     required
                   />
-                  <p className="text-gray-400 text-xs mt-1">Supported formats: https://github.com/owner/repo or https://github.com/owner</p>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Supported formats: https://github.com/owner/repo or https://github.com/owner
+                  </p>
                 </div>
 
                 <button
@@ -256,8 +262,12 @@ export function CreateProject() {
                   {isSubmitting ? "Creating Projects..." : "Create Projects"}
                 </button>
 
-                {error && <p className="text-red-500 mt-4 text-center whitespace-pre-line text-sm max-w-[500px]">{error}</p>}
-                {success && <p className="text-green-500 mt-4 text-center font-medium">All projects created successfully!</p>}
+                {error && (
+                  <p className="text-red-500 mt-4 text-center whitespace-pre-line text-sm max-w-[500px]">{error}</p>
+                )}
+                {success && (
+                  <p className="text-green-500 mt-4 text-center font-medium">All projects created successfully!</p>
+                )}
               </form>
             )}
           </div>

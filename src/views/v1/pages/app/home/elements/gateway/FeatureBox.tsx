@@ -35,7 +35,9 @@ export function FeatureBox(props: FeatureBoxProps) {
         <h1 className="font-mich text-[28px] font-[400] lg:text-[36px]">
           {props.audience ? <span className={textColorVariants[props.audience]}>{props.title}</span> : props.title}
         </h1>
-        <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">{props.description}</h2>
+        <h2 className="font-most mt-[20px] w-full text-[16px] font-[400] leading-[1.5] max-[1279px]:text-center">
+          {props.description}
+        </h2>
         {props.buttonText && props.buttonPath && (
           <div className="mt-[42px]">
             <Button audience={props.audience} level="PRIMARY" size="MEDIUM" asChild>

@@ -8,7 +8,12 @@ interface ParticipationFeatureItemProps {
   variant?: "default" | "compact";
 }
 
-export const ParticipationFeatureItem: React.FC<ParticipationFeatureItemProps> = ({ icon: Icon, title, description, variant = "default" }) => {
+export const ParticipationFeatureItem: React.FC<ParticipationFeatureItemProps> = ({
+  icon: Icon,
+  title,
+  description,
+  variant = "default",
+}) => {
   if (variant === "compact") {
     return (
       <div className="flex items-center gap-2">

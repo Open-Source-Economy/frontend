@@ -29,7 +29,14 @@ export function SpiritSection(_props: SpiritSectionProps) {
           <h2 className="self-stretch text-white text-center font-michroma text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal leading-[130%]">
             The Spirit
           </h2>
-          <svg className="w-[500px] h-0" width="502" height="2" viewBox="0 0 502 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="w-[500px] h-0"
+            width="502"
+            height="2"
+            viewBox="0 0 502 2"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M1 1H501" stroke="#FF7E4B" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </div>

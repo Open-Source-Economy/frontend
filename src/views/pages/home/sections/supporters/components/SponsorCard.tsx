@@ -58,7 +58,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({ sponsor }) => {
               src={`https://logo.clearbit.com/${sponsor.domain}`}
               alt={`${sponsor.name} logo`}
               className="h-12 w-12 object-contain group-hover:scale-105 transition-transform duration-300 rounded-lg"
-              onError={e => {
+              onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";
                 const fallback = target.nextElementSibling as HTMLElement;
@@ -72,7 +72,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({ sponsor }) => {
               <span className="text-brand-neutral-900">
                 {sponsor.name
                   .split(" ")
-                  .map(word => word[0])
+                  .map((word) => word[0])
                   .join("")
                   .slice(0, 2)
                   .toUpperCase()}

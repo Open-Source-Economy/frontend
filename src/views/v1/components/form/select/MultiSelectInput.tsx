@@ -24,7 +24,10 @@ interface MultiSelectInputProps extends BaseProps {
   onAddProject?: () => void;
 }
 
-export const MultiSelectInput = forwardRef(function MultiSelectInput(props: MultiSelectInputProps, ref: Ref<MultiSelectInputRef>) {
+export const MultiSelectInput = forwardRef(function MultiSelectInput(
+  props: MultiSelectInputProps,
+  ref: Ref<MultiSelectInputRef>
+) {
   const { options, value, onChange, id, name, isOpen: controlledIsOpen, onToggle, onAddProject, ...rest } = props;
   const [internalError, setInternalError] = useState<string | undefined>(undefined);
   const [internalIsOpen, setInternalIsOpen] = useState(false);
@@ -52,7 +55,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
         return runValidation(value, showInputError);
       },
     }),
-    [value, props.required, props.label, runValidation],
+    [value, props.required, props.label, runValidation]
   );
 
   useEffect(() => {
@@ -70,7 +73,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
   }, [value, setIsOpen, runValidation]);
 
   const handleOptionClick = (optionValue: string) => {
-    const option = options.find(opt => opt.value === optionValue);
+    const option = options.find((opt) => opt.value === optionValue);
 
     // Don't allow selection of category headers
     if (option?.isCategory) return;
@@ -84,9 +87,11 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
 
     // Handle "All projects" option
     if (option?.isAllOption) {
-      const allProjectValues = options.filter(opt => !opt.isCategory && !opt.isAddOption && !opt.isAllOption).map(opt => opt.value);
+      const allProjectValues = options
+        .filter((opt) => !opt.isCategory && !opt.isAddOption && !opt.isAllOption)
+        .map((opt) => opt.value);
 
-      const isAllSelected = allProjectValues.every(val => value.includes(val));
+      const isAllSelected = allProjectValues.every((val) => value.includes(val));
 
       if (isAllSelected) {
         onChange([]);
@@ -101,7 +106,7 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
     let newSelectedValues: string[];
 
     if (isSelected) {
-      newSelectedValues = value.filter(val => val !== optionValue);
+      newSelectedValues = value.filter((val) => val !== optionValue);
     } else {
       newSelectedValues = [...value, optionValue];
     }
@@ -111,11 +116,15 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
   };
 
   const selectedLabels = value
-    .map(selectedValue => options.find(opt => opt.value === selectedValue && !opt.isCategory && !opt.isAddOption && !opt.isAllOption)?.label)
+    .map(
+      (selectedValue) =>
+        options.find((opt) => opt.value === selectedValue && !opt.isCategory && !opt.isAddOption && !opt.isAllOption)
+          ?.label
+    )
     .filter(Boolean) as string[];
 
-  const allProjectOptions = options.filter(opt => !opt.isCategory && !opt.isAddOption && !opt.isAllOption);
-  const isAllSelected = allProjectOptions.length > 0 && allProjectOptions.every(opt => value.includes(opt.value));
+  const allProjectOptions = options.filter((opt) => !opt.isCategory && !opt.isAddOption && !opt.isAllOption);
+  const isAllSelected = allProjectOptions.length > 0 && allProjectOptions.every((opt) => value.includes(opt.value));
 
   const selectDisplayClasses = `
     flex justify-between items-center flex-1 bg-[#202F45] px-3 py-3 rounded-md cursor-pointer border
@@ -143,7 +152,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
           >
             <div className="flex-1 overflow-hidden">
               {selectedLabels.length > 0 ? (
-                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal truncate">{selectedLabels.join(", ")}</span>
+                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal truncate">
+                  {selectedLabels.join(", ")}
+                </span>
               ) : (
                 <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">|</span>
               )}
@@ -157,7 +168,10 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
               xmlns="http://www.w3.org/2000/svg"
               className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
             >
-              <path d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z" fill="white" />
+              <path
+                d="M16.293 8.29297L12 12.586L7.70697 8.29297L6.29297 9.70697L12 15.414L17.707 9.70697L16.293 8.29297Z"
+                fill="white"
+              />
             </svg>
           </div>
         </div>
@@ -187,7 +201,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
               // Category header - non-selectable
               return (
                 <div key={option.value} className="flex px-6 py-2 items-center bg-[#202F45]">
-                  <span className="flex-1 text-white font-montserrat text-[16px] leading-[150%] font-medium opacity-40">{option.label}</span>
+                  <span className="flex-1 text-white font-montserrat text-[16px] leading-[150%] font-medium opacity-40">
+                    {option.label}
+                  </span>
                 </div>
               );
             }
@@ -207,7 +223,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
                   </svg>
 
                   {/* Label */}
-                  <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">{option.label}</span>
+                  <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">
+                    {option.label}
+                  </span>
                 </div>
               );
             }
@@ -230,7 +248,12 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
                     isSelected ? "bg-[#202F45]" : ""
                   }`}
                 >
-                  {isSelected && <div className="w-[14px] h-[14px] bg-[#FF7E4B] rounded-sm absolute" style={{ left: "2px", top: "2px" }} />}
+                  {isSelected && (
+                    <div
+                      className="w-[14px] h-[14px] bg-[#FF7E4B] rounded-sm absolute"
+                      style={{ left: "2px", top: "2px" }}
+                    />
+                  )}
                 </div>
 
                 {/* GitHub Icon (if applicable) */}
@@ -246,7 +269,9 @@ export const MultiSelectInput = forwardRef(function MultiSelectInput(props: Mult
                 )}
 
                 {/* Label */}
-                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">{option.label}</span>
+                <span className="text-white font-montserrat text-[16px] leading-[150%] font-normal">
+                  {option.label}
+                </span>
               </div>
             );
           })}

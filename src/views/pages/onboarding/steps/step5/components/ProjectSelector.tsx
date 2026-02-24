@@ -35,8 +35,10 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
     if (!searchQuery.trim()) return safeProjects;
 
     const query = searchQuery.toLowerCase();
-    return safeProjects.filter(projectEntry => {
-      const projectName = SourceIdentifierCompanion.displayName(projectEntry.projectItem.sourceIdentifier).toLowerCase();
+    return safeProjects.filter((projectEntry) => {
+      const projectName = SourceIdentifierCompanion.displayName(
+        projectEntry.projectItem.sourceIdentifier
+      ).toLowerCase();
       return projectName.includes(query);
     });
   }, [safeProjects, searchQuery]);
@@ -44,8 +46,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   // Sort projects: selected first, then alphabetically
   const sortedProjects = React.useMemo(() => {
     return [...filteredProjects].sort((a, b) => {
-      const aSelected = safeSelectedIds.some(id => id.uuid === a.developerProjectItem.id.uuid);
-      const bSelected = safeSelectedIds.some(id => id.uuid === b.developerProjectItem.id.uuid);
+      const aSelected = safeSelectedIds.some((id) => id.uuid === a.developerProjectItem.id.uuid);
+      const bSelected = safeSelectedIds.some((id) => id.uuid === b.developerProjectItem.id.uuid);
 
       // Selected items first
       if (aSelected && !bSelected) return -1;
@@ -59,9 +61,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   }, [filteredProjects, safeSelectedIds]);
 
   const toggleProject = (projectId: dto.DeveloperProjectItemId) => {
-    const exists = safeSelectedIds.some(id => id.uuid === projectId.uuid);
+    const exists = safeSelectedIds.some((id) => id.uuid === projectId.uuid);
     if (exists) {
-      onChange(safeSelectedIds.filter(id => id.uuid !== projectId.uuid));
+      onChange(safeSelectedIds.filter((id) => id.uuid !== projectId.uuid));
     } else {
       onChange([...safeSelectedIds, projectId]);
     }
@@ -69,14 +71,16 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
 
   const allProjectsSelected = React.useMemo(() => {
     if (safeProjects.length === 0) return false;
-    return safeProjects.every(project => safeSelectedIds.some(id => id.uuid === project.developerProjectItem.id.uuid));
+    return safeProjects.every((project) =>
+      safeSelectedIds.some((id) => id.uuid === project.developerProjectItem.id.uuid)
+    );
   }, [safeProjects, safeSelectedIds]);
 
   const toggleAll = () => {
     if (allProjectsSelected) {
       onChange([]);
     } else {
-      onChange(safeProjects.map(p => p.developerProjectItem.id));
+      onChange(safeProjects.map((p) => p.developerProjectItem.id));
     }
     setShowDropdown(false);
   };
@@ -86,7 +90,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
     setShowDropdown(false);
   };
 
-  const filteredSelectedCount = filteredProjects.filter(p => safeSelectedIds.some(id => id.uuid === p.developerProjectItem.id.uuid)).length;
+  const filteredSelectedCount = filteredProjects.filter((p) =>
+    safeSelectedIds.some((id) => id.uuid === p.developerProjectItem.id.uuid)
+  ).length;
   const isFiltering = searchQuery.trim().length > 0;
 
   return (
@@ -94,8 +100,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
       {/* Selected Projects as Chips */}
       {safeSelectedIds.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {safeSelectedIds.map(projectId => {
-            const projectEntry = safeProjects.find(p => p.developerProjectItem.id.uuid === projectId.uuid);
+          {safeSelectedIds.map((projectId) => {
+            const projectEntry = safeProjects.find((p) => p.developerProjectItem.id.uuid === projectId.uuid);
             if (!projectEntry) return null;
             const displayName = SourceIdentifierCompanion.displayName(projectEntry.projectItem.sourceIdentifier);
 
@@ -125,7 +131,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
         <input
           type="text"
           value={searchQuery}
-          onChange={e => {
+          onChange={(e) => {
             setSearchQuery(e.target.value);
             setShowDropdown(true);
           }}
@@ -181,8 +187,10 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
             {/* Individual Projects List */}
             <div className="max-h-[300px] overflow-y-auto custom-scrollbar p-1 relative z-10">
               {sortedProjects.length > 0 ? (
-                sortedProjects.map(projectEntry => {
-                  const isSelected = safeSelectedIds.some(id => id.uuid === projectEntry.developerProjectItem.id.uuid);
+                sortedProjects.map((projectEntry) => {
+                  const isSelected = safeSelectedIds.some(
+                    (id) => id.uuid === projectEntry.developerProjectItem.id.uuid
+                  );
                   const displayName = SourceIdentifierCompanion.displayName(projectEntry.projectItem.sourceIdentifier);
 
                   return (
@@ -210,7 +218,10 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
               ) : (
                 <div className="px-3 py-6 text-center">
                   <p className="text-sm text-brand-neutral-500">No projects found matching "{searchQuery}"</p>
-                  <button onClick={clearSearch} className="mt-2 text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
+                  <button
+                    onClick={clearSearch}
+                    className="mt-2 text-xs text-brand-accent hover:text-brand-accent-dark transition-colors"
+                  >
                     Clear search
                   </button>
                 </div>

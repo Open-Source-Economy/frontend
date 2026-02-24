@@ -26,7 +26,9 @@ export function TokenDisplay(props: TokenDisplayProps) {
 
   if (variant === "full") {
     return (
-      <div className={`flex items-center gap-2 px-3 py-2 bg-brand-accent/10 border border-brand-accent/20 rounded-lg ${className}`}>
+      <div
+        className={`flex items-center gap-2 px-3 py-2 bg-brand-accent/10 border border-brand-accent/20 rounded-lg ${className}`}
+      >
         <Coins className="w-5 h-5 text-brand-accent" />
         <div className="flex flex-col">
           <span className="text-xs text-muted-foreground">Service Tokens</span>

@@ -31,9 +31,13 @@ export function PricingDetails(props: PlanFeatureProps) {
 
     <>
       <p className="text-sm">{props.description}</p>
-      {props.details?.map(detail => (
+      {props.details?.map((detail) => (
         <div key={detail.name} className={`flex items-center gap-2 mt-2 ${!detail.included && "opacity-30"}`}>
-          {detail.included ? <Check className="h-4 w-4 text-theme-pink shrink-0" /> : <X className="h-3.5 w-3.5 text-theme-pink shrink-0" />}
+          {detail.included ? (
+            <Check className="h-4 w-4 text-theme-pink shrink-0" />
+          ) : (
+            <X className="h-3.5 w-3.5 text-theme-pink shrink-0" />
+          )}
           <span className="text-xs text-gray-400">{detail.name}</span>
           {detail.info && detail.included && <InfoTooltip content={detail.info} />}
           {detail.soon && detail.included && (

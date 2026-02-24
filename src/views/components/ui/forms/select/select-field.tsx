@@ -31,12 +31,21 @@ export function SelectField(props: SelectFieldProps) {
   const required = props.required ?? false;
 
   // Normalize options to { value, label } format
-  const normalizedOptions: SelectOption[] = props.options.map(option => (typeof option === "string" ? { value: option, label: option } : option));
+  const normalizedOptions: SelectOption[] = props.options.map((option) =>
+    typeof option === "string" ? { value: option, label: option } : option
+  );
 
   return (
     <div className={cn("space-y-2", props.className)}>
       {props.label && (
-        <Label className={cn(props.error && "text-brand-error", required && "after:content-['*'] after:ml-1 after:text-brand-error")}>{props.label}</Label>
+        <Label
+          className={cn(
+            props.error && "text-brand-error",
+            required && "after:content-['*'] after:ml-1 after:text-brand-error"
+          )}
+        >
+          {props.label}
+        </Label>
       )}
       <Select value={props.value} onValueChange={props.onChange}>
         <SelectTrigger className={cn("w-full", props.error && "border-brand-error")}>
@@ -50,7 +59,9 @@ export function SelectField(props: SelectFieldProps) {
           ))}
         </SelectContent>
       </Select>
-      {(props.description || props.hint) && !props.error && <p className="text-xs text-brand-neutral-500">{props.description || props.hint}</p>}
+      {(props.description || props.hint) && !props.error && (
+        <p className="text-xs text-brand-neutral-500">{props.description || props.hint}</p>
+      )}
       {props.error && <p className="text-sm text-brand-error">{props.error}</p>}
     </div>
   );

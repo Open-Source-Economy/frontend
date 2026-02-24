@@ -97,7 +97,9 @@ export function UniqueSellingPoints(props: UniqueSellingPointsProps) {
 
               {/* Content */}
               <div className="relative z-10">
-                <h3 className="text-lg mb-4 text-foreground group-hover:text-foreground transition-colors duration-300">{point.title}</h3>
+                <h3 className="text-lg mb-4 text-foreground group-hover:text-foreground transition-colors duration-300">
+                  {point.title}
+                </h3>
 
                 <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-muted-foreground transition-colors duration-300">
                   {point.description}

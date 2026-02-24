@@ -31,13 +31,13 @@ export function AmountSelector(props: AmountSelectorProps) {
       "p-3 rounded-lg border-2 transition-all duration-300",
       isActive
         ? "border-brand-accent bg-brand-accent/10 text-brand-accent shadow-lg shadow-brand-accent/20"
-        : "border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50 hover:bg-brand-accent/5",
+        : "border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50 hover:bg-brand-accent/5"
     );
   };
 
   return (
     <div className={cn("grid grid-cols-3 gap-2.5", props.className)}>
-      {props.suggestedAmounts.map(amount => (
+      {props.suggestedAmounts.map((amount) => (
         <button
           key={amount}
           onClick={() => props.onSelectAmount(amount)}
@@ -54,7 +54,7 @@ export function AmountSelector(props: AmountSelectorProps) {
           "p-3 rounded-lg border-2 transition-all duration-300 flex items-center justify-center",
           props.customAmount
             ? "border-brand-accent bg-brand-accent/10 shadow-lg shadow-brand-accent/20"
-            : "border-brand-neutral-300 hover:border-brand-accent/50",
+            : "border-brand-neutral-300 hover:border-brand-accent/50"
         )}
       >
         <div className="flex items-center justify-center w-full">

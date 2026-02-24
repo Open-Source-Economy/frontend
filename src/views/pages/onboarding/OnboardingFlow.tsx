@@ -12,7 +12,11 @@ import Step2 from "./steps/step2/Step2";
 import { paths } from "../../../paths";
 import { ApiError } from "src/ultils/error/ApiError";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
-import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
+import {
+  OnboardingDataSteps,
+  OnboardingState,
+  transformFullDeveloperProfileToOnboardingState,
+} from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
 import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
@@ -71,27 +75,39 @@ export default function OnboardingFlow() {
   const profileQuery = onboardingHooks.useDeveloperProfileQuery(params, query);
 
   const isLoading = profileQuery.isLoading;
-  const apiError = profileQuery.error ? (profileQuery.error instanceof ApiError ? profileQuery.error : ApiError.from(profileQuery.error)) : null;
+  const apiError = profileQuery.error
+    ? profileQuery.error instanceof ApiError
+      ? profileQuery.error
+      : ApiError.from(profileQuery.error)
+    : null;
 
   useEffect(() => {
     let currentStep = OnboardingDataSteps.Step1;
 
     // If the URL step is invalid, redirect to Step1
-    if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step5) {
+    if (
+      isNaN(currentUrlStep) ||
+      currentUrlStep < OnboardingDataSteps.Step1 ||
+      currentUrlStep > OnboardingDataSteps.Step5
+    ) {
       navigate({ search: { step: currentStep } as any, replace: true });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
 
     if (profileQuery.data?.profile) {
-      const state = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
+      const state = transformFullDeveloperProfileToOnboardingState(
+        currentStep,
+        profileQuery.data.profile,
+        preferredCurrency
+      );
       setState(state);
     }
   }, [currentUrlStep, navigate, profileQuery.data]);
 
   const goToStep = (step: OnboardingDataSteps) => {
     navigate({ search: { step } as any, replace: true });
-    setState(prevState => ({ ...prevState, currentStep: step }));
+    setState((prevState) => ({ ...prevState, currentStep: step }));
   };
 
   const goToNextStep = () => {
@@ -141,19 +157,19 @@ export default function OnboardingFlow() {
   const updateStateData = (updates: any) => {
     switch (state.currentStep) {
       case OnboardingDataSteps.Step1:
-        setState(prevState => ({ ...prevState, step1: { ...prevState.step1, ...updates } }));
+        setState((prevState) => ({ ...prevState, step1: { ...prevState.step1, ...updates } }));
         break;
       case OnboardingDataSteps.Step2:
-        setState(prevState => ({ ...prevState, step2: { ...prevState.step2, ...updates } }));
+        setState((prevState) => ({ ...prevState, step2: { ...prevState.step2, ...updates } }));
         break;
       case OnboardingDataSteps.Step3:
-        setState(prevState => ({ ...prevState, step3: { ...prevState.step3, ...updates } }));
+        setState((prevState) => ({ ...prevState, step3: { ...prevState.step3, ...updates } }));
         break;
       case OnboardingDataSteps.Step4:
-        setState(prevState => ({ ...prevState, step4: { ...prevState.step4, ...updates } }));
+        setState((prevState) => ({ ...prevState, step4: { ...prevState.step4, ...updates } }));
         break;
       case OnboardingDataSteps.Step5:
-        setState(prevState => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
+        setState((prevState) => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
         break;
       default:
         break;
@@ -223,7 +239,10 @@ export default function OnboardingFlow() {
     {
       number: 5,
       title: "Services & Preferences",
-      description: state.step3.servicesPreference === dto.PreferenceType.MAYBE_LATER ? "Future service interests" : "Detail your services",
+      description:
+        state.step3.servicesPreference === dto.PreferenceType.MAYBE_LATER
+          ? "Future service interests"
+          : "Detail your services",
     },
   ];
 
@@ -275,7 +294,9 @@ export default function OnboardingFlow() {
                   {/* Step Header */}
                   <div className="mb-8">
                     <div className="mb-2">
-                      <span className="text-xs uppercase tracking-wider text-brand-neutral-600">Step {state.currentStep.toString().padStart(2, "0")}</span>
+                      <span className="text-xs uppercase tracking-wider text-brand-neutral-600">
+                        Step {state.currentStep.toString().padStart(2, "0")}
+                      </span>
                     </div>
                     <h2 className="text-brand-neutral-800 mb-3">{onboardingStepsConfigs[state.currentStep].title}</h2>
                     <p className="text-brand-neutral-800">{onboardingStepsConfigs[state.currentStep].subtitle}</p>

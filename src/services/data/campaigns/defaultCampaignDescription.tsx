@@ -83,13 +83,15 @@ export const defaultCampaignDescription: CampaignDescription = {
     ),
   },
   whyTrustUs: {
-    paragraph1: "Our team consists of experienced maintainers who have been actively contributing to this project and understand its technical challenges.",
+    paragraph1:
+      "Our team consists of experienced maintainers who have been actively contributing to this project and understand its technical challenges.",
     paragraph2: (
       <>
         Every donation directly supports project development and maintenance.
         <br />
         <br />
-        Our work is public, our finances are transparent, and our goal is clear: build sustainable open source software for everyone.
+        Our work is public, our finances are transparent, and our goal is clear: build sustainable open source software
+        for everyone.
       </>
     ),
   },

@@ -3,7 +3,12 @@
  * Centralizes all display and formatting logic for project entries
  */
 
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectItemType } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItemEntry,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectItemType,
+} from "@open-source-economy/api-types";
 import { SourceIdentifierCompanion } from "./SourceIdentifier.companion";
 import { DeveloperRoleTypeCompanion } from "./DeveloperRoleType.companion";
 import { MergeRightsTypeCompanion } from "./MergeRightsType.companion";
@@ -26,7 +31,9 @@ export namespace DeveloperProjectItemEntryCompanion {
       const sourceIdentifier = projectItem.sourceIdentifier;
       if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
         const ownerLogin =
-          typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId ? sourceIdentifier.ownerId.login : sourceIdentifier.ownerId;
+          typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
+            ? sourceIdentifier.ownerId.login
+            : sourceIdentifier.ownerId;
         return `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
       }
     } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
@@ -47,7 +54,10 @@ export namespace DeveloperProjectItemEntryCompanion {
    * Check if project is GitHub-based
    */
   export function isGitHub(entry: DeveloperProjectItemEntry): boolean {
-    return entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY || entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
+    return (
+      entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY ||
+      entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER
+    );
   }
 
   /**
@@ -71,7 +81,9 @@ export namespace DeveloperProjectItemEntryCompanion {
   /**
    * Get role value for design system
    */
-  export function roleValue(entry: DeveloperProjectItemEntry): "maintainer" | "core_contributor" | "contributor" | "other" {
+  export function roleValue(
+    entry: DeveloperProjectItemEntry
+  ): "maintainer" | "core_contributor" | "contributor" | "other" {
     const role = entry.developerProjectItem.roles?.[0];
 
     switch (role) {

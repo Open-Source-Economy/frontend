@@ -19,7 +19,11 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
     owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
     repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
   };
-  const { data: accordionRes, isLoading: _isLoading, error: _error } = projectHooks.useProjectAccordionQuery(accordionParams, {});
+  const {
+    data: accordionRes,
+    isLoading: _isLoading,
+    error: _error,
+  } = projectHooks.useProjectAccordionQuery(accordionParams, {});
 
   const handleToggle = (index: number): void => {
     setOpenIndex(openIndex === index ? null : index);
@@ -27,7 +31,11 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
 
   return (
     <div className="2xl:pt-28 pt-10 md:pt-20 pb-10 md:pb-16 relative">
-      <img src={rightLinear} alt="Linear Background" className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]" />
+      <img
+        src={rightLinear}
+        alt="Linear Background"
+        className="absolute pointer-events-none object-cover right-0 max-w-[671px] opacity-80 -z-10 -top-[15%]"
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-14 place-items-center !px-4 xl:!px-0 xl:max-w-[90%] 2xl:max-w-[84%] 3xl:max-w-[1650px] mx-auto">
         {/* Left side - Image */}
@@ -45,7 +53,14 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
 
           <div className="space-y-4 w-full">
             {accordionRes?.items.map((item, index) => (
-              <FaqItem key={index} faq={item} canOpen={true} isOpen={openIndex === index} index={index} onToggle={handleToggle} />
+              <FaqItem
+                key={index}
+                faq={item}
+                canOpen={true}
+                isOpen={openIndex === index}
+                index={index}
+                onToggle={handleToggle}
+              />
             ))}
           </div>
 

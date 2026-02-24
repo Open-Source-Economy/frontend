@@ -33,11 +33,14 @@ export function MonthlyFundingGoals(props: MonthlyFundingGoalsProps) {
     <div className="max-w-4xl">
       <div className="mb-12">
         <h2 className="text-brand-neutral-900 mb-4">Monthly Funding Goals</h2>
-        <p className="text-brand-neutral-600 text-lg mb-6">Your monthly support enables us to grow our capacity and impact</p>
+        <p className="text-brand-neutral-600 text-lg mb-6">
+          Your monthly support enables us to grow our capacity and impact
+        </p>
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-accent/10 border border-brand-accent/30 rounded-lg">
           <TrendingUp className="h-4 w-4 text-brand-accent" />
           <span className="text-brand-neutral-800">
-            Current: <strong className="text-brand-accent">€{currentMonthlyDonations}/month</strong> in recurring donations
+            Current: <strong className="text-brand-accent">€{currentMonthlyDonations}/month</strong> in recurring
+            donations
           </span>
         </div>
       </div>
@@ -62,7 +65,9 @@ export function MonthlyFundingGoals(props: MonthlyFundingGoalsProps) {
             >
               <CardContent className="p-8">
                 <div className="flex items-start gap-6">
-                  <div className={`flex-shrink-0 w-16 h-16 rounded-xl bg-${tier.color}/20 border border-${tier.color}/30 flex items-center justify-center`}>
+                  <div
+                    className={`flex-shrink-0 w-16 h-16 rounded-xl bg-${tier.color}/20 border border-${tier.color}/30 flex items-center justify-center`}
+                  >
                     <TierIcon className={`h-8 w-8 text-${tier.color}`} />
                   </div>
 
@@ -74,12 +79,16 @@ export function MonthlyFundingGoals(props: MonthlyFundingGoalsProps) {
                             Tier {tier.id}: {tier.title}
                           </h3>
                           {isActive && (
-                            <span className={`px-2 py-1 bg-${tier.color}/20 text-${tier.color} border border-${tier.color}/30 rounded-md text-xs`}>
+                            <span
+                              className={`px-2 py-1 bg-${tier.color}/20 text-${tier.color} border border-${tier.color}/30 rounded-md text-xs`}
+                            >
                               ✓ Unlocked
                             </span>
                           )}
                           {isNext && (
-                            <span className="px-2 py-1 bg-brand-accent/20 text-brand-accent border border-brand-accent/30 rounded-md text-xs">→ Next Goal</span>
+                            <span className="px-2 py-1 bg-brand-accent/20 text-brand-accent border border-brand-accent/30 rounded-md text-xs">
+                              → Next Goal
+                            </span>
                           )}
                         </div>
                         <p className="text-brand-neutral-600 mt-1">€{tier.goal.toLocaleString()}/month</p>
@@ -95,7 +104,10 @@ export function MonthlyFundingGoals(props: MonthlyFundingGoalsProps) {
                     {/* Progress Bar */}
                     <div className="mb-6">
                       <div className="h-3 bg-brand-neutral-200 rounded-full overflow-hidden">
-                        <div className={`h-full bg-${tier.color} transition-all duration-500 rounded-full`} style={{ width: `${progress}%` }} />
+                        <div
+                          className={`h-full bg-${tier.color} transition-all duration-500 rounded-full`}
+                          style={{ width: `${progress}%` }}
+                        />
                       </div>
                     </div>
 

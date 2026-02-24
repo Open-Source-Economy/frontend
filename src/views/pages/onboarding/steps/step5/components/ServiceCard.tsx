@@ -43,13 +43,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   }
 
   const sourceIdentifiers: dto.SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
-    .map(id => normalizedMap.get(id.uuid))
+    .map((id) => normalizedMap.get(id.uuid))
     .filter((v): v is dto.SourceIdentifier => v !== undefined);
 
   const projectCount = sourceIdentifiers.length;
 
   return (
-    <div className={`bg-brand-card-blue/30 rounded-xl border p-5 transition-all border-brand-neutral-300/30 hover:border-brand-accent/40`}>
+    <div
+      className={`bg-brand-card-blue/30 rounded-xl border p-5 transition-all border-brand-neutral-300/30 hover:border-brand-accent/40`}
+    >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 space-y-3">
           {/* Service Name */}
@@ -57,7 +59,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             <h4 className="text-brand-neutral-900">{service.name}</h4>
             {service.description && <p className="text-sm text-brand-neutral-600 mt-1">{service.description}</p>}
             <div className="flex items-center gap-3 mt-2 flex-wrap">
-              <span className={`text-sm flex items-center gap-1.5 ${hasCustomRate ? "text-brand-accent" : "text-brand-neutral-600"}`}>
+              <span
+                className={`text-sm flex items-center gap-1.5 ${hasCustomRate ? "text-brand-accent" : "text-brand-neutral-600"}`}
+              >
                 {currencySymbol} {effectiveRate}/hr
                 {!hasCustomRate && <span className="text-xs text-brand-neutral-500">(base rate)</span>}
               </span>
@@ -112,7 +116,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                 {projectCount} Project{projectCount > 1 ? "s" : ""}
               </h5>
               <div className="flex flex-wrap gap-2">
-                {sourceIdentifiers.map(sourceIdentifier => {
+                {sourceIdentifiers.map((sourceIdentifier) => {
                   const displayName = SourceIdentifierCompanion.displayName(sourceIdentifier);
                   const isGithub = displayName.includes("/") || displayName.toLowerCase().includes("github");
 
@@ -121,7 +125,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                       key={displayName}
                       className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand-card-blue border border-brand-neutral-300/40 rounded-lg text-sm text-brand-neutral-800 group"
                     >
-                      {isGithub ? <Github className="w-3.5 h-3.5 text-brand-neutral-600" /> : <Globe className="w-3.5 h-3.5 text-brand-neutral-600" />}
+                      {isGithub ? (
+                        <Github className="w-3.5 h-3.5 text-brand-neutral-600" />
+                      ) : (
+                        <Globe className="w-3.5 h-3.5 text-brand-neutral-600" />
+                      )}
                       <span className="truncate max-w-[200px]">{displayName}</span>
                       <button
                         onClick={() => onEditDeveloperService && onEditDeveloperService(developerServiceEntry)}
@@ -139,7 +147,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
           {/* Error Message */}
           {showError && (needsResponseTime || needsProjects) && (
-            <p className="text-sm text-brand-error leading-relaxed">* Please configure this service before proceeding</p>
+            <p className="text-sm text-brand-error leading-relaxed">
+              * Please configure this service before proceeding
+            </p>
           )}
         </div>
 

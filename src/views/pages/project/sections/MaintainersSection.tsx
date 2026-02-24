@@ -22,19 +22,32 @@ export function MaintainersSection(props: MaintainersSectionProps) {
 
   return (
     <section>
-      <SectionHeader title="Meet the Maintainers" description="Get direct access to the experts behind the project" spacing="lg" visibility="normal" />
+      <SectionHeader
+        title="Meet the Maintainers"
+        description="Get direct access to the experts behind the project"
+        spacing="lg"
+        visibility="normal"
+      />
 
       {displayedMaintainers.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {displayedMaintainers.map(developer => (
-              <MaintainerCard key={ProjectDeveloperProfileCompanion.getStableIdentifier(developer)} developer={developer} projectName={props.projectName} />
+            {displayedMaintainers.map((developer) => (
+              <MaintainerCard
+                key={ProjectDeveloperProfileCompanion.getStableIdentifier(developer)}
+                developer={developer}
+                projectName={props.projectName}
+              />
             ))}
           </div>
 
           {props.developers.length > DEFAULT_MAINTAINER_DISPLAY_COUNT && (
             <div className="mt-6 text-center">
-              <Button variant="outline" onClick={props.onToggleShowAll} className="text-brand-neutral-700 hover:text-brand-accent border-brand-neutral-300">
+              <Button
+                variant="outline"
+                onClick={props.onToggleShowAll}
+                className="text-brand-neutral-700 hover:text-brand-accent border-brand-neutral-300"
+              >
                 {props.showAllMaintainers ? "Show Less" : `See All ${props.developers.length} Maintainers`}
               </Button>
             </div>

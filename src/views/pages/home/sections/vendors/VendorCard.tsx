@@ -25,7 +25,7 @@ export function VendorCard(props: VendorCardProps) {
   const logoUrl = props.domain ? `https://logo.clearbit.com/${props.domain}` : null;
   const vendorInitials = props.name
     .split(" ")
-    .map(word => word[0])
+    .map((word) => word[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
@@ -71,7 +71,7 @@ export function VendorCard(props: VendorCardProps) {
               src={logoUrl}
               alt={`${props.name} logo`}
               className="w-full h-full object-contain p-3"
-              onError={e => {
+              onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";
                 const fallback = target.nextElementSibling as HTMLElement;
@@ -80,14 +80,19 @@ export function VendorCard(props: VendorCardProps) {
             />
           )}
           {/* Fallback - Vendor initials */}
-          <div className="w-full h-full flex items-center justify-center" style={{ display: logoUrl ? "none" : "flex" }}>
+          <div
+            className="w-full h-full flex items-center justify-center"
+            style={{ display: logoUrl ? "none" : "flex" }}
+          >
             <span className="text-brand-neutral-900 text-2xl">{vendorInitials}</span>
           </div>
         </div>
 
         {/* Vendor Name */}
         <div>
-          <h3 className="text-brand-neutral-900 mb-2 group-hover:text-brand-neutral-950 transition-colors">{props.name}</h3>
+          <h3 className="text-brand-neutral-900 mb-2 group-hover:text-brand-neutral-950 transition-colors">
+            {props.name}
+          </h3>
 
           {/* Tagline */}
           <p className="text-brand-accent italic text-sm">{props.tagline}</p>
@@ -119,7 +124,7 @@ export function VendorCard(props: VendorCardProps) {
           <Button
             variant="outline"
             className="group-hover:bg-brand-accent group-hover:text-white group-hover:border-brand-accent transition-all duration-300 gap-2 cursor-pointer"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               handleClick();
             }}

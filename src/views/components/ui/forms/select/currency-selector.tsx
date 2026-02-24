@@ -38,7 +38,7 @@ export function CurrencySelector(props: CurrencySelectorProps) {
   // Use SelectField for default variant (with label support)
   if (variant === "default") {
     // Note: SelectField expects { value: string, label: string }
-    const currencyOptions: SelectOption[] = currencies.map(currencyCode => {
+    const currencyOptions: SelectOption[] = currencies.map((currencyCode) => {
       const display = displays[currencyCode];
       return {
         value: currencyCode,
@@ -50,7 +50,7 @@ export function CurrencySelector(props: CurrencySelectorProps) {
       <SelectField
         label={props.label}
         value={value}
-        onChange={val => onValueChange(val as dto.Currency)}
+        onChange={(val) => onValueChange(val as dto.Currency)}
         options={currencyOptions}
         placeholder="Select currency"
         className={props.className}
@@ -62,14 +62,14 @@ export function CurrencySelector(props: CurrencySelectorProps) {
   return (
     <div>
       {props.label && <label className="text-xs text-muted-foreground mb-1">{props.label}</label>}
-      <Select value={value} onValueChange={val => onValueChange(val as dto.Currency)}>
+      <Select value={value} onValueChange={(val) => onValueChange(val as dto.Currency)}>
         <SelectTrigger className={`cursor-pointer ${props.className}`} variant="ghost" size="sm">
           <SelectValue>
             <CurrencyItem display={currentDisplay} />
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          {currencies.map(currency => {
+          {currencies.map((currency) => {
             const display = displays[currency];
             return (
               <SelectItem key={display.code} value={currency} className="cursor-pointer">

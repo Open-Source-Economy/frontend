@@ -48,7 +48,9 @@ export class BackendAPIMock implements BackendAPI {
         if (i === 0) {
           financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedCreditAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [
+            issueFunding((requestedCreditAmount / 2) * i),
+          ]);
         }
         financialIssues.push(financialIssue);
       }
@@ -56,7 +58,10 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableCredits(_params: dto.GetAvailableCreditsParams, _query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse> {
+  async getAvailableCredits(
+    _params: dto.GetAvailableCreditsParams,
+    _query: dto.GetAvailableCreditsQuery
+  ): Promise<dto.GetAvailableCreditsResponse> {
     return Promise.resolve({ creditAmount: 60 });
   }
 
@@ -68,7 +73,11 @@ export class BackendAPIMock implements BackendAPI {
     return Promise.resolve(undefined);
   }
 
-  async requestFunding(_params: dto.RequestIssueFundingParams, _body: dto.RequestIssueFundingBody, _query: dto.RequestIssueFundingQuery): Promise<void> {
+  async requestFunding(
+    _params: dto.RequestIssueFundingParams,
+    _body: dto.RequestIssueFundingBody,
+    _query: dto.RequestIssueFundingQuery
+  ): Promise<void> {
     return Promise.resolve(undefined);
   }
 
@@ -78,7 +87,10 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getRepository(_params: dto.GetRepositoryParams, _query: dto.GetRepositoryQuery): Promise<dto.GetRepositoryResponse> {
+  async getRepository(
+    _params: dto.GetRepositoryParams,
+    _query: dto.GetRepositoryQuery
+  ): Promise<dto.GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
@@ -112,9 +124,12 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProjectDetails(params: dto.GetProjectDetailsParams, _query: dto.GetProjectDetailsQuery): Promise<dto.GetProjectDetailsResponse> {
+  async getProjectDetails(
+    params: dto.GetProjectDetailsParams,
+    _query: dto.GetProjectDetailsQuery
+  ): Promise<dto.GetProjectDetailsResponse> {
     const projectItem =
-      projectItemsDatabase.find(item => {
+      projectItemsDatabase.find((item) => {
         const source = item.projectItem.sourceIdentifier;
         if (typeof source === "string") {
           return source.includes(params.owner) && (!params.repo || source.includes(params.repo));
@@ -171,7 +186,10 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getMaintainers(params: dto.GetMaintainersParams, _query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse> {
+  async getMaintainers(
+    params: dto.GetMaintainersParams,
+    _query: dto.GetMaintainersQuery
+  ): Promise<dto.GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -180,7 +198,10 @@ export class BackendAPIMock implements BackendAPI {
     }
   }
 
-  async getProjectAccordion(params: dto.GetProjectAccordionParams, _query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse> {
+  async getProjectAccordion(
+    params: dto.GetProjectAccordionParams,
+    _query: dto.GetProjectAccordionQuery
+  ): Promise<dto.GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
@@ -211,12 +232,14 @@ export class BackendAPIMock implements BackendAPI {
   async getPlans(_params: dto.GetPlansParams, _query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
     // Extract enum values properly, avoiding TypeScript enum peculiarities
     const planTypes = Object.keys(PlanProductType)
-      .filter(key => isNaN(Number(key)))
-      .map(key => PlanProductType[key as keyof typeof PlanProductType]);
+      .filter((key) => isNaN(Number(key)))
+      .map((key) => PlanProductType[key as keyof typeof PlanProductType]);
 
     const currencies = Object.values(Currency).filter((value): value is Currency => typeof value === "string");
 
-    const priceTypes = Object.values(PlanPriceType).filter((value): value is PlanPriceType => typeof value === "string");
+    const priceTypes = Object.values(PlanPriceType).filter(
+      (value): value is PlanPriceType => typeof value === "string"
+    );
 
     // Define price generation strategy with more realistic values
     const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
@@ -230,7 +253,14 @@ export class BackendAPIMock implements BackendAPI {
       const amount = getPriceAmount(planType, priceType);
       const id = `price_${planType}_${priceType}_${currency.toLowerCase()}`;
 
-      return new StripePrice(new StripePriceId(id), new StripeProductId(planType.toString()), amount, currency, true, priceTypes as unknown as PriceType);
+      return new StripePrice(
+        new StripePriceId(id),
+        new StripeProductId(planType.toString()),
+        amount,
+        currency,
+        true,
+        priceTypes as unknown as PriceType
+      );
     };
 
     // Build the plans object with proper typing
@@ -262,19 +292,26 @@ export class BackendAPIMock implements BackendAPI {
     return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
   }
 
-  async checkout(_params: dto.CheckoutParams, _body: dto.CheckoutBody, _query: dto.CheckoutQuery): Promise<dto.CheckoutResponse> {
+  async checkout(
+    _params: dto.CheckoutParams,
+    _body: dto.CheckoutBody,
+    _query: dto.CheckoutQuery
+  ): Promise<dto.CheckoutResponse> {
     return { redirectUrl: "https://checkout.stripe.com/c/pay/cs_test_a1WpXh4fW6XG9J5vYyZ2M3Q4R5T6U7V8W9X0" };
   }
 
   async setUserPreferredCurrency(
     _params: dto.SetUserPreferredCurrencyParams,
     _body: dto.SetUserPreferredCurrencyBody,
-    _query: dto.SetUserPreferredCurrencyQuery,
+    _query: dto.SetUserPreferredCurrencyQuery
   ): Promise<dto.SetUserPreferredCurrencyResponse> {
     return {};
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, _query: dto.GetProjectServicesQuery): Promise<dto.GetProjectServicesResponse> {
+  async getProjectServices(
+    params: dto.GetProjectServicesParams,
+    _query: dto.GetProjectServicesQuery
+  ): Promise<dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
@@ -284,25 +321,31 @@ export class BackendAPIMock implements BackendAPI {
   async subscribeToNewsletter(
     _params: dto.NewsletterSubscriptionParams,
     _body: dto.NewsletterSubscriptionBody,
-    _query: dto.NewsletterSubscriptionQuery,
+    _query: dto.NewsletterSubscriptionQuery
   ): Promise<dto.NewsletterSubscriptionResponse> {
     return Promise.resolve({ success: {} });
   }
 
   async getProjectItemsWithDetails(
     _params: dto.GetProjectItemsWithDetailsParams,
-    _query: dto.GetProjectItemsWithDetailsQuery,
+    _query: dto.GetProjectItemsWithDetailsQuery
   ): Promise<dto.GetProjectItemsWithDetailsResponse> {
     // Group project items by type
-    const repositories = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY);
-    const owners = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER);
-    const urls = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.URL);
+    const repositories = projectItemsDatabase.filter(
+      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY
+    );
+    const owners = projectItemsDatabase.filter(
+      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER
+    );
+    const urls = projectItemsDatabase.filter((item) => item.projectItem.projectItemType === dto.ProjectItemType.URL);
 
     // Calculate stats
     const totalStars = repositories.reduce((sum, item) => sum + (item.repository?.stargazersCount || 0), 0);
     const totalForks = repositories.reduce((sum, item) => sum + (item.repository?.forksCount || 0), 0);
     const totalFollowers = owners.reduce((sum, item) => sum + (item.owner?.followers || 0), 0);
-    const uniqueMaintainers = new Set(projectItemsDatabase.flatMap(item => item.developers.map(dev => dev.developerProfile.id.uuid)));
+    const uniqueMaintainers = new Set(
+      projectItemsDatabase.flatMap((item) => item.developers.map((dev) => dev.developerProfile.id.uuid))
+    );
 
     return Promise.resolve({
       repositories,
@@ -318,7 +361,11 @@ export class BackendAPIMock implements BackendAPI {
     });
   }
 
-  async submitContactForm(_params: dto.ContactFormParams, _body: dto.ContactFormBody, _query: dto.ContactFormQuery): Promise<dto.ContactFormResponse> {
+  async submitContactForm(
+    _params: dto.ContactFormParams,
+    _body: dto.ContactFormBody,
+    _query: dto.ContactFormQuery
+  ): Promise<dto.ContactFormResponse> {
     return Promise.resolve({});
   }
 

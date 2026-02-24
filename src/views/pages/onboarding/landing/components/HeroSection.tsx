@@ -24,12 +24,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGitHubSignIn }) => {
           <h1 className="text-brand-neutral-950 mb-6">Get Paid for Your Open Source Work</h1>
 
           <p className="text-brand-neutral-600 text-xl max-w-3xl mx-auto leading-relaxed mb-8">
-            A Swiss non-profit that helps open source developers get funding — full-time, part-time, or just every now and then. We adapt to your needs and
-            values, whether you're aligned with free software ideals or focused on sustainability.
+            A Swiss non-profit that helps open source developers get funding — full-time, part-time, or just every now
+            and then. We adapt to your needs and values, whether you're aligned with free software ideals or focused on
+            sustainability.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={onGitHubSignIn} className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl">
+            <Button
+              size="lg"
+              onClick={onGitHubSignIn}
+              className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl"
+            >
               <Github className="h-5 w-5 mr-2" />
               Sign in with GitHub
             </Button>

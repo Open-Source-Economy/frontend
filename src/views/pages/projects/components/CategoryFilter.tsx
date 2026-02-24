@@ -26,7 +26,7 @@ export function CategoryFilter(props: CategoryFilterProps) {
 
       {Object.values(ProjectCategory)
         .sort()
-        .map(category => (
+        .map((category) => (
           <button
             key={category}
             onClick={() => props.onSelectCategory(category)}

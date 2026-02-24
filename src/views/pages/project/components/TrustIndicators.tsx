@@ -18,7 +18,8 @@ interface TrustIndicatorGroupProps {
 
 const CARD_CONTAINER_CLASS =
   "flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-brand-neutral-100/60 to-brand-neutral-100/30 rounded-lg border border-brand-neutral-300/60 shadow-sm";
-const CARD_ICON_WRAPPER_CLASS = "flex items-center justify-center w-6 h-6 rounded-md bg-brand-accent/10 border border-brand-accent/20";
+const CARD_ICON_WRAPPER_CLASS =
+  "flex items-center justify-center w-6 h-6 rounded-md bg-brand-accent/10 border border-brand-accent/20";
 
 const BADGE_BASE_CLASS = "flex items-center gap-2 px-3 py-1.5 rounded-md border";
 
@@ -42,11 +43,13 @@ export function TrustIndicatorGroup(props: TrustIndicatorGroupProps) {
     return null;
   }
 
-  const wrapperClassName = ["flex flex-wrap items-center justify-center gap-3", props.className].filter(Boolean).join(" ");
+  const wrapperClassName = ["flex flex-wrap items-center justify-center gap-3", props.className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={wrapperClassName}>
-      {props.items.map(item => (
+      {props.items.map((item) => (
         <TrustIndicatorPill key={item.label} item={item} variant={props.variant} />
       ))}
     </div>

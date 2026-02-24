@@ -44,7 +44,10 @@ export function HomePage(_props: HomeProps) {
       <WhatIsOpenSourceEconomy className="bg-gradient-to-br from-brand-secondary-dark via-brand-neutral-100 to-brand-card-blue" />
 
       {/* How It Works Simple - Process Overview with Navy Base */}
-      <HowItWorksSimple className="bg-gradient-to-b from-brand-card-blue via-brand-secondary to-brand-neutral-200" headerVisibility="normal" />
+      <HowItWorksSimple
+        className="bg-gradient-to-b from-brand-card-blue via-brand-secondary to-brand-neutral-200"
+        headerVisibility="normal"
+      />
 
       {/* Win-Win-Win Partnership - Value Proposition */}
       <WinWinWinPartnership className="bg-gradient-to-br from-brand-neutral-200 via-brand-secondary to-brand-card-blue-dark" />
@@ -75,7 +78,10 @@ export function HomePage(_props: HomeProps) {
       />
 
       {isVisible("featuredVendors") && (
-        <FeaturedVendors anchorId="featured-vendors" className="bg-gradient-to-b from-brand-card-blue via-brand-secondary to-brand-neutral-200" />
+        <FeaturedVendors
+          anchorId="featured-vendors"
+          className="bg-gradient-to-b from-brand-card-blue via-brand-secondary to-brand-neutral-200"
+        />
       )}
 
       {/* Unique Selling Points - Differentiation with Warm Accents */}

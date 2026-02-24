@@ -72,16 +72,29 @@ export function HowItWorks(_props: HowItWorksProps) {
           How it works
         </h1>
         <p className="text-lg sm:text-xl lg:text-[28px] text-white/80">
-          A <span className="text-white font-semibold">win-win credit-based system</span> empowering open-source collaboration.
+          A <span className="text-white font-semibold">win-win credit-based system</span> empowering open-source
+          collaboration.
         </p>
       </div>
 
       <div className="flex w-full max-w-screen-xl flex-col gap-10 md:gap-20 max-lg:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-x-10 gap-y-10 md:gap-y-20">
           {SECTIONS.map((section, sectionIndex) => (
-            <Section key={`${sectionIndex}-${section.title}`} title={section.title} subtitle={section.subtitle} aos={section.aos} span={section.span}>
+            <Section
+              key={`${sectionIndex}-${section.title}`}
+              title={section.title}
+              subtitle={section.subtitle}
+              aos={section.aos}
+              span={section.span}
+            >
               {section.boxes.map((box, boxIndex) => (
-                <IconBox key={`${boxIndex}-${box.text}`} index={boxIndex} icon={box.icon} text={box.text} span={section.span} />
+                <IconBox
+                  key={`${boxIndex}-${box.text}`}
+                  index={boxIndex}
+                  icon={box.icon}
+                  text={box.text}
+                  span={section.span}
+                />
               ))}
             </Section>
           ))}

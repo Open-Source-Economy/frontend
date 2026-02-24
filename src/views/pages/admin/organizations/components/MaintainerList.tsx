@@ -34,11 +34,20 @@ export function MaintainerList(props: MaintainerListProps) {
             {/* Avatar, Name and Username */}
             <div className="flex items-center gap-2 flex-1">
               {dev.developerOwner.displayAvatarUrl && (
-                <img src={dev.developerOwner.displayAvatarUrl} alt={dev.developerOwner.id.login} className="w-6 h-6 rounded-full" />
+                <img
+                  src={dev.developerOwner.displayAvatarUrl}
+                  alt={dev.developerOwner.id.login}
+                  className="w-6 h-6 rounded-full"
+                />
               )}
               <div className="flex flex-col">
-                {dev.developerOwner.name && <span className="text-sm text-white font-medium">{dev.developerOwner.name}</span>}
-                <ExternalLink href={`https://github.com/${dev.developerOwner.id.login}`} className="text-xs text-purple-200 hover:text-purple-100">
+                {dev.developerOwner.name && (
+                  <span className="text-sm text-white font-medium">{dev.developerOwner.name}</span>
+                )}
+                <ExternalLink
+                  href={`https://github.com/${dev.developerOwner.id.login}`}
+                  className="text-xs text-purple-200 hover:text-purple-100"
+                >
                   @{dev.developerOwner.id.login}
                 </ExternalLink>
               </div>
@@ -48,7 +57,9 @@ export function MaintainerList(props: MaintainerListProps) {
             <div className="flex items-center gap-1">
               <Shield className="w-3 h-3 text-purple-400" />
               <span className="text-xs text-purple-300">
-                {dev.developerProjectItem.roles?.map((role: dto.DeveloperRoleType) => DeveloperRoleTypeCompanion.label(role)).join(", ") || "N/A"}
+                {dev.developerProjectItem.roles
+                  ?.map((role: dto.DeveloperRoleType) => DeveloperRoleTypeCompanion.label(role))
+                  .join(", ") || "N/A"}
               </span>
             </div>
 
@@ -56,7 +67,9 @@ export function MaintainerList(props: MaintainerListProps) {
             <div className="flex items-center gap-1">
               <GitMerge className="w-3 h-3 text-purple-400" />
               <span className="text-xs text-purple-300">
-                {dev.developerProjectItem.mergeRights?.map((mr: dto.MergeRightsType) => MergeRightsTypeCompanion.label(mr)).join(", ") || "N/A"}
+                {dev.developerProjectItem.mergeRights
+                  ?.map((mr: dto.MergeRightsType) => MergeRightsTypeCompanion.label(mr))
+                  .join(", ") || "N/A"}
               </span>
             </div>
           </div>

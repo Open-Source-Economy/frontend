@@ -34,23 +34,33 @@ interface CommentSectionProps {
 export function CommentSection(props: CommentSectionProps) {
   return (
     <>
-      <button onClick={props.onToggle} className="bg-[#202f45] p-3 rounded-md hover:bg-[#2a3f56] h-full transition-colors" title="Add comment">
+      <button
+        onClick={props.onToggle}
+        className="bg-[#202f45] p-3 rounded-md hover:bg-[#2a3f56] h-full transition-colors"
+        title="Add comment"
+      >
         <CommentIcon />
       </button>
 
       {props.show && (
-        <div className={`bg-[#202f45] box-border flex flex-col gap-3 p-4 rounded-md shrink-0 w-full ${props.className}`}>
+        <div
+          className={`bg-[#202f45] box-border flex flex-col gap-3 p-4 rounded-md shrink-0 w-full ${props.className}`}
+        >
           <div className="flex flex-row items-center justify-between w-full">
             <div className="font-montserrat font-normal text-[#ffffff] text-[14px]">
               <p>{props.label}</p>
             </div>
-            <button onClick={props.onClose} className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors" title="Close comment section">
+            <button
+              onClick={props.onClose}
+              className="text-[#ffffff] hover:text-[#ff7e4b] transition-colors"
+              title="Close comment section"
+            >
               <CloseIcon />
             </button>
           </div>
           <TextArea
             value={props.value}
-            onChange={e => props.onChange(e.target.value)}
+            onChange={(e) => props.onChange(e.target.value)}
             placeholder={props.placeholder}
             rows={4}
             className="w-full bg-[#14233a] px-3 py-2 font-montserrat font-normal text-[#ffffff] text-[14px] rounded-md outline-none placeholder:opacity-60 resize-none"

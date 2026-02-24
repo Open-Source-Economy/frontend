@@ -20,7 +20,7 @@ export function CreateCampaignProductAndPrice(_props: CreateCampaignProductAndPr
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +57,9 @@ export function CreateCampaignProductAndPrice(_props: CreateCampaignProductAndPr
     <PageWrapper>
       <div className="flex flex-col items-center justify-center pb-52">
         <div className="mt-20 py-5 px-3">
-          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">Create Campaign Product & Price</h1>
+          <h1 className="lg:text-[62px] text-[30px] text-center font-medium text-white">
+            Create Campaign Product & Price
+          </h1>
           <div className="pt-24 flex justify-center flex-wrap gap-4">
             <form
               onSubmit={handleFormSubmit}
@@ -82,7 +84,11 @@ export function CreateCampaignProductAndPrice(_props: CreateCampaignProductAndPr
                 onChange={handleInputChange}
               />
 
-              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={createCampaignProductAndPrice.isPending}>
+              <button
+                type="submit"
+                className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer"
+                disabled={createCampaignProductAndPrice.isPending}
+              >
                 {createCampaignProductAndPrice.isPending ? "Creating..." : "Create Product & Price"}
               </button>
             </form>

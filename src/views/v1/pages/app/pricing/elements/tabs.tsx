@@ -19,7 +19,7 @@ export function Tabs(props: TabsProps) {
         className={`relative inline-flex items-center justify-center rounded-[10px] p-[1.5px] bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3`}
       >
         <div className="w-full h-full bg-theme-background rounded-[10px] inline-flex items-center justify-center p-1.5">
-          {props.values.map(priceType => (
+          {props.values.map((priceType) => (
             <>
               <button
                 key={priceType}

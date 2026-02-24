@@ -26,7 +26,7 @@ export function BulkSyncControls(props: BulkSyncControlsProps) {
         type="text"
         placeholder="Search organizations and users..."
         value={props.searchTerm}
-        onChange={e => props.onSearchChange(e.target.value)}
+        onChange={(e) => props.onSearchChange(e.target.value)}
         className="max-w-md"
         leftIcon={Building2}
       />
@@ -41,7 +41,7 @@ export function BulkSyncControls(props: BulkSyncControlsProps) {
             max={10000}
             step={100}
             value={props.msPerRepo}
-            onChange={e => props.onMsPerRepoChange(parseInt(e.target.value) || 1000)}
+            onChange={(e) => props.onMsPerRepoChange(parseInt(e.target.value) || 1000)}
             className="w-24"
             disabled={props.isBulkSyncing}
           />
@@ -54,7 +54,7 @@ export function BulkSyncControls(props: BulkSyncControlsProps) {
             type="checkbox"
             id="global-fetch-details"
             checked={props.globalFetchDetails}
-            onChange={e => props.onGlobalFetchDetailsChange(e.target.checked)}
+            onChange={(e) => props.onGlobalFetchDetailsChange(e.target.checked)}
             disabled={props.isBulkSyncing}
             className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           />
@@ -63,11 +63,20 @@ export function BulkSyncControls(props: BulkSyncControlsProps) {
           </label>
         </div>
 
-        <Button variant="outline" size="sm" onClick={props.onToggleSelectAll} disabled={props.isBulkSyncing || props.syncableCount === 0}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={props.onToggleSelectAll}
+          disabled={props.isBulkSyncing || props.syncableCount === 0}
+        >
           {props.isAllSelected && props.syncableCount > 0 ? "Deselect All" : "Select All"}
         </Button>
 
-        <Button onClick={props.onBulkSync} disabled={props.selectedCount === 0 || props.isBulkSyncing} className="bg-green-600 hover:bg-green-700">
+        <Button
+          onClick={props.onBulkSync}
+          disabled={props.selectedCount === 0 || props.isBulkSyncing}
+          className="bg-green-600 hover:bg-green-700"
+        >
           {props.isBulkSyncing ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

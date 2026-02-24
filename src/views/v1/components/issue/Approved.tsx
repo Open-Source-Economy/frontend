@@ -27,7 +27,12 @@ export function Approved(props: ApprovedProps) {
     return (
       <>
         <p className="text-xs sm:text-sm md:text-base text-[#8693A4] mt-2">
-          {text} {githubOwner ? <ExternalLink href={githubOwner.htmlUrl}>@{githubOwner.id.login}</ExternalLink> : "a maintainer"}
+          {text}{" "}
+          {githubOwner ? (
+            <ExternalLink href={githubOwner.htmlUrl}>@{githubOwner.id.login}</ExternalLink>
+          ) : (
+            "a maintainer"
+          )}
         </p>
       </>
     );

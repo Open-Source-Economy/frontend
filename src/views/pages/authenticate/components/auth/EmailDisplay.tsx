@@ -18,7 +18,12 @@ export function EmailDisplay(props: EmailDisplayProps) {
         <p className="text-sm font-bold text-brand-neutral-900 truncate">{props.email}</p>
       </div>
       {props.onEdit && (
-        <Button onClick={props.onEdit} variant="ghost" size="sm" className="h-8 w-8 text-brand-neutral-400 hover:text-brand-accent p-0">
+        <Button
+          onClick={props.onEdit}
+          variant="ghost"
+          size="sm"
+          className="h-8 w-8 text-brand-neutral-400 hover:text-brand-accent p-0"
+        >
           <Edit2 className="w-4 h-4" />
         </Button>
       )}

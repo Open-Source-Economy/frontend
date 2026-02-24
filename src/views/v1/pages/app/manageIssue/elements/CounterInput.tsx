@@ -65,7 +65,9 @@ export function CounterInput(props: CounterInputProps) {
         </div>
       </div>
       <div>
-        <h2 className="gradient-texts select-none font-bold md:text-[16px] text-[12px]">{credit.displayUnit(props.credit)}</h2>
+        <h2 className="gradient-texts select-none font-bold md:text-[16px] text-[12px]">
+          {credit.displayUnit(props.credit)}
+        </h2>
         <style>{`
           .gradient-texts {
             background: linear-gradient(90deg, #ff7e4b, #ff518c);

@@ -102,7 +102,9 @@ function AllocationCard(props: AllocationCardProps) {
   const Icon = props.icon;
 
   return (
-    <Card className={`group border border-border/50 hover:border-${props.color}/30 hover:shadow-lg transition-all duration-300`}>
+    <Card
+      className={`group border border-border/50 hover:border-${props.color}/30 hover:shadow-lg transition-all duration-300`}
+    >
       <CardContent className="p-6 flex flex-col h-full">
         {/* Header with Icon on Left and Percentage on Right */}
         <div className="flex items-center justify-between mb-4">
@@ -124,7 +126,9 @@ function AllocationCard(props: AllocationCardProps) {
         {/* Description per allocation */}
         <p className="text-sm text-muted-foreground mb-4 flex-grow">
           {props.description}
-          {props.descriptionNote && <span className="block mt-2 text-xs text-brand-accent/70 italic">{props.descriptionNote}</span>}
+          {props.descriptionNote && (
+            <span className="block mt-2 text-xs text-brand-accent/70 italic">{props.descriptionNote}</span>
+          )}
         </p>
 
         {/* Bottom Section - Always Aligned */}
@@ -166,7 +170,9 @@ export function FundDistributionMinimal(props: FundDistributionMinimalProps) {
             <span className="text-sm font-medium text-brand-primary">{badge.text}</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-foreground to-brand-accent bg-clip-text text-transparent">{title}</h2>
+          <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-foreground to-brand-accent bg-clip-text text-transparent">
+            {title}
+          </h2>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-3">{description}</p>
 

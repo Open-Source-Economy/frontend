@@ -1,4 +1,11 @@
-import { DeveloperProfile, DeveloperProjectItem, Owner, ProjectItemId, ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import {
+  DeveloperProfile,
+  DeveloperProjectItem,
+  Owner,
+  ProjectItemId,
+  ProjectItemType,
+  ProjectItemWithDetails,
+} from "@open-source-economy/api-types";
 import { NumberUtils } from "../NumberUtils";
 import { ProjectItemDetailsCompanion } from "./ProjectItemDetails.companion";
 
@@ -34,7 +41,10 @@ export namespace ProjectItemWithDetailsCompanion {
    * Creates a view model for displaying a project item in a card.
    * This centralizes all the display logic and calculations.
    */
-  export function toCardView(item: ProjectItemWithDetails, visibleDevelopersCount: number = 3): ProjectItemWithDetailsCardView {
+  export function toCardView(
+    item: ProjectItemWithDetails,
+    visibleDevelopersCount: number = 3
+  ): ProjectItemWithDetailsCardView {
     const isOwnerProject = item.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
 
     return {
@@ -56,11 +66,12 @@ export namespace ProjectItemWithDetailsCompanion {
 
   export function searchProjectItems(projectItems: ProjectItemWithDetails[], query: string): ProjectItemWithDetails[] {
     const lowerQuery = query.toLowerCase();
-    return projectItems.filter(item => {
+    return projectItems.filter((item) => {
       const repoName = item.repository?.id.name.toLowerCase() || "";
       const ownerLogin = item.owner?.id.login.toLowerCase() || "";
       // Handle sourceIdentifier which can be OwnerId | RepositoryId | string
-      const sourceIdentifier = typeof item.projectItem.sourceIdentifier === "string" ? item.projectItem.sourceIdentifier.toLowerCase() : "";
+      const sourceIdentifier =
+        typeof item.projectItem.sourceIdentifier === "string" ? item.projectItem.sourceIdentifier.toLowerCase() : "";
       return repoName.includes(lowerQuery) || ownerLogin.includes(lowerQuery) || sourceIdentifier.includes(lowerQuery);
     });
   }
@@ -76,8 +87,8 @@ export namespace ProjectItemWithDetailsCompanion {
 
     // Calculate unique maintainers by developer profile ID
     const uniqueDeveloperIds = new Set<string>();
-    projectItems.forEach(item => {
-      item.developers.forEach(dev => {
+    projectItems.forEach((item) => {
+      item.developers.forEach((dev) => {
         uniqueDeveloperIds.add(dev.developerProfile.id.uuid);
       });
     });

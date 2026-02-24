@@ -9,7 +9,14 @@ function isOwnerLike(x: any): x is OwnerId | { login: string } {
   return x && typeof x === "object" && typeof x.login === "string";
 }
 function isRepoLike(x: any): x is RepositoryId | { name: string; ownerId?: { login?: string } } {
-  return x && typeof x === "object" && typeof x.name === "string" && x.ownerId && typeof x.ownerId === "object" && typeof x.ownerId.login === "string";
+  return (
+    x &&
+    typeof x === "object" &&
+    typeof x.name === "string" &&
+    x.ownerId &&
+    typeof x.ownerId === "object" &&
+    typeof x.ownerId.login === "string"
+  );
 }
 
 export namespace SourceIdentifierCompanion {
@@ -49,7 +56,9 @@ export namespace SourceIdentifierCompanion {
       if (normalizedName !== repoId.name) {
         // Create new RepositoryId with normalized name, preserving githubId if it exists
         const githubId = (repoId as any).githubId;
-        return githubId !== undefined ? new RepositoryId(repoId.ownerId, normalizedName, githubId) : new RepositoryId(repoId.ownerId, normalizedName);
+        return githubId !== undefined
+          ? new RepositoryId(repoId.ownerId, normalizedName, githubId)
+          : new RepositoryId(repoId.ownerId, normalizedName);
       }
       return repoId;
     }
@@ -93,7 +102,9 @@ export namespace SourceIdentifierCompanion {
     if (isRepoLike(a) && isRepoLike(b)) {
       const nameEqual = normalizeCase ? a.name.toLowerCase() === b.name.toLowerCase() : a.name === b.name;
 
-      const ownerLoginEqual = normalizeCase ? a.ownerId.login.toLowerCase() === b.ownerId.login.toLowerCase() : a.ownerId.login === b.ownerId.login;
+      const ownerLoginEqual = normalizeCase
+        ? a.ownerId.login.toLowerCase() === b.ownerId.login.toLowerCase()
+        : a.ownerId.login === b.ownerId.login;
 
       return nameEqual && ownerLoginEqual;
     }
@@ -137,7 +148,11 @@ export namespace SourceIdentifierCompanion {
    * @param allowShorthand Whether to allow shorthand URLs
    * @returns true if valid, false otherwise
    */
-  export function validateUrlForType(url: string, projectType: ProjectItemType, allowShorthand: boolean = false): boolean {
+  export function validateUrlForType(
+    url: string,
+    projectType: ProjectItemType,
+    allowShorthand: boolean = false
+  ): boolean {
     const trimmedUrl = url.trim();
 
     if (!trimmedUrl) {
@@ -214,7 +229,10 @@ export namespace SourceIdentifierCompanion {
    * @param secondArray Array of SourceIdentifier objects to check against
    * @returns Array of SourceIdentifiers from the first array that are found in the second array
    */
-  export function findIncludedUrls(firstArray: SourceIdentifier[], secondArray: SourceIdentifier[]): SourceIdentifier[] {
+  export function findIncludedUrls(
+    firstArray: SourceIdentifier[],
+    secondArray: SourceIdentifier[]
+  ): SourceIdentifier[] {
     const included: SourceIdentifier[] = [];
     const processed = new Set<number>();
 

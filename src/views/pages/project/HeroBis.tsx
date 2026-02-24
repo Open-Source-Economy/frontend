@@ -1,5 +1,17 @@
 import React from "react";
-import { ArrowDownRight, ArrowUpRight, CheckCircle2, Clock, ExternalLink, GitBranch, Heart, Sparkles, Target, TrendingUp, Users } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  CheckCircle2,
+  Clock,
+  ExternalLink,
+  GitBranch,
+  Heart,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { Button } from "../../components/ui/forms";
 
 interface HeroBisProps {
@@ -38,8 +50,8 @@ export function HeroBis(props: HeroBisProps) {
               </div>
 
               <p className="text-brand-neutral-700 max-w-2xl">
-                The Common Pot is funded by service providers who earn from enterprise contracts. These funds support maintainers and contributors working on
-                community-benefiting features that wouldn't otherwise be funded.
+                The Common Pot is funded by service providers who earn from enterprise contracts. These funds support
+                maintainers and contributors working on community-benefiting features that wouldn't otherwise be funded.
               </p>
 
               {/* Project Statistics */}

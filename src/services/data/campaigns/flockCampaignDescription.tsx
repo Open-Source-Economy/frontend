@@ -48,7 +48,11 @@ export const flockCampaignDescription: CampaignDescription = {
         To provide immediate solutions when needed, we need:
       </>
     ),
-    items: [{ text: "Automated mirroring infrastructure" }, { text: "Engine build and distribution systems" }, { text: "Streamlined contribution processes" }],
+    items: [
+      { text: "Automated mirroring infrastructure" },
+      { text: "Engine build and distribution systems" },
+      { text: "Streamlined contribution processes" },
+    ],
     paragraph2: "With your support, we can provide the fixes companies need, when they need them.",
   },
   useOfFunds: {
@@ -79,7 +83,8 @@ export const flockCampaignDescription: CampaignDescription = {
     ),
   },
   whyTrustUs: {
-    paragraph1: "Our team includes former Flutter team members and experienced Flutter developers who have faced these challenges firsthand.",
+    paragraph1:
+      "Our team includes former Flutter team members and experienced Flutter developers who have faced these challenges firsthand.",
     paragraph2: (
       <>
         Every contribution goes directly to infrastructure and development.

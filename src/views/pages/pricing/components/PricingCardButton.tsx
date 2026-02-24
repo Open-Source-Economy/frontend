@@ -12,7 +12,9 @@ export function PricingCardButton(props: PricingCardButtonProps) {
     case "current":
       return (
         <div className="w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium h-11 px-8 py-6 text-base cursor-default border-2 border-transparent">
-          <span className="bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent uppercase tracking-wide">Current Plan</span>
+          <span className="bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent uppercase tracking-wide">
+            Current Plan
+          </span>
         </div>
       );
     case "upgrade":

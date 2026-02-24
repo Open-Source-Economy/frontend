@@ -8,7 +8,11 @@ const backendAPI = getBackendAPI();
 
 export const stripeHooks = {
   useCheckoutMutation() {
-    return useMutation<dto.CheckoutResponse, Error, { params: dto.CheckoutParams; body: dto.CheckoutBody; query: dto.CheckoutQuery }>({
+    return useMutation<
+      dto.CheckoutResponse,
+      Error,
+      { params: dto.CheckoutParams; body: dto.CheckoutBody; query: dto.CheckoutQuery }
+    >({
       mutationFn: ({ params, body, query }) => backendAPI.checkout(params, body, query),
     });
   },
@@ -18,7 +22,11 @@ export const stripeHooks = {
     return useMutation<
       dto.SetUserPreferredCurrencyResponse,
       Error,
-      { params: dto.SetUserPreferredCurrencyParams; body: dto.SetUserPreferredCurrencyBody; query: dto.SetUserPreferredCurrencyQuery }
+      {
+        params: dto.SetUserPreferredCurrencyParams;
+        body: dto.SetUserPreferredCurrencyBody;
+        query: dto.SetUserPreferredCurrencyQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => backendAPI.setUserPreferredCurrency(params, body, query),
       onSuccess: () => {
@@ -31,14 +39,22 @@ export const stripeHooks = {
     return useMutation<
       dto.NewsletterSubscriptionResponse,
       Error,
-      { params: dto.NewsletterSubscriptionParams; body: dto.NewsletterSubscriptionBody; query: dto.NewsletterSubscriptionQuery }
+      {
+        params: dto.NewsletterSubscriptionParams;
+        body: dto.NewsletterSubscriptionBody;
+        query: dto.NewsletterSubscriptionQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => backendAPI.subscribeToNewsletter(params, body, query),
     });
   },
 
   useSubmitContactFormMutation() {
-    return useMutation<dto.ContactFormResponse, Error, { params: dto.ContactFormParams; body: dto.ContactFormBody; query: dto.ContactFormQuery }>({
+    return useMutation<
+      dto.ContactFormResponse,
+      Error,
+      { params: dto.ContactFormParams; body: dto.ContactFormBody; query: dto.ContactFormQuery }
+    >({
       mutationFn: ({ params, body, query }) => backendAPI.submitContactForm(params, body, query),
     });
   },

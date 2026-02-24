@@ -170,8 +170,9 @@ export function PrivacyPolicyPage(_props: PrivacyPolicyPageProps) {
               <h1 className="text-brand-neutral-950 mb-6">Privacy Policy</h1>
 
               <p className="text-brand-neutral-700 max-w-3xl mx-auto mb-8">
-                At Open Source Economy, we are committed to protecting your privacy and handling your data with transparency and care. As a 501(c)(3) nonprofit
-                organization, our mission is to sustain open source software, not to monetize your personal information.
+                At Open Source Economy, we are committed to protecting your privacy and handling your data with
+                transparency and care. As a 501(c)(3) nonprofit organization, our mission is to sustain open source
+                software, not to monetize your personal information.
               </p>
 
               <div className="inline-flex items-center gap-2 text-brand-accent">
@@ -228,13 +229,15 @@ export function PrivacyPolicyPage(_props: PrivacyPolicyPageProps) {
                   <div className="flex-1">
                     <h2 className="text-brand-neutral-950 mb-4">Changes to This Privacy Policy</h2>
                     <p className="text-brand-neutral-700 mb-6">
-                      We may update this privacy policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any
-                      material changes by posting the new policy on this page and updating the "Last Updated" date. We encourage you to review this policy
-                      periodically.
+                      We may update this privacy policy from time to time to reflect changes in our practices or legal
+                      requirements. We will notify you of any material changes by posting the new policy on this page
+                      and updating the "Last Updated" date. We encourage you to review this policy periodically.
                     </p>
 
                     <h3 className="text-brand-neutral-900 mb-4 mt-8">Contact Us</h3>
-                    <p className="text-brand-neutral-700 mb-6">If you have any questions about this privacy policy or our data practices, please contact us:</p>
+                    <p className="text-brand-neutral-700 mb-6">
+                      If you have any questions about this privacy policy or our data practices, please contact us:
+                    </p>
 
                     <div className="space-y-3 text-brand-neutral-700">
                       <p>
@@ -247,7 +250,8 @@ export function PrivacyPolicyPage(_props: PrivacyPolicyPageProps) {
                         </button>
                       </p>
                       <p>
-                        <span className="text-brand-neutral-800">Mail:</span> Open Source Economy, [Address], [City, State ZIP]
+                        <span className="text-brand-neutral-800">Mail:</span> Open Source Economy, [Address], [City,
+                        State ZIP]
                       </p>
                       <p className="pt-4">
                         <button

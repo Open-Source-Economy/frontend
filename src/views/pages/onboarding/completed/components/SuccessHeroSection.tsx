@@ -19,8 +19,8 @@ export const SuccessHeroSection: React.FC = () => {
       </h1>
 
       <p className="text-lg text-brand-neutral-600 max-w-2xl mx-auto">
-        Thanks for taking the leap! We're excited to have you join the Open Source Economy community. Our team is reviewing your application and we'll reach out
-        soon.
+        Thanks for taking the leap! We're excited to have you join the Open Source Economy community. Our team is
+        reviewing your application and we'll reach out soon.
       </p>
     </div>
   );

@@ -12,7 +12,10 @@ interface ProgressProps {
 
 export function Progress(props: ProgressProps) {
   const [animatedProgress, setAnimatedProgress] = useState(0);
-  const progressPercentage = Math.min((props.raisedAmount[props.preferredCurrency] / props.targetAmount[props.preferredCurrency]) * 100, 100);
+  const progressPercentage = Math.min(
+    (props.raisedAmount[props.preferredCurrency] / props.targetAmount[props.preferredCurrency]) * 100,
+    100
+  );
 
   useEffect(() => {
     // Start with 0 and animate to the target percentage
@@ -45,7 +48,10 @@ export function Progress(props: ProgressProps) {
         {NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency], props.preferredCurrency)}/mo
       </h2>
       <p className="text-base opacity-80 2xl:text-lg 3xl:text-xl !mt-1.5">
-        <span className="hidden">{NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency], props.preferredCurrency)} </span> pledged of{" "}
+        <span className="hidden">
+          {NumberUtils.toLocaleStringPrice(props.raisedAmount[props.preferredCurrency], props.preferredCurrency)}{" "}
+        </span>{" "}
+        pledged of{" "}
         {NumberUtils.toLocaleStringPrice(props.targetAmount[props.preferredCurrency], props.preferredCurrency)}
       </p>
       {(props.numberOfBackers || props.numberOfDaysLeft) && (

@@ -20,12 +20,14 @@ import { sortProjectsByBackendOrder } from "./adapters";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
-const Step2: React.FC<Step2Props> = props => {
+const Step2: React.FC<Step2Props> = (props) => {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Initialize projects and ensure they're sorted (backend should already be sorted, but we sort here for consistency)
-  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() => sortProjectsByBackendOrder(props.state.projects));
+  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() =>
+    sortProjectsByBackendOrder(props.state.projects)
+  );
   const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
   const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
 
@@ -74,7 +76,7 @@ const Step2: React.FC<Step2Props> = props => {
 
     // Use functional state updates to ensure each update sees the previous state
     // This is critical for bulk operations where multiple projects are added in quick succession
-    setProjects(prevProjects => {
+    setProjects((prevProjects) => {
       let updatedProjects: DeveloperProjectItemEntry[];
 
       // Capture editingProject in the closure to use the correct value
@@ -94,7 +96,7 @@ const Step2: React.FC<Step2Props> = props => {
         // Remove the old entry (by the editingProject's ID) and add the new one
         // This handles both cases: simple updates (same project) and changes (different project)
         updatedProjects = prevProjects
-          .filter(entry => entry.developerProjectItem.id.uuid !== currentEditingProject.developerProjectItem.id.uuid)
+          .filter((entry) => entry.developerProjectItem.id.uuid !== currentEditingProject.developerProjectItem.id.uuid)
           .concat(updatedEntry);
         // Clear editing project after update
         setEditingProject(null);
@@ -140,7 +142,9 @@ const Step2: React.FC<Step2Props> = props => {
       const query: dto.RemoveDeveloperProjectItemQuery = {};
       await removeProjectItem.mutateAsync({ params, body, query });
 
-      const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid);
+      const updatedProjects = projects.filter(
+        (entry) => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid
+      );
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
       setShowDeleteModal(false);
@@ -170,7 +174,8 @@ const Step2: React.FC<Step2Props> = props => {
         <strong className="block mb-1 text-sm">Pro Tip</strong>
         <span className="block mb-1">Companies and donors search for developers by their projects.</span>
         <span className="block">
-          → Include all open source projects you'd like to receive funding for to maximize your visibility and funding opportunities.
+          → Include all open source projects you'd like to receive funding for to maximize your visibility and funding
+          opportunities.
         </span>
       </InfoMessage>
 
@@ -205,7 +210,8 @@ const Step2: React.FC<Step2Props> = props => {
 
       {/* Help Text */}
       <InfoMessage variant="note" title="Note:">
-        We'll verify your project contributions through your GitHub profile. Make sure your GitHub contributions are public for verification.
+        We'll verify your project contributions through your GitHub profile. Make sure your GitHub contributions are
+        public for verification.
       </InfoMessage>
 
       {/* Add/Edit Project Modal */}

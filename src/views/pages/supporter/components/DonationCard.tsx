@@ -2,13 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "@tanstack/react-router";
 import { Button } from "../../../components/ui/forms/button";
 import { Card, CardContent } from "../../../components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/forms/select/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components/ui/forms/select/select";
 import { ToggleGroup, ToggleGroupItem } from "../../../components/ui/toggle-group";
 import { CheckboxField } from "../../../components/ui/forms/checkbox-field";
 import { type InputRef, ValidatedInputWithRef } from "../../../components/ui/forms/inputs/validated-input";
 import { validateGitHubOwnerUrl, validatePositiveInteger } from "../../../components/ui/forms/validators";
 import { AlertCircle, Github, Heart, Shield, TrendingUp } from "lucide-react";
-import { CampaignPriceType, CampaignProductType, CheckoutBody, CheckoutParams, CheckoutQuery, Currency, Price } from "@open-source-economy/api-types";
+import {
+  CampaignPriceType,
+  CampaignProductType,
+  CheckoutBody,
+  CheckoutParams,
+  CheckoutQuery,
+  Currency,
+  Price,
+} from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { paths } from "src/paths";
 import { displayedCurrencies } from "src/views/v1/data";
@@ -58,7 +72,7 @@ export function DonationCard(props: DonationCardProps) {
       }
       return undefined;
     },
-    [listPublicly],
+    [listPublicly]
   );
 
   // Checkout mutation
@@ -214,7 +228,7 @@ export function DonationCard(props: DonationCardProps) {
               <ToggleGroup
                 type="single"
                 value={priceType}
-                onValueChange={value => value && setPriceType(value as CampaignPriceType)}
+                onValueChange={(value) => value && setPriceType(value as CampaignPriceType)}
                 className="inline-flex p-1.5 bg-brand-card-blue border border-brand-neutral-300 rounded-lg"
               >
                 <ToggleGroupItem
@@ -223,7 +237,9 @@ export function DonationCard(props: DonationCardProps) {
                 >
                   Monthly
                   {priceType === CampaignPriceType.MONTHLY && (
-                    <span className="absolute -top-2 -right-2 bg-brand-success text-brand-secondary px-1.5 py-0.5 rounded-md text-xs">Best</span>
+                    <span className="absolute -top-2 -right-2 bg-brand-success text-brand-secondary px-1.5 py-0.5 rounded-md text-xs">
+                      Best
+                    </span>
                   )}
                 </ToggleGroupItem>
                 <ToggleGroupItem
@@ -243,9 +259,11 @@ export function DonationCard(props: DonationCardProps) {
           {/* Suggested Amounts */}
           <div>
             <div className="flex items-center justify-between mb-2.5">
-              <label className="text-sm text-brand-neutral-700">Select Amount {priceType === CampaignPriceType.MONTHLY && "(per month)"}</label>
+              <label className="text-sm text-brand-neutral-700">
+                Select Amount {priceType === CampaignPriceType.MONTHLY && "(per month)"}
+              </label>
               <div className="inline-flex items-center opacity-50">
-                <Select value={preferredCurrency} onValueChange={value => setPreferredCurrency(value as Currency)}>
+                <Select value={preferredCurrency} onValueChange={(value) => setPreferredCurrency(value as Currency)}>
                   <SelectTrigger className="h-7 w-28 text-xs border-brand-neutral-300/30 bg-transparent cursor-pointer">
                     <SelectValue />
                   </SelectTrigger>
@@ -266,32 +284,38 @@ export function DonationCard(props: DonationCardProps) {
               campaign.prices[priceType][preferredCurrency] &&
               campaign.prices[priceType][preferredCurrency][campaignProductType] && (
                 <div className="grid grid-cols-3 gap-2.5">
-                  {campaign.prices[priceType][preferredCurrency][campaignProductType].map((price: Price, index: number) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setSelectedPriceIndex(index);
-                        setCustomAmount(null);
-                      }}
-                      className={`p-3 rounded-lg border-2 transition-all duration-300 cursor-pointer ${
-                        selectedPriceIndex === index && !customAmount
-                          ? "border-brand-accent bg-brand-accent/10 text-brand-accent shadow-lg shadow-brand-accent/20"
-                          : "border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50 hover:bg-brand-accent/5"
-                      }`}
-                    >
-                      <div className="text-xl">{NumberUtils.toLocaleStringPrice(price.totalAmount, preferredCurrency)}</div>
-                    </button>
-                  ))}
+                  {campaign.prices[priceType][preferredCurrency][campaignProductType].map(
+                    (price: Price, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setSelectedPriceIndex(index);
+                          setCustomAmount(null);
+                        }}
+                        className={`p-3 rounded-lg border-2 transition-all duration-300 cursor-pointer ${
+                          selectedPriceIndex === index && !customAmount
+                            ? "border-brand-accent bg-brand-accent/10 text-brand-accent shadow-lg shadow-brand-accent/20"
+                            : "border-brand-neutral-300 text-brand-neutral-700 hover:border-brand-accent/50 hover:bg-brand-accent/5"
+                        }`}
+                      >
+                        <div className="text-xl">
+                          {NumberUtils.toLocaleStringPrice(price.totalAmount, preferredCurrency)}
+                        </div>
+                      </button>
+                    )
+                  )}
                   {/* Custom Amount Input */}
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-neutral-600 z-10">{displayedCurrency.symbol}</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-neutral-600 z-10">
+                      {displayedCurrency.symbol}
+                    </span>
                     <input
                       type="number"
                       min="1"
                       step="1"
                       value={customAmount !== null ? customAmount.toString() : ""}
                       onChange={handleCustomAmountChange}
-                      onKeyDown={e => {
+                      onKeyDown={(e) => {
                         if (e.key === "-" || e.key === "e" || e.key === "E" || e.key === ".") {
                           e.preventDefault();
                         }
@@ -306,7 +330,9 @@ export function DonationCard(props: DonationCardProps) {
             {/* Fallback: Show placeholder when no prices available */}
             {(!campaign?.prices || !campaign.prices[priceType]?.[preferredCurrency]?.[campaignProductType]?.length) && (
               <div className="bg-brand-warning/10 border border-brand-warning/30 rounded-lg p-4 text-center">
-                <p className="text-brand-neutral-700 text-sm">Sponsorship options are being configured. Please check back soon.</p>
+                <p className="text-brand-neutral-700 text-sm">
+                  Sponsorship options are being configured. Please check back soon.
+                </p>
               </div>
             )}
 
@@ -324,7 +350,7 @@ export function DonationCard(props: DonationCardProps) {
             <CheckboxField
               id="list-publicly"
               checked={listPublicly}
-              onCheckedChange={checked => {
+              onCheckedChange={(checked) => {
                 setListPublicly(checked);
                 // Validate GitHub profile when checkbox is checked
                 if (checked && githubProfile) {

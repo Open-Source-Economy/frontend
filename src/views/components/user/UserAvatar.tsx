@@ -27,7 +27,9 @@ export function UserAvatar(props: UserAvatarProps) {
   return (
     <Avatar className={props.className}>
       <AvatarImage src={avatarSrc} alt="User Avatar" className="object-cover" />
-      <AvatarFallback className="bg-brand-accent text-white">{/* Intentionally empty as per request to remove initials */}</AvatarFallback>
+      <AvatarFallback className="bg-brand-accent text-white">
+        {/* Intentionally empty as per request to remove initials */}
+      </AvatarFallback>
     </Avatar>
   );
 }

@@ -32,13 +32,19 @@ export interface ExtendedParticipationCardConfig extends ParticipationCardConfig
 export const participationCardConfigs: Record<ParticipationModelOption, ExtendedParticipationCardConfig> = {
   [ParticipationModelOption.SERVICE_PROVIDER]: {
     title: "Service Provider",
-    description: "Provide services to enterprises and your earnings automatically fund both visible and invisible open source work across the ecosystem",
+    description:
+      "Provide services to enterprises and your earnings automatically fund both visible and invisible open source work across the ecosystem",
     icon: Zap,
     badge: {
       text: "Powers the Entire Ecosystem",
       icon: Sparkles,
     },
-    features: ["Earn from enterprise contracts", "Fund your project's common pot", "Support dependencies automatically", "Governance rights included"],
+    features: [
+      "Earn from enterprise contracts",
+      "Fund your project's common pot",
+      "Support dependencies automatically",
+      "Governance rights included",
+    ],
     detailedFeatures: [
       { icon: DollarSign, title: "Earn from Enterprise Contracts", description: "Direct revenue stream" },
       { icon: Heart, title: "Fund Your Project's Common Pot", description: "Build project sustainability" },

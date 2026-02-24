@@ -7,7 +7,9 @@ export const WhyJoinSection: React.FC = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-brand-neutral-950 mb-4">Why Join Open Source Economy?</h2>
-          <p className="text-brand-neutral-600 text-lg max-w-2xl mx-auto">A Swiss non-profit aligned with your values, not venture capital interests</p>
+          <p className="text-brand-neutral-600 text-lg max-w-2xl mx-auto">
+            A Swiss non-profit aligned with your values, not venture capital interests
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -32,7 +34,11 @@ export const WhyJoinSection: React.FC = () => {
               title: "No Sales Work",
               desc: "We handle all outreach, sales, negotiations, and contracts. You never have to pitch or chase clients.",
             },
-            { icon: Clock, title: "Your Terms", desc: "Choose your projects, services, rates, and availability. Full control over what you offer and when." },
+            {
+              icon: Clock,
+              title: "Your Terms",
+              desc: "Choose your projects, services, rates, and availability. Full control over what you offer and when.",
+            },
             {
               icon: Users,
               title: "Community First",

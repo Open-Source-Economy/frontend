@@ -15,21 +15,25 @@ const backendAPI = getBackendAPI();
 
 export function Projects(_props: ProjectsProps) {
   const repositoryQueries = useQueries({
-    queries: repositoryIds.map(repositoryId => ({
+    queries: repositoryIds.map((repositoryId) => ({
       queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
       queryFn: () => backendAPI.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries.filter(q => q.isSuccess && q.data).map(q => [q.data!.owner, q.data!.repository]);
-  const error = repositoryQueries.find(q => q.error)?.error ?? null;
+  const repositories: [Owner, Repository][] = repositoryQueries
+    .filter((q) => q.isSuccess && q.data)
+    .map((q) => [q.data!.owner, q.data!.repository]);
+  const error = repositoryQueries.find((q) => q.error)?.error ?? null;
 
   return (
     <PageWrapper>
       <H1WithSubtitle
         title={
           <>
-            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">Open Source</span>
+            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
+              Open Source
+            </span>
             <br />
             From the Experts <br />
             Who Built It
@@ -47,7 +51,13 @@ export function Projects(_props: ProjectsProps) {
 
             {repositories.map(([owner, repository], _index) => (
               <>
-                <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={paths.campaign(repository.id)} />
+                <Cards2
+                  owner={owner}
+                  repository={repository}
+                  audience={Audience.USER}
+                  action="FUND"
+                  to={paths.campaign(repository.id)}
+                />
               </>
             ))}
           </div>

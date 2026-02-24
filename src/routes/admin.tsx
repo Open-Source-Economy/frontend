@@ -24,5 +24,10 @@ function AdminLayout() {
     return <Outlet />;
   }
 
-  return <Navigate to="/auth/identify" search={{ repository_token: undefined, company_token: undefined, email: undefined }} />;
+  return (
+    <Navigate
+      to="/auth/identify"
+      search={{ repository_token: undefined, company_token: undefined, email: undefined }}
+    />
+  );
 }

@@ -43,7 +43,13 @@ export function Campaign(_props: CampaignProps) {
         {campaign?.aQuestion && (
           <AQuestion description={campaign?.aQuestion}>
             {config.env !== Env.Production && (
-              <Button audience="USER" level={"SECONDARY"} size={"LARGE"} className="hover:!text-white !text-primary-user" asChild>
+              <Button
+                audience="USER"
+                level={"SECONDARY"}
+                size={"LARGE"}
+                className="hover:!text-white !text-primary-user"
+                asChild
+              >
                 <a href="#">FAQ</a>
               </Button>
             )}

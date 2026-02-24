@@ -33,23 +33,26 @@ const switchVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 // Switch thumb variants
-const switchThumbVariants = cva("pointer-events-none block rounded-full bg-white shadow-sm transition-all duration-200 ring-0", {
-  variants: {
-    size: {
-      sm: "size-3 data-[state=checked]:translate-x-3 data-[state=unchecked]:translate-x-0",
-      default: "size-4 data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
-      lg: "size-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0.5",
-      xl: "size-5 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0.5",
+const switchThumbVariants = cva(
+  "pointer-events-none block rounded-full bg-white shadow-sm transition-all duration-200 ring-0",
+  {
+    variants: {
+      size: {
+        sm: "size-3 data-[state=checked]:translate-x-3 data-[state=unchecked]:translate-x-0",
+        default: "size-4 data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
+        lg: "size-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0.5",
+        xl: "size-5 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0.5",
+      },
     },
-  },
-  defaultVariants: {
-    size: "default",
-  },
-});
+    defaultVariants: {
+      size: "default",
+    },
+  }
+);
 
 interface SwitchProps extends React.ComponentProps<typeof SwitchPrimitive.Root>, VariantProps<typeof switchVariants> {}
 

@@ -28,7 +28,11 @@ export const projectHooks = {
 
   useFundIssueMutation() {
     const queryClient = useQueryClient();
-    return useMutation<void, Error, { params: dto.FundIssueParams; body: dto.FundIssueBody; query: dto.FundIssueQuery }>({
+    return useMutation<
+      void,
+      Error,
+      { params: dto.FundIssueParams; body: dto.FundIssueBody; query: dto.FundIssueQuery }
+    >({
       mutationFn: ({ params, body, query }) => backendAPI.fundIssue(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: PROJECT_QUERY_KEY });

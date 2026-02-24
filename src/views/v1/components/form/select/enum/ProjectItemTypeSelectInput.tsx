@@ -10,19 +10,22 @@ interface ProjectItemTypeSelectInputProps extends Omit<BaseProps, "label"> {
   label?: string;
 }
 
-const options: SelectOption[] = Object.values(ProjectItemType).map(value => ({
+const options: SelectOption[] = Object.values(ProjectItemType).map((value) => ({
   value,
   label: value,
 }));
 
-export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(props: ProjectItemTypeSelectInputProps, ref: Ref<SelectInputRef>) {
+export const ProjectItemTypeSelectInput = forwardRef(function ProjectItemTypeSelectInput(
+  props: ProjectItemTypeSelectInputProps,
+  ref: Ref<SelectInputRef>
+) {
   return (
     <SelectInput
       ref={ref}
       label={props.label || "Project Item Type"}
       required={props.required}
       value={props.value || ""}
-      onChange={e => props.onChange(e.target.value ? (e.target.value as ProjectItemType) : null)}
+      onChange={(e) => props.onChange(e.target.value ? (e.target.value as ProjectItemType) : null)}
       options={options}
     />
   );

@@ -41,7 +41,11 @@ export function CreatePlanProductAndPrice(_props: CreatePlanProductAndPriceProps
               onSubmit={handleFormSubmit}
               className="bg-[#14233A] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] sm:w-[450px]"
             >
-              <button type="submit" className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer" disabled={createPlanProductAndPrice.isPending}>
+              <button
+                type="submit"
+                className="sm:px-14 px-[20px] py-3 findbutton cursor-pointer"
+                disabled={createPlanProductAndPrice.isPending}
+              >
                 {createPlanProductAndPrice.isPending ? "Creating..." : "Create Product & Price"}
               </button>
             </form>

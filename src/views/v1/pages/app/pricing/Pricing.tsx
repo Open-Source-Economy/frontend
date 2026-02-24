@@ -18,7 +18,10 @@ export function Pricing(_props: PricingProps) {
   return (
     <PageWrapper>
       <div className="flex w-full flex-col items-center justify-center gap-12 md:gap-24 py-12 md:py-24">
-        <div data-aos="fade-up" className="relative flex flex-col items-center max-md:gap-4 md:gap-8 max-lg:px-4 mt-8 text-center">
+        <div
+          data-aos="fade-up"
+          className="relative flex flex-col items-center max-md:gap-4 md:gap-8 max-lg:px-4 mt-8 text-center"
+        >
           <img
             src={backdropSVG}
             className="pointer-events-none absolute max-md:top-0 md:-top-40 z-0 left-1/2 -translate-x-1/2 scale-75 origin-top"
@@ -29,7 +32,9 @@ export function Pricing(_props: PricingProps) {
             <span className="text-white md:mt-3 inline-block">Solutions</span>
           </h1>
           <div className="relative w-10/12 md:w-[516px] h-1 md:h-2 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 max-w-xl rounded-full" />
-          <p className="md:text-xl lg:text-[24px] text-white/70">Access expert support. Fund critical dependencies. Build with confidence.</p>
+          <p className="md:text-xl lg:text-[24px] text-white/70">
+            Access expert support. Fund critical dependencies. Build with confidence.
+          </p>
         </div>
 
         <div className="relative flex w-full max-w-[1444px] flex-col gap-10 md:gap-20 max-lg:px-4">
@@ -68,7 +73,11 @@ export function Pricing(_props: PricingProps) {
           {/*)}*/}
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="400" className="max-lg:px-4 flex flex-col items-center text-center text-white">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="400"
+          className="max-lg:px-4 flex flex-col items-center text-center text-white"
+        >
           {config.env !== Env.Production && (
             <p>
               <a href="/TODO" className="text-pink-500 hover:underline font-bold">
@@ -81,7 +90,9 @@ export function Pricing(_props: PricingProps) {
               apply.
             </p>
           )}
-          <p>Subject to maintainer availability. Unused credits automatically recredited if service cannot be provided.</p>
+          <p>
+            Subject to maintainer availability. Unused credits automatically recredited if service cannot be provided.
+          </p>
         </div>
       </div>
     </PageWrapper>

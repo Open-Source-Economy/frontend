@@ -28,7 +28,9 @@ export function CompanyProduct(_props: CompanyProductProps) {
         <H1WithSubtitle
           title={
             <>
-              <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">Open Source</span>
+              <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
+                Open Source
+              </span>
               <br />
               From the Experts <br />
               Who Built It
@@ -49,7 +51,11 @@ export function CompanyProduct(_props: CompanyProductProps) {
 
         <section className="!px-4 relative flex flex-col">
           <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-7 md:!mt-12">
-            <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
+            <BookACallButton
+              audience={Audience.USER}
+              level={"SECONDARY"}
+              className="hover:!text-white !text-primary-user !capitalize"
+            />
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
               <Link to={paths.AUTH.IDENTIFY}>Register</Link>
             </Button>

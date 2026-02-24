@@ -23,7 +23,11 @@ export function MobileUserMenuDropdown(props: MobileUserMenuDropdownProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 pb-4">
-            <MobileUserMenu authenticatedUser={props.authenticatedUser} menuConfig={props.menuConfig} onItemClick={props.onClose} />
+            <MobileUserMenu
+              authenticatedUser={props.authenticatedUser}
+              menuConfig={props.menuConfig}
+              onItemClick={props.onClose}
+            />
           </div>
         </div>
       </DialogContent>

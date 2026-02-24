@@ -7,7 +7,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async createDeveloperProfile(
     params: dto.CreateDeveloperProfileParams,
     body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery,
+    query: dto.CreateDeveloperProfileQuery
   ): Promise<dto.CreateDeveloperProfileResponse> {
     console.log("createDeveloperProfile", { params, body, query });
     const response: dto.CreateDeveloperProfileResponse = {};
@@ -18,7 +18,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async updateDeveloperContactInfos(
     params: dto.UpdateDeveloperContactInfosParams,
     body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery,
+    query: dto.UpdateDeveloperContactInfosQuery
   ): Promise<dto.UpdateDeveloperContactInfosResponse> {
     console.log("updateDeveloperContactInfos", { params, body, query });
     const response: dto.UpdateDeveloperContactInfosResponse = {
@@ -27,7 +27,10 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     return Promise.resolve(response);
   }
 
-  async getDeveloperProfile(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery): Promise<dto.GetDeveloperProfileResponse> {
+  async getDeveloperProfile(
+    params: dto.GetDeveloperProfileParams,
+    query: dto.GetDeveloperProfileQuery
+  ): Promise<dto.GetDeveloperProfileResponse> {
     console.log("getDeveloperProfile", { params, query });
 
     const projectItemId1 = new dto.ProjectItemId(Math.random().toString());
@@ -61,7 +64,11 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
             projectItem: {
               id: projectItemId1,
               projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
-              sourceIdentifier: new dto.RepositoryId(new dto.OwnerId("open-source-economy", undefined), "ose-website", undefined),
+              sourceIdentifier: new dto.RepositoryId(
+                new dto.OwnerId("open-source-economy", undefined),
+                "ose-website",
+                undefined
+              ),
               createdAt: new Date(),
               updatedAt: new Date(),
             },
@@ -103,7 +110,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async setDeveloperPreferences(
     params: dto.SetDeveloperPreferencesParams,
     body: dto.SetDeveloperPreferencesBody,
-    query: dto.SetDeveloperPreferencesQuery,
+    query: dto.SetDeveloperPreferencesQuery
   ): Promise<dto.SetDeveloperPreferencesResponse> {
     console.log("setDeveloperPreferences", { params, body, query });
     return Promise.resolve({} as dto.SetDeveloperPreferencesResponse);
@@ -112,7 +119,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async setDeveloperServiceSettings(
     params: dto.SetDeveloperServiceSettingsParams,
     body: dto.SetDeveloperServiceSettingsBody,
-    query: dto.SetDeveloperServiceSettingsQuery,
+    query: dto.SetDeveloperServiceSettingsQuery
   ): Promise<dto.SetDeveloperServiceSettingsResponse> {
     console.log("setDeveloperServiceSettings", { params, body, query });
     return Promise.resolve({} as dto.SetDeveloperServiceSettingsResponse);
@@ -121,14 +128,14 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async upsertProjectItem(
     params: dto.UpsertDeveloperProjectItemParams,
     body: dto.UpsertDeveloperProjectItemBody,
-    query: dto.UpsertDeveloperProjectItemQuery,
+    query: dto.UpsertDeveloperProjectItemQuery
   ): Promise<dto.UpsertDeveloperProjectItemResponse> {
     console.log("upsertProjectItem", { params, body, query });
 
     const developerProfileId = new dto.DeveloperProfileId(Math.random().toString()); // Need a mock profile ID
 
     // Process each project item in the array
-    const results: dto.ProjectItemUpsertResult[] = body.projectItems.map(projectItemData => {
+    const results: dto.ProjectItemUpsertResult[] = body.projectItems.map((projectItemData) => {
       const projectItemId = new dto.ProjectItemId(Math.random().toString());
       const developerProjectItemId = new dto.DeveloperProjectItemId(Math.random().toString());
 
@@ -165,7 +172,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async removeProjectItem(
     params: dto.RemoveDeveloperProjectItemParams,
     body: dto.RemoveDeveloperProjectItemBody,
-    query: dto.RemoveDeveloperProjectItemQuery,
+    query: dto.RemoveDeveloperProjectItemQuery
   ): Promise<dto.RemoveDeveloperProjectItemResponse> {
     console.log("removeProjectItem", { params, body, query });
     return Promise.resolve({} as dto.RemoveDeveloperProjectItemResponse);
@@ -173,14 +180,17 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
 
   async getPotentialProjectItems(
     params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery,
+    query: dto.GetPotentialDeveloperProjectItemsQuery
   ): Promise<dto.GetPotentialDeveloperProjectItemsResponse> {
     console.log("getPotentialProjectItems", { params, query });
     const response: dto.GetPotentialDeveloperProjectItemsResponse = {};
     return Promise.resolve(response);
   }
 
-  async getServiceHierarchy(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery): Promise<dto.GetServiceHierarchyResponse> {
+  async getServiceHierarchy(
+    params: dto.GetServiceHierarchyParams,
+    query: dto.GetServiceHierarchyQuery
+  ): Promise<dto.GetServiceHierarchyResponse> {
     // Updated return type
     console.log("getServiceHierarchy", { params, query });
     const response: dto.GetServiceHierarchyResponse = {
@@ -192,7 +202,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async upsertDeveloperService(
     params: dto.UpsertDeveloperServiceParams,
     body: dto.UpsertDeveloperServiceBody,
-    query: dto.UpsertDeveloperServiceQuery,
+    query: dto.UpsertDeveloperServiceQuery
   ): Promise<dto.UpsertDeveloperServiceResponse> {
     console.log("upsertDeveloperService", { params, body, query });
 
@@ -220,11 +230,11 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async upsertDeveloperServices(
     params: dto.UpsertDeveloperServicesParams,
     body: dto.UpsertDeveloperServicesBody,
-    query: dto.UpsertDeveloperServicesQuery,
+    query: dto.UpsertDeveloperServicesQuery
   ): Promise<dto.UpsertDeveloperServicesResponse> {
     console.log("upsertDeveloperServices", { params, body, query });
 
-    const developerServices: dto.DeveloperService[] = body.upsertDeveloperServices.map(service => {
+    const developerServices: dto.DeveloperService[] = body.upsertDeveloperServices.map((service) => {
       const developerService: dto.DeveloperService = {
         id: new dto.DeveloperProfileId(Math.random().toString()),
         developerProfileId: new dto.DeveloperServiceId(Math.random().toString()),
@@ -248,7 +258,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
     body: dto.DeleteDeveloperServiceBody,
-    query: dto.DeleteDeveloperServiceQuery,
+    query: dto.DeleteDeveloperServiceQuery
   ): Promise<dto.DeleteDeveloperServiceResponse> {
     console.log("deleteDeveloperService", { params, body, query });
     return Promise.resolve({} as dto.DeleteDeveloperServiceResponse);
@@ -257,7 +267,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async createCustomService(
     params: dto.CreateCustomServiceParams,
     body: dto.CreateCustomServiceBody,
-    query: dto.CreateCustomServiceQuery,
+    query: dto.CreateCustomServiceQuery
   ): Promise<dto.CreateCustomServiceResponse> {
     console.log("createCustomService", { params, body, query });
     return Promise.resolve({} as dto.CreateCustomServiceResponse);
@@ -266,7 +276,7 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async completeOnboarding(
     params: dto.CompleteOnboardingParams,
     body: dto.CompleteOnboardingBody,
-    query: dto.CompleteOnboardingQuery,
+    query: dto.CompleteOnboardingQuery
   ): Promise<dto.CompleteOnboardingResponse> {
     console.log("completeOnboarding", { params, body, query });
     return Promise.resolve({} as dto.CompleteOnboardingResponse);

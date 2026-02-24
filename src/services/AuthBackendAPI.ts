@@ -18,10 +18,24 @@ export interface AuthBackendAPI {
   loginWithGitHub(redirectPath?: string): void;
   deleteSession(): Promise<dto.LogoutResponse>;
   getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse>;
-  getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse>;
-  checkEmail(params: dto.CheckEmailParams, body: dto.CheckEmailBody, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse>;
-  forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>>;
-  resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>>;
+  getRepositoryUserInviteInfo(
+    query: dto.GetRepositoryUserInviteInfoQuery
+  ): Promise<dto.GetRepositoryUserInviteInfoResponse>;
+  checkEmail(
+    params: dto.CheckEmailParams,
+    body: dto.CheckEmailBody,
+    query: dto.CheckEmailQuery
+  ): Promise<dto.CheckEmailResponse>;
+  forgotPassword(
+    body: dto.ForgotPasswordBody,
+    query: {},
+    params: {}
+  ): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>>;
+  resetPassword(
+    body: dto.ResetPasswordBody,
+    query: dto.ResetPasswordQuery,
+    params: {}
+  ): Promise<dto.ResponseBody<dto.ResetPasswordResponse>>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
@@ -32,11 +46,17 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
   }
 
   async checkUserStatus(): Promise<dto.StatusResponse> {
-    return handleError<dto.StatusResponse>(() => this.api.get(`${config.api.url}/auth/status`, { withCredentials: true }), "checkUserStatus");
+    return handleError<dto.StatusResponse>(
+      () => this.api.get(`${config.api.url}/auth/status`, { withCredentials: true }),
+      "checkUserStatus"
+    );
   }
 
   async login(body: dto.LoginBody, query: dto.LoginQuery): Promise<dto.LoginResponse> {
-    return handleError<dto.LoginResponse>(() => this.api.post(`${config.api.url}/auth/login`, body, { withCredentials: true, params: query }), "login");
+    return handleError<dto.LoginResponse>(
+      () => this.api.post(`${config.api.url}/auth/login`, body, { withCredentials: true, params: query }),
+      "login"
+    );
   }
 
   async register(body: dto.RegisterBody, query: dto.RegisterQuery): Promise<dto.RegisterResponse> {
@@ -44,8 +64,12 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
 
     if (companyToken) {
       return handleError<dto.RegisterResponse>(
-        () => this.api.post(`${config.api.url}/auth/register-as-company`, body, { withCredentials: true, params: { companyToken } }),
-        "register-as-company",
+        () =>
+          this.api.post(`${config.api.url}/auth/register-as-company`, body, {
+            withCredentials: true,
+            params: { companyToken },
+          }),
+        "register-as-company"
       );
     } else if (repositoryToken) {
       return handleError<dto.RegisterResponse>(
@@ -54,55 +78,77 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
             withCredentials: true,
             params: { repositoryToken },
           }),
-        "register-as-maintainer",
+        "register-as-maintainer"
       );
     }
     return handleError<dto.RegisterResponse>(
       () => this.api.post(`${config.api.url}/auth/register`, body, { withCredentials: true, params: query }),
-      "register",
+      "register"
     );
   }
 
   loginWithGitHub(redirectPath?: string): void {
-    window.location.href = redirectPath ? `${config.api.url}/auth/github?redirect=${encodeURIComponent(redirectPath)}` : `${config.api.url}/auth/github`;
+    window.location.href = redirectPath
+      ? `${config.api.url}/auth/github?redirect=${encodeURIComponent(redirectPath)}`
+      : `${config.api.url}/auth/github`;
   }
 
   async deleteSession(): Promise<dto.LogoutResponse> {
-    return handleError<dto.LogoutResponse>(() => this.api.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }), "deleteSession");
+    return handleError<dto.LogoutResponse>(
+      () => this.api.post(`${config.api.url}/auth/logout`, {}, { withCredentials: true }),
+      "deleteSession"
+    );
   }
 
-  async getCompanyUserInviteInfo(query: dto.GetCompanyUserInviteInfoQuery): Promise<dto.GetCompanyUserInviteInfoResponse> {
+  async getCompanyUserInviteInfo(
+    query: dto.GetCompanyUserInviteInfoQuery
+  ): Promise<dto.GetCompanyUserInviteInfoResponse> {
     return handleError<dto.GetCompanyUserInviteInfoResponse>(
       () => this.api.get(`${config.api.url}/auth/company-user-invite-info`, { withCredentials: true, params: query }),
-      "getCompanyUserInviteInfo",
+      "getCompanyUserInviteInfo"
     );
   }
 
-  async getRepositoryUserInviteInfo(query: dto.GetRepositoryUserInviteInfoQuery): Promise<dto.GetRepositoryUserInviteInfoResponse> {
+  async getRepositoryUserInviteInfo(
+    query: dto.GetRepositoryUserInviteInfoQuery
+  ): Promise<dto.GetRepositoryUserInviteInfoResponse> {
     return handleError<dto.GetRepositoryUserInviteInfoResponse>(
-      () => this.api.get(`${config.api.url}/auth/repository-user-invite-info`, { withCredentials: true, params: query }),
-      "getRepositoryUserInviteInfo",
+      () =>
+        this.api.get(`${config.api.url}/auth/repository-user-invite-info`, { withCredentials: true, params: query }),
+      "getRepositoryUserInviteInfo"
     );
   }
 
-  async checkEmail(params: dto.CheckEmailParams, body: dto.CheckEmailBody, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse> {
+  async checkEmail(
+    params: dto.CheckEmailParams,
+    body: dto.CheckEmailBody,
+    query: dto.CheckEmailQuery
+  ): Promise<dto.CheckEmailResponse> {
     return handleError<dto.CheckEmailResponse>(
       () => this.api.get(`${config.api.url}/auth/check-email`, { withCredentials: true, params: query }),
-      "checkEmail",
+      "checkEmail"
     );
   }
 
-  async forgotPassword(body: dto.ForgotPasswordBody, _query: {}, _params: {}): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
+  async forgotPassword(
+    body: dto.ForgotPasswordBody,
+    _query: {},
+    _params: {}
+  ): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
     return handleError<dto.ResponseBody<dto.ForgotPasswordResponse>>(
       () => this.api.post(`${config.api.url}/auth/forgot-password`, body, { withCredentials: true }),
-      "forgotPassword",
+      "forgotPassword"
     );
   }
 
-  async resetPassword(body: dto.ResetPasswordBody, query: dto.ResetPasswordQuery, _params: {}): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
+  async resetPassword(
+    body: dto.ResetPasswordBody,
+    query: dto.ResetPasswordQuery,
+    _params: {}
+  ): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
     return handleError<dto.ResponseBody<dto.ResetPasswordResponse>>(
       () => this.api.post(`${config.api.url}/auth/reset-password`, body, { withCredentials: true, params: query }),
-      "resetPassword",
+      "resetPassword"
     );
   }
 }

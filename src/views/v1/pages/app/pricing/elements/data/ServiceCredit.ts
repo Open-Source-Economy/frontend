@@ -116,7 +116,8 @@ function serviceCreditExtras(planProductType: PlanProductType): PlanFeatureDetai
         [PlanProductType.INDIVIDUAL_PLAN]: "Access the current open-source projects registered on the platform",
         [PlanProductType.START_UP_PLAN]: "Suggest projects and we'll start reaching out to maintainers",
         [PlanProductType.SCALE_UP_PLAN]: "Faster matching with relevant projects and assisted maintainer outreach",
-        [PlanProductType.ENTERPRISE_PLAN]: "We handle the entire process of finding, onboarding, and supporting your desired OSS projects.",
+        [PlanProductType.ENTERPRISE_PLAN]:
+          "We handle the entire process of finding, onboarding, and supporting your desired OSS projects.",
       }[planProductType],
       included: true,
     },

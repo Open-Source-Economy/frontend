@@ -78,7 +78,9 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   // Spinner Variant
   const SpinnerContent = () => (
     <div className={`flex flex-col items-center justify-center ${sizeClasses.container[size]} ${className}`}>
-      <div className="relative">{spinnerIcon || <Loader2 className={`${sizeClasses.spinner[size]} text-brand-accent animate-spin`} />}</div>
+      <div className="relative">
+        {spinnerIcon || <Loader2 className={`${sizeClasses.spinner[size]} text-brand-accent animate-spin`} />}
+      </div>
       {message && <p className={`${sizeClasses.text[size]} text-brand-neutral-600 text-center`}>{message}</p>}
     </div>
   );
@@ -149,7 +151,9 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
         )}
 
         {/* Optional Image */}
-        {skeletonConfig.showImage && <div className={`w-full ${imageSizes[size]} bg-brand-neutral-300/30 rounded-lg animate-pulse`} />}
+        {skeletonConfig.showImage && (
+          <div className={`w-full ${imageSizes[size]} bg-brand-neutral-300/30 rounded-lg animate-pulse`} />
+        )}
 
         {/* Text Lines */}
         {Array.from({ length: skeletonConfig.lines || 3 }).map((_, idx) => (
@@ -200,7 +204,9 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
         <div className={`absolute inset-0 bg-brand-secondary/90 ${showBackdrop ? "backdrop-blur-sm" : ""}`} />
 
         {/* Content */}
-        <div className="relative z-10 bg-brand-card-blue border border-brand-neutral-300/40 rounded-2xl shadow-2xl">{renderContent()}</div>
+        <div className="relative z-10 bg-brand-card-blue border border-brand-neutral-300/40 rounded-2xl shadow-2xl">
+          {renderContent()}
+        </div>
       </div>
     );
   }
@@ -209,7 +215,9 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   if (variant === "overlay") {
     return (
       <div className="relative">
-        <div className={`absolute inset-0 z-10 flex items-center justify-center bg-brand-secondary/80 ${showBackdrop ? "backdrop-blur-sm" : ""} rounded-lg`}>
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center bg-brand-secondary/80 ${showBackdrop ? "backdrop-blur-sm" : ""} rounded-lg`}
+        >
           <div className="bg-brand-card-blue border border-brand-neutral-300/40 rounded-xl shadow-lg">
             <SpinnerContent />
           </div>
@@ -262,7 +270,11 @@ export const LoadingTable: React.FC<{
       {/* Header */}
       <div className="flex gap-4 pb-3 border-b border-brand-neutral-300/30">
         {Array.from({ length: columns }).map((_, idx) => (
-          <div key={`header-${idx}`} className="flex-1 h-4 bg-brand-neutral-300/40 rounded animate-pulse" style={{ animationDelay: `${idx * 50}ms` }} />
+          <div
+            key={`header-${idx}`}
+            className="flex-1 h-4 bg-brand-neutral-300/40 rounded animate-pulse"
+            style={{ animationDelay: `${idx * 50}ms` }}
+          />
         ))}
       </div>
 

@@ -38,7 +38,8 @@ const projectsShowcaseContent = {
     bottomTitleStart: "Ready to explore ",
     bottomTitleHighlight: "all projects",
     bottomTitleEnd: "?",
-    bottomSubtitle: "Discover hundreds of open source projects with comprehensive filtering, search capabilities, and detailed maintainer insights.",
+    bottomSubtitle:
+      "Discover hundreds of open source projects with comprehensive filtering, search capabilities, and detailed maintainer insights.",
   },
 } as const;
 
@@ -111,12 +112,16 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
       urls: {
         limit: 0,
       },
-    },
+    }
   );
 
   const projectItems = useMemo(() => {
     if (!projectItemsResponse) return null;
-    const allProjects = [...projectItemsResponse.repositories, ...projectItemsResponse.owners, ...projectItemsResponse.urls];
+    const allProjects = [
+      ...projectItemsResponse.repositories,
+      ...projectItemsResponse.owners,
+      ...projectItemsResponse.urls,
+    ];
     allProjects.sort((a, b) => {
       const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
       const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
@@ -155,7 +160,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
         {!isLoading && !apiError && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {(projectItems || []).map(item => (
+              {(projectItems || []).map((item) => (
                 <ProjectCard key={item.projectItem.id.uuid} item={item} />
               ))}
             </div>
@@ -175,7 +180,10 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
                 </div>
 
                 {/* Stats Integration */}
-                <PlatformStats projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }} variant="showcase" />
+                <PlatformStats
+                  projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }}
+                  variant="showcase"
+                />
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Link to={paths.PROJECTS}>

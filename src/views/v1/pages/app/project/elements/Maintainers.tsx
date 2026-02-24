@@ -40,7 +40,11 @@ export function Maintainers(props: MaintainersProps) {
         />
 
         <div className="lg:!pb-8 mb-6 md:mb-8 lg:mb-10 3xl:mb-14">
-          <H3WithSubtitle title="Who are We?" subtitle="We're the experts who build, debug, and maintain it" divider={true} />
+          <H3WithSubtitle
+            title="Who are We?"
+            subtitle="We're the experts who build, debug, and maintain it"
+            divider={true}
+          />
           {/*<DividerTitle title="Who are We?"/>*/}
         </div>
 

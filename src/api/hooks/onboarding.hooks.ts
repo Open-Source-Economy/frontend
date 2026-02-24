@@ -21,7 +21,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.CreateDeveloperProfileResponse,
       Error,
-      { params: dto.CreateDeveloperProfileParams; body: dto.CreateDeveloperProfileBody; query: dto.CreateDeveloperProfileQuery }
+      {
+        params: dto.CreateDeveloperProfileParams;
+        body: dto.CreateDeveloperProfileBody;
+        query: dto.CreateDeveloperProfileQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.createDeveloperProfile(params, body, query),
       onSuccess: () => {
@@ -35,7 +39,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.UpdateDeveloperContactInfosResponse,
       Error,
-      { params: dto.UpdateDeveloperContactInfosParams; body: dto.UpdateDeveloperContactInfosBody; query: dto.UpdateDeveloperContactInfosQuery }
+      {
+        params: dto.UpdateDeveloperContactInfosParams;
+        body: dto.UpdateDeveloperContactInfosBody;
+        query: dto.UpdateDeveloperContactInfosQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.updateDeveloperContactInfos(params, body, query),
       onSuccess: () => {
@@ -49,7 +57,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.SetDeveloperPreferencesResponse,
       Error,
-      { params: dto.SetDeveloperPreferencesParams; body: dto.SetDeveloperPreferencesBody; query: dto.SetDeveloperPreferencesQuery }
+      {
+        params: dto.SetDeveloperPreferencesParams;
+        body: dto.SetDeveloperPreferencesBody;
+        query: dto.SetDeveloperPreferencesQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.setDeveloperPreferences(params, body, query),
       onSuccess: () => {
@@ -63,7 +75,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.SetDeveloperServiceSettingsResponse,
       Error,
-      { params: dto.SetDeveloperServiceSettingsParams; body: dto.SetDeveloperServiceSettingsBody; query: dto.SetDeveloperServiceSettingsQuery }
+      {
+        params: dto.SetDeveloperServiceSettingsParams;
+        body: dto.SetDeveloperServiceSettingsBody;
+        query: dto.SetDeveloperServiceSettingsQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.setDeveloperServiceSettings(params, body, query),
       onSuccess: () => {
@@ -77,7 +93,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.UpsertDeveloperProjectItemResponse,
       Error,
-      { params: dto.UpsertDeveloperProjectItemParams; body: dto.UpsertDeveloperProjectItemBody; query: dto.UpsertDeveloperProjectItemQuery }
+      {
+        params: dto.UpsertDeveloperProjectItemParams;
+        body: dto.UpsertDeveloperProjectItemBody;
+        query: dto.UpsertDeveloperProjectItemQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.upsertProjectItem(params, body, query),
       onSuccess: () => {
@@ -91,7 +111,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.RemoveDeveloperProjectItemResponse,
       Error,
-      { params: dto.RemoveDeveloperProjectItemParams; body: dto.RemoveDeveloperProjectItemBody; query: dto.RemoveDeveloperProjectItemQuery }
+      {
+        params: dto.RemoveDeveloperProjectItemParams;
+        body: dto.RemoveDeveloperProjectItemBody;
+        query: dto.RemoveDeveloperProjectItemQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.removeProjectItem(params, body, query),
       onSuccess: () => {
@@ -100,7 +124,10 @@ export const onboardingHooks = {
     });
   },
 
-  usePotentialProjectItemsQuery(params: dto.GetPotentialDeveloperProjectItemsParams, query: dto.GetPotentialDeveloperProjectItemsQuery) {
+  usePotentialProjectItemsQuery(
+    params: dto.GetPotentialDeveloperProjectItemsParams,
+    query: dto.GetPotentialDeveloperProjectItemsQuery
+  ) {
     return useQuery<dto.GetPotentialDeveloperProjectItemsResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "potentialProjectItems", params, query],
       queryFn: () => onboardingAPI.getPotentialProjectItems(params, query),
@@ -119,7 +146,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.UpsertDeveloperServiceResponse,
       Error,
-      { params: dto.UpsertDeveloperServiceParams; body: dto.UpsertDeveloperServiceBody; query: dto.UpsertDeveloperServiceQuery }
+      {
+        params: dto.UpsertDeveloperServiceParams;
+        body: dto.UpsertDeveloperServiceBody;
+        query: dto.UpsertDeveloperServiceQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.upsertDeveloperService(params, body, query),
       onSuccess: () => {
@@ -133,7 +164,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.UpsertDeveloperServicesResponse,
       Error,
-      { params: dto.UpsertDeveloperServicesParams; body: dto.UpsertDeveloperServicesBody; query: dto.UpsertDeveloperServicesQuery }
+      {
+        params: dto.UpsertDeveloperServicesParams;
+        body: dto.UpsertDeveloperServicesBody;
+        query: dto.UpsertDeveloperServicesQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.upsertDeveloperServices(params, body, query),
       onSuccess: () => {
@@ -147,7 +182,11 @@ export const onboardingHooks = {
     return useMutation<
       dto.DeleteDeveloperServiceResponse,
       Error,
-      { params: dto.DeleteDeveloperServiceParams; body: dto.DeleteDeveloperServiceBody; query: dto.DeleteDeveloperServiceQuery }
+      {
+        params: dto.DeleteDeveloperServiceParams;
+        body: dto.DeleteDeveloperServiceBody;
+        query: dto.DeleteDeveloperServiceQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.deleteDeveloperService(params, body, query),
       onSuccess: () => {

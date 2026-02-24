@@ -14,7 +14,7 @@ const groupProjectsByType = (validProjects: BulkValidationResult["validProjects"
   const owners: string[] = [];
   const urls: string[] = [];
 
-  validProjects.forEach(project => {
+  validProjects.forEach((project) => {
     const sourceIdentifier = project.sourceIdentifier;
 
     if (sourceIdentifier instanceof RepositoryId) {
@@ -31,10 +31,10 @@ const groupProjectsByType = (validProjects: BulkValidationResult["validProjects"
 
 // Helper function to extract errors by type
 const extractErrorsByType = (errors: BulkValidationResult["errors"]) => {
-  const duplicateError = errors.find(e => e.type === BulkValidationErrorType.DUPLICATE);
-  const conflictError = errors.find(e => e.type === BulkValidationErrorType.CONFLICT);
-  const typeMismatchError = errors.find(e => e.type === BulkValidationErrorType.TYPE_MISMATCH);
-  const invalidFormatError = errors.find(e => e.type === BulkValidationErrorType.INVALID_FORMAT);
+  const duplicateError = errors.find((e) => e.type === BulkValidationErrorType.DUPLICATE);
+  const conflictError = errors.find((e) => e.type === BulkValidationErrorType.CONFLICT);
+  const typeMismatchError = errors.find((e) => e.type === BulkValidationErrorType.TYPE_MISMATCH);
+  const invalidFormatError = errors.find((e) => e.type === BulkValidationErrorType.INVALID_FORMAT);
 
   return {
     duplicateNames: duplicateError?.displayNames || [],
@@ -45,7 +45,11 @@ const extractErrorsByType = (errors: BulkValidationResult["errors"]) => {
 };
 
 // Helper function to get error explanation text
-const getTypeErrorExplanation = (typeMismatchNames: string[], invalidFormatNames: string[], selectedProjectType: ProjectItemType): string => {
+const getTypeErrorExplanation = (
+  typeMismatchNames: string[],
+  invalidFormatNames: string[],
+  selectedProjectType: ProjectItemType
+): string => {
   if (typeMismatchNames.length > 0) {
     const expectedLabel = ProjectItemTypeCompanion.label(selectedProjectType || ProjectItemType.URL);
     let explanation = `These URLs don't match the selected type (${expectedLabel})`;
@@ -82,7 +86,11 @@ function ProjectChips(props: ProjectChipsProps) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {props.items.map((item, idx) => (
-        <span key={idx} className={`${baseClasses} ${variantClasses[props.variant]} ${truncateClasses}`} title={showTitle ? item : undefined}>
+        <span
+          key={idx}
+          className={`${baseClasses} ${variantClasses[props.variant]} ${truncateClasses}`}
+          title={showTitle ? item : undefined}
+        >
           {item}
         </span>
       ))}
@@ -134,11 +142,17 @@ function ErrorSection(props: ErrorSectionProps) {
 
 export function BulkProjectsPreview(props: BulkProjectsPreviewProps) {
   const { repositories, owners, urls } = groupProjectsByType(props.validationResult.validProjects);
-  const { duplicateNames, conflictNames, typeMismatchNames, invalidFormatNames } = extractErrorsByType(props.validationResult.errors);
+  const { duplicateNames, conflictNames, typeMismatchNames, invalidFormatNames } = extractErrorsByType(
+    props.validationResult.errors
+  );
 
   const invalidUrls = [...typeMismatchNames, ...invalidFormatNames];
   const hasErrors = invalidUrls.length > 0 || conflictNames.length > 0 || duplicateNames.length > 0;
-  const typeErrorExplanation = getTypeErrorExplanation(typeMismatchNames, invalidFormatNames, props.selectedProjectType);
+  const typeErrorExplanation = getTypeErrorExplanation(
+    typeMismatchNames,
+    invalidFormatNames,
+    props.selectedProjectType
+  );
 
   const ownersTitle = props.selectedProjectType === ProjectItemType.GITHUB_OWNER ? "Organizations/Users" : "Owners";
 
@@ -152,7 +166,12 @@ export function BulkProjectsPreview(props: BulkProjectsPreviewProps) {
         <div className="space-y-4 p-4 bg-red-50 border border-red-200 rounded-lg">
           <div className="text-sm font-semibold text-red-900">Invalid URLs</div>
 
-          <ErrorSection title="Wrong type or format" count={invalidUrls.length} explanation={typeErrorExplanation || undefined} items={invalidUrls} />
+          <ErrorSection
+            title="Wrong type or format"
+            count={invalidUrls.length}
+            explanation={typeErrorExplanation || undefined}
+            items={invalidUrls}
+          />
 
           <ErrorSection
             title="Already in your list"

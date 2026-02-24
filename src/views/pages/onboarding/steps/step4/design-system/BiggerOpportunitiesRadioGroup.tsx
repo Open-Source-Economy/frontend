@@ -10,7 +10,11 @@ interface BiggerOpportunitiesRadioGroupProps {
   error?: string | ValidationError;
 }
 
-export const BiggerOpportunitiesRadioGroup: React.FC<BiggerOpportunitiesRadioGroupProps> = ({ value, onChange, error }) => {
+export const BiggerOpportunitiesRadioGroup: React.FC<BiggerOpportunitiesRadioGroupProps> = ({
+  value,
+  onChange,
+  error,
+}) => {
   const getRadioValue = () => {
     if (value === true) return "yes";
     if (value === false) return "no";

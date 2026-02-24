@@ -42,12 +42,12 @@ export function OrganizationSyncPage() {
       repositories: { limit: 0 },
       owners: {},
       urls: { limit: 0 },
-    },
+    }
   );
 
   const baseOrganizations = useMemo(() => {
     if (!projectItemsData?.owners || !Array.isArray(projectItemsData.owners)) return [];
-    return projectItemsData.owners.map(item => ({
+    return projectItemsData.owners.map((item) => ({
       ...item,
       syncInProgress: false,
     }));
@@ -59,10 +59,19 @@ export function OrganizationSyncPage() {
   }, [baseOrganizations]);
 
   const isLoading = isLoadingQuery;
-  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
+  const displayError = queryError
+    ? queryError instanceof ApiError
+      ? queryError
+      : ApiError.from(queryError)
+    : apiError;
 
-  const handleSync = async (projectItemId: string, offset: number = 0, batchSize?: number, fetchDetails: boolean = false) => {
-    setSyncingIds(prev => new Set(prev).add(projectItemId));
+  const handleSync = async (
+    projectItemId: string,
+    offset: number = 0,
+    batchSize?: number,
+    fetchDetails: boolean = false
+  ) => {
+    setSyncingIds((prev) => new Set(prev).add(projectItemId));
 
     try {
       const response = await syncOrgRepos.mutateAsync({
@@ -70,17 +79,21 @@ export function OrganizationSyncPage() {
         query: { offset, batchSize, fetchDetails },
       });
 
-      setOrganizations(prev => prev.map(org => (org.projectItem.id.uuid === projectItemId ? { ...org, lastSyncMessage: response.message } : org)));
+      setOrganizations((prev) =>
+        prev.map((org) =>
+          org.projectItem.id.uuid === projectItemId ? { ...org, lastSyncMessage: response.message } : org
+        )
+      );
 
       setTimeout(() => {
-        setSyncingIds(prev => {
+        setSyncingIds((prev) => {
           const newSet = new Set(prev);
           newSet.delete(projectItemId);
           return newSet;
         });
       }, 2000);
     } catch (error) {
-      setSyncingIds(prev => {
+      setSyncingIds((prev) => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
@@ -90,7 +103,7 @@ export function OrganizationSyncPage() {
   };
 
   const handleSyncOwner = async (ownerLogin: string, projectItemId: string) => {
-    setSyncingOwnerIds(prev => new Set(prev).add(projectItemId));
+    setSyncingOwnerIds((prev) => new Set(prev).add(projectItemId));
 
     try {
       const response = await syncOwnerMutation.mutateAsync({
@@ -105,21 +118,23 @@ export function OrganizationSyncPage() {
         return;
       }
 
-      setOrganizations(prev => prev.map(org => (org.projectItem.id.uuid === projectItemId ? { ...org, owner } : org)));
+      setOrganizations((prev) =>
+        prev.map((org) => (org.projectItem.id.uuid === projectItemId ? { ...org, owner } : org))
+      );
 
       if (owner.publicRepos !== undefined && owner.publicRepos !== null) {
-        setSelectedIds(prev => new Set(prev).add(projectItemId));
+        setSelectedIds((prev) => new Set(prev).add(projectItemId));
       }
 
       setTimeout(() => {
-        setSyncingOwnerIds(prev => {
+        setSyncingOwnerIds((prev) => {
           const newSet = new Set(prev);
           newSet.delete(projectItemId);
           return newSet;
         });
       }, 1000);
     } catch (error) {
-      setSyncingOwnerIds(prev => {
+      setSyncingOwnerIds((prev) => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
@@ -129,14 +144,14 @@ export function OrganizationSyncPage() {
   };
 
   const handleBulkSync = async () => {
-    const selectedOrgs = organizations.filter(org => selectedIds.has(org.projectItem.id.uuid));
+    const selectedOrgs = organizations.filter((org) => selectedIds.has(org.projectItem.id.uuid));
 
     if (selectedOrgs.length === 0) {
       alert("Please select at least one owner to sync");
       return;
     }
 
-    const invalidOrgs = selectedOrgs.filter(org => !org.owner?.publicRepos);
+    const invalidOrgs = selectedOrgs.filter((org) => !org.owner?.publicRepos);
     if (invalidOrgs.length > 0) {
       alert(`Cannot sync: ${invalidOrgs.length} owner(s) don't have public repo count available`);
       return;
@@ -146,7 +161,7 @@ export function OrganizationSyncPage() {
     setBulkSyncProgress({ current: 0, total: selectedOrgs.length });
     setBulkSyncCompleted(new Set());
 
-    const queueOrder = selectedOrgs.map(org => org.projectItem.id.uuid);
+    const queueOrder = selectedOrgs.map((org) => org.projectItem.id.uuid);
     setBulkSyncQueueOrder(queueOrder);
     setBulkSyncQueue(new Set(queueOrder));
 
@@ -155,7 +170,7 @@ export function OrganizationSyncPage() {
       const projectItemId = org.projectItem.id.uuid;
       const waitTime = org.owner!.publicRepos! * msPerRepo;
 
-      setBulkSyncQueue(prev => {
+      setBulkSyncQueue((prev) => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
@@ -165,11 +180,11 @@ export function OrganizationSyncPage() {
 
       await handleSync(projectItemId, 0, undefined, globalFetchDetails);
 
-      setBulkSyncCompleted(prev => new Set(prev).add(projectItemId));
+      setBulkSyncCompleted((prev) => new Set(prev).add(projectItemId));
 
       if (i < selectedOrgs.length - 1) {
         console.log(`Waiting ${waitTime}ms (${org.owner!.publicRepos} repos) before next sync...`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }
 
@@ -184,7 +199,7 @@ export function OrganizationSyncPage() {
   };
 
   const toggleSelection = (id: string) => {
-    setSelectedIds(prev => {
+    setSelectedIds((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
@@ -196,15 +211,15 @@ export function OrganizationSyncPage() {
   };
 
   const toggleSelectAll = () => {
-    const syncableOrgs = filteredOrganizations.filter(org => org.owner?.publicRepos !== undefined);
+    const syncableOrgs = filteredOrganizations.filter((org) => org.owner?.publicRepos !== undefined);
     if (selectedIds.size === syncableOrgs.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(syncableOrgs.map(org => org.projectItem.id.uuid)));
+      setSelectedIds(new Set(syncableOrgs.map((org) => org.projectItem.id.uuid)));
     }
   };
 
-  const filteredOrganizations = organizations.filter(org => {
+  const filteredOrganizations = organizations.filter((org) => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     const login = org.owner?.id.login?.toLowerCase() || "";
@@ -216,7 +231,7 @@ export function OrganizationSyncPage() {
     return ProjectItemWithDetailsCompanion.getProjectItemsStats(organizations);
   }, [organizations]);
 
-  const syncableCount = filteredOrganizations.filter(org => org.owner?.publicRepos !== undefined).length;
+  const syncableCount = filteredOrganizations.filter((org) => org.owner?.publicRepos !== undefined).length;
 
   if (isLoading) {
     return (
@@ -235,7 +250,9 @@ export function OrganizationSyncPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">Owner Repository Sync</h1>
-            <p className="text-gray-400">Sync repositories from GitHub organizations and users to create individual project items.</p>
+            <p className="text-gray-400">
+              Sync repositories from GitHub organizations and users to create individual project items.
+            </p>
           </div>
 
           {displayError && (
@@ -263,9 +280,24 @@ export function OrganizationSyncPage() {
 
           {/* Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <StatisticCard icon={Building2} iconColor="text-blue-400" value={organizations.length} label="Total Owners" />
-            <StatisticCard icon={Users} iconColor="text-purple-400" value={stats.totalMaintainers} label="Unique Maintainers" />
-            <StatisticCard icon={GitBranch} iconColor="text-green-400" value={filteredOrganizations.length} label="Filtered Results" />
+            <StatisticCard
+              icon={Building2}
+              iconColor="text-blue-400"
+              value={organizations.length}
+              label="Total Owners"
+            />
+            <StatisticCard
+              icon={Users}
+              iconColor="text-purple-400"
+              value={stats.totalMaintainers}
+              label="Unique Maintainers"
+            />
+            <StatisticCard
+              icon={GitBranch}
+              iconColor="text-green-400"
+              value={filteredOrganizations.length}
+              label="Filtered Results"
+            />
           </div>
 
           {/* Organizations List */}
@@ -277,7 +309,7 @@ export function OrganizationSyncPage() {
               </div>
             ) : (
               <div className="divide-y divide-white/10">
-                {filteredOrganizations.map(org => {
+                {filteredOrganizations.map((org) => {
                   const projectItemId = org.projectItem.id.uuid;
                   const isSyncing = syncingIds.has(projectItemId);
                   const isSyncingOwner = syncingOwnerIds.has(projectItemId);
@@ -289,7 +321,9 @@ export function OrganizationSyncPage() {
                   const queueTotal = bulkSyncQueueOrder.length;
 
                   const estimatedWaitSeconds =
-                    isInQueue && queuePosition > 0 ? calculateEstimatedWaitTime(queuePosition, bulkSyncQueueOrder, organizations, msPerRepo) : 0;
+                    isInQueue && queuePosition > 0
+                      ? calculateEstimatedWaitTime(queuePosition, bulkSyncQueueOrder, organizations, msPerRepo)
+                      : 0;
 
                   return (
                     <OrganizationCard

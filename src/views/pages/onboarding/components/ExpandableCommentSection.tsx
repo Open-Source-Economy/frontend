@@ -16,7 +16,14 @@ interface ExpandableCommentSectionProps {
  * ExpandableCommentSection - Reusable collapsible comment section
  * Used across onboarding steps for optional comments
  */
-export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> = ({ isExpanded, onToggleExpanded, value, onChange, onDelete, placeholder }) => {
+export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> = ({
+  isExpanded,
+  onToggleExpanded,
+  value,
+  onChange,
+  onDelete,
+  placeholder,
+}) => {
   return (
     <div className="mt-6 pt-6 border-t border-brand-neutral-300/20">
       {!isExpanded ? (
@@ -41,7 +48,8 @@ export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> =
               title="Delete comment?"
               description={
                 <>
-                  Are you sure you want to delete this comment? <span className="text-brand-warning font-medium">This action cannot be undone.</span>
+                  Are you sure you want to delete this comment?{" "}
+                  <span className="text-brand-warning font-medium">This action cannot be undone.</span>
                 </>
               }
               confirmText="Delete"
@@ -61,7 +69,7 @@ export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> =
           </div>
           <Textarea
             value={value}
-            onChange={e => onChange(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             className="min-h-[100px] bg-form-background hover:bg-form-background-hover border-form-border hover:border-form-border-hover focus:border-brand-accent text-brand-neutral-900 placeholder:text-brand-neutral-500"
             rows={4}

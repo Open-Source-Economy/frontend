@@ -21,7 +21,9 @@ export function ServiceItem(props: ServiceItemProps) {
 
   return (
     <div className="flex items-start gap-3">
-      <div className={`w-8 h-8 rounded-lg bg-brand-${accentColor}/10 border border-brand-${accentColor}/20 flex items-center justify-center flex-shrink-0`}>
+      <div
+        className={`w-8 h-8 rounded-lg bg-brand-${accentColor}/10 border border-brand-${accentColor}/20 flex items-center justify-center flex-shrink-0`}
+      >
         <Icon className={`h-4 w-4 text-brand-${accentColor}`} />
       </div>
       <div className="flex-1">

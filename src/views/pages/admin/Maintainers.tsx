@@ -35,7 +35,12 @@ export function Maintainers() {
         searchTerm: searchTerm.trim() || undefined,
       };
 
-  const { data: profilesResponse, isLoading, error: queryError, refetch: _refetch } = adminHooks.useAllDeveloperProfilesQuery({}, queryParams);
+  const {
+    data: profilesResponse,
+    isLoading,
+    error: queryError,
+    refetch: _refetch,
+  } = adminHooks.useAllDeveloperProfilesQuery({}, queryParams);
 
   const allProfiles = profilesResponse?.profiles ?? [];
   const apiError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : null;
@@ -52,16 +57,19 @@ export function Maintainers() {
 
     // Apply status filter
     if (statusFilter !== "all") {
-      filtered = filtered.filter(profile => {
+      filtered = filtered.filter((profile) => {
         if (!profile.profileEntry) return false;
-        const status = VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid);
+        const status = VerificationRecordCompanion.getCurrentStatus(
+          profile.profileEntry.verificationRecords,
+          profile.profileEntry.profile.id.uuid
+        );
         return status === statusFilter;
       });
     }
 
     // Apply search filter
     if (searchTerm.trim()) {
-      filtered = filtered.filter(profile => FullDeveloperProfileCompanion.matchesSearchTerm(profile, searchTerm));
+      filtered = filtered.filter((profile) => FullDeveloperProfileCompanion.matchesSearchTerm(profile, searchTerm));
     }
 
     return filtered;
@@ -71,18 +79,26 @@ export function Maintainers() {
     let count = 0;
 
     // Check if profile needs action
-    if (profile.profileEntry && VerificationRecordCompanion.needsAction(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid)) {
+    if (
+      profile.profileEntry &&
+      VerificationRecordCompanion.needsAction(
+        profile.profileEntry.verificationRecords,
+        profile.profileEntry.profile.id.uuid
+      )
+    ) {
       count++;
     }
 
     // Check if any projects need action
-    count += profile.projects.filter(p => VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid)).length;
+    count += profile.projects.filter((p) =>
+      VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid)
+    ).length;
 
     return count;
   };
 
   const toggleProfileExpansion = (profileId: string) => {
-    setExpandedProfiles(prev => {
+    setExpandedProfiles((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(profileId)) {
         newSet.delete(profileId);
@@ -96,12 +112,15 @@ export function Maintainers() {
   // Statistics
   const stats = useMemo(() => {
     const total = profiles.length;
-    const approved = profiles.filter(p => {
+    const approved = profiles.filter((p) => {
       if (!p.profileEntry) return false;
-      const status = VerificationRecordCompanion.getCurrentStatus(p.profileEntry.verificationRecords, p.profileEntry.profile.id.uuid);
+      const status = VerificationRecordCompanion.getCurrentStatus(
+        p.profileEntry.verificationRecords,
+        p.profileEntry.profile.id.uuid
+      );
       return status === dto.VerificationStatus.APPROVED;
     }).length;
-    const actionNeeded = profiles.filter(p => getActionNeededCount(p) > 0).length;
+    const actionNeeded = profiles.filter((p) => getActionNeededCount(p) > 0).length;
     return { total, verified: approved, actionNeeded };
   }, [profiles]);
 
@@ -123,14 +142,18 @@ export function Maintainers() {
         for (const entry of profile.projects) {
           const projectName = SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier);
           const projectUrl = DeveloperProjectItemEntryCompanion.displayUrl(entry);
-          const roles = entry.developerProjectItem.roles.map(r => DeveloperRoleTypeCompanion.label(r)).join(", ");
-          const mergeRights = entry.developerProjectItem.mergeRights.map(m => MergeRightsTypeCompanion.label(m)).join(", ");
+          const roles = entry.developerProjectItem.roles.map((r) => DeveloperRoleTypeCompanion.label(r)).join(", ");
+          const mergeRights = entry.developerProjectItem.mergeRights
+            .map((m) => MergeRightsTypeCompanion.label(m))
+            .join(", ");
           rows.push([name, email, githubProfile, projectName, projectUrl, roles, mergeRights]);
         }
       }
     }
 
-    const csvContent = [headers.map(escapeCSV).join(","), ...rows.map(row => row.map(escapeCSV).join(","))].join("\n");
+    const csvContent = [headers.map(escapeCSV).join(","), ...rows.map((row) => row.map(escapeCSV).join(","))].join(
+      "\n"
+    );
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const date = new Date().toISOString().slice(0, 10);
@@ -215,7 +238,9 @@ export function Maintainers() {
                     <button
                       onClick={() => setUseLocalSearch(true)}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        useLocalSearch ? "bg-brand-accent text-white" : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
+                        useLocalSearch
+                          ? "bg-brand-accent text-white"
+                          : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
                       }`}
                     >
                       Local (Instant)
@@ -223,14 +248,18 @@ export function Maintainers() {
                     <button
                       onClick={() => setUseLocalSearch(false)}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        !useLocalSearch ? "bg-brand-accent text-white" : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
+                        !useLocalSearch
+                          ? "bg-brand-accent text-white"
+                          : "bg-[#14233A] text-brand-neutral-400 hover:text-white"
                       }`}
                     >
                       Backend
                     </button>
                   </div>
                 </div>
-                <span className="text-xs text-brand-neutral-500">{useLocalSearch ? "Searching locally for instant results" : "Searching via backend API"}</span>
+                <span className="text-xs text-brand-neutral-500">
+                  {useLocalSearch ? "Searching locally for instant results" : "Searching via backend API"}
+                </span>
               </div>
 
               {/* Search and Filter Controls */}
@@ -242,7 +271,7 @@ export function Maintainers() {
                     type="text"
                     placeholder="Search by name, email, or project..."
                     value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 bg-[#14233A] border-brand-neutral-700 text-white"
                   />
                 </div>
@@ -253,7 +282,7 @@ export function Maintainers() {
                     label="Filter by Status"
                     options={[{ value: "all", label: "All Statuses" }, ...VerificationStatusCompanion.selectOptions()]}
                     value={statusFilter}
-                    onChange={value => setStatusFilter(value as dto.VerificationStatus | "all")}
+                    onChange={(value) => setStatusFilter(value as dto.VerificationStatus | "all")}
                   />
                 </div>
               </div>
@@ -271,11 +300,14 @@ export function Maintainers() {
                 const profileName = profile.profileEntry?.user?.name || "Unnamed Developer";
                 const githubUsername = FullDeveloperProfileCompanion.getGithubUsername(profile);
                 const actionCount = getActionNeededCount(profile);
-                const unapprovedProjects = profile.projects.filter(p =>
-                  VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid),
+                const unapprovedProjects = profile.projects.filter((p) =>
+                  VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid)
                 );
                 const profileStatus = profile.profileEntry
-                  ? VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid)
+                  ? VerificationRecordCompanion.getCurrentStatus(
+                      profile.profileEntry.verificationRecords,
+                      profile.profileEntry.profile.id.uuid
+                    )
                   : dto.VerificationStatus.PENDING_REVIEW;
 
                 const profileId = profile.profileEntry?.profile.id.uuid || `profile-${idx}`;
@@ -289,7 +321,9 @@ export function Maintainers() {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-white text-lg font-semibold">{profileName}</h3>
-                          <Badge variant={VerificationStatusCompanion.variant(profileStatus)}>{VerificationStatusCompanion.label(profileStatus)}</Badge>
+                          <Badge variant={VerificationStatusCompanion.variant(profileStatus)}>
+                            {VerificationStatusCompanion.label(profileStatus)}
+                          </Badge>
                           {actionCount > 0 && (
                             <Badge variant="destructive" className="text-xs">
                               {actionCount} Action{actionCount > 1 ? "s" : ""} Needed
@@ -319,9 +353,16 @@ export function Maintainers() {
                         {profile.projects.length > 0 && (
                           <div className="flex flex-wrap gap-2">
                             {(isExpanded ? profile.projects : profile.projects.slice(0, 5)).map((entry, pIdx) => {
-                              const projectStatus = VerificationRecordCompanion.getCurrentStatus(entry.verificationRecords, entry.developerProjectItem.id.uuid);
+                              const projectStatus = VerificationRecordCompanion.getCurrentStatus(
+                                entry.verificationRecords,
+                                entry.developerProjectItem.id.uuid
+                              );
                               return (
-                                <Badge key={pIdx} variant={VerificationStatusCompanion.variant(projectStatus)} className="text-xs">
+                                <Badge
+                                  key={pIdx}
+                                  variant={VerificationStatusCompanion.variant(projectStatus)}
+                                  className="text-xs"
+                                >
                                   {SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}
                                 </Badge>
                               );
@@ -341,8 +382,8 @@ export function Maintainers() {
                         {unapprovedProjects.length > 0 && (
                           <div className="mt-3 text-sm text-yellow-400 flex items-center gap-2">
                             <AlertCircle className="w-4 h-4" />
-                            {unapprovedProjects.length} project{unapprovedProjects.length > 1 ? "s" : ""} need{unapprovedProjects.length === 1 ? "s" : ""}{" "}
-                            review
+                            {unapprovedProjects.length} project{unapprovedProjects.length > 1 ? "s" : ""} need
+                            {unapprovedProjects.length === 1 ? "s" : ""} review
                           </div>
                         )}
                       </div>

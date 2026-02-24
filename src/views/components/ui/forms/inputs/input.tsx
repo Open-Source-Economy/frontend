@@ -42,7 +42,7 @@ const inputVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 /**
@@ -65,8 +65,22 @@ interface InputProps extends Omit<React.ComponentProps<"input">, "size">, Varian
 
 const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>(
   (
-    { className, variant, size, type, leftIcon: LeftIcon, rightIcon: RightIcon, loading, validator, externalError, onErrorChange, value, onChange, ...props },
-    ref,
+    {
+      className,
+      variant,
+      size,
+      type,
+      leftIcon: LeftIcon,
+      rightIcon: RightIcon,
+      loading,
+      validator,
+      externalError,
+      onErrorChange,
+      value,
+      onChange,
+      ...props
+    },
+    ref
   ) => {
     const [internalError, setInternalError] = React.useState<string | undefined>(undefined);
     const [isTouched, setIsTouched] = React.useState(false);
@@ -92,7 +106,7 @@ const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>
 
         return !errorMessage;
       },
-      [validator, isTouched, onErrorChange],
+      [validator, isTouched, onErrorChange]
     );
 
     // Expose validation method via ref
@@ -109,7 +123,7 @@ const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>
         // Also expose the native input element for compatibility
         ...(inputRef.current as any),
       }),
-      [value, runValidation],
+      [value, runValidation]
     );
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,7 +160,12 @@ const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>
         <div className="relative group">
           <input
             type={type}
-            className={cn(inputVariants({ variant: effectiveVariant, size }), LeftIcon && "pl-10", (RightIcon || loading) && "pr-10", className)}
+            className={cn(
+              inputVariants({ variant: effectiveVariant, size }),
+              LeftIcon && "pl-10",
+              (RightIcon || loading) && "pr-10",
+              className
+            )}
             ref={inputRef}
             value={value}
             onChange={handleChange}
@@ -179,7 +198,7 @@ const Input = React.forwardRef<HTMLInputElement | ValidatedInputRef, InputProps>
         {...props}
       />
     );
-  },
+  }
 );
 
 Input.displayName = "Input";

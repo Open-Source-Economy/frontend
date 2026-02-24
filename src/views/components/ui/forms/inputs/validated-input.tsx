@@ -60,7 +60,7 @@ export function ValidatedInput(props: ValidatedInputProps) {
         name={props.name}
         type={type}
         value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value)}
         placeholder={props.placeholder}
         variant={hasError ? "error" : "default"}
         data-error={hasError}
@@ -81,12 +81,18 @@ export function ValidatedTextarea(props: ValidatedTextareaProps) {
   const hasError = !!props.error?.error;
 
   return (
-    <FormField label={props.label} required={required} description={props.description} className={props.className} error={props.error}>
+    <FormField
+      label={props.label}
+      required={required}
+      description={props.description}
+      className={props.className}
+      error={props.error}
+    >
       <Textarea
         id={props.name}
         name={props.name}
         value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value)}
         placeholder={props.placeholder}
         rows={rows}
         variant={hasError ? "error" : "default"}
@@ -112,7 +118,25 @@ interface ValidatedInputWithRefProps extends Omit<BaseValidatedFieldProps, "erro
 }
 
 export const ValidatedInputWithRef = forwardRef<InputRef, ValidatedInputWithRefProps>(
-  ({ name, label, value, onChange, placeholder, type = "text", leftIcon, rightIcon, validator, hint, disabled, autoComplete, autoFocus, link }, ref) => {
+  (
+    {
+      name,
+      label,
+      value,
+      onChange,
+      placeholder,
+      type = "text",
+      leftIcon,
+      rightIcon,
+      validator,
+      hint,
+      disabled,
+      autoComplete,
+      autoFocus,
+      link,
+    },
+    ref
+  ) => {
     const [validationError, setValidationError] = useState<ValidationError | undefined>(undefined);
     const [hasAttemptedValidation, setHasAttemptedValidation] = useState(false);
 
@@ -149,7 +173,7 @@ export const ValidatedInputWithRef = forwardRef<InputRef, ValidatedInputWithRefP
         validate: (showInputError: boolean) => runValidation(showInputError),
         getError: () => validationError?.error,
       }),
-      [value, validationError, validator],
+      [value, validationError, validator]
     );
 
     return (
@@ -171,6 +195,6 @@ export const ValidatedInputWithRef = forwardRef<InputRef, ValidatedInputWithRefP
         required
       />
     );
-  },
+  }
 );
 ValidatedInputWithRef.displayName = "ValidatedInputWithRef";

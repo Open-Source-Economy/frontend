@@ -37,7 +37,8 @@ function toApiError(err?: ApiError | string, legacyMessage?: string): ApiError {
 
 function getDisplayCopy(errorObj: ApiError, explicitTitle?: string) {
   const title = explicitTitle || errorObj.statusText || "Internal Server Error";
-  const message = config.env == Env.Production ? "An unexpected error occurred. Please try again later." : errorObj.message;
+  const message =
+    config.env == Env.Production ? "An unexpected error occurred. Please try again later." : errorObj.message;
   const showStatusCode = config.env != Env.Production && (!!errorObj.statusCode || !!errorObj.statusText);
   const showStackTrace = config.env != Env.Production && Boolean(errorObj.stack);
   return { title, message, showStatusCode, showStackTrace };
@@ -50,7 +51,8 @@ const baseContainer = (extra = "") =>
 const overlays = {
   default: "absolute inset-0 bg-gradient-to-br from-brand-error/6 via-transparent to-brand-error/6 pointer-events-none",
   compact: "absolute inset-0 bg-gradient-to-br from-brand-error/5 via-transparent to-brand-error/5 pointer-events-none",
-  detailed: "absolute inset-0 bg-gradient-to-br from-brand-error/8 via-transparent to-brand-error/8 pointer-events-none",
+  detailed:
+    "absolute inset-0 bg-gradient-to-br from-brand-error/8 via-transparent to-brand-error/8 pointer-events-none",
 } as const;
 
 // -----------------------------
@@ -157,7 +159,9 @@ export function ServerErrorAlert(props: ServerErrorAlertProps) {
                     <div className="w-6 h-6 rounded-md bg-brand-error/15 flex items-center justify-center">
                       <Code className="w-3.5 h-3.5 text-brand-error/70" />
                     </div>
-                    <span className="text-xs font-semibold text-brand-error/70 uppercase tracking-wider">Stack Trace (Dev Only)</span>
+                    <span className="text-xs font-semibold text-brand-error/70 uppercase tracking-wider">
+                      Stack Trace (Dev Only)
+                    </span>
                   </div>
                   <pre className="text-xs text-brand-neutral-600 font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed p-3 rounded-md bg-brand-neutral-100/50">
                     {errorObj.stack}

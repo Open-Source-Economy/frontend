@@ -22,7 +22,13 @@ const CommentIcon = () => (
 );
 
 export function CommentInput(props: CommentInputProps) {
-  const { isExpanded, onToggle, value, onChange, placeholder = "Comments (only visible to Open Source Economy team)" } = props;
+  const {
+    isExpanded,
+    onToggle,
+    value,
+    onChange,
+    placeholder = "Comments (only visible to Open Source Economy team)",
+  } = props;
 
   if (!isExpanded) {
     return (

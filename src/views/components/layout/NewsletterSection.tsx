@@ -58,7 +58,9 @@ export function NewsletterSection(_props: NewsletterSectionProps) {
         {isSuccess && (
           <Alert className="mb-4 border-brand-success bg-brand-success/10">
             <CheckCircle2 className="h-4 w-4 text-brand-success" />
-            <AlertDescription className="text-brand-success">Thanks for subscribing! Check your email to confirm your subscription.</AlertDescription>
+            <AlertDescription className="text-brand-success">
+              Thanks for subscribing! Check your email to confirm your subscription.
+            </AlertDescription>
           </Alert>
         )}
 
@@ -67,7 +69,9 @@ export function NewsletterSection(_props: NewsletterSectionProps) {
           <div className="mb-4">
             <ServerErrorAlert
               variant="compact"
-              message={error.message || "Subscription failed. Please try again later or contact support@opensourceeconomy.org"}
+              message={
+                error.message || "Subscription failed. Please try again later or contact support@opensourceeconomy.org"
+              }
               showDismiss
               onDismiss={handleErrorDismiss}
             />
@@ -87,7 +91,13 @@ export function NewsletterSection(_props: NewsletterSectionProps) {
                 required
               />
             </div>
-            <Button type="submit" variant="default" size="default" className="h-10" disabled={newsletterMutation.isPending}>
+            <Button
+              type="submit"
+              variant="default"
+              size="default"
+              className="h-10"
+              disabled={newsletterMutation.isPending}
+            >
               {newsletterMutation.isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />

@@ -39,7 +39,7 @@ export const registrationFormSchema = z
     confirmPassword: z.string().min(1, "Please confirm your password."),
     termsAccepted: z.literal(true, "Please accept the Terms & Conditions"),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
@@ -55,7 +55,7 @@ export const resetPasswordFormSchema = z
     password: passwordSchema,
     confirmPassword: z.string().min(1, "Please confirm your password."),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
@@ -90,7 +90,7 @@ export const contactFormSchema = z
         z.object({
           url: z.string(),
           role: z.string().optional().default(""),
-        }),
+        })
       )
       .default([{ url: "", role: "" }]),
   })
@@ -112,7 +112,11 @@ export const contactFormSchema = z
 
     const projectsRequired = ["enterprise", "request-project"].includes(data.contactReason);
     if (projectsRequired && (data.projects.length === 0 || !data.projects[0].url.trim())) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "At least one project URL is required", path: ["projects"] });
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "At least one project URL is required",
+        path: ["projects"],
+      });
     }
   });
 export type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -142,15 +146,27 @@ export const onboardingStep4Schema = z
   .superRefine((data, ctx) => {
     if (data.isServiceProvider) {
       if (data.hourlyWeeklyCommitment === undefined || data.hourlyWeeklyCommitment === null) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Weekly hours must be specified", path: ["hourlyWeeklyCommitment"] });
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Weekly hours must be specified",
+          path: ["hourlyWeeklyCommitment"],
+        });
       } else if (data.hourlyWeeklyCommitment < 0 || data.hourlyWeeklyCommitment > 168) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please enter a value between 0 and 168", path: ["hourlyWeeklyCommitment"] });
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Please enter a value between 0 and 168",
+          path: ["hourlyWeeklyCommitment"],
+        });
       }
 
       if (!data.currency) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Currency must be specified", path: ["hourlyRate"] });
       } else if (data.hourlyRate === undefined || data.hourlyRate === null || data.hourlyRate <= 0) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please enter a valid positive number", path: ["hourlyRate"] });
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Please enter a valid positive number",
+          path: ["hourlyRate"],
+        });
       }
     }
   });
@@ -208,12 +224,20 @@ export const inviteRepositoryUserSchema = z
   })
   .superRefine((data, ctx) => {
     if (data.sendEmail && !data.email) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Email is required when Send Email is enabled", path: ["email"] });
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Email is required when Send Email is enabled",
+        path: ["email"],
+      });
     }
     const hasRate = data.rate !== "";
     const hasCurrency = data.currency !== "";
     if (hasRate !== hasCurrency) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Both DOW Rate and Currency must be provided together", path: ["rate"] });
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Both DOW Rate and Currency must be provided together",
+        path: ["rate"],
+      });
     }
     if (hasRate) {
       const num = Number(data.rate);

@@ -32,8 +32,24 @@ export function RhfFormTextarea<T extends FieldValues>({
   const hasError = !!fieldState.error;
 
   return (
-    <RhfFormField<T> name={name} label={label} required={required} hint={hint} className={className} transformError={transformError}>
-      {field => <Textarea {...field} id={name} placeholder={placeholder} rows={rows} variant={hasError ? "error" : "default"} disabled={disabled} />}
+    <RhfFormField<T>
+      name={name}
+      label={label}
+      required={required}
+      hint={hint}
+      className={className}
+      transformError={transformError}
+    >
+      {(field) => (
+        <Textarea
+          {...field}
+          id={name}
+          placeholder={placeholder}
+          rows={rows}
+          variant={hasError ? "error" : "default"}
+          disabled={disabled}
+        />
+      )}
     </RhfFormField>
   );
 }

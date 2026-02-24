@@ -21,7 +21,7 @@ export function FundingCardGrid(props: FundingCardGridProps) {
         title="Offer Services"
         description="Define your open source offerings, your terms, your rates, and your availability."
         isEnabled={incomeStreams.includes(IncomeStreamType.SERVICES)}
-        onChange={enabled => onToggleChange(IncomeStreamType.SERVICES, enabled)}
+        onChange={(enabled) => onToggleChange(IncomeStreamType.SERVICES, enabled)}
         isRecommended={true}
         hasLearnMore={true}
         onLearnMore={onServiceLearnMore}
@@ -37,14 +37,14 @@ export function FundingCardGrid(props: FundingCardGridProps) {
           title="Dependency Payouts"
           description="Earn when your project is used by other funded projects—even transitively."
           isEnabled={incomeStreams.includes(IncomeStreamType.ROYALTIES)}
-          onChange={enabled => onToggleChange(IncomeStreamType.ROYALTIES, enabled)}
+          onChange={(enabled) => onToggleChange(IncomeStreamType.ROYALTIES, enabled)}
         />
 
         <FundingCard
           title="Donations"
           description="Let companies fund you or your project—with or without public recognition."
           isEnabled={incomeStreams.includes(IncomeStreamType.DONATIONS)}
-          onChange={enabled => onToggleChange(IncomeStreamType.DONATIONS, enabled)}
+          onChange={(enabled) => onToggleChange(IncomeStreamType.DONATIONS, enabled)}
         />
       </div>
     </div>

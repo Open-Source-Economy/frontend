@@ -23,7 +23,12 @@ export function ExpertMaintainersHeroSection(props: ExpertMaintainersHeroSection
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Content (left) */}
-            <HeroLeftContent badge={props.badge} headline={props.headline} description={props.description} actions={props.actions} />
+            <HeroLeftContent
+              badge={props.badge}
+              headline={props.headline}
+              description={props.description}
+              actions={props.actions}
+            />
 
             {/* Visuals (right) */}
             <HeroRightContent />

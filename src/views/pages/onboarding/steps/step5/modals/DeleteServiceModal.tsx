@@ -10,7 +10,13 @@ interface DeleteServiceModalProps {
   isDeleting?: boolean;
 }
 
-export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({ isOpen, onClose, developerServiceEntry, onConfirmDelete, isDeleting = false }) => {
+export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({
+  isOpen,
+  onClose,
+  developerServiceEntry,
+  onConfirmDelete,
+  isDeleting = false,
+}) => {
   const handleConfirmDelete = () => {
     if (developerServiceEntry) {
       onConfirmDelete(developerServiceEntry);
@@ -24,7 +30,7 @@ export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({ isOpen, 
   return (
     <ConfirmationDialog
       open={isOpen}
-      onOpenChange={open => !open && onClose()}
+      onOpenChange={(open) => !open && onClose()}
       title="Remove service?"
       description={
         <>

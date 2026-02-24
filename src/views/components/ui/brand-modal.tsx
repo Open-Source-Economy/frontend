@@ -34,16 +34,23 @@ export function BrandModal(props: BrandModalProps) {
   const preventAutoFocus = props.preventAutoFocus ?? false;
 
   return (
-    <Dialog open={props.open} onOpenChange={isOpen => !isOpen && props.onClose()}>
+    <Dialog open={props.open} onOpenChange={(isOpen) => !isOpen && props.onClose()}>
       <DialogContent
-        className={cn(sizeClasses[size], "bg-brand-secondary-dark border border-brand-neutral-300/10", "max-h-[85vh] flex flex-col p-0", props.className)}
-        onOpenAutoFocus={preventAutoFocus ? e => e.preventDefault() : undefined}
+        className={cn(
+          sizeClasses[size],
+          "bg-brand-secondary-dark border border-brand-neutral-300/10",
+          "max-h-[85vh] flex flex-col p-0",
+          props.className
+        )}
+        onOpenAutoFocus={preventAutoFocus ? (e) => e.preventDefault() : undefined}
       >
         {/* Fixed Header */}
         {(props.title || props.description) && (
           <DialogHeader className={cn("space-y-3 px-6 pt-6 pb-4 flex-shrink-0", props.headerClassName)}>
             {props.title && <DialogTitle className="text-brand-neutral-900">{props.title}</DialogTitle>}
-            {props.description && <DialogDescription className="text-brand-neutral-600">{props.description}</DialogDescription>}
+            {props.description && (
+              <DialogDescription className="text-brand-neutral-600">{props.description}</DialogDescription>
+            )}
           </DialogHeader>
         )}
 
@@ -52,7 +59,11 @@ export function BrandModal(props: BrandModalProps) {
 
         {/* Fixed Footer */}
         {props.footer && (
-          <DialogFooter className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", props.footerClassName)}>{props.footer}</DialogFooter>
+          <DialogFooter
+            className={cn("px-6 pt-4 pb-6 border-t border-brand-neutral-300/10 flex-shrink-0", props.footerClassName)}
+          >
+            {props.footer}
+          </DialogFooter>
         )}
       </DialogContent>
     </Dialog>
@@ -87,7 +98,12 @@ export function BrandModalSection(props: BrandModalSectionProps) {
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-2">
         {props.icon && (
-          <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0", iconColorClasses[iconColor])}>
+          <div
+            className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+              iconColorClasses[iconColor]
+            )}
+          >
             {React.cloneElement(props.icon as React.ReactElement, {
               className: "w-4 h-4",
             })}

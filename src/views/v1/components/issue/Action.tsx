@@ -15,8 +15,16 @@ interface ActionProps {
 export function Action(props: ActionProps) {
   const actOnIssueButton = (
     <>
-      <Button className="!w-full" audience={props.audience} level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"} size="MEDIUM" asChild>
-        <Link to={props.audience === Audience.USER ? paths.fundIssue(props.issue.id) : paths.manageIssue(props.issue.id)}>
+      <Button
+        className="!w-full"
+        audience={props.audience}
+        level={props.successfullyFunded ? "SECONDARY" : "PRIMARY"}
+        size="MEDIUM"
+        asChild
+      >
+        <Link
+          to={props.audience === Audience.USER ? paths.fundIssue(props.issue.id) : paths.manageIssue(props.issue.id)}
+        >
           {props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}
         </Link>
       </Button>

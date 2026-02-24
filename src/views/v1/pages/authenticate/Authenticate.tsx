@@ -11,7 +11,12 @@ import { ApiError } from "src/ultils/error/ApiError";
 
 import { config, Env } from "src/ultils";
 import { ApiErrorModal } from "src/views/v1/components/common/ApiErrorModal";
-import { FormData, FormValidation, VALID_FORM_VALIDATION, validateForm } from "src/views/v1/components/old-form/hooks/validateForm";
+import {
+  FormData,
+  FormValidation,
+  VALID_FORM_VALIDATION,
+  validateForm,
+} from "src/views/v1/components/old-form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
 import { paths } from "src/paths";
 import { authHooks } from "src/api";
@@ -58,13 +63,16 @@ export function Authenticate(props: AuthenticateProps) {
   const [showError, setShowError] = useState(false);
 
   const companyInviteQuery = authHooks.useCompanyUserInviteInfoQuery({ token: companyToken ?? "" }, !!companyToken);
-  const repositoryInviteQuery = authHooks.useRepositoryUserInviteInfoQuery({ token: repositoryToken ?? "" }, !!repositoryToken);
+  const repositoryInviteQuery = authHooks.useRepositoryUserInviteInfoQuery(
+    { token: repositoryToken ?? "" },
+    !!repositoryToken
+  );
 
   useEffect(() => {
     if (companyInviteQuery.data) {
       setName(companyInviteQuery.data.userName ?? null);
       if (companyInviteQuery.data.userEmail) {
-        setFormData(prev => ({ ...prev, email: companyInviteQuery.data!.userEmail! }));
+        setFormData((prev) => ({ ...prev, email: companyInviteQuery.data!.userEmail! }));
         setIsEmailPredefined(true);
       }
     }
@@ -145,7 +153,9 @@ export function Authenticate(props: AuthenticateProps) {
 
       <div className="login pt-12 pb-24 min-h-screen flex justify-center items-center">
         <div className="flex items-center justify-center  flex-col">
-          <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">{props.type === AuthenticateType.SignIn ? "Sign in" : "Sign up"}</h1>
+          <h1 className="text-[30px] lg:text-[44px] text-[#ffffff] text-center">
+            {props.type === AuthenticateType.SignIn ? "Sign in" : "Sign up"}
+          </h1>
           <form
             onSubmit={handleLocalAuthentication}
             className="bg-[#14233A] border !border-[rgba(255,_255,_255,_0.2)] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
@@ -163,7 +173,9 @@ export function Authenticate(props: AuthenticateProps) {
                     onClick={handleLogInWithGithub}
                   >
                     <img src={github} className="w-[21px] h-[21px]" alt="" />
-                    <h3 className="text-base text-[#ffffff]">{props.type === AuthenticateType.SignIn ? "Sign in with Github" : "Sign up with Github"}</h3>
+                    <h3 className="text-base text-[#ffffff]">
+                      {props.type === AuthenticateType.SignIn ? "Sign in with Github" : "Sign up with Github"}
+                    </h3>
                   </button>
                   {!isGithubAccountPredefined && (
                     <div className="flex items-center justify-center gap-3 mt-6 mb-6">
@@ -179,14 +191,14 @@ export function Authenticate(props: AuthenticateProps) {
                 <div className="flex items-center w-full justify-center gap-3 flex-col">
                   <EmailInput
                     value={formData.email}
-                    onChange={value => setFormData({ ...formData, email: value })}
+                    onChange={(value) => setFormData({ ...formData, email: value })}
                     isValid={validation.email}
                     disabled={isEmailPredefined}
                   />
 
                   <PasswordInput
                     value={formData.password}
-                    onChange={value => setFormData({ ...formData, password: value })}
+                    onChange={(value) => setFormData({ ...formData, password: value })}
                     validation={validation.password ?? true}
                     showValidation={props.type === AuthenticateType.SignUp}
                   />
@@ -195,7 +207,7 @@ export function Authenticate(props: AuthenticateProps) {
                   {props.type === AuthenticateType.SignUp && (
                     <PasswordInput
                       value={formData.confirmPassword}
-                      onChange={value => setFormData({ ...formData, confirmPassword: value })}
+                      onChange={(value) => setFormData({ ...formData, confirmPassword: value })}
                       validation={validation.confirmPassword}
                       isConfirmation={true}
                     />
@@ -207,7 +219,7 @@ export function Authenticate(props: AuthenticateProps) {
                 <>
                   <TermsAgreement
                     checked={formData.termsChecked}
-                    setChecked={checked => setFormData({ ...formData, termsChecked: checked })}
+                    setChecked={(checked) => setFormData({ ...formData, termsChecked: checked })}
                     isValid={validation.terms}
                   />
                 </>
@@ -224,7 +236,13 @@ export function Authenticate(props: AuthenticateProps) {
                     level={"PRIMARY"}
                     size="MEDIUM"
                   >
-                    {props.type === AuthenticateType.SignIn ? (auth.loading ? "Signing In..." : "Sign In") : auth.loading ? "Signing Up..." : "Sign Up"}
+                    {props.type === AuthenticateType.SignIn
+                      ? auth.loading
+                        ? "Signing In..."
+                        : "Sign In"
+                      : auth.loading
+                        ? "Signing Up..."
+                        : "Sign Up"}
                   </Button>
                 </div>
               )}

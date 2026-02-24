@@ -5,9 +5,13 @@ describe("SourceIdentifierCompanion", () => {
   describe("fromUrlOrShorthand", () => {
     describe(".git suffix stripping", () => {
       test("should strip .git suffix from repository URLs", () => {
-        const testUrls = ["https://github.com/apache/commons-bcel.git", "https://github.com/apache/commons-beanutils.git", "apache/commons-collections.git"];
+        const testUrls = [
+          "https://github.com/apache/commons-bcel.git",
+          "https://github.com/apache/commons-beanutils.git",
+          "apache/commons-collections.git",
+        ];
 
-        testUrls.forEach(url => {
+        testUrls.forEach((url) => {
           const result = SourceIdentifierCompanion.fromUrlOrShorthand(url);
           expect(result).toBeInstanceOf(RepositoryId);
 
@@ -20,9 +24,12 @@ describe("SourceIdentifierCompanion", () => {
       });
 
       test("should strip .git from the exact URLs mentioned in the issue", () => {
-        const issueUrls = ["https://github.com/apache/commons-bcel.git", "https://github.com/apache/commons-beanutils.git"];
+        const issueUrls = [
+          "https://github.com/apache/commons-bcel.git",
+          "https://github.com/apache/commons-beanutils.git",
+        ];
 
-        issueUrls.forEach(url => {
+        issueUrls.forEach((url) => {
           const result = SourceIdentifierCompanion.fromUrlOrShorthand(url);
           expect(result).toBeInstanceOf(RepositoryId);
 
@@ -63,9 +70,12 @@ describe("SourceIdentifierCompanion", () => {
     describe("end-to-end verification for backend submission", () => {
       test("should ensure RepositoryId created from .git URLs does not have .git in name", () => {
         // Simulate the exact flow from handleBulkSave in UpsertProjectItemModal
-        const bulkUrls = ["https://github.com/apache/commons-bcel.git", "https://github.com/apache/commons-beanutils.git"];
+        const bulkUrls = [
+          "https://github.com/apache/commons-bcel.git",
+          "https://github.com/apache/commons-beanutils.git",
+        ];
 
-        const sourceIdentifiers = bulkUrls.map(url => SourceIdentifierCompanion.fromUrlOrShorthand(url));
+        const sourceIdentifiers = bulkUrls.map((url) => SourceIdentifierCompanion.fromUrlOrShorthand(url));
 
         sourceIdentifiers.forEach((sourceIdentifier, index) => {
           expect(sourceIdentifier).toBeInstanceOf(RepositoryId);

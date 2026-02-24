@@ -9,7 +9,11 @@ import Step2 from "./steps/step2/Step2";
 import { paths } from "../../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { PageLoader } from "../../../components/common/PageLoader";
-import { OnboardingDataSteps, OnboardingState, transformFullDeveloperProfileToOnboardingState } from "./OnboardingDataSteps";
+import {
+  OnboardingDataSteps,
+  OnboardingState,
+  transformFullDeveloperProfileToOnboardingState,
+} from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
 import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
@@ -70,21 +74,29 @@ export default function OnboardingFlow() {
     let currentStep = OnboardingDataSteps.Step1;
 
     // If the URL step is invalid, redirect to Step1
-    if (isNaN(currentUrlStep) || currentUrlStep < OnboardingDataSteps.Step1 || currentUrlStep > OnboardingDataSteps.Step5) {
+    if (
+      isNaN(currentUrlStep) ||
+      currentUrlStep < OnboardingDataSteps.Step1 ||
+      currentUrlStep > OnboardingDataSteps.Step5
+    ) {
       navigate({ search: { step: currentStep.toString() } as any, replace: true });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
 
     if (profileQuery.data?.profile) {
-      const newState = transformFullDeveloperProfileToOnboardingState(currentStep, profileQuery.data.profile, preferredCurrency);
+      const newState = transformFullDeveloperProfileToOnboardingState(
+        currentStep,
+        profileQuery.data.profile,
+        preferredCurrency
+      );
       setState(newState);
     }
   }, [currentUrlStep, navigate, profileQuery.data]); // TODO: lolo not sure about it Depend on currentUrlStep and navigate
 
   const goToStep = (step: OnboardingDataSteps) => {
     navigate({ search: { step: step.toString() } as any, replace: true });
-    setState(prevState => ({ ...prevState, currentStep: step }));
+    setState((prevState) => ({ ...prevState, currentStep: step }));
   };
 
   const goToNextStep = () => {
@@ -108,19 +120,19 @@ export default function OnboardingFlow() {
   const updateStateData = (updates: any) => {
     switch (state.currentStep) {
       case OnboardingDataSteps.Step1:
-        setState(prevState => ({ ...prevState, step1: { ...prevState.step1, ...updates } }));
+        setState((prevState) => ({ ...prevState, step1: { ...prevState.step1, ...updates } }));
         break;
       case OnboardingDataSteps.Step2:
-        setState(prevState => ({ ...prevState, step2: { ...prevState.step2, ...updates } }));
+        setState((prevState) => ({ ...prevState, step2: { ...prevState.step2, ...updates } }));
         break;
       case OnboardingDataSteps.Step3:
-        setState(prevState => ({ ...prevState, step3: { ...prevState.step3, ...updates } }));
+        setState((prevState) => ({ ...prevState, step3: { ...prevState.step3, ...updates } }));
         break;
       case OnboardingDataSteps.Step4:
-        setState(prevState => ({ ...prevState, step4: { ...prevState.step4, ...updates } }));
+        setState((prevState) => ({ ...prevState, step4: { ...prevState.step4, ...updates } }));
         break;
       case OnboardingDataSteps.Step5:
-        setState(prevState => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
+        setState((prevState) => ({ ...prevState, step5: { ...prevState.step5, ...updates } }));
         break;
       default:
         break;
@@ -136,27 +148,67 @@ export default function OnboardingFlow() {
     [OnboardingDataSteps.Step1]: {
       title: "Confirm Your Details",
       subtitle: "This is so that we can get in contact with you in case any opportunity comes up.",
-      render: <Step1 currentStep={state.currentStep} state={state.step1} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+      render: (
+        <Step1
+          currentStep={state.currentStep}
+          state={state.step1}
+          updateState={updateStateData}
+          onNext={goToNextStep}
+          onBack={goToPrevStep}
+        />
+      ),
     },
     [OnboardingDataSteps.Step2]: {
       title: "Open Source Involvement",
       subtitle: "Select the projects you're involved with",
-      render: <Step2 currentStep={state.currentStep} state={state.step2} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+      render: (
+        <Step2
+          currentStep={state.currentStep}
+          state={state.step2}
+          updateState={updateStateData}
+          onNext={goToNextStep}
+          onBack={goToPrevStep}
+        />
+      ),
     },
     [OnboardingDataSteps.Step3]: {
       title: "Income Streams",
       subtitle: "Let us know how you would like to fund your open source work",
-      render: <Step3 currentStep={state.currentStep} state={state.step3} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+      render: (
+        <Step3
+          currentStep={state.currentStep}
+          state={state.step3}
+          updateState={updateStateData}
+          onNext={goToNextStep}
+          onBack={goToPrevStep}
+        />
+      ),
     },
     [OnboardingDataSteps.Step4]: {
       title: "Availability & Rate",
       subtitle: "Share your availability and indicative rate",
-      render: <Step4 currentStep={state.currentStep} state={state.step4} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+      render: (
+        <Step4
+          currentStep={state.currentStep}
+          state={state.step4}
+          updateState={updateStateData}
+          onNext={goToNextStep}
+          onBack={goToPrevStep}
+        />
+      ),
     },
     [OnboardingDataSteps.Step5]: {
       title: "Services & Preferences",
       subtitle: "Detail the services and offerings you provide",
-      render: <Step5 currentStep={state.currentStep} state={state.step5} updateState={updateStateData} onNext={goToNextStep} onBack={goToPrevStep} />,
+      render: (
+        <Step5
+          currentStep={state.currentStep}
+          state={state.step5}
+          updateState={updateStateData}
+          onNext={goToNextStep}
+          onBack={goToPrevStep}
+        />
+      ),
     },
   };
 

@@ -26,7 +26,11 @@ export function ServiceCategoryCard(props: ServiceCategoryCardProps) {
 
   return (
     <div className="bg-brand-card-blue border border-brand-neutral-300 rounded-xl overflow-hidden transition-all">
-      <button type="button" onClick={onToggle} className="w-full p-5 text-left hover:bg-brand-card-blue-light transition-colors group">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="w-full p-5 text-left hover:bg-brand-card-blue-light transition-colors group"
+      >
         <div className="flex items-start gap-3">
           <div
             className={`w-10 h-10 rounded-lg bg-brand-${accentColor}/10 border border-brand-${accentColor}/30 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-${accentColor}/20 transition-colors`}
@@ -45,7 +49,9 @@ export function ServiceCategoryCard(props: ServiceCategoryCardProps) {
         </div>
       </button>
 
-      <div className={`transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}>
+      <div
+        className={`transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
+      >
         <div className="p-5 bg-brand-secondary/30 border-t border-brand-neutral-300">
           <div className="grid md:grid-cols-2 gap-4">
             {serviceOfferings.map((serviceOffering, index) => (

@@ -20,7 +20,9 @@ export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
           <span className="absolute sm:inline hidden left-0 w-[37%] bottom-0 h-1 3xl:h-1.5 bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B]"></span>
           Why Do We Need Your Help?
         </h1>
-        {props.description.paragraph1 && <p className="text-base sm:text-xl font-medium 3xl:text-2xl !mt-3 xl:!mt-4">{props.description.paragraph1}</p>}
+        {props.description.paragraph1 && (
+          <p className="text-base sm:text-xl font-medium 3xl:text-2xl !mt-3 xl:!mt-4">{props.description.paragraph1}</p>
+        )}
         {props.description.items && (
           <ul className="space-y-4 2xl:space-y-5 mt-4 xl:!mt-8 !text-left">
             {/*<h3 className="text-base sm:text-xl font-medium 3xl:text-[25px]">To have a more robust and reliable Pekko Cluster we need:</h3>*/}
@@ -30,7 +32,9 @@ export function WhyDoWeNeedYourHelp(props: WhyDoWeNeedYourHelpProps) {
           </ul>
         )}
         {props.description.paragraph2 && (
-          <p className="text-base xl:max-w-[520px] 3xl:max-w-[628px] sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8">{props.description.paragraph2}</p>
+          <p className="text-base xl:max-w-[520px] 3xl:max-w-[628px] sm:text-xl font-medium 3xl:text-2xl !mt-5 md:!mt-8">
+            {props.description.paragraph2}
+          </p>
         )}
       </div>
     </section>

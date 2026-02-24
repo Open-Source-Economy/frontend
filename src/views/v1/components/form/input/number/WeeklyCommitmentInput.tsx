@@ -10,7 +10,10 @@ interface WeeklyCommitmentInputProps extends BaseProps {
   onChange: (value: number | null) => void;
 }
 
-export const WeeklyCommitmentInput = forwardRef(function WeeklyCommitmentInput(props: WeeklyCommitmentInputProps, ref: Ref<WeeklyCommitmentInputRef>) {
+export const WeeklyCommitmentInput = forwardRef(function WeeklyCommitmentInput(
+  props: WeeklyCommitmentInputProps,
+  ref: Ref<WeeklyCommitmentInputRef>
+) {
   const { value, onChange } = props;
   const integerInputRef = React.useRef<GenericInputRef>(null);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +48,7 @@ export const WeeklyCommitmentInput = forwardRef(function WeeklyCommitmentInput(p
         return integerInputValid && weeklyCommitmentValid;
       },
     }),
-    [value],
+    [value]
   );
 
   const handleInputChange = (inputValue: string | null) => {
@@ -66,7 +69,7 @@ export const WeeklyCommitmentInput = forwardRef(function WeeklyCommitmentInput(p
         <div className="flex h-10 pl-3 items-center gap-3 rounded-md bg-[#202F45]">
           <IntegerInput
             value={value === null ? "" : value}
-            onChange={e => handleInputChange(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value)}
             placeholder="eg. 30"
             className="bg-transparent text-white font-montserrat text-base font-normal leading-[150%] outline-none placeholder:text-white placeholder:opacity-60 w-20 text-left"
             ref={integerInputRef}

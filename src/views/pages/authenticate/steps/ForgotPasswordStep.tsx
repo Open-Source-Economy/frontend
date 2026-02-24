@@ -56,7 +56,15 @@ export function ForgotPasswordStep() {
     <AuthPageWrapper title="Forgot Password" description="Enter your email to reset your password">
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
         <Form form={form} onSubmit={handleSubmit} className="space-y-4">
-          <RhfFormInput<ForgotPasswordFormData> name="email" label="Email" type="email" placeholder="name@example.com" leftIcon={Mail} autoFocus required />
+          <RhfFormInput<ForgotPasswordFormData>
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="name@example.com"
+            leftIcon={Mail}
+            autoFocus
+            required
+          />
 
           {forgotPasswordError && <ServerErrorAlert error={forgotPasswordError} />}
 

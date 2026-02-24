@@ -1,5 +1,11 @@
 import React from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/views/components/ui/forms/select/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "src/views/components/ui/forms/select/select";
 import { LucideIcon } from "lucide-react";
 import { cn } from "src/views/components/utils";
 
@@ -31,7 +37,7 @@ export function FilterSelect(props: FilterSelectProps) {
         </div>
       </SelectTrigger>
       <SelectContent>
-        {props.options.map(option => (
+        {props.options.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>

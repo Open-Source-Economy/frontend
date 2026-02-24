@@ -12,7 +12,7 @@ export const SponsorCTA: React.FC<SponsorCTAProps> = ({ sponsor }) => {
     return null;
   }
 
-  const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation();
     window.open(sponsor.ctaUrl, "_blank", "noopener,noreferrer");
   };

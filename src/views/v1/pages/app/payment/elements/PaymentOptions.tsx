@@ -27,7 +27,9 @@ export function PaymentOptions(props: PaymentOptionsProps) {
         <div
           onClick={() => setActiveTab(Tab.One)}
           className={`bg-[#14233A] rounded-[30px] cursor-pointer p-4 mt-12 w-[340px] md:w-96  ${
-            activeTab === Tab.One ? "shadow-custom-double-left-right transition-all ease-in-out duration-500" : "opacity-50"
+            activeTab === Tab.One
+              ? "shadow-custom-double-left-right transition-all ease-in-out duration-500"
+              : "opacity-50"
           }`}
         >
           {props.tab1}
@@ -44,7 +46,9 @@ export function PaymentOptions(props: PaymentOptionsProps) {
         <div
           onClick={() => setActiveTab(Tab.Two)}
           className={`bg-[#14233A] cursor-pointer rounded-[30px] p-4 mt-12 w-[340px] md:w-96  ${
-            activeTab === Tab.Two ? "shadow-custom-double-left-right transition-all ease-in-out duration-500" : "opacity-50"
+            activeTab === Tab.Two
+              ? "shadow-custom-double-left-right transition-all ease-in-out duration-500"
+              : "opacity-50"
           }`}
         >
           {props.tab2}

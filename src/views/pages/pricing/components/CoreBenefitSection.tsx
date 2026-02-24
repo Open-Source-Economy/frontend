@@ -21,8 +21,8 @@ export function CoreBenefitSection({ title, subtitle, description: _description 
           <p className="text-xs text-brand-neutral-700 flex items-start gap-1.5">
             <Check className="w-4 h-4 text-brand-accent shrink-0 mt-0.5" />
             <span>
-              Works across <span className="text-brand-accent">all projects</span> and <span className="text-brand-accent">all maintainers</span> on the
-              platform
+              Works across <span className="text-brand-accent">all projects</span> and{" "}
+              <span className="text-brand-accent">all maintainers</span> on the platform
             </span>
           </p>
         </div>

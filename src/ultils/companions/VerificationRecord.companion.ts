@@ -10,10 +10,15 @@ export namespace VerificationRecordCompanion {
   /**
    * Get the current (most recent) verification record for an entity
    */
-  export function getCurrentRecord(verificationRecords: dto.VerificationRecord[] | undefined, entityId: string): dto.VerificationRecord | null {
+  export function getCurrentRecord(
+    verificationRecords: dto.VerificationRecord[] | undefined,
+    entityId: string
+  ): dto.VerificationRecord | null {
     if (!verificationRecords) return null;
 
-    const records = verificationRecords.filter(r => r.entityId === entityId).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const records = verificationRecords
+      .filter((r) => r.entityId === entityId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return records[0] || null;
   }
@@ -21,7 +26,10 @@ export namespace VerificationRecordCompanion {
   /**
    * Get the current verification status for an entity
    */
-  export function getCurrentStatus(verificationRecords: dto.VerificationRecord[] | undefined, entityId: string): dto.VerificationStatus {
+  export function getCurrentStatus(
+    verificationRecords: dto.VerificationRecord[] | undefined,
+    entityId: string
+  ): dto.VerificationStatus {
     const record = getCurrentRecord(verificationRecords, entityId);
     return record?.status || dto.VerificationStatus.PENDING_REVIEW;
   }
@@ -29,7 +37,10 @@ export namespace VerificationRecordCompanion {
   /**
    * Get the current verification notes for an entity
    */
-  export function getCurrentNotes(verificationRecords: dto.VerificationRecord[] | undefined, entityId: string): string | undefined {
+  export function getCurrentNotes(
+    verificationRecords: dto.VerificationRecord[] | undefined,
+    entityId: string
+  ): string | undefined {
     const record = getCurrentRecord(verificationRecords, entityId);
     return record?.notes;
   }
@@ -37,10 +48,15 @@ export namespace VerificationRecordCompanion {
   /**
    * Get all verification records for a specific entity (full history)
    */
-  export function getHistory(verificationRecords: dto.VerificationRecord[] | undefined, entityId: string): dto.VerificationRecord[] {
+  export function getHistory(
+    verificationRecords: dto.VerificationRecord[] | undefined,
+    entityId: string
+  ): dto.VerificationRecord[] {
     if (!verificationRecords) return [];
 
-    return verificationRecords.filter(r => r.entityId === entityId).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return verificationRecords
+      .filter((r) => r.entityId === entityId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   /**

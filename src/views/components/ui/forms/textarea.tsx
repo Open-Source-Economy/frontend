@@ -29,7 +29,7 @@ const textareaVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 interface TextareaProps extends React.ComponentProps<"textarea">, VariantProps<typeof textareaVariants> {}

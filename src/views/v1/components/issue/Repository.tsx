@@ -20,7 +20,9 @@ export function Repository(props: RepositoryProps) {
           />
         )}
 
-        <h6 className={` ${props.repoHeading || ""} text-lg sm:text-xl font-semibold md:text-2xl text-[#8693A4] cursor-pointer`}>
+        <h6
+          className={` ${props.repoHeading || ""} text-lg sm:text-xl font-semibold md:text-2xl text-[#8693A4] cursor-pointer`}
+        >
           <ExternalLink href={props.owner.htmlUrl}>
             <span className="text-decoration-none c_links color-70 pr-1">
               <span className="hover:underline">{props.owner.id.login}</span>

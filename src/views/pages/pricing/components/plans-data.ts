@@ -46,7 +46,8 @@ export const plans: PlanOption[] = [
             included: true,
             hasInfo: true,
             infoText: "Invest in the Future",
-            infoDescription: "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
+            infoDescription:
+              "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
             infoLink: { text: "See our impact", href: "#ecosystem" },
           },
         ],
@@ -91,7 +92,8 @@ export const plans: PlanOption[] = [
             included: true,
             hasInfo: true,
             infoText: "Invest in the Future",
-            infoDescription: "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
+            infoDescription:
+              "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
             infoLink: { text: "See our impact", href: "#ecosystem" },
           },
         ],
@@ -138,7 +140,8 @@ export const plans: PlanOption[] = [
             included: true,
             hasInfo: true,
             infoText: "Invest in the Future",
-            infoDescription: "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
+            infoDescription:
+              "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
             infoLink: { text: "See our impact", href: "#ecosystem" },
           },
         ],
@@ -194,7 +197,8 @@ export const plans: PlanOption[] = [
             included: true,
             hasInfo: true,
             infoText: "Invest in the Future",
-            infoDescription: "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
+            infoDescription:
+              "Your contribution helps sustain the entire open source ecosystem, ensuring long-term viability.",
             infoLink: { text: "See our impact", href: "#ecosystem" },
           },
         ],

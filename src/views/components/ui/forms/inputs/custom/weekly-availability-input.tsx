@@ -13,14 +13,19 @@ export const WeeklyAvailabilityInput: React.FC<WeeklyAvailabilityInputProps> = (
   const validationResult: ValidationError | undefined = error ? { error } : undefined;
 
   return (
-    <FormField label="Weekly Hours" required error={validationResult} hint="Approximate hours per week you're typically available (for planning purposes)">
+    <FormField
+      label="Weekly Hours"
+      required
+      error={validationResult}
+      hint="Approximate hours per week you're typically available (for planning purposes)"
+    >
       <div className="relative w-fit">
         <Input
           type="number"
           min={0}
           max={45}
           value={value === undefined || Number.isNaN(value) ? "" : value}
-          onChange={e => {
+          onChange={(e) => {
             const inputValue = e.target.value;
             if (inputValue === "") {
               onChange(undefined);
@@ -34,7 +39,9 @@ export const WeeklyAvailabilityInput: React.FC<WeeklyAvailabilityInputProps> = (
           className="w-48 pr-28"
           variant={error ? "error" : "default"}
         />
-        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-neutral-500 text-sm pointer-events-none">hours/week</span>
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-neutral-500 text-sm pointer-events-none">
+          hours/week
+        </span>
       </div>
     </FormField>
   );

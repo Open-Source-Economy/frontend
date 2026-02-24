@@ -10,19 +10,22 @@ interface MergeRightsTypeSelectInputProps extends Omit<BaseProps, "label"> {
   label?: string;
 }
 
-const options: SelectOption[] = Object.values(MergeRightsType).map(value => ({
+const options: SelectOption[] = Object.values(MergeRightsType).map((value) => ({
   value,
   label: value,
 }));
 
-export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSelectInput(props: MergeRightsTypeSelectInputProps, ref: Ref<SelectInputRef>) {
+export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSelectInput(
+  props: MergeRightsTypeSelectInputProps,
+  ref: Ref<SelectInputRef>
+) {
   return (
     <SelectInput
       ref={ref}
       label={props.label || "Merge Rights"}
       required={props.required}
       value={props.value || ""}
-      onChange={e => props.onChange(e.target.value ? (e.target.value as MergeRightsType) : null)}
+      onChange={(e) => props.onChange(e.target.value ? (e.target.value as MergeRightsType) : null)}
       options={options}
     />
   );

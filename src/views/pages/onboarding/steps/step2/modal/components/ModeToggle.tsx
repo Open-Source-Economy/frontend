@@ -12,7 +12,7 @@ export function ModeToggle(props: ModeToggleProps) {
     <ToggleGroup
       type="single"
       value={props.isBulkMode ? "bulk" : "single"}
-      onValueChange={value => {
+      onValueChange={(value) => {
         if (value) props.onModeChange(value === "bulk");
       }}
       variant="subtle"

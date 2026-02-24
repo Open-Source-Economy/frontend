@@ -27,7 +27,10 @@ export function ManageIssue(_props: ManageIssueProps) {
     data: financialIssue,
     error: loadFinancialIssueError,
     refetch: reloadFinancialIssue,
-  } = projectHooks.useFinancialIssueQuery({ owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number }, {});
+  } = projectHooks.useFinancialIssueQuery(
+    { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
+    {}
+  );
 
   useEffect(() => {
     if (financialIssue?.issue?.closedAt) {
@@ -47,7 +50,13 @@ export function ManageIssue(_props: ManageIssueProps) {
                 {(loadFinancialIssueError || error) && (
                   <div className="xl:mt-12">
                     <ShowApiError
-                      error={error ? error : loadFinancialIssueError instanceof ApiError ? loadFinancialIssueError : ApiError.from(loadFinancialIssueError)}
+                      error={
+                        error
+                          ? error
+                          : loadFinancialIssueError instanceof ApiError
+                            ? loadFinancialIssueError
+                            : ApiError.from(loadFinancialIssueError)
+                      }
                     />
                   </div>
                 )}
@@ -56,11 +65,17 @@ export function ManageIssue(_props: ManageIssueProps) {
                   <div className="md:max-w-[590px] xl:max-w-[700px] w-full xl:w-1/2">
                     {financialIssue && (
                       <div className="w-full">
-                        <IssueCard financialIssue={financialIssue} audience={audience} displayPrivatePublicToggle={true} />
+                        <IssueCard
+                          financialIssue={financialIssue}
+                          audience={audience}
+                          displayPrivatePublicToggle={true}
+                        />
                       </div>
                     )}
 
-                    {financialIssue && financialIssueUtils.successfullyFunded(financialIssue) && <SolveIssueOnGithub issue={financialIssue.issue} />}
+                    {financialIssue && financialIssueUtils.successfullyFunded(financialIssue) && (
+                      <SolveIssueOnGithub issue={financialIssue.issue} />
+                    )}
                   </div>
 
                   <div className="xl:w-1/2 w-full md:w-fit xl:max-w-[700px] md:max-w-[590px] ">
@@ -82,7 +97,15 @@ export function ManageIssue(_props: ManageIssueProps) {
 }
 
 // TODO: refactor this
-const BackgroundSection = ({ bgImage, position, children }: { bgImage: string; position: string; children: React.ReactNode }) => (
+const BackgroundSection = ({
+  bgImage,
+  position,
+  children,
+}: {
+  bgImage: string;
+  position: string;
+  children: React.ReactNode;
+}) => (
   <div
     className="md:pb-60"
     style={{

@@ -40,10 +40,18 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
               <div className="relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-brand-primary/8 via-brand-accent/10 to-brand-primary/8 rounded-full border border-brand-accent/20 backdrop-blur-sm shadow-lg">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></div>
-                  <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-                  <div className="w-1 h-1 bg-brand-primary rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+                  <div
+                    className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  ></div>
+                  <div
+                    className="w-1 h-1 bg-brand-primary rounded-full animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                  ></div>
                 </div>
-                <span className="text-sm font-semibold text-brand-accent-dark tracking-wide">Enterprise-Grade Assurance</span>
+                <span className="text-sm font-semibold text-brand-accent-dark tracking-wide">
+                  Enterprise-Grade Assurance
+                </span>
                 <Shield className="w-4 h-4 text-brand-accent" />
               </div>
             </div>

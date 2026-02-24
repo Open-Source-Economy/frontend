@@ -29,7 +29,7 @@ export namespace FullDeveloperProfileCompanion {
     if (githubUsername?.toLowerCase().includes(search)) return true;
 
     // Search in project names
-    const hasMatchingProject = profile.projects.some(project => {
+    const hasMatchingProject = profile.projects.some((project) => {
       const projectName = SourceIdentifierCompanion.displayName(project.projectItem.sourceIdentifier);
       return projectName.toLowerCase().includes(search);
     });

@@ -49,17 +49,23 @@ export function PricingCardHeader(props: PricingCardHeaderProps) {
     <div className="mb-6 pb-8 text-center">
       {tierBadge && (
         <div className="mb-6">
-          <span className={`inline-block px-3 py-1 rounded-full text-xs border ${tierBadge.className}`}>{tierBadge.label}</span>
+          <span className={`inline-block px-3 py-1 rounded-full text-xs border ${tierBadge.className}`}>
+            {tierBadge.label}
+          </span>
         </div>
       )}
 
       {/* Pricing */}
       <div className="mb-6">
         <div className="flex items-center justify-center gap-3">
-          {props.originalPrice && <span className="text-xl text-brand-neutral-500 line-through">${props.originalPrice}</span>}
+          {props.originalPrice && (
+            <span className="text-xl text-brand-neutral-500 line-through">${props.originalPrice}</span>
+          )}
           <span className="text-5xl text-brand-neutral-900">${props.displayPrice}</span>
         </div>
-        <div className="text-sm text-brand-neutral-600 mt-2">per month, billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}</div>
+        <div className="text-sm text-brand-neutral-600 mt-2">
+          per month, billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}
+        </div>
       </div>
 
       {/* CTA Button */}

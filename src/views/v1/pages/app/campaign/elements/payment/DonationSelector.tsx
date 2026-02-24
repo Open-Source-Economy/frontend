@@ -23,7 +23,9 @@ export function DonationSelector(props: DonationSelectorProps) {
               props.productType === CampaignProductType.DONATION ? "!border-primary-user" : "border-white"
             }`}
           >
-            {props.productType === CampaignProductType.DONATION && <div className="w-3 h-3 rounded-full bg-primary-user" />}
+            {props.productType === CampaignProductType.DONATION && (
+              <div className="w-3 h-3 rounded-full bg-primary-user" />
+            )}
           </div>
           That's a donation{" "}
         </button>
@@ -36,7 +38,9 @@ export function DonationSelector(props: DonationSelectorProps) {
           <div
             className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === CampaignProductType.CREDIT ? "!border-primary-user" : "border-white"}`}
           >
-            {props.productType === CampaignProductType.CREDIT && <div className="w-3 h-3 rounded-full bg-primary-user" />}
+            {props.productType === CampaignProductType.CREDIT && (
+              <div className="w-3 h-3 rounded-full bg-primary-user" />
+            )}
           </div>
           I want to receive{" "}
           <Link

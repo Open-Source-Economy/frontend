@@ -37,7 +37,8 @@ const getUrlConfig = (projectType: ProjectItemType) => {
 
 export function ProjectUrlInput(props: ProjectUrlInputProps) {
   const config = getUrlConfig(props.projectType);
-  const validationError: ValidationError | undefined = typeof props.error === "string" ? { error: props.error } : props.error;
+  const validationError: ValidationError | undefined =
+    typeof props.error === "string" ? { error: props.error } : props.error;
 
   return (
     <FormField label={config.label} required error={validationError} hint={config.hint}>
@@ -45,7 +46,7 @@ export function ProjectUrlInput(props: ProjectUrlInputProps) {
         <Input
           type="url"
           value={props.value}
-          onChange={e => props.onChange(e.target.value)}
+          onChange={(e) => props.onChange(e.target.value)}
           placeholder={config.placeholder}
           className="pr-10"
           variant={props.error ? "error" : "default"}

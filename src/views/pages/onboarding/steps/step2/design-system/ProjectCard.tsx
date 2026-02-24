@@ -2,7 +2,13 @@ import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { ExternalLink, Github, Globe } from "lucide-react";
 import { ProjectRowActions } from "./ProjectRowActions";
-import { getAccessValue, getProjectDisplayName, getProjectDisplayUrl, getRoleLabel, isGitHubProject } from "../adapters";
+import {
+  getAccessValue,
+  getProjectDisplayName,
+  getProjectDisplayUrl,
+  getRoleLabel,
+  isGitHubProject,
+} from "../adapters";
 import { MergeRightsTypeCompanion } from "src/ultils/companions";
 
 interface ProjectCardProps {
@@ -62,7 +68,9 @@ export function ProjectCard(props: ProjectCardProps) {
         {/* Access Level */}
         <div>
           <p className="text-xs text-brand-neutral-600 uppercase tracking-wider mb-1">Access Level</p>
-          <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs ${accessClassName}`}>{accessLabel}</span>
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs ${accessClassName}`}>
+            {accessLabel}
+          </span>
         </div>
       </div>
     </div>

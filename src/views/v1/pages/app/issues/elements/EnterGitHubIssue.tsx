@@ -73,7 +73,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
           <div className="flex w-full flex-col">
             <input
               value={url || ""}
-              onChange={e => setUrl(e.target.value)}
+              onChange={(e) => setUrl(e.target.value)}
               onKeyDown={handleKeyDown}
               className={`py-[20px] px-3 w-[100%] sm:w-[100%] lg:w-[100%] text-lg outline-none bg-[rgba(255,255,255,10%)] rounded-[10px] border-2 ${
                 !isValidUrl ? " border-red-500" : "border-transparent"

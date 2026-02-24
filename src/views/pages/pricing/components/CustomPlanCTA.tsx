@@ -10,7 +10,9 @@ export function CustomPlanCTA() {
             <span className="text-brand-accent text-xs uppercase tracking-wider">Enterprise & Custom</span>
           </div>
           <h3 className="text-brand-neutral-900 mb-3">Need a Custom Plan?</h3>
-          <p className="text-brand-neutral-600 mb-8">Unlock tailored solutions designed for your organization's unique needs</p>
+          <p className="text-brand-neutral-600 mb-8">
+            Unlock tailored solutions designed for your organization's unique needs
+          </p>
 
           <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
             <div className="bg-brand-neutral-200/30 rounded-lg p-4 border border-brand-neutral-300 hover:border-brand-accent/40 transition-colors">
@@ -18,7 +20,9 @@ export function CustomPlanCTA() {
                 <div className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0 mt-2"></div>
                 <div>
                   <h4 className="text-brand-neutral-900 mb-1">Brand Recognition Campaign</h4>
-                  <p className="text-brand-neutral-600 text-xs">Amplify your company's presence in the open source community</p>
+                  <p className="text-brand-neutral-600 text-xs">
+                    Amplify your company's presence in the open source community
+                  </p>
                 </div>
               </div>
             </div>
@@ -28,7 +32,9 @@ export function CustomPlanCTA() {
                 <div className="w-2 h-2 rounded-full bg-brand-accent flex-shrink-0 mt-2"></div>
                 <div>
                   <h4 className="text-brand-neutral-900 mb-1">24/7 Operational Support</h4>
-                  <p className="text-brand-neutral-600 text-xs">Dedicated support for your custom projects and initiatives</p>
+                  <p className="text-brand-neutral-600 text-xs">
+                    Dedicated support for your custom projects and initiatives
+                  </p>
                 </div>
               </div>
             </div>

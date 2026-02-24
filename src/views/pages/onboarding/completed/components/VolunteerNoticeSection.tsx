@@ -15,7 +15,8 @@ export const VolunteerNoticeSection: React.FC = () => {
         <div>
           <h3 className="text-brand-neutral-900 mb-1">Made with Love by Our Community</h3>
           <p className="text-sm text-brand-neutral-600">
-            We're powered by passionate volunteers who believe in open source. We'll review your profile and get back to you soon—thanks for your patience!
+            We're powered by passionate volunteers who believe in open source. We'll review your profile and get back to
+            you soon—thanks for your patience!
           </p>
         </div>
       </div>

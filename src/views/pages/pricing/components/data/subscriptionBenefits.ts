@@ -13,8 +13,16 @@ const commonBenefits = [
 ];
 
 const tierSpecificBenefits: Record<string, string[]> = {
-  [PlanProductType.START_UP_PLAN]: ["Basic community recognition on website", "Access to 5-10 top maintainers", "Standard response time support"],
-  [PlanProductType.SCALE_UP_PLAN]: ["Enhanced brand visibility in community", "Access to 10-20 top maintainers", "Priority support with dedicated contact"],
+  [PlanProductType.START_UP_PLAN]: [
+    "Basic community recognition on website",
+    "Access to 5-10 top maintainers",
+    "Standard response time support",
+  ],
+  [PlanProductType.SCALE_UP_PLAN]: [
+    "Enhanced brand visibility in community",
+    "Access to 10-20 top maintainers",
+    "Priority support with dedicated contact",
+  ],
   [PlanProductType.ENTERPRISE_PLAN]: [
     "Premium brand recognition across all channels",
     "Unlimited access to entire maintainer network",

@@ -1,12 +1,22 @@
 import React from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "src/views/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "src/views/components/ui/dialog";
 import { DollarSign, TrendingUp, Users } from "lucide-react";
 
 export const PricingStructureDialog: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className="text-xs text-brand-accent hover:text-brand-accent-light transition-colors underline">
+        <button
+          type="button"
+          className="text-xs text-brand-accent hover:text-brand-accent-light transition-colors underline"
+        >
           Learn more about pricing structure
         </button>
       </DialogTrigger>
@@ -32,7 +42,8 @@ export const PricingStructureDialog: React.FC = () => {
                   <span className="px-2 py-0.5 bg-brand-accent/10 text-brand-accent rounded text-xs">Example</span>
                 </div>
                 <p className="text-xs text-brand-neutral-600">
-                  Here's how it works <strong className="text-brand-accent">if you set</strong> your service rate at $150/hr
+                  Here's how it works <strong className="text-brand-accent">if you set</strong> your service rate at
+                  $150/hr
                 </p>
               </div>
             </div>
@@ -83,8 +94,8 @@ export const PricingStructureDialog: React.FC = () => {
                 <Users className="w-4 h-4 text-brand-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-brand-neutral-700">
-                    <strong className="text-brand-primary">Note:</strong> Project and dependency distribution is decided collaboratively with you and other
-                    maintainers.
+                    <strong className="text-brand-primary">Note:</strong> Project and dependency distribution is decided
+                    collaboratively with you and other maintainers.
                   </p>
                 </div>
               </div>
@@ -103,7 +114,8 @@ export const PricingStructureDialog: React.FC = () => {
                   <h5 className="text-sm text-brand-neutral-900">What You Set</h5>
                 </div>
                 <p className="text-xs text-brand-neutral-700 leading-relaxed">
-                  Enter your <strong className="text-brand-accent">service rate</strong> — what you receive for your work.
+                  Enter your <strong className="text-brand-accent">service rate</strong> — what you receive for your
+                  work.
                 </p>
               </div>
             </div>
@@ -118,7 +130,8 @@ export const PricingStructureDialog: React.FC = () => {
                   <h5 className="text-sm text-brand-neutral-900">Our Commitment</h5>
                 </div>
                 <p className="text-xs text-brand-neutral-700 leading-relaxed">
-                  We maximize your rate with enterprises — when it increases, <strong className="text-brand-primary">everyone benefits</strong>.
+                  We maximize your rate with enterprises — when it increases,{" "}
+                  <strong className="text-brand-primary">everyone benefits</strong>.
                 </p>
               </div>
             </div>

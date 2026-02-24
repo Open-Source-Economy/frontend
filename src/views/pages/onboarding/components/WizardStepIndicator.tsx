@@ -19,7 +19,13 @@ export interface WizardStepIndicatorProps {
  * WizardStepIndicator - Visual progress indicator for multi-step wizard
  * Shows current position, completed steps, and upcoming steps
  */
-export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({ steps, currentStep, completedSteps, highestStepReached, onStepClick }) => {
+export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
+  steps,
+  currentStep,
+  completedSteps,
+  highestStepReached,
+  onStepClick,
+}) => {
   return (
     <div className="w-full pt-10 pb-4">
       {/* Mobile: Enhanced progress bar */}
@@ -49,7 +55,9 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({ steps,
         <div className="mt-4 p-4 bg-brand-card-blue rounded-lg border border-brand-neutral-300/20">
           <p className="text-xs text-brand-neutral-600 uppercase tracking-wider mb-1">Current Step</p>
           <p className="text-brand-neutral-900">{steps[currentStep - 1]?.title}</p>
-          {steps[currentStep - 1]?.description && <p className="text-sm text-brand-neutral-600 mt-1">{steps[currentStep - 1]?.description}</p>}
+          {steps[currentStep - 1]?.description && (
+            <p className="text-sm text-brand-neutral-600 mt-1">{steps[currentStep - 1]?.description}</p>
+          )}
         </div>
       </div>
 
@@ -101,10 +109,14 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({ steps,
                     `}
                   >
                     {/* Pulse effect for current step */}
-                    {isCurrent && <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent to-brand-highlight opacity-40" />}
+                    {isCurrent && (
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent to-brand-highlight opacity-40" />
+                    )}
 
                     {/* Pulsing ring for in-progress steps */}
-                    {isInProgress && <div className="absolute inset-0 rounded-full border-2 border-brand-accent/30 animate-pulse" />}
+                    {isInProgress && (
+                      <div className="absolute inset-0 rounded-full border-2 border-brand-accent/30 animate-pulse" />
+                    )}
 
                     {/* Icon/Number */}
                     <div className="relative">

@@ -15,12 +15,15 @@ export const EmptyServicesState: React.FC<EmptyServicesStateProps> = ({ onAddSer
           <MessageSquare className="w-8 h-8 text-brand-accent" />
         </div>
         <div>
-          <h3 className="text-brand-neutral-900 mb-2">{isMaybeLater ? "Help us prepare for your future" : "No services added yet"}</h3>
+          <h3 className="text-brand-neutral-900 mb-2">
+            {isMaybeLater ? "Help us prepare for your future" : "No services added yet"}
+          </h3>
           <p className="text-brand-neutral-600 text-sm">
             {isMaybeLater ? (
               <>
-                We understand you don't want to provide open source services right now. However, to secure potential future contracts and funding for you, we
-                need to know what you would be interested in offering in the future.
+                We understand you don't want to provide open source services right now. However, to secure potential
+                future contracts and funding for you, we need to know what you would be interested in offering in the
+                future.
                 <span className="block mt-2 font-medium text-brand-accent">
                   Knowing your future interests allows us to start the outreach process to enterprises on your behalf.
                 </span>

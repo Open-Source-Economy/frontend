@@ -39,7 +39,9 @@ export const ActionsSection: React.FC = () => {
         </Button>
       </div>
 
-      <p className="text-sm text-brand-neutral-600 text-center">We'll send your application reference number to your email—keep it handy!</p>
+      <p className="text-sm text-brand-neutral-600 text-center">
+        We'll send your application reference number to your email—keep it handy!
+      </p>
     </div>
   );
 };

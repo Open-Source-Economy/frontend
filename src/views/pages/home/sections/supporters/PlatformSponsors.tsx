@@ -84,7 +84,8 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
             domain: "epicmax.co",
             badge: "OSS Passionate",
             tagline: "Your Trusted Vue.js Development Company",
-            description: "Official partner of Vuetify, PrimeVue, VueJobs. We offer custom front-end development with a strong focus on Vue.js.",
+            description:
+              "Official partner of Vuetify, PrimeVue, VueJobs. We offer custom front-end development with a strong focus on Vue.js.",
             ctaText: "Book a Call",
             ctaUrl: "https://epicmax.co/",
           }),
@@ -130,7 +131,9 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-brand-neutral-900 mb-4">Supported By Leading Organizations</h2>
-            <p className="text-brand-neutral-600">These organizations are investing in the future of sustainable open source development</p>
+            <p className="text-brand-neutral-600">
+              These organizations are investing in the future of sustainable open source development
+            </p>
           </div>
 
           {/* All Sponsors - Mixed Sizes for Visual Hierarchy */}
@@ -180,8 +183,8 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
                     </div>
                     <h3 className="text-brand-neutral-950 mb-4">Become a Sponsor</h3>
                     <p className="text-brand-neutral-600 text-lg max-w-2xl mx-auto">
-                      Join these organizations in supporting the sustainable development of open source software. Your sponsorship directly enables maintainers
-                      to dedicate time to the projects enterprises depend on.
+                      Join these organizations in supporting the sustainable development of open source software. Your
+                      sponsorship directly enables maintainers to dedicate time to the projects enterprises depend on.
                     </p>
                   </div>
 
@@ -199,7 +202,9 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
                         </div>
                         <div>
                           <h4 className="text-brand-neutral-900 mb-2">Support Sustainability</h4>
-                          <p className="text-brand-neutral-600 text-sm">Enable maintainers to focus on the projects your enterprise relies on</p>
+                          <p className="text-brand-neutral-600 text-sm">
+                            Enable maintainers to focus on the projects your enterprise relies on
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -216,7 +221,9 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
                         </div>
                         <div>
                           <h4 className="text-brand-neutral-900 mb-2">Brand Visibility</h4>
-                          <p className="text-brand-neutral-600 text-sm">Showcase your commitment to open source across our platform</p>
+                          <p className="text-brand-neutral-600 text-sm">
+                            Showcase your commitment to open source across our platform
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -233,7 +240,9 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
                         </div>
                         <div>
                           <h4 className="text-brand-neutral-900 mb-2">Direct Access</h4>
-                          <p className="text-brand-neutral-600 text-sm">Priority communication channels with maintainers and platform team</p>
+                          <p className="text-brand-neutral-600 text-sm">
+                            Priority communication channels with maintainers and platform team
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -241,14 +250,19 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
 
                   {/* CTA Button Section */}
                   <div className="text-center">
-                    <Button size="lg" className="gap-2 px-8 py-6 text-lg shadow-2xl hover:shadow-brand-accent/40 transition-all duration-300 hover:scale-105">
+                    <Button
+                      size="lg"
+                      className="gap-2 px-8 py-6 text-lg shadow-2xl hover:shadow-brand-accent/40 transition-all duration-300 hover:scale-105"
+                    >
                       <Heart className="h-5 w-5" />
                       Explore Sponsorship Tiers
                     </Button>
 
                     <div className="mt-6 flex items-center justify-center gap-2 text-brand-neutral-500">
                       <div className="h-px w-12 bg-gradient-to-r from-transparent to-brand-neutral-400" />
-                      <p className="text-sm">Sponsorship tiers from $500/month • Custom enterprise partnerships available</p>
+                      <p className="text-sm">
+                        Sponsorship tiers from $500/month • Custom enterprise partnerships available
+                      </p>
                       <div className="h-px w-12 bg-gradient-to-l from-transparent to-brand-neutral-400" />
                     </div>
                   </div>

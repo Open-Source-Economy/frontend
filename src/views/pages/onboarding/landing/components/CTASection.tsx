@@ -20,11 +20,16 @@ export const CTASection: React.FC<CTASectionProps> = ({ onGitHubSignIn }) => {
           <h2 className="text-brand-neutral-950 mb-4">Ready to Get Started?</h2>
 
           <p className="text-brand-neutral-600 text-lg mb-8 max-w-2xl mx-auto">
-            Sign in with GitHub to set up your profile, define your services, and start earning. We'll handle finding clients and all the business side.
+            Sign in with GitHub to set up your profile, define your services, and start earning. We'll handle finding
+            clients and all the business side.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <Button size="lg" onClick={onGitHubSignIn} className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl">
+            <Button
+              size="lg"
+              onClick={onGitHubSignIn}
+              className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl"
+            >
               <Github className="h-5 w-5 mr-2" />
               Sign in with GitHub
               <ArrowRight className="h-5 w-5 ml-2" />
@@ -37,7 +42,9 @@ export const CTASection: React.FC<CTASectionProps> = ({ onGitHubSignIn }) => {
             </Link>
           </div>
 
-          <p className="text-brand-neutral-500 text-sm">Join the growing community of maintainers getting fairly compensated for their work</p>
+          <p className="text-brand-neutral-500 text-sm">
+            Join the growing community of maintainers getting fairly compensated for their work
+          </p>
         </div>
       </div>
     </section>

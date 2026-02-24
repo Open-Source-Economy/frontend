@@ -64,7 +64,9 @@ export function FundingCampaign(props: FundingCampaignProps) {
                 />
               </div>
               <NonProfitBanner />
-              {config.env !== Env.Production && <CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />}
+              {config.env !== Env.Production && (
+                <CompanyNumberBanner leftButtonText="Only $100/mo" rightButtonText="for 100 Companies" />
+              )}
             </>
           )}
         </div>

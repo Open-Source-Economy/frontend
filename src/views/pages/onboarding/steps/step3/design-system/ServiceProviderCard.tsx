@@ -57,7 +57,12 @@ export const ServiceProviderCard: React.FC<ServiceProviderCardProps> = ({ select
           {/* Feature Grid */}
           <div className="grid sm:grid-cols-2 gap-3">
             {config.detailedFeatures?.map((feature, index) => (
-              <ParticipationFeatureItem key={index} icon={feature.icon} title={feature.title} description={feature.description} />
+              <ParticipationFeatureItem
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+              />
             ))}
           </div>
         </div>
@@ -69,7 +74,9 @@ export const ServiceProviderCard: React.FC<ServiceProviderCardProps> = ({ select
       {/* Selection Buttons - Full Width */}
       <div className="px-8 pb-8 pt-6 border-t border-brand-neutral-300/20">
         <ParticipationSelectionButtons selectedState={selectedState} onSelect={onSelect} />
-        {hasError && !selectedState && <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>}
+        {hasError && !selectedState && (
+          <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>
+        )}
       </div>
     </div>
   );

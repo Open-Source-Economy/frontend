@@ -35,7 +35,9 @@ export function SponsorCard(props: SponsorCardProps) {
 
       <div className="flex flex-col items-center h-fit justify-center space-x-[9px]">
         {" "}
-        <div className={`${props.sponsor.main ? "md:px-10 sm:!pt-5 sm:px-16 gap-2 xl:gap-10 justify-between" : "justify-center"} flex  w-full items-center`}>
+        <div
+          className={`${props.sponsor.main ? "md:px-10 sm:!pt-5 sm:px-16 gap-2 xl:gap-10 justify-between" : "justify-center"} flex  w-full items-center`}
+        >
           {props.sponsor.main === true && (
             <img
               src={leftCat || "/placeholder.svg"}
@@ -43,7 +45,11 @@ export function SponsorCard(props: SponsorCardProps) {
               className="max-w-12 md:max-w-20 h-fit xl:max-w-24 1800:max-w-[102px] object-contain"
             />
           )}{" "}
-          <img src={props.sponsor.imgUrl} alt="Sponsor" className={`${props.sponsor.imgClasses} object-contain w-full max-w-[180px] 2xl:max-w-[250px]`} />
+          <img
+            src={props.sponsor.imgUrl}
+            alt="Sponsor"
+            className={`${props.sponsor.imgClasses} object-contain w-full max-w-[180px] 2xl:max-w-[250px]`}
+          />
           {props.sponsor.main === true && (
             <img
               src={rightCat || "/placeholder.svg"}
@@ -53,7 +59,9 @@ export function SponsorCard(props: SponsorCardProps) {
           )}
         </div>
         {props.sponsor.subtitle && (
-          <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{props.sponsor.subtitle}</h4>
+          <h4 className="text-white mt-2 text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">
+            {props.sponsor.subtitle}
+          </h4>
         )}
       </div>
       {props.sponsor.title && (
@@ -69,12 +77,20 @@ export function SponsorCard(props: SponsorCardProps) {
         </h3>
       )}
       {props.sponsor.details && (
-        <h4 className="!text-[#b6bbc2] text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">{props.sponsor.details}</h4>
+        <h4 className="!text-[#b6bbc2] text-base 1700:text-lg 1800:text-xl text-center max-w-[500px] 1800:max-w-[550px] mx-auto">
+          {props.sponsor.details}
+        </h4>
       )}
 
-      {props.sponsor.description && <p className="text-center text-[10px] xl:text-xs max-w-[244px] mx-auto">{props.sponsor.description}</p>}
+      {props.sponsor.description && (
+        <p className="text-center text-[10px] xl:text-xs max-w-[244px] mx-auto">{props.sponsor.description}</p>
+      )}
 
-      {props.sponsor.callToAction && <div className="text-center text-sm 1700:text-base 1800:text-lg !text-[#b6bbc2]">{props.sponsor.callToAction}</div>}
+      {props.sponsor.callToAction && (
+        <div className="text-center text-sm 1700:text-base 1800:text-lg !text-[#b6bbc2]">
+          {props.sponsor.callToAction}
+        </div>
+      )}
     </div>
   );
 }

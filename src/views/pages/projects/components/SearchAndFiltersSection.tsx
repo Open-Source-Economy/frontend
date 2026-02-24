@@ -29,7 +29,11 @@ export function SearchAndFiltersSection(props: SearchAndFiltersSectionProps) {
         <div className="space-y-8">
           {/* Search Bar with Enhanced Styling */}
           <div className="max-w-2xl mx-auto">
-            <ProjectSearchBar value={props.searchQuery} onChange={props.onSearchChange} placeholder="Search projects by name, description, or tags..." />
+            <ProjectSearchBar
+              value={props.searchQuery}
+              onChange={props.onSearchChange}
+              placeholder="Search projects by name, description, or tags..."
+            />
           </div>
 
           {/* Filters Section with Better Visual Organization */}
@@ -71,7 +75,11 @@ export function SearchAndFiltersSection(props: SearchAndFiltersSectionProps) {
             {/*</div>*/}
 
             <div className="flex-1">
-              <LanguageFilter languages={props.availableLanguages} selectedLanguage={props.selectedLanguage} onSelectLanguage={props.onLanguageChange} />
+              <LanguageFilter
+                languages={props.availableLanguages}
+                selectedLanguage={props.selectedLanguage}
+                onSelectLanguage={props.onLanguageChange}
+              />
             </div>
           </div>
 

@@ -50,7 +50,10 @@ export function SuperAdminRoutes() {
     ) : allowed ? (
       <Outlet />
     ) : (
-      <Navigate to={paths.AUTH.IDENTIFY as string} search={{ repository_token: undefined, company_token: undefined, email: undefined }} />
+      <Navigate
+        to={paths.AUTH.IDENTIFY as string}
+        search={{ repository_token: undefined, company_token: undefined, email: undefined }}
+      />
     ); // TODO: add  404 page
   }
 }

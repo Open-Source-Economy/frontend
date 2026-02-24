@@ -29,7 +29,9 @@ export function ButtonGroup(props: ButtonGroupProps) {
               props.isLoading || props.isNextDisabled ? "opacity-50 cursor-not-allowed" : "hover:opacity-50"
             }`}
           >
-            <div className="text-white font-michroma text-base font-normal leading-[150%]">{props.isLoading ? "Saving..." : "Next"}</div>
+            <div className="text-white font-michroma text-base font-normal leading-[150%]">
+              {props.isLoading ? "Saving..." : "Next"}
+            </div>
           </button>
         </div>
       </div>

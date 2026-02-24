@@ -45,7 +45,9 @@ export namespace ResponseTimeTypeCompanion {
   /**
    * Returns the fastest response time (smallest value) advertised across the provided offerings.
    */
-  export function fastestResponseTime(offerings: Array<{ responseTimeHours?: [dto.ResponseTimeType, unknown][] }>): dto.ResponseTimeType | undefined {
+  export function fastestResponseTime(
+    offerings: Array<{ responseTimeHours?: [dto.ResponseTimeType, unknown][] }>
+  ): dto.ResponseTimeType | undefined {
     let best: dto.ResponseTimeType | undefined;
 
     for (const offering of offerings) {

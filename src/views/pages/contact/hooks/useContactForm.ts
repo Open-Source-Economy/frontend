@@ -34,7 +34,7 @@ export const useContactForm = (initialContactReason: string) => {
     const current = form.getValues("projects");
     form.setValue(
       "projects",
-      current.filter((_: any, i: number) => i !== index),
+      current.filter((_: any, i: number) => i !== index)
     );
   };
 

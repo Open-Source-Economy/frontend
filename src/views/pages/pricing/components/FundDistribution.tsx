@@ -11,14 +11,28 @@ export function FundDistribution() {
         </div>
         <div>
           <h3 className="text-brand-neutral-900 mb-2">Every Credit Fuels the Ecosystem</h3>
-          <p className="text-sm text-brand-neutral-600">When you use credits, funds flow through the entire open source dependency chain.</p>
+          <p className="text-sm text-brand-neutral-600">
+            When you use credits, funds flow through the entire open source dependency chain.
+          </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <FundDistributionCard percentage="60%" title="Direct Service" description="Pays the maintainer for your requested work" />
-        <FundDistributionCard percentage="25%" title="Dependencies" description="Distributed to all project dependencies" />
-        <FundDistributionCard percentage="15%" title="Ecosystem" description="Platform operations & OSS sustainability" />
+        <FundDistributionCard
+          percentage="60%"
+          title="Direct Service"
+          description="Pays the maintainer for your requested work"
+        />
+        <FundDistributionCard
+          percentage="25%"
+          title="Dependencies"
+          description="Distributed to all project dependencies"
+        />
+        <FundDistributionCard
+          percentage="15%"
+          title="Ecosystem"
+          description="Platform operations & OSS sustainability"
+        />
       </div>
     </div>
   );

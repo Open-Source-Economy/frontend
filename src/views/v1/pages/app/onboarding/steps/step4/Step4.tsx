@@ -62,14 +62,14 @@ export function Step4(props: Step4AvailabilityRateProps) {
           title="Your Weekly Commitment"
           subtitle="How many hours per week, on average, can you dedicate to client services?"
           commentValue={props.state.hourlyWeeklyCommitmentComment || ""}
-          onCommentChange={value => props.updateState({ hourlyWeeklyCommitmentComment: value })}
+          onCommentChange={(value) => props.updateState({ hourlyWeeklyCommitmentComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <div className="flex items-center gap-2.5 self-stretch">
               <WeeklyCommitmentInput
                 ref={weeklyCommitmentRef}
                 value={props.state.hourlyWeeklyCommitment ?? null}
-                onChange={value => props.updateState({ hourlyWeeklyCommitment: value ?? undefined })}
+                onChange={(value) => props.updateState({ hourlyWeeklyCommitment: value ?? undefined })}
               />
               {commentButtonComponent}
             </div>
@@ -80,7 +80,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
           title="Larger Opportunities"
           subtitle="Should Open Source Economy team privately contact you when a major opportunity arises?"
           commentValue={props.state.openToOtherOpportunityComment || ""}
-          onCommentChange={value => props.updateState({ openToOtherOpportunityComment: value })}
+          onCommentChange={(value) => props.updateState({ openToOtherOpportunityComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <>
@@ -88,7 +88,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
                 ref={largerOpportunitiesRef}
                 id="larger-opportunities"
                 value={props.state.openToOtherOpportunity || null}
-                onChange={value => props.updateState({ openToOtherOpportunity: value })}
+                onChange={(value) => props.updateState({ openToOtherOpportunity: value })}
                 required={true}
               />
 
@@ -101,7 +101,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
           title="Your Indicative Rate"
           subtitle="What is your typical hourly rate?"
           commentValue={props.state.hourlyRateComment || ""}
-          onCommentChange={value => props.updateState({ hourlyRateComment: value })}
+          onCommentChange={(value) => props.updateState({ hourlyRateComment: value })}
         >
           {(showComment, commentButtonComponent) => (
             <>
@@ -109,8 +109,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
                 ref={indicativeRateRef}
                 hourlyRate={props.state.hourlyRate || null}
                 currency={props.state.currency!}
-                onHourlyRateChange={value => props.updateState({ hourlyRate: value })}
-                onCurrencyChange={currency => currency && props.updateState({ currency })}
+                onHourlyRateChange={(value) => props.updateState({ hourlyRate: value })}
+                onCurrencyChange={(currency) => currency && props.updateState({ currency })}
               />
               {commentButtonComponent}
             </>
@@ -118,7 +118,13 @@ export function Step4(props: Step4AvailabilityRateProps) {
         </OnboardingSectionWrapper>
       </div>
 
-      <ButtonGroup onBack={props.onBack} onNext={handleNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
+      <ButtonGroup
+        onBack={props.onBack}
+        onNext={handleNext}
+        isLoading={isLoading}
+        showErrorMessage={false}
+        errorMessage={apiError?.message}
+      />
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}

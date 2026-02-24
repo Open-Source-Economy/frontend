@@ -17,7 +17,11 @@ export function PricingTable(_props: PricingTableProps) {
   const { data: plans } = projectHooks.usePlansQuery({}, {});
   const { data: userPlan } = projectHooks.useUserPlanQuery({}, {});
 
-  const pricingCategory = (type: PlanProductType, activePlan: PlanProductType | null, activePriceType: PlanPriceType | null): PricingCategory => {
+  const pricingCategory = (
+    type: PlanProductType,
+    activePlan: PlanProductType | null,
+    activePriceType: PlanPriceType | null
+  ): PricingCategory => {
     const orderMap: Record<PlanProductType, number> = {
       [PlanProductType.INDIVIDUAL_PLAN]: 1,
       [PlanProductType.START_UP_PLAN]: 2,
@@ -46,8 +50,16 @@ export function PricingTable(_props: PricingTableProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
-        <img src={backdropSVG} className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right" alt="backdrop" />
-        <img src={backdropSVG} className="pointer-events-none absolute z-0 top-[60rem] left-[36rem] scale-50 origin-top-left" alt="backdrop" />
+        <img
+          src={backdropSVG}
+          className="pointer-events-none absolute z-0 -top-8 right-56 scale-50 origin-top-right"
+          alt="backdrop"
+        />
+        <img
+          src={backdropSVG}
+          className="pointer-events-none absolute z-0 top-[60rem] left-[36rem] scale-50 origin-top-left"
+          alt="backdrop"
+        />
         {plans &&
           Object.entries(planDescriptions).map(([planProductTypeKey, plan], index) => {
             // @ts-ignore

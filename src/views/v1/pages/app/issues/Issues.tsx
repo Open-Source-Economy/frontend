@@ -49,7 +49,10 @@ export function Issues(props: IssuesProps) {
         </div>
         <section>
           <div className=" mt-5 pt-lg-1 pt-3">
-            <IssueFilter financialIssues={financialIssues ?? []} setFilteredFinancialIssues={setFilteredFinancialIssues} />
+            <IssueFilter
+              financialIssues={financialIssues ?? []}
+              setFilteredFinancialIssues={setFilteredFinancialIssues}
+            />
             <div className="mt-5 space-y-7 md:space-y-11 lg:space-y-[60px] w-full lg:w-[90%] mx-auto">
               {isLoading ? (
                 <Loading type="component" message="Loading data..." height="200px" width="200px" />
@@ -58,8 +61,13 @@ export function Issues(props: IssuesProps) {
                   <ShowApiError error={apiError} />
                 </div>
               ) : (filteredFinancialIssues || []).length > 0 ? (
-                filteredFinancialIssues.map(issue => (
-                  <IssueCard key={financialIssueUtils.id(issue)} financialIssue={issue} audience={props.audience} displayActionButtons={true} />
+                filteredFinancialIssues.map((issue) => (
+                  <IssueCard
+                    key={financialIssueUtils.id(issue)}
+                    financialIssue={issue}
+                    audience={props.audience}
+                    displayActionButtons={true}
+                  />
                 ))
               ) : (
                 <div className="flex justify-center gap-2 sm:text-2xl text-xl items-center font-medium">

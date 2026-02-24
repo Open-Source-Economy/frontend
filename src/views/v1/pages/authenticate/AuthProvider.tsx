@@ -48,8 +48,13 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const loading = statusQuery.isLoading || loginMutation.isPending || registerMutation.isPending || logoutMutation.isPending;
-  const error = loginMutation.error || registerMutation.error || logoutMutation.error || (statusQuery.error ? statusQuery.error : null);
+  const loading =
+    statusQuery.isLoading || loginMutation.isPending || registerMutation.isPending || logoutMutation.isPending;
+  const error =
+    loginMutation.error ||
+    registerMutation.error ||
+    logoutMutation.error ||
+    (statusQuery.error ? statusQuery.error : null);
 
   const state: AuthContextState = {
     loading: loading,

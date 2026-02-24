@@ -72,7 +72,16 @@ const getIconForTitle = (title: string) => {
 };
 
 export function FundingCard(props: FundingCardProps) {
-  const { title, description, isEnabled, onChange, isRecommended = false, hasLearnMore = false, onLearnMore, isFullWidth = false } = props;
+  const {
+    title,
+    description,
+    isEnabled,
+    onChange,
+    isRecommended = false,
+    hasLearnMore = false,
+    onLearnMore,
+    isFullWidth = false,
+  } = props;
 
   return (
     <div
@@ -98,7 +107,9 @@ export function FundingCard(props: FundingCardProps) {
 
         {/* Text Content */}
         <div className="flex flex-col items-start gap-3 flex-1">
-          <h3 className="self-stretch text-primary-developer font-michroma text-[28px] font-normal leading-[1.3]">{title}</h3>
+          <h3 className="self-stretch text-primary-developer font-michroma text-[28px] font-normal leading-[1.3]">
+            {title}
+          </h3>
           <p className="self-stretch text-white font-montserrat text-base font-normal leading-normal">{description}</p>
           {hasLearnMore && onLearnMore && (
             <button

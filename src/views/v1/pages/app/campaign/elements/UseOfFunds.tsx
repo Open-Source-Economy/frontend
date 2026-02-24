@@ -24,14 +24,18 @@ export function UseOfFunds(props: UseOfFundsProps) {
 
           {props.description.items && (
             <ul className="space-y-4 2xl:space-y-5 mt-4 xl:!mt-8 !text-left">
-              {props.description.paragraph1 && <p className="text-base sm:text-xl font-medium 3xl:text-2xl">{props.description.paragraph1}</p>}
+              {props.description.paragraph1 && (
+                <p className="text-base sm:text-xl font-medium 3xl:text-2xl">{props.description.paragraph1}</p>
+              )}
               {props.description.items.map((item, index) => (
                 <ListItem key={index}>{item.text}</ListItem>
               ))}
             </ul>
           )}
           {props.description.paragraph2 && (
-            <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">{props.description.paragraph2}</p>
+            <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">
+              {props.description.paragraph2}
+            </p>
           )}
         </div>
 

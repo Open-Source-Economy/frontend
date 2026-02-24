@@ -22,14 +22,14 @@ export function calculateEstimatedWaitTime(
   queuePosition: number,
   queueOrder: string[],
   organizations: Array<{ projectItem: { id: { uuid: string } }; owner?: { publicRepos?: number } | null }>,
-  msPerRepo: number,
+  msPerRepo: number
 ): number {
   let estimatedWaitSeconds = 0;
 
   // Sum up publicRepos for all owners ahead in the queue
   for (let i = 0; i < queuePosition - 1; i++) {
     const aheadOrgId = queueOrder[i];
-    const aheadOrg = organizations.find(o => o.projectItem.id.uuid === aheadOrgId);
+    const aheadOrg = organizations.find((o) => o.projectItem.id.uuid === aheadOrgId);
     if (aheadOrg?.owner?.publicRepos) {
       estimatedWaitSeconds += (aheadOrg.owner.publicRepos * msPerRepo) / 1000;
     }

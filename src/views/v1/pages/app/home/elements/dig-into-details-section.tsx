@@ -37,7 +37,7 @@ export const DigIntoDetails = () => {
         <h1 className="text-center font-mich text-[28px] font-[400] lg:text-[42px]">Dig into the details</h1>
         <div className="dig-grid z-[10] grid w-full px-[20px] lg:grid-cols-3  lg:px-0">
           {/* 1  */}
-          {videoData?.map(video => (
+          {videoData?.map((video) => (
             <VideoCom key={video.id} delay={video.delay} thumbnail={video.thumbnail} source={video.src} id={video.id} />
           ))}
         </div>
@@ -46,7 +46,17 @@ export const DigIntoDetails = () => {
   );
 };
 
-const VideoCom = ({ source: _source, id: _id, delay, thumbnail }: { source: string; id: number; delay: string; thumbnail: any }) => {
+const VideoCom = ({
+  source: _source,
+  id: _id,
+  delay,
+  thumbnail,
+}: {
+  source: string;
+  id: number;
+  delay: string;
+  thumbnail: any;
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const _handlePlayClick = () => {
@@ -60,7 +70,11 @@ const VideoCom = ({ source: _source, id: _id, delay, thumbnail }: { source: stri
   };
 
   return (
-    <div data-aos="fade-right" data-aos-delay={delay} className="rounded-[30px] bg-[#14233A] px-[16px] py-[20px] lg:rounded-[50px] lg:px-[28px] lg:py-[25px]">
+    <div
+      data-aos="fade-right"
+      data-aos-delay={delay}
+      className="rounded-[30px] bg-[#14233A] px-[16px] py-[20px] lg:rounded-[50px] lg:px-[28px] lg:py-[25px]"
+    >
       <div className="flex lg:h-[200px] sm:h-[450px] h-[250px] relative w-full cursor-pointer items-center justify-center overflow-hidden rounded-[30px] bg-[#2C35431A]">
         {/* {!isPlaying && (
           <img onClick={handlePlayClick} src={svgPlay} alt="" className="absolute z-[10] aspect-square size-full w-full  duration-300 hover:opacity-55" />
@@ -77,7 +91,9 @@ const VideoCom = ({ source: _source, id: _id, delay, thumbnail }: { source: stri
       </div>
       <div className="dig-grid-content w-full text-center">
         <h1 className="text-center text-[21px] font-[400] font-mich">New video youtube</h1>
-        <button className="gradient-text-btn dig-grid-content-btn font-mich text-center text-[16px] font-[400]">READ MORE</button>
+        <button className="gradient-text-btn dig-grid-content-btn font-mich text-center text-[16px] font-[400]">
+          READ MORE
+        </button>
       </div>
     </div>
   );

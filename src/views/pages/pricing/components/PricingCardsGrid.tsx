@@ -16,7 +16,7 @@ export function PricingCardsGrid(props: PricingCardsGridProps) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        {props.plans.map(plan => (
+        {props.plans.map((plan) => (
           <PricingCard
             key={plan.id}
             name={plan.name}
@@ -28,7 +28,13 @@ export function PricingCardsGrid(props: PricingCardsGridProps) {
             highlighted={plan.highlighted}
             previousPlanName={plan.previousPlanName}
             onButtonClick={() => props.onPlanClick(plan.id)}
-            buttonState={getPlanButtonState(plan.id, props.currentPlanTier, props.currentPlanBilling, props.billingCycle, props.plans)}
+            buttonState={getPlanButtonState(
+              plan.id,
+              props.currentPlanTier,
+              props.currentPlanBilling,
+              props.billingCycle,
+              props.plans
+            )}
             planId={plan.id}
           />
         ))}

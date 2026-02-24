@@ -7,8 +7,8 @@ interface ProjectDisclaimerRule {
 
 const PROJECT_DISCLAIMER_RULES: ProjectDisclaimerRule[] = [
   {
-    matches: project => isApacheProject(project),
-    message: projectName =>
+    matches: (project) => isApacheProject(project),
+    message: (projectName) =>
       `This collective is not officially affiliated with the ${projectName} project (or the Apache Software Foundation) but aims to support development and testing work related to that project. ${projectName} will continue to be Free and Open Source Software.`,
   },
 ];

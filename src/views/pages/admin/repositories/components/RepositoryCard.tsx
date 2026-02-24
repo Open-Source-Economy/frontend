@@ -87,7 +87,14 @@ export function RepositoryCard(props: RepositoryCardProps) {
                       </Badge>
                     )}
                     {repo.visibility && (
-                      <Badge variant="secondary" className={repo.visibility === "private" ? "bg-red-500/20 text-red-300" : "bg-green-500/20 text-green-300"}>
+                      <Badge
+                        variant="secondary"
+                        className={
+                          repo.visibility === "private"
+                            ? "bg-red-500/20 text-red-300"
+                            : "bg-green-500/20 text-green-300"
+                        }
+                      >
                         {repo.visibility}
                       </Badge>
                     )}
@@ -160,7 +167,8 @@ export function RepositoryCard(props: RepositoryCardProps) {
             <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-red-300">
-                <strong>Cannot sync:</strong> Repository data is not available. The repository may need to be added to the database first.
+                <strong>Cannot sync:</strong> Repository data is not available. The repository may need to be added to
+                the database first.
               </div>
             </div>
           )}
@@ -190,7 +198,11 @@ export function RepositoryCard(props: RepositoryCardProps) {
           </Button>
 
           {props.canSync && (
-            <Button variant="outline" onClick={() => setShowAdvanced(!showAdvanced)} className="whitespace-nowrap text-sm">
+            <Button
+              variant="outline"
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="whitespace-nowrap text-sm"
+            >
               {showAdvanced ? "Hide" : "Show"} Details
             </Button>
           )}
@@ -204,22 +216,26 @@ export function RepositoryCard(props: RepositoryCardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             {repo.openIssuesCount !== undefined && (
               <div>
-                <span className="text-gray-400">Open Issues:</span> <span className="text-white ml-2">{repo.openIssuesCount}</span>
+                <span className="text-gray-400">Open Issues:</span>{" "}
+                <span className="text-white ml-2">{repo.openIssuesCount}</span>
               </div>
             )}
             {repo.subscribersCount !== undefined && (
               <div>
-                <span className="text-gray-400">Subscribers:</span> <span className="text-white ml-2">{repo.subscribersCount}</span>
+                <span className="text-gray-400">Subscribers:</span>{" "}
+                <span className="text-white ml-2">{repo.subscribersCount}</span>
               </div>
             )}
             {repo.networkCount !== undefined && (
               <div>
-                <span className="text-gray-400">Network:</span> <span className="text-white ml-2">{repo.networkCount}</span>
+                <span className="text-gray-400">Network:</span>{" "}
+                <span className="text-white ml-2">{repo.networkCount}</span>
               </div>
             )}
             {repo.id.githubId && (
               <div>
-                <span className="text-gray-400">GitHub ID:</span> <span className="text-white ml-2">{repo.id.githubId}</span>
+                <span className="text-gray-400">GitHub ID:</span>{" "}
+                <span className="text-white ml-2">{repo.id.githubId}</span>
               </div>
             )}
           </div>
@@ -229,7 +245,10 @@ export function RepositoryCard(props: RepositoryCardProps) {
               <AlertCircle className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
               <div className="text-sm text-blue-300">
                 <p className="font-semibold mb-1">Sync updates repository data</p>
-                <p>Syncing fetches the latest repository information from GitHub, including stars, forks, and other metadata.</p>
+                <p>
+                  Syncing fetches the latest repository information from GitHub, including stars, forks, and other
+                  metadata.
+                </p>
               </div>
             </div>
           </div>

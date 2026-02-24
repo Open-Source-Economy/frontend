@@ -71,7 +71,7 @@ export const owner = new Owner(
   ownerId,
   OwnerType.Organization,
   "https://github.com/Open-Source-Economy",
-  "https://avatars.githubusercontent.com/u/141809657?v=4",
+  "https://avatars.githubusercontent.com/u/141809657?v=4"
 );
 
 export function repository(): Repository {
@@ -85,11 +85,16 @@ export const issue = new Issue(
   new Date("2024-09-20T09:34:07Z"),
   null,
   new OwnerId("LaurianeOSE", 141809342),
-  "noe rfi efier gisrgl l yrfvbisleurgfs;ieur bgf;iear rgfiauerf ",
+  "noe rfi efier gisrgl l yrfvbisleurgfs;ieur bgf;iear rgfiauerf "
 );
 
 export const userId = new UserId("141809342");
-export const thirdPartyUser = new ThirdPartyUser(Provider.Github, new ThirdPartyUserId("141809342"), null, new GithubData(owner));
+export const thirdPartyUser = new ThirdPartyUser(
+  Provider.Github,
+  new ThirdPartyUserId("141809342"),
+  null,
+  new GithubData(owner)
+);
 export const user: User = {
   id: userId,
   name: "Lauriane",
@@ -145,7 +150,10 @@ export const developerBugFixingService: dto.DeveloperServiceEntry = {
   developerService: {
     id: new dto.DeveloperServiceId("DeveloperServiceId"),
     developerProfileId: new dto.DeveloperProfileId("some-profile-id"),
-    developerProjectItemIds: [new dto.DeveloperProjectItemId("some ProjectItemId"), new dto.DeveloperProjectItemId("some ProjectItemId")],
+    developerProjectItemIds: [
+      new dto.DeveloperProjectItemId("some ProjectItemId"),
+      new dto.DeveloperProjectItemId("some ProjectItemId"),
+    ],
     serviceId: bugFixingService.id,
     hourlyRate: 80,
     responseTimeHours: ResponseTimeType.FourHours,

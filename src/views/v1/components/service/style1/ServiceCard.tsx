@@ -42,7 +42,10 @@ export function ServiceCard(props: ServiceCardProps) {
                   <span className="max-w-[15px] min-w-3 block">
                     <ListIcon />
                   </span>
-                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap relative"> {feature.name}</span>
+                  <span className="text-base lg:text-lg 2xl:text-xl 3xl:text-[22px] text-nowrap relative">
+                    {" "}
+                    {feature.name}
+                  </span>
                 </li>
               ))}
               {props.button && (

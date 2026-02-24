@@ -55,7 +55,9 @@ describe("GithubUrls", () => {
       });
 
       test("should extract repository from URL with deep nested path", () => {
-        const result = GithubUrls.extractRepositoryId("https://github.com/apache/pekko/tree/main/src/main/scala/org/apache/pekko");
+        const result = GithubUrls.extractRepositoryId(
+          "https://github.com/apache/pekko/tree/main/src/main/scala/org/apache/pekko"
+        );
 
         expect(result).not.toBeNull();
         if (result) {
@@ -184,7 +186,7 @@ describe("GithubUrls", () => {
           "https://github.com/apache/commons-collections.git",
         ];
 
-        urls.forEach(url => {
+        urls.forEach((url) => {
           const result = GithubUrls.extractRepositoryId(url);
           expect(result).not.toBeNull();
           if (result) {
@@ -538,9 +540,13 @@ describe("GithubUrls", () => {
 
   describe("end-to-end .git stripping verification", () => {
     test("should ensure .git is stripped when creating RepositoryId for backend", () => {
-      const testUrls = ["https://github.com/apache/commons-bcel.git", "https://github.com/apache/commons-beanutils.git", "apache/commons-collections.git"];
+      const testUrls = [
+        "https://github.com/apache/commons-bcel.git",
+        "https://github.com/apache/commons-beanutils.git",
+        "apache/commons-collections.git",
+      ];
 
-      testUrls.forEach(url => {
+      testUrls.forEach((url) => {
         const result = GithubUrls.extractRepositoryId(url, true);
         expect(result).not.toBeNull();
         if (result) {

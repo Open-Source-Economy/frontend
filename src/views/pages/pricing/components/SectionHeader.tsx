@@ -27,7 +27,8 @@ export function SectionHeader(props: SectionHeaderProps) {
               }
             : props.subtitle?.includes("Credits vary by tier")
               ? {
-                  content: "Service credits can be used to access maintainer support, priority bug fixes, feature requests, and consultation hours.",
+                  content:
+                    "Service credits can be used to access maintainer support, priority bug fixes, feature requests, and consultation hours.",
                   description: "Each tier provides different credit amounts to match your team's needs.",
                   link: {
                     text: "Learn more about service credits →",

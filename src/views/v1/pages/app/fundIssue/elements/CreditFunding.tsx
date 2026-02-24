@@ -30,7 +30,7 @@ export function CreditFunding(props: CreditFundingProps) {
     {},
     {
       companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
-    },
+    }
   );
   const availableCredits: Credit | null = availableCreditsResponse
     ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
@@ -135,7 +135,10 @@ export function CreditFunding(props: CreditFundingProps) {
                 </svg>
               </button>
             </div>
-            <h2 className="gradient-texts select-none w-fit leading-[100%] font-bold md:text-[33px] text-[20px]" tabIndex={-1}>
+            <h2
+              className="gradient-texts select-none w-fit leading-[100%] font-bold md:text-[33px] text-[20px]"
+              tabIndex={-1}
+            >
               hour{counter?.amount.greaterThan(new Decimal(1)) && "s"}
             </h2>
             <style>{`
@@ -150,7 +153,14 @@ export function CreditFunding(props: CreditFundingProps) {
         </div>
       </div>
       <div className="!mt-10 xl:!mt-14 flex flex-wrap sm:!flex-nowrap justify-center w-full items-center gap-3">
-        <Button parentClassName="w-full" audience={audience} level={enoughFund ? "SECONDARY" : "PRIMARY"} className={`w-full`} size="MEDIUM" asChild>
+        <Button
+          parentClassName="w-full"
+          audience={audience}
+          level={enoughFund ? "SECONDARY" : "PRIMARY"}
+          className={`w-full`}
+          size="MEDIUM"
+          asChild
+        >
           <Link to={paths.PRICING}>Get More Credits</Link>
         </Button>
 

@@ -45,7 +45,10 @@ export function FormField(props: FormFieldProps) {
             </Label>
           )}
           {props.link && (
-            <Link to={props.link.href as string} className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors">
+            <Link
+              to={props.link.href as string}
+              className="text-xs text-brand-accent hover:text-brand-accent-dark transition-colors"
+            >
               {props.link.text}
             </Link>
           )}

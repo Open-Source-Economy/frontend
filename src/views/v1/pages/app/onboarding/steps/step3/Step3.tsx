@@ -103,7 +103,13 @@ export function Step3(props: Step3Props) {
         />
       </div>
 
-      <ButtonGroup onBack={props.onBack} onNext={onNext} isLoading={isLoading} showErrorMessage={false} errorMessage={apiError?.message} />
+      <ButtonGroup
+        onBack={props.onBack}
+        onNext={onNext}
+        isLoading={isLoading}
+        showErrorMessage={false}
+        errorMessage={apiError?.message}
+      />
 
       {/* Loading Indicator */}
       {isLoading && <LoadingIndicator />}

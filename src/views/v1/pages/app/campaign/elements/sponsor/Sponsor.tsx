@@ -27,11 +27,20 @@ export function Sponsor(props: SponsorProps) {
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-wrap !justify-center gap-2 1800:gap-3 w-full">
               {sponsors.map((card, index) => (
-                <div key={index} className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}>
+                <div
+                  key={index}
+                  className={`${getCardWidth(card.size)} ${card.position !== undefined ? `order-${card.position} lg:!order-none` : ""}`}
+                >
                   {card.nestedCards ? (
-                    <div className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
+                    <div
+                      className={`grid gap-2 1800:gap-3 min-h-full min-w-full ${card.nestedCards.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}
+                    >
                       {card.nestedCards.map((nestedCard, indexNested) => (
-                        <SponsorCard key={`${index}-${indexNested}`} sponsor={card} className={`${nestedCard.className || ""}`} />
+                        <SponsorCard
+                          key={`${index}-${indexNested}`}
+                          sponsor={card}
+                          className={`${nestedCard.className || ""}`}
+                        />
                       ))}
                     </div>
                   ) : (

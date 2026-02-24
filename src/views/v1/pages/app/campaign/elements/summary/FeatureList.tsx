@@ -11,8 +11,13 @@ export function FeatureList(props: FeatureListProps) {
     return (
       <div className="!space-y-3 relative z-20 3xl:!space-y-[19px]">
         {props.features.map(({ icon, heading, text }, index) => (
-          <div key={index} className="flex items-start sm:items-center gap-4 px-6 !py-3 3xl:!py-4 cursor-pointer rounded-2xl 3xl:rounded-[35px] !bg-primaryBg">
-            <div className="w-16 h-16 min-h-16 min-w-16 2xl:w-[90px] sm:w-20 sm:h-[90px] 3xl:w-[112px] 2xl:h-24 3xl:h-[112px] object-cover">{icon}</div>
+          <div
+            key={index}
+            className="flex items-start sm:items-center gap-4 px-6 !py-3 3xl:!py-4 cursor-pointer rounded-2xl 3xl:rounded-[35px] !bg-primaryBg"
+          >
+            <div className="w-16 h-16 min-h-16 min-w-16 2xl:w-[90px] sm:w-20 sm:h-[90px] 3xl:w-[112px] 2xl:h-24 3xl:h-[112px] object-cover">
+              {icon}
+            </div>
             <div>
               <h2 className="text-lg sm:text-xl font-semibold 3xl:text-2xl">{heading}</h2>
               <div className="h-[3px] 3xl:h-1 my-2 2xl:my-2.5 w-full bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] max-w-[95px]"></div>

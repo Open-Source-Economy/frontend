@@ -1,4 +1,9 @@
-import { AdvisorySubServiceType, DevelopmentSubServiceType, ServiceType, SupportSubServiceType } from "@open-source-economy/api-types";
+import {
+  AdvisorySubServiceType,
+  DevelopmentSubServiceType,
+  ServiceType,
+  SupportSubServiceType,
+} from "@open-source-economy/api-types";
 
 // Define the structure for dropdown options
 export interface DropdownOption {

@@ -37,16 +37,19 @@ const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root
           "disabled:cursor-not-allowed disabled:opacity-50",
           "data-[state=checked]:bg-brand-accent data-[state=checked]:border-brand-accent data-[state=checked]:text-white",
           sizeClasses[size],
-          className,
+          className
         )}
         {...props}
       >
-        <CheckboxPrimitive.Indicator data-slot="checkbox-indicator" className="flex items-center justify-center text-current transition-none">
+        <CheckboxPrimitive.Indicator
+          data-slot="checkbox-indicator"
+          className="flex items-center justify-center text-current transition-none"
+        >
           <Check className={iconSizes[size]} />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
     );
-  },
+  }
 );
 
 Checkbox.displayName = "Checkbox";

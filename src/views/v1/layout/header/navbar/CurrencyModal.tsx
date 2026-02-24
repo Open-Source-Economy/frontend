@@ -48,7 +48,7 @@ export function CurrencyModal(props: CurrencyModalProps) {
               </div>
 
               <div className="max-h-[400px] overflow-y-auto space-y-1 overflow-x-hidden scrollbar scrollbar-track-primaryBg scrollbar-thumb-[#2c4366] ">
-                {Object.values(Currency).map(currencyKey => {
+                {Object.values(Currency).map((currencyKey) => {
                   const currency = displayedCurrencies[currencyKey];
                   return (
                     <button
@@ -56,7 +56,9 @@ export function CurrencyModal(props: CurrencyModalProps) {
                       onClick={() => props.onSelect(currencyKey)}
                       className="w-full flex items-center justify-start gap-4 px-3 overflow-hidden py-2  duration-300 md:hover:bg-white/5  transition-colors group"
                     >
-                      <div className="size-4 grid place-items-center ">{props.selectedCurrency === currencyKey && <CheckIcon />}</div>
+                      <div className="size-4 grid place-items-center ">
+                        {props.selectedCurrency === currencyKey && <CheckIcon />}
+                      </div>
                       <div className="flex flex-col items-start ">
                         <span className=" text-lg gradient-bg  bg-clip-text group-active:text-transparent md:group-hover:text-transparent duration-200">
                           {currency.name}

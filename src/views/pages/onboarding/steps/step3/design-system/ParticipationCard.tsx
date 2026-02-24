@@ -48,7 +48,8 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
   const _getBorderPrimaryClasses = (opacity?: string) => `border-${primary}${opacity ? `/${opacity}` : ""}`;
   const _getShadowPrimaryClasses = (opacity?: string) => `shadow-${primary}${opacity ? `/${opacity}` : ""}`;
 
-  const _getGradientBg = () => `bg-gradient-to-br from-${primary} ${primaryDark ? `to-${primaryDark}` : `to-${primary}`}`;
+  const _getGradientBg = () =>
+    `bg-gradient-to-br from-${primary} ${primaryDark ? `to-${primaryDark}` : `to-${primary}`}`;
 
   return (
     <div
@@ -85,7 +86,9 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
             <div className="grid md:grid-cols-2 gap-2.5">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-start gap-2.5">
-                  <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${getBgPrimaryClasses("10")}`}>
+                  <div
+                    className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${getBgPrimaryClasses("10")}`}
+                  >
                     <span className={`${getPrimaryClasses()} text-xs`}>✓</span>
                   </div>
                   <span className="text-sm text-brand-neutral-700 leading-snug">{feature}</span>
@@ -98,7 +101,9 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
         {/* Selection Buttons */}
         <div className="pt-6 border-t border-brand-neutral-300/20">
           <ParticipationSelectionButtons selectedState={selectedState} onSelect={onSelect} />
-          {hasError && !selectedState && <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>}
+          {hasError && !selectedState && (
+            <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>
+          )}
         </div>
       </div>
     </div>

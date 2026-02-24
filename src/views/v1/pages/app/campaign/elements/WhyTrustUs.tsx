@@ -23,8 +23,12 @@ export function WhyTrustUs(props: WhyTrustUsProps) {
             Why You Can Trust Us
           </h1>
 
-          <p className="text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-12">{props.description.paragraph1}</p>
-          <p className="text-base max-w-[550px] 3xl:max-w-[656px] sm:text-xl font-medium 3xl:text-2xl mt-6">{props.description.paragraph2}</p>
+          <p className="text-base sm:text-xl font-medium 3xl:text-2xl mt-8 xl:mt-10 3xl:mt-12">
+            {props.description.paragraph1}
+          </p>
+          <p className="text-base max-w-[550px] 3xl:max-w-[656px] sm:text-xl font-medium 3xl:text-2xl mt-6">
+            {props.description.paragraph2}
+          </p>
         </div>
       </section>
     </div>

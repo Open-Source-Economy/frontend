@@ -116,12 +116,15 @@ export function SponsorshipPage() {
                   </div>
 
                   {/* Headline */}
-                  <h1 className="text-brand-neutral-950 mb-6 leading-tight">Fund the Infrastructure for Sustainable Open Source</h1>
+                  <h1 className="text-brand-neutral-950 mb-6 leading-tight">
+                    Fund the Infrastructure for Sustainable Open Source
+                  </h1>
 
                   {/* Description */}
                   <p className="text-brand-neutral-600 text-xl leading-relaxed mb-10">
-                    Help us build the platform that secures enterprise contracts for open source maintainers. Your donation supports Open Source Economy
-                    operations, enabling us to connect more developers with sustainable funding.
+                    Help us build the platform that secures enterprise contracts for open source maintainers. Your
+                    donation supports Open Source Economy operations, enabling us to connect more developers with
+                    sustainable funding.
                   </p>
 
                   {/* Trust Indicator */}
@@ -134,7 +137,8 @@ export function SponsorshipPage() {
                     </div>
                     <blockquote className="text-center pt-2">
                       <p className="text-lg md:text-xl text-brand-neutral-600/80 italic leading-relaxed">
-                        "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime."
+                        "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a
+                        lifetime."
                       </p>
                     </blockquote>
                   </div>
@@ -142,33 +146,43 @@ export function SponsorshipPage() {
                   {/* Section Divider */}
                   <div className="flex items-center gap-3 md:gap-4 mb-12 w-full">
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-brand-neutral-300 to-transparent min-w-0"></div>
-                    <span className="text-xs md:text-sm uppercase tracking-wider text-brand-neutral-500 whitespace-nowrap">Our Approach</span>
+                    <span className="text-xs md:text-sm uppercase tracking-wider text-brand-neutral-500 whitespace-nowrap">
+                      Our Approach
+                    </span>
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-brand-neutral-300 to-transparent min-w-0"></div>
                   </div>
 
                   {/* Mission Explanation */}
                   <div className="space-y-8 text-brand-neutral-600 text-lg leading-relaxed">
                     <p className="text-xl">
-                      <strong className="text-brand-neutral-900">We're not here to beg for donations for open source projects.</strong> Instead, we're building
-                      a sustainable system that allows maintainers to get funding for their open source work.
+                      <strong className="text-brand-neutral-900">
+                        We're not here to beg for donations for open source projects.
+                      </strong>{" "}
+                      Instead, we're building a sustainable system that allows maintainers to get funding for their open
+                      source work.
                     </p>
 
                     <p>
-                      While FOSS development thrives as commons, its economic foundation remains largely privatized. The open-source services market—
-                      <strong className="text-brand-neutral-800">$27B in 2022, projected to reach $44B by 2027</strong>—is controlled by private enterprises,
-                      with disproportionately small amounts flowing back to the commons.
+                      While FOSS development thrives as commons, its economic foundation remains largely privatized. The
+                      open-source services market—
+                      <strong className="text-brand-neutral-800">$27B in 2022, projected to reach $44B by 2027</strong>
+                      —is controlled by private enterprises, with disproportionately small amounts flowing back to the
+                      commons.
                     </p>
 
                     <p>
-                      When funds do flow back, they only reach top-level visible projects, not the foundational dependencies maintained by volunteers. This
-                      creates resource mismatches that disadvantage commons-based solutions, especially in user-facing domains where sustained support and
-                      polish determine adoption.
+                      When funds do flow back, they only reach top-level visible projects, not the foundational
+                      dependencies maintained by volunteers. This creates resource mismatches that disadvantage
+                      commons-based solutions, especially in user-facing domains where sustained support and polish
+                      determine adoption.
                     </p>
 
                     <p className="text-xl">
-                      <strong className="text-brand-neutral-900">Our nonprofit initiative introduces a new building block for the internet commons:</strong>{" "}
-                      sustainable funding infrastructure that ensures maintainers at all levels—from visible projects to critical dependencies—can continue
-                      their essential work.
+                      <strong className="text-brand-neutral-900">
+                        Our nonprofit initiative introduces a new building block for the internet commons:
+                      </strong>{" "}
+                      sustainable funding infrastructure that ensures maintainers at all levels—from visible projects to
+                      critical dependencies—can continue their essential work.
                     </p>
 
                     {isVisible("sponsorshipMissionLink") && (
@@ -177,7 +191,9 @@ export function SponsorshipPage() {
                           to={paths.MISSION}
                           className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover transition-all duration-200 hover:gap-3 group cursor-pointer"
                         >
-                          <span className="border-b border-brand-accent/30 group-hover:border-brand-accent-hover">Learn more about our mission</span>
+                          <span className="border-b border-brand-accent/30 group-hover:border-brand-accent-hover">
+                            Learn more about our mission
+                          </span>
                           <ArrowRight className="h-4 w-4" />
                         </Link>
                       </div>

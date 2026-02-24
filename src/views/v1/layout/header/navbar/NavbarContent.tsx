@@ -31,7 +31,7 @@ export function NavbarContent(props: AppNavbarProps) {
     {},
     {
       companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
-    },
+    }
   );
   const availableCredits: Credit | null = availableCreditsResponse
     ? { amount: new Decimal(availableCreditsResponse.creditAmount), unit: CreditUnit.MINUTE }
@@ -72,7 +72,10 @@ export function NavbarContent(props: AppNavbarProps) {
     Navigation.items.signOut,
   ];
   const authNavbarItems = [Navigation.items.dashboard, Navigation.availableCredits(availableCredits)];
-  const nonAuthNavbarItems: NavItemData[] = [/*Navigation.items.blog,*/ /*Navigation.items.newsletter,*/ Navigation.items.howItWorks, Navigation.items.pricing]; // TODO: where to put ? currencyNavItem
+  const nonAuthNavbarItems: NavItemData[] = [
+    /*Navigation.items.blog,*/ /*Navigation.items.newsletter,*/ Navigation.items.howItWorks,
+    Navigation.items.pricing,
+  ]; // TODO: where to put ? currencyNavItem
 
   const _whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
@@ -93,7 +96,7 @@ export function NavbarContent(props: AppNavbarProps) {
       {auth.authInfo?.authenticatedUser ? (
         <>
           <MobileNavbar navbarItems={authDropdownNavbarItems} />
-          {authNavbarItems.map(item => {
+          {authNavbarItems.map((item) => {
             return <NavbarItem key={item.title} item={item} />;
           })}
           {/*{supportProjects}*/}
@@ -105,7 +108,7 @@ export function NavbarContent(props: AppNavbarProps) {
         </>
       ) : (
         <>
-          {nonAuthNavbarItems.map(item => {
+          {nonAuthNavbarItems.map((item) => {
             return <NavbarItem key={item.title} item={item} />;
           })}
           {/*{supportProjects}*/}

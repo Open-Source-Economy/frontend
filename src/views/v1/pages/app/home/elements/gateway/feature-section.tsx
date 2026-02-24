@@ -61,7 +61,10 @@ export function FeaturesSection(_props: FeaturesSectionProps) {
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">
       <div className="z-[20] flex w-full max-w-[1250px] flex-wrap justify-center gap-6 1500:gap-[30px] min-[1600px]:max-w-[1305px]">
         {features.map((feature, index) => (
-          <div key={feature.title} className={index === 2 ? "flex w-full items-center justify-center md:col-span-2" : ""}>
+          <div
+            key={feature.title}
+            className={index === 2 ? "flex w-full items-center justify-center md:col-span-2" : ""}
+          >
             <FeatureBox {...feature} />
           </div>
         ))}

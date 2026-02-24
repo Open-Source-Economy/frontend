@@ -11,22 +11,38 @@ export function Card(_props: CardProps) {
       <div>
         <div className="flex flex-col gap-3">
           <label htmlFor="">Card number</label>
-          <input type="text" placeholder="1234 1234 12234 1234" className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3" />
+          <input
+            type="text"
+            placeholder="1234 1234 12234 1234"
+            className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3"
+          />
         </div>
         <div className="flex items-center gap-3 mt-3">
           <div className="flex flex-col gap-3">
             <label htmlFor="">Expiry Date</label>
-            <input type="number" placeholder="DD/MM/YY" className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3 w-100" />
+            <input
+              type="number"
+              placeholder="DD/MM/YY"
+              className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3 w-100"
+            />
           </div>
           <div className="flex flex-col gap-3">
             <label htmlFor="">CVC</label>
-            <input type="number" placeholder="763" className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3 w-100" />
+            <input
+              type="number"
+              placeholder="763"
+              className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 outline-0 p-3 w-100"
+            />
           </div>
         </div>
         <div className="flex flex-col gap-3 mt-3">
           <label htmlFor="country">Country</label>
 
-          <select id="country" name="country" className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 p-3 form-select cursor-pointer  ">
+          <select
+            id="country"
+            name="country"
+            className="bg-[rgba(255,255,255,10%)] rounded-[10px] border-0 p-3 form-select cursor-pointer  "
+          >
             <Countries></Countries>
           </select>
         </div>

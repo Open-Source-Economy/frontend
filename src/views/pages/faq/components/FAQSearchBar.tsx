@@ -14,7 +14,7 @@ export function FAQSearchBar(props: FAQSearchBarProps) {
         type="text"
         placeholder="Search questions..."
         value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value)}
         className="w-full pl-11 pr-4 py-3 bg-brand-card-blue border border-brand-neutral-300 rounded-lg text-brand-neutral-900 placeholder:text-brand-neutral-500 focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all"
       />
     </div>

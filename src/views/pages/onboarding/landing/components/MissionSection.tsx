@@ -12,8 +12,8 @@ export const MissionSection: React.FC = () => {
           </div>
           <h2 className="text-brand-neutral-950 mb-4">Our Mission: Solve Open Source Sustainability</h2>
           <p className="text-brand-neutral-700 text-lg max-w-2xl mx-auto">
-            We connect maintainers with the <span className="text-brand-primary">$27B→$44B services market</span> while ensuring funds flow to the entire
-            ecosystem—not VCs.
+            We connect maintainers with the <span className="text-brand-primary">$27B→$44B services market</span> while
+            ensuring funds flow to the entire ecosystem—not VCs.
           </p>
         </div>
 
@@ -27,7 +27,8 @@ export const MissionSection: React.FC = () => {
               <h3 className="text-brand-neutral-900">What We Do</h3>
             </div>
             <p className="text-sm text-brand-neutral-600 leading-relaxed">
-              A platform where you provide services at your rates while we handle business operations and automatically fund your dependencies.
+              A platform where you provide services at your rates while we handle business operations and automatically
+              fund your dependencies.
             </p>
           </div>
 
@@ -40,7 +41,8 @@ export const MissionSection: React.FC = () => {
               <h3 className="text-brand-neutral-900">Why It Works</h3>
             </div>
             <p className="text-sm text-brand-neutral-600 leading-relaxed">
-              The OSS services market is massive. We tap into it systematically, considering dependency trees and market reality.
+              The OSS services market is massive. We tap into it systematically, considering dependency trees and market
+              reality.
             </p>
           </div>
 

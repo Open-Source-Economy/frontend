@@ -49,9 +49,13 @@ export namespace ProjectItemDetailsCompanion {
 
     const totalProjects = projects.length;
 
-    const totalStars = appendLabels ? NumberUtils.pluralize(totalStarsValue, "star") : NumberUtils.formatCompactNumber(totalStarsValue);
+    const totalStars = appendLabels
+      ? NumberUtils.pluralize(totalStarsValue, "star")
+      : NumberUtils.formatCompactNumber(totalStarsValue);
 
-    const totalForks = appendLabels ? NumberUtils.pluralize(totalForksValue, "fork") : NumberUtils.formatCompactNumber(totalForksValue);
+    const totalForks = appendLabels
+      ? NumberUtils.pluralize(totalForksValue, "fork")
+      : NumberUtils.formatCompactNumber(totalForksValue);
 
     return {
       totalProjects,

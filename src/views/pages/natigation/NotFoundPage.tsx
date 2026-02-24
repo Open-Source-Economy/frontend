@@ -57,7 +57,8 @@ export function NotFoundPage(_props: NotFoundPageProps) {
               <div className="space-y-4 mb-12">
                 <h2 className="text-brand-neutral-900">Page Not Found</h2>
                 <p className="text-brand-neutral-600 max-w-2xl mx-auto">
-                  We couldn't find the page you're looking for. It may have been moved, deleted, or the URL might be incorrect.
+                  We couldn't find the page you're looking for. It may have been moved, deleted, or the URL might be
+                  incorrect.
                 </p>
               </div>
 

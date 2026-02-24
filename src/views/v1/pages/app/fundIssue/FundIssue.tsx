@@ -17,7 +17,7 @@ export function FundIssue(_props: FundIssueProps) {
   const { issueId } = useIssueContext();
   const { data: financialIssue, error: _loadFinancialIssueError } = projectHooks.useFinancialIssueQuery(
     { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
-    {},
+    {}
   );
   const [modal, setModal] = useState(false);
 
@@ -47,7 +47,9 @@ export function FundIssue(_props: FundIssueProps) {
                 <CreditFunding onIssueFundingSuccess={() => setModal(true)} issueId={financialIssue.issue.id} />
               </div>
 
-              {modal && <DisclaimerModal show={modal} setShow={setModal} closeCallback={() => window.location.reload()} />}
+              {modal && (
+                <DisclaimerModal show={modal} setShow={setModal} closeCallback={() => window.location.reload()} />
+              )}
             </div>
           )}
         </div>

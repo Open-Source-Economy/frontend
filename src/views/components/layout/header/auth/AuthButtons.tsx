@@ -16,7 +16,9 @@ function AuthButton(props: { link: NavigationLink; variant: "desktop" | "mobile"
 
   // Replaced with Button component usage
   const { variant: btnVariant, size: btnSize } =
-    props.type === "login" ? { variant: "ghost" as const, size: "sm" as const } : { variant: "default" as const, size: "default" as const };
+    props.type === "login"
+      ? { variant: "ghost" as const, size: "sm" as const }
+      : { variant: "default" as const, size: "default" as const };
 
   const mobileClasses = isMobile ? "w-full justify-start" : "hidden lg:flex";
 
@@ -34,7 +36,10 @@ function AuthButton(props: { link: NavigationLink; variant: "desktop" | "mobile"
   }
 
   return (
-    <Link to={(props.link.href || "#") as string} className={cn(buttonVariants({ variant: btnVariant, size: btnSize }), mobileClasses, "!no-underline")}>
+    <Link
+      to={(props.link.href || "#") as string}
+      className={cn(buttonVariants({ variant: btnVariant, size: btnSize }), mobileClasses, "!no-underline")}
+    >
       {props.link.title}
     </Link>
   );

@@ -65,7 +65,7 @@ export interface OnboardingState {
 export function transformFullDeveloperProfileToOnboardingState(
   currentStep: OnboardingDataSteps,
   profile: FullDeveloperProfile,
-  fallBackCurrency: Currency,
+  fallBackCurrency: Currency
 ): OnboardingState {
   const step1: Step1State = {
     developerProfileId: profile.profileEntry?.profile?.id || undefined,

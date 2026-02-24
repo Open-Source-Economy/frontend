@@ -76,7 +76,15 @@ const socialMediaLinks: SocialMediaLink[] = [
     href: "https://github.com/Open-Source-Economy",
     title: "Open Source Economy on GitHub",
     icon: (
-      <svg width="30" height="30" className="svgicon-2" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="githubTitle">
+      <svg
+        width="30"
+        height="30"
+        className="svgicon-2"
+        viewBox="0 0 26 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-labelledby="githubTitle"
+      >
         <title id="githubTitle">GitHub</title>
         <g clipPath="url(#clip0_45_4051)">
           <path
@@ -91,7 +99,15 @@ const socialMediaLinks: SocialMediaLink[] = [
     href: "https://www.linkedin.com/company/open-source-economy/",
     title: "Open Source Economy on LinkedIn",
     icon: (
-      <svg width="30" className="svgicon-2" height="30" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="linkedinTitle">
+      <svg
+        width="30"
+        className="svgicon-2"
+        height="30"
+        viewBox="0 0 25 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-labelledby="linkedinTitle"
+      >
         <title id="linkedinTitle">LinkedIn</title>
         <g clipPath="url(#clip0_45_4051)">
           <path

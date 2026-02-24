@@ -37,7 +37,7 @@ export class ManageFundRecipient {
     const splitAmount = totalAmount.div(numberOfRecipients);
 
     // Distribute the amount equally among recipients
-    recipients.forEach(recipient => {
+    recipients.forEach((recipient) => {
       split[recipient.id] = [splitAmount, false];
     });
 
@@ -62,7 +62,7 @@ export class ManageFundRecipient {
     const recipientIdsNotManuallySet = this.recipientIdsNotManuallySet();
 
     const remainingAmountPerRecipient = amount.div(recipientIdsNotManuallySet.length);
-    recipientIdsNotManuallySet.forEach(id => {
+    recipientIdsNotManuallySet.forEach((id) => {
       this.split[id] = [remainingAmountPerRecipient, false];
     });
   }

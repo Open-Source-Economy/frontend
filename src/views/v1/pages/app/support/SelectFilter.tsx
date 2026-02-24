@@ -42,7 +42,7 @@ export function SelectFilter(props: SelectFilterProps) {
     if (props.labelValues.length > 0) {
       setSelectedValue("");
     }
-  }, [JSON.stringify(props.labelValues.map(item => item.value))]);
+  }, [JSON.stringify(props.labelValues.map((item) => item.value))]);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
@@ -53,7 +53,7 @@ export function SelectFilter(props: SelectFilterProps) {
   // Update selectedValue if it comes from parent as a prop
   React.useEffect(() => {
     // Find if there's a pre-selected item in labelValues
-    const preSelectedItem = props.labelValues.find(item => item.isSelected);
+    const preSelectedItem = props.labelValues.find((item) => item.isSelected);
     if (preSelectedItem) {
       setSelectedValue(preSelectedItem.value);
     }
@@ -100,10 +100,14 @@ export function SelectFilter(props: SelectFilterProps) {
           )}
         </div>
       )}
-      <div className={`relative ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`} onClick={handleDropdownClick} aria-label={props.ariaLabel}>
+      <div
+        className={`relative ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
+        onClick={handleDropdownClick}
+        aria-label={props.ariaLabel}
+      >
         <div className="bg-[#202F45] w-full rounded-[10px] p-3 flex items-center justify-between">
           <span className={`${selectedValue ? "text-white" : "text-[#8693A4] "} 3xl:text-lg`}>
-            {selectedValue ? props.labelValues.find(item => item.value === selectedValue)?.label : props.placeholder}
+            {selectedValue ? props.labelValues.find((item) => item.value === selectedValue)?.label : props.placeholder}
           </span>
 
           <svg

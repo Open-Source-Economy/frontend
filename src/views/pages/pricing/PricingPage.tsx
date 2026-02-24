@@ -49,7 +49,7 @@ export function PricingPage(_props: PricingPageProps) {
   const mergedPlans = useMemo(() => {
     if (!realPlansData) return mockPlans;
 
-    return mockPlans.map(plan => {
+    return mockPlans.map((plan) => {
       const realType = getRealProductType(plan.id);
       if (realType && realPlansData.plans && realPlansData.plans[realType]) {
         const realPrices = realPlansData.plans[realType];
@@ -60,8 +60,12 @@ export function PricingPage(_props: PricingPageProps) {
 
         return {
           ...plan,
-          monthlyPrice: realPrices["usd"]?.[PlanPriceType.MONTHLY]?.unitAmount ? realPrices["usd"][PlanPriceType.MONTHLY].unitAmount / 100 : plan.monthlyPrice,
-          annualPrice: realPrices["usd"]?.[PlanPriceType.ANNUALLY]?.unitAmount ? realPrices["usd"][PlanPriceType.ANNUALLY].unitAmount / 100 : plan.annualPrice,
+          monthlyPrice: realPrices["usd"]?.[PlanPriceType.MONTHLY]?.unitAmount
+            ? realPrices["usd"][PlanPriceType.MONTHLY].unitAmount / 100
+            : plan.monthlyPrice,
+          annualPrice: realPrices["usd"]?.[PlanPriceType.ANNUALLY]?.unitAmount
+            ? realPrices["usd"][PlanPriceType.ANNUALLY].unitAmount / 100
+            : plan.annualPrice,
         };
       }
       return plan;
@@ -82,7 +86,11 @@ export function PricingPage(_props: PricingPageProps) {
           onPlanBillingChange={setCurrentPlanBilling}
         />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <PricingSectionHeader billingCycle={billingCycle} onBillingCycleChange={setBillingCycle} savingsPercentage={SAVINGS_PERCENTAGE} />
+          <PricingSectionHeader
+            billingCycle={billingCycle}
+            onBillingCycleChange={setBillingCycle}
+            savingsPercentage={SAVINGS_PERCENTAGE}
+          />
 
           {/* Pricing Cards */}
           <PricingCardsGrid

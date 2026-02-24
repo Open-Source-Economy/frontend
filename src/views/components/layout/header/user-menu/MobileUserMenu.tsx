@@ -20,8 +20,12 @@ export function MobileUserMenu(props: MobileUserMenuProps) {
       <div className="space-y-4">
         {props.menuConfig.sections.map((section, index) => (
           <div key={index} className="space-y-1">
-            {section.title && <div className="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{section.title}</div>}
-            {section.links.map(item => (
+            {section.title && (
+              <div className="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                {section.title}
+              </div>
+            )}
+            {section.links.map((item) => (
               <Link
                 key={item.title}
                 to={item.href as string}

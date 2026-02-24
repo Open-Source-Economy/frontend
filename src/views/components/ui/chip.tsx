@@ -21,7 +21,7 @@ const chipVariants = cva(
       size: "md",
       interactive: false,
     },
-  },
+  }
 );
 
 export interface ChipProps extends VariantProps<typeof chipVariants> {
@@ -36,7 +36,13 @@ export function Chip(props: ChipProps) {
   const isInteractive = props.interactive ?? props.onRemove !== undefined;
 
   return (
-    <span className={cn(chipVariants({ size: props.size, interactive: isInteractive }), "text-brand-accent", props.className)}>
+    <span
+      className={cn(
+        chipVariants({ size: props.size, interactive: isInteractive }),
+        "text-brand-accent",
+        props.className
+      )}
+    >
       <span>{props.children}</span>
       {props.onRemove && (
         <button

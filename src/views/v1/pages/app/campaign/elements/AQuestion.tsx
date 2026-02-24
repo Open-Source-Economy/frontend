@@ -25,10 +25,16 @@ export function AQuestion(props: AQuestionProps) {
       )}
 
       {props.description.paragraph2 && (
-        <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">{props.description.paragraph2}</p>
+        <p className="text-base max-w-[620px] 3xl:max-w-[700px] sm:text-xl font-medium 3xl:text-2xl mt-8">
+          {props.description.paragraph2}
+        </p>
       )}
 
-      {props.children && <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">{props.children}</div>}
+      {props.children && (
+        <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
+          {props.children}
+        </div>
+      )}
     </section>
   );
 }

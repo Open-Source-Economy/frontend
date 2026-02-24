@@ -62,7 +62,11 @@ export const authHooks = {
   },
 
   useCheckEmailMutation() {
-    return useMutation<dto.CheckEmailResponse, Error, { params: dto.CheckEmailParams; body: dto.CheckEmailBody; query: dto.CheckEmailQuery }>({
+    return useMutation<
+      dto.CheckEmailResponse,
+      Error,
+      { params: dto.CheckEmailParams; body: dto.CheckEmailBody; query: dto.CheckEmailQuery }
+    >({
       mutationFn: ({ params, body, query }) => authAPI.checkEmail(params, body, query),
     });
   },
@@ -74,7 +78,11 @@ export const authHooks = {
   },
 
   useResetPasswordMutation() {
-    return useMutation<dto.ResponseBody<dto.ResetPasswordResponse>, Error, { body: dto.ResetPasswordBody; query: dto.ResetPasswordQuery }>({
+    return useMutation<
+      dto.ResponseBody<dto.ResetPasswordResponse>,
+      Error,
+      { body: dto.ResetPasswordBody; query: dto.ResetPasswordQuery }
+    >({
       mutationFn: ({ body, query }) => authAPI.resetPassword(body, query, {}),
     });
   },

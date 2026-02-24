@@ -39,12 +39,12 @@ export function RepositorySyncPage() {
       repositories: {}, // Fetch all GITHUB_REPOSITORY type project items
       owners: { limit: 0 },
       urls: { limit: 0 },
-    },
+    }
   );
 
   const baseRepositories = useMemo(() => {
     if (!projectItemsData?.repositories || !Array.isArray(projectItemsData.repositories)) return [];
-    return projectItemsData.repositories.map(item => ({
+    return projectItemsData.repositories.map((item) => ({
       ...item,
       syncInProgress: false,
     }));
@@ -56,10 +56,14 @@ export function RepositorySyncPage() {
   }, [baseRepositories]);
 
   const isLoading = isLoadingQuery;
-  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
+  const displayError = queryError
+    ? queryError instanceof ApiError
+      ? queryError
+      : ApiError.from(queryError)
+    : apiError;
 
   const handleSync = async (owner: string, repo: string, projectItemId: string) => {
-    setSyncingIds(prev => new Set(prev).add(projectItemId));
+    setSyncingIds((prev) => new Set(prev).add(projectItemId));
 
     try {
       const response = await syncRepositoryMutation.mutateAsync({
@@ -68,21 +72,23 @@ export function RepositorySyncPage() {
         query: {},
       });
 
-      setRepositories(prev =>
-        prev.map(r =>
-          r.projectItem.id.uuid === projectItemId ? { ...r, repository: response.repository, lastSyncMessage: "Repository synced successfully" } : r,
-        ),
+      setRepositories((prev) =>
+        prev.map((r) =>
+          r.projectItem.id.uuid === projectItemId
+            ? { ...r, repository: response.repository, lastSyncMessage: "Repository synced successfully" }
+            : r
+        )
       );
 
       setTimeout(() => {
-        setSyncingIds(prev => {
+        setSyncingIds((prev) => {
           const newSet = new Set(prev);
           newSet.delete(projectItemId);
           return newSet;
         });
       }, 2000);
     } catch (error) {
-      setSyncingIds(prev => {
+      setSyncingIds((prev) => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
@@ -92,16 +98,18 @@ export function RepositorySyncPage() {
   };
 
   const handleBulkSync = async () => {
-    const selectedRepos = repositories.filter(repo => selectedIds.has(repo.projectItem.id.uuid));
+    const selectedRepos = repositories.filter((repo) => selectedIds.has(repo.projectItem.id.uuid));
 
     if (selectedRepos.length === 0) {
       alert("Please select at least one repository to sync");
       return;
     }
 
-    const invalidRepos = selectedRepos.filter(repo => !repo.repository?.id);
+    const invalidRepos = selectedRepos.filter((repo) => !repo.repository?.id);
     if (invalidRepos.length > 0) {
-      alert(`Cannot sync: ${invalidRepos.length} repositor${invalidRepos.length > 1 ? "ies" : "y"} don't have valid data`);
+      alert(
+        `Cannot sync: ${invalidRepos.length} repositor${invalidRepos.length > 1 ? "ies" : "y"} don't have valid data`
+      );
       return;
     }
 
@@ -109,7 +117,7 @@ export function RepositorySyncPage() {
     setBulkSyncProgress({ current: 0, total: selectedRepos.length });
     setBulkSyncCompleted(new Set());
 
-    const queueOrder = selectedRepos.map(repo => repo.projectItem.id.uuid);
+    const queueOrder = selectedRepos.map((repo) => repo.projectItem.id.uuid);
     setBulkSyncQueueOrder(queueOrder);
     setBulkSyncQueue(new Set(queueOrder));
 
@@ -117,7 +125,7 @@ export function RepositorySyncPage() {
       const repo = selectedRepos[i];
       const projectItemId = repo.projectItem.id.uuid;
 
-      setBulkSyncQueue(prev => {
+      setBulkSyncQueue((prev) => {
         const newSet = new Set(prev);
         newSet.delete(projectItemId);
         return newSet;
@@ -129,11 +137,11 @@ export function RepositorySyncPage() {
         await handleSync(repo.repository.id.ownerId.login, repo.repository.id.name, projectItemId);
       }
 
-      setBulkSyncCompleted(prev => new Set(prev).add(projectItemId));
+      setBulkSyncCompleted((prev) => new Set(prev).add(projectItemId));
 
       if (i < selectedRepos.length - 1) {
         console.log(`Waiting ${msPerRepo}ms before next sync...`);
-        await new Promise(resolve => setTimeout(resolve, msPerRepo));
+        await new Promise((resolve) => setTimeout(resolve, msPerRepo));
       }
     }
 
@@ -148,7 +156,7 @@ export function RepositorySyncPage() {
   };
 
   const toggleSelection = (id: string) => {
-    setSelectedIds(prev => {
+    setSelectedIds((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
@@ -160,29 +168,34 @@ export function RepositorySyncPage() {
   };
 
   const toggleSelectAll = () => {
-    const syncableRepos = filteredRepositories.filter(repo => repo.repository?.id);
+    const syncableRepos = filteredRepositories.filter((repo) => repo.repository?.id);
     if (selectedIds.size === syncableRepos.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(syncableRepos.map(repo => repo.projectItem.id.uuid)));
+      setSelectedIds(new Set(syncableRepos.map((repo) => repo.projectItem.id.uuid)));
     }
   };
 
-  const filteredRepositories = repositories.filter(repo => {
+  const filteredRepositories = repositories.filter((repo) => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     const name = repo.repository?.id.name?.toLowerCase() || "";
     const fullName = repo.repository?.fullName?.toLowerCase() || "";
     const description = repo.repository?.description?.toLowerCase() || "";
     const owner = repo.repository?.id.ownerId.login?.toLowerCase() || "";
-    return name.includes(searchLower) || fullName.includes(searchLower) || description.includes(searchLower) || owner.includes(searchLower);
+    return (
+      name.includes(searchLower) ||
+      fullName.includes(searchLower) ||
+      description.includes(searchLower) ||
+      owner.includes(searchLower)
+    );
   });
 
   const stats = React.useMemo(() => {
     return ProjectItemWithDetailsCompanion.getProjectItemsStats(repositories);
   }, [repositories]);
 
-  const syncableCount = filteredRepositories.filter(repo => repo.repository?.id).length;
+  const syncableCount = filteredRepositories.filter((repo) => repo.repository?.id).length;
 
   if (isLoading) {
     return (
@@ -201,7 +214,9 @@ export function RepositorySyncPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">Repository Sync</h1>
-            <p className="text-gray-400">Sync individual GitHub repositories to update their metadata and information.</p>
+            <p className="text-gray-400">
+              Sync individual GitHub repositories to update their metadata and information.
+            </p>
           </div>
 
           {displayError && (
@@ -229,9 +244,24 @@ export function RepositorySyncPage() {
 
           {/* Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <StatisticCard icon={Code} iconColor="text-blue-400" value={repositories.length} label="Total Repositories" />
-            <StatisticCard icon={Users} iconColor="text-purple-400" value={stats.totalMaintainers} label="Unique Maintainers" />
-            <StatisticCard icon={GitBranch} iconColor="text-green-400" value={filteredRepositories.length} label="Filtered Results" />
+            <StatisticCard
+              icon={Code}
+              iconColor="text-blue-400"
+              value={repositories.length}
+              label="Total Repositories"
+            />
+            <StatisticCard
+              icon={Users}
+              iconColor="text-purple-400"
+              value={stats.totalMaintainers}
+              label="Unique Maintainers"
+            />
+            <StatisticCard
+              icon={GitBranch}
+              iconColor="text-green-400"
+              value={filteredRepositories.length}
+              label="Filtered Results"
+            />
           </div>
 
           {/* Repositories List */}
@@ -243,7 +273,7 @@ export function RepositorySyncPage() {
               </div>
             ) : (
               <div className="divide-y divide-white/10">
-                {filteredRepositories.map(repo => {
+                {filteredRepositories.map((repo) => {
                   const projectItemId = repo.projectItem.id.uuid;
                   const isSyncing = syncingIds.has(projectItemId);
                   const isSelected = selectedIds.has(projectItemId);
@@ -254,7 +284,8 @@ export function RepositorySyncPage() {
                   const queueTotal = bulkSyncQueueOrder.length;
 
                   // For repositories, we use a fixed wait time per repo
-                  const estimatedWaitSeconds = isInQueue && queuePosition > 0 ? ((queuePosition - 1) * msPerRepo) / 1000 : 0;
+                  const estimatedWaitSeconds =
+                    isInQueue && queuePosition > 0 ? ((queuePosition - 1) * msPerRepo) / 1000 : 0;
 
                   return (
                     <RepositoryCard

@@ -15,7 +15,10 @@ interface HourlyRateInputProps extends BaseProps {
   onHourlyRateChange: (value: number) => void;
 }
 
-export const HourlyRateInput = forwardRef(function HourlyRateInput(props: HourlyRateInputProps, hourlyRateRef: Ref<HourlyRateInputRef>) {
+export const HourlyRateInput = forwardRef(function HourlyRateInput(
+  props: HourlyRateInputProps,
+  hourlyRateRef: Ref<HourlyRateInputRef>
+) {
   const integerInputRef = React.useRef<GenericInputRef>(null);
   const currencyInputRef = React.useRef<GenericInputRef>(null);
 
@@ -29,11 +32,13 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
     () => ({
       validate: (showInputError: boolean) => {
         const rateValidation = integerInputRef.current?.validate(showInputError) ?? false;
-        const currencyValidation = props.onCurrencyChange ? (currencyInputRef.current?.validate(showInputError) ?? false) : true;
+        const currencyValidation = props.onCurrencyChange
+          ? (currencyInputRef.current?.validate(showInputError) ?? false)
+          : true;
         return rateValidation && currencyValidation;
       },
     }),
-    [hourlyRate],
+    [hourlyRate]
   );
 
   const onHourlyRateChange = (inputValue: string) => {
@@ -59,7 +64,9 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
         <div className="flex items-center gap-2">
           {/* Currency symbol container */}
           <div className="flex py-3 px-4 items-center gap-3 rounded-md border border-[#202F45] bg-[#0E1F35]">
-            <span className="text-white font-montserrat text-base font-normal leading-[150%]">{currentCurrency.symbol}/h</span>
+            <span className="text-white font-montserrat text-base font-normal leading-[150%]">
+              {currentCurrency.symbol}/h
+            </span>
           </div>
 
           {/* Input field */}
@@ -67,7 +74,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(props: Hourly
           <div className="flex">
             <IntegerInput
               value={hourlyRate ?? ""}
-              onChange={e => onHourlyRateChange(e.target.value)}
+              onChange={(e) => onHourlyRateChange(e.target.value)}
               placeholder="100"
               aria-label="Hourly Rate"
               ref={integerInputRef}

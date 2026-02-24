@@ -8,13 +8,13 @@ export function getPlanButtonState(
   currentPlanTier: PlanProductType | null,
   currentPlanBilling: PlanPriceType,
   billingCycle: PlanPriceType,
-  plans: PlanOption[],
+  plans: PlanOption[]
 ): ButtonState {
   if (!currentPlanTier) return "select";
   if (currentPlanTier === planId && currentPlanBilling === billingCycle) return "current";
 
-  const planIndex = plans.findIndex(p => p.id === planId);
-  const currentIndex = plans.findIndex(p => p.id === currentPlanTier);
+  const planIndex = plans.findIndex((p) => p.id === planId);
+  const currentIndex = plans.findIndex((p) => p.id === currentPlanTier);
 
   // Check if it's an upgrade
   if (planIndex > currentIndex) return "upgrade";

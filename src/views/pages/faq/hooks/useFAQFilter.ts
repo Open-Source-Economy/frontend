@@ -9,18 +9,20 @@ export function useFAQFilter() {
     if (!searchQuery && !selectedCategory) return faqData;
 
     return faqData
-      .map(category => ({
+      .map((category) => ({
         ...category,
-        questions: category.questions.filter(q => {
+        questions: category.questions.filter((q) => {
           const matchesSearch =
-            !searchQuery || q.question.toLowerCase().includes(searchQuery.toLowerCase()) || q.answer.toLowerCase().includes(searchQuery.toLowerCase());
+            !searchQuery ||
+            q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            q.answer.toLowerCase().includes(searchQuery.toLowerCase());
 
           const matchesCategory = !selectedCategory || category.category === selectedCategory;
 
           return matchesSearch && matchesCategory;
         }),
       }))
-      .filter(category => category.questions.length > 0);
+      .filter((category) => category.questions.length > 0);
   }, [searchQuery, selectedCategory]);
 
   return {

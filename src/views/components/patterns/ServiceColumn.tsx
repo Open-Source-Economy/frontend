@@ -117,7 +117,9 @@ export function ServiceColumn(props: ServiceColumnProps) {
           </div>
 
           <div className="space-y-3">
-            <h3 className={`font-semibold text-xl ${colors.titleHover} transition-colors duration-300 tracking-tight`}>{props.title}</h3>
+            <h3 className={`font-semibold text-xl ${colors.titleHover} transition-colors duration-300 tracking-tight`}>
+              {props.title}
+            </h3>
             <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto lg:mx-0">{props.description}</p>
 
             {/* Subtle accent line */}
@@ -143,7 +145,11 @@ export function ServiceColumn(props: ServiceColumnProps) {
                 {/* Content */}
                 <div className="flex-1 min-w-0 pt-0.5">
                   <div className="mb-1.5">
-                    <span className={`font-medium text-foreground ${colors.itemTitleHover} transition-colors duration-200`}>{service.name}</span>
+                    <span
+                      className={`font-medium text-foreground ${colors.itemTitleHover} transition-colors duration-200`}
+                    >
+                      {service.name}
+                    </span>
                   </div>
                   <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{service.description}</p>
                 </div>

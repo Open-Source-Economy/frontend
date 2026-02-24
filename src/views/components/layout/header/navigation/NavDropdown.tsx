@@ -25,7 +25,7 @@ export function NavDropdown(props: NavDropdownProps) {
         <ChevronDown className="w-4 h-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" sideOffset={8} className="w-56">
-        {props.items.map(item => (
+        {props.items.map((item) => (
           <Link key={item.href} to={item.href as string} className="w-full">
             <DropdownMenuItem className="cursor-pointer">{item.title}</DropdownMenuItem>
           </Link>

@@ -29,7 +29,11 @@ export function Step4(props: Step4AvailabilityRateProps) {
   const completeOnboarding = onboardingHooks.useCompleteOnboardingMutation();
 
   const mutationError = setServiceSettings.error || completeOnboarding.error;
-  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
+  const apiError = mutationError
+    ? mutationError instanceof ApiError
+      ? mutationError
+      : ApiError.from(mutationError)
+    : null;
 
   // Check if user selected "Yes" to Service Provider
   const isServiceProvider = props.servicesPreference === PreferenceType.YES;
@@ -55,9 +59,13 @@ export function Step4(props: Step4AvailabilityRateProps) {
   }, [isServiceProvider]);
 
   // Comment expansion states
-  const [isWeeklyHoursCommentExpanded, setIsWeeklyHoursCommentExpanded] = useState(!!props.state.hourlyWeeklyCommitmentComment);
+  const [isWeeklyHoursCommentExpanded, setIsWeeklyHoursCommentExpanded] = useState(
+    !!props.state.hourlyWeeklyCommitmentComment
+  );
   const [isCommentExpanded, setIsCommentExpanded] = useState(!!props.state.hourlyRateComment);
-  const [isBiggerOpportunitiesCommentExpanded, setIsBiggerOpportunitiesCommentExpanded] = useState(!!props.state.openToOtherOpportunityComment);
+  const [isBiggerOpportunitiesCommentExpanded, setIsBiggerOpportunitiesCommentExpanded] = useState(
+    !!props.state.openToOtherOpportunityComment
+  );
 
   // Convert OpenToOtherOpportunityType to boolean | null for BiggerOpportunitiesRadioGroup
   const openToOtherValue = form.watch("openToOtherOpportunity");
@@ -70,7 +78,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   // Sync RHF -> parent state
   useEffect(() => {
-    const sub = form.watch(values => {
+    const sub = form.watch((values) => {
       props.updateState({
         hourlyWeeklyCommitment: values.hourlyWeeklyCommitment ?? undefined,
         hourlyRate: values.hourlyRate ?? undefined,
@@ -170,7 +178,9 @@ export function Step4(props: Step4AvailabilityRateProps) {
               <div className="space-y-6">
                 <WeeklyAvailabilityInput
                   value={form.watch("hourlyWeeklyCommitment")}
-                  onChange={value => form.setValue("hourlyWeeklyCommitment", value, { shouldValidate: form.formState.isSubmitted })}
+                  onChange={(value) =>
+                    form.setValue("hourlyWeeklyCommitment", value, { shouldValidate: form.formState.isSubmitted })
+                  }
                   error={formErrors.hourlyWeeklyCommitment?.message}
                 />
 
@@ -179,7 +189,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
                   isExpanded={isWeeklyHoursCommentExpanded}
                   onToggleExpanded={setIsWeeklyHoursCommentExpanded}
                   value={form.watch("hourlyWeeklyCommitmentComment") || ""}
-                  onChange={value => form.setValue("hourlyWeeklyCommitmentComment", value)}
+                  onChange={(value) => form.setValue("hourlyWeeklyCommitmentComment", value)}
                   onDelete={() => {
                     form.setValue("hourlyWeeklyCommitmentComment", "");
                     setIsWeeklyHoursCommentExpanded(false);
@@ -200,8 +210,12 @@ export function Step4(props: Step4AvailabilityRateProps) {
                 <ServiceRateInput
                   currency={(form.watch("currency") as Currency) || Currency.USD}
                   rate={form.watch("hourlyRate") || 0}
-                  onCurrencyChange={(value: Currency) => form.setValue("currency", value, { shouldValidate: form.formState.isSubmitted })}
-                  onRateChange={(value: number) => form.setValue("hourlyRate", value, { shouldValidate: form.formState.isSubmitted })}
+                  onCurrencyChange={(value: Currency) =>
+                    form.setValue("currency", value, { shouldValidate: form.formState.isSubmitted })
+                  }
+                  onRateChange={(value: number) =>
+                    form.setValue("hourlyRate", value, { shouldValidate: form.formState.isSubmitted })
+                  }
                   error={formErrors.hourlyRate?.message}
                 />
 
@@ -213,7 +227,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
                   isExpanded={isCommentExpanded}
                   onToggleExpanded={setIsCommentExpanded}
                   value={form.watch("hourlyRateComment") || ""}
-                  onChange={value => form.setValue("hourlyRateComment", value)}
+                  onChange={(value) => form.setValue("hourlyRateComment", value)}
                   onDelete={() => {
                     form.setValue("hourlyRateComment", "");
                     setIsCommentExpanded(false);
@@ -226,7 +240,12 @@ export function Step4(props: Step4AvailabilityRateProps) {
         )}
 
         {/* Bigger Opportunities Section - Always shown */}
-        <BrandModalSection icon={<TrendingUp />} title="Bigger Opportunities" description="Explore larger engagements and projects" iconColor="success">
+        <BrandModalSection
+          icon={<TrendingUp />}
+          title="Bigger Opportunities"
+          description="Explore larger engagements and projects"
+          iconColor="success"
+        >
           <div className="space-y-6">
             <BiggerOpportunitiesRadioGroup
               value={biggerOpportunitiesValue}
@@ -239,7 +258,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
               isExpanded={isBiggerOpportunitiesCommentExpanded}
               onToggleExpanded={setIsBiggerOpportunitiesCommentExpanded}
               value={form.watch("openToOtherOpportunityComment") || ""}
-              onChange={value => form.setValue("openToOtherOpportunityComment", value)}
+              onChange={(value) => form.setValue("openToOtherOpportunityComment", value)}
               onDelete={() => {
                 form.setValue("openToOtherOpportunityComment", "");
                 setIsBiggerOpportunitiesCommentExpanded(false);

@@ -77,7 +77,7 @@ export function Header(_props: HeaderProps) {
       <CurrencyModal
         isOpen={showCurrencyModal}
         onClose={() => setShowCurrencyModal(false)}
-        onSelect={currency => {
+        onSelect={(currency) => {
           setPreferredCurrency(currency);
           setShowCurrencyModal(false);
         }}

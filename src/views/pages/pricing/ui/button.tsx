@@ -73,7 +73,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 interface ButtonProps extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
@@ -101,7 +101,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon = false,
       ...props
     },
-    ref,
+    ref
   ) => {
     const Comp = asChild ? Slot : "button";
     const isDisabled = disabled || loading;
@@ -119,7 +119,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     return (
-      <Comp ref={ref} data-slot="button" className={cn(buttonVariants({ variant, size, className }))} disabled={isDisabled} {...props}>
+      <Comp
+        ref={ref}
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        disabled={isDisabled}
+        {...props}
+      >
         {loading ? (
           <>
             <LoadingIcon />
@@ -129,12 +135,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <>
             {LeftIcon && <LeftIcon className="shrink-0" />}
             {children}
-            {RightIcon && <RightIcon className={cn("shrink-0", icon && "transition-transform duration-300 group-hover:translate-x-1")} />}
+            {RightIcon && (
+              <RightIcon
+                className={cn("shrink-0", icon && "transition-transform duration-300 group-hover:translate-x-1")}
+              />
+            )}
           </>
         )}
       </Comp>
     );
-  },
+  }
 );
 
 Button.displayName = "Button";

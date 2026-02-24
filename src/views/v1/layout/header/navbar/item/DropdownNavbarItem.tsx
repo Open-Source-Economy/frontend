@@ -39,7 +39,10 @@ export function DropdownNavbarItem(props: DropdownNavbarItemProps) {
       )}
 
       {props.item instanceof ButtonItemData && (
-        <button onClick={props.item.onClick} className="flex text-lg items-center gap-3 px-3 py-2.5 rounded-lg transition-colors w-full text-left group">
+        <button
+          onClick={props.item.onClick}
+          className="flex text-lg items-center gap-3 px-3 py-2.5 rounded-lg transition-colors w-full text-left group"
+        >
           <span
             className={`gradient-bg flex gap-2 bg-clip-text duration-200 ${
               props.item.isGradient ? "text-transparent font-medium" : "group-hover:text-transparent"

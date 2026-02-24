@@ -14,7 +14,14 @@ interface NextStepsCardProps {
  * NextStepsCard - Displays a card for onboarding success page
  * Shows what happens next in the onboarding process
  */
-export const NextStepsCard: React.FC<NextStepsCardProps> = ({ icon: Icon, title, description, timeline, brandColor, className = "" }) => {
+export const NextStepsCard: React.FC<NextStepsCardProps> = ({
+  icon: Icon,
+  title,
+  description,
+  timeline,
+  brandColor,
+  className = "",
+}) => {
   // Map brand colors to actual Tailwind classes
   const colorClasses = {
     accent: {
@@ -42,7 +49,9 @@ export const NextStepsCard: React.FC<NextStepsCardProps> = ({ icon: Icon, title,
   const colors = colorClasses[brandColor];
 
   return (
-    <div className={`relative p-4 bg-brand-card border border-brand-neutral-300 rounded-xl ${colors.border} transition-colors ${className}`}>
+    <div
+      className={`relative p-4 bg-brand-card border border-brand-neutral-300 rounded-xl ${colors.border} transition-colors ${className}`}
+    >
       <div className={`inline-flex items-center justify-center w-10 h-10 ${colors.iconBg} rounded-lg mb-3`}>
         <Icon className={`w-5 h-5 ${colors.iconText}`} />
       </div>

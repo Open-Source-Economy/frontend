@@ -42,7 +42,7 @@ export function RequestProjectList(props: RequestProjectListProps) {
                 type="url"
                 required
                 value={project.url}
-                onChange={e => props.onUpdate(index, "url", e.target.value)}
+                onChange={(e) => props.onUpdate(index, "url", e.target.value)}
                 placeholder="https://github.com/org/project"
                 className={props.error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
                 data-error={props.error && index === 0}

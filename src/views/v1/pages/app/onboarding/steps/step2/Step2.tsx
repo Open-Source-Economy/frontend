@@ -14,7 +14,7 @@ import { onboardingHooks } from "src/api";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
-const Step2: React.FC<Step2Props> = props => {
+const Step2: React.FC<Step2Props> = (props) => {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -41,8 +41,10 @@ const Step2: React.FC<Step2Props> = props => {
     let updatedProjects: DeveloperProjectItemEntry[];
 
     if (editingProject) {
-      updatedProjects = projects.map(entry =>
-        entry.developerProjectItem.id.uuid === newOrUpdatedProject.developerProjectItem.id.uuid ? newOrUpdatedProject : entry,
+      updatedProjects = projects.map((entry) =>
+        entry.developerProjectItem.id.uuid === newOrUpdatedProject.developerProjectItem.id.uuid
+          ? newOrUpdatedProject
+          : entry
       );
     } else {
       updatedProjects = [...projects, newOrUpdatedProject];
@@ -65,7 +67,9 @@ const Step2: React.FC<Step2Props> = props => {
       const query: dto.RemoveDeveloperProjectItemQuery = {};
       await removeProjectItemMutation.mutateAsync({ params, body, query });
 
-      const updatedProjects = projects.filter(entry => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid);
+      const updatedProjects = projects.filter(
+        (entry) => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid
+      );
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
       setShowDeleteModal(false);
@@ -105,7 +109,14 @@ const Step2: React.FC<Step2Props> = props => {
         errorMessage={apiError?.message}
       />
       {/* Add/Edit Project Modal */}
-      {showUpsertModal && <UpsertProjectItemModal show={showUpsertModal} setShow={setShowUpsertModal} entry={editingProject} onUpsert={handleUpsertComplete} />}
+      {showUpsertModal && (
+        <UpsertProjectItemModal
+          show={showUpsertModal}
+          setShow={setShowUpsertModal}
+          entry={editingProject}
+          onUpsert={handleUpsertComplete}
+        />
+      )}
 
       {/* Delete Project Modal */}
       {showDeleteModal && (

@@ -56,11 +56,14 @@ export class BulkProjectUrlParser {
   /**
    * Helper to create a BulkValidationError from source identifiers
    */
-  private static createValidationError(type: BulkValidationErrorType, sourceIdentifiers: SourceIdentifier[]): BulkValidationError {
+  private static createValidationError(
+    type: BulkValidationErrorType,
+    sourceIdentifiers: SourceIdentifier[]
+  ): BulkValidationError {
     return {
       type,
       sourceIdentifiers,
-      displayNames: sourceIdentifiers.map(si => SourceIdentifierCompanion.displayName(si)),
+      displayNames: sourceIdentifiers.map((si) => SourceIdentifierCompanion.displayName(si)),
     };
   }
 
@@ -81,7 +84,11 @@ export class BulkProjectUrlParser {
    * @param allowShorthand Whether to allow shorthand URLs (default: false)
    * @returns ParsedProjectUrl object
    */
-  static parseSingleUrl(url: string, expectedProjectType: ProjectItemType, allowShorthand: boolean = false): ParsedProjectUrl {
+  static parseSingleUrl(
+    url: string,
+    expectedProjectType: ProjectItemType,
+    allowShorthand: boolean = false
+  ): ParsedProjectUrl {
     const trimmedUrl = url.trim();
 
     if (!trimmedUrl) {
@@ -119,14 +126,18 @@ export class BulkProjectUrlParser {
    * @param allowShorthand Whether to allow shorthand URLs (default: false)
    * @returns BulkParseResult with parsed and validated URLs
    */
-  static parseBulkUrls(bulkText: string, expectedProjectType: ProjectItemType, allowShorthand: boolean = false): BulkParseResult {
+  static parseBulkUrls(
+    bulkText: string,
+    expectedProjectType: ProjectItemType,
+    allowShorthand: boolean = false
+  ): BulkParseResult {
     // Extract URLs using the enhanced extraction method
     const urls = this.extractUrlsFromText(bulkText);
 
     const validProjects: ParsedProjectUrl[] = [];
     const invalidProjects: ParsedProjectUrl[] = [];
 
-    urls.forEach(url => {
+    urls.forEach((url) => {
       const parsed = this.parseSingleUrl(url, expectedProjectType, allowShorthand);
 
       if (parsed.error) {
@@ -149,7 +160,11 @@ export class BulkProjectUrlParser {
    * @param detectedType The type that was actually detected (if any)
    * @returns Error message string
    */
-  private static getTypeMismatchError(url: string, expectedType: ProjectItemType, detectedType: ProjectItemType | null): string {
+  private static getTypeMismatchError(
+    url: string,
+    expectedType: ProjectItemType,
+    detectedType: ProjectItemType | null
+  ): string {
     const expectedLabel = ProjectItemTypeCompanion.label(expectedType);
 
     if (detectedType) {
@@ -174,19 +189,21 @@ export class BulkProjectUrlParser {
     const displayed = invalidProjects.slice(0, maxDisplay);
     const remaining = invalidProjects.length - maxDisplay;
 
-    const typeMismatches = displayed.filter(p => p.detectedType && p.detectedType !== p.projectType);
-    const invalidFormat = displayed.filter(p => !p.detectedType);
+    const typeMismatches = displayed.filter((p) => p.detectedType && p.detectedType !== p.projectType);
+    const invalidFormat = displayed.filter((p) => !p.detectedType);
 
     const messages: string[] = [];
 
     if (typeMismatches.length > 0) {
       const expectedLabel = ProjectItemTypeCompanion.label(typeMismatches[0].projectType);
-      const urls = typeMismatches.map(p => SourceIdentifierCompanion.displayName(p.sourceIdentifier));
-      messages.push(this.formatErrorMessage(urls, remaining, `Some URLs don't match the selected type (${expectedLabel})`));
+      const urls = typeMismatches.map((p) => SourceIdentifierCompanion.displayName(p.sourceIdentifier));
+      messages.push(
+        this.formatErrorMessage(urls, remaining, `Some URLs don't match the selected type (${expectedLabel})`)
+      );
     }
 
     if (invalidFormat.length > 0) {
-      const urls = invalidFormat.map(p => SourceIdentifierCompanion.displayName(p.sourceIdentifier));
+      const urls = invalidFormat.map((p) => SourceIdentifierCompanion.displayName(p.sourceIdentifier));
       messages.push(this.formatErrorMessage(urls, 0, "Invalid URLs"));
     }
 
@@ -220,8 +237,8 @@ export class BulkProjectUrlParser {
 
     const urls = text
       .split(separators)
-      .map(url => url.trim())
-      .filter(url => url.length > 0);
+      .map((url) => url.trim())
+      .filter((url) => url.length > 0);
 
     return urls;
   }
@@ -242,7 +259,7 @@ export class BulkProjectUrlParser {
     expectedProjectType: ProjectItemType,
     existingProjects: DeveloperProjectItemEntry[] = [],
     excludeEntry?: DeveloperProjectItemEntry | null,
-    allowShorthand: boolean = false,
+    allowShorthand: boolean = false
   ): BulkValidationResult {
     const errors: BulkValidationError[] = [];
 
@@ -250,13 +267,13 @@ export class BulkProjectUrlParser {
     const parseResult = this.parseBulkUrls(bulkText, expectedProjectType, allowShorthand);
 
     // Convert valid projects to the format expected by the component
-    const validProjects = parseResult.validProjects.map(parsed => ({
+    const validProjects = parseResult.validProjects.map((parsed) => ({
       sourceIdentifier: parsed.sourceIdentifier,
       projectType: parsed.projectType,
     }));
 
     // Check for duplicates in valid projects
-    const duplicateGroups = SourceIdentifierCompanion.findDuplicateUrls(validProjects.map(p => p.sourceIdentifier));
+    const duplicateGroups = SourceIdentifierCompanion.findDuplicateUrls(validProjects.map((p) => p.sourceIdentifier));
     if (duplicateGroups.length > 0) {
       const duplicateSourceIdentifiers = Array.from(new Set(duplicateGroups.flat()));
       errors.push(this.createValidationError(BulkValidationErrorType.DUPLICATE, duplicateSourceIdentifiers));
@@ -264,15 +281,17 @@ export class BulkProjectUrlParser {
 
     // Check for invalid format and type mismatches
     if (parseResult.invalidProjects && parseResult.invalidProjects.length > 0) {
-      const typeMismatches = parseResult.invalidProjects.filter(p => p.detectedType && p.detectedType !== p.projectType);
-      const invalidFormat = parseResult.invalidProjects.filter(p => !p.detectedType);
+      const typeMismatches = parseResult.invalidProjects.filter(
+        (p) => p.detectedType && p.detectedType !== p.projectType
+      );
+      const invalidFormat = parseResult.invalidProjects.filter((p) => !p.detectedType);
 
       if (typeMismatches.length > 0) {
         errors.push(
           this.createValidationError(
             BulkValidationErrorType.TYPE_MISMATCH,
-            typeMismatches.map(p => p.sourceIdentifier),
-          ),
+            typeMismatches.map((p) => p.sourceIdentifier)
+          )
         );
       }
 
@@ -280,30 +299,36 @@ export class BulkProjectUrlParser {
         errors.push(
           this.createValidationError(
             BulkValidationErrorType.INVALID_FORMAT,
-            invalidFormat.map(p => p.sourceIdentifier),
-          ),
+            invalidFormat.map((p) => p.sourceIdentifier)
+          )
         );
       }
     }
 
     // Check for conflicts with existing projects
     if (existingProjects.length > 0 && validProjects.length > 0) {
-      const newSourceIdentifiers = validProjects.map(p => p.sourceIdentifier);
+      const newSourceIdentifiers = validProjects.map((p) => p.sourceIdentifier);
 
       const existingSourceIdentifiers = existingProjects
-        .filter(existing => {
+        .filter((existing) => {
           if (
             excludeEntry &&
-            SourceIdentifierCompanion.equals(existing.projectItem.sourceIdentifier, excludeEntry.projectItem.sourceIdentifier) &&
+            SourceIdentifierCompanion.equals(
+              existing.projectItem.sourceIdentifier,
+              excludeEntry.projectItem.sourceIdentifier
+            ) &&
             existing.projectItem.projectItemType === excludeEntry.projectItem.projectItemType
           ) {
             return false;
           }
           return existing.projectItem.projectItemType === expectedProjectType;
         })
-        .map(existing => existing.projectItem.sourceIdentifier);
+        .map((existing) => existing.projectItem.sourceIdentifier);
 
-      const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls(newSourceIdentifiers, existingSourceIdentifiers);
+      const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls(
+        newSourceIdentifiers,
+        existingSourceIdentifiers
+      );
 
       if (conflictingSourceIdentifiers.length > 0) {
         errors.push(this.createValidationError(BulkValidationErrorType.CONFLICT, conflictingSourceIdentifiers));
@@ -360,7 +385,7 @@ export class BulkProjectUrlParser {
       return "";
     }
 
-    const errorMessages = errors.map(error => {
+    const errorMessages = errors.map((error) => {
       const displayed = error.displayNames.slice(0, maxDisplay);
       const remaining = error.displayNames.length - maxDisplay;
       const baseMessage = this.getErrorTypeMessage(error.type);

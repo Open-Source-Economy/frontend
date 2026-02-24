@@ -35,10 +35,15 @@ export function Step3(props: Step3Props) {
   });
 
   // Additional participation options (excluding service_provider which has its own card)
-  const additionalOptions: ParticipationModelOption[] = [ParticipationModelOption.COMMON_POT, ParticipationModelOption.COMMUNITY_SUPPORTER];
+  const additionalOptions: ParticipationModelOption[] = [
+    ParticipationModelOption.COMMON_POT,
+    ParticipationModelOption.COMMUNITY_SUPPORTER,
+  ];
 
   // Map between ParticipationModelOption and form field names
-  const getPreferenceField = (option: ParticipationModelOption): "servicesPreference" | "royaltiesPreference" | "communitySupporterPreference" => {
+  const getPreferenceField = (
+    option: ParticipationModelOption
+  ): "servicesPreference" | "royaltiesPreference" | "communitySupporterPreference" => {
     const mapping = {
       [ParticipationModelOption.SERVICE_PROVIDER]: "servicesPreference" as const,
       [ParticipationModelOption.COMMON_POT]: "royaltiesPreference" as const,
@@ -61,11 +66,12 @@ export function Step3(props: Step3Props) {
 
   // Sync RHF -> parent state
   useEffect(() => {
-    const sub = form.watch(values => {
+    const sub = form.watch((values) => {
       const newState: Partial<Step3State> = {};
       if (values.servicesPreference) newState.servicesPreference = values.servicesPreference as PreferenceType;
       if (values.royaltiesPreference) newState.royaltiesPreference = values.royaltiesPreference as PreferenceType;
-      if (values.communitySupporterPreference) newState.communitySupporterPreference = values.communitySupporterPreference as PreferenceType;
+      if (values.communitySupporterPreference)
+        newState.communitySupporterPreference = values.communitySupporterPreference as PreferenceType;
       if (Object.keys(newState).length > 0) {
         props.updateState(newState);
       }
@@ -117,7 +123,9 @@ export function Step3(props: Step3Props) {
   };
 
   // Overall error message
-  const overallError = hasErrors ? "Please select a preference (Yes, Maybe later, or Not interested) for each option" : undefined;
+  const overallError = hasErrors
+    ? "Please select a preference (Yes, Maybe later, or Not interested) for each option"
+    : undefined;
 
   return (
     <div className="space-y-8">
@@ -129,7 +137,7 @@ export function Step3(props: Step3Props) {
         {/* Service Provider - Featured Hero Card */}
         <ServiceProviderCard
           selectedState={getSelectionState(ParticipationModelOption.SERVICE_PROVIDER)}
-          onSelect={state => handleSelect(ParticipationModelOption.SERVICE_PROVIDER, state)}
+          onSelect={(state) => handleSelect(ParticipationModelOption.SERVICE_PROVIDER, state)}
           hasError={hasCardError(ParticipationModelOption.SERVICE_PROVIDER)}
         />
 
@@ -142,12 +150,12 @@ export function Step3(props: Step3Props) {
 
         {/* Other Options Grid */}
         <div className="grid grid-cols-1 gap-6">
-          {additionalOptions.map(option => (
+          {additionalOptions.map((option) => (
             <ParticipationCard
               key={option}
               config={participationCardConfigs[option]}
               selectedState={getSelectionState(option)}
-              onSelect={state => handleSelect(option, state)}
+              onSelect={(state) => handleSelect(option, state)}
               hasError={hasCardError(option)}
             />
           ))}

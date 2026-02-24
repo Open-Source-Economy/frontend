@@ -24,13 +24,15 @@ export function DeleteProjectModal(props: DeleteProjectModalProps) {
   return (
     <ConfirmationDialog
       open={props.show}
-      onOpenChange={isOpen => !isOpen && props.setShow(false)}
+      onOpenChange={(isOpen) => !isOpen && props.setShow(false)}
       title="Remove project?"
       description={
         <>
           Are you sure you want to remove{" "}
-          <span className="font-medium">{SourceIdentifierCompanion.displayName(props.project.projectItem.sourceIdentifier)}</span> from your profile?{" "}
-          <span className="text-brand-warning font-medium">This action cannot be undone.</span>
+          <span className="font-medium">
+            {SourceIdentifierCompanion.displayName(props.project.projectItem.sourceIdentifier)}
+          </span>{" "}
+          from your profile? <span className="text-brand-warning font-medium">This action cannot be undone.</span>
         </>
       }
       confirmText="Remove"

@@ -80,7 +80,11 @@ export function OrganizationSyncButton(props: OrganizationSyncButtonProps) {
       </Button>
 
       {message && (
-        <p className={`text-xs mt-2 ${syncStatus === "success" ? "text-green-400" : syncStatus === "error" ? "text-red-400" : "text-gray-400"}`}>{message}</p>
+        <p
+          className={`text-xs mt-2 ${syncStatus === "success" ? "text-green-400" : syncStatus === "error" ? "text-red-400" : "text-gray-400"}`}
+        >
+          {message}
+        </p>
       )}
     </div>
   );

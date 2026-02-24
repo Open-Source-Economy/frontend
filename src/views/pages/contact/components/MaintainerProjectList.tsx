@@ -32,7 +32,10 @@ export function MaintainerProjectList(props: MaintainerProjectListProps) {
 
       <div className="space-y-4">
         {props.projects.map((project, index) => (
-          <div key={index} className="bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg p-4 space-y-4">
+          <div
+            key={index}
+            className="bg-brand-card-blue-light border border-brand-neutral-300 rounded-lg p-4 space-y-4"
+          >
             <div className="flex items-center justify-between">
               <span className="text-brand-neutral-700">Project {index + 1}</span>
               {props.projects.length > 1 && (
@@ -56,7 +59,7 @@ export function MaintainerProjectList(props: MaintainerProjectListProps) {
                   id={`project-url-${index}`}
                   type="url"
                   value={project.url}
-                  onChange={e => props.onUpdate(index, "url", e.target.value)}
+                  onChange={(e) => props.onUpdate(index, "url", e.target.value)}
                   placeholder="https://github.com/yourname/project"
                   className={props.error && index === 0 ? "border-brand-error focus:border-brand-error" : ""}
                   data-error={props.error && index === 0}
@@ -71,7 +74,7 @@ export function MaintainerProjectList(props: MaintainerProjectListProps) {
                   id={`project-role-${index}`}
                   type="text"
                   value={project.role || ""}
-                  onChange={e => props.onUpdate(index, "role", e.target.value)}
+                  onChange={(e) => props.onUpdate(index, "role", e.target.value)}
                   placeholder="e.g., Core Maintainer, Creator"
                 />
               </div>

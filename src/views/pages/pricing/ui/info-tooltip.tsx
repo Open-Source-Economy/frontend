@@ -27,7 +27,9 @@ export function InfoTooltip(props: InfoTooltipProps) {
         >
           <div className="space-y-1.5">
             <p className="text-[11px] leading-snug text-brand-neutral-900">{props.content}</p>
-            {props.description && <p className="text-[10px] leading-snug text-brand-neutral-600">{props.description}</p>}
+            {props.description && (
+              <p className="text-[10px] leading-snug text-brand-neutral-600">{props.description}</p>
+            )}
             {props.link && (
               <a
                 href={props.link.href}

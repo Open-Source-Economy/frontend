@@ -36,7 +36,12 @@ export function HeroLeftContent(props: HeroLeftContentProps) {
                 if (action.href && action.external) {
                   return (
                     <ExternalLink key={index} href={action.href} underline={false}>
-                      <Button variant={action.variant} size="lg" rightIcon={action.icon ? ArrowRight : undefined} icon={action.icon}>
+                      <Button
+                        variant={action.variant}
+                        size="lg"
+                        rightIcon={action.icon ? ArrowRight : undefined}
+                        icon={action.icon}
+                      >
                         {action.text}
                       </Button>
                     </ExternalLink>
@@ -47,7 +52,12 @@ export function HeroLeftContent(props: HeroLeftContentProps) {
                 if (action.href && !action.external) {
                   return (
                     <Link key={index} to={action.href as string}>
-                      <Button variant={action.variant} size="lg" rightIcon={action.icon ? ArrowRight : undefined} icon={action.icon}>
+                      <Button
+                        variant={action.variant}
+                        size="lg"
+                        rightIcon={action.icon ? ArrowRight : undefined}
+                        icon={action.icon}
+                      >
                         {action.text}
                       </Button>
                     </Link>

@@ -28,11 +28,15 @@ export const CommonPotParticipantCard: React.FC<CommonPotParticipantCardProps> =
         {/* Radio Button Style Indicator + Selected Badge */}
         <div className="absolute top-6 right-6 flex items-center gap-3">
           {isSelected && (
-            <div className="bg-brand-highlight text-white px-3 py-1 rounded-full text-xs animate-in fade-in slide-in-from-right-2 duration-300">✓ Selected</div>
+            <div className="bg-brand-highlight text-white px-3 py-1 rounded-full text-xs animate-in fade-in slide-in-from-right-2 duration-300">
+              ✓ Selected
+            </div>
           )}
           <div
             className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
-              isSelected ? "border-brand-highlight bg-brand-highlight shadow-lg shadow-brand-highlight/50" : "border-brand-neutral-400 bg-transparent"
+              isSelected
+                ? "border-brand-highlight bg-brand-highlight shadow-lg shadow-brand-highlight/50"
+                : "border-brand-neutral-400 bg-transparent"
             }`}
           >
             {isSelected && <CheckCircle2 className="w-4 h-4 text-white" />}
@@ -51,16 +55,31 @@ export const CommonPotParticipantCard: React.FC<CommonPotParticipantCardProps> =
             </div>
 
             <p className="text-sm text-brand-neutral-600 mb-4">
-              Benefit from funds contributed by Service Providers to support community work that wouldn't otherwise be funded. Focus on your open source project
-              while the ecosystem sustains you.
+              Benefit from funds contributed by Service Providers to support community work that wouldn't otherwise be
+              funded. Focus on your open source project while the ecosystem sustains you.
             </p>
 
             {/* Compact Features */}
             <div className="grid sm:grid-cols-2 gap-2">
-              <ParticipationFeatureItem icon={Handshake} title="Funded by service providers" description="" variant="compact" />
+              <ParticipationFeatureItem
+                icon={Handshake}
+                title="Funded by service providers"
+                description=""
+                variant="compact"
+              />
               <ParticipationFeatureItem icon={Zap} title="Focus on community work" description="" variant="compact" />
-              <ParticipationFeatureItem icon={Heart} title="Support unfunded projects" description="" variant="compact" />
-              <ParticipationFeatureItem icon={ArrowRight} title="Switch to provider anytime" description="" variant="compact" />
+              <ParticipationFeatureItem
+                icon={Heart}
+                title="Support unfunded projects"
+                description=""
+                variant="compact"
+              />
+              <ParticipationFeatureItem
+                icon={ArrowRight}
+                title="Switch to provider anytime"
+                description=""
+                variant="compact"
+              />
             </div>
 
             <div className="mt-4 pt-4 border-t border-brand-neutral-300/10">

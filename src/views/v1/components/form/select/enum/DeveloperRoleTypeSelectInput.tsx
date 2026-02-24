@@ -10,14 +10,14 @@ interface DeveloperRoleTypeSelectInputProps extends Omit<BaseProps, "label"> {
   label?: string;
 }
 
-const options: SelectOption[] = Object.values(DeveloperRoleType).map(value => ({
+const options: SelectOption[] = Object.values(DeveloperRoleType).map((value) => ({
   value,
   label: value,
 }));
 
 export const DeveloperRoleTypeSelectInput = forwardRef(function DeveloperRoleTypeSelectInput(
   props: DeveloperRoleTypeSelectInputProps,
-  ref: Ref<SelectInputRef>,
+  ref: Ref<SelectInputRef>
 ) {
   return (
     <SelectInput
@@ -25,7 +25,7 @@ export const DeveloperRoleTypeSelectInput = forwardRef(function DeveloperRoleTyp
       label={props.label || "Developer Role"}
       required={props.required}
       value={props.value || ""}
-      onChange={e => props.onChange(e.target.value ? (e.target.value as DeveloperRoleType) : null)}
+      onChange={(e) => props.onChange(e.target.value ? (e.target.value as DeveloperRoleType) : null)}
       options={options}
     />
   );

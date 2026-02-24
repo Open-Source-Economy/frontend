@@ -124,7 +124,9 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       <div className="space-y-6 py-2">
         {/* Error Message */}
         {apiError && apiError.message && (
-          <div className="p-3 bg-brand-error/10 border border-brand-error/30 rounded-lg text-sm text-brand-error">{apiError.message}</div>
+          <div className="p-3 bg-brand-error/10 border border-brand-error/30 rounded-lg text-sm text-brand-error">
+            {apiError.message}
+          </div>
         )}
 
         <div className="space-y-6">
@@ -153,10 +155,17 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
           </div>
 
           {/* Projects */}
-          <BrandModalSection icon={<FolderGit2 />} title="Project Selection" description="Choose which projects this service applies to" iconColor="accent">
+          <BrandModalSection
+            icon={<FolderGit2 />}
+            title="Project Selection"
+            description="Choose which projects this service applies to"
+            iconColor="accent"
+          >
             <div className="space-y-2">
               <ProjectSelector projects={projects} selectedIds={selectedProjectIds} onChange={setSelectedProjectIds} />
-              {selectedProjectIds.length === 0 && <p className="text-xs text-brand-warning">Select at least one project</p>}
+              {selectedProjectIds.length === 0 && (
+                <p className="text-xs text-brand-warning">Select at least one project</p>
+              )}
             </div>
           </BrandModalSection>
 
@@ -176,7 +185,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     <span className="text-xs text-brand-neutral-500">{useCustomRate ? "Custom" : "Base"}</span>
                     <Switch
                       checked={useCustomRate}
-                      onCheckedChange={checked => {
+                      onCheckedChange={(checked) => {
                         setUseCustomRate(checked);
                         if (!checked) setHourlyRate("");
                       }}
@@ -185,14 +194,19 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                 </div>
 
                 {!useCustomRate ? (
-                  <InputWithAddon prefix={currencySymbol} suffix="/hr" value={defaultRate.amount.toString()} displayMode={true} />
+                  <InputWithAddon
+                    prefix={currencySymbol}
+                    suffix="/hr"
+                    value={defaultRate.amount.toString()}
+                    displayMode={true}
+                  />
                 ) : (
                   <div className="flex items-center gap-2 p-3 bg-brand-card-blue/30 border border-brand-accent/30 rounded-lg focus-within:border-brand-accent focus-within:bg-brand-card-blue/50 transition-all w-fit">
                     <span className="text-sm text-brand-neutral-700">{currencySymbol}</span>
                     <input
                       type="number"
                       value={hourlyRate}
-                      onChange={e => setHourlyRate(e.target.value)}
+                      onChange={(e) => setHourlyRate(e.target.value)}
                       placeholder={defaultRate.amount.toString()}
                       className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm text-brand-neutral-900 placeholder:text-brand-neutral-500"
                       style={{ width: "80px" }}
@@ -208,7 +222,9 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   learnMoreText="Learn more about service rates"
                   learnMoreTitle="Service-Specific Rates"
                   learnMoreDescription="Customize pricing for different services based on their complexity and value"
-                  learnMoreContent={<ServiceRateDialogContent currency={currencySymbol} baseRate={defaultRate.amount} />}
+                  learnMoreContent={
+                    <ServiceRateDialogContent currency={currencySymbol} baseRate={defaultRate.amount} />
+                  }
                 >
                   {useCustomRate
                     ? "Custom rates let you adjust pricing for specific services based on complexity or demand."
@@ -223,12 +239,13 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     label="Response Time"
                     options={ResponseTimeTypeCompanion.selectOptions()}
                     value={responseTimeHours || ""}
-                    onChange={value => setResponseTimeHours(value ? (value as dto.ResponseTimeType) : undefined)}
+                    onChange={(value) => setResponseTimeHours(value ? (value as dto.ResponseTimeType) : undefined)}
                     placeholder="Select response time"
                   />
 
                   <InfoMessage icon={Clock} variant="info">
-                    Response time is your commitment to acknowledge and begin work on requests within the specified timeframe.
+                    Response time is your commitment to acknowledge and begin work on requests within the specified
+                    timeframe.
                   </InfoMessage>
 
                   {/* Additional Notes */}

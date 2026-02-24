@@ -51,7 +51,11 @@ export function MaintainerCard(props: MaintainerCardProps) {
         {/* Photo */}
         <div className="flex-shrink-0">
           <div className="relative">
-            <img src={avatar} alt={displayName} className="w-20 h-20 rounded-xl border border-brand-neutral-300 object-cover shadow-md" />
+            <img
+              src={avatar}
+              alt={displayName}
+              className="w-20 h-20 rounded-xl border border-brand-neutral-300 object-cover shadow-md"
+            />
             {verified && (
               <div className="absolute -top-1 -right-1 bg-brand-accent rounded-full p-1 shadow-lg shadow-brand-accent/30">
                 <BadgeCheck className="h-3.5 w-3.5 text-white" />
@@ -65,7 +69,9 @@ export function MaintainerCard(props: MaintainerCardProps) {
           {/* Header */}
           <div className="mb-3">
             <h3 className="text-brand-neutral-900 mb-0.5">{displayName}</h3>
-            <p className="text-brand-neutral-600 mb-2">{DeveloperRoleTypeCompanion.label(props.developer.project.developerProjectItem.roles[0])}</p>
+            <p className="text-brand-neutral-600 mb-2">
+              {DeveloperRoleTypeCompanion.label(props.developer.project.developerProjectItem.roles[0])}
+            </p>
 
             {/* Inline Badges */}
             <div className="flex flex-wrap items-center gap-1.5">
@@ -76,7 +82,10 @@ export function MaintainerCard(props: MaintainerCardProps) {
               )}
 
               {props.developer.project.developerProjectItem.mergeRights.length > 0 && (
-                <Badge variant="outline" className="text-xs bg-brand-neutral-200/20 text-brand-neutral-600 border-brand-neutral-400/30">
+                <Badge
+                  variant="outline"
+                  className="text-xs bg-brand-neutral-200/20 text-brand-neutral-600 border-brand-neutral-400/30"
+                >
                   <GitMerge className="mr-1 h-3 w-3" />
                   {MergeRightsTypeCompanion.label(props.developer.project.developerProjectItem.mergeRights[0])}
                 </Badge>
@@ -116,7 +125,12 @@ export function MaintainerCard(props: MaintainerCardProps) {
           {/* Social Links */}
           <div className="flex gap-1.5">
             {props.developer.profileEntry?.owner?.htmlUrl && (
-              <ExternalLink href={props.developer.profileEntry?.owner?.htmlUrl} aria-label="GitHub" underline={false} className="group/social">
+              <ExternalLink
+                href={props.developer.profileEntry?.owner?.htmlUrl}
+                aria-label="GitHub"
+                underline={false}
+                className="group/social"
+              >
                 <Github className="h-3.5 w-3.5 transition-all duration-200 group-hover/social:text-brand-accent" />
               </ExternalLink>
             )}

@@ -8,7 +8,9 @@ describe("ManageFundRecipient", () => {
     });
 
     test("should throw error if totalAmount is not positive", () => {
-      expect(() => new ManageFundRecipient(new Decimal(-1), [{ id: "rec1" }])).toThrow("Total amount must be a strictly positive number");
+      expect(() => new ManageFundRecipient(new Decimal(-1), [{ id: "rec1" }])).toThrow(
+        "Total amount must be a strictly positive number"
+      );
     });
 
     const recipients: FundRecipient[] = [{ id: "rec1" }, { id: "rec2" }, { id: "rec3" }];
@@ -47,7 +49,7 @@ describe("ManageFundRecipient", () => {
       const expectedAmount = totalAmount.div(recipients.length);
 
       // Verify that all recipients now have the equal split amount
-      recipients.forEach(recipient => {
+      recipients.forEach((recipient) => {
         expect(manager.split[recipient.id][0].equals(expectedAmount)).toBe(true);
         expect(manager.split[recipient.id][1]).toBe(false);
       });
@@ -65,7 +67,7 @@ describe("ManageFundRecipient", () => {
       // Calculate the expected amount
       const expectedAmount = totalAmount.div(recipients.length);
 
-      recipients.forEach(recipient => {
+      recipients.forEach((recipient) => {
         expect(manager.split[recipient.id][0].equals(expectedAmount)).toBe(true);
         expect(manager.split[recipient.id][1]).toBe(false);
       });
@@ -122,7 +124,9 @@ describe("ManageFundRecipient", () => {
       const manager = new ManageFundRecipient(totalAmount, recipients);
       expect(() => manager.setRecipientAmount("rec1", new Decimal(-10))).toThrow("Amount must be a positive number");
 
-      expect(() => manager.setRecipientAmount("rec1", new Decimal(400))).toThrow("Amount must be less than or equal to the total amount");
+      expect(() => manager.setRecipientAmount("rec1", new Decimal(400))).toThrow(
+        "Amount must be less than or equal to the total amount"
+      );
     });
 
     test("should throw error if total amount is exceeded after setting recipient amount", () => {
@@ -131,7 +135,7 @@ describe("ManageFundRecipient", () => {
       const manager = new ManageFundRecipient(totalAmount, recipients);
       manager.setRecipientAmount("rec1", new Decimal(100));
       expect(() => manager.setRecipientAmount("rec2", new Decimal(300))).toThrow(
-        "Amount + all amount manually set must be less than or equal to the total amount",
+        "Amount + all amount manually set must be less than or equal to the total amount"
       );
     });
 

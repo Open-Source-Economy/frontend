@@ -34,7 +34,10 @@ export function ProjectDetailPage() {
   const owner = params.ownerParam;
   const repo = params.repoParam;
 
-  const { developers, projectDetails, services, serviceOfferings, isLoading, apiError } = useProjectDetails(owner, repo);
+  const { developers, projectDetails, services, serviceOfferings, isLoading, apiError } = useProjectDetails(
+    owner,
+    repo
+  );
 
   const serviceCategories = useMemo<ServiceOfferingByCategory>(() => {
     return buildServiceCategories(services, serviceOfferings);
@@ -58,10 +61,13 @@ export function ProjectDetailPage() {
     ];
   }, []);
 
-  const projectDisclaimer = useMemo(() => getProjectDisclaimer(projectDetails, projectName), [projectDetails, projectName]);
+  const projectDisclaimer = useMemo(
+    () => getProjectDisclaimer(projectDetails, projectName),
+    [projectDetails, projectName]
+  );
 
   const toggleServiceCategory = (categoryId: ServiceType) => {
-    setExpandedServiceCategories(prev => {
+    setExpandedServiceCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
         newSet.delete(categoryId);
@@ -111,7 +117,7 @@ export function ProjectDetailPage() {
           developers={developers}
           projectName={projectName}
           showAllMaintainers={showAllMaintainers}
-          onToggleShowAll={() => setShowAllMaintainers(prev => !prev)}
+          onToggleShowAll={() => setShowAllMaintainers((prev) => !prev)}
         />
 
         {/* Team Services */}
@@ -161,8 +167,8 @@ export function ProjectDetailPage() {
 
               <h2 className="text-brand-neutral-950 mb-6">Work Directly with Expert Maintainers</h2>
               <p className="text-brand-neutral-700 mb-8 max-w-2xl mx-auto">
-                Get expert guidance, custom development, and enterprise support tailored to your organization's needs. All services include flexible terms and
-                transparent pricing.
+                Get expert guidance, custom development, and enterprise support tailored to your organization's needs.
+                All services include flexible terms and transparent pricing.
               </p>
 
               {/* Trust Indicators */}
@@ -173,7 +179,9 @@ export function ProjectDetailPage() {
                 Schedule a Consultation
               </ExternalLink>
 
-              <p className="text-brand-neutral-600 text-sm mt-4">Discuss your needs and get a custom quote for your organization</p>
+              <p className="text-brand-neutral-600 text-sm mt-4">
+                Discuss your needs and get a custom quote for your organization
+              </p>
             </div>
           </div>
         </section>
@@ -204,7 +212,10 @@ export function ProjectDetailPage() {
 }
 
 // TODO: probably to complicated, need to check what it does exactly
-function buildServiceCategories(availableServices: dto.Service[], serviceOfferings: Record<string, ProjectServiceOffering[]>): ServiceOfferingByCategory {
+function buildServiceCategories(
+  availableServices: dto.Service[],
+  serviceOfferings: Record<string, ProjectServiceOffering[]>
+): ServiceOfferingByCategory {
   const offeringsByCategory: ServiceOfferingByCategory = new Map();
   if (availableServices.length === 0) {
     return offeringsByCategory;

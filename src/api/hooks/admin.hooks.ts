@@ -27,7 +27,11 @@ export const adminHooks = {
     return useMutation<
       dto.CreateVerificationRecordResponse,
       Error,
-      { params: dto.CreateVerificationRecordParams; body: dto.CreateVerificationRecordBody; query: dto.CreateVerificationRecordQuery }
+      {
+        params: dto.CreateVerificationRecordParams;
+        body: dto.CreateVerificationRecordBody;
+        query: dto.CreateVerificationRecordQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createVerificationRecord(params, body, query),
       onSuccess: () => {
@@ -62,7 +66,11 @@ export const adminHooks = {
 
   useSyncRepositoryMutation() {
     const queryClient = useQueryClient();
-    return useMutation<dto.SyncRepositoryResponse, Error, { params: dto.SyncRepositoryParams; body: dto.SyncRepositoryBody; query: dto.SyncRepositoryQuery }>({
+    return useMutation<
+      dto.SyncRepositoryResponse,
+      Error,
+      { params: dto.SyncRepositoryParams; body: dto.SyncRepositoryBody; query: dto.SyncRepositoryQuery }
+    >({
       mutationFn: ({ params, body, query }) => adminAPI.syncRepository(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
@@ -81,13 +89,21 @@ export const adminHooks = {
   },
 
   useCreateAddressMutation() {
-    return useMutation<dto.CreateAddressResponse, Error, { body: dto.CreateAddressBody; query: dto.CreateAddressQuery }>({
+    return useMutation<
+      dto.CreateAddressResponse,
+      Error,
+      { body: dto.CreateAddressBody; query: dto.CreateAddressQuery }
+    >({
       mutationFn: ({ body, query }) => adminAPI.createAddress(body, query),
     });
   },
 
   useCreateCompanyMutation() {
-    return useMutation<dto.CreateCompanyResponse, Error, { body: dto.CreateCompanyBody; query: dto.CreateCompanyQuery }>({
+    return useMutation<
+      dto.CreateCompanyResponse,
+      Error,
+      { body: dto.CreateCompanyBody; query: dto.CreateCompanyQuery }
+    >({
       mutationFn: ({ body, query }) => adminAPI.createCompany(body, query),
     });
   },
@@ -96,7 +112,11 @@ export const adminHooks = {
     return useMutation<
       dto.SendCompanyRoleInviteResponse,
       Error,
-      { params: dto.SendCompanyRoleInviteParams; body: dto.SendCompanyRoleInviteBody; query: dto.SendCompanyRoleInviteQuery }
+      {
+        params: dto.SendCompanyRoleInviteParams;
+        body: dto.SendCompanyRoleInviteBody;
+        query: dto.SendCompanyRoleInviteQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.sendCompanyRoleInvite(params, body, query),
     });
@@ -106,7 +126,11 @@ export const adminHooks = {
     return useMutation<
       dto.SendRepositoryRoleInviteResponse,
       Error,
-      { params: dto.SendRepositoryRoleInviteParams; body: dto.SendRepositoryRoleInviteBody; query: dto.SendRepositoryRoleInviteQuery }
+      {
+        params: dto.SendRepositoryRoleInviteParams;
+        body: dto.SendRepositoryRoleInviteBody;
+        query: dto.SendRepositoryRoleInviteQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.sendRepositoryRoleInvite(params, body, query),
     });
@@ -116,14 +140,22 @@ export const adminHooks = {
     return useMutation<
       dto.CreateCampaignProductAndPriceResponse,
       Error,
-      { params: dto.CreateCampaignProductAndPriceParams; body: dto.CreateCampaignProductAndPriceBody; query: dto.CreateCampaignProductAndPriceQuery }
+      {
+        params: dto.CreateCampaignProductAndPriceParams;
+        body: dto.CreateCampaignProductAndPriceBody;
+        query: dto.CreateCampaignProductAndPriceQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createCampaignProductAndPrice(params, body, query),
     });
   },
 
   useCreateManualInvoiceMutation() {
-    return useMutation<dto.CreateManualInvoiceResponse, Error, { body: dto.CreateManualInvoiceBody; query: dto.CreateManualInvoiceQuery }>({
+    return useMutation<
+      dto.CreateManualInvoiceResponse,
+      Error,
+      { body: dto.CreateManualInvoiceBody; query: dto.CreateManualInvoiceQuery }
+    >({
       mutationFn: ({ body, query }) => adminAPI.createManualInvoice(body, query),
     });
   },
@@ -132,14 +164,22 @@ export const adminHooks = {
     return useMutation<
       dto.CreatePlanProductAndPriceResponse,
       Error,
-      { params: dto.CreatePlanProductAndPriceParams; body: dto.CreatePlanProductAndPriceBody; query: dto.CreatePlanProductAndPriceQuery }
+      {
+        params: dto.CreatePlanProductAndPriceParams;
+        body: dto.CreatePlanProductAndPriceBody;
+        query: dto.CreatePlanProductAndPriceQuery;
+      }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createPlanProductAndPrice(params, body, query),
     });
   },
 
   useCreateProjectMutation() {
-    return useMutation<dto.CreateProjectResponse, Error, { params: dto.CreateProjectParams; body: dto.CreateProjectBody; query: dto.CreateProjectQuery }>({
+    return useMutation<
+      dto.CreateProjectResponse,
+      Error,
+      { params: dto.CreateProjectParams; body: dto.CreateProjectBody; query: dto.CreateProjectQuery }
+    >({
       mutationFn: ({ params, body, query }) => adminAPI.createProject(params, body, query),
     });
   },

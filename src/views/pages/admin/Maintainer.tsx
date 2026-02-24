@@ -59,11 +59,11 @@ export function Maintainer() {
       if (profileData.profileEntry) {
         const currentStatus = VerificationRecordCompanion.getCurrentStatus(
           profileData.profileEntry.verificationRecords,
-          profileData.profileEntry.profile.id.uuid,
+          profileData.profileEntry.profile.id.uuid
         );
         const currentNotes = VerificationRecordCompanion.getCurrentNotes(
           profileData.profileEntry.verificationRecords,
-          profileData.profileEntry.profile.id.uuid,
+          profileData.profileEntry.profile.id.uuid
         );
         setProfileStatus(currentStatus);
         setProfileNotes(currentNotes || "");
@@ -72,7 +72,11 @@ export function Maintainer() {
   }, [profileData]);
 
   // Combine query error with mutation apiError
-  const displayError = queryError ? (queryError instanceof ApiError ? queryError : ApiError.from(queryError)) : apiError;
+  const displayError = queryError
+    ? queryError instanceof ApiError
+      ? queryError
+      : ApiError.from(queryError)
+    : apiError;
 
   const handleSaveProfileVerification = async () => {
     if (!profile?.profileEntry?.profile.id) return;
@@ -90,7 +94,7 @@ export function Maintainer() {
       });
 
       // Add the new verification record to the profile entry
-      setProfile(prev => {
+      setProfile((prev) => {
         if (!prev || !prev.profileEntry) return prev;
 
         const newRecord = response.record;
@@ -124,20 +128,20 @@ export function Maintainer() {
       });
 
       // Add the new verification record to the project entry
-      setProfile(prev => {
+      setProfile((prev) => {
         if (!prev) return prev;
 
         const newRecord = response.record;
 
         return {
           ...prev,
-          projects: prev.projects.map(p =>
+          projects: prev.projects.map((p) =>
             p.developerProjectItem.id.uuid === projectEntry.developerProjectItem.id.uuid
               ? {
                   ...p,
                   verificationRecords: [...(p.verificationRecords || []), newRecord],
                 }
-              : p,
+              : p
           ),
         };
       });
@@ -149,8 +153,14 @@ export function Maintainer() {
 
   const startEditingProject = (projectEntry: dto.DeveloperProjectItemEntry) => {
     setEditingProjectId(projectEntry.developerProjectItem.id.uuid);
-    const currentStatus = VerificationRecordCompanion.getCurrentStatus(projectEntry.verificationRecords, projectEntry.developerProjectItem.id.uuid);
-    const currentNotes = VerificationRecordCompanion.getCurrentNotes(projectEntry.verificationRecords, projectEntry.developerProjectItem.id.uuid);
+    const currentStatus = VerificationRecordCompanion.getCurrentStatus(
+      projectEntry.verificationRecords,
+      projectEntry.developerProjectItem.id.uuid
+    );
+    const currentNotes = VerificationRecordCompanion.getCurrentNotes(
+      projectEntry.verificationRecords,
+      projectEntry.developerProjectItem.id.uuid
+    );
     setProjectStatus(currentStatus);
     setProjectNotes(currentNotes || "");
   };
@@ -170,7 +180,10 @@ export function Maintainer() {
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] p-8">
           <div className="max-w-4xl mx-auto">
-            <Link to={paths.ADMIN.HOME} className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
+            <Link
+              to={paths.ADMIN.HOME}
+              className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Link>
@@ -186,7 +199,10 @@ export function Maintainer() {
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] p-8">
           <div className="max-w-4xl mx-auto">
-            <Link to={paths.ADMIN.HOME} className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
+            <Link
+              to={paths.ADMIN.HOME}
+              className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Link>
@@ -209,7 +225,10 @@ export function Maintainer() {
       <div className="min-h-screen bg-[#14233A] p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <Link to={paths.ADMIN.HOME} className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
+          <Link
+            to={paths.ADMIN.HOME}
+            className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Admin
           </Link>
@@ -227,11 +246,17 @@ export function Maintainer() {
               {profile.profileEntry && (
                 <Badge
                   variant={VerificationStatusCompanion.variant(
-                    VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid),
+                    VerificationRecordCompanion.getCurrentStatus(
+                      profile.profileEntry.verificationRecords,
+                      profile.profileEntry.profile.id.uuid
+                    )
                   )}
                 >
                   {VerificationStatusCompanion.label(
-                    VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid),
+                    VerificationRecordCompanion.getCurrentStatus(
+                      profile.profileEntry.verificationRecords,
+                      profile.profileEntry.profile.id.uuid
+                    )
                   )}
                 </Badge>
               )}
@@ -286,18 +311,32 @@ export function Maintainer() {
                           Status:{" "}
                           <Badge
                             variant={VerificationStatusCompanion.variant(
-                              VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid),
+                              VerificationRecordCompanion.getCurrentStatus(
+                                profile.profileEntry.verificationRecords,
+                                profile.profileEntry.profile.id.uuid
+                              )
                             )}
                             className="ml-2"
                           >
                             {VerificationStatusCompanion.label(
-                              VerificationRecordCompanion.getCurrentStatus(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid),
+                              VerificationRecordCompanion.getCurrentStatus(
+                                profile.profileEntry.verificationRecords,
+                                profile.profileEntry.profile.id.uuid
+                              )
                             )}
                           </Badge>
                         </p>
-                        {VerificationRecordCompanion.getCurrentNotes(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid) && (
+                        {VerificationRecordCompanion.getCurrentNotes(
+                          profile.profileEntry.verificationRecords,
+                          profile.profileEntry.profile.id.uuid
+                        ) && (
                           <p className="text-brand-neutral-400 text-sm italic mt-2">
-                            "{VerificationRecordCompanion.getCurrentNotes(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id.uuid)}"
+                            "
+                            {VerificationRecordCompanion.getCurrentNotes(
+                              profile.profileEntry.verificationRecords,
+                              profile.profileEntry.profile.id.uuid
+                            )}
+                            "
                           </p>
                         )}
                       </div>
@@ -313,13 +352,13 @@ export function Maintainer() {
                     label="Verification Status"
                     options={VerificationStatusCompanion.selectOptions()}
                     value={profileStatus}
-                    onChange={value => setProfileStatus(value as dto.VerificationStatus)}
+                    onChange={(value) => setProfileStatus(value as dto.VerificationStatus)}
                   />
                   <div>
                     <label className="block text-sm font-medium text-brand-neutral-300 mb-2">Admin Notes</label>
                     <Textarea
                       value={profileNotes}
-                      onChange={e => setProfileNotes(e.target.value)}
+                      onChange={(e) => setProfileNotes(e.target.value)}
                       placeholder="Add notes, questions, or feedback for the developer..."
                       rows={3}
                       className="bg-[#14233A] border-brand-neutral-700 text-white"
@@ -351,33 +390,45 @@ export function Maintainer() {
                   <p className="text-brand-neutral-400 text-sm">Income Stream Preferences</p>
                   <div className="flex flex-wrap gap-2 mt-1">
                     {profile.settings.royaltiesPreference && (
-                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">Royalties: {profile.settings.royaltiesPreference}</span>
+                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">
+                        Royalties: {profile.settings.royaltiesPreference}
+                      </span>
                     )}
                     {profile.settings.servicesPreference && (
-                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">Services: {profile.settings.servicesPreference}</span>
+                      <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">
+                        Services: {profile.settings.servicesPreference}
+                      </span>
                     )}
                     {profile.settings.communitySupporterPreference && (
                       <span className="bg-brand-accent/20 text-brand-accent px-2 py-1 rounded text-sm">
                         Community Supporter: {profile.settings.communitySupporterPreference}
                       </span>
                     )}
-                    {!profile.settings.royaltiesPreference && !profile.settings.servicesPreference && !profile.settings.communitySupporterPreference && (
-                      <span className="text-white">N/A</span>
-                    )}
+                    {!profile.settings.royaltiesPreference &&
+                      !profile.settings.servicesPreference &&
+                      !profile.settings.communitySupporterPreference && <span className="text-white">N/A</span>}
                   </div>
                 </div>
                 <div>
                   <p className="text-brand-neutral-400 text-sm">Weekly Commitment</p>
-                  <p className="text-white">{profile.settings.hourlyWeeklyCommitment ? `${profile.settings.hourlyWeeklyCommitment} hours/week` : "N/A"}</p>
+                  <p className="text-white">
+                    {profile.settings.hourlyWeeklyCommitment
+                      ? `${profile.settings.hourlyWeeklyCommitment} hours/week`
+                      : "N/A"}
+                  </p>
                   {profile.settings.hourlyWeeklyCommitmentComment && (
-                    <p className="text-brand-neutral-400 text-sm mt-1">{profile.settings.hourlyWeeklyCommitmentComment}</p>
+                    <p className="text-brand-neutral-400 text-sm mt-1">
+                      {profile.settings.hourlyWeeklyCommitmentComment}
+                    </p>
                   )}
                 </div>
                 <div>
                   <p className="text-brand-neutral-400 text-sm">Open to Other Opportunities</p>
                   <p className="text-white">{profile.settings.openToOtherOpportunity || "N/A"}</p>
                   {profile.settings.openToOtherOpportunityComment && (
-                    <p className="text-brand-neutral-400 text-sm mt-1">{profile.settings.openToOtherOpportunityComment}</p>
+                    <p className="text-brand-neutral-400 text-sm mt-1">
+                      {profile.settings.openToOtherOpportunityComment}
+                    </p>
                   )}
                 </div>
                 <div>
@@ -390,7 +441,9 @@ export function Maintainer() {
                       ? `${CurrencyCompanion.symbol(profile.settings.currency)}${profile.settings.hourlyRate}/hr`
                       : "N/A"}
                   </p>
-                  {profile.settings.hourlyRateComment && <p className="text-brand-neutral-400 text-sm mt-1">{profile.settings.hourlyRateComment}</p>}
+                  {profile.settings.hourlyRateComment && (
+                    <p className="text-brand-neutral-400 text-sm mt-1">{profile.settings.hourlyRateComment}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -412,14 +465,22 @@ export function Maintainer() {
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-white font-medium">{SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}</h3>
+                            <h3 className="text-white font-medium">
+                              {SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}
+                            </h3>
                             <Badge
                               variant={VerificationStatusCompanion.variant(
-                                VerificationRecordCompanion.getCurrentStatus(entry.verificationRecords, entry.developerProjectItem.id.uuid),
+                                VerificationRecordCompanion.getCurrentStatus(
+                                  entry.verificationRecords,
+                                  entry.developerProjectItem.id.uuid
+                                )
                               )}
                             >
                               {VerificationStatusCompanion.label(
-                                VerificationRecordCompanion.getCurrentStatus(entry.verificationRecords, entry.developerProjectItem.id.uuid),
+                                VerificationRecordCompanion.getCurrentStatus(
+                                  entry.verificationRecords,
+                                  entry.developerProjectItem.id.uuid
+                                )
                               )}
                             </Badge>
                           </div>
@@ -431,7 +492,8 @@ export function Maintainer() {
                               <OrganizationSyncButton
                                 projectItemId={entry.projectItem.id.uuid}
                                 organizationLogin={
-                                  typeof entry.projectItem.sourceIdentifier === "object" && "login" in entry.projectItem.sourceIdentifier
+                                  typeof entry.projectItem.sourceIdentifier === "object" &&
+                                  "login" in entry.projectItem.sourceIdentifier
                                     ? entry.projectItem.sourceIdentifier.login
                                     : String(entry.projectItem.sourceIdentifier)
                                 }
@@ -459,13 +521,17 @@ export function Maintainer() {
                         <div>
                           <p className="text-brand-neutral-400 text-xs">Role</p>
                           <p className="text-white text-sm">
-                            {entry.developerProjectItem.roles?.map(role => DeveloperRoleTypeCompanion.label(role)).join(", ") || "N/A"}
+                            {entry.developerProjectItem.roles
+                              ?.map((role) => DeveloperRoleTypeCompanion.label(role))
+                              .join(", ") || "N/A"}
                           </p>
                         </div>
                         <div>
                           <p className="text-brand-neutral-400 text-xs">Merge Rights</p>
                           <p className="text-white text-sm">
-                            {entry.developerProjectItem.mergeRights?.map(mr => MergeRightsTypeCompanion.label(mr)).join(", ") || "N/A"}
+                            {entry.developerProjectItem.mergeRights
+                              ?.map((mr) => MergeRightsTypeCompanion.label(mr))
+                              .join(", ") || "N/A"}
                           </p>
                         </div>
                       </div>
@@ -474,12 +540,25 @@ export function Maintainer() {
                       <div className="pt-3 border-t border-brand-neutral-700">
                         {!isEditing ? (
                           <div className="space-y-2">
-                            {VerificationRecordCompanion.getCurrentNotes(entry.verificationRecords, entry.developerProjectItem.id.uuid) && (
+                            {VerificationRecordCompanion.getCurrentNotes(
+                              entry.verificationRecords,
+                              entry.developerProjectItem.id.uuid
+                            ) && (
                               <p className="text-brand-neutral-400 text-sm italic">
-                                "{VerificationRecordCompanion.getCurrentNotes(entry.verificationRecords, entry.developerProjectItem.id.uuid)}"
+                                "
+                                {VerificationRecordCompanion.getCurrentNotes(
+                                  entry.verificationRecords,
+                                  entry.developerProjectItem.id.uuid
+                                )}
+                                "
                               </p>
                             )}
-                            <Button onClick={() => startEditingProject(entry)} variant="outline" size="sm" className="w-full">
+                            <Button
+                              onClick={() => startEditingProject(entry)}
+                              variant="outline"
+                              size="sm"
+                              className="w-full"
+                            >
                               Update Verification
                             </Button>
                           </div>
@@ -489,20 +568,24 @@ export function Maintainer() {
                               label="Status"
                               options={VerificationStatusCompanion.selectOptions()}
                               value={projectStatus}
-                              onChange={value => setProjectStatus(value as dto.VerificationStatus)}
+                              onChange={(value) => setProjectStatus(value as dto.VerificationStatus)}
                             />
                             <div>
                               <label className="block text-sm font-medium text-brand-neutral-300 mb-2">Notes</label>
                               <Textarea
                                 value={projectNotes}
-                                onChange={e => setProjectNotes(e.target.value)}
+                                onChange={(e) => setProjectNotes(e.target.value)}
                                 placeholder="Add notes or questions about this project..."
                                 rows={2}
                                 className="bg-[#0F1829] border-brand-neutral-700 text-white text-sm"
                               />
                             </div>
                             <div className="flex gap-2">
-                              <Button onClick={() => handleSaveProjectVerification(entry)} disabled={createVerification.isPending} size="sm">
+                              <Button
+                                onClick={() => handleSaveProjectVerification(entry)}
+                                disabled={createVerification.isPending}
+                                size="sm"
+                              >
                                 {createVerification.isPending ? "Saving..." : "Save"}
                               </Button>
                               <Button onClick={() => setEditingProjectId(null)} variant="outline" size="sm">
@@ -530,9 +613,13 @@ export function Maintainer() {
               {/* Open to Bigger Opportunities Banner */}
               {profile.settings?.openToOtherOpportunity && (
                 <div className="mb-4 bg-brand-accent/10 border border-brand-accent/30 rounded-lg p-3">
-                  <p className="text-brand-accent text-sm font-medium">Open to Bigger Opportunities: {profile.settings.openToOtherOpportunity}</p>
+                  <p className="text-brand-accent text-sm font-medium">
+                    Open to Bigger Opportunities: {profile.settings.openToOtherOpportunity}
+                  </p>
                   {profile.settings.openToOtherOpportunityComment && (
-                    <p className="text-brand-neutral-400 text-xs mt-1 italic">{profile.settings.openToOtherOpportunityComment}</p>
+                    <p className="text-brand-neutral-400 text-xs mt-1 italic">
+                      {profile.settings.openToOtherOpportunityComment}
+                    </p>
                   )}
                 </div>
               )}
@@ -543,11 +630,17 @@ export function Maintainer() {
                   const Icon = serviceInfo.icon;
 
                   // Determine project scope for this service
-                  const serviceProjectIds = (entry.developerService?.developerProjectItemIds ?? []).map(id => id.uuid);
-                  const allProjectIds = profile.projects.map(p => p.developerProjectItem.id.uuid);
-                  const isAllProjects = serviceProjectIds.length === allProjectIds.length && serviceProjectIds.every(id => allProjectIds.includes(id));
+                  const serviceProjectIds = (entry.developerService?.developerProjectItemIds ?? []).map(
+                    (id) => id.uuid
+                  );
+                  const allProjectIds = profile.projects.map((p) => p.developerProjectItem.id.uuid);
+                  const isAllProjects =
+                    serviceProjectIds.length === allProjectIds.length &&
+                    serviceProjectIds.every((id) => allProjectIds.includes(id));
 
-                  const serviceProjects = isAllProjects ? [] : profile.projects.filter(p => serviceProjectIds.includes(p.developerProjectItem.id.uuid));
+                  const serviceProjects = isAllProjects
+                    ? []
+                    : profile.projects.filter((p) => serviceProjectIds.includes(p.developerProjectItem.id.uuid));
 
                   return (
                     <div key={idx} className="bg-[#14233A] rounded-lg p-4 border border-brand-neutral-700">
@@ -578,7 +671,9 @@ export function Maintainer() {
                               <div>
                                 <p className="text-brand-neutral-400 text-xs">Hourly Rate</p>
                                 <p className="text-white text-sm">
-                                  {entry.developerService.hourlyRate ? `${entry.developerService.hourlyRate}/hr` : "Default rate"}
+                                  {entry.developerService.hourlyRate
+                                    ? `${entry.developerService.hourlyRate}/hr`
+                                    : "Default rate"}
                                 </p>
                               </div>
                               {entry.service.hasResponseTime && entry.developerService.responseTimeHours && (
@@ -587,13 +682,19 @@ export function Maintainer() {
                                     <Clock className="w-3 h-3" />
                                     Response Time
                                   </p>
-                                  <p className="text-white text-sm">{ResponseTimeTypeCompanion.label(entry.developerService.responseTimeHours)}</p>
+                                  <p className="text-white text-sm">
+                                    {ResponseTimeTypeCompanion.label(entry.developerService.responseTimeHours)}
+                                  </p>
                                 </div>
                               )}
                             </div>
                           )}
 
-                          {entry.developerService?.comment && <p className="text-brand-neutral-400 text-xs mt-2 italic">{entry.developerService.comment}</p>}
+                          {entry.developerService?.comment && (
+                            <p className="text-brand-neutral-400 text-xs mt-2 italic">
+                              {entry.developerService.comment}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -44,8 +44,16 @@ export function RhfFormInput<T extends FieldValues>({
   const hasError = !!fieldState.error;
 
   return (
-    <RhfFormField<T> name={name} label={label} required={required} hint={hint} link={link} className={className} transformError={transformError}>
-      {field => (
+    <RhfFormField<T>
+      name={name}
+      label={label}
+      required={required}
+      hint={hint}
+      link={link}
+      className={className}
+      transformError={transformError}
+    >
+      {(field) => (
         <Input
           {...field}
           id={name}

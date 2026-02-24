@@ -18,7 +18,9 @@ interface SubscriptionCardProps {
 
 export function SubscriptionCard(props: SubscriptionCardProps) {
   return (
-    <div className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(props.tier as any)} shadow-xl overflow-hidden`}>
+    <div
+      className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(props.tier as any)} shadow-xl overflow-hidden`}
+    >
       {/* Main Content Row */}
       <div className="flex items-center gap-6 p-6">
         {/* Icon */}
@@ -35,13 +37,17 @@ export function SubscriptionCard(props: SubscriptionCardProps) {
             </span>
           </div>
           <p className="text-brand-neutral-600 text-sm">
-            You are currently on the <span className="text-white">{getPlanName(props.tier as any)}</span> plan (billed {getBillingDisplay(props.billing)}).
+            You are currently on the <span className="text-white">{getPlanName(props.tier as any)}</span> plan (billed{" "}
+            {getBillingDisplay(props.billing)}).
           </p>
         </div>
 
         {/* Action Button */}
         <div className="flex-shrink-0">
-          <Button onClick={props.onManageSubscription} className="bg-brand-accent hover:bg-brand-accent-dark text-brand-secondary px-6">
+          <Button
+            onClick={props.onManageSubscription}
+            className="bg-brand-accent hover:bg-brand-accent-dark text-brand-secondary px-6"
+          >
             Customer Portal
           </Button>
         </div>
@@ -54,7 +60,11 @@ export function SubscriptionCard(props: SubscriptionCardProps) {
         <div className="grid md:grid-cols-2 gap-6">
           <BenefitsSection title="Core Mission Benefits" benefits={props.commonBenefits} iconColor="accent" />
 
-          <BenefitsSection title={`${getPlanName(props.tier as any)} Tier Benefits`} benefits={props.tierBenefits} iconColor={props.tier as any} />
+          <BenefitsSection
+            title={`${getPlanName(props.tier as any)} Tier Benefits`}
+            benefits={props.tierBenefits}
+            iconColor={props.tier as any}
+          />
         </div>
       </div>
 

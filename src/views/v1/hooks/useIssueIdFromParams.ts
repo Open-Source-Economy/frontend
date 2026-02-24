@@ -3,7 +3,11 @@ import { IssueId } from "@open-source-economy/api-types";
 import { useRepositoryFromParams } from "./useRepositoryFromParams";
 
 export function useIssueIdFromParams(): IssueId | null {
-  const { ownerParam, repoParam, numberParam } = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string; numberParam?: string };
+  const { ownerParam, repoParam, numberParam } = useParams({ strict: false }) as {
+    ownerParam?: string;
+    repoParam?: string;
+    numberParam?: string;
+  };
   const repositoryId = useRepositoryFromParams();
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 

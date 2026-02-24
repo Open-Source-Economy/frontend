@@ -17,7 +17,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
   // Transform real project data into SelectOption format
   const projectOptions: SelectOption[] = [
     ...(props.projects.length > 0 ? [{ value: "all", label: "All projects", isAllOption: true }] : []),
-    ...props.projects.map(entry => ({
+    ...props.projects.map((entry) => ({
       value: entry.developerProjectItem.id.uuid,
       label: SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier),
       hasIcon: true,
@@ -26,23 +26,25 @@ export function ProjectSelection(props: ProjectSelectionProps) {
   ];
 
   // Get selected projects
-  const _selectedProjects = props.projects.filter(entry =>
-    props.selectedProjectItemIds.some(selectedId => selectedId.uuid === entry.developerProjectItem.id.uuid),
+  const _selectedProjects = props.projects.filter((entry) =>
+    props.selectedProjectItemIds.some((selectedId) => selectedId.uuid === entry.developerProjectItem.id.uuid)
   );
 
   const _handleRemoveProject = (projectId: ProjectItemId) => {
-    const newSelectedProjects = props.selectedProjectItemIds.filter(id => id.uuid !== projectId.uuid);
+    const newSelectedProjects = props.selectedProjectItemIds.filter((id) => id.uuid !== projectId.uuid);
     props.onProjectChange(newSelectedProjects);
   };
 
   return (
     <div className="flex flex-col items-start gap-4 self-stretch">
-      <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">For Which Project(s)?</label>
+      <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
+        For Which Project(s)?
+      </label>
       <div className="flex items-start gap-2.5 self-stretch">
         <MultiSelectInput
           options={projectOptions}
-          value={props.selectedProjectItemIds.map(item => item.uuid)}
-          onChange={(projectId: string[]) => props.onProjectChange(projectId.map(id => ({ uuid: id })))} // TODO: improve type safety
+          value={props.selectedProjectItemIds.map((item) => item.uuid)}
+          onChange={(projectId: string[]) => props.onProjectChange(projectId.map((id) => ({ uuid: id })))} // TODO: improve type safety
           placeholder="|"
           isOpen={props.isProjectDropdownOpen}
           onToggle={props.onToggleDropdown}

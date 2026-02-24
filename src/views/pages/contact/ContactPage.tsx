@@ -137,8 +137,17 @@ export function ContactPage() {
     return "";
   };
 
-  const { form, isSubmitting, submissionStatus, onSubmit, handleNewMessage, addProject, removeProject, updateProject, setContactReason } =
-    useContactForm(getInitialContactReason());
+  const {
+    form,
+    isSubmitting,
+    submissionStatus,
+    onSubmit,
+    handleNewMessage,
+    addProject,
+    removeProject,
+    updateProject,
+    setContactReason,
+  } = useContactForm(getInitialContactReason());
 
   // Update contact reason when URL parameter changes
   useEffect(() => {
@@ -149,7 +158,7 @@ export function ContactPage() {
   }, [searchParams.reason, setContactReason]);
 
   const contactReason = form.watch("contactReason");
-  const selectedReason = CONTACT_REASONS.find(r => r.id === contactReason);
+  const selectedReason = CONTACT_REASONS.find((r) => r.id === contactReason);
   const companyRequired = isCompanyRequired(contactReason);
   const linkedInRequired = isLinkedInRequired(contactReason);
   const showGitHubProfile = shouldShowGitHubProfile(contactReason);
@@ -170,7 +179,8 @@ export function ContactPage() {
               <div className="space-y-4">
                 <h1 className="text-brand-neutral-950">Contact Us</h1>
                 <p className="text-brand-neutral-600 max-w-2xl text-lg">
-                  Connect with our team to discuss enterprise solutions, request a project, or learn more about our platform.
+                  Connect with our team to discuss enterprise solutions, request a project, or learn more about our
+                  platform.
                 </p>
               </div>
             </div>
@@ -189,7 +199,7 @@ export function ContactPage() {
                 </div>
 
                 <div className="space-y-3">
-                  {CONTACT_REASONS.map(reason => (
+                  {CONTACT_REASONS.map((reason) => (
                     <ContactReasonCard
                       key={reason.id}
                       id={reason.id}
@@ -210,7 +220,10 @@ export function ContactPage() {
                     <Mail className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
                     <div className="min-w-0">
                       <div className="text-brand-neutral-700 mb-1">Email</div>
-                      <a href={`mailto:${contactEmail}`} className="text-brand-accent hover:text-brand-accent-dark transition-colors break-all">
+                      <a
+                        href={`mailto:${contactEmail}`}
+                        className="text-brand-accent hover:text-brand-accent-dark transition-colors break-all"
+                      >
                         {contactEmail}
                       </a>
                     </div>
@@ -224,7 +237,9 @@ export function ContactPage() {
                       <Github className="w-5 h-5 text-brand-neutral-600 flex-shrink-0 mt-0.5" />
                       <div>
                         <h4 className="text-brand-neutral-900 mb-1">Open Source Platform</h4>
-                        <p className="text-brand-neutral-600">Our entire platform is open source. Found a bug or have a suggestion?</p>
+                        <p className="text-brand-neutral-600">
+                          Our entire platform is open source. Found a bug or have a suggestion?
+                        </p>
                       </div>
                     </div>
                     <ExternalLinkComponent
@@ -264,7 +279,9 @@ export function ContactPage() {
                     <>
                       <div className="mb-8">
                         <h2 className="text-brand-neutral-900 mb-2">Send a Message</h2>
-                        <p className="text-brand-neutral-600">{selectedReason ? selectedReason.details : "Select an inquiry type to get started"}</p>
+                        <p className="text-brand-neutral-600">
+                          {selectedReason ? selectedReason.details : "Select an inquiry type to get started"}
+                        </p>
                       </div>
 
                       <FormProvider {...form}>
@@ -274,15 +291,29 @@ export function ContactPage() {
                               <ArrowRight className="w-12 h-12 text-brand-neutral-500 rotate-180 flex-shrink-0" />
                               <div className="text-left">
                                 <h3 className="text-brand-neutral-900 mb-2">Select an Inquiry Type</h3>
-                                <p className="text-brand-neutral-600">Choose an option from the left to get started with your message</p>
+                                <p className="text-brand-neutral-600">
+                                  Choose an option from the left to get started with your message
+                                </p>
                               </div>
                             </div>
                           ) : (
                             <>
                               {/* Name and Email Row */}
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <RhfFormInput<ContactFormData> name="name" label="Name" type="text" placeholder="John Doe" required />
-                                <RhfFormInput<ContactFormData> name="email" label="Email" type="email" placeholder="john@example.com" required />
+                                <RhfFormInput<ContactFormData>
+                                  name="name"
+                                  label="Name"
+                                  type="text"
+                                  placeholder="John Doe"
+                                  required
+                                />
+                                <RhfFormInput<ContactFormData>
+                                  name="email"
+                                  label="Email"
+                                  type="email"
+                                  placeholder="john@example.com"
+                                  required
+                                />
                               </div>
 
                               {/* Company and LinkedIn Profile Row */}
@@ -315,17 +346,27 @@ export function ContactPage() {
                                     type="url"
                                     required={gitHubRequired}
                                     value={form.watch("githubProfile") || ""}
-                                    onChange={e => form.setValue("githubProfile", e.target.value, { shouldValidate: form.formState.isSubmitted })}
+                                    onChange={(e) =>
+                                      form.setValue("githubProfile", e.target.value, {
+                                        shouldValidate: form.formState.isSubmitted,
+                                      })
+                                    }
                                     placeholder={getPlaceholder("github", gitHubRequired, contactReason)}
                                     variant={fieldErrors.githubProfile ? "error" : "default"}
                                   />
                                   {gitHubRequired && (
                                     <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
                                       <Info className="w-4 h-4 flex-shrink-0 text-brand-neutral-500" />
-                                      <span>We'll review your GitHub profile to verify your open source contributions and expertise.</span>
+                                      <span>
+                                        We'll review your GitHub profile to verify your open source contributions and
+                                        expertise.
+                                      </span>
                                     </p>
                                   )}
-                                  <FieldError error={fieldErrors.githubProfile?.message as string | undefined} className="mt-1" />
+                                  <FieldError
+                                    error={fieldErrors.githubProfile?.message as string | undefined}
+                                    className="mt-1"
+                                  />
                                 </div>
                               )}
 
@@ -363,7 +404,9 @@ export function ContactPage() {
                                 name="message"
                                 label="Message"
                                 rows={6}
-                                placeholder={selectedReason?.placeholder || "Please provide details about your inquiry..."}
+                                placeholder={
+                                  selectedReason?.placeholder || "Please provide details about your inquiry..."
+                                }
                                 required
                               />
 
@@ -372,10 +415,14 @@ export function ContactPage() {
                                 <MeetingRequestSection
                                   requestMeeting={form.watch("requestMeeting") || false}
                                   meetingNotes={form.watch("meetingNotes") || ""}
-                                  onRequestMeetingChange={checked =>
-                                    form.setValue("requestMeeting", checked as boolean, { shouldValidate: form.formState.isSubmitted })
+                                  onRequestMeetingChange={(checked) =>
+                                    form.setValue("requestMeeting", checked as boolean, {
+                                      shouldValidate: form.formState.isSubmitted,
+                                    })
                                   }
-                                  onMeetingNotesChange={notes => form.setValue("meetingNotes", notes, { shouldValidate: form.formState.isSubmitted })}
+                                  onMeetingNotesChange={(notes) =>
+                                    form.setValue("meetingNotes", notes, { shouldValidate: form.formState.isSubmitted })
+                                  }
                                 />
                               )}
 
@@ -385,7 +432,8 @@ export function ContactPage() {
                                   <AlertCircle className="h-4 w-4" />
                                   <AlertTitle>Error</AlertTitle>
                                   <AlertDescription>
-                                    There was a problem sending your message. Please try again or contact us directly at {contactEmail}
+                                    There was a problem sending your message. Please try again or contact us directly at{" "}
+                                    {contactEmail}
                                   </AlertDescription>
                                 </Alert>
                               )}

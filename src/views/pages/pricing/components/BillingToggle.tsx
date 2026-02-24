@@ -13,10 +13,16 @@ export function BillingToggle(props: BillingToggleProps) {
     <div className="flex flex-col items-center gap-3 relative">
       {/* Toggle */}
       <div className="inline-flex items-center gap-2 bg-card rounded-xl p-1.5 shadow-lg border-2 border-brand-neutral-400">
-        <BillingToggleButton active={props.billingCycle === PlanPriceType.MONTHLY} onClick={() => props.onBillingCycleChange(PlanPriceType.MONTHLY)}>
+        <BillingToggleButton
+          active={props.billingCycle === PlanPriceType.MONTHLY}
+          onClick={() => props.onBillingCycleChange(PlanPriceType.MONTHLY)}
+        >
           Monthly billing
         </BillingToggleButton>
-        <BillingToggleButton active={props.billingCycle === PlanPriceType.ANNUALLY} onClick={() => props.onBillingCycleChange(PlanPriceType.ANNUALLY)}>
+        <BillingToggleButton
+          active={props.billingCycle === PlanPriceType.ANNUALLY}
+          onClick={() => props.onBillingCycleChange(PlanPriceType.ANNUALLY)}
+        >
           Annual billing
         </BillingToggleButton>
       </div>

@@ -32,6 +32,9 @@ export namespace ProjectDeveloperProfileCompanion {
   }
 
   export function isVerified(developer: ProjectDeveloperProfile): boolean {
-    return developer.profileEntry?.verificationRecords?.some(record => record.status === VerificationStatus.APPROVED) ?? false;
+    return (
+      developer.profileEntry?.verificationRecords?.some((record) => record.status === VerificationStatus.APPROVED) ??
+      false
+    );
   }
 }

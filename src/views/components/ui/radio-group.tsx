@@ -30,11 +30,14 @@ function RadioGroupItem({ className, ...props }: RadioGroupItemProps) {
       data-slot="radio-group-item"
       className={cn(
         "aspect-square h-4 w-4 rounded-full border border-brand-neutral-400 text-brand-accent ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        className
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator data-slot="radio-group-indicator" className="relative flex items-center justify-center">
+      <RadioGroupPrimitive.Indicator
+        data-slot="radio-group-indicator"
+        className="relative flex items-center justify-center"
+      >
         <Circle className="h-2.5 w-2.5 fill-brand-accent text-brand-accent" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>

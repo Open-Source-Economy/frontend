@@ -10,7 +10,7 @@ const createApiInstance = () => {
 
   // Add a request interceptor
   api.interceptors.request.use(
-    request => {
+    (request) => {
       if (config.env !== Env.Production) {
         console.log("Sending request:", request.method, request.url);
         if (request.data) {
@@ -19,12 +19,12 @@ const createApiInstance = () => {
       }
       return request;
     },
-    error => {
+    (error) => {
       if (config.env !== Env.Production) {
         console.error("Request error:", error);
       }
       return Promise.reject(error);
-    },
+    }
   );
 
   // Add a response interceptor
@@ -38,7 +38,7 @@ const createApiInstance = () => {
       }
       return response;
     },
-    error => {
+    (error) => {
       if (config.env !== Env.Production) {
         console.error("Response error:", error.response?.status, error.response?.statusText);
         if (error.response?.data) {
@@ -46,13 +46,16 @@ const createApiInstance = () => {
         }
       }
       return Promise.reject(error);
-    },
+    }
   );
 
   return api;
 };
 
-export async function handleError<T>(call: () => Promise<AxiosResponse<ResponseBody<T>, any>>, name: string): Promise<T> {
+export async function handleError<T>(
+  call: () => Promise<AxiosResponse<ResponseBody<T>, any>>,
+  name: string
+): Promise<T> {
   try {
     const response: AxiosResponse<ResponseBody<T>, any> = await call();
     return response.data.success!;

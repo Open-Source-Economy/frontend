@@ -34,8 +34,8 @@ export function ServicesPage() {
       title: "Non-Disclosure Agreements",
       description: (
         <>
-          <span className="font-medium text-foreground">Comprehensive legal protection</span> for your proprietary information with industry-standard
-          confidentiality frameworks and secure data handling.
+          <span className="font-medium text-foreground">Comprehensive legal protection</span> for your proprietary
+          information with industry-standard confidentiality frameworks and secure data handling.
         </>
       ),
       buttonText: "Request NDA",
@@ -46,8 +46,8 @@ export function ServicesPage() {
       title: "Service Level Agreements",
       description: (
         <>
-          <span className="font-medium text-foreground">Guaranteed response times</span> and performance metrics with enterprise-grade uptime commitments and
-          24/7 support availability.
+          <span className="font-medium text-foreground">Guaranteed response times</span> and performance metrics with
+          enterprise-grade uptime commitments and 24/7 support availability.
         </>
       ),
       buttonText: "Request SLA",
@@ -58,8 +58,8 @@ export function ServicesPage() {
       title: "Ecosystem Growth Programs",
       description: (
         <>
-          <span className="font-medium text-foreground">Strategic ecosystem development</span> showcasing your open source leadership while fostering
-          sustainable community growth.
+          <span className="font-medium text-foreground">Strategic ecosystem development</span> showcasing your open
+          source leadership while fostering sustainable community growth.
         </>
       ),
       buttonText: "Request Program",
@@ -78,7 +78,9 @@ export function ServicesPage() {
             <ServicesHeroSection
               title={
                 <h1 className="text-4xl lg:text-5xl tracking-tight font-semibold">
-                  <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">Services Available</span>
+                  <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                    Services Available
+                  </span>
                   <br />
                   <span className="bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent">
                     From Expert Maintainers
@@ -88,7 +90,8 @@ export function ServicesPage() {
               description={
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                   Our network of expert open source maintainers provides professional services across
-                  <span className="text-brand-primary"> development work</span>,<span className="text-brand-accent"> strategic consulting</span>, and
+                  <span className="text-brand-primary"> development work</span>,
+                  <span className="text-brand-accent"> strategic consulting</span>, and
                   <span className="text-brand-primary"> security & compliance</span>
                 </p>
               }
@@ -104,9 +107,21 @@ export function ServicesPage() {
                 colorScheme="primary"
                 services={[
                   { name: "Bug Fixing", icon: <Bug className="w-5 h-5" />, description: "Critical issue resolution" },
-                  { name: "New Feature Development", icon: <Plus className="w-5 h-5" />, description: "Custom functionality" },
-                  { name: "Documentation Updates", icon: <FileText className="w-5 h-5" />, description: "Clear, comprehensive docs" },
-                  { name: "OSS Plugin/Library Creation", icon: <Zap className="w-5 h-5" />, description: "Tailored extensions" },
+                  {
+                    name: "New Feature Development",
+                    icon: <Plus className="w-5 h-5" />,
+                    description: "Custom functionality",
+                  },
+                  {
+                    name: "Documentation Updates",
+                    icon: <FileText className="w-5 h-5" />,
+                    description: "Clear, comprehensive docs",
+                  },
+                  {
+                    name: "OSS Plugin/Library Creation",
+                    icon: <Zap className="w-5 h-5" />,
+                    description: "Tailored extensions",
+                  },
                 ]}
               />
 
@@ -117,10 +132,26 @@ export function ServicesPage() {
                 mainIcon={<GraduationCap className="w-9 h-9" />}
                 colorScheme="accent"
                 services={[
-                  { name: "Technical Support", icon: <LifeBuoy className="w-5 h-5" />, description: "Expert problem solving" },
-                  { name: "Architectural Consulting", icon: <Users className="w-5 h-5" />, description: "System design guidance" },
-                  { name: "Developer Mentorship", icon: <UserCheck className="w-5 h-5" />, description: "Skills development" },
-                  { name: "Training & Workshops", icon: <GraduationCap className="w-5 h-5" />, description: "Team education programs" },
+                  {
+                    name: "Technical Support",
+                    icon: <LifeBuoy className="w-5 h-5" />,
+                    description: "Expert problem solving",
+                  },
+                  {
+                    name: "Architectural Consulting",
+                    icon: <Users className="w-5 h-5" />,
+                    description: "System design guidance",
+                  },
+                  {
+                    name: "Developer Mentorship",
+                    icon: <UserCheck className="w-5 h-5" />,
+                    description: "Skills development",
+                  },
+                  {
+                    name: "Training & Workshops",
+                    icon: <GraduationCap className="w-5 h-5" />,
+                    description: "Team education programs",
+                  },
                 ]}
               />
 
@@ -131,10 +162,26 @@ export function ServicesPage() {
                 mainIcon={<Shield className="w-9 h-9" />}
                 colorScheme="accent"
                 services={[
-                  { name: "Security Audits", icon: <Shield className="w-5 h-5" />, description: "Comprehensive assessments" },
-                  { name: "CVE Management", icon: <AlertTriangle className="w-5 h-5" />, description: "Vulnerability handling" },
-                  { name: "Compliance Consulting", icon: <CheckCircle className="w-5 h-5" />, description: "Regulatory alignment" },
-                  { name: "Secure Code Review", icon: <Bug className="w-5 h-5" />, description: "Security-focused analysis" },
+                  {
+                    name: "Security Audits",
+                    icon: <Shield className="w-5 h-5" />,
+                    description: "Comprehensive assessments",
+                  },
+                  {
+                    name: "CVE Management",
+                    icon: <AlertTriangle className="w-5 h-5" />,
+                    description: "Vulnerability handling",
+                  },
+                  {
+                    name: "Compliance Consulting",
+                    icon: <CheckCircle className="w-5 h-5" />,
+                    description: "Regulatory alignment",
+                  },
+                  {
+                    name: "Secure Code Review",
+                    icon: <Bug className="w-5 h-5" />,
+                    description: "Security-focused analysis",
+                  },
                 ]}
               />
             </div>

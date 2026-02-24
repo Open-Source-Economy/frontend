@@ -24,14 +24,14 @@ export function DevControls(props: DevControlsProps) {
             <label className="text-sm text-yellow-900">Current Plan:</label>
             <select
               value={props.currentPlanTier || "none"}
-              onChange={e => {
+              onChange={(e) => {
                 const val = e.target.value;
                 props.onPlanTierChange(val === "none" ? null : (val as PlanProductType));
               }}
               className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
             >
               <option value="none">No Plan</option>
-              {props.plans.map(plan => (
+              {props.plans.map((plan) => (
                 <option key={plan.id} value={plan.id}>
                   {plan.name}
                 </option>
@@ -43,7 +43,7 @@ export function DevControls(props: DevControlsProps) {
               <label className="text-sm text-yellow-900">Current Billing:</label>
               <select
                 value={props.currentPlanBilling}
-                onChange={e => props.onPlanBillingChange(e.target.value as PlanPriceType)}
+                onChange={(e) => props.onPlanBillingChange(e.target.value as PlanPriceType)}
                 className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
               >
                 <option value={PlanPriceType.MONTHLY}>Monthly</option>

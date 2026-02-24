@@ -30,7 +30,7 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
         return runValidation(Boolean(checked), showInputError);
       },
     }),
-    [checked, required],
+    [checked, required]
   );
 
   return (
@@ -41,13 +41,13 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
           checked={checked}
           className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 ${className || ""}`}
           {...rest}
-          onChange={e => {
+          onChange={(e) => {
             setIsTouched(true);
             if (props.onChange) {
               props.onChange(e);
             }
           }}
-          onBlur={e => {
+          onBlur={(e) => {
             setIsTouched(true);
             if (props.onBlur) {
               props.onBlur(e);
@@ -57,7 +57,13 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
         {checked && (
           <div className="absolute inset-0 bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] rounded-sm flex items-center justify-center">
             <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M1 4.5L4.5 8L11 1.5"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
         )}
@@ -67,7 +73,9 @@ export const CheckboxInput = forwardRef(function CheckboxInput(props: CheckboxIn
           <p className="block leading-[1.1] text-nowrap whitespace-pre">{label}</p>
         </div>
       </div>
-      {renderError ? renderError(internalError) : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
+      {renderError
+        ? renderError(internalError)
+        : internalError && <div className="text-red-400 text-sm mt-1">{internalError}</div>}
     </div>
   );
 });

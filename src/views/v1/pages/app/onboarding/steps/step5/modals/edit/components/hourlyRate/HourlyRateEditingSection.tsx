@@ -21,8 +21,14 @@ export function HourlyRateEditingSection(props: HourlyRateEditingProps) {
         <CloseIcon className="w-6 h-6" />
       </button>
       <div className="flex flex-col items-start gap-3 self-stretch">
-        <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">Want to change your hourly rate for this service?</label>
-        <HourlyRateInput currency={props.currency} hourlyRate={props.hourlyRate} onHourlyRateChange={props.onHourlyRateChange} />
+        <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
+          Want to change your hourly rate for this service?
+        </label>
+        <HourlyRateInput
+          currency={props.currency}
+          hourlyRate={props.hourlyRate}
+          onHourlyRateChange={props.onHourlyRateChange}
+        />
       </div>
     </div>
   );

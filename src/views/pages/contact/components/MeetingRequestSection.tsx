@@ -18,7 +18,7 @@ export function MeetingRequestSection(props: MeetingRequestSectionProps) {
         <Checkbox
           id="requestMeeting"
           checked={props.requestMeeting}
-          onCheckedChange={checked => props.onRequestMeetingChange(checked === true)}
+          onCheckedChange={(checked) => props.onRequestMeetingChange(checked === true)}
           className="mt-1"
         />
         <div className="flex-1">
@@ -37,7 +37,7 @@ export function MeetingRequestSection(props: MeetingRequestSectionProps) {
             <Textarea
               id="meetingNotes"
               value={props.meetingNotes || ""}
-              onChange={e => props.onMeetingNotesChange(e.target.value)}
+              onChange={(e) => props.onMeetingNotesChange(e.target.value)}
               rows={3}
               placeholder="Any specific topics or agenda items you'd like to discuss..."
             />

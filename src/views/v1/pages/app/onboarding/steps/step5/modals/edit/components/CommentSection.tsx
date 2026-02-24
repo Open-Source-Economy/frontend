@@ -31,8 +31,12 @@ export function CommentSection(props: CommentSectionProps) {
         {/* Labels */}
         <div className="flex w-full items-start gap-1">
           <div className="flex flex-col items-start">
-            <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">{props.label || "Comments"}</label>
-            <div className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">(only visible to Open Source Economy team)</div>
+            <label className="text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
+              {props.label || "Comments"}
+            </label>
+            <div className="text-white font-montserrat text-sm font-normal leading-[150%] opacity-60">
+              (only visible to Open Source Economy team)
+            </div>
           </div>
         </div>
 

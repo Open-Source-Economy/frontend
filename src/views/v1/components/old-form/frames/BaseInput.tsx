@@ -20,7 +20,7 @@ export function BaseInput(props: BaseInputProps) {
         ${props.isValid === false ? "!border-red-500 focus:!border-red-500 focus:ring-red-500" : ""}
       `}
       value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      onChange={(e) => props.onChange(e.target.value)}
       disabled={props.disabled}
     />
   );

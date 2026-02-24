@@ -19,7 +19,9 @@ export function IconBox(props: IconBoxProps) {
           return "max-lg:left-0 md:border-r-2 md:rounded-br-lg md:w-1/2 lg:right-1/2 lg:w-full";
       }
     }
-    return props.index % 2 === 0 ? "md:right-0 md:border-l-2 md:rounded-bl-lg md:w-1/2" : "md:left-0 md:border-r-2 md:rounded-br-lg md:w-1/2";
+    return props.index % 2 === 0
+      ? "md:right-0 md:border-l-2 md:rounded-bl-lg md:w-1/2"
+      : "md:left-0 md:border-r-2 md:rounded-br-lg md:w-1/2";
   };
 
   return (
@@ -31,7 +33,9 @@ export function IconBox(props: IconBoxProps) {
       </div>
       {props.index >= 0 && (
         <>
-          <div className={`hidden md:block absolute bottom-0 h-4 border-white/30 border-b-2 border-dashed ${getBorderClasses()}`} />
+          <div
+            className={`hidden md:block absolute bottom-0 h-4 border-white/30 border-b-2 border-dashed ${getBorderClasses()}`}
+          />
           <div className="hidden md:block absolute h-4 w-4 md:h-5 md:w-5 left-1/2 -translate-x-1/2 bottom-3.5 rounded-full bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 p-[1px]">
             <div className="h-full w-full rounded-full bg-theme-background" />
           </div>

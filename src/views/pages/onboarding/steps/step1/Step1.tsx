@@ -26,7 +26,11 @@ export default function Step1(props: Step1Props) {
 
   const isLoading = createProfile.isPending || updateContactInfos.isPending;
   const mutationError = createProfile.error || updateContactInfos.error;
-  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
+  const apiError = mutationError
+    ? mutationError instanceof ApiError
+      ? mutationError
+      : ApiError.from(mutationError)
+    : null;
 
   const form = useZodForm(onboardingStep1Schema, {
     defaultValues: {
@@ -38,7 +42,7 @@ export default function Step1(props: Step1Props) {
 
   // Sync RHF -> parent state
   useEffect(() => {
-    const sub = form.watch(values => {
+    const sub = form.watch((values) => {
       props.updateState({
         name: values.name ?? undefined,
         contactEmail: values.contactEmail ?? undefined,
@@ -93,7 +97,14 @@ export default function Step1(props: Step1Props) {
 
       <FormProvider {...form}>
         <div className="space-y-5 sm:space-y-6">
-          <RhfFormInput<OnboardingStep1FormData> name="name" label="Full Name" placeholder="Jane Doe" leftIcon={User} disabled={isLoading} required />
+          <RhfFormInput<OnboardingStep1FormData>
+            name="name"
+            label="Full Name"
+            placeholder="Jane Doe"
+            leftIcon={User}
+            disabled={isLoading}
+            required
+          />
 
           <RhfFormInput<OnboardingStep1FormData>
             name="contactEmail"
@@ -117,7 +128,10 @@ export default function Step1(props: Step1Props) {
                 disabled={isLoading}
                 className="mt-0.5"
               />
-              <Label htmlFor="termsAccepted" className="flex-1 text-sm text-brand-neutral-700 cursor-pointer leading-relaxed">
+              <Label
+                htmlFor="termsAccepted"
+                className="flex-1 text-sm text-brand-neutral-700 cursor-pointer leading-relaxed"
+              >
                 By submitting this form, I agree to the{" "}
                 <Link
                   to={paths.TERMS_AND_CONDITIONS}
@@ -134,8 +148,8 @@ export default function Step1(props: Step1Props) {
           </div>
 
           <InfoMessage variant="muted" className="mt-6 sm:mt-8">
-            Your information is secure and will only be used to connect you with enterprise opportunities. We never share your contact details without your
-            permission
+            Your information is secure and will only be used to connect you with enterprise opportunities. We never
+            share your contact details without your permission
             {isVisible("privacyPolicy") && (
               <>
                 {" "}

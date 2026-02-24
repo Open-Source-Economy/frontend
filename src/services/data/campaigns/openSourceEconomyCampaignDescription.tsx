@@ -61,7 +61,8 @@ export const openSourceEconomyCampaignDescription: CampaignDescription = {
       <>
         Open source independence is under threat.
         <br />
-        Traditional models force projects to form centralized companies, risking their ethos and community-driven nature.
+        Traditional models force projects to form centralized companies, risking their ethos and community-driven
+        nature.
         <br />
         <br />
         We're forging a new path.
@@ -99,7 +100,8 @@ export const openSourceEconomyCampaignDescription: CampaignDescription = {
         We are a non profit organization.
         <br />
         <br />
-        We are not a business company looking after profits. Our only goal is to build a sustainable future for Open Source, in respect of each stakeholder.
+        We are not a business company looking after profits. Our only goal is to build a sustainable future for Open
+        Source, in respect of each stakeholder.
       </>
     ),
     paragraph2:

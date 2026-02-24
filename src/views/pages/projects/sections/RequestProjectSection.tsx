@@ -20,7 +20,8 @@ export const requestProjectContent = {
   variants: {
     fancy: {
       heading: "Can't Find Your Project?",
-      description: "We're continuously expanding our network with the world's best open source projects and their expert maintainers.",
+      description:
+        "We're continuously expanding our network with the world's best open source projects and their expert maintainers.",
       primaryCta: "Request a Project",
       secondaryCta: "Contact Us",
     },
@@ -53,7 +54,9 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
 
   // Helpers (no Tailwind here)
   const getDefaultHeading = (hasFilters: boolean) =>
-    hasFilters ? requestProjectContent.variants.default.headings.whenFiltered : requestProjectContent.variants.default.headings.whenUnfiltered;
+    hasFilters
+      ? requestProjectContent.variants.default.headings.whenFiltered
+      : requestProjectContent.variants.default.headings.whenUnfiltered;
 
   const getDefaultDescription = () => {
     const v = requestProjectContent.variants.default;
@@ -64,13 +67,15 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
           {hasSearch && (
             <span>
               {" "}
-              {v.searchNotePrefix} <span className="text-brand-accent">&quot;{props.searchQuery}&quot;</span> {v.searchNoteSuffix}
+              {v.searchNotePrefix} <span className="text-brand-accent">&quot;{props.searchQuery}&quot;</span>{" "}
+              {v.searchNoteSuffix}
             </span>
           )}
           {!hasSearch && hasCategory && !hasLanguage && (
             <span>
               {" "}
-              {v.categoryNotePrefix} <span className="text-brand-accent">{props.selectedCategory}</span> {v.categoryNoteSuffix}
+              {v.categoryNotePrefix} <span className="text-brand-accent">{props.selectedCategory}</span>{" "}
+              {v.categoryNoteSuffix}
             </span>
           )}
           {!hasSearch && !hasCategory && hasLanguage && (
@@ -82,8 +87,8 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
           {!hasSearch && hasCategory && hasLanguage && (
             <span>
               {" "}
-              We're actively adding more <span className="text-brand-accent">{props.selectedLanguage}</span> projects in the{" "}
-              <span className="text-brand-accent">{props.selectedCategory}</span> category.
+              We're actively adding more <span className="text-brand-accent">{props.selectedLanguage}</span> projects in
+              the <span className="text-brand-accent">{props.selectedCategory}</span> category.
             </span>
           )}
         </>

@@ -75,7 +75,8 @@ const defaultProjects: Project[] = [
   {
     id: "react",
     name: "React",
-    description: "A declarative, efficient, and flexible JavaScript library for building user interfaces with component-based architecture.",
+    description:
+      "A declarative, efficient, and flexible JavaScript library for building user interfaces with component-based architecture.",
     category: "Frontend Framework",
     subcategory: "UI Library",
     maintainers: 1500,
@@ -103,7 +104,8 @@ const defaultProjects: Project[] = [
   {
     id: "vue",
     name: "Vue.js",
-    description: "The Progressive JavaScript Framework for building modern user interfaces and single-page applications.",
+    description:
+      "The Progressive JavaScript Framework for building modern user interfaces and single-page applications.",
     category: "Frontend Framework",
     subcategory: "Progressive Framework",
     maintainers: 900,
@@ -328,7 +330,8 @@ const defaultProjects: Project[] = [
   {
     id: "flutter",
     name: "Flutter",
-    description: "Google's UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop.",
+    description:
+      "Google's UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop.",
     category: "Mobile Framework",
     subcategory: "Cross-Platform",
     maintainers: 1100,
@@ -408,7 +411,8 @@ const defaultProjects: Project[] = [
   {
     id: "sqlite",
     name: "SQLite",
-    description: "A C-language library that implements a small, fast, self-contained, high-reliability SQL database engine.",
+    description:
+      "A C-language library that implements a small, fast, self-contained, high-reliability SQL database engine.",
     category: "Database",
     subcategory: "Embedded Database",
     maintainers: 12,
@@ -448,7 +452,8 @@ const defaultProjects: Project[] = [
   {
     id: "influxdb",
     name: "InfluxDB",
-    description: "Scalable datastore for metrics, events, and real-time analytics built specifically for time series data.",
+    description:
+      "Scalable datastore for metrics, events, and real-time analytics built specifically for time series data.",
     category: "Database",
     subcategory: "Time Series Database",
     maintainers: 420,
@@ -524,7 +529,8 @@ const defaultProjects: Project[] = [
   {
     id: "supabase",
     name: "Supabase",
-    description: "Open source Firebase alternative providing instant APIs, realtime subscriptions, and user management.",
+    description:
+      "Open source Firebase alternative providing instant APIs, realtime subscriptions, and user management.",
     category: "Database",
     subcategory: "Backend as a Service",
     maintainers: 890,
@@ -547,7 +553,8 @@ const defaultProjects: Project[] = [
   {
     id: "kafka",
     name: "Apache Kafka",
-    description: "Distributed event streaming platform for high-performance data pipelines, streaming analytics, and mission-critical applications.",
+    description:
+      "Distributed event streaming platform for high-performance data pipelines, streaming analytics, and mission-critical applications.",
     category: "Data Platform",
     subcategory: "Event Streaming",
     maintainers: 750,
@@ -571,7 +578,8 @@ const defaultProjects: Project[] = [
   {
     id: "rust",
     name: "Rust",
-    description: "A language empowering everyone to build reliable and efficient software with memory safety and zero-cost abstractions.",
+    description:
+      "A language empowering everyone to build reliable and efficient software with memory safety and zero-cost abstractions.",
     category: "Programming Language",
     subcategory: "Systems Language",
     maintainers: 1100,
@@ -645,34 +653,36 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
 
     if (searchTerm) {
       filtered = filtered.filter(
-        project =>
+        (project) =>
           project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())),
+          project.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
     if (selectedCategory !== "all") {
-      filtered = filtered.filter(project => project.category === selectedCategory);
+      filtered = filtered.filter((project) => project.category === selectedCategory);
     }
 
     if (selectedStatus !== "all") {
-      filtered = filtered.filter(project => project.status === selectedStatus);
+      filtered = filtered.filter((project) => project.status === selectedStatus);
     }
 
     if (selectedMaintainerType !== "all") {
       filtered = filtered.filter(
-        project => project.primaryMaintainerType === selectedMaintainerType || project.maintainerTypes?.includes(selectedMaintainerType as any),
+        (project) =>
+          project.primaryMaintainerType === selectedMaintainerType ||
+          project.maintainerTypes?.includes(selectedMaintainerType as any)
       );
     }
 
     if (selectedLanguage !== "all") {
       filtered = filtered.filter(
-        project =>
+        (project) =>
           project.primaryLanguage === selectedLanguage ||
           project.supportedEcosystems?.includes(selectedLanguage) ||
           project.language === selectedLanguage ||
-          project.languages.includes(selectedLanguage),
+          project.languages.includes(selectedLanguage)
       );
     }
 
@@ -682,44 +692,48 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   const displayedProjects = maxProjects && !showAll ? filteredProjects.slice(0, maxProjects) : filteredProjects;
 
   const categories = React.useMemo(() => {
-    const cats = Array.from(new Set(projects.map(p => p.category)));
+    const cats = Array.from(new Set(projects.map((p) => p.category)));
     return cats.sort();
   }, [projects]);
 
   const _maintainerTypes = React.useMemo(() => {
     const types = new Set<string>();
-    projects.forEach(p => {
+    projects.forEach((p) => {
       if (p.primaryMaintainerType) types.add(p.primaryMaintainerType);
-      p.maintainerTypes?.forEach(type => types.add(type));
+      p.maintainerTypes?.forEach((type) => types.add(type));
     });
     return Array.from(types).sort();
   }, [projects]);
 
   const availableLanguages = React.useMemo(() => {
     const languages = new Set<string>();
-    projects.forEach(p => {
+    projects.forEach((p) => {
       if (p.primaryLanguage) languages.add(p.primaryLanguage);
       if (p.language) languages.add(p.language);
-      p.languages?.forEach(lang => languages.add(lang));
-      p.supportedEcosystems?.forEach(eco => languages.add(eco));
+      p.languages?.forEach((lang) => languages.add(lang));
+      p.supportedEcosystems?.forEach((eco) => languages.add(eco));
     });
     return Array.from(languages).sort();
   }, [projects]);
 
   const stats = React.useMemo(() => {
-    const totalStars = projects.reduce((sum, p) => sum + parseInt(p.stars.replace("k", "000").replace("M", "000000")), 0);
+    const totalStars = projects.reduce(
+      (sum, p) => sum + parseInt(p.stars.replace("k", "000").replace("M", "000000")),
+      0
+    );
     const totalMaintainers = projects.reduce((sum, p) => sum + p.maintainers, 0);
     return {
       totalProjects: projects.length,
       totalStars: totalStars > 1000000 ? `${(totalStars / 1000000).toFixed(1)}M` : `${Math.round(totalStars / 1000)}k`,
-      totalMaintainers: totalMaintainers > 1000 ? `${(totalMaintainers / 1000).toFixed(1)}k` : totalMaintainers.toString(),
-      featuredProjects: projects.filter(p => p.featured).length,
+      totalMaintainers:
+        totalMaintainers > 1000 ? `${(totalMaintainers / 1000).toFixed(1)}k` : totalMaintainers.toString(),
+      featuredProjects: projects.filter((p) => p.featured).length,
     };
   }, [projects]);
 
   // Toggle category expansion
   const toggleCategoryExpansion = (category: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(category)) {
         newSet.delete(category);
@@ -733,8 +747,11 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   // Render different variants
   const renderGridVariant = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {displayedProjects.map(project => (
-        <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20">
+      {displayedProjects.map((project) => (
+        <Card
+          key={project.id}
+          className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20"
+        >
           <CardContent className="p-6">
             {/* Project Header */}
             <div className="flex items-start justify-between mb-4">
@@ -769,7 +786,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-1 mb-4">
-              {project.tags.slice(0, 3).map(tag => (
+              {project.tags.slice(0, 3).map((tag) => (
                 <Badge key={tag} variant="outline" className="text-xs">
                   {tag}
                 </Badge>
@@ -806,7 +823,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
 
   const renderListVariant = () => (
     <div className="space-y-4">
-      {displayedProjects.map(project => (
+      {displayedProjects.map((project) => (
         <Card key={project.id} className="group hover:shadow-md transition-all duration-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -848,8 +865,8 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   );
 
   const renderFeaturedVariant = () => {
-    const featuredProjects = displayedProjects.filter(p => p.featured);
-    const otherProjects = displayedProjects.filter(p => !p.featured);
+    const featuredProjects = displayedProjects.filter((p) => p.featured);
+    const otherProjects = displayedProjects.filter((p) => !p.featured);
 
     return (
       <div className="space-y-8">
@@ -861,8 +878,11 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
               Featured Projects
             </h3>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              {featuredProjects.slice(0, 4).map(project => (
-                <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 border-brand-primary/20">
+              {featuredProjects.slice(0, 4).map((project) => (
+                <Card
+                  key={project.id}
+                  className="group hover:shadow-lg transition-all duration-300 border-brand-primary/20"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-16 h-16 bg-brand-primary/10 rounded-xl flex items-center justify-center group-hover:bg-brand-primary/20 transition-colors">
@@ -886,7 +906,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                           {project.weeklyDownloads && <span>{project.weeklyDownloads} weekly downloads</span>}
                         </div>
                         <div className="flex flex-wrap gap-1">
-                          {project.tags.slice(0, 4).map(tag => (
+                          {project.tags.slice(0, 4).map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs">
                               {tag}
                             </Badge>
@@ -906,7 +926,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
           <div>
             <h3 className="font-medium mb-4">All Projects</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {otherProjects.map(project => (
+              {otherProjects.map((project) => (
                 <Card key={project.id} className="group hover:shadow-md transition-all duration-200">
                   <CardContent className="p-4">
                     <div className="flex items-center gap-3 mb-3">
@@ -945,7 +965,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
 
   const renderCompactVariant = () => (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-      {displayedProjects.map(project => (
+      {displayedProjects.map((project) => (
         <Card key={project.id} className="group hover:shadow-md transition-all duration-200 cursor-pointer">
           <CardContent className="p-4 text-center">
             <div className="w-12 h-12 bg-brand-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-primary/20 transition-colors">
@@ -971,7 +991,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
 
   const renderStatsVariant = () => (
     <div className="space-y-6">
-      {displayedProjects.map(project => (
+      {displayedProjects.map((project) => (
         <Card key={project.id} className="group hover:shadow-lg transition-all duration-300">
           <CardContent className="p-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -988,7 +1008,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                     </div>
                     <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{project.description}</p>
                     <div className="flex flex-wrap gap-1 mb-3">
-                      {project.tags.slice(0, 5).map(tag => (
+                      {project.tags.slice(0, 5).map((tag) => (
                         <Badge key={tag} variant="outline" className="text-xs">
                           {tag}
                         </Badge>
@@ -1035,15 +1055,15 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   const renderCategoryVariant = () => {
     const groupedProjects = categories.reduce(
       (acc, category) => {
-        acc[category] = projects.filter(p => p.category === category);
+        acc[category] = projects.filter((p) => p.category === category);
         return acc;
       },
-      {} as Record<string, Project[]>,
+      {} as Record<string, Project[]>
     );
 
     return (
       <div className="space-y-8">
-        {categories.map(category => {
+        {categories.map((category) => {
           const categoryProjects = groupedProjects[category];
           if (!categoryProjects || categoryProjects.length === 0) return null;
 
@@ -1054,14 +1074,19 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                 <div className="flex items-center gap-2">
                   <Badge variant="outline">{categoryProjects.length} projects</Badge>
                   {categoryProjects.length > 6 && (
-                    <Button variant="ghost" size="sm" onClick={() => toggleCategoryExpansion(category)} className="text-xs">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleCategoryExpansion(category)}
+                      className="text-xs"
+                    >
                       {expandedCategories.has(category) ? "Show Less" : "Show More"}
                     </Button>
                   )}
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {(expandedCategories.has(category) ? categoryProjects : categoryProjects.slice(0, 6)).map(project => (
+                {(expandedCategories.has(category) ? categoryProjects : categoryProjects.slice(0, 6)).map((project) => (
                   <Card key={project.id} className="group hover:shadow-md transition-all duration-200">
                     <CardContent className="p-4 relative overflow-hidden">
                       {/* Subtle background pattern */}
@@ -1073,7 +1098,10 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                         <div className="flex items-center gap-3">
                           <div className="relative flex-shrink-0">
                             <div className="w-10 h-10 bg-gradient-to-br from-brand-primary/10 to-brand-accent/5 rounded-xl flex items-center justify-center group-hover:from-brand-primary/20 group-hover:to-brand-accent/10 transition-all duration-300 border border-brand-primary/10 group-hover:border-brand-primary/20">
-                              <project.icon size={18} className="text-brand-primary group-hover:scale-110 transition-transform duration-300" />
+                              <project.icon
+                                size={18}
+                                className="text-brand-primary group-hover:scale-110 transition-transform duration-300"
+                              />
                             </div>
                           </div>
 
@@ -1098,7 +1126,9 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                                 <div className="w-5 h-5 bg-brand-primary/15 rounded-lg flex items-center justify-center">
                                   <Users size={12} className="text-brand-primary" />
                                 </div>
-                                <span className="text-xs font-medium text-foreground">{project.onboardedMaintainers || "3"} Expert Maintainers</span>
+                                <span className="text-xs font-medium text-foreground">
+                                  {project.onboardedMaintainers || "3"} Expert Maintainers
+                                </span>
                               </div>
                               <div className="flex-1 h-px bg-gradient-to-r from-brand-primary/20 via-brand-primary/10 to-transparent"></div>
                             </div>
@@ -1112,7 +1142,11 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                                     variant="outline"
                                     className="text-xs px-2 py-0.5 bg-brand-primary/5 text-brand-primary border-brand-primary/30 hover:bg-brand-primary/10 transition-colors duration-300"
                                   >
-                                    {type === "core-team" ? "Core Team" : type === "pmc" ? "PMC" : type.charAt(0).toUpperCase() + type.slice(1)}
+                                    {type === "core-team"
+                                      ? "Core Team"
+                                      : type === "pmc"
+                                        ? "PMC"
+                                        : type.charAt(0).toUpperCase() + type.slice(1)}
                                   </Badge>
                                 ))
                               ) : (
@@ -1136,7 +1170,8 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                         </div>
 
                         {/* Enhanced Languages Section */}
-                        {(project.primaryLanguage || (project.supportedEcosystems && project.supportedEcosystems.length > 0)) && (
+                        {(project.primaryLanguage ||
+                          (project.supportedEcosystems && project.supportedEcosystems.length > 0)) && (
                           <div className="flex flex-wrap gap-1.5">
                             {project.primaryLanguage && (
                               <Badge
@@ -1207,7 +1242,12 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
               </div>
               {!expandedCategories.has(category) && categoryProjects.length > 6 && (
                 <div className="mt-4 text-center">
-                  <Button variant="outline" size="sm" onClick={() => toggleCategoryExpansion(category)} className="text-xs">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleCategoryExpansion(category)}
+                    className="text-xs"
+                  >
                     View {categoryProjects.length - 6} More Projects
                   </Button>
                 </div>
@@ -1221,7 +1261,9 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   };
 
   return (
-    <section className={`relative py-16 md:py-24 bg-gradient-to-b from-background via-brand-neutral-50/30 to-background ${className}`}>
+    <section
+      className={`relative py-16 md:py-24 bg-gradient-to-b from-background via-brand-neutral-50/30 to-background ${className}`}
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,64,175,0.05)_0%,transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(5,150,105,0.03)_0%,transparent_50%)] pointer-events-none" />
@@ -1266,7 +1308,12 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
               <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 {showSearch && (
                   <div className="flex-1 min-w-0">
-                    <SearchInput placeholder="Search projects, technologies, or maintainers..." value={searchTerm} onChange={setSearchTerm} size="lg" />
+                    <SearchInput
+                      placeholder="Search projects, technologies, or maintainers..."
+                      value={searchTerm}
+                      onChange={setSearchTerm}
+                      size="lg"
+                    />
                   </div>
                 )}
 
@@ -1279,7 +1326,10 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                       icon={Filter}
                       width="w-[180px] lg:w-[160px] xl:w-[180px]"
                       size="lg"
-                      options={[{ value: "all", label: "All Categories" }, ...categories.map(category => ({ value: category, label: category }))]}
+                      options={[
+                        { value: "all", label: "All Categories" },
+                        ...categories.map((category) => ({ value: category, label: category })),
+                      ]}
                     />
 
                     <FilterSelect
@@ -1289,7 +1339,10 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                       icon={Code2}
                       width="w-[160px] lg:w-[140px] xl:w-[160px]"
                       size="lg"
-                      options={[{ value: "all", label: "All Languages" }, ...availableLanguages.map(language => ({ value: language, label: language }))]}
+                      options={[
+                        { value: "all", label: "All Languages" },
+                        ...availableLanguages.map((language) => ({ value: language, label: language })),
+                      ]}
                     />
 
                     <FilterSelect
@@ -1336,7 +1389,9 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
               <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-brand-accent/5 rounded-2xl blur-sm" />
             </div>
             <h3 className="text-xl font-semibold mb-3">No projects found</h3>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto">Try adjusting your search terms or filters to find what you're looking for.</p>
+            <p className="text-muted-foreground text-lg max-w-md mx-auto">
+              Try adjusting your search terms or filters to find what you're looking for.
+            </p>
           </div>
         )}
 
@@ -1353,8 +1408,8 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                   <h3 className="text-2xl font-semibold text-foreground">Don't see your project?</h3>
                 </div>
                 <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-                  We're constantly expanding our network of expert maintainers. Request support for your critical dependencies and get direct access to the
-                  world's best open source talent.
+                  We're constantly expanding our network of expert maintainers. Request support for your critical
+                  dependencies and get direct access to the world's best open source talent.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">

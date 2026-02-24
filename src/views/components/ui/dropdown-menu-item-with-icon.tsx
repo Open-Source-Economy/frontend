@@ -12,7 +12,10 @@ interface DropdownMenuItemWithIconProps {
 export function DropdownMenuItemWithIcon(props: DropdownMenuItemWithIconProps) {
   const Icon = props.icon;
   const variant = props.variant ?? "default";
-  const variantClasses = variant === "danger" ? "text-red-600 hover:text-red-600 hover:bg-red-500/10 focus:text-red-600 focus:bg-red-500/10" : "";
+  const variantClasses =
+    variant === "danger"
+      ? "text-red-600 hover:text-red-600 hover:bg-red-500/10 focus:text-red-600 focus:bg-red-500/10"
+      : "";
 
   return (
     <DropdownMenuItem onClick={props.onClick} className={`cursor-pointer ${variantClasses}`}>

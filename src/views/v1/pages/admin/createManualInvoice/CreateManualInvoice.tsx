@@ -67,7 +67,9 @@ export function CreateManualInvoice(_props: CreateManualInvoiceProps) {
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("invoiceNumber")}
               />
-              {formErrors.invoiceNumber && <p className="text-red-500 text-sm mb-2">{formErrors.invoiceNumber.message}</p>}
+              {formErrors.invoiceNumber && (
+                <p className="text-red-500 text-sm mb-2">{formErrors.invoiceNumber.message}</p>
+              )}
 
               <input
                 type="text"
@@ -85,7 +87,13 @@ export function CreateManualInvoice(_props: CreateManualInvoiceProps) {
               />
 
               <div className="w-full sm:w-[400px] flex items-center mb-4">
-                <input type="checkbox" id="paid" checked={form.watch("paid")} onChange={e => form.setValue("paid", e.target.checked)} className="mr-3" />
+                <input
+                  type="checkbox"
+                  id="paid"
+                  checked={form.watch("paid")}
+                  onChange={(e) => form.setValue("paid", e.target.checked)}
+                  className="mr-3"
+                />
                 <label htmlFor="paid" className="text-white">
                   Paid
                 </label>
@@ -97,9 +105,14 @@ export function CreateManualInvoice(_props: CreateManualInvoiceProps) {
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("creditAmount")}
               />
-              {formErrors.creditAmount && <p className="text-red-500 text-sm mb-2">{formErrors.creditAmount.message}</p>}
+              {formErrors.creditAmount && (
+                <p className="text-red-500 text-sm mb-2">{formErrors.creditAmount.message}</p>
+              )}
 
-              <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">
+              <button
+                type="submit"
+                className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer"
+              >
                 Create Manual Invoice
               </button>
             </form>

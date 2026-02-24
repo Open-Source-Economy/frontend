@@ -10,12 +10,17 @@ export function HowCreditsWorkSection() {
         <div className="text-center mb-12">
           <h2 className="text-brand-neutral-900 mb-4">How Service Credits Work</h2>
           <p className="text-brand-neutral-600 max-w-2xl mx-auto">
-            Universal credits that work across any project. Flexible rates based on service type and maintainer expertise.
+            Universal credits that work across any project. Flexible rates based on service type and maintainer
+            expertise.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <CreditBenefitCard icon={Zap} title="Universal Credits" description="Use credits across any project—allocate resources where you need them most." />
+          <CreditBenefitCard
+            icon={Zap}
+            title="Universal Credits"
+            description="Use credits across any project—allocate resources where you need them most."
+          />
           <CreditBenefitCard
             icon={TrendingUp}
             title="Service-Based Rates"

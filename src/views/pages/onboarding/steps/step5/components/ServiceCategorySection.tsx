@@ -54,7 +54,7 @@ export const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({
 
       {/* Services in this category */}
       <div className="space-y-3">
-        {entries.map(entry => (
+        {entries.map((entry) => (
           <ServiceCard
             key={entry.service.id.uuid}
             developerServiceEntry={entry}

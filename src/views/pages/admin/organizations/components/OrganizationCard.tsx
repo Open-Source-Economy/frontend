@@ -80,11 +80,19 @@ export function OrganizationCard(props: OrganizationCardProps) {
         {/* Organization Info */}
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            {owner?.displayAvatarUrl && <img src={owner.displayAvatarUrl} alt={owner.id.login} className="w-12 h-12 rounded-full border-2 border-white/20" />}
+            {owner?.displayAvatarUrl && (
+              <img
+                src={owner.displayAvatarUrl}
+                alt={owner.id.login}
+                className="w-12 h-12 rounded-full border-2 border-white/20"
+              />
+            )}
             <div>
               {owner && (
                 <>
-                  <h3 className="text-xl font-semibold text-white">{owner.name || owner.id.login || "Unknown Organization"}</h3>
+                  <h3 className="text-xl font-semibold text-white">
+                    {owner.name || owner.id.login || "Unknown Organization"}
+                  </h3>
                   <ExternalLink
                     href={owner.htmlUrl}
                     target="_blank"
@@ -147,7 +155,8 @@ export function OrganizationCard(props: OrganizationCardProps) {
             <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-red-300">
-                <strong>Cannot sync:</strong> Public repository count is not available. Please sync this owner's data first to enable bulk sync.
+                <strong>Cannot sync:</strong> Public repository count is not available. Please sync this owner's data
+                first to enable bulk sync.
               </div>
             </div>
           )}
@@ -201,7 +210,11 @@ export function OrganizationCard(props: OrganizationCardProps) {
                 {props.isSyncing ? "Syncing..." : "Sync Repositories"}
               </Button>
 
-              <Button variant="outline" onClick={() => setShowAdvanced(!showAdvanced)} className="whitespace-nowrap text-sm">
+              <Button
+                variant="outline"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="whitespace-nowrap text-sm"
+              >
                 {showAdvanced ? "Hide" : "Advanced"} Options
               </Button>
             </>
@@ -216,17 +229,35 @@ export function OrganizationCard(props: OrganizationCardProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">Offset</label>
-              <Input type="number" min={0} value={offset} onChange={e => setOffset(parseInt(e.target.value) || 0)} placeholder="0" />
+              <Input
+                type="number"
+                min={0}
+                value={offset}
+                onChange={(e) => setOffset(parseInt(e.target.value) || 0)}
+                placeholder="0"
+              />
               <p className="text-xs text-gray-500 mt-1">Start position for pagination</p>
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">Batch Size</label>
-              <Input type="number" min={1} max={500} value={batchSize} onChange={e => setBatchSize(parseInt(e.target.value) || 500)} placeholder="500" />
+              <Input
+                type="number"
+                min={1}
+                max={500}
+                value={batchSize}
+                onChange={(e) => setBatchSize(parseInt(e.target.value) || 500)}
+                placeholder="500"
+              />
               <p className="text-xs text-gray-500 mt-1">Max 500 repos per sync</p>
             </div>
             <div>
               <label className="flex items-center gap-2 text-sm text-gray-400">
-                <input type="checkbox" checked={fetchDetails} onChange={e => setFetchDetails(e.target.checked)} className="rounded" />
+                <input
+                  type="checkbox"
+                  checked={fetchDetails}
+                  onChange={(e) => setFetchDetails(e.target.checked)}
+                  className="rounded"
+                />
                 Fetch Details
               </label>
               <p className="text-xs text-gray-500 mt-1">Slower but more complete data</p>

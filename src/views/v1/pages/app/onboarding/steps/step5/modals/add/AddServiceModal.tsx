@@ -22,11 +22,11 @@ export function AddServiceModal(props: AddServiceModalProps) {
   if (!props.isOpen) return null;
 
   const handleServiceSelection = (service: dto.Service) => {
-    setSelectedServices(prev => {
+    setSelectedServices((prev) => {
       // Check if the service is already selected based on its UUID
-      if (prev.some(s => s.id.uuid === service.id.uuid)) {
+      if (prev.some((s) => s.id.uuid === service.id.uuid)) {
         // If it is, filter it out to deselect it
-        return prev.filter(s => s.id.uuid !== service.id.uuid);
+        return prev.filter((s) => s.id.uuid !== service.id.uuid);
       } else {
         // Otherwise, add the new service to the list
         return [...prev, service];
@@ -53,10 +53,12 @@ export function AddServiceModal(props: AddServiceModalProps) {
         <div className="flex flex-col gap-2 mb-6">
           {props.isLoading ? (
             <div className="flex items-center justify-center py-4">
-              <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">Loading services...</div>
+              <div className="font-montserrat font-normal text-[#ffffff] text-[14px] opacity-70">
+                Loading services...
+              </div>
             </div>
           ) : (
-            props.serviceCategories.map(serviceHierarchyItem => {
+            props.serviceCategories.map((serviceHierarchyItem) => {
               if (serviceHierarchyItem.services.length === 0) return null;
 
               return (
@@ -64,8 +66,8 @@ export function AddServiceModal(props: AddServiceModalProps) {
                   <div className="font-montserrat font-medium text-[#ffffff] text-[16px] text-left py-2 bg-[#202f45] px-4">
                     <p className="block leading-[1.5]">{serviceHierarchyItem.category}</p>
                   </div>
-                  {serviceHierarchyItem.services.map(service => {
-                    const isSelected = selectedServices.some(s => s.id.uuid === service.id.uuid);
+                  {serviceHierarchyItem.services.map((service) => {
+                    const isSelected = selectedServices.some((s) => s.id.uuid === service.id.uuid);
                     return (
                       <div
                         key={service.id.uuid}
@@ -81,8 +83,20 @@ export function AddServiceModal(props: AddServiceModalProps) {
                           />
                           {isSelected && (
                             <div className="absolute inset-0 bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b] rounded-sm flex items-center justify-center">
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                              <svg
+                                width="12"
+                                height="9"
+                                viewBox="0 0 12 9"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M1 4.5L4.5 8L11 1.5"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
                               </svg>
                             </div>
                           )}
@@ -103,7 +117,13 @@ export function AddServiceModal(props: AddServiceModalProps) {
           <Button onClick={props.onClose} level="SECONDARY" audience="DEVELOPER" size="MEDIUM">
             Cancel
           </Button>
-          <Button onClick={handleAddSelectedServices} disabled={selectedServices.length === 0} level="PRIMARY" audience="DEVELOPER" size="MEDIUM">
+          <Button
+            onClick={handleAddSelectedServices}
+            disabled={selectedServices.length === 0}
+            level="PRIMARY"
+            audience="DEVELOPER"
+            size="MEDIUM"
+          >
             Add Selected
           </Button>
         </div>

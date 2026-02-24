@@ -11,7 +11,13 @@ export function FloatingElements(props: FloatingElementsProps) {
   const elements = Array.from({ length: count }, (_, i) => i);
 
   const getElementStyles = (index: number) => {
-    const positions = ["top-1/4 left-1/4", "top-1/3 right-1/4", "bottom-1/4 left-1/3", "top-1/2 right-1/3", "bottom-1/3 right-1/4"];
+    const positions = [
+      "top-1/4 left-1/4",
+      "top-1/3 right-1/4",
+      "bottom-1/4 left-1/3",
+      "top-1/2 right-1/3",
+      "bottom-1/3 right-1/4",
+    ];
 
     const sizes = ["w-16 h-16", "w-20 h-20", "w-12 h-12", "w-24 h-24"];
     const delays = ["0s", "2s", "4s", "1s", "3s"];

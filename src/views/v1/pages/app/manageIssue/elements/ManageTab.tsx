@@ -23,7 +23,9 @@ export function ManageTab(props: ManageTabProps) {
           <div className="bg-[#14233A] rounded-lg flex justify-between items-center relative z-10 p-2">
             <button
               className={`btnpadding w-full transition-all duration-500 ease-in-out py-3 !px-5 focus:outline-none montserrat text-sm md:text-lg ${
-                activeTab === Tab.One ? "text-white bg-[#ff7e4b] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
+                activeTab === Tab.One
+                  ? "text-white bg-[#ff7e4b] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]"
+                  : "bg-transparent text-gray-300"
               }`}
               onClick={() => setActiveTab(Tab.One)}
             >
@@ -32,7 +34,9 @@ export function ManageTab(props: ManageTabProps) {
 
             <button
               className={`btnpadding w-full transition-all duration-500 ease-in-out py-3 !px-5 focus:outline-none montserrat text-sm md:text-lg ${
-                activeTab === Tab.Two ? "text-white bg-[#ff7e4b] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]" : "bg-transparent text-gray-300"
+                activeTab === Tab.Two
+                  ? "text-white bg-[#ff7e4b] rounded-md shadow-[0_0_20px_5px_rgba(255,81,140,0.4)]"
+                  : "bg-transparent text-gray-300"
               }`}
               onClick={() => setActiveTab(Tab.Two)}
             >

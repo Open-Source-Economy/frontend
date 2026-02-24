@@ -13,10 +13,12 @@ export interface GroupedDeveloperServiceEntry {
  */
 export const groupDeveloperServicesByCategory = (
   serviceHierarchy: dto.ServiceHierarchyItem[],
-  developerServices: dto.DeveloperServiceEntry[],
+  developerServices: dto.DeveloperServiceEntry[]
 ): GroupedDeveloperServiceEntry[] => {
   return serviceHierarchy.reduce<GroupedDeveloperServiceEntry[]>((acc, categoryItem) => {
-    const servicesInThisCategory = developerServices.filter(({ service }) => service.serviceType === categoryItem.category);
+    const servicesInThisCategory = developerServices.filter(
+      ({ service }) => service.serviceType === categoryItem.category
+    );
 
     if (servicesInThisCategory.length > 0) {
       acc.push({

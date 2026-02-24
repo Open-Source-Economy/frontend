@@ -38,10 +38,10 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
         return runValidation(props.value, showInputError);
       },
     }),
-    [props.value, props.required, props.label],
+    [props.value, props.required, props.label]
   );
 
-  const selectedOptionLabel = props.options.find(option => option.value === props.value)?.label || "Select...";
+  const selectedOptionLabel = props.options.find((option) => option.value === props.value)?.label || "Select...";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -115,7 +115,9 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
           aria-expanded={showDropdown}
           aria-labelledby={`${props.id}-label`}
         >
-          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">{selectedOptionLabel}</span>
+          <span className="font-montserrat font-normal text-[#ffffff] text-[16px] flex-grow">
+            {selectedOptionLabel}
+          </span>
           <svg
             className={`w-4 h-4 text-[#ffffff] transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
             fill="none"
@@ -132,7 +134,7 @@ export const SelectInput = forwardRef(function SelectInput(props: SelectInputPro
 
       {showDropdown && (
         <div className="absolute top-full left-0 right-0 bg-[#202f45] border border-[#2a3f56] rounded-md mt-1 max-h-[200px] overflow-y-auto z-[100] w-full">
-          {props.options.map(option => (
+          {props.options.map((option) => (
             <button
               key={option.value}
               onClick={() => handleOptionClick(option.value)}

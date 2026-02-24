@@ -36,6 +36,13 @@ interface IntegerInputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const IntegerInput = forwardRef(function IntegerInput(props: IntegerInputProps, ref: Ref<GenericInputRef>) {
   const { strictlyPositive, ...rest } = props;
   return (
-    <GenericInput type="number" inputMode="numeric" validator={(value: string) => validate(strictlyPositive)(value)} pattern="[0-9]*" ref={ref} {...rest} />
+    <GenericInput
+      type="number"
+      inputMode="numeric"
+      validator={(value: string) => validate(strictlyPositive)(value)}
+      pattern="[0-9]*"
+      ref={ref}
+      {...rest}
+    />
   );
 });

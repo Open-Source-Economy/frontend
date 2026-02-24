@@ -81,12 +81,16 @@ export const paths = {
   },
 
   // Dynamic route functions
-  fundIssue: (issueId: IssueId) => `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,
+  fundIssue: (issueId: IssueId) =>
+    `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,
 
-  manageIssue: (issueId: IssueId) => `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`,
+  manageIssue: (issueId: IssueId) =>
+    `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`,
 
   project: (projectId: ProjectId) =>
-    isOwnerId(projectId) ? `/projects/${(projectId as any).login}` : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}`,
+    isOwnerId(projectId)
+      ? `/projects/${(projectId as any).login}`
+      : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}`,
 
   campaign: (projectId: ProjectId) =>
     isOwnerId(projectId)

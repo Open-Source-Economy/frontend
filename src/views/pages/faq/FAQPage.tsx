@@ -22,7 +22,8 @@ export function FAQPage() {
               </Badge>
               <h1 className="text-brand-neutral-950 mb-4">Frequently Asked Questions</h1>
               <p className="text-brand-neutral-600 text-lg mb-8">
-                Find answers to common questions about Open Source Economy, our services, pricing, and how we support the open source ecosystem.
+                Find answers to common questions about Open Source Economy, our services, pricing, and how we support
+                the open source ecosystem.
               </p>
               <FAQSearchBar value={searchQuery} onChange={setSearchQuery} />
             </div>
@@ -52,7 +53,8 @@ export function FAQPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
             <h2 className="text-brand-neutral-900 mb-4">Still have questions?</h2>
             <p className="text-brand-neutral-600 text-lg mb-8 max-w-xl mx-auto">
-              Can't find the answer you're looking for? Our team is here to help. Reach out and we'll get back to you as soon as possible.
+              Can't find the answer you're looking for? Our team is here to help. Reach out and we'll get back to you as
+              soon as possible.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild>

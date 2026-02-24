@@ -12,7 +12,11 @@ interface PlanAccessSectionProps {
 export function PlanAccessSection(props: PlanAccessSectionProps) {
   return (
     <div className="pt-4 border-t border-brand-neutral-300 mt-2">
-      <SectionHeader title="Your Plan Access" subtitle="Credits vary by tier" titleClassName="text-brand-neutral-900 mb-2" />
+      <SectionHeader
+        title="Your Plan Access"
+        subtitle="Credits vary by tier"
+        titleClassName="text-brand-neutral-900 mb-2"
+      />
 
       {/* Show "Everything in previous plan +" for upgrade tiers */}
       {props.previousPlanName && (

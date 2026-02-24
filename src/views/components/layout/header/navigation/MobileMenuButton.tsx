@@ -9,7 +9,11 @@ interface MobileMenuButtonProps {
 export function MobileMenuButton(props: MobileMenuButtonProps) {
   return (
     <div className="md:hidden">
-      <button className="p-2" onClick={() => props.setIsMobileMenuOpen(!props.isMobileMenuOpen)} aria-label="Toggle mobile menu">
+      <button
+        className="p-2"
+        onClick={() => props.setIsMobileMenuOpen(!props.isMobileMenuOpen)}
+        aria-label="Toggle mobile menu"
+      >
         {props.isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
     </div>

@@ -1,5 +1,16 @@
 import React from "react";
-import { Briefcase, Clock, Code2, DollarSign, FileText, Handshake, Headphones, Layers, Sparkles, Users } from "lucide-react";
+import {
+  Briefcase,
+  Clock,
+  Code2,
+  DollarSign,
+  FileText,
+  Handshake,
+  Headphones,
+  Layers,
+  Sparkles,
+  Users,
+} from "lucide-react";
 
 export const PartnershipSection: React.FC = () => {
   return (
@@ -34,12 +45,23 @@ export const PartnershipSection: React.FC = () => {
 
               <div className="space-y-3 mb-6">
                 {[
-                  { icon: Layers, title: "Choose Your Projects", desc: "Select which open source projects to offer services for" },
-                  { icon: Briefcase, title: "Choose Which Services to Offer", desc: "Bug fixes, features, consulting, support, or any combination" },
+                  {
+                    icon: Layers,
+                    title: "Choose Your Projects",
+                    desc: "Select which open source projects to offer services for",
+                  },
+                  {
+                    icon: Briefcase,
+                    title: "Choose Which Services to Offer",
+                    desc: "Bug fixes, features, consulting, support, or any combination",
+                  },
                   { icon: DollarSign, title: "Set Your Rates", desc: "Full pricing control for each commitment level" },
                   { icon: Clock, title: "Define Commitment Levels", desc: "Work full-time, part-time, or flexibly" },
                 ].map((item, i) => (
-                  <div key={i} className="bg-brand-accent/5 border-l-4 border-brand-accent rounded-r-xl p-4 hover:bg-brand-accent/10 transition-colors">
+                  <div
+                    key={i}
+                    className="bg-brand-accent/5 border-l-4 border-brand-accent rounded-r-xl p-4 hover:bg-brand-accent/10 transition-colors"
+                  >
                     <div className="flex items-start gap-3">
                       <item.icon className="w-5 h-5 text-brand-accent flex-shrink-0 mt-0.5" />
                       <div>
@@ -74,12 +96,31 @@ export const PartnershipSection: React.FC = () => {
 
               <div className="space-y-3 mb-6">
                 {[
-                  { icon: Users, title: "Client Acquisition", desc: "We find enterprises, pitch your services, and bring you opportunities" },
-                  { icon: FileText, title: "Legal & Contracts", desc: "We draft, negotiate, and manage all legal agreements on your behalf" },
-                  { icon: DollarSign, title: "Payments & Billing", desc: "We handle invoicing, payment collection, and timely payouts to you" },
-                  { icon: Headphones, title: "Client Relations", desc: "We manage ongoing communication, expectations, and satisfaction" },
+                  {
+                    icon: Users,
+                    title: "Client Acquisition",
+                    desc: "We find enterprises, pitch your services, and bring you opportunities",
+                  },
+                  {
+                    icon: FileText,
+                    title: "Legal & Contracts",
+                    desc: "We draft, negotiate, and manage all legal agreements on your behalf",
+                  },
+                  {
+                    icon: DollarSign,
+                    title: "Payments & Billing",
+                    desc: "We handle invoicing, payment collection, and timely payouts to you",
+                  },
+                  {
+                    icon: Headphones,
+                    title: "Client Relations",
+                    desc: "We manage ongoing communication, expectations, and satisfaction",
+                  },
                 ].map((item, i) => (
-                  <div key={i} className="bg-brand-primary/5 border-l-4 border-brand-primary rounded-r-xl p-4 hover:bg-brand-primary/10 transition-colors">
+                  <div
+                    key={i}
+                    className="bg-brand-primary/5 border-l-4 border-brand-primary rounded-r-xl p-4 hover:bg-brand-primary/10 transition-colors"
+                  >
                     <div className="flex items-start gap-3">
                       <item.icon className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
                       <div>

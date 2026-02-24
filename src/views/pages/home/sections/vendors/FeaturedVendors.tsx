@@ -88,13 +88,17 @@ export function FeaturedVendors(props: FeaturedVendorsProps) {
 
           <h2 className="text-brand-neutral-900 mb-6">Featured Open‑Source Vendors</h2>
 
-          <p className="text-brand-neutral-600 text-lg">Discover vendors committed to open‑source excellence and trusted by global clients</p>
+          <p className="text-brand-neutral-600 text-lg">
+            Discover vendors committed to open‑source excellence and trusted by global clients
+          </p>
         </div>
 
         {/* Vendor Cards Grid */}
         <div
           className={`${
-            vendors.length === 1 ? "flex justify-center max-w-md mx-auto" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
+            vendors.length === 1
+              ? "flex justify-center max-w-md mx-auto"
+              : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
           }`}
         >
           {vendors.map(({ href, ...vendor }, idx) => (
@@ -104,7 +108,9 @@ export function FeaturedVendors(props: FeaturedVendorsProps) {
 
         {/* Bottom description */}
         <div className="text-center mt-12">
-          <p className="text-brand-neutral-500 text-sm">All vendors are verified open-source contributors with proven track records</p>
+          <p className="text-brand-neutral-500 text-sm">
+            All vendors are verified open-source contributors with proven track records
+          </p>
         </div>
       </div>
     </section>

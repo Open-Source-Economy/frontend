@@ -49,10 +49,13 @@ export function UserDeveloper(props: UserDeveloperProps) {
     });
 
     // Initial animations
-    gsap.set([solutionHeadingRef.current, solutionsContainerRef.current, finalHeadingRef.current, formContainerRef.current], {
-      opacity: 0,
-      y: 50,
-    });
+    gsap.set(
+      [solutionHeadingRef.current, solutionsContainerRef.current, finalHeadingRef.current, formContainerRef.current],
+      {
+        opacity: 0,
+        y: 50,
+      }
+    );
 
     // Solution heading animation
     gsap.to(solutionHeadingRef.current, {
@@ -94,7 +97,7 @@ export function UserDeveloper(props: UserDeveloperProps) {
           start: "top 70%",
           toggleActions: "play none none reverse",
         },
-      },
+      }
     );
 
     // Final section animations
@@ -189,15 +192,23 @@ export function UserDeveloper(props: UserDeveloperProps) {
 
         <div className="bg-no-repeat">
           <div className="2xl:px-20 lg:px-52 container">
-            <h1 ref={solutionHeadingRef} className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] michroma">
+            <h1
+              ref={solutionHeadingRef}
+              className="text-2xl md:text-3xl lg:text-4xl xl:text-[70px] 2xl:text-[74px] xl:leading-[104.054%] michroma"
+            >
               No BS. <br />
-              <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] 2xl:text-[54px]">Here's our solution.</span>
+              <span className="text-lg md:text-xl lg:text-2xl xl:text-[45px] 2xl:text-[54px]">
+                Here's our solution.
+              </span>
             </h1>
           </div>
 
           <div>
             <div className="bg-no-repeat">
-              <div ref={solutionsContainerRef} className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative">
+              <div
+                ref={solutionsContainerRef}
+                className="px-4 mt-12 2xl:mt-[141px] flex flex-col justify-center items-center max-w-full relative"
+              >
                 {/* <img ref={bgMainRef} className="absolute pointer-events-none z-[-10] -left-[40%] xl:top-[-20%] top-[-5%]" src={bgMain} alt="" /> */}
 
                 <div

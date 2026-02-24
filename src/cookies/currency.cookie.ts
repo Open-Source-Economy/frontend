@@ -21,8 +21,8 @@ class CurrencyCookie implements ICurrencyHandler {
    */
   public get(): Currency {
     try {
-      const cookies: string[] = document.cookie.split(";").map(cookie => cookie.trim());
-      const currencyCookie: string | undefined = cookies.find(cookie => cookie.startsWith(`${this.cookieName}=`));
+      const cookies: string[] = document.cookie.split(";").map((cookie) => cookie.trim());
+      const currencyCookie: string | undefined = cookies.find((cookie) => cookie.startsWith(`${this.cookieName}=`));
 
       if (!currencyCookie) {
         return this.defaultCurrency;
@@ -66,7 +66,7 @@ class CurrencyCookie implements ICurrencyHandler {
       document.cookie = cookieString;
 
       // Verify immediately after setting
-      const _ = document.cookie.split(";").map(c => c.trim());
+      const _ = document.cookie.split(";").map((c) => c.trim());
     } catch (error) {
       throw error as Error;
     }

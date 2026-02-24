@@ -31,7 +31,11 @@ export const INITIAL_FORM_DATA: FormData = {
   message: "",
 };
 
-export const getPlaceholder = (field: "company" | "linkedIn" | "github", isRequired: boolean, _contactReason: string): string => {
+export const getPlaceholder = (
+  field: "company" | "linkedIn" | "github",
+  isRequired: boolean,
+  _contactReason: string
+): string => {
   const placeholders = {
     company: {
       required: "Your company or organization name",

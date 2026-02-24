@@ -33,7 +33,11 @@ export const projectHooks = {
 
   useFundIssueMutation() {
     const queryClient = useQueryClient();
-    return useMutation<void, Error, { params: dto.FundIssueParams; body: dto.FundIssueBody; query: dto.FundIssueQuery }>({
+    return useMutation<
+      void,
+      Error,
+      { params: dto.FundIssueParams; body: dto.FundIssueBody; query: dto.FundIssueQuery }
+    >({
       mutationFn: ({ params, body, query }) => backendAPI.fundIssue(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: PROJECT_QUERY_KEY });
@@ -43,7 +47,11 @@ export const projectHooks = {
 
   useRequestFundingMutation() {
     const queryClient = useQueryClient();
-    return useMutation<void, Error, { params: dto.RequestIssueFundingParams; body: dto.RequestIssueFundingBody; query: dto.RequestIssueFundingQuery }>({
+    return useMutation<
+      void,
+      Error,
+      { params: dto.RequestIssueFundingParams; body: dto.RequestIssueFundingBody; query: dto.RequestIssueFundingQuery }
+    >({
       mutationFn: ({ params, body, query }) => backendAPI.requestFunding(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: PROJECT_QUERY_KEY });
@@ -144,7 +152,10 @@ export const projectHooks = {
     });
   },
 
-  useProjectItemsWithDetailsQuery(params: dto.GetProjectItemsWithDetailsParams, query: dto.GetProjectItemsWithDetailsQuery) {
+  useProjectItemsWithDetailsQuery(
+    params: dto.GetProjectItemsWithDetailsParams,
+    query: dto.GetProjectItemsWithDetailsQuery
+  ) {
     return useQuery<dto.GetProjectItemsWithDetailsResponse>({
       queryKey: [...PROJECT_QUERY_KEY, "itemsWithDetails", params, query],
       queryFn: () => backendAPI.getProjectItemsWithDetails(params, query),

@@ -19,14 +19,24 @@ const CurrencySymbol: React.FC<{ currency: Currency }> = ({ currency }) => {
   return <span className="text-brand-accent font-medium">{CurrencyCompanion.symbol(currency)}</span>;
 };
 
-export const ServiceRateInput: React.FC<ServiceRateInputProps> = ({ currency, rate, onCurrencyChange, onRateChange, error }) => {
+export const ServiceRateInput: React.FC<ServiceRateInputProps> = ({
+  currency,
+  rate,
+  onCurrencyChange,
+  onRateChange,
+  error,
+}) => {
   const validationResult: ValidationError | undefined = error ? { error } : undefined;
 
   return (
     <FormField label="Hourly Rate" required error={validationResult}>
       <div className="flex gap-2">
         <div className="w-32">
-          <SelectField options={CurrencyCompanion.selectOptions()} value={currency} onChange={value => onCurrencyChange(value as Currency)} />
+          <SelectField
+            options={CurrencyCompanion.selectOptions()}
+            value={currency}
+            onChange={(value) => onCurrencyChange(value as Currency)}
+          />
         </div>
         <div className="flex-1">
           <div className="relative">
@@ -38,7 +48,7 @@ export const ServiceRateInput: React.FC<ServiceRateInputProps> = ({ currency, ra
               min={0}
               step={5}
               value={rate || ""}
-              onChange={e => onRateChange(parseFloat(e.target.value) || 0)}
+              onChange={(e) => onRateChange(parseFloat(e.target.value) || 0)}
               placeholder="150"
               className="w-36 pl-10"
               variant={error ? "error" : "default"}

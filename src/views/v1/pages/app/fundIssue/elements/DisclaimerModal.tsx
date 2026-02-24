@@ -42,7 +42,13 @@ export function DisclaimerModal(props: RegisterModalProps) {
                 <h3>Use of the funds collected works is at the honor of the maintainers</h3>
               </div>
               <div className="flex mt-3 items-center justify-center">
-                <Button audience={Audience.USER} size="MEDIUM" level={"PRIMARY"} onClick={handleClose} className="sm:px-14 px-[20px]  py-3 mt-4 findbutton">
+                <Button
+                  audience={Audience.USER}
+                  size="MEDIUM"
+                  level={"PRIMARY"}
+                  onClick={handleClose}
+                  className="sm:px-14 px-[20px]  py-3 mt-4 findbutton"
+                >
                   Got It
                 </Button>
               </div>

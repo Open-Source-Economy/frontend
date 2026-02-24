@@ -26,7 +26,10 @@ export function AuthPageWrapper(props: AuthPageWrapperProps) {
             <div className="mt-8 text-center">
               <p className="text-sm text-brand-neutral-600 font-medium">
                 Need help?{" "}
-                <Link to={paths.CONTACT} className="text-brand-accent hover:text-brand-accent-dark underline underline-offset-4">
+                <Link
+                  to={paths.CONTACT}
+                  className="text-brand-accent hover:text-brand-accent-dark underline underline-offset-4"
+                >
                   Contact Support
                 </Link>
               </p>

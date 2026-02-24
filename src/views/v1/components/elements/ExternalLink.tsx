@@ -8,7 +8,12 @@ export function ExternalLink({ underline = true, className = "", children, ...re
   const underlineClass = underline ? "hover:underline" : "!no-underline";
 
   return (
-    <a target="_blank" rel="noopener noreferrer" className={`cursor-pointer ${underlineClass} ${className} underline-offset-2`} {...rest}>
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`cursor-pointer ${underlineClass} ${className} underline-offset-2`}
+      {...rest}
+    >
       {children}
     </a>
   );

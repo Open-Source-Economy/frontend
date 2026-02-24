@@ -41,7 +41,10 @@ export function Step5(props: Step5Props) {
   }, [serviceHierarchyQuery.data]);
 
   const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
-    props.state.developerProjectItems.map(entry => [entry.developerProjectItem.id, entry.projectItem.sourceIdentifier]),
+    props.state.developerProjectItems.map((entry) => [
+      entry.developerProjectItem.id,
+      entry.projectItem.sourceIdentifier,
+    ])
   );
 
   const onAddInitialServices = async (services: dto.Service[]) => {
@@ -51,7 +54,7 @@ export function Step5(props: Step5Props) {
       return;
     }
 
-    const developerProjectItemIds = props.state.developerProjectItems.map(item => item.developerProjectItem.id);
+    const developerProjectItemIds = props.state.developerProjectItems.map((item) => item.developerProjectItem.id);
 
     // Ensure we have at least one project item ID (double-check for safety)
     if (developerProjectItemIds.length === 0) {
@@ -59,7 +62,7 @@ export function Step5(props: Step5Props) {
       return;
     }
 
-    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+    const upsertDeveloperServices: dto.UpsertDeveloperServiceBody[] = services.map((service) => {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: service.id,
         developerProjectItemIds: developerProjectItemIds,
@@ -73,10 +76,10 @@ export function Step5(props: Step5Props) {
       };
       const response = await upsertDeveloperServicesMutation.mutateAsync({ params: {}, body, query: {} });
 
-      const servicesMap = new Map<string, dto.Service>(services.map(service => [service.id.uuid, service]));
+      const servicesMap = new Map<string, dto.Service>(services.map((service) => [service.id.uuid, service]));
 
       const newEntries: dto.DeveloperServiceEntry[] = response.developerServices
-        .map(ds => {
+        .map((ds) => {
           const service = servicesMap.get(ds.serviceId.uuid);
           if (!service) {
             // TODO: better to get the new services back from the server?
@@ -122,7 +125,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleRemoveDeveloperService = (serviceId: dto.ServiceId) => {
-    const serviceEntry = props.state.developerServices.find(entry => entry.service.id.uuid === serviceId.uuid);
+    const serviceEntry = props.state.developerServices.find((entry) => entry.service.id.uuid === serviceId.uuid);
     if (serviceEntry) {
       setServiceToDelete(serviceEntry);
       setShowDeleteDeveloperServiceModal(true);
@@ -138,7 +141,9 @@ export function Step5(props: Step5Props) {
         };
         await deleteDeveloperServiceMutation.mutateAsync({ params: {}, body, query: {} });
 
-        const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== developerServiceEntry.service.id.uuid);
+        const updatedServices = props.state.developerServices.filter(
+          (entry) => entry.service.id.uuid !== developerServiceEntry.service.id.uuid
+        );
         props.updateState({ developerServices: updatedServices });
 
         setShowDeleteDeveloperServiceModal(false);
@@ -165,7 +170,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
-    const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
+    const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map((entry) => {
       if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
         const updatedEntry: dto.DeveloperServiceEntry = {
           service: entry.service,
@@ -186,7 +191,9 @@ export function Step5(props: Step5Props) {
       return;
     }
 
-    const servicesWithoutProjectConfiguration = props.state.developerServices.filter(entry => entry.developerService?.developerProjectItemIds?.length === 0);
+    const servicesWithoutProjectConfiguration = props.state.developerServices.filter(
+      (entry) => entry.developerService?.developerProjectItemIds?.length === 0
+    );
     if (servicesWithoutProjectConfiguration.length > 0) {
       setLocalError("Please configure all services before proceeding.");
       return;
@@ -194,7 +201,9 @@ export function Step5(props: Step5Props) {
 
     // Check if any services don't have configuration
     const servicesWithoutConfiguration = props.state.developerServices.filter(
-      entry => (entry.service.hasResponseTime && entry.developerService?.responseTimeHours === undefined) || entry.developerService?.responseTimeHours === null,
+      (entry) =>
+        (entry.service.hasResponseTime && entry.developerService?.responseTimeHours === undefined) ||
+        entry.developerService?.responseTimeHours === null
     );
     if (servicesWithoutConfiguration.length > 0) {
       setLocalError("Please configure all services before proceeding.");
@@ -211,14 +220,17 @@ export function Step5(props: Step5Props) {
     }
   };
 
-  const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
-  const filteredServiceCategories = serviceCategories.map(category => ({
+  const existingServiceIds = new Set(props.state.developerServices.map((entry) => entry.service.id.uuid));
+  const filteredServiceCategories = serviceCategories.map((category) => ({
     ...category,
-    services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
+    services: category.services.filter((service) => !existingServiceIds.has(service.id.uuid)),
   }));
 
   // Group developer services by category
-  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
+  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(
+    serviceCategories,
+    props.state.developerServices
+  );
 
   const isLoading =
     serviceHierarchyQuery.isLoading ||
@@ -226,7 +238,10 @@ export function Step5(props: Step5Props) {
     deleteDeveloperServiceMutation.isPending ||
     completeOnboardingMutation.isPending;
   const apiError =
-    serviceHierarchyQuery.error || upsertDeveloperServicesMutation.error || deleteDeveloperServiceMutation.error || completeOnboardingMutation.error;
+    serviceHierarchyQuery.error ||
+    upsertDeveloperServicesMutation.error ||
+    deleteDeveloperServiceMutation.error ||
+    completeOnboardingMutation.error;
 
   return (
     <div>
@@ -237,7 +252,7 @@ export function Step5(props: Step5Props) {
           </div>
           <div className="flex flex-col gap-12 items-start self-stretch">
             {/* Display Developer Services by Category */}
-            {groupedDeveloperServices.map(groupedEntry => (
+            {groupedDeveloperServices.map((groupedEntry) => (
               <DeveloperServiceCategory
                 key={groupedEntry.category}
                 groupedDeveloperServiceEntry={groupedEntry}

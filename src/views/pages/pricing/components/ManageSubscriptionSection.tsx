@@ -29,8 +29,8 @@ export function ManageSubscriptionSection(props: ManageSubscriptionSectionProps)
                 </span>
               </div>
               <p className="text-brand-neutral-600">
-                You are currently on the <span className="font-bold text-brand-neutral-800">{props.planName}</span> plan (billed{" "}
-                {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
+                You are currently on the <span className="font-bold text-brand-neutral-800">{props.planName}</span> plan
+                (billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
               </p>
             </div>
           </div>

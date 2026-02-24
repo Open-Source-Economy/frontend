@@ -57,7 +57,9 @@ export function CreateCompany(_props: CreateCompanyProps) {
                 className="w-full sm:w-[400px] border-0 outline-none bg-[#202F45] text-white text-base rounded-lg px-3 py-3 mb-4"
                 {...form.register("name")}
               />
-              {form.formState.errors.name && <p className="text-red-500 text-sm mb-2">{form.formState.errors.name.message}</p>}
+              {form.formState.errors.name && (
+                <p className="text-red-500 text-sm mb-2">{form.formState.errors.name.message}</p>
+              )}
 
               <input
                 type="text"
@@ -73,12 +75,17 @@ export function CreateCompany(_props: CreateCompanyProps) {
                 {...form.register("addressId")}
               />
 
-              <button type="submit" className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer">
+              <button
+                type="submit"
+                className="sm:px-14 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg cursor-pointer"
+              >
                 Create Company
               </button>
             </form>
 
-            {createdCompanyId && <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId.uuid}`}</h2>}
+            {createdCompanyId && (
+              <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId.uuid}`}</h2>
+            )}
 
             {error && <p className="text-red-500 mt-3">Error: {error}</p>}
           </div>

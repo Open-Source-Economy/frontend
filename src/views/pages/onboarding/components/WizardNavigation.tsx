@@ -37,7 +37,11 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
                 <span>Saving...</span>
               </div>
             )}
-            {!isSaving && lastSaved && <div className="text-xs text-brand-neutral-600 text-center">Saved {new Date(lastSaved).toLocaleTimeString()}</div>}
+            {!isSaving && lastSaved && (
+              <div className="text-xs text-brand-neutral-600 text-center">
+                Saved {new Date(lastSaved).toLocaleTimeString()}
+              </div>
+            )}
           </div>
         )}
 
@@ -54,7 +58,10 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
                 Back
               </button>
             ) : (
-              <button onClick={onCancel} className="w-full sm:w-auto px-4 py-2 text-brand-neutral-600 hover:text-brand-neutral-800 transition-colors">
+              <button
+                onClick={onCancel}
+                className="w-full sm:w-auto px-4 py-2 text-brand-neutral-600 hover:text-brand-neutral-800 transition-colors"
+              >
                 Cancel
               </button>
             )}
@@ -70,7 +77,9 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
                   <span>Saving...</span>
                 </div>
               )}
-              {!isSaving && lastSaved && <div className="text-xs text-brand-neutral-600">Saved {new Date(lastSaved).toLocaleTimeString()}</div>}
+              {!isSaving && lastSaved && (
+                <div className="text-xs text-brand-neutral-600">Saved {new Date(lastSaved).toLocaleTimeString()}</div>
+              )}
             </div>
 
             {/* Next button */}
@@ -99,7 +108,12 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
             {/*  View FAQ*/}
             {/*</Link>{" "}*/}
             {/*or{" "}*/}
-            <Link to={paths.CONTACT} target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:text-brand-accent-dark font-medium">
+            <Link
+              to={paths.CONTACT}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-accent hover:text-brand-accent-dark font-medium"
+            >
               Contact Support
             </Link>
           </p>

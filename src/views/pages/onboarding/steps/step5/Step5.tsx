@@ -38,19 +38,30 @@ export function Step5(props: Step5Props) {
   const serviceCategories = serviceHierarchyQuery.data?.items ?? [];
   const isLoading = serviceHierarchyQuery.isLoading || upsertDeveloperServices.isPending;
   const isDeletingService = deleteDeveloperService.isPending;
-  const mutationError = serviceHierarchyQuery.error || upsertDeveloperServices.error || deleteDeveloperService.error || completeOnboarding.error;
-  const apiError = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
+  const mutationError =
+    serviceHierarchyQuery.error ||
+    upsertDeveloperServices.error ||
+    deleteDeveloperService.error ||
+    completeOnboarding.error;
+  const apiError = mutationError
+    ? mutationError instanceof ApiError
+      ? mutationError
+      : ApiError.from(mutationError)
+    : null;
 
   const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
-    props.state.developerProjectItems.map(entry => [entry.developerProjectItem.id, entry.projectItem.sourceIdentifier]),
+    props.state.developerProjectItems.map((entry) => [
+      entry.developerProjectItem.id,
+      entry.projectItem.sourceIdentifier,
+    ])
   );
 
   const onAddInitialServices = async (services: dto.Service[]) => {
     const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
-      const servicesMap = new Map<string, dto.Service>(services.map(service => [service.id.uuid, service]));
+      const servicesMap = new Map<string, dto.Service>(services.map((service) => [service.id.uuid, service]));
 
       const newEntries: dto.DeveloperServiceEntry[] = response.developerServices
-        .map(ds => {
+        .map((ds) => {
           const service = servicesMap.get(ds.serviceId.uuid);
           if (!service) {
             console.warn(`Service with ID ${ds.serviceId.uuid} from response not found in the initial services.`);
@@ -70,11 +81,14 @@ export function Step5(props: Step5Props) {
     await onSaveNewServices(services, onSuccess);
   };
 
-  const onSaveNewServices = async (services: dto.Service[], onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void) => {
-    const upsertDeveloperServiceBodies: dto.UpsertDeveloperServiceBody[] = services.map(service => {
+  const onSaveNewServices = async (
+    services: dto.Service[],
+    onSuccess: (response: dto.UpsertDeveloperServicesResponse) => void
+  ) => {
+    const upsertDeveloperServiceBodies: dto.UpsertDeveloperServiceBody[] = services.map((service) => {
       const body: dto.UpsertDeveloperServiceBody = {
         serviceId: service.id,
-        developerProjectItemIds: props.state.developerProjectItems.map(item => item.developerProjectItem.id),
+        developerProjectItemIds: props.state.developerProjectItems.map((item) => item.developerProjectItem.id),
       };
       return body;
     });
@@ -115,7 +129,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleRemoveDeveloperService = (serviceId: dto.ServiceId) => {
-    const serviceEntry = props.state.developerServices.find(entry => entry.service.id.uuid === serviceId.uuid);
+    const serviceEntry = props.state.developerServices.find((entry) => entry.service.id.uuid === serviceId.uuid);
     if (serviceEntry) {
       setServiceToDelete(serviceEntry);
       setShowDeleteDeveloperServiceModal(true);
@@ -131,7 +145,9 @@ export function Step5(props: Step5Props) {
         };
         await deleteDeveloperService.mutateAsync({ params: {}, body, query: {} });
 
-        const updatedServices = props.state.developerServices.filter(entry => entry.service.id.uuid !== developerServiceEntry.service.id.uuid);
+        const updatedServices = props.state.developerServices.filter(
+          (entry) => entry.service.id.uuid !== developerServiceEntry.service.id.uuid
+        );
         props.updateState({ developerServices: updatedServices });
 
         setShowDeleteDeveloperServiceModal(false);
@@ -158,7 +174,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
-    const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map(entry => {
+    const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map((entry) => {
       if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
         const updatedEntry: dto.DeveloperServiceEntry = {
           service: entry.service,
@@ -189,7 +205,9 @@ export function Step5(props: Step5Props) {
       hasValidationIssues = true;
     }
 
-    const servicesWithoutProjectConfiguration = props.state.developerServices.filter(entry => entry.developerService?.developerProjectItemIds?.length === 0);
+    const servicesWithoutProjectConfiguration = props.state.developerServices.filter(
+      (entry) => entry.developerService?.developerProjectItemIds?.length === 0
+    );
     if (servicesWithoutProjectConfiguration.length > 0) {
       setLocalError("Please configure all services before proceeding.");
       hasValidationIssues = true;
@@ -197,7 +215,9 @@ export function Step5(props: Step5Props) {
 
     // Check if any services requiring response time don't have it configured
     const servicesWithoutConfiguration = props.state.developerServices.filter(
-      entry => entry.service.hasResponseTime && (entry.developerService?.responseTimeHours === undefined || entry.developerService?.responseTimeHours === null),
+      (entry) =>
+        entry.service.hasResponseTime &&
+        (entry.developerService?.responseTimeHours === undefined || entry.developerService?.responseTimeHours === null)
     );
     if (servicesWithoutConfiguration.length > 0) {
       setLocalError("Please configure all services before proceeding.");
@@ -229,14 +249,17 @@ export function Step5(props: Step5Props) {
     }
   }, [props.setOnNext, props.state.developerServices, handleNext]);
 
-  const existingServiceIds = new Set(props.state.developerServices.map(entry => entry.service.id.uuid));
-  const filteredServiceCategories = serviceCategories.map(category => ({
+  const existingServiceIds = new Set(props.state.developerServices.map((entry) => entry.service.id.uuid));
+  const filteredServiceCategories = serviceCategories.map((category) => ({
     ...category,
-    services: category.services.filter(service => !existingServiceIds.has(service.id.uuid)),
+    services: category.services.filter((service) => !existingServiceIds.has(service.id.uuid)),
   }));
 
   // Group developer services by category
-  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(serviceCategories, props.state.developerServices);
+  const groupedDeveloperServices: GroupedDeveloperServiceEntry[] = groupDeveloperServicesByCategory(
+    serviceCategories,
+    props.state.developerServices
+  );
 
   // Create servicesByType for stats
   const _servicesByType = groupedDeveloperServices.reduce(
@@ -244,7 +267,7 @@ export function Step5(props: Step5Props) {
       acc[group.category] = group.developerServices;
       return acc;
     },
-    {} as Record<dto.ServiceType, dto.DeveloperServiceEntry[]>,
+    {} as Record<dto.ServiceType, dto.DeveloperServiceEntry[]>
   );
 
   const hasServices = props.state.developerServices.length > 0;
@@ -256,7 +279,9 @@ export function Step5(props: Step5Props) {
         <Alert variant="destructive">
           <AlertCircle />
           <AlertTitle>
-            {props.servicesPreference === dto.PreferenceType.MAYBE_LATER ? "Future Service Selection Required" : "Required Information Missing"}
+            {props.servicesPreference === dto.PreferenceType.MAYBE_LATER
+              ? "Future Service Selection Required"
+              : "Required Information Missing"}
           </AlertTitle>
           <AlertDescription>
             {apiError?.message ||
@@ -273,11 +298,14 @@ export function Step5(props: Step5Props) {
 
       {/* Services List */}
       {!hasServices ? (
-        <EmptyServicesState onAddService={() => setShowAddServiceModal(true)} isMaybeLater={props.servicesPreference === dto.PreferenceType.MAYBE_LATER} />
+        <EmptyServicesState
+          onAddService={() => setShowAddServiceModal(true)}
+          isMaybeLater={props.servicesPreference === dto.PreferenceType.MAYBE_LATER}
+        />
       ) : (
         <div className="space-y-6 max-w-4xl">
           {/* Services grouped by category */}
-          {groupedDeveloperServices.map(groupedEntry => (
+          {groupedDeveloperServices.map((groupedEntry) => (
             <ServiceCategorySection
               key={groupedEntry.category}
               groupedEntry={groupedEntry}

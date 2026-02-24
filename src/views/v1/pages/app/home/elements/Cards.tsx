@@ -42,7 +42,9 @@ export function Cards(props: CardsProps) {
     <div className={CARD_BASE_CLASSES}>
       <div className={CARD_CONTENT_CLASSES}>
         <div className="grid size-[85px] place-items-center overflow-hidden rounded-full border-2 border-gray-300 bg-[length:100%_100%] p-0">
-          {props.project.owner.displayAvatarUrl && <img src={props.project.owner.displayAvatarUrl} className="size-full object-cover object-center" alt="" />}
+          {props.project.owner.displayAvatarUrl && (
+            <img src={props.project.owner.displayAvatarUrl} className="size-full object-cover object-center" alt="" />
+          )}
         </div>
         <div className="max-[860px]:min-h-[150px]">
           <h4 className="font-mich mt-3 text-2xl max-[540px]:!text-1xl">
@@ -69,12 +71,21 @@ export function Cards(props: CardsProps) {
           </h4>
 
           {props.project.repository && (
-            <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85 max-[540px]:text-base">{props.project.repository.description}</p>
+            <p className="my-2 mt-3 px-4 text-lg font-normal text-white opacity-85 max-[540px]:text-base">
+              {props.project.repository.description}
+            </p>
           )}
         </div>
       </div>
       {props.action && props.to && (
-        <Button audience={props.audience} level="SECONDARY" size="MEDIUM" asChild className="w-full" parentClassName="w-full max-w-[214px]">
+        <Button
+          audience={props.audience}
+          level="SECONDARY"
+          size="MEDIUM"
+          asChild
+          className="w-full"
+          parentClassName="w-full max-w-[214px]"
+        >
           <Link to={props.to}>{props.action}</Link>
         </Button>
       )}

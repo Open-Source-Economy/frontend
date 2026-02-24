@@ -14,12 +14,19 @@ interface FeatureItemProps {
 const FeatureItem: React.FC<FeatureItemProps> = ({ title, audience, isComingSoon }) => {
   return (
     <div className="grid grid-flow-col justify-start  350:gap-3 gap-[10px] ">
-      <div className={cn("md:size-[30px] size-[24px] flex items-center  justify-center rounded-full text-primaryBg", bgColorVariants[audience])}>
+      <div
+        className={cn(
+          "md:size-[30px] size-[24px] flex items-center  justify-center rounded-full text-primaryBg",
+          bgColorVariants[audience]
+        )}
+      >
         <FaCheck className="cursor-default" />
       </div>
 
       <div className="flex gap-3 items-start flex-wrap">
-        <span className="lg:text-2xl text-left text-sm 350:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">{title}</span>
+        <span className="lg:text-2xl text-left text-sm 350:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">
+          {title}
+        </span>
 
         {isComingSoon && (
           <button className="flex items-center !cursor-default gap-2 bg-gradient-to-r from-[#FF7E4B] to-[#FF518C] text-white px-[9px] sm:px-3 sm:py-[10px] py-[8px]  rounded-[50px]">

@@ -17,7 +17,9 @@ export function PaymentHeader(props: PaymentHeaderProps) {
             onClick={() => props.setPriceType(CampaignPriceType.ONE_TIME)}
             parentClassName="w-full"
             className={`!w-full !font-montserrat !font-medium !capitalize !text-base 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl hover:!text-white   ${
-              props.priceType === CampaignPriceType.ONE_TIME ? "after:hover:!opacity-0 !border-none !text-white  pointer-events-none" : "!text-primary-user"
+              props.priceType === CampaignPriceType.ONE_TIME
+                ? "after:hover:!opacity-0 !border-none !text-white  pointer-events-none"
+                : "!text-primary-user"
             }`}
             audience={props.priceType === CampaignPriceType.ONE_TIME ? "ALL" : "USER"}
             level={props.priceType === CampaignPriceType.ONE_TIME ? "PRIMARY" : "SECONDARY"}
@@ -30,7 +32,9 @@ export function PaymentHeader(props: PaymentHeaderProps) {
             onClick={() => props.setPriceType(CampaignPriceType.MONTHLY)}
             parentClassName="w-full"
             className={`!w-full !font-montserrat !font-medium !capitalize !text-base hover:!text-white 2xl:!text-lg 1600:!text-xl 3xl:!h-[70px] 3xl:!text-2xl  ${
-              props.priceType === CampaignPriceType.MONTHLY ? "after:hover:!opacity-0 !border-none !text-white pointer-events-none" : "!text-primary-user"
+              props.priceType === CampaignPriceType.MONTHLY
+                ? "after:hover:!opacity-0 !border-none !text-white pointer-events-none"
+                : "!text-primary-user"
             }`}
             audience={props.priceType === CampaignPriceType.MONTHLY ? "ALL" : "USER"}
             level={props.priceType === CampaignPriceType.MONTHLY ? "PRIMARY" : "SECONDARY"}

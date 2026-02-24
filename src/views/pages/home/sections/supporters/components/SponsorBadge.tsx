@@ -23,8 +23,14 @@ export const SponsorBadge: React.FC<SponsorBadgeProps> = ({ sponsor }) => {
             boxShadow: `0 0 25px -5px ${colorWithAlpha(sponsor.accentColor, 0.314)}, 0 10px 20px -10px ${colorWithAlpha(sponsor.accentColor, 0.188)}`,
           }}
         >
-          <Crown className="h-4 w-4" style={{ color: sponsor.accentColor, filter: "drop-shadow(0 0 4px currentColor)" }} />
-          <span className="text-brand-neutral-800 tracking-wide uppercase text-[10px] letterspacing-widest" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+          <Crown
+            className="h-4 w-4"
+            style={{ color: sponsor.accentColor, filter: "drop-shadow(0 0 4px currentColor)" }}
+          />
+          <span
+            className="text-brand-neutral-800 tracking-wide uppercase text-[10px] letterspacing-widest"
+            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.1)" }}
+          >
             {sponsor.badge}
           </span>
         </div>

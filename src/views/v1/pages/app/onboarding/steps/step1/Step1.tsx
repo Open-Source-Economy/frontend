@@ -89,7 +89,7 @@ export default function Step1(props: Step1Props) {
             label="Your name"
             required
             value={props.state.name || ""}
-            onChange={e => handleInputChange("name", e.target.value)}
+            onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder="Your name"
             ref={nameInputRef}
           />
@@ -100,7 +100,7 @@ export default function Step1(props: Step1Props) {
             label="Your email address"
             required
             value={props.state.contactEmail || ""}
-            onChange={e => handleInputChange("contactEmail", e.target.value)}
+            onChange={(e) => handleInputChange("contactEmail", e.target.value)}
             placeholder="Your email address"
             ref={emailInputRef}
           />
@@ -109,7 +109,7 @@ export default function Step1(props: Step1Props) {
         {/* Terms and Conditions Checkbox */}
         <CheckboxOption
           checked={props.state.agreedToTerms || false}
-          onChange={checked => handleInputChange("agreedToTerms", checked)}
+          onChange={(checked) => handleInputChange("agreedToTerms", checked)}
           text="By submitting this form, I agree to the "
           linkText="Terms and Conditions"
           onLinkClick={handleTermsClick}

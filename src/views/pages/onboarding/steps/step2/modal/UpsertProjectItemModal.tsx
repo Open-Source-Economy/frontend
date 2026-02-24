@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectCategory, ProjectItemType } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItemEntry,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectCategory,
+  ProjectItemType,
+} from "@open-source-economy/api-types";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
@@ -21,7 +27,10 @@ import { ModeToggle } from "./components/ModeToggle";
 import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
 import { getUrlConfig } from "./utils/urlHelpers";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
-import { upsertProjectItemSchema, type UpsertProjectItemFormData as _UpsertProjectItemFormData } from "src/views/components/ui/forms/schemas";
+import {
+  upsertProjectItemSchema,
+  type UpsertProjectItemFormData as _UpsertProjectItemFormData,
+} from "src/views/components/ui/forms/schemas";
 
 interface UpsertProjectItemModalProps {
   show: boolean;
@@ -43,7 +52,7 @@ const createProjectItemData = (
   role: DeveloperRoleType | null,
   mergeRights: MergeRightsType | null,
   predefinedCategories: ProjectCategory[],
-  customCategories: string[],
+  customCategories: string[]
 ): dto.ProjectItemData => {
   return {
     projectItemType: projectType,
@@ -65,8 +74,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [bulkErrors, setBulkErrors] = useState<string | undefined>();
 
   // Category states (not in RHF since they're optional arrays with custom UI)
-  const [predefinedCategories, setPredefinedCategories] = useState<ProjectCategory[]>(props.entry?.developerProjectItem.predefinedCategories || []);
-  const [customCategories, setCustomCategories] = useState<string[]>(props.entry?.developerProjectItem.customCategories || []);
+  const [predefinedCategories, setPredefinedCategories] = useState<ProjectCategory[]>(
+    props.entry?.developerProjectItem.predefinedCategories || []
+  );
+  const [customCategories, setCustomCategories] = useState<string[]>(
+    props.entry?.developerProjectItem.customCategories || []
+  );
 
   const form = useZodForm(upsertProjectItemSchema, {
     defaultValues: {
@@ -81,7 +94,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const url = form.watch("url");
 
   const mutationError = upsertProjectItem.error || removeProjectItem.error;
-  const error = mutationError ? (mutationError instanceof ApiError ? mutationError : ApiError.from(mutationError)) : null;
+  const error = mutationError
+    ? mutationError instanceof ApiError
+      ? mutationError
+      : ApiError.from(mutationError)
+    : null;
   const isLoading = upsertProjectItem.isPending || removeProjectItem.isPending;
 
   // Memoize validation result to avoid recalculating on every render
@@ -89,7 +106,13 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     if (!isBulkMode || !bulkUrls.trim() || !selectedProjectType) {
       return null;
     }
-    return BulkProjectUrlParser.validateBulkUrls(bulkUrls, selectedProjectType as ProjectItemType, props.existingProjects || [], props.entry, false);
+    return BulkProjectUrlParser.validateBulkUrls(
+      bulkUrls,
+      selectedProjectType as ProjectItemType,
+      props.existingProjects || [],
+      props.entry,
+      false
+    );
   }, [isBulkMode, bulkUrls, selectedProjectType, props.existingProjects, props.entry]);
 
   // Initialize form data from entry when modal opens
@@ -151,19 +174,25 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     const existingProjects = props.existingProjects || [];
     const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(urlValue);
     const existingSourceIdentifiers = existingProjects
-      .filter(existing => {
+      .filter((existing) => {
         if (
           props.entry &&
-          SourceIdentifierCompanion.equals(existing.projectItem.sourceIdentifier, props.entry.projectItem.sourceIdentifier) &&
+          SourceIdentifierCompanion.equals(
+            existing.projectItem.sourceIdentifier,
+            props.entry.projectItem.sourceIdentifier
+          ) &&
           existing.projectItem.projectItemType === props.entry.projectItem.projectItemType
         ) {
           return false;
         }
         return existing.projectItem.projectItemType === projectType;
       })
-      .map(existing => existing.projectItem.sourceIdentifier);
+      .map((existing) => existing.projectItem.sourceIdentifier);
 
-    const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls([sourceIdentifier], existingSourceIdentifiers);
+    const conflictingSourceIdentifiers = SourceIdentifierCompanion.findIncludedUrls(
+      [sourceIdentifier],
+      existingSourceIdentifiers
+    );
     if (conflictingSourceIdentifiers.length > 0) {
       const displayName = SourceIdentifierCompanion.displayName(conflictingSourceIdentifiers[0]);
       return `This project already exists: ${displayName}. Please edit the existing entry or choose a different project.`;
@@ -172,7 +201,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     return undefined;
   };
 
-  const validateBulkForm = (): { valid: boolean; projects: Array<{ sourceIdentifier: dto.SourceIdentifier; projectType: ProjectItemType }> } => {
+  const validateBulkForm = (): {
+    valid: boolean;
+    projects: Array<{ sourceIdentifier: dto.SourceIdentifier; projectType: ProjectItemType }>;
+  } => {
     let hasErrors = false;
 
     // Validate shared fields via RHF
@@ -254,7 +286,16 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
-        projectItems: [createProjectItemData(sourceIdentifier, projectType, roleValue, mergeRightsValue, predefinedCategories, customCategories)],
+        projectItems: [
+          createProjectItemData(
+            sourceIdentifier,
+            projectType,
+            roleValue,
+            mergeRightsValue,
+            predefinedCategories,
+            customCategories
+          ),
+        ],
       };
       const query: dto.UpsertDeveloperProjectItemQuery = {};
       const response = await upsertProjectItem.mutateAsync({ params, body, query });
@@ -285,8 +326,15 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     const roleValue = form.getValues("role") as DeveloperRoleType;
     const mergeRightsValue = form.getValues("mergeRights") as MergeRightsType;
 
-    const projectItems: dto.ProjectItemData[] = projects.map(projectData =>
-      createProjectItemData(projectData.sourceIdentifier, projectData.projectType, roleValue, mergeRightsValue, predefinedCategories, customCategories),
+    const projectItems: dto.ProjectItemData[] = projects.map((projectData) =>
+      createProjectItemData(
+        projectData.sourceIdentifier,
+        projectData.projectType,
+        roleValue,
+        mergeRightsValue,
+        predefinedCategories,
+        customCategories
+      )
     );
 
     try {
@@ -299,7 +347,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
       props.setShow(false);
       if (response.results && response.results.length > 0) {
-        response.results.forEach(result => {
+        response.results.forEach((result) => {
           props.onUpsert({
             developerProjectItem: {
               ...result.developerProjectItem,
@@ -341,7 +389,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
           </Button>
           <Button
             onClick={handleSave}
-            disabled={isLoading || (isBulkMode && (!!bulkErrors || !!formErrors.role || !!formErrors.mergeRights || !!formErrors.projectType))}
+            disabled={
+              isLoading ||
+              (isBulkMode &&
+                (!!bulkErrors || !!formErrors.role || !!formErrors.mergeRights || !!formErrors.projectType))
+            }
             className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? "Saving..." : mode === "add" ? (isBulkMode ? "Add Projects" : "Add Project") : "Save Changes"}
@@ -351,15 +403,20 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     >
       <div className="space-y-8 py-2 pb-6">
         {/* Step 1: Your Contribution */}
-        <BrandModalSection icon={<User />} title="Your Contribution" description={"Tell us about your role and permissions"} iconColor="highlight">
+        <BrandModalSection
+          icon={<User />}
+          title="Your Contribution"
+          description={"Tell us about your role and permissions"}
+          iconColor="highlight"
+        >
           <RoleAndMergeRightsFields
             isBulkMode={isBulkMode}
             selectedRole={(form.watch("role") as DeveloperRoleType) || null}
             selectedMergeRights={(form.watch("mergeRights") as MergeRightsType) || null}
-            onRoleChange={role => {
+            onRoleChange={(role) => {
               form.setValue("role", role || "", { shouldValidate: form.formState.isSubmitted });
             }}
-            onMergeRightsChange={mergeRights => {
+            onMergeRightsChange={(mergeRights) => {
               form.setValue("mergeRights", mergeRights || "", { shouldValidate: form.formState.isSubmitted });
             }}
             roleError={formErrors.role?.message}
@@ -371,7 +428,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         <BrandModalSection
           icon={<Github />}
           title="Project Information"
-          description={isBulkMode ? "Paste URLs for all projects where you have this role" : "Identify the project and provide a link"}
+          description={
+            isBulkMode
+              ? "Paste URLs for all projects where you have this role"
+              : "Identify the project and provide a link"
+          }
           iconColor="accent"
         >
           {/* Mode Toggle - Only show in Add mode */}
@@ -387,7 +448,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                     required
                     options={projectTypeOptions}
                     value={selectedProjectType || ""}
-                    onChange={value => {
+                    onChange={(value) => {
                       form.setValue("projectType", value, { shouldValidate: form.formState.isSubmitted });
                     }}
                     error={formErrors.projectType?.message}
@@ -400,7 +461,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                     <ProjectUrlInput
                       projectType={selectedProjectType as ProjectItemType}
                       value={url}
-                      onChange={value => {
+                      onChange={(value) => {
                         form.setValue("url", value, { shouldValidate: form.formState.isSubmitted });
                       }}
                       error={formErrors.url?.message}
@@ -431,7 +492,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   required
                   options={projectTypeOptions}
                   value={selectedProjectType || ""}
-                  onChange={value => {
+                  onChange={(value) => {
                     form.setValue("projectType", value, { shouldValidate: form.formState.isSubmitted });
                   }}
                   error={formErrors.projectType?.message}
@@ -442,10 +503,15 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {selectedProjectType && (
                 <>
                   {/* Bulk URL Input */}
-                  <FormField label="Project URLs" required error={bulkErrors ? { error: bulkErrors } : undefined} hint={urlConfig.bulkHint}>
+                  <FormField
+                    label="Project URLs"
+                    required
+                    error={bulkErrors ? { error: bulkErrors } : undefined}
+                    hint={urlConfig.bulkHint}
+                  >
                     <Textarea
                       value={bulkUrls}
-                      onChange={e => {
+                      onChange={(e) => {
                         setBulkUrls(e.target.value);
                         setBulkErrors(undefined);
                       }}
@@ -458,7 +524,10 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
                   {/* Parsed Projects Preview */}
                   {bulkValidationResult && (
-                    <BulkProjectsPreview validationResult={bulkValidationResult} selectedProjectType={selectedProjectType as ProjectItemType} />
+                    <BulkProjectsPreview
+                      validationResult={bulkValidationResult}
+                      selectedProjectType={selectedProjectType as ProjectItemType}
+                    />
                   )}
 
                   {/* Shared Categories */}
@@ -481,7 +550,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
         {/* Step 3: Verification Notice - Only visible in local environment */}
         {isVisible("projectVerificationNotice") && ((!isBulkMode && selectedProjectType) || isBulkMode) && (
-          <BrandModalSection icon={<ShieldCheck />} title="Verification" description="How we'll confirm your contributions" iconColor="success">
+          <BrandModalSection
+            icon={<ShieldCheck />}
+            title="Verification"
+            description="How we'll confirm your contributions"
+            iconColor="success"
+          >
             <BrandModalAlert type="success" icon={<AlertCircle />} title="Verification Process">
               <p className="mb-3">
                 {isBulkMode

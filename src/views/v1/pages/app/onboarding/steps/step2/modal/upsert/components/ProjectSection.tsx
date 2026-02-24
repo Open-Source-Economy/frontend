@@ -42,11 +42,16 @@ const validateProjectUrl = (value: string, projectType: ProjectItemType | null):
   return undefined;
 };
 
-export const ProjectSection = forwardRef(function ProjectSection(props: ProjectSectionProps, ref: Ref<ProjectSectionRef>) {
+export const ProjectSection = forwardRef(function ProjectSection(
+  props: ProjectSectionProps,
+  ref: Ref<ProjectSectionRef>
+) {
   const { onProjectItemChange } = props;
 
   const [url, setUrl] = useState<string | null>(null);
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(props.projectItemType ?? ProjectItemType.GITHUB_REPOSITORY);
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectItemType | null>(
+    props.projectItemType ?? ProjectItemType.GITHUB_REPOSITORY
+  );
 
   const projectTypeSelectRef = useRef<GenericInputRef>(null);
   const urlInputRef = useRef<GenericInputRef>(null);
@@ -67,7 +72,12 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
 
     // Repository-like (has name + ownerId with login)
     const isRepoLike =
-      si && typeof si === "object" && typeof si.name === "string" && si.ownerId && typeof si.ownerId === "object" && typeof si.ownerId.login === "string";
+      si &&
+      typeof si === "object" &&
+      typeof si.name === "string" &&
+      si.ownerId &&
+      typeof si.ownerId === "object" &&
+      typeof si.ownerId.login === "string";
 
     // Owner-like (has login)
     const isOwnerLike = si && typeof si === "object" && typeof si.login === "string";
@@ -124,13 +134,18 @@ export const ProjectSection = forwardRef(function ProjectSection(props: ProjectS
             required={!!selectedProjectType}
             disabled={!selectedProjectType}
             value={url ?? ""}
-            onChange={e => setUrl(e.target.value.trim())}
+            onChange={(e) => setUrl(e.target.value.trim())}
             placeholder={inputPlaceholder}
             ref={urlInputRef}
-            validator={value => validateProjectUrl(value, selectedProjectType)}
+            validator={(value) => validateProjectUrl(value, selectedProjectType)}
           />
           <div className="flex flex-col items-start gap-2 self-stretch">
-            <ProjectItemTypeSelectInput value={selectedProjectType} onChange={setSelectedProjectType} required ref={projectTypeSelectRef} />
+            <ProjectItemTypeSelectInput
+              value={selectedProjectType}
+              onChange={setSelectedProjectType}
+              required
+              ref={projectTypeSelectRef}
+            />
           </div>
         </div>
       </div>

@@ -75,7 +75,11 @@ export function IdentificationStep() {
   const inviteError = companyError || repoError;
   const checkEmailError = checkEmailMutation.error;
   const combinedError = checkEmailError || inviteError;
-  const apiError = combinedError ? (combinedError instanceof ApiError ? combinedError : ApiError.from(combinedError)) : null;
+  const apiError = combinedError
+    ? combinedError instanceof ApiError
+      ? combinedError
+      : ApiError.from(combinedError)
+    : null;
 
   const updateUrlEmail = (newEmail: string) => {
     navigate({ to: "/auth/identify", search: { ...searchParams, email: newEmail } as any, replace: true });
@@ -140,7 +144,11 @@ export function IdentificationStep() {
 
               {apiError && <ServerErrorAlert error={apiError} />}
 
-              <Button type="submit" loading={checkEmailMutation.isPending || companyLoading || repoLoading} className="w-full h-11">
+              <Button
+                type="submit"
+                loading={checkEmailMutation.isPending || companyLoading || repoLoading}
+                className="w-full h-11"
+              >
                 Continue
               </Button>
             </Form>

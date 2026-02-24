@@ -79,7 +79,9 @@ export function PaymentControls(props: PaymentControlsProps) {
 
   useEffect(() => {
     if (props.prices && selectedPriceIndex !== null) {
-      setSelectedPrice(props.prices && props.prices[priceType][props.preferredCurrency][campaignProductType][selectedPriceIndex]);
+      setSelectedPrice(
+        props.prices && props.prices[priceType][props.preferredCurrency][campaignProductType][selectedPriceIndex]
+      );
     } else {
       setSelectedPrice(null);
     }
@@ -133,7 +135,11 @@ export function PaymentControls(props: PaymentControlsProps) {
         )}
       </div>
 
-      <DonationSelector projectId={props.projectId} productType={campaignProductType} setProductType={setCampaignProductType} />
+      <DonationSelector
+        projectId={props.projectId}
+        productType={campaignProductType}
+        setProductType={setCampaignProductType}
+      />
 
       <Button
         disabled={selectedPrice === null || isLoading}

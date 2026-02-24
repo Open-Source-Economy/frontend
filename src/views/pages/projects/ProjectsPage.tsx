@@ -4,7 +4,12 @@ import { SearchAndFiltersSection } from "src/views/pages/projects/components/Sea
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { RequestProjectSection } from "src/views/pages/projects/sections/RequestProjectSection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { ProjectCategory, ProjectItemSortField, ProjectItemWithDetails, SortOrder } from "@open-source-economy/api-types";
+import {
+  ProjectCategory,
+  ProjectItemSortField,
+  ProjectItemWithDetails,
+  SortOrder,
+} from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { NumberUtils } from "src/ultils/NumberUtils";
 import { ApiError } from "src/ultils/error/ApiError";
@@ -111,12 +116,16 @@ export function ProjectsPage(_: {}) {
       urls: {
         limit: 0,
       },
-    },
+    }
   );
 
   const projectItems = useMemo(() => {
     if (!projectItemsResponse) return null;
-    const allProjects = [...projectItemsResponse.repositories, ...projectItemsResponse.owners, ...projectItemsResponse.urls];
+    const allProjects = [
+      ...projectItemsResponse.repositories,
+      ...projectItemsResponse.owners,
+      ...projectItemsResponse.urls,
+    ];
     allProjects.sort((a, b) => {
       const aPopularity = a.repository?.stargazersCount ?? a.owner?.followers ?? 0;
       const bPopularity = b.repository?.stargazersCount ?? b.owner?.followers ?? 0;
@@ -141,7 +150,7 @@ export function ProjectsPage(_: {}) {
   const availableLanguages = useMemo(() => {
     if (!projectItems) return [];
     const languages = new Set<string>();
-    projectItems.forEach(item => {
+    projectItems.forEach((item) => {
       if (item.repository?.language) {
         languages.add(item.repository.language);
       }
@@ -160,11 +169,11 @@ export function ProjectsPage(_: {}) {
     }
 
     if (selectedCategory) {
-      projects = projects.filter(item => getProjectCategory(item) === selectedCategory);
+      projects = projects.filter((item) => getProjectCategory(item) === selectedCategory);
     }
 
     if (selectedLanguage) {
-      projects = projects.filter(item => item.repository?.language === selectedLanguage);
+      projects = projects.filter((item) => item.repository?.language === selectedLanguage);
     }
 
     return projects.reduce(
@@ -175,11 +184,14 @@ export function ProjectsPage(_: {}) {
         acc[categoryKey].push(item);
         return acc;
       },
-      {} as Record<string, ProjectItemWithDetails[]>,
+      {} as Record<string, ProjectItemWithDetails[]>
     );
   }, [projectItems, searchQuery, selectedCategory, selectedLanguage]);
 
-  const totalResults = useMemo(() => Object.values(filteredProjects).reduce((sum, arr) => sum + arr.length, 0), [filteredProjects]);
+  const totalResults = useMemo(
+    () => Object.values(filteredProjects).reduce((sum, arr) => sum + arr.length, 0),
+    [filteredProjects]
+  );
 
   const hasResults = Object.keys(filteredProjects).length > 0;
 
@@ -192,7 +204,9 @@ export function ProjectsPage(_: {}) {
             <h1 className="mb-4 text-foreground">{projectsPageContent.hero.title}</h1>
             <p className="text-muted-foreground mb-8">{projectsPageContent.hero.subtitle}</p>
             <div className="pt-8 border-t border-border">
-              <PlatformStats projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }} />
+              <PlatformStats
+                projectStats={stats ?? { totalProjects: 0, totalStars: "0", totalForks: "0", totalMaintainers: 0 }}
+              />
             </div>
           </div>
         </div>
@@ -216,7 +230,12 @@ export function ProjectsPage(_: {}) {
       {apiError && !isLoading && (
         <div className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto">
-            <ServerErrorAlert error={apiError} title={projectsPageContent.error.title} showRetry={true} onRetry={() => refetch()} />
+            <ServerErrorAlert
+              error={apiError}
+              title={projectsPageContent.error.title}
+              showRetry={true}
+              onRetry={() => refetch()}
+            />
           </div>
         </div>
       )}
@@ -255,7 +274,11 @@ export function ProjectsPage(_: {}) {
                 </div>
               ) : (
                 <div className="max-w-4xl mx-auto">
-                  <RequestProjectSection searchQuery={searchQuery} selectedCategory={selectedCategory} selectedLanguage={selectedLanguage} />
+                  <RequestProjectSection
+                    searchQuery={searchQuery}
+                    selectedCategory={selectedCategory}
+                    selectedLanguage={selectedLanguage}
+                  />
                 </div>
               )}
             </div>

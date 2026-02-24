@@ -39,7 +39,17 @@ export const footerContent = {
 // -----------------------------
 // Small components
 // -----------------------------
-function FooterAnchor({ href, external, children, className }: { href: string; external?: boolean; children: React.ReactNode; className?: string }) {
+function FooterAnchor({
+  href,
+  external,
+  children,
+  className,
+}: {
+  href: string;
+  external?: boolean;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return external ? (
     <ExternalLink href={href} underline={false} className={className}>
       {children}
@@ -66,12 +76,13 @@ export function Footer(_props: FooterProps) {
           <div className="lg:col-span-2">
             <Logo size="md" />
             <p className="mt-4 text-muted-foreground max-w-md">
-              Building a sustainable open source economy through collaboration, innovation, and community-driven development.
+              Building a sustainable open source economy through collaboration, innovation, and community-driven
+              development.
             </p>
 
             {/* Social Links */}
             <div className="flex space-x-4 mt-6">
-              {socialLinks.map(social => {
+              {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
                   <FooterAnchor
@@ -89,11 +100,11 @@ export function Footer(_props: FooterProps) {
 
           {/* Links Sections */}
           <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {sections.map(section => (
+            {sections.map((section) => (
               <div key={section.title} className="text-left">
                 <h3 className="font-medium mb-4 text-left">{section.title}</h3>
                 <ul className="space-y-2 text-left pl-0">
-                  {section.links.map(link => (
+                  {section.links.map((link) => (
                     <li key={link.title} className="text-left list-none">
                       <FooterAnchor
                         href={link.href}

@@ -19,16 +19,28 @@ export function ParticipantCard(props: ParticipantCardProps) {
           />
         </ExternalLink>
         <div className="!bg-secondary h-12 md:h-14 3xl:h-[61px] text-white rounded-full !pl-6 !pr-3 py-1 justify-between flex items-center">
-          <span className="text-xs md:text-sm 3xl:text-base opacity-80 max-w-[100px] md:max-w-[140px] 3xl:max-w-[155px]">{props.maintainer.mascotAlt}</span>{" "}
-          <img className="max-w-12 md:max-w-14 h-auto xl:max-w-16  3xl:max-w-[79px] w-full -mt-10 3xl:-mt-16" src={props.maintainer.mascot} alt="" />{" "}
+          <span className="text-xs md:text-sm 3xl:text-base opacity-80 max-w-[100px] md:max-w-[140px] 3xl:max-w-[155px]">
+            {props.maintainer.mascotAlt}
+          </span>{" "}
+          <img
+            className="max-w-12 md:max-w-14 h-auto xl:max-w-16  3xl:max-w-[79px] w-full -mt-10 3xl:-mt-16"
+            src={props.maintainer.mascot}
+            alt=""
+          />{" "}
         </div>
         {/* Participant Info */}
 
         <ExternalLink href={props.maintainer.githubPage}>
-          <h3 className="font-semibold text-xl lg:text-[22px] 2xl:text-2xl 3xl:text-[28px] !mt-4 3xl:!mt-[18px]">{props.maintainer.displayName}</h3>
+          <h3 className="font-semibold text-xl lg:text-[22px] 2xl:text-2xl 3xl:text-[28px] !mt-4 3xl:!mt-[18px]">
+            {props.maintainer.displayName}
+          </h3>
         </ExternalLink>
-        <p className="text-[#ADABAF] text-base lg:text-lg font-medium text-nowrap mt-1 2xl:text-xl !mb-3 3xl:text-[22px]">{props.maintainer.title}</p>
-        {props.maintainer.quote && <p className="text-white text-base lg:text-lg 2xl:text-xl 3xl:text-[22px]">“{props.maintainer.quote}”</p>}
+        <p className="text-[#ADABAF] text-base lg:text-lg font-medium text-nowrap mt-1 2xl:text-xl !mb-3 3xl:text-[22px]">
+          {props.maintainer.title}
+        </p>
+        {props.maintainer.quote && (
+          <p className="text-white text-base lg:text-lg 2xl:text-xl 3xl:text-[22px]">“{props.maintainer.quote}”</p>
+        )}
       </div>
     </>
   );

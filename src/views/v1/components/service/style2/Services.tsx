@@ -9,11 +9,20 @@ interface ServicesProps {
 }
 
 export function Services(props: ServicesProps) {
-  const services = [ServiceType.DEVELOPMENT, ServiceType.SUPPORT, ServiceType.SECURITY_AND_COMPLIANCE, ServiceType.ADVISORY];
+  const services = [
+    ServiceType.DEVELOPMENT,
+    ServiceType.SUPPORT,
+    ServiceType.SECURITY_AND_COMPLIANCE,
+    ServiceType.ADVISORY,
+  ];
 
   return (
     <>
-      <img src={leftlinear} alt="Left Linear Background" className="absolute opacity-10 pointer-events-none object-cover left-0 z-0 top-[24%] xl:top-[14%]" />
+      <img
+        src={leftlinear}
+        alt="Left Linear Background"
+        className="absolute opacity-10 pointer-events-none object-cover left-0 z-0 top-[24%] xl:top-[14%]"
+      />
       <img
         src={rightLinear}
         alt="Right Linear backgroun"

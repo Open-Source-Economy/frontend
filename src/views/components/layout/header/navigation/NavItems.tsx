@@ -14,10 +14,12 @@ interface NavItemsProps {
 export function NavItems(props: NavItemsProps) {
   return (
     <>
-      {props.items.map(item => {
+      {props.items.map((item) => {
         if (item.items && item.items.length > 0) {
           if (props.variant === "mobile") {
-            return <MobileNavSubmenu key={item.title} title={item.title} items={item.items} onClose={props.onMobileClose} />;
+            return (
+              <MobileNavSubmenu key={item.title} title={item.title} items={item.items} onClose={props.onMobileClose} />
+            );
           }
 
           return <NavDropdown key={item.title} title={item.title} items={item.items} />;

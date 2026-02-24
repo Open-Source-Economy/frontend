@@ -2,7 +2,12 @@
  * Adapter functions to convert between API data structures and design system types
  */
 
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, ProjectItemType } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItemEntry,
+  DeveloperRoleType,
+  MergeRightsType,
+  ProjectItemType,
+} from "@open-source-economy/api-types";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
 
 export interface ProjectDisplayData {
@@ -36,7 +41,9 @@ export function convertToProjectDisplayData(entry: DeveloperProjectItemEntry): P
     const sourceIdentifier = projectItem.sourceIdentifier;
     if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
       const ownerLogin =
-        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId ? sourceIdentifier.ownerId.login : sourceIdentifier.ownerId;
+        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
+          ? sourceIdentifier.ownerId.login
+          : sourceIdentifier.ownerId;
       url = `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
     }
   } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
@@ -82,7 +89,9 @@ export function getProjectDisplayUrl(entry: DeveloperProjectItemEntry): string {
     const sourceIdentifier = projectItem.sourceIdentifier;
     if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
       const ownerLogin =
-        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId ? sourceIdentifier.ownerId.login : sourceIdentifier.ownerId;
+        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
+          ? sourceIdentifier.ownerId.login
+          : sourceIdentifier.ownerId;
       return `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
     }
   } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
@@ -120,7 +129,9 @@ export function getMergeRightsLabel(entry: DeveloperProjectItemEntry): string {
 /**
  * Helper to get role value for design system
  */
-export function getRoleValue(entry: DeveloperProjectItemEntry): "maintainer" | "core_contributor" | "contributor" | "other" {
+export function getRoleValue(
+  entry: DeveloperProjectItemEntry
+): "maintainer" | "core_contributor" | "contributor" | "other" {
   const role = entry.developerProjectItem.roles?.[0];
 
   switch (role) {
@@ -148,7 +159,10 @@ export function getAccessValue(entry: DeveloperProjectItemEntry): MergeRightsTyp
  * Helper to determine if project is GitHub-based
  */
 export function isGitHubProject(entry: DeveloperProjectItemEntry): boolean {
-  return entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY || entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
+  return (
+    entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY ||
+    entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER
+  );
 }
 
 /**

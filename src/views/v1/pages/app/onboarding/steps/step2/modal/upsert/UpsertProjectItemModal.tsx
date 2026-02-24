@@ -1,7 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType, SourceIdentifier } from "@open-source-economy/api-types";
+import {
+  DeveloperProjectItemEntry,
+  DeveloperRoleType,
+  MergeRightsType,
+  SourceIdentifier,
+} from "@open-source-economy/api-types";
 import { GenericInputRef } from "../../../../../../../components/form";
 import { ModalHeader } from "./components/ModalHeader";
 import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
@@ -26,12 +31,14 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
     props.entry && props.entry.developerProjectItem.roles && props.entry.developerProjectItem.roles.length > 0
       ? props.entry.developerProjectItem.roles[0]
-      : null,
+      : null
   );
   const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(
-    props.entry && props.entry.developerProjectItem.mergeRights && props.entry.developerProjectItem.mergeRights.length > 0
+    props.entry &&
+      props.entry.developerProjectItem.mergeRights &&
+      props.entry.developerProjectItem.mergeRights.length > 0
       ? props.entry.developerProjectItem.mergeRights[0]
-      : null,
+      : null
   );
 
   // Refs for custom input components
@@ -130,7 +137,9 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
             {/* Error Display */}
             {upsertProjectItemMutation.error && (
-              <div className="self-stretch text-red-400 text-sm font-montserrat">API Error: {upsertProjectItemMutation.error.message}</div>
+              <div className="self-stretch text-red-400 text-sm font-montserrat">
+                API Error: {upsertProjectItemMutation.error.message}
+              </div>
             )}
 
             {/* Footer Button */}

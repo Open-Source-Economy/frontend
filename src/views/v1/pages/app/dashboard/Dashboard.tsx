@@ -26,21 +26,25 @@ export function Dashboard(_props: DashboardProps) {
   };
 
   const repositoryQueries = useQueries({
-    queries: repositoryIds.map(repositoryId => ({
+    queries: repositoryIds.map((repositoryId) => ({
       queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
       queryFn: () => backendAPI.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries.filter(q => q.isSuccess && q.data).map(q => [q.data!.owner, q.data!.repository]);
-  const error = repositoryQueries.find(q => q.error)?.error ?? null;
+  const repositories: [Owner, Repository][] = repositoryQueries
+    .filter((q) => q.isSuccess && q.data)
+    .map((q) => [q.data!.owner, q.data!.repository]);
+  const error = repositoryQueries.find((q) => q.error)?.error ?? null;
 
   return (
     <PageWrapper>
       <H1WithSubtitle
         title={
           <>
-            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">Open Source</span>
+            <span className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] w-fit text-transparent bg-clip-text">
+              Open Source
+            </span>
             <br />
             From the Experts <br />
             Who Built It
@@ -53,7 +57,11 @@ export function Dashboard(_props: DashboardProps) {
 
       <section className="!px-4 relative flex flex-col">
         <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
-          <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
+          <BookACallButton
+            audience={Audience.USER}
+            level={"SECONDARY"}
+            className="hover:!text-white !text-primary-user !capitalize"
+          />
         </div>
       </section>
 

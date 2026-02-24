@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { CheckoutBody, CheckoutParams, CheckoutQuery, Currency, PlanPriceType, StripePrice } from "@open-source-economy/api-types";
+import {
+  CheckoutBody,
+  CheckoutParams,
+  CheckoutQuery,
+  Currency,
+  PlanPriceType,
+  StripePrice,
+} from "@open-source-economy/api-types";
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
@@ -96,7 +103,9 @@ export function Pricing(props: PricingProps) {
 
           <div className="space-y-3">
             <div className="text-center space-y-3">
-              <h3 className="text-2xl md:text-[26px] font-light font-michroma text-theme-pink">{props.planDescription.name}</h3>
+              <h3 className="text-2xl md:text-[26px] font-light font-michroma text-theme-pink">
+                {props.planDescription.name}
+              </h3>
               <p className="text-sm text-white">{props.planDescription.description}</p>
             </div>
 
@@ -106,19 +115,30 @@ export function Pricing(props: PricingProps) {
                   <>
                     {props.priceType === PlanPriceType.ANNUALLY && (
                       <span className="text-gray-500 line-through text-sm md:text-[22px]">
-                        {NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][PlanPriceType.MONTHLY].unitAmount, preferredCurrency)}
+                        {NumberUtils.toLocaleStringPrice(
+                          props.prices[preferredCurrency][PlanPriceType.MONTHLY].unitAmount,
+                          preferredCurrency
+                        )}
                       </span>
                     )}
                     <span className="text-4xl md:text-[38px] font-bold">
                       {props.priceType === PlanPriceType.ANNUALLY &&
-                        NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][props.priceType].unitAmount / 12, preferredCurrency)}
+                        NumberUtils.toLocaleStringPrice(
+                          props.prices[preferredCurrency][props.priceType].unitAmount / 12,
+                          preferredCurrency
+                        )}
                       {props.priceType === PlanPriceType.MONTHLY &&
-                        NumberUtils.toLocaleStringPrice(props.prices[preferredCurrency][props.priceType].unitAmount, preferredCurrency)}
+                        NumberUtils.toLocaleStringPrice(
+                          props.prices[preferredCurrency][props.priceType].unitAmount,
+                          preferredCurrency
+                        )}
                     </span>
                   </>
                 )}
               </div>
-              <div className="text-xs text-gray-400">per month{props.priceType === PlanPriceType.ANNUALLY ? ", paid annually" : ""}</div>
+              <div className="text-xs text-gray-400">
+                per month{props.priceType === PlanPriceType.ANNUALLY ? ", paid annually" : ""}
+              </div>
             </div>
 
             {props.pricingCategory === PricingCategory.SELECTED ? (
@@ -133,7 +153,8 @@ export function Pricing(props: PricingProps) {
                     }}
                     className={`
                     w-full p-[14px] rounded-lg bg-theme-blue hover:bg-opacity-80 transition-all duration-300 group/btn ${
-                      props.pricingCategory === PricingCategory.UPGRADE || props.pricingCategory === PricingCategory.GET_STARTED
+                      props.pricingCategory === PricingCategory.UPGRADE ||
+                      props.pricingCategory === PricingCategory.GET_STARTED
                         ? "bg-opacity-0"
                         : "bg-opacity-100" // PricingCategory.DOWNGRADE
                     } ${isLoading ? "opacity-50" : ""}`}
@@ -141,7 +162,8 @@ export function Pricing(props: PricingProps) {
                   >
                     <span
                       className={`group-hover/btn:text-white w-full transition font-semibold text-sm bg-clip-text bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
-                        props.pricingCategory === PricingCategory.UPGRADE || props.pricingCategory === PricingCategory.GET_STARTED
+                        props.pricingCategory === PricingCategory.UPGRADE ||
+                        props.pricingCategory === PricingCategory.GET_STARTED
                           ? "text-white"
                           : "text-transparent" // PricingCategory.DOWNGRADE
                       }`}
@@ -160,15 +182,24 @@ export function Pricing(props: PricingProps) {
                 <>
                   <hr key={feature.name} className="border-white/20 border-2" />
                   {feature.title && <div className="font-semibold text-center text-theme-pink">{feature.title}</div>}
-                  <div key={feature.name} className={`flex items-start gap-1.5 ${!feature.included && "opacity-30"} ${i === 2 ? "md:min-h-[140px]" : ""}`}>
-                    {feature.included ? <Check className="h-6 w-6 text-theme-pink shrink-0" /> : <X className="h-5 w-5 text-theme-pink shrink-0 mt-0.5" />}
+                  <div
+                    key={feature.name}
+                    className={`flex items-start gap-1.5 ${!feature.included && "opacity-30"} ${i === 2 ? "md:min-h-[140px]" : ""}`}
+                  >
+                    {feature.included ? (
+                      <Check className="h-6 w-6 text-theme-pink shrink-0" />
+                    ) : (
+                      <X className="h-5 w-5 text-theme-pink shrink-0 mt-0.5" />
+                    )}
                     <div className="space-y-1">
                       <div className="inline-block space-x-2">
                         <span className="font-semibold">{feature.name}</span>
                         {feature.info && feature.included && <InfoTooltip content={feature.info} />}
                       </div>
                       <PricingDetails description={feature.detailsDescription} details={feature.details} />
-                      {feature.extrasDescription && <PricingDetails description={feature.extrasDescription} details={feature.extras} />}
+                      {feature.extrasDescription && (
+                        <PricingDetails description={feature.extrasDescription} details={feature.extras} />
+                      )}
                       {feature.subtext && <p className="text-xs text-gray-400">{feature.subtext}</p>}
                     </div>
                   </div>

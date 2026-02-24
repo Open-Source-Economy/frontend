@@ -26,7 +26,7 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
   }
 
   const handleShowMore = () => {
-    setDisplayCount(prev => Math.min(prev + props.incrementCount, props.projects.length));
+    setDisplayCount((prev) => Math.min(prev + props.incrementCount, props.projects.length));
   };
 
   const handleShowLess = () => {
@@ -45,8 +45,13 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8 items-start">
-        {displayedProjects.map(item => (
-          <ProjectCard key={item.projectItem.id.uuid} item={item} onViewProject={props.onViewProject} canExpandMaintainers={props.canExpandMaintainers} />
+        {displayedProjects.map((item) => (
+          <ProjectCard
+            key={item.projectItem.id.uuid}
+            item={item}
+            onViewProject={props.onViewProject}
+            canExpandMaintainers={props.canExpandMaintainers}
+          />
         ))}
       </div>
 
@@ -55,7 +60,8 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
         {hasMore && (
           <Button onClick={handleShowMore} variant="outline" className="border-brand-accent/30 hover:bg-brand-accent/5">
             <ChevronDown className="w-4 h-4 mr-2" />
-            Show {Math.min(remainingCount, props.incrementCount)} More {Math.min(remainingCount, props.incrementCount) === 1 ? "Project" : "Projects"}
+            Show {Math.min(remainingCount, props.incrementCount)} More{" "}
+            {Math.min(remainingCount, props.incrementCount) === 1 ? "Project" : "Projects"}
           </Button>
         )}
 

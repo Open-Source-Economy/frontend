@@ -26,15 +26,19 @@ export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
     <div className="flex flex-col items-start gap-6 self-stretch">
       {/* Category Header */}
       <div className="flex items-center gap-6 self-stretch">
-        <h3 className="flex-1 text-[#FF7E4B] font-michroma text-[28px] font-normal leading-[130%]">{props.groupedDeveloperServiceEntry.category}</h3>
+        <h3 className="flex-1 text-[#FF7E4B] font-michroma text-[28px] font-normal leading-[130%]">
+          {props.groupedDeveloperServiceEntry.category}
+        </h3>
 
         {/* Add Custom Service Button - only for "Other Services" category */}
-        {props.showAddCustomService && props.onAddCustomService && <AddServiceButton onClick={props.onAddCustomService} text="Add Custom Service" />}
+        {props.showAddCustomService && props.onAddCustomService && (
+          <AddServiceButton onClick={props.onAddCustomService} text="Add Custom Service" />
+        )}
       </div>
 
       {/* Developer Services */}
       <div className="flex flex-col items-start self-stretch rounded-[30px]">
-        {props.groupedDeveloperServiceEntry.developerServices.map(developerServiceEntry => (
+        {props.groupedDeveloperServiceEntry.developerServices.map((developerServiceEntry) => (
           <DeveloperServiceItem
             key={developerServiceEntry.service.id.uuid}
             developerServiceEntry={developerServiceEntry}

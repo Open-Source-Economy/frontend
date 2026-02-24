@@ -35,7 +35,7 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
         return runValidation(String(props.value || ""), showInputError);
       },
     }),
-    [props.value, required, validator, label],
+    [props.value, required, validator, label]
   );
 
   const hasValue = Boolean(props.value);
@@ -92,20 +92,20 @@ export const GenericInput = forwardRef(function GenericInput(props: GenericInput
           <input
             className={inputClasses}
             {...domProps}
-            onFocus={e => {
+            onFocus={(e) => {
               setIsFocused(true);
               if (onFocus) {
                 onFocus(e);
               }
             }}
-            onBlur={e => {
+            onBlur={(e) => {
               setIsFocused(false);
               setIsTouched(true);
               if (onBlur) {
                 onBlur(e);
               }
             }}
-            onChange={e => {
+            onChange={(e) => {
               if (isTouched) {
                 runValidation(e.target.value, false);
               }

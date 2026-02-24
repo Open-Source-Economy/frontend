@@ -9,7 +9,7 @@ interface TermsAndConditionsCheckboxProps extends InputHTMLAttributes<HTMLInputE
 
 export const TermsAndConditionsCheckbox = forwardRef(function TermsAndConditionsCheckbox(
   props: TermsAndConditionsCheckboxProps,
-  ref: Ref<TermsAndConditionsCheckboxRef>,
+  ref: Ref<TermsAndConditionsCheckboxRef>
 ) {
   const { ...rest } = props;
 

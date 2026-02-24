@@ -12,7 +12,8 @@ export const whatIsOSEContent = {
     text: "Swiss Non-Profit",
   },
   title: "What is Open Source Economy?",
-  description: "The only non-profit platform that connects your enterprise directly with the world's most skilled open source creators and core maintainers—",
+  description:
+    "The only non-profit platform that connects your enterprise directly with the world's most skilled open source creators and core maintainers—",
   descriptionHighlight: "the very people who built the technology your business depends on",
   cards: [
     {
@@ -20,26 +21,30 @@ export const whatIsOSEContent = {
       colorClass: "text-brand-primary",
       // title: "Skip the Queue",
       title: "Direct Collaboration",
-      description: "Collaborate directly with the experts who built your open source stack, without intermediaries or resellers.",
+      description:
+        "Collaborate directly with the experts who built your open source stack, without intermediaries or resellers.",
       //       description: "Work directly with the maintainers of your critical dependencies. Get faster resolutions, custom solutions, and ongoing advisory.",
     },
     {
       icon: Shield,
       colorClass: "text-brand-accent",
       title: "Enterprise-Ready",
-      description: "NDAs and SLAs available on demand to ensure your enterprise meets the highest security and reliability standards.",
+      description:
+        "NDAs and SLAs available on demand to ensure your enterprise meets the highest security and reliability standards.",
     },
     {
       icon: Heart,
       colorClass: "text-brand-highlight",
       title: "Sustainable Impact",
-      description: "Each contract reinvests in the open source projects your business relies on, ensuring long-term sustainability",
+      description:
+        "Each contract reinvests in the open source projects your business relies on, ensuring long-term sustainability",
     },
     {
       icon: CheckCircle,
       colorClass: "text-brand-primary",
       title: "Purpose-Driven",
-      description: "Partnership with us powers initiatives, outreach, and events that promote open source innovation worldwide.",
+      description:
+        "Partnership with us powers initiatives, outreach, and events that promote open source innovation worldwide.",
     },
   ] as FeatureCardProps[],
 };
@@ -72,7 +77,9 @@ export function WhatIsOpenSourceEconomy(props: WhatIsOpenSourceEconomyProps) {
   const BadgeIcon = badge.icon;
 
   return (
-    <section className={`relative py-20 md:py-32 overflow-hidden transition-all duration-1000 ease-in-out ${props.className ?? ""}`}>
+    <section
+      className={`relative py-20 md:py-32 overflow-hidden transition-all duration-1000 ease-in-out ${props.className ?? ""}`}
+    >
       {/* Subtle decorative overlay to enhance passed background */}
       <div className="absolute inset-0 bg-gradient-to-tl from-brand-primary/3 via-transparent to-brand-accent/3" />
 

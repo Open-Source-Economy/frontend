@@ -52,7 +52,10 @@ export function Collect(props: CollectProps) {
             <>
               <span>{credit.displayAmount(props.creditsCollected)}</span>
               <span className="text-[#8693A4] michroma"> / </span>
-              <span className={`${textColorVariants[props.audience]}`}>{credit.displayAmount(props.creditsRequested)}</span> requested
+              <span className={`${textColorVariants[props.audience]}`}>
+                {credit.displayAmount(props.creditsRequested)}
+              </span>{" "}
+              requested
             </>
           ) : (
             renderCollectedCreditsText(props.creditsCollected, props.state)

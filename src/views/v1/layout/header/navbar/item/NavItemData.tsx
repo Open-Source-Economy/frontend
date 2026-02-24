@@ -31,7 +31,7 @@ export class NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     this.title = title;
     this.icon = options.icon;
@@ -53,7 +53,7 @@ export class LinkItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.to = to;
@@ -72,7 +72,7 @@ export class ExternalLinkItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.href = href;
@@ -91,7 +91,7 @@ export class ButtonItemData extends NavItemData {
       isGradient?: boolean;
       isBold?: boolean;
       badge?: string;
-    } = {},
+    } = {}
   ) {
     super(title, options);
     this.onClick = onClick;

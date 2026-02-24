@@ -15,7 +15,11 @@ describe("BulkProjectUrlParser", () => {
     }
   };
 
-  const expectValidProject = (result: ParsedProjectUrl, expectedType: ProjectItemType, expectedDisplayName?: string) => {
+  const expectValidProject = (
+    result: ParsedProjectUrl,
+    expectedType: ProjectItemType,
+    expectedDisplayName?: string
+  ) => {
     expect(result.error).toBeUndefined();
     expect(result.projectType).toBe(expectedType);
     if (expectedDisplayName) {
@@ -30,21 +34,27 @@ describe("BulkProjectUrlParser", () => {
   const expectParseResult = (
     result: { validProjects: ParsedProjectUrl[]; invalidProjects?: ParsedProjectUrl[] },
     expectedValid: number,
-    expectedInvalid: number = 0,
+    expectedInvalid: number = 0
   ) => {
     expect(result.validProjects.length).toBe(expectedValid);
     expect(result.invalidProjects?.length || 0).toBe(expectedInvalid);
   };
   describe("parseSingleUrl", () => {
     test("should parse valid GitHub repository URL", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("https://github.com/facebook/react", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl(
+        "https://github.com/facebook/react",
+        ProjectItemType.GITHUB_REPOSITORY
+      );
 
       expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
       expect(result.sourceIdentifier).toBeDefined();
     });
 
     test("should parse GitHub repository URL with .git extension and verify .git is stripped", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("https://github.com/apache/commons-jxpath.git", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl(
+        "https://github.com/apache/commons-jxpath.git",
+        ProjectItemType.GITHUB_REPOSITORY
+      );
 
       expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY);
       verifyNoGitSuffix(result.sourceIdentifier, "commons-jxpath");
@@ -63,7 +73,10 @@ describe("BulkProjectUrlParser", () => {
     });
 
     test("should reject URL that doesn't match expected type", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("https://github.com/facebook/react", ProjectItemType.GITHUB_OWNER);
+      const result = BulkProjectUrlParser.parseSingleUrl(
+        "https://github.com/facebook/react",
+        ProjectItemType.GITHUB_OWNER
+      );
 
       expectInvalidProject(result);
     });
@@ -80,7 +93,10 @@ describe("BulkProjectUrlParser", () => {
     });
 
     test("should trim whitespace", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("  https://github.com/facebook/react  ", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl(
+        "  https://github.com/facebook/react  ",
+        ProjectItemType.GITHUB_REPOSITORY
+      );
 
       expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
     });
@@ -105,8 +121,12 @@ https://github.com/apache/xalan-java`;
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 0);
-      expect(result.validProjects.every(p => p.projectType === ProjectItemType.GITHUB_REPOSITORY)).toBe(true);
-      expect(result.validProjects.map(p => getDisplayName(p.sourceIdentifier))).toEqual(["apache/commons-jxpath", "apache/commons-lang", "apache/xalan-java"]);
+      expect(result.validProjects.every((p) => p.projectType === ProjectItemType.GITHUB_REPOSITORY)).toBe(true);
+      expect(result.validProjects.map((p) => getDisplayName(p.sourceIdentifier))).toEqual([
+        "apache/commons-jxpath",
+        "apache/commons-lang",
+        "apache/xalan-java",
+      ]);
     });
 
     test("should strip .git suffix when creating RepositoryId from URLs with .git", () => {
@@ -118,8 +138,12 @@ https://github.com/apache/commons-beanutils.git`;
       expectParseResult(result, 2, 0);
 
       // Verify that .git is stripped in sourceIdentifier
-      const bcelProject = result.validProjects.find(p => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-bcel");
-      const beanutilsProject = result.validProjects.find(p => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-beanutils");
+      const bcelProject = result.validProjects.find(
+        (p) => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-bcel"
+      );
+      const beanutilsProject = result.validProjects.find(
+        (p) => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-beanutils"
+      );
 
       expect(bcelProject).toBeDefined();
       expect(beanutilsProject).toBeDefined();
@@ -141,7 +165,7 @@ https://github.com/apache/commons-beanutils.git`;
 
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
-      result.validProjects.forEach(project => {
+      result.validProjects.forEach((project) => {
         if (project.sourceIdentifier instanceof RepositoryId) {
           verifyNoGitSuffix(project.sourceIdentifier, project.sourceIdentifier.name);
         }
@@ -158,7 +182,7 @@ https://github.com/angular/angular`;
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 2);
-      const invalidDisplayNames = result.invalidProjects?.map(p => getDisplayName(p.sourceIdentifier)) || [];
+      const invalidDisplayNames = result.invalidProjects?.map((p) => getDisplayName(p.sourceIdentifier)) || [];
       expect(invalidDisplayNames).toContain("invalid-url");
       expect(invalidDisplayNames).toContain("not-a-url");
     });
@@ -193,7 +217,7 @@ https://github.com/nodejs`;
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 2, 1);
-      const invalidDisplayNames = result.invalidProjects?.map(p => getDisplayName(p.sourceIdentifier)) || [];
+      const invalidDisplayNames = result.invalidProjects?.map((p) => getDisplayName(p.sourceIdentifier)) || [];
       expect(invalidDisplayNames).toContain("nodejs");
     });
 
@@ -205,21 +229,53 @@ https://github.com/nodejs`;
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.URL);
 
       expectParseResult(result, 3, 0);
-      expect(result.validProjects.every(p => p.projectType === ProjectItemType.URL)).toBe(true);
+      expect(result.validProjects.every((p) => p.projectType === ProjectItemType.URL)).toBe(true);
     });
 
     test.each([
-      ["comma-separated", "https://github.com/facebook/react,https://github.com/vuejs/vue,https://github.com/angular/angular", 3],
-      ["space-separated (multiple)", "https://github.com/facebook/react  https://github.com/vuejs/vue  https://github.com/angular/angular", 3],
-      ["semicolon-separated", "https://github.com/facebook/react;https://github.com/vuejs/vue;https://github.com/angular/angular", 3],
-      ["mixed separators", "https://github.com/facebook/react, https://github.com/vuejs/vue; https://github.com/angular/angular", 3],
-      ["newlines and commas", "https://github.com/facebook/react,https://github.com/vuejs/vue\nhttps://github.com/angular/angular", 3],
+      [
+        "comma-separated",
+        "https://github.com/facebook/react,https://github.com/vuejs/vue,https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "space-separated (multiple)",
+        "https://github.com/facebook/react  https://github.com/vuejs/vue  https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "semicolon-separated",
+        "https://github.com/facebook/react;https://github.com/vuejs/vue;https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "mixed separators",
+        "https://github.com/facebook/react, https://github.com/vuejs/vue; https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "newlines and commas",
+        "https://github.com/facebook/react,https://github.com/vuejs/vue\nhttps://github.com/angular/angular",
+        3,
+      ],
       ["single space", "https://github.com/facebook/react https://github.com/vuejs/vue", 2],
       ["multiple spaces", "https://github.com/facebook/react    https://github.com/vuejs/vue", 2],
       ["tabs", "https://github.com/facebook/react\t\thttps://github.com/vuejs/vue", 2],
-      ["variable spacing (one then multiple)", "https://github.com/facebook/react https://github.com/vuejs/vue    https://github.com/angular/angular", 3],
-      ["variable spacing (multiple then one)", "https://github.com/facebook/react    https://github.com/vuejs/vue https://github.com/angular/angular", 3],
-      ["tabs and spaces mixed", "https://github.com/facebook/react\thttps://github.com/vuejs/vue  https://github.com/angular/angular", 3],
+      [
+        "variable spacing (one then multiple)",
+        "https://github.com/facebook/react https://github.com/vuejs/vue    https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "variable spacing (multiple then one)",
+        "https://github.com/facebook/react    https://github.com/vuejs/vue https://github.com/angular/angular",
+        3,
+      ],
+      [
+        "tabs and spaces mixed",
+        "https://github.com/facebook/react\thttps://github.com/vuejs/vue  https://github.com/angular/angular",
+        3,
+      ],
     ])("should parse %s URLs", (description, bulkText, expectedCount) => {
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
@@ -235,7 +291,8 @@ https://github.com/nodejs    https://example.com/project`;
     });
 
     test("should handle mixed single and multiple spaces with type filtering", () => {
-      const bulkText = "https://github.com/facebook/react https://github.com/vuejs/vue  https://github.com/angular/angular   https://github.com/nodejs";
+      const bulkText =
+        "https://github.com/facebook/react https://github.com/vuejs/vue  https://github.com/angular/angular   https://github.com/nodejs";
 
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
@@ -271,7 +328,11 @@ https://github.com/nodejs    https://example.com/project`;
   });
 
   describe("formatValidationError", () => {
-    const createInvalidProject = (displayName: string, error: string, detectedType?: ProjectItemType): ParsedProjectUrl => ({
+    const createInvalidProject = (
+      displayName: string,
+      error: string,
+      detectedType?: ProjectItemType
+    ): ParsedProjectUrl => ({
       sourceIdentifier: displayName,
       projectType: ProjectItemType.GITHUB_REPOSITORY,
       error,
@@ -279,7 +340,9 @@ https://github.com/nodejs    https://example.com/project`;
     });
 
     test("should format single invalid URL", () => {
-      const invalidProjects = [createInvalidProject("invalid-url", "This URL is not a valid GitHub Repository. Please check the URL format.")];
+      const invalidProjects = [
+        createInvalidProject("invalid-url", "This URL is not a valid GitHub Repository. Please check the URL format."),
+      ];
       const error = BulkProjectUrlParser.formatValidationError(invalidProjects);
 
       expect(error).toContain("invalid-url");
@@ -293,13 +356,15 @@ https://github.com/nodejs    https://example.com/project`;
       ];
       const error = BulkProjectUrlParser.formatValidationError(invalidProjects);
 
-      ["invalid-url-1", "invalid-url-2", "invalid-url-3"].forEach(url => {
+      ["invalid-url-1", "invalid-url-2", "invalid-url-3"].forEach((url) => {
         expect(error).toContain(url);
       });
     });
 
     test("should truncate when exceeding maxDisplay", () => {
-      const invalidProjects = Array.from({ length: 5 }, (_, i) => createInvalidProject(`invalid-url-${i + 1}`, `Error ${i + 1}`));
+      const invalidProjects = Array.from({ length: 5 }, (_, i) =>
+        createInvalidProject(`invalid-url-${i + 1}`, `Error ${i + 1}`)
+      );
       const error = BulkProjectUrlParser.formatValidationError(invalidProjects, 3);
 
       expect(error).toContain("invalid-url-1");

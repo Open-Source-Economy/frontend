@@ -84,7 +84,12 @@ export function PricingCard(props: PricingCardProps) {
               ) : isPlanAccess ? (
                 <PlanAccessSection features={section.features} previousPlanName={props.previousPlanName} />
               ) : (
-                <RecognitionSection title={section.title} subtitle={section.subtitle} features={section.features} tier={props.planId} />
+                <RecognitionSection
+                  title={section.title}
+                  subtitle={section.subtitle}
+                  features={section.features}
+                  tier={props.planId}
+                />
               )}
             </div>
           );

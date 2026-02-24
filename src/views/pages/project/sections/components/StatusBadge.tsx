@@ -46,14 +46,21 @@ function getStatusConfig(settings: DeveloperSettings | null): StatusConfig | nul
   }
 
   // Only show community-supporter if they explicitly said yes OR settings is null/undefined
-  if (communitySupporterPreference === PreferenceType.YES || communitySupporterPreference === PreferenceType.MAYBE_LATER) {
+  if (
+    communitySupporterPreference === PreferenceType.YES ||
+    communitySupporterPreference === PreferenceType.MAYBE_LATER
+  ) {
     return {
       icon: HandHeart,
       label: "Community Supporter",
       className: "bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-amber-600 border-amber-500/30",
       explanation: "Supports other maintainers in this initiative but does not offer paid services.",
       details: {
-        does: [...(acceptsDonations ? ["Accepts donations"] : []), "Reviews PRs and provides feedback", "Participates in brainstorming sessions"],
+        does: [
+          ...(acceptsDonations ? ["Accepts donations"] : []),
+          "Reviews PRs and provides feedback",
+          "Participates in brainstorming sessions",
+        ],
         doesNot: [...(acceptsDonations ? [] : ["Accepts donations"]), "Accepts paid engagements"],
       },
     };
@@ -114,7 +121,9 @@ export function StatusBadge(props: StatusBadgeProps) {
           <div className="bg-brand-card-blue-light text-brand-neutral-900 rounded-lg p-2 shadow-xl border border-brand-neutral-300/60">
             {/* Explanation */}
             {explanation && (
-              <div className={`text-xs leading-snug ${details && (details.does || details.doesNot) ? "mb-2 pb-2 border-b border-brand-neutral-300/30" : ""}`}>
+              <div
+                className={`text-xs leading-snug ${details && (details.does || details.doesNot) ? "mb-2 pb-2 border-b border-brand-neutral-300/30" : ""}`}
+              >
                 {explanation}
               </div>
             )}

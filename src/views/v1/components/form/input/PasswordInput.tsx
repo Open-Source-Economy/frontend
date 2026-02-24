@@ -69,19 +69,30 @@ export const PasswordInput = forwardRef(function PasswordInput(props: PasswordIn
   }, [value, isConfirmation, passwordToMatch]);
 
   const hasPolicyError =
-    !validation.isEmpty && !(validation.minLength && validation.hasNumber && validation.hasSymbol && validation.hasLowercase && validation.hasUppercase);
+    !validation.isEmpty &&
+    !(
+      validation.minLength &&
+      validation.hasNumber &&
+      validation.hasSymbol &&
+      validation.hasLowercase &&
+      validation.hasUppercase
+    );
 
   return (
     <GenericInput
       type="password"
       label={label}
       required={required}
-      validator={isConfirmation ? val => (val.trim() ? undefined : "Password confirmation is required.") : genericPasswordValidator}
+      validator={
+        isConfirmation
+          ? (val) => (val.trim() ? undefined : "Password confirmation is required.")
+          : genericPasswordValidator
+      }
       value={value}
       onChange={onChange}
       ref={ref}
       {...rest}
-      renderError={genericErrorFromGenericInput => {
+      renderError={(genericErrorFromGenericInput) => {
         if (isConfirmation && isMatchInvalid) {
           return <span className="mt-1 text-sm text-red-500">Passwords do not match.</span>;
         }
@@ -91,9 +102,16 @@ export const PasswordInput = forwardRef(function PasswordInput(props: PasswordIn
             <span className="mt-1 text-sm text-red-500">
               Your password must
               {!validation.minLength && " be at least 6 characters long"}
-              {!validation.minLength && (!validation.hasLowercase || !validation.hasUppercase || !validation.hasNumber || !validation.hasSymbol) && ","}
+              {!validation.minLength &&
+                (!validation.hasLowercase ||
+                  !validation.hasUppercase ||
+                  !validation.hasNumber ||
+                  !validation.hasSymbol) &&
+                ","}
               {!validation.hasLowercase && " contain at least one lowercase letter"}
-              {!validation.hasLowercase && (!validation.hasUppercase || !validation.hasNumber || !validation.hasSymbol) && ","}
+              {!validation.hasLowercase &&
+                (!validation.hasUppercase || !validation.hasNumber || !validation.hasSymbol) &&
+                ","}
               {!validation.hasUppercase && " contain at least one uppercase letter"}
               {!validation.hasUppercase && (!validation.hasNumber || !validation.hasSymbol) && ","}
               {!validation.hasNumber && " contain at least one number"}

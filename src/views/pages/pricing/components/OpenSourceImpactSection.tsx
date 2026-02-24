@@ -12,7 +12,9 @@ export function OpenSourceImpactSection(props: OpenSourceImpactSectionProps) {
         <Leaf className="w-4 h-4 text-brand-accent shrink-0" />
         <h4 className="text-brand-accent">{props.title}</h4>
       </div>
-      <p className="text-xs text-brand-neutral-600 mb-3">When you use credits, funds flow through the entire dependency chain:</p>
+      <p className="text-xs text-brand-neutral-600 mb-3">
+        When you use credits, funds flow through the entire dependency chain:
+      </p>
       <div className="space-y-2 mb-3">
         <div className="flex items-start gap-2 text-xs text-brand-neutral-700">
           <Leaf className="w-3.5 h-3.5 text-brand-accent/60 shrink-0 mt-0.5" />

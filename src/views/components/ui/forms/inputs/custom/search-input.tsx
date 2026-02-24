@@ -9,14 +9,18 @@ const searchInputVariants = cva(
     variants: {
       variant: {
         default: "",
-        outline: "border-2 border-brand-primary/20 hover:border-brand-accent/40 focus:border-brand-accent focus:shadow-[0_0_0_2px_rgb(30_64_175_/_0.2)]",
+        outline:
+          "border-2 border-brand-primary/20 hover:border-brand-accent/40 focus:border-brand-accent focus:shadow-[0_0_0_2px_rgb(30_64_175_/_0.2)]",
         filled:
           "border-transparent bg-gradient-to-r from-muted/80 to-brand-primary/5 hover:from-muted hover:to-brand-primary/10 focus:border-brand-accent focus:from-background focus:to-brand-accent/10",
         ghost:
           "border-transparent bg-transparent hover:bg-gradient-to-r hover:from-brand-primary/5 hover:to-brand-accent/5 focus:border-brand-accent/50 focus:bg-gradient-to-r focus:from-brand-primary/10 focus:to-brand-accent/10",
-        success: "border-brand-success hover:border-brand-success focus:border-brand-success focus:shadow-[0_0_0_2px_rgb(22_163_74_/_0.2)]",
-        error: "border-brand-error hover:border-brand-error focus:border-brand-error focus:shadow-[0_0_0_2px_rgb(220_38_38_/_0.2)]",
-        warning: "border-brand-warning/50 hover:border-brand-warning/70 focus:border-brand-warning focus:shadow-[0_0_0_2px_rgb(217_119_6_/_0.2)]",
+        success:
+          "border-brand-success hover:border-brand-success focus:border-brand-success focus:shadow-[0_0_0_2px_rgb(22_163_74_/_0.2)]",
+        error:
+          "border-brand-error hover:border-brand-error focus:border-brand-error focus:shadow-[0_0_0_2px_rgb(220_38_38_/_0.2)]",
+        warning:
+          "border-brand-warning/50 hover:border-brand-warning/70 focus:border-brand-warning focus:shadow-[0_0_0_2px_rgb(217_119_6_/_0.2)]",
       },
       size: {
         sm: "h-[var(--form-height-sm)] px-[var(--space-form-padding-x-sm)] py-[var(--space-form-padding-y-sm)] text-xs rounded-[var(--form-border-radius-sm)] pl-8",
@@ -29,7 +33,7 @@ const searchInputVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 interface SearchInputProps
@@ -45,7 +49,19 @@ interface SearchInputProps
 }
 
 export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ placeholder = "Search...", value, onChange, className = "", variant = "default", size = "default", type = "text", ...props }, ref) => {
+  (
+    {
+      placeholder = "Search...",
+      value,
+      onChange,
+      className = "",
+      variant = "default",
+      size = "default",
+      type = "text",
+      ...props
+    },
+    ref
+  ) => {
     const iconSize = size === "sm" ? 16 : size === "lg" ? 20 : size === "xl" ? 24 : 18;
     const iconLeft = size === "sm" ? "0.5rem" : size === "lg" ? "1rem" : size === "xl" ? "1.25rem" : "0.75rem";
 
@@ -56,7 +72,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className={cn(searchInputVariants({ variant, size }), className)}
           aria-label={props["aria-label"] ?? placeholder}
           {...props}
@@ -68,7 +84,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         />
       </div>
     );
-  },
+  }
 );
 
 SearchInput.displayName = "SearchInput";

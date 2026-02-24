@@ -44,7 +44,11 @@ export const Gateway = () => {
             </div>
           </div>
           <div className="relative">
-            <img className="h-[150px] w-[150px] object-cover sm:h-[178x] sm:w-[177px]" src={sec2icon1} alt="Get Paid Icon" />{" "}
+            <img
+              className="h-[150px] w-[150px] object-cover sm:h-[178x] sm:w-[177px]"
+              src={sec2icon1}
+              alt="Get Paid Icon"
+            />{" "}
             <div className="absolute left-[10px] top-[48px] sm:left-[16px] sm:top-[43px]">
               <img src={startimg} alt="" className="size-[45px] duration-300 group-hover:rotate-90" />
             </div>
@@ -73,7 +77,11 @@ export const Gateway = () => {
             </div>
           </div>
           <div className="relative">
-            <img className="aspect-square h-[160px] w-[170px] sm:!h-[203px] sm:!min-w-[216px]" src={sec2icon2} alt="Get Paid Icon" />{" "}
+            <img
+              className="aspect-square h-[160px] w-[170px] sm:!h-[203px] sm:!min-w-[216px]"
+              src={sec2icon2}
+              alt="Get Paid Icon"
+            />{" "}
             <div className="absolute right-[40px] top-[35px] sm:right-[60px] sm:top-[50px]">
               <img src={startimg} alt="" className="size-[45px] duration-300 group-hover:rotate-90" />
             </div>

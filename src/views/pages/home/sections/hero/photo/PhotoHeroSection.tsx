@@ -25,7 +25,11 @@ export function PhotoHeroSection(props: PhotoHeroSectionProps) {
         {props.imageSrc && (
           <>
             <div className="absolute inset-0 z-0">
-              <ImageWithFallback src={props.imageSrc} alt={props.imageAlt ?? ""} className="w-full h-full object-cover object-top" />
+              <ImageWithFallback
+                src={props.imageSrc}
+                alt={props.imageAlt ?? ""}
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             {/* Multi-layer gradient overlay for optimal text readability and image visibility */}
             <div className="absolute inset-0 z-10">
@@ -64,7 +68,9 @@ export function PhotoHeroSection(props: PhotoHeroSectionProps) {
                 </Typography.DisplayLarge>
               </div>
 
-              <Typography.BodyLarge className="text-brand-neutral-800 leading-[1.7] max-w-xl drop-shadow-xl">{props.description}</Typography.BodyLarge>
+              <Typography.BodyLarge className="text-brand-neutral-800 leading-[1.7] max-w-xl drop-shadow-xl">
+                {props.description}
+              </Typography.BodyLarge>
             </div>
 
             {(props.actions?.length ?? 0) > 0 && (

@@ -36,14 +36,24 @@ export function Project(_props: ProjectProps) {
   return (
     <PageWrapper>
       <section className="overflow-hidden">
-        {project && <ProjectTitle project={project} displayProjectDescription={false} subtitle="We're the experts who build, debug, and maintain it" />}
+        {project && (
+          <ProjectTitle
+            project={project}
+            displayProjectDescription={false}
+            subtitle="We're the experts who build, debug, and maintain it"
+          />
+        )}
         <H3WithSubtitle title="What do we offer?" subtitle="Get hourly credits – Unlock exclusive benefits" />
 
         <Services projectId={projectId} />
 
         <section className="!px-4 relative flex flex-col">
           <div className="flex justify-center z-20 relative flex-wrap items-center !gap-4 !mt-5 md:!mt-7 xl:mt-11">
-            <BookACallButton audience={Audience.USER} level={"SECONDARY"} className="hover:!text-white !text-primary-user !capitalize" />
+            <BookACallButton
+              audience={Audience.USER}
+              level={"SECONDARY"}
+              className="hover:!text-white !text-primary-user !capitalize"
+            />
 
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
               {/*<Link to={paths.campaign(projectId)}>Support Us</Link>*/}

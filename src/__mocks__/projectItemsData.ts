@@ -44,7 +44,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       "https://reactjs.org",
       undefined,
-      undefined,
+      undefined
     ),
     repository: new Repository(
       new RepositoryId(new OwnerId("facebook", 69631), "react", 10270250),
@@ -61,7 +61,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       undefined,
       undefined,
-      undefined,
+      undefined
     ),
     developers: [
       {
@@ -97,7 +97,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
       {
@@ -133,7 +133,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
       {
@@ -169,7 +169,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],
@@ -198,7 +198,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       "https://vuejs.org",
       undefined,
-      undefined,
+      undefined
     ),
     repository: new Repository(
       new RepositoryId(new OwnerId("vuejs", 6128107), "vue", 11730342),
@@ -215,7 +215,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       undefined,
       undefined,
-      undefined,
+      undefined
     ),
     developers: [
       {
@@ -251,7 +251,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
       {
@@ -287,7 +287,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],
@@ -316,7 +316,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       "https://kubernetes.io",
       undefined,
-      undefined,
+      undefined
     ),
     repository: new Repository(
       new RepositoryId(new OwnerId("kubernetes", 13629408), "kubernetes", 20580498),
@@ -333,7 +333,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       undefined,
       undefined,
-      undefined,
+      undefined
     ),
     developers: [
       {
@@ -369,7 +369,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],
@@ -398,7 +398,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       "https://tensorflow.org",
       undefined,
-      undefined,
+      undefined
     ),
     repository: new Repository(
       new RepositoryId(new OwnerId("tensorflow", 15658638), "tensorflow", 45717250),
@@ -415,7 +415,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       undefined,
       undefined,
-      undefined,
+      undefined
     ),
     developers: [
       {
@@ -451,7 +451,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
       {
@@ -487,7 +487,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],
@@ -516,7 +516,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       "https://nodejs.org",
       undefined,
-      undefined,
+      undefined
     ),
     repository: new Repository(
       new RepositoryId(new OwnerId("nodejs", 9950313), "node", 27193779),
@@ -533,7 +533,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
       undefined,
       undefined,
       undefined,
-      undefined,
+      undefined
     ),
     developers: [
       {
@@ -569,7 +569,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],
@@ -620,7 +620,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
       {
@@ -656,7 +656,7 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
           undefined,
           undefined,
           undefined,
-          undefined,
+          undefined
         ),
       },
     ],

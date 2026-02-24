@@ -29,7 +29,12 @@ export interface PasswordValidation {
   isEmpty: boolean;
 }
 
-export const NO_PASSPORT_ERROR: PasswordValidation = { minLength: true, hasNumber: true, hasSymbol: true, isEmpty: false };
+export const NO_PASSPORT_ERROR: PasswordValidation = {
+  minLength: true,
+  hasNumber: true,
+  hasSymbol: true,
+  isEmpty: false,
+};
 
 export function validateForm(type: AuthenticateType, data: FormData): FormValidation {
   const isSignUp = type === AuthenticateType.SignUp;

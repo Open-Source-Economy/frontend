@@ -42,7 +42,9 @@ export function NavbarItem(props: NavbarItemProps) {
           className="flex items-center w-max duration-200 gradient-bg bg-clip-text group gap-2 text-base text-white group"
           onClick={props.item.onClick}
         >
-          <span className="flex items-center group-hover:text-transparent font-montserrat text-lg">{props.item.icon}</span>
+          <span className="flex items-center group-hover:text-transparent font-montserrat text-lg">
+            {props.item.icon}
+          </span>
           <span className="group-hover:text-transparent font-michroma -mt-0.5 capitalize">{props.item.title}</span>
         </button>
       )}

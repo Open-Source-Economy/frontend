@@ -50,7 +50,8 @@ export function PlatformStats(props: PlatformStatsProps) {
       iconBg: "bg-gradient-to-br from-brand-primary/20 to-brand-accent/20",
       iconBorder: "border-brand-primary/30 group-hover:border-brand-accent/50",
       iconColor: "text-brand-primary group-hover:text-brand-accent",
-      valueGradient: "from-brand-primary via-brand-primary-light to-brand-accent group-hover:from-brand-accent group-hover:to-brand-primary",
+      valueGradient:
+        "from-brand-primary via-brand-primary-light to-brand-accent group-hover:from-brand-accent group-hover:to-brand-primary",
     },
     {
       icon: Star,
@@ -59,7 +60,8 @@ export function PlatformStats(props: PlatformStatsProps) {
       iconBg: "bg-gradient-to-br from-brand-accent/20 to-brand-highlight/20",
       iconBorder: "border-brand-accent/30 group-hover:border-brand-highlight/50",
       iconColor: "text-brand-accent group-hover:text-brand-highlight",
-      valueGradient: "from-brand-accent via-brand-accent-light to-brand-highlight group-hover:from-brand-highlight group-hover:to-brand-accent",
+      valueGradient:
+        "from-brand-accent via-brand-accent-light to-brand-highlight group-hover:from-brand-highlight group-hover:to-brand-accent",
     },
     {
       icon: Users,
@@ -68,7 +70,8 @@ export function PlatformStats(props: PlatformStatsProps) {
       iconBg: "bg-gradient-to-br from-brand-highlight/20 to-brand-primary/20",
       iconBorder: "border-brand-highlight/30 group-hover:border-brand-primary/50",
       iconColor: "text-brand-highlight group-hover:text-brand-primary",
-      valueGradient: "from-brand-highlight via-brand-highlight-light to-brand-primary group-hover:from-brand-primary group-hover:to-brand-highlight",
+      valueGradient:
+        "from-brand-highlight via-brand-highlight-light to-brand-primary group-hover:from-brand-primary group-hover:to-brand-highlight",
     },
   ];
 
@@ -78,7 +81,9 @@ export function PlatformStats(props: PlatformStatsProps) {
         {showcaseStats.map((stat, index) => (
           <div key={index} className="text-center group">
             <div className="flex items-center justify-center mb-3">
-              <div className={`w-10 h-10 ${stat.iconBg} rounded-xl flex items-center justify-center border ${stat.iconBorder} transition-all duration-300`}>
+              <div
+                className={`w-10 h-10 ${stat.iconBg} rounded-xl flex items-center justify-center border ${stat.iconBorder} transition-all duration-300`}
+              >
                 <stat.icon className={`w-5 h-5 ${stat.iconColor} transition-colors duration-300`} />
               </div>
             </div>

@@ -11,18 +11,22 @@ type PolymorphicProps<T extends React.ElementType> = AsProp<T> & {
   className?: string;
 } & Omit<React.ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
 
-type PolymorphicComponent = <T extends React.ElementType = "span">(props: PolymorphicProps<T> & { ref?: React.Ref<Element> }) => React.ReactElement | null;
+type PolymorphicComponent = <T extends React.ElementType = "span">(
+  props: PolymorphicProps<T> & { ref?: React.Ref<Element> }
+) => React.ReactElement | null;
 
 // --- Factory to build simple text components with optional "as" ---
 function createTextComponent<TDefault extends React.ElementType>(defaultTag: TDefault, baseClass: string) {
-  const Comp = React.forwardRef<Element, PolymorphicProps<React.ElementType>>(({ as: Tag = defaultTag, className, children, ...props }, ref) => {
-    const TagAny = Tag as React.ElementType;
-    return (
-      <TagAny ref={ref} className={cn(baseClass, className)} {...props}>
-        {children}
-      </TagAny>
-    );
-  }) as unknown as PolymorphicComponent;
+  const Comp = React.forwardRef<Element, PolymorphicProps<React.ElementType>>(
+    ({ as: Tag = defaultTag, className, children, ...props }, ref) => {
+      const TagAny = Tag as React.ElementType;
+      return (
+        <TagAny ref={ref} className={cn(baseClass, className)} {...props}>
+          {children}
+        </TagAny>
+      );
+    }
+  ) as unknown as PolymorphicComponent;
 
   // Comp.displayName = `Typography(${baseClass})`;
   return Comp;
@@ -34,46 +38,58 @@ export const DisplayMedium = createTextComponent("h1", "text-display-medium");
 export const DisplaySmall = createTextComponent("h1", "text-display-small");
 
 // --- Semantic headings (fixed concrete tags, keep correct HTMLHeadingElement attrs) ---
-export const H1 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h1 ref={ref} className={cn("text-headline-large", className)} {...props}>
-    {children}
-  </h1>
-));
+export const H1 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h1 ref={ref} className={cn("text-headline-large", className)} {...props}>
+      {children}
+    </h1>
+  )
+);
 H1.displayName = "H1";
 
-export const H2 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h2 ref={ref} className={cn("text-headline-medium", className)} {...props}>
-    {children}
-  </h2>
-));
+export const H2 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h2 ref={ref} className={cn("text-headline-medium", className)} {...props}>
+      {children}
+    </h2>
+  )
+);
 H2.displayName = "H2";
 
-export const H3 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h3 ref={ref} className={cn("text-headline-small", className)} {...props}>
-    {children}
-  </h3>
-));
+export const H3 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h3 ref={ref} className={cn("text-headline-small", className)} {...props}>
+      {children}
+    </h3>
+  )
+);
 H3.displayName = "H3";
 
-export const H4 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h4 ref={ref} className={cn("text-title-large", className)} {...props}>
-    {children}
-  </h4>
-));
+export const H4 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h4 ref={ref} className={cn("text-title-large", className)} {...props}>
+      {children}
+    </h4>
+  )
+);
 H4.displayName = "H4";
 
-export const H5 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h5 ref={ref} className={cn("text-title-medium", className)} {...props}>
-    {children}
-  </h5>
-));
+export const H5 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h5 ref={ref} className={cn("text-title-medium", className)} {...props}>
+      {children}
+    </h5>
+  )
+);
 H5.displayName = "H5";
 
-export const H6 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, children, ...props }, ref) => (
-  <h6 ref={ref} className={cn("text-title-small", className)} {...props}>
-    {children}
-  </h6>
-));
+export const H6 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, ...props }, ref) => (
+    <h6 ref={ref} className={cn("text-title-small", className)} {...props}>
+      {children}
+    </h6>
+  )
+);
 H6.displayName = "H6";
 
 // --- Body text (polymorphic, default <p>) ---
@@ -95,11 +111,17 @@ export const LabelSmall = createTextComponent("label", "text-label-small");
 export const Code = createTextComponent("code", "text-code");
 
 // --- Blockquote (keeps correct quote element typing) ---
-export const Blockquote = React.forwardRef<HTMLQuoteElement, React.HTMLAttributes<HTMLQuoteElement>>(({ className, children, ...props }, ref) => (
-  <blockquote ref={ref} className={cn("border-l-4 border-brand-primary pl-4 italic text-muted-foreground", className)} {...props}>
-    {children}
-  </blockquote>
-));
+export const Blockquote = React.forwardRef<HTMLQuoteElement, React.HTMLAttributes<HTMLQuoteElement>>(
+  ({ className, children, ...props }, ref) => (
+    <blockquote
+      ref={ref}
+      className={cn("border-l-4 border-brand-primary pl-4 italic text-muted-foreground", className)}
+      {...props}
+    >
+      {children}
+    </blockquote>
+  )
+);
 Blockquote.displayName = "Blockquote";
 
 // --- Lists ---
@@ -113,39 +135,53 @@ export const List = React.forwardRef<
 >(({ ordered, className, children, ...props }, ref) => {
   if (ordered) {
     return (
-      <ol ref={ref as React.Ref<HTMLOListElement>} className={cn("mb-4 pl-6 list-decimal", className)} {...(props as React.HTMLAttributes<HTMLOListElement>)}>
+      <ol
+        ref={ref as React.Ref<HTMLOListElement>}
+        className={cn("mb-4 pl-6 list-decimal", className)}
+        {...(props as React.HTMLAttributes<HTMLOListElement>)}
+      >
         {children}
       </ol>
     );
   }
   return (
-    <ul ref={ref as React.Ref<HTMLUListElement>} className={cn("mb-4 pl-6 list-disc", className)} {...(props as React.HTMLAttributes<HTMLUListElement>)}>
+    <ul
+      ref={ref as React.Ref<HTMLUListElement>}
+      className={cn("mb-4 pl-6 list-disc", className)}
+      {...(props as React.HTMLAttributes<HTMLUListElement>)}
+    >
       {children}
     </ul>
   );
 });
 List.displayName = "List";
 
-export const ListItem = React.forwardRef<HTMLLIElement, React.LiHTMLAttributes<HTMLLIElement>>(({ className, children, ...props }, ref) => (
-  <li ref={ref} className={cn("mb-1", className)} {...props}>
-    {children}
-  </li>
-));
+export const ListItem = React.forwardRef<HTMLLIElement, React.LiHTMLAttributes<HTMLLIElement>>(
+  ({ className, children, ...props }, ref) => (
+    <li ref={ref} className={cn("mb-1", className)} {...props}>
+      {children}
+    </li>
+  )
+);
 ListItem.displayName = "ListItem";
 
 // --- Emphasis ---
-export const Strong = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(({ className, children, ...props }, ref) => (
-  <strong ref={ref} className={cn("font-semibold", className)} {...props}>
-    {children}
-  </strong>
-));
+export const Strong = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+  ({ className, children, ...props }, ref) => (
+    <strong ref={ref} className={cn("font-semibold", className)} {...props}>
+      {children}
+    </strong>
+  )
+);
 Strong.displayName = "Strong";
 
-export const Emphasis = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(({ className, children, ...props }, ref) => (
-  <em ref={ref} className={cn("italic", className)} {...props}>
-    {children}
-  </em>
-));
+export const Emphasis = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+  ({ className, children, ...props }, ref) => (
+    <em ref={ref} className={cn("italic", className)} {...props}>
+      {children}
+    </em>
+  )
+);
 Emphasis.displayName = "Emphasis";
 
 // --- Muted ---

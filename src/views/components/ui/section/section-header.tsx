@@ -83,7 +83,7 @@ export function SectionHeader(props: SectionHeaderProps) {
     maxWidth !== "none" && align === "center" && "mx-auto",
     maxWidth !== "none" && maxWidthClasses[maxWidth],
     spacingClasses[spacing],
-    props.className,
+    props.className
   );
 
   const renderTitle = () => {

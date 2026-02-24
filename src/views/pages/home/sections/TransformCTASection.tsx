@@ -72,8 +72,8 @@ export function TransformCTASection(props: TransformCTASectionProps) {
                     textShadow: "0 2px 15px rgba(0, 0, 0, 0.7), 0 1px 5px rgba(0, 0, 0, 0.9)",
                   }}
                 >
-                  Connect with the world's best open source maintainers under one enterprise contract. Get the support you need while investing in a sustainable
-                  future for open source.
+                  Connect with the world's best open source maintainers under one enterprise contract. Get the support
+                  you need while investing in a sustainable future for open source.
                 </Typography.BodyLarge>
               </div>
             </div>

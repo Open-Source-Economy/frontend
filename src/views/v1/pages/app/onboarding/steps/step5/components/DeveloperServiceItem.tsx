@@ -30,13 +30,14 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
   }
 
   const sourceIdentifiers: dto.SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
-    .map(id => normalizedMap.get(id.uuid))
+    .map((id) => normalizedMap.get(id.uuid))
     .filter((v): v is dto.SourceIdentifier => v !== undefined);
 
-  const projectItemNames = sourceIdentifiers.map(si => SourceIdentifierCompanion.displayName(si));
+  const projectItemNames = sourceIdentifiers.map((si) => SourceIdentifierCompanion.displayName(si));
 
   const visibleNames = projectItemNames.slice(0, numberOfDisplayedProjects).join(" | ");
-  const hiddenCount = projectItemNames.length > numberOfDisplayedProjects ? projectItemNames.length - numberOfDisplayedProjects : 0;
+  const hiddenCount =
+    projectItemNames.length > numberOfDisplayedProjects ? projectItemNames.length - numberOfDisplayedProjects : 0;
 
   return (
     <>
@@ -47,10 +48,18 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
             <div className="flex items-center gap-4 flex-1">
               <span className="text-white font-montserrat text-base font-normal leading-[150%]">{service.name}</span>
               {service.hasResponseTime && developerService?.responseTimeHours === undefined && (
-                <ActionPill text="Select response time" onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError} />
+                <ActionPill
+                  text="Select response time"
+                  onClick={() => props.onSelectProjects(props.developerServiceEntry)}
+                  hasError={props.showError}
+                />
               )}
               {developerService?.developerProjectItemIds.length === 0 && (
-                <ActionPill text="Select projects" onClick={() => props.onSelectProjects(props.developerServiceEntry)} hasError={props.showError} />
+                <ActionPill
+                  text="Select projects"
+                  onClick={() => props.onSelectProjects(props.developerServiceEntry)}
+                  hasError={props.showError}
+                />
               )}
             </div>
 
@@ -82,12 +91,16 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
             ) : (
               <InfoPill text={`Hourly rate: ${displayedCurrency.symbol} ${props.defaultRate.amount}/h`} />
             )}
-            {developerService?.responseTimeHours && <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />}
+            {developerService?.responseTimeHours && (
+              <InfoPill text={`Response time: ${developerService.responseTimeHours}`} />
+            )}
           </div>
         </div>
 
         {props.showError && (
-          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">* Please add missing configurations</div>
+          <div className="self-stretch text-[#FF8C8C] font-montserrat text-base font-normal leading-[150%]">
+            * Please add missing configurations
+          </div>
         )}
       </div>
     </>

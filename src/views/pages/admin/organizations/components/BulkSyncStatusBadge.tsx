@@ -54,7 +54,11 @@ export function BulkSyncStatusBadge(props: BulkSyncStatusBadgeProps) {
 
   return (
     <div className={`mb-3 p-2 rounded-lg border ${status.borderColor} ${status.bgColor} flex items-center gap-2`}>
-      {status.icon === Loader2 ? <Loader2 className={`w-4 h-4 ${status.textColor} animate-spin`} /> : <status.icon className={`w-4 h-4 ${status.textColor}`} />}
+      {status.icon === Loader2 ? (
+        <Loader2 className={`w-4 h-4 ${status.textColor} animate-spin`} />
+      ) : (
+        <status.icon className={`w-4 h-4 ${status.textColor}`} />
+      )}
       <span className={`text-sm font-semibold ${status.textColor}`}>{status.text}</span>
     </div>
   );

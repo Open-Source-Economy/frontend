@@ -4,7 +4,10 @@ import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
 import { Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
 import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCardView, ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
+import {
+  ProjectItemWithDetailsCardView,
+  ProjectItemWithDetailsCompanion,
+} from "src/ultils/companions/ProjectItemWithDetails.companion";
 import { DeveloperRoleTypeCompanion } from "src/ultils/companions/DeveloperRoleType.companion";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate } from "@tanstack/react-router";
@@ -101,7 +104,9 @@ export function ProjectCard(props: ProjectCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 min-h-[3rem]">{view.projectDescription || "\u00A0"}</p>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 min-h-[3rem]">
+          {view.projectDescription || "\u00A0"}
+        </p>
 
         {/* GitHub Stats */}
         <div className="flex items-center gap-4 pb-3 mb-3 border-b border-border/50 text-xs opacity-60">
@@ -126,7 +131,7 @@ export function ProjectCard(props: ProjectCardProps) {
             </>
           )}
           <button
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               if (view.githubUrl) {
                 window.open(view.githubUrl, "_blank");
@@ -155,7 +160,7 @@ export function ProjectCard(props: ProjectCardProps) {
                 <CollapsibleTrigger asChild>
                   <div
                     className="flex items-center gap-2 py-1 px-2 -mx-2 rounded-lg cursor-pointer group/maintainers hover:bg-brand-accent/5 transition-colors"
-                    onClick={e => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <span className="text-sm text-muted-foreground group-hover/maintainers:text-brand-accent transition-colors">
                       {view.maintainersCount} Expert maintainer{view.maintainersCount !== 1 ? "s" : ""}
@@ -167,7 +172,9 @@ export function ProjectCard(props: ProjectCardProps) {
                         </span>
                       )}
                       <div className="p-1 hover:bg-brand-accent/10 rounded transition-all duration-200">
-                        <div className={`transition-transform duration-300 ${openMaintainers ? "rotate-180" : "rotate-0"}`}>
+                        <div
+                          className={`transition-transform duration-300 ${openMaintainers ? "rotate-180" : "rotate-0"}`}
+                        >
                           <ChevronDown
                             className={`w-3.5 h-3.5 transition-colors duration-200 ${openMaintainers ? "text-brand-accent" : "text-muted-foreground"}`}
                           />
@@ -177,10 +184,10 @@ export function ProjectCard(props: ProjectCardProps) {
                   </div>
                 </CollapsibleTrigger>
 
-                <CollapsibleContent onClick={e => e.stopPropagation()}>
+                <CollapsibleContent onClick={(e) => e.stopPropagation()}>
                   <div className="space-y-2 mt-2">
                     {/* Iterate over the actual developer data */}
-                    {view.visibleDevelopers.map(developer => (
+                    {view.visibleDevelopers.map((developer) => (
                       <div key={developer.developerOwner.id.login} className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-brand-accent/20 flex-shrink-0">
                           <img
@@ -206,14 +213,15 @@ export function ProjectCard(props: ProjectCardProps) {
                     {/* View All Maintainers Link - Only show if there are more than 3 maintainers */}
                     {view.remainingMaintainersCount > 0 && (
                       <button
-                        onClick={e => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           props.onViewProject?.(view.projectId.uuid);
                         }}
                         className="flex items-center gap-1 text-xs text-brand-accent hover:text-brand-accent-dark transition-colors mt-1 py-1"
                       >
                         <span>
-                          + {view.remainingMaintainersCount} more maintainer{view.remainingMaintainersCount !== 1 ? "s" : ""}
+                          + {view.remainingMaintainersCount} more maintainer
+                          {view.remainingMaintainersCount !== 1 ? "s" : ""}
                         </span>
                       </button>
                     )}

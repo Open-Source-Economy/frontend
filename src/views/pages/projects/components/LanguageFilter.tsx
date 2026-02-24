@@ -23,7 +23,7 @@ export function LanguageFilter(props: LanguageFilterProps) {
         <span>All Languages</span>
       </button>
 
-      {props.languages.sort().map(language => (
+      {props.languages.sort().map((language) => (
         <button
           key={language}
           onClick={() => props.onSelectLanguage(language)}

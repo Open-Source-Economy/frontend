@@ -48,7 +48,10 @@ export function ExpertMaintainers(_props: ExpertMaintainersProps) {
       <div className="space-y-6">
         {/* Direct Access Header */}
         <div className="text-center">
-          <Badge variant="outline" className="mb-4 text-brand-accent border-brand-accent/40 bg-brand-accent/15 font-semibold px-4 py-2 text-base">
+          <Badge
+            variant="outline"
+            className="mb-4 text-brand-accent border-brand-accent/40 bg-brand-accent/15 font-semibold px-4 py-2 text-base"
+          >
             <Users className="w-4 h-4 mr-2" />
             Direct <span className="text-foreground">Maintainer</span> Access
           </Badge>
@@ -105,7 +108,7 @@ export function ExpertMaintainers(_props: ExpertMaintainersProps) {
 
                     {/* Projects */}
                     <div className="flex flex-wrap gap-1 mb-2">
-                      {expert.projects.slice(0, 2).map(project => (
+                      {expert.projects.slice(0, 2).map((project) => (
                         <Badge
                           key={project}
                           variant="outline"
@@ -115,7 +118,10 @@ export function ExpertMaintainers(_props: ExpertMaintainersProps) {
                         </Badge>
                       ))}
                       {expert.projects.length > 2 && (
-                        <Badge variant="outline" className="text-sm px-2.5 py-1 bg-muted-foreground/10 text-muted-foreground border-muted-foreground/20">
+                        <Badge
+                          variant="outline"
+                          className="text-sm px-2.5 py-1 bg-muted-foreground/10 text-muted-foreground border-muted-foreground/20"
+                        >
                           +{expert.projects.length - 2}
                         </Badge>
                       )}
@@ -149,7 +155,8 @@ export function ExpertMaintainers(_props: ExpertMaintainersProps) {
         <div className="text-center pt-6 border-t border-border/30">
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              <span className="text-brand-primary font-medium">One contract.</span> Direct access to the experts who built your stack.
+              <span className="text-brand-primary font-medium">One contract.</span> Direct access to the experts who
+              built your stack.
             </p>
             <div className="flex items-center justify-center gap-4 text-sm text-foreground">
               <div className="flex items-center gap-1.5">

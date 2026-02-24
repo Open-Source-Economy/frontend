@@ -11,7 +11,10 @@ interface OpportunitySelectorProps {
   required?: boolean;
 }
 
-export const OpportunitySelector = forwardRef(function OpportunitySelector(props: OpportunitySelectorProps, ref: Ref<OpportunitySelectorRef>) {
+export const OpportunitySelector = forwardRef(function OpportunitySelector(
+  props: OpportunitySelectorProps,
+  ref: Ref<OpportunitySelectorRef>
+) {
   const [error, setError] = useState<string | undefined>(undefined);
 
   const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
@@ -29,7 +32,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(props
         return runValidation(props.value, showInputError);
       },
     }),
-    [props.value, props.required],
+    [props.value, props.required]
   );
 
   const handleButtonClick = (option: OpenToOtherOpportunityType) => {

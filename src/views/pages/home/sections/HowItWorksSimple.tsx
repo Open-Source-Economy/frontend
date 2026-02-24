@@ -1,7 +1,22 @@
 import React from "react";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
-import { AlertCircle, ArrowRight, Calendar, Clock, FileText, Globe, Heart, Layers, LucideIcon, Repeat, Rocket, ShieldCheck, Target, Zap } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  Calendar,
+  Clock,
+  FileText,
+  Globe,
+  Heart,
+  Layers,
+  LucideIcon,
+  Repeat,
+  Rocket,
+  ShieldCheck,
+  Target,
+  Zap,
+} from "lucide-react";
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { laurianeCalLink } from "src/views/v1/data";
@@ -64,7 +79,13 @@ export const howItWorksContent = {
         "Your engagement sustains the open source ecosystem. Open Source Economy promotes your contribution through campaigns and events that highlight your leadership.",
     },
   ] as HowItWorksStep[],
-  features: ["NDA protection", "SLA-backed", "Easy payment processing", "Full transparency", "100% open source output code"],
+  features: [
+    "NDA protection",
+    "SLA-backed",
+    "Easy payment processing",
+    "Full transparency",
+    "100% open source output code",
+  ],
   accessModels: {
     title: "Two Flexible Access Models",
     description: "Choose the model that fits your needs, or combine both for maximum flexibility",
@@ -72,7 +93,8 @@ export const howItWorksContent = {
       {
         icon: ShieldCheck,
         title: "Project-Specific Support Plan",
-        description: "Secure a predictable, long-term resource for your most critical projects. Guaranteed availability with SLA response times.",
+        description:
+          "Secure a predictable, long-term resource for your most critical projects. Guaranteed availability with SLA response times.",
         accentColor: "accent",
         features: [
           { icon: Calendar, text: "Reserved monthly capacity" },
@@ -84,7 +106,8 @@ export const howItWorksContent = {
       {
         icon: Zap,
         title: "On-Demand Access",
-        description: "Pre-purchase rollover Service Credits for flexible, ecosystem-wide support when unexpected needs or issues come up.",
+        description:
+          "Pre-purchase rollover Service Credits for flexible, ecosystem-wide support when unexpected needs or issues come up.",
         accentColor: "highlight",
         features: [
           { icon: Repeat, text: "Credits rollover month-to-month" },
@@ -163,7 +186,9 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
                   className={`bg-brand-card-blue/50 backdrop-blur-sm border border-brand-neutral-300/30 rounded-lg p-6 hover:border-brand-${model.accentColor}/40 transition-colors flex flex-col`}
                 >
                   <div className="flex items-start gap-4 mb-4 flex-grow">
-                    <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-brand-${model.accentColor}/10 flex items-center justify-center`}>
+                    <div
+                      className={`flex-shrink-0 w-12 h-12 rounded-lg bg-brand-${model.accentColor}/10 flex items-center justify-center`}
+                    >
                       <Icon className={`w-6 h-6 text-brand-${model.accentColor}`} />
                     </div>
                     <div className="flex-1">
@@ -171,7 +196,12 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
                       <p className="text-brand-neutral-700 text-sm mb-4">{model.description}</p>
                       <div className="space-y-2.5">
                         {model.features.map((feature, featureIndex) => (
-                          <FeatureListItem key={featureIndex} icon={feature.icon} text={feature.text} accentColor={model.accentColor} />
+                          <FeatureListItem
+                            key={featureIndex}
+                            icon={feature.icon}
+                            text={feature.text}
+                            accentColor={model.accentColor}
+                          />
                         ))}
                       </div>
                     </div>
@@ -218,7 +248,8 @@ interface FeatureListItemProps {
 }
 
 const FeatureListItem: React.FC<FeatureListItemProps> = ({ icon: Icon, text, accentColor }) => {
-  const accentClasses = accentColor === "accent" ? "bg-brand-accent/10 text-brand-accent" : "bg-brand-highlight/10 text-brand-highlight";
+  const accentClasses =
+    accentColor === "accent" ? "bg-brand-accent/10 text-brand-accent" : "bg-brand-highlight/10 text-brand-highlight";
 
   return (
     <div className="flex items-center gap-2.5">

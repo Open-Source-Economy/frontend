@@ -21,7 +21,11 @@ export function ModalHeader(props: ModalHeaderProps) {
             <CloseIcon />
           </button>
         </div>
-        {props.subtitle && <p className="self-stretch text-white font-montserrat text-base font-normal leading-[150%] opacity-60">{props.subtitle}</p>}
+        {props.subtitle && (
+          <p className="self-stretch text-white font-montserrat text-base font-normal leading-[150%] opacity-60">
+            {props.subtitle}
+          </p>
+        )}
       </div>
     </>
   );

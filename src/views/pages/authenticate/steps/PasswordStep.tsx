@@ -12,7 +12,12 @@ import * as dto from "@open-source-economy/api-types";
 import { authHooks } from "src/api";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
-import { registrationFormSchema, loginFormSchema, type RegistrationFormData, type LoginFormData } from "src/views/components/ui/forms/schemas";
+import {
+  registrationFormSchema,
+  loginFormSchema,
+  type RegistrationFormData,
+  type LoginFormData,
+} from "src/views/components/ui/forms/schemas";
 import { passwordTransformError } from "src/views/components/ui/forms/schemas/password-requirements";
 
 export function PasswordStep() {
@@ -118,7 +123,12 @@ export function PasswordStep() {
   return (
     <AuthPageWrapper title={title} description={description}>
       <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-500">
-        <EmailDisplay email={email} onEdit={!isEmailPredefined ? () => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams }) : undefined} />
+        <EmailDisplay
+          email={email}
+          onEdit={
+            !isEmailPredefined ? () => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams }) : undefined
+          }
+        />
 
         {isRegistering ? (
           <Form form={registrationForm} onSubmit={handleRegistrationSubmit} className="space-y-4">
@@ -145,8 +155,10 @@ export function PasswordStep() {
 
             <TermsCheckbox
               checked={registrationForm.watch("termsAccepted") === true}
-              onCheckedChange={checked => {
-                registrationForm.setValue("termsAccepted", checked as any, { shouldValidate: registrationForm.formState.isSubmitted });
+              onCheckedChange={(checked) => {
+                registrationForm.setValue("termsAccepted", checked as any, {
+                  shouldValidate: registrationForm.formState.isSubmitted,
+                });
               }}
               error={registrationForm.formState.errors.termsAccepted?.message as string | undefined}
             />

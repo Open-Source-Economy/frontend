@@ -25,7 +25,7 @@ export function ProjectSearchBar(props: ProjectSearchBarProps) {
         ref={inputRef}
         type="text"
         value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value)}
         placeholder={props.placeholder ?? "Search projects by name..."}
         className="w-full h-10 pl-11 pr-10 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent/20 transition-all duration-200"
       />

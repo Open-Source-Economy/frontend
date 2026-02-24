@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../ui/dropdown-menu";
 import { UserProfileSection } from "./UserProfileSection";
 import { TokenDisplay } from "../../../user/TokenDisplay";
 import { AuthenticatedUser } from "@open-source-economy/api-types";
@@ -35,7 +42,7 @@ export function UserMenuDropdown(props: UserMenuDropdownProps) {
                 </div>
               )}
               <DropdownMenuGroup>
-                {section.links.map(item => (
+                {section.links.map((item) => (
                   <Link key={item.title} to={item.href as string} className="!no-underline">
                     <DropdownMenuItem className="cursor-pointer flex items-center gap-2">
                       {item.icon}

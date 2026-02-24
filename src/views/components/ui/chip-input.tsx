@@ -46,7 +46,9 @@ export const ChipInput: React.FC<ChipInputProps> = ({
     }
   }, [showDropdown]);
 
-  const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && !values.includes(suggestion));
+  const filteredSuggestions = suggestions.filter(
+    (suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && !values.includes(suggestion)
+  );
 
   const handleAdd = (value: string) => {
     const trimmedValue = value.trim();
@@ -64,7 +66,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
   };
 
   const handleRemove = (value: string) => {
-    onChange(values.filter(v => v !== value));
+    onChange(values.filter((v) => v !== value));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -81,7 +83,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
     <div className={cn("space-y-3", className)}>
       {values.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {values.map(value => (
+          {values.map((value) => (
             <Chip key={value} size="lg" onRemove={() => handleRemove(value)} disabled={disabled}>
               {value}
             </Chip>
@@ -93,7 +95,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
         <Input
           type="text"
           value={searchTerm}
-          onChange={e => {
+          onChange={(e) => {
             setSearchTerm(e.target.value);
             setShowDropdown(true);
           }}
@@ -124,14 +126,16 @@ export const ChipInput: React.FC<ChipInputProps> = ({
 
               {filteredSuggestions.length > 0 ? (
                 <div className="p-1">
-                  {filteredSuggestions.slice(0, 10).map(suggestion => (
+                  {filteredSuggestions.slice(0, 10).map((suggestion) => (
                     <button
                       key={suggestion}
                       type="button"
                       onClick={() => handleAdd(suggestion)}
                       className="w-full px-3 py-2.5 text-left rounded-lg hover:bg-brand-secondary-dark transition-colors group cursor-pointer"
                     >
-                      <p className="text-sm text-brand-neutral-800 group-hover:text-brand-accent transition-colors">{suggestion}</p>
+                      <p className="text-sm text-brand-neutral-800 group-hover:text-brand-accent transition-colors">
+                        {suggestion}
+                      </p>
                     </button>
                   ))}
                 </div>

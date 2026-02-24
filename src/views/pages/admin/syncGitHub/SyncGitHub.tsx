@@ -37,7 +37,11 @@ export function SyncGitHub() {
             setError("Please enter a repository name");
             return;
           }
-          response = await syncRepositoryMutation.mutateAsync({ params: { owner: ownerInput, repo: repoInput }, body: {}, query: {} });
+          response = await syncRepositoryMutation.mutateAsync({
+            params: { owner: ownerInput, repo: repoInput },
+            body: {},
+            query: {},
+          });
           break;
         case "project":
           response = await syncProjectMutation.mutateAsync({
@@ -67,7 +71,13 @@ export function SyncGitHub() {
             <label className="block text-gray-700 font-semibold mb-2">Sync Type</label>
             <div className="flex gap-4">
               <label className="flex items-center text-gray-700 cursor-pointer">
-                <input type="radio" value="owner" checked={syncType === "owner"} onChange={e => setSyncType(e.target.value as "owner")} className="mr-2" />
+                <input
+                  type="radio"
+                  value="owner"
+                  checked={syncType === "owner"}
+                  onChange={(e) => setSyncType(e.target.value as "owner")}
+                  className="mr-2"
+                />
                 Owner
               </label>
               <label className="flex items-center text-gray-700 cursor-pointer">
@@ -75,7 +85,7 @@ export function SyncGitHub() {
                   type="radio"
                   value="repository"
                   checked={syncType === "repository"}
-                  onChange={e => setSyncType(e.target.value as "repository")}
+                  onChange={(e) => setSyncType(e.target.value as "repository")}
                   className="mr-2"
                 />
                 Repository
@@ -85,7 +95,7 @@ export function SyncGitHub() {
                   type="radio"
                   value="project"
                   checked={syncType === "project"}
-                  onChange={e => setSyncType(e.target.value as "project")}
+                  onChange={(e) => setSyncType(e.target.value as "project")}
                   className="mr-2"
                 />
                 Project
@@ -99,7 +109,7 @@ export function SyncGitHub() {
             <input
               type="text"
               value={ownerInput}
-              onChange={e => setOwnerInput(e.target.value)}
+              onChange={(e) => setOwnerInput(e.target.value)}
               placeholder="e.g., Open-Source-Economy"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
             />
@@ -108,11 +118,13 @@ export function SyncGitHub() {
           {/* Repository Input (conditional) */}
           {(syncType === "repository" || syncType === "project") && (
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">Repository {syncType === "project" && "(optional)"}</label>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Repository {syncType === "project" && "(optional)"}
+              </label>
               <input
                 type="text"
                 value={repoInput}
-                onChange={e => setRepoInput(e.target.value)}
+                onChange={(e) => setRepoInput(e.target.value)}
                 placeholder="e.g., web2-backend"
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
               />

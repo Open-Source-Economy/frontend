@@ -16,7 +16,9 @@ function ProgressStep({ step: _step, label, isActive, isCompleted }: ProgressSte
     <div className="box-border content-stretch flex flex-col gap-1 items-start justify-center p-0 relative shrink-0 w-[140px]">
       <div
         className={`box-border content-stretch flex flex-col items-center justify-center overflow-clip p-0 rounded-[48px] shrink-0 size-4 ${
-          isActive || isCompleted ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b]" : "bg-[rgba(255,255,255,0.3)]"
+          isActive || isCompleted
+            ? "bg-gradient-to-r from-[#ff7e4b] via-[#ff518c] to-[#66319b]"
+            : "bg-[rgba(255,255,255,0.3)]"
         }`}
       />
       <div
@@ -43,7 +45,12 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
     <div className="box-border content-stretch flex flex-row items-center justify-between p-0 relative w-[900px] mx-auto">
       {steps.map((stepData, _index) => (
         <React.Fragment key={stepData.step}>
-          <ProgressStep step={stepData.step} label={stepData.label} isActive={currentStep === stepData.step} isCompleted={currentStep > stepData.step} />
+          <ProgressStep
+            step={stepData.step}
+            label={stepData.label}
+            isActive={currentStep === stepData.step}
+            isCompleted={currentStep > stepData.step}
+          />
         </React.Fragment>
       ))}
     </div>

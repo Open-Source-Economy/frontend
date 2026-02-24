@@ -36,7 +36,8 @@ export const ServiceRateDialogContent: React.FC<ServiceRateDialogContentProps> =
           <h5 className="text-sm text-brand-neutral-900">Custom Rate</h5>
         </div>
         <p className="text-xs text-brand-neutral-700 leading-relaxed mb-2">
-          Set a different rate for services that require specialized expertise, have higher complexity, or are in higher demand.
+          Set a different rate for services that require specialized expertise, have higher complexity, or are in higher
+          demand.
         </p>
         <div className="text-xs text-brand-neutral-600 space-y-1">
           <p>

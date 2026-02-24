@@ -4,7 +4,11 @@ import { SocialMedia } from "src/views/v1/components/socialMedia/SocialMedia";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import type { NewsletterSubscriptionBody, NewsletterSubscriptionParams, NewsletterSubscriptionQuery } from "@open-source-economy/api-types";
+import type {
+  NewsletterSubscriptionBody,
+  NewsletterSubscriptionParams,
+  NewsletterSubscriptionQuery,
+} from "@open-source-economy/api-types";
 import { ApiError } from "../../../../ultils/error/ApiError";
 import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
@@ -155,7 +159,7 @@ export function Footer() {
                       className="w-full border-none rounded-l-[14px] bg-transparent px-4 text-sm text-black outline-none"
                       placeholder="Enter your email"
                       value={email}
-                      onChange={e => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <button
                       type="button"
@@ -185,7 +189,8 @@ export function Footer() {
             >
               <p className="text-xs sm:text-sm text-gray-400 text-center sm:text-left">
                 © Open Source Economy - Non profit organisation -{" "}
-                <ExternalLink href="https://zefix.ch/en/search/entity/list/firm/1637128">CHE-440.058.692</ExternalLink> Switzerland
+                <ExternalLink href="https://zefix.ch/en/search/entity/list/firm/1637128">CHE-440.058.692</ExternalLink>{" "}
+                Switzerland
               </p>
               {/*This part is overridden by the button "Donate"*/}
               {/*{config.env !== Env.Production && (*/}

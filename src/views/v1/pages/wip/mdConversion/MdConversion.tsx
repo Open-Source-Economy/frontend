@@ -13,17 +13,17 @@ export function MdConversion(_props: MdConversionProps) {
 
   useEffect(() => {
     fetch(filePath)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.text();
       })
-      .then(data => {
+      .then((data) => {
         setMarkdownText(data);
         setError(null);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching markdown:", error);
         setError("Failed to load markdown content");
       });
@@ -33,7 +33,7 @@ export function MdConversion(_props: MdConversionProps) {
     // Add copy functionality to code blocks
     const preElements = document.querySelectorAll(".blog-container-mse pre");
 
-    preElements.forEach(pre => {
+    preElements.forEach((pre) => {
       pre.addEventListener("click", async () => {
         try {
           const code = pre.querySelector("code")?.textContent || "";
@@ -62,7 +62,7 @@ export function MdConversion(_props: MdConversionProps) {
 
     // Cleanup event listeners
     return () => {
-      preElements.forEach(pre => {
+      preElements.forEach((pre) => {
         pre.replaceWith(pre.cloneNode(true));
       });
     };

@@ -78,17 +78,17 @@ export default function FileUpload() {
   };
 
   const handleFiles = (selectedFiles: File[]) => {
-    const newFiles = selectedFiles.map(file => ({
+    const newFiles = selectedFiles.map((file) => ({
       id: Math.random().toString(36).substring(7),
       name: file.name,
       size: `${(file.size / (1024 * 1024)).toFixed(2)} MB`,
       progress: 0,
     }));
 
-    setFiles(prev => [...prev, ...newFiles]);
+    setFiles((prev) => [...prev, ...newFiles]);
 
     // Simulate upload progress for each file
-    newFiles.forEach(file => {
+    newFiles.forEach((file) => {
       simulateFileUpload(file.id);
     });
   };
@@ -96,8 +96,8 @@ export default function FileUpload() {
   const simulateFileUpload = (fileId: string) => {
     const _progress = 0;
     const interval = setInterval(() => {
-      setFiles(prevFiles =>
-        prevFiles.map(file => {
+      setFiles((prevFiles) =>
+        prevFiles.map((file) => {
           if (file.id === fileId) {
             const newProgress = Math.min(file.progress + Math.random() * 10, 100);
             if (newProgress >= 100) {
@@ -106,13 +106,13 @@ export default function FileUpload() {
             return { ...file, progress: newProgress };
           }
           return file;
-        }),
+        })
       );
     }, 300);
   };
 
   const handleDelete = (fileId: string) => {
-    setFiles(prev => prev.filter(file => file.id !== fileId));
+    setFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
   return (
@@ -125,8 +125,18 @@ export default function FileUpload() {
            hover:!border-[#FF518C] hover:bg-[rgba(255,81,140,0.1)]
           ${isDragging ? "!border-[#FF518C] bg-[rgba(255,81,140,0.1)]" : "!border-[rgba(255,255,255,0.30)]"}`}
         >
-          <input type="file" ref={fileInputRef} multiple onChange={handleFileChange} className="hidden" id="file-upload" />
-          <label htmlFor="file-upload" className="cursor-pointer text-white transition-colors text-base flex items-center gap-2">
+          <input
+            type="file"
+            ref={fileInputRef}
+            multiple
+            onChange={handleFileChange}
+            className="hidden"
+            id="file-upload"
+          />
+          <label
+            htmlFor="file-upload"
+            className="cursor-pointer text-white transition-colors text-base flex items-center gap-2"
+          >
             <span>
               <UploadIcon width={17} stroke={isDragging ? "#FF518C" : "currentColor"} />
             </span>
@@ -136,7 +146,7 @@ export default function FileUpload() {
       </div>
 
       <div className="space-y-4">
-        {files.map(file => (
+        {files.map((file) => (
           <div
             style={{ borderBottom: "1.5px solid rgba(255,255,255,0.30)" }}
             key={file.id}
@@ -152,13 +162,19 @@ export default function FileUpload() {
               {/* Progress Bar */}
               {file.progress < 100 && (
                 <div className="relative h-1 bg-slate-700 rounded-full mt-2">
-                  <div className="absolute top-0 left-0 h-full bg-[#FF518C] transition-all duration-300" style={{ width: `${file.progress}%` }} />
+                  <div
+                    className="absolute top-0 left-0 h-full bg-[#FF518C] transition-all duration-300"
+                    style={{ width: `${file.progress}%` }}
+                  />
                 </div>
               )}
             </div>
             {file.progress < 100 && <span className="text-xs text-slate-500 w-7">{Math.round(file.progress)}%</span>}
 
-            <button className="text-slate-500 hover:text-red-400 3xl:h-8 w-5 3xl:w-8" onClick={() => handleDelete(file.id)}>
+            <button
+              className="text-slate-500 hover:text-red-400 3xl:h-8 w-5 3xl:w-8"
+              onClick={() => handleDelete(file.id)}
+            >
               <DeleteIcon />
               <span className="sr-only">Delete file</span>
             </button>
