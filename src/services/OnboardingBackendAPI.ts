@@ -1,15 +1,9 @@
 import * as dto from "@open-source-economy/api-types";
-import { api, handleError } from "./index";
+import { handleError } from "./apiClient";
 import { config } from "src/ultils";
-import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
 import { AxiosInstance } from "axios";
 
-export function getOnboardingBackendAPI(): OnboardingBackendAPI {
-  if (config.api.useMock) {
-    return new OnboardingBackendAPIMock();
-  }
-  return new OnboardingBackendAPIImpl(api);
-}
+// getOnboardingBackendAPI factory is in src/services/getAPI.ts to avoid circular imports
 
 export interface OnboardingBackendAPI {
   // Profile management
@@ -98,7 +92,7 @@ export interface OnboardingBackendAPI {
   ): Promise<dto.CompleteOnboardingResponse>;
 }
 
-class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
+export class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   private api: AxiosInstance;
   constructor(api: AxiosInstance) {
     this.api = api;

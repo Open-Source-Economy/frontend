@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { getBackendAPI } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";

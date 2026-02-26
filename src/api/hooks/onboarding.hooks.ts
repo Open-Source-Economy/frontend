@@ -1,16 +1,14 @@
 import * as dto from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getOnboardingBackendAPI } from "src/services";
+import { onboardingBackendAPI } from "src/services";
 
 const ONBOARDING_QUERY_KEY = ["onboarding"] as const;
-
-const onboardingAPI = getOnboardingBackendAPI();
 
 export const onboardingHooks = {
   useDeveloperProfileQuery(params: dto.GetDeveloperProfileParams, query: dto.GetDeveloperProfileQuery, enabled = true) {
     return useQuery<dto.GetDeveloperProfileResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "profile", params, query],
-      queryFn: () => onboardingAPI.getDeveloperProfile(params, query),
+      queryFn: () => onboardingBackendAPI.getDeveloperProfile(params, query),
       enabled,
     });
   },
@@ -26,7 +24,7 @@ export const onboardingHooks = {
         query: dto.CreateProfileQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.createDeveloperProfile(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.createDeveloperProfile(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -44,7 +42,7 @@ export const onboardingHooks = {
         query: dto.UpdateContactInfosQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.updateDeveloperContactInfos(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.updateDeveloperContactInfos(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -62,7 +60,7 @@ export const onboardingHooks = {
         query: dto.SetDeveloperPreferencesQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.setDeveloperPreferences(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.setDeveloperPreferences(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -80,7 +78,7 @@ export const onboardingHooks = {
         query: dto.SetDeveloperServiceSettingsQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.setDeveloperServiceSettings(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.setDeveloperServiceSettings(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -98,7 +96,7 @@ export const onboardingHooks = {
         query: dto.UpsertDeveloperProjectItemQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.upsertProjectItem(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.upsertProjectItem(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -115,7 +113,7 @@ export const onboardingHooks = {
         query: dto.RemoveDeveloperProjectItemQuery;
       }
     >({
-      mutationFn: ({ params, query }) => onboardingAPI.removeProjectItem(params, query),
+      mutationFn: ({ params, query }) => onboardingBackendAPI.removeProjectItem(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -125,14 +123,14 @@ export const onboardingHooks = {
   usePotentialProjectItemsQuery(params: dto.GetPotentialProjectItemsParams, query: dto.GetPotentialProjectItemsQuery) {
     return useQuery<dto.GetPotentialProjectItemsResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "potentialProjectItems", params, query],
-      queryFn: () => onboardingAPI.getPotentialProjectItems(params, query),
+      queryFn: () => onboardingBackendAPI.getPotentialProjectItems(params, query),
     });
   },
 
   useServiceHierarchyQuery(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery) {
     return useQuery<dto.GetServiceHierarchyResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "serviceHierarchy", params, query],
-      queryFn: () => onboardingAPI.getServiceHierarchy(params, query),
+      queryFn: () => onboardingBackendAPI.getServiceHierarchy(params, query),
     });
   },
 
@@ -147,7 +145,7 @@ export const onboardingHooks = {
         query: dto.UpsertDeveloperServiceQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.upsertDeveloperService(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.upsertDeveloperService(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -165,7 +163,7 @@ export const onboardingHooks = {
         query: dto.UpsertDeveloperServicesQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.upsertDeveloperServices(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.upsertDeveloperServices(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -182,7 +180,7 @@ export const onboardingHooks = {
         query: dto.DeleteDeveloperServiceQuery;
       }
     >({
-      mutationFn: ({ params, query }) => onboardingAPI.deleteDeveloperService(params, query),
+      mutationFn: ({ params, query }) => onboardingBackendAPI.deleteDeveloperService(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -196,7 +194,7 @@ export const onboardingHooks = {
       Error,
       { params: dto.CreateCustomServiceParams; body: dto.CreateCustomServiceBody; query: dto.CreateCustomServiceQuery }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.createCustomService(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.createCustomService(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
@@ -210,7 +208,7 @@ export const onboardingHooks = {
       Error,
       { params: dto.CompleteOnboardingParams; body: dto.CompleteOnboardingBody; query: dto.CompleteOnboardingQuery }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.completeOnboarding(params, body, query),
+      mutationFn: ({ params, body, query }) => onboardingBackendAPI.completeOnboarding(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { getBackendAPI } from "src/services";
 import {
   GetRepositoryParams,
   GetRepositoryQuery,

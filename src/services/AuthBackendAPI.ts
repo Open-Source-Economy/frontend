@@ -1,15 +1,9 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
-import { api, handleError } from "./index";
-import { AuthBackendAPIMock } from "src/__mocks__/AuthBackendAPI.mock";
+import { handleError } from "./apiClient";
 import { config } from "src/ultils";
 
-export function getAuthBackendAPI(): AuthBackendAPI {
-  if (config.api.useMock) {
-    return new AuthBackendAPIMock();
-  }
-  return new AuthBackendAPIImpl(api);
-}
+// getAuthBackendAPI factory is in src/services/getAPI.ts to avoid circular imports
 
 export interface AuthBackendAPI {
   checkUserStatus(): Promise<dto.GetStatusResponse>;
@@ -30,7 +24,7 @@ export interface AuthBackendAPI {
   ): Promise<dto.ResetPasswordResponse>;
 }
 
-class AuthBackendAPIImpl implements AuthBackendAPI {
+export class AuthBackendAPIImpl implements AuthBackendAPI {
   private api: AxiosInstance;
 
   constructor(api: AxiosInstance) {

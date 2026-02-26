@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { AuthBackendAPI } from "src/services";
+import { AuthBackendAPI } from "src/services/AuthBackendAPI";
 import { company, repositoryId, user } from "./index";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {

@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
-import { api, handleError, projectPath } from "./index";
+import { handleError, projectPath } from "./apiClient";
 import { config } from "src/ultils";
 
 // TODO: re-add when available in api-types
@@ -113,9 +113,7 @@ export type CreateProjectQuery = Record<string, never>;
 // TODO: re-add when available in api-types
 export type CreateProjectResponse = Record<string, unknown>;
 
-export function getAdminBackendAPI(): AdminBackendAPI {
-  return new AdminBackendAPIImpl(api);
-}
+// getAdminBackendAPI factory is in src/services/getAPI.ts
 
 export interface AdminBackendAPI {
   getAllDeveloperProfiles(
@@ -175,7 +173,7 @@ export interface AdminBackendAPI {
   ): Promise<CreateProjectResponse>;
 }
 
-class AdminBackendAPIImpl implements AdminBackendAPI {
+export class AdminBackendAPIImpl implements AdminBackendAPI {
   private api: AxiosInstance;
 
   constructor(api: AxiosInstance) {

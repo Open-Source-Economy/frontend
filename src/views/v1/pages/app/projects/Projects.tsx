@@ -11,9 +11,8 @@ import { getBackendAPI } from "src/services";
 
 interface ProjectsProps {}
 
-const backendAPI = getBackendAPI();
-
 export function Projects(_props: ProjectsProps) {
+  const backendAPI = getBackendAPI();
   const repositoryQueries = useQueries({
     queries: repositoryIds.map((repositoryId) => ({
       queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],

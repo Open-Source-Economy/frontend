@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { getBackendAPI } from "src/services";
 import { GetProjectParams, GetProjectQuery, Project } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";

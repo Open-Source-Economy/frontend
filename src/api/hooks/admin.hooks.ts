@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getAdminBackendAPI,
+  adminBackendAPI,
   CreateAddressBody,
   CreateAddressQuery,
   CreateAddressResponse,
@@ -35,20 +35,18 @@ import {
 
 const ADMIN_QUERY_KEY = ["admin"] as const;
 
-const adminAPI = getAdminBackendAPI();
-
 export const adminHooks = {
   useAllDeveloperProfilesQuery(params: dto.GetAllDeveloperProfilesParams, query: dto.GetAllDeveloperProfilesQuery) {
     return useQuery<dto.GetAllDeveloperProfilesResponse>({
       queryKey: [...ADMIN_QUERY_KEY, "allDeveloperProfiles", params, query],
-      queryFn: () => adminAPI.getAllDeveloperProfiles(params, query),
+      queryFn: () => adminBackendAPI.getAllDeveloperProfiles(params, query),
     });
   },
 
   useDeveloperProfileQuery(params: { githubUsername: string }, query: dto.GetDeveloperProfileQuery, enabled = true) {
     return useQuery<dto.GetDeveloperProfileResponse>({
       queryKey: [...ADMIN_QUERY_KEY, "developerProfile", params, query],
-      queryFn: () => adminAPI.getDeveloperProfile(params, query),
+      queryFn: () => adminBackendAPI.getDeveloperProfile(params, query),
       enabled: enabled && !!params.githubUsername,
     });
   },
@@ -64,7 +62,7 @@ export const adminHooks = {
         query: dto.CreateVerificationRecordQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.createVerificationRecord(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.createVerificationRecord(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
       },
@@ -78,7 +76,7 @@ export const adminHooks = {
       Error,
       { params: dto.SyncOrganizationRepositoriesParams; query: dto.SyncOrganizationRepositoriesQuery }
     >({
-      mutationFn: ({ params, query }) => adminAPI.syncOrganizationRepositories(params, query),
+      mutationFn: ({ params, query }) => adminBackendAPI.syncOrganizationRepositories(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
       },
@@ -88,7 +86,7 @@ export const adminHooks = {
   useSyncOwnerMutation() {
     const queryClient = useQueryClient();
     return useMutation<dto.SyncOwnerResponse, Error, { params: dto.SyncOwnerParams; query: dto.SyncOwnerQuery }>({
-      mutationFn: ({ params, query }) => adminAPI.syncOwner(params, query),
+      mutationFn: ({ params, query }) => adminBackendAPI.syncOwner(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
       },
@@ -102,7 +100,7 @@ export const adminHooks = {
       Error,
       { params: dto.SyncRepositoryParams; body: dto.SyncRepositoryBody; query: dto.SyncRepositoryQuery }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.syncRepository(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.syncRepository(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
       },
@@ -112,7 +110,7 @@ export const adminHooks = {
   useSyncProjectMutation() {
     const queryClient = useQueryClient();
     return useMutation<dto.SyncProjectResponse, Error, { params: dto.SyncProjectParams; query: dto.SyncProjectQuery }>({
-      mutationFn: ({ params, query }) => adminAPI.syncProject(params, query),
+      mutationFn: ({ params, query }) => adminBackendAPI.syncProject(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ADMIN_QUERY_KEY });
       },
@@ -121,13 +119,13 @@ export const adminHooks = {
 
   useCreateAddressMutation() {
     return useMutation<CreateAddressResponse, Error, { body: CreateAddressBody; query: CreateAddressQuery }>({
-      mutationFn: ({ body, query }) => adminAPI.createAddress(body, query),
+      mutationFn: ({ body, query }) => adminBackendAPI.createAddress(body, query),
     });
   },
 
   useCreateCompanyMutation() {
     return useMutation<CreateCompanyResponse, Error, { body: CreateCompanyBody; query: CreateCompanyQuery }>({
-      mutationFn: ({ body, query }) => adminAPI.createCompany(body, query),
+      mutationFn: ({ body, query }) => adminBackendAPI.createCompany(body, query),
     });
   },
 
@@ -141,7 +139,7 @@ export const adminHooks = {
         query: SendCompanyRoleInviteQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.sendCompanyRoleInvite(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.sendCompanyRoleInvite(params, body, query),
     });
   },
 
@@ -155,7 +153,7 @@ export const adminHooks = {
         query: SendRepositoryRoleInviteQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.sendRepositoryRoleInvite(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.sendRepositoryRoleInvite(params, body, query),
     });
   },
 
@@ -169,7 +167,7 @@ export const adminHooks = {
         query: CreateCampaignProductAndPriceQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.createCampaignProductAndPrice(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.createCampaignProductAndPrice(params, body, query),
     });
   },
 
@@ -179,7 +177,7 @@ export const adminHooks = {
       Error,
       { body: CreateManualInvoiceBody; query: CreateManualInvoiceQuery }
     >({
-      mutationFn: ({ body, query }) => adminAPI.createManualInvoice(body, query),
+      mutationFn: ({ body, query }) => adminBackendAPI.createManualInvoice(body, query),
     });
   },
 
@@ -193,7 +191,7 @@ export const adminHooks = {
         query: CreatePlanProductAndPriceQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.createPlanProductAndPrice(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.createPlanProductAndPrice(params, body, query),
     });
   },
 
@@ -203,7 +201,7 @@ export const adminHooks = {
       Error,
       { params: CreateProjectParams; body: CreateProjectBody; query: CreateProjectQuery }
     >({
-      mutationFn: ({ params, body, query }) => adminAPI.createProject(params, body, query),
+      mutationFn: ({ params, body, query }) => adminBackendAPI.createProject(params, body, query),
     });
   },
 };

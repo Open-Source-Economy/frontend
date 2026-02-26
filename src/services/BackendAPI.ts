@@ -11,8 +11,7 @@ import {
   GetSponsorsParams,
   GetSponsorsQuery,
 } from "src/ultils/local-types";
-import { BackendAPIMock } from "src/__mocks__";
-import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
+import { handleError, projectPath } from "./apiClient";
 import { ApiError } from "src/ultils/error/ApiError";
 import { useAuth as _useAuth } from "../views/auth";
 
@@ -33,13 +32,7 @@ import { SponsorDescription } from "../model";
 import { getProjectAccordion } from "./data/accordions/getAccordions";
 import { AxiosInstance } from "axios"; // Import AxiosInstance type
 
-export function getBackendAPI(): BackendAPI {
-  if (config.api.useMock) {
-    return new BackendAPIMock();
-  } else {
-    return new BackendAPIImpl(api);
-  }
-}
+// getBackendAPI factory is in src/services/getAPI.ts to avoid circular imports
 
 export interface BackendAPI {
   /* Getters */
@@ -143,7 +136,7 @@ export interface BackendAPI {
   createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse>;
 }
 
-class BackendAPIImpl implements BackendAPI {
+export class BackendAPIImpl implements BackendAPI {
   private api: AxiosInstance;
 
   constructor(api: AxiosInstance) {

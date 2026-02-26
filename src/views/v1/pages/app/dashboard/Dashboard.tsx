@@ -14,9 +14,8 @@ import { getBackendAPI } from "src/services";
 
 interface DashboardProps {}
 
-const backendAPI = getBackendAPI();
-
 export function Dashboard(_props: DashboardProps) {
+  const backendAPI = getBackendAPI();
   const _audience = Audience.USER;
   const buttons: { [key in ServiceType]?: ServiceButton } = {
     [ServiceType.DEVELOPMENT]: {

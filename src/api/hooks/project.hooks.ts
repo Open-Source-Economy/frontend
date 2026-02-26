@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import { FinancialIssue } from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getBackendAPI } from "src/services";
+import { backendAPI } from "src/services";
 import { SponsorDescription } from "src/model";
 import {
   GetIssuesParams,
@@ -16,8 +16,6 @@ import {
 } from "src/ultils/local-types";
 
 const PROJECT_QUERY_KEY = ["project"] as const;
-
-const backendAPI = getBackendAPI();
 
 export const projectHooks = {
   useFinancialIssueQuery(params: dto.GetIssueParams, query: dto.GetIssueQuery) {

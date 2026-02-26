@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { getBackendAPI } from "src/services";
 import * as model from "@open-source-economy/api-types";
 import { GetIssueParams, GetIssueQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";

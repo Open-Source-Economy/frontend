@@ -1,16 +1,14 @@
 import * as dto from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getAuthBackendAPI } from "src/services";
+import { authBackendAPI } from "src/services";
 
 const AUTH_QUERY_KEY = ["auth"] as const;
-
-const authAPI = getAuthBackendAPI();
 
 export const authHooks = {
   useUserStatusQuery() {
     return useQuery<dto.GetStatusResponse>({
       queryKey: [...AUTH_QUERY_KEY, "status"],
-      queryFn: () => authAPI.checkUserStatus(),
+      queryFn: () => authBackendAPI.checkUserStatus(),
       retry: false,
     });
   },
@@ -18,7 +16,7 @@ export const authHooks = {
   useLoginMutation() {
     const queryClient = useQueryClient();
     return useMutation<dto.LoginResponse, Error, { body: dto.LoginBody; query: dto.LoginQuery }>({
-      mutationFn: ({ body, query }) => authAPI.login(body, query),
+      mutationFn: ({ body, query }) => authBackendAPI.login(body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
       },
@@ -28,7 +26,7 @@ export const authHooks = {
   useRegisterMutation() {
     const queryClient = useQueryClient();
     return useMutation<dto.RegisterResponse, Error, { body: dto.RegisterBody; query: dto.RegisterQuery }>({
-      mutationFn: ({ body, query }) => authAPI.register(body, query),
+      mutationFn: ({ body, query }) => authBackendAPI.register(body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
       },
@@ -38,7 +36,7 @@ export const authHooks = {
   useLogoutMutation() {
     const queryClient = useQueryClient();
     return useMutation<dto.LogoutResponse, Error>({
-      mutationFn: () => authAPI.deleteSession(),
+      mutationFn: () => authBackendAPI.deleteSession(),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
       },
@@ -48,7 +46,7 @@ export const authHooks = {
   useCompanyUserInviteInfoQuery(query: dto.GetCompanyUserInviteInfoQuery, enabled = true) {
     return useQuery<dto.GetCompanyUserInviteInfoResponse>({
       queryKey: [...AUTH_QUERY_KEY, "companyUserInviteInfo", query],
-      queryFn: () => authAPI.getCompanyUserInviteInfo(query),
+      queryFn: () => authBackendAPI.getCompanyUserInviteInfo(query),
       enabled,
     });
   },
@@ -56,20 +54,20 @@ export const authHooks = {
   useRepositoryUserInviteInfoQuery(query: dto.GetRepositoryUserInviteInfoQuery, enabled = true) {
     return useQuery<dto.GetRepositoryUserInviteInfoResponse>({
       queryKey: [...AUTH_QUERY_KEY, "repositoryUserInviteInfo", query],
-      queryFn: () => authAPI.getRepositoryUserInviteInfo(query),
+      queryFn: () => authBackendAPI.getRepositoryUserInviteInfo(query),
       enabled,
     });
   },
 
   useCheckEmailMutation() {
     return useMutation<dto.CheckEmailResponse, Error, { params: dto.CheckEmailParams; query: dto.CheckEmailQuery }>({
-      mutationFn: ({ params, query }) => authAPI.checkEmail(params, query),
+      mutationFn: ({ params, query }) => authBackendAPI.checkEmail(params, query),
     });
   },
 
   useForgotPasswordMutation() {
     return useMutation<dto.ForgotPasswordResponse, Error, { body: dto.ForgotPasswordBody }>({
-      mutationFn: ({ body }) => authAPI.forgotPassword(body, {}, {}),
+      mutationFn: ({ body }) => authBackendAPI.forgotPassword(body, {}, {}),
     });
   },
 
@@ -79,7 +77,7 @@ export const authHooks = {
       Error,
       { body: dto.ResetPasswordBody; query: dto.ResetPasswordQuery }
     >({
-      mutationFn: ({ body, query }) => authAPI.resetPassword(body, query, {}),
+      mutationFn: ({ body, query }) => authBackendAPI.resetPassword(body, query, {}),
     });
   },
 };

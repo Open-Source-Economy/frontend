@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
-import { getAuthBackendAPI } from "src/services";
+import { authBackendAPI } from "src/services";
 import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
@@ -10,7 +10,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider(props: AuthProviderProps) {
-  const auth = getAuthBackendAPI();
+  const auth = authBackendAPI;
 
   const statusQuery = authHooks.useUserStatusQuery();
   const loginMutation = authHooks.useLoginMutation();

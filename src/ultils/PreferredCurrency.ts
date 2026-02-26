@@ -5,12 +5,10 @@ import type {
   SetPreferredCurrencyQuery,
 } from "@open-source-economy/api-types";
 import type { AuthContextState } from "../views/auth/AuthContext";
-import { getBackendAPI } from "../services";
+import { backendAPI } from "../services";
 import { currencyCookie } from "../cookies";
 
 export const PreferredCurrency = {
-  backendAPI: getBackendAPI(),
-
   get(auth: AuthContextState): Currency {
     if (auth.authInfo?.user.preferredCurrency) {
       return auth.authInfo.user.preferredCurrency;
@@ -26,7 +24,7 @@ export const PreferredCurrency = {
       const body: SetPreferredCurrencyBody = {};
       const query: SetPreferredCurrencyQuery = {};
 
-      this.backendAPI.setUserPreferredCurrency(params, body, query).then(() => {
+      backendAPI.setUserPreferredCurrency(params, body, query).then(() => {
         window.location.reload();
       });
     } else {

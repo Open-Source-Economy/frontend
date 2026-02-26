@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext, AuthContextState } from "./AuthContext";
-import { getAuthBackendAPI } from "src/services";
+import { authBackendAPI } from "src/services";
 import { AuthenticatedUser, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
@@ -12,7 +12,7 @@ interface AuthProviderProps {
 
 export function AuthProvider(props: AuthProviderProps) {
   const queryClient = useQueryClient();
-  const auth = getAuthBackendAPI();
+  const auth = authBackendAPI;
 
   // TanStack Query for initial user status check
   const { data: queriedAuthInfo, isLoading: statusLoading, error: statusError } = authHooks.useUserStatusQuery();

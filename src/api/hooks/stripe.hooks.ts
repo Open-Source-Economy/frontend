@@ -1,10 +1,8 @@
 import * as dto from "@open-source-economy/api-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getBackendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services";
+import { backendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services";
 
 const STRIPE_QUERY_KEY = ["stripe"] as const;
-
-const backendAPI = getBackendAPI();
 
 export const stripeHooks = {
   useCheckoutMutation() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services/BackendAPI";
+import { getBackendAPI } from "src/services";
 import {
   GetProjectServicesParams,
   GetProjectServicesQuery,
