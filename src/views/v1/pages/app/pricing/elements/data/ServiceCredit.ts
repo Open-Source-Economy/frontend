@@ -1,6 +1,7 @@
-import { PlanProductType, ProductType, productTypeUtils } from "@open-source-economy/api-types";
+import { PlanProductType, ProductType } from "@open-source-economy/api-types";
 import { PlanFeature, PlanFeatureDetails } from "./data";
 import { credit } from "../../../../../../../model";
+import { productTypeCredits } from "src/ultils/local-types";
 
 function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDetails[] {
   return [
@@ -144,25 +145,25 @@ const basic: Omit<PlanFeature, "name" | "details" | "extras"> = {
 export const serviceCredits: Record<PlanProductType, PlanFeature> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
-    name: `in ${credit.displayAmount(productTypeUtils.credits(ProductType.INDIVIDUAL_PLAN))} monthly`,
+    name: `in ${credit.displayAmount(productTypeCredits(ProductType.INDIVIDUAL_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.INDIVIDUAL_PLAN),
     extras: serviceCreditExtras(PlanProductType.INDIVIDUAL_PLAN),
   },
   [PlanProductType.START_UP_PLAN]: {
     ...basic,
-    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.START_UP_PLAN))} monthly`,
+    name: `Gain ${credit.displayAmount(productTypeCredits(ProductType.START_UP_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.START_UP_PLAN),
     extras: serviceCreditExtras(PlanProductType.START_UP_PLAN),
   },
   [PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
-    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.SCALE_UP_PLAN))} monthly`,
+    name: `Gain ${credit.displayAmount(productTypeCredits(ProductType.SCALE_UP_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.SCALE_UP_PLAN),
     extras: serviceCreditExtras(PlanProductType.SCALE_UP_PLAN),
   },
   [PlanProductType.ENTERPRISE_PLAN]: {
     ...basic,
-    name: `Gain ${credit.displayAmount(productTypeUtils.credits(ProductType.ENTERPRISE_PLAN))} monthly`,
+    name: `Gain ${credit.displayAmount(productTypeCredits(ProductType.ENTERPRISE_PLAN))} monthly`,
     details: serviceCreditDetails(PlanProductType.ENTERPRISE_PLAN),
     extras: serviceCreditExtras(PlanProductType.ENTERPRISE_PLAN),
   },

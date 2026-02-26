@@ -47,7 +47,7 @@ export function ProjectCategorySection(props: ProjectCategorySectionProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8 items-start">
         {displayedProjects.map((item) => (
           <ProjectCard
-            key={item.projectItem.id.uuid}
+            key={item.projectItem.id}
             item={item}
             onViewProject={props.onViewProject}
             canExpandMaintainers={props.canExpandMaintainers}

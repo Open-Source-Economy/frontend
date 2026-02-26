@@ -1,9 +1,5 @@
-import { type IssueId, type ProjectId } from "@open-source-economy/api-types";
-
-// Helper function to check if a ProjectId is an OwnerId (has only 'login' property)
-function isOwnerId(projectId: ProjectId): boolean {
-  return "login" in projectId && !("name" in projectId);
-}
+import * as dto from "@open-source-economy/api-types";
+import { type ProjectId, isOwnerId } from "src/ultils/local-types";
 
 export const paths = {
   // Static routes
@@ -81,21 +77,19 @@ export const paths = {
   },
 
   // Dynamic route functions
-  fundIssue: (issueId: IssueId) =>
-    `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,
+  fundIssue: (issueId: dto.IssueId) =>
+    `/${issueId.repositoryId.ownerId}/${issueId.repositoryId.name}/issues/${issueId.number}/fund`,
 
-  manageIssue: (issueId: IssueId) =>
-    `/${issueId.repositoryId.ownerId.login}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`,
+  manageIssue: (issueId: dto.IssueId) =>
+    `/${issueId.repositoryId.ownerId}/${issueId.repositoryId.name}/issues/${issueId.number}/manage`,
 
   project: (projectId: ProjectId) =>
-    isOwnerId(projectId)
-      ? `/projects/${(projectId as any).login}`
-      : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}`,
+    isOwnerId(projectId) ? `/projects/${projectId}` : `/projects/${projectId.ownerId}/${projectId.name}`,
 
   campaign: (projectId: ProjectId) =>
     isOwnerId(projectId)
-      ? `/projects/${(projectId as any).login}/campaign`
-      : `/projects/${(projectId as any).ownerId.login}/${(projectId as any).name}/campaign`,
+      ? `/projects/${projectId}/campaign`
+      : `/projects/${projectId.ownerId}/${projectId.name}/campaign`,
 
   params: {
     owner: "ownerParam",

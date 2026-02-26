@@ -8,7 +8,7 @@ const authAPI = getAuthBackendAPI();
 
 export const authHooks = {
   useUserStatusQuery() {
-    return useQuery<dto.StatusResponse>({
+    return useQuery<dto.GetStatusResponse>({
       queryKey: [...AUTH_QUERY_KEY, "status"],
       queryFn: () => authAPI.checkUserStatus(),
       retry: false,
@@ -62,24 +62,20 @@ export const authHooks = {
   },
 
   useCheckEmailMutation() {
-    return useMutation<
-      dto.CheckEmailResponse,
-      Error,
-      { params: dto.CheckEmailParams; body: dto.CheckEmailBody; query: dto.CheckEmailQuery }
-    >({
-      mutationFn: ({ params, body, query }) => authAPI.checkEmail(params, body, query),
+    return useMutation<dto.CheckEmailResponse, Error, { params: dto.CheckEmailParams; query: dto.CheckEmailQuery }>({
+      mutationFn: ({ params, query }) => authAPI.checkEmail(params, query),
     });
   },
 
   useForgotPasswordMutation() {
-    return useMutation<dto.ResponseBody<dto.ForgotPasswordResponse>, Error, { body: dto.ForgotPasswordBody }>({
+    return useMutation<dto.ForgotPasswordResponse, Error, { body: dto.ForgotPasswordBody }>({
       mutationFn: ({ body }) => authAPI.forgotPassword(body, {}, {}),
     });
   },
 
   useResetPasswordMutation() {
     return useMutation<
-      dto.ResponseBody<dto.ResetPasswordResponse>,
+      dto.ResetPasswordResponse,
       Error,
       { body: dto.ResetPasswordBody; query: dto.ResetPasswordQuery }
     >({

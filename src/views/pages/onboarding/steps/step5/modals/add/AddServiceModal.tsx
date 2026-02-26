@@ -26,9 +26,9 @@ export function AddServiceModal(props: AddServiceModalProps) {
   const handleServiceSelection = (service: dto.Service) => {
     setSelectedServices((prev) => {
       // Check if the service is already selected based on its UUID
-      if (prev.some((s) => s.id.uuid === service.id.uuid)) {
+      if (prev.some((s) => s.id === service.id)) {
         // If it is, filter it out to deselect it
-        return prev.filter((s) => s.id.uuid !== service.id.uuid);
+        return prev.filter((s) => s.id !== service.id);
       } else {
         // Otherwise, add the new service to the list
         return [...prev, service];
@@ -88,7 +88,7 @@ export function AddServiceModal(props: AddServiceModalProps) {
                 const serviceTypeInfo = ServiceTypeCompanion.info(categoryItem.category);
                 const Icon = serviceTypeInfo.icon;
                 const selectedInCategory = categoryItem.services.filter((s) =>
-                  selectedServices.some((sel) => sel.id.uuid === s.id.uuid)
+                  selectedServices.some((sel) => sel.id === s.id)
                 ).length;
                 const isOpen = openCategories[categoryItem.category] ?? true;
 
@@ -123,11 +123,11 @@ export function AddServiceModal(props: AddServiceModalProps) {
                       <CollapsibleContent>
                         <div className="px-3 pb-3 space-y-2">
                           {categoryItem.services.map((service) => {
-                            const isSelected = selectedServices.some((s) => s.id.uuid === service.id.uuid);
+                            const isSelected = selectedServices.some((s) => s.id === service.id);
 
                             return (
                               <div
-                                key={service.id.uuid}
+                                key={service.id}
                                 onClick={() => handleServiceSelection(service)}
                                 className={`p-3 rounded-lg border cursor-pointer transition-all ${
                                   isSelected

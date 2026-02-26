@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "../../../../../ultils/error/ApiError";
-import { PageWrapper } from "../../PageWrapper";
+import { ApiError } from "src/ultils/error/ApiError";
+import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { adminHooks } from "src/api";
+import {
+  CreatePlanProductAndPriceBody,
+  CreatePlanProductAndPriceParams,
+  CreatePlanProductAndPriceQuery,
+} from "src/services";
 
 interface CreatePlanProductAndPriceProps {}
 
@@ -17,9 +21,9 @@ export function CreatePlanProductAndPrice(_props: CreatePlanProductAndPriceProps
     setError(null);
     setSuccess(false);
 
-    const body: dto.CreatePlanProductAndPriceBody = {};
-    const params: dto.CreatePlanProductAndPriceParams = {};
-    const query: dto.CreatePlanProductAndPriceQuery = {};
+    const body: CreatePlanProductAndPriceBody = {};
+    const params: CreatePlanProductAndPriceParams = {};
+    const query: CreatePlanProductAndPriceQuery = {};
 
     try {
       await createPlanProductAndPrice.mutateAsync({ params, body, query });

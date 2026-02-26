@@ -74,7 +74,7 @@ export function RepositorySyncPage() {
 
       setRepositories((prev) =>
         prev.map((r) =>
-          r.projectItem.id.uuid === projectItemId
+          r.projectItem.id === projectItemId
             ? { ...r, repository: response.repository, lastSyncMessage: "Repository synced successfully" }
             : r
         )
@@ -98,7 +98,7 @@ export function RepositorySyncPage() {
   };
 
   const handleBulkSync = async () => {
-    const selectedRepos = repositories.filter((repo) => selectedIds.has(repo.projectItem.id.uuid));
+    const selectedRepos = repositories.filter((repo) => selectedIds.has(repo.projectItem.id));
 
     if (selectedRepos.length === 0) {
       alert("Please select at least one repository to sync");
@@ -117,13 +117,13 @@ export function RepositorySyncPage() {
     setBulkSyncProgress({ current: 0, total: selectedRepos.length });
     setBulkSyncCompleted(new Set());
 
-    const queueOrder = selectedRepos.map((repo) => repo.projectItem.id.uuid);
+    const queueOrder = selectedRepos.map((repo) => repo.projectItem.id);
     setBulkSyncQueueOrder(queueOrder);
     setBulkSyncQueue(new Set(queueOrder));
 
     for (let i = 0; i < selectedRepos.length; i++) {
       const repo = selectedRepos[i];
-      const projectItemId = repo.projectItem.id.uuid;
+      const projectItemId = repo.projectItem.id;
 
       setBulkSyncQueue((prev) => {
         const newSet = new Set(prev);
@@ -172,7 +172,7 @@ export function RepositorySyncPage() {
     if (selectedIds.size === syncableRepos.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(syncableRepos.map((repo) => repo.projectItem.id.uuid)));
+      setSelectedIds(new Set(syncableRepos.map((repo) => repo.projectItem.id)));
     }
   };
 
@@ -182,7 +182,7 @@ export function RepositorySyncPage() {
     const name = repo.repository?.id.name?.toLowerCase() || "";
     const fullName = repo.repository?.fullName?.toLowerCase() || "";
     const description = repo.repository?.description?.toLowerCase() || "";
-    const owner = repo.repository?.id.ownerId.login?.toLowerCase() || "";
+    const owner = (repo.repository?.id.ownerId?.login ?? "").toLowerCase();
     return (
       name.includes(searchLower) ||
       fullName.includes(searchLower) ||
@@ -274,7 +274,7 @@ export function RepositorySyncPage() {
             ) : (
               <div className="divide-y divide-white/10">
                 {filteredRepositories.map((repo) => {
-                  const projectItemId = repo.projectItem.id.uuid;
+                  const projectItemId = repo.projectItem.id;
                   const isSyncing = syncingIds.has(projectItemId);
                   const isSelected = selectedIds.has(projectItemId);
                   const canSync = !!repo.repository?.id;

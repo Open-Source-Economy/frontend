@@ -1,17 +1,11 @@
 import offerLeftLinear from "src/assets/v1/offer-linear.webp";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import React from "react";
-import * as _model from "@open-source-economy/api-types";
-import {
-  GetProjectServicesResponse,
-  OwnerId,
-  ProjectId,
-  RepositoryId,
-  ServiceType,
-} from "@open-source-economy/api-types";
+import { GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
 import { projectHooks } from "src/api";
+import { ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],
@@ -26,8 +20,8 @@ interface ServicesProps {
 export function Services(props: ServicesProps) {
   const serviceParams = props.projectId
     ? {
-        owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
-        repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+        owner: getOwnerFromProjectId(props.projectId),
+        repo: getRepoFromProjectId(props.projectId),
       }
     : { owner: "" };
   const { data: projectServicesData, error: _error } = projectHooks.useProjectServicesQuery(serviceParams, {});

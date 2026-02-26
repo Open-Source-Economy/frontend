@@ -1,7 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 import { api, handleError } from "./index";
 import { config } from "src/ultils";
-import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
 import { AxiosInstance } from "axios";
 
@@ -15,17 +14,17 @@ export function getOnboardingBackendAPI(): OnboardingBackendAPI {
 export interface OnboardingBackendAPI {
   // Profile management
   createDeveloperProfile(
-    params: dto.CreateDeveloperProfileParams,
-    body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery
-  ): Promise<dto.CreateDeveloperProfileResponse>;
+    params: dto.CreateProfileParams,
+    body: dto.CreateProfileBody,
+    query: dto.CreateProfileQuery
+  ): Promise<dto.CreateProfileResponse>;
 
   // Renamed to match the specific action and backend route
   updateDeveloperContactInfos(
-    params: dto.UpdateDeveloperContactInfosParams,
-    body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery
-  ): Promise<dto.UpdateDeveloperContactInfosResponse>;
+    params: dto.UpdateContactInfosParams,
+    body: dto.UpdateContactInfosBody,
+    query: dto.UpdateContactInfosQuery
+  ): Promise<dto.UpdateContactInfosResponse>;
 
   getDeveloperProfile(
     params: dto.GetDeveloperProfileParams,
@@ -54,20 +53,19 @@ export interface OnboardingBackendAPI {
 
   removeProjectItem(
     params: dto.RemoveDeveloperProjectItemParams,
-    body: dto.RemoveDeveloperProjectItemBody, // projectItemId now in body for DELETE
     query: dto.RemoveDeveloperProjectItemQuery
-  ): Promise<dto.RemoveDeveloperProjectItemResponse>;
+  ): Promise<void>;
 
   getPotentialProjectItems(
-    params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
-  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse>;
+    params: dto.GetPotentialProjectItemsParams,
+    query: dto.GetPotentialProjectItemsQuery
+  ): Promise<dto.GetPotentialProjectItemsResponse>;
 
   // Service management (Not developer services)
   getServiceHierarchy(
     params: dto.GetServiceHierarchyParams,
     query: dto.GetServiceHierarchyQuery
-  ): Promise<GetServiceHierarchyResponse>;
+  ): Promise<dto.GetServiceHierarchyResponse>;
 
   upsertDeveloperService(
     params: dto.UpsertDeveloperServiceParams,
@@ -83,9 +81,8 @@ export interface OnboardingBackendAPI {
 
   deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
-    body: dto.DeleteDeveloperServiceBody, // serviceId now in body for DELETE
     query: dto.DeleteDeveloperServiceQuery
-  ): Promise<dto.DeleteDeveloperServiceResponse>;
+  ): Promise<void>;
 
   createCustomService(
     params: dto.CreateCustomServiceParams,
@@ -108,22 +105,22 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   }
 
   async createDeveloperProfile(
-    params: dto.CreateDeveloperProfileParams,
-    body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery
-  ): Promise<dto.CreateDeveloperProfileResponse> {
-    return handleError<dto.CreateDeveloperProfileResponse>(
+    params: dto.CreateProfileParams,
+    body: dto.CreateProfileBody,
+    query: dto.CreateProfileQuery
+  ): Promise<dto.CreateProfileResponse> {
+    return handleError<dto.CreateProfileResponse>(
       () => this.api.post(`${config.api.url}/onboarding/profile`, body, { withCredentials: true, params: query }),
       "createDeveloperProfile"
     );
   }
 
   async updateDeveloperContactInfos(
-    params: dto.UpdateDeveloperContactInfosParams,
-    body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery
-  ): Promise<dto.UpdateDeveloperContactInfosResponse> {
-    return handleError<dto.UpdateDeveloperContactInfosResponse>(
+    params: dto.UpdateContactInfosParams,
+    body: dto.UpdateContactInfosBody,
+    query: dto.UpdateContactInfosQuery
+  ): Promise<dto.UpdateContactInfosResponse> {
+    return handleError<dto.UpdateContactInfosResponse>(
       () =>
         this.api.put(`${config.api.url}/onboarding/profile/contact-infos`, body, {
           withCredentials: true,
@@ -183,21 +180,23 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
 
   async removeProjectItem(
     params: dto.RemoveDeveloperProjectItemParams,
-    body: dto.RemoveDeveloperProjectItemBody,
     query: dto.RemoveDeveloperProjectItemQuery
-  ): Promise<dto.RemoveDeveloperProjectItemResponse> {
-    return handleError<dto.RemoveDeveloperProjectItemResponse>(
+  ): Promise<void> {
+    return handleError<void>(
       () =>
-        this.api.delete(`${config.api.url}/onboarding/projects`, { data: body, withCredentials: true, params: query }),
+        this.api.delete(`${config.api.url}/onboarding/projects/${params.developerProjectItemId}`, {
+          withCredentials: true,
+          params: query,
+        }),
       "removeProjectItem"
     );
   }
 
   async getPotentialProjectItems(
-    params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
-  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse> {
-    return handleError<dto.GetPotentialDeveloperProjectItemsResponse>(
+    params: dto.GetPotentialProjectItemsParams,
+    query: dto.GetPotentialProjectItemsQuery
+  ): Promise<dto.GetPotentialProjectItemsResponse> {
+    return handleError<dto.GetPotentialProjectItemsResponse>(
       () => this.api.get(`${config.api.url}/onboarding/projects/potential`, { withCredentials: true, params: query }),
       "getPotentialProjectItems"
     );
@@ -206,8 +205,8 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
   async getServiceHierarchy(
     params: dto.GetServiceHierarchyParams,
     query: dto.GetServiceHierarchyQuery
-  ): Promise<GetServiceHierarchyResponse> {
-    return handleError<GetServiceHierarchyResponse>(
+  ): Promise<dto.GetServiceHierarchyResponse> {
+    return handleError<dto.GetServiceHierarchyResponse>(
       () => this.api.get(`${config.api.url}/onboarding/services/hierarchy`, { withCredentials: true, params: query }),
       "getServiceHierarchy"
     );
@@ -238,12 +237,14 @@ class OnboardingBackendAPIImpl implements OnboardingBackendAPI {
 
   async deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
-    body: dto.DeleteDeveloperServiceBody,
     query: dto.DeleteDeveloperServiceQuery
-  ): Promise<dto.DeleteDeveloperServiceResponse> {
-    return handleError<dto.DeleteDeveloperServiceResponse>(
+  ): Promise<void> {
+    return handleError<void>(
       () =>
-        this.api.delete(`${config.api.url}/onboarding/services`, { data: body, withCredentials: true, params: query }),
+        this.api.delete(`${config.api.url}/onboarding/services/${params.developerServiceId}`, {
+          withCredentials: true,
+          params: query,
+        }),
       "deleteDeveloperService"
     );
   }

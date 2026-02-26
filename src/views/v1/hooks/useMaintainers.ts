@@ -1,13 +1,19 @@
 import { useState } from "react";
-import * as dto from "@open-source-economy/api-types";
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../../services";
+import {
+  type ProjectId,
+  getOwnerFromProjectId,
+  getRepoFromProjectId,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
+} from "src/ultils/local-types";
 
 export function useMaintainers(projectId: ProjectId) {
   const backendAPI = getBackendAPI();
 
-  const [maintainersRes, setMaintainersRes] = useState<dto.GetMaintainersResponse | null>(null);
+  const [maintainersRes, setMaintainersRes] = useState<GetMaintainersResponse | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -15,11 +21,11 @@ export function useMaintainers(projectId: ProjectId) {
     setIsLoading(true);
 
     try {
-      const params: dto.GetMaintainersParams = {
-        owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-        repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+      const params: GetMaintainersParams = {
+        owner: getOwnerFromProjectId(projectId),
+        repo: getRepoFromProjectId(projectId),
       };
-      const query: dto.GetMaintainersQuery = {};
+      const query: GetMaintainersQuery = {};
 
       const response = await backendAPI.getMaintainers(params, query);
 

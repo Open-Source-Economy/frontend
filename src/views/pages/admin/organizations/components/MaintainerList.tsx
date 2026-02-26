@@ -28,7 +28,7 @@ export function MaintainerList(props: MaintainerListProps) {
       <div className="space-y-2">
         {props.developers.map((dev, idx) => (
           <div
-            key={`${dev.developerProfile.id.uuid}-${idx}`}
+            key={`${dev.developerProfile.id}-${idx}`}
             className="flex items-start gap-3 p-2 bg-purple-500/10 border border-purple-500/20 rounded hover:bg-purple-500/20 transition-colors"
           >
             {/* Avatar, Name and Username */}

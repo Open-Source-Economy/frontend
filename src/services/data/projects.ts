@@ -1,3 +1,3 @@
-import { OwnerId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
-export const openSourceEconomyProjectId: OwnerId = new OwnerId("Open-Source-Economy");
+export const openSourceEconomyProjectId: dto.OwnerId = { login: "Open-Source-Economy" } as dto.OwnerId;

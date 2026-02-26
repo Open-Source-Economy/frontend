@@ -1,11 +1,11 @@
 import React from "react";
 import * as model from "@open-source-economy/api-types";
-import { financialIssueUtils } from "@open-source-economy/api-types";
 import * as components from "./index";
 import { Approved } from "src/views/v1/components/issue/Approved";
 import { Action } from "src/views/v1/components/issue/Action";
 import { Audience } from "../../../Audience";
 import { credit } from "../../../../model";
+import { FinancialIssueCompanion } from "src/ultils/companions";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;
@@ -18,7 +18,7 @@ interface IssueProps {
 export function IssueCard(props: IssueProps) {
   return (
     <>
-      <div className={`mx-auto ${financialIssueUtils.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
+      <div className={`mx-auto ${FinancialIssueCompanion.isClosed(props.financialIssue) ? "opacity-40" : ""} `}>
         <div className="padding sm:!py-8 sm:!px-10 !p-4  flex items-center justify-between bg-[#0A1930] rounded-tl-3xl rounded-tr-3xl ">
           <components.Repository owner={props.financialIssue.owner} repository={props.financialIssue.repository} />
 
@@ -35,15 +35,15 @@ export function IssueCard(props: IssueProps) {
               <components.Collect
                 marginTop="mt-3"
                 audience={props.audience}
-                creditsCollected={credit.fromBackend(financialIssueUtils.amountCollected(props.financialIssue))}
+                creditsCollected={credit.fromBackend(FinancialIssueCompanion.amountCollected(props.financialIssue))}
                 creditsRequested={(() => {
-                  const req = financialIssueUtils.amountRequested(props.financialIssue);
+                  const req = FinancialIssueCompanion.amountRequested(props.financialIssue);
                   return req ? credit.fromBackend(req) : undefined;
                 })()}
                 state={props.financialIssue.managedIssue?.state}
               />
 
-              <Approved managedIssue={props.financialIssue.managedIssue} manager={props.financialIssue.issueManager} />
+              <Approved managedIssue={props.financialIssue.managedIssue} />
             </div>
 
             {/*TODO*/}
@@ -61,7 +61,7 @@ export function IssueCard(props: IssueProps) {
                   issue={props.financialIssue.issue}
                   audience={props.audience}
                   state={props.financialIssue.managedIssue?.state}
-                  successfullyFunded={financialIssueUtils.successfullyFunded(props.financialIssue)}
+                  successfullyFunded={FinancialIssueCompanion.successfullyFunded(props.financialIssue)}
                 />
               </div>
             )}

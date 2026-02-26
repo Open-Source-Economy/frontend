@@ -63,21 +63,21 @@ export default function Step1(props: Step1Props) {
 
         try {
           if (props.state.developerProfileId) {
-            const params: dto.UpdateDeveloperContactInfosParams = {};
-            const body: dto.UpdateDeveloperContactInfosBody = {
+            const params: dto.UpdateContactInfosParams = {};
+            const body: dto.UpdateContactInfosBody = {
               name: values.name,
               email: values.contactEmail,
             };
-            const query: dto.UpdateDeveloperContactInfosQuery = {};
+            const query: dto.UpdateContactInfosQuery = {};
             await updateContactInfos.mutateAsync({ params, body, query });
           } else {
-            const params: dto.CreateDeveloperProfileParams = {};
-            const body: dto.CreateDeveloperProfileBody = {
+            const params: dto.CreateProfileParams = {};
+            const body: dto.CreateProfileBody = {
               name: values.name,
               email: values.contactEmail,
               agreedToTerms: values.agreedToTerms,
             };
-            const query: dto.CreateDeveloperProfileQuery = {};
+            const query: dto.CreateProfileQuery = {};
             await createProfile.mutateAsync({ params, body, query });
           }
           return true;

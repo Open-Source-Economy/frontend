@@ -2,7 +2,8 @@ import React, { createContext, useContext } from "react";
 import { Outlet, useParams } from "@tanstack/react-router";
 import { PageNotFound } from "../pages/PageNotFound";
 
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
+import { type ProjectId } from "src/ultils/local-types";
 
 type ProjectContext = {
   projectId: ProjectId;
@@ -28,10 +29,10 @@ function useProjectFromParams() {
     return null;
   }
 
-  const ownerId = new OwnerId(params.ownerParam);
+  const ownerId = { login: params.ownerParam } as dto.OwnerId;
 
   if (params.repoParam) {
-    return new RepositoryId(ownerId, params.repoParam);
+    return { ownerId, name: params.repoParam } as dto.RepositoryId;
   } else {
     return ownerId;
   }

@@ -1,27 +1,17 @@
 import * as dto from "@open-source-economy/api-types";
 import {
-  CampaignPriceType,
-  CampaignProductType,
-  ContributorVisibility,
-  Currency,
-  FinancialIssue,
-  IssueFunding,
-  IssueFundingId,
-  ManagedIssue,
-  ManagedIssueId,
-  ManagedIssueState,
-  PlanPriceType,
-  PlanProductType,
-  Price,
-  PriceType,
-  ProductType,
-  ProjectUtils,
-  StripePrice,
-  StripePriceId,
-  StripeProductId,
-} from "@open-source-economy/api-types";
+  GetIssuesParams,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
+  GetProjectAccordionParams,
+  GetProjectAccordionQuery,
+  GetProjectAccordionResponse,
+  GetSponsorsParams,
+  GetSponsorsQuery,
+} from "src/ultils/local-types";
 import { BackendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services/BackendAPI";
-import { issue, issueId, owner, repository, user, userId } from "./index";
+import { issue, issueId, owner, repository, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
@@ -32,25 +22,35 @@ import { getProjectAccordion } from "../services/data/accordions/getAccordions";
 import { projectItemsDatabase } from "./projectItemsData";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(_params: dto.GetIssueParams, _query: dto.GetIssueQuery): Promise<FinancialIssue> {
+  async getFinancialIssue(_params: dto.GetIssueParams, _query: dto.GetIssueQuery): Promise<dto.FinancialIssue> {
     const financialIssues = await this.getAllFinancialIssues({}, {});
     return financialIssues[0];
   }
 
-  async getAllFinancialIssues(_params: dto.GetIssuesParams, _query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
-    const financialIssues: FinancialIssue[] = [];
+  async getAllFinancialIssues(_params: GetIssuesParams, _query: dto.GetIssueQuery): Promise<dto.FinancialIssue[]> {
+    const financialIssues: dto.FinancialIssue[] = [];
 
     const requestedCreditAmount = 12;
 
     for (const managedIssue of allManagedIssues(requestedCreditAmount)) {
       for (let i = 0; i < 4; i++) {
-        let financialIssue: FinancialIssue;
+        let financialIssue: dto.FinancialIssue;
         if (i === 0) {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
+          financialIssue = {
+            owner: owner,
+            repository: repository(),
+            issue: issue,
+            managedIssue: managedIssue,
+            issueFundings: [],
+          };
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [
-            issueFunding((requestedCreditAmount / 2) * i),
-          ]);
+          financialIssue = {
+            owner: owner,
+            repository: repository(),
+            issue: issue,
+            managedIssue: managedIssue,
+            issueFundings: [issueFunding((requestedCreditAmount / 2) * i)],
+          };
         }
         financialIssues.push(financialIssue);
       }
@@ -97,10 +97,9 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProject(params: dto.GetProjectParams, _query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
+  async getProject(_params: dto.GetProjectParams, _query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
     return {
       project: {
-        id: ProjectUtils.getId(params.owner, params.repo),
         owner: owner,
         repository: repository(),
       },
@@ -112,11 +111,9 @@ export class BackendAPIMock implements BackendAPI {
     return {
       projects: [
         {
-          id: owner.id,
           owner: owner,
         },
         {
-          id: repo.id,
           owner: owner,
           repository: repo,
         },
@@ -134,30 +131,18 @@ export class BackendAPIMock implements BackendAPI {
         if (typeof source === "string") {
           return source.includes(params.owner) && (!params.repo || source.includes(params.repo));
         }
-        if ("ownerId" in source && "name" in source) {
-          return source.ownerId.login === params.owner && (params.repo ? source.name === params.repo : true);
-        }
-        if ("login" in source) {
-          return source.login === params.owner && !params.repo;
-        }
         return false;
       }) ?? projectItemsDatabase[0];
 
     const developers: Record<string, dto.ProjectDeveloperProfile> = {};
     for (const developer of projectItem.developers) {
       const mockUser = {
-        id: new dto.UserId(`mock-user-${developer.developerProfile.id.uuid}`),
-        name: developer.developerOwner.name ?? developer.developerOwner.id.login,
-        termsAcceptedVersion: "v1",
+        id: `mock-user-${developer.developerProfile.id}` as dto.UserId,
+        name: developer.developerOwner.name ?? developer.developerOwner.id,
         role: dto.UserRole.USER,
-        data: {
-          providerData: {
-            owner: developer.developerOwner,
-          },
-        },
       } as unknown as dto.User;
 
-      developers[developer.developerProfile.id.uuid] = {
+      developers[developer.developerProfile.id] = {
         profileEntry: {
           profile: developer.developerProfile,
           owner: developer.developerOwner,
@@ -186,10 +171,7 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getMaintainers(
-    params: dto.GetMaintainersParams,
-    _query: dto.GetMaintainersQuery
-  ): Promise<dto.GetMaintainersResponse> {
+  async getMaintainers(params: GetMaintainersParams, _query: GetMaintainersQuery): Promise<GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -199,13 +181,13 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async getProjectAccordion(
-    params: dto.GetProjectAccordionParams,
-    _query: dto.GetProjectAccordionQuery
-  ): Promise<dto.GetProjectAccordionResponse> {
+    params: GetProjectAccordionParams,
+    _query: GetProjectAccordionQuery
+  ): Promise<GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, _query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
+  async getSponsors(params: GetSponsorsParams, _query: GetSponsorsQuery): Promise<SponsorDescription[]> {
     return getSponsors(params.owner, params.repo);
   }
 
@@ -213,16 +195,16 @@ export class BackendAPIMock implements BackendAPI {
     return {
       prices: getPrices(),
       raisedAmount: {
-        [Currency.CHF]: 400,
-        [Currency.EUR]: 400,
-        [Currency.USD]: 400,
-        [Currency.GBP]: 400,
+        [dto.Currency.CHF]: 400,
+        [dto.Currency.EUR]: 400,
+        [dto.Currency.USD]: 400,
+        [dto.Currency.GBP]: 400,
       },
       targetAmount: {
-        [Currency.CHF]: 10000,
-        [Currency.EUR]: 10000,
-        [Currency.USD]: 10000,
-        [Currency.GBP]: 10000,
+        [dto.Currency.CHF]: 10000,
+        [dto.Currency.EUR]: 10000,
+        [dto.Currency.USD]: 10000,
+        [dto.Currency.GBP]: 10000,
       },
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
@@ -231,51 +213,55 @@ export class BackendAPIMock implements BackendAPI {
 
   async getPlans(_params: dto.GetPlansParams, _query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
     // Extract enum values properly, avoiding TypeScript enum peculiarities
-    const planTypes = Object.keys(PlanProductType)
+    const planTypes = Object.keys(dto.PlanProductType)
       .filter((key) => isNaN(Number(key)))
-      .map((key) => PlanProductType[key as keyof typeof PlanProductType]);
+      .map((key) => dto.PlanProductType[key as keyof typeof dto.PlanProductType]);
 
-    const currencies = Object.values(Currency).filter((value): value is Currency => typeof value === "string");
+    const currencies = Object.values(dto.Currency).filter((value): value is dto.Currency => typeof value === "string");
 
-    const priceTypes = Object.values(PlanPriceType).filter(
-      (value): value is PlanPriceType => typeof value === "string"
+    const priceTypes = Object.values(dto.PlanPriceType).filter(
+      (value): value is dto.PlanPriceType => typeof value === "string"
     );
 
     // Define price generation strategy with more realistic values
-    const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
+    const getPriceAmount = (_planType: dto.PlanProductType, priceType: dto.PlanPriceType): number => {
       // Apply discount for annual pricing
-      const multiplier = priceType === PlanPriceType.ANNUALLY ? 0.8 * 12 : 1; // 20% discount for annual
+      const multiplier = priceType === dto.PlanPriceType.ANNUALLY ? 0.8 * 12 : 1; // 20% discount for annual
       return Math.round(69_00 * multiplier);
     };
 
     // Create a type-safe StripePrice factory function
-    const createPrice = (planType: PlanProductType, priceType: PlanPriceType, currency: Currency): StripePrice => {
+    const createPrice = (
+      planType: dto.PlanProductType,
+      priceType: dto.PlanPriceType,
+      currency: dto.Currency
+    ): dto.StripePrice => {
       const amount = getPriceAmount(planType, priceType);
       const id = `price_${planType}_${priceType}_${currency.toLowerCase()}`;
 
-      return new StripePrice(
-        new StripePriceId(id),
-        new StripeProductId(planType.toString()),
-        amount,
-        currency,
-        true,
-        priceTypes as unknown as PriceType
-      );
+      return {
+        stripeId: id as dto.StripePriceId,
+        productId: planType.toString() as dto.StripeProductId,
+        unitAmount: amount,
+        currency: currency,
+        active: true,
+        type: priceType as unknown as dto.PriceType,
+      };
     };
 
     // Build the plans object with proper typing
-    const plans: Record<PlanProductType, Record<Currency, Record<PlanPriceType, StripePrice>>> = {} as Record<
-      PlanProductType,
-      Record<Currency, Record<PlanPriceType, StripePrice>>
-    >;
+    const plans: Record<
+      dto.PlanProductType,
+      Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>
+    > = {} as Record<dto.PlanProductType, Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>>;
 
     // Generate each plan
     for (const planType of planTypes) {
       // Build price mappings for this product
-      const priceMappings = {} as Record<Currency, Record<PlanPriceType, StripePrice>>;
+      const priceMappings = {} as Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>;
 
       for (const currency of currencies) {
-        priceMappings[currency] = {} as Record<PlanPriceType, StripePrice>;
+        priceMappings[currency] = {} as Record<dto.PlanPriceType, dto.StripePrice>;
 
         for (const priceType of priceTypes) {
           priceMappings[currency][priceType] = createPrice(planType, priceType, currency);
@@ -289,7 +275,7 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async getUserPlan(_params: dto.GetUserPlanParams, _query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse> {
-    return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
+    return { productType: dto.PlanProductType.SCALE_UP_PLAN, priceType: dto.PlanPriceType.ANNUALLY };
   }
 
   async checkout(
@@ -301,10 +287,10 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async setUserPreferredCurrency(
-    _params: dto.SetUserPreferredCurrencyParams,
-    _body: dto.SetUserPreferredCurrencyBody,
-    _query: dto.SetUserPreferredCurrencyQuery
-  ): Promise<dto.SetUserPreferredCurrencyResponse> {
+    _params: dto.SetPreferredCurrencyParams,
+    _body: dto.SetPreferredCurrencyBody,
+    _query: dto.SetPreferredCurrencyQuery
+  ): Promise<dto.SetPreferredCurrencyResponse> {
     return {};
   }
 
@@ -319,10 +305,10 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async subscribeToNewsletter(
-    _params: dto.NewsletterSubscriptionParams,
-    _body: dto.NewsletterSubscriptionBody,
-    _query: dto.NewsletterSubscriptionQuery
-  ): Promise<dto.NewsletterSubscriptionResponse> {
+    _params: dto.SubscribeNewsletterParams,
+    _body: dto.SubscribeNewsletterBody,
+    _query: dto.SubscribeNewsletterQuery
+  ): Promise<dto.SubscribeNewsletterResponse> {
     return Promise.resolve({ success: {} });
   }
 
@@ -344,7 +330,7 @@ export class BackendAPIMock implements BackendAPI {
     const totalForks = repositories.reduce((sum, item) => sum + (item.repository?.forksCount || 0), 0);
     const totalFollowers = owners.reduce((sum, item) => sum + (item.owner?.followers || 0), 0);
     const uniqueMaintainers = new Set(
-      projectItemsDatabase.flatMap((item) => item.developers.map((dev) => dev.developerProfile.id.uuid))
+      projectItemsDatabase.flatMap((item) => item.developers.map((dev) => dev.developerProfile.id))
     );
 
     return Promise.resolve({
@@ -362,10 +348,10 @@ export class BackendAPIMock implements BackendAPI {
   }
 
   async submitContactForm(
-    _params: dto.ContactFormParams,
-    _body: dto.ContactFormBody,
-    _query: dto.ContactFormQuery
-  ): Promise<dto.ContactFormResponse> {
+    _params: dto.SubmitContactFormParams,
+    _body: dto.SubmitContactFormBody,
+    _query: dto.SubmitContactFormQuery
+  ): Promise<dto.SubmitContactFormResponse> {
     return Promise.resolve({});
   }
 
@@ -374,17 +360,22 @@ export class BackendAPIMock implements BackendAPI {
   }
 }
 
-function issueFunding(amount: number): IssueFunding {
-  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
+function issueFunding(amount: number): dto.IssueFunding {
+  return {
+    id: Math.random().toString() as dto.IssueFundingId,
+    githubIssueId: issueId,
+    userId: userId,
+    credit: amount,
+  };
 }
 
-function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
-  const allManagedIssues: ManagedIssue[] = [];
+function allManagedIssues(requestedCreditAmount: number): dto.ManagedIssue[] {
+  const allManagedIssues: dto.ManagedIssue[] = [];
 
-  for (const visibility of Object.values(ContributorVisibility)) {
-    for (const state of Object.values(ManagedIssueState)) {
-      const managedIssue: ManagedIssue = {
-        id: new ManagedIssueId(Math.random().toString()),
+  for (const visibility of Object.values(dto.ContributorVisibility)) {
+    for (const state of Object.values(dto.ManagedIssueState)) {
+      const managedIssue: dto.ManagedIssue = {
+        id: Math.random().toString() as dto.ManagedIssueId,
         githubIssueId: issueId,
         requestedCreditAmount: requestedCreditAmount,
         managerId: userId,
@@ -399,7 +390,7 @@ function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
 }
 
 // Helper function to create a Price object
-function createPrice(stripePrice: StripePrice): dto.Price {
+function createPrice(stripePrice: dto.StripePrice): dto.Price {
   return {
     totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
     quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
@@ -408,29 +399,32 @@ function createPrice(stripePrice: StripePrice): dto.Price {
   };
 }
 
-function getPrices(): Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>> {
-  const stripePrice: StripePrice = {
-    stripeId: new StripePriceId("StripePriceId"),
-    productId: new StripeProductId("StripeProductId"),
+function getPrices(): Record<
+  dto.CampaignPriceType,
+  Record<dto.Currency, Record<dto.CampaignProductType, dto.Price[]>>
+> {
+  const stripePrice: dto.StripePrice = {
+    stripeId: "StripePriceId" as dto.StripePriceId,
+    productId: "StripeProductId" as dto.StripeProductId,
     active: false,
-    currency: Currency.CHF,
+    currency: dto.Currency.CHF,
     unitAmount: 20,
-    type: PriceType.ONE_TIME,
+    type: dto.PriceType.ONE_TIME,
   };
 
-  const prices: Record<PriceType, Record<Currency, Record<ProductType, dto.Price[]>>> = {} as any;
+  const prices: Record<dto.PriceType, Record<dto.Currency, Record<dto.ProductType, dto.Price[]>>> = {} as any;
 
-  for (const priceType of Object.values(PriceType)) {
+  for (const priceType of Object.values(dto.PriceType)) {
     if (!prices[priceType]) {
       prices[priceType] = {} as any;
     }
 
-    for (const currency of Object.values(Currency)) {
+    for (const currency of Object.values(dto.Currency)) {
       if (!prices[priceType][currency]) {
         prices[priceType][currency] = {} as any;
       }
 
-      for (const productType of Object.values(ProductType)) {
+      for (const productType of Object.values(dto.ProductType)) {
         const priceArray: dto.Price[] = [];
         for (let i = 0; i < 5; i++) {
           priceArray.push(createPrice(stripePrice));

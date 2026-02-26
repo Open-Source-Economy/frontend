@@ -5,8 +5,8 @@ import { VerificationStatus } from "@open-source-economy/api-types";
 export namespace ProjectDeveloperProfileCompanion {
   export function getStableIdentifier(developer: ProjectDeveloperProfile): string | null {
     return (
-      developer.profileEntry?.profile?.id.uuid ??
-      developer.profileEntry?.owner?.id.login ??
+      developer.profileEntry?.profile?.id ??
+      developer.profileEntry?.owner?.id?.login ??
       developer.profileEntry?.user?.name ??
       developer.profileEntry?.profile?.contactEmail ??
       null
@@ -17,7 +17,7 @@ export namespace ProjectDeveloperProfileCompanion {
     return (
       developer.profileEntry?.owner?.name ??
       developer.profileEntry?.user?.name ??
-      developer.profileEntry?.owner?.id.login ??
+      developer.profileEntry?.owner?.id?.login ??
       developer.profileEntry?.profile?.contactEmail ??
       "maintainer"
     );

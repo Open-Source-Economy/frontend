@@ -61,7 +61,7 @@ export function Maintainers() {
         if (!profile.profileEntry) return false;
         const status = VerificationRecordCompanion.getCurrentStatus(
           profile.profileEntry.verificationRecords,
-          profile.profileEntry.profile.id.uuid
+          profile.profileEntry.profile.id
         );
         return status === statusFilter;
       });
@@ -81,17 +81,14 @@ export function Maintainers() {
     // Check if profile needs action
     if (
       profile.profileEntry &&
-      VerificationRecordCompanion.needsAction(
-        profile.profileEntry.verificationRecords,
-        profile.profileEntry.profile.id.uuid
-      )
+      VerificationRecordCompanion.needsAction(profile.profileEntry.verificationRecords, profile.profileEntry.profile.id)
     ) {
       count++;
     }
 
     // Check if any projects need action
     count += profile.projects.filter((p) =>
-      VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid)
+      VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id)
     ).length;
 
     return count;
@@ -116,7 +113,7 @@ export function Maintainers() {
       if (!p.profileEntry) return false;
       const status = VerificationRecordCompanion.getCurrentStatus(
         p.profileEntry.verificationRecords,
-        p.profileEntry.profile.id.uuid
+        p.profileEntry.profile.id
       );
       return status === dto.VerificationStatus.APPROVED;
     }).length;
@@ -301,16 +298,16 @@ export function Maintainers() {
                 const githubUsername = FullDeveloperProfileCompanion.getGithubUsername(profile);
                 const actionCount = getActionNeededCount(profile);
                 const unapprovedProjects = profile.projects.filter((p) =>
-                  VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id.uuid)
+                  VerificationRecordCompanion.needsAction(p.verificationRecords, p.developerProjectItem.id)
                 );
                 const profileStatus = profile.profileEntry
                   ? VerificationRecordCompanion.getCurrentStatus(
                       profile.profileEntry.verificationRecords,
-                      profile.profileEntry.profile.id.uuid
+                      profile.profileEntry.profile.id
                     )
                   : dto.VerificationStatus.PENDING_REVIEW;
 
-                const profileId = profile.profileEntry?.profile.id.uuid || `profile-${idx}`;
+                const profileId = profile.profileEntry?.profile.id || `profile-${idx}`;
                 const profileEntry = profile.profileEntry;
                 const isExpanded = expandedProfiles.has(profileId);
 
@@ -355,7 +352,7 @@ export function Maintainers() {
                             {(isExpanded ? profile.projects : profile.projects.slice(0, 5)).map((entry, pIdx) => {
                               const projectStatus = VerificationRecordCompanion.getCurrentStatus(
                                 entry.verificationRecords,
-                                entry.developerProjectItem.id.uuid
+                                entry.developerProjectItem.id
                               );
                               return (
                                 <Badge

@@ -3,7 +3,7 @@ import { AuthBackendAPI } from "src/services";
 import { company, repositoryId, user } from "./index";
 
 export class AuthBackendAPIMock implements AuthBackendAPI {
-  async checkUserStatus(): Promise<dto.StatusResponse> {
+  async checkUserStatus(): Promise<dto.GetStatusResponse> {
     return {
       authenticatedUser: {
         user: user,
@@ -66,11 +66,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     };
   }
 
-  async checkEmail(
-    params: dto.CheckEmailParams,
-    body: dto.CheckEmailBody,
-    query: dto.CheckEmailQuery
-  ): Promise<dto.CheckEmailResponse> {
+  async checkEmail(_params: dto.CheckEmailParams, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse> {
     // For testing: users containing 'exists' or 'active' exist, others are new.
     const email = query.email || "";
     const exists = email.includes("exists") || email.includes("active");
@@ -79,11 +75,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     return Promise.resolve({ exists, provider });
   }
 
-  async forgotPassword(
-    _body: dto.ForgotPasswordBody,
-    _query: {},
-    _params: {}
-  ): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
+  async forgotPassword(_body: dto.ForgotPasswordBody, _query: {}, _params: {}): Promise<dto.ForgotPasswordResponse> {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return { success: {} };
   }
@@ -92,7 +84,7 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
     _body: dto.ResetPasswordBody,
     _query: dto.ResetPasswordQuery,
     _params: {}
-  ): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
+  ): Promise<dto.ResetPasswordResponse> {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return { success: {} };
   }

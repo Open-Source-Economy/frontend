@@ -29,7 +29,7 @@ export function CreditFunding(props: CreditFundingProps) {
   const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
     {},
     {
-      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+      companyId: auth.authInfo?.company?.id,
     }
   );
   const availableCredits: Credit | null = availableCreditsResponse
@@ -46,7 +46,7 @@ export function CreditFunding(props: CreditFundingProps) {
         number: props.issueId.number,
       };
       const body: FundIssueBody = {
-        companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+        companyId: auth.authInfo?.company?.id,
         creditAmount: credit.toMinutes(counter),
       };
       const query: FundIssueQuery = {};

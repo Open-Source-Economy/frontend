@@ -1,43 +1,36 @@
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model/github";
-import { ProjectItemType, SourceIdentifier } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
+import { ProjectItemType } from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { GithubUrls } from "../index";
 
 // TODO: improve type safety
 
-// Type guards using structural checks (work for class instances *and* plain objects)
-function isOwnerLike(x: any): x is OwnerId | { login: string } {
-  return x && typeof x === "object" && typeof x.login === "string";
-}
-function isRepoLike(x: any): x is RepositoryId | { name: string; ownerId?: { login?: string } } {
+// Type guard: RepositoryId is an object with ownerId (OwnerId object) and name (string)
+function isRepoLike(x: unknown): x is dto.RepositoryId {
   return (
-    x &&
+    x !== null &&
     typeof x === "object" &&
-    typeof x.name === "string" &&
-    x.ownerId &&
-    typeof x.ownerId === "object" &&
-    typeof x.ownerId.login === "string"
+    "name" in x &&
+    typeof (x as dto.RepositoryId).name === "string" &&
+    "ownerId" in x &&
+    typeof (x as dto.RepositoryId).ownerId === "object"
   );
 }
 
 export namespace SourceIdentifierCompanion {
   export function displayName(sourceIdentifier: SourceIdentifier): string {
-    // Strings pass through
-    if (typeof sourceIdentifier === "string") return sourceIdentifier;
-
-    // Handle Owner-like (class instance or plain object)
-    if (isOwnerLike(sourceIdentifier)) {
-      return sourceIdentifier.login;
-    }
-
-    // Handle Repo-like (class instance or plain object)
+    // RepositoryId is an object with ownerId (OwnerId) + name
     if (isRepoLike(sourceIdentifier)) {
-      const ownerLogin =
-        (isOwnerLike(sourceIdentifier.ownerId) && sourceIdentifier.ownerId.login) ||
-        // tolerate ownerId being just a string login
-        (typeof (sourceIdentifier as any).ownerId === "string" ? (sourceIdentifier as any).ownerId : undefined) ||
-        "(unknown)";
-      return `${ownerLogin}/${sourceIdentifier.name}`;
+      return `${sourceIdentifier.ownerId.login}/${sourceIdentifier.name}`;
     }
+
+    // OwnerId is an object with login
+    if (typeof sourceIdentifier === "object" && sourceIdentifier !== null && "login" in sourceIdentifier) {
+      return (sourceIdentifier as dto.OwnerId).login;
+    }
+
+    // Plain strings pass through here
+    if (typeof sourceIdentifier === "string") return sourceIdentifier;
 
     // Last resort: stringify safely so React gets a string, never an object
     try {
@@ -55,10 +48,7 @@ export namespace SourceIdentifierCompanion {
       const normalizedName = repoId.name.endsWith(".git") ? repoId.name.slice(0, -4) : repoId.name;
       if (normalizedName !== repoId.name) {
         // Create new RepositoryId with normalized name, preserving githubId if it exists
-        const githubId = (repoId as any).githubId;
-        return githubId !== undefined
-          ? new RepositoryId(repoId.ownerId, normalizedName, githubId)
-          : new RepositoryId(repoId.ownerId, normalizedName);
+        return { ownerId: repoId.ownerId, name: normalizedName, githubId: repoId.githubId } as dto.RepositoryId;
       }
       return repoId;
     }
@@ -77,6 +67,27 @@ export namespace SourceIdentifierCompanion {
    * @returns true if the identifiers are equal
    */
   export function equals(a: SourceIdentifier, b: SourceIdentifier, normalizeCase: boolean = true): boolean {
+    const aIsRepo = isRepoLike(a);
+    const bIsRepo = isRepoLike(b);
+
+    // Both are Repo-like
+    if (aIsRepo && bIsRepo) {
+      const nameEqual = normalizeCase
+        ? (a as dto.RepositoryId).name.toLowerCase() === (b as dto.RepositoryId).name.toLowerCase()
+        : (a as dto.RepositoryId).name === (b as dto.RepositoryId).name;
+
+      const ownerEqual = normalizeCase
+        ? (a as dto.RepositoryId).ownerId.login.toLowerCase() === (b as dto.RepositoryId).ownerId.login.toLowerCase()
+        : (a as dto.RepositoryId).ownerId.login === (b as dto.RepositoryId).ownerId.login;
+
+      return nameEqual && ownerEqual;
+    }
+
+    // One is repo, the other is not
+    if (aIsRepo || bIsRepo) {
+      return false;
+    }
+
     // Both are strings
     if (typeof a === "string" && typeof b === "string") {
       if (normalizeCase) {
@@ -85,28 +96,14 @@ export namespace SourceIdentifierCompanion {
       return a === b;
     }
 
-    // One is string, the other is not
-    if (typeof a === "string" || typeof b === "string") {
-      return false;
-    }
-
-    // Both are Owner-like
-    if (isOwnerLike(a) && isOwnerLike(b)) {
+    // Both are OwnerId objects (have login but not name)
+    const aIsOwnerId = typeof a === "object" && a !== null && "login" in a && !("name" in a);
+    const bIsOwnerId = typeof b === "object" && b !== null && "login" in b && !("name" in b);
+    if (aIsOwnerId && bIsOwnerId) {
       if (normalizeCase) {
-        return a.login.toLowerCase() === b.login.toLowerCase();
+        return (a as dto.OwnerId).login.toLowerCase() === (b as dto.OwnerId).login.toLowerCase();
       }
-      return a.login === b.login;
-    }
-
-    // Both are Repo-like
-    if (isRepoLike(a) && isRepoLike(b)) {
-      const nameEqual = normalizeCase ? a.name.toLowerCase() === b.name.toLowerCase() : a.name === b.name;
-
-      const ownerLoginEqual = normalizeCase
-        ? a.ownerId.login.toLowerCase() === b.ownerId.login.toLowerCase()
-        : a.ownerId.login === b.ownerId.login;
-
-      return nameEqual && ownerLoginEqual;
+      return (a as dto.OwnerId).login === (b as dto.OwnerId).login;
     }
 
     // Different types

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EnterGitHubIssue, IssueFilter } from "./elements";
 import * as model from "@open-source-economy/api-types";
-import { financialIssueUtils } from "@open-source-economy/api-types";
+import { FinancialIssueCompanion } from "src/ultils/companions";
 import { PageWrapper } from "../../PageWrapper";
 import { IssueCard } from "src/views/v1/components/issue";
 import { Background } from "src/views/v1/pages/app/issues/elements/Background";
@@ -63,7 +63,7 @@ export function Issues(props: IssuesProps) {
               ) : (filteredFinancialIssues || []).length > 0 ? (
                 filteredFinancialIssues.map((issue) => (
                   <IssueCard
-                    key={financialIssueUtils.id(issue)}
+                    key={FinancialIssueCompanion.id(issue)}
                     financialIssue={issue}
                     audience={props.audience}
                     displayActionButtons={true}

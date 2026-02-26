@@ -1,5 +1,6 @@
 import { useParams } from "@tanstack/react-router";
-import { Currency, GetCampaignResponse, ProjectId } from "@open-source-economy/api-types";
+import { Currency, GetCampaignResponse } from "@open-source-economy/api-types";
+import { type ProjectId } from "src/ultils/local-types";
 import { config, Env } from "../../../../../../ultils";
 import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
 import { useAuth } from "src/views/auth";

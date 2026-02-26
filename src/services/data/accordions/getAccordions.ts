@@ -1,4 +1,4 @@
-import { GetProjectAccordionResponse } from "@open-source-economy/api-types";
+import { GetProjectAccordionResponse } from "src/ultils/local-types";
 import { pekkoAccordion } from "./pekkoAccordion";
 import { defaultAccordion } from "./defaultAccordion";
 

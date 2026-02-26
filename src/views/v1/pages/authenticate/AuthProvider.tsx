@@ -58,7 +58,7 @@ export function AuthProvider(props: AuthProviderProps) {
 
   const state: AuthContextState = {
     loading: loading,
-    authInfo: statusQuery.data ?? null,
+    authInfo: statusQuery.data?.authenticatedUser ?? null,
     error: error ? (error instanceof ApiError ? error : ApiError.from(error)) : null,
     login,
     logout,

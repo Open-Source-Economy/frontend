@@ -4,7 +4,7 @@ import * as dto from "@open-source-economy/api-types";
 
 export interface AuthContextState {
   loading: boolean;
-  authInfo: dto.AuthInfo | null;
+  authInfo: dto.AuthenticatedUser | null;
   error: ApiError | null;
   login: (body: dto.LoginBody, query: dto.LoginQuery, successCallback?: () => void) => void;
   logout: () => void;

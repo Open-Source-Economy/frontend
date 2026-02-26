@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/ultils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step5State } from "../../OnboardingDataSteps";
 import { DeleteServiceModal } from "./modals/DeleteServiceModal";
@@ -49,7 +50,7 @@ export function Step5(props: Step5Props) {
       : ApiError.from(mutationError)
     : null;
 
-  const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>(
+  const sourceIdentifiers = new Map<dto.DeveloperProjectItemId, SourceIdentifier>(
     props.state.developerProjectItems.map((entry) => [
       entry.developerProjectItem.id,
       entry.projectItem.sourceIdentifier,
@@ -58,13 +59,13 @@ export function Step5(props: Step5Props) {
 
   const onAddInitialServices = async (services: dto.Service[]) => {
     const onSuccess = (response: dto.UpsertDeveloperServicesResponse) => {
-      const servicesMap = new Map<string, dto.Service>(services.map((service) => [service.id.uuid, service]));
+      const servicesMap = new Map<string, dto.Service>(services.map((service) => [service.id, service]));
 
       const newEntries: dto.DeveloperServiceEntry[] = response.developerServices
         .map((ds) => {
-          const service = servicesMap.get(ds.serviceId.uuid);
+          const service = servicesMap.get(ds.serviceId);
           if (!service) {
-            console.warn(`Service with ID ${ds.serviceId.uuid} from response not found in the initial services.`);
+            console.warn(`Service with ID ${ds.serviceId} from response not found in the initial services.`);
             return null;
           }
           return {
@@ -129,7 +130,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleRemoveDeveloperService = (serviceId: dto.ServiceId) => {
-    const serviceEntry = props.state.developerServices.find((entry) => entry.service.id.uuid === serviceId.uuid);
+    const serviceEntry = props.state.developerServices.find((entry) => entry.service.id === serviceId);
     if (serviceEntry) {
       setServiceToDelete(serviceEntry);
       setShowDeleteDeveloperServiceModal(true);
@@ -140,13 +141,13 @@ export function Step5(props: Step5Props) {
     const developerService = developerServiceEntry.developerService;
     if (developerService) {
       try {
-        const body: dto.DeleteDeveloperServiceBody = {
+        const params: dto.DeleteDeveloperServiceParams = {
           developerServiceId: developerService.id,
         };
-        await deleteDeveloperService.mutateAsync({ params: {}, body, query: {} });
+        await deleteDeveloperService.mutateAsync({ params, query: {} });
 
         const updatedServices = props.state.developerServices.filter(
-          (entry) => entry.service.id.uuid !== developerServiceEntry.service.id.uuid
+          (entry) => entry.service.id !== developerServiceEntry.service.id
         );
         props.updateState({ developerServices: updatedServices });
 
@@ -175,7 +176,7 @@ export function Step5(props: Step5Props) {
 
   const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
     const updatedServices: dto.DeveloperServiceEntry[] = props.state.developerServices.map((entry) => {
-      if (entry.service.id.uuid === updatedDevService.serviceId.uuid) {
+      if (entry.service.id === updatedDevService.serviceId) {
         const updatedEntry: dto.DeveloperServiceEntry = {
           service: entry.service,
           developerService: updatedDevService,
@@ -249,10 +250,10 @@ export function Step5(props: Step5Props) {
     }
   }, [props.setOnNext, props.state.developerServices, handleNext]);
 
-  const existingServiceIds = new Set(props.state.developerServices.map((entry) => entry.service.id.uuid));
+  const existingServiceIds = new Set(props.state.developerServices.map((entry) => entry.service.id));
   const filteredServiceCategories = serviceCategories.map((category) => ({
     ...category,
-    services: category.services.filter((service) => !existingServiceIds.has(service.id.uuid)),
+    services: category.services.filter((service) => !existingServiceIds.has(service.id)),
   }));
 
   // Group developer services by category

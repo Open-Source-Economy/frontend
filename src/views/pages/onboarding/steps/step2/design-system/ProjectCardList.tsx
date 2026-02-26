@@ -13,7 +13,7 @@ export function ProjectCardList(props: ProjectCardListProps) {
     <div className="md:hidden space-y-3">
       {props.projects.map((project) => (
         <ProjectCard
-          key={project.developerProjectItem.id.uuid}
+          key={project.developerProjectItem.id}
           project={project}
           onEdit={props.onEdit}
           onDelete={props.onDelete}

@@ -42,21 +42,21 @@ export default function Step1(props: Step1Props) {
     if (validateForm()) {
       try {
         if (props.state.developerProfileId) {
-          const params: dto.UpdateDeveloperContactInfosParams = {};
-          const body: dto.UpdateDeveloperContactInfosBody = {
+          const params: dto.UpdateContactInfosParams = {};
+          const body: dto.UpdateContactInfosBody = {
             name: props.state.name!,
             email: props.state.contactEmail!,
           };
-          const query: dto.UpdateDeveloperContactInfosQuery = {};
+          const query: dto.UpdateContactInfosQuery = {};
           await updateContactInfosMutation.mutateAsync({ params, body, query });
         } else {
-          const params: dto.CreateDeveloperProfileParams = {};
-          const body: dto.CreateDeveloperProfileBody = {
+          const params: dto.CreateProfileParams = {};
+          const body: dto.CreateProfileBody = {
             name: props.state.name!,
             email: props.state.contactEmail!,
             agreedToTerms: props.state.agreedToTerms!,
           };
-          const query: dto.CreateDeveloperProfileQuery = {};
+          const query: dto.CreateProfileQuery = {};
           await createProfileMutation.mutateAsync({ params, body, query });
         }
         props.onNext();

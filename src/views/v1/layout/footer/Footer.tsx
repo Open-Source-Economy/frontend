@@ -5,9 +5,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import type {
-  NewsletterSubscriptionBody,
-  NewsletterSubscriptionParams,
-  NewsletterSubscriptionQuery,
+  SubscribeNewsletterBody,
+  SubscribeNewsletterParams,
+  SubscribeNewsletterQuery,
 } from "@open-source-economy/api-types";
 import { ApiError } from "../../../../ultils/error/ApiError";
 import { paths } from "src/paths";
@@ -69,9 +69,9 @@ export function Footer() {
     setDisplaySuccessMessage(false);
 
     try {
-      const params: NewsletterSubscriptionParams = {};
-      const body: NewsletterSubscriptionBody = { email };
-      const query: NewsletterSubscriptionQuery = {};
+      const params: SubscribeNewsletterParams = {};
+      const body: SubscribeNewsletterBody = { email };
+      const query: SubscribeNewsletterQuery = {};
 
       await subscribeToNewsletterMutation.mutateAsync({ params, body, query });
       setDisplaySuccessMessage(true);

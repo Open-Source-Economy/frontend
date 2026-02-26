@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { ApiError } from "@open-source-economy/api-types";
+import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 export enum CreditUnit {

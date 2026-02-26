@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { GenericInputRef, ProjectItemTypeSelectInput, UrlInput } from "../../../../../../../../components/form";
 import { ProjectItemType } from "../../../ProjectItemType";
-import { SourceIdentifier } from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { BaseRef } from "../../../../../../../../components/form/Base";
 import { GithubUrls } from "../../../../../../../../../../ultils";
 import { SourceIdentifierCompanion } from "../../../../../../../../data";

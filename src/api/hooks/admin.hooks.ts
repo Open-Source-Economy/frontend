@@ -1,6 +1,37 @@
 import * as dto from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getAdminBackendAPI } from "src/services";
+import {
+  getAdminBackendAPI,
+  CreateAddressBody,
+  CreateAddressQuery,
+  CreateAddressResponse,
+  CreateCompanyBody,
+  CreateCompanyQuery,
+  CreateCompanyResponse,
+  SendCompanyRoleInviteParams,
+  SendCompanyRoleInviteBody,
+  SendCompanyRoleInviteQuery,
+  SendCompanyRoleInviteResponse,
+  SendRepositoryRoleInviteParams,
+  SendRepositoryRoleInviteBody,
+  SendRepositoryRoleInviteQuery,
+  SendRepositoryRoleInviteResponse,
+  CreateCampaignProductAndPriceParams,
+  CreateCampaignProductAndPriceBody,
+  CreateCampaignProductAndPriceQuery,
+  CreateCampaignProductAndPriceResponse,
+  CreateManualInvoiceBody,
+  CreateManualInvoiceQuery,
+  CreateManualInvoiceResponse,
+  CreatePlanProductAndPriceParams,
+  CreatePlanProductAndPriceBody,
+  CreatePlanProductAndPriceQuery,
+  CreatePlanProductAndPriceResponse,
+  CreateProjectParams,
+  CreateProjectBody,
+  CreateProjectQuery,
+  CreateProjectResponse,
+} from "src/services";
 
 const ADMIN_QUERY_KEY = ["admin"] as const;
 
@@ -89,33 +120,25 @@ export const adminHooks = {
   },
 
   useCreateAddressMutation() {
-    return useMutation<
-      dto.CreateAddressResponse,
-      Error,
-      { body: dto.CreateAddressBody; query: dto.CreateAddressQuery }
-    >({
+    return useMutation<CreateAddressResponse, Error, { body: CreateAddressBody; query: CreateAddressQuery }>({
       mutationFn: ({ body, query }) => adminAPI.createAddress(body, query),
     });
   },
 
   useCreateCompanyMutation() {
-    return useMutation<
-      dto.CreateCompanyResponse,
-      Error,
-      { body: dto.CreateCompanyBody; query: dto.CreateCompanyQuery }
-    >({
+    return useMutation<CreateCompanyResponse, Error, { body: CreateCompanyBody; query: CreateCompanyQuery }>({
       mutationFn: ({ body, query }) => adminAPI.createCompany(body, query),
     });
   },
 
   useSendCompanyRoleInviteMutation() {
     return useMutation<
-      dto.SendCompanyRoleInviteResponse,
+      SendCompanyRoleInviteResponse,
       Error,
       {
-        params: dto.SendCompanyRoleInviteParams;
-        body: dto.SendCompanyRoleInviteBody;
-        query: dto.SendCompanyRoleInviteQuery;
+        params: SendCompanyRoleInviteParams;
+        body: SendCompanyRoleInviteBody;
+        query: SendCompanyRoleInviteQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.sendCompanyRoleInvite(params, body, query),
@@ -124,12 +147,12 @@ export const adminHooks = {
 
   useSendRepositoryRoleInviteMutation() {
     return useMutation<
-      dto.SendRepositoryRoleInviteResponse,
+      SendRepositoryRoleInviteResponse,
       Error,
       {
-        params: dto.SendRepositoryRoleInviteParams;
-        body: dto.SendRepositoryRoleInviteBody;
-        query: dto.SendRepositoryRoleInviteQuery;
+        params: SendRepositoryRoleInviteParams;
+        body: SendRepositoryRoleInviteBody;
+        query: SendRepositoryRoleInviteQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.sendRepositoryRoleInvite(params, body, query),
@@ -138,12 +161,12 @@ export const adminHooks = {
 
   useCreateCampaignProductAndPriceMutation() {
     return useMutation<
-      dto.CreateCampaignProductAndPriceResponse,
+      CreateCampaignProductAndPriceResponse,
       Error,
       {
-        params: dto.CreateCampaignProductAndPriceParams;
-        body: dto.CreateCampaignProductAndPriceBody;
-        query: dto.CreateCampaignProductAndPriceQuery;
+        params: CreateCampaignProductAndPriceParams;
+        body: CreateCampaignProductAndPriceBody;
+        query: CreateCampaignProductAndPriceQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createCampaignProductAndPrice(params, body, query),
@@ -152,9 +175,9 @@ export const adminHooks = {
 
   useCreateManualInvoiceMutation() {
     return useMutation<
-      dto.CreateManualInvoiceResponse,
+      CreateManualInvoiceResponse,
       Error,
-      { body: dto.CreateManualInvoiceBody; query: dto.CreateManualInvoiceQuery }
+      { body: CreateManualInvoiceBody; query: CreateManualInvoiceQuery }
     >({
       mutationFn: ({ body, query }) => adminAPI.createManualInvoice(body, query),
     });
@@ -162,12 +185,12 @@ export const adminHooks = {
 
   useCreatePlanProductAndPriceMutation() {
     return useMutation<
-      dto.CreatePlanProductAndPriceResponse,
+      CreatePlanProductAndPriceResponse,
       Error,
       {
-        params: dto.CreatePlanProductAndPriceParams;
-        body: dto.CreatePlanProductAndPriceBody;
-        query: dto.CreatePlanProductAndPriceQuery;
+        params: CreatePlanProductAndPriceParams;
+        body: CreatePlanProductAndPriceBody;
+        query: CreatePlanProductAndPriceQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createPlanProductAndPrice(params, body, query),
@@ -176,9 +199,9 @@ export const adminHooks = {
 
   useCreateProjectMutation() {
     return useMutation<
-      dto.CreateProjectResponse,
+      CreateProjectResponse,
       Error,
-      { params: dto.CreateProjectParams; body: dto.CreateProjectBody; query: dto.CreateProjectQuery }
+      { params: CreateProjectParams; body: CreateProjectBody; query: CreateProjectQuery }
     >({
       mutationFn: ({ params, body, query }) => adminAPI.createProject(params, body, query),
     });

@@ -222,7 +222,7 @@ function buildServiceCategories(
   }
 
   for (const service of availableServices) {
-    const serviceId = service.id.uuid;
+    const serviceId = service.id;
     const offerings = serviceOfferings[serviceId] ?? [];
     if (offerings.length === 0) {
       continue;

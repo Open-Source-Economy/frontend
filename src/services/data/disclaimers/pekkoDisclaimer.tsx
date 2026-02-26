@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ProjectId, RepositoryId } from "@open-source-economy/api-types";
+import { type ProjectId, isRepositoryId } from "src/ultils/local-types";
 
 interface Disclaimer {
   disclaimer?: ReactNode;
@@ -18,7 +18,7 @@ const pekkoDisclaimer: Disclaimer = {
 };
 
 export function getDescription(projectId: ProjectId): Disclaimer | null {
-  if (projectId instanceof RepositoryId) {
+  if (isRepositoryId(projectId)) {
     if (projectId.ownerId.login === "apache" && projectId.name === "pekko") {
       return pekkoDisclaimer;
     }

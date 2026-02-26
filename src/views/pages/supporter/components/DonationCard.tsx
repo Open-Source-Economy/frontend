@@ -18,6 +18,7 @@ import {
   CampaignPriceType,
   CampaignProductType,
   CheckoutBody,
+  CheckoutMode,
   CheckoutParams,
   CheckoutQuery,
   Currency,
@@ -176,7 +177,7 @@ export function DonationCard(props: DonationCardProps) {
 
       const params: CheckoutParams = {};
       const body: CheckoutBody = {
-        mode: priceType === CampaignPriceType.MONTHLY ? "subscription" : "payment",
+        mode: priceType === CampaignPriceType.MONTHLY ? CheckoutMode.SUBSCRIPTION : CheckoutMode.PAYMENT,
         priceItems: [
           {
             priceId: selectedPrice.price.stripeId,

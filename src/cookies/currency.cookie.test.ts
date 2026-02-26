@@ -96,7 +96,11 @@ describe("CurrencyCookie", () => {
       const expectedCookieString = `${currencyCookie.cookieName}=usd; path=/; expires=Tue, 14 Jan 2025 11:18:33 GMT; SameSite=Lax; domain=undefined; Secure`;
       expect(spy).toHaveBeenCalledWith(expectedCookieString);
 
-      window.location = originalLocation;
+      Object.defineProperty(window, "location", {
+        value: originalLocation,
+        writable: true,
+        configurable: true,
+      });
     });
 
     it("should throw error for invalid currency", () => {

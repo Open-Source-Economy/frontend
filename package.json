@@ -6,7 +6,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^5.2.2",
-    "@open-source-economy/api-types": "2.1.12-alpha.3",
+    "@open-source-economy/api-types": "^2.1.13-alpha.9ae5d58",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-aspect-ratio": "^1.1.2",
@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.3",
     "@tailwindcss/vite": "^4.1.14",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "13.4.0",
@@ -95,7 +95,7 @@
     "@types/react": "^18.3.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "concurrently": "^8.2.2",
-    "eslint": "^10.0.1",
+    "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-hooks": "^7.0.1",

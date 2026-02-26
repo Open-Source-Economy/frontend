@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   CheckoutBody,
+  CheckoutMode,
   CheckoutParams,
   CheckoutQuery,
   Currency,
@@ -49,7 +50,7 @@ export function Pricing(props: PricingProps) {
     try {
       const params: CheckoutParams = {};
       const body: CheckoutBody = {
-        mode: "subscription",
+        mode: CheckoutMode.SUBSCRIPTION,
         priceItems: [
           {
             priceId: price.stripeId,

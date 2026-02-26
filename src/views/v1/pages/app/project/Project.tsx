@@ -15,7 +15,7 @@ import { Audience } from "../../../../Audience";
 import { paths } from "src/paths";
 import { getDescription } from "../../../../../services/data/disclaimers/pekkoDisclaimer";
 import { projectHooks } from "src/api";
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import { getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 interface ProjectProps {}
 
@@ -23,8 +23,8 @@ export function Project(_props: ProjectProps) {
   const { projectId } = useProjectContext();
 
   const projectParams = {
-    owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-    repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+    owner: getOwnerFromProjectId(projectId),
+    repo: getRepoFromProjectId(projectId),
   };
 
   const { data: projectResponse } = projectHooks.useProjectQuery(projectParams, {});

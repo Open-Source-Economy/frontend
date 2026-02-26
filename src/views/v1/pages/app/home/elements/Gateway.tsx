@@ -9,9 +9,9 @@ import { useAuth } from "src/views/auth";
 
 export const Gateway = () => {
   const auth = useAuth();
-  const repositories = auth.authInfo?.authenticatedUser?.repositories ?? [];
+  const repositories = auth.authInfo?.repositories ?? [];
   const developerPath = repositories.length > 0 ? paths.MANAGE_ISSUES : paths.DEVELOPER_LANDING;
-  const userPath = auth.authInfo?.authenticatedUser ? paths.DASHBOARD : paths.USER;
+  const userPath = auth.authInfo ? paths.DASHBOARD : paths.USER;
 
   return (
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">

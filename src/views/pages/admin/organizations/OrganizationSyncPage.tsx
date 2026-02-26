@@ -80,9 +80,7 @@ export function OrganizationSyncPage() {
       });
 
       setOrganizations((prev) =>
-        prev.map((org) =>
-          org.projectItem.id.uuid === projectItemId ? { ...org, lastSyncMessage: response.message } : org
-        )
+        prev.map((org) => (org.projectItem.id === projectItemId ? { ...org, lastSyncMessage: response.message } : org))
       );
 
       setTimeout(() => {
@@ -118,9 +116,7 @@ export function OrganizationSyncPage() {
         return;
       }
 
-      setOrganizations((prev) =>
-        prev.map((org) => (org.projectItem.id.uuid === projectItemId ? { ...org, owner } : org))
-      );
+      setOrganizations((prev) => prev.map((org) => (org.projectItem.id === projectItemId ? { ...org, owner } : org)));
 
       if (owner.publicRepos !== undefined && owner.publicRepos !== null) {
         setSelectedIds((prev) => new Set(prev).add(projectItemId));
@@ -144,7 +140,7 @@ export function OrganizationSyncPage() {
   };
 
   const handleBulkSync = async () => {
-    const selectedOrgs = organizations.filter((org) => selectedIds.has(org.projectItem.id.uuid));
+    const selectedOrgs = organizations.filter((org) => selectedIds.has(org.projectItem.id));
 
     if (selectedOrgs.length === 0) {
       alert("Please select at least one owner to sync");
@@ -161,13 +157,13 @@ export function OrganizationSyncPage() {
     setBulkSyncProgress({ current: 0, total: selectedOrgs.length });
     setBulkSyncCompleted(new Set());
 
-    const queueOrder = selectedOrgs.map((org) => org.projectItem.id.uuid);
+    const queueOrder = selectedOrgs.map((org) => org.projectItem.id);
     setBulkSyncQueueOrder(queueOrder);
     setBulkSyncQueue(new Set(queueOrder));
 
     for (let i = 0; i < selectedOrgs.length; i++) {
       const org = selectedOrgs[i];
-      const projectItemId = org.projectItem.id.uuid;
+      const projectItemId = org.projectItem.id;
       const waitTime = org.owner!.publicRepos! * msPerRepo;
 
       setBulkSyncQueue((prev) => {
@@ -215,14 +211,14 @@ export function OrganizationSyncPage() {
     if (selectedIds.size === syncableOrgs.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(syncableOrgs.map((org) => org.projectItem.id.uuid)));
+      setSelectedIds(new Set(syncableOrgs.map((org) => org.projectItem.id)));
     }
   };
 
   const filteredOrganizations = organizations.filter((org) => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
-    const login = org.owner?.id.login?.toLowerCase() || "";
+    const login = (org.owner?.id?.login ?? "").toLowerCase();
     const name = org.owner?.name?.toLowerCase() || "";
     return login.includes(searchLower) || name.includes(searchLower);
   });
@@ -310,7 +306,7 @@ export function OrganizationSyncPage() {
             ) : (
               <div className="divide-y divide-white/10">
                 {filteredOrganizations.map((org) => {
-                  const projectItemId = org.projectItem.id.uuid;
+                  const projectItemId = org.projectItem.id;
                   const isSyncing = syncingIds.has(projectItemId);
                   const isSyncingOwner = syncingOwnerIds.has(projectItemId);
                   const isSelected = selectedIds.has(projectItemId);

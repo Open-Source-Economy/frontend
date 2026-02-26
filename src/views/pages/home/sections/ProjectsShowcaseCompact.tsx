@@ -161,7 +161,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {(projectItems || []).map((item) => (
-                <ProjectCard key={item.projectItem.id.uuid} item={item} />
+                <ProjectCard key={item.projectItem.id} item={item} />
               ))}
             </div>
 

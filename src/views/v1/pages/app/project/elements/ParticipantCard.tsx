@@ -1,5 +1,5 @@
 import React from "react";
-import { Maintainer } from "@open-source-economy/api-types";
+import { type Maintainer } from "src/ultils/local-types";
 import { ExternalLink } from "src/views/v1/components";
 
 interface ParticipantCardProps {

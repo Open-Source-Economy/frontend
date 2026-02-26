@@ -12,7 +12,7 @@ export function getAuthBackendAPI(): AuthBackendAPI {
 }
 
 export interface AuthBackendAPI {
-  checkUserStatus(): Promise<dto.StatusResponse>;
+  checkUserStatus(): Promise<dto.GetStatusResponse>;
   login(body: dto.LoginBody, query: dto.LoginQuery): Promise<dto.LoginResponse>;
   register(body: dto.RegisterBody, query: dto.RegisterQuery): Promise<dto.RegisterResponse>;
   loginWithGitHub(redirectPath?: string): void;
@@ -21,21 +21,13 @@ export interface AuthBackendAPI {
   getRepositoryUserInviteInfo(
     query: dto.GetRepositoryUserInviteInfoQuery
   ): Promise<dto.GetRepositoryUserInviteInfoResponse>;
-  checkEmail(
-    params: dto.CheckEmailParams,
-    body: dto.CheckEmailBody,
-    query: dto.CheckEmailQuery
-  ): Promise<dto.CheckEmailResponse>;
-  forgotPassword(
-    body: dto.ForgotPasswordBody,
-    query: {},
-    params: {}
-  ): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>>;
+  checkEmail(params: dto.CheckEmailParams, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse>;
+  forgotPassword(body: dto.ForgotPasswordBody, query: {}, params: {}): Promise<dto.ForgotPasswordResponse>;
   resetPassword(
     body: dto.ResetPasswordBody,
     query: dto.ResetPasswordQuery,
     params: {}
-  ): Promise<dto.ResponseBody<dto.ResetPasswordResponse>>;
+  ): Promise<dto.ResetPasswordResponse>;
 }
 
 class AuthBackendAPIImpl implements AuthBackendAPI {
@@ -45,8 +37,8 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     this.api = api;
   }
 
-  async checkUserStatus(): Promise<dto.StatusResponse> {
-    return handleError<dto.StatusResponse>(
+  async checkUserStatus(): Promise<dto.GetStatusResponse> {
+    return handleError<dto.GetStatusResponse>(
       () => this.api.get(`${config.api.url}/auth/status`, { withCredentials: true }),
       "checkUserStatus"
     );
@@ -119,23 +111,15 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     );
   }
 
-  async checkEmail(
-    params: dto.CheckEmailParams,
-    body: dto.CheckEmailBody,
-    query: dto.CheckEmailQuery
-  ): Promise<dto.CheckEmailResponse> {
+  async checkEmail(params: dto.CheckEmailParams, query: dto.CheckEmailQuery): Promise<dto.CheckEmailResponse> {
     return handleError<dto.CheckEmailResponse>(
       () => this.api.get(`${config.api.url}/auth/check-email`, { withCredentials: true, params: query }),
       "checkEmail"
     );
   }
 
-  async forgotPassword(
-    body: dto.ForgotPasswordBody,
-    _query: {},
-    _params: {}
-  ): Promise<dto.ResponseBody<dto.ForgotPasswordResponse>> {
-    return handleError<dto.ResponseBody<dto.ForgotPasswordResponse>>(
+  async forgotPassword(body: dto.ForgotPasswordBody, _query: {}, _params: {}): Promise<dto.ForgotPasswordResponse> {
+    return handleError<dto.ForgotPasswordResponse>(
       () => this.api.post(`${config.api.url}/auth/forgot-password`, body, { withCredentials: true }),
       "forgotPassword"
     );
@@ -145,8 +129,8 @@ class AuthBackendAPIImpl implements AuthBackendAPI {
     body: dto.ResetPasswordBody,
     query: dto.ResetPasswordQuery,
     _params: {}
-  ): Promise<dto.ResponseBody<dto.ResetPasswordResponse>> {
-    return handleError<dto.ResponseBody<dto.ResetPasswordResponse>>(
+  ): Promise<dto.ResetPasswordResponse> {
+    return handleError<dto.ResetPasswordResponse>(
       () => this.api.post(`${config.api.url}/auth/reset-password`, body, { withCredentials: true, params: query }),
       "resetPassword"
     );

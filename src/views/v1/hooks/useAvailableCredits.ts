@@ -3,7 +3,7 @@ import { getBackendAPI } from "src/services/BackendAPI";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
-import { AuthContextState } from "../pages";
+import { AuthContextState } from "../pages/authenticate/AuthContext";
 import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";
 
@@ -19,7 +19,7 @@ export function useAvailableCredits(auth: AuthContextState) {
       try {
         const params: GetAvailableCreditsParams = {};
         const query: GetAvailableCreditsQuery = {
-          companyId: auth.authInfo?.company?.id.uuid,
+          companyId: auth.authInfo?.company?.id,
         };
 
         const response = await backendAPI.getAvailableCredits(params, query);

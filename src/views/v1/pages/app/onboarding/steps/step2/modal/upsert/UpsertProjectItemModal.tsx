@@ -1,12 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as dto from "@open-source-economy/api-types";
-import {
-  DeveloperProjectItemEntry,
-  DeveloperRoleType,
-  MergeRightsType,
-  SourceIdentifier,
-} from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { GenericInputRef } from "../../../../../../../components/form";
 import { ModalHeader } from "./components/ModalHeader";
 import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
@@ -75,7 +71,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         projectItems: [
           {
             projectItemType: projectItemType,
-            sourceIdentifier: sourceIdentifier,
+            sourceIdentifier:
+              typeof sourceIdentifier === "string"
+                ? sourceIdentifier
+                : "name" in sourceIdentifier
+                  ? `${(sourceIdentifier as dto.RepositoryId).ownerId.login}/${(sourceIdentifier as dto.RepositoryId).name}`
+                  : (sourceIdentifier as dto.OwnerId).login,
             roles: selectedRole ? [selectedRole] : [],
             mergeRights: selectedMergeRights ? [selectedMergeRights] : [],
           },

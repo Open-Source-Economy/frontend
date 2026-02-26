@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { GetServiceHierarchyResponse } from "@open-source-economy/api-types/dist/dto/GetServiceHierarchy.dto";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOnboardingBackendAPI } from "src/services";
 
@@ -19,12 +18,12 @@ export const onboardingHooks = {
   useCreateDeveloperProfileMutation() {
     const queryClient = useQueryClient();
     return useMutation<
-      dto.CreateDeveloperProfileResponse,
+      dto.CreateProfileResponse,
       Error,
       {
-        params: dto.CreateDeveloperProfileParams;
-        body: dto.CreateDeveloperProfileBody;
-        query: dto.CreateDeveloperProfileQuery;
+        params: dto.CreateProfileParams;
+        body: dto.CreateProfileBody;
+        query: dto.CreateProfileQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.createDeveloperProfile(params, body, query),
@@ -37,12 +36,12 @@ export const onboardingHooks = {
   useUpdateDeveloperContactInfosMutation() {
     const queryClient = useQueryClient();
     return useMutation<
-      dto.UpdateDeveloperContactInfosResponse,
+      dto.UpdateContactInfosResponse,
       Error,
       {
-        params: dto.UpdateDeveloperContactInfosParams;
-        body: dto.UpdateDeveloperContactInfosBody;
-        query: dto.UpdateDeveloperContactInfosQuery;
+        params: dto.UpdateContactInfosParams;
+        body: dto.UpdateContactInfosBody;
+        query: dto.UpdateContactInfosQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => onboardingAPI.updateDeveloperContactInfos(params, body, query),
@@ -109,33 +108,29 @@ export const onboardingHooks = {
   useRemoveProjectItemMutation() {
     const queryClient = useQueryClient();
     return useMutation<
-      dto.RemoveDeveloperProjectItemResponse,
+      void,
       Error,
       {
         params: dto.RemoveDeveloperProjectItemParams;
-        body: dto.RemoveDeveloperProjectItemBody;
         query: dto.RemoveDeveloperProjectItemQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.removeProjectItem(params, body, query),
+      mutationFn: ({ params, query }) => onboardingAPI.removeProjectItem(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },
     });
   },
 
-  usePotentialProjectItemsQuery(
-    params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
-  ) {
-    return useQuery<dto.GetPotentialDeveloperProjectItemsResponse>({
+  usePotentialProjectItemsQuery(params: dto.GetPotentialProjectItemsParams, query: dto.GetPotentialProjectItemsQuery) {
+    return useQuery<dto.GetPotentialProjectItemsResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "potentialProjectItems", params, query],
       queryFn: () => onboardingAPI.getPotentialProjectItems(params, query),
     });
   },
 
   useServiceHierarchyQuery(params: dto.GetServiceHierarchyParams, query: dto.GetServiceHierarchyQuery) {
-    return useQuery<GetServiceHierarchyResponse>({
+    return useQuery<dto.GetServiceHierarchyResponse>({
       queryKey: [...ONBOARDING_QUERY_KEY, "serviceHierarchy", params, query],
       queryFn: () => onboardingAPI.getServiceHierarchy(params, query),
     });
@@ -180,15 +175,14 @@ export const onboardingHooks = {
   useDeleteDeveloperServiceMutation() {
     const queryClient = useQueryClient();
     return useMutation<
-      dto.DeleteDeveloperServiceResponse,
+      void,
       Error,
       {
         params: dto.DeleteDeveloperServiceParams;
-        body: dto.DeleteDeveloperServiceBody;
         query: dto.DeleteDeveloperServiceQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => onboardingAPI.deleteDeveloperService(params, body, query),
+      mutationFn: ({ params, query }) => onboardingAPI.deleteDeveloperService(params, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ONBOARDING_QUERY_KEY });
       },

@@ -24,9 +24,9 @@ export function AddServiceModal(props: AddServiceModalProps) {
   const handleServiceSelection = (service: dto.Service) => {
     setSelectedServices((prev) => {
       // Check if the service is already selected based on its UUID
-      if (prev.some((s) => s.id.uuid === service.id.uuid)) {
+      if (prev.some((s) => s.id === service.id)) {
         // If it is, filter it out to deselect it
-        return prev.filter((s) => s.id.uuid !== service.id.uuid);
+        return prev.filter((s) => s.id !== service.id);
       } else {
         // Otherwise, add the new service to the list
         return [...prev, service];
@@ -67,10 +67,10 @@ export function AddServiceModal(props: AddServiceModalProps) {
                     <p className="block leading-[1.5]">{serviceHierarchyItem.category}</p>
                   </div>
                   {serviceHierarchyItem.services.map((service) => {
-                    const isSelected = selectedServices.some((s) => s.id.uuid === service.id.uuid);
+                    const isSelected = selectedServices.some((s) => s.id === service.id);
                     return (
                       <div
-                        key={service.id.uuid}
+                        key={service.id}
                         className="bg-[#202f45] box-border content-stretch flex flex-row gap-2.5 items-center justify-start pl-6 pr-3 py-3 border-b border-[#2a3f56] last:border-b-0 cursor-pointer"
                         onClick={() => handleServiceSelection(service)}
                       >

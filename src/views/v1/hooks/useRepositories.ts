@@ -30,17 +30,7 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
         })
       );
 
-      const validResponses = responses.filter(
-        (response): response is { owner: Owner; repository: Repository } => !(response instanceof ApiError)
-      );
-
-      setRepositories(validResponses.map((response) => [response.owner, response.repository]));
-
-      const errors = responses.filter((response): response is ApiError => response instanceof ApiError);
-
-      if (errors.length > 0) {
-        setError(errors[0]); // Handle the first error
-      }
+      setRepositories(responses.map((response) => [response.owner, response.repository]));
     } catch (err) {
       console.error("Error fetching repositories:", err);
       setError(ApiError.from(err));

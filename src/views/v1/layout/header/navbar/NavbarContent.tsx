@@ -30,7 +30,7 @@ export function NavbarContent(props: AppNavbarProps) {
   const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
     {},
     {
-      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+      companyId: auth.authInfo?.company?.id,
     }
   );
   const availableCredits: Credit | null = availableCreditsResponse
@@ -43,7 +43,7 @@ export function NavbarContent(props: AppNavbarProps) {
     props.setShowOffcanvas(false); // for mobile
   });
 
-  const displayManageIssuesItem = (auth.authInfo?.authenticatedUser?.repositories ?? []).length > 0;
+  const displayManageIssuesItem = (auth.authInfo?.repositories ?? []).length > 0;
 
   const authDropdownNavbarItems: (NavItemData | Divider)[] = [
     Navigation.items.dashboard,
@@ -93,7 +93,7 @@ export function NavbarContent(props: AppNavbarProps) {
 
   return (
     <Nav className="justify-end  lg:items-center font-mich flex-grow gap-3">
-      {auth.authInfo?.authenticatedUser ? (
+      {auth.authInfo ? (
         <>
           <MobileNavbar navbarItems={authDropdownNavbarItems} />
           {authNavbarItems.map((item) => {

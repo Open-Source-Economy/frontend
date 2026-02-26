@@ -1,4 +1,4 @@
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifierCompanion } from "../companions/SourceIdentifier.companion";
 
 describe("SourceIdentifierCompanion", () => {
@@ -13,12 +13,13 @@ describe("SourceIdentifierCompanion", () => {
 
         testUrls.forEach((url) => {
           const result = SourceIdentifierCompanion.fromUrlOrShorthand(url);
-          expect(result).toBeInstanceOf(RepositoryId);
+          expect(typeof result).toBe("object");
 
-          if (result instanceof RepositoryId) {
+          if (typeof result === "object" && result !== null && "name" in result) {
+            const repo = result as dto.RepositoryId;
             // Critical: Repository name must NOT contain .git when sent to backend
-            expect(result.name).not.toContain(".git");
-            expect(result.name.endsWith(".git")).toBe(false);
+            expect(repo.name).not.toContain(".git");
+            expect(repo.name.endsWith(".git")).toBe(false);
           }
         });
       });
@@ -31,12 +32,13 @@ describe("SourceIdentifierCompanion", () => {
 
         issueUrls.forEach((url) => {
           const result = SourceIdentifierCompanion.fromUrlOrShorthand(url);
-          expect(result).toBeInstanceOf(RepositoryId);
+          expect(typeof result).toBe("object");
 
-          if (result instanceof RepositoryId) {
-            expect(result.name).toBe(url.includes("commons-bcel") ? "commons-bcel" : "commons-beanutils");
-            expect(result.ownerId.login).toBe("apache");
-            expect(result.name).not.toContain(".git");
+          if (typeof result === "object" && result !== null && "name" in result) {
+            const repo = result as dto.RepositoryId;
+            expect(repo.name).toBe(url.includes("commons-bcel") ? "commons-bcel" : "commons-beanutils");
+            expect(repo.ownerId).toBe("apache");
+            expect(repo.name).not.toContain(".git");
           }
         });
       });
@@ -44,19 +46,18 @@ describe("SourceIdentifierCompanion", () => {
       test("should preserve repository names without .git", () => {
         const result = SourceIdentifierCompanion.fromUrlOrShorthand("https://github.com/apache/commons-bcel");
 
-        expect(result).toBeInstanceOf(RepositoryId);
-        if (result instanceof RepositoryId) {
-          expect(result.name).toBe("commons-bcel");
+        expect(typeof result).toBe("object");
+        if (typeof result === "object" && result !== null && "name" in result) {
+          const repo = result as dto.RepositoryId;
+          expect(repo.name).toBe("commons-bcel");
         }
       });
 
       test("should handle owner URLs correctly (no .git to strip)", () => {
         const result = SourceIdentifierCompanion.fromUrlOrShorthand("https://github.com/apache");
 
-        expect(result).toBeInstanceOf(OwnerId);
-        if (result instanceof OwnerId) {
-          expect(result.login).toBe("apache");
-        }
+        expect(typeof result).toBe("string");
+        expect(result).toBe("apache");
       });
 
       test("should handle regular URLs (strings)", () => {
@@ -78,11 +79,12 @@ describe("SourceIdentifierCompanion", () => {
         const sourceIdentifiers = bulkUrls.map((url) => SourceIdentifierCompanion.fromUrlOrShorthand(url));
 
         sourceIdentifiers.forEach((sourceIdentifier, index) => {
-          expect(sourceIdentifier).toBeInstanceOf(RepositoryId);
+          expect(typeof sourceIdentifier).toBe("object");
 
-          if (sourceIdentifier instanceof RepositoryId) {
+          if (typeof sourceIdentifier === "object" && sourceIdentifier !== null && "name" in sourceIdentifier) {
+            const repo = sourceIdentifier as dto.RepositoryId;
             // This is what gets sent to the backend - must NOT have .git
-            const repoName = sourceIdentifier.name;
+            const repoName = repo.name;
             expect(repoName).not.toContain(".git");
             expect(repoName.endsWith(".git")).toBe(false);
 
@@ -94,7 +96,7 @@ describe("SourceIdentifierCompanion", () => {
             }
 
             // Verify the full identifier format
-            const fullIdentifier = `${sourceIdentifier.ownerId.login}/${repoName}`;
+            const fullIdentifier = `${repo.ownerId}/${repoName}`;
             expect(fullIdentifier).not.toContain(".git");
           }
         });
@@ -105,16 +107,16 @@ describe("SourceIdentifierCompanion", () => {
   describe("equals", () => {
     describe("case-insensitive comparison (normalizeCase: true, default)", () => {
       test("should compare RepositoryId case-insensitively", () => {
-        const repo1 = new RepositoryId(new OwnerId("Apache"), "Pekko");
-        const repo2 = new RepositoryId(new OwnerId("apache"), "pekko");
+        const repo1 = { ownerId: { login: "Apache" } as dto.OwnerId, name: "Pekko" } as dto.RepositoryId;
+        const repo2 = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
 
         expect(SourceIdentifierCompanion.equals(repo1, repo2)).toBe(true);
         expect(SourceIdentifierCompanion.equals(repo1, repo2, true)).toBe(true);
       });
 
       test("should compare OwnerId case-insensitively", () => {
-        const owner1 = new OwnerId("Apache");
-        const owner2 = new OwnerId("apache");
+        const owner1 = { login: "Apache" } as dto.OwnerId;
+        const owner2 = { login: "apache" } as dto.OwnerId;
 
         expect(SourceIdentifierCompanion.equals(owner1, owner2)).toBe(true);
         expect(SourceIdentifierCompanion.equals(owner1, owner2, true)).toBe(true);
@@ -126,15 +128,15 @@ describe("SourceIdentifierCompanion", () => {
       });
 
       test("should return false for different repositories even with case normalization", () => {
-        const repo1 = new RepositoryId(new OwnerId("apache"), "pekko");
-        const repo2 = new RepositoryId(new OwnerId("apache"), "commons-bcel");
+        const repo1 = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
+        const repo2 = { ownerId: { login: "apache" } as dto.OwnerId, name: "commons-bcel" } as dto.RepositoryId;
 
         expect(SourceIdentifierCompanion.equals(repo1, repo2)).toBe(false);
       });
 
       test("should return false for different owners even with case normalization", () => {
-        const owner1 = new OwnerId("apache");
-        const owner2 = new OwnerId("facebook");
+        const owner1 = { login: "apache" } as dto.OwnerId;
+        const owner2 = { login: "facebook" } as dto.OwnerId;
 
         expect(SourceIdentifierCompanion.equals(owner1, owner2)).toBe(false);
       });
@@ -142,15 +144,15 @@ describe("SourceIdentifierCompanion", () => {
 
     describe("case-sensitive comparison (normalizeCase: false)", () => {
       test("should compare RepositoryId case-sensitively", () => {
-        const repo1 = new RepositoryId(new OwnerId("Apache"), "Pekko");
-        const repo2 = new RepositoryId(new OwnerId("apache"), "pekko");
+        const repo1 = { ownerId: { login: "Apache" } as dto.OwnerId, name: "Pekko" } as dto.RepositoryId;
+        const repo2 = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
 
         expect(SourceIdentifierCompanion.equals(repo1, repo2, false)).toBe(false);
       });
 
       test("should compare OwnerId case-sensitively", () => {
-        const owner1 = new OwnerId("Apache");
-        const owner2 = new OwnerId("apache");
+        const owner1 = { login: "Apache" } as dto.OwnerId;
+        const owner2 = { login: "apache" } as dto.OwnerId;
 
         expect(SourceIdentifierCompanion.equals(owner1, owner2, false)).toBe(false);
       });
@@ -161,8 +163,8 @@ describe("SourceIdentifierCompanion", () => {
       });
 
       test("should return true for identical repositories with same case", () => {
-        const repo1 = new RepositoryId(new OwnerId("apache"), "pekko");
-        const repo2 = new RepositoryId(new OwnerId("apache"), "pekko");
+        const repo1 = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
+        const repo2 = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
 
         expect(SourceIdentifierCompanion.equals(repo1, repo2, false)).toBe(true);
       });
@@ -170,14 +172,14 @@ describe("SourceIdentifierCompanion", () => {
 
     describe("type mismatches", () => {
       test("should return false when comparing string to RepositoryId", () => {
-        const repo = new RepositoryId(new OwnerId("apache"), "pekko");
+        const repo = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
 
         expect(SourceIdentifierCompanion.equals("apache/pekko", repo)).toBe(false);
       });
 
       test("should return false when comparing RepositoryId to OwnerId", () => {
-        const repo = new RepositoryId(new OwnerId("apache"), "pekko");
-        const owner = new OwnerId("apache");
+        const repo = { ownerId: { login: "apache" } as dto.OwnerId, name: "pekko" } as dto.RepositoryId;
+        const owner = { login: "apache" } as dto.OwnerId;
 
         expect(SourceIdentifierCompanion.equals(repo, owner)).toBe(false);
       });

@@ -5,23 +5,23 @@ import { developerBugFixingService, serviceHierarchy } from "./index"; // Assumi
 
 export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   async createDeveloperProfile(
-    params: dto.CreateDeveloperProfileParams,
-    body: dto.CreateDeveloperProfileBody,
-    query: dto.CreateDeveloperProfileQuery
-  ): Promise<dto.CreateDeveloperProfileResponse> {
+    params: dto.CreateProfileParams,
+    body: dto.CreateProfileBody,
+    query: dto.CreateProfileQuery
+  ): Promise<dto.CreateProfileResponse> {
     console.log("createDeveloperProfile", { params, body, query });
-    const response: dto.CreateDeveloperProfileResponse = {};
+    const response: dto.CreateProfileResponse = {};
     return Promise.resolve(response);
   }
 
   // Renamed to match the specific action and backend interface
   async updateDeveloperContactInfos(
-    params: dto.UpdateDeveloperContactInfosParams,
-    body: dto.UpdateDeveloperContactInfosBody,
-    query: dto.UpdateDeveloperContactInfosQuery
-  ): Promise<dto.UpdateDeveloperContactInfosResponse> {
+    params: dto.UpdateContactInfosParams,
+    body: dto.UpdateContactInfosBody,
+    query: dto.UpdateContactInfosQuery
+  ): Promise<dto.UpdateContactInfosResponse> {
     console.log("updateDeveloperContactInfos", { params, body, query });
-    const response: dto.UpdateDeveloperContactInfosResponse = {
+    const response: dto.UpdateContactInfosResponse = {
       // Assuming the response for this DTO is an empty object based on your backend DTO
     };
     return Promise.resolve(response);
@@ -33,18 +33,18 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   ): Promise<dto.GetDeveloperProfileResponse> {
     console.log("getDeveloperProfile", { params, query });
 
-    const projectItemId1 = new dto.ProjectItemId(Math.random().toString());
-    const projectItemId2 = new dto.ProjectItemId(Math.random().toString());
-    const developerProjectItemId1 = new dto.DeveloperProjectItemId(Math.random().toString());
-    const developerProjectItemId2 = new dto.DeveloperProjectItemId(Math.random().toString());
-    const developerProfileId1 = new dto.DeveloperProfileId(Math.random().toString());
-    const developerProfileId2 = new dto.DeveloperProfileId(Math.random().toString());
+    const projectItemId1 = Math.random().toString() as dto.ProjectItemId;
+    const projectItemId2 = Math.random().toString() as dto.ProjectItemId;
+    const developerProjectItemId1 = Math.random().toString() as dto.DeveloperProjectItemId;
+    const developerProjectItemId2 = Math.random().toString() as dto.DeveloperProjectItemId;
+    const developerProfileId1 = Math.random().toString() as dto.DeveloperProfileId;
+    const developerProfileId2 = Math.random().toString() as dto.DeveloperProfileId;
 
     const response: dto.GetDeveloperProfileResponse = {
       profile: {
         profileEntry: null,
         settings: {
-          id: new dto.DeveloperSettingsId(Math.random().toString()),
+          id: Math.random().toString() as dto.DeveloperSettingsId,
           developerProfileId: developerProfileId1,
           royaltiesPreference: undefined,
           servicesPreference: dto.PreferenceType.YES,
@@ -56,21 +56,17 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
           hourlyRate: undefined,
           hourlyRateComment: undefined,
           currency: undefined,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: new Date().toISOString() as dto.ISODateTimeString,
+          updatedAt: new Date().toISOString() as dto.ISODateTimeString,
         },
         projects: [
           {
             projectItem: {
               id: projectItemId1,
               projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
-              sourceIdentifier: new dto.RepositoryId(
-                new dto.OwnerId("open-source-economy", undefined),
-                "ose-website",
-                undefined
-              ),
-              createdAt: new Date(),
-              updatedAt: new Date(),
+              sourceIdentifier: "open-source-economy/ose-website",
+              createdAt: new Date().toISOString() as dto.ISODateTimeString,
+              updatedAt: new Date().toISOString() as dto.ISODateTimeString,
             },
             developerProjectItem: {
               id: developerProjectItemId1,
@@ -78,17 +74,17 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
               projectItemId: projectItemId1,
               roles: [dto.DeveloperRoleType.MAINTAINER],
               mergeRights: [dto.MergeRightsType.NONE],
-              createdAt: new Date(),
-              updatedAt: new Date(),
+              createdAt: new Date().toISOString() as dto.ISODateTimeString,
+              updatedAt: new Date().toISOString() as dto.ISODateTimeString,
             },
           },
           {
             projectItem: {
               id: projectItemId2,
               projectItemType: dto.ProjectItemType.GITHUB_OWNER,
-              sourceIdentifier: new dto.OwnerId("open-source-economy", undefined),
-              createdAt: new Date(),
-              updatedAt: new Date(),
+              sourceIdentifier: "open-source-economy",
+              createdAt: new Date().toISOString() as dto.ISODateTimeString,
+              updatedAt: new Date().toISOString() as dto.ISODateTimeString,
             },
             developerProjectItem: {
               id: developerProjectItemId2,
@@ -96,8 +92,8 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
               projectItemId: projectItemId2,
               roles: [dto.DeveloperRoleType.MAINTAINER],
               mergeRights: [dto.MergeRightsType.LIMITED],
-              createdAt: new Date(),
-              updatedAt: new Date(),
+              createdAt: new Date().toISOString() as dto.ISODateTimeString,
+              updatedAt: new Date().toISOString() as dto.ISODateTimeString,
             },
           },
         ],
@@ -132,20 +128,20 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
   ): Promise<dto.UpsertDeveloperProjectItemResponse> {
     console.log("upsertProjectItem", { params, body, query });
 
-    const developerProfileId = new dto.DeveloperProfileId(Math.random().toString()); // Need a mock profile ID
+    const developerProfileId = Math.random().toString() as dto.DeveloperProfileId;
 
     // Process each project item in the array
     const results: dto.ProjectItemUpsertResult[] = body.projectItems.map((projectItemData) => {
-      const projectItemId = new dto.ProjectItemId(Math.random().toString());
-      const developerProjectItemId = new dto.DeveloperProjectItemId(Math.random().toString());
+      const projectItemId = Math.random().toString() as dto.ProjectItemId;
+      const developerProjectItemId = Math.random().toString() as dto.DeveloperProjectItemId;
 
       return {
         projectItem: {
           id: projectItemId,
           projectItemType: projectItemData.projectItemType,
           sourceIdentifier: projectItemData.sourceIdentifier,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: new Date().toISOString() as dto.ISODateTimeString,
+          updatedAt: new Date().toISOString() as dto.ISODateTimeString,
         },
         developerProjectItem: {
           id: developerProjectItemId,
@@ -156,8 +152,8 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
           comment: projectItemData.comments,
           customCategories: projectItemData.customCategories,
           predefinedCategories: projectItemData.predefinedCategories,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: new Date().toISOString() as dto.ISODateTimeString,
+          updatedAt: new Date().toISOString() as dto.ISODateTimeString,
         },
       };
     });
@@ -171,19 +167,17 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
 
   async removeProjectItem(
     params: dto.RemoveDeveloperProjectItemParams,
-    body: dto.RemoveDeveloperProjectItemBody,
     query: dto.RemoveDeveloperProjectItemQuery
-  ): Promise<dto.RemoveDeveloperProjectItemResponse> {
-    console.log("removeProjectItem", { params, body, query });
-    return Promise.resolve({} as dto.RemoveDeveloperProjectItemResponse);
+  ): Promise<void> {
+    console.log("removeProjectItem", { params, query });
   }
 
   async getPotentialProjectItems(
-    params: dto.GetPotentialDeveloperProjectItemsParams,
-    query: dto.GetPotentialDeveloperProjectItemsQuery
-  ): Promise<dto.GetPotentialDeveloperProjectItemsResponse> {
+    params: dto.GetPotentialProjectItemsParams,
+    query: dto.GetPotentialProjectItemsQuery
+  ): Promise<dto.GetPotentialProjectItemsResponse> {
     console.log("getPotentialProjectItems", { params, query });
-    const response: dto.GetPotentialDeveloperProjectItemsResponse = {};
+    const response: dto.GetPotentialProjectItemsResponse = {};
     return Promise.resolve(response);
   }
 
@@ -207,8 +201,8 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
     console.log("upsertDeveloperService", { params, body, query });
 
     // Assuming the response contains the upserted developerService, including a generated ID
-    const mockDeveloperServiceId = new dto.DeveloperServiceId(Math.random().toString());
-    const developerProfileId = new dto.DeveloperProfileId(Math.random().toString()); // Need a mock profile ID
+    const mockDeveloperServiceId = Math.random().toString() as dto.DeveloperServiceId;
+    const developerProfileId = Math.random().toString() as dto.DeveloperProfileId;
 
     const response: dto.UpsertDeveloperServiceResponse = {
       developerService: {
@@ -219,8 +213,8 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
         hourlyRate: body.hourlyRate,
         responseTimeHours: body.responseTimeHours,
         comment: body.comment, // DTO uses 'comments', model uses 'comment'
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString() as dto.ISODateTimeString,
+        updatedAt: new Date().toISOString() as dto.ISODateTimeString,
       },
     };
 
@@ -236,15 +230,15 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
 
     const developerServices: dto.DeveloperService[] = body.upsertDeveloperServices.map((service) => {
       const developerService: dto.DeveloperService = {
-        id: new dto.DeveloperProfileId(Math.random().toString()),
-        developerProfileId: new dto.DeveloperServiceId(Math.random().toString()),
+        id: Math.random().toString() as dto.DeveloperServiceId,
+        developerProfileId: Math.random().toString() as dto.DeveloperProfileId,
         serviceId: service.serviceId,
         developerProjectItemIds: service.developerProjectItemIds,
         hourlyRate: service.hourlyRate,
         responseTimeHours: service.responseTimeHours,
         comment: service.comment,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString() as dto.ISODateTimeString,
+        updatedAt: new Date().toISOString() as dto.ISODateTimeString,
       };
       return developerService;
     });
@@ -257,11 +251,9 @@ export class OnboardingBackendAPIMock implements OnboardingBackendAPI {
 
   async deleteDeveloperService(
     params: dto.DeleteDeveloperServiceParams,
-    body: dto.DeleteDeveloperServiceBody,
     query: dto.DeleteDeveloperServiceQuery
-  ): Promise<dto.DeleteDeveloperServiceResponse> {
-    console.log("deleteDeveloperService", { params, body, query });
-    return Promise.resolve({} as dto.DeleteDeveloperServiceResponse);
+  ): Promise<void> {
+    console.log("deleteDeveloperService", { params, query });
   }
 
   async createCustomService(

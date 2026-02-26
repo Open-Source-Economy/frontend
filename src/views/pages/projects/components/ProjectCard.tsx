@@ -50,19 +50,6 @@ export function ProjectCard(props: ProjectCardProps) {
       return { owner: sourceIdentifier, repo: undefined as string | undefined };
     }
 
-    if (sourceIdentifier && typeof sourceIdentifier === "object") {
-      const maybeRepo = sourceIdentifier as { ownerId?: { login: string }; name?: string; login?: string };
-      if (maybeRepo.ownerId?.login) {
-        return {
-          owner: maybeRepo.ownerId.login,
-          repo: maybeRepo.name,
-        };
-      }
-      if (maybeRepo.login) {
-        return { owner: maybeRepo.login, repo: undefined as string | undefined };
-      }
-    }
-
     return null;
   };
 
@@ -72,15 +59,15 @@ export function ProjectCard(props: ProjectCardProps) {
     if (ownerRepo?.owner) {
       navigate({ to: paths.PROJECT_DETAIL(ownerRepo.owner, ownerRepo.repo) as string });
     } else if (props.onViewProject) {
-      props.onViewProject(view.projectId.uuid);
+      props.onViewProject(view.projectId);
     }
   };
 
   return (
     <Card
-      key={view.projectId.uuid}
+      key={view.projectId}
       className="group hover:shadow-lg transition-all duration-300 border-border hover:border-brand-primary/20 cursor-pointer overflow-hidden"
-      onClick={() => props.onViewProject?.(view.projectId.uuid)}
+      onClick={() => props.onViewProject?.(view.projectId)}
     >
       <CardContent className="p-5 flex flex-col overflow-hidden">
         {/* Project Header */}
@@ -215,7 +202,7 @@ export function ProjectCard(props: ProjectCardProps) {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          props.onViewProject?.(view.projectId.uuid);
+                          props.onViewProject?.(view.projectId);
                         }}
                         className="flex items-center gap-1 text-xs text-brand-accent hover:text-brand-accent-dark transition-colors mt-1 py-1"
                       >

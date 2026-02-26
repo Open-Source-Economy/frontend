@@ -25,7 +25,7 @@ export namespace FullDeveloperProfileCompanion {
     if (contactEmail?.toLowerCase().includes(search)) return true;
 
     // Search in GitHub username
-    const githubUsername = profile.profileEntry?.owner?.id.login;
+    const githubUsername = profile.profileEntry?.owner?.id?.login;
     if (githubUsername?.toLowerCase().includes(search)) return true;
 
     // Search in project names
@@ -42,6 +42,6 @@ export namespace FullDeveloperProfileCompanion {
    * Get GitHub username from profile
    */
   export function getGithubUsername(profile: dto.FullDeveloperProfile): string | null {
-    return profile.profileEntry?.owner?.id.login || null;
+    return profile.profileEntry?.owner?.id?.login || null;
   }
 }

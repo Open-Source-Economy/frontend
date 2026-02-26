@@ -37,32 +37,17 @@ export function convertToProjectDisplayData(entry: DeveloperProjectItemEntry): P
 
   if (projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY) {
     projectType = "github_repo";
-    // Extract URL from RepositoryId
-    const sourceIdentifier = projectItem.sourceIdentifier;
-    if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
-      const ownerLogin =
-        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
-          ? sourceIdentifier.ownerId.login
-          : sourceIdentifier.ownerId;
-      url = `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
-    }
+    url = `https://github.com/${projectItem.sourceIdentifier}`;
   } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
     projectType = "github_org";
-    // Extract URL from OwnerId
-    const sourceIdentifier = projectItem.sourceIdentifier;
-    if (typeof sourceIdentifier === "object" && "login" in sourceIdentifier) {
-      url = `https://github.com/${sourceIdentifier.login}`;
-    }
+    url = `https://github.com/${projectItem.sourceIdentifier}`;
   } else if (projectItem.projectItemType === ProjectItemType.URL) {
     projectType = "other_url";
-    // Use string URL directly
-    if (typeof projectItem.sourceIdentifier === "string") {
-      url = projectItem.sourceIdentifier;
-    }
+    url = projectItem.sourceIdentifier;
   }
 
   return {
-    id: developerProjectItem.id.uuid,
+    id: developerProjectItem.id,
     projectType,
     url,
     role: role.toLowerCase().replace(/_/g, "_") as any, // Map to design system role format
@@ -86,23 +71,11 @@ export function getProjectDisplayUrl(entry: DeveloperProjectItemEntry): string {
   const projectItem = entry.projectItem;
 
   if (projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY) {
-    const sourceIdentifier = projectItem.sourceIdentifier;
-    if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
-      const ownerLogin =
-        typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
-          ? sourceIdentifier.ownerId.login
-          : sourceIdentifier.ownerId;
-      return `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
-    }
+    return `https://github.com/${projectItem.sourceIdentifier}`;
   } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
-    const sourceIdentifier = projectItem.sourceIdentifier;
-    if (typeof sourceIdentifier === "object" && "login" in sourceIdentifier) {
-      return `https://github.com/${sourceIdentifier.login}`;
-    }
+    return `https://github.com/${projectItem.sourceIdentifier}`;
   } else if (projectItem.projectItemType === ProjectItemType.URL) {
-    if (typeof projectItem.sourceIdentifier === "string") {
-      return projectItem.sourceIdentifier;
-    }
+    return projectItem.sourceIdentifier;
   }
 
   return "";

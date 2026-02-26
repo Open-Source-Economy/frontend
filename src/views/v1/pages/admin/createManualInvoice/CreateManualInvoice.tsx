@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { CompanyId, UserId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
@@ -30,8 +29,8 @@ export function CreateManualInvoice(_props: CreateManualInvoiceProps) {
       await createManualInvoice.mutateAsync({
         body: {
           number: Number(data.invoiceNumber),
-          companyId: data.companyId ? new CompanyId(data.companyId) : undefined,
-          userId: data.userId ? new UserId(data.userId) : undefined,
+          companyId: data.companyId || undefined,
+          userId: data.userId || undefined,
           paid: data.paid,
           creditAmount: Number(data.creditAmount),
         },

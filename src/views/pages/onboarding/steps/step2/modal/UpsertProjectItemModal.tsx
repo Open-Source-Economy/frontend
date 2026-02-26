@@ -17,6 +17,7 @@ import { Textarea } from "src/views/components/ui/forms/textarea";
 import { AlertCircle, Github, ShieldCheck, User } from "lucide-react";
 import { SourceIdentifierCompanion } from "src/ultils/companions";
 import { GithubUrls } from "src/ultils";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { BulkProjectUrlParser } from "src/ultils/BulkProjectUrlParser";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { isVisible } from "src/ultils/featureVisibility";
@@ -47,7 +48,7 @@ const projectTypeOptions = [
 ];
 
 const createProjectItemData = (
-  sourceIdentifier: dto.SourceIdentifier,
+  sourceIdentifier: SourceIdentifier,
   projectType: ProjectItemType,
   role: DeveloperRoleType | null,
   mergeRights: MergeRightsType | null,
@@ -56,7 +57,7 @@ const createProjectItemData = (
 ): dto.ProjectItemData => {
   return {
     projectItemType: projectType,
-    sourceIdentifier: sourceIdentifier,
+    sourceIdentifier: SourceIdentifierCompanion.displayName(sourceIdentifier),
     roles: role ? [role] : [],
     mergeRights: mergeRights ? [mergeRights] : [],
     comments: undefined,
@@ -203,7 +204,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const validateBulkForm = (): {
     valid: boolean;
-    projects: Array<{ sourceIdentifier: dto.SourceIdentifier; projectType: ProjectItemType }>;
+    projects: Array<{ sourceIdentifier: SourceIdentifier; projectType: ProjectItemType }>;
   } => {
     let hasErrors = false;
 
@@ -273,12 +274,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     try {
       // If editing and the project identifier changed, delete the old entry first
       if (isEditingWithChangedProject && props.entry) {
-        const deleteParams: dto.RemoveDeveloperProjectItemParams = {};
-        const deleteBody: dto.RemoveDeveloperProjectItemBody = {
+        const deleteParams: dto.RemoveDeveloperProjectItemParams = {
           developerProjectItemId: props.entry.developerProjectItem.id,
         };
         const deleteQuery: dto.RemoveDeveloperProjectItemQuery = {};
-        await removeProjectItem.mutateAsync({ params: deleteParams, body: deleteBody, query: deleteQuery });
+        await removeProjectItem.mutateAsync({ params: deleteParams, query: deleteQuery });
       }
 
       const roleValue = form.getValues("role") as DeveloperRoleType;
@@ -473,7 +473,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
               {/* Categories field - optional, multi-select */}
               {selectedProjectType && (
                 <CategoryInput
-                  key={`category-input-${props.entry?.developerProjectItem.id.uuid || "new"}`}
+                  key={`category-input-${props.entry?.developerProjectItem.id || "new"}`}
                   predefinedCategories={predefinedCategories}
                   customCategories={customCategories}
                   onChange={(predefined, custom) => {

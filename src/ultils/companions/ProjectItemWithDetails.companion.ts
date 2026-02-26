@@ -68,7 +68,7 @@ export namespace ProjectItemWithDetailsCompanion {
     const lowerQuery = query.toLowerCase();
     return projectItems.filter((item) => {
       const repoName = item.repository?.id.name.toLowerCase() || "";
-      const ownerLogin = item.owner?.id.login.toLowerCase() || "";
+      const ownerLogin = item.owner?.id?.login?.toLowerCase() || "";
       // Handle sourceIdentifier which can be OwnerId | RepositoryId | string
       const sourceIdentifier =
         typeof item.projectItem.sourceIdentifier === "string" ? item.projectItem.sourceIdentifier.toLowerCase() : "";
@@ -89,7 +89,7 @@ export namespace ProjectItemWithDetailsCompanion {
     const uniqueDeveloperIds = new Set<string>();
     projectItems.forEach((item) => {
       item.developers.forEach((dev) => {
-        uniqueDeveloperIds.add(dev.developerProfile.id.uuid);
+        uniqueDeveloperIds.add(dev.developerProfile.id);
       });
     });
 

@@ -20,12 +20,12 @@ export const stripeHooks = {
   useSetUserPreferredCurrencyMutation() {
     const queryClient = useQueryClient();
     return useMutation<
-      dto.SetUserPreferredCurrencyResponse,
+      dto.SetPreferredCurrencyResponse,
       Error,
       {
-        params: dto.SetUserPreferredCurrencyParams;
-        body: dto.SetUserPreferredCurrencyBody;
-        query: dto.SetUserPreferredCurrencyQuery;
+        params: dto.SetPreferredCurrencyParams;
+        body: dto.SetPreferredCurrencyBody;
+        query: dto.SetPreferredCurrencyQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => backendAPI.setUserPreferredCurrency(params, body, query),
@@ -37,12 +37,12 @@ export const stripeHooks = {
 
   useSubscribeToNewsletterMutation() {
     return useMutation<
-      dto.NewsletterSubscriptionResponse,
+      dto.SubscribeNewsletterResponse,
       Error,
       {
-        params: dto.NewsletterSubscriptionParams;
-        body: dto.NewsletterSubscriptionBody;
-        query: dto.NewsletterSubscriptionQuery;
+        params: dto.SubscribeNewsletterParams;
+        body: dto.SubscribeNewsletterBody;
+        query: dto.SubscribeNewsletterQuery;
       }
     >({
       mutationFn: ({ params, body, query }) => backendAPI.subscribeToNewsletter(params, body, query),
@@ -51,9 +51,9 @@ export const stripeHooks = {
 
   useSubmitContactFormMutation() {
     return useMutation<
-      dto.ContactFormResponse,
+      dto.SubmitContactFormResponse,
       Error,
-      { params: dto.ContactFormParams; body: dto.ContactFormBody; query: dto.ContactFormQuery }
+      { params: dto.SubmitContactFormParams; body: dto.SubmitContactFormBody; query: dto.SubmitContactFormQuery }
     >({
       mutationFn: ({ params, body, query }) => backendAPI.submitContactForm(params, body, query),
     });

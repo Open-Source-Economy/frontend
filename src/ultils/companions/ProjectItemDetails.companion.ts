@@ -10,7 +10,7 @@ export interface ProjectStats {
 export namespace ProjectItemDetailsCompanion {
   export function getDisplayName(project: ProjectItemDetails): string | null {
     if (project.repository) {
-      return project.repository.fullName || `${project.owner?.id.login ?? ""}/${project.repository.id.name}`;
+      return project.repository.fullName || `${project.owner?.id?.login ?? ""}/${project.repository.id.name}`;
     }
     if (project.owner) {
       return project.owner.name || project.owner.id.login;

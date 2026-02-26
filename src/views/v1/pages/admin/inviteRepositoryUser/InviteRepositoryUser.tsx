@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { Currency, OwnerId, RepositoryId, RepositoryUserRole } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
@@ -31,14 +31,17 @@ export function InviteRepositoryUser() {
       await sendRepositoryRoleInvite.mutateAsync({
         params: {},
         body: {
-          userName: data.name || null,
+          userName: data.name || "",
           userEmail: data.email,
-          sendEmail: data.sendEmail,
+          sendEmail: String(data.sendEmail),
           userGithubOwnerLogin: data.githubOwnerLogin,
-          repositoryId: new RepositoryId(new OwnerId(data.repositoryOwnerLogin), data.repositoryName),
-          repositoryUserRole: RepositoryUserRole.ADMIN,
-          rate: data.rate ? Number(data.rate) : undefined,
-          currency: data.currency ? (data.currency as Currency) : undefined,
+          repositoryId: JSON.stringify({
+            ownerId: { login: data.repositoryOwnerLogin },
+            name: data.repositoryName,
+          } as dto.RepositoryId),
+          repositoryUserRole: "admin",
+          rate: data.rate ? String(Number(data.rate)) : "",
+          currency: data.currency || "",
         },
         query: {},
       });
@@ -140,7 +143,7 @@ export function InviteRepositoryUser() {
                 {...form.register("currency")}
               >
                 <option value="">Select Currency</option>
-                {Object.values(Currency).map((currency) => (
+                {Object.values(dto.Currency).map((currency) => (
                   <option key={currency} value={currency}>
                     {currency}
                   </option>

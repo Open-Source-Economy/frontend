@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { AddressId, CompanyId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { createCompanySchema, CreateCompanyFormData } from "src/views/components/ui/forms/schemas";
+import { CreateCompanyResponse } from "src/services";
 
 interface CreateCompanyProps {}
 
 export function CreateCompany(_props: CreateCompanyProps) {
   const [error, setError] = useState<string | null>(null);
-  const [createdCompanyId, setCreatedCompanyId] = useState<CompanyId | null>(null);
+  const [createdCompanyId, setCreatedCompanyId] = useState<string | null>(null);
 
   const createCompany = adminHooks.useCreateCompanyMutation();
 
@@ -25,15 +25,15 @@ export function CreateCompany(_props: CreateCompanyProps) {
   const onSubmit = async (data: CreateCompanyFormData) => {
     setError(null);
     try {
-      const result = await createCompany.mutateAsync({
+      const result: CreateCompanyResponse = await createCompany.mutateAsync({
         body: {
           name: data.name,
-          taxId: data.taxId || null,
-          addressId: data.addressId ? new AddressId(data.addressId) : null,
+          taxId: data.taxId || undefined,
+          addressId: data.addressId || undefined,
         },
         query: {},
       });
-      setCreatedCompanyId(result.createdCompanyId);
+      setCreatedCompanyId(result.company.id);
       form.reset();
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
@@ -84,7 +84,7 @@ export function CreateCompany(_props: CreateCompanyProps) {
             </form>
 
             {createdCompanyId && (
-              <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId.uuid}`}</h2>
+              <h2 className="text-white text-[30px] font-medium mt-5">{`Created Company Id: ${createdCompanyId}`}</h2>
             )}
 
             {error && <p className="text-red-500 mt-3">Error: {error}</p>}

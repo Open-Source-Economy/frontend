@@ -1,585 +1,362 @@
-import {
-  DeveloperProfileId,
-  DeveloperProjectItemId,
-  DeveloperRoleType,
-  MergeRightsType,
-  Owner,
-  OwnerId,
-  OwnerType,
-  ProjectItemId,
-  ProjectItemType,
-  ProjectItemWithDetails,
-  Repository,
-  RepositoryId,
-  UserId,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
-// Helper to create dates
+// Helper to create dates as ISODateTimeString
 const now = new Date();
-const hoursAgo = (hours: number) => new Date(now.getTime() - hours * 60 * 60 * 1000);
-const daysAgo = (days: number) => new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+const hoursAgo = (hours: number) =>
+  new Date(now.getTime() - hours * 60 * 60 * 1000).toISOString() as dto.ISODateTimeString;
+const daysAgo = (days: number) =>
+  new Date(now.getTime() - days * 24 * 60 * 60 * 1000).toISOString() as dto.ISODateTimeString;
 const yearAgo = daysAgo(365);
 
-export const projectItemsDatabase: ProjectItemWithDetails[] = [
+function makeOwner(
+  login: string,
+  type: dto.OwnerType,
+  opts?: {
+    githubId?: number;
+    name?: string;
+    blog?: string;
+    avatarUrl?: string;
+  }
+): dto.Owner {
+  return {
+    id: { login } as dto.OwnerId,
+    type,
+    htmlUrl: `https://github.com/${login}`,
+    avatarUrl: opts?.avatarUrl ?? `https://avatars.githubusercontent.com/u/${opts?.githubId ?? 0}`,
+    name: opts?.name,
+    blog: opts?.blog,
+  };
+}
+
+function makeRepositoryId(ownerLogin: string, name: string, githubId?: number): dto.RepositoryId {
+  return {
+    ownerId: { login: ownerLogin } as dto.OwnerId,
+    name,
+    githubId,
+  } as dto.RepositoryId;
+}
+
+function makeRepository(
+  ownerLogin: string,
+  repoName: string,
+  opts: {
+    githubId?: number;
+    description?: string;
+    homepage?: string;
+    language?: string;
+    forksCount?: number;
+    stargazersCount?: number;
+    fullName?: string;
+    topics?: string[];
+  }
+): dto.Repository {
+  return {
+    id: makeRepositoryId(ownerLogin, repoName, opts.githubId),
+    htmlUrl: `https://github.com/${ownerLogin}/${repoName}`,
+    description: opts.description,
+    homepage: opts.homepage,
+    language: opts.language,
+    forksCount: opts.forksCount,
+    stargazersCount: opts.stargazersCount,
+    fullName: opts.fullName,
+    fork: false,
+    topics: opts.topics,
+  };
+}
+
+interface DeveloperEntry {
+  developerProfile: dto.DeveloperProfile;
+  developerProjectItem: dto.DeveloperProjectItem;
+  developerOwner: dto.Owner;
+}
+
+function makeDeveloper(
+  projectItemId: dto.ProjectItemId,
+  idSuffix: string,
+  opts: {
+    email: string;
+    roles: dto.DeveloperRoleType[];
+    mergeRights: dto.MergeRightsType[];
+    comment: string;
+    ownerLogin: string;
+    ownerName: string;
+    avatarUrl: string;
+    createdAt: dto.ISODateTimeString;
+    updatedAt: dto.ISODateTimeString;
+  }
+): DeveloperEntry {
+  const developerProfileId = `dev-${idSuffix}` as dto.DeveloperProfileId;
+  return {
+    developerProfile: {
+      id: developerProfileId,
+      userId: `user-${idSuffix}` as dto.UserId,
+      contactEmail: opts.email,
+      onboardingCompleted: true,
+      createdAt: opts.createdAt,
+      updatedAt: opts.updatedAt,
+    },
+    developerProjectItem: {
+      id: `dpi-${idSuffix}` as dto.DeveloperProjectItemId,
+      developerProfileId: developerProfileId,
+      projectItemId: projectItemId,
+      roles: opts.roles,
+      mergeRights: opts.mergeRights,
+      comment: opts.comment,
+      createdAt: opts.createdAt,
+      updatedAt: opts.updatedAt,
+    },
+    developerOwner: makeOwner(opts.ownerLogin, dto.OwnerType.User, {
+      name: opts.ownerName,
+      avatarUrl: opts.avatarUrl,
+    }),
+  };
+}
+
+export const projectItemsDatabase: dto.ProjectItemWithDetails[] = [
   // React
   {
     projectItem: {
-      id: new ProjectItemId("react"),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+      id: "react" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
       sourceIdentifier: "facebook/react",
       createdAt: yearAgo,
       updatedAt: hoursAgo(2),
     },
-    owner: new Owner(
-      new OwnerId("facebook", 69631),
-      OwnerType.Organization,
-      "https://github.com/facebook",
-      "https://avatars.githubusercontent.com/u/69631",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "Facebook",
-      undefined,
-      undefined,
-      "https://reactjs.org",
-      undefined,
-      undefined
-    ),
-    repository: new Repository(
-      new RepositoryId(new OwnerId("facebook", 69631), "react", 10270250),
-      "https://github.com/facebook/react",
-      "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
-      "https://reactjs.org",
-      "JavaScript",
-      45000,
-      220000,
-      undefined,
-      "facebook/react",
-      false,
-      ["ui", "components", "javascript"],
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ),
+    owner: makeOwner("facebook", dto.OwnerType.Organization, {
+      githubId: 69631,
+      name: "Facebook",
+      blog: "https://reactjs.org",
+    }),
+    repository: makeRepository("facebook", "react", {
+      githubId: 10270250,
+      description: "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+      homepage: "https://reactjs.org",
+      language: "JavaScript",
+      forksCount: 45000,
+      stargazersCount: 220000,
+      fullName: "facebook/react",
+      topics: ["ui", "components", "javascript"],
+    }),
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-react-1"),
-          userId: new UserId("user-react-1"),
-          contactEmail: "react-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-react-1"),
-          developerProfileId: new DeveloperProfileId("dev-react-1"),
-          projectItemId: new ProjectItemId("react"),
-          roles: [DeveloperRoleType.CORE_TEAM_MEMBER, DeveloperRoleType.MAINTAINER],
-          mergeRights: [MergeRightsType.FULL_COMMITTER],
-          comment: "Core Maintainer",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerOwner: new Owner(
-          new OwnerId("react-0"),
-          OwnerType.User,
-          "https://github.com/react-0",
-          "https://images.unsplash.com/photo-1743850765931-4a00e4809a5f?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Sarah Chen",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-react-2"),
-          userId: new UserId("user-react-2"),
-          contactEmail: "react-1@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-react-2"),
-          developerProfileId: new DeveloperProfileId("dev-react-2"),
-          projectItemId: new ProjectItemId("react"),
-          roles: [DeveloperRoleType.MAINTAINER],
-          mergeRights: [MergeRightsType.REVIEWER, MergeRightsType.LIMITED],
-          comment: "Security Expert",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerOwner: new Owner(
-          new OwnerId("react-1"),
-          OwnerType.User,
-          "https://github.com/react-1",
-          "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Marcus Rodriguez",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-react-3"),
-          userId: new UserId("user-react-3"),
-          contactEmail: "react-2@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-react-3"),
-          developerProfileId: new DeveloperProfileId("dev-react-3"),
-          projectItemId: new ProjectItemId("react"),
-          roles: [DeveloperRoleType.ACTIVE_CONTRIBUTOR],
-          mergeRights: [MergeRightsType.REVIEWER],
-          comment: "Performance Lead",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(2),
-        },
-        developerOwner: new Owner(
-          new OwnerId("react-2"),
-          OwnerType.User,
-          "https://github.com/react-2",
-          "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Priya Patel",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("react" as dto.ProjectItemId, "react-1", {
+        email: "react-0@example.com",
+        roles: [dto.DeveloperRoleType.CORE_TEAM_MEMBER, dto.DeveloperRoleType.MAINTAINER],
+        mergeRights: [dto.MergeRightsType.FULL_COMMITTER],
+        comment: "Core Maintainer",
+        ownerLogin: "react-0",
+        ownerName: "Sarah Chen",
+        avatarUrl: "https://images.unsplash.com/photo-1743850765931-4a00e4809a5f?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(2),
+      }),
+      makeDeveloper("react" as dto.ProjectItemId, "react-2", {
+        email: "react-1@example.com",
+        roles: [dto.DeveloperRoleType.MAINTAINER],
+        mergeRights: [dto.MergeRightsType.REVIEWER, dto.MergeRightsType.LIMITED],
+        comment: "Security Expert",
+        ownerLogin: "react-1",
+        ownerName: "Marcus Rodriguez",
+        avatarUrl: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(2),
+      }),
+      makeDeveloper("react" as dto.ProjectItemId, "react-3", {
+        email: "react-2@example.com",
+        roles: [dto.DeveloperRoleType.ACTIVE_CONTRIBUTOR],
+        mergeRights: [dto.MergeRightsType.REVIEWER],
+        comment: "Performance Lead",
+        ownerLogin: "react-2",
+        ownerName: "Priya Patel",
+        avatarUrl: "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(2),
+      }),
     ],
   },
 
   // Vue.js
   {
     projectItem: {
-      id: new ProjectItemId("vue"),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+      id: "vue" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
       sourceIdentifier: "vuejs/vue",
       createdAt: yearAgo,
       updatedAt: hoursAgo(5),
     },
-    owner: new Owner(
-      new OwnerId("vuejs", 6128107),
-      OwnerType.Organization,
-      "https://github.com/vuejs",
-      "https://avatars.githubusercontent.com/u/6128107",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "Vue.js",
-      undefined,
-      undefined,
-      "https://vuejs.org",
-      undefined,
-      undefined
-    ),
-    repository: new Repository(
-      new RepositoryId(new OwnerId("vuejs", 6128107), "vue", 11730342),
-      "https://github.com/vuejs/vue",
-      "Progressive JavaScript framework for building modern web interfaces.",
-      "https://vuejs.org",
-      "TypeScript",
-      34000,
-      207000,
-      undefined,
-      "vuejs/vue",
-      false,
-      ["ui", "framework", "progressive"],
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ),
+    owner: makeOwner("vuejs", dto.OwnerType.Organization, {
+      githubId: 6128107,
+      name: "Vue.js",
+      blog: "https://vuejs.org",
+    }),
+    repository: makeRepository("vuejs", "vue", {
+      githubId: 11730342,
+      description: "Progressive JavaScript framework for building modern web interfaces.",
+      homepage: "https://vuejs.org",
+      language: "TypeScript",
+      forksCount: 34000,
+      stargazersCount: 207000,
+      fullName: "vuejs/vue",
+      topics: ["ui", "framework", "progressive"],
+    }),
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-vue-1"),
-          userId: new UserId("user-vue-1"),
-          contactEmail: "vue-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(5),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-vue-1"),
-          developerProfileId: new DeveloperProfileId("dev-vue-1"),
-          projectItemId: new ProjectItemId("vue"),
-          roles: [DeveloperRoleType.FOUNDER, DeveloperRoleType.CORE_TEAM_MEMBER],
-          mergeRights: [MergeRightsType.FULL_COMMITTER],
-          comment: "Core Maintainer",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(5),
-        },
-        developerOwner: new Owner(
-          new OwnerId("vue-0"),
-          OwnerType.User,
-          "https://github.com/vue-0",
-          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Alex Johnson",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-vue-2"),
-          userId: new UserId("user-vue-2"),
-          contactEmail: "vue-1@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(5),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-vue-2"),
-          developerProfileId: new DeveloperProfileId("dev-vue-2"),
-          projectItemId: new ProjectItemId("vue"),
-          roles: [DeveloperRoleType.MAINTAINER],
-          mergeRights: [MergeRightsType.REVIEWER],
-          comment: "Security Expert",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(5),
-        },
-        developerOwner: new Owner(
-          new OwnerId("vue-1"),
-          OwnerType.User,
-          "https://github.com/vue-1",
-          "https://images.unsplash.com/photo-1570295999919-56ceb8e25514?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Emily Wong",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("vue" as dto.ProjectItemId, "vue-1", {
+        email: "vue-0@example.com",
+        roles: [dto.DeveloperRoleType.FOUNDER, dto.DeveloperRoleType.CORE_TEAM_MEMBER],
+        mergeRights: [dto.MergeRightsType.FULL_COMMITTER],
+        comment: "Core Maintainer",
+        ownerLogin: "vue-0",
+        ownerName: "Alex Johnson",
+        avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(5),
+      }),
+      makeDeveloper("vue" as dto.ProjectItemId, "vue-2", {
+        email: "vue-1@example.com",
+        roles: [dto.DeveloperRoleType.MAINTAINER],
+        mergeRights: [dto.MergeRightsType.REVIEWER],
+        comment: "Security Expert",
+        ownerLogin: "vue-1",
+        ownerName: "Emily Wong",
+        avatarUrl: "https://images.unsplash.com/photo-1570295999919-56ceb8e25514?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(5),
+      }),
     ],
   },
 
   // Kubernetes
   {
     projectItem: {
-      id: new ProjectItemId("kubernetes"),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+      id: "kubernetes" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
       sourceIdentifier: "kubernetes/kubernetes",
       createdAt: yearAgo,
       updatedAt: hoursAgo(1),
     },
-    owner: new Owner(
-      new OwnerId("kubernetes", 13629408),
-      OwnerType.Organization,
-      "https://github.com/kubernetes",
-      "https://avatars.githubusercontent.com/u/13629408",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "Kubernetes",
-      undefined,
-      undefined,
-      "https://kubernetes.io",
-      undefined,
-      undefined
-    ),
-    repository: new Repository(
-      new RepositoryId(new OwnerId("kubernetes", 13629408), "kubernetes", 20580498),
-      "https://github.com/kubernetes/kubernetes",
-      "Production-Grade Container Orchestration for automating deployment and scaling.",
-      "https://kubernetes.io",
-      "Go",
-      39000,
-      108000,
-      undefined,
-      "kubernetes/kubernetes",
-      false,
-      ["containers", "orchestration", "devops"],
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ),
+    owner: makeOwner("kubernetes", dto.OwnerType.Organization, {
+      githubId: 13629408,
+      name: "Kubernetes",
+      blog: "https://kubernetes.io",
+    }),
+    repository: makeRepository("kubernetes", "kubernetes", {
+      githubId: 20580498,
+      description: "Production-Grade Container Orchestration for automating deployment and scaling.",
+      homepage: "https://kubernetes.io",
+      language: "Go",
+      forksCount: 39000,
+      stargazersCount: 108000,
+      fullName: "kubernetes/kubernetes",
+      topics: ["containers", "orchestration", "devops"],
+    }),
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-k8s-1"),
-          userId: new UserId("user-k8s-1"),
-          contactEmail: "kubernetes-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(1),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-k8s-1"),
-          developerProfileId: new DeveloperProfileId("dev-k8s-1"),
-          projectItemId: new ProjectItemId("kubernetes"),
-          roles: [DeveloperRoleType.TSC_MEMBER, DeveloperRoleType.MAINTAINER],
-          mergeRights: [MergeRightsType.FULL_COMMITTER, MergeRightsType.RELEASE_MANAGER],
-          comment: "Core Maintainer",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(1),
-        },
-        developerOwner: new Owner(
-          new OwnerId("kubernetes-0"),
-          OwnerType.User,
-          "https://github.com/kubernetes-0",
-          "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "David Lee",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("kubernetes" as dto.ProjectItemId, "k8s-1", {
+        email: "kubernetes-0@example.com",
+        roles: [dto.DeveloperRoleType.TSC_MEMBER, dto.DeveloperRoleType.MAINTAINER],
+        mergeRights: [dto.MergeRightsType.FULL_COMMITTER, dto.MergeRightsType.RELEASE_MANAGER],
+        comment: "Core Maintainer",
+        ownerLogin: "kubernetes-0",
+        ownerName: "David Lee",
+        avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(1),
+      }),
     ],
   },
 
   // TensorFlow
   {
     projectItem: {
-      id: new ProjectItemId("tensorflow"),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+      id: "tensorflow" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
       sourceIdentifier: "tensorflow/tensorflow",
       createdAt: yearAgo,
       updatedAt: hoursAgo(3),
     },
-    owner: new Owner(
-      new OwnerId("tensorflow", 15658638),
-      OwnerType.Organization,
-      "https://github.com/tensorflow",
-      "https://avatars.githubusercontent.com/u/15658638",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "TensorFlow",
-      undefined,
-      undefined,
-      "https://tensorflow.org",
-      undefined,
-      undefined
-    ),
-    repository: new Repository(
-      new RepositoryId(new OwnerId("tensorflow", 15658638), "tensorflow", 45717250),
-      "https://github.com/tensorflow/tensorflow",
-      "An end-to-end open source platform for machine learning applications.",
-      "https://tensorflow.org",
-      "Python",
-      74000,
-      185000,
-      undefined,
-      "tensorflow/tensorflow",
-      false,
-      ["machine-learning", "ai", "python"],
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ),
+    owner: makeOwner("tensorflow", dto.OwnerType.Organization, {
+      githubId: 15658638,
+      name: "TensorFlow",
+      blog: "https://tensorflow.org",
+    }),
+    repository: makeRepository("tensorflow", "tensorflow", {
+      githubId: 45717250,
+      description: "An end-to-end open source platform for machine learning applications.",
+      homepage: "https://tensorflow.org",
+      language: "Python",
+      forksCount: 74000,
+      stargazersCount: 185000,
+      fullName: "tensorflow/tensorflow",
+      topics: ["machine-learning", "ai", "python"],
+    }),
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-tf-1"),
-          userId: new UserId("user-tf-1"),
-          contactEmail: "tensorflow-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(3),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-tf-1"),
-          developerProfileId: new DeveloperProfileId("dev-tf-1"),
-          projectItemId: new ProjectItemId("tensorflow"),
-          roles: [DeveloperRoleType.CORE_TEAM_MEMBER],
-          mergeRights: [MergeRightsType.FULL_COMMITTER],
-          comment: "Core Maintainer",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(3),
-        },
-        developerOwner: new Owner(
-          new OwnerId("tensorflow-0"),
-          OwnerType.User,
-          "https://github.com/tensorflow-0",
-          "https://images.unsplash.com/photo-1743850765931-4a00e4809a5f?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Sarah Chen",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-tf-2"),
-          userId: new UserId("user-tf-2"),
-          contactEmail: "tensorflow-1@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(3),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-tf-2"),
-          developerProfileId: new DeveloperProfileId("dev-tf-2"),
-          projectItemId: new ProjectItemId("tensorflow"),
-          roles: [DeveloperRoleType.MAINTAINER, DeveloperRoleType.ACTIVE_CONTRIBUTOR],
-          mergeRights: [MergeRightsType.REVIEWER],
-          comment: "Security Expert",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(3),
-        },
-        developerOwner: new Owner(
-          new OwnerId("tensorflow-1"),
-          OwnerType.User,
-          "https://github.com/tensorflow-1",
-          "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Marcus Rodriguez",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("tensorflow" as dto.ProjectItemId, "tf-1", {
+        email: "tensorflow-0@example.com",
+        roles: [dto.DeveloperRoleType.CORE_TEAM_MEMBER],
+        mergeRights: [dto.MergeRightsType.FULL_COMMITTER],
+        comment: "Core Maintainer",
+        ownerLogin: "tensorflow-0",
+        ownerName: "Sarah Chen",
+        avatarUrl: "https://images.unsplash.com/photo-1743850765931-4a00e4809a5f?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(3),
+      }),
+      makeDeveloper("tensorflow" as dto.ProjectItemId, "tf-2", {
+        email: "tensorflow-1@example.com",
+        roles: [dto.DeveloperRoleType.MAINTAINER, dto.DeveloperRoleType.ACTIVE_CONTRIBUTOR],
+        mergeRights: [dto.MergeRightsType.REVIEWER],
+        comment: "Security Expert",
+        ownerLogin: "tensorflow-1",
+        ownerName: "Marcus Rodriguez",
+        avatarUrl: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(3),
+      }),
     ],
   },
 
   // Node.js
   {
     projectItem: {
-      id: new ProjectItemId("nodejs"),
-      projectItemType: ProjectItemType.GITHUB_REPOSITORY,
+      id: "nodejs" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.GITHUB_REPOSITORY,
       sourceIdentifier: "nodejs/node",
       createdAt: yearAgo,
       updatedAt: hoursAgo(6),
     },
-    owner: new Owner(
-      new OwnerId("nodejs", 9950313),
-      OwnerType.Organization,
-      "https://github.com/nodejs",
-      "https://avatars.githubusercontent.com/u/9950313",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "Node.js",
-      undefined,
-      undefined,
-      "https://nodejs.org",
-      undefined,
-      undefined
-    ),
-    repository: new Repository(
-      new RepositoryId(new OwnerId("nodejs", 9950313), "node", 27193779),
-      "https://github.com/nodejs/node",
-      "JavaScript runtime built on Chrome's V8 engine for scalable applications.",
-      "https://nodejs.org",
-      "JavaScript",
-      28000,
-      105000,
-      undefined,
-      "nodejs/node",
-      false,
-      ["runtime", "javascript", "backend"],
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ),
+    owner: makeOwner("nodejs", dto.OwnerType.Organization, {
+      githubId: 9950313,
+      name: "Node.js",
+      blog: "https://nodejs.org",
+    }),
+    repository: makeRepository("nodejs", "node", {
+      githubId: 27193779,
+      description: "JavaScript runtime built on Chrome's V8 engine for scalable applications.",
+      homepage: "https://nodejs.org",
+      language: "JavaScript",
+      forksCount: 28000,
+      stargazersCount: 105000,
+      fullName: "nodejs/node",
+      topics: ["runtime", "javascript", "backend"],
+    }),
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-node-1"),
-          userId: new UserId("user-node-1"),
-          contactEmail: "nodejs-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(6),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-node-1"),
-          developerProfileId: new DeveloperProfileId("dev-node-1"),
-          projectItemId: new ProjectItemId("nodejs"),
-          roles: [DeveloperRoleType.TSC_MEMBER, DeveloperRoleType.CORE_TEAM_MEMBER],
-          mergeRights: [MergeRightsType.FULL_COMMITTER],
-          comment: "Core Maintainer",
-          createdAt: yearAgo,
-          updatedAt: hoursAgo(6),
-        },
-        developerOwner: new Owner(
-          new OwnerId("nodejs-0"),
-          OwnerType.User,
-          "https://github.com/nodejs-0",
-          "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Priya Patel",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("nodejs" as dto.ProjectItemId, "node-1", {
+        email: "nodejs-0@example.com",
+        roles: [dto.DeveloperRoleType.TSC_MEMBER, dto.DeveloperRoleType.CORE_TEAM_MEMBER],
+        mergeRights: [dto.MergeRightsType.FULL_COMMITTER],
+        comment: "Core Maintainer",
+        ownerLogin: "nodejs-0",
+        ownerName: "Priya Patel",
+        avatarUrl: "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=400",
+        createdAt: yearAgo,
+        updatedAt: hoursAgo(6),
+      }),
     ],
   },
 
   // Linux Foundation (URL-based project, not on GitHub)
   {
     projectItem: {
-      id: new ProjectItemId("linux-foundation"),
-      projectItemType: ProjectItemType.URL,
+      id: "linux-foundation" as dto.ProjectItemId,
+      projectItemType: dto.ProjectItemType.URL,
       sourceIdentifier: "https://www.linuxfoundation.org",
       createdAt: yearAgo,
       updatedAt: daysAgo(2),
@@ -587,78 +364,28 @@ export const projectItemsDatabase: ProjectItemWithDetails[] = [
     owner: null,
     repository: null,
     developers: [
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-lf-1"),
-          userId: new UserId("user-lf-1"),
-          contactEmail: "linux-foundation-0@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: daysAgo(2),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-lf-1"),
-          developerProfileId: new DeveloperProfileId("dev-lf-1"),
-          projectItemId: new ProjectItemId("linux-foundation"),
-          roles: [DeveloperRoleType.BOARD_MEMBER, DeveloperRoleType.LINUX_FOUNDATION_FELLOW],
-          mergeRights: [MergeRightsType.NONE],
-          comment: "Board Member",
-          createdAt: yearAgo,
-          updatedAt: daysAgo(2),
-        },
-        developerOwner: new Owner(
-          new OwnerId("lf-0"),
-          OwnerType.User,
-          "https://github.com/lf-0",
-          "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "James Thompson",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
-      {
-        developerProfile: {
-          id: new DeveloperProfileId("dev-lf-2"),
-          userId: new UserId("user-lf-2"),
-          contactEmail: "linux-foundation-1@example.com",
-          onboardingCompleted: true,
-          createdAt: yearAgo,
-          updatedAt: daysAgo(2),
-        },
-        developerProjectItem: {
-          id: new DeveloperProjectItemId("dpi-lf-2"),
-          developerProfileId: new DeveloperProfileId("dev-lf-2"),
-          projectItemId: new ProjectItemId("linux-foundation"),
-          roles: [DeveloperRoleType.STEERING_COMMITTEE_MEMBER],
-          mergeRights: [MergeRightsType.NONE],
-          comment: "Steering Committee Member",
-          createdAt: yearAgo,
-          updatedAt: daysAgo(2),
-        },
-        developerOwner: new Owner(
-          new OwnerId("lf-1"),
-          OwnerType.User,
-          "https://github.com/lf-1",
-          "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          "Rachel Kim",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-      },
+      makeDeveloper("linux-foundation" as dto.ProjectItemId, "lf-1", {
+        email: "linux-foundation-0@example.com",
+        roles: [dto.DeveloperRoleType.BOARD_MEMBER, dto.DeveloperRoleType.LINUX_FOUNDATION_FELLOW],
+        mergeRights: [dto.MergeRightsType.NONE],
+        comment: "Board Member",
+        ownerLogin: "lf-0",
+        ownerName: "James Thompson",
+        avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
+        createdAt: yearAgo,
+        updatedAt: daysAgo(2),
+      }),
+      makeDeveloper("linux-foundation" as dto.ProjectItemId, "lf-2", {
+        email: "linux-foundation-1@example.com",
+        roles: [dto.DeveloperRoleType.STEERING_COMMITTEE_MEMBER],
+        mergeRights: [dto.MergeRightsType.NONE],
+        comment: "Steering Committee Member",
+        ownerLogin: "lf-1",
+        ownerName: "Rachel Kim",
+        avatarUrl: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400",
+        createdAt: yearAgo,
+        updatedAt: daysAgo(2),
+      }),
     ],
   },
 ];

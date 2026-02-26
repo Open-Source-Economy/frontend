@@ -1,4 +1,6 @@
-import { ProjectItemType, RepositoryId, SourceIdentifier } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
+import { ProjectItemType } from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { BulkProjectUrlParser, ParsedProjectUrl } from "../BulkProjectUrlParser";
 import { SourceIdentifierCompanion } from "../companions/SourceIdentifier.companion";
 
@@ -7,11 +9,12 @@ describe("BulkProjectUrlParser", () => {
   const getDisplayName = (si: SourceIdentifier): string => SourceIdentifierCompanion.displayName(si);
 
   const verifyNoGitSuffix = (sourceIdentifier: SourceIdentifier, expectedName: string) => {
-    expect(sourceIdentifier).toBeInstanceOf(RepositoryId);
-    if (sourceIdentifier instanceof RepositoryId) {
-      expect(sourceIdentifier.name).toBe(expectedName);
-      expect(sourceIdentifier.name).not.toContain(".git");
-      expect(sourceIdentifier.name.endsWith(".git")).toBe(false);
+    expect(typeof sourceIdentifier).toBe("object");
+    if (typeof sourceIdentifier === "object" && sourceIdentifier !== null && "name" in sourceIdentifier) {
+      const repo = sourceIdentifier as dto.RepositoryId;
+      expect(repo.name).toBe(expectedName);
+      expect(repo.name).not.toContain(".git");
+      expect(repo.name.endsWith(".git")).toBe(false);
     }
   };
 
@@ -138,24 +141,30 @@ https://github.com/apache/commons-beanutils.git`;
       expectParseResult(result, 2, 0);
 
       // Verify that .git is stripped in sourceIdentifier
-      const bcelProject = result.validProjects.find(
-        (p) => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-bcel"
-      );
-      const beanutilsProject = result.validProjects.find(
-        (p) => p.sourceIdentifier instanceof RepositoryId && p.sourceIdentifier.name === "commons-beanutils"
-      );
+      const bcelProject = result.validProjects.find((p) => {
+        const si = p.sourceIdentifier;
+        return (
+          typeof si === "object" && si !== null && "name" in si && (si as dto.RepositoryId).name === "commons-bcel"
+        );
+      });
+      const beanutilsProject = result.validProjects.find((p) => {
+        const si = p.sourceIdentifier;
+        return (
+          typeof si === "object" && si !== null && "name" in si && (si as dto.RepositoryId).name === "commons-beanutils"
+        );
+      });
 
       expect(bcelProject).toBeDefined();
       expect(beanutilsProject).toBeDefined();
 
-      if (bcelProject?.sourceIdentifier instanceof RepositoryId) {
+      if (bcelProject) {
         verifyNoGitSuffix(bcelProject.sourceIdentifier, "commons-bcel");
-        expect(bcelProject.sourceIdentifier.ownerId.login).toBe("apache");
+        expect((bcelProject.sourceIdentifier as dto.RepositoryId).ownerId).toBe("apache");
       }
 
-      if (beanutilsProject?.sourceIdentifier instanceof RepositoryId) {
+      if (beanutilsProject) {
         verifyNoGitSuffix(beanutilsProject.sourceIdentifier, "commons-beanutils");
-        expect(beanutilsProject.sourceIdentifier.ownerId.login).toBe("apache");
+        expect((beanutilsProject.sourceIdentifier as dto.RepositoryId).ownerId).toBe("apache");
       }
     });
 
@@ -166,8 +175,9 @@ https://github.com/apache/commons-beanutils.git`;
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
 
       result.validProjects.forEach((project) => {
-        if (project.sourceIdentifier instanceof RepositoryId) {
-          verifyNoGitSuffix(project.sourceIdentifier, project.sourceIdentifier.name);
+        const si = project.sourceIdentifier;
+        if (typeof si === "object" && si !== null && "name" in si) {
+          verifyNoGitSuffix(si, (si as dto.RepositoryId).name);
         }
       });
     });
@@ -191,7 +201,7 @@ https://github.com/angular/angular`;
       const bulkText = `https://github.com/facebook/react
 
 https://github.com/vuejs/vue
-   
+
 https://github.com/angular/angular`;
 
       const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);

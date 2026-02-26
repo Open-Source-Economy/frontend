@@ -3,11 +3,12 @@ import * as dto from "@open-source-economy/api-types";
 import { AlertCircle, Clock, Edit, Github, Globe, Trash2, X } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { CurrencyCompanion, ResponseTimeTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { Rate } from "../types";
 
 interface ServiceCardProps {
   developerServiceEntry: dto.DeveloperServiceEntry;
-  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, SourceIdentifier>;
   defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
@@ -37,14 +38,14 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const hasCustomRate = !!developerService?.hourlyRate;
 
   // Convert the map to use string keys for efficient lookups
-  const normalizedMap = new Map<string, dto.SourceIdentifier>();
+  const normalizedMap = new Map<string, SourceIdentifier>();
   for (const [key, value] of sourceIdentifiersMap.entries()) {
-    normalizedMap.set(key.uuid, value);
+    normalizedMap.set(key, value);
   }
 
-  const sourceIdentifiers: dto.SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
-    .map((id) => normalizedMap.get(id.uuid))
-    .filter((v): v is dto.SourceIdentifier => v !== undefined);
+  const sourceIdentifiers: SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
+    .map((id) => normalizedMap.get(id))
+    .filter((v): v is SourceIdentifier => v !== undefined);
 
   const projectCount = sourceIdentifiers.length;
 

@@ -1,4 +1,4 @@
-import { CardSize } from "@open-source-economy/api-types";
+import { CardSize } from "src/ultils/local-types";
 
 export interface SponsorDescription {
   title?: string;

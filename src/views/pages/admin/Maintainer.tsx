@@ -59,11 +59,11 @@ export function Maintainer() {
       if (profileData.profileEntry) {
         const currentStatus = VerificationRecordCompanion.getCurrentStatus(
           profileData.profileEntry.verificationRecords,
-          profileData.profileEntry.profile.id.uuid
+          profileData.profileEntry.profile.id
         );
         const currentNotes = VerificationRecordCompanion.getCurrentNotes(
           profileData.profileEntry.verificationRecords,
-          profileData.profileEntry.profile.id.uuid
+          profileData.profileEntry.profile.id
         );
         setProfileStatus(currentStatus);
         setProfileNotes(currentNotes || "");
@@ -86,7 +86,7 @@ export function Maintainer() {
         params: {},
         body: {
           entityType: dto.VerificationEntityType.DEVELOPER_PROFILE,
-          entityId: profile.profileEntry!.profile.id.uuid,
+          entityId: profile.profileEntry!.profile.id,
           status: profileStatus,
           notes: profileNotes.trim() || undefined,
         },
@@ -120,7 +120,7 @@ export function Maintainer() {
         params: {},
         body: {
           entityType: dto.VerificationEntityType.DEVELOPER_PROJECT_ITEM,
-          entityId: projectEntry.developerProjectItem.id.uuid,
+          entityId: projectEntry.developerProjectItem.id,
           status: projectStatus,
           notes: projectNotes.trim() || undefined,
         },
@@ -136,7 +136,7 @@ export function Maintainer() {
         return {
           ...prev,
           projects: prev.projects.map((p) =>
-            p.developerProjectItem.id.uuid === projectEntry.developerProjectItem.id.uuid
+            p.developerProjectItem.id === projectEntry.developerProjectItem.id
               ? {
                   ...p,
                   verificationRecords: [...(p.verificationRecords || []), newRecord],
@@ -152,14 +152,14 @@ export function Maintainer() {
   };
 
   const startEditingProject = (projectEntry: dto.DeveloperProjectItemEntry) => {
-    setEditingProjectId(projectEntry.developerProjectItem.id.uuid);
+    setEditingProjectId(projectEntry.developerProjectItem.id);
     const currentStatus = VerificationRecordCompanion.getCurrentStatus(
       projectEntry.verificationRecords,
-      projectEntry.developerProjectItem.id.uuid
+      projectEntry.developerProjectItem.id
     );
     const currentNotes = VerificationRecordCompanion.getCurrentNotes(
       projectEntry.verificationRecords,
-      projectEntry.developerProjectItem.id.uuid
+      projectEntry.developerProjectItem.id
     );
     setProjectStatus(currentStatus);
     setProjectNotes(currentNotes || "");
@@ -248,14 +248,14 @@ export function Maintainer() {
                   variant={VerificationStatusCompanion.variant(
                     VerificationRecordCompanion.getCurrentStatus(
                       profile.profileEntry.verificationRecords,
-                      profile.profileEntry.profile.id.uuid
+                      profile.profileEntry.profile.id
                     )
                   )}
                 >
                   {VerificationStatusCompanion.label(
                     VerificationRecordCompanion.getCurrentStatus(
                       profile.profileEntry.verificationRecords,
-                      profile.profileEntry.profile.id.uuid
+                      profile.profileEntry.profile.id
                     )
                   )}
                 </Badge>
@@ -291,7 +291,7 @@ export function Maintainer() {
               </div>
               <div>
                 <p className="text-brand-neutral-400 text-sm">Profile ID</p>
-                <p className="text-white text-xs font-mono">{profile.profileEntry?.profile.id.uuid || "N/A"}</p>
+                <p className="text-white text-xs font-mono">{profile.profileEntry?.profile.id || "N/A"}</p>
               </div>
             </div>
 
@@ -313,7 +313,7 @@ export function Maintainer() {
                             variant={VerificationStatusCompanion.variant(
                               VerificationRecordCompanion.getCurrentStatus(
                                 profile.profileEntry.verificationRecords,
-                                profile.profileEntry.profile.id.uuid
+                                profile.profileEntry.profile.id
                               )
                             )}
                             className="ml-2"
@@ -321,20 +321,20 @@ export function Maintainer() {
                             {VerificationStatusCompanion.label(
                               VerificationRecordCompanion.getCurrentStatus(
                                 profile.profileEntry.verificationRecords,
-                                profile.profileEntry.profile.id.uuid
+                                profile.profileEntry.profile.id
                               )
                             )}
                           </Badge>
                         </p>
                         {VerificationRecordCompanion.getCurrentNotes(
                           profile.profileEntry.verificationRecords,
-                          profile.profileEntry.profile.id.uuid
+                          profile.profileEntry.profile.id
                         ) && (
                           <p className="text-brand-neutral-400 text-sm italic mt-2">
                             "
                             {VerificationRecordCompanion.getCurrentNotes(
                               profile.profileEntry.verificationRecords,
-                              profile.profileEntry.profile.id.uuid
+                              profile.profileEntry.profile.id
                             )}
                             "
                           </p>
@@ -458,7 +458,7 @@ export function Maintainer() {
               </h2>
               <div className="space-y-4">
                 {profile.projects.map((entry, idx) => {
-                  const isEditing = editingProjectId === entry.developerProjectItem.id.uuid;
+                  const isEditing = editingProjectId === entry.developerProjectItem.id;
 
                   return (
                     <div key={idx} className="bg-[#14233A] rounded-lg p-4 border border-brand-neutral-700">
@@ -472,14 +472,14 @@ export function Maintainer() {
                               variant={VerificationStatusCompanion.variant(
                                 VerificationRecordCompanion.getCurrentStatus(
                                   entry.verificationRecords,
-                                  entry.developerProjectItem.id.uuid
+                                  entry.developerProjectItem.id
                                 )
                               )}
                             >
                               {VerificationStatusCompanion.label(
                                 VerificationRecordCompanion.getCurrentStatus(
                                   entry.verificationRecords,
-                                  entry.developerProjectItem.id.uuid
+                                  entry.developerProjectItem.id
                                 )
                               )}
                             </Badge>
@@ -490,13 +490,8 @@ export function Maintainer() {
                           {entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER && (
                             <div className="mt-3">
                               <OrganizationSyncButton
-                                projectItemId={entry.projectItem.id.uuid}
-                                organizationLogin={
-                                  typeof entry.projectItem.sourceIdentifier === "object" &&
-                                  "login" in entry.projectItem.sourceIdentifier
-                                    ? entry.projectItem.sourceIdentifier.login
-                                    : String(entry.projectItem.sourceIdentifier)
-                                }
+                                projectItemId={entry.projectItem.id}
+                                organizationLogin={String(entry.projectItem.sourceIdentifier)}
                                 variant="outline"
                                 size="sm"
                               />
@@ -542,13 +537,13 @@ export function Maintainer() {
                           <div className="space-y-2">
                             {VerificationRecordCompanion.getCurrentNotes(
                               entry.verificationRecords,
-                              entry.developerProjectItem.id.uuid
+                              entry.developerProjectItem.id
                             ) && (
                               <p className="text-brand-neutral-400 text-sm italic">
                                 "
                                 {VerificationRecordCompanion.getCurrentNotes(
                                   entry.verificationRecords,
-                                  entry.developerProjectItem.id.uuid
+                                  entry.developerProjectItem.id
                                 )}
                                 "
                               </p>
@@ -630,17 +625,15 @@ export function Maintainer() {
                   const Icon = serviceInfo.icon;
 
                   // Determine project scope for this service
-                  const serviceProjectIds = (entry.developerService?.developerProjectItemIds ?? []).map(
-                    (id) => id.uuid
-                  );
-                  const allProjectIds = profile.projects.map((p) => p.developerProjectItem.id.uuid);
+                  const serviceProjectIds = entry.developerService?.developerProjectItemIds ?? [];
+                  const allProjectIds = profile.projects.map((p) => p.developerProjectItem.id);
                   const isAllProjects =
                     serviceProjectIds.length === allProjectIds.length &&
                     serviceProjectIds.every((id) => allProjectIds.includes(id));
 
                   const serviceProjects = isAllProjects
                     ? []
-                    : profile.projects.filter((p) => serviceProjectIds.includes(p.developerProjectItem.id.uuid));
+                    : profile.projects.filter((p) => serviceProjectIds.includes(p.developerProjectItem.id));
 
                   return (
                     <div key={idx} className="bg-[#14233A] rounded-lg p-4 border border-brand-neutral-700">

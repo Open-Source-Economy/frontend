@@ -1,4 +1,4 @@
-import { GetProjectAccordionResponse } from "@open-source-economy/api-types";
+import { GetProjectAccordionResponse } from "src/ultils/local-types";
 
 export const pekkoAccordion: GetProjectAccordionResponse = {
   title: "Pekko: Your Best Choice",

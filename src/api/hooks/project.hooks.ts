@@ -3,6 +3,17 @@ import { FinancialIssue } from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getBackendAPI } from "src/services";
 import { SponsorDescription } from "src/model";
+import {
+  GetIssuesParams,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
+  GetProjectAccordionParams,
+  GetProjectAccordionQuery,
+  GetProjectAccordionResponse,
+  GetSponsorsParams,
+  GetSponsorsQuery,
+} from "src/ultils/local-types";
 
 const PROJECT_QUERY_KEY = ["project"] as const;
 
@@ -17,7 +28,7 @@ export const projectHooks = {
     });
   },
 
-  useAllFinancialIssuesQuery(params: dto.GetIssuesParams, query: dto.GetIssueQuery) {
+  useAllFinancialIssuesQuery(params: GetIssuesParams, query: dto.GetIssueQuery) {
     return useQuery<FinancialIssue[]>({
       queryKey: [...PROJECT_QUERY_KEY, "allFinancialIssues", params, query],
       queryFn: () => backendAPI.getAllFinancialIssues(params, query),
@@ -98,23 +109,23 @@ export const projectHooks = {
     });
   },
 
-  useMaintainersQuery(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery) {
-    return useQuery<dto.GetMaintainersResponse>({
+  useMaintainersQuery(params: GetMaintainersParams, query: GetMaintainersQuery) {
+    return useQuery<GetMaintainersResponse>({
       queryKey: [...PROJECT_QUERY_KEY, "maintainers", params, query],
       queryFn: () => backendAPI.getMaintainers(params, query),
       enabled: !!params.owner,
     });
   },
 
-  useProjectAccordionQuery(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery) {
-    return useQuery<dto.GetProjectAccordionResponse>({
+  useProjectAccordionQuery(params: GetProjectAccordionParams, query: GetProjectAccordionQuery) {
+    return useQuery<GetProjectAccordionResponse>({
       queryKey: [...PROJECT_QUERY_KEY, "accordion", params, query],
       queryFn: () => backendAPI.getProjectAccordion(params, query),
       enabled: !!params.owner,
     });
   },
 
-  useSponsorsQuery(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery) {
+  useSponsorsQuery(params: GetSponsorsParams, query: GetSponsorsQuery) {
     return useQuery<SponsorDescription[]>({
       queryKey: [...PROJECT_QUERY_KEY, "sponsors", params, query],
       queryFn: () => backendAPI.getSponsors(params, query),

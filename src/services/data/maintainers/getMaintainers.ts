@@ -1,4 +1,4 @@
-import { Maintainer } from "@open-source-economy/api-types";
+import { Maintainer } from "src/ultils/local-types";
 import { pekkoMaintainers } from "./pekkoMaintainers";
 import { flockMaintainers } from "./flockMaintainers";
 import { oseMaintainers } from "./oseMaintainers";

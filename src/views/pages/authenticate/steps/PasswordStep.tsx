@@ -69,7 +69,7 @@ export function PasswordStep() {
 
   const restoreAccountDetails = async (emailToRestore: string) => {
     try {
-      const result = await checkEmailMutation.mutateAsync({ params: {}, body: {}, query: { email: emailToRestore } });
+      const result = await checkEmailMutation.mutateAsync({ params: {}, query: { email: emailToRestore } });
       setAccountDetails(result);
     } catch {
       // Error tracked by checkEmailMutation.error

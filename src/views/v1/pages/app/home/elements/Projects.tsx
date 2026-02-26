@@ -2,7 +2,6 @@ import React from "react";
 import backdropSVG from "src/assets/v1/backdrop.svg";
 import { Cards } from "src/views/v1/pages/app/home/elements/Cards";
 import { Audience } from "../../../../../Audience";
-import { ProjectUtils } from "@open-source-economy/api-types";
 import { projectHooks } from "src/api";
 
 interface ProjectsProps {}
@@ -37,7 +36,7 @@ export function Projects(_props: ProjectsProps) {
             ) : (
               projects.map((project, index) => (
                 <Cards
-                  key={`${ProjectUtils.key(project)}-${index}`}
+                  key={`${project.owner.id}-${project.repository?.id.name ?? ""}-${index}`}
                   project={project}
                   audience={Audience.ALL}
                   // action={"Learn More"}

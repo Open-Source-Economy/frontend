@@ -18,7 +18,7 @@ function AuthenticatedLayout() {
     return <PageTransition isLoading={true} message="Authenticating user..." />;
   }
 
-  if (auth.authInfo?.authenticatedUser) {
+  if (auth.authInfo) {
     return <Outlet />;
   }
 

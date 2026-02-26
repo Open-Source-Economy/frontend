@@ -28,5 +28,5 @@ export function getProjectDisclaimer(project: dto.ProjectItemDetails | null, pro
 }
 
 function isApacheProject(project: dto.ProjectItemDetails): boolean {
-  return project.owner?.id.login === "apache";
+  return project.owner?.id?.login === "apache";
 }

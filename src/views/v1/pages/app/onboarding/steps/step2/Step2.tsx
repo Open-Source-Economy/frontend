@@ -4,7 +4,6 @@ import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/upsert/UpsertProjectItemModal";
-import { DeveloperProjectItemId } from "@open-source-economy/api-types/dist/model";
 import { ButtonGroup } from "../../landing/components/ButtonGroup";
 import { ProjectsSection } from "./ProjectsSection";
 import { DeleteProjectModal } from "./modal/delete/DeleteProjectModal";
@@ -42,9 +41,7 @@ const Step2: React.FC<Step2Props> = (props) => {
 
     if (editingProject) {
       updatedProjects = projects.map((entry) =>
-        entry.developerProjectItem.id.uuid === newOrUpdatedProject.developerProjectItem.id.uuid
-          ? newOrUpdatedProject
-          : entry
+        entry.developerProjectItem.id === newOrUpdatedProject.developerProjectItem.id ? newOrUpdatedProject : entry
       );
     } else {
       updatedProjects = [...projects, newOrUpdatedProject];
@@ -58,18 +55,15 @@ const Step2: React.FC<Step2Props> = (props) => {
     setShowDeleteModal(true);
   };
 
-  const handleConfirmDelete = async (developerProjectItemId: DeveloperProjectItemId) => {
+  const handleConfirmDelete = async (developerProjectItemId: dto.DeveloperProjectItemId) => {
     try {
-      const params: dto.RemoveDeveloperProjectItemParams = {};
-      const body: dto.RemoveDeveloperProjectItemBody = {
+      const params: dto.RemoveDeveloperProjectItemParams = {
         developerProjectItemId,
       };
       const query: dto.RemoveDeveloperProjectItemQuery = {};
-      await removeProjectItemMutation.mutateAsync({ params, body, query });
+      await removeProjectItemMutation.mutateAsync({ params, query });
 
-      const updatedProjects = projects.filter(
-        (entry) => entry.developerProjectItem.id.uuid !== developerProjectItemId.uuid
-      );
+      const updatedProjects = projects.filter((entry) => entry.developerProjectItem.id !== developerProjectItemId);
       setProjects(updatedProjects);
       props.updateState({ projects: updatedProjects });
       setShowDeleteModal(false);

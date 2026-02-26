@@ -11,8 +11,8 @@ import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Sponsor } from "./elements/sponsor/Sponsor";
 import { projectHooks } from "src/api";
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 import { getCampaignDescription } from "src/services/data";
+import { getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 interface CampaignProps {}
 
@@ -20,8 +20,8 @@ export function Campaign(_props: CampaignProps) {
   const { projectId } = useProjectContext();
 
   const projectParams = {
-    owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-    repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+    owner: getOwnerFromProjectId(projectId),
+    repo: getRepoFromProjectId(projectId),
   };
 
   const { data: projectResponse, error } = projectHooks.useProjectQuery(projectParams, {});

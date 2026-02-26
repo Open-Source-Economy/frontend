@@ -1,5 +1,5 @@
 import React from "react";
-import { ResponseTimeType } from "@open-source-economy/api-types/dist/model";
+import { ResponseTimeType } from "@open-source-economy/api-types";
 import { ResponseTimeTypeSelectInput } from "../../../../../../../../components/form/select/enum/ResponseTimeTypeSelectInput";
 
 interface ResponseTimeSectionProps {

@@ -1,16 +1,13 @@
 import React from "react";
 import * as model from "@open-source-economy/api-types";
-import { ManagedIssueState, userUtils } from "@open-source-economy/api-types";
-import { ExternalLink } from "src/views/v1/components/index";
+import { ManagedIssueState } from "@open-source-economy/api-types";
 
 interface ApprovedProps {
-  managedIssue: model.ManagedIssue | null;
-  manager: model.User | null;
+  managedIssue?: model.ManagedIssue;
 }
 
 export function Approved(props: ApprovedProps) {
   const state = props.managedIssue?.state;
-  const githubOwner = props.manager ? userUtils.githubData(props.manager)?.owner : undefined;
 
   let text = "";
   if (state === ManagedIssueState.OPEN) {
@@ -26,14 +23,7 @@ export function Approved(props: ApprovedProps) {
   } else {
     return (
       <>
-        <p className="text-xs sm:text-sm md:text-base text-[#8693A4] mt-2">
-          {text}{" "}
-          {githubOwner ? (
-            <ExternalLink href={githubOwner.htmlUrl}>@{githubOwner.id.login}</ExternalLink>
-          ) : (
-            "a maintainer"
-          )}
-        </p>
+        <p className="text-xs sm:text-sm md:text-base text-[#8693A4] mt-2">{text} a maintainer</p>
       </>
     );
   }

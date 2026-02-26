@@ -3,6 +3,116 @@ import * as dto from "@open-source-economy/api-types";
 import { api, handleError, projectPath } from "./index";
 import { config } from "src/ultils";
 
+// TODO: re-add when available in api-types
+export interface CreateAddressBody {
+  line1: string;
+  line2?: string;
+  city: string;
+  state?: string;
+  postalCode: string;
+  country: string;
+}
+
+// TODO: re-add when available in api-types
+export type CreateAddressQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export interface CreateAddressResponse {
+  address: { id: string };
+}
+
+// TODO: re-add when available in api-types
+export interface CreateCompanyBody {
+  name: string;
+  taxId?: string;
+  addressId?: string;
+}
+
+// TODO: re-add when available in api-types
+export type CreateCompanyQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export interface CreateCompanyResponse {
+  company: { id: string; name: string };
+}
+
+// TODO: re-add when available in api-types
+export type SendCompanyRoleInviteParams = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type SendCompanyRoleInviteBody = Record<string, string>;
+
+// TODO: re-add when available in api-types
+export type SendCompanyRoleInviteQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type SendCompanyRoleInviteResponse = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type SendRepositoryRoleInviteParams = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type SendRepositoryRoleInviteBody = Record<string, string>;
+
+// TODO: re-add when available in api-types
+export type SendRepositoryRoleInviteQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type SendRepositoryRoleInviteResponse = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export interface CreateCampaignProductAndPriceParams {
+  owner: string;
+  repo?: string;
+}
+
+// TODO: re-add when available in api-types
+export type CreateCampaignProductAndPriceBody = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type CreateCampaignProductAndPriceQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type CreateCampaignProductAndPriceResponse = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type CreateManualInvoiceBody = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type CreateManualInvoiceQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type CreateManualInvoiceResponse = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export interface CreatePlanProductAndPriceParams {
+  owner?: string;
+}
+
+// TODO: re-add when available in api-types
+export type CreatePlanProductAndPriceBody = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type CreatePlanProductAndPriceQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type CreatePlanProductAndPriceResponse = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export interface CreateProjectParams {
+  owner: string;
+  repo?: string;
+}
+
+// TODO: re-add when available in api-types
+export type CreateProjectBody = Record<string, unknown>;
+
+// TODO: re-add when available in api-types
+export type CreateProjectQuery = Record<string, never>;
+
+// TODO: re-add when available in api-types
+export type CreateProjectResponse = Record<string, unknown>;
+
 export function getAdminBackendAPI(): AdminBackendAPI {
   return new AdminBackendAPIImpl(api);
 }
@@ -32,37 +142,37 @@ export interface AdminBackendAPI {
     query: dto.SyncRepositoryQuery
   ): Promise<dto.SyncRepositoryResponse>;
   syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse>;
-  createAddress(body: dto.CreateAddressBody, query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse>;
-  createCompany(body: dto.CreateCompanyBody, query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse>;
+  createAddress(body: CreateAddressBody, query: CreateAddressQuery): Promise<CreateAddressResponse>;
+  createCompany(body: CreateCompanyBody, query: CreateCompanyQuery): Promise<CreateCompanyResponse>;
   sendCompanyRoleInvite(
-    params: dto.SendCompanyRoleInviteParams,
-    body: dto.SendCompanyRoleInviteBody,
-    query: dto.SendCompanyRoleInviteQuery
-  ): Promise<dto.SendCompanyRoleInviteResponse>;
+    params: SendCompanyRoleInviteParams,
+    body: SendCompanyRoleInviteBody,
+    query: SendCompanyRoleInviteQuery
+  ): Promise<SendCompanyRoleInviteResponse>;
   sendRepositoryRoleInvite(
-    params: dto.SendRepositoryRoleInviteParams,
-    body: dto.SendRepositoryRoleInviteBody,
-    query: dto.SendRepositoryRoleInviteQuery
-  ): Promise<dto.SendRepositoryRoleInviteResponse>;
+    params: SendRepositoryRoleInviteParams,
+    body: SendRepositoryRoleInviteBody,
+    query: SendRepositoryRoleInviteQuery
+  ): Promise<SendRepositoryRoleInviteResponse>;
   createCampaignProductAndPrice(
-    params: dto.CreateCampaignProductAndPriceParams,
-    body: dto.CreateCampaignProductAndPriceBody,
-    query: dto.CreateCampaignProductAndPriceQuery
-  ): Promise<dto.CreateCampaignProductAndPriceResponse>;
+    params: CreateCampaignProductAndPriceParams,
+    body: CreateCampaignProductAndPriceBody,
+    query: CreateCampaignProductAndPriceQuery
+  ): Promise<CreateCampaignProductAndPriceResponse>;
   createManualInvoice(
-    body: dto.CreateManualInvoiceBody,
-    query: dto.CreateManualInvoiceQuery
-  ): Promise<dto.CreateManualInvoiceResponse>;
+    body: CreateManualInvoiceBody,
+    query: CreateManualInvoiceQuery
+  ): Promise<CreateManualInvoiceResponse>;
   createPlanProductAndPrice(
-    params: dto.CreatePlanProductAndPriceParams,
-    body: dto.CreatePlanProductAndPriceBody,
-    query: dto.CreatePlanProductAndPriceQuery
-  ): Promise<dto.CreatePlanProductAndPriceResponse>;
+    params: CreatePlanProductAndPriceParams,
+    body: CreatePlanProductAndPriceBody,
+    query: CreatePlanProductAndPriceQuery
+  ): Promise<CreatePlanProductAndPriceResponse>;
   createProject(
-    params: dto.CreateProjectParams,
-    body: dto.CreateProjectBody,
-    query: dto.CreateProjectQuery
-  ): Promise<dto.CreateProjectResponse>;
+    params: CreateProjectParams,
+    body: CreateProjectBody,
+    query: CreateProjectQuery
+  ): Promise<CreateProjectResponse>;
 }
 
 class AdminBackendAPIImpl implements AdminBackendAPI {
@@ -151,68 +261,69 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   }
 
   async syncProject(params: dto.SyncProjectParams, query: dto.SyncProjectQuery): Promise<dto.SyncProjectResponse> {
-    const path = params.repo
-      ? `${config.api.url}/github/projects/${params.owner}/${params.repo}/sync`
-      : `${config.api.url}/github/projects/${params.owner}/sync`;
-
     return await handleError<dto.SyncProjectResponse>(
-      () => this.api.post(path, {}, { withCredentials: true, params: query }),
+      () =>
+        this.api.post(
+          `${config.api.url}/github/projects/${params.owner}/sync`,
+          {},
+          { withCredentials: true, params: query }
+        ),
       "syncProject"
     );
   }
 
-  async createAddress(body: dto.CreateAddressBody, _query: dto.CreateAddressQuery): Promise<dto.CreateAddressResponse> {
-    return await handleError<dto.CreateAddressResponse>(
+  async createAddress(body: CreateAddressBody, _query: CreateAddressQuery): Promise<CreateAddressResponse> {
+    return await handleError<CreateAddressResponse>(
       () => this.api.post(`${config.api.url}/admin/address`, body, { withCredentials: true }),
       "createAddress"
     );
   }
 
-  async createCompany(body: dto.CreateCompanyBody, _query: dto.CreateCompanyQuery): Promise<dto.CreateCompanyResponse> {
-    return await handleError<dto.CreateCompanyResponse>(
+  async createCompany(body: CreateCompanyBody, _query: CreateCompanyQuery): Promise<CreateCompanyResponse> {
+    return await handleError<CreateCompanyResponse>(
       () => this.api.post(`${config.api.url}/admin/company`, body, { withCredentials: true }),
       "createCompany"
     );
   }
 
   async sendCompanyRoleInvite(
-    params: dto.SendCompanyRoleInviteParams,
-    body: dto.SendCompanyRoleInviteBody,
-    _query: dto.SendCompanyRoleInviteQuery
-  ): Promise<dto.SendCompanyRoleInviteResponse> {
-    return await handleError<dto.SendCompanyRoleInviteResponse>(
+    params: SendCompanyRoleInviteParams,
+    body: SendCompanyRoleInviteBody,
+    _query: SendCompanyRoleInviteQuery
+  ): Promise<SendCompanyRoleInviteResponse> {
+    return await handleError<SendCompanyRoleInviteResponse>(
       () => this.api.post(`${config.api.url}/admin/company/admin-invite`, body, { withCredentials: true }),
       "sendCompanyAdminInvite"
     );
   }
 
   async sendRepositoryRoleInvite(
-    params: dto.SendRepositoryRoleInviteParams,
-    body: dto.SendRepositoryRoleInviteBody,
-    _query: dto.SendRepositoryRoleInviteQuery
-  ): Promise<dto.SendRepositoryRoleInviteResponse> {
-    return await handleError<dto.SendRepositoryRoleInviteResponse>(
+    params: SendRepositoryRoleInviteParams,
+    body: SendRepositoryRoleInviteBody,
+    _query: SendRepositoryRoleInviteQuery
+  ): Promise<SendRepositoryRoleInviteResponse> {
+    return await handleError<SendRepositoryRoleInviteResponse>(
       () => this.api.post(`${config.api.url}/admin/repository/admin-invite`, body, { withCredentials: true }),
       "sendRepositoryAdminInvite"
     );
   }
 
   async createManualInvoice(
-    body: dto.CreateManualInvoiceBody,
-    _query: dto.CreateManualInvoiceQuery
-  ): Promise<dto.CreateManualInvoiceResponse> {
-    return await handleError<dto.CreateManualInvoiceResponse>(
+    body: CreateManualInvoiceBody,
+    _query: CreateManualInvoiceQuery
+  ): Promise<CreateManualInvoiceResponse> {
+    return await handleError<CreateManualInvoiceResponse>(
       () => this.api.post(`${config.api.url}/admin/company/create-manual-invoice`, body, { withCredentials: true }),
       "createManualInvoice"
     );
   }
 
   async createCampaignProductAndPrice(
-    params: dto.CreateCampaignProductAndPriceParams,
-    body: dto.CreateCampaignProductAndPriceBody,
-    _query: dto.CreateCampaignProductAndPriceQuery
-  ): Promise<dto.CreateCampaignProductAndPriceResponse> {
-    return await handleError<dto.CreateCampaignProductAndPriceResponse>(
+    params: CreateCampaignProductAndPriceParams,
+    body: CreateCampaignProductAndPriceBody,
+    _query: CreateCampaignProductAndPriceQuery
+  ): Promise<CreateCampaignProductAndPriceResponse> {
+    return await handleError<CreateCampaignProductAndPriceResponse>(
       () =>
         this.api.post(
           `${config.api.url}/admin/${projectPath(params.owner, params.repo)}/stripe/product-and-price`,
@@ -224,22 +335,22 @@ class AdminBackendAPIImpl implements AdminBackendAPI {
   }
 
   async createPlanProductAndPrice(
-    params: dto.CreatePlanProductAndPriceParams,
-    body: dto.CreatePlanProductAndPriceBody,
-    _query: dto.CreatePlanProductAndPriceQuery
-  ): Promise<dto.CreatePlanProductAndPriceResponse> {
-    return await handleError<dto.CreatePlanProductAndPriceResponse>(
+    params: CreatePlanProductAndPriceParams,
+    body: CreatePlanProductAndPriceBody,
+    _query: CreatePlanProductAndPriceQuery
+  ): Promise<CreatePlanProductAndPriceResponse> {
+    return await handleError<CreatePlanProductAndPriceResponse>(
       () => this.api.post(`${config.api.url}/admin/plan/product-and-price`, body, { withCredentials: true }),
       "createPlanProductAndPrice"
     );
   }
 
   async createProject(
-    params: dto.CreateProjectParams,
-    body: dto.CreateProjectBody,
-    _query: dto.CreateProjectQuery
-  ): Promise<dto.CreateProjectResponse> {
-    return await handleError<dto.CreateProjectResponse>(
+    params: CreateProjectParams,
+    body: CreateProjectBody,
+    _query: CreateProjectQuery
+  ): Promise<CreateProjectResponse> {
+    return await handleError<CreateProjectResponse>(
       () =>
         this.api.post(`${config.api.url}/admin/projects/${projectPath(params.owner, params.repo)}`, body, {
           withCredentials: true,

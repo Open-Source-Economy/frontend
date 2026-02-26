@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { ApiError } from "src/ultils/error/ApiError";
-import * as dto from "@open-source-economy/api-types";
 import { adminHooks } from "src/api";
+import {
+  CreateCampaignProductAndPriceBody,
+  CreateCampaignProductAndPriceParams,
+  CreateCampaignProductAndPriceQuery,
+} from "src/services";
 
 interface CreateCampaignProductAndPriceProps {}
 
@@ -35,12 +39,12 @@ export function CreateCampaignProductAndPrice(_props: CreateCampaignProductAndPr
       return;
     }
 
-    const body: dto.CreateCampaignProductAndPriceBody = {};
-    const params: dto.CreateCampaignProductAndPriceParams = {
+    const body: CreateCampaignProductAndPriceBody = {};
+    const params: CreateCampaignProductAndPriceParams = {
       owner,
       repo: repo ?? undefined,
     };
-    const query: dto.CreateCampaignProductAndPriceQuery = {};
+    const query: CreateCampaignProductAndPriceQuery = {};
 
     try {
       await createCampaignProductAndPrice.mutateAsync({ params, body, query });

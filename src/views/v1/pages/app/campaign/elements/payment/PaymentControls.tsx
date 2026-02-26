@@ -5,12 +5,13 @@ import {
   CampaignPriceType,
   CampaignProductType,
   CheckoutBody,
+  CheckoutMode,
   CheckoutParams,
   CheckoutQuery,
   Currency,
   Price,
-  ProjectId,
 } from "@open-source-economy/api-types";
+import { type ProjectId } from "src/ultils/local-types";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/v1/data";
 import { ApiError } from "../../../../../../../ultils/error/ApiError";
@@ -55,7 +56,7 @@ export function PaymentControls(props: PaymentControlsProps) {
       try {
         const params: CheckoutParams = {};
         const body: CheckoutBody = {
-          mode: priceType === CampaignPriceType.MONTHLY ? "subscription" : "payment",
+          mode: priceType === CampaignPriceType.MONTHLY ? CheckoutMode.SUBSCRIPTION : CheckoutMode.PAYMENT,
           priceItems: [
             {
               priceId: selectedPrice.price.stripeId,

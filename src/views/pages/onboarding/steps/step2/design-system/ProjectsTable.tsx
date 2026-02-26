@@ -54,7 +54,7 @@ export function ProjectsTable(props: ProjectsTableProps) {
 
               return (
                 <tr
-                  key={project.developerProjectItem.id.uuid}
+                  key={project.developerProjectItem.id}
                   className="hover:bg-brand-card-blue/40 transition-all duration-200"
                 >
                   <td className="px-6 py-5">

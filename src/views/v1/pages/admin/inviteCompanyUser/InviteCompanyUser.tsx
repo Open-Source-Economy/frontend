@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { CompanyId, CompanyUserRole } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { Audience } from "../../../../Audience";
 import { AudienceTitle } from "src/views/v1/components";
@@ -32,8 +31,8 @@ export function InviteCompanyUser(_props: InviteCompanyUserProps) {
         body: {
           userName: data.name,
           userEmail: data.email,
-          companyId: new CompanyId(data.companyId),
-          companyUserRole: CompanyUserRole.ADMIN,
+          companyId: data.companyId,
+          companyUserRole: "admin",
         },
         query: {},
       });

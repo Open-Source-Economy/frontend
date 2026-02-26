@@ -1,13 +1,19 @@
 import { useState } from "react";
-import * as dto from "@open-source-economy/api-types";
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../../services";
+import {
+  type ProjectId,
+  getOwnerFromProjectId,
+  getRepoFromProjectId,
+  GetProjectAccordionParams,
+  GetProjectAccordionQuery,
+  GetProjectAccordionResponse,
+} from "src/ultils/local-types";
 
 export function useAccordion(projectId: ProjectId) {
   const backendAPI = getBackendAPI();
 
-  const [accordionRes, setAccordionRes] = useState<dto.GetProjectAccordionResponse | null>(null);
+  const [accordionRes, setAccordionRes] = useState<GetProjectAccordionResponse | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -15,11 +21,11 @@ export function useAccordion(projectId: ProjectId) {
     setIsLoading(true);
 
     try {
-      const params: dto.GetProjectAccordionParams = {
-        owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-        repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+      const params: GetProjectAccordionParams = {
+        owner: getOwnerFromProjectId(projectId),
+        repo: getRepoFromProjectId(projectId),
       };
-      const query: dto.GetProjectAccordionQuery = {};
+      const query: GetProjectAccordionQuery = {};
 
       const response = await backendAPI.getProjectAccordion(params, query);
 

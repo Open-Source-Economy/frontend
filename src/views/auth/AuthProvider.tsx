@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { getAuthBackendAPI } from "src/services";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import { AuthenticatedUser, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { authHooks } from "src/api";
 
@@ -38,16 +38,16 @@ export function AuthProvider(props: AuthProviderProps) {
       : null;
 
   // Auth info comes from the query cache
-  const authInfo = queriedAuthInfo ?? null;
+  const authInfo = queriedAuthInfo?.authenticatedUser ?? null;
 
-  const updateAuthCache = (newAuthInfo: AuthInfo | null) => {
-    queryClient.setQueryData(["auth", "status"], newAuthInfo);
+  const updateAuthCache = (newAuthInfo: AuthenticatedUser | null) => {
+    queryClient.setQueryData(["auth", "status"], { authenticatedUser: newAuthInfo });
   };
 
   const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
     try {
       const response = await loginMutation.mutateAsync({ body, query });
-      updateAuthCache(response);
+      updateAuthCache(response.authenticatedUser);
       if (successCallback) setTimeout(successCallback, 0);
     } catch {
       // Error automatically tracked by loginMutation.error
@@ -57,7 +57,7 @@ export function AuthProvider(props: AuthProviderProps) {
   const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
     try {
       const response = await registerMutation.mutateAsync({ body, query });
-      updateAuthCache(response);
+      updateAuthCache(response.authenticatedUser);
       if (successCallback) setTimeout(successCallback, 0);
     } catch {
       // Error automatically tracked by registerMutation.error

@@ -42,7 +42,7 @@ export function Header(props: HeaderProps) {
 
   // Auth Integration
   const auth = useAuth();
-  const authenticatedUser = auth.authInfo?.authenticatedUser;
+  const authenticatedUser = auth.authInfo;
   const isLoading = auth.loading;
 
   const navItems = headerContent.nav.items;

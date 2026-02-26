@@ -1,8 +1,8 @@
 import type {
   Currency,
-  SetUserPreferredCurrencyBody,
-  SetUserPreferredCurrencyParams,
-  SetUserPreferredCurrencyQuery,
+  SetPreferredCurrencyBody,
+  SetPreferredCurrencyParams,
+  SetPreferredCurrencyQuery,
 } from "@open-source-economy/api-types";
 import type { AuthContextState } from "../views/auth/AuthContext";
 import { getBackendAPI } from "../services";
@@ -12,21 +12,19 @@ export const PreferredCurrency = {
   backendAPI: getBackendAPI(),
 
   get(auth: AuthContextState): Currency {
-    const authenticatedUser = auth.authInfo?.authenticatedUser;
-    if (authenticatedUser?.user.preferredCurrency) {
-      return authenticatedUser.user.preferredCurrency;
+    if (auth.authInfo?.user.preferredCurrency) {
+      return auth.authInfo.user.preferredCurrency;
     }
     return currencyCookie.get();
   },
 
   set(auth: AuthContextState, currency: Currency): void {
-    const authenticatedUser = auth.authInfo?.authenticatedUser;
-    if (authenticatedUser) {
-      const params: SetUserPreferredCurrencyParams = {
+    if (auth.authInfo) {
+      const params: SetPreferredCurrencyParams = {
         currency: currency,
       };
-      const body: SetUserPreferredCurrencyBody = {};
-      const query: SetUserPreferredCurrencyQuery = {};
+      const body: SetPreferredCurrencyBody = {};
+      const query: SetPreferredCurrencyQuery = {};
 
       this.backendAPI.setUserPreferredCurrency(params, body, query).then(() => {
         window.location.reload();

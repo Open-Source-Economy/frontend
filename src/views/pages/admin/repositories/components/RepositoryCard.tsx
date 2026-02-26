@@ -58,7 +58,7 @@ export function RepositoryCard(props: RepositoryCardProps) {
             <input
               type="checkbox"
               checked={props.isSelected}
-              onChange={() => props.onToggleSelection(projectItem.id.uuid)}
+              onChange={() => props.onToggleSelection(projectItem.id)}
               disabled={props.isBulkSyncing}
               className="w-5 h-5 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50"
             />

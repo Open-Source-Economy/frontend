@@ -1,13 +1,14 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { ServiceTypeCompanion } from "src/ultils/companions";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { GroupedDeveloperServiceEntry } from "../utils";
 import { ServiceCard } from "./ServiceCard";
 import { Rate } from "../types";
 
 interface ServiceCategorySectionProps {
   groupedEntry: GroupedDeveloperServiceEntry;
-  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, SourceIdentifier>;
   defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
@@ -56,7 +57,7 @@ export const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({
       <div className="space-y-3">
         {entries.map((entry) => (
           <ServiceCard
-            key={entry.service.id.uuid}
+            key={entry.service.id}
             developerServiceEntry={entry}
             sourceIdentifiers={sourceIdentifiers}
             defaultRate={defaultRate}

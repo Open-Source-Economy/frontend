@@ -1,12 +1,12 @@
 import { Outlet, useParams } from "@tanstack/react-router";
 
 import { useRepositoryFromParams } from "../hooks";
-import { IssueId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import React, { createContext, useContext } from "react";
 import { PageNotFound } from "../pages/PageNotFound";
 
 type IssueContextType = {
-  issueId: IssueId;
+  issueId: dto.IssueId;
 };
 
 const IssueContextReact = createContext<IssueContextType | null>(null);
@@ -25,7 +25,7 @@ export function IssueRoutes() {
   const number = numberParam && !isNaN(Number(numberParam)) ? Number(numberParam) : undefined;
 
   if (repositoryId && number !== undefined) {
-    const issueId = new IssueId(repositoryId, number);
+    const issueId = { repositoryId, number } as dto.IssueId;
     return (
       <IssueContextReact.Provider value={{ issueId }}>
         <Outlet />

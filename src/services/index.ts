@@ -1,7 +1,15 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { StatusCodes } from "http-status-codes";
-import { ErrorResponse, ResponseBody } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+
+// These types were removed from api-types. Defined locally for backward compatibility.
+interface ResponseBody<T> {
+  success?: T;
+}
+
+interface ErrorResponse {
+  message?: string;
+}
 import { config, Env } from "../ultils";
 
 // Helper function to create an Axios instance with interceptors

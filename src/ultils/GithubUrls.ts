@@ -1,4 +1,4 @@
-import { IssueId, OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export class GithubUrls {
   /**
@@ -7,12 +7,12 @@ export class GithubUrls {
    * @param allowShorthand Whether to allow shorthand like "owner"
    * @returns An OwnerId object if successful, null otherwise.
    */
-  static extractOwnerId(input: string, allowShorthand: boolean = false): OwnerId | null {
+  static extractOwnerId(input: string, allowShorthand: boolean = false): dto.OwnerId | null {
     const value = input.trim();
 
     // Shorthand case: just "owner"
     if (allowShorthand && /^[A-Za-z0-9-_.]+$/.test(value) && !value.includes("/")) {
-      return new OwnerId(value);
+      return { login: value } as dto.OwnerId;
     }
 
     // Full GitHub URL - matches owner URLs with optional trailing slash and query params/fragments
@@ -21,7 +21,7 @@ export class GithubUrls {
     const ownerRegex = /^https:\/\/github\.com\/([^/?#]+)(?:\/)?(?:[?#].*)?$/;
     const match = value.match(ownerRegex);
     if (match && match[1]) {
-      return new OwnerId(match[1]);
+      return { login: match[1] } as dto.OwnerId;
     }
 
     return null;
@@ -33,7 +33,7 @@ export class GithubUrls {
    * @param allowShorthand Whether to allow shorthand like "owner/repo"
    * @returns A RepositoryId object if successful, null otherwise.
    */
-  static extractRepositoryId(input: string, allowShorthand: boolean = false): RepositoryId | null {
+  static extractRepositoryId(input: string, allowShorthand: boolean = false): dto.RepositoryId | null {
     const value = input.trim();
 
     // Helper function to strip .git suffix from repository name
@@ -66,7 +66,7 @@ export class GithubUrls {
       const [owner, repo] = value.split("/");
       // For shorthand, .git at the end is always a suffix to strip
       const repoName = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
-      return new RepositoryId(new OwnerId(owner), repoName);
+      return { ownerId: { login: owner } as dto.OwnerId, name: repoName } as dto.RepositoryId;
     }
 
     // Full GitHub URL - matches repository URLs with optional trailing paths, query params, or fragments
@@ -79,7 +79,7 @@ export class GithubUrls {
       // The match ends at match.index + match[0].length
       const matchEndIndex = (match.index || 0) + match[0].length;
       const repoName = stripGitSuffix(match[2], value, matchEndIndex);
-      return new RepositoryId(new OwnerId(match[1]), repoName);
+      return { ownerId: { login: match[1] } as dto.OwnerId, name: repoName } as dto.RepositoryId;
     }
 
     return null;
@@ -92,7 +92,10 @@ export class GithubUrls {
    * @param allowShorthand Whether to allow shorthand like "owner" or "owner/repo"
    * @returns A RepositoryId, OwnerId, or null if neither can be extracted.
    */
-  static extractOwnerOrRepositoryId(input: string, allowShorthand: boolean = false): OwnerId | RepositoryId | null {
+  static extractOwnerOrRepositoryId(
+    input: string,
+    allowShorthand: boolean = false
+  ): dto.OwnerId | dto.RepositoryId | null {
     const repo = GithubUrls.extractRepositoryId(input, allowShorthand);
     if (repo) return repo;
 
@@ -107,14 +110,17 @@ export class GithubUrls {
    * @param input The GitHub issue URL (shorthand not supported here)
    * @returns An IssueId object if successful, null otherwise.
    */
-  static extractGitHubIssueInfo(input: string): IssueId | null {
+  static extractGitHubIssueInfo(input: string): dto.IssueId | null {
     const urlRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)$/;
     const match = input.trim().match(urlRegex);
     if (match) {
       const [, owner, repo, n] = match;
       const number = parseInt(n, 10);
       if (!owner || !repo || isNaN(number)) return null;
-      return new IssueId(new RepositoryId(new OwnerId(owner), repo), number);
+      return {
+        repositoryId: { ownerId: { login: owner } as dto.OwnerId, name: repo } as dto.RepositoryId,
+        number,
+      } as dto.IssueId;
     }
     return null;
   }
@@ -124,7 +130,7 @@ export class GithubUrls {
    * @param ownerId The OwnerId object.
    * @returns The GitHub URL string.
    */
-  static generateOwnerUrl(ownerId: OwnerId): string {
+  static generateOwnerUrl(ownerId: dto.OwnerId): string {
     return `https://github.com/${ownerId.login}`;
   }
 
@@ -133,7 +139,7 @@ export class GithubUrls {
    * @param repoId The RepositoryId object.
    * @returns The GitHub URL string.
    */
-  static generateRepositoryUrl(repoId: RepositoryId): string {
+  static generateRepositoryUrl(repoId: dto.RepositoryId): string {
     return `https://github.com/${repoId.ownerId.login}/${repoId.name}`;
   }
 }

@@ -38,7 +38,7 @@ const SupportCreateTicket = () => {
   const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
     {},
     {
-      companyId: auth.authInfo?.authenticatedUser?.company?.id.uuid,
+      companyId: auth.authInfo?.company?.id,
     }
   );
   const availableCredits: Credit | null = availableCreditsResponse
@@ -164,7 +164,7 @@ const SupportCreateTicket = () => {
                     creditsRequested={{ unit: CreditUnit.MINUTE, amount: new Decimal(60) }}
                     state={financialIssue.managedIssue?.state}
                   />
-                  <Approved managedIssue={financialIssue.managedIssue} manager={financialIssue.issueManager} />
+                  <Approved managedIssue={financialIssue.managedIssue} />
                 </div>
               )}
               <div className="sm:w-1/2 flex flex-col justify-center items-center !gap-3">

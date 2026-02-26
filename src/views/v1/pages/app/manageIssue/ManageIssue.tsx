@@ -5,7 +5,7 @@ import bgimage2 from "src/assets/v1/issuebg2.png";
 import bgimage3 from "src/assets/v1/issuebg3.png";
 import { IssueCard } from "src/views/v1/components/issue";
 import { SolveIssueOnGithub } from "src/views/v1/pages/app/manageIssue/elements/SolveIssueOnGithub";
-import { financialIssueUtils } from "@open-source-economy/api-types";
+import { FinancialIssueCompanion } from "src/ultils/companions";
 import { ManageTab } from "src/views/v1/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/v1/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/v1/pages/app/manageIssue/elements";
@@ -73,7 +73,7 @@ export function ManageIssue(_props: ManageIssueProps) {
                       </div>
                     )}
 
-                    {financialIssue && financialIssueUtils.successfullyFunded(financialIssue) && (
+                    {financialIssue && FinancialIssueCompanion.successfullyFunded(financialIssue) && (
                       <SolveIssueOnGithub issue={financialIssue.issue} />
                     )}
                   </div>

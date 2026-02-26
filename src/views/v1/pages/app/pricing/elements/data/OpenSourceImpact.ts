@@ -1,6 +1,7 @@
-import { PlanProductType, ProductType, productTypeUtils } from "@open-source-economy/api-types";
+import { PlanProductType, ProductType } from "@open-source-economy/api-types";
 import { PlanFeature } from "./data";
 import { credit } from "../../../../../../../model";
+import { productTypeCredits } from "src/ultils/local-types";
 
 const basic: Omit<PlanFeature, "name"> = {
   title: "Open Source Impact",
@@ -13,22 +14,22 @@ const basic: Omit<PlanFeature, "name"> = {
 export const openSourceImpacts: Record<PlanProductType, PlanFeature> = {
   [PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
-    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.INDIVIDUAL_PLAN) / 2, false)} monthly`,
+    name: `${credit.displayAmount(productTypeCredits(ProductType.INDIVIDUAL_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.START_UP_PLAN]: {
     ...basic,
-    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.START_UP_PLAN) / 2, false)} monthly`,
+    name: `${credit.displayAmount(productTypeCredits(ProductType.START_UP_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
-    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.SCALE_UP_PLAN) / 2, false)} monthly`,
+    name: `${credit.displayAmount(productTypeCredits(ProductType.SCALE_UP_PLAN) / 2, false)} monthly`,
     included: true,
   },
   [PlanProductType.ENTERPRISE_PLAN]: {
     ...basic,
-    name: `${credit.displayAmount(productTypeUtils.credits(ProductType.ENTERPRISE_PLAN) / 2, false)} monthly`,
+    name: `${credit.displayAmount(productTypeCredits(ProductType.ENTERPRISE_PLAN) / 2, false)} monthly`,
     included: true,
   },
 };

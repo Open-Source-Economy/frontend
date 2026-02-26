@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "src/views/v1/components/elements/Button";
-import { IssueId, OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Audience } from "src/views/index";
 import { paths } from "src/paths";
 
@@ -16,7 +16,7 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
   const [isValidUrl, setIsValidUrl] = useState(true);
 
   // TODO: sam extract this function to a utils file to extract GitHub info from URLs
-  function extractGitHubIssueInfo(url: string): IssueId | null {
+  function extractGitHubIssueInfo(url: string): dto.IssueId | null {
     const urlRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)$/;
     const match = url.match(urlRegex);
     if (match) {
@@ -27,7 +27,8 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
       } else if (isNaN(number)) {
         return null;
       } else {
-        return new IssueId(new RepositoryId(new OwnerId(owner), repo), number);
+        const repositoryId = { ownerId: { login: owner } as dto.OwnerId, name: repo } as dto.RepositoryId;
+        return { repositoryId, number } as dto.IssueId;
       }
     } else {
       return null;

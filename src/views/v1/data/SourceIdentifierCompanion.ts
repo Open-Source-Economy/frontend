@@ -1,36 +1,30 @@
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types/dist/model/github";
-import { SourceIdentifier } from "@open-source-economy/api-types";
-import { GithubUrls } from "../../../ultils";
+import * as dto from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
+import { GithubUrls } from "src/ultils";
 
 // TODO: improve type safety
 
-// Type guards using structural checks (work for class instances *and* plain objects)
-function isOwnerLike(x: any): x is OwnerId | { login: string } {
-  return x && typeof x === "object" && typeof x.login === "string";
-}
-function isRepoLike(x: any): x is RepositoryId | { name: string; ownerId?: { login?: string } } {
-  return x && typeof x === "object" && typeof x.name === "string" && x.ownerId && typeof x.ownerId === "object";
+// Type guard: RepositoryId is an object with ownerId (branded string) and name (string)
+function isRepoLike(x: unknown): x is dto.RepositoryId {
+  return (
+    x !== null &&
+    typeof x === "object" &&
+    "name" in x &&
+    typeof (x as dto.RepositoryId).name === "string" &&
+    "ownerId" in x &&
+    typeof (x as dto.RepositoryId).ownerId === "string"
+  );
 }
 
 export namespace SourceIdentifierCompanion {
   export function displayName(sourceIdentifier: SourceIdentifier): string {
-    // Strings pass through
-    if (typeof sourceIdentifier === "string") return sourceIdentifier;
-
-    // Handle Owner-like (class instance or plain object)
-    if (isOwnerLike(sourceIdentifier)) {
-      return sourceIdentifier.login;
-    }
-
-    // Handle Repo-like (class instance or plain object)
+    // RepositoryId is the only non-string shape (object with ownerId + name)
     if (isRepoLike(sourceIdentifier)) {
-      const ownerLogin =
-        (isOwnerLike(sourceIdentifier.ownerId) && sourceIdentifier.ownerId.login) ||
-        // tolerate ownerId being just a string login
-        (typeof (sourceIdentifier as any).ownerId === "string" ? (sourceIdentifier as any).ownerId : undefined) ||
-        "(unknown)";
-      return `${ownerLogin}/${sourceIdentifier.name}`;
+      return `${sourceIdentifier.ownerId}/${sourceIdentifier.name}`;
     }
+
+    // OwnerId is a branded string, and plain strings also pass through here
+    if (typeof sourceIdentifier === "string") return sourceIdentifier;
 
     // Last resort: stringify safely so React gets a string, never an object
     try {

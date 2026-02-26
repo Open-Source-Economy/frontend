@@ -47,7 +47,6 @@ export function SyncGitHub() {
           response = await syncProjectMutation.mutateAsync({
             params: {
               owner: ownerInput,
-              repo: repoInput.trim() || undefined,
             },
             query: {},
           });

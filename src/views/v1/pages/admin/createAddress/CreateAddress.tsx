@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { AddressId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { createAddressSchema, CreateAddressFormData } from "src/views/components/ui/forms/schemas";
+import { CreateAddressResponse } from "src/services";
 
 interface CreateAddressProps {}
 
 export function CreateAddress(_props: CreateAddressProps) {
   const [error, setError] = useState<string | null>(null);
-  const [createdAddressId, setCreatedAddressId] = useState<AddressId | null>(null);
+  const [createdAddressId, setCreatedAddressId] = useState<string | null>(null);
 
   const createAddress = adminHooks.useCreateAddressMutation();
 
@@ -29,19 +29,18 @@ export function CreateAddress(_props: CreateAddressProps) {
   const onSubmit = async (data: CreateAddressFormData) => {
     setError(null);
     try {
-      const result = await createAddress.mutateAsync({
+      const result: CreateAddressResponse = await createAddress.mutateAsync({
         body: {
-          name: data.name || undefined,
-          line1: data.line1 || undefined,
+          line1: data.line1 || "",
           line2: data.line2 || undefined,
-          city: data.city || undefined,
+          city: data.city || "",
           state: data.state || undefined,
-          postalCode: data.postalCode || undefined,
-          country: data.country || undefined,
+          postalCode: data.postalCode || "",
+          country: data.country || "",
         },
         query: {},
       });
-      setCreatedAddressId(result.createdAddressId);
+      setCreatedAddressId(result.address.id);
       form.reset();
     } catch (error) {
       const apiError = error instanceof ApiError ? error : ApiError.from(error);
@@ -118,7 +117,7 @@ export function CreateAddress(_props: CreateAddressProps) {
             </form>
 
             {createdAddressId && (
-              <h2 className="text-white text-[30px] font-medium mt-5">{`Created Address Id: ${createdAddressId.uuid.toString()}`}</h2>
+              <h2 className="text-white text-[30px] font-medium mt-5">{`Created Address Id: ${createdAddressId}`}</h2>
             )}
 
             {error && <p className="text-red-500 mt-3">Error: {error}</p>}

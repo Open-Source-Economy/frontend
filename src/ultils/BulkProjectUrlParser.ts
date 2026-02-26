@@ -1,4 +1,5 @@
-import { DeveloperProjectItemEntry, ProjectItemType, SourceIdentifier } from "@open-source-economy/api-types";
+import { DeveloperProjectItemEntry, ProjectItemType } from "@open-source-economy/api-types";
+import { SourceIdentifier } from "src/ultils/local-types";
 import { SourceIdentifierCompanion } from "./companions/SourceIdentifier.companion";
 import { ProjectItemTypeCompanion } from "./companions/ProjectItemType.companion";
 

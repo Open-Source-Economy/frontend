@@ -2,12 +2,11 @@ import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { MultiSelectInput, SelectOption } from "../../../../../../../../components/form/select/MultiSelectInput";
 import { SourceIdentifierCompanion } from "../../../../../../../../data";
-import { ProjectItemId } from "@open-source-economy/api-types/dist/model/project/ProjectItem";
 
 interface ProjectSelectionProps {
   projects: dto.DeveloperProjectItemEntry[];
-  selectedProjectItemIds: dto.ProjectItemId[];
-  onProjectChange: (newSelectedProjects: ProjectItemId[]) => void;
+  selectedProjectItemIds: dto.DeveloperProjectItemId[];
+  onProjectChange: (newSelectedProjects: dto.DeveloperProjectItemId[]) => void;
   isProjectDropdownOpen: boolean;
   onToggleDropdown: (isOpen: boolean) => void;
   onAddProject: () => void;
@@ -18,7 +17,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
   const projectOptions: SelectOption[] = [
     ...(props.projects.length > 0 ? [{ value: "all", label: "All projects", isAllOption: true }] : []),
     ...props.projects.map((entry) => ({
-      value: entry.developerProjectItem.id.uuid,
+      value: entry.developerProjectItem.id,
       label: SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier),
       hasIcon: true,
     })),
@@ -27,11 +26,11 @@ export function ProjectSelection(props: ProjectSelectionProps) {
 
   // Get selected projects
   const _selectedProjects = props.projects.filter((entry) =>
-    props.selectedProjectItemIds.some((selectedId) => selectedId.uuid === entry.developerProjectItem.id.uuid)
+    props.selectedProjectItemIds.some((selectedId) => selectedId === entry.developerProjectItem.id)
   );
 
-  const _handleRemoveProject = (projectId: ProjectItemId) => {
-    const newSelectedProjects = props.selectedProjectItemIds.filter((id) => id.uuid !== projectId.uuid);
+  const _handleRemoveProject = (projectId: dto.DeveloperProjectItemId) => {
+    const newSelectedProjects = props.selectedProjectItemIds.filter((id) => id !== projectId);
     props.onProjectChange(newSelectedProjects);
   };
 
@@ -43,8 +42,8 @@ export function ProjectSelection(props: ProjectSelectionProps) {
       <div className="flex items-start gap-2.5 self-stretch">
         <MultiSelectInput
           options={projectOptions}
-          value={props.selectedProjectItemIds.map((item) => item.uuid)}
-          onChange={(projectId: string[]) => props.onProjectChange(projectId.map((id) => ({ uuid: id })))} // TODO: improve type safety
+          value={props.selectedProjectItemIds.map((item) => item)}
+          onChange={(projectId: string[]) => props.onProjectChange(projectId as dto.DeveloperProjectItemId[])}
           placeholder="|"
           isOpen={props.isProjectDropdownOpen}
           onToggle={props.onToggleDropdown}
@@ -57,7 +56,7 @@ export function ProjectSelection(props: ProjectSelectionProps) {
       {/*  <div className="flex flex-col items-start self-stretch rounded-md overflow-hidden">*/}
       {/*    {selectedProjects.map((entry, index) => (*/}
       {/*      <div*/}
-      {/*        key={entry.developerProjectItem.id.uuid}*/}
+      {/*        key={entry.developerProjectItem.id}*/}
       {/*        className={`flex py-3 px-6 items-center gap-2.5 self-stretch cursor-pointer transition-colors ${*/}
       {/*          index === 0 ? "bg-[#202F45]" : "bg-[#14233A]"*/}
       {/*        } hover:bg-[#202F45]`}*/}

@@ -63,7 +63,7 @@ export function OrganizationCard(props: OrganizationCardProps) {
             <input
               type="checkbox"
               checked={props.isSelected}
-              onChange={() => props.onToggleSelection(projectItem.id.uuid)}
+              onChange={() => props.onToggleSelection(projectItem.id)}
               disabled={props.isBulkSyncing}
               className="w-5 h-5 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer disabled:opacity-50"
             />
@@ -179,13 +179,9 @@ export function OrganizationCard(props: OrganizationCardProps) {
           {/* Sync Owner Data - Always visible */}
           <Button
             onClick={() => {
-              // Get login from sourceIdentifier (OwnerId)
               const sourceId = projectItem.sourceIdentifier;
-
-              // Check if sourceIdentifier is an object with login property
-              if (sourceId && typeof sourceId === "object" && "login" in sourceId) {
-                const ownerId = sourceId as dto.OwnerId;
-                props.onSyncOwner(ownerId.login, projectItem.id.uuid);
+              if (sourceId) {
+                props.onSyncOwner(String(sourceId), projectItem.id);
               } else {
                 alert("Unable to sync: owner login not found in project item");
               }
@@ -202,7 +198,7 @@ export function OrganizationCard(props: OrganizationCardProps) {
           {props.canSync && (
             <>
               <Button
-                onClick={() => props.onSync(projectItem.id.uuid, offset, batchSize, fetchDetails)}
+                onClick={() => props.onSync(projectItem.id, offset, batchSize, fetchDetails)}
                 disabled={props.isSyncing || props.isBulkSyncing || props.isSyncingOwner}
                 className="whitespace-nowrap"
                 leftIcon={props.isSyncing ? Loader2 : RefreshCw}

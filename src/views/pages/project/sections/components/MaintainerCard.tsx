@@ -20,9 +20,9 @@ export function MaintainerCard(props: MaintainerCardProps) {
   const displayName = ProjectDeveloperProfileCompanion.getDisplayName(props.developer);
   const avatar = useMemo(() => ProjectDeveloperProfileCompanion.getAvatarUrl(props.developer), [props.developer]);
   const verified = ProjectDeveloperProfileCompanion.isVerified(props.developer);
-  const yearsOnProject = getMaintainerTenure(props.developer.profileEntry?.owner?.id.login);
-  const maintainerHighlight = getMaintainerHighlight(props.developer.profileEntry?.owner?.id.login);
-  const maintainerDescription = getMaintainerDescription(props.developer.profileEntry?.owner?.id.login);
+  const yearsOnProject = getMaintainerTenure(props.developer.profileEntry?.owner?.id?.login);
+  const maintainerHighlight = getMaintainerHighlight(props.developer.profileEntry?.owner?.id?.login);
+  const maintainerDescription = getMaintainerDescription(props.developer.profileEntry?.owner?.id?.login);
   const twitterUrl = OwnerCompanion.getTwitterUrl(props.developer.profileEntry?.owner);
 
   return (

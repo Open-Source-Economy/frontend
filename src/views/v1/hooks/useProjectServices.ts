@@ -1,6 +1,5 @@
 import React from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import * as model from "@open-source-economy/api-types";
 import {
   GetProjectServicesParams,
   GetProjectServicesQuery,
@@ -9,13 +8,14 @@ import {
 } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],
   comingSoonServices: [ServiceType.SUPPORT, ServiceType.SECURITY_AND_COMPLIANCE, ServiceType.ADVISORY],
 };
 
-export function useProjectServices(projectId?: model.ProjectId) {
+export function useProjectServices(projectId?: ProjectId) {
   const backendAPI = getBackendAPI();
   const [projectServices, setProjectServices] = React.useState<GetProjectServicesResponse | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
@@ -28,8 +28,8 @@ export function useProjectServices(projectId?: model.ProjectId) {
     }
     try {
       const params: GetProjectServicesParams = {
-        owner: projectId instanceof model.OwnerId ? projectId.login : projectId.ownerId.login,
-        repo: projectId instanceof model.RepositoryId ? projectId.name : undefined,
+        owner: getOwnerFromProjectId(projectId),
+        repo: getRepoFromProjectId(projectId),
       };
       const query: GetProjectServicesQuery = {};
 

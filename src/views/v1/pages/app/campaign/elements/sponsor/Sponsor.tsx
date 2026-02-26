@@ -2,8 +2,8 @@ import type React from "react";
 import { SponsorCard } from "./SponsorCard";
 import { getCardWidth } from "./utils";
 import { DividerTitle } from "../../../../../components";
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { projectHooks } from "src/api";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 interface SponsorProps {
   projectId: ProjectId;
@@ -11,8 +11,8 @@ interface SponsorProps {
 
 export function Sponsor(props: SponsorProps) {
   const sponsorParams = {
-    owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
-    repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+    owner: getOwnerFromProjectId(props.projectId),
+    repo: getRepoFromProjectId(props.projectId),
   };
   const { data: sponsors, isLoading: _isLoading, error: _error } = projectHooks.useSponsorsQuery(sponsorParams, {});
 

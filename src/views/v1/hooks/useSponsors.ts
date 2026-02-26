@@ -1,9 +1,14 @@
 import { useState } from "react";
-import * as dto from "@open-source-economy/api-types";
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getBackendAPI } from "../../../services";
 import { SponsorDescription } from "../../../model";
+import {
+  type ProjectId,
+  getOwnerFromProjectId,
+  getRepoFromProjectId,
+  GetSponsorsParams,
+  GetSponsorsQuery,
+} from "src/ultils/local-types";
 
 export function useSponsors(projectId: ProjectId) {
   const backendAPI = getBackendAPI();
@@ -16,11 +21,11 @@ export function useSponsors(projectId: ProjectId) {
     setIsLoading(true);
 
     try {
-      const params: dto.GetSponsorsParams = {
-        owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-        repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+      const params: GetSponsorsParams = {
+        owner: getOwnerFromProjectId(projectId),
+        repo: getRepoFromProjectId(projectId),
       };
-      const query: dto.GetSponsorsQuery = {};
+      const query: GetSponsorsQuery = {};
 
       const response = await backendAPI.getSponsors(params, query);
 

@@ -5,7 +5,6 @@ import { ModalBackdrop } from "../ModalBackdrop";
 import { CloseIcon } from "../../icons";
 import { ProjectNotOnListModal } from "../../ui/ProjectNotOnListModal";
 import { HourlyRateDisplaySection, HourlyRateEditingSection } from "./components/hourlyRate";
-import { ProjectItemId } from "@open-source-economy/api-types/dist/model/project/ProjectItem";
 import { onboardingHooks } from "src/api";
 
 export interface Rate {
@@ -91,7 +90,7 @@ export function EditServiceModal(props: EditServiceModalProps) {
     }
   };
 
-  const handleProjectChange = (newSelectedProjects: ProjectItemId[]) => {
+  const handleProjectChange = (newSelectedProjects: dto.DeveloperProjectItemId[]) => {
     setSelectedDeveloperProjectItemIds(newSelectedProjects);
   };
 

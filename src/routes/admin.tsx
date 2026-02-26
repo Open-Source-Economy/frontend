@@ -10,7 +10,7 @@ export const Route = createFileRoute("/admin")({
 
 function AdminLayout() {
   const auth = useAuth();
-  const allowed = auth.authInfo?.authenticatedUser?.user.role === UserRole.SUPER_ADMIN;
+  const allowed = auth.authInfo?.user.role === UserRole.SUPER_ADMIN;
 
   if (config.api.useMock || config.env !== Env.Production) {
     return <Outlet />;

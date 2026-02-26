@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { AuthInfo, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import { AuthenticatedUser, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 
 export interface AuthContextState {
   loading: boolean;
-  authInfo: AuthInfo | null;
+  authInfo: AuthenticatedUser | null;
   error: ApiError | null;
   login: (body: LoginBody, query: LoginQuery, successCallback?: () => void) => void;
   logout: (successCallback?: () => void) => void;

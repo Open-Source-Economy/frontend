@@ -1,5 +1,16 @@
 import * as dto from "@open-source-economy/api-types";
 import { FinancialIssue } from "@open-source-economy/api-types";
+import {
+  GetIssuesParams,
+  GetMaintainersParams,
+  GetMaintainersQuery,
+  GetMaintainersResponse,
+  GetProjectAccordionParams,
+  GetProjectAccordionQuery,
+  GetProjectAccordionResponse,
+  GetSponsorsParams,
+  GetSponsorsQuery,
+} from "src/ultils/local-types";
 import { BackendAPIMock } from "src/__mocks__";
 import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/ultils/error/ApiError";
@@ -35,7 +46,7 @@ export interface BackendAPI {
 
   getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue>;
 
-  getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]>;
+  getAllFinancialIssues(params: GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[]>;
 
   getAvailableCredits(
     params: dto.GetAvailableCreditsParams,
@@ -81,16 +92,16 @@ export interface BackendAPI {
   ): Promise<dto.GetProjectDetailsResponse>;
 
   // TODO: probably remove this method, and query the data from the project
-  getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse>;
+  getMaintainers(params: GetMaintainersParams, query: GetMaintainersQuery): Promise<GetMaintainersResponse>;
 
   // TODO: probably remove this method, and query the data from the project
   getProjectAccordion(
-    params: dto.GetProjectAccordionParams,
-    query: dto.GetProjectAccordionQuery
-  ): Promise<dto.GetProjectAccordionResponse>;
+    params: GetProjectAccordionParams,
+    query: GetProjectAccordionQuery
+  ): Promise<GetProjectAccordionResponse>;
 
   // TODO: probably remove this method, and query the data from the project
-  getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[]>;
+  getSponsors(params: GetSponsorsParams, query: GetSponsorsQuery): Promise<SponsorDescription[]>;
 
   getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse>;
 
@@ -102,10 +113,10 @@ export interface BackendAPI {
   checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<dto.CheckoutResponse>;
 
   setUserPreferredCurrency(
-    params: dto.SetUserPreferredCurrencyParams,
-    body: dto.SetUserPreferredCurrencyBody,
-    query: dto.SetUserPreferredCurrencyQuery
-  ): Promise<dto.SetUserPreferredCurrencyResponse>;
+    params: dto.SetPreferredCurrencyParams,
+    body: dto.SetPreferredCurrencyBody,
+    query: dto.SetPreferredCurrencyQuery
+  ): Promise<dto.SetPreferredCurrencyResponse>;
 
   getProjectServices(
     params: dto.GetProjectServicesParams,
@@ -113,16 +124,16 @@ export interface BackendAPI {
   ): Promise<dto.GetProjectServicesResponse>;
 
   subscribeToNewsletter(
-    params: dto.NewsletterSubscriptionParams,
-    body: dto.NewsletterSubscriptionBody,
-    query: dto.NewsletterSubscriptionQuery
-  ): Promise<dto.NewsletterSubscriptionResponse>;
+    params: dto.SubscribeNewsletterParams,
+    body: dto.SubscribeNewsletterBody,
+    query: dto.SubscribeNewsletterQuery
+  ): Promise<dto.SubscribeNewsletterResponse>;
 
   submitContactForm(
-    params: dto.ContactFormParams,
-    body: dto.ContactFormBody,
-    query: dto.ContactFormQuery
-  ): Promise<dto.ContactFormResponse>;
+    params: dto.SubmitContactFormParams,
+    body: dto.SubmitContactFormBody,
+    query: dto.SubmitContactFormQuery
+  ): Promise<dto.SubmitContactFormResponse>;
 
   getProjectItemsWithDetails(
     params: dto.GetProjectItemsWithDetailsParams,
@@ -150,8 +161,8 @@ class BackendAPIImpl implements BackendAPI {
     return response.issue;
   }
 
-  async getAllFinancialIssues(_params: dto.GetIssuesParams, _query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
-    const response = await handleError<dto.GetIssuesResponse>(
+  async getAllFinancialIssues(_params: GetIssuesParams, _query: dto.GetIssueQuery): Promise<FinancialIssue[]> {
+    const response = await handleError<dto.GetAllFinancialIssuesResponse>(
       () => this.api.get(`${config.api.url}/projects/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues"
     );
@@ -243,10 +254,7 @@ class BackendAPIImpl implements BackendAPI {
     );
   }
 
-  async getMaintainers(
-    params: dto.GetMaintainersParams,
-    _query: dto.GetMaintainersQuery
-  ): Promise<dto.GetMaintainersResponse> {
+  async getMaintainers(params: GetMaintainersParams, _query: GetMaintainersQuery): Promise<GetMaintainersResponse> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -256,13 +264,13 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async getProjectAccordion(
-    params: dto.GetProjectAccordionParams,
-    _query: dto.GetProjectAccordionQuery
-  ): Promise<dto.GetProjectAccordionResponse> {
+    params: GetProjectAccordionParams,
+    _query: GetProjectAccordionQuery
+  ): Promise<GetProjectAccordionResponse> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, _query: dto.GetSponsorsQuery): Promise<SponsorDescription[]> {
+  async getSponsors(params: GetSponsorsParams, _query: GetSponsorsQuery): Promise<SponsorDescription[]> {
     return getSponsors(params.owner, params.repo);
   }
 
@@ -302,10 +310,10 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async setUserPreferredCurrency(
-    params: dto.SetUserPreferredCurrencyParams,
-    body: dto.SetUserPreferredCurrencyBody,
-    _query: dto.SetUserPreferredCurrencyQuery
-  ): Promise<dto.SetUserPreferredCurrencyResponse> {
+    params: dto.SetPreferredCurrencyParams,
+    body: dto.SetPreferredCurrencyBody,
+    _query: dto.SetPreferredCurrencyQuery
+  ): Promise<dto.SetPreferredCurrencyResponse> {
     return handleError(
       () =>
         this.api.post(`${config.api.url}/user/preferred-currency/${params.currency}`, body, { withCredentials: true }),
@@ -324,10 +332,10 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async subscribeToNewsletter(
-    params: dto.NewsletterSubscriptionParams,
-    body: dto.NewsletterSubscriptionBody,
-    _query: dto.NewsletterSubscriptionQuery
-  ): Promise<dto.NewsletterSubscriptionResponse> {
+    params: dto.SubscribeNewsletterParams,
+    body: dto.SubscribeNewsletterBody,
+    _query: dto.SubscribeNewsletterQuery
+  ): Promise<dto.SubscribeNewsletterResponse> {
     return handleError(
       () => this.api.post(`${config.api.url}/newsletter`, body, { withCredentials: true }),
       "subscribeToNewsletter"
@@ -335,10 +343,10 @@ class BackendAPIImpl implements BackendAPI {
   }
 
   async submitContactForm(
-    params: dto.ContactFormParams,
-    body: dto.ContactFormBody,
-    _query: dto.ContactFormQuery
-  ): Promise<dto.ContactFormResponse> {
+    params: dto.SubmitContactFormParams,
+    body: dto.SubmitContactFormBody,
+    _query: dto.SubmitContactFormQuery
+  ): Promise<dto.SubmitContactFormResponse> {
     return handleError(
       () => this.api.post(`${config.api.url}/contact`, body, { withCredentials: true }),
       "submitContactForm"

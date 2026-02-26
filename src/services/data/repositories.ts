@@ -1,9 +1,9 @@
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 // TODO: lolo to delete
-export const repositoryIds: RepositoryId[] = [
+export const repositoryIds: dto.RepositoryId[] = [
   ["apache", "pekko"],
   ["join-the-flock", "flock"],
   ["kubesphere", "kubesphere"],
   ["slick", "slick"],
-].map(([owner, repository]) => new RepositoryId(new OwnerId(owner), repository));
+].map(([owner, repository]) => ({ ownerId: { login: owner } as dto.OwnerId, name: repository }) as dto.RepositoryId);

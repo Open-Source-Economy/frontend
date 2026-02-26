@@ -1,5 +1,5 @@
 import swissBorg from "../../../../assets/v1/sponsor/swiss-borg.webp";
-import { CardSize } from "@open-source-economy/api-types";
+import { CardSize } from "src/ultils/local-types";
 import { ExternalLink } from "../../../../views/v1/components";
 import { SponsorDescription } from "../../../../model";
 

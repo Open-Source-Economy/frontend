@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { getBackendAPI } from "src/services/BackendAPI";
-import {
-  GetProjectParams,
-  GetProjectQuery,
-  OwnerId,
-  Project,
-  ProjectId,
-  RepositoryId,
-} from "@open-source-economy/api-types";
+import { GetProjectParams, GetProjectQuery, Project } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 export function useProject(projectId: ProjectId) {
   const backendAPI = getBackendAPI();
@@ -19,8 +13,8 @@ export function useProject(projectId: ProjectId) {
   const fetchProject = async () => {
     try {
       const params: GetProjectParams = {
-        owner: projectId instanceof OwnerId ? projectId.login : projectId.ownerId.login,
-        repo: projectId instanceof RepositoryId ? projectId.name : undefined,
+        owner: getOwnerFromProjectId(projectId),
+        repo: getRepoFromProjectId(projectId),
       };
       const query: GetProjectQuery = {};
       const response = await backendAPI.getProject(params, query);

@@ -4,9 +4,9 @@ import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import { Button } from "src/views/v1/components";
 import { Link } from "@tanstack/react-router";
-import { OwnerId, ProjectId, RepositoryId } from "@open-source-economy/api-types";
 import { paths } from "src/paths";
 import { projectHooks } from "src/api";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 interface WhyNeedFundingProps {
   projectId: ProjectId;
@@ -16,8 +16,8 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const accordionParams = {
-    owner: props.projectId instanceof OwnerId ? props.projectId.login : props.projectId.ownerId.login,
-    repo: props.projectId instanceof RepositoryId ? props.projectId.name : undefined,
+    owner: getOwnerFromProjectId(props.projectId),
+    repo: getRepoFromProjectId(props.projectId),
   };
   const {
     data: accordionRes,

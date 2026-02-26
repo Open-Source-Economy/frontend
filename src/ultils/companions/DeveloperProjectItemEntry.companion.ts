@@ -26,25 +26,23 @@ export namespace DeveloperProjectItemEntryCompanion {
    */
   export function displayUrl(entry: DeveloperProjectItemEntry): string {
     const projectItem = entry.projectItem;
+    // sourceIdentifier is now always a string
+    const sourceIdentifier = projectItem.sourceIdentifier;
 
     if (projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY) {
-      const sourceIdentifier = projectItem.sourceIdentifier;
-      if (typeof sourceIdentifier === "object" && "name" in sourceIdentifier && "ownerId" in sourceIdentifier) {
-        const ownerLogin =
-          typeof sourceIdentifier.ownerId === "object" && "login" in sourceIdentifier.ownerId
-            ? sourceIdentifier.ownerId.login
-            : sourceIdentifier.ownerId;
-        return `https://github.com/${ownerLogin}/${sourceIdentifier.name}`;
+      // sourceIdentifier for repos is typically "owner/name" or a full URL
+      if (sourceIdentifier.startsWith("http")) {
+        return sourceIdentifier;
       }
+      return `https://github.com/${sourceIdentifier}`;
     } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
-      const sourceIdentifier = projectItem.sourceIdentifier;
-      if (typeof sourceIdentifier === "object" && "login" in sourceIdentifier) {
-        return `https://github.com/${sourceIdentifier.login}`;
+      // sourceIdentifier for owners is the login string
+      if (sourceIdentifier.startsWith("http")) {
+        return sourceIdentifier;
       }
+      return `https://github.com/${sourceIdentifier}`;
     } else if (projectItem.projectItemType === ProjectItemType.URL) {
-      if (typeof projectItem.sourceIdentifier === "string") {
-        return projectItem.sourceIdentifier;
-      }
+      return sourceIdentifier;
     }
 
     return "";

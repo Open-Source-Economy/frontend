@@ -2,7 +2,7 @@ import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
 import { GitHubIcon } from "../../../../styles/icons/GitHubIcon";
-import { ProjectItemType } from "@open-source-economy/api-types/dist/model/project/ProjectItemType";
+import { ProjectItemType } from "@open-source-economy/api-types";
 
 interface ProjectListTableProps {
   projects: DeveloperProjectItemEntry[];
@@ -53,7 +53,7 @@ export function ProjectListTable(props: ProjectListTableProps) {
       {/* Project Rows */}
       {props.projects.map((entry, index) => (
         <div
-          key={entry.developerProjectItem.id.uuid}
+          key={entry.developerProjectItem.id}
           className="flex p-5 pb-0.5 flex-col items-start gap-6 self-stretch bg-[#14233A]"
         >
           <div

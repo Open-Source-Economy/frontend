@@ -91,7 +91,7 @@ export function IdentificationStep() {
 
   const checkEmailAndNavigate = async (emailToCheck: string, isPredefined: boolean) => {
     try {
-      const result = await checkEmailMutation.mutateAsync({ params: {}, body: {}, query: { email: emailToCheck } });
+      const result = await checkEmailMutation.mutateAsync({ params: {}, query: { email: emailToCheck } });
       const nextPath = result.provider === Provider.Github ? paths.AUTH.GITHUB : paths.AUTH.PASSWORD;
 
       navigate({

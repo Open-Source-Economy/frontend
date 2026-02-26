@@ -1,4 +1,3 @@
-import { OwnerId, RepositoryId } from "@open-source-economy/api-types";
 import { GithubUrls } from "../GithubUrls";
 
 describe("GithubUrls", () => {
@@ -9,7 +8,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -19,7 +18,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -29,7 +28,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -39,7 +38,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -49,7 +48,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -61,7 +60,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -73,7 +72,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -83,7 +82,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -93,7 +92,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -105,7 +104,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -115,7 +114,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -125,7 +124,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -137,7 +136,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -147,7 +146,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
           expect(result.name).not.toContain(".git");
         }
@@ -159,11 +158,11 @@ describe("GithubUrls", () => {
         const result = GithubUrls.extractRepositoryId("https://github.com/apache/commons-bcel.git");
 
         expect(result).not.toBeNull();
-        expect(result).toBeInstanceOf(RepositoryId);
+        expect(result).toEqual(expect.objectContaining({ name: expect.any(String), ownerId: expect.any(String) }));
         if (result) {
           expect(result.name).toBe("commons-bcel");
           expect(result.name).not.toContain(".git");
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
         }
       });
 
@@ -171,11 +170,11 @@ describe("GithubUrls", () => {
         const result = GithubUrls.extractRepositoryId("apache/commons-bcel.git", true);
 
         expect(result).not.toBeNull();
-        expect(result).toBeInstanceOf(RepositoryId);
+        expect(result).toEqual(expect.objectContaining({ name: expect.any(String), ownerId: expect.any(String) }));
         if (result) {
           expect(result.name).toBe("commons-bcel");
           expect(result.name).not.toContain(".git");
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
         }
       });
 
@@ -235,7 +234,7 @@ describe("GithubUrls", () => {
         if (result) {
           // .git should be preserved because it's part of the repository name
           expect(result.name).toBe("frontend.git");
-          expect(result.ownerId.login).toBe("open-source-economy");
+          expect(result.ownerId).toBe("open-source-economy");
         }
       });
 
@@ -267,9 +266,9 @@ describe("GithubUrls", () => {
         const result = GithubUrls.extractRepositoryId("https://github.com/facebook/react");
 
         expect(result).not.toBeNull();
-        expect(result).toBeInstanceOf(RepositoryId);
+        expect(result).toEqual(expect.objectContaining({ name: expect.any(String), ownerId: expect.any(String) }));
         if (result) {
-          expect(result.ownerId.login).toBe("facebook");
+          expect(result.ownerId).toBe("facebook");
           expect(result.name).toBe("react");
         }
       });
@@ -279,7 +278,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("facebook");
+          expect(result.ownerId).toBe("facebook");
           expect(result.name).toBe("react");
         }
       });
@@ -345,7 +344,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("apache");
+          expect(result.ownerId).toBe("apache");
           expect(result.name).toBe("pekko");
         }
       });
@@ -364,9 +363,9 @@ describe("GithubUrls", () => {
         const result = GithubUrls.extractOwnerId("https://github.com/apache");
 
         expect(result).not.toBeNull();
-        expect(result).toBeInstanceOf(OwnerId);
+        expect(typeof result).toBe("string");
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -375,7 +374,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -392,7 +391,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -401,7 +400,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
     });
@@ -412,7 +411,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -421,7 +420,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -430,7 +429,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
     });
@@ -441,7 +440,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -450,7 +449,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
     });
@@ -461,7 +460,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("my-org");
+          expect(result).toBe("my-org");
         }
       });
 
@@ -470,7 +469,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("my_org");
+          expect(result).toBe("my_org");
         }
       });
 
@@ -479,7 +478,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("my.org");
+          expect(result).toBe("my.org");
         }
       });
 
@@ -488,7 +487,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("org123");
+          expect(result).toBe("org123");
         }
       });
 
@@ -509,7 +508,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
     });
@@ -520,7 +519,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("apache");
+          expect(result).toBe("apache");
         }
       });
 
@@ -555,7 +554,7 @@ describe("GithubUrls", () => {
           expect(result.name.endsWith(".git")).toBe(false);
 
           // Verify the owner/repo format is correct
-          const displayFormat = `${result.ownerId.login}/${result.name}`;
+          const displayFormat = `${result.ownerId}/${result.name}`;
           expect(displayFormat).not.toContain(".git");
         }
       });
@@ -569,7 +568,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("Apache");
+          expect(result.ownerId).toBe("Apache");
           expect(result.name).toBe("Pekko");
         }
       });
@@ -579,7 +578,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("Apache");
+          expect(result.ownerId).toBe("Apache");
           expect(result.name).toBe("Pekko");
         }
       });
@@ -589,7 +588,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.ownerId.login).toBe("FaceBook");
+          expect(result.ownerId).toBe("FaceBook");
           expect(result.name).toBe("ReAct");
         }
       });
@@ -601,7 +600,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("Apache");
+          expect(result).toBe("Apache");
         }
       });
 
@@ -610,7 +609,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("Apache");
+          expect(result).toBe("Apache");
         }
       });
 
@@ -619,7 +618,7 @@ describe("GithubUrls", () => {
 
         expect(result).not.toBeNull();
         if (result) {
-          expect(result.login).toBe("FaceBook");
+          expect(result).toBe("FaceBook");
         }
       });
     });

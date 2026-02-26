@@ -7,7 +7,7 @@ import { Rate } from "../modals/edit/EditServiceModal";
 
 interface DeveloperServiceCategoryProps {
   groupedDeveloperServiceEntry: GroupedDeveloperServiceEntry;
-  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, string>;
   defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
@@ -40,7 +40,7 @@ export function DeveloperServiceCategory(props: DeveloperServiceCategoryProps) {
       <div className="flex flex-col items-start self-stretch rounded-[30px]">
         {props.groupedDeveloperServiceEntry.developerServices.map((developerServiceEntry) => (
           <DeveloperServiceItem
-            key={developerServiceEntry.service.id.uuid}
+            key={developerServiceEntry.service.id}
             developerServiceEntry={developerServiceEntry}
             sourceIdentifiers={props.sourceIdentifiers}
             defaultRate={props.defaultRate}

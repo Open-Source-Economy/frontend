@@ -46,8 +46,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   // Sort projects: selected first, then alphabetically
   const sortedProjects = React.useMemo(() => {
     return [...filteredProjects].sort((a, b) => {
-      const aSelected = safeSelectedIds.some((id) => id.uuid === a.developerProjectItem.id.uuid);
-      const bSelected = safeSelectedIds.some((id) => id.uuid === b.developerProjectItem.id.uuid);
+      const aSelected = safeSelectedIds.some((id) => id === a.developerProjectItem.id);
+      const bSelected = safeSelectedIds.some((id) => id === b.developerProjectItem.id);
 
       // Selected items first
       if (aSelected && !bSelected) return -1;
@@ -61,9 +61,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   }, [filteredProjects, safeSelectedIds]);
 
   const toggleProject = (projectId: dto.DeveloperProjectItemId) => {
-    const exists = safeSelectedIds.some((id) => id.uuid === projectId.uuid);
+    const exists = safeSelectedIds.some((id) => id === projectId);
     if (exists) {
-      onChange(safeSelectedIds.filter((id) => id.uuid !== projectId.uuid));
+      onChange(safeSelectedIds.filter((id) => id !== projectId));
     } else {
       onChange([...safeSelectedIds, projectId]);
     }
@@ -71,9 +71,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
 
   const allProjectsSelected = React.useMemo(() => {
     if (safeProjects.length === 0) return false;
-    return safeProjects.every((project) =>
-      safeSelectedIds.some((id) => id.uuid === project.developerProjectItem.id.uuid)
-    );
+    return safeProjects.every((project) => safeSelectedIds.some((id) => id === project.developerProjectItem.id));
   }, [safeProjects, safeSelectedIds]);
 
   const toggleAll = () => {
@@ -91,7 +89,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   };
 
   const filteredSelectedCount = filteredProjects.filter((p) =>
-    safeSelectedIds.some((id) => id.uuid === p.developerProjectItem.id.uuid)
+    safeSelectedIds.some((id) => id === p.developerProjectItem.id)
   ).length;
   const isFiltering = searchQuery.trim().length > 0;
 
@@ -101,13 +99,13 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
       {safeSelectedIds.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {safeSelectedIds.map((projectId) => {
-            const projectEntry = safeProjects.find((p) => p.developerProjectItem.id.uuid === projectId.uuid);
+            const projectEntry = safeProjects.find((p) => p.developerProjectItem.id === projectId);
             if (!projectEntry) return null;
             const displayName = SourceIdentifierCompanion.displayName(projectEntry.projectItem.sourceIdentifier);
 
             return (
               <div
-                key={projectId.uuid}
+                key={projectId}
                 className="inline-flex items-center px-3 py-1.5 text-sm gap-2 rounded-lg bg-gradient-to-r from-brand-accent/15 to-brand-highlight/15 border border-brand-accent/30 transition-colors hover:from-brand-accent/20 hover:to-brand-highlight/20"
               >
                 <span className="text-brand-accent">{displayName}</span>
@@ -188,15 +186,13 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
             <div className="max-h-[300px] overflow-y-auto custom-scrollbar p-1 relative z-10">
               {sortedProjects.length > 0 ? (
                 sortedProjects.map((projectEntry) => {
-                  const isSelected = safeSelectedIds.some(
-                    (id) => id.uuid === projectEntry.developerProjectItem.id.uuid
-                  );
+                  const isSelected = safeSelectedIds.some((id) => id === projectEntry.developerProjectItem.id);
                   const displayName = SourceIdentifierCompanion.displayName(projectEntry.projectItem.sourceIdentifier);
 
                   return (
                     <button
                       type="button"
-                      key={projectEntry.developerProjectItem.id.uuid}
+                      key={projectEntry.developerProjectItem.id}
                       onClick={() => toggleProject(projectEntry.developerProjectItem.id)}
                       className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer transition-all ${
                         isSelected ? "bg-brand-accent/10 hover:bg-brand-accent/15" : "hover:bg-brand-secondary-dark"

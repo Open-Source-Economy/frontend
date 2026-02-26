@@ -1,5 +1,5 @@
 import React from "react";
-import { OwnerId, ProjectItemType, RepositoryId } from "@open-source-economy/api-types";
+import { ProjectItemType } from "@open-source-economy/api-types";
 import { BulkValidationErrorType, BulkValidationResult } from "src/ultils/BulkProjectUrlParser";
 import { ProjectItemTypeCompanion } from "src/ultils/companions";
 
@@ -17,12 +17,23 @@ const groupProjectsByType = (validProjects: BulkValidationResult["validProjects"
   validProjects.forEach((project) => {
     const sourceIdentifier = project.sourceIdentifier;
 
-    if (sourceIdentifier instanceof RepositoryId) {
-      repositories.push(`${sourceIdentifier.ownerId.login}/${sourceIdentifier.name}`);
-    } else if (sourceIdentifier instanceof OwnerId) {
-      owners.push(sourceIdentifier.login);
+    if (
+      typeof sourceIdentifier === "object" &&
+      sourceIdentifier !== null &&
+      "ownerId" in sourceIdentifier &&
+      "name" in sourceIdentifier
+    ) {
+      repositories.push(`${sourceIdentifier.ownerId}/${sourceIdentifier.name}`);
     } else if (typeof sourceIdentifier === "string") {
-      urls.push(sourceIdentifier);
+      // For string-based identifiers, check the project type to distinguish owners from URLs
+      if (project.projectType === ProjectItemType.GITHUB_OWNER) {
+        owners.push(sourceIdentifier);
+      } else if (project.projectType === ProjectItemType.URL) {
+        urls.push(sourceIdentifier);
+      } else {
+        // Fallback: treat as URL
+        urls.push(sourceIdentifier);
+      }
     }
   });
 

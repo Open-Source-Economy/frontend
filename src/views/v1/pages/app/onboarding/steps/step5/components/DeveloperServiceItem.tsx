@@ -7,7 +7,7 @@ import { Rate } from "../modals/edit/EditServiceModal";
 
 interface DeveloperServiceItemProps {
   developerServiceEntry: dto.DeveloperServiceEntry;
-  sourceIdentifiers: Map<dto.DeveloperProjectItemId, dto.SourceIdentifier>;
+  sourceIdentifiers: Map<dto.DeveloperProjectItemId, string>;
   defaultRate: Rate;
   onSelectProjects: (entry: dto.DeveloperServiceEntry) => void;
   onRemoveDeveloperService: (serviceId: dto.ServiceId) => void;
@@ -24,14 +24,14 @@ export function DeveloperServiceItem(props: DeveloperServiceItemProps) {
 
   // TODO: is that the best way to do it?
   // Convert the map to use string keys for efficient lookups
-  const normalizedMap = new Map<string, dto.SourceIdentifier>();
+  const normalizedMap = new Map<string, string>();
   for (const [key, value] of props.sourceIdentifiers.entries()) {
-    normalizedMap.set(key.uuid, value);
+    normalizedMap.set(key, value);
   }
 
-  const sourceIdentifiers: dto.SourceIdentifier[] = (developerService?.developerProjectItemIds ?? [])
-    .map((id) => normalizedMap.get(id.uuid))
-    .filter((v): v is dto.SourceIdentifier => v !== undefined);
+  const sourceIdentifiers: string[] = (developerService?.developerProjectItemIds ?? [])
+    .map((id) => normalizedMap.get(id))
+    .filter((v): v is string => v !== undefined);
 
   const projectItemNames = sourceIdentifiers.map((si) => SourceIdentifierCompanion.displayName(si));
 

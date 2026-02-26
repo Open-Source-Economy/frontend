@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { adminHooks } from "src/api";
+import { CreateProjectParams, CreateProjectBody, CreateProjectQuery } from "src/services";
 
 interface FormData {
   owner: string;
@@ -88,12 +88,12 @@ export function CreateProject() {
       return;
     }
 
-    const params: dto.CreateProjectParams = {
+    const params: CreateProjectParams = {
       owner: formData.owner,
       repo: formData.repo,
     };
-    const body: dto.CreateProjectBody = {};
-    const query: dto.CreateProjectQuery = {};
+    const body: CreateProjectBody = {};
+    const query: CreateProjectQuery = {};
 
     setError(null);
     setSuccess(false);
@@ -127,12 +127,12 @@ export function CreateProject() {
       const results = [];
 
       for (const project of projects) {
-        const params: dto.CreateProjectParams = {
+        const params: CreateProjectParams = {
           owner: project.owner,
           repo: project.repo,
         };
-        const body: dto.CreateProjectBody = {};
-        const query: dto.CreateProjectQuery = {};
+        const body: CreateProjectBody = {};
+        const query: CreateProjectQuery = {};
 
         try {
           await createProject.mutateAsync({ params, body, query });
