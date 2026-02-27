@@ -4,7 +4,7 @@ import backdropSVG from "src/assets/v1/backdrop.svg";
 import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
-import { projectHooks } from "src/api";
+import { stripeHooks } from "src/api";
 
 interface PricingTableProps {}
 
@@ -14,8 +14,8 @@ export function PricingTable(_props: PricingTableProps) {
   const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);
   const [activePriceType, setActivePriceType] = useState<PlanPriceType | null>(null);
 
-  const { data: plans } = projectHooks.usePlansQuery({}, {});
-  const { data: userPlan } = projectHooks.useUserPlanQuery({}, {});
+  const { data: plans } = stripeHooks.usePlansQuery({}, {});
+  const { data: userPlan } = stripeHooks.useUserPlanQuery({}, {});
 
   const pricingCategory = (
     type: PlanProductType,

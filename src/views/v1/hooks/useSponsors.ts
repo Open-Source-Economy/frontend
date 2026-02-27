@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getBackendAPI } from "../../../services";
+import { projectService } from "src/services";
 import { SponsorDescription } from "../../../model";
 import {
   type ProjectId,
@@ -11,8 +11,6 @@ import {
 } from "src/ultils/local-types";
 
 export function useSponsors(projectId: ProjectId) {
-  const backendAPI = getBackendAPI();
-
   const [sponsors, setSponsors] = useState<SponsorDescription[] | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,7 +25,7 @@ export function useSponsors(projectId: ProjectId) {
       };
       const query: GetSponsorsQuery = {};
 
-      const response = await backendAPI.getSponsors(params, query);
+      const response = await projectService.getSponsors(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

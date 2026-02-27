@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services";
+import { fundingService } from "src/services";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
@@ -8,8 +8,6 @@ import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";
 
 export function useAvailableCredits(auth: AuthContextState) {
-  const backendAPI = getBackendAPI();
-
   const [availableCredits, setAvailableCredits] = React.useState<Credit | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
@@ -22,7 +20,7 @@ export function useAvailableCredits(auth: AuthContextState) {
           companyId: auth.authInfo?.company?.id,
         };
 
-        const response = await backendAPI.getAvailableCredits(params, query);
+        const response = await fundingService.getAvailableCredits(params, query);
 
         if (response instanceof ApiError) {
           if (response.statusCode === StatusCodes.UNAUTHORIZED) setAvailableCredits(null);

@@ -67,6 +67,7 @@ export default function OnboardingFlow() {
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));
   const [isSaving, setIsSaving] = useState(false);
+  const [profileInitialized, setProfileInitialized] = useState(false);
 
   const currentUrlStep = searchParams.step ?? OnboardingDataSteps.Step1;
 
@@ -74,7 +75,8 @@ export default function OnboardingFlow() {
   const query: dto.GetDeveloperProfileQuery = {};
   const profileQuery = onboardingHooks.useDeveloperProfileQuery(params, query);
 
-  const isLoading = profileQuery.isLoading;
+  // Show loading until profile data has been applied to state
+  const isLoading = profileQuery.isLoading || !profileInitialized;
   const apiError = profileQuery.error
     ? profileQuery.error instanceof ApiError
       ? profileQuery.error
@@ -102,6 +104,12 @@ export default function OnboardingFlow() {
         preferredCurrency
       );
       setState(state);
+    } else {
+      setState((prev) => ({ ...prev, currentStep }));
+    }
+
+    if (!profileQuery.isLoading) {
+      setProfileInitialized(true);
     }
   }, [currentUrlStep, navigate, profileQuery.data]);
 

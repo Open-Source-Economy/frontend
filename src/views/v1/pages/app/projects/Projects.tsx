@@ -7,16 +7,15 @@ import { repositoryIds } from "src/services/data/repositories";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
 import { useQueries } from "@tanstack/react-query";
 import { Owner, Repository } from "@open-source-economy/api-types";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 
 interface ProjectsProps {}
 
 export function Projects(_props: ProjectsProps) {
-  const backendAPI = getBackendAPI();
   const repositoryQueries = useQueries({
     queries: repositoryIds.map((repositoryId) => ({
       queryKey: ["project", "repository", { owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}],
-      queryFn: () => backendAPI.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
+      queryFn: () => projectService.getRepository({ owner: repositoryId.ownerId.login, repo: repositoryId.name }, {}),
     })),
   });
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getBackendAPI } from "../../../services";
+import { projectService } from "src/services";
 import {
   type ProjectId,
   getOwnerFromProjectId,
@@ -11,8 +11,6 @@ import {
 } from "src/ultils/local-types";
 
 export function useAccordion(projectId: ProjectId) {
-  const backendAPI = getBackendAPI();
-
   const [accordionRes, setAccordionRes] = useState<GetProjectAccordionResponse | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,7 +25,7 @@ export function useAccordion(projectId: ProjectId) {
       };
       const query: GetProjectAccordionQuery = {};
 
-      const response = await backendAPI.getProjectAccordion(params, query);
+      const response = await projectService.getProjectAccordion(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

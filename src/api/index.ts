@@ -1,2 +1,10 @@
 export { queryClient } from "./queryClient";
-export { projectHooks, authHooks, onboardingHooks, adminHooks, stripeHooks } from "./hooks";
+export {
+  projectHooks,
+  fundingHooks,
+  authHooks,
+  onboardingHooks,
+  adminHooks,
+  stripeHooks,
+  communicationHooks,
+} from "./hooks";

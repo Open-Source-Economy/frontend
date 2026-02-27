@@ -14,7 +14,7 @@ import { paths } from "src/paths";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { ExternalLink } from "../../components";
 import { Link } from "@tanstack/react-router";
-import { stripeHooks } from "src/api";
+import { communicationHooks } from "src/api";
 
 type FooterLink = {
   text: string;
@@ -62,7 +62,7 @@ export function Footer() {
   const [error, setError] = useState<ApiError | null>(null);
   const [displaySuccessMessage, setDisplaySuccessMessage] = useState<boolean>(false);
 
-  const subscribeToNewsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
+  const subscribeToNewsletterMutation = communicationHooks.useSubscribeToNewsletterMutation();
 
   const handleSubscribe = async () => {
     setError(null);

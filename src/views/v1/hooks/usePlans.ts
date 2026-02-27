@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services";
+import { stripeService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
@@ -7,8 +7,6 @@ import { useAuth } from "../pages/authenticate/AuthContext";
 
 export function usePlans() {
   const auth = useAuth();
-
-  const backendAPI = getBackendAPI();
 
   const [plans, setPlans] = React.useState<dto.GetPlansResponse | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
@@ -22,7 +20,7 @@ export function usePlans() {
         const params: dto.GetPlansParams = {};
         const query: dto.GetPlansQuery = {};
 
-        const response = await backendAPI.getPlans(params, query);
+        const response = await stripeService.getPlans(params, query);
 
         if (response instanceof ApiError) {
           setError(response);

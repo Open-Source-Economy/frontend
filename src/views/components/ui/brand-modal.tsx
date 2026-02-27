@@ -42,16 +42,31 @@ export function BrandModal(props: BrandModalProps) {
           "max-h-[85vh] flex flex-col p-0",
           props.className
         )}
-        onOpenAutoFocus={preventAutoFocus ? (e) => e.preventDefault() : undefined}
+        onOpenAutoFocus={
+          preventAutoFocus
+            ? (e) => {
+                e.preventDefault();
+                // Focus the content element itself to keep focus inside the dialog
+                (e.target as HTMLElement)?.focus();
+              }
+            : undefined
+        }
+        {...(!props.description ? { "aria-describedby": undefined } : {})}
       >
-        {/* Fixed Header */}
-        {(props.title || props.description) && (
+        {/* Accessibility: always render DialogTitle (visually hidden if no title prop) */}
+        {props.title || props.description ? (
           <DialogHeader className={cn("space-y-3 px-6 pt-6 pb-4 flex-shrink-0", props.headerClassName)}>
-            {props.title && <DialogTitle className="text-brand-neutral-900">{props.title}</DialogTitle>}
+            {props.title ? (
+              <DialogTitle className="text-brand-neutral-900">{props.title}</DialogTitle>
+            ) : (
+              <DialogTitle className="sr-only">Dialog</DialogTitle>
+            )}
             {props.description && (
               <DialogDescription className="text-brand-neutral-600">{props.description}</DialogDescription>
             )}
           </DialogHeader>
+        ) : (
+          <DialogTitle className="sr-only">Dialog</DialogTitle>
         )}
 
         {/* Scrollable Content Area */}

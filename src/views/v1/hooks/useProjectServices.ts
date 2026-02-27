@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 import {
   GetProjectServicesParams,
   GetProjectServicesQuery,
@@ -16,7 +16,6 @@ const DEFAULT_SERVICES: GetProjectServicesResponse = {
 };
 
 export function useProjectServices(projectId?: ProjectId) {
-  const backendAPI = getBackendAPI();
   const [projectServices, setProjectServices] = React.useState<GetProjectServicesResponse | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
@@ -33,7 +32,7 @@ export function useProjectServices(projectId?: ProjectId) {
       };
       const query: GetProjectServicesQuery = {};
 
-      const response = await backendAPI.getProjectServices(params, query);
+      const response = await projectService.getProjectServices(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

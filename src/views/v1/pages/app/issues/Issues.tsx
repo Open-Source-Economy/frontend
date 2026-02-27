@@ -13,14 +13,14 @@ import Loading from "src/views/v1/components/common/Loading";
 
 import catimg from "src/assets/v1/Mascot.png";
 import { ShowApiError } from "src/views/v1/components/common/ShowApiError";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 interface IssuesProps {
   audience: Audience;
 }
 export function Issues(props: IssuesProps) {
   const _auth = useAuth();
-  const { data: financialIssues, isLoading, error } = projectHooks.useAllFinancialIssuesQuery({}, {});
+  const { data: financialIssues, isLoading, error } = fundingHooks.useAllFinancialIssuesQuery({}, {});
   const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;
   const [filteredFinancialIssues, setFilteredFinancialIssues] = useState<model.FinancialIssue[]>([]);
 

@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 import { GetProjectParams, GetProjectQuery, Project } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 export function useProject(projectId: ProjectId) {
-  const backendAPI = getBackendAPI();
-
   const [project, setProject] = useState<Project | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -17,7 +15,7 @@ export function useProject(projectId: ProjectId) {
         repo: getRepoFromProjectId(projectId),
       };
       const query: GetProjectQuery = {};
-      const response = await backendAPI.getProject(params, query);
+      const response = await projectService.getProject(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

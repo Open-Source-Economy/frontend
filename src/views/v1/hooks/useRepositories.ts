@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 import {
   GetRepositoryParams,
   GetRepositoryQuery,
@@ -11,8 +11,6 @@ import { ApiError } from "src/ultils/error/ApiError";
 
 // TODO: optimize this function to fetch all repositories in one request
 export function useRepositories(repositoryIds: RepositoryId[]) {
-  const backendAPI = getBackendAPI();
-
   const [repositories, setRepositories] = useState<[Owner, Repository][]>([]);
   const [error, setError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +24,7 @@ export function useRepositories(repositoryIds: RepositoryId[]) {
         repositoryIds.map((repositoryId) => {
           const params: GetRepositoryParams = { owner: repositoryId.ownerId.login, repo: repositoryId.name };
           const query: GetRepositoryQuery = {};
-          return backendAPI.getRepository(params, query);
+          return projectService.getRepository(params, query);
         })
       );
 

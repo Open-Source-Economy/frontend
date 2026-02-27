@@ -15,7 +15,7 @@ import { AudienceTitle } from "src/views/v1/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 import { ShowApiError } from "../../../components/common/ShowApiError";
 import { ApiError } from "src/ultils/error/ApiError";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 interface ManageIssueProps {}
 
@@ -27,7 +27,7 @@ export function ManageIssue(_props: ManageIssueProps) {
     data: financialIssue,
     error: loadFinancialIssueError,
     refetch: reloadFinancialIssue,
-  } = projectHooks.useFinancialIssueQuery(
+  } = fundingHooks.useFinancialIssueQuery(
     { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
     {}
   );

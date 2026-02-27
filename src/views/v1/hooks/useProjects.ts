@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { Project } from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 
 export function useProjects() {
-  const backendAPI = getBackendAPI();
-
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +16,7 @@ export function useProjects() {
     try {
       const params: dto.GetProjectsParams = {};
       const query: dto.GetProjectsQuery = {};
-      const response = await backendAPI.getProjects(params, query);
+      const response = await projectService.getProjects(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { backendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { stripeService, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services";
 
 const STRIPE_QUERY_KEY = ["stripe"] as const;
 
@@ -11,7 +11,7 @@ export const stripeHooks = {
       Error,
       { params: dto.CheckoutParams; body: dto.CheckoutBody; query: dto.CheckoutQuery }
     >({
-      mutationFn: ({ params, body, query }) => backendAPI.checkout(params, body, query),
+      mutationFn: ({ params, body, query }) => stripeService.checkout(params, body, query),
     });
   },
 
@@ -26,40 +26,30 @@ export const stripeHooks = {
         query: dto.SetPreferredCurrencyQuery;
       }
     >({
-      mutationFn: ({ params, body, query }) => backendAPI.setUserPreferredCurrency(params, body, query),
+      mutationFn: ({ params, body, query }) => stripeService.setUserPreferredCurrency(params, body, query),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: STRIPE_QUERY_KEY });
       },
     });
   },
 
-  useSubscribeToNewsletterMutation() {
-    return useMutation<
-      dto.SubscribeNewsletterResponse,
-      Error,
-      {
-        params: dto.SubscribeNewsletterParams;
-        body: dto.SubscribeNewsletterBody;
-        query: dto.SubscribeNewsletterQuery;
-      }
-    >({
-      mutationFn: ({ params, body, query }) => backendAPI.subscribeToNewsletter(params, body, query),
-    });
-  },
-
-  useSubmitContactFormMutation() {
-    return useMutation<
-      dto.SubmitContactFormResponse,
-      Error,
-      { params: dto.SubmitContactFormParams; body: dto.SubmitContactFormBody; query: dto.SubmitContactFormQuery }
-    >({
-      mutationFn: ({ params, body, query }) => backendAPI.submitContactForm(params, body, query),
-    });
-  },
-
   useCreatePortalSessionMutation() {
     return useMutation<CreatePortalSessionResponse, Error, { body: CreatePortalSessionBody }>({
-      mutationFn: ({ body }) => backendAPI.createPortalSession(body),
+      mutationFn: ({ body }) => stripeService.createPortalSession(body),
+    });
+  },
+
+  usePlansQuery(params: dto.GetPlansParams, query: dto.GetPlansQuery) {
+    return useQuery<dto.GetPlansResponse>({
+      queryKey: [...STRIPE_QUERY_KEY, "plans", params, query],
+      queryFn: () => stripeService.getPlans(params, query),
+    });
+  },
+
+  useUserPlanQuery(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery) {
+    return useQuery<dto.GetUserPlanResponse>({
+      queryKey: [...STRIPE_QUERY_KEY, "userPlan", params, query],
+      queryFn: () => stripeService.getUserPlan(params, query),
     });
   },
 };

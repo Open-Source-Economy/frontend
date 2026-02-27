@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ApiError } from "src/ultils/error/ApiError";
-import { getBackendAPI } from "../../../services";
+import { projectService } from "src/services";
 import {
   type ProjectId,
   getOwnerFromProjectId,
@@ -11,8 +11,6 @@ import {
 } from "src/ultils/local-types";
 
 export function useMaintainers(projectId: ProjectId) {
-  const backendAPI = getBackendAPI();
-
   const [maintainersRes, setMaintainersRes] = useState<GetMaintainersResponse | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,7 +25,7 @@ export function useMaintainers(projectId: ProjectId) {
       };
       const query: GetMaintainersQuery = {};
 
-      const response = await backendAPI.getMaintainers(params, query);
+      const response = await projectService.getMaintainers(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

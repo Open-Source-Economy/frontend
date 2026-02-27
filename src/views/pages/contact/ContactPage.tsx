@@ -5,8 +5,6 @@ const routeApi = getRouteApi("/contact");
 import { PageWrapper } from "../PageWrapper";
 import { paths } from "src/paths";
 import { Button } from "../../components/ui/forms/button";
-import { Input } from "../../components/ui/forms/inputs/input";
-import { Label } from "../../components/ui/forms/label";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
 import { ContactReasonCard } from "./components/contact-reason-card";
 import { FieldError } from "../../components/ui/forms/field-error";
@@ -337,22 +335,12 @@ export function ContactPage() {
                               {/* Conditional Field: GitHub Profile */}
                               {showGitHubProfile && (
                                 <div>
-                                  <Label htmlFor="githubProfile">
-                                    GitHub Profile
-                                    {gitHubRequired && <span className="text-brand-error"> *</span>}
-                                  </Label>
-                                  <Input
-                                    id="githubProfile"
+                                  <RhfFormInput<ContactFormData>
+                                    name="githubProfile"
+                                    label="GitHub Profile"
                                     type="url"
                                     required={gitHubRequired}
-                                    value={form.watch("githubProfile") || ""}
-                                    onChange={(e) =>
-                                      form.setValue("githubProfile", e.target.value, {
-                                        shouldValidate: form.formState.isSubmitted,
-                                      })
-                                    }
                                     placeholder={getPlaceholder("github", gitHubRequired, contactReason)}
-                                    variant={fieldErrors.githubProfile ? "error" : "default"}
                                   />
                                   {gitHubRequired && (
                                     <p className="text-brand-neutral-600 mt-2 flex items-center gap-2">
@@ -363,10 +351,6 @@ export function ContactPage() {
                                       </span>
                                     </p>
                                   )}
-                                  <FieldError
-                                    error={fieldErrors.githubProfile?.message as string | undefined}
-                                    className="mt-1"
-                                  />
                                 </div>
                               )}
 

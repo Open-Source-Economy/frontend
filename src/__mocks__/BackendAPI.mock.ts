@@ -1,17 +1,27 @@
 import * as dto from "@open-source-economy/api-types";
 import {
-  GetIssuesParams,
-  GetMaintainersParams,
-  GetMaintainersQuery,
-  GetMaintainersResponse,
-  GetProjectAccordionParams,
-  GetProjectAccordionQuery,
-  GetProjectAccordionResponse,
-  GetSponsorsParams,
-  GetSponsorsQuery,
-} from "src/ultils/local-types";
-import { BackendAPI, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services/BackendAPI";
-import { issue, issueId, owner, repository, userId } from "./index";
+  CampaignPriceType,
+  CampaignProductType,
+  ContributorVisibility,
+  Currency,
+  FinancialIssue,
+  IssueFunding,
+  IssueFundingId,
+  ManagedIssue,
+  ManagedIssueId,
+  ManagedIssueState,
+  PlanPriceType,
+  PlanProductType,
+  Price,
+  PriceType,
+  ProductType,
+  ProjectUtils,
+  StripePrice,
+  StripePriceId,
+  StripeProductId,
+} from "@open-source-economy/api-types";
+import { BackendAPI } from "src/services";
+import { issue, issueId, owner, repository, user, userId } from "./index";
 import { ApiError } from "src/ultils/error/ApiError";
 import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
@@ -22,35 +32,24 @@ import { getProjectAccordion } from "../services/data/accordions/getAccordions";
 import { projectItemsDatabase } from "./projectItemsData";
 
 export class BackendAPIMock implements BackendAPI {
-  async getFinancialIssue(_params: dto.GetIssueParams, _query: dto.GetIssueQuery): Promise<dto.FinancialIssue> {
+  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
     const financialIssues = await this.getAllFinancialIssues({}, {});
-    return financialIssues[0];
+    if (financialIssues instanceof ApiError) return financialIssues;
+    else return financialIssues[0];
   }
 
-  async getAllFinancialIssues(_params: GetIssuesParams, _query: dto.GetIssueQuery): Promise<dto.FinancialIssue[]> {
-    const financialIssues: dto.FinancialIssue[] = [];
+  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+    const financialIssues: FinancialIssue[] = [];
 
     const requestedCreditAmount = 12;
 
     for (const managedIssue of allManagedIssues(requestedCreditAmount)) {
       for (let i = 0; i < 4; i++) {
-        let financialIssue: dto.FinancialIssue;
+        let financialIssue: FinancialIssue;
         if (i === 0) {
-          financialIssue = {
-            owner: owner,
-            repository: repository(),
-            issue: issue,
-            managedIssue: managedIssue,
-            issueFundings: [],
-          };
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = {
-            owner: owner,
-            repository: repository(),
-            issue: issue,
-            managedIssue: managedIssue,
-            issueFundings: [issueFunding((requestedCreditAmount / 2) * i)],
-          };
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedCreditAmount / 2) * i)]);
         }
         financialIssues.push(financialIssue);
       }
@@ -58,62 +57,59 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableCredits(
-    _params: dto.GetAvailableCreditsParams,
-    _query: dto.GetAvailableCreditsQuery
-  ): Promise<dto.GetAvailableCreditsResponse> {
+  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
     return Promise.resolve({ creditAmount: 60 });
   }
 
-  async fundIssue(_params: dto.FundIssueParams, _body: dto.FundIssueBody, _query: dto.FundIssueQuery): Promise<void> {
+  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async login(): Promise<void> {
+  async login(): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
   async requestFunding(
-    _params: dto.RequestIssueFundingParams,
-    _body: dto.RequestIssueFundingBody,
-    _query: dto.RequestIssueFundingQuery
-  ): Promise<void> {
+    params: dto.RequestIssueFundingParams,
+    body: dto.RequestIssueFundingBody,
+    query: dto.RequestIssueFundingQuery,
+  ): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
-  async getOwner(_params: dto.GetOwnerParams, _query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse> {
+  async getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse | ApiError> {
     return {
       owner: owner,
     };
   }
 
-  async getRepository(
-    _params: dto.GetRepositoryParams,
-    _query: dto.GetRepositoryQuery
-  ): Promise<dto.GetRepositoryResponse> {
+  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<ApiError | dto.GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
     };
   }
 
-  async getProject(_params: dto.GetProjectParams, _query: dto.GetProjectQuery): Promise<dto.GetProjectResponse> {
+  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
     return {
       project: {
+        id: ProjectUtils.getId(params.owner, params.repo),
         owner: owner,
         repository: repository(),
       },
     };
   }
 
-  async getProjects(_params: dto.GetProjectsParams, _query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse> {
+  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
     const repo = repository();
     return {
       projects: [
         {
+          id: owner.id,
           owner: owner,
         },
         {
+          id: repo.id,
           owner: owner,
           repository: repo,
         },
@@ -121,147 +117,81 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProjectDetails(
-    params: dto.GetProjectDetailsParams,
-    _query: dto.GetProjectDetailsQuery
-  ): Promise<dto.GetProjectDetailsResponse> {
-    const projectItem =
-      projectItemsDatabase.find((item) => {
-        const source = item.projectItem.sourceIdentifier;
-        if (typeof source === "string") {
-          return source.includes(params.owner) && (!params.repo || source.includes(params.repo));
-        }
-        return false;
-      }) ?? projectItemsDatabase[0];
-
-    const developers: Record<string, dto.ProjectDeveloperProfile> = {};
-    for (const developer of projectItem.developers) {
-      const mockUser = {
-        id: `mock-user-${developer.developerProfile.id}` as dto.UserId,
-        name: developer.developerOwner.name ?? developer.developerOwner.id,
-        role: dto.UserRole.USER,
-      } as unknown as dto.User;
-
-      developers[developer.developerProfile.id] = {
-        profileEntry: {
-          profile: developer.developerProfile,
-          owner: developer.developerOwner,
-          user: mockUser,
-          verificationRecords: [],
-        },
-        settings: null,
-        project: {
-          projectItem: projectItem.projectItem,
-          developerProjectItem: developer.developerProjectItem,
-          verificationRecords: [],
-        },
-        services: {},
-      };
-    }
-
-    return {
-      project: {
-        projectItem: projectItem.projectItem,
-        owner: projectItem.owner,
-        repository: projectItem.repository,
-      },
-      developers,
-      service: [],
-      serviceOfferings: {},
-    };
-  }
-
-  async getMaintainers(params: GetMaintainersParams, _query: GetMaintainersQuery): Promise<GetMaintainersResponse> {
+  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
     } else {
-      throw new ApiError(StatusCodes.NOT_IMPLEMENTED);
+      return new ApiError(StatusCodes.NOT_IMPLEMENTED);
     }
   }
 
-  async getProjectAccordion(
-    params: GetProjectAccordionParams,
-    _query: GetProjectAccordionQuery
-  ): Promise<GetProjectAccordionResponse> {
+  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: GetSponsorsParams, _query: GetSponsorsQuery): Promise<SponsorDescription[]> {
+  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {
     return getSponsors(params.owner, params.repo);
   }
 
-  async getCampaign(_params: dto.GetCampaignParams, _query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse> {
+  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
     return {
       prices: getPrices(),
       raisedAmount: {
-        [dto.Currency.CHF]: 400,
-        [dto.Currency.EUR]: 400,
-        [dto.Currency.USD]: 400,
-        [dto.Currency.GBP]: 400,
+        [Currency.CHF]: 400,
+        [Currency.EUR]: 400,
+        [Currency.USD]: 400,
+        [Currency.GBP]: 400,
       },
       targetAmount: {
-        [dto.Currency.CHF]: 10000,
-        [dto.Currency.EUR]: 10000,
-        [dto.Currency.USD]: 10000,
-        [dto.Currency.GBP]: 10000,
+        [Currency.CHF]: 10000,
+        [Currency.EUR]: 10000,
+        [Currency.USD]: 10000,
+        [Currency.GBP]: 10000,
       },
       numberOfBackers: 300,
       numberOfDaysLeft: 333,
     };
   }
 
-  async getPlans(_params: dto.GetPlansParams, _query: dto.GetPlansQuery): Promise<dto.GetPlansResponse> {
+  async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {
     // Extract enum values properly, avoiding TypeScript enum peculiarities
-    const planTypes = Object.keys(dto.PlanProductType)
-      .filter((key) => isNaN(Number(key)))
-      .map((key) => dto.PlanProductType[key as keyof typeof dto.PlanProductType]);
+    const planTypes = Object.keys(PlanProductType)
+      .filter(key => isNaN(Number(key)))
+      .map(key => PlanProductType[key as keyof typeof PlanProductType]);
 
-    const currencies = Object.values(dto.Currency).filter((value): value is dto.Currency => typeof value === "string");
+    const currencies = Object.values(Currency).filter((value): value is Currency => typeof value === "string");
 
-    const priceTypes = Object.values(dto.PlanPriceType).filter(
-      (value): value is dto.PlanPriceType => typeof value === "string"
-    );
+    const priceTypes = Object.values(PlanPriceType).filter((value): value is PlanPriceType => typeof value === "string");
 
     // Define price generation strategy with more realistic values
-    const getPriceAmount = (_planType: dto.PlanProductType, priceType: dto.PlanPriceType): number => {
+    const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
       // Apply discount for annual pricing
-      const multiplier = priceType === dto.PlanPriceType.ANNUALLY ? 0.8 * 12 : 1; // 20% discount for annual
+      const multiplier = priceType === PlanPriceType.ANNUALLY ? 0.8 * 12 : 1; // 20% discount for annual
       return Math.round(69_00 * multiplier);
     };
 
     // Create a type-safe StripePrice factory function
-    const createPrice = (
-      planType: dto.PlanProductType,
-      priceType: dto.PlanPriceType,
-      currency: dto.Currency
-    ): dto.StripePrice => {
+    const createPrice = (planType: PlanProductType, priceType: PlanPriceType, currency: Currency): StripePrice => {
       const amount = getPriceAmount(planType, priceType);
       const id = `price_${planType}_${priceType}_${currency.toLowerCase()}`;
 
-      return {
-        stripeId: id as dto.StripePriceId,
-        productId: planType.toString() as dto.StripeProductId,
-        unitAmount: amount,
-        currency: currency,
-        active: true,
-        type: priceType as unknown as dto.PriceType,
-      };
+      return new StripePrice(new StripePriceId(id), new StripeProductId(planType.toString()), amount, currency, true, priceTypes as unknown as PriceType);
     };
 
     // Build the plans object with proper typing
-    const plans: Record<
-      dto.PlanProductType,
-      Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>
-    > = {} as Record<dto.PlanProductType, Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>>;
+    const plans: Record<PlanProductType, Record<Currency, Record<PlanPriceType, StripePrice>>> = {} as Record<
+      PlanProductType,
+      Record<Currency, Record<PlanPriceType, StripePrice>>
+    >;
 
     // Generate each plan
     for (const planType of planTypes) {
       // Build price mappings for this product
-      const priceMappings = {} as Record<dto.Currency, Record<dto.PlanPriceType, dto.StripePrice>>;
+      const priceMappings = {} as Record<Currency, Record<PlanPriceType, StripePrice>>;
 
       for (const currency of currencies) {
-        priceMappings[currency] = {} as Record<dto.PlanPriceType, dto.StripePrice>;
+        priceMappings[currency] = {} as Record<PlanPriceType, StripePrice>;
 
         for (const priceType of priceTypes) {
           priceMappings[currency][priceType] = createPrice(planType, priceType, currency);
@@ -274,64 +204,51 @@ export class BackendAPIMock implements BackendAPI {
     return { plans };
   }
 
-  async getUserPlan(_params: dto.GetUserPlanParams, _query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse> {
-    return { productType: dto.PlanProductType.SCALE_UP_PLAN, priceType: dto.PlanPriceType.ANNUALLY };
+  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError> {
+    return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
   }
 
-  async checkout(
-    _params: dto.CheckoutParams,
-    _body: dto.CheckoutBody,
-    _query: dto.CheckoutQuery
-  ): Promise<dto.CheckoutResponse> {
-    return { redirectUrl: "https://checkout.stripe.com/c/pay/cs_test_a1WpXh4fW6XG9J5vYyZ2M3Q4R5T6U7V8W9X0" };
+  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
+    return {} as dto.CheckoutResponse;
   }
 
   async setUserPreferredCurrency(
-    _params: dto.SetPreferredCurrencyParams,
-    _body: dto.SetPreferredCurrencyBody,
-    _query: dto.SetPreferredCurrencyQuery
-  ): Promise<dto.SetPreferredCurrencyResponse> {
+    params: dto.SetUserPreferredCurrencyParams,
+    body: dto.SetUserPreferredCurrencyBody,
+    query: dto.SetUserPreferredCurrencyQuery,
+  ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError> {
     return {};
   }
 
-  async getProjectServices(
-    params: dto.GetProjectServicesParams,
-    _query: dto.GetProjectServicesQuery
-  ): Promise<dto.GetProjectServicesResponse> {
+  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
-    throw new ApiError(StatusCodes.NOT_IMPLEMENTED);
+    return new ApiError(StatusCodes.NOT_IMPLEMENTED);
   }
 
   async subscribeToNewsletter(
-    _params: dto.SubscribeNewsletterParams,
-    _body: dto.SubscribeNewsletterBody,
-    _query: dto.SubscribeNewsletterQuery
-  ): Promise<dto.SubscribeNewsletterResponse> {
+    params: dto.NewsletterSubscriptionParams,
+    body: dto.NewsletterSubscriptionBody,
+    query: dto.NewsletterSubscriptionQuery,
+  ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return Promise.resolve({ success: {} });
   }
 
   async getProjectItemsWithDetails(
-    _params: dto.GetProjectItemsWithDetailsParams,
-    _query: dto.GetProjectItemsWithDetailsQuery
-  ): Promise<dto.GetProjectItemsWithDetailsResponse> {
+    params: dto.GetProjectItemsWithDetailsParams,
+    query: dto.GetProjectItemsWithDetailsQuery,
+  ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
     // Group project items by type
-    const repositories = projectItemsDatabase.filter(
-      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY
-    );
-    const owners = projectItemsDatabase.filter(
-      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER
-    );
-    const urls = projectItemsDatabase.filter((item) => item.projectItem.projectItemType === dto.ProjectItemType.URL);
+    const repositories = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY);
+    const owners = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER);
+    const urls = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.URL);
 
     // Calculate stats
     const totalStars = repositories.reduce((sum, item) => sum + (item.repository?.stargazersCount || 0), 0);
     const totalForks = repositories.reduce((sum, item) => sum + (item.repository?.forksCount || 0), 0);
     const totalFollowers = owners.reduce((sum, item) => sum + (item.owner?.followers || 0), 0);
-    const uniqueMaintainers = new Set(
-      projectItemsDatabase.flatMap((item) => item.developers.map((dev) => dev.developerProfile.id))
-    );
+    const uniqueMaintainers = new Set(projectItemsDatabase.flatMap(item => item.developers.map(dev => dev.developerProfile.id.uuid)));
 
     return Promise.resolve({
       repositories,
@@ -347,35 +264,22 @@ export class BackendAPIMock implements BackendAPI {
     });
   }
 
-  async submitContactForm(
-    _params: dto.SubmitContactFormParams,
-    _body: dto.SubmitContactFormBody,
-    _query: dto.SubmitContactFormQuery
-  ): Promise<dto.SubmitContactFormResponse> {
+  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
     return Promise.resolve({});
   }
-
-  async createPortalSession(_body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse> {
-    return Promise.resolve({ url: "https://billing.stripe.com/p/session/test_123" });
-  }
 }
 
-function issueFunding(amount: number): dto.IssueFunding {
-  return {
-    id: Math.random().toString() as dto.IssueFundingId,
-    githubIssueId: issueId,
-    userId: userId,
-    credit: amount,
-  };
+function issueFunding(amount: number): IssueFunding {
+  return new IssueFunding(new IssueFundingId(Math.random().toString()), issueId, userId, amount);
 }
 
-function allManagedIssues(requestedCreditAmount: number): dto.ManagedIssue[] {
-  const allManagedIssues: dto.ManagedIssue[] = [];
+function allManagedIssues(requestedCreditAmount: number): ManagedIssue[] {
+  const allManagedIssues: ManagedIssue[] = [];
 
-  for (const visibility of Object.values(dto.ContributorVisibility)) {
-    for (const state of Object.values(dto.ManagedIssueState)) {
-      const managedIssue: dto.ManagedIssue = {
-        id: Math.random().toString() as dto.ManagedIssueId,
+  for (const visibility of Object.values(ContributorVisibility)) {
+    for (const state of Object.values(ManagedIssueState)) {
+      const managedIssue: ManagedIssue = {
+        id: new ManagedIssueId(Math.random().toString()),
         githubIssueId: issueId,
         requestedCreditAmount: requestedCreditAmount,
         managerId: userId,
@@ -390,7 +294,7 @@ function allManagedIssues(requestedCreditAmount: number): dto.ManagedIssue[] {
 }
 
 // Helper function to create a Price object
-function createPrice(stripePrice: dto.StripePrice): dto.Price {
+function createPrice(stripePrice: StripePrice): dto.Price {
   return {
     totalAmount: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
     quantity: Math.floor(Math.random() * 90000) + 10000, // Random 5-digit integer
@@ -399,32 +303,29 @@ function createPrice(stripePrice: dto.StripePrice): dto.Price {
   };
 }
 
-function getPrices(): Record<
-  dto.CampaignPriceType,
-  Record<dto.Currency, Record<dto.CampaignProductType, dto.Price[]>>
-> {
-  const stripePrice: dto.StripePrice = {
-    stripeId: "StripePriceId" as dto.StripePriceId,
-    productId: "StripeProductId" as dto.StripeProductId,
+function getPrices(): Record<CampaignPriceType, Record<Currency, Record<CampaignProductType, Price[]>>> {
+  const stripePrice: StripePrice = {
+    stripeId: new StripePriceId("StripePriceId"),
+    productId: new StripeProductId("StripeProductId"),
     active: false,
-    currency: dto.Currency.CHF,
+    currency: Currency.CHF,
     unitAmount: 20,
-    type: dto.PriceType.ONE_TIME,
+    type: PriceType.ONE_TIME,
   };
 
-  const prices: Record<dto.PriceType, Record<dto.Currency, Record<dto.ProductType, dto.Price[]>>> = {} as any;
+  const prices: Record<PriceType, Record<Currency, Record<ProductType, dto.Price[]>>> = {} as any;
 
-  for (const priceType of Object.values(dto.PriceType)) {
+  for (const priceType of Object.values(PriceType)) {
     if (!prices[priceType]) {
       prices[priceType] = {} as any;
     }
 
-    for (const currency of Object.values(dto.Currency)) {
+    for (const currency of Object.values(Currency)) {
       if (!prices[priceType][currency]) {
         prices[priceType][currency] = {} as any;
       }
 
-      for (const productType of Object.values(dto.ProductType)) {
+      for (const productType of Object.values(ProductType)) {
         const priceArray: dto.Price[] = [];
         for (let i = 0; i < 5; i++) {
           priceArray.push(createPrice(stripePrice));

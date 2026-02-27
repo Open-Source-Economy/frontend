@@ -37,19 +37,22 @@ export function HelpText(props: HelpTextProps) {
                 {props.learnMoreText}
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-brand-secondary-dark border border-brand-neutral-300/10 max-w-3xl max-h-[90vh] flex flex-col">
-              {(props.learnMoreTitle || props.learnMoreDescription) && (
-                <DialogHeader>
-                  {props.learnMoreTitle && (
-                    <DialogTitle className="text-brand-neutral-900">{props.learnMoreTitle}</DialogTitle>
-                  )}
-                  {props.learnMoreDescription && (
-                    <DialogDescription className="text-brand-neutral-600">
-                      {props.learnMoreDescription}
-                    </DialogDescription>
-                  )}
-                </DialogHeader>
-              )}
+            <DialogContent
+              className="bg-brand-secondary-dark border border-brand-neutral-300/10 max-w-3xl max-h-[90vh] flex flex-col"
+              {...(!props.learnMoreDescription ? { "aria-describedby": undefined } : {})}
+            >
+              <DialogHeader>
+                {props.learnMoreTitle ? (
+                  <DialogTitle className="text-brand-neutral-900">{props.learnMoreTitle}</DialogTitle>
+                ) : (
+                  <DialogTitle className="sr-only">Learn more</DialogTitle>
+                )}
+                {props.learnMoreDescription && (
+                  <DialogDescription className="text-brand-neutral-600">
+                    {props.learnMoreDescription}
+                  </DialogDescription>
+                )}
+              </DialogHeader>
               <div className="overflow-y-auto pr-2 -mr-2">{props.learnMoreContent}</div>
             </DialogContent>
           </Dialog>

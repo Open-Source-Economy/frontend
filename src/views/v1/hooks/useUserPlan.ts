@@ -1,12 +1,10 @@
 import React from "react";
-import { getBackendAPI } from "src/services";
+import { stripeService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 export function useUserPlan() {
-  const backendAPI = getBackendAPI();
-
   const [userPlan, setUserPlan] = React.useState<dto.GetUserPlanResponse | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
@@ -15,7 +13,7 @@ export function useUserPlan() {
       const params: dto.GetUserPlanParams = {};
       const query: dto.GetUserPlanQuery = {};
 
-      const response = await backendAPI.getUserPlan(params, query);
+      const response = await stripeService.getUserPlan(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

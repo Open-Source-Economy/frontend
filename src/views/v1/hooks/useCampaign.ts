@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackendAPI } from "src/services";
+import { projectService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/ultils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
@@ -8,8 +8,6 @@ import { getCampaignDescription } from "../../../services/data";
 import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
 
 export function useCampaign(projectId: ProjectId) {
-  const backendAPI = getBackendAPI();
-
   const [campaign, setCampaign] = React.useState<(dto.GetCampaignResponse & CampaignDescription) | null>(null);
   const [error, setError] = React.useState<ApiError | null>(null);
 
@@ -21,7 +19,7 @@ export function useCampaign(projectId: ProjectId) {
       };
       const query: dto.GetCampaignQuery = {};
 
-      const response = await backendAPI.getCampaign(params, query);
+      const response = await projectService.getCampaign(params, query);
 
       if (response instanceof ApiError) {
         setError(response);

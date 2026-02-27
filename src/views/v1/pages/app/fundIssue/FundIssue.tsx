@@ -7,7 +7,7 @@ import { Audience } from "src/views/index";
 
 import { AudienceTitle } from "src/views/v1/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 interface FundIssueProps {}
 
@@ -15,7 +15,7 @@ export function FundIssue(_props: FundIssueProps) {
   const audience = Audience.USER;
 
   const { issueId } = useIssueContext();
-  const { data: financialIssue, error: _loadFinancialIssueError } = projectHooks.useFinancialIssueQuery(
+  const { data: financialIssue, error: _loadFinancialIssueError } = fundingHooks.useFinancialIssueQuery(
     { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
     {}
   );

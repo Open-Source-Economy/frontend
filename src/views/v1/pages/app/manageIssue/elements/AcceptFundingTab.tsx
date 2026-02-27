@@ -9,7 +9,7 @@ import {
 } from "@open-source-economy/api-types";
 import { Button } from "src/views/v1/components";
 import { credit } from "src/model";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 interface AcceptFundingTabProps {
   reloadFinancialIssue: () => void;
@@ -22,7 +22,7 @@ export function AcceptFundingTab(props: AcceptFundingTabProps) {
   const [error, setError] = React.useState<string | null>(null);
   const [noRequestedAmount, setNoRequestedAmount] = React.useState(false);
 
-  const requestFundingMutation = projectHooks.useRequestFundingMutation();
+  const requestFundingMutation = fundingHooks.useRequestFundingMutation();
 
   const requestAmount = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

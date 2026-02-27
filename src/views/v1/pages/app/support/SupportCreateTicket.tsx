@@ -14,13 +14,13 @@ import { BaseInput } from "src/views/v1/components/old-form/frames/BaseInput";
 import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
 import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 import { useAuth } from "../../../../auth";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 const SupportCreateTicket = () => {
   const [githubUrl, setGithubUrl] = useState("");
   const [isGithubUrlValid, setIsGithubUrlValid] = useState(true);
   const { issueId } = useIssueContext();
-  const { data: financialIssue } = projectHooks.useFinancialIssueQuery(
+  const { data: financialIssue } = fundingHooks.useFinancialIssueQuery(
     { owner: issueId.repositoryId.ownerId.login, repo: issueId.repositoryId.name, number: issueId.number },
     {}
   );
@@ -35,7 +35,7 @@ const SupportCreateTicket = () => {
   const [_enoughFund, setEnoughFund] = useState<boolean>(true);
   const auth = useAuth();
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+  const { data: availableCreditsResponse } = fundingHooks.useAvailableCreditsQuery(
     {},
     {
       companyId: auth.authInfo?.company?.id,

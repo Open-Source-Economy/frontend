@@ -1,6 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
 
-export * from "./BackendAPI.mock";
 export * from "./AuthBackendAPI.mock";
 export * from "./OnboardingBackendAPI.mock";
 

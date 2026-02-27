@@ -8,7 +8,7 @@ import { CustomPlanCTA } from "./components/CustomPlanCTA";
 import { HowCreditsWorkSection } from "./components/HowCreditsWorkSection";
 import { SubscriptionManagement } from "./components/SubscriptionManagement";
 import { plans as mockPlans, SAVINGS_PERCENTAGE } from "./components/plans-data";
-import { projectHooks } from "src/api";
+import { stripeHooks } from "src/api";
 import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 
 interface PricingPageProps {}
@@ -29,8 +29,8 @@ export function PricingPage(_props: PricingPageProps) {
   const [currentPlanBilling, setCurrentPlanBilling] = useState<PlanPriceType>(PlanPriceType.MONTHLY);
 
   // Real Data Hooks
-  const { data: realPlansData } = projectHooks.usePlansQuery({}, {});
-  const { data: userPlan } = projectHooks.useUserPlanQuery({}, {});
+  const { data: realPlansData } = stripeHooks.usePlansQuery({}, {});
+  const { data: userPlan } = stripeHooks.useUserPlanQuery({}, {});
 
   useEffect(() => {
     if (userPlan) {

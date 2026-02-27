@@ -5,7 +5,7 @@ import type {
   SetPreferredCurrencyQuery,
 } from "@open-source-economy/api-types";
 import type { AuthContextState } from "../views/auth/AuthContext";
-import { backendAPI } from "../services";
+import { stripeService } from "../services";
 import { currencyCookie } from "../cookies";
 
 export const PreferredCurrency = {
@@ -24,7 +24,7 @@ export const PreferredCurrency = {
       const body: SetPreferredCurrencyBody = {};
       const query: SetPreferredCurrencyQuery = {};
 
-      backendAPI.setUserPreferredCurrency(params, body, query).then(() => {
+      stripeService.setUserPreferredCurrency(params, body, query).then(() => {
         window.location.reload();
       });
     } else {

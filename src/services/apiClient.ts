@@ -62,10 +62,7 @@ const createApiInstance = () => {
   return instance;
 };
 
-export async function handleError<T>(
-  call: () => Promise<AxiosResponse<T, any>>,
-  name: string
-): Promise<T> {
+export async function handleError<T>(call: () => Promise<AxiosResponse<T, any>>, name: string): Promise<T> {
   try {
     const response: AxiosResponse<T, any> = await call();
     return response.data;

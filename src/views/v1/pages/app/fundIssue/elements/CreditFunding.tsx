@@ -9,7 +9,7 @@ import { useAuth } from "src/views/auth/AuthContext";
 import { Audience } from "src/views/index";
 import { Link } from "@tanstack/react-router";
 import { paths } from "../../../../../../paths";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 
 interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
@@ -24,9 +24,9 @@ export function CreditFunding(props: CreditFundingProps) {
   const [enoughFund, setEnoughFund] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | string | null>(null);
 
-  const fundIssueMutation = projectHooks.useFundIssueMutation();
+  const fundIssueMutation = fundingHooks.useFundIssueMutation();
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+  const { data: availableCreditsResponse } = fundingHooks.useAvailableCreditsQuery(
     {},
     {
       companyId: auth.authInfo?.company?.id,

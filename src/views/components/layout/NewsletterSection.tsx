@@ -4,7 +4,7 @@ import { Alert, AlertDescription } from "../ui/state/alert";
 import { CheckCircle2, Loader2, Mail } from "lucide-react";
 import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
 import { ApiError } from "src/ultils/error/ApiError";
-import { stripeHooks } from "src/api";
+import { communicationHooks } from "src/api";
 import { useZodForm, Form, RhfFormInput } from "../ui/forms/rhf";
 import { newsletterFormSchema, type NewsletterFormData } from "../ui/forms/schemas";
 
@@ -17,7 +17,7 @@ export function NewsletterSection(_props: NewsletterSectionProps) {
     defaultValues: { email: "" },
   });
 
-  const newsletterMutation = stripeHooks.useSubscribeToNewsletterMutation();
+  const newsletterMutation = communicationHooks.useSubscribeToNewsletterMutation();
   const error = newsletterMutation.error
     ? newsletterMutation.error instanceof ApiError
       ? newsletterMutation.error

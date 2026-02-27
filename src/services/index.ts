@@ -6,7 +6,10 @@
  */
 export * from "./apiClient";
 export * from "./AuthBackendAPI";
-export * from "./BackendAPI";
 export * from "./OnboardingBackendAPI";
 export * from "./AdminBackendAPI";
+export * from "./project.service";
+export * from "./funding.service";
+export * from "./stripe.service";
+export * from "./communication.service";
 export * from "./getAPI";

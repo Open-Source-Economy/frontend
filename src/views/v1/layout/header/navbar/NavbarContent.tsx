@@ -11,7 +11,7 @@ import { NavbarItem } from "./item/NavbarItem";
 import { Nav } from "react-bootstrap";
 import { paths } from "src/paths";
 import { Navigation, type NavItemData } from "./item/NavItemData";
-import { projectHooks } from "src/api";
+import { fundingHooks } from "src/api";
 import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";
 
@@ -27,7 +27,7 @@ interface AppNavbarProps {
 export function NavbarContent(props: AppNavbarProps) {
   const auth = useAuth();
 
-  const { data: availableCreditsResponse } = projectHooks.useAvailableCreditsQuery(
+  const { data: availableCreditsResponse } = fundingHooks.useAvailableCreditsQuery(
     {},
     {
       companyId: auth.authInfo?.company?.id,

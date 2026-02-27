@@ -1,6 +1,6 @@
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { contactFormSchema, type ContactFormData } from "src/views/components/ui/forms/schemas";
-import { stripeHooks } from "src/api";
+import { communicationHooks } from "src/api";
 import { useState } from "react";
 import { scrollToFirstError } from "../helpers/validationHelpers";
 
@@ -21,7 +21,7 @@ export const useContactForm = (initialContactReason: string) => {
     },
   });
 
-  const contactMutation = stripeHooks.useSubmitContactFormMutation();
+  const contactMutation = communicationHooks.useSubmitContactFormMutation();
   const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
   const isSubmitting = contactMutation.isPending;
 
