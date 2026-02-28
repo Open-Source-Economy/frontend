@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +8,7 @@ import {
 } from "src/views/components/ui/dialog";
 import { DollarSign, TrendingUp, Users } from "lucide-react";
 
-export const PricingStructureDialog: React.FC = () => {
+export function PricingStructureDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -140,4 +139,4 @@ export const PricingStructureDialog: React.FC = () => {
       </DialogContent>
     </Dialog>
   );
-};
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { MessageSquare, Plus } from "lucide-react";
 
@@ -7,7 +6,9 @@ interface EmptyServicesStateProps {
   isMaybeLater?: boolean;
 }
 
-export const EmptyServicesState: React.FC<EmptyServicesStateProps> = ({ onAddService, isMaybeLater = false }) => {
+export function EmptyServicesState(props: EmptyServicesStateProps) {
+  const isMaybeLater = props.isMaybeLater ?? false;
+
   return (
     <div className="text-center py-16 rounded-xl border border-brand-neutral-300/30 max-w-4xl">
       <div className="max-w-md mx-auto space-y-4">
@@ -34,7 +35,7 @@ export const EmptyServicesState: React.FC<EmptyServicesStateProps> = ({ onAddSer
           </p>
         </div>
         <Button
-          onClick={onAddService}
+          onClick={props.onAddService}
           className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white mt-4"
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -43,4 +44,4 @@ export const EmptyServicesState: React.FC<EmptyServicesStateProps> = ({ onAddSer
       </div>
     </div>
   );
-};
+}

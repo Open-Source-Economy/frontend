@@ -5,7 +5,7 @@ import { Approved } from "src/views/v1/components/issue/Approved";
 import { Action } from "src/views/v1/components/issue/Action";
 import { Audience } from "../../../Audience";
 import { credit } from "../../../../model";
-import { FinancialIssueCompanion } from "src/ultils/companions";
+import { FinancialIssueCompanion } from "src/utils/companions";
 
 interface IssueProps {
   financialIssue: model.FinancialIssue;

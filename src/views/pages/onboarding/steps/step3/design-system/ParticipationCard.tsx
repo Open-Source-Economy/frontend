@@ -1,4 +1,3 @@
-import React from "react";
 import { LucideIcon } from "lucide-react";
 import { PreferenceType } from "@open-source-economy/api-types";
 import { ParticipationSelectionButtons } from "./ParticipationSelectionButtons";
@@ -36,11 +35,11 @@ const _LAYOUT = {
  * ParticipationCard - Unified reusable card component for all participation options
  * Based on the Community Supporter card layout
  */
-export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, selectedState, onSelect, hasError }) => {
-  const { title, description, icon: Icon, features, colorScheme } = config;
+export function ParticipationCard(props: ParticipationCardProps) {
+  const { title, description, icon: Icon, features, colorScheme } = props.config;
   const { primary, primaryDark } = colorScheme;
 
-  const _isSelected = selectedState === PreferenceType.YES;
+  const _isSelected = props.selectedState === PreferenceType.YES;
 
   // DRY: Helper functions for dynamic classes
   const getPrimaryClasses = (opacity?: string) => `text-${primary}${opacity ? `/${opacity}` : ""}`;
@@ -56,7 +55,7 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
       className={`
         group relative w-full rounded-2xl border transition-all duration-300 overflow-hidden
         ${
-          hasError
+          props.hasError
             ? "border-brand-error/50 bg-brand-error/5 hover:border-brand-error/70"
             : "border-brand-neutral-300/10 bg-brand-card-blue/30 hover:border-brand-accent/50"
         }
@@ -100,12 +99,12 @@ export const ParticipationCard: React.FC<ParticipationCardProps> = ({ config, se
 
         {/* Selection Buttons */}
         <div className="pt-6 border-t border-brand-neutral-300/20">
-          <ParticipationSelectionButtons selectedState={selectedState} onSelect={onSelect} />
-          {hasError && !selectedState && (
-            <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>
+          <ParticipationSelectionButtons selectedState={props.selectedState} onSelect={props.onSelect} />
+          {props.hasError && !props.selectedState && (
+            <p className="text-sm text-brand-error mt-4 text-center">{props.config.errorMessage}</p>
           )}
         </div>
       </div>
     </div>
   );
-};
+}

@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "../pages/authenticate/AuthContext";
 import { UserRole } from "@open-source-economy/api-types";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { PageNotFound } from "../pages/PageNotFound";
 import { PageLoader } from "src/views/v1/components/common/PageLoader";
-import { paths } from "../../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
@@ -51,7 +50,7 @@ export function SuperAdminRoutes() {
       <Outlet />
     ) : (
       <Navigate
-        to={paths.AUTH.IDENTIFY as string}
+        to={"/auth/identify" as string}
         search={{ repository_token: undefined, company_token: undefined, email: undefined }}
       />
     ); // TODO: add  404 page

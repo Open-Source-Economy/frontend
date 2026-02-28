@@ -1,5 +1,5 @@
 import { CampaignDescription } from "src/model";
-import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../ultils/Icons";
+import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../utils/Icons";
 import React from "react";
 
 export const openSourceEconomyCampaignDescription: CampaignDescription = {

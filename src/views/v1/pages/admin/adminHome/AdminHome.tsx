@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { paths } from "src/paths";
 
 export function AdminHome() {
   return (
@@ -10,85 +9,82 @@ export function AdminHome() {
         <h1 className="text-white text-3xl font-semibold mb-8 mt-12">Admin Dashboard</h1>
 
         <div className="flex flex-col gap-4">
-          <Link
-            to={paths.ADMIN.CREATE_PROJECT}
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
-          >
+          <Link to="/admin/project" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center">
             Add Project
           </Link>
 
           <Link
-            to={paths.ADMIN.INVITE_COMPANY_USER}
+            to="/admin/invite-company-user"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Invite Company User
           </Link>
 
           <Link
-            to={paths.ADMIN.INVITE_REPOSITORY_USER}
+            to="/admin/invite-repository-user"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Invite Repository User
           </Link>
 
           <Link
-            to={paths.ADMIN.CREATE_COMPANY}
+            to="/admin/create-company"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Create Company
           </Link>
 
           <Link
-            to={paths.ADMIN.CREATE_ADDRESS}
+            to="/admin/create-address"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Create Address
           </Link>
 
           <Link
-            to={paths.ADMIN.CREATE_MANUAL_INVOICE}
+            to="/admin/create-manual-invoice"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Create Manual Invoice
           </Link>
 
           <Link
-            to={paths.ADMIN.CREATE_CAMPAIGN_PRODUCT_AND_PRICE}
+            to="/admin/campaign/create-product-and-price"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Create Campaign Product & Price
           </Link>
 
           <Link
-            to={paths.ADMIN.CREATE_PLAN_PRODUCT_AND_PRICE}
+            to="/admin/plan/create-product-and-price"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Create Plan Product & Price
           </Link>
 
           <Link
-            to={paths.ADMIN.MAINTAINERS}
+            to="/admin/maintainers"
             className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded text-center"
           >
             View Maintainers
           </Link>
 
           <Link
-            to={paths.ADMIN.ORGANIZATION_SYNC}
+            to="/admin/organizations/sync"
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center"
           >
             Sync Owner Repositories
           </Link>
 
           <Link
-            to={paths.ADMIN.REPOSITORY_SYNC}
+            to="/admin/repositories/sync"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center"
           >
             Sync Repositories
           </Link>
 
           <Link
-            to={paths.ADMIN.SYNC_GITHUB}
+            to={"/admin/sync-github" as string}
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center"
           >
             Sync GitHub Data

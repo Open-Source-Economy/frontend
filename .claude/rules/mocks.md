@@ -37,7 +37,7 @@ export class BackendAPIMock implements BackendAPI {
 Centralized in `src/services/getAPI.ts`:
 
 ```typescript
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { type BackendAPI, BackendAPIImpl } from "./BackendAPI";
 import { BackendAPIMock } from "src/__mocks__/BackendAPI.mock";
 

@@ -34,13 +34,13 @@ export const useContactForm = (initialContactReason: string) => {
     const current = form.getValues("projects");
     form.setValue(
       "projects",
-      current.filter((_: any, i: number) => i !== index)
+      current.filter((_, i) => i !== index)
     );
   };
 
   const updateProject = (index: number, field: "url" | "role", value: string) => {
     const current = form.getValues("projects");
-    const updated = current.map((project: any, i: number) => (i === index ? { ...project, [field]: value } : project));
+    const updated = current.map((project, i) => (i === index ? { ...project, [field]: value } : project));
     form.setValue("projects", updated);
     // Clear project errors when user types
     if (form.formState.errors.projects) {

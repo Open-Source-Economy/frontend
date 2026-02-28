@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { projectService } from "src/services";
 import { SponsorDescription } from "../../../model";
 import {
@@ -8,7 +8,7 @@ import {
   getRepoFromProjectId,
   GetSponsorsParams,
   GetSponsorsQuery,
-} from "src/ultils/local-types";
+} from "src/utils/local-types";
 
 export function useSponsors(projectId: ProjectId) {
   const [sponsors, setSponsors] = useState<SponsorDescription[] | null>(null);

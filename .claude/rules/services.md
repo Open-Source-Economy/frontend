@@ -16,7 +16,7 @@ Each feature service has its own interface and implementation:
 ```typescript
 import * as dto from "@open-source-economy/api-types";
 import { api, handleError, projectPath } from "./apiClient";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 export interface ProjectService {
   getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse>;
@@ -41,7 +41,7 @@ Consumers import the singleton directly — no factory calls needed.
 
 ```typescript
 // src/services/getAPI.ts
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { type ProjectService, projectServiceImpl } from "./project.service";
 import { projectServiceMock } from "src/__mocks__/project.service.mock";
 
@@ -69,7 +69,7 @@ export const projectServiceMock: ProjectService = {
 Services throw `ApiError`, not plain `Error`:
 
 ```typescript
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 
 // In handleError wrapper (src/services/apiClient.ts)

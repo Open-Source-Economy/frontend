@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
 import { handleError, projectPath } from "./apiClient";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 // TODO: re-add when available in api-types
 export interface CreateAddressBody {

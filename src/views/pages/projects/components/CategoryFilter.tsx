@@ -1,7 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 import { ProjectCategory } from "@open-source-economy/api-types";
-import { ProjectCategoryCompanion } from "src/ultils/companions";
+import { ProjectCategoryCompanion } from "src/utils/companions";
 
 interface CategoryFilterProps {
   selectedCategory: ProjectCategory | null;

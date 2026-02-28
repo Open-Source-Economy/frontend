@@ -1,6 +1,6 @@
 import React from "react";
 import { fundingService } from "src/services";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
 import { AuthContextState } from "../pages/authenticate/AuthContext";

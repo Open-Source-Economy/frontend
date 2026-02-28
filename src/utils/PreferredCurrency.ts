@@ -4,7 +4,7 @@ import type {
   SetPreferredCurrencyParams,
   SetPreferredCurrencyQuery,
 } from "@open-source-economy/api-types";
-import type { AuthContextState } from "../views/auth/AuthContext";
+import type { AuthContextState } from "src/types/auth";
 import { stripeService } from "../services";
 import { currencyCookie } from "../cookies";
 

@@ -2,7 +2,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { CustomPlanBanner, PricingTable } from "./elements";
 import { useState } from "react";
 import backdropSVG from "src/assets/v1/backdrop.svg";
-import { config, Env } from "../../../../../ultils";
+import { config, Env } from "../../../../../utils";
 
 interface PricingProps {}
 

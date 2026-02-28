@@ -1,4 +1,3 @@
-import React from "react";
 import { ArrowRight, CheckCircle2, Handshake, Heart, Zap } from "lucide-react";
 import { ParticipationFeatureItem } from "./ParticipationFeatureItem";
 
@@ -7,39 +6,39 @@ interface CommonPotParticipantCardProps {
   onSelect: () => void;
 }
 
-export const CommonPotParticipantCard: React.FC<CommonPotParticipantCardProps> = ({ isSelected, onSelect }) => {
+export function CommonPotParticipantCard(props: CommonPotParticipantCardProps) {
   return (
     <div className="max-w-2xl mx-auto relative group">
       {/* Glowing background effect - Visible when selected or hovered */}
       <div
         className={`absolute -inset-1 bg-gradient-to-r from-brand-highlight/30 via-brand-warning/20 to-brand-highlight/30 rounded-2xl blur-2xl transition-opacity duration-300 ${
-          isSelected ? "opacity-60" : "opacity-0 group-hover:opacity-60"
+          props.isSelected ? "opacity-60" : "opacity-0 group-hover:opacity-60"
         }`}
       />
 
       <button
-        onClick={onSelect}
+        onClick={props.onSelect}
         className={`relative w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 ${
-          isSelected
+          props.isSelected
             ? "border-brand-highlight bg-gradient-to-br from-brand-card-blue via-brand-secondary to-brand-card-blue-dark shadow-2xl shadow-brand-highlight/40 scale-[1.02]"
             : "border-brand-neutral-300/20 bg-brand-secondary/40 group-hover:border-brand-highlight/50 group-hover:shadow-xl group-hover:shadow-brand-highlight/20 group-hover:scale-[1.01]"
         }`}
       >
         {/* Radio Button Style Indicator + Selected Badge */}
         <div className="absolute top-6 right-6 flex items-center gap-3">
-          {isSelected && (
+          {props.isSelected && (
             <div className="bg-brand-highlight text-white px-3 py-1 rounded-full text-xs animate-in fade-in slide-in-from-right-2 duration-300">
               ✓ Selected
             </div>
           )}
           <div
             className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
-              isSelected
+              props.isSelected
                 ? "border-brand-highlight bg-brand-highlight shadow-lg shadow-brand-highlight/50"
                 : "border-brand-neutral-400 bg-transparent"
             }`}
           >
-            {isSelected && <CheckCircle2 className="w-4 h-4 text-white" />}
+            {props.isSelected && <CheckCircle2 className="w-4 h-4 text-white" />}
           </div>
         </div>
         <div className="flex items-start gap-4">
@@ -93,4 +92,4 @@ export const CommonPotParticipantCard: React.FC<CommonPotParticipantCardProps> =
       </button>
     </div>
   );
-};
+}

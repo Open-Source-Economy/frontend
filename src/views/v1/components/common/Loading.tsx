@@ -1,7 +1,6 @@
-import React from "react";
 import loader from "src/assets/v1/loader.png";
 import whoBuiltHero from "src/assets/v1/hero-bg.webp";
-import { MascotIcon } from "src/ultils/Icons";
+import { MascotIcon } from "src/utils/Icons";
 
 interface LoadingProps {
   message?: string;
@@ -12,14 +11,13 @@ interface LoadingProps {
   width?: string;
 }
 
-const Loading: React.FC<LoadingProps> = ({
-  message,
-  className = "",
-  textSize = "",
-  type = "page",
-  height = "auto",
-  width = "auto",
-}) => {
+function Loading(props: LoadingProps) {
+  const className = props.className ?? "";
+  const textSize = props.textSize ?? "";
+  const type = props.type ?? "page";
+  const height = props.height ?? "auto";
+  const width = props.width ?? "auto";
+
   return type === "page" ? (
     // Page Loading Layout
     <div className="max-w-[800px] w-full flex relative p-3 h-full max-h-[793px] flex-col justify-center items-center">
@@ -37,9 +35,9 @@ const Loading: React.FC<LoadingProps> = ({
         />
       </div>
 
-      {message && (
+      {props.message && (
         <h4 className={`${textSize} text-lg sm:text-xl md:text-2xl mt-[7%] xl:mt-[9%] text-center z-10 font-michroma`}>
-          {message}
+          {props.message}
         </h4>
       )}
     </div>
@@ -56,10 +54,12 @@ const Loading: React.FC<LoadingProps> = ({
           <MascotIcon className="max-w-16 w-full sm:max-w-20" />
           <img src={loader} alt="Loading" className="-mt-4" />
         </div>
-        {message && <h4 className={`${textSize} text-base text-center relative z-10 font-michroma mt-2`}>{message}</h4>}
+        {props.message && (
+          <h4 className={`${textSize} text-base text-center relative z-10 font-michroma mt-2`}>{props.message}</h4>
+        )}
       </div>
     </div>
   );
-};
+}
 
 export default Loading;

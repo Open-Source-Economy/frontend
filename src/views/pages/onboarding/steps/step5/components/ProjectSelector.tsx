@@ -1,7 +1,7 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { Check, Search, X } from "lucide-react";
-import { SourceIdentifierCompanion } from "src/ultils/companions";
+import { SourceIdentifierCompanion } from "src/utils/companions";
 
 interface ProjectSelectorProps {
   projects: dto.DeveloperProjectItemEntry[];
@@ -9,12 +9,12 @@ interface ProjectSelectorProps {
   onChange: (selectedIds: dto.DeveloperProjectItemId[]) => void;
 }
 
-export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, selectedIds, onChange }) => {
+export function ProjectSelector(props: ProjectSelectorProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [showDropdown, setShowDropdown] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
-  const safeProjects = projects || [];
-  const safeSelectedIds = selectedIds || [];
+  const safeProjects = props.projects || [];
+  const safeSelectedIds = props.selectedIds || [];
 
   // Close dropdown when clicking outside
   React.useEffect(() => {
@@ -63,9 +63,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
   const toggleProject = (projectId: dto.DeveloperProjectItemId) => {
     const exists = safeSelectedIds.some((id) => id === projectId);
     if (exists) {
-      onChange(safeSelectedIds.filter((id) => id !== projectId));
+      props.onChange(safeSelectedIds.filter((id) => id !== projectId));
     } else {
-      onChange([...safeSelectedIds, projectId]);
+      props.onChange([...safeSelectedIds, projectId]);
     }
   };
 
@@ -76,9 +76,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
 
   const toggleAll = () => {
     if (allProjectsSelected) {
-      onChange([]);
+      props.onChange([]);
     } else {
-      onChange(safeProjects.map((p) => p.developerProjectItem.id));
+      props.onChange(safeProjects.map((p) => p.developerProjectItem.id));
     }
     setShowDropdown(false);
   };
@@ -235,4 +235,4 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects, sele
       )}
     </div>
   );
-};
+}

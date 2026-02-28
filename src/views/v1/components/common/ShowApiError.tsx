@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiError } from "../../../../ultils/error/ApiError";
+import { ApiError } from "../../../../utils/error/ApiError";
 import cat from "../../../../assets/v1/catimg.png";
 import { IoCloseOutline } from "react-icons/io5";
 

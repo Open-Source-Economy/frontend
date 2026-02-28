@@ -5,7 +5,7 @@ import bgimage2 from "src/assets/v1/issuebg2.png";
 import bgimage3 from "src/assets/v1/issuebg3.png";
 import { IssueCard } from "src/views/v1/components/issue";
 import { SolveIssueOnGithub } from "src/views/v1/pages/app/manageIssue/elements/SolveIssueOnGithub";
-import { FinancialIssueCompanion } from "src/ultils/companions";
+import { FinancialIssueCompanion } from "src/utils/companions";
 import { ManageTab } from "src/views/v1/pages/app/manageIssue/elements/ManageTab";
 import { RejectFundingTab } from "src/views/v1/pages/app/manageIssue/elements/RejectFundingTab";
 import { AcceptFundingTab } from "src/views/v1/pages/app/manageIssue/elements";
@@ -14,7 +14,7 @@ import { Audience } from "src/views/index";
 import { AudienceTitle } from "src/views/v1/components";
 import { useIssueContext } from "../../../layout/IssueRoutes";
 import { ShowApiError } from "../../../components/common/ShowApiError";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { fundingHooks } from "src/api";
 
 interface ManageIssueProps {}

@@ -8,7 +8,7 @@ import {
   MergeRightsType,
   ProjectItemType,
 } from "@open-source-economy/api-types";
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
+import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/utils/companions";
 
 export interface ProjectDisplayData {
   id: string;

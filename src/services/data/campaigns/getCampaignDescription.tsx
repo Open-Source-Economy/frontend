@@ -1,5 +1,5 @@
 import { CampaignDescription } from "src/model";
-import { type ProjectId, isRepositoryId, isOwnerId } from "src/ultils/local-types";
+import { type ProjectId, isRepositoryId, isOwnerId } from "src/utils/local-types";
 import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
 import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";
 import { flockCampaignDescription } from "./flockCampaignDescription";

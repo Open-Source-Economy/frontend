@@ -3,7 +3,7 @@ import { Button } from "../ui/forms/button";
 import { Alert, AlertDescription } from "../ui/state/alert";
 import { CheckCircle2, Loader2, Mail } from "lucide-react";
 import { ServerErrorAlert } from "../ui/state/ServerErrorAlert";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { communicationHooks } from "src/api";
 import { useZodForm, Form, RhfFormInput } from "../ui/forms/rhf";
 import { newsletterFormSchema, type NewsletterFormData } from "../ui/forms/schemas";

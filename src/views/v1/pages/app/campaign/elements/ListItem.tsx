@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import { CheckIcon } from "src/ultils/Icons";
+import { CheckIcon } from "src/utils/Icons";
 
 interface ListItemProps {
   children: string | ReactNode;

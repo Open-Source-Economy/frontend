@@ -1,7 +1,6 @@
-import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { ServiceTypeCompanion } from "src/ultils/companions";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { ServiceTypeCompanion } from "src/utils/companions";
+import { SourceIdentifier } from "src/utils/local-types";
 import { GroupedDeveloperServiceEntry } from "../utils";
 import { ServiceCard } from "./ServiceCard";
 import { Rate } from "../types";
@@ -18,23 +17,13 @@ interface ServiceCategorySectionProps {
   showError?: boolean;
 }
 
-export const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({
-  groupedEntry,
-  sourceIdentifiers,
-  defaultRate,
-  onSelectProjects,
-  onRemoveDeveloperService,
-  onEditDeveloperService,
-  showAddCustomService,
-  onAddCustomService: _onAddCustomService,
-  showError,
-}) => {
-  const serviceTypeInfo = ServiceTypeCompanion.info(groupedEntry.category);
+export function ServiceCategorySection(props: ServiceCategorySectionProps) {
+  const serviceTypeInfo = ServiceTypeCompanion.info(props.groupedEntry.category);
   const Icon = serviceTypeInfo.icon;
-  const entries = groupedEntry.developerServices || [];
+  const entries = props.groupedEntry.developerServices || [];
 
   // Don't render if no services and no custom service button
-  if (entries.length === 0 && !showAddCustomService) {
+  if (entries.length === 0 && !props.showAddCustomService) {
     return null;
   }
 
@@ -59,15 +48,15 @@ export const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({
           <ServiceCard
             key={entry.service.id}
             developerServiceEntry={entry}
-            sourceIdentifiers={sourceIdentifiers}
-            defaultRate={defaultRate}
-            onSelectProjects={onSelectProjects}
-            onRemoveDeveloperService={onRemoveDeveloperService}
-            onEditDeveloperService={onEditDeveloperService}
-            showError={showError}
+            sourceIdentifiers={props.sourceIdentifiers}
+            defaultRate={props.defaultRate}
+            onSelectProjects={props.onSelectProjects}
+            onRemoveDeveloperService={props.onRemoveDeveloperService}
+            onEditDeveloperService={props.onEditDeveloperService}
+            showError={props.showError}
           />
         ))}
       </div>
     </div>
   );
-};
+}

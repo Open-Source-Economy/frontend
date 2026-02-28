@@ -2,7 +2,7 @@ import happyCat from "../../../assets/v1/cats/happy-cat.svg";
 import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
 import helloCat from "../../../assets/v1/cats/hello-cat.svg";
 import normalCat from "../../../assets/v1/cats/normal-cat.svg";
-import { Maintainer } from "src/ultils/local-types";
+import { Maintainer } from "src/utils/local-types";
 
 const raboof: Maintainer = {
   displayName: "Arnout Engelen",

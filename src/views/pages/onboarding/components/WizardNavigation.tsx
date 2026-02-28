@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Save } from "lucide-react";
-import { paths } from "../../../../paths";
 
 interface WizardNavigationProps {
   currentStep: number;
@@ -14,16 +12,9 @@ interface WizardNavigationProps {
   onNavItemClick?: (item: string) => void;
 }
 
-export const WizardNavigation: React.FC<WizardNavigationProps> = ({
-  currentStep,
-  totalSteps,
-  isSaving = false,
-  lastSaved = null,
-  onBack,
-  onCancel,
-  onNext,
-  onNavItemClick: _onNavItemClick,
-}) => {
+export function WizardNavigation(props: WizardNavigationProps) {
+  const isSaving = props.isSaving ?? false;
+  const lastSaved = props.lastSaved ?? null;
   return (
     <>
       {/* Navigation - Inside content area */}
@@ -49,9 +40,9 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
           {/* Back / Cancel */}
           <div className="order-2 sm:order-1">
-            {currentStep > 1 ? (
+            {props.currentStep > 1 ? (
               <button
-                onClick={onBack}
+                onClick={props.onBack}
                 className="w-full sm:w-auto flex items-center gap-2 px-4 py-2 text-brand-neutral-700 hover:text-brand-neutral-900 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -59,7 +50,7 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
               </button>
             ) : (
               <button
-                onClick={onCancel}
+                onClick={props.onCancel}
                 className="w-full sm:w-auto px-4 py-2 text-brand-neutral-600 hover:text-brand-neutral-800 transition-colors"
               >
                 Cancel
@@ -84,12 +75,12 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
 
             {/* Next button */}
             <button
-              onClick={onNext}
+              onClick={props.onNext}
               disabled={isSaving}
               className="w-full sm:w-auto bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark text-white shadow-lg hover:shadow-xl px-6 py-2 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="flex items-center justify-center gap-2">
-                {currentStep === totalSteps ? "Submit" : "Continue"}
+                {props.currentStep === props.totalSteps ? "Submit" : "Continue"}
                 <ArrowRight className="w-4 h-4" />
               </span>
             </button>
@@ -100,7 +91,7 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
         <div className="mt-6">
           <p className="text-xs sm:text-sm text-brand-neutral-600 text-center">
             Need help? {/*<Link */}
-            {/*  to={paths.FAQ} */}
+            {/*  to="/faq" */}
             {/*  target="_blank" */}
             {/*  rel="noopener noreferrer" */}
             {/*  className="text-brand-accent hover:text-brand-accent-dark font-medium"*/}
@@ -109,7 +100,8 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
             {/*</Link>{" "}*/}
             {/*or{" "}*/}
             <Link
-              to={paths.CONTACT}
+              to="/contact"
+              search={{ reason: undefined }}
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-accent hover:text-brand-accent-dark font-medium"
@@ -121,4 +113,4 @@ export const WizardNavigation: React.FC<WizardNavigationProps> = ({
       </div>
     </>
   );
-};
+}

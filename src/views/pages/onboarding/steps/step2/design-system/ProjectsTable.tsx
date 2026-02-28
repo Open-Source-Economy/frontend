@@ -9,7 +9,7 @@ import {
   getRoleLabel,
   isGitHubProject,
 } from "../adapters";
-import { MergeRightsTypeCompanion, ProjectCategoryCompanion } from "src/ultils/companions";
+import { MergeRightsTypeCompanion, ProjectCategoryCompanion } from "src/utils/companions";
 import { Chip } from "src/views/components/ui/chip";
 
 interface ProjectsTableProps {

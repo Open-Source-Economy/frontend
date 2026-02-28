@@ -1,16 +1,7 @@
 import { createContext, useContext } from "react";
-import { ApiError } from "src/ultils/error/ApiError";
-import * as dto from "@open-source-economy/api-types";
+import type { AuthContextState } from "src/types/auth";
 
-export interface AuthContextState {
-  loading: boolean;
-  authInfo: dto.AuthenticatedUser | null;
-  error: ApiError | null;
-  login: (body: dto.LoginBody, query: dto.LoginQuery, successCallback?: () => void) => void;
-  logout: () => void;
-  loginWithGitHub: () => void;
-  register: (body: dto.RegisterBody, query: dto.RegisterQuery, successCallback?: () => void) => void;
-}
+export type { AuthContextState };
 
 export const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 

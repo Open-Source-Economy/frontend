@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiError } from "../../../../ultils/error/ApiError";
+import { ApiError } from "../../../../utils/error/ApiError";
 import { ShowApiError } from "./ShowApiError";
 
 interface ErrorModalProps {

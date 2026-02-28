@@ -11,12 +11,12 @@ import {
   Currency,
   Price,
 } from "@open-source-economy/api-types";
-import { type ProjectId } from "src/ultils/local-types";
+import { type ProjectId } from "src/utils/local-types";
 import { PaymentHeader } from "./PaymentHeader";
 import { displayedCurrencies } from "src/views/v1/data";
-import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { config, Env } from "../../../../../../../ultils";
-import { NumberUtils } from "../../../../../../../ultils/NumberUtils";
+import { ApiError } from "../../../../../../../utils/error/ApiError";
+import { config, Env } from "../../../../../../../utils";
+import { NumberUtils } from "../../../../../../../utils/NumberUtils";
 import { stripeHooks } from "src/api";
 
 interface PaymentControlsProps {

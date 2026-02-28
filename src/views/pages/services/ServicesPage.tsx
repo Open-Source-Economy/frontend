@@ -7,7 +7,7 @@ import { ServiceColumn } from "../../components/patterns/ServiceColumn";
 import { ServicesHeroSection } from "../../components/services/sections/ServicesHeroSection";
 import { EnterpriseAddonsSection } from "../../components/services/sections/EnterpriseAddonsSection";
 import { SectionHeader } from "../../components/ui/section/section-header";
-import { paths } from "../../../paths";
+
 import {
   AlertTriangle,
   ArrowRight,
@@ -211,13 +211,13 @@ export function ServicesPage() {
                   />
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2">
-                    <Link to={paths.CONTACT}>
+                    <Link to="/contact" search={{ reason: undefined }}>
                       <Button size="lg" rightIcon={ArrowRight}>
                         Get Started Today
                       </Button>
                     </Link>
 
-                    <Link to={paths.PROJECTS}>
+                    <Link to="/projects">
                       <Button size="lg" variant="outline" leftIcon={Package}>
                         Browse Projects
                       </Button>

@@ -1,26 +1,29 @@
 import { colorWithAlpha } from "./colorUtils";
-import type { Sponsor } from "./types";
+import { SponsorTierName, type Sponsor } from "./types";
 
 interface SponsorTaglineProps {
   sponsor: Sponsor;
 }
 
-export const SponsorTagline: React.FC<SponsorTaglineProps> = ({ sponsor }) => {
-  if (!sponsor.tagline || (sponsor.tier !== "Platinum" && sponsor.tier !== "Gold")) {
+export function SponsorTagline(props: SponsorTaglineProps) {
+  if (
+    !props.sponsor.tagline ||
+    (props.sponsor.tier !== SponsorTierName.Platinum && props.sponsor.tier !== SponsorTierName.Gold)
+  ) {
     return null;
   }
 
-  if (sponsor.tier === "Platinum") {
+  if (props.sponsor.tier === SponsorTierName.Platinum) {
     return (
       <div className="w-full flex justify-center">
         <p
           className="text-sm italic text-center px-4 py-2 rounded-lg"
           style={{
-            background: `linear-gradient(90deg, transparent, ${colorWithAlpha(sponsor.accentColor, 0.063)}, transparent)`,
-            color: sponsor.accentColor,
+            background: `linear-gradient(90deg, transparent, ${colorWithAlpha(props.sponsor.accentColor, 0.063)}, transparent)`,
+            color: props.sponsor.accentColor,
           }}
         >
-          {sponsor.tagline}
+          {props.sponsor.tagline}
         </p>
       </div>
     );
@@ -28,7 +31,7 @@ export const SponsorTagline: React.FC<SponsorTaglineProps> = ({ sponsor }) => {
 
   return (
     <div className="w-full flex justify-center">
-      <p className="text-xs italic text-brand-neutral-600 text-center px-2">{sponsor.tagline}</p>
+      <p className="text-xs italic text-brand-neutral-600 text-center px-2">{props.sponsor.tagline}</p>
     </div>
   );
-};
+}

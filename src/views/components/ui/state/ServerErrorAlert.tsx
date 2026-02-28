@@ -1,7 +1,7 @@
 import React from "react";
 import { AlertCircle, Code, RefreshCw, X } from "lucide-react";
-import { ApiError } from "src/ultils/error/ApiError";
-import { config, Env } from "src/ultils";
+import { ApiError } from "src/utils/error/ApiError";
+import { config, Env } from "src/utils";
 
 export interface ServerErrorAlertProps {
   /** Error object to display - accepts ApiError or string for backwards compatibility */

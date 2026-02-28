@@ -5,7 +5,7 @@
  * For RHF-based forms, use Zod schemas from `./schemas/form-schemas.ts` instead.
  */
 
-import { GithubUrls } from "src/ultils/GithubUrls";
+import { GithubUrls } from "src/utils/GithubUrls";
 import { ValidationError } from "./validation-requirements";
 
 /**

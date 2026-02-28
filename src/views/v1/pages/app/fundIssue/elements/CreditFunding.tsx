@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { Button } from "src/views/v1/components";
 import { FundIssueBody, FundIssueParams, FundIssueQuery, IssueId } from "@open-source-economy/api-types";
 import { credit, Credit, CreditUnit } from "src/model";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { useCreditCounter } from "src/views/v1/hooks";
 import { useAuth } from "src/views/auth/AuthContext";
 import { Audience } from "src/views/index";
 import { Link } from "@tanstack/react-router";
-import { paths } from "../../../../../../paths";
 import { fundingHooks } from "src/api";
 
 interface CreditFundingProps {
@@ -73,7 +72,7 @@ export function CreditFunding(props: CreditFundingProps) {
       <h2 className="text-end montserrat text-base md:text-base lg:text-[20px]">
         Your Credits <span className="text-[#8693A4] text-[20px]">-</span>{" "}
         <span className="text-[#FF518C] cursor-pointer hover:underline">
-          <Link to={paths.PRICING}> {credit.displayAmount(availableCredits)}</Link>
+          <Link to="/pricing"> {credit.displayAmount(availableCredits)}</Link>
         </span>
       </h2>
       <div className="!mt-5 lg:!mt-9 bg-[rgba(255,255,255,10%)] rounded-[10px] py-[15px] px-3 w-[100%]">
@@ -161,7 +160,7 @@ export function CreditFunding(props: CreditFundingProps) {
           size="MEDIUM"
           asChild
         >
-          <Link to={paths.PRICING}>Get More Credits</Link>
+          <Link to="/pricing">Get More Credits</Link>
         </Button>
 
         <Button

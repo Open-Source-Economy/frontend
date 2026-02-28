@@ -1,26 +1,24 @@
-import React from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, HelpCircle, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { paths } from "../../../../../paths";
 
 /**
  * ActionsSection - Action buttons and footer for onboarding success page
  * Displays contact, FAQ, and home navigation options
  */
-export const ActionsSection: React.FC = () => {
+export function ActionsSection() {
   const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link to={paths.CONTACT} target="_blank" rel="noopener noreferrer">
+        <Link to="/contact" search={{ reason: undefined }} target="_blank" rel="noopener noreferrer">
           <Button variant="outline" className="w-full sm:w-auto">
             <Mail className="w-4 h-4 mr-2" />
             Questions? Reach Out
           </Button>
         </Link>
-        <Link to={paths.FAQ} target="_blank" rel="noopener noreferrer">
+        <Link to="/faq" target="_blank" rel="noopener noreferrer">
           <Button variant="outline" className="w-full sm:w-auto">
             <HelpCircle className="w-4 h-4 mr-2" />
             Browse FAQ
@@ -31,7 +29,7 @@ export const ActionsSection: React.FC = () => {
       <div className="text-center">
         <Button
           size="lg"
-          onClick={() => navigate({ to: paths.HOME as string })}
+          onClick={() => navigate({ to: "/" as string })}
           className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark"
         >
           Back to Home
@@ -44,4 +42,4 @@ export const ActionsSection: React.FC = () => {
       </p>
     </div>
   );
-};
+}

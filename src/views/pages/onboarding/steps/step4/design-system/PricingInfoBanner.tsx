@@ -1,8 +1,7 @@
-import React from "react";
 import { Info } from "lucide-react";
 import { PricingStructureDialog } from "./PricingStructureDialog";
 
-export const PricingInfoBanner: React.FC = () => {
+export function PricingInfoBanner() {
   return (
     <div className="flex items-start gap-2 p-3 bg-brand-neutral-200/50 rounded-lg border border-brand-neutral-300/30">
       <Info className="w-4 h-4 text-brand-accent mt-0.5 flex-shrink-0" />
@@ -15,4 +14,4 @@ export const PricingInfoBanner: React.FC = () => {
       </div>
     </div>
   );
-};
+}

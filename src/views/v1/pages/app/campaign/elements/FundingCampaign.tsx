@@ -1,15 +1,14 @@
 import { useParams } from "@tanstack/react-router";
 import { Currency, GetCampaignResponse } from "@open-source-economy/api-types";
-import { type ProjectId } from "src/ultils/local-types";
-import { config, Env } from "../../../../../../ultils";
-import { PreferredCurrency } from "../../../../../../ultils/PreferredCurrency";
+import { type ProjectId } from "src/utils/local-types";
+import { config, Env } from "../../../../../../utils";
+import { PreferredCurrency } from "../../../../../../utils/PreferredCurrency";
 import { useAuth } from "src/views/auth";
 import { CompanyNumberBanner } from "./CompanyNumberBanner";
 import { NonProfitBanner } from "./NonProfitBanner";
 import { PaymentControls } from "./payment";
 import { Progress } from "./Progress";
 import { Summary } from "./summary";
-import { paths } from "src/paths";
 import { CampaignDescription } from "../../../../../../model";
 
 interface FundingCampaignProps {
@@ -20,7 +19,7 @@ interface FundingCampaignProps {
 export function FundingCampaign(props: FundingCampaignProps) {
   const { checkout_error } = useParams({ strict: false }) as { checkout_error?: string };
   const checkoutErrorParamName = "checkout_error";
-  const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
+  const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
   const auth = useAuth();

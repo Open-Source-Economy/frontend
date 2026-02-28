@@ -6,8 +6,8 @@ import { InfoMessage } from "src/views/components/ui/info-message";
 import { Button } from "src/views/components/ui/forms/button";
 import { Switch } from "src/views/components/ui/switch";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
-import { CurrencyCompanion, ResponseTimeTypeCompanion, ServiceTypeCompanion } from "src/ultils/companions";
+import { ApiError } from "src/utils/error/ApiError";
+import { CurrencyCompanion, ResponseTimeTypeCompanion, ServiceTypeCompanion } from "src/utils/companions";
 import { ProjectSelector } from "../components/ProjectSelector";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { InputWithAddon } from "../components/InputWithAddon";
@@ -27,15 +27,7 @@ interface ServiceModalProps {
   onAddProject?: () => void;
 }
 
-export const ServiceModal: React.FC<ServiceModalProps> = ({
-  isOpen,
-  onClose,
-  developerServiceEntry,
-  defaultRate,
-  projects,
-  onUpsertDeveloperService,
-  onAddProject: _onAddProject,
-}) => {
+export function ServiceModal(props: ServiceModalProps) {
   const upsertDeveloperService = onboardingHooks.useUpsertDeveloperServiceMutation();
 
   // State
@@ -53,23 +45,23 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       : ApiError.from(upsertDeveloperService.error)
     : null;
 
-  const currencySymbol = CurrencyCompanion.symbol(defaultRate.currency);
+  const currencySymbol = CurrencyCompanion.symbol(props.defaultRate.currency);
 
   // Initialize when modal opens
   useEffect(() => {
-    if (isOpen && developerServiceEntry) {
-      setSelectedProjectIds(developerServiceEntry.developerService?.developerProjectItemIds || []);
-      setUseCustomRate(!!developerServiceEntry.developerService?.hourlyRate);
-      setHourlyRate(developerServiceEntry.developerService?.hourlyRate?.toString() || "");
-      setResponseTimeHours(developerServiceEntry.developerService?.responseTimeHours ?? undefined);
-      setComment(developerServiceEntry.developerService?.comment || "");
-      setShowCommentField(!!developerServiceEntry.developerService?.comment);
+    if (props.isOpen && props.developerServiceEntry) {
+      setSelectedProjectIds(props.developerServiceEntry.developerService?.developerProjectItemIds || []);
+      setUseCustomRate(!!props.developerServiceEntry.developerService?.hourlyRate);
+      setHourlyRate(props.developerServiceEntry.developerService?.hourlyRate?.toString() || "");
+      setResponseTimeHours(props.developerServiceEntry.developerService?.responseTimeHours ?? undefined);
+      setComment(props.developerServiceEntry.developerService?.comment || "");
+      setShowCommentField(!!props.developerServiceEntry.developerService?.comment);
       upsertDeveloperService.reset();
     }
-  }, [isOpen, developerServiceEntry]);
+  }, [props.isOpen, props.developerServiceEntry]);
 
   const handleSave = async () => {
-    if (!developerServiceEntry) return;
+    if (!props.developerServiceEntry) return;
 
     // Validation
     if (selectedProjectIds.length === 0) {
@@ -78,37 +70,37 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
     try {
       const body: dto.UpsertDeveloperServiceBody = {
-        serviceId: developerServiceEntry.service.id,
+        serviceId: props.developerServiceEntry.service.id,
         developerProjectItemIds: selectedProjectIds,
         hourlyRate: useCustomRate && hourlyRate ? parseFloat(hourlyRate) : undefined,
-        responseTimeHours: developerServiceEntry.service.hasResponseTime ? responseTimeHours : undefined,
+        responseTimeHours: props.developerServiceEntry.service.hasResponseTime ? responseTimeHours : undefined,
         comment: comment || undefined,
       };
       const response = await upsertDeveloperService.mutateAsync({ params: {}, body, query: {} });
 
-      onUpsertDeveloperService(response.developerService);
-      onClose();
+      props.onUpsertDeveloperService(response.developerService);
+      props.onClose();
     } catch {
       // error tracked by upsertDeveloperService.error
     }
   };
 
-  if (!developerServiceEntry) return null;
+  if (!props.developerServiceEntry) return null;
 
-  const service = developerServiceEntry.service;
+  const service = props.developerServiceEntry.service;
   const serviceTypeInfo = ServiceTypeCompanion.info(service.serviceType);
   const canSave = selectedProjectIds.length > 0;
-  const _displayRate = useCustomRate && hourlyRate ? parseFloat(hourlyRate) : defaultRate.amount;
+  const _displayRate = useCustomRate && hourlyRate ? parseFloat(hourlyRate) : props.defaultRate.amount;
 
   return (
     <BrandModal
-      open={isOpen}
-      onClose={onClose}
+      open={props.isOpen}
+      onClose={props.onClose}
       size="2xl"
       preventAutoFocus={true}
       footer={
         <div className="flex items-center justify-end w-full gap-3">
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={props.onClose}>
             Cancel
           </Button>
           <Button
@@ -162,7 +154,11 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
             iconColor="accent"
           >
             <div className="space-y-2">
-              <ProjectSelector projects={projects} selectedIds={selectedProjectIds} onChange={setSelectedProjectIds} />
+              <ProjectSelector
+                projects={props.projects}
+                selectedIds={selectedProjectIds}
+                onChange={setSelectedProjectIds}
+              />
               {selectedProjectIds.length === 0 && (
                 <p className="text-xs text-brand-warning">Select at least one project</p>
               )}
@@ -197,7 +193,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   <InputWithAddon
                     prefix={currencySymbol}
                     suffix="/hr"
-                    value={defaultRate.amount.toString()}
+                    value={props.defaultRate.amount.toString()}
                     displayMode={true}
                   />
                 ) : (
@@ -207,7 +203,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       type="number"
                       value={hourlyRate}
                       onChange={(e) => setHourlyRate(e.target.value)}
-                      placeholder={defaultRate.amount.toString()}
+                      placeholder={props.defaultRate.amount.toString()}
                       className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm text-brand-neutral-900 placeholder:text-brand-neutral-500"
                       style={{ width: "80px" }}
                       step="1"
@@ -223,12 +219,12 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   learnMoreTitle="Service-Specific Rates"
                   learnMoreDescription="Customize pricing for different services based on their complexity and value"
                   learnMoreContent={
-                    <ServiceRateDialogContent currency={currencySymbol} baseRate={defaultRate.amount} />
+                    <ServiceRateDialogContent currency={currencySymbol} baseRate={props.defaultRate.amount} />
                   }
                 >
                   {useCustomRate
                     ? "Custom rates let you adjust pricing for specific services based on complexity or demand."
-                    : `Using your base rate from Step 4 (${currencySymbol}${defaultRate.amount}/hr). Toggle to set a custom rate for this service if needed.`}
+                    : `Using your base rate from Step 4 (${currencySymbol}${props.defaultRate.amount}/hr). Toggle to set a custom rate for this service if needed.`}
                 </HelpText>
               </div>
 
@@ -268,4 +264,4 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       </div>
     </BrandModal>
   );
-};
+}

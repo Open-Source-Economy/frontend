@@ -1,6 +1,6 @@
 import React from "react";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
+import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/utils/companions";
 import { GitHubIcon } from "../../../../styles/icons/GitHubIcon";
 import { ProjectItemType } from "@open-source-economy/api-types";
 

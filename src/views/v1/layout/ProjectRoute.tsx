@@ -3,7 +3,7 @@ import { Outlet, useParams } from "@tanstack/react-router";
 import { PageNotFound } from "../pages/PageNotFound";
 
 import * as dto from "@open-source-economy/api-types";
-import { type ProjectId } from "src/ultils/local-types";
+import { type ProjectId } from "src/utils/local-types";
 
 type ProjectContext = {
   projectId: ProjectId;

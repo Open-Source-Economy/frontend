@@ -1,4 +1,4 @@
-import { Maintainer } from "src/ultils/local-types";
+import { Maintainer } from "src/utils/local-types";
 import { pekkoMaintainers } from "./pekkoMaintainers";
 import { flockMaintainers } from "./flockMaintainers";
 import { oseMaintainers } from "./oseMaintainers";

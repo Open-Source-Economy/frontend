@@ -12,13 +12,11 @@ interface ServicesHeroSectionProps {
  * ServicesHeroSection - Hero section for services page
  * Displays title, description with decorative gradients and elements
  */
-export const ServicesHeroSection: React.FC<ServicesHeroSectionProps> = ({
-  badge = "Services from Expert Maintainers",
-  title,
-  description,
-  decorativeLabel = "Direct from Maintainers",
-  className = "",
-}) => {
+export function ServicesHeroSection(props: ServicesHeroSectionProps) {
+  const badge = props.badge ?? "Services from Expert Maintainers";
+  const decorativeLabel = props.decorativeLabel ?? "Direct from Maintainers";
+  const className = props.className ?? "";
+
   return (
     <div className={`relative text-center mb-16 ${className}`}>
       {/* Background decoration - Blue to Green Journey */}
@@ -37,10 +35,10 @@ export const ServicesHeroSection: React.FC<ServicesHeroSectionProps> = ({
         </div>
 
         {/* Main title */}
-        {title}
+        {props.title}
 
         {/* Description */}
-        {description}
+        {props.description}
 
         {/* Decorative elements */}
         <div className="flex items-center justify-center gap-6 pt-4">
@@ -59,4 +57,4 @@ export const ServicesHeroSection: React.FC<ServicesHeroSectionProps> = ({
       </div>
     </div>
   );
-};
+}

@@ -3,57 +3,57 @@ import React from "react";
 import { Award, Heart, Users } from "lucide-react";
 import { Button } from "../../../../components/ui/forms";
 import { SponsorCard } from "./components/SponsorCard";
-import type { IndividualSupporter, Sponsor, SponsorTier } from "./components/types";
-import { isVisible } from "../../../../../ultils/featureVisibility";
+import { SponsorTierName, type IndividualSupporter, type Sponsor, type SponsorTier } from "./components/types";
+import { isVisible } from "../../../../../utils/featureVisibility";
 import { IndividualSupporterAvatar } from "./components/IndividualSupporterAvatar";
 
-const SPONSOR_TIER_ACCENT_COLORS = {
-  Platinum: "var(--brand-tier-platinum)",
-  Gold: "var(--brand-tier-gold)",
-  Silver: "var(--brand-tier-silver)",
-  Bronze: "var(--brand-tier-bronze)",
-} as const;
+const SPONSOR_TIER_ACCENT_COLORS: Record<SponsorTierName, string> = {
+  [SponsorTierName.Platinum]: "var(--brand-tier-platinum)",
+  [SponsorTierName.Gold]: "var(--brand-tier-gold)",
+  [SponsorTierName.Silver]: "var(--brand-tier-silver)",
+  [SponsorTierName.Bronze]: "var(--brand-tier-bronze)",
+};
 
-const TIER_BASE_STYLES: Record<SponsorTier["tier"], Omit<SponsorTier, "tier" | "badge">> = {
-  Platinum: {
+const TIER_BASE_STYLES: Record<SponsorTierName, Omit<SponsorTier, "tier" | "badge">> = {
+  [SponsorTierName.Platinum]: {
     cardWidth: "w-full md:w-[400px]",
     cardPadding: "p-10",
     textSize: "text-2xl",
     descriptionSize: "text-base",
     descriptionLines: 3,
-    accentColor: SPONSOR_TIER_ACCENT_COLORS.Platinum,
+    accentColor: SPONSOR_TIER_ACCENT_COLORS[SponsorTierName.Platinum],
     iconType: "crown",
   },
-  Gold: {
+  [SponsorTierName.Gold]: {
     cardWidth: "w-full md:w-[340px]",
     cardPadding: "p-8",
     textSize: "text-xl",
     descriptionSize: "text-sm",
     descriptionLines: 2,
-    accentColor: SPONSOR_TIER_ACCENT_COLORS.Gold,
+    accentColor: SPONSOR_TIER_ACCENT_COLORS[SponsorTierName.Gold],
     iconType: "award",
   },
-  Silver: {
+  [SponsorTierName.Silver]: {
     cardWidth: "w-full md:w-[280px]",
     cardPadding: "p-6",
     textSize: "text-lg",
     descriptionSize: "text-sm",
     descriptionLines: 2,
-    accentColor: SPONSOR_TIER_ACCENT_COLORS.Silver,
+    accentColor: SPONSOR_TIER_ACCENT_COLORS[SponsorTierName.Silver],
     iconType: "star",
   },
-  Bronze: {
+  [SponsorTierName.Bronze]: {
     cardWidth: "w-full md:w-[220px]",
     cardPadding: "p-5",
     textSize: "text-base",
-    accentColor: SPONSOR_TIER_ACCENT_COLORS.Bronze,
+    accentColor: SPONSOR_TIER_ACCENT_COLORS[SponsorTierName.Bronze],
     iconType: "heart",
   },
 };
 
 type SponsorOverrides = Omit<Sponsor, keyof SponsorTier> & Partial<Omit<SponsorTier, "tier">>;
 
-const createSponsor = (tier: SponsorTier["tier"], overrides: SponsorOverrides): Sponsor => ({
+const createSponsor = (tier: SponsorTierName, overrides: SponsorOverrides): Sponsor => ({
   tier,
   ...TIER_BASE_STYLES[tier],
   ...overrides,
@@ -68,7 +68,7 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
   const className = props.className ?? "";
   // Platform sponsors with realistic companies supporting open source
   const sponsors: Sponsor[] = [
-    createSponsor("Gold", {
+    createSponsor(SponsorTierName.Gold, {
       name: "SwissBorg",
       domain: "swissborg.com",
       badge: "Founding Sponsor",
@@ -79,7 +79,7 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
     }),
     ...(isVisible("epicmaxSponsor")
       ? [
-          createSponsor("Platinum", {
+          createSponsor(SponsorTierName.Platinum, {
             name: "Epicmax",
             domain: "epicmax.co",
             badge: "OSS Passionate",
@@ -89,7 +89,7 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
             ctaText: "Book a Call",
             ctaUrl: "https://epicmax.co/",
           }),
-          createSponsor("Gold", {
+          createSponsor(SponsorTierName.Gold, {
             name: "Epicmax",
             domain: "epicmax.co",
             badge: "OSS Passionate",
@@ -98,13 +98,13 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
             ctaText: "Book a Call",
             ctaUrl: "https://epicmax.co/",
           }),
-          createSponsor("Silver", {
+          createSponsor(SponsorTierName.Silver, {
             name: "Epicmax",
             domain: "epicmax.co",
             badge: "OSS Passionate",
             description: "Your Trusted Vue.js Development Company",
           }),
-          createSponsor("Bronze", {
+          createSponsor(SponsorTierName.Bronze, {
             name: "Epicmax",
             domain: "epicmax.co",
           }),

@@ -3,7 +3,7 @@ import { Link, getRouteApi } from "@tanstack/react-router";
 
 const routeApi = getRouteApi("/contact");
 import { PageWrapper } from "../PageWrapper";
-import { paths } from "src/paths";
+import { externalLinks } from "src/externalLinks";
 import { Button } from "../../components/ui/forms/button";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
 import { ContactReasonCard } from "./components/contact-reason-card";
@@ -29,7 +29,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { ContactReason } from "@open-source-economy/api-types";
-import { CONTACT_REASON_LABELS } from "src/ultils/companions/ContactReasonCompanion";
+import { CONTACT_REASON_LABELS } from "src/utils/companions/ContactReasonCompanion";
 import { contactEmail } from "src/views/v1/data";
 import { useContactForm } from "./hooks/useContactForm";
 import {
@@ -241,7 +241,7 @@ export function ContactPage() {
                       </div>
                     </div>
                     <ExternalLinkComponent
-                      href={paths.SOCIALS.GITHUB}
+                      href={externalLinks.GITHUB}
                       className="text-brand-accent hover:text-brand-accent-dark transition-colors inline-flex items-center gap-1.5 group ml-8"
                     >
                       <span>Report an issue on GitHub</span>
@@ -269,7 +269,7 @@ export function ContactPage() {
                           Send Another Message
                         </Button>
                         <Button asChild>
-                          <Link to={paths.HOME}>Return to Home</Link>
+                          <Link to="/">Return to Home</Link>
                         </Button>
                       </div>
                     </div>
@@ -426,7 +426,7 @@ export function ContactPage() {
                               <div className="pt-6 border-t border-brand-neutral-300">
                                 <p className="text-brand-neutral-600 text-sm text-center">
                                   By clicking "Send Message", you agree to our{" "}
-                                  <Link to={paths.PRIVACY} className="text-brand-accent hover:underline">
+                                  <Link to="/privacy" className="text-brand-accent hover:underline">
                                     Privacy Policy
                                   </Link>{" "}
                                   and consent to the collection and processing of your information.

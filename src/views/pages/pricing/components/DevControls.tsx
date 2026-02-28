@@ -2,7 +2,7 @@ import React from "react";
 import { PlanOption } from "./types";
 import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
 
-import { isVisible } from "../../../../ultils/featureVisibility";
+import { isVisible } from "../../../../utils/featureVisibility";
 
 interface DevControlsProps {
   currentPlanTier: PlanProductType | null;

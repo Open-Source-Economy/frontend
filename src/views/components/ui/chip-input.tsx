@@ -17,18 +17,14 @@ export interface ChipInputProps {
   maxItems?: number;
 }
 
-export const ChipInput: React.FC<ChipInputProps> = ({
-  values,
-  onChange,
-  placeholder = "Type to search or add...",
-  suggestions = [],
-  allowCustom = true,
-  showCount = false,
-  countLabel = "item",
-  className,
-  disabled = false,
-  maxItems,
-}) => {
+export function ChipInput(props: ChipInputProps) {
+  const placeholder = props.placeholder ?? "Type to search or add...";
+  const suggestions = props.suggestions ?? [];
+  const allowCustom = props.allowCustom ?? true;
+  const showCount = props.showCount ?? false;
+  const countLabel = props.countLabel ?? "item";
+  const disabled = props.disabled ?? false;
+
   const [searchTerm, setSearchTerm] = React.useState("");
   const [showDropdown, setShowDropdown] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -47,18 +43,18 @@ export const ChipInput: React.FC<ChipInputProps> = ({
   }, [showDropdown]);
 
   const filteredSuggestions = suggestions.filter(
-    (suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && !values.includes(suggestion)
+    (suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && !props.values.includes(suggestion)
   );
 
   const handleAdd = (value: string) => {
     const trimmedValue = value.trim();
 
-    if (maxItems && values.length >= maxItems) {
+    if (props.maxItems && props.values.length >= props.maxItems) {
       return;
     }
 
-    if (trimmedValue && !values.includes(trimmedValue)) {
-      onChange([...values, trimmedValue]);
+    if (trimmedValue && !props.values.includes(trimmedValue)) {
+      props.onChange([...props.values, trimmedValue]);
     }
 
     setSearchTerm("");
@@ -66,7 +62,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
   };
 
   const handleRemove = (value: string) => {
-    onChange(values.filter((v) => v !== value));
+    props.onChange(props.values.filter((v) => v !== value));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,13 +73,13 @@ export const ChipInput: React.FC<ChipInputProps> = ({
   };
 
   const isCustomValue = searchTerm && !suggestions.includes(searchTerm);
-  const isMaxReached = maxItems && values.length >= maxItems;
+  const isMaxReached = props.maxItems && props.values.length >= props.maxItems;
 
   return (
-    <div className={cn("space-y-3", className)}>
-      {values.length > 0 && (
+    <div className={cn("space-y-3", props.className)}>
+      {props.values.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {values.map((value) => (
+          {props.values.map((value) => (
             <Chip key={value} size="lg" onRemove={() => handleRemove(value)} disabled={disabled}>
               {value}
             </Chip>
@@ -101,7 +97,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
           }}
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
-          placeholder={isMaxReached ? `Maximum ${maxItems} ${countLabel}s reached` : placeholder}
+          placeholder={isMaxReached ? `Maximum ${props.maxItems} ${countLabel}s reached` : placeholder}
           leftIcon={Search}
           disabled={disabled || !!isMaxReached}
         />
@@ -139,7 +135,7 @@ export const ChipInput: React.FC<ChipInputProps> = ({
                     </button>
                   ))}
                 </div>
-              ) : searchTerm && values.includes(searchTerm) ? (
+              ) : searchTerm && props.values.includes(searchTerm) ? (
                 <div className="p-4 text-center text-sm text-brand-neutral-600">Already added</div>
               ) : null}
             </div>
@@ -147,12 +143,12 @@ export const ChipInput: React.FC<ChipInputProps> = ({
         )}
       </div>
 
-      {showCount && values.length > 0 && (
+      {showCount && props.values.length > 0 && (
         <p className="text-xs text-brand-neutral-600">
-          {values.length} {countLabel}
-          {values.length !== 1 ? "s" : ""} selected
+          {props.values.length} {countLabel}
+          {props.values.length !== 1 ? "s" : ""} selected
         </p>
       )}
     </div>
   );
-};
+}

@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { PageTransition } from "src/views/components/ui/page-transition";
 
 export const Route = createFileRoute("/_authenticated")({

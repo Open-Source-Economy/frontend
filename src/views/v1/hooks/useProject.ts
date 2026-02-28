@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { projectService } from "src/services";
 import { GetProjectParams, GetProjectQuery, Project } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { ApiError } from "src/utils/error/ApiError";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 export function useProject(projectId: ProjectId) {
   const [project, setProject] = useState<Project | null>(null);

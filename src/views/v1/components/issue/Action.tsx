@@ -3,7 +3,6 @@ import { Issue, ManagedIssueState } from "@open-source-economy/api-types";
 import { Button, ExternalLink } from "src/views/v1/components/index";
 import { Link } from "@tanstack/react-router";
 import { Audience } from "src/views/index";
-import { paths } from "src/paths";
 
 interface ActionProps {
   issue: Issue;
@@ -23,7 +22,11 @@ export function Action(props: ActionProps) {
         asChild
       >
         <Link
-          to={props.audience === Audience.USER ? paths.fundIssue(props.issue.id) : paths.manageIssue(props.issue.id)}
+          to={
+            (props.audience === Audience.USER
+              ? `/${props.issue.id.repositoryId.ownerId}/${props.issue.id.repositoryId.name}/issues/${props.issue.id.number}/fund`
+              : `/${props.issue.id.repositoryId.ownerId}/${props.issue.id.repositoryId.name}/issues/${props.issue.id.number}/manage`) as string
+          }
         >
           {props.audience === Audience.DEVELOPER ? "ACT ON ISSUE" : "co-FUND"}
         </Link>

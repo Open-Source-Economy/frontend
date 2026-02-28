@@ -1,4 +1,4 @@
-import { GetProjectAccordionResponse } from "src/ultils/local-types";
+import { GetProjectAccordionResponse } from "src/utils/local-types";
 import { pekkoAccordion } from "./pekkoAccordion";
 import { defaultAccordion } from "./defaultAccordion";
 

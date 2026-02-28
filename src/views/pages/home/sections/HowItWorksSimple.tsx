@@ -1,4 +1,3 @@
-import React from "react";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { StepCard } from "src/views/components/ui/step-card";
 import {
@@ -20,7 +19,7 @@ import {
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { laurianeCalLink } from "src/views/v1/data";
-import { envGroups, isFeatureVisible } from "src/ultils/featureVisibility";
+import { envGroups, isFeatureVisible } from "src/utils/featureVisibility";
 // -----------------------------
 // Types
 // -----------------------------
@@ -247,16 +246,19 @@ interface FeatureListItemProps {
   accentColor: "accent" | "highlight";
 }
 
-const FeatureListItem: React.FC<FeatureListItemProps> = ({ icon: Icon, text, accentColor }) => {
+function FeatureListItem(props: FeatureListItemProps) {
+  const Icon = props.icon;
   const accentClasses =
-    accentColor === "accent" ? "bg-brand-accent/10 text-brand-accent" : "bg-brand-highlight/10 text-brand-highlight";
+    props.accentColor === "accent"
+      ? "bg-brand-accent/10 text-brand-accent"
+      : "bg-brand-highlight/10 text-brand-highlight";
 
   return (
     <div className="flex items-center gap-2.5">
       <div className={`flex-shrink-0 w-5 h-5 rounded ${accentClasses} flex items-center justify-center`}>
         <Icon className="w-3 h-3" />
       </div>
-      <span className="text-xs text-brand-neutral-700">{text}</span>
+      <span className="text-xs text-brand-neutral-700">{props.text}</span>
     </div>
   );
-};
+}

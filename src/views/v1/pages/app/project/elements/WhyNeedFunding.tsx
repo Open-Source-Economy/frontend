@@ -4,9 +4,8 @@ import { FaqItem } from "./FaqItem";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import { Button } from "src/views/v1/components";
 import { Link } from "@tanstack/react-router";
-import { paths } from "src/paths";
 import { projectHooks } from "src/api";
-import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { type ProjectId, isOwnerId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 interface WhyNeedFundingProps {
   projectId: ProjectId;
@@ -74,12 +73,20 @@ export function WhyNeedFunding(props: WhyNeedFundingProps) {
                 size="LARGE"
                 asChild
               >
-                <Link to={paths.campaign(props.projectId)}>Donate</Link>
+                <Link
+                  to={
+                    (isOwnerId(props.projectId)
+                      ? `/projects/${props.projectId}/campaign`
+                      : `/projects/${props.projectId.ownerId}/${props.projectId.name}/campaign`) as string
+                  }
+                >
+                  Donate
+                </Link>
               </Button>
             )}
             {accordionRes?.buyServicesButton && (
               <Button audience="ALL" className="cursor-pointer !capitalize" level="PRIMARY" size="LARGE" asChild>
-                <Link to={paths.PRICING}>Get Hourly Credits</Link>
+                <Link to="/pricing">Get Hourly Credits</Link>
               </Button>
             )}
           </div>

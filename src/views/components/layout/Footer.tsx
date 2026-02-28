@@ -1,6 +1,6 @@
 import React from "react";
 import { AtSign, Github, type LucideIcon, Twitter, Youtube, Linkedin, Heart } from "lucide-react";
-import { paths } from "src/paths";
+import { externalLinks } from "src/externalLinks";
 import { footerNavigation } from "./navigation";
 import { Logo } from "../brand/Logo";
 import { ExternalLink } from "../ui/forms/external-link";
@@ -27,12 +27,12 @@ interface FooterProps {}
 export const footerContent = {
   sections: footerNavigation.sections,
   social: [
-    { icon: Github, href: paths.SOCIALS.GITHUB, label: "GitHub", external: true },
-    { icon: Twitter, href: paths.SOCIALS.TWITTER, label: "Twitter", external: true },
-    { icon: AtSign, href: paths.SOCIALS.MASTODON, label: "Mastodon", external: true },
-    { icon: Youtube, href: paths.SOCIALS.YOUTUBE, label: "YouTube", external: true },
-    { icon: Linkedin, href: paths.SOCIALS.LINKEDIN, label: "LinkedIn", external: true },
-    // { icon: Mail, href: paths.SOCIALS.GITHUB, label: "Email", external: true },
+    { icon: Github, href: externalLinks.GITHUB, label: "GitHub", external: true },
+    { icon: Twitter, href: externalLinks.TWITTER, label: "Twitter", external: true },
+    { icon: AtSign, href: externalLinks.MASTODON, label: "Mastodon", external: true },
+    { icon: Youtube, href: externalLinks.YOUTUBE, label: "YouTube", external: true },
+    { icon: Linkedin, href: externalLinks.LINKEDIN, label: "LinkedIn", external: true },
+    // { icon: Mail, href: externalLinks.GITHUB, label: "Email", external: true },
   ] as SocialLink[],
 };
 
@@ -139,7 +139,7 @@ export function Footer(_props: FooterProps) {
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <p className="text-muted-foreground text-sm flex items-center">
             © Open Source Economy - Non profit organisation - <span className="mx-1" />
-            <ExternalLink href={paths.SOCIALS.ZEFIX} className="hover:text-brand-primary transition-colors">
+            <ExternalLink href={externalLinks.ZEFIX} className="hover:text-brand-primary transition-colors">
               CHE-440.058.692
             </ExternalLink>
             <span className="mx-1" />- Switzerland

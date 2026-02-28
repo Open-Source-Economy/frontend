@@ -101,7 +101,7 @@ Handle in the render function, not with custom schemas:
 Use `ServerErrorAlert` for API/server errors, and `form.formState.errors` for field-level validation:
 
 ```typescript
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 
 // Convert mutation errors to ApiError

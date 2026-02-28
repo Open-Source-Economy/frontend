@@ -12,7 +12,7 @@ import {
   SpeechBubbleIcon,
   StrategiesIcon,
   UserIcon,
-} from "src/ultils/Icons";
+} from "src/utils/Icons";
 import { IconBox, Section } from "./elements";
 import { PageWrapper } from "../../PageWrapper";
 

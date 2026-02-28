@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
@@ -13,7 +13,7 @@ import { onboardingHooks } from "src/api";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
-const Step2: React.FC<Step2Props> = (props) => {
+function Step2(props: Step2Props) {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -124,6 +124,6 @@ const Step2: React.FC<Step2Props> = (props) => {
       )}
     </>
   );
-};
+}
 
 export default Step2;

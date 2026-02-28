@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Code2 } from "lucide-react";
-import { paths } from "src/paths";
 import { Button } from "../../ui/forms/button";
 
 export function DeveloperBanner() {
@@ -11,7 +10,7 @@ export function DeveloperBanner() {
         <div className="flex items-center justify-center h-12 gap-3">
           <Code2 className="w-4 h-4 text-white" />
           <span className="text-white">Are you an OSS developer?</span>
-          <Link to={paths.DEVELOPER_LANDING}>
+          <Link to="/developer">
             <Button
               variant="outline"
               size="sm"

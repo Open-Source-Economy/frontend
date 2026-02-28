@@ -1,14 +1,12 @@
-import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Github, MessageCircle, Zap } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { paths } from "../../../../../paths";
 
 interface CTASectionProps {
   onGitHubSignIn: () => void;
 }
 
-export const CTASection: React.FC<CTASectionProps> = ({ onGitHubSignIn }) => {
+export function CTASection(props: CTASectionProps) {
   return (
     <section className="py-20 bg-gradient-to-br from-brand-card-blue via-brand-card-blue-dark to-brand-secondary border-t border-brand-neutral-300">
       <div className="container mx-auto px-6 max-w-4xl">
@@ -27,14 +25,14 @@ export const CTASection: React.FC<CTASectionProps> = ({ onGitHubSignIn }) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <Button
               size="lg"
-              onClick={onGitHubSignIn}
+              onClick={props.onGitHubSignIn}
               className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl"
             >
               <Github className="h-5 w-5 mr-2" />
               Sign in with GitHub
               <ArrowRight className="h-5 w-5 ml-2" />
             </Button>
-            <Link to={paths.CONTACT} target="_blank" rel="noopener noreferrer">
+            <Link to="/contact" search={{ reason: undefined }} target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="outline" className="border-brand-neutral-300 hover:bg-brand-card-blue">
                 <MessageCircle className="h-5 w-5 mr-2" />
                 Book a Call
@@ -49,4 +47,4 @@ export const CTASection: React.FC<CTASectionProps> = ({ onGitHubSignIn }) => {
       </div>
     </section>
   );
-};
+}

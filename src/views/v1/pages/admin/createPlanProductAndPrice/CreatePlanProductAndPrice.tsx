@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { adminHooks } from "src/api";
 import {

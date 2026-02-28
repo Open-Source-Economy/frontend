@@ -1,10 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { MascotIcon } from "src/ultils/Icons";
+import { MascotIcon } from "src/utils/Icons";
 import notFound from "src/assets/v1/404.webp";
 import hero from "src/assets/v1/hero-bg.webp";
 import faq from "src/assets/v1/faq-bg.webp";
 import { Button } from "src/views/v1/components";
-import { paths } from "src/paths";
 
 interface PageNotFoundProps {}
 
@@ -39,7 +38,7 @@ export function PageNotFound(_props: PageNotFoundProps) {
           The page you were looking for doesn't exist anymore.
         </h5>
         <Button audience="ALL" level="PRIMARY" size="MEDIUM" className="mt-10" asChild>
-          <Link to={paths.HOME}>Back to Home</Link>
+          <Link to="/">Back to Home</Link>
         </Button>
       </div>
     </div>

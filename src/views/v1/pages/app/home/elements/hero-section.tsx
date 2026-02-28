@@ -22,7 +22,7 @@ export const HeroSection = () => {
         </p>
 
         {/*<Button audience="ALL" level={"PRIMARY"} size={"LARGE"} asChild>*/}
-        {/*  <Link to={paths.PROJECTS}>GET STARTED</Link>*/}
+        {/*  <Link to="/projects">GET STARTED</Link>*/}
         {/*</Button>*/}
       </div>
       {/* Right  */}

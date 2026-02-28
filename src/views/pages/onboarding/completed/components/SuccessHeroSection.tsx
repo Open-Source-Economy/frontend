@@ -1,11 +1,10 @@
-import React from "react";
 import { CheckCircle2 } from "lucide-react";
 
 /**
  * SuccessHeroSection - Hero section for the onboarding success page
  * Shows the success icon, title, and welcome message
  */
-export const SuccessHeroSection: React.FC = () => {
+export function SuccessHeroSection() {
   return (
     <div className="text-center mb-12">
       <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-brand-success to-brand-success-dark rounded-2xl mb-6 shadow-lg">
@@ -24,4 +23,4 @@ export const SuccessHeroSection: React.FC = () => {
       </p>
     </div>
   );
-};
+}

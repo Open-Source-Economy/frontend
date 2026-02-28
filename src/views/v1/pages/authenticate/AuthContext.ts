@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { AuthenticatedUser, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 
 export interface AuthContextState {

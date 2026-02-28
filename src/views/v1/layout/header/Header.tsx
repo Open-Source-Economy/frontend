@@ -1,11 +1,10 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
-import { Container, Navbar, Offcanvas } from "react-bootstrap";
+import { X } from "lucide-react";
 
 import { CurrencyModal, NavbarContent } from "./navbar";
 import { useAuth } from "src/views/auth";
-import { paths } from "src/paths";
 import { TopNavbar } from "./topNavbar";
 import { useCurrency } from "../../../../context/CurrencyContext";
 
@@ -32,31 +31,71 @@ export function Header(_props: HeaderProps) {
     <div data-aos="fade-down">
       <TopNavbar />
 
-      <Navbar expand="lg" className="pt-3 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
-        <Container fluid className="">
-          <Navbar.Brand href={paths.HOME}>
+      <nav className="pt-3 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
+        <div className="flex items-center justify-between w-full px-3">
+          <a href="/">
             <Logo />
-          </Navbar.Brand>
+          </a>
 
-          <Navbar.Toggle onClick={() => setShowOffcanvas(true)} aria-controls="offcanvasNavbar" className="bg-white" />
-
-          <Navbar.Offcanvas
-            show={showOffcanvas}
-            onHide={() => setShowOffcanvas(false)}
-            id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel"
-            placement="start"
-            className="bg-primaryBg"
+          {/* Hamburger toggle - visible below lg breakpoint */}
+          <button
+            onClick={() => setShowOffcanvas(true)}
+            aria-controls="offcanvasNavbar"
+            className="lg:hidden bg-white p-2 rounded border border-gray-300"
           >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>
-                <Navbar.Brand href={paths.HOME}>
-                  <Logo />
-                </Navbar.Brand>
-              </Offcanvas.Title>
-            </Offcanvas.Header>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
 
-            <Offcanvas.Body>
+          {/* Desktop nav - hidden below lg */}
+          <div className="hidden lg:flex flex-grow">
+            {auth.loading ? (
+              <></>
+            ) : (
+              <NavbarContent
+                setShowOffcanvas={setShowOffcanvas}
+                showDropdownNavbar={showDropdownNavbar}
+                setShowDropdownNavbar={setShowDropdownNavbar}
+                showCurrencyModal={showCurrencyModal}
+                setShowCurrencyModal={setShowCurrencyModal}
+                selectedCurrency={preferredCurrency}
+              />
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* Offcanvas / slide-out panel for mobile */}
+      {showOffcanvas && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div className="fixed inset-0 bg-black/50" onClick={() => setShowOffcanvas(false)} />
+
+          {/* Panel */}
+          <div className="fixed inset-y-0 left-0 w-[300px] bg-primaryBg z-50 overflow-y-auto animate-in slide-in-from-left duration-300">
+            <div className="flex items-center justify-between p-4">
+              <a href="/">
+                <Logo />
+              </a>
+              <button onClick={() => setShowOffcanvas(false)} className="p-2 rounded hover:bg-gray-700/20">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="p-4">
               {auth.loading ? (
                 <></>
               ) : (
@@ -69,10 +108,10 @@ export function Header(_props: HeaderProps) {
                   selectedCurrency={preferredCurrency}
                 />
               )}
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
+            </div>
+          </div>
+        </div>
+      )}
 
       <CurrencyModal
         isOpen={showCurrencyModal}

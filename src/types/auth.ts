@@ -1,0 +1,12 @@
+import type { ApiError } from "src/utils/error/ApiError";
+import * as dto from "@open-source-economy/api-types";
+
+export interface AuthContextState {
+  loading: boolean;
+  authInfo: dto.AuthenticatedUser | null;
+  error: ApiError | null;
+  login: (body: dto.LoginBody, query: dto.LoginQuery, successCallback?: () => void) => void;
+  logout: () => void;
+  loginWithGitHub: () => void;
+  register: (body: dto.RegisterBody, query: dto.RegisterQuery, successCallback?: () => void) => void;
+}

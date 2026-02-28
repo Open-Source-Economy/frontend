@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { paths } from "src/paths";
+
 import { AuthStepHeader } from "./components/auth/AuthStepHeader";
 import { PageWrapper } from "../PageWrapper";
 
@@ -27,7 +27,8 @@ export function AuthPageWrapper(props: AuthPageWrapperProps) {
               <p className="text-sm text-brand-neutral-600 font-medium">
                 Need help?{" "}
                 <Link
-                  to={paths.CONTACT}
+                  to={"/contact"}
+                  search={{ reason: undefined }}
                   className="text-brand-accent hover:text-brand-accent-dark underline underline-offset-4"
                 >
                   Contact Support

@@ -5,8 +5,8 @@ import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { ApiError } from "src/ultils/error/ApiError";
-import { paths } from "src/paths";
+import { ApiError } from "src/utils/error/ApiError";
+
 import {
   CurrencyCompanion,
   DeveloperRoleTypeCompanion,
@@ -16,7 +16,7 @@ import {
   SourceIdentifierCompanion,
   VerificationRecordCompanion,
   VerificationStatusCompanion,
-} from "src/ultils/companions";
+} from "src/utils/companions";
 import { ArrowLeft, Calendar, Check, Clock, Code, DollarSign, GitBranch, Mail, Shield, User, X } from "lucide-react";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
@@ -180,10 +180,7 @@ export function Maintainer() {
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] p-8">
           <div className="max-w-4xl mx-auto">
-            <Link
-              to={paths.ADMIN.HOME}
-              className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
-            >
+            <Link to="/admin" className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Link>
@@ -199,10 +196,7 @@ export function Maintainer() {
       <PageWrapper>
         <div className="min-h-screen bg-[#14233A] p-8">
           <div className="max-w-4xl mx-auto">
-            <Link
-              to={paths.ADMIN.HOME}
-              className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
-            >
+            <Link to="/admin" className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Link>
@@ -225,10 +219,7 @@ export function Maintainer() {
       <div className="min-h-screen bg-[#14233A] p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <Link
-            to={paths.ADMIN.HOME}
-            className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6"
-          >
+          <Link to="/admin" className="inline-flex items-center text-brand-accent hover:text-brand-accent-dark mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Admin
           </Link>

@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "src/views/v1/components";
 import { FaCheck } from "react-icons/fa6";
 
@@ -11,13 +10,13 @@ interface FeatureItemProps {
   isComingSoon?: boolean;
 }
 
-const FeatureItem: React.FC<FeatureItemProps> = ({ title, audience, isComingSoon }) => {
+function FeatureItem(props: FeatureItemProps) {
   return (
     <div className="grid grid-flow-col justify-start  350:gap-3 gap-[10px] ">
       <div
         className={cn(
           "md:size-[30px] size-[24px] flex items-center  justify-center rounded-full text-primaryBg",
-          bgColorVariants[audience]
+          bgColorVariants[props.audience]
         )}
       >
         <FaCheck className="cursor-default" />
@@ -25,10 +24,10 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ title, audience, isComingSoon
 
       <div className="flex gap-3 items-start flex-wrap">
         <span className="lg:text-2xl text-left text-sm 350:text-base sm:text-lg md:text-xl font-montserrat font-medium text-white">
-          {title}
+          {props.title}
         </span>
 
-        {isComingSoon && (
+        {props.isComingSoon && (
           <button className="flex items-center !cursor-default gap-2 bg-gradient-to-r from-[#FF7E4B] to-[#FF518C] text-white px-[9px] sm:px-3 sm:py-[10px] py-[8px]  rounded-[50px]">
             <img src={clock} className="w-5 h-5" alt="clock" />
             <h3 className="sm:text-[12px] text-[11px] font-semibold">coming soon</h3>
@@ -37,5 +36,5 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ title, audience, isComingSoon
       </div>
     </div>
   );
-};
+}
 export default FeatureItem;

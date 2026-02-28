@@ -43,16 +43,14 @@ export interface LoadingStateProps {
  * />
  * ```
  */
-export const LoadingState: React.FC<LoadingStateProps> = ({
-  message = "Loading...",
-  variant = "spinner",
-  size = "md",
-  className = "",
-  fullPage = false,
-  spinnerIcon,
-  showBackdrop = false,
-  skeletonConfig = { lines: 3, showAvatar: false, showImage: false },
-}) => {
+export function LoadingState(props: LoadingStateProps) {
+  const message = props.message ?? "Loading...";
+  const variant = props.variant ?? "spinner";
+  const size = props.size ?? "md";
+  const className = props.className ?? "";
+  const fullPage = props.fullPage ?? false;
+  const showBackdrop = props.showBackdrop ?? false;
+  const skeletonConfig = props.skeletonConfig ?? { lines: 3, showAvatar: false, showImage: false };
   // Size configurations
   const sizeClasses = {
     spinner: {
@@ -79,7 +77,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   const SpinnerContent = () => (
     <div className={`flex flex-col items-center justify-center ${sizeClasses.container[size]} ${className}`}>
       <div className="relative">
-        {spinnerIcon || <Loader2 className={`${sizeClasses.spinner[size]} text-brand-accent animate-spin`} />}
+        {props.spinnerIcon || <Loader2 className={`${sizeClasses.spinner[size]} text-brand-accent animate-spin`} />}
       </div>
       {message && <p className={`${sizeClasses.text[size]} text-brand-neutral-600 text-center`}>{message}</p>}
     </div>
@@ -228,41 +226,42 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
 
   // Standard rendering
   return renderContent();
-};
+}
 
 /**
  * LoadingCard - Loading state styled as a card
  * Perfect for loading content in card-based layouts
  */
-export const LoadingCard: React.FC<{
-  lines?: number;
-  showAvatar?: boolean;
-  showImage?: boolean;
-  className?: string;
-}> = ({ lines = 3, showAvatar = false, showImage = false, className = "" }) => (
-  <div className={`bg-brand-card-blue border border-brand-neutral-300/30 rounded-xl p-6 ${className}`}>
-    <LoadingState variant="skeleton" size="md" skeletonConfig={{ lines, showAvatar, showImage }} />
-  </div>
-);
+export function LoadingCard(props: { lines?: number; showAvatar?: boolean; showImage?: boolean; className?: string }) {
+  const lines = props.lines ?? 3;
+  const showAvatar = props.showAvatar ?? false;
+  const showImage = props.showImage ?? false;
+  const className = props.className ?? "";
+
+  return (
+    <div className={`bg-brand-card-blue border border-brand-neutral-300/30 rounded-xl p-6 ${className}`}>
+      <LoadingState variant="skeleton" size="md" skeletonConfig={{ lines, showAvatar, showImage }} />
+    </div>
+  );
+}
 
 /**
  * LoadingButton - Loading state for button contexts
  * Use inside buttons to show loading state
  */
-export const LoadingButton: React.FC<{
-  message?: string;
-  size?: "sm" | "md" | "lg";
-}> = ({ message, size = "md" }) => <LoadingState variant="inline" size={size} message={message} />;
+export function LoadingButton(props: { message?: string; size?: "sm" | "md" | "lg" }) {
+  const size = props.size ?? "md";
+  return <LoadingState variant="inline" size={size} message={props.message} />;
+}
 
 /**
  * LoadingTable - Loading state for table contexts
  * Shows skeleton rows
  */
-export const LoadingTable: React.FC<{
-  rows?: number;
-  columns?: number;
-  className?: string;
-}> = ({ rows = 5, columns = 4, className = "" }) => {
+export function LoadingTable(props: { rows?: number; columns?: number; className?: string }) {
+  const rows = props.rows ?? 5;
+  const columns = props.columns ?? 4;
+  const className = props.className ?? "";
   const heights = ["h-4", "h-4", "h-4"];
 
   return (
@@ -292,18 +291,20 @@ export const LoadingTable: React.FC<{
       ))}
     </div>
   );
-};
+}
 
 /**
  * LoadingSection - Loading state for full sections
  * Shows a centered spinner with optional message
  */
-export const LoadingSection: React.FC<{
-  message?: string;
-  minHeight?: string;
-  className?: string;
-}> = ({ message = "Loading content...", minHeight = "min-h-[400px]", className = "" }) => (
-  <div className={`${minHeight} flex items-center justify-center ${className}`}>
-    <LoadingState variant="spinner" size="lg" message={message} />
-  </div>
-);
+export function LoadingSection(props: { message?: string; minHeight?: string; className?: string }) {
+  const message = props.message ?? "Loading content...";
+  const minHeight = props.minHeight ?? "min-h-[400px]";
+  const className = props.className ?? "";
+
+  return (
+    <div className={`${minHeight} flex items-center justify-center ${className}`}>
+      <LoadingState variant="spinner" size="lg" message={message} />
+    </div>
+  );
+}

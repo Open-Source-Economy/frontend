@@ -1,7 +1,6 @@
-import React from "react";
 import { CheckCircle2, Code2, Heart, Shield, Target, TrendingUp, Users } from "lucide-react";
 
-export const MissionSection: React.FC = () => {
+export function MissionSection() {
   return (
     <section className="py-16 bg-gradient-to-b from-brand-neutral-100 via-brand-secondary to-brand-neutral-200 border-y border-brand-neutral-300">
       <div className="container mx-auto px-6 max-w-6xl">
@@ -86,4 +85,4 @@ export const MissionSection: React.FC = () => {
       </div>
     </section>
   );
-};
+}

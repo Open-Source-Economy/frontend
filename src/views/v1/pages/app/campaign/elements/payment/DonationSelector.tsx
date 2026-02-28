@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { CampaignProductType } from "@open-source-economy/api-types";
-import { type ProjectId } from "src/ultils/local-types";
-import { paths } from "src/paths";
+import { type ProjectId, isOwnerId } from "src/utils/local-types";
 
 interface DonationSelectorProps {
   projectId: ProjectId;
@@ -45,7 +44,7 @@ export function DonationSelector(props: DonationSelectorProps) {
           </div>
           I want to receive{" "}
           <Link
-            to={paths.HOW_ITS_WORK}
+            to={"/how-its-work" as string}
             className="font-bold relative after:content-[''] after:absolute after:h-[2px] after:bg-current after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:transition-all after:duration-300"
             target="_blank"
           >
@@ -59,7 +58,11 @@ export function DonationSelector(props: DonationSelectorProps) {
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 xl:text-nowrap flex-wrap xl:!flex-nowrap 3xl:rounded-[15px] flex justify-start text-sm 1600:text-base 3xl:text-lg w-full items-center">
           Get bug fixes, features, support,
           <Link
-            to={paths.project(props.projectId)}
+            to={
+              (isOwnerId(props.projectId)
+                ? `/projects/${props.projectId}`
+                : `/projects/${props.projectId.ownerId}/${props.projectId.name}`) as string
+            }
             className="text-primary-user text-nowrap relative font-semibold after:transition-all after:content-[''] after:absolute after:h-0.5 after:bg-primary-user after:left-0 after:bottom-0 after:w-0 hover:after:w-full after:duration-300"
           >
             and more...

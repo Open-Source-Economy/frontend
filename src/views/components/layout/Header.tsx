@@ -2,7 +2,6 @@ import React from "react";
 import { Logo } from "src/views/components/brand/Logo";
 import { Link } from "@tanstack/react-router";
 import { headerNavigation, userMenuNavigation } from "./navigation";
-import { paths } from "src/paths";
 import { useAuth } from "src/views/auth/AuthContext";
 
 // New components
@@ -56,7 +55,7 @@ export function Header(props: HeaderProps) {
           <div className="flex items-center justify-between h-20 gap-2 lg:gap-4">
             {/* Logo */}
             <Link
-              to={paths.HOME}
+              to="/"
               onClick={() => setIsMobileMenuOpen(false)}
               className="hover:opacity-80 transition-opacity duration-200 shrink-0 !no-underline"
               aria-label="Go to homepage"

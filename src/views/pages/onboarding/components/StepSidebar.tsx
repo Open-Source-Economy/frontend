@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface StepSidebarProps {
   /** Current step number */
   stepNumber: number;
@@ -13,7 +11,7 @@ export interface StepSidebarProps {
  * StepSidebar - Desktop-only left sidebar showing step context
  * Displays large step number and description for clarity
  */
-export const StepSidebar: React.FC<StepSidebarProps> = ({ stepNumber, title: _title, description: _description }) => {
+export function StepSidebar(props: StepSidebarProps) {
   return (
     <div className="hidden lg:flex flex-col min-w-[180px] pr-6 border-r border-brand-neutral-300/30 self-start sticky top-8">
       {/* Large Step Number - Subtle & Elegant */}
@@ -26,8 +24,8 @@ export const StepSidebar: React.FC<StepSidebarProps> = ({ stepNumber, title: _ti
           lineHeight: 0.9,
         }}
       >
-        {stepNumber.toString().padStart(2, "0")}
+        {props.stepNumber.toString().padStart(2, "0")}
       </div>
     </div>
   );
-};
+}

@@ -48,9 +48,7 @@ export function HelpText(props: HelpTextProps) {
                   <DialogTitle className="sr-only">Learn more</DialogTitle>
                 )}
                 {props.learnMoreDescription && (
-                  <DialogDescription className="text-brand-neutral-600">
-                    {props.learnMoreDescription}
-                  </DialogDescription>
+                  <DialogDescription className="text-brand-neutral-600">{props.learnMoreDescription}</DialogDescription>
                 )}
               </DialogHeader>
               <div className="overflow-y-auto pr-2 -mr-2">{props.learnMoreContent}</div>

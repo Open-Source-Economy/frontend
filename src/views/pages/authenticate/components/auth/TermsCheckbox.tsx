@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox } from "src/views/components/ui/forms/checkbox";
 import { Label } from "src/views/components/ui/forms/label";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { paths } from "src/paths";
+
 import { Link } from "@tanstack/react-router";
 
 interface TermsCheckboxProps {
@@ -27,14 +27,14 @@ export function TermsCheckbox(props: TermsCheckboxProps) {
           <Label htmlFor="terms" className="text-sm text-brand-neutral-700 cursor-pointer leading-relaxed">
             By creating an account, I agree to the{" "}
             <Link
-              to={paths.TERMS_AND_CONDITIONS}
+              to={"/terms-and-conditions"}
               className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
             >
               Terms and Conditions
             </Link>{" "}
             and{" "}
             <Link
-              to={paths.PRIVACY}
+              to={"/privacy"}
               className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
             >
               Privacy Policy

@@ -1,7 +1,7 @@
 import React from "react";
 import { ProjectItemType } from "@open-source-economy/api-types";
-import { BulkValidationErrorType, BulkValidationResult } from "src/ultils/BulkProjectUrlParser";
-import { ProjectItemTypeCompanion } from "src/ultils/companions";
+import { BulkValidationErrorType, BulkValidationResult } from "src/utils/BulkProjectUrlParser";
+import { ProjectItemTypeCompanion } from "src/utils/companions";
 
 interface BulkProjectsPreviewProps {
   validationResult: BulkValidationResult;

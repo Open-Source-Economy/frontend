@@ -7,9 +7,9 @@ import github from "src/assets/v1/github.png";
 import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
 import { Button, EmailInput, PasswordInput } from "src/views/v1/components";
 import { TermsAgreement } from "src/views/v1/pages/authenticate/elements/TermsAgreement";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { ApiErrorModal } from "src/views/v1/components/common/ApiErrorModal";
 import {
   FormData,
@@ -18,7 +18,6 @@ import {
   validateForm,
 } from "src/views/v1/components/old-form/hooks/validateForm";
 import isEqual from "lodash/isEqual";
-import { paths } from "src/paths";
 import { authHooks } from "src/api";
 
 export enum AuthenticateType {
@@ -115,8 +114,8 @@ export function Authenticate(props: AuthenticateProps) {
     console.log("Redirect path:", from);
 
     const successCallback = () => {
-      console.log("Authentication successful, redirecting to:", from || paths.HOME);
-      navigate({ to: (from || paths.HOME) as string, replace: true });
+      console.log("Authentication successful, redirecting to:", from || "/");
+      navigate({ to: (from || "/") as string, replace: true });
     }; // Redirect to the original page after registration
 
     if (props.type === AuthenticateType.SignIn) {
@@ -161,7 +160,7 @@ export function Authenticate(props: AuthenticateProps) {
             className="bg-[#14233A] border !border-[rgba(255,_255,_255,_0.2)] rounded-3xl flex items-center justify-center flex-col mt-5 py-10 xs:w-[440px] w-[350px] !px-5 lg:!px-8 sm:w-[450px]"
           >
             <>
-              <Link to={paths.HOME}>
+              <Link to="/">
                 <img src={logo} className="w-[310px] h-[55px] mb-12 object-cover" alt="" />
               </Link>
 
@@ -248,7 +247,7 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {config.env !== Env.Production && props.type === AuthenticateType.SignIn && (
-                <Link to={paths.HOME} className="gradient-text-normal relative group font-semibold mt-3">
+                <Link to="/" className="gradient-text-normal relative group font-semibold mt-3">
                   Forgot Password?
                   <span className="gradient-btn-bg w-full h-[1px] hidden group-hover:block absolute bottom-1 left-0"></span>
                 </Link>
@@ -258,7 +257,12 @@ export function Authenticate(props: AuthenticateProps) {
 
           <p className="font-semibold mt-5">
             {props.type === AuthenticateType.SignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-            <Link to={paths.AUTH.IDENTIFY} state={location.state} className="gradient-text-normal group relative">
+            <Link
+              to="/auth/identify"
+              search={{ repository_token: undefined, company_token: undefined, email: undefined }}
+              state={location.state}
+              className="gradient-text-normal group relative"
+            >
               {props.type === AuthenticateType.SignIn ? "Sign Up" : "Sign In"}
               <span className="gradient-bg w-full h-[1px] hidden group-hover:block absolute bottom-0 left-0">x</span>
             </Link>

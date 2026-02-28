@@ -1,4 +1,3 @@
-import React from "react";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { RadioGroup } from "src/views/components/ui/radio-group";
 import { RadioOption } from "src/views/components/ui/forms/RadioOption";
@@ -10,25 +9,22 @@ interface BiggerOpportunitiesRadioGroupProps {
   error?: string | ValidationError;
 }
 
-export const BiggerOpportunitiesRadioGroup: React.FC<BiggerOpportunitiesRadioGroupProps> = ({
-  value,
-  onChange,
-  error,
-}) => {
+export function BiggerOpportunitiesRadioGroup(props: BiggerOpportunitiesRadioGroupProps) {
   const getRadioValue = () => {
-    if (value === true) return "yes";
-    if (value === false) return "no";
-    if (value === null) return "maybe";
+    if (props.value === true) return "yes";
+    if (props.value === false) return "no";
+    if (props.value === null) return "maybe";
     return undefined;
   };
 
   const handleValueChange = (radioValue: string) => {
-    if (radioValue === "yes") onChange(true);
-    else if (radioValue === "no") onChange(false);
-    else if (radioValue === "maybe") onChange(null);
+    if (radioValue === "yes") props.onChange(true);
+    else if (radioValue === "no") props.onChange(false);
+    else if (radioValue === "maybe") props.onChange(null);
   };
 
-  const validationError: ValidationError | undefined = typeof error === "string" ? { error } : error;
+  const validationError: ValidationError | undefined =
+    typeof props.error === "string" ? { error: props.error } : props.error;
 
   return (
     <FormField label="Are you open to bigger opportunities if we encounter some?" required error={validationError}>
@@ -41,4 +37,4 @@ export const BiggerOpportunitiesRadioGroup: React.FC<BiggerOpportunitiesRadioGro
       </RadioGroup>
     </FormField>
   );
-};
+}

@@ -12,10 +12,9 @@ import { Check, X } from "lucide-react";
 import { InfoTooltip } from "../tooltip";
 import { PlanDescription } from "../data/data";
 import { PricingDetails } from "./PricingDetails";
-import { NumberUtils } from "../../../../../../../ultils/NumberUtils";
-import { ApiError } from "../../../../../../../ultils/error/ApiError";
-import { paths } from "../../../../../../../paths";
-import { PreferredCurrency } from "../../../../../../../ultils/PreferredCurrency";
+import { NumberUtils } from "../../../../../../../utils/NumberUtils";
+import { ApiError } from "../../../../../../../utils/error/ApiError";
+import { PreferredCurrency } from "../../../../../../../utils/PreferredCurrency";
 import { useAuth } from "../../../../../../auth";
 import { stripeHooks } from "src/api";
 
@@ -41,7 +40,7 @@ export function Pricing(props: PricingProps) {
   const checkoutMutation = stripeHooks.useCheckoutMutation();
 
   const checkoutErrorParamName = "checkout_error";
-  const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
+  const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
   const paymentCancelUrl = `${window.location.href}?${checkoutErrorParamName}=true`;
 
   const [_error, setError] = useState<ApiError | null>(null); // TODO: Display error

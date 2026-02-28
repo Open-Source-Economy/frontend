@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 import { handleError } from "./apiClient";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { AxiosInstance } from "axios";
 
 // getOnboardingBackendAPI factory is in src/services/getAPI.ts to avoid circular imports

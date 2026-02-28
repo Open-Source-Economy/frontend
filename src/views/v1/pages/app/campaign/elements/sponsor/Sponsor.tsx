@@ -3,7 +3,7 @@ import { SponsorCard } from "./SponsorCard";
 import { getCardWidth } from "./utils";
 import { DividerTitle } from "../../../../../components";
 import { projectHooks } from "src/api";
-import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 interface SponsorProps {
   projectId: ProjectId;

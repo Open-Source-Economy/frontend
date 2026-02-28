@@ -1,6 +1,6 @@
 import React from "react";
 import { DeveloperProjectItemEntry, DeveloperProjectItemId } from "@open-source-economy/api-types";
-import { SourceIdentifierCompanion } from "src/ultils/companions";
+import { SourceIdentifierCompanion } from "src/utils/companions";
 import { ConfirmationDialog } from "src/views/components/ui/confirmation-dialog";
 
 interface DeleteProjectModalProps {

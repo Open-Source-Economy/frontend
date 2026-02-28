@@ -1,7 +1,6 @@
-import React from "react";
 import { DollarSign, GitBranch, TrendingUp, Users } from "lucide-react";
 
-export const FundFlowVisualization: React.FC = () => {
+export function FundFlowVisualization() {
   return (
     <div className="bg-brand-secondary-dark/50 rounded-2xl p-5 border border-brand-neutral-300/10">
       <h4 className="text-sm text-brand-neutral-700 mb-4 flex items-center gap-2">
@@ -57,4 +56,4 @@ export const FundFlowVisualization: React.FC = () => {
       </div>
     </div>
   );
-};
+}

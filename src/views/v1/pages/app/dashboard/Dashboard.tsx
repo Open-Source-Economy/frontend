@@ -3,8 +3,8 @@ import { PageWrapper } from "../../PageWrapper";
 import { DividerTitle, Services } from "src/views/v1/components";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
-import { paths } from "../../../../../paths";
 import { Owner, Repository, ServiceType } from "@open-source-economy/api-types";
+import { isOwnerId, type ProjectId } from "src/utils/local-types";
 import { Cards2 } from "../home/elements";
 import { repositoryIds } from "../../../../../services/data";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
@@ -18,7 +18,7 @@ export function Dashboard(_props: DashboardProps) {
   const _audience = Audience.USER;
   const buttons: { [key in ServiceType]?: ServiceButton } = {
     [ServiceType.DEVELOPMENT]: {
-      to: paths.FUND_ISSUES,
+      to: "/fund-issues",
       placeholder: "Get Support",
     },
   };
@@ -78,7 +78,7 @@ export function Dashboard(_props: DashboardProps) {
 
               {/* {repositories.map(([owner, repository], index) => (
                 <>
-                  <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to={paths.project(repository.id)} />
+                  <Cards2 owner={owner} repository={repository} audience={Audience.USER} action="FUND" to="..." />
                 </>
               ))} */}
               {repositories.map(([owner, repository], index) => (
@@ -88,7 +88,11 @@ export function Dashboard(_props: DashboardProps) {
                   repository={repository}
                   audience={Audience.USER}
                   action="FUND"
-                  to={paths.project(repository.id)}
+                  to={
+                    isOwnerId(repository.id as ProjectId)
+                      ? `/projects/${repository.id}`
+                      : `/projects/${repository.id.ownerId}/${repository.id.name}`
+                  }
                 />
               ))}
             </div>

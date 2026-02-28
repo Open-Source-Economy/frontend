@@ -8,7 +8,6 @@ import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
 import { FundingCardGrid } from "./FundingCardGrid";
 import { useNavigate } from "@tanstack/react-router";
-import { paths } from "../../../../../../../paths";
 import { onboardingHooks } from "src/api";
 
 export interface Step3Props extends OnboardingStepProps<Step3State> {}
@@ -76,7 +75,7 @@ export function Step3(props: Step3Props) {
 
   const onNext = () => {
     if (preferences.servicesPreference !== PreferenceType.YES) {
-      navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
+      navigate({ to: "/developer-onboarding-completed" as string });
     } else {
       props.onNext();
     }

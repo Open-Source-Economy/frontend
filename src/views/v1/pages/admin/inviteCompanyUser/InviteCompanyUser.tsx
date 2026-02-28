@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { Audience } from "../../../../Audience";
 import { AudienceTitle } from "src/views/v1/components";
 import { adminHooks } from "src/api";

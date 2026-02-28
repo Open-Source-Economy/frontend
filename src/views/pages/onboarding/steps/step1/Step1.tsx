@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import * as dto from "@open-source-economy/api-types";
@@ -12,8 +12,8 @@ import { Label } from "src/views/components/ui/forms/label";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { InfoMessage } from "../../../../components/ui/info-message";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { paths } from "../../../../../paths";
-import { isVisible } from "src/ultils/featureVisibility";
+
+import { isVisible } from "src/utils/featureVisibility";
 import { useZodForm, RhfFormInput } from "src/views/components/ui/forms/rhf";
 import { onboardingStep1Schema, type OnboardingStep1FormData } from "src/views/components/ui/forms/schemas";
 import { FormProvider } from "react-hook-form";
@@ -134,7 +134,7 @@ export default function Step1(props: Step1Props) {
               >
                 By submitting this form, I agree to the{" "}
                 <Link
-                  to={paths.TERMS_AND_CONDITIONS}
+                  to="/terms-and-conditions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
@@ -155,7 +155,7 @@ export default function Step1(props: Step1Props) {
                 {" "}
                 — learn more in our{" "}
                 <Link
-                  to={paths.PRIVACY}
+                  to="/privacy"
                   target="_blank"
                   className="text-brand-accent hover:text-brand-accent-light underline underline-offset-2 transition-colors duration-200 inline-block"
                 >

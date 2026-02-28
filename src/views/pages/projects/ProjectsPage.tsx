@@ -10,9 +10,9 @@ import {
   ProjectItemWithDetails,
   SortOrder,
 } from "@open-source-economy/api-types";
-import { ProjectItemWithDetailsCompanion } from "src/ultils/companions/ProjectItemWithDetails.companion";
-import { NumberUtils } from "src/ultils/NumberUtils";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ProjectItemWithDetailsCompanion } from "src/utils/companions/ProjectItemWithDetails.companion";
+import { NumberUtils } from "src/utils/NumberUtils";
+import { ApiError } from "src/utils/error/ApiError";
 import { projectHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 

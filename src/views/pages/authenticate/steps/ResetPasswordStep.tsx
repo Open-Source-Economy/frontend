@@ -5,8 +5,8 @@ import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
 
 const routeApi = getRouteApi("/auth/reset-password");
-import { paths } from "src/paths";
-import { ApiError } from "src/ultils/error/ApiError";
+
+import { ApiError } from "src/utils/error/ApiError";
 import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
@@ -46,7 +46,7 @@ export function ResetPasswordStep() {
 
     try {
       await resetPasswordMutation.mutateAsync({ body: { password: data.password }, query: { token } });
-      navigate({ to: paths.AUTH.IDENTIFY as string });
+      navigate({ to: "/auth/identify" as string });
     } catch {
       // Error tracked by resetPasswordMutation.error
     }
@@ -55,7 +55,7 @@ export function ResetPasswordStep() {
   if (!token) {
     return (
       <AuthPageWrapper title="Invalid Link" description="This password reset link is invalid or has expired.">
-        <Button onClick={() => navigate({ to: paths.AUTH.FORGOT_PASSWORD as string })} className="w-full">
+        <Button onClick={() => navigate({ to: "/auth/forgot-password" as string })} className="w-full">
           Request New Link
         </Button>
       </AuthPageWrapper>

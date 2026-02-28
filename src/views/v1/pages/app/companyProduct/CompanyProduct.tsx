@@ -9,16 +9,15 @@ import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
 import { Button } from "../../../components";
 import { Link } from "@tanstack/react-router";
-import { paths } from "../../../../../paths";
 
 interface CompanyProductProps {}
 
 export function CompanyProduct(_props: CompanyProductProps) {
   const buttonPaths: { [key in ServiceType]?: string } = {
-    [ServiceType.DEVELOPMENT]: paths.DASHBOARD,
-    // [ServiceType.OPERATION]: paths.DASHBOARD,
-    [ServiceType.ADVISORY]: paths.DASHBOARD,
-    [ServiceType.SUPPORT]: paths.DASHBOARD,
+    [ServiceType.DEVELOPMENT]: "/dashboard",
+    // [ServiceType.OPERATION]: "/dashboard",
+    [ServiceType.ADVISORY]: "/dashboard",
+    [ServiceType.SUPPORT]: "/dashboard",
     // TODO: make the compiler complain if an option is mission
   };
 
@@ -57,7 +56,12 @@ export function CompanyProduct(_props: CompanyProductProps) {
               className="hover:!text-white !text-primary-user !capitalize"
             />
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              <Link to={paths.AUTH.IDENTIFY}>Register</Link>
+              <Link
+                to="/auth/identify"
+                search={{ repository_token: undefined, company_token: undefined, email: undefined }}
+              >
+                Register
+              </Link>
             </Button>
           </div>
         </section>

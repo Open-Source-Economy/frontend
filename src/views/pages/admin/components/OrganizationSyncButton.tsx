@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { AlertCircle, CheckCircle, Loader2, RefreshCw } from "lucide-react";
 import { adminHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 interface OrganizationSyncButtonProps {
   projectItemId: string;

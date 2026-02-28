@@ -2,7 +2,7 @@ import { useState } from "react";
 import { projectService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { Project } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 export function useProjects() {
   const [projects, setProjects] = useState<Project[]>([]);

@@ -1,4 +1,3 @@
-import React from "react";
 import { PreferenceType } from "@open-source-economy/api-types";
 import { ParticipationFeatureItem } from "./ParticipationFeatureItem";
 import { FundFlowVisualization } from "./FundFlowVisualization";
@@ -11,18 +10,18 @@ interface ServiceProviderCardProps {
   hasError?: boolean;
 }
 
-export const ServiceProviderCard: React.FC<ServiceProviderCardProps> = ({ selectedState, onSelect, hasError }) => {
+export function ServiceProviderCard(props: ServiceProviderCardProps) {
   const config = participationCardConfigs[ParticipationModelOption.SERVICE_PROVIDER];
   const Icon = config.icon;
   const BadgeIcon = config.badge?.icon;
-  const _isSelected = selectedState === PreferenceType.YES;
+  const _isSelected = props.selectedState === PreferenceType.YES;
 
   return (
     <div
       className={`
         group relative w-full rounded-2xl border transition-all duration-300 overflow-hidden
         ${
-          hasError
+          props.hasError
             ? "border-brand-error/50 bg-brand-error/5 hover:border-brand-error/70"
             : "border-brand-neutral-300/10 bg-brand-card-blue/30 hover:border-brand-accent/50"
         }
@@ -73,11 +72,11 @@ export const ServiceProviderCard: React.FC<ServiceProviderCardProps> = ({ select
 
       {/* Selection Buttons - Full Width */}
       <div className="px-8 pb-8 pt-6 border-t border-brand-neutral-300/20">
-        <ParticipationSelectionButtons selectedState={selectedState} onSelect={onSelect} />
-        {hasError && !selectedState && (
+        <ParticipationSelectionButtons selectedState={props.selectedState} onSelect={props.onSelect} />
+        {props.hasError && !props.selectedState && (
           <p className="text-sm text-brand-error mt-4 text-center">{config.errorMessage}</p>
         )}
       </div>
     </div>
   );
-};
+}

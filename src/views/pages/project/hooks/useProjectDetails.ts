@@ -1,5 +1,5 @@
 import { projectHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import type * as dto from "@open-source-economy/api-types";
 import type { ProjectServiceOffering } from "../components/ServiceCategoryCard";
 

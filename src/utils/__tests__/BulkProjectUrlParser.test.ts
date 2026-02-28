@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 import { ProjectItemType } from "@open-source-economy/api-types";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { SourceIdentifier } from "src/utils/local-types";
 import { BulkProjectUrlParser, ParsedProjectUrl } from "../BulkProjectUrlParser";
 import { SourceIdentifierCompanion } from "../companions/SourceIdentifier.companion";
 

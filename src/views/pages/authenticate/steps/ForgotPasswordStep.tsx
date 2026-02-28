@@ -3,8 +3,8 @@ import { AuthPageWrapper } from "../AuthPageWrapper";
 import { Mail, ChevronLeft } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, useLocation } from "@tanstack/react-router";
-import { paths } from "src/paths";
-import { ApiError } from "src/ultils/error/ApiError";
+
+import { ApiError } from "src/utils/error/ApiError";
 import { authHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
@@ -44,7 +44,7 @@ export function ForgotPasswordStep() {
           <p className="text-brand-neutral-500 text-center">
             If an account exists for <strong>{form.getValues("email")}</strong>, you will receive an email shortly.
           </p>
-          <Button onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string })} className="w-full h-11">
+          <Button onClick={() => navigate({ to: "/auth/identify" as string })} className="w-full h-11">
             Back to Sign In
           </Button>
         </div>
@@ -74,7 +74,7 @@ export function ForgotPasswordStep() {
             </Button>
 
             <Button
-              onClick={() => navigate({ to: paths.AUTH.PASSWORD as string, search: searchParams })}
+              onClick={() => navigate({ to: "/auth/password" as string, search: searchParams })}
               variant="ghost"
               className="w-full h-11 text-brand-neutral-700"
               leftIcon={ChevronLeft}

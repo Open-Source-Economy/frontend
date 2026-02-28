@@ -6,16 +6,15 @@ import React from "react";
 import { ProjectTitle } from "src/views/v1/components/title";
 import { WhyNeedFunding } from "./elements";
 import { H3WithSubtitle } from "src/views/v1/components/title/H3WithSubtitle";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { Button } from "src/views/v1/components";
 import { Link } from "@tanstack/react-router";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
-import { paths } from "src/paths";
 import { getDescription } from "../../../../../services/data/disclaimers/pekkoDisclaimer";
 import { projectHooks } from "src/api";
-import { getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 interface ProjectProps {}
 
@@ -56,8 +55,8 @@ export function Project(_props: ProjectProps) {
             />
 
             <Button audience="ALL" level="PRIMARY" size="LARGE" className="!capitalize" asChild>
-              {/*<Link to={paths.campaign(projectId)}>Support Us</Link>*/}
-              <Link to={paths.PRICING}>Get Started</Link>
+              {/*<Link to="...">Support Us</Link>*/}
+              <Link to="/pricing">Get Started</Link>
             </Button>
           </div>
         </section>

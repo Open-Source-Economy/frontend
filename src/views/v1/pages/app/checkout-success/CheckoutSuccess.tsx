@@ -7,8 +7,7 @@ import { Button } from "src/views/v1/components";
 import chatbox from "src/assets/v1/chat-box.png";
 import bg from "src/assets/v1/checkout-bg.png";
 import { Audience } from "../../../../Audience";
-import { config, Env } from "src/ultils";
-import { paths } from "src/paths";
+import { config, Env } from "src/utils";
 
 interface CheckoutSuccessProps {}
 
@@ -71,7 +70,7 @@ export function CheckoutSuccess(_props: CheckoutSuccessProps) {
             )}
 
             <Button audience={audience} level="PRIMARY" size="MEDIUM" asChild>
-              <Link to={paths.FUND_ISSUES}>GET STARTED</Link>
+              <Link to={"/fund-issues" as string}>GET STARTED</Link>
             </Button>
           </div>
         </div>

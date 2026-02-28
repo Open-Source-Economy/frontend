@@ -14,7 +14,7 @@ import { displayedCurrencies } from "src/views/v1/data";
 import { Currency } from "@open-source-economy/api-types";
 import { credit, Credit } from "src/model";
 import React from "react";
-import { paths } from "src/paths";
+import { externalLinks } from "src/externalLinks";
 
 // Base class for all navigation items
 export class NavItemData {
@@ -101,28 +101,28 @@ export class ButtonItemData extends NavItemData {
 export class Navigation {
   static readonly items = {
     // Authentication
-    signIn: new LinkItemData("Sign In", paths.AUTH.IDENTIFY),
-    signOut: new LinkItemData("Sign Out", paths.LOGOUT, { icon: <LogOutIcon /> }),
+    signIn: new LinkItemData("Sign In", "/auth/identify"),
+    signOut: new LinkItemData("Sign Out", "/logout", { icon: <LogOutIcon /> }),
 
     // Main navigation
     // newsletter: new LinkItemData("Newsletter", "#footer"),
-    blog: new ExternalLinkItemData("Blog", paths.BLOG),
+    blog: new ExternalLinkItemData("Blog", externalLinks.BLOG),
 
     // Issue management
-    manageIssues: new LinkItemData("Manage Issues", paths.MANAGE_ISSUES, {
+    manageIssues: new LinkItemData("Manage Issues", "/manage-issues", {
       icon: <MaintainerIcon />,
     }),
-    fundIssues: new LinkItemData("Fund Issues", paths.FUND_ISSUES, {
+    fundIssues: new LinkItemData("Fund Issues", "/fund-issues", {
       icon: <FundIssueIcon />,
     }),
 
-    howItWorks: new LinkItemData("How it Works", paths.HOW_ITS_WORK, {
+    howItWorks: new LinkItemData("How it Works", "/how-its-work", {
       icon: <HowItWorksIcon />,
     }),
-    pricing: new LinkItemData("Pricing", paths.PRICING, {
+    pricing: new LinkItemData("Pricing", "/pricing", {
       icon: <MaintainerIcon />, // TODO: replace with proper icon
     }),
-    dashboard: new LinkItemData("Dashboard", paths.DASHBOARD, {
+    dashboard: new LinkItemData("Dashboard", "/dashboard", {
       icon: <DashboardIcon />,
     }),
 
@@ -158,7 +158,7 @@ export class Navigation {
   }
 
   static availableCredits(credits: Credit | null): LinkItemData {
-    return new LinkItemData(credit.displayAmount(credits), paths.PRICING, {
+    return new LinkItemData(credit.displayAmount(credits), "/pricing", {
       icon: <AvailableFunding />,
     });
   }

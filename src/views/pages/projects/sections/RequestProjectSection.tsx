@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/components/ui/forms/button";
 import { Plus } from "lucide-react";
-import { paths } from "src/paths";
 
 interface RequestProjectSectionProps {
   searchQuery?: string;
@@ -115,7 +114,7 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
               asChild
               className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-lg shadow-brand-accent/25 hover:shadow-xl hover:shadow-brand-accent/30 transition-all"
             >
-              <Link to={paths.CONTACT as string} search={{ reason: "request-project" }}>
+              <Link to={"/contact" as string} search={{ reason: "request-project" }}>
                 <Plus className="w-4 h-4 mr-2" />
                 {v.primaryCta}
               </Link>
@@ -125,7 +124,7 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
             {/*  variant="outline"*/}
             {/*  className="border-brand-accent/40 hover:bg-brand-accent/10 hover:border-brand-accent/60 text-brand-neutral-900 transition-all"*/}
             {/*>*/}
-            {/*  <Link to={paths.CONTACT}>*/}
+            {/*  <Link to="/contact">*/}
             {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
             {/*    {v.secondaryCta}*/}
             {/*  </Link>*/}
@@ -150,13 +149,13 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button asChild className="bg-brand-accent hover:bg-brand-accent-dark text-white">
-            <Link to={paths.CONTACT as string} search={{ reason: "request-project" }}>
+            <Link to={"/contact" as string} search={{ reason: "request-project" }}>
               <Plus className="w-4 h-4 mr-2" />
               {v.primaryCta}
             </Link>
           </Button>
           {/*<Button asChild variant="outline" className="border-border hover:bg-card">*/}
-          {/*  <Link to={paths.CONTACT}>*/}
+          {/*  <Link to="/contact">*/}
           {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
           {/*    {v.secondaryCta}*/}
           {/*  </Link>*/}

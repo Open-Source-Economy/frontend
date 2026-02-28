@@ -1,7 +1,7 @@
 import React from "react";
 import check from "src/assets/v1/checkmark.png";
 import { Button } from "src/views/v1/components";
-import { SpinningWheel } from "src/ultils/Icons";
+import { SpinningWheel } from "src/utils/Icons";
 import { credit, Credit } from "src/model";
 
 interface HighLightCardProps {

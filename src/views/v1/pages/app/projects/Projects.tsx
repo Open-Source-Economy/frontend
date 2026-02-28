@@ -1,6 +1,6 @@
 import React from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
-import { paths } from "src/paths";
+import { isOwnerId, type ProjectId } from "src/utils/local-types";
 import { Cards2 } from "src/views/v1/pages/app/home/elements";
 import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
@@ -54,7 +54,11 @@ export function Projects(_props: ProjectsProps) {
                   repository={repository}
                   audience={Audience.USER}
                   action="FUND"
-                  to={paths.campaign(repository.id)}
+                  to={
+                    isOwnerId(repository.id as ProjectId)
+                      ? `/projects/${repository.id}/campaign`
+                      : `/projects/${repository.id.ownerId}/${repository.id.name}/campaign`
+                  }
                 />
               </>
             ))}

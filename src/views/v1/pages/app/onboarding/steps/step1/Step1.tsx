@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { ApiError as _ApiError } from "src/ultils/error/ApiError";
+import { ApiError as _ApiError } from "src/utils/error/ApiError";
 import { Step1State } from "../../OnboardingDataSteps";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import * as dto from "@open-source-economy/api-types";

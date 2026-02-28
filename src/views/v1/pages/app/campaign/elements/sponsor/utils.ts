@@ -1,4 +1,4 @@
-import { CardSize } from "src/ultils/local-types";
+import { CardSize } from "src/utils/local-types";
 
 export const getCardWidth = (size?: CardSize) => {
   switch (size) {

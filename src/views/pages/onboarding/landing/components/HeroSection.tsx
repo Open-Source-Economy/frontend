@@ -1,14 +1,12 @@
-import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Code2, Github, MessageCircle } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { paths } from "../../../../../paths";
 
 interface HeroSectionProps {
   onGitHubSignIn: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onGitHubSignIn }) => {
+export function HeroSection(props: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-brand-secondary via-brand-neutral-100 to-brand-accent/10 py-20 border-b border-brand-neutral-300">
       <div className="absolute top-0 right-0 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl -z-10" />
@@ -32,13 +30,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGitHubSignIn }) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              onClick={onGitHubSignIn}
+              onClick={props.onGitHubSignIn}
               className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-xl"
             >
               <Github className="h-5 w-5 mr-2" />
               Sign in with GitHub
             </Button>
-            <Link to={paths.CONTACT} target="_blank" rel="noopener noreferrer">
+            <Link to="/contact" search={{ reason: undefined }} target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="outline" className="border-brand-neutral-300 hover:bg-brand-card-blue">
                 <MessageCircle className="h-5 w-5 mr-2" />
                 Book a Call
@@ -49,4 +47,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGitHubSignIn }) => {
       </div>
     </section>
   );
-};
+}

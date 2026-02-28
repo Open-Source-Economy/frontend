@@ -1,9 +1,8 @@
-import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { AlertCircle, Clock, Edit, Github, Globe, Trash2, X } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { CurrencyCompanion, ResponseTimeTypeCompanion, SourceIdentifierCompanion } from "src/ultils/companions";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { CurrencyCompanion, ResponseTimeTypeCompanion, SourceIdentifierCompanion } from "src/utils/companions";
+import { SourceIdentifier } from "src/utils/local-types";
 import { Rate } from "../types";
 
 interface ServiceCardProps {
@@ -16,25 +15,18 @@ interface ServiceCardProps {
   showError?: boolean;
 }
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({
-  developerServiceEntry,
-  sourceIdentifiers: sourceIdentifiersMap,
-  defaultRate,
-  onSelectProjects,
-  onRemoveDeveloperService,
-  onEditDeveloperService,
-  showError,
-}) => {
-  const service = developerServiceEntry.service;
-  const developerService = developerServiceEntry.developerService;
-  const currencySymbol = CurrencyCompanion.symbol(defaultRate.currency);
+export function ServiceCard(props: ServiceCardProps) {
+  const sourceIdentifiersMap = props.sourceIdentifiers;
+  const service = props.developerServiceEntry.service;
+  const developerService = props.developerServiceEntry.developerService;
+  const currencySymbol = CurrencyCompanion.symbol(props.defaultRate.currency);
 
   // Check if service needs response time configuration
   const needsResponseTime = service.hasResponseTime && developerService?.responseTimeHours === undefined;
   const needsProjects = developerService?.developerProjectItemIds.length === 0;
 
   // Effective rate (custom or base)
-  const effectiveRate = developerService?.hourlyRate || defaultRate.amount;
+  const effectiveRate = developerService?.hourlyRate || props.defaultRate.amount;
   const hasCustomRate = !!developerService?.hourlyRate;
 
   // Convert the map to use string keys for efficient lookups
@@ -80,7 +72,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                 <>
                   <span className="text-brand-neutral-400">•</span>
                   <button
-                    onClick={() => onSelectProjects(developerServiceEntry)}
+                    onClick={() => props.onSelectProjects(props.developerServiceEntry)}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-warning/10 hover:bg-brand-warning/20 border border-brand-warning/30 rounded-lg text-xs text-brand-warning transition-all cursor-pointer"
                   >
                     <AlertCircle className="w-3.5 h-3.5" />
@@ -92,7 +84,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                 <>
                   <span className="text-brand-neutral-400">•</span>
                   <button
-                    onClick={() => onSelectProjects(developerServiceEntry)}
+                    onClick={() => props.onSelectProjects(props.developerServiceEntry)}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-error/10 hover:bg-brand-error/20 border border-brand-error/30 rounded-lg text-xs text-brand-error transition-all cursor-pointer"
                   >
                     <AlertCircle className="w-3.5 h-3.5" />
@@ -133,7 +125,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                       )}
                       <span className="truncate max-w-[200px]">{displayName}</span>
                       <button
-                        onClick={() => onEditDeveloperService && onEditDeveloperService(developerServiceEntry)}
+                        onClick={() =>
+                          props.onEditDeveloperService && props.onEditDeveloperService(props.developerServiceEntry)
+                        }
                         className="ml-1 p-0.5 rounded hover:bg-brand-error/20 text-brand-neutral-500 hover:text-brand-error transition-all cursor-pointer"
                         title="Remove project from service"
                       >
@@ -147,7 +141,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           )}
 
           {/* Error Message */}
-          {showError && (needsResponseTime || needsProjects) && (
+          {props.showError && (needsResponseTime || needsProjects) && (
             <p className="text-sm text-brand-error leading-relaxed">
               * Please configure this service before proceeding
             </p>
@@ -156,11 +150,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          {onEditDeveloperService && (
+          {props.onEditDeveloperService && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onEditDeveloperService(developerServiceEntry)}
+              onClick={() => props.onEditDeveloperService!(props.developerServiceEntry)}
               className="h-9 w-9 p-0 text-brand-accent hover:text-brand-accent-light hover:bg-brand-accent/10 transition-all"
               title="Edit service"
             >
@@ -170,7 +164,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onRemoveDeveloperService(service.id)}
+            onClick={() => props.onRemoveDeveloperService(service.id)}
             className="h-9 w-9 p-0 text-brand-error hover:text-brand-error-light hover:bg-brand-error/10 transition-all"
             title="Remove service"
           >
@@ -180,4 +174,4 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       </div>
     </div>
   );
-};
+}

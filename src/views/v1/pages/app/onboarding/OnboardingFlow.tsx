@@ -6,7 +6,6 @@ import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
 import Step1 from "./steps/step1/Step1";
 import Step2 from "./steps/step2/Step2";
 
-import { paths } from "../../../../../paths";
 import { PageWrapper } from "../../PageWrapper";
 import { PageLoader } from "../../../components/common/PageLoader";
 import {
@@ -19,7 +18,7 @@ import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
 import { Step4 } from "./steps/step4";
 import { Step5 } from "./steps/step5";
-import { PreferredCurrency } from "../../../../../ultils/PreferredCurrency";
+import { PreferredCurrency } from "../../../../../utils/PreferredCurrency";
 import ProgressBar from "./components/ProgressBar";
 import ErrorDisplay from "./components/ErrorDisplay";
 import { StepHeader } from "./landing/components";
@@ -103,7 +102,7 @@ export default function OnboardingFlow() {
     if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
+      navigate({ to: "/developer-onboarding-completed" as string });
     }
   };
 
@@ -112,7 +111,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate({ to: paths.DEVELOPER_LANDING as string });
+      navigate({ to: "/developer" as string });
     }
   };
 

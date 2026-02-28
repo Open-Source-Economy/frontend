@@ -5,14 +5,14 @@ import { AQuestion, FundingCampaign, UseOfFunds, WhyDoWeNeedYourHelp } from "./e
 import { WhyTrustUs } from "./elements/WhyTrustUs";
 import { Maintainers } from "../project/elements/Maintainers";
 import { ProjectTitle } from "src/views/v1/components/title";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { Button } from "src/views/v1/components";
 import { useProjectContext } from "../../../layout/ProjectRoute";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Sponsor } from "./elements/sponsor/Sponsor";
 import { projectHooks } from "src/api";
 import { getCampaignDescription } from "src/services/data";
-import { getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 interface CampaignProps {}
 

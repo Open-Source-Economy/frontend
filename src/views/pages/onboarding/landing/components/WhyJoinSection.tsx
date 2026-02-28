@@ -1,7 +1,6 @@
-import React from "react";
 import { Clock, DollarSign, Handshake, Heart, Shield, Users } from "lucide-react";
 
-export const WhyJoinSection: React.FC = () => {
+export function WhyJoinSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-brand-accent/5 via-brand-secondary to-brand-highlight/5 border-y border-brand-neutral-300">
       <div className="container mx-auto px-6 max-w-6xl">
@@ -63,4 +62,4 @@ export const WhyJoinSection: React.FC = () => {
       </div>
     </section>
   );
-};
+}

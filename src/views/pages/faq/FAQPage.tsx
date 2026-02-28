@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { PageWrapper } from "../PageWrapper";
 import { Button } from "../../components/ui/forms/button";
 import { Badge } from "../../components/ui/badge";
-import { paths } from "src/paths";
 import { useFAQFilter } from "./hooks/useFAQFilter";
 import { FAQCategoryFilter, FAQCategorySection, FAQEmptyState, FAQSearchBar } from "./components";
 
@@ -58,10 +57,12 @@ export function FAQPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild>
-                <Link to={paths.CONTACT}>Contact Support</Link>
+                <Link to="/contact" search={{ reason: undefined }}>
+                  Contact Support
+                </Link>
               </Button>
               <Button asChild variant="outline">
-                <Link to={paths.PROJECTS}>Browse Projects</Link>
+                <Link to="/projects">Browse Projects</Link>
               </Button>
             </div>
           </div>

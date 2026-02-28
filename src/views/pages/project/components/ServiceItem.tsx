@@ -1,7 +1,7 @@
 import React from "react";
 import { Clock, type LucideIcon } from "lucide-react";
 import { ResponseTimeType } from "@open-source-economy/api-types";
-import { ResponseTimeTypeCompanion } from "src/ultils/companions/ResponseTimeType.companion";
+import { ResponseTimeTypeCompanion } from "src/utils/companions/ResponseTimeType.companion";
 import { ServiceOffering } from "./ServiceCategoryCard";
 
 interface ServiceItemProps {

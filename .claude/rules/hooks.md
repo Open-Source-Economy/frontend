@@ -70,7 +70,7 @@ await fundIssue.mutateAsync({ params: fundParams, body: fundBody, query: fundQue
 Use `ApiError` for typed error handling:
 
 ```typescript
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 const { error } = projectHooks.useProjectQuery(params, query);
 const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;

@@ -2,7 +2,7 @@ import React from "react";
 import { LucideIcon, Shield } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
 import { EnterpriseServiceCard } from "../ui/EnterpriseServiceCard";
-import { isVisible } from "src/ultils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 
 interface EnterpriseService {
   icon: LucideIcon;
@@ -21,7 +21,8 @@ interface EnterpriseAddonsSectionProps {
  * EnterpriseAddonsSection - Enterprise-grade service guarantees section
  * Displays NDA, SLA, and ecosystem programs with trust indicators
  */
-export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = ({ services, className = "" }) => {
+export function EnterpriseAddonsSection(props: EnterpriseAddonsSectionProps) {
+  const className = props.className ?? "";
   const showButtons = isVisible("enterpriseServiceButtons");
 
   return (
@@ -70,7 +71,7 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
 
             {/* Premium Enterprise Services Grid */}
             <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {services.map((service, index) => (
+              {props.services.map((service, index) => (
                 <EnterpriseServiceCard
                   key={index}
                   icon={service.icon}
@@ -97,4 +98,4 @@ export const EnterpriseAddonsSection: React.FC<EnterpriseAddonsSectionProps> = (
       </Card>
     </div>
   );
-};
+}

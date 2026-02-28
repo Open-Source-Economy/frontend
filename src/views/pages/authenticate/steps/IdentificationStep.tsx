@@ -4,9 +4,9 @@ import { Button } from "src/views/components/ui/forms/button";
 import { FormDivider } from "../components/auth/FormDivider";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
 import { Provider } from "@open-source-economy/api-types";
-import { paths } from "src/paths";
+
 import { useAuth } from "src/views/auth/AuthContext";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 import { authHooks } from "src/api";
@@ -92,7 +92,7 @@ export function IdentificationStep() {
   const checkEmailAndNavigate = async (emailToCheck: string, isPredefined: boolean) => {
     try {
       const result = await checkEmailMutation.mutateAsync({ params: {}, query: { email: emailToCheck } });
-      const nextPath = result.provider === Provider.Github ? paths.AUTH.GITHUB : paths.AUTH.PASSWORD;
+      const nextPath = result.provider === Provider.Github ? "/auth/github" : "/auth/password";
 
       navigate({
         to: nextPath as string,

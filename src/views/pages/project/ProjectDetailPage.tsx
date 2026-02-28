@@ -13,15 +13,15 @@ import type * as dto from "@open-source-economy/api-types";
 import { ServiceType } from "@open-source-economy/api-types";
 import { LoadingState } from "../../components/ui/state/loading-state";
 import { ServerErrorAlert } from "../../components/ui/state/ServerErrorAlert";
-import { ProjectItemDetailsCompanion } from "src/ultils/companions/ProjectItemDetails.companion";
+import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
 import { useProjectDetails } from "./hooks/useProjectDetails";
 import { TrustIndicatorGroup, type TrustIndicatorItem } from "./components/TrustIndicators";
 import { getProjectDisclaimer } from "./data/projectDisclaimers";
 import { laurianeCalLink } from "../../v1/data";
 import { cn } from "../../components/utils";
-import { ServiceTypeCompanion } from "src/ultils/companions";
+import { ServiceTypeCompanion } from "src/utils/companions";
 import { FundDistributionVisualization } from "./sections/FundDistributionVisualization";
-import { isVisible } from "../../../ultils/featureVisibility";
+import { isVisible } from "../../../utils/featureVisibility";
 import { FeaturedVendors } from "../home/sections/vendors/FeaturedVendors";
 
 type ServiceOfferingByCategory = Map<ServiceType, ServiceOffering[]>;
@@ -83,7 +83,7 @@ export function ProjectDetailPage() {
       {/*/!* Back Button *!/*/}
       {/*<div className="container mx-auto px-4 py-6 max-w-6xl">*/}
       {/*  <Button asChild variant="ghost" className="text-brand-neutral-700 hover:text-brand-accent">*/}
-      {/*    <Link to={paths.PROJECTS}>*/}
+      {/*    <Link to="/projects">*/}
       {/*      <ArrowLeft className="mr-2 h-4 w-4" />*/}
       {/*      Back to Projects*/}
       {/*    </Link>*/}

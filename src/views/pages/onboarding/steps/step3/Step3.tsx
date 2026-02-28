@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { PreferenceType } from "@open-source-economy/api-types";
 import { FieldError } from "src/views/components/ui/forms/field-error";

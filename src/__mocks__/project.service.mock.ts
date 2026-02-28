@@ -8,10 +8,10 @@ import {
   GetProjectAccordionResponse,
   GetSponsorsParams,
   GetSponsorsQuery,
-} from "src/ultils/local-types";
+} from "src/utils/local-types";
 import { ProjectService } from "src/services/project.service";
 import { owner, repository } from "./index";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";

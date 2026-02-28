@@ -1,4 +1,3 @@
-import React from "react";
 import { PreferenceType } from "@open-source-economy/api-types";
 
 interface ParticipationSelectionButtonsProps {
@@ -13,12 +12,9 @@ const BUTTON_CONFIGS = [
   { state: PreferenceType.NOT_INTERESTED, label: "Not interested" },
 ] as const;
 
-export const ParticipationSelectionButtons: React.FC<ParticipationSelectionButtonsProps> = ({
-  selectedState,
-  onSelect,
-}) => {
+export function ParticipationSelectionButtons(props: ParticipationSelectionButtonsProps) {
   const getButtonClasses = (state: PreferenceType) => {
-    const isSelected = selectedState === state;
+    const isSelected = props.selectedState === state;
 
     // Map each state to its full Tailwind classes (Tailwind JIT requires complete class names)
     const styleMap = {
@@ -50,7 +46,7 @@ export const ParticipationSelectionButtons: React.FC<ParticipationSelectionButto
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            onSelect(state);
+            props.onSelect(state);
           }}
           className={`flex-1 px-3 py-2 rounded-lg border-2 text-sm transition-all duration-200 cursor-pointer ${getButtonClasses(state)}`}
         >
@@ -59,4 +55,4 @@ export const ParticipationSelectionButtons: React.FC<ParticipationSelectionButto
       ))}
     </div>
   );
-};
+}

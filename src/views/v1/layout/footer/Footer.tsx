@@ -9,8 +9,7 @@ import type {
   SubscribeNewsletterParams,
   SubscribeNewsletterQuery,
 } from "@open-source-economy/api-types";
-import { ApiError } from "../../../../ultils/error/ApiError";
-import { paths } from "src/paths";
+import { ApiError } from "../../../../utils/error/ApiError";
 import { BookACallButton } from "../../components/elements/BookACallButton";
 import { ExternalLink } from "../../components";
 import { Link } from "@tanstack/react-router";
@@ -43,17 +42,17 @@ const footerSections: FooterSection[] = [
   {
     title: "Resources",
     links: [
-      // { text: "White Paper", href: paths.WHITE_PAPER, external: true },
-      { text: "How it Works", href: paths.HOW_ITS_WORK },
-      // { text: "Blog", href: paths.BLOG, external: true },
-      { text: "Terms & Conditions", href: paths.TERMS_AND_CONDITIONS, external: true },
+      // { text: "White Paper", href: "/white-paper", external: true },
+      { text: "How it Works", href: "/how-its-work" },
+      // { text: "Blog", href: "https://blog.open-source-economy.com/", external: true },
+      { text: "Terms & Conditions", href: "/terms-and-conditions", external: true },
     ],
   },
 ];
 
 const _legalLinks: FooterLink[] = [
-  { text: "Privacy policy", href: paths.PRIVACY },
-  { text: "", href: paths.TERMS },
+  { text: "Privacy policy", href: "/privacy" },
+  { text: "", href: "/terms" },
 ];
 
 export function Footer() {
@@ -142,7 +141,7 @@ export function Footer() {
             {/* Logo and Newsletter Section */}
             <div className="flex flex-col lg:flex-row gap-8 md:px-[30px] sm:px-[20px] max-[540px]:px-3 1200:px-[65px]">
               <div className="lg:w-1/2 w-full" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
-                <a href={paths.HOME}>
+                <a href="/">
                   <img src="/favicon.svg" className="max-w-[200px] md:max-w-[330px]" alt="Logo" />
                 </a>
                 <div className="flex items-center mt-4 gap-3">

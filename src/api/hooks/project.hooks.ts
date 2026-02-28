@@ -11,7 +11,7 @@ import {
   GetProjectAccordionResponse,
   GetSponsorsParams,
   GetSponsorsQuery,
-} from "src/ultils/local-types";
+} from "src/utils/local-types";
 
 const PROJECT_QUERY_KEY = ["project"] as const;
 

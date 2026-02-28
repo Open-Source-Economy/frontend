@@ -42,37 +42,29 @@ interface ConfirmationDialogProps {
  * ConfirmationDialog - Reusable confirmation dialog component
  * Can be used in controlled mode (with open/onOpenChange) or uncontrolled mode (with trigger)
  */
-export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
-  open,
-  onOpenChange,
-  title,
-  description,
-  cancelText = "Cancel",
-  confirmText = "Confirm",
-  confirmLoadingText,
-  isLoading = false,
-  onConfirm,
-  onCancel,
-  trigger,
-  variant = "destructive",
-}) => {
+export function ConfirmationDialog(props: ConfirmationDialogProps) {
+  const cancelText = props.cancelText ?? "Cancel";
+  const confirmText = props.confirmText ?? "Confirm";
+  const isLoading = props.isLoading ?? false;
+  const variant = props.variant ?? "destructive";
+
   const handleCancel = () => {
-    if (onCancel) {
-      onCancel();
+    if (props.onCancel) {
+      props.onCancel();
     }
-    if (onOpenChange) {
-      onOpenChange(false);
+    if (props.onOpenChange) {
+      props.onOpenChange(false);
     }
   };
 
   const handleConfirm = () => {
-    onConfirm();
+    props.onConfirm();
   };
 
   // Handle Enter key to confirm action
   useEffect(() => {
     // Only handle Enter key in controlled mode (when open is defined)
-    if (open === undefined || !open) return;
+    if (props.open === undefined || !props.open) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       // Only trigger if Enter is pressed and not loading
@@ -84,7 +76,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           return;
         }
         event.preventDefault();
-        onConfirm();
+        props.onConfirm();
       }
     };
 
@@ -92,7 +84,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open, isLoading, onConfirm]);
+  }, [props.open, isLoading, props.onConfirm]);
 
   const confirmButtonClassName =
     variant === "destructive"
@@ -102,8 +94,8 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   const dialogContent = (
     <AlertDialogContent className="bg-brand-secondary-dark border border-brand-neutral-300/10 max-w-[calc(100vw-2rem)] sm:max-w-lg">
       <AlertDialogHeader>
-        <AlertDialogTitle className="text-brand-neutral-900">{title}</AlertDialogTitle>
-        <AlertDialogDescription className="text-brand-neutral-600">{description}</AlertDialogDescription>
+        <AlertDialogTitle className="text-brand-neutral-900">{props.title}</AlertDialogTitle>
+        <AlertDialogDescription className="text-brand-neutral-600">{props.description}</AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogCancel
@@ -114,16 +106,16 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           {cancelText}
         </AlertDialogCancel>
         <AlertDialogAction onClick={handleConfirm} disabled={isLoading} className={confirmButtonClassName}>
-          {isLoading && confirmLoadingText ? confirmLoadingText : confirmText}
+          {isLoading && props.confirmLoadingText ? props.confirmLoadingText : confirmText}
         </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   );
 
   // Controlled mode (with open prop)
-  if (open !== undefined) {
+  if (props.open !== undefined) {
     return (
-      <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialog open={props.open} onOpenChange={props.onOpenChange}>
         {dialogContent}
       </AlertDialog>
     );
@@ -132,8 +124,8 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   // Uncontrolled mode (with trigger)
   return (
     <AlertDialog>
-      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
+      {props.trigger && <AlertDialogTrigger asChild>{props.trigger}</AlertDialogTrigger>}
       {dialogContent}
     </AlertDialog>
   );
-};
+}

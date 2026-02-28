@@ -7,7 +7,7 @@
  * This file imports mocks, but service implementation files do not,
  * which keeps the dependency graph acyclic.
  */
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { type ProjectService, projectServiceImpl } from "./project.service";
 import { type FundingService, fundingServiceImpl } from "./funding.service";
 import { type StripeService, stripeServiceImpl } from "./stripe.service";

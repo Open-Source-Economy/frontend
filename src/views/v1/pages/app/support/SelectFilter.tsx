@@ -1,7 +1,7 @@
 "use client";
 import { Check, CrownIcon } from "lucide-react";
 import * as React from "react";
-import { ToolTipIcon } from "src/ultils/Icons";
+import { ToolTipIcon } from "src/utils/Icons";
 import { cn } from "src/views/v1/components";
 import IsUpgraded from "./IsUpgraded";
 import { DropdownOption } from "./DropdownOption";

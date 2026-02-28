@@ -1,7 +1,7 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 import { ServiceItem } from "./ServiceItem";
-import type { ServiceTypeInfo } from "../../../../ultils/companions";
+import type { ServiceTypeInfo } from "../../../../utils/companions";
 import * as dto from "@open-source-economy/api-types";
 
 export interface ProjectServiceOffering {

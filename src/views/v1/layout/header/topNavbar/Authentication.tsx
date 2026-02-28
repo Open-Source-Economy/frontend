@@ -4,7 +4,6 @@ import { Link } from "@tanstack/react-router";
 import { NavbarItem } from "../navbar/item/NavbarItem";
 import { Navigation } from "../navbar/item/NavItemData";
 import { useCurrency } from "src/context/CurrencyContext";
-import { paths } from "src/paths";
 
 interface AuthenticationProps {}
 
@@ -19,7 +18,9 @@ export function Authentication(_props: AuthenticationProps) {
       />
       <NavbarItem item={Navigation.items.signIn} />
       <Button audience="ALL" level="SECONDARY" size="SMALL" className="!capitalize" asChild>
-        <Link to={paths.AUTH.IDENTIFY}>Join</Link>
+        <Link to="/auth/identify" search={{ repository_token: undefined, company_token: undefined, email: undefined }}>
+          Join
+        </Link>
       </Button>
     </div>
   );

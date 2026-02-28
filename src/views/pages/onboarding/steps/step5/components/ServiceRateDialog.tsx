@@ -1,4 +1,3 @@
-import React from "react";
 import { DollarSign, Edit2 } from "lucide-react";
 
 interface ServiceRateDialogContentProps {
@@ -10,7 +9,7 @@ interface ServiceRateDialogContentProps {
  * ServiceRateDialogContent - Dialog content explaining base vs custom service rates
  * Used in ServiceModal to provide detailed information about rate options
  */
-export const ServiceRateDialogContent: React.FC<ServiceRateDialogContentProps> = ({ currency, baseRate }) => {
+export function ServiceRateDialogContent(props: ServiceRateDialogContentProps) {
   return (
     <div className="space-y-4">
       {/* Base Rate Option */}
@@ -22,8 +21,8 @@ export const ServiceRateDialogContent: React.FC<ServiceRateDialogContentProps> =
           <h5 className="text-sm text-brand-neutral-900">Base Rate</h5>
         </div>
         <p className="text-xs text-brand-neutral-700 leading-relaxed">
-          Use your standard hourly rate from Step 4 ({currency}
-          {baseRate}/hr) for straightforward services that match your typical workload.
+          Use your standard hourly rate from Step 4 ({props.currency}
+          {props.baseRate}/hr) for straightforward services that match your typical workload.
         </p>
       </div>
 
@@ -50,4 +49,4 @@ export const ServiceRateDialogContent: React.FC<ServiceRateDialogContentProps> =
       </div>
     </div>
   );
-};
+}

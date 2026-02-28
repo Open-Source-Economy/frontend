@@ -3,7 +3,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { Button } from "src/views/v1/components/elements/Button";
 import * as dto from "@open-source-economy/api-types";
 import { Audience } from "src/views/index";
-import { paths } from "src/paths";
 
 interface EnterGitHubIssueProps {
   audience: Audience;
@@ -41,8 +40,14 @@ export function EnterGitHubIssue(props: EnterGitHubIssueProps) {
       const issueId = extractGitHubIssueInfo(url);
       if (issueId) {
         setIsValidUrl(true);
-        if (props.audience === Audience.DEVELOPER) navigate({ to: paths.manageIssue(issueId) as string });
-        else if (props.audience === Audience.USER) navigate({ to: paths.fundIssue(issueId) as string });
+        if (props.audience === Audience.DEVELOPER)
+          navigate({
+            to: `/${issueId.repositoryId.ownerId}/${issueId.repositoryId.name}/issues/${issueId.number}/manage` as string,
+          });
+        else if (props.audience === Audience.USER)
+          navigate({
+            to: `/${issueId.repositoryId.ownerId}/${issueId.repositoryId.name}/issues/${issueId.number}/fund` as string,
+          });
       } else {
         setIsValidUrl(false);
       }

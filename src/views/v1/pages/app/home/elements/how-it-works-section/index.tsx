@@ -13,7 +13,7 @@ import {
   SpeechBubbleIcon,
   StrategiesIcon,
   UserIcon,
-} from "src/ultils/Icons";
+} from "src/utils/Icons";
 import { IconBox } from "./icon-box";
 import { Section } from "./section";
 

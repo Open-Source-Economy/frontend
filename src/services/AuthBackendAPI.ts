@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
 import { handleError } from "./apiClient";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 // getAuthBackendAPI factory is in src/services/getAPI.ts to avoid circular imports
 

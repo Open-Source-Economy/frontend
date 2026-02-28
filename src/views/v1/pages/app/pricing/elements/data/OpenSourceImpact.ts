@@ -1,7 +1,7 @@
 import { PlanProductType, ProductType } from "@open-source-economy/api-types";
 import { PlanFeature } from "./data";
 import { credit } from "../../../../../../../model";
-import { productTypeCredits } from "src/ultils/local-types";
+import { productTypeCredits } from "src/utils/local-types";
 
 const basic: Omit<PlanFeature, "name"> = {
   title: "Open Source Impact",

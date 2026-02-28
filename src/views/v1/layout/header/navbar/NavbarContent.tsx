@@ -6,10 +6,8 @@ import { useAuth } from "src/views/auth";
 import { MobileNavbar } from "./MobileNavbar";
 import { type Divider, DIVIDER, DropdownNavbar } from "./DropdownNavbar";
 import type { Currency } from "@open-source-economy/api-types";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { NavbarItem } from "./item/NavbarItem";
-import { Nav } from "react-bootstrap";
-import { paths } from "src/paths";
 import { Navigation, type NavItemData } from "./item/NavItemData";
 import { fundingHooks } from "src/api";
 import { Credit, CreditUnit } from "src/model";
@@ -79,7 +77,7 @@ export function NavbarContent(props: AppNavbarProps) {
 
   const _whitePaper = (
     <Button audience="ALL" level="SECONDARY" size="LARGE" asChild>
-      <Link to={paths.WHITE_PAPER} target="_blank">
+      <Link to={"/white-paper" as string} target="_blank">
         WHITE PAPER
       </Link>
     </Button>
@@ -87,12 +85,12 @@ export function NavbarContent(props: AppNavbarProps) {
 
   const _supportProjects = (
     <Button audience="ALL" level="PRIMARY" size="LARGE" asChild>
-      <Link to={paths.PROJECTS}>Support Projects</Link>
+      <Link to="/projects">Support Projects</Link>
     </Button>
   );
 
   return (
-    <Nav className="justify-end  lg:items-center font-mich flex-grow gap-3">
+    <nav className="justify-end lg:items-center font-mich flex-grow gap-3 flex flex-col lg:flex-row">
       {auth.authInfo ? (
         <>
           <MobileNavbar navbarItems={authDropdownNavbarItems} />
@@ -114,6 +112,6 @@ export function NavbarContent(props: AppNavbarProps) {
           {/*{supportProjects}*/}
         </>
       )}
-    </Nav>
+    </nav>
   );
 }

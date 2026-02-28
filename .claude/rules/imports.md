@@ -24,7 +24,7 @@ Enums are runtime values, not just types. If you use `import type * as dto`, Typ
 ```typescript
 // CORRECT - absolute with src/ prefix
 import { projectHooks } from "src/api";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 
 // WRONG - relative imports
@@ -68,7 +68,7 @@ import { getBackendAPI } from "src/services";
 
 ```typescript
 // CORRECT
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 const apiUrl = config.api.url;
 
@@ -81,4 +81,4 @@ const apiUrl = import.meta.env.VITE_API_URL;
 - Use `* as dto` not `type * as dto` — enums need runtime access
 - Use absolute imports with `src/` prefix
 - Import hooks from barrel `src/api`, not hook files directly
-- Import config from `src/ultils`, never `import.meta.env`
+- Import config from `src/utils`, never `import.meta.env`

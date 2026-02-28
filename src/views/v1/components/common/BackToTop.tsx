@@ -49,7 +49,7 @@ export const BackToTop = () => {
     // <div className="fixed bottom-[2%] right-[2%] z-[888]">
     //   <Button audience={"ALL"} level={"PRIMARY"} size={"LARGE"} className={`!capitalize`} asChild>
     //     {/*Link does not load*/}
-    //     <a href={paths.campaign(openSourceEconomyProjectId)}>Donate</a>
+    //     <a href="...">Donate</a>
     //   </Button>
     // </div>
   );

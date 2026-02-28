@@ -7,8 +7,8 @@
  */
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { StatusCodes } from "http-status-codes";
-import { ApiError } from "src/ultils/error/ApiError";
-import { config, Env } from "src/ultils";
+import { ApiError } from "src/utils/error/ApiError";
+import { config, Env } from "src/utils";
 
 interface ErrorResponse {
   message?: string;

@@ -1,8 +1,7 @@
-import React from "react";
 import { projectHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
-export const ProjectItemsWithDetails: React.FC = () => {
+export function ProjectItemsWithDetails() {
   const { data, isLoading, error } = projectHooks.useProjectItemsWithDetailsQuery({}, {});
   const apiError = error ? (error instanceof ApiError ? error : ApiError.from(error)) : null;
 
@@ -35,4 +34,4 @@ export const ProjectItemsWithDetails: React.FC = () => {
       </div>
     </div>
   );
-};
+}

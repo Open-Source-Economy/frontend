@@ -3,7 +3,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
 import { Audience } from "src/views/index";
 import { PageTransition } from "src/views/components/ui/page-transition";
-import { paths } from "src/paths";
 
 export function IssuesRoute() {
   const auth = useAuth();
@@ -23,9 +22,9 @@ export function IssuesRoute() {
 
   useEffect(() => {
     if (audience == Audience.USER) {
-      navigate({ to: paths.FUND_ISSUES as string });
+      navigate({ to: "/fund-issues" as string });
     } else if (audience == Audience.DEVELOPER) {
-      navigate({ to: paths.MANAGE_ISSUES as string });
+      navigate({ to: "/manage-issues" as string });
     }
   }, [audience, navigate]);
 

@@ -3,8 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { DonationCard } from "./components/DonationCard";
 import { ArrowRight, Briefcase, Code, Globe, Heart, Package, Target, TrendingUp, Users } from "lucide-react";
 import { PageWrapper } from "../PageWrapper";
-import { paths } from "src/paths";
-import { isVisible } from "src/ultils/featureVisibility";
+
+import { isVisible } from "src/utils/featureVisibility";
 
 export function SponsorshipPage() {
   const _fundingTiers = [
@@ -188,7 +188,7 @@ export function SponsorshipPage() {
                     {isVisible("sponsorshipMissionLink") && (
                       <div className="pt-6">
                         <Link
-                          to={paths.MISSION}
+                          to={"/mission" as string}
                           className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover transition-all duration-200 hover:gap-3 group cursor-pointer"
                         >
                           <span className="border-b border-brand-accent/30 group-hover:border-brand-accent-hover">

@@ -1,9 +1,9 @@
 import React, { forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { GenericInputRef, ProjectItemTypeSelectInput, UrlInput } from "../../../../../../../../components/form";
 import { ProjectItemType } from "../../../ProjectItemType";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { SourceIdentifier } from "src/utils/local-types";
 import { BaseRef } from "../../../../../../../../components/form/Base";
-import { GithubUrls } from "../../../../../../../../../../ultils";
+import { GithubUrls } from "../../../../../../../../../../utils";
 import { SourceIdentifierCompanion } from "../../../../../../../../data";
 
 export interface ProjectSectionRef extends BaseRef {}

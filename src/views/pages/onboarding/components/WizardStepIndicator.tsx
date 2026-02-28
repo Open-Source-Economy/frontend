@@ -1,4 +1,3 @@
-import React from "react";
 import { Check } from "lucide-react";
 
 export interface WizardStep {
@@ -19,13 +18,7 @@ export interface WizardStepIndicatorProps {
  * WizardStepIndicator - Visual progress indicator for multi-step wizard
  * Shows current position, completed steps, and upcoming steps
  */
-export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
-  steps,
-  currentStep,
-  completedSteps,
-  highestStepReached,
-  onStepClick,
-}) => {
+export function WizardStepIndicator(props: WizardStepIndicatorProps) {
   return (
     <div className="w-full pt-10 pb-4">
       {/* Mobile: Enhanced progress bar */}
@@ -33,13 +26,15 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-accent to-brand-highlight flex items-center justify-center shadow-lg shadow-brand-accent/20">
-              <span className="text-xs text-white">{currentStep}</span>
+              <span className="text-xs text-white">{props.currentStep}</span>
             </div>
-            <span className="text-sm text-brand-neutral-700">of {steps.length}</span>
+            <span className="text-sm text-brand-neutral-700">of {props.steps.length}</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-1 bg-brand-card-blue-dark rounded-full">
             <div className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
-            <span className="text-xs text-brand-neutral-600">{Math.round((currentStep / steps.length) * 100)}%</span>
+            <span className="text-xs text-brand-neutral-600">
+              {Math.round((props.currentStep / props.steps.length) * 100)}%
+            </span>
           </div>
         </div>
 
@@ -47,16 +42,16 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
         <div className="relative h-2.5 bg-brand-neutral-200 rounded-full overflow-hidden shadow-inner">
           <div
             className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand-accent via-brand-highlight to-brand-accent bg-[length:200%_100%] animate-[shimmer_2s_ease-in-out_infinite] transition-all duration-700 ease-out rounded-full shadow-sm"
-            style={{ width: `${(currentStep / steps.length) * 100}%` }}
+            style={{ width: `${(props.currentStep / props.steps.length) * 100}%` }}
           />
         </div>
 
         {/* Current step title */}
         <div className="mt-4 p-4 bg-brand-card-blue rounded-lg border border-brand-neutral-300/20">
           <p className="text-xs text-brand-neutral-600 uppercase tracking-wider mb-1">Current Step</p>
-          <p className="text-brand-neutral-900">{steps[currentStep - 1]?.title}</p>
-          {steps[currentStep - 1]?.description && (
-            <p className="text-sm text-brand-neutral-600 mt-1">{steps[currentStep - 1]?.description}</p>
+          <p className="text-brand-neutral-900">{props.steps[props.currentStep - 1]?.title}</p>
+          {props.steps[props.currentStep - 1]?.description && (
+            <p className="text-sm text-brand-neutral-600 mt-1">{props.steps[props.currentStep - 1]?.description}</p>
           )}
         </div>
       </div>
@@ -71,19 +66,19 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
           <div
             className="absolute top-6 left-0 h-1 bg-gradient-to-r from-brand-accent via-brand-highlight to-brand-accent bg-[length:200%_100%] rounded-full shadow-lg shadow-brand-accent/20 transition-all duration-700 ease-out"
             style={{
-              width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
+              width: `${((props.currentStep - 1) / (props.steps.length - 1)) * 100}%`,
               zIndex: 1,
             }}
           />
 
           {/* Step circles */}
-          {steps.map((step, index) => {
+          {props.steps.map((step, index) => {
             const stepNumber = index + 1;
-            const isCompleted = completedSteps.includes(stepNumber);
-            const isCurrent = stepNumber === currentStep;
-            const isPast = stepNumber < currentStep;
-            const isInProgress = stepNumber > currentStep && stepNumber <= highestStepReached;
-            const isClickable = (isPast || isCompleted || isInProgress) && onStepClick;
+            const isCompleted = props.completedSteps.includes(stepNumber);
+            const isCurrent = stepNumber === props.currentStep;
+            const isPast = stepNumber < props.currentStep;
+            const isInProgress = stepNumber > props.currentStep && stepNumber <= props.highestStepReached;
+            const isClickable = (isPast || isCompleted || isInProgress) && props.onStepClick;
 
             return (
               <div key={stepNumber} className="flex flex-col items-center relative" style={{ zIndex: 2 }}>
@@ -91,7 +86,7 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
                 <div className="h-12 flex items-center justify-center">
                   {/* Circle with enhanced states */}
                   <button
-                    onClick={() => isClickable && onStepClick(stepNumber)}
+                    onClick={() => isClickable && props.onStepClick!(stepNumber)}
                     disabled={!isClickable}
                     className={`
                       relative rounded-full flex items-center justify-center
@@ -171,4 +166,4 @@ export const WizardStepIndicator: React.FC<WizardStepIndicatorProps> = ({
       `}</style>
     </div>
   );
-};
+}

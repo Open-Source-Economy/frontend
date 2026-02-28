@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { ProjectCategory } from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { ChipInput } from "src/views/components/ui/chip-input";
-import { ProjectCategoryCompanion } from "src/ultils/companions";
+import { ProjectCategoryCompanion } from "src/utils/companions";
 
 interface CategoryInputProps {
   predefinedCategories: ProjectCategory[];

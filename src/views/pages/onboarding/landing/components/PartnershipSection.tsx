@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Briefcase,
   Clock,
@@ -12,7 +11,7 @@ import {
   Users,
 } from "lucide-react";
 
-export const PartnershipSection: React.FC = () => {
+export function PartnershipSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-brand-secondary via-brand-neutral-100 to-brand-card-blue relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--brand-accent-dark)_0%,_transparent_50%)] opacity-5 -z-10" />
@@ -144,4 +143,4 @@ export const PartnershipSection: React.FC = () => {
       </div>
     </section>
   );
-};
+}

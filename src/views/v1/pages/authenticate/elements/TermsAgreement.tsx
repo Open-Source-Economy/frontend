@@ -1,7 +1,6 @@
 import React from "react";
 import { CustomCheckBox } from "./CustomCheckBox";
 import { ExternalLink } from "../../../components";
-import { paths } from "../../../../../paths";
 
 interface TermsAgreementProps {
   checked: boolean;
@@ -15,7 +14,7 @@ export function TermsAgreement(props: TermsAgreementProps) {
       <CustomCheckBox checked={props.checked} setChecked={props.setChecked} isValid={props.isValid} />
       <p className={`text-[12px] leading-6 ${props.isValid ? "text-[#ffffff]" : "text-red-500"}`}>
         I agree to the{" "}
-        <ExternalLink href={paths.TERMS_AND_CONDITIONS} className="gradient-text fw-bold hover-effect">
+        <ExternalLink href="/terms-and-conditions" className="gradient-text fw-bold hover-effect">
           Terms and Conditions
         </ExternalLink>
         {/*{" "}*/}

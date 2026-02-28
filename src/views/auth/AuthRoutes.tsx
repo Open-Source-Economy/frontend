@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
 import { UserRole } from "@open-source-economy/api-types";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { PageNotFound } from "../v1/pages/PageNotFound";
 import { PageTransition } from "src/views/components/ui/page-transition";
-import { paths } from "../../paths";
 
 export function AuthRoutes(props: { authPage: string }) {
   const auth = useAuth();
@@ -50,7 +49,10 @@ export function SuperAdminRoutes() {
     ) : allowed ? (
       <Outlet />
     ) : (
-      <Navigate to={paths.AUTH.IDENTIFY} />
+      <Navigate
+        to="/auth/identify"
+        search={{ repository_token: undefined, company_token: undefined, email: undefined }}
+      />
     ); // TODO: add  404 page
   }
 }

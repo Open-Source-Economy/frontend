@@ -9,7 +9,7 @@ import {
   getRoleLabel,
   isGitHubProject,
 } from "../adapters";
-import { MergeRightsTypeCompanion } from "src/ultils/companions";
+import { MergeRightsTypeCompanion } from "src/utils/companions";
 
 interface ProjectCardProps {
   project: DeveloperProjectItemEntry;

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { Currency, OpenToOtherOpportunityType, PreferenceType } from "@open-source-economy/api-types";
 import { Step4State } from "../../OnboardingDataSteps";
@@ -13,7 +13,7 @@ import { ServiceRateInput, WeeklyAvailabilityInput } from "src/views/components/
 import { BiggerOpportunitiesRadioGroup } from "./design-system/BiggerOpportunitiesRadioGroup";
 import { ExpandableCommentSection } from "../../components/ExpandableCommentSection";
 import { PricingInfoBanner } from "./design-system/PricingInfoBanner";
-import { paths } from "src/paths";
+
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { onboardingStep4Schema } from "src/views/components/ui/forms/schemas";
 import { useState } from "react";
@@ -128,7 +128,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
       if (success && skipStep5) {
         try {
           await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
-          navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
+          navigate({ to: "/developer-onboarding-completed" as string });
         } catch {
           // error tracked by completeOnboarding.error
         }

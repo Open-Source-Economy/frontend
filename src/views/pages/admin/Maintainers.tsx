@@ -5,8 +5,8 @@ import { adminHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { ApiError } from "src/ultils/error/ApiError";
-import { paths } from "src/paths";
+import { ApiError } from "src/utils/error/ApiError";
+
 import {
   DeveloperProjectItemEntryCompanion,
   DeveloperRoleTypeCompanion,
@@ -15,7 +15,7 @@ import {
   SourceIdentifierCompanion,
   VerificationRecordCompanion,
   VerificationStatusCompanion,
-} from "src/ultils/companions";
+} from "src/utils/companions";
 import { AlertCircle, ArrowRight, Download, GitBranch, Mail, Search, ShieldCheck, Users } from "lucide-react";
 import { Input } from "src/views/components/ui/forms/inputs/input";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
@@ -388,7 +388,7 @@ export function Maintainers() {
                       {/* Action Button */}
                       {githubUsername && (
                         <Link
-                          to={paths.ADMIN.MAINTAINER(githubUsername) as string}
+                          to={`/admin/maintainer/${githubUsername}` as string}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 bg-brand-accent hover:bg-brand-accent-dark text-white rounded-lg transition-colors"

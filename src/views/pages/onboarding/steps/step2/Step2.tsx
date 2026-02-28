@@ -5,7 +5,7 @@ import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/UpsertProjectItemModal";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { DeveloperProjectItemId } from "@open-source-economy/api-types";
 import { ProjectsTable } from "./design-system/ProjectsTable";
 import { ProjectCardList } from "./design-system/ProjectCardList";
@@ -20,7 +20,7 @@ import { sortProjectsByBackendOrder } from "./adapters";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 
-const Step2: React.FC<Step2Props> = (props) => {
+function Step2(props: Step2Props) {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -234,6 +234,6 @@ const Step2: React.FC<Step2Props> = (props) => {
       )}
     </div>
   );
-};
+}
 
 export default Step2;

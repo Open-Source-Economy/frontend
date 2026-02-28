@@ -22,15 +22,15 @@ Create `index.ts` when:
 | Folder                     | Has index? | Reason                           |
 | -------------------------- | ---------- | -------------------------------- |
 | `src/services/`            | Yes        | Public API boundary              |
-| `src/ultils/companions/`   | Yes        | Hides individual companion files |
-| `src/ultils/`              | Yes        | Public utility boundary          |
+| `src/utils/companions/`    | Yes        | Hides individual companion files |
+| `src/utils/`               | Yes        | Public utility boundary          |
 | `src/views/components/ui/` | No         | Import specific components       |
 | `src/views/pages/*/`       | No         | Import specific pages            |
 
 ## Example Barrel
 
 ```typescript
-// src/ultils/companions/index.ts
+// src/utils/companions/index.ts
 
 // Public - companions for components
 export { DeveloperRoleTypeCompanion } from "./DeveloperRoleType.companion";
@@ -43,10 +43,10 @@ export { FullDeveloperProfileCompanion } from "./FullDeveloperProfile.companion"
 
 ```typescript
 // CORRECT - import from barrel
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/ultils/companions";
+import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/utils/companions";
 
 // WRONG - direct file import bypasses public API
-import { DeveloperRoleTypeCompanion } from "src/ultils/companions/DeveloperRoleType.companion";
+import { DeveloperRoleTypeCompanion } from "src/utils/companions/DeveloperRoleType.companion";
 ```
 
 ## Rules

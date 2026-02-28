@@ -6,9 +6,9 @@ import {
   GetProjectServicesResponse,
   ServiceType,
 } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
-import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],

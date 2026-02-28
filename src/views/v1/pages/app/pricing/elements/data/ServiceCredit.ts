@@ -1,7 +1,7 @@
 import { PlanProductType, ProductType } from "@open-source-economy/api-types";
 import { PlanFeature, PlanFeatureDetails } from "./data";
 import { credit } from "../../../../../../../model";
-import { productTypeCredits } from "src/ultils/local-types";
+import { productTypeCredits } from "src/utils/local-types";
 
 function serviceCreditDetails(planProductType: PlanProductType): PlanFeatureDetails[] {
   return [

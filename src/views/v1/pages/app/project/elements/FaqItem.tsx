@@ -1,6 +1,6 @@
 import React from "react";
 import AnimateHeight from "react-animate-height";
-import { MinusIcon, PlusIcon } from "src/ultils/Icons";
+import { MinusIcon, PlusIcon } from "src/utils/Icons";
 
 interface FaqItemProps {
   faq: {

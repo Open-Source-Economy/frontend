@@ -3,15 +3,14 @@ import sec2icon2 from "src/assets/v1/icon/sec2img3.png";
 import sec2icon1 from "src/assets/v1/icon/sec2img.png";
 import startimg from "src/assets/v1/star.png";
 import { Button } from "src/views/v1/components/elements/Button";
-import { paths } from "src/paths";
 import { Audience, textColorVariants } from "../../../../../Audience";
 import { useAuth } from "src/views/auth";
 
 export const Gateway = () => {
   const auth = useAuth();
   const repositories = auth.authInfo?.repositories ?? [];
-  const developerPath = repositories.length > 0 ? paths.MANAGE_ISSUES : paths.DEVELOPER_LANDING;
-  const userPath = auth.authInfo ? paths.DASHBOARD : paths.USER;
+  const developerPath = repositories.length > 0 ? "/manage-issues" : "/developer";
+  const userPath = auth.authInfo ? "/dashboard" : "/user";
 
   return (
     <div className="!z-[10] flex w-full items-center justify-center px-[30px] py-[40px] lg:py-[70px] min-[1279px]:px-0">
@@ -39,7 +38,7 @@ export const Gateway = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="DEVELOPER" level="PRIMARY" size="MEDIUM" asChild>
-                <Link to={developerPath}>Get Paid</Link>
+                <Link to={developerPath as string}>Get Paid</Link>
               </Button>
             </div>
           </div>
@@ -72,7 +71,7 @@ export const Gateway = () => {
             </h2>
             <div className="mt-[42px]">
               <Button audience="USER" level="PRIMARY" size="MEDIUM" asChild>
-                <Link to={userPath}>Get Support</Link>
+                <Link to={userPath as string}>Get Support</Link>
               </Button>
             </div>
           </div>

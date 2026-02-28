@@ -1,5 +1,12 @@
+export enum SponsorTierName {
+  Platinum = "Platinum",
+  Gold = "Gold",
+  Silver = "Silver",
+  Bronze = "Bronze",
+}
+
 export interface SponsorTier {
-  tier: "Platinum" | "Gold" | "Silver" | "Bronze";
+  tier: SponsorTierName;
   badge?: string;
   cardWidth: string;
   cardPadding: string;

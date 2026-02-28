@@ -8,19 +8,19 @@ import {
   ProjectItemType,
 } from "@open-source-economy/api-types";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Button } from "src/views/components/ui/forms/button";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { AlertCircle, Github, ShieldCheck, User } from "lucide-react";
-import { SourceIdentifierCompanion } from "src/ultils/companions";
-import { GithubUrls } from "src/ultils";
-import { SourceIdentifier } from "src/ultils/local-types";
-import { BulkProjectUrlParser } from "src/ultils/BulkProjectUrlParser";
+import { SourceIdentifierCompanion } from "src/utils/companions";
+import { GithubUrls } from "src/utils";
+import { SourceIdentifier } from "src/utils/local-types";
+import { BulkProjectUrlParser } from "src/utils/BulkProjectUrlParser";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { isVisible } from "src/ultils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 import { BulkProjectsPreview } from "./BulkProjectsPreview";
 import { CategoryInput } from "./components/CategoryInput";
 import { ProjectUrlInput } from "./components/ProjectUrlInput";

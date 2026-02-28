@@ -1,7 +1,6 @@
 import sec2icon2 from "src/assets/v1/icon/sec2img3.png";
 import sec2icon1 from "src/assets/v1/icon/sec2img.png";
 import sec2icon3 from "src/assets/v1/icon/sec2img2.png";
-import { paths } from "src/paths";
 import { Audience } from "../../../../../../Audience";
 import React from "react";
 import { FeatureBox, FeatureBoxProps } from "./FeatureBox";
@@ -19,7 +18,7 @@ export function FeaturesSection(_props: FeaturesSectionProps) {
         </>
       ),
       buttonText: "Get Paid",
-      buttonPath: paths.DEVELOPER_LANDING,
+      buttonPath: "/developer",
       icon: sec2icon1,
       imageClassName: "h-[150px] w-[150px] object-cover sm:h-[178x] sm:w-[177px]",
       starPosition: "absolute left-[10px] top-[48px] sm:left-[16px] sm:top-[43px]",
@@ -34,7 +33,7 @@ export function FeaturesSection(_props: FeaturesSectionProps) {
         </>
       ),
       buttonText: "Get Support",
-      buttonPath: paths.USER,
+      buttonPath: "/user",
       icon: sec2icon2,
       imageClassName: "aspect-square h-[160px] w-[170px] sm:!h-[203px] sm:!min-w-[216px]",
       starPosition: "absolute right-[40px] top-[35px] sm:right-[60px] sm:top-[50px]",

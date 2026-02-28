@@ -1,7 +1,7 @@
 import React from "react";
 import { UserAvatar } from "src/views/components/user/UserAvatar";
 import { AuthenticatedUser } from "@open-source-economy/api-types";
-import { AuthenticatedUserCompanion } from "src/ultils/companions";
+import { AuthenticatedUserCompanion } from "src/utils/companions";
 
 export interface UserProfileSectionProps {
   user: AuthenticatedUser;

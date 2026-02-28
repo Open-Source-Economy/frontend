@@ -1,5 +1,5 @@
 import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
-import { Maintainer } from "src/ultils/local-types";
+import { Maintainer } from "src/utils/local-types";
 
 const _lauriane: Maintainer = {
   displayName: "Lauriane Mollier",

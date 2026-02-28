@@ -1,5 +1,5 @@
 import React from "react";
-import { CodeIcon, DollarSign } from "src/ultils/Icons";
+import { CodeIcon, DollarSign } from "src/utils/Icons";
 
 interface CompanyBannerProps {}
 

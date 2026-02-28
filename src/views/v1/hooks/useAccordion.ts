@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { projectService } from "src/services";
 import {
   type ProjectId,
@@ -8,7 +8,7 @@ import {
   GetProjectAccordionParams,
   GetProjectAccordionQuery,
   GetProjectAccordionResponse,
-} from "src/ultils/local-types";
+} from "src/utils/local-types";
 
 export function useAccordion(projectId: ProjectId) {
   const [accordionRes, setAccordionRes] = useState<GetProjectAccordionResponse | null>(null);

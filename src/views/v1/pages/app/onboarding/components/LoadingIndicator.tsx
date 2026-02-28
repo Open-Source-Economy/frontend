@@ -1,6 +1,4 @@
-import React from "react";
-
-const LoadingIndicator: React.FC = () => {
+function LoadingIndicator() {
   return (
     <div className="flex items-center justify-center mt-4">
       <svg
@@ -19,6 +17,6 @@ const LoadingIndicator: React.FC = () => {
       <span className="ml-3 text-[#ff7e4b] font-montserrat">Loading...</span>
     </div>
   );
-};
+}
 
 export default LoadingIndicator;

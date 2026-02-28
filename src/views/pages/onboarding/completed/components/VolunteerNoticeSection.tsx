@@ -1,11 +1,10 @@
-import React from "react";
 import { Heart } from "lucide-react";
 
 /**
  * VolunteerNoticeSection - Notice about volunteer-powered team
  * Explains that the platform is run by volunteers
  */
-export const VolunteerNoticeSection: React.FC = () => {
+export function VolunteerNoticeSection() {
   return (
     <div className="mb-12 p-6 bg-gradient-to-br from-brand-highlight/5 to-brand-accent/5 border border-brand-accent/20 rounded-2xl">
       <div className="flex items-start gap-4">
@@ -22,4 +21,4 @@ export const VolunteerNoticeSection: React.FC = () => {
       </div>
     </div>
   );
-};
+}

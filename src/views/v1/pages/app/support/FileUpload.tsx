@@ -1,7 +1,7 @@
 "use client";
 import { UploadIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { DeleteIcon, FileIcon } from "src/ultils/Icons";
+import { DeleteIcon, FileIcon } from "src/utils/Icons";
 
 interface FileItem {
   id: string;

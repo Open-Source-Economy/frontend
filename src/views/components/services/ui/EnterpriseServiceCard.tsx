@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { LucideIcon } from "lucide-react";
 import { Button } from "../../ui/forms/button";
-import { paths } from "src/paths";
 
 interface EnterpriseServiceCardProps {
   icon: LucideIcon;
@@ -18,15 +17,11 @@ interface EnterpriseServiceCardProps {
  * EnterpriseServiceCard - Card for enterprise-grade services
  * Used in services page for NDA, SLA, and ecosystem programs
  */
-export const EnterpriseServiceCard: React.FC<EnterpriseServiceCardProps> = ({
-  icon: Icon,
-  title,
-  description,
-  buttonText,
-  colorScheme,
-  showButton = true,
-  className = "",
-}) => {
+export function EnterpriseServiceCard(props: EnterpriseServiceCardProps) {
+  const Icon = props.icon;
+  const showButton = props.showButton ?? true;
+  const className = props.className ?? "";
+
   const colorClasses = {
     primary: {
       iconBg: "from-brand-primary to-brand-primary-dark",
@@ -42,7 +37,7 @@ export const EnterpriseServiceCard: React.FC<EnterpriseServiceCardProps> = ({
     },
   };
 
-  const colors = colorClasses[colorScheme];
+  const colors = colorClasses[props.colorScheme];
 
   return (
     <div
@@ -58,24 +53,24 @@ export const EnterpriseServiceCard: React.FC<EnterpriseServiceCardProps> = ({
         </div>
 
         {/* Title */}
-        <h3 className={`text-lg ${colors.title} mb-4 text-center font-semibold`}>{title}</h3>
+        <h3 className={`text-lg ${colors.title} mb-4 text-center font-semibold`}>{props.title}</h3>
 
         {/* Description */}
         <div
           className={`text-sm text-muted-foreground leading-relaxed ${showButton ? "mb-6" : ""} flex-grow text-center min-h-[4rem] flex items-end justify-center`}
         >
-          <div className="block">{description}</div>
+          <div className="block">{props.description}</div>
         </div>
 
         {/* Button - Only shown in local environment */}
         {showButton && (
-          <Link to={paths.CONTACT} className="w-full mt-auto">
+          <Link to="/contact" search={{ reason: undefined }} className="w-full mt-auto">
             <Button size="sm" variant={colors.buttonVariant} className="w-full">
-              {buttonText}
+              {props.buttonText}
             </Button>
           </Link>
         )}
       </div>
     </div>
   );
-};
+}

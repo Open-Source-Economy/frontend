@@ -4,7 +4,7 @@ import { ArrowRight, Building2, DollarSign, Eye, GitBranch, Info, Layers, Users 
 import { Card, CardContent } from "src/views/components/ui/card";
 import { Button } from "src/views/components/ui/forms/button";
 import { Progress } from "src/views/components/ui/progress";
-import { isVisible } from "src/ultils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 
 interface FundDistributionMinimalProps {
   className?: string;

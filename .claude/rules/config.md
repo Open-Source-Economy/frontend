@@ -7,13 +7,13 @@
 ## Correct Pattern
 
 ```typescript
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 // API settings
 config.api.url;
 
 // Feature flags
-import { features } from "src/ultils/featureVisibility";
+import { features } from "src/utils/featureVisibility";
 features.devControls; // checks current environment
 ```
 
@@ -21,10 +21,10 @@ features.devControls; // checks current environment
 
 Only in config files:
 
-| File                              | Purpose                         |
-| --------------------------------- | ------------------------------- |
-| `src/ultils/config.ts`            | Loads and validates config      |
-| `src/ultils/featureVisibility.ts` | Environment-based feature flags |
+| File                             | Purpose                         |
+| -------------------------------- | ------------------------------- |
+| `src/utils/config.ts`            | Loads and validates config      |
+| `src/utils/featureVisibility.ts` | Environment-based feature flags |
 
 ## Wrong Pattern
 
@@ -42,6 +42,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 ## Rules
 
-- Import `config` from `src/ultils`
+- Import `config` from `src/utils`
 - Never use `import.meta.env` outside config files
 - All new env vars must be added to config

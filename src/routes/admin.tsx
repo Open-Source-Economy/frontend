@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
 import { UserRole } from "@open-source-economy/api-types";
-import { config, Env } from "src/ultils";
+import { config, Env } from "src/utils";
 import { PageTransition } from "src/views/components/ui/page-transition";
 
 export const Route = createFileRoute("/admin")({

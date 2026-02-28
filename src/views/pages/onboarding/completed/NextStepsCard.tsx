@@ -1,4 +1,3 @@
-import React from "react";
 import { LucideIcon } from "lucide-react";
 
 interface NextStepsCardProps {
@@ -14,14 +13,10 @@ interface NextStepsCardProps {
  * NextStepsCard - Displays a card for onboarding success page
  * Shows what happens next in the onboarding process
  */
-export const NextStepsCard: React.FC<NextStepsCardProps> = ({
-  icon: Icon,
-  title,
-  description,
-  timeline,
-  brandColor,
-  className = "",
-}) => {
+export function NextStepsCard(props: NextStepsCardProps) {
+  const Icon = props.icon;
+  const className = props.className ?? "";
+
   // Map brand colors to actual Tailwind classes
   const colorClasses = {
     accent: {
@@ -46,7 +41,7 @@ export const NextStepsCard: React.FC<NextStepsCardProps> = ({
     },
   };
 
-  const colors = colorClasses[brandColor];
+  const colors = colorClasses[props.brandColor];
 
   return (
     <div
@@ -55,9 +50,9 @@ export const NextStepsCard: React.FC<NextStepsCardProps> = ({
       <div className={`inline-flex items-center justify-center w-10 h-10 ${colors.iconBg} rounded-lg mb-3`}>
         <Icon className={`w-5 h-5 ${colors.iconText}`} />
       </div>
-      <h3 className="text-brand-neutral-900 mb-1">{title}</h3>
-      <p className="text-sm text-brand-neutral-600 mb-2">{description}</p>
-      <p className="text-xs text-brand-neutral-500">{timeline}</p>
+      <h3 className="text-brand-neutral-900 mb-1">{props.title}</h3>
+      <p className="text-sm text-brand-neutral-600 mb-2">{props.description}</p>
+      <p className="text-xs text-brand-neutral-500">{props.timeline}</p>
     </div>
   );
-};
+}

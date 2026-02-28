@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageSquarePlus, Trash2 } from "lucide-react";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { ConfirmationDialog } from "src/views/components/ui/confirmation-dialog";
@@ -16,20 +15,13 @@ interface ExpandableCommentSectionProps {
  * ExpandableCommentSection - Reusable collapsible comment section
  * Used across onboarding steps for optional comments
  */
-export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> = ({
-  isExpanded,
-  onToggleExpanded,
-  value,
-  onChange,
-  onDelete,
-  placeholder,
-}) => {
+export function ExpandableCommentSection(props: ExpandableCommentSectionProps) {
   return (
     <div className="mt-6 pt-6 border-t border-brand-neutral-300/20">
-      {!isExpanded ? (
+      {!props.isExpanded ? (
         <button
           type="button"
-          onClick={() => onToggleExpanded(true)}
+          onClick={() => props.onToggleExpanded(true)}
           className="flex items-center gap-2 text-sm text-brand-accent hover:text-brand-accent-light transition-colors"
         >
           <MessageSquarePlus className="w-4 h-4" />
@@ -53,7 +45,7 @@ export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> =
                 </>
               }
               confirmText="Delete"
-              onConfirm={onDelete}
+              onConfirm={props.onDelete}
               variant="destructive"
               trigger={
                 <button
@@ -68,9 +60,9 @@ export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> =
             />
           </div>
           <Textarea
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder}
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            placeholder={props.placeholder}
             className="min-h-[100px] bg-form-background hover:bg-form-background-hover border-form-border hover:border-form-border-hover focus:border-brand-accent text-brand-neutral-900 placeholder:text-brand-neutral-500"
             rows={4}
           />
@@ -78,4 +70,4 @@ export const ExpandableCommentSection: React.FC<ExpandableCommentSectionProps> =
       )}
     </div>
   );
-};
+}

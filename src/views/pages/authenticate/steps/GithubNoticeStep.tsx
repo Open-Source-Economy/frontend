@@ -3,7 +3,7 @@ import { Github } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { EmailDisplay } from "../components/auth/EmailDisplay";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { paths } from "src/paths";
+
 import { useAuth } from "src/views/auth/AuthContext";
 import { AuthPageWrapper } from "../AuthPageWrapper";
 
@@ -37,7 +37,7 @@ export function GithubNoticeStep() {
 
         <button
           onClick={() => {
-            navigate({ to: paths.AUTH.IDENTIFY as string });
+            navigate({ to: "/auth/identify" as string });
           }}
           className="w-full text-center text-sm font-bold text-brand-neutral-400 uppercase tracking-widest hover:text-brand-accent transition-colors py-2"
         >

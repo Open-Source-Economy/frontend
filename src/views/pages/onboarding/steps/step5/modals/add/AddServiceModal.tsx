@@ -4,7 +4,7 @@ import { Button } from "src/views/components/ui/forms/button";
 import { BrandModal, BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
 import { ChevronDown, Layers } from "lucide-react";
-import { ServiceTypeCompanion } from "src/ultils/companions";
+import { ServiceTypeCompanion } from "src/utils/companions";
 
 interface AddServiceModalProps {
   isOpen: boolean;

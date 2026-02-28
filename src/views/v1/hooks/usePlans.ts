@@ -1,7 +1,7 @@
 import React from "react";
 import { stripeService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { useAuth } from "../pages/authenticate/AuthContext";
 

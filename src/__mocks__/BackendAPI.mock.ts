@@ -22,7 +22,7 @@ import {
 } from "@open-source-economy/api-types";
 import { BackendAPI } from "src/services";
 import { issue, issueId, owner, repository, user, userId } from "./index";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { getMaintainers } from "../services/data";
 import { StatusCodes } from "http-status-codes";
 import { pekkoGetProjectServicesResponse } from "../services/data/getProjectServiceResponses";
@@ -38,7 +38,10 @@ export class BackendAPIMock implements BackendAPI {
     else return financialIssues[0];
   }
 
-  async getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError> {
+  async getAllFinancialIssues(
+    params: dto.GetIssuesParams,
+    query: dto.GetIssueQuery
+  ): Promise<FinancialIssue[] | ApiError> {
     const financialIssues: FinancialIssue[] = [];
 
     const requestedCreditAmount = 12;
@@ -49,7 +52,9 @@ export class BackendAPIMock implements BackendAPI {
         if (i === 0) {
           financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, []);
         } else {
-          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [issueFunding((requestedCreditAmount / 2) * i)]);
+          financialIssue = new FinancialIssue(owner, repository(), issue, user, managedIssue, [
+            issueFunding((requestedCreditAmount / 2) * i),
+          ]);
         }
         financialIssues.push(financialIssue);
       }
@@ -57,11 +62,18 @@ export class BackendAPIMock implements BackendAPI {
     return financialIssues;
   }
 
-  async getAvailableCredits(params: dto.GetAvailableCreditsParams, query: dto.GetAvailableCreditsQuery): Promise<dto.GetAvailableCreditsResponse | ApiError> {
+  async getAvailableCredits(
+    params: dto.GetAvailableCreditsParams,
+    query: dto.GetAvailableCreditsQuery
+  ): Promise<dto.GetAvailableCreditsResponse | ApiError> {
     return Promise.resolve({ creditAmount: 60 });
   }
 
-  async fundIssue(params: dto.FundIssueParams, body: dto.FundIssueBody, query: dto.FundIssueQuery): Promise<void | ApiError> {
+  async fundIssue(
+    params: dto.FundIssueParams,
+    body: dto.FundIssueBody,
+    query: dto.FundIssueQuery
+  ): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
 
@@ -72,7 +84,7 @@ export class BackendAPIMock implements BackendAPI {
   async requestFunding(
     params: dto.RequestIssueFundingParams,
     body: dto.RequestIssueFundingBody,
-    query: dto.RequestIssueFundingQuery,
+    query: dto.RequestIssueFundingQuery
   ): Promise<void | ApiError> {
     return Promise.resolve(undefined);
   }
@@ -83,14 +95,20 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getRepository(params: dto.GetRepositoryParams, query: dto.GetRepositoryQuery): Promise<ApiError | dto.GetRepositoryResponse> {
+  async getRepository(
+    params: dto.GetRepositoryParams,
+    query: dto.GetRepositoryQuery
+  ): Promise<ApiError | dto.GetRepositoryResponse> {
     return {
       owner: owner,
       repository: repository(),
     };
   }
 
-  async getProject(params: dto.GetProjectParams, query: dto.GetProjectQuery): Promise<dto.GetProjectResponse | ApiError> {
+  async getProject(
+    params: dto.GetProjectParams,
+    query: dto.GetProjectQuery
+  ): Promise<dto.GetProjectResponse | ApiError> {
     return {
       project: {
         id: ProjectUtils.getId(params.owner, params.repo),
@@ -100,7 +118,10 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getProjects(params: dto.GetProjectsParams, query: dto.GetProjectsQuery): Promise<dto.GetProjectsResponse | ApiError> {
+  async getProjects(
+    params: dto.GetProjectsParams,
+    query: dto.GetProjectsQuery
+  ): Promise<dto.GetProjectsResponse | ApiError> {
     const repo = repository();
     return {
       projects: [
@@ -117,7 +138,10 @@ export class BackendAPIMock implements BackendAPI {
     };
   }
 
-  async getMaintainers(params: dto.GetMaintainersParams, query: dto.GetMaintainersQuery): Promise<dto.GetMaintainersResponse | ApiError> {
+  async getMaintainers(
+    params: dto.GetMaintainersParams,
+    query: dto.GetMaintainersQuery
+  ): Promise<dto.GetMaintainersResponse | ApiError> {
     const maintainers = getMaintainers(params.owner, params.repo);
     if (maintainers) {
       return { maintainers };
@@ -126,15 +150,24 @@ export class BackendAPIMock implements BackendAPI {
     }
   }
 
-  async getProjectAccordion(params: dto.GetProjectAccordionParams, query: dto.GetProjectAccordionQuery): Promise<dto.GetProjectAccordionResponse | ApiError> {
+  async getProjectAccordion(
+    params: dto.GetProjectAccordionParams,
+    query: dto.GetProjectAccordionQuery
+  ): Promise<dto.GetProjectAccordionResponse | ApiError> {
     return getProjectAccordion(params.owner, params.repo);
   }
 
-  async getSponsors(params: dto.GetSponsorsParams, query: dto.GetSponsorsQuery): Promise<SponsorDescription[] | ApiError> {
+  async getSponsors(
+    params: dto.GetSponsorsParams,
+    query: dto.GetSponsorsQuery
+  ): Promise<SponsorDescription[] | ApiError> {
     return getSponsors(params.owner, params.repo);
   }
 
-  async getCampaign(params: dto.GetCampaignParams, query: dto.GetCampaignQuery): Promise<dto.GetCampaignResponse | ApiError> {
+  async getCampaign(
+    params: dto.GetCampaignParams,
+    query: dto.GetCampaignQuery
+  ): Promise<dto.GetCampaignResponse | ApiError> {
     return {
       prices: getPrices(),
       raisedAmount: {
@@ -157,12 +190,14 @@ export class BackendAPIMock implements BackendAPI {
   async getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse | ApiError> {
     // Extract enum values properly, avoiding TypeScript enum peculiarities
     const planTypes = Object.keys(PlanProductType)
-      .filter(key => isNaN(Number(key)))
-      .map(key => PlanProductType[key as keyof typeof PlanProductType]);
+      .filter((key) => isNaN(Number(key)))
+      .map((key) => PlanProductType[key as keyof typeof PlanProductType]);
 
     const currencies = Object.values(Currency).filter((value): value is Currency => typeof value === "string");
 
-    const priceTypes = Object.values(PlanPriceType).filter((value): value is PlanPriceType => typeof value === "string");
+    const priceTypes = Object.values(PlanPriceType).filter(
+      (value): value is PlanPriceType => typeof value === "string"
+    );
 
     // Define price generation strategy with more realistic values
     const getPriceAmount = (planType: PlanProductType, priceType: PlanPriceType): number => {
@@ -176,7 +211,14 @@ export class BackendAPIMock implements BackendAPI {
       const amount = getPriceAmount(planType, priceType);
       const id = `price_${planType}_${priceType}_${currency.toLowerCase()}`;
 
-      return new StripePrice(new StripePriceId(id), new StripeProductId(planType.toString()), amount, currency, true, priceTypes as unknown as PriceType);
+      return new StripePrice(
+        new StripePriceId(id),
+        new StripeProductId(planType.toString()),
+        amount,
+        currency,
+        true,
+        priceTypes as unknown as PriceType
+      );
     };
 
     // Build the plans object with proper typing
@@ -204,23 +246,33 @@ export class BackendAPIMock implements BackendAPI {
     return { plans };
   }
 
-  async getUserPlan(params: dto.GetUserPlanParams, query: dto.GetUserPlanQuery): Promise<dto.GetUserPlanResponse | ApiError> {
+  async getUserPlan(
+    params: dto.GetUserPlanParams,
+    query: dto.GetUserPlanQuery
+  ): Promise<dto.GetUserPlanResponse | ApiError> {
     return { productType: PlanProductType.SCALE_UP_PLAN, priceType: PlanPriceType.ANNUALLY };
   }
 
-  async checkout(params: dto.CheckoutParams, body: dto.CheckoutBody, query: dto.CheckoutQuery): Promise<ApiError | dto.CheckoutResponse> {
+  async checkout(
+    params: dto.CheckoutParams,
+    body: dto.CheckoutBody,
+    query: dto.CheckoutQuery
+  ): Promise<ApiError | dto.CheckoutResponse> {
     return {} as dto.CheckoutResponse;
   }
 
   async setUserPreferredCurrency(
     params: dto.SetUserPreferredCurrencyParams,
     body: dto.SetUserPreferredCurrencyBody,
-    query: dto.SetUserPreferredCurrencyQuery,
+    query: dto.SetUserPreferredCurrencyQuery
   ): Promise<dto.SetUserPreferredCurrencyResponse | ApiError> {
     return {};
   }
 
-  async getProjectServices(params: dto.GetProjectServicesParams, query: dto.GetProjectServicesQuery): Promise<ApiError | dto.GetProjectServicesResponse> {
+  async getProjectServices(
+    params: dto.GetProjectServicesParams,
+    query: dto.GetProjectServicesQuery
+  ): Promise<ApiError | dto.GetProjectServicesResponse> {
     if (params.owner === "apache" && params.repo === "pekko") {
       return pekkoGetProjectServicesResponse;
     }
@@ -230,25 +282,31 @@ export class BackendAPIMock implements BackendAPI {
   async subscribeToNewsletter(
     params: dto.NewsletterSubscriptionParams,
     body: dto.NewsletterSubscriptionBody,
-    query: dto.NewsletterSubscriptionQuery,
+    query: dto.NewsletterSubscriptionQuery
   ): Promise<dto.NewsletterSubscriptionResponse | ApiError> {
     return Promise.resolve({ success: {} });
   }
 
   async getProjectItemsWithDetails(
     params: dto.GetProjectItemsWithDetailsParams,
-    query: dto.GetProjectItemsWithDetailsQuery,
+    query: dto.GetProjectItemsWithDetailsQuery
   ): Promise<dto.GetProjectItemsWithDetailsResponse | ApiError> {
     // Group project items by type
-    const repositories = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY);
-    const owners = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER);
-    const urls = projectItemsDatabase.filter(item => item.projectItem.projectItemType === dto.ProjectItemType.URL);
+    const repositories = projectItemsDatabase.filter(
+      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY
+    );
+    const owners = projectItemsDatabase.filter(
+      (item) => item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER
+    );
+    const urls = projectItemsDatabase.filter((item) => item.projectItem.projectItemType === dto.ProjectItemType.URL);
 
     // Calculate stats
     const totalStars = repositories.reduce((sum, item) => sum + (item.repository?.stargazersCount || 0), 0);
     const totalForks = repositories.reduce((sum, item) => sum + (item.repository?.forksCount || 0), 0);
     const totalFollowers = owners.reduce((sum, item) => sum + (item.owner?.followers || 0), 0);
-    const uniqueMaintainers = new Set(projectItemsDatabase.flatMap(item => item.developers.map(dev => dev.developerProfile.id.uuid)));
+    const uniqueMaintainers = new Set(
+      projectItemsDatabase.flatMap((item) => item.developers.map((dev) => dev.developerProfile.id.uuid))
+    );
 
     return Promise.resolve({
       repositories,
@@ -264,7 +322,11 @@ export class BackendAPIMock implements BackendAPI {
     });
   }
 
-  async submitContactForm(params: dto.ContactFormParams, body: dto.ContactFormBody, query: dto.ContactFormQuery): Promise<dto.ContactFormResponse | ApiError> {
+  async submitContactForm(
+    params: dto.ContactFormParams,
+    body: dto.ContactFormBody,
+    query: dto.ContactFormQuery
+  ): Promise<dto.ContactFormResponse | ApiError> {
     return Promise.resolve({});
   }
 }

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { type ProjectId, isRepositoryId } from "src/ultils/local-types";
+import { type ProjectId, isRepositoryId } from "src/utils/local-types";
 
 interface Disclaimer {
   disclaimer?: ReactNode;

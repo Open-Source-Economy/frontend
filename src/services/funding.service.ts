@@ -1,8 +1,8 @@
 import * as dto from "@open-source-economy/api-types";
 import { FinancialIssue } from "@open-source-economy/api-types";
-import { GetIssuesParams } from "src/ultils/local-types";
+import { GetIssuesParams } from "src/utils/local-types";
 import { api, handleError } from "./apiClient";
-import { config } from "src/ultils";
+import { config } from "src/utils";
 
 export interface FundingService {
   getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue>;

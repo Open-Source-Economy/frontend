@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 import { adminHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 export function SyncGitHub() {
   const [ownerInput, setOwnerInput] = useState("");

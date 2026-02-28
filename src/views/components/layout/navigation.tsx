@@ -1,6 +1,6 @@
 import { NavigationLink, NavigationSection } from "src/types/navigation";
-import { paths } from "src/paths";
-import { isVisible } from "src/ultils/featureVisibility";
+import { externalLinks } from "src/externalLinks";
+import { isVisible } from "src/utils/featureVisibility";
 import {
   BookOpen,
   CreditCard,
@@ -29,32 +29,37 @@ import React from "react";
 // -----------------------------
 export const navigationLinks = {
   // Main pages
-  projects: { title: "Projects", href: paths.PROJECTS, icon: <FolderKanban className="w-4 h-4" /> } as NavigationLink,
-  services: { title: "Services", href: paths.SERVICES, icon: <Zap className="w-4 h-4" /> } as NavigationLink,
-  sponsorship: { title: "Sponsorship", href: paths.SPONSORSHIP, icon: <Heart className="w-4 h-4" /> } as NavigationLink,
-  faq: { title: "FAQ", href: paths.FAQ, icon: <HelpCircle className="w-4 h-4" /> } as NavigationLink,
-  blog: { title: "Blog", href: paths.BLOG, external: true, icon: <BookOpen className="w-4 h-4" /> } as NavigationLink,
-  contact: { title: "Contact", href: paths.CONTACT, icon: <Mail className="w-4 h-4" /> } as NavigationLink,
-  support: { title: "Support", href: paths.SPONSORSHIP, icon: <LifeBuoy className="w-4 h-4" /> } as NavigationLink,
-  login: { title: "Log In", href: paths.AUTH.IDENTIFY, icon: <LogIn className="w-4 h-4" /> } as NavigationLink,
+  projects: { title: "Projects", href: "/projects", icon: <FolderKanban className="w-4 h-4" /> } as NavigationLink,
+  services: { title: "Services", href: "/services", icon: <Zap className="w-4 h-4" /> } as NavigationLink,
+  sponsorship: { title: "Sponsorship", href: "/sponsorship", icon: <Heart className="w-4 h-4" /> } as NavigationLink,
+  faq: { title: "FAQ", href: "/faq", icon: <HelpCircle className="w-4 h-4" /> } as NavigationLink,
+  blog: {
+    title: "Blog",
+    href: externalLinks.BLOG,
+    external: true,
+    icon: <BookOpen className="w-4 h-4" />,
+  } as NavigationLink,
+  contact: { title: "Contact", href: "/contact", icon: <Mail className="w-4 h-4" /> } as NavigationLink,
+  support: { title: "Support", href: "/sponsorship", icon: <LifeBuoy className="w-4 h-4" /> } as NavigationLink,
+  login: { title: "Log In", href: "/auth/identify", icon: <LogIn className="w-4 h-4" /> } as NavigationLink,
 
   // User Menu items
   profile: {
     title: "Profile",
-    href: paths.DASHBOARD,
+    href: "/dashboard",
     icon: (
       <React.Fragment>
         <UserIcon className="w-4 h-4" />
       </React.Fragment>
     ),
   } as NavigationLink,
-  billing: { title: "Billing", href: paths.DASHBOARD, icon: <CreditCard className="w-4 h-4" /> } as NavigationLink,
-  settings: { title: "Settings", href: paths.DASHBOARD, icon: <Settings className="w-4 h-4" /> } as NavigationLink,
-  logout: { title: "Log out", href: paths.LOGOUT, icon: <LogOut className="w-4 h-4" /> } as NavigationLink,
+  billing: { title: "Billing", href: "/dashboard", icon: <CreditCard className="w-4 h-4" /> } as NavigationLink,
+  settings: { title: "Settings", href: "/dashboard", icon: <Settings className="w-4 h-4" /> } as NavigationLink,
+  logout: { title: "Log out", href: "/logout", icon: <LogOut className="w-4 h-4" /> } as NavigationLink,
 
   // Additional pages (can be added to footer but not header)
-  // about: { title: "About Us", href: paths.ABOUT, icon: <Info className="w-4 h-4" /> } as NavigationLink,
-  // privacy: { title: "Privacy Policy", href: paths.PRIVACY, icon: <Shield className="w-4 h-4" /> } as NavigationLink,
+  // about: { title: "About Us", href: "/about", icon: <Info className="w-4 h-4" /> } as NavigationLink,
+  // privacy: { title: "Privacy Policy", href: "/privacy", icon: <Shield className="w-4 h-4" /> } as NavigationLink,
 } as const;
 
 // -----------------------------
@@ -82,23 +87,23 @@ export const userMenuNavigation = {
     {
       title: "WORKSPACE",
       links: [
-        { title: "My Projects", href: paths.DASHBOARD, icon: <Folder className="w-4 h-4" /> },
-        { title: "Add Project", href: paths.DASHBOARD, icon: <PlusSquare className="w-4 h-4" /> },
+        { title: "My Projects", href: "/dashboard", icon: <Folder className="w-4 h-4" /> },
+        { title: "Add Project", href: "/dashboard", icon: <PlusSquare className="w-4 h-4" /> },
       ],
     },
     {
       title: "ACCOUNT",
       links: [
-        { title: "My Profile", href: paths.USER, icon: <UserIcon className="w-4 h-4" /> },
-        { title: "Settings", href: paths.DASHBOARD, icon: <Settings className="w-4 h-4" /> },
-        { title: "Billing & Plan", href: paths.DASHBOARD, icon: <CreditCard className="w-4 h-4" /> },
+        { title: "My Profile", href: "/user", icon: <UserIcon className="w-4 h-4" /> },
+        { title: "Settings", href: "/dashboard", icon: <Settings className="w-4 h-4" /> },
+        { title: "Billing & Plan", href: "/dashboard", icon: <CreditCard className="w-4 h-4" /> },
       ],
     },
     {
       title: "SUPPORT",
       links: [
-        { title: "Help Center", href: paths.FAQ, icon: <HelpCircle className="w-4 h-4" /> },
-        { title: "Documentation", href: paths.FAQ, icon: <FileText className="w-4 h-4" /> },
+        { title: "Help Center", href: "/faq", icon: <HelpCircle className="w-4 h-4" /> },
+        { title: "Documentation", href: "/faq", icon: <FileText className="w-4 h-4" /> },
       ],
     },
   ] as NavigationSection[],

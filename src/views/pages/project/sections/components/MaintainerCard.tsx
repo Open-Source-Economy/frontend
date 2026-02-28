@@ -2,13 +2,13 @@ import React, { useMemo } from "react";
 import { BadgeCheck, Github, GitMerge, Sparkles, Twitter } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
 import { ProjectDeveloperProfile } from "@open-source-economy/api-types";
-import { ProjectDeveloperProfileCompanion } from "src/ultils/companions/ProjectDeveloperProfile.companion";
-import { OwnerCompanion } from "src/ultils/companions/Owner.companion";
+import { ProjectDeveloperProfileCompanion } from "src/utils/companions/ProjectDeveloperProfile.companion";
+import { OwnerCompanion } from "src/utils/companions/Owner.companion";
 import { ExternalLink } from "../../../../components/ui/forms/external-link";
 import { getMaintainerTenure } from "../../data/maintainerTenure";
 import { getMaintainerHighlight } from "../../data/maintainerHighlights";
 import { getMaintainerDescription } from "../../data/maintainerDescriptions";
-import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "../../../../../ultils/companions";
+import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "../../../../../utils/companions";
 import { StatusBadge } from "./StatusBadge";
 
 interface MaintainerCardProps {

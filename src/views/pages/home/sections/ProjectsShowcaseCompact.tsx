@@ -4,13 +4,12 @@ import { Button } from "src/views/components/ui/forms/button";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { ArrowRight } from "lucide-react";
 import { ProjectItemSortField, SortOrder } from "@open-source-economy/api-types";
-import { NumberUtils } from "src/ultils/NumberUtils";
+import { NumberUtils } from "src/utils/NumberUtils";
 import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { projectHooks } from "src/api";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { paths } from "src/paths";
 
 interface ProjectsShowcaseCompactProps {
   title?: string;
@@ -186,7 +185,7 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
                 />
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Link to={paths.PROJECTS}>
+                  <Link to="/projects">
                     <Button
                       size="lg"
                       className="bg-gradient-to-r from-brand-accent to-brand-accent-dark hover:from-brand-accent-dark hover:to-brand-accent text-white shadow-lg"

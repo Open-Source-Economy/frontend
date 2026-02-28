@@ -5,9 +5,9 @@ import { EmailDisplay } from "../components/auth/EmailDisplay";
 import { TermsCheckbox } from "../components/auth/TermsCheckbox";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { paths } from "src/paths";
+
 import { useAuth } from "src/views/auth/AuthContext";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { authHooks } from "src/api";
 import { AuthPageWrapper } from "../AuthPageWrapper";
@@ -42,7 +42,7 @@ export function PasswordStep() {
   // Tokens for submission
   const repositoryToken = searchParams.repository_token ?? null;
   const companyToken = searchParams.company_token ?? null;
-  const redirectPath = (location.state as any)?.from?.pathname || paths.HOME;
+  const redirectPath = (location.state as any)?.from?.pathname || "/";
 
   // RHF forms — one for login, one for registration
   const loginForm = useZodForm(loginFormSchema, {
@@ -58,7 +58,7 @@ export function PasswordStep() {
   // Recovery Logic: If deep linked or refreshed, restore account details
   useEffect(() => {
     if (!email) {
-      navigate({ to: paths.AUTH.IDENTIFY as string });
+      navigate({ to: "/auth/identify" as string });
       return;
     }
 
@@ -126,7 +126,7 @@ export function PasswordStep() {
         <EmailDisplay
           email={email}
           onEdit={
-            !isEmailPredefined ? () => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams }) : undefined
+            !isEmailPredefined ? () => navigate({ to: "/auth/identify" as string, search: searchParams }) : undefined
           }
         />
 
@@ -171,7 +171,7 @@ export function PasswordStep() {
               </Button>
 
               <Button
-                onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams })}
+                onClick={() => navigate({ to: "/auth/identify" as string, search: searchParams })}
                 variant="ghost"
                 className="w-full h-11 text-brand-neutral-700"
                 leftIcon={ChevronLeft}
@@ -193,7 +193,7 @@ export function PasswordStep() {
               required
               link={{
                 text: "Forgot?",
-                href: `${paths.AUTH.FORGOT_PASSWORD}${location.searchStr}`,
+                href: `/auth/forgot-password${location.searchStr}`,
               }}
             />
 
@@ -205,7 +205,7 @@ export function PasswordStep() {
               </Button>
 
               <Button
-                onClick={() => navigate({ to: paths.AUTH.IDENTIFY as string, search: searchParams })}
+                onClick={() => navigate({ to: "/auth/identify" as string, search: searchParams })}
                 variant="ghost"
                 className="w-full h-11 text-brand-neutral-700"
                 leftIcon={ChevronLeft}

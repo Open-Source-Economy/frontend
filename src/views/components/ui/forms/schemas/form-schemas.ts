@@ -1,3 +1,4 @@
+import { ContactReason } from "@open-source-economy/api-types";
 import { z } from "zod";
 
 // --- Reusable field schemas ---
@@ -95,22 +96,33 @@ export const contactFormSchema = z
       .default([{ url: "", role: "" }]),
   })
   .superRefine((data, ctx) => {
-    const companyRequired = ["enterprise", "request-project", "partnership", "press"].includes(data.contactReason);
+    const companyRequired = [
+      ContactReason.ENTERPRISE,
+      ContactReason.REQUEST_PROJECT,
+      ContactReason.PARTNERSHIP,
+      ContactReason.PRESS,
+    ].includes(data.contactReason as ContactReason);
     if (companyRequired && !data.company?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company is required", path: ["company"] });
     }
 
-    const linkedInRequired = ["enterprise", "request-project", "partnership"].includes(data.contactReason);
+    const linkedInRequired = [
+      ContactReason.ENTERPRISE,
+      ContactReason.REQUEST_PROJECT,
+      ContactReason.PARTNERSHIP,
+    ].includes(data.contactReason as ContactReason);
     if (linkedInRequired && !data.linkedinProfile?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "LinkedIn profile is required", path: ["linkedinProfile"] });
     }
 
-    const githubRequired = data.contactReason === "maintainer";
+    const githubRequired = data.contactReason === ContactReason.MAINTAINER;
     if (githubRequired && !data.githubProfile?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "GitHub profile is required", path: ["githubProfile"] });
     }
 
-    const projectsRequired = ["enterprise", "request-project"].includes(data.contactReason);
+    const projectsRequired = [ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT].includes(
+      data.contactReason as ContactReason
+    );
     if (projectsRequired && (data.projects.length === 0 || !data.projects[0].url.trim())) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

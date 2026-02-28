@@ -9,8 +9,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { Problem } from "./elements/Problem";
 import { Solution, SolutionProps } from "./elements/Solution";
 import { UserCondition } from "./elements/UserCondition";
-import { config, Env } from "src/ultils";
-import { paths } from "src/paths";
+import { config, Env } from "src/utils";
 import { Button } from "../../../components";
 
 export interface UserDeveloperProps {
@@ -31,7 +30,7 @@ export interface UserDeveloperProps {
 export function UserDeveloper(props: UserDeveloperProps) {
   const [bgSize, setBgSize] = useState("70%");
   const location = useLocation();
-  const isDeveloperPath = location.pathname === paths.DEVELOPER_OLD;
+  const isDeveloperPath = location.pathname === "/developer-old";
 
   // Refs for animations
   const solutionHeadingRef = useRef(null);

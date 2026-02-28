@@ -1,4 +1,3 @@
-import React from "react";
 import { Clock, Send, Sparkles } from "lucide-react";
 import { NextStepsCard } from "../NextStepsCard";
 
@@ -6,7 +5,7 @@ import { NextStepsCard } from "../NextStepsCard";
  * NextStepsSection - "What's Next?" section for onboarding success page
  * Displays the three next steps after onboarding
  */
-export const NextStepsSection: React.FC = () => {
+export function NextStepsSection() {
   return (
     <div className="mb-12">
       <h2 className="text-center text-brand-neutral-900 mb-8">What's Next?</h2>
@@ -38,4 +37,4 @@ export const NextStepsSection: React.FC = () => {
       </div>
     </div>
   );
-};
+}

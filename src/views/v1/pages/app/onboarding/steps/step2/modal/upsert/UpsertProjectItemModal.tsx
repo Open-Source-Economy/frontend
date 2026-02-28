@@ -1,8 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import { useCallback, useRef, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
+import { Dialog, DialogContent } from "src/views/components/ui/dialog";
 import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { SourceIdentifier } from "src/utils/local-types";
 import { GenericInputRef } from "../../../../../../../components/form";
 import { ModalHeader } from "./components/ModalHeader";
 import { ProjectSection, ProjectSectionRef } from "./components/ProjectSection";
@@ -101,57 +101,52 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   };
 
   return (
-    <>
-      <Modal
-        show={props.show}
-        onHide={() => props.setShow(false)}
-        centered
-        className="[&_.modal-content]:bg-transparent [&_.modal-content]:border-none [&_.modal-dialog]:max-w-[800px] [&_.modal-backdrop]:bg-black/50"
-        backdrop="static"
+    <Dialog open={props.show} onOpenChange={(open) => !open && props.setShow(false)}>
+      <DialogContent
+        className="bg-transparent border-none max-w-[800px] p-0"
+        onInteractOutside={(e) => e.preventDefault()}
       >
-        <Modal.Body className="p-0">
-          <div className="flex w-[800px] p-9 flex-col justify-end items-end gap-8 rounded-[50px] bg-[#0E1F35]">
-            {/* Modal Header */}
-            <ModalHeader
-              title="Choose Project"
-              subtitle="You can choose an entire organisation or a specific repository in an organisation"
-              onClose={() => props.setShow(false)}
-            />
+        <div className="flex w-full max-w-[800px] p-9 flex-col justify-end items-end gap-8 rounded-[50px] bg-[#0E1F35]">
+          {/* Modal Header */}
+          <ModalHeader
+            title="Choose Project"
+            subtitle="You can choose an entire organisation or a specific repository in an organisation"
+            onClose={() => props.setShow(false)}
+          />
 
-            {/* Project Section */}
-            <ProjectSection
-              projectItemType={props.entry ? props.entry.projectItem.projectItemType : null}
-              sourceIdentifier={props.entry ? props.entry.projectItem.sourceIdentifier : null}
-              onProjectItemChange={handleProjectItemChange}
-              ref={projectSectionRef}
-            />
+          {/* Project Section */}
+          <ProjectSection
+            projectItemType={props.entry ? props.entry.projectItem.projectItemType : null}
+            sourceIdentifier={props.entry ? props.entry.projectItem.sourceIdentifier : null}
+            onProjectItemChange={handleProjectItemChange}
+            ref={projectSectionRef}
+          />
 
-            {/* Contribution Section */}
-            <ContributionSection
-              selectedRole={selectedRole}
-              selectedMergeRights={selectedMergeRights}
-              onRoleChange={setSelectedRole}
-              onMergeRightsChange={setSelectedMergeRights}
-              roleSelectRef={roleSelectRef}
-              mergeRightsSelectRef={mergeRightsSelectRef}
-            />
+          {/* Contribution Section */}
+          <ContributionSection
+            selectedRole={selectedRole}
+            selectedMergeRights={selectedMergeRights}
+            onRoleChange={setSelectedRole}
+            onMergeRightsChange={setSelectedMergeRights}
+            roleSelectRef={roleSelectRef}
+            mergeRightsSelectRef={mergeRightsSelectRef}
+          />
 
-            {/* Error Display */}
-            {upsertProjectItemMutation.error && (
-              <div className="self-stretch text-red-400 text-sm font-montserrat">
-                API Error: {upsertProjectItemMutation.error.message}
-              </div>
-            )}
+          {/* Error Display */}
+          {upsertProjectItemMutation.error && (
+            <div className="self-stretch text-red-400 text-sm font-montserrat">
+              API Error: {upsertProjectItemMutation.error.message}
+            </div>
+          )}
 
-            {/* Footer Button */}
-            <ModalFooter
-              onSubmit={handleUpsertProject}
-              isLoading={upsertProjectItemMutation.isPending}
-              buttonText={props.entry ? "Save Changes" : "Add Project"}
-            />
-          </div>
-        </Modal.Body>
-      </Modal>
-    </>
+          {/* Footer Button */}
+          <ModalFooter
+            onSubmit={handleUpsertProject}
+            isLoading={upsertProjectItemMutation.isPending}
+            buttonText={props.entry ? "Save Changes" : "Add Project"}
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

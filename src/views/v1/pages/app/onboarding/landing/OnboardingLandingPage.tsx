@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/v1/pages/authenticate/AuthContext";
-import { paths } from "../../../../../../paths";
 import { PageWrapper } from "../../../PageWrapper";
 import { CTASection, HeroSection, SpiritSection } from "./components";
 
@@ -11,9 +10,9 @@ export default function OnboardingLandingPage() {
 
   const handleGitHubSignIn = () => {
     if ((auth.authInfo as any)?.user) {
-      navigate({ to: paths.DEVELOPER_ONBOARDING as string });
+      navigate({ to: "/developer-onboarding" as string });
     } else {
-      auth.loginWithGitHub(paths.DEVELOPER_ONBOARDING);
+      auth.loginWithGitHub("/developer-onboarding");
     }
   };
 

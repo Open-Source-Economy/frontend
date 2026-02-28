@@ -5,7 +5,7 @@ import { GetProjectServicesResponse, ServiceType } from "@open-source-economy/ap
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
 import { projectHooks } from "src/api";
-import { ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 const DEFAULT_SERVICES: GetProjectServicesResponse = {
   services: [ServiceType.DEVELOPMENT],

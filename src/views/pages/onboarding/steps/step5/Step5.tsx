@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { onboardingHooks } from "src/api";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { SourceIdentifier } from "src/ultils/local-types";
+import { SourceIdentifier } from "src/utils/local-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step5State } from "../../OnboardingDataSteps";
 import { DeleteServiceModal } from "./modals/DeleteServiceModal";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { adminHooks } from "src/api";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { inviteRepositoryUserSchema, InviteRepositoryUserFormData } from "src/views/components/ui/forms/schemas";

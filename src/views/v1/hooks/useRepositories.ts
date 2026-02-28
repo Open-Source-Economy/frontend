@@ -7,7 +7,7 @@ import {
   Repository,
   RepositoryId,
 } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 // TODO: optimize this function to fetch all repositories in one request
 export function useRepositories(repositoryIds: RepositoryId[]) {

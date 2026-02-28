@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { authBackendAPI } from "src/services";
 import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { authHooks } from "src/api";
 
 interface AuthProviderProps {

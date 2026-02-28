@@ -40,7 +40,7 @@ export function Projects(_props: ProjectsProps) {
                   project={project}
                   audience={Audience.ALL}
                   // action={"Learn More"}
-                  // to={paths.project(project.id)} // TODO: not always working
+                  // to={...} // TODO: not always working
                 />
               ))
             )}

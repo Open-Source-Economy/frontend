@@ -10,7 +10,7 @@ import { UniqueSellingPoints } from "src/views/pages/home/sections/UniqueSelling
 import { laurianeCalLink } from "src/views/v1/data";
 import { FundDistributionMinimal } from "./sections/FundDistributionMinimal";
 import { FeaturedVendors } from "./sections/vendors/FeaturedVendors";
-import { isVisible } from "src/ultils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 import { PlatformSponsors } from "./sections/supporters/PlatformSponsors";
 
 interface HomeProps {}

@@ -11,7 +11,7 @@ import { Approved } from "src/views/v1/components/issue/Approved";
 import { Button, FormEntry } from "src/views/v1/components";
 import Decimal from "decimal.js";
 import { BaseInput } from "src/views/v1/components/old-form/frames/BaseInput";
-import { DecrementIcon, IncrementIcon } from "src/ultils/Icons";
+import { DecrementIcon, IncrementIcon } from "src/utils/Icons";
 import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 import { useAuth } from "../../../../auth";
 import { fundingHooks } from "src/api";

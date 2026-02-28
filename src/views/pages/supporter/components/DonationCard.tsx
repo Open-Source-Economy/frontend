@@ -24,12 +24,12 @@ import {
   Currency,
   Price,
 } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
-import { paths } from "src/paths";
+import { ApiError } from "src/utils/error/ApiError";
+
 import { displayedCurrencies } from "src/views/v1/data";
-import { NumberUtils } from "src/ultils/NumberUtils";
+import { NumberUtils } from "src/utils/NumberUtils";
 import { openSourceEconomyProjectId } from "../../../../services/data/projects";
-import { GithubUrls } from "src/ultils/GithubUrls";
+import { GithubUrls } from "src/utils/GithubUrls";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import { projectHooks, stripeHooks } from "src/api";
 
@@ -121,7 +121,7 @@ export function DonationCard(props: DonationCardProps) {
   }, [campaign?.prices, priceType, preferredCurrency, campaignProductType, selectedPriceIndex, customAmount]);
 
   const checkoutErrorParamName = "checkout_error";
-  const paymentSuccessUrl = `${window.location.origin}${paths.CHECKOUT_SUCCESS}`;
+  const paymentSuccessUrl = `${window.location.origin}/checkout/success`;
   const paymentCancelUrl = `${window.location.href.split("?")[0]}?${checkoutErrorParamName}=true`;
 
   const handleCheckout = async () => {

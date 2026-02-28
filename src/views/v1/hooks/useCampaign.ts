@@ -1,11 +1,11 @@
 import React from "react";
 import { projectService } from "src/services";
 import * as dto from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { CampaignDescription } from "src/model";
 import { getCampaignDescription } from "../../../services/data";
-import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/ultils/local-types";
+import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 export function useCampaign(projectId: ProjectId) {
   const [campaign, setCampaign] = React.useState<(dto.GetCampaignResponse & CampaignDescription) | null>(null);

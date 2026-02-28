@@ -9,8 +9,7 @@ import { onboardingHooks } from "src/api";
 import Step1 from "./steps/step1/Step1";
 import Step2 from "./steps/step2/Step2";
 
-import { paths } from "../../../paths";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import {
   OnboardingDataSteps,
@@ -22,7 +21,7 @@ import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
 import { Step4 } from "./steps/step4";
 import { Step5 } from "./steps/step5";
-import { PreferredCurrency } from "../../../ultils/PreferredCurrency";
+import { PreferredCurrency } from "../../../utils/PreferredCurrency";
 import { WizardStepIndicator } from "./components/WizardStepIndicator";
 import { WizardNavigation } from "./components/WizardNavigation";
 import { StepSidebar } from "./components/StepSidebar";
@@ -124,7 +123,7 @@ export default function OnboardingFlow() {
     if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      navigate({ to: paths.DEVELOPER_ONBOARDING_COMPLETED as string });
+      navigate({ to: "/developer-onboarding-completed" as string });
     }
   };
 
@@ -133,7 +132,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate({ to: paths.DEVELOPER_LANDING as string });
+      navigate({ to: "/developer" as string });
     }
   };
 
@@ -322,7 +321,7 @@ export default function OnboardingFlow() {
                     totalSteps={5}
                     isSaving={isSaving}
                     onBack={goToPrevStep}
-                    onCancel={() => navigate({ to: paths.DEVELOPER_LANDING as string })}
+                    onCancel={() => navigate({ to: "/developer" as string })}
                     onNext={handleContinue}
                   />
                 </div>

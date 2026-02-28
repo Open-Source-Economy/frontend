@@ -7,7 +7,7 @@ import {
   Repository,
   RepositoryId,
 } from "@open-source-economy/api-types";
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 
 export function useRepository(repositoryId: RepositoryId) {
   const [ownerAndRepository, setOwnerAndRepository] = useState<[Owner, Repository] | null>(null);

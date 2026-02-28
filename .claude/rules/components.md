@@ -73,7 +73,7 @@ const [count, setCount] = React.useState(0); // OK
 Use `ApiError` and `ServerErrorAlert` for consistent error display:
 
 ```typescript
-import { ApiError } from "src/ultils/error/ApiError";
+import { ApiError } from "src/utils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 
 const { error } = projectHooks.useProjectQuery(params, query);

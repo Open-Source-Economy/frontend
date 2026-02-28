@@ -1,4 +1,4 @@
-import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/ultils/Icons";
+import { AdvisoryIcon, OperationIcon, OssDevelopmentIcon, SupportIcon } from "src/utils/Icons";
 import { ServiceType } from "@open-source-economy/api-types";
 
 type ServiceDetails = {
