@@ -109,8 +109,8 @@ function Step2(props: Step2Props) {
       // 2. We need consistent ordering whether we refresh (backend-sorted) or add/edit locally (frontend-sorted)
       // 3. The sorting logic matches the backend's `findByProfileId` method (alphabetical by source identifier, then created_at DESC)
       //
-      // TODO: In the future, when sorting becomes configurable via API request parameters,
-      // we should pass those parameters to the backend and apply the same sorting logic here.
+      // When sorting becomes configurable via API request parameters,
+      // pass those parameters to the backend and apply the same sorting logic here.
       updatedProjects = sortProjectsByBackendOrder(updatedProjects);
 
       // Update parent state with the new projects

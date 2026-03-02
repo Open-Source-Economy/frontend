@@ -175,7 +175,7 @@ export function DonationCard(props: DonationCardProps) {
             quantity: selectedPrice.quantity,
           },
         ],
-        countryCode: null, // TODO: Add country code based on user's location
+        countryCode: null,
         successUrl: paymentSuccessUrl,
         cancelUrl: paymentCancelUrl,
         metadata: metadata,

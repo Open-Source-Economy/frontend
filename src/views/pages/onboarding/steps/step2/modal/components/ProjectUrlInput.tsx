@@ -54,7 +54,7 @@ export function ProjectUrlInput(props: ProjectUrlInputProps) {
         {props.value && (
           <a
             href={props.value}
-            target="_blank" // TODO: lolo
+            target="_blank"
             rel="noopener noreferrer"
             className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-accent hover:text-brand-accent-dark transition-colors z-10"
           >

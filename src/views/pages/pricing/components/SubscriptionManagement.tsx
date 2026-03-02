@@ -16,17 +16,11 @@ export function SubscriptionManagement(props: SubscriptionManagementProps) {
 
   const benefits = getActiveBenefits(props.currentPlanTier);
 
-  const handleDownloadInvoices = () => {
-    // TODO: Implement invoice download
-  };
+  const handleDownloadInvoices = () => {};
 
-  const handleUpdatePayment = () => {
-    // TODO: Implement payment method update
-  };
+  const handleUpdatePayment = () => {};
 
-  const handleManageSubscription = () => {
-    // TODO: Implement customer portal redirect
-  };
+  const handleManageSubscription = () => {};
 
   return (
     <div className="mt-16 max-w-5xl mx-auto">

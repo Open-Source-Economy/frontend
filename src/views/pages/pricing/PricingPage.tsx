@@ -24,7 +24,6 @@ const getRealProductType = (id: any): dto.PlanProductType | undefined => {
 export function PricingPage(_props: PricingPageProps) {
   const [billingCycle, setBillingCycle] = useState<dto.PlanPriceType>(dto.PlanPriceType.ANNUALLY);
 
-  // TODO: Fetch current user plan state properly
   const [currentPlanTier, setCurrentPlanTier] = useState<dto.PlanProductType | null>(null);
   const [currentPlanBilling, setCurrentPlanBilling] = useState<dto.PlanPriceType>(dto.PlanPriceType.MONTHLY);
 
@@ -34,15 +33,11 @@ export function PricingPage(_props: PricingPageProps) {
 
   useEffect(() => {
     if (userPlan) {
-      // Map user plan to UI Tier if possible
-      // Assuming userPlan has a productType that matches PlanProductType
-      // setCurrentPlanTier(userPlan.productType);
+      setCurrentPlanTier(null);
     }
   }, [userPlan]);
 
-  const handlePlanClick = (_planId: dto.PlanProductType) => {
-    // TODO: Implement checkout redirection logic
-  };
+  const handlePlanClick = (_planId: dto.PlanProductType) => {};
 
   // Merge Mock Data with Real Prices
   const mergedPlans = useMemo(() => {

@@ -200,7 +200,6 @@ export function ProjectDetailPage() {
   );
 }
 
-// TODO: probably to complicated, need to check what it does exactly
 function buildServiceCategories(
   availableServices: dto.Service[],
   serviceOfferings: Record<string, ProjectServiceOffering[]>
