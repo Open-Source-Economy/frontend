@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { CreditCard, FileText, Edit3, ExternalLink } from "lucide-react";
 import { BenefitsSection } from "../ui/benefits-section";
 import { ActionLink } from "../ui/action-link";
-import { getTierColor, getTierBorderColor, getPlanName, getBillingDisplay } from "./utils/tierUtils";
+import { getTierColor, getTierBorderColor, getTierIconColor, getPlanName, getBillingDisplay } from "./utils/tierUtils";
 import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionCardProps {
@@ -18,13 +18,11 @@ interface SubscriptionCardProps {
 
 export function SubscriptionCard(props: SubscriptionCardProps) {
   return (
-    <div
-      className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(props.tier as any)} shadow-xl overflow-hidden`}
-    >
+    <div className={`bg-brand-secondary rounded-xl border ${getTierBorderColor(props.tier)} shadow-xl overflow-hidden`}>
       {/* Main Content Row */}
       <div className="flex items-center gap-6 p-6">
         {/* Icon */}
-        <div className={`${getTierColor(props.tier as any)} rounded-xl p-4 flex-shrink-0`}>
+        <div className={`${getTierColor(props.tier)} rounded-xl p-4 flex-shrink-0`}>
           <CreditCard className="w-8 h-8 text-brand-secondary" />
         </div>
 
@@ -37,7 +35,7 @@ export function SubscriptionCard(props: SubscriptionCardProps) {
             </span>
           </div>
           <p className="text-brand-neutral-600 text-sm">
-            You are currently on the <span className="text-white">{getPlanName(props.tier as any)}</span> plan (billed{" "}
+            You are currently on the <span className="text-white">{getPlanName(props.tier)}</span> plan (billed{" "}
             {getBillingDisplay(props.billing)}).
           </p>
         </div>
@@ -61,9 +59,9 @@ export function SubscriptionCard(props: SubscriptionCardProps) {
           <BenefitsSection title="Core Mission Benefits" benefits={props.commonBenefits} iconColor="accent" />
 
           <BenefitsSection
-            title={`${getPlanName(props.tier as any)} Tier Benefits`}
+            title={`${getPlanName(props.tier)} Tier Benefits`}
             benefits={props.tierBenefits}
-            iconColor={props.tier as any}
+            iconColor={getTierIconColor(props.tier)}
           />
         </div>
       </div>

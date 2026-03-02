@@ -20,6 +20,12 @@ import {
 } from "src/views/components/ui/forms/schemas";
 import { passwordTransformError } from "src/views/components/ui/forms/schemas/password-requirements";
 
+interface AuthNavigationState {
+  accountDetails?: { exists: boolean; provider?: string };
+  isEmailPredefined?: boolean;
+  from?: { pathname: string };
+}
+
 export function PasswordStep() {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -31,18 +37,19 @@ export function PasswordStep() {
   const email = searchParams.email ?? null;
 
   // Transient navigation state
+  const navState = (location.state ?? {}) as AuthNavigationState;
   const [accountDetails, setAccountDetails] = useState<{
     exists: boolean;
     provider?: string;
-  } | null>((location.state as any)?.accountDetails || null);
+  } | null>(navState.accountDetails || null);
 
-  const isEmailPredefined = (location.state as any)?.isEmailPredefined || false;
+  const isEmailPredefined = navState.isEmailPredefined || false;
   const isRegistering = !accountDetails?.exists;
 
   // Tokens for submission
   const repositoryToken = searchParams.repository_token ?? null;
   const companyToken = searchParams.company_token ?? null;
-  const redirectPath = (location.state as any)?.from?.pathname || "/";
+  const redirectPath = navState.from?.pathname || "/";
 
   // RHF forms — one for login, one for registration
   const loginForm = useZodForm(loginFormSchema, {
@@ -50,7 +57,7 @@ export function PasswordStep() {
   });
 
   const registrationForm = useZodForm(registrationFormSchema, {
-    defaultValues: { password: "", confirmPassword: "", termsAccepted: false as any },
+    defaultValues: { password: "", confirmPassword: "", termsAccepted: false as unknown },
   });
 
   const _form = isRegistering ? registrationForm : loginForm;
@@ -156,7 +163,7 @@ export function PasswordStep() {
             <TermsCheckbox
               checked={registrationForm.watch("termsAccepted") === true}
               onCheckedChange={(checked) => {
-                registrationForm.setValue("termsAccepted", checked as any, {
+                registrationForm.setValue("termsAccepted", checked as unknown, {
                   shouldValidate: registrationForm.formState.isSubmitted,
                 });
               }}

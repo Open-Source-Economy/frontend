@@ -35,18 +35,18 @@ export const MEETING_REQUEST_REASONS = [
 
 // Helper functions
 export const isCompanyRequired = (contactReason: string): boolean =>
-  PROFESSIONAL_REASONS.includes(contactReason as any);
+  PROFESSIONAL_REASONS.some((r) => r === contactReason);
 
 export const isLinkedInRequired = (contactReason: string): boolean =>
-  LINKEDIN_REQUIRED_REASONS.includes(contactReason as any);
+  LINKEDIN_REQUIRED_REASONS.some((r) => r === contactReason);
 
 export const shouldShowGitHubProfile = (contactReason: string): boolean =>
-  GITHUB_PROFILE_REASONS.includes(contactReason as any);
+  GITHUB_PROFILE_REASONS.some((r) => r === contactReason);
 
 export const isGitHubRequired = (contactReason: string): boolean => contactReason === dto.ContactReason.MAINTAINER;
 
 export const shouldShowMeetingRequest = (contactReason: string): boolean =>
-  MEETING_REQUEST_REASONS.includes(contactReason as any);
+  MEETING_REQUEST_REASONS.some((r) => r === contactReason);
 
 export const shouldShowProjects = (contactReason: string): boolean =>
   contactReason === dto.ContactReason.MAINTAINER || contactReason === dto.ContactReason.REQUEST_PROJECT;

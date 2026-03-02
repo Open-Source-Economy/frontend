@@ -45,8 +45,8 @@ export function convertToProjectDisplayData(entry: dto.DeveloperProjectItemEntry
     id: developerProjectItem.id,
     projectType,
     url,
-    role: role.toLowerCase().replace(/_/g, "_") as any, // Map to design system role format
-    mainBranchAccess: mergeRights.toLowerCase().replace(/_/g, "_") as any, // Map to design system access format
+    role: role.toLowerCase().replace(/_/g, "_"),
+    mainBranchAccess: mergeRights.toLowerCase().replace(/_/g, "_"),
     ecosystems: undefined, // Not supported by API yet
     verified: false, // Not tracked in API
   };

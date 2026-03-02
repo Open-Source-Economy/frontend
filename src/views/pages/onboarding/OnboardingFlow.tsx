@@ -90,7 +90,7 @@ export default function OnboardingFlow() {
       currentUrlStep < OnboardingDataSteps.Step1 ||
       currentUrlStep > OnboardingDataSteps.Step5
     ) {
-      navigate({ search: { step: currentStep } as any, replace: true });
+      navigate({ search: { step: currentStep } as Record<string, number>, replace: true });
     } else {
       currentStep = currentUrlStep as OnboardingDataSteps;
     }
@@ -112,7 +112,7 @@ export default function OnboardingFlow() {
   }, [currentUrlStep, navigate, profileQuery.data]);
 
   const goToStep = (step: OnboardingDataSteps) => {
-    navigate({ search: { step } as any, replace: true });
+    navigate({ search: { step } as Record<string, number>, replace: true });
     setState((prevState) => ({ ...prevState, currentStep: step }));
   };
 

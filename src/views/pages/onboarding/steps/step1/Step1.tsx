@@ -36,7 +36,7 @@ export default function Step1(props: Step1Props) {
     defaultValues: {
       name: props.state.name || "",
       contactEmail: props.state.contactEmail || "",
-      agreedToTerms: (props.state.agreedToTerms || false) as any,
+      agreedToTerms: (props.state.agreedToTerms || false) as unknown,
     },
   });
 
@@ -123,7 +123,7 @@ export default function Step1(props: Step1Props) {
                 id="termsAccepted"
                 checked={form.watch("agreedToTerms") === true}
                 onCheckedChange={(checked: boolean) => {
-                  form.setValue("agreedToTerms", checked as any, { shouldValidate: form.formState.isSubmitted });
+                  form.setValue("agreedToTerms", checked as unknown, { shouldValidate: form.formState.isSubmitted });
                 }}
                 disabled={isLoading}
                 className="mt-0.5"

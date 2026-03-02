@@ -82,7 +82,11 @@ export function IdentificationStep() {
     : null;
 
   const updateUrlEmail = (newEmail: string) => {
-    navigate({ to: "/auth/identify", search: { ...searchParams, email: newEmail } as any, replace: true });
+    navigate({
+      to: "/auth/identify",
+      search: { ...searchParams, email: newEmail } as Record<string, string | undefined>,
+      replace: true,
+    });
   };
 
   const handleGithubAuth = () => {
@@ -96,12 +100,12 @@ export function IdentificationStep() {
 
       navigate({
         to: nextPath as string,
-        search: { ...searchParams, email: emailToCheck } as any,
+        search: { ...searchParams, email: emailToCheck } as Record<string, string | undefined>,
         state: {
           email: emailToCheck,
           accountDetails: result,
           isEmailPredefined: isPredefined,
-        } as any,
+        } as Record<string, unknown>,
       });
     } catch {
       // Error tracked by checkEmailMutation.error

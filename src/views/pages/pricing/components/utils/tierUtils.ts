@@ -57,6 +57,19 @@ export const getPlanName = (tier: TierType): string => {
   }
 };
 
+export const getTierIconColor = (tier: TierType): "accent" | "bronze" | "silver" | "gold" => {
+  switch (tier) {
+    case dto.PlanProductType.START_UP_PLAN:
+      return "bronze";
+    case dto.PlanProductType.SCALE_UP_PLAN:
+      return "silver";
+    case dto.PlanProductType.ENTERPRISE_PLAN:
+      return "gold";
+    default:
+      return "accent";
+  }
+};
+
 export const getBillingDisplay = (billing: dto.PlanPriceType | null): string => {
   return billing === dto.PlanPriceType.ANNUALLY ? "annually" : "monthly";
 };

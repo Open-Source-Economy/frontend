@@ -115,7 +115,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       form.setValue("projectType", props.entry.projectItem.projectItemType);
 
       // Convert sourceIdentifier to URL
-      const si = props.entry.projectItem.sourceIdentifier as any;
+      const si = props.entry.projectItem.sourceIdentifier as unknown;
       if (typeof si === "object" && si.name && si.ownerId?.login) {
         form.setValue("url", GithubUrls.generateRepositoryUrl(si));
       } else if (typeof si === "object" && si.login) {
