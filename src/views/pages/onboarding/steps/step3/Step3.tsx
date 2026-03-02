@@ -7,7 +7,10 @@ import * as dto from "@open-source-economy/api-types";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ParticipationCard } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationCard";
-import { participationCardConfigs, ParticipationModelOption } from "src/views/pages/onboarding/steps/step3/design-system/participationCardConfigs";
+import {
+  participationCardConfigs,
+  ParticipationModelOption,
+} from "src/views/pages/onboarding/steps/step3/design-system/participationCardConfigs";
 import { ServiceProviderCard } from "src/views/pages/onboarding/steps/step3/design-system/ServiceProviderCard";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { onboardingStep3Schema } from "src/views/components/ui/forms/schemas";

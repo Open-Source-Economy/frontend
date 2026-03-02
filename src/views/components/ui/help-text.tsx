@@ -1,6 +1,13 @@
 import React, { ReactNode } from "react";
 import { Info, LucideIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "src/views/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "src/views/components/ui/dialog";
 
 interface HelpTextProps {
   children: ReactNode;

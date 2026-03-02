@@ -1,6 +1,11 @@
 import React from "react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import { ActionsSection, NextStepsSection, SuccessHeroSection, VolunteerNoticeSection } from "src/views/pages/onboarding/completed/components";
+import {
+  ActionsSection,
+  NextStepsSection,
+  SuccessHeroSection,
+  VolunteerNoticeSection,
+} from "src/views/pages/onboarding/completed/components";
 
 export interface DevelopedOnboardingCompleteProps {}
 

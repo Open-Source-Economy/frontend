@@ -3,7 +3,13 @@ import { Button } from "src/views/pages/pricing/ui/button";
 import { CreditCard, FileText, Edit3, ExternalLink } from "lucide-react";
 import { BenefitsSection } from "src/views/pages/pricing/ui/benefits-section";
 import { ActionLink } from "src/views/pages/pricing/ui/action-link";
-import { getTierColor, getTierBorderColor, getTierIconColor, getPlanName, getBillingDisplay } from "src/views/pages/pricing/components/utils/tierUtils";
+import {
+  getTierColor,
+  getTierBorderColor,
+  getTierIconColor,
+  getPlanName,
+  getBillingDisplay,
+} from "src/views/pages/pricing/components/utils/tierUtils";
 import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionCardProps {

@@ -2,7 +2,10 @@ import * as dto from "@open-source-economy/api-types";
 import { ParticipationFeatureItem } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationFeatureItem";
 import { FundFlowVisualization } from "src/views/pages/onboarding/steps/step3/design-system/FundFlowVisualization";
 import { ParticipationSelectionButtons } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationSelectionButtons";
-import { participationCardConfigs, ParticipationModelOption } from "src/views/pages/onboarding/steps/step3/design-system/participationCardConfigs";
+import {
+  participationCardConfigs,
+  ParticipationModelOption,
+} from "src/views/pages/onboarding/steps/step3/design-system/participationCardConfigs";
 
 interface ServiceProviderCardProps {
   selectedState: dto.PreferenceType | null | undefined;

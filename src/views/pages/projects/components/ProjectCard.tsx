@@ -57,9 +57,7 @@ export function ProjectCard(props: ProjectCardProps) {
     const ownerRepo = resolveOwnerRepo();
     if (ownerRepo?.owner) {
       navigate({
-        to: ownerRepo.repo
-          ? `/project/${ownerRepo.owner}/${ownerRepo.repo}`
-          : `/project/${ownerRepo.owner}`,
+        to: ownerRepo.repo ? `/project/${ownerRepo.owner}/${ownerRepo.repo}` : `/project/${ownerRepo.owner}`,
       });
     } else if (props.onViewProject) {
       props.onViewProject(view.projectId);

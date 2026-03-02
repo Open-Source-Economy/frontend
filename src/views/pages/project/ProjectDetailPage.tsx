@@ -8,7 +8,11 @@ import { ProjectHero } from "src/views/pages/project/sections/ProjectHero";
 import { buttonVariants } from "src/views/components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { MaintainersSection } from "src/views/pages/project/sections/MaintainersSection";
-import { ProjectServiceOffering, ServiceCategoryCard, ServiceOffering } from "src/views/pages/project/components/ServiceCategoryCard";
+import {
+  ProjectServiceOffering,
+  ServiceCategoryCard,
+  ServiceOffering,
+} from "src/views/pages/project/components/ServiceCategoryCard";
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";

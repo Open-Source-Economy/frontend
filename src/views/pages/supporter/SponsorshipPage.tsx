@@ -1,103 +1,12 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { DonationCard } from "src/views/pages/supporter/components/DonationCard";
-import { ArrowRight, Briefcase, Code, Globe, Heart, Package, Target, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import { PageWrapper } from "src/views/pages/PageWrapper";
 
 import { isVisible } from "src/utils/featureVisibility";
 
 export function SponsorshipPage() {
-  const _fundingTiers = [
-    {
-      id: 1,
-      title: "Foundation",
-      icon: Target,
-      goal: 500,
-      color: "brand-success",
-      covers: [
-        "Server hosting & infrastructure",
-        "Deployment & monitoring tools",
-        "Business outreach tools (LinkedIn, email)",
-        "Domain, SSL & essential services",
-      ],
-      impact: {
-        projects: "~5 projects/month onboarded",
-        contracts: "~€2K/month in new contracts",
-        maintainers: "~10 maintainers connected with funding",
-      },
-    },
-    {
-      id: 2,
-      title: "Scale",
-      icon: Users,
-      goal: 4000,
-      color: "brand-accent",
-      covers: [
-        "Everything in Foundation tier",
-        "First full-time team member (operations/biz dev)",
-        "Enhanced platform features",
-        "Dedicated maintainer support",
-      ],
-      impact: {
-        projects: "~20 projects/month onboarded",
-        contracts: "~€15K/month in new contracts",
-        maintainers: "~50 maintainers connected with funding",
-      },
-      founder: {
-        name: "Foundation Founder Name",
-        role: "Founder & Executive Director",
-        image:
-          "https://images.unsplash.com/photo-1758691737644-ef8be18256c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBmb3VuZGVyJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzY0Njc0MjI0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      },
-    },
-    {
-      id: 3,
-      title: "Ecosystem",
-      icon: Briefcase,
-      goal: 10000,
-      color: "brand-highlight",
-      covers: [
-        "Everything in Scale tier",
-        "Expand to 2-3 team members",
-        "Direct maintainer grants program",
-        "Developer advocacy & ecosystem building",
-        "Regional community support",
-      ],
-      impact: {
-        projects: "~50 projects/month onboarded",
-        contracts: "~€50K/month in new contracts",
-        maintainers: "~150 maintainers funded monthly",
-      },
-    },
-  ];
-
-  const _impactStats = [
-    {
-      icon: Code,
-      value: "2,500+",
-      label: "Maintainers Supported",
-      description: "Active open source developers receiving funding",
-    },
-    {
-      icon: Package,
-      value: "10,000+",
-      label: "Projects Funded",
-      description: "Critical open source projects sustained",
-    },
-    {
-      icon: Globe,
-      value: "$2.5M+",
-      label: "Distributed Annually",
-      description: "Directly to maintainers and projects",
-    },
-    {
-      icon: TrendingUp,
-      value: "95%",
-      label: "Goes to Developers",
-      description: "Only 5% for platform operations",
-    },
-  ];
-
   return (
     <PageWrapper>
       <div className="min-h-screen bg-brand-navy overflow-x-hidden">

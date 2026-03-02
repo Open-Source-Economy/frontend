@@ -7,7 +7,10 @@ import { OnboardingStepProps } from "src/views/pages/onboarding/steps/Onboarding
 import { Step5State } from "src/views/pages/onboarding/OnboardingDataSteps";
 import { DeleteServiceModal } from "src/views/pages/onboarding/steps/step5/modals/DeleteServiceModal";
 import { ServiceModal } from "src/views/pages/onboarding/steps/step5/modals/ServiceModal";
-import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "src/views/pages/onboarding/steps/step5/utils";
+import {
+  groupDeveloperServicesByCategory,
+  GroupedDeveloperServiceEntry,
+} from "src/views/pages/onboarding/steps/step5/utils";
 import { AddServiceModal } from "src/views/pages/onboarding/steps/step5/modals/add/AddServiceModal";
 import { Button } from "src/views/components/ui/forms/button";
 import { AlertCircle, Plus } from "lucide-react";

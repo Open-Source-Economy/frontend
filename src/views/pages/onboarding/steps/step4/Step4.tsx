@@ -98,7 +98,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
       const body: dto.SetDeveloperServiceSettingsBody = {
         hourlyWeeklyCommitment: isServiceProvider ? values.hourlyWeeklyCommitment! : undefined,
         hourlyWeeklyCommitmentComment: values.hourlyWeeklyCommitmentComment || undefined,
-        openToOtherOpportunity: values.openToOtherOpportunity as OpenToOtherOpportunityType,
+        openToOtherOpportunity: values.openToOtherOpportunity as dto.OpenToOtherOpportunityType,
         openToOtherOpportunityComment: values.openToOtherOpportunityComment || undefined,
         hourlyRate: isServiceProvider ? values.hourlyRate! : undefined,
         currency: isServiceProvider ? (values.currency as dto.Currency) : undefined,
