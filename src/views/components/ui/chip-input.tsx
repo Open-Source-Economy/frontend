@@ -1,8 +1,8 @@
 import React from "react";
-import { Input } from "./forms/inputs/input";
+import { Input } from "src/views/components/ui/forms/inputs/input";
 import { Plus, Search } from "lucide-react";
-import { cn } from "../utils";
-import { Chip } from "./chip";
+import { cn } from "src/views/components/utils";
+import { Chip } from "src/views/components/ui/chip";
 
 export interface ChipInputProps {
   values: string[];

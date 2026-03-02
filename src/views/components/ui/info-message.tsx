@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
-import { cn } from "../utils";
+import { cn } from "src/views/components/utils";
 
 interface InfoMessageProps {
   icon?: LucideIcon;

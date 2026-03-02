@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { NavDropdown } from "./NavDropdown";
-import { MobileNavSubmenu } from "./MobileNavSubmenu";
+import { NavDropdown } from "src/views/components/layout/header/navigation/NavDropdown";
+import { MobileNavSubmenu } from "src/views/components/layout/header/navigation/MobileNavSubmenu";
 import { ExternalLink } from "src/views/v1/components/elements/ExternalLink";
 import { NavigationLink } from "src/types/navigation";
 

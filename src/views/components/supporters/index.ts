@@ -1,1 +1,1 @@
-export { MonthlyFundingGoals } from "./MonthlyFundingGoals";
+export { MonthlyFundingGoals } from "src/views/components/supporters/MonthlyFundingGoals";

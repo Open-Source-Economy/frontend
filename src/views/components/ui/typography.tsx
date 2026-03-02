@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../utils";
+import { cn } from "src/views/components/utils";
 
 // --- Polymorphic typing helpers ---
 type AsProp<T extends React.ElementType> = {

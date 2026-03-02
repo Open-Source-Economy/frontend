@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { Label } from "./label";
-import { cn } from "../../utils";
+import { Label } from "src/views/components/ui/forms/label";
+import { cn } from "src/views/components/utils";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
-import { RequirementsIndicator, ValidationError } from "./validation-requirements";
+import { RequirementsIndicator, ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 export interface FormFieldLink {
   text: string;

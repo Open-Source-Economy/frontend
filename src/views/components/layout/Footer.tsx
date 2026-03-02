@@ -1,12 +1,12 @@
 import React from "react";
 import { AtSign, Github, type LucideIcon, Twitter, Youtube, Linkedin, Heart } from "lucide-react";
 import { externalLinks } from "src/externalLinks";
-import { footerNavigation } from "./navigation";
-import { Logo } from "../brand/Logo";
-import { ExternalLink } from "../ui/forms/external-link";
+import { footerNavigation } from "src/views/components/layout/navigation";
+import { Logo } from "src/views/components/brand/Logo";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { Link } from "@tanstack/react-router";
-import { CurrencySelector } from "../ui/forms/select/currency-selector";
-import { NewsletterSection } from "./NewsletterSection";
+import { CurrencySelector } from "src/views/components/ui/forms/select/currency-selector";
+import { NewsletterSection } from "src/views/components/layout/NewsletterSection";
 
 // -----------------------------
 // Types

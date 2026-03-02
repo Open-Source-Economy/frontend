@@ -1,7 +1,7 @@
 import React from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { Label } from "../label";
-import { cn } from "../../../utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/views/components/ui/forms/select/select";
+import { Label } from "src/views/components/ui/forms/label";
+import { cn } from "src/views/components/utils";
 
 export interface SelectOption {
   value: string;

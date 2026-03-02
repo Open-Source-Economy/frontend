@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "src/views/components/ui/dropdown-menu";
 import { NavigationLink } from "src/types/navigation";
 
 interface NavDropdownProps {

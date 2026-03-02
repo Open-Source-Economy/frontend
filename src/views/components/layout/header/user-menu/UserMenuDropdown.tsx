@@ -7,13 +7,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../ui/dropdown-menu";
-import { UserProfileSection } from "./UserProfileSection";
-import { TokenDisplay } from "../../../user/TokenDisplay";
+} from "src/views/components/ui/dropdown-menu";
+import { UserProfileSection } from "src/views/components/layout/header/user-menu/UserProfileSection";
+import { TokenDisplay } from "src/views/components/user/TokenDisplay";
 import * as dto from "@open-source-economy/api-types";
 import { UserMenuNavigation } from "src/types/navigation";
 
-import { UserAvatar } from "../../../../components/user/UserAvatar";
+import { UserAvatar } from "src/views/components/user/UserAvatar";
 
 interface UserMenuDropdownProps {
   authenticatedUser: dto.AuthenticatedUser;

@@ -1,8 +1,8 @@
 import React from "react";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
-import { Textarea } from "../textarea";
-import { RhfFormField } from "./form-field";
-import { ValidationError } from "../validation-requirements";
+import { Textarea } from "src/views/components/ui/forms/textarea";
+import { RhfFormField } from "src/views/components/ui/forms/rhf/form-field";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 interface RhfFormTextareaProps<T extends FieldValues> {
   name: FieldPath<T>;

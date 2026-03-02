@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../utils";
+import { cn } from "src/views/components/utils";
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 

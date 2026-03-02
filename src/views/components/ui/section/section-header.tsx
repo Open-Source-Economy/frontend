@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography } from "../typography";
-import { Badge } from "../badge";
-import { cn } from "../../utils";
+import { Typography } from "src/views/components/ui/typography";
+import { Badge } from "src/views/components/ui/badge";
+import { cn } from "src/views/components/utils";
 
 export interface SectionHeaderProps {
   /** Main title text */

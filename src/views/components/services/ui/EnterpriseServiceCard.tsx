@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { LucideIcon } from "lucide-react";
-import { Button } from "../../ui/forms/button";
+import { Button } from "src/views/components/ui/forms/button";
 
 interface EnterpriseServiceCardProps {
   icon: LucideIcon;

@@ -1,7 +1,7 @@
 import React from "react";
 import { UserMenuNavigation } from "src/types/navigation";
-import { Dialog, DialogContent } from "../../../ui/dialog";
-import { MobileUserMenu } from "./MobileUserMenu";
+import { Dialog, DialogContent } from "src/views/components/ui/dialog";
+import { MobileUserMenu } from "src/views/components/layout/header/user-menu/MobileUserMenu";
 import * as dto from "@open-source-economy/api-types";
 
 interface MobileUserMenuDropdownProps {

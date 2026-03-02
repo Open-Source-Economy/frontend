@@ -1,6 +1,6 @@
 import React from "react";
-import { RadioGroupItem } from "../radio-group";
-import { Label } from "./label";
+import { RadioGroupItem } from "src/views/components/ui/radio-group";
+import { Label } from "src/views/components/ui/forms/label";
 
 interface RadioOptionProps {
   value: string;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, ControllerRenderProps, FieldPath, FieldValues, useFormContext } from "react-hook-form";
-import { FormField, FormFieldLink } from "../form-field";
-import { ValidationError } from "../validation-requirements";
+import { FormField, FormFieldLink } from "src/views/components/ui/forms/form-field";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 interface RhfFormFieldProps<T extends FieldValues> {
   name: FieldPath<T>;

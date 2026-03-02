@@ -6,7 +6,7 @@
  */
 
 import { GithubUrls } from "src/utils/GithubUrls";
-import { ValidationError } from "./validation-requirements";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 /**
  * Validates a GitHub owner URL or shorthand

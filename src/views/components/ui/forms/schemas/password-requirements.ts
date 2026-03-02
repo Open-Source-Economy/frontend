@@ -1,4 +1,4 @@
-import { ValidationError } from "../validation-requirements";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 
 const MIN_LENGTH = 8;
 

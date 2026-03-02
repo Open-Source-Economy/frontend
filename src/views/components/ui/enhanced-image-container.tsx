@@ -1,7 +1,7 @@
 import React from "react";
 
-import { DecorativeBackground } from "./decorative/decorative-background";
-import { FloatingElements } from "./floating-elements";
+import { DecorativeBackground } from "src/views/components/ui/decorative/decorative-background";
+import { FloatingElements } from "src/views/components/ui/floating-elements";
 import { ImageWithFallback } from "src/views/components/ImageWithFallback";
 
 interface EnhancedImageContainerProps {

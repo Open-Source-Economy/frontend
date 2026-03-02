@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { buttonVariants } from "../../../ui/forms/button";
+import { buttonVariants } from "src/views/components/ui/forms/button";
 import { cn } from "src/views/components/utils";
 import { NavigationLink } from "src/types/navigation";
 

@@ -1,7 +1,7 @@
 import React from "react";
-import { Checkbox } from "./checkbox";
-import { Label } from "./label";
-import { cn } from "../../utils";
+import { Checkbox } from "src/views/components/ui/forms/checkbox";
+import { Label } from "src/views/components/ui/forms/label";
+import { cn } from "src/views/components/utils";
 import { type LucideIcon } from "lucide-react";
 
 interface CheckboxFieldProps {

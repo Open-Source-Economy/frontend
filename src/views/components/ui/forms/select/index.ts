@@ -9,6 +9,6 @@ export {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "./select";
-export { SelectField, type SelectOption } from "./select-field";
-export { CurrencySelector } from "./currency-selector";
+} from "src/views/components/ui/forms/select/select";
+export { SelectField, type SelectOption } from "src/views/components/ui/forms/select/select-field";
+export { CurrencySelector } from "src/views/components/ui/forms/select/currency-selector";

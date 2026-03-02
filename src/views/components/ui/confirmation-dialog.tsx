@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./alert-dialog";
+} from "src/views/components/ui/alert-dialog";
 
 interface ConfirmationDialogProps {
   /** Whether to show the dialog (for controlled dialogs without trigger) */

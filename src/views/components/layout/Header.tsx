@@ -1,17 +1,17 @@
 import React from "react";
 import { Logo } from "src/views/components/brand/Logo";
 import { Link } from "@tanstack/react-router";
-import { headerNavigation, userMenuNavigation } from "./navigation";
+import { headerNavigation, userMenuNavigation } from "src/views/components/layout/navigation";
 import { useAuth } from "src/views/auth/AuthContext";
 
 // New components
-import { NavItems } from "./header/navigation/NavItems";
-import { AuthSection } from "./header/auth/AuthSection";
-import { DeveloperBanner } from "./header/DeveloperBanner";
-import { MobileMenuButton } from "./header/navigation/MobileMenuButton";
-import { MobileUserMenuDropdown } from "./header/user-menu/MobileUserMenuDropdown";
-import { TokenDisplay } from "../user/TokenDisplay";
-import { UserAvatar } from "../user/UserAvatar";
+import { NavItems } from "src/views/components/layout/header/navigation/NavItems";
+import { AuthSection } from "src/views/components/layout/header/auth/AuthSection";
+import { DeveloperBanner } from "src/views/components/layout/header/DeveloperBanner";
+import { MobileMenuButton } from "src/views/components/layout/header/navigation/MobileMenuButton";
+import { MobileUserMenuDropdown } from "src/views/components/layout/header/user-menu/MobileUserMenuDropdown";
+import { TokenDisplay } from "src/views/components/user/TokenDisplay";
+import { UserAvatar } from "src/views/components/user/UserAvatar";
 
 // -----------------------------
 // Types

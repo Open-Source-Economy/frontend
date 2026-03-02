@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { UserProfileSection } from "./UserProfileSection";
+import { UserProfileSection } from "src/views/components/layout/header/user-menu/UserProfileSection";
 import { UserMenuNavigation } from "src/types/navigation";
 import * as dto from "@open-source-economy/api-types";
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./dialog";
-import { cn } from "../utils";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "src/views/components/ui/dialog";
+import { cn } from "src/views/components/utils";
 
 /**
  * BrandModal - Reusable modal component following Premium Dark Blue Card System

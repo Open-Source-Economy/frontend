@@ -1,7 +1,7 @@
 import React from "react";
 import { LucideIcon, Shield } from "lucide-react";
-import { Card, CardContent } from "../../ui/card";
-import { EnterpriseServiceCard } from "../ui/EnterpriseServiceCard";
+import { Card, CardContent } from "src/views/components/ui/card";
+import { EnterpriseServiceCard } from "src/views/components/services/ui/EnterpriseServiceCard";
 import { isVisible } from "src/utils/featureVisibility";
 
 interface EnterpriseService {

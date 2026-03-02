@@ -4,7 +4,7 @@ import * as React from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../utils";
+import { cn } from "src/views/components/utils";
 
 // Switch variants
 const switchVariants = cva(

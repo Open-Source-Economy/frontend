@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "src/views/components/ui/card";
 import { Briefcase, Code, Package, TrendingUp, Users } from "lucide-react";
 
 interface FundingTier {

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { UserMenuDropdown } from "../user-menu/UserMenuDropdown";
-import { AuthButtons } from "./AuthButtons";
-import { TokenDisplay } from "../../../user/TokenDisplay";
-import { MobileUserMenu } from "../user-menu/MobileUserMenu";
+import { UserMenuDropdown } from "src/views/components/layout/header/user-menu/UserMenuDropdown";
+import { AuthButtons } from "src/views/components/layout/header/auth/AuthButtons";
+import { TokenDisplay } from "src/views/components/user/TokenDisplay";
+import { MobileUserMenu } from "src/views/components/layout/header/user-menu/MobileUserMenu";
 
 import * as dto from "@open-source-economy/api-types";
 import { NavigationLink, UserMenuNavigation } from "src/types/navigation";

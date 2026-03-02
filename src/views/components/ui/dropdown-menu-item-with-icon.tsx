@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownMenuItem } from "./dropdown-menu";
+import { DropdownMenuItem } from "src/views/components/ui/dropdown-menu";
 import { LucideIcon } from "lucide-react";
 
 interface DropdownMenuItemWithIconProps {

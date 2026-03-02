@@ -1,9 +1,9 @@
 import React from "react";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
-import { Input } from "../inputs/input";
-import { FormFieldLink } from "../form-field";
-import { ValidationError } from "../validation-requirements";
-import { RhfFormField } from "./form-field";
+import { Input } from "src/views/components/ui/forms/inputs/input";
+import { FormFieldLink } from "src/views/components/ui/forms/form-field";
+import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
+import { RhfFormField } from "src/views/components/ui/forms/rhf/form-field";
 import { LucideIcon } from "lucide-react";
 
 interface RhfFormInputProps<T extends FieldValues> {

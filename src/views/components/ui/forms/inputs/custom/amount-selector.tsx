@@ -1,6 +1,6 @@
 import React from "react";
-import { Input } from "../input";
-import { cn } from "../../../../utils";
+import { Input } from "src/views/components/ui/forms/inputs/input";
+import { cn } from "src/views/components/utils";
 
 interface AmountSelectorProps {
   suggestedAmounts: number[];
