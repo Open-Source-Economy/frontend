@@ -29,7 +29,7 @@ export function ActionsSection() {
       <div className="text-center">
         <Button
           size="lg"
-          onClick={() => navigate({ to: "/" as string })}
+          onClick={() => navigate({ to: "/" })}
           className="bg-gradient-to-r from-brand-accent to-brand-highlight hover:from-brand-accent-dark hover:to-brand-highlight-dark"
         >
           Back to Home

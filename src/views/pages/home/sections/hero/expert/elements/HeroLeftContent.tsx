@@ -51,7 +51,7 @@ export function HeroLeftContent(props: HeroLeftContentProps) {
                 // Internal link
                 if (action.href && !action.external) {
                   return (
-                    <Link key={index} to={action.href as string}>
+                    <Link key={index} to={action.href}>
                       <Button
                         variant={action.variant}
                         size="lg"

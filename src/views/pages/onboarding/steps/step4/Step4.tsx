@@ -127,7 +127,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
       if (success && skipStep5) {
         try {
           await completeOnboarding.mutateAsync({ params: {}, body: {}, query: {} });
-          navigate({ to: "/developer-onboarding-completed" as string });
+          navigate({ to: "/developer-onboarding-completed" });
         } catch {
           // error tracked by completeOnboarding.error
         }

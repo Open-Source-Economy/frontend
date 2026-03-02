@@ -96,7 +96,7 @@ export function PhotoHeroSection(props: PhotoHeroSectionProps) {
                   // Internal link
                   if (action.href && !action.external) {
                     return (
-                      <Link key={index} to={action.href as string}>
+                      <Link key={index} to={action.href}>
                         <Button
                           variant={action.variant || "default"}
                           size="lg"

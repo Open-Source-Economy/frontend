@@ -40,13 +40,13 @@ export function ProjectCard(props: ProjectCardProps) {
     if (props.item.owner) {
       return {
         owner: props.item.owner.id.login,
-        repo: undefined as string | undefined,
+        repo: undefined,
       };
     }
 
     const sourceIdentifier = props.item.projectItem.sourceIdentifier;
     if (typeof sourceIdentifier === "string") {
-      return { owner: sourceIdentifier, repo: undefined as string | undefined };
+      return { owner: sourceIdentifier, repo: undefined };
     }
 
     return null;
@@ -57,9 +57,9 @@ export function ProjectCard(props: ProjectCardProps) {
     const ownerRepo = resolveOwnerRepo();
     if (ownerRepo?.owner) {
       navigate({
-        to: (ownerRepo.repo
+        to: ownerRepo.repo
           ? `/project/${ownerRepo.owner}/${ownerRepo.repo}`
-          : `/project/${ownerRepo.owner}`) as string,
+          : `/project/${ownerRepo.owner}`,
       });
     } else if (props.onViewProject) {
       props.onViewProject(view.projectId);

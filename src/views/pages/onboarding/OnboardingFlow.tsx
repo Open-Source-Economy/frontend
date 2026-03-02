@@ -122,7 +122,7 @@ export default function OnboardingFlow() {
     if (state.currentStep < OnboardingDataSteps.Step5) {
       goToStep(state.currentStep + 1);
     } else {
-      navigate({ to: "/developer-onboarding-completed" as string });
+      navigate({ to: "/developer-onboarding-completed" });
     }
   };
 
@@ -131,7 +131,7 @@ export default function OnboardingFlow() {
       goToStep(state.currentStep - 1);
     } else {
       // If on the first step, navigate back to the main onboarding landing page
-      navigate({ to: "/developer" as string });
+      navigate({ to: "/developer" });
     }
   };
 
@@ -320,7 +320,7 @@ export default function OnboardingFlow() {
                     totalSteps={5}
                     isSaving={isSaving}
                     onBack={goToPrevStep}
-                    onCancel={() => navigate({ to: "/developer" as string })}
+                    onCancel={() => navigate({ to: "/developer" })}
                     onNext={handleContinue}
                   />
                 </div>
