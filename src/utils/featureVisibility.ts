@@ -38,11 +38,35 @@ export const features = {
   /** Authenticated user menu (avatar, tokens, dropdown) */
   authenticatedUserMenu: envGroups.localAndDev,
 
-  // Add more features here as needed
-  // Custom combinations:
-  // exampleFeature: [Env.Local, Env.Staging] as const,
-  // Or use predefined groups:
-  // anotherFeature: envGroups.localOnly,
+  /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
+  enterpriseServiceButtons: envGroups.localOnly,
+
+  /** FAQ page in header navigation */
+  faqPage: envGroups.localAndDev,
+
+  /** Fund distribution summary section */
+  fundDistributionSummary: envGroups.localAndDev,
+
+  /** Privacy policy references */
+  privacyPolicy: envGroups.localAndDev,
+
+  /** Featured vendors section */
+  featuredVendors: envGroups.nonProduction,
+
+  /** "Become a sponsor" CTA */
+  becomeASponsor: envGroups.localAndDev,
+
+  /** Epicmax sponsor display */
+  epicmaxSponsor: envGroups.nonProduction,
+
+  /** Mission link on sponsorship page */
+  sponsorshipMissionLink: envGroups.localAndDev,
+
+  /** Project verification notice in onboarding Step 2 */
+  projectVerificationNotice: envGroups.localOnly,
+
+  /** Dev Controls on Pricing Page */
+  devControls: envGroups.localAndDev,
 } as const;
 
 /**
