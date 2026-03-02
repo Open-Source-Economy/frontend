@@ -1,4 +1,4 @@
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import advisory from "src/assets/v1/advisory.webp";
 import operation from "src/assets/v1/operation.webp";
 import support from "src/assets/v1/support-logo.webp";
@@ -15,27 +15,27 @@ type DisplayedService = {
   img: string;
 };
 
-export const displayedServices: Record<ServiceType, DisplayedService> = {
-  [ServiceType.SUPPORT]: {
+export const displayedServices: Record<dto.ServiceType, DisplayedService> = {
+  [dto.ServiceType.SUPPORT]: {
     title: "Enterprise Support",
     features: [{ name: "Technical Assistance" }, { name: "Deployment Guidance" }, { name: "Customer Support" }],
     img: support,
   },
-  [ServiceType.DEVELOPMENT]: {
+  [dto.ServiceType.DEVELOPMENT]: {
     title: "OSS Development",
     features: [{ name: "Bug Fixes" }, { name: "New Features" }, { name: "Code Maintenance" }],
     img: development,
   },
-  [ServiceType.SECURITY_AND_COMPLIANCE]: {
+  [dto.ServiceType.SECURITY_AND_COMPLIANCE]: {
     // TODO: fix
     title: "Operations",
     features: [{ name: "Incident Response" }, { name: "Proactive Monitoring" }, { name: "24/7 Supervision" }],
     img: operation,
   },
-  [ServiceType.ADVISORY]: {
+  [dto.ServiceType.ADVISORY]: {
     title: "Consultancy",
     features: [{ name: "Architecture Design" }, { name: "Technology Assessment" }, { name: "Security & Performance" }],
     img: advisory,
   },
-  [ServiceType.CUSTOM]: { title: "Custom", features: [{ name: "Custom Service" }], img: "" },
+  [dto.ServiceType.CUSTOM]: { title: "Custom", features: [{ name: "Custom Service" }], img: "" },
 };

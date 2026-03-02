@@ -4,7 +4,7 @@ import { PageWrapper } from "src/views/v1/pages/PageWrapper";
 import { VirtuousSection } from "./elements";
 import { Services } from "src/views/v1/components/service/style2/Services";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
 import { Button } from "../../../components";
@@ -13,11 +13,11 @@ import { Link } from "@tanstack/react-router";
 interface CompanyProductProps {}
 
 export function CompanyProduct(_props: CompanyProductProps) {
-  const buttonPaths: { [key in ServiceType]?: string } = {
-    [ServiceType.DEVELOPMENT]: "/dashboard",
-    // [ServiceType.OPERATION]: "/dashboard",
-    [ServiceType.ADVISORY]: "/dashboard",
-    [ServiceType.SUPPORT]: "/dashboard",
+  const buttonPaths: { [key in dto.ServiceType]?: string } = {
+    [dto.ServiceType.DEVELOPMENT]: "/dashboard",
+    // [dto.ServiceType.OPERATION]: "/dashboard",
+    [dto.ServiceType.ADVISORY]: "/dashboard",
+    [dto.ServiceType.SUPPORT]: "/dashboard",
     // TODO: make the compiler complain if an option is mission
   };
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Clock, HandHeart, type LucideIcon, Star } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
-import { DeveloperSettings, PreferenceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export interface ConsultingDetails {
   does?: string[];
@@ -20,14 +20,14 @@ export interface StatusConfig {
 const TOOLTIP_HOVER_DELAY_MS = 100;
 
 // Helper function to get badge configuration based on DeveloperSettings
-function getStatusConfig(settings: DeveloperSettings | null): StatusConfig | null {
+function getStatusConfig(settings: dto.DeveloperSettings | null): StatusConfig | null {
   const servicesPreference = settings?.servicesPreference;
   const royaltiesPreference = settings?.royaltiesPreference;
   const communitySupporterPreference = settings?.communitySupporterPreference;
-  const acceptsDonations = royaltiesPreference === PreferenceType.YES;
+  const acceptsDonations = royaltiesPreference === dto.PreferenceType.YES;
 
   // Determine status based on servicesPreference first
-  if (servicesPreference === PreferenceType.YES) {
+  if (servicesPreference === dto.PreferenceType.YES) {
     return {
       icon: Star,
       label: "Available Now",
@@ -36,7 +36,7 @@ function getStatusConfig(settings: DeveloperSettings | null): StatusConfig | nul
     };
   }
 
-  if (servicesPreference === PreferenceType.MAYBE_LATER) {
+  if (servicesPreference === dto.PreferenceType.MAYBE_LATER) {
     return {
       icon: Clock,
       label: "Available Later",
@@ -47,8 +47,8 @@ function getStatusConfig(settings: DeveloperSettings | null): StatusConfig | nul
 
   // Only show community-supporter if they explicitly said yes OR settings is null/undefined
   if (
-    communitySupporterPreference === PreferenceType.YES ||
-    communitySupporterPreference === PreferenceType.MAYBE_LATER
+    communitySupporterPreference === dto.PreferenceType.YES ||
+    communitySupporterPreference === dto.PreferenceType.MAYBE_LATER
   ) {
     return {
       icon: HandHeart,
@@ -71,7 +71,7 @@ function getStatusConfig(settings: DeveloperSettings | null): StatusConfig | nul
 }
 
 interface StatusBadgeProps {
-  settings: DeveloperSettings | null;
+  settings: dto.DeveloperSettings | null;
 }
 
 // Status Badge with Tooltip Component

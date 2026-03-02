@@ -6,7 +6,7 @@ import { Audience } from "src/views/Audience";
 import { repositoryIds } from "src/services/data/repositories";
 import { H1WithSubtitle } from "../../../components/title/H1WithSubtitle";
 import { useQueries } from "@tanstack/react-query";
-import { Owner, Repository } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { projectService } from "src/services";
 
 interface ProjectsProps {}
@@ -19,7 +19,7 @@ export function Projects(_props: ProjectsProps) {
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries
+  const repositories: [dto.Owner, dto.Repository][] = repositoryQueries
     .filter((q) => q.isSuccess && q.data)
     .map((q) => [q.data!.owner, q.data!.repository]);
   const error = repositoryQueries.find((q) => q.error)?.error ?? null;

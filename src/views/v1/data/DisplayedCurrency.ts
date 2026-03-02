@@ -1,4 +1,4 @@
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 // TODO put this class somewhere else
 export interface DisplayedCurrency {
@@ -7,11 +7,11 @@ export interface DisplayedCurrency {
   symbol: string;
 }
 
-export const displayedCurrencies: Record<Currency, DisplayedCurrency> = {
-  [Currency.USD]: { name: "United States Dollar", code: "USD", symbol: "$" },
-  [Currency.EUR]: { name: "Euro", code: "EUR", symbol: "€" },
-  [Currency.GBP]: { name: "British Pound", code: "GBP", symbol: "£" },
-  [Currency.CHF]: { name: "Swiss Franc", code: "CHF", symbol: "CHF" },
+export const displayedCurrencies: Record<dto.Currency, DisplayedCurrency> = {
+  [dto.Currency.USD]: { name: "United States Dollar", code: "USD", symbol: "$" },
+  [dto.Currency.EUR]: { name: "Euro", code: "EUR", symbol: "€" },
+  [dto.Currency.GBP]: { name: "British Pound", code: "GBP", symbol: "£" },
+  [dto.Currency.CHF]: { name: "Swiss Franc", code: "CHF", symbol: "CHF" },
   // [Currency.AUD]: { name: "Australian Dollar", code: "AUD", symbol: "A$" },
   // [Currency.CAD]: { name: "Canadian Dollar", code: "CAD", symbol: "CA$" },
   // [Currency.ILS]: { name: "Israeli Shekel", code: "ILS", symbol: "₪" },

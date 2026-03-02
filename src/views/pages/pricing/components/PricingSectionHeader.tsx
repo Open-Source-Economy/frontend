@@ -1,10 +1,10 @@
 import React from "react";
 import { BillingToggle } from "./BillingToggle";
-import { PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PricingSectionHeaderProps {
-  billingCycle: PlanPriceType;
-  onBillingCycleChange: (cycle: PlanPriceType) => void;
+  billingCycle: dto.PlanPriceType;
+  onBillingCycleChange: (cycle: dto.PlanPriceType) => void;
   savingsPercentage: number;
 }
 

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { authBackendAPI } from "src/services";
-import { AuthenticatedUser, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 import { authHooks } from "src/api";
 
@@ -40,11 +40,11 @@ export function AuthProvider(props: AuthProviderProps) {
   // Auth info comes from the query cache
   const authInfo = queriedAuthInfo?.authenticatedUser ?? null;
 
-  const updateAuthCache = (newAuthInfo: AuthenticatedUser | null) => {
+  const updateAuthCache = (newAuthInfo: dto.AuthenticatedUser | null) => {
     queryClient.setQueryData(["auth", "status"], { authenticatedUser: newAuthInfo });
   };
 
-  const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
+  const login = async (body: dto.LoginBody, query: dto.LoginQuery, successCallback?: () => void) => {
     try {
       const response = await loginMutation.mutateAsync({ body, query });
       updateAuthCache(response.authenticatedUser);
@@ -54,7 +54,7 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
+  const register = async (body: dto.RegisterBody, query: dto.RegisterQuery, successCallback?: () => void) => {
     try {
       const response = await registerMutation.mutateAsync({ body, query });
       updateAuthCache(response.authenticatedUser);

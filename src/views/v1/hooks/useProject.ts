@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { projectService } from "src/services";
-import { GetProjectParams, GetProjectQuery, Project } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 import { type ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
 export function useProject(projectId: ProjectId) {
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<dto.Project | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
 
   const fetchProject = async () => {
     try {
-      const params: GetProjectParams = {
+      const params: dto.GetProjectParams = {
         owner: getOwnerFromProjectId(projectId),
         repo: getRepoFromProjectId(projectId),
       };
-      const query: GetProjectQuery = {};
+      const query: dto.GetProjectQuery = {};
       const response = await projectService.getProject(params, query);
 
       if (response instanceof ApiError) {

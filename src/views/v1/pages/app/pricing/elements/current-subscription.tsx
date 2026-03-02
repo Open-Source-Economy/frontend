@@ -6,7 +6,7 @@ import { PaymentSchedule } from "./payment-schedule";
 import { Card } from "./card";
 import { CurrentSubscriptionIcon, PaymentInfoIcon, PaymentScheduleIcon } from "src/utils/Icons";
 import type { PlanDescription } from "./data/data";
-import { PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PaymentDetails {
   cardType: string;
@@ -21,8 +21,8 @@ interface PaymentScheduleDetails {
 
 interface CurrentSubscriptionProps {
   plan: PlanDescription;
-  billingPeriod: PlanPriceType;
-  prices: Record<PlanPriceType, number>;
+  billingPeriod: dto.PlanPriceType;
+  prices: Record<dto.PlanPriceType, number>;
   payment: PaymentDetails;
   schedule: PaymentScheduleDetails;
   onCancelSubscription: () => void;

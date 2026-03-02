@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { ProjectItemWithDetails } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectCard } from "../components/ProjectCard";
 
 interface ProjectCategorySectionProps {
   category: string;
-  projects: ProjectItemWithDetails[];
+  projects: dto.ProjectItemWithDetails[];
   initialShowCount: number;
   incrementCount: number;
   onViewProject?: (slug: string) => void;

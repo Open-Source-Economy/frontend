@@ -3,7 +3,7 @@ import { PageWrapper } from "../../PageWrapper";
 import { DividerTitle, Services } from "src/views/v1/components";
 import { BookACallButton } from "../../../components/elements/BookACallButton";
 import { Audience } from "../../../../Audience";
-import { Owner, Repository, ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { isOwnerId, type ProjectId } from "src/utils/local-types";
 import { Cards2 } from "../home/elements";
 import { repositoryIds } from "../../../../../services/data";
@@ -16,8 +16,8 @@ interface DashboardProps {}
 
 export function Dashboard(_props: DashboardProps) {
   const _audience = Audience.USER;
-  const buttons: { [key in ServiceType]?: ServiceButton } = {
-    [ServiceType.DEVELOPMENT]: {
+  const buttons: { [key in dto.ServiceType]?: ServiceButton } = {
+    [dto.ServiceType.DEVELOPMENT]: {
       to: "/fund-issues",
       placeholder: "Get Support",
     },
@@ -30,7 +30,7 @@ export function Dashboard(_props: DashboardProps) {
     })),
   });
 
-  const repositories: [Owner, Repository][] = repositoryQueries
+  const repositories: [dto.Owner, dto.Repository][] = repositoryQueries
     .filter((q) => q.isSuccess && q.data)
     .map((q) => [q.data!.owner, q.data!.repository]);
   const error = repositoryQueries.find((q) => q.error)?.error ?? null;

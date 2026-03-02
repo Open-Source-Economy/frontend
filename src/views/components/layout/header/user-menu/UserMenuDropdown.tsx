@@ -10,13 +10,13 @@ import {
 } from "../../../ui/dropdown-menu";
 import { UserProfileSection } from "./UserProfileSection";
 import { TokenDisplay } from "../../../user/TokenDisplay";
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { UserMenuNavigation } from "src/types/navigation";
 
 import { UserAvatar } from "../../../../components/user/UserAvatar";
 
 interface UserMenuDropdownProps {
-  authenticatedUser: AuthenticatedUser;
+  authenticatedUser: dto.AuthenticatedUser;
   menuConfig: UserMenuNavigation;
 }
 

@@ -1,12 +1,12 @@
 import { Check, X } from "lucide-react";
 import { InfoTooltip } from "./tooltip";
 import type { PlanDescription } from "./data/data";
-import { PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionDetailsProps {
   plan: PlanDescription;
-  planPriceType: PlanPriceType;
-  prices: Record<PlanPriceType, number>;
+  planPriceType: dto.PlanPriceType;
+  prices: Record<dto.PlanPriceType, number>;
 }
 
 export function SubscriptionDetails(props: SubscriptionDetailsProps) {
@@ -17,9 +17,9 @@ export function SubscriptionDetails(props: SubscriptionDetailsProps) {
         <span className="text-gray-400 text-sm">
           {/*TODO: NumberFormat*/}$
           {Intl.NumberFormat("en-US").format(
-            props.prices[props.planPriceType] * (props.planPriceType === PlanPriceType.ANNUALLY ? 12 : 1)
+            props.prices[props.planPriceType] * (props.planPriceType === dto.PlanPriceType.ANNUALLY ? 12 : 1)
           )}{" "}
-          / {props.planPriceType === PlanPriceType.ANNUALLY ? "year" : "month"}
+          / {props.planPriceType === dto.PlanPriceType.ANNUALLY ? "year" : "month"}
         </span>
         <InfoTooltip content={props.plan.description} />
       </div>

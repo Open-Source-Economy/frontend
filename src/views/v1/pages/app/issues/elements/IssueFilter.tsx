@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { SelectFilter } from "src/views/v1/components";
 import * as model from "@open-source-economy/api-types";
-import { ManagedIssueState } from "@open-source-economy/api-types";
 import search from "src/assets/v1/search.png";
 
 enum Status {
@@ -54,8 +53,8 @@ export function IssueFilter(props: IssueFilterProps) {
         selectedStatus === allStatus ||
         (selectedStatus === Status.OPEN &&
           (financialIssue.managedIssue === undefined ||
-            financialIssue.managedIssue?.state === ManagedIssueState.OPEN)) ||
-        (selectedStatus === Status.CLOSED && financialIssue.managedIssue?.state !== ManagedIssueState.OPEN)
+            financialIssue.managedIssue?.state === model.ManagedIssueState.OPEN)) ||
+        (selectedStatus === Status.CLOSED && financialIssue.managedIssue?.state !== model.ManagedIssueState.OPEN)
       );
     }
 

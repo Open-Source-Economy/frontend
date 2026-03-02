@@ -1,16 +1,16 @@
 import React, { forwardRef, Ref } from "react";
-import { MergeRightsType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SelectInput, SelectInputRef, SelectOption } from "../SelectInput";
 import { BaseProps } from "../../Base";
 
 interface MergeRightsTypeSelectInputProps extends Omit<BaseProps, "label"> {
-  value: MergeRightsType | null;
-  onChange: (value: MergeRightsType | null) => void;
+  value: dto.MergeRightsType | null;
+  onChange: (value: dto.MergeRightsType | null) => void;
   required?: boolean;
   label?: string;
 }
 
-const options: SelectOption[] = Object.values(MergeRightsType).map((value) => ({
+const options: SelectOption[] = Object.values(dto.MergeRightsType).map((value) => ({
   value,
   label: value,
 }));
@@ -25,7 +25,7 @@ export const MergeRightsTypeSelectInput = forwardRef(function MergeRightsTypeSel
       label={props.label || "Merge Rights"}
       required={props.required}
       value={props.value || ""}
-      onChange={(e) => props.onChange(e.target.value ? (e.target.value as MergeRightsType) : null)}
+      onChange={(e) => props.onChange(e.target.value ? (e.target.value as dto.MergeRightsType) : null)}
       options={options}
     />
   );

@@ -1,11 +1,11 @@
 import React from "react";
 import { Check } from "lucide-react";
-import { ProjectCategory } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectCategoryCompanion } from "src/utils/companions";
 
 interface CategoryFilterProps {
-  selectedCategory: ProjectCategory | null;
-  onSelectCategory: (category: ProjectCategory | null) => void;
+  selectedCategory: dto.ProjectCategory | null;
+  onSelectCategory: (category: dto.ProjectCategory | null) => void;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ export function CategoryFilter(props: CategoryFilterProps) {
         <span>All Projects</span>
       </button>
 
-      {Object.values(ProjectCategory)
+      {Object.values(dto.ProjectCategory)
         .sort()
         .map((category) => (
           <button

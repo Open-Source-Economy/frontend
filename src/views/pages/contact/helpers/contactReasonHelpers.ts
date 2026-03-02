@@ -1,32 +1,36 @@
-import { ContactReason } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 // Contact reason groups for field requirements
 export const PROFESSIONAL_REASONS = [
-  ContactReason.ENTERPRISE,
-  ContactReason.REQUEST_PROJECT,
-  ContactReason.PARTNERSHIP,
-  ContactReason.PRESS,
+  dto.ContactReason.ENTERPRISE,
+  dto.ContactReason.REQUEST_PROJECT,
+  dto.ContactReason.PARTNERSHIP,
+  dto.ContactReason.PRESS,
 ] as const;
 
-export const CASUAL_REASONS = [ContactReason.SUPPORT, ContactReason.GENERAL, ContactReason.VOLUNTEER] as const;
+export const CASUAL_REASONS = [
+  dto.ContactReason.SUPPORT,
+  dto.ContactReason.GENERAL,
+  dto.ContactReason.VOLUNTEER,
+] as const;
 
 export const LINKEDIN_REQUIRED_REASONS = [
-  ContactReason.ENTERPRISE,
-  ContactReason.REQUEST_PROJECT,
-  ContactReason.PARTNERSHIP,
+  dto.ContactReason.ENTERPRISE,
+  dto.ContactReason.REQUEST_PROJECT,
+  dto.ContactReason.PARTNERSHIP,
 ] as const;
 
 export const GITHUB_PROFILE_REASONS = [
-  ContactReason.MAINTAINER,
-  ContactReason.SUPPORT,
-  ContactReason.GENERAL,
-  ContactReason.VOLUNTEER,
+  dto.ContactReason.MAINTAINER,
+  dto.ContactReason.SUPPORT,
+  dto.ContactReason.GENERAL,
+  dto.ContactReason.VOLUNTEER,
 ] as const;
 
 export const MEETING_REQUEST_REASONS = [
-  ContactReason.ENTERPRISE,
-  ContactReason.PARTNERSHIP,
-  ContactReason.PRESS,
+  dto.ContactReason.ENTERPRISE,
+  dto.ContactReason.PARTNERSHIP,
+  dto.ContactReason.PRESS,
 ] as const;
 
 // Helper functions
@@ -39,13 +43,13 @@ export const isLinkedInRequired = (contactReason: string): boolean =>
 export const shouldShowGitHubProfile = (contactReason: string): boolean =>
   GITHUB_PROFILE_REASONS.includes(contactReason as any);
 
-export const isGitHubRequired = (contactReason: string): boolean => contactReason === ContactReason.MAINTAINER;
+export const isGitHubRequired = (contactReason: string): boolean => contactReason === dto.ContactReason.MAINTAINER;
 
 export const shouldShowMeetingRequest = (contactReason: string): boolean =>
   MEETING_REQUEST_REASONS.includes(contactReason as any);
 
 export const shouldShowProjects = (contactReason: string): boolean =>
-  contactReason === ContactReason.MAINTAINER || contactReason === ContactReason.REQUEST_PROJECT;
+  contactReason === dto.ContactReason.MAINTAINER || contactReason === dto.ContactReason.REQUEST_PROJECT;
 
 export const areProjectsRequired = (contactReason: string): boolean =>
-  contactReason === ContactReason.ENTERPRISE || contactReason === ContactReason.REQUEST_PROJECT;
+  contactReason === dto.ContactReason.ENTERPRISE || contactReason === dto.ContactReason.REQUEST_PROJECT;

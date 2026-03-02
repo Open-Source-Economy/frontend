@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { FinancialIssue } from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fundingService } from "src/services";
 import { GetIssuesParams } from "src/utils/local-types";
@@ -8,7 +7,7 @@ const FUNDING_QUERY_KEY = ["funding"] as const;
 
 export const fundingHooks = {
   useFinancialIssueQuery(params: dto.GetIssueParams, query: dto.GetIssueQuery) {
-    return useQuery<FinancialIssue>({
+    return useQuery<dto.FinancialIssue>({
       queryKey: [...FUNDING_QUERY_KEY, "financialIssue", params, query],
       queryFn: () => fundingService.getFinancialIssue(params, query),
       enabled: !!params.owner && !!params.repo && !!params.number,
@@ -16,7 +15,7 @@ export const fundingHooks = {
   },
 
   useAllFinancialIssuesQuery(params: GetIssuesParams, query: dto.GetIssueQuery) {
-    return useQuery<FinancialIssue[]>({
+    return useQuery<dto.FinancialIssue[]>({
       queryKey: [...FUNDING_QUERY_KEY, "allFinancialIssues", params, query],
       queryFn: () => fundingService.getAllFinancialIssues(params, query),
     });

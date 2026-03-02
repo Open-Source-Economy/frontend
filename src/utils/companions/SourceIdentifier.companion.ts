@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { ProjectItemType } from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
 import { GithubUrls } from "../index";
 
@@ -113,9 +112,9 @@ export namespace SourceIdentifierCompanion {
   /**
    * Detects the project type from a URL
    * @param url The URL to analyze
-   * @returns The detected ProjectItemType, or null if the URL is invalid
+   * @returns The detected dto.ProjectItemType, or null if the URL is invalid
    */
-  export function detectProjectType(url: string): ProjectItemType | null {
+  export function detectProjectType(url: string): dto.ProjectItemType | null {
     try {
       const trimmedUrl = url.trim();
       const urlObj = new URL(trimmedUrl);
@@ -125,14 +124,14 @@ export namespace SourceIdentifierCompanion {
         // If has 2+ parts (owner/repo/...), it's a repo
         // If has 1 part (owner), it's an org
         if (pathParts.length >= 2) {
-          return ProjectItemType.GITHUB_REPOSITORY;
+          return dto.ProjectItemType.GITHUB_REPOSITORY;
         } else if (pathParts.length === 1) {
-          return ProjectItemType.GITHUB_OWNER;
+          return dto.ProjectItemType.GITHUB_OWNER;
         }
       }
 
       // For non-GitHub URLs, return URL type
-      return ProjectItemType.URL;
+      return dto.ProjectItemType.URL;
     } catch {
       return null;
     }
@@ -147,7 +146,7 @@ export namespace SourceIdentifierCompanion {
    */
   export function validateUrlForType(
     url: string,
-    projectType: ProjectItemType,
+    projectType: dto.ProjectItemType,
     allowShorthand: boolean = false
   ): boolean {
     const trimmedUrl = url.trim();
@@ -158,13 +157,13 @@ export namespace SourceIdentifierCompanion {
 
     try {
       switch (projectType) {
-        case ProjectItemType.GITHUB_REPOSITORY:
+        case dto.ProjectItemType.GITHUB_REPOSITORY:
           return GithubUrls.extractRepositoryId(trimmedUrl, allowShorthand) !== null;
 
-        case ProjectItemType.GITHUB_OWNER:
+        case dto.ProjectItemType.GITHUB_OWNER:
           return GithubUrls.extractOwnerId(trimmedUrl, allowShorthand) !== null;
 
-        case ProjectItemType.URL:
+        case dto.ProjectItemType.URL:
           // Basic URL validation
           new URL(trimmedUrl);
           return true;

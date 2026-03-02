@@ -1,14 +1,14 @@
 import React from "react";
-import { DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "src/utils/companions";
 
 interface RoleAndMergeRightsFieldsProps {
   isBulkMode: boolean;
-  selectedRole: DeveloperRoleType | null;
-  selectedMergeRights: MergeRightsType | null;
-  onRoleChange: (role: DeveloperRoleType | null) => void;
-  onMergeRightsChange: (mergeRights: MergeRightsType | null) => void;
+  selectedRole: dto.DeveloperRoleType | null;
+  selectedMergeRights: dto.MergeRightsType | null;
+  onRoleChange: (role: dto.DeveloperRoleType | null) => void;
+  onMergeRightsChange: (mergeRights: dto.MergeRightsType | null) => void;
   roleError?: string;
   mergeRightsError?: string;
 }
@@ -21,7 +21,7 @@ export function RoleAndMergeRightsFields(props: RoleAndMergeRightsFieldsProps) {
         required
         options={DeveloperRoleTypeCompanion.options()}
         value={props.selectedRole || ""}
-        onChange={(value) => props.onRoleChange(value as DeveloperRoleType)}
+        onChange={(value) => props.onRoleChange(value as dto.DeveloperRoleType)}
         error={props.roleError}
       />
 
@@ -30,7 +30,7 @@ export function RoleAndMergeRightsFields(props: RoleAndMergeRightsFieldsProps) {
         required
         options={MergeRightsTypeCompanion.options()}
         value={props.selectedMergeRights || ""}
-        onChange={(value) => props.onMergeRightsChange(value as MergeRightsType)}
+        onChange={(value) => props.onMergeRightsChange(value as dto.MergeRightsType)}
         error={props.mergeRightsError}
       />
     </div>

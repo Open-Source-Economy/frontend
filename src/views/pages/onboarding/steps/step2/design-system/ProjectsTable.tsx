@@ -1,5 +1,5 @@
 import React from "react";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ExternalLink, Github, Globe } from "lucide-react";
 import { ProjectRowActions } from "./ProjectRowActions";
 import {
@@ -13,9 +13,9 @@ import { MergeRightsTypeCompanion, ProjectCategoryCompanion } from "src/utils/co
 import { Chip } from "src/views/components/ui/chip";
 
 interface ProjectsTableProps {
-  projects: DeveloperProjectItemEntry[];
-  onEdit: (project: DeveloperProjectItemEntry) => void;
-  onDelete: (project: DeveloperProjectItemEntry) => void;
+  projects: dto.DeveloperProjectItemEntry[];
+  onEdit: (project: dto.DeveloperProjectItemEntry) => void;
+  onDelete: (project: dto.DeveloperProjectItemEntry) => void;
 }
 
 export function ProjectsTable(props: ProjectsTableProps) {

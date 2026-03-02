@@ -4,11 +4,11 @@ import { CreditCard, FileText, Edit3, ExternalLink } from "lucide-react";
 import { BenefitsSection } from "../ui/benefits-section";
 import { ActionLink } from "../ui/action-link";
 import { getTierColor, getTierBorderColor, getPlanName, getBillingDisplay } from "./utils/tierUtils";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionCardProps {
-  tier: PlanProductType;
-  billing: PlanPriceType | null;
+  tier: dto.PlanProductType;
+  billing: dto.PlanPriceType | null;
   commonBenefits: string[];
   tierBenefits: string[];
   onDownloadInvoices: () => void;

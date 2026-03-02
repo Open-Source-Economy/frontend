@@ -1,14 +1,13 @@
 import React from "react";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifierCompanion } from "../../../../../data";
 import { displayedDeveloperRoles, displayedMergeRights } from "../../../../../components/form";
 import { GitHubIcon } from "./icons/GitHubIcon";
-import { ProjectItemType } from "@open-source-economy/api-types";
 
 interface ProjectListTableProps {
-  projects: DeveloperProjectItemEntry[];
-  onEditProject: (project: DeveloperProjectItemEntry) => void;
-  onDeleteProject: (project: DeveloperProjectItemEntry) => void;
+  projects: dto.DeveloperProjectItemEntry[];
+  onEditProject: (project: dto.DeveloperProjectItemEntry) => void;
+  onDeleteProject: (project: dto.DeveloperProjectItemEntry) => void;
 }
 
 export function ProjectListTable(props: ProjectListTableProps) {
@@ -63,8 +62,8 @@ export function ProjectListTable(props: ProjectListTableProps) {
             <div className="flex items-start gap-2.5 flex-1">
               <div className="flex w-[260px] items-center gap-2.5">
                 {/* GitHub Icon */}
-                {entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER ||
-                  (entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY && <GitHubIcon />)}
+                {entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER ||
+                  (entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY && <GitHubIcon />)}
 
                 <div className="text-white font-montserrat text-base font-normal leading-[150%]">
                   {SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier)}

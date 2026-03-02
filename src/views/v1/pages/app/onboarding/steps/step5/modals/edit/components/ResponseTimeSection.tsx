@@ -1,10 +1,10 @@
 import React from "react";
-import { ResponseTimeType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ResponseTimeTypeSelectInput } from "../../../../../../../../components/form/select/enum/ResponseTimeTypeSelectInput";
 
 interface ResponseTimeSectionProps {
-  value: ResponseTimeType | null;
-  onChange: (value: ResponseTimeType | null) => void;
+  value: dto.ResponseTimeType | null;
+  onChange: (value: dto.ResponseTimeType | null) => void;
 }
 
 export function ResponseTimeSection(props: ResponseTimeSectionProps) {

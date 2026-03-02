@@ -1,4 +1,4 @@
-import type * as dto from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ProjectDisclaimerRule {
   matches: (project: dto.ProjectItemDetails) => boolean;

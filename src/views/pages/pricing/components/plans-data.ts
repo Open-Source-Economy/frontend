@@ -1,12 +1,12 @@
 import { Zap, TrendingUp, Building2, Users } from "lucide-react";
 import { PlanOption } from "./types";
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export const SAVINGS_PERCENTAGE = 17;
 
 export const plans: PlanOption[] = [
   {
-    id: PlanProductType.INDIVIDUAL_PLAN,
+    id: dto.PlanProductType.INDIVIDUAL_PLAN,
     name: "Basic Membership",
     description: "Start building with expert backing",
     icon: Users,
@@ -55,7 +55,7 @@ export const plans: PlanOption[] = [
     ],
   },
   {
-    id: PlanProductType.START_UP_PLAN,
+    id: dto.PlanProductType.START_UP_PLAN,
     name: "Bronze Membership",
     description: "Scale confidently with expert support",
     icon: Zap,
@@ -102,7 +102,7 @@ export const plans: PlanOption[] = [
     highlighted: true,
   },
   {
-    id: PlanProductType.SCALE_UP_PLAN,
+    id: dto.PlanProductType.SCALE_UP_PLAN,
     name: "Silver Membership",
     description: "Accelerate growth with enterprise-grade support",
     icon: TrendingUp,
@@ -149,7 +149,7 @@ export const plans: PlanOption[] = [
     ],
   },
   {
-    id: PlanProductType.ENTERPRISE_PLAN,
+    id: dto.PlanProductType.ENTERPRISE_PLAN,
     name: "Gold Membership",
     description: "Power mission critical success",
     icon: Building2,

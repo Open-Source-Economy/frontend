@@ -1,4 +1,4 @@
-import { ContactReason } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { z } from "zod";
 
 // --- Reusable field schemas ---
@@ -97,31 +97,31 @@ export const contactFormSchema = z
   })
   .superRefine((data, ctx) => {
     const companyRequired = [
-      ContactReason.ENTERPRISE,
-      ContactReason.REQUEST_PROJECT,
-      ContactReason.PARTNERSHIP,
-      ContactReason.PRESS,
-    ].includes(data.contactReason as ContactReason);
+      dto.ContactReason.ENTERPRISE,
+      dto.ContactReason.REQUEST_PROJECT,
+      dto.ContactReason.PARTNERSHIP,
+      dto.ContactReason.PRESS,
+    ].includes(data.contactReason as dto.ContactReason);
     if (companyRequired && !data.company?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company is required", path: ["company"] });
     }
 
     const linkedInRequired = [
-      ContactReason.ENTERPRISE,
-      ContactReason.REQUEST_PROJECT,
-      ContactReason.PARTNERSHIP,
-    ].includes(data.contactReason as ContactReason);
+      dto.ContactReason.ENTERPRISE,
+      dto.ContactReason.REQUEST_PROJECT,
+      dto.ContactReason.PARTNERSHIP,
+    ].includes(data.contactReason as dto.ContactReason);
     if (linkedInRequired && !data.linkedinProfile?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "LinkedIn profile is required", path: ["linkedinProfile"] });
     }
 
-    const githubRequired = data.contactReason === ContactReason.MAINTAINER;
+    const githubRequired = data.contactReason === dto.ContactReason.MAINTAINER;
     if (githubRequired && !data.githubProfile?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "GitHub profile is required", path: ["githubProfile"] });
     }
 
-    const projectsRequired = [ContactReason.ENTERPRISE, ContactReason.REQUEST_PROJECT].includes(
-      data.contactReason as ContactReason
+    const projectsRequired = [dto.ContactReason.ENTERPRISE, dto.ContactReason.REQUEST_PROJECT].includes(
+      data.contactReason as dto.ContactReason
     );
     if (projectsRequired && (data.projects.length === 0 || !data.projects[0].url.trim())) {
       ctx.addIssue({

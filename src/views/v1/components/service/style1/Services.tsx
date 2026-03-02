@@ -1,20 +1,20 @@
 import offerLeftLinear from "src/assets/v1/offer-linear.webp";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import React from "react";
-import { GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceButton } from "../ServiceButton";
 import { projectHooks } from "src/api";
 import { ProjectId, getOwnerFromProjectId, getRepoFromProjectId } from "src/utils/local-types";
 
-const DEFAULT_SERVICES: GetProjectServicesResponse = {
-  services: [ServiceType.DEVELOPMENT],
-  comingSoonServices: [ServiceType.SUPPORT, ServiceType.SECURITY_AND_COMPLIANCE, ServiceType.ADVISORY],
+const DEFAULT_SERVICES: dto.GetProjectServicesResponse = {
+  services: [dto.ServiceType.DEVELOPMENT],
+  comingSoonServices: [dto.ServiceType.SUPPORT, dto.ServiceType.SECURITY_AND_COMPLIANCE, dto.ServiceType.ADVISORY],
 };
 
 interface ServicesProps {
   projectId?: ProjectId;
-  buttons?: { [key in ServiceType]?: ServiceButton };
+  buttons?: { [key in dto.ServiceType]?: ServiceButton };
 }
 
 export function Services(props: ServicesProps) {

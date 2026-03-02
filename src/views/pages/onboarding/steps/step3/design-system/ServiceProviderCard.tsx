@@ -1,12 +1,12 @@
-import { PreferenceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ParticipationFeatureItem } from "./ParticipationFeatureItem";
 import { FundFlowVisualization } from "./FundFlowVisualization";
 import { ParticipationSelectionButtons } from "./ParticipationSelectionButtons";
 import { participationCardConfigs, ParticipationModelOption } from "./participationCardConfigs";
 
 interface ServiceProviderCardProps {
-  selectedState: PreferenceType | null | undefined;
-  onSelect: (state: PreferenceType) => void;
+  selectedState: dto.PreferenceType | null | undefined;
+  onSelect: (state: dto.PreferenceType) => void;
   hasError?: boolean;
 }
 
@@ -14,7 +14,7 @@ export function ServiceProviderCard(props: ServiceProviderCardProps) {
   const config = participationCardConfigs[ParticipationModelOption.SERVICE_PROVIDER];
   const Icon = config.icon;
   const BadgeIcon = config.badge?.icon;
-  const _isSelected = props.selectedState === PreferenceType.YES;
+  const _isSelected = props.selectedState === dto.PreferenceType.YES;
 
   return (
     <div

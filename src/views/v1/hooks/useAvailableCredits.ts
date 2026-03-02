@@ -2,7 +2,7 @@ import React from "react";
 import { fundingService } from "src/services";
 import { ApiError } from "src/utils/error/ApiError";
 import { StatusCodes } from "http-status-codes";
-import { GetAvailableCreditsParams, GetAvailableCreditsQuery } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { AuthContextState } from "../pages/authenticate/AuthContext";
 import { Credit, CreditUnit } from "src/model";
 import Decimal from "decimal.js";
@@ -15,8 +15,8 @@ export function useAvailableCredits(auth: AuthContextState) {
     // don't fetch if not authenticated
     if (auth.authInfo?.user) {
       try {
-        const params: GetAvailableCreditsParams = {};
-        const query: GetAvailableCreditsQuery = {
+        const params: dto.GetAvailableCreditsParams = {};
+        const query: dto.GetAvailableCreditsQuery = {
           companyId: auth.authInfo?.company?.id,
         };
 

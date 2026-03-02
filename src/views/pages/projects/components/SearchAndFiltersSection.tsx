@@ -1,13 +1,13 @@
 import React from "react";
 import { ProjectSearchBar } from "./ProjectSearchBar";
 import { LanguageFilter } from "./LanguageFilter";
-import { ProjectCategory } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface SearchAndFiltersSectionProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  selectedCategory: ProjectCategory | null;
-  onCategoryChange: (category: ProjectCategory | null) => void;
+  selectedCategory: dto.ProjectCategory | null;
+  onCategoryChange: (category: dto.ProjectCategory | null) => void;
   selectedLanguage: string | null;
   onLanguageChange: (language: string | null) => void;
   availableLanguages: string[];

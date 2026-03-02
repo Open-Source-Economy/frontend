@@ -1,11 +1,11 @@
 import React from "react";
-import { ProjectItemType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { BulkValidationErrorType, BulkValidationResult } from "src/utils/BulkProjectUrlParser";
 import { ProjectItemTypeCompanion } from "src/utils/companions";
 
 interface BulkProjectsPreviewProps {
   validationResult: BulkValidationResult;
-  selectedProjectType: ProjectItemType;
+  selectedProjectType: dto.ProjectItemType;
 }
 
 // Helper function to group valid projects by type
@@ -26,9 +26,9 @@ const groupProjectsByType = (validProjects: BulkValidationResult["validProjects"
       repositories.push(`${sourceIdentifier.ownerId}/${sourceIdentifier.name}`);
     } else if (typeof sourceIdentifier === "string") {
       // For string-based identifiers, check the project type to distinguish owners from URLs
-      if (project.projectType === ProjectItemType.GITHUB_OWNER) {
+      if (project.projectType === dto.ProjectItemType.GITHUB_OWNER) {
         owners.push(sourceIdentifier);
-      } else if (project.projectType === ProjectItemType.URL) {
+      } else if (project.projectType === dto.ProjectItemType.URL) {
         urls.push(sourceIdentifier);
       } else {
         // Fallback: treat as URL
@@ -59,10 +59,10 @@ const extractErrorsByType = (errors: BulkValidationResult["errors"]) => {
 const getTypeErrorExplanation = (
   typeMismatchNames: string[],
   invalidFormatNames: string[],
-  selectedProjectType: ProjectItemType
+  selectedProjectType: dto.ProjectItemType
 ): string => {
   if (typeMismatchNames.length > 0) {
-    const expectedLabel = ProjectItemTypeCompanion.label(selectedProjectType || ProjectItemType.URL);
+    const expectedLabel = ProjectItemTypeCompanion.label(selectedProjectType || dto.ProjectItemType.URL);
     let explanation = `These URLs don't match the selected type (${expectedLabel})`;
     if (invalidFormatNames.length > 0) {
       explanation += ". Some URLs have invalid format";
@@ -165,7 +165,7 @@ export function BulkProjectsPreview(props: BulkProjectsPreviewProps) {
     props.selectedProjectType
   );
 
-  const ownersTitle = props.selectedProjectType === ProjectItemType.GITHUB_OWNER ? "Organizations/Users" : "Owners";
+  const ownersTitle = props.selectedProjectType === dto.ProjectItemType.GITHUB_OWNER ? "Organizations/Users" : "Owners";
 
   return (
     <div className="space-y-2">

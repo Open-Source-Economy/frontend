@@ -1,5 +1,5 @@
 import { useParams } from "@tanstack/react-router";
-import { Currency, GetCampaignResponse } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { type ProjectId } from "src/utils/local-types";
 import { config, Env } from "../../../../../../utils";
 import { PreferredCurrency } from "../../../../../../utils/PreferredCurrency";
@@ -13,7 +13,7 @@ import { CampaignDescription } from "../../../../../../model";
 
 interface FundingCampaignProps {
   projectId: ProjectId;
-  campaign: GetCampaignResponse & CampaignDescription;
+  campaign: dto.GetCampaignResponse & CampaignDescription;
 }
 
 export function FundingCampaign(props: FundingCampaignProps) {
@@ -24,7 +24,7 @@ export function FundingCampaign(props: FundingCampaignProps) {
 
   const auth = useAuth();
 
-  const preferredCurrency: Currency = PreferredCurrency.get(auth);
+  const preferredCurrency: dto.Currency = PreferredCurrency.get(auth);
 
   return (
     <section className="mt-14 sm:mt-20 3xl:!mt-[89px] !px-4 2xl:!px-0 relative xl:pb-14 pb-16 flex flex-col">

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface BillingToggleProps {
-  billingCycle: PlanPriceType;
-  onBillingCycleChange: (cycle: PlanPriceType) => void;
+  billingCycle: dto.PlanPriceType;
+  onBillingCycleChange: (cycle: dto.PlanPriceType) => void;
   savingsPercentage: number;
 }
 
@@ -14,14 +14,14 @@ export function BillingToggle(props: BillingToggleProps) {
       {/* Toggle */}
       <div className="inline-flex items-center gap-2 bg-card rounded-xl p-1.5 shadow-lg border-2 border-brand-neutral-400">
         <BillingToggleButton
-          active={props.billingCycle === PlanPriceType.MONTHLY}
-          onClick={() => props.onBillingCycleChange(PlanPriceType.MONTHLY)}
+          active={props.billingCycle === dto.PlanPriceType.MONTHLY}
+          onClick={() => props.onBillingCycleChange(dto.PlanPriceType.MONTHLY)}
         >
           Monthly billing
         </BillingToggleButton>
         <BillingToggleButton
-          active={props.billingCycle === PlanPriceType.ANNUALLY}
-          onClick={() => props.onBillingCycleChange(PlanPriceType.ANNUALLY)}
+          active={props.billingCycle === dto.PlanPriceType.ANNUALLY}
+          onClick={() => props.onBillingCycleChange(dto.PlanPriceType.ANNUALLY)}
         >
           Annual billing
         </BillingToggleButton>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Award, Star } from "lucide-react";
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface MembershipTierBadgeProps {
-  tier: PlanProductType;
+  tier: dto.PlanProductType;
   compact?: boolean;
 }
 
@@ -11,25 +11,25 @@ export function MembershipTierBadge(props: MembershipTierBadgeProps) {
   const compact = props.compact ?? false;
 
   const tierConfig = {
-    [PlanProductType.INDIVIDUAL_PLAN]: {
+    [dto.PlanProductType.INDIVIDUAL_PLAN]: {
       label: "Basic",
       bgColor: "bg-brand-neutral-600",
       icon: Star,
       textColor: "text-brand-neutral-600",
     },
-    [PlanProductType.START_UP_PLAN]: {
+    [dto.PlanProductType.START_UP_PLAN]: {
       label: "Bronze",
       bgColor: "bg-brand-tier-bronze",
       icon: Award,
       textColor: "text-brand-tier-bronze",
     },
-    [PlanProductType.SCALE_UP_PLAN]: {
+    [dto.PlanProductType.SCALE_UP_PLAN]: {
       label: "Silver",
       bgColor: "bg-brand-tier-silver",
       icon: Award,
       textColor: "text-brand-tier-silver-dark",
     },
-    [PlanProductType.ENTERPRISE_PLAN]: {
+    [dto.PlanProductType.ENTERPRISE_PLAN]: {
       label: "Gold",
       bgColor: "bg-brand-tier-gold",
       icon: Award,

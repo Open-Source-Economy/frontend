@@ -1,4 +1,4 @@
-import { DeveloperProjectItemEntry, ProjectItemType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
 import { SourceIdentifierCompanion } from "./companions/SourceIdentifier.companion";
 import { ProjectItemTypeCompanion } from "./companions/ProjectItemType.companion";
@@ -8,9 +8,9 @@ import { ProjectItemTypeCompanion } from "./companions/ProjectItemType.companion
  */
 export interface ParsedProjectUrl {
   sourceIdentifier: SourceIdentifier;
-  projectType: ProjectItemType;
+  projectType: dto.ProjectItemType;
   error?: string;
-  detectedType?: ProjectItemType; // The type that was auto-detected (if different from expected)
+  detectedType?: dto.ProjectItemType; // The type that was auto-detected (if different from expected)
 }
 
 /**
@@ -44,7 +44,7 @@ export interface BulkValidationError {
  * Structured result of bulk validation with categorized errors
  */
 export interface BulkValidationResult {
-  validProjects: Array<{ sourceIdentifier: SourceIdentifier; projectType: ProjectItemType }>;
+  validProjects: Array<{ sourceIdentifier: SourceIdentifier; projectType: dto.ProjectItemType }>;
   errors: BulkValidationError[];
 }
 
@@ -87,7 +87,7 @@ export class BulkProjectUrlParser {
    */
   static parseSingleUrl(
     url: string,
-    expectedProjectType: ProjectItemType,
+    expectedProjectType: dto.ProjectItemType,
     allowShorthand: boolean = false
   ): ParsedProjectUrl {
     const trimmedUrl = url.trim();
@@ -129,7 +129,7 @@ export class BulkProjectUrlParser {
    */
   static parseBulkUrls(
     bulkText: string,
-    expectedProjectType: ProjectItemType,
+    expectedProjectType: dto.ProjectItemType,
     allowShorthand: boolean = false
   ): BulkParseResult {
     // Extract URLs using the enhanced extraction method
@@ -163,8 +163,8 @@ export class BulkProjectUrlParser {
    */
   private static getTypeMismatchError(
     url: string,
-    expectedType: ProjectItemType,
-    detectedType: ProjectItemType | null
+    expectedType: dto.ProjectItemType,
+    detectedType: dto.ProjectItemType | null
   ): string {
     const expectedLabel = ProjectItemTypeCompanion.label(expectedType);
 
@@ -257,9 +257,9 @@ export class BulkProjectUrlParser {
    */
   static validateBulkUrls(
     bulkText: string,
-    expectedProjectType: ProjectItemType,
-    existingProjects: DeveloperProjectItemEntry[] = [],
-    excludeEntry?: DeveloperProjectItemEntry | null,
+    expectedProjectType: dto.ProjectItemType,
+    existingProjects: dto.DeveloperProjectItemEntry[] = [],
+    excludeEntry?: dto.DeveloperProjectItemEntry | null,
     allowShorthand: boolean = false
   ): BulkValidationResult {
     const errors: BulkValidationError[] = [];

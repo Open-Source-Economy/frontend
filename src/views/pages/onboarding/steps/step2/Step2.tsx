@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { onboardingHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/UpsertProjectItemModal";
 import { ApiError } from "src/utils/error/ApiError";
-import { DeveloperProjectItemId } from "@open-source-economy/api-types";
 import { ProjectsTable } from "./design-system/ProjectsTable";
 import { ProjectCardList } from "./design-system/ProjectCardList";
 import { EmptyProjectsState } from "./design-system/EmptyProjectsState";
@@ -25,11 +23,11 @@ function Step2(props: Step2Props) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Initialize projects and ensure they're sorted (backend should already be sorted, but we sort here for consistency)
-  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(() =>
+  const [projects, setProjects] = useState<dto.DeveloperProjectItemEntry[]>(() =>
     sortProjectsByBackendOrder(props.state.projects)
   );
-  const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
-  const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
+  const [editingProject, setEditingProject] = useState<dto.DeveloperProjectItemEntry | null>(null);
+  const [deletingProject, setDeletingProject] = useState<dto.DeveloperProjectItemEntry | null>(null);
 
   const [localError, setLocalError] = useState<string | null>(null);
 
@@ -64,26 +62,26 @@ function Step2(props: Step2Props) {
   };
 
   // Function to handle editing an existing project
-  const handleEditProject = (entry: DeveloperProjectItemEntry) => {
+  const handleEditProject = (entry: dto.DeveloperProjectItemEntry) => {
     setEditingProject(entry);
     removeProjectItem.reset();
     setShowUpsertModal(true);
   };
 
   // Callback from UpsertProjectItemModal after an item is added or updated
-  const handleUpsertComplete = (newOrUpdatedProject: DeveloperProjectItemEntry) => {
+  const handleUpsertComplete = (newOrUpdatedProject: dto.DeveloperProjectItemEntry) => {
     setShowUpsertModal(false);
 
     // Use functional state updates to ensure each update sees the previous state
     // This is critical for bulk operations where multiple projects are added in quick succession
     setProjects((prevProjects) => {
-      let updatedProjects: DeveloperProjectItemEntry[];
+      let updatedProjects: dto.DeveloperProjectItemEntry[];
 
       // Capture editingProject in the closure to use the correct value
       const currentEditingProject = editingProject;
 
       // Ensure we create a completely new object reference to trigger React re-render
-      const updatedEntry: DeveloperProjectItemEntry = {
+      const updatedEntry: dto.DeveloperProjectItemEntry = {
         developerProjectItem: {
           ...newOrUpdatedProject.developerProjectItem,
           customCategories: newOrUpdatedProject.developerProjectItem.customCategories || [],
@@ -124,16 +122,16 @@ function Step2(props: Step2Props) {
     setLocalError(null); // Clear validation error when a project is added
   };
 
-  const handleShowDeleteModal = (project: DeveloperProjectItemEntry) => {
+  const handleShowDeleteModal = (project: dto.DeveloperProjectItemEntry) => {
     setDeletingProject(project);
     setShowDeleteModal(true);
   };
 
-  const handleDeleteProject = (project: DeveloperProjectItemEntry) => {
+  const handleDeleteProject = (project: dto.DeveloperProjectItemEntry) => {
     handleShowDeleteModal(project);
   };
 
-  const handleConfirmDelete = async (developerProjectItemId: DeveloperProjectItemId) => {
+  const handleConfirmDelete = async (developerProjectItemId: dto.DeveloperProjectItemId) => {
     try {
       const params: dto.RemoveDeveloperProjectItemParams = {
         developerProjectItemId,

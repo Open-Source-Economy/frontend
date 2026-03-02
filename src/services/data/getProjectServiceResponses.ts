@@ -1,6 +1,6 @@
-import { GetProjectServicesResponse, ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
-export const pekkoGetProjectServicesResponse: GetProjectServicesResponse = {
-  services: [ServiceType.DEVELOPMENT, ServiceType.SUPPORT, ServiceType.ADVISORY],
-  comingSoonServices: [ServiceType.SECURITY_AND_COMPLIANCE],
+export const pekkoGetProjectServicesResponse: dto.GetProjectServicesResponse = {
+  services: [dto.ServiceType.DEVELOPMENT, dto.ServiceType.SUPPORT, dto.ServiceType.ADVISORY],
+  comingSoonServices: [dto.ServiceType.SECURITY_AND_COMPLIANCE],
 };

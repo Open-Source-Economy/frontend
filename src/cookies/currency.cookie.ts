@@ -1,25 +1,25 @@
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ICurrencyHandler {
-  get(): Currency;
-  set(currency: Currency): void;
+  get(): dto.Currency;
+  set(currency: dto.Currency): void;
   remove(): void;
 }
 
 class CurrencyCookie implements ICurrencyHandler {
   readonly cookieName: string;
-  readonly defaultCurrency: Currency;
+  readonly defaultCurrency: dto.Currency;
 
   constructor() {
     this.cookieName = "ose_currency";
-    this.defaultCurrency = Currency.EUR;
+    this.defaultCurrency = dto.Currency.EUR;
   }
 
   /**
    * Retrieves the currency from cookies or returns the default currency.
    * @returns {Currency} The stored currency or default if not found
    */
-  public get(): Currency {
+  public get(): dto.Currency {
     try {
       const cookies: string[] = document.cookie.split(";").map((cookie) => cookie.trim());
       const currencyCookie: string | undefined = cookies.find((cookie) => cookie.startsWith(`${this.cookieName}=`));
@@ -29,7 +29,7 @@ class CurrencyCookie implements ICurrencyHandler {
       }
 
       const [, value] = currencyCookie.split("=");
-      const currency = value as Currency;
+      const currency = value as dto.Currency;
 
       return this.isValidCurrency(currency) ? currency : this.defaultCurrency;
     } catch (_error) {
@@ -41,7 +41,7 @@ class CurrencyCookie implements ICurrencyHandler {
    * Sets the currency in cookies with a 1-year expiration.
    * @param {Currency} currency - The currency to store
    */
-  public set(currency: Currency): void {
+  public set(currency: dto.Currency): void {
     try {
       if (!this.isValidCurrency(currency)) {
         throw new Error(`Invalid currency value: ${currency}`);
@@ -84,8 +84,8 @@ class CurrencyCookie implements ICurrencyHandler {
    * @param {unknown} value - The value to validate
    * @returns {boolean} True if valid Currency enum value
    */
-  private isValidCurrency(value: unknown): value is Currency {
-    return Object.values(Currency).includes(value as Currency);
+  private isValidCurrency(value: unknown): value is dto.Currency {
+    return Object.values(dto.Currency).includes(value as dto.Currency);
   }
 }
 
@@ -93,21 +93,21 @@ export const currencyCookie = new CurrencyCookie();
 
 // /**
 //  * Retrieves the initial currency from cookies or defaults to USD.
-//  * @returns {Currency} The currency found in cookies or Currency.USD if not set.
+//  * @returns {Currency} The currency found in cookies or dto.Currency.USD if not set.
 //  */
-// get(): Currency {
+// get(): dto.Currency {
 //   const cookieCurrency = document.cookie
 //     .split("; ")
 //     .find(row => row.startsWith("currency="))
 //     ?.split("=")[1];
-//   return cookieCurrency ? (cookieCurrency as Currency) : Currency.EUR;
+//   return cookieCurrency ? (cookieCurrency as dto.Currency) : dto.Currency.EUR;
 // },
 //
 // /**
 //  * Sets the currency in cookies with a default expiration of 1 year.
 //  * @param {Currency} currency - The currency to set in the cookie.
 //  */
-// set(currency: Currency): void {
+// set(currency: dto.Currency): void {
 //   const oneYearInSeconds = 31536000; // 1 year in seconds
 //   document.cookie = `currency=${currency}; path=/; max-age=${oneYearInSeconds}`;
 // },

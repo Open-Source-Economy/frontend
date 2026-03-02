@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { BadgeCheck, Github, GitMerge, Sparkles, Twitter } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
-import { ProjectDeveloperProfile } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectDeveloperProfileCompanion } from "src/utils/companions/ProjectDeveloperProfile.companion";
 import { OwnerCompanion } from "src/utils/companions/Owner.companion";
 import { ExternalLink } from "../../../../components/ui/forms/external-link";
@@ -12,7 +12,7 @@ import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion } from "../../../.
 import { StatusBadge } from "./StatusBadge";
 
 interface MaintainerCardProps {
-  developer: ProjectDeveloperProfile;
+  developer: dto.ProjectDeveloperProfile;
   projectName: string;
 }
 

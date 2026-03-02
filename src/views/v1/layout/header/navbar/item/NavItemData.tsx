@@ -11,7 +11,7 @@ import {
   ProfileIcon,
 } from "../Icons";
 import { displayedCurrencies } from "src/views/v1/data";
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { credit, Credit } from "src/model";
 import React from "react";
 import { externalLinks } from "src/externalLinks";
@@ -149,7 +149,7 @@ export class Navigation {
   } as const;
 
   // Factory method for currency selector
-  static currency(selectedCurrency: Currency, onClick: () => void): ButtonItemData {
+  static currency(selectedCurrency: dto.Currency, onClick: () => void): ButtonItemData {
     const currency = displayedCurrencies[selectedCurrency];
     return new ButtonItemData(currency.code, onClick, {
       icon: currency.symbol,

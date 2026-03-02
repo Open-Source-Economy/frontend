@@ -1,7 +1,7 @@
-import type { Owner } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export namespace OwnerCompanion {
-  export function getTwitterUrl(owner?: Owner | null): string | null {
+  export function getTwitterUrl(owner?: dto.Owner | null): string | null {
     const username = owner?.twitterUsername;
     if (!username) {
       return null;

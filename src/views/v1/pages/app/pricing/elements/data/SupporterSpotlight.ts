@@ -1,4 +1,4 @@
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { PlanFeature } from "./data";
 
 const basic: PlanFeature = {
@@ -7,21 +7,21 @@ const basic: PlanFeature = {
   included: false,
 };
 
-export const supporterSpotlights: Record<PlanProductType, PlanFeature> = {
-  [PlanProductType.INDIVIDUAL_PLAN]: {
+export const supporterSpotlights: Record<dto.PlanProductType, PlanFeature> = {
+  [dto.PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
     included: false,
   },
-  [PlanProductType.START_UP_PLAN]: {
+  [dto.PlanProductType.START_UP_PLAN]: {
     ...basic,
     included: false,
   },
-  [PlanProductType.SCALE_UP_PLAN]: {
+  [dto.PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
     info: "Monthly feature highlighting your OSS investments",
     included: true,
   },
-  [PlanProductType.ENTERPRISE_PLAN]: {
+  [dto.PlanProductType.ENTERPRISE_PLAN]: {
     name: "Marketing Spotlight",
     detailsDescription: "Regular features across media channels",
     info: "Amplify your OSS commitment through our networks",

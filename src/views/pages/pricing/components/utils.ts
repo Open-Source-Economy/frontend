@@ -1,13 +1,13 @@
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { PlanOption } from "./types";
 
 export type ButtonState = "current" | "upgrade" | "downgrade" | "select";
 
 export function getPlanButtonState(
-  planId: PlanProductType,
-  currentPlanTier: PlanProductType | null,
-  currentPlanBilling: PlanPriceType,
-  billingCycle: PlanPriceType,
+  planId: dto.PlanProductType,
+  currentPlanTier: dto.PlanProductType | null,
+  currentPlanBilling: dto.PlanPriceType,
+  billingCycle: dto.PlanPriceType,
   plans: PlanOption[]
 ): ButtonState {
   if (!currentPlanTier) return "select";
@@ -21,8 +21,9 @@ export function getPlanButtonState(
   if (planIndex < currentIndex) return "downgrade";
 
   // Same tier, different billing
-  if (billingCycle === PlanPriceType.ANNUALLY && currentPlanBilling === PlanPriceType.MONTHLY) return "upgrade";
-  if (billingCycle === PlanPriceType.MONTHLY && currentPlanBilling === PlanPriceType.ANNUALLY) return "downgrade";
+  if (billingCycle === dto.PlanPriceType.ANNUALLY && currentPlanBilling === dto.PlanPriceType.MONTHLY) return "upgrade";
+  if (billingCycle === dto.PlanPriceType.MONTHLY && currentPlanBilling === dto.PlanPriceType.ANNUALLY)
+    return "downgrade";
 
   return "select";
 }

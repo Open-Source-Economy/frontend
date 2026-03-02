@@ -1,20 +1,19 @@
 import React from "react";
-import * as model from "@open-source-economy/api-types";
-import { ManagedIssueState } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ApprovedProps {
-  managedIssue?: model.ManagedIssue;
+  managedIssue?: dto.ManagedIssue;
 }
 
 export function Approved(props: ApprovedProps) {
   const state = props.managedIssue?.state;
 
   let text = "";
-  if (state === ManagedIssueState.OPEN) {
+  if (state === dto.ManagedIssueState.OPEN) {
     text = "Collect approved by";
-  } else if (state === ManagedIssueState.REJECTED) {
+  } else if (state === dto.ManagedIssueState.REJECTED) {
     text = "Collect rejected by";
-  } else if (state === ManagedIssueState.SOLVED) {
+  } else if (state === dto.ManagedIssueState.SOLVED) {
     text = "Issue solved by";
   }
 

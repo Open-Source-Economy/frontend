@@ -1,4 +1,4 @@
-import { ProjectItemType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export interface UrlConfig {
   label: string;
@@ -8,7 +8,7 @@ export interface UrlConfig {
   bulkHint: string;
 }
 
-export function getUrlConfig(projectType: ProjectItemType | null): UrlConfig {
+export function getUrlConfig(projectType: dto.ProjectItemType | null): UrlConfig {
   if (!projectType) {
     return {
       label: "Project URL",
@@ -21,7 +21,7 @@ export function getUrlConfig(projectType: ProjectItemType | null): UrlConfig {
   }
 
   switch (projectType) {
-    case ProjectItemType.GITHUB_REPOSITORY:
+    case dto.ProjectItemType.GITHUB_REPOSITORY:
       return {
         label: "GitHub Repository URL",
         placeholder: "https://github.com/username/repository",
@@ -29,7 +29,7 @@ export function getUrlConfig(projectType: ProjectItemType | null): UrlConfig {
         bulkPlaceholder: `https://github.com/facebook/react, https://github.com/vuejs/vue, https://github.com/angular/angular\nOr one per line:\nhttps://github.com/facebook/react\nhttps://github.com/vuejs/vue`,
         bulkHint: "Enter GitHub repository URLs separated by newlines, commas, semicolons, or multiple spaces.",
       };
-    case ProjectItemType.GITHUB_OWNER:
+    case dto.ProjectItemType.GITHUB_OWNER:
       return {
         label: "GitHub Organization URL",
         placeholder: "https://github.com/organization",

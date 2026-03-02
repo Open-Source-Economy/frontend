@@ -2,13 +2,13 @@ import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { CheckIcon, CloseIcon } from "./Icons";
 import { displayedCurrencies } from "src/views/v1/data";
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface CurrencyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (currency: Currency) => void;
-  selectedCurrency?: Currency;
+  onSelect: (currency: dto.Currency) => void;
+  selectedCurrency?: dto.Currency;
 }
 
 export function CurrencyModal(props: CurrencyModalProps) {
@@ -48,7 +48,7 @@ export function CurrencyModal(props: CurrencyModalProps) {
               </div>
 
               <div className="max-h-[400px] overflow-y-auto space-y-1 overflow-x-hidden scrollbar scrollbar-track-primaryBg scrollbar-thumb-[#2c4366] ">
-                {Object.values(Currency).map((currencyKey) => {
+                {Object.values(dto.Currency).map((currencyKey) => {
                   const currency = displayedCurrencies[currencyKey];
                   return (
                     <button

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tabs } from "../tabs";
 import backdropSVG from "src/assets/v1/backdrop.svg";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { planDescriptions } from "../data/data";
 import { Pricing, PricingCategory } from "./pricing";
 import { stripeHooks } from "src/api";
@@ -9,30 +9,30 @@ import { stripeHooks } from "src/api";
 interface PricingTableProps {}
 
 export function PricingTable(_props: PricingTableProps) {
-  const [priceType, setPriceType] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
+  const [priceType, setPriceType] = useState<dto.PlanPriceType>(dto.PlanPriceType.ANNUALLY);
 
-  const [activePlan, setActivePlan] = useState<PlanProductType | null>(null);
-  const [activePriceType, setActivePriceType] = useState<PlanPriceType | null>(null);
+  const [activePlan, setActivePlan] = useState<dto.PlanProductType | null>(null);
+  const [activePriceType, setActivePriceType] = useState<dto.PlanPriceType | null>(null);
 
   const { data: plans } = stripeHooks.usePlansQuery({}, {});
   const { data: userPlan } = stripeHooks.useUserPlanQuery({}, {});
 
   const pricingCategory = (
-    type: PlanProductType,
-    activePlan: PlanProductType | null,
-    activePriceType: PlanPriceType | null
+    type: dto.PlanProductType,
+    activePlan: dto.PlanProductType | null,
+    activePriceType: dto.PlanPriceType | null
   ): PricingCategory => {
-    const orderMap: Record<PlanProductType, number> = {
-      [PlanProductType.INDIVIDUAL_PLAN]: 1,
-      [PlanProductType.START_UP_PLAN]: 2,
-      [PlanProductType.SCALE_UP_PLAN]: 3,
-      [PlanProductType.ENTERPRISE_PLAN]: 4,
+    const orderMap: Record<dto.PlanProductType, number> = {
+      [dto.PlanProductType.INDIVIDUAL_PLAN]: 1,
+      [dto.PlanProductType.START_UP_PLAN]: 2,
+      [dto.PlanProductType.SCALE_UP_PLAN]: 3,
+      [dto.PlanProductType.ENTERPRISE_PLAN]: 4,
     };
 
     if (activePlan === null || activePriceType === null) return PricingCategory.GET_STARTED;
     else if (orderMap[type] === orderMap[activePlan]) {
       if (priceType === activePriceType) return PricingCategory.SELECTED;
-      else if (priceType === PlanPriceType.ANNUALLY) return PricingCategory.UPGRADE;
+      else if (priceType === dto.PlanPriceType.ANNUALLY) return PricingCategory.UPGRADE;
       else return PricingCategory.DOWNGRADE;
     } else if (orderMap[type] < orderMap[activePlan]) return PricingCategory.DOWNGRADE;
     else return PricingCategory.UPGRADE;
@@ -46,7 +46,11 @@ export function PricingTable(_props: PricingTableProps) {
   return (
     <div className="w-full text-white space-y-8">
       <div className="flex flex-col items-center justify-center gap-4" data-aos="fade-down" data-aos-duration="1000">
-        <Tabs value={priceType} values={[PlanPriceType.ANNUALLY, PlanPriceType.MONTHLY]} onValueChange={setPriceType} />
+        <Tabs
+          value={priceType}
+          values={[dto.PlanPriceType.ANNUALLY, dto.PlanPriceType.MONTHLY]}
+          onValueChange={setPriceType}
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 max-w-[1444px] mx-auto">
@@ -63,7 +67,7 @@ export function PricingTable(_props: PricingTableProps) {
         {plans &&
           Object.entries(planDescriptions).map(([planProductTypeKey, plan], index) => {
             // @ts-ignore
-            const planProductType: PlanProductType = planProductTypeKey as PlanProductType;
+            const planProductType: dto.PlanProductType = planProductTypeKey as dto.PlanProductType;
             return (
               <Pricing
                 key={planProductTypeKey}

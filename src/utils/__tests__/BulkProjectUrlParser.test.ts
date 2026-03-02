@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { ProjectItemType } from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
 import { BulkProjectUrlParser, ParsedProjectUrl } from "../BulkProjectUrlParser";
 import { SourceIdentifierCompanion } from "../companions/SourceIdentifier.companion";
@@ -20,7 +19,7 @@ describe("BulkProjectUrlParser", () => {
 
   const expectValidProject = (
     result: ParsedProjectUrl,
-    expectedType: ProjectItemType,
+    expectedType: dto.ProjectItemType,
     expectedDisplayName?: string
   ) => {
     expect(result.error).toBeUndefined();
@@ -46,51 +45,51 @@ describe("BulkProjectUrlParser", () => {
     test("should parse valid GitHub repository URL", () => {
       const result = BulkProjectUrlParser.parseSingleUrl(
         "https://github.com/facebook/react",
-        ProjectItemType.GITHUB_REPOSITORY
+        dto.ProjectItemType.GITHUB_REPOSITORY
       );
 
-      expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
+      expectValidProject(result, dto.ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
       expect(result.sourceIdentifier).toBeDefined();
     });
 
     test("should parse GitHub repository URL with .git extension and verify .git is stripped", () => {
       const result = BulkProjectUrlParser.parseSingleUrl(
         "https://github.com/apache/commons-jxpath.git",
-        ProjectItemType.GITHUB_REPOSITORY
+        dto.ProjectItemType.GITHUB_REPOSITORY
       );
 
-      expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY);
+      expectValidProject(result, dto.ProjectItemType.GITHUB_REPOSITORY);
       verifyNoGitSuffix(result.sourceIdentifier, "commons-jxpath");
     });
 
     test("should parse valid GitHub owner URL", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("https://github.com/nodejs", ProjectItemType.GITHUB_OWNER);
+      const result = BulkProjectUrlParser.parseSingleUrl("https://github.com/nodejs", dto.ProjectItemType.GITHUB_OWNER);
 
-      expectValidProject(result, ProjectItemType.GITHUB_OWNER, "nodejs");
+      expectValidProject(result, dto.ProjectItemType.GITHUB_OWNER, "nodejs");
     });
 
     test("should parse valid non-GitHub URL", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("https://example.com/project", ProjectItemType.URL);
+      const result = BulkProjectUrlParser.parseSingleUrl("https://example.com/project", dto.ProjectItemType.URL);
 
-      expectValidProject(result, ProjectItemType.URL, "https://example.com/project");
+      expectValidProject(result, dto.ProjectItemType.URL, "https://example.com/project");
     });
 
     test("should reject URL that doesn't match expected type", () => {
       const result = BulkProjectUrlParser.parseSingleUrl(
         "https://github.com/facebook/react",
-        ProjectItemType.GITHUB_OWNER
+        dto.ProjectItemType.GITHUB_OWNER
       );
 
       expectInvalidProject(result);
     });
 
     test("should handle empty URL", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl("", dto.ProjectItemType.GITHUB_REPOSITORY);
       expect(result.error).toBe("URL cannot be empty");
     });
 
     test("should handle invalid URL", () => {
-      const result = BulkProjectUrlParser.parseSingleUrl("not-a-valid-url", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl("not-a-valid-url", dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectInvalidProject(result);
     });
@@ -98,10 +97,10 @@ describe("BulkProjectUrlParser", () => {
     test("should trim whitespace", () => {
       const result = BulkProjectUrlParser.parseSingleUrl(
         "  https://github.com/facebook/react  ",
-        ProjectItemType.GITHUB_REPOSITORY
+        dto.ProjectItemType.GITHUB_REPOSITORY
       );
 
-      expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
+      expectValidProject(result, dto.ProjectItemType.GITHUB_REPOSITORY, "facebook/react");
     });
   });
 
@@ -111,7 +110,7 @@ describe("BulkProjectUrlParser", () => {
 https://github.com/vuejs/vue
 https://github.com/angular/angular`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 0);
     });
@@ -121,10 +120,10 @@ https://github.com/angular/angular`;
 https://github.com/apache/commons-lang.git
 https://github.com/apache/xalan-java`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 0);
-      expect(result.validProjects.every((p) => p.projectType === ProjectItemType.GITHUB_REPOSITORY)).toBe(true);
+      expect(result.validProjects.every((p) => p.projectType === dto.ProjectItemType.GITHUB_REPOSITORY)).toBe(true);
       expect(result.validProjects.map((p) => getDisplayName(p.sourceIdentifier))).toEqual([
         "apache/commons-jxpath",
         "apache/commons-lang",
@@ -136,7 +135,7 @@ https://github.com/apache/xalan-java`;
       const bulkText = `https://github.com/apache/commons-bcel.git
 https://github.com/apache/commons-beanutils.git`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 2, 0);
 
@@ -172,7 +171,7 @@ https://github.com/apache/commons-beanutils.git`;
       const bulkText = `https://github.com/apache/commons-bcel.git
 https://github.com/apache/commons-beanutils.git`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       result.validProjects.forEach((project) => {
         const si = project.sourceIdentifier;
@@ -189,7 +188,7 @@ https://github.com/vuejs/vue
 not-a-url
 https://github.com/angular/angular`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 2);
       const invalidDisplayNames = result.invalidProjects?.map((p) => getDisplayName(p.sourceIdentifier)) || [];
@@ -204,18 +203,18 @@ https://github.com/vuejs/vue
 
 https://github.com/angular/angular`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 0);
     });
 
     test("should handle empty input", () => {
-      const result = BulkProjectUrlParser.parseBulkUrls("", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls("", dto.ProjectItemType.GITHUB_REPOSITORY);
       expectParseResult(result, 0, 0);
     });
 
     test("should handle only whitespace", () => {
-      const result = BulkProjectUrlParser.parseBulkUrls("   \n  \n  ", ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls("   \n  \n  ", dto.ProjectItemType.GITHUB_REPOSITORY);
       expectParseResult(result, 0, 0);
     });
 
@@ -224,7 +223,7 @@ https://github.com/angular/angular`;
 https://github.com/vuejs/vue
 https://github.com/nodejs`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 2, 1);
       const invalidDisplayNames = result.invalidProjects?.map((p) => getDisplayName(p.sourceIdentifier)) || [];
@@ -236,10 +235,10 @@ https://github.com/nodejs`;
 https://example.com/project
 https://github.com/nodejs`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.URL);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.URL);
 
       expectParseResult(result, 3, 0);
-      expect(result.validProjects.every((p) => p.projectType === ProjectItemType.URL)).toBe(true);
+      expect(result.validProjects.every((p) => p.projectType === dto.ProjectItemType.URL)).toBe(true);
     });
 
     test.each([
@@ -287,7 +286,7 @@ https://github.com/nodejs`;
         3,
       ],
     ])("should parse %s URLs", (description, bulkText, expectedCount) => {
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, expectedCount, 0);
     });
@@ -296,7 +295,7 @@ https://github.com/nodejs`;
       const bulkText = `https://github.com/facebook/react, https://github.com/vuejs/vue; https://github.com/angular/angular
 https://github.com/nodejs    https://example.com/project`;
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.URL);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.URL);
       expectParseResult(result, 5, 0);
     });
 
@@ -304,7 +303,7 @@ https://github.com/nodejs    https://example.com/project`;
       const bulkText =
         "https://github.com/facebook/react https://github.com/vuejs/vue  https://github.com/angular/angular   https://github.com/nodejs";
 
-      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseBulkUrls(bulkText, dto.ProjectItemType.GITHUB_REPOSITORY);
 
       expectParseResult(result, 3, 1); // nodejs is an owner, not a repo
     });
@@ -341,10 +340,10 @@ https://github.com/nodejs    https://example.com/project`;
     const createInvalidProject = (
       displayName: string,
       error: string,
-      detectedType?: ProjectItemType
+      detectedType?: dto.ProjectItemType
     ): ParsedProjectUrl => ({
       sourceIdentifier: displayName,
-      projectType: ProjectItemType.GITHUB_REPOSITORY,
+      projectType: dto.dto.ProjectItemType.GITHUB_REPOSITORY,
       error,
       detectedType,
     });
@@ -391,10 +390,10 @@ https://github.com/nodejs    https://example.com/project`;
 
   describe("edge cases", () => {
     test.each([
-      ["query parameters", "https://github.com/facebook/react?tab=readme", ProjectItemType.GITHUB_REPOSITORY],
-      ["fragments", "https://github.com/facebook/react#readme", ProjectItemType.GITHUB_REPOSITORY],
-      ["trailing slashes", "https://github.com/nodejs/", ProjectItemType.GITHUB_OWNER],
-      ["special characters", "https://github.com/user-name/repo_name", ProjectItemType.GITHUB_REPOSITORY],
+      ["query parameters", "https://github.com/facebook/react?tab=readme", dto.ProjectItemType.GITHUB_REPOSITORY],
+      ["fragments", "https://github.com/facebook/react#readme", dto.ProjectItemType.GITHUB_REPOSITORY],
+      ["trailing slashes", "https://github.com/nodejs/", dto.ProjectItemType.GITHUB_OWNER],
+      ["special characters", "https://github.com/user-name/repo_name", dto.ProjectItemType.GITHUB_REPOSITORY],
     ])("should handle URLs with %s", (description, url, projectType) => {
       const result = BulkProjectUrlParser.parseSingleUrl(url, projectType);
       expectValidProject(result, projectType);
@@ -402,8 +401,8 @@ https://github.com/nodejs    https://example.com/project`;
 
     test("should handle very long URLs", () => {
       const longUrl = `https://github.com/${"a".repeat(100)}/${"b".repeat(100)}`;
-      const result = BulkProjectUrlParser.parseSingleUrl(longUrl, ProjectItemType.GITHUB_REPOSITORY);
-      expectValidProject(result, ProjectItemType.GITHUB_REPOSITORY);
+      const result = BulkProjectUrlParser.parseSingleUrl(longUrl, dto.ProjectItemType.GITHUB_REPOSITORY);
+      expectValidProject(result, dto.ProjectItemType.GITHUB_REPOSITORY);
     });
   });
 });

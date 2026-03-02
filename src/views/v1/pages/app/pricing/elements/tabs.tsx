@@ -1,10 +1,10 @@
 import React from "react";
-import { PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface TabsProps {
-  value: PlanPriceType;
-  values: PlanPriceType[];
-  onValueChange: (value: PlanPriceType) => void;
+  value: dto.PlanPriceType;
+  values: dto.PlanPriceType[];
+  onValueChange: (value: dto.PlanPriceType) => void;
 }
 
 export function Tabs(props: TabsProps) {
@@ -24,12 +24,12 @@ export function Tabs(props: TabsProps) {
               <button
                 key={priceType}
                 type="button"
-                onClick={() => props.onValueChange(priceType as PlanPriceType)}
+                onClick={() => props.onValueChange(priceType as dto.PlanPriceType)}
                 className={`relative h-full flex items-center justify-center whitespace-nowrap rounded-md max-md:px-6 md:px-10 max-md:py-2 md:py-3 text-sm md:text-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3 ${
                   props.value === priceType ? "text-white" : "bg-clip-text text-transparent hover:text-white"
                 }`}
               >
-                {priceType === PlanPriceType.ANNUALLY ? "Annual" : "Monthly"}
+                {priceType === dto.PlanPriceType.ANNUALLY ? "Annual" : "Monthly"}
                 {" Billing"}
               </button>
             </>

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { AuthContext, AuthContextState } from "./AuthContext";
 import { authBackendAPI } from "src/services";
-import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 import { authHooks } from "src/api";
 
@@ -17,7 +17,7 @@ export function AuthProvider(props: AuthProviderProps) {
   const registerMutation = authHooks.useRegisterMutation();
   const logoutMutation = authHooks.useLogoutMutation();
 
-  const login = async (body: LoginBody, query: LoginQuery, successCallback?: () => void) => {
+  const login = async (body: dto.LoginBody, query: dto.LoginQuery, successCallback?: () => void) => {
     try {
       await loginMutation.mutateAsync({ body, query });
       if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated
@@ -26,7 +26,7 @@ export function AuthProvider(props: AuthProviderProps) {
     }
   };
 
-  const register = async (body: RegisterBody, query: RegisterQuery, successCallback?: () => void) => {
+  const register = async (body: dto.RegisterBody, query: dto.RegisterQuery, successCallback?: () => void) => {
     try {
       await registerMutation.mutateAsync({ body, query });
       if (successCallback) setTimeout(successCallback, 0); // Use setTimeout to ensure state is updated

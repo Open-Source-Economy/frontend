@@ -1,5 +1,5 @@
 import React from "react";
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 export interface Feature {
   text: string;
@@ -21,7 +21,7 @@ export interface FeatureSection {
 }
 
 export interface PlanOption {
-  id: PlanProductType;
+  id: dto.PlanProductType;
   name: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;

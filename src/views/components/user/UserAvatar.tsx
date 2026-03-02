@@ -1,10 +1,10 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "src/views/components/ui/avatar";
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { AuthenticatedUserCompanion } from "src/utils/companions";
 
 interface UserAvatarProps {
-  user: AuthenticatedUser;
+  user: dto.AuthenticatedUser;
   className?: string;
 }
 

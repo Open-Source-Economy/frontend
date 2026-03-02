@@ -2,14 +2,14 @@ import React from "react";
 import { PricingCard } from "./PricingCard";
 import { PlanOption } from "./types";
 import { getPlanButtonState } from "./utils";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PricingCardsGridProps {
   plans: PlanOption[];
-  billingCycle: PlanPriceType;
-  currentPlanTier: PlanProductType | null;
-  currentPlanBilling: PlanPriceType;
-  onPlanClick: (planId: PlanProductType) => void;
+  billingCycle: dto.PlanPriceType;
+  currentPlanTier: dto.PlanProductType | null;
+  currentPlanBilling: dto.PlanPriceType;
+  onPlanClick: (planId: dto.PlanProductType) => void;
 }
 
 export function PricingCardsGrid(props: PricingCardsGridProps) {

@@ -2,19 +2,19 @@ import { FormField } from "src/views/components/ui/forms/form-field";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Input } from "src/views/components/ui/forms/inputs/input";
 import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { CurrencyCompanion } from "src/utils/companions";
 
 interface ServiceRateInputProps {
-  currency: Currency;
+  currency: dto.Currency;
   rate: number;
-  onCurrencyChange: (currency: Currency) => void;
+  onCurrencyChange: (currency: dto.Currency) => void;
   onRateChange: (rate: number) => void;
   error?: string;
 }
 
 // Currency symbol component that renders text instead of icon
-function CurrencySymbol(props: { currency: Currency }) {
+function CurrencySymbol(props: { currency: dto.Currency }) {
   return <span className="text-brand-accent font-medium">{CurrencyCompanion.symbol(props.currency)}</span>;
 }
 
@@ -28,7 +28,7 @@ export function ServiceRateInput(props: ServiceRateInputProps) {
           <SelectField
             options={CurrencyCompanion.selectOptions()}
             value={props.currency}
-            onChange={(value) => props.onCurrencyChange(value as Currency)}
+            onChange={(value) => props.onCurrencyChange(value as dto.Currency)}
           />
         </div>
         <div className="flex-1">

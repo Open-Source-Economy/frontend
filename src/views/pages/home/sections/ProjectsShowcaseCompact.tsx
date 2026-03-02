@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/components/ui/forms/button";
 import { SectionHeader } from "src/views/components/ui/section/section-header";
 import { ArrowRight } from "lucide-react";
-import { ProjectItemSortField, SortOrder } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { NumberUtils } from "src/utils/NumberUtils";
 import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 import { PlatformStats } from "src/views/pages/projects/components/PlatformStats";
@@ -99,13 +99,13 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
     {},
     {
       repositories: {
-        sortBy: ProjectItemSortField.STARGAZERS,
-        sortOrder: SortOrder.DESC,
+        sortBy: dto.ProjectItemSortField.STARGAZERS,
+        sortOrder: dto.SortOrder.DESC,
         limit: maxProjects,
       },
       owners: {
-        sortBy: ProjectItemSortField.FOLLOWERS,
-        sortOrder: SortOrder.DESC,
+        sortBy: dto.ProjectItemSortField.FOLLOWERS,
+        sortOrder: dto.SortOrder.DESC,
         limit: maxProjects,
       },
       urls: {

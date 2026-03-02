@@ -3,7 +3,7 @@ import { useCreditCounter } from "src/views/v1/hooks";
 import { useIssueContext } from "src/views/v1/layout/IssueRoutes";
 import { Audience } from "src/views/Audience";
 import { credit, Credit, CreditUnit } from "src/model";
-import { Priority, ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Header } from "src/views/v1/layout";
 import { SelectFilter } from "./SelectFilter";
 import * as components from "src/views/v1/components/issue";
@@ -53,16 +53,16 @@ const SupportCreateTicket = () => {
   }, [counter, availableCredits]);
 
   const categoryOptions = [
-    { value: ServiceType.SUPPORT, label: "Support" },
-    { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
-    // { value: ServiceType.OPERATION, label: "Operations" },
-    { value: ServiceType.ADVISORY, label: "Consultancy" },
+    { value: dto.ServiceType.SUPPORT, label: "Support" },
+    { value: dto.ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
+    // { value: dto.ServiceType.OPERATION, label: "Operations" },
+    { value: dto.ServiceType.ADVISORY, label: "Consultancy" },
   ];
   const severityOptions = [
-    { value: Priority.LOW, label: "Low" },
-    { value: Priority.MEDIUM, label: "Medium" },
-    { value: Priority.HIGH, label: "High" },
-    { value: Priority.CRITICAL, label: "Critical" },
+    { value: dto.Priority.LOW, label: "Low" },
+    { value: dto.Priority.MEDIUM, label: "Medium" },
+    { value: dto.Priority.HIGH, label: "High" },
+    { value: dto.Priority.CRITICAL, label: "Critical" },
     // TODO: make the compiler complain if an option is mission
   ];
 

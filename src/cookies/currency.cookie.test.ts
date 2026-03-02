@@ -1,7 +1,7 @@
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { currencyCookie } from "./currency.cookie";
 
-describe("CurrencyCookie", () => {
+describe("dto.CurrencyCookie", () => {
   let documentCookies: { [key: string]: string } = {};
 
   beforeEach(() => {
@@ -38,43 +38,43 @@ describe("CurrencyCookie", () => {
 
   describe("get", () => {
     it("should return EUR as default when no cookie is set", () => {
-      expect(currencyCookie.get()).toBe(Currency.EUR);
+      expect(currencyCookie.get()).toBe(dto.Currency.EUR);
     });
 
     it("should return the currency from cookie when valid", () => {
-      documentCookies[currencyCookie.cookieName] = Currency.USD.toLowerCase();
-      expect(currencyCookie.get()).toBe(Currency.USD);
+      documentCookies[currencyCookie.cookieName] = dto.Currency.USD.toLowerCase();
+      expect(currencyCookie.get()).toBe(dto.Currency.USD);
     });
 
     // TODO: Fix this test
     // it('should return default currency when cookie value is invalid', () => {
     //   documentCookies[currencyCookie.cookieName] = 'INVALID_CURRENCY';
-    //   expect(currencyCookie.get()).toBe(Currency.EUR);
+    //   expect(currencyCookie.get()).toBe(dto.Currency.EUR);
     // });
 
     // TODO: Fix this test
     // it('should handle empty cookie string', () => {
     //   document.cookie = '';
-    //   expect(currencyCookie.get()).toBe(Currency.EUR);
+    //   expect(currencyCookie.get()).toBe(dto.Currency.EUR);
     // });
 
     it("should handle empty cookie", () => {
       documentCookies = {};
-      expect(currencyCookie.get()).toBe(Currency.EUR);
+      expect(currencyCookie.get()).toBe(dto.Currency.EUR);
     });
 
     it("should find currency cookie among multiple cookies", () => {
       documentCookies["other"] = "value";
-      documentCookies[currencyCookie.cookieName] = Currency.GBP.toLowerCase();
+      documentCookies[currencyCookie.cookieName] = dto.Currency.GBP.toLowerCase();
       documentCookies["another"] = "test";
-      expect(currencyCookie.get()).toBe(Currency.GBP);
+      expect(currencyCookie.get()).toBe(dto.Currency.GBP);
     });
   });
 
   describe("set", () => {
     it("should set valid currency with correct attributes", () => {
       const spy = jest.spyOn(document, "cookie", "set");
-      currencyCookie.set(Currency.USD);
+      currencyCookie.set(dto.Currency.USD);
 
       const expectedCookieString = `${currencyCookie.cookieName}=usd; path=/; expires=Tue, 14 Jan 2025 11:18:33 GMT; SameSite=Lax; domain=undefined`;
       expect(spy).toHaveBeenCalledWith(expectedCookieString);
@@ -91,7 +91,7 @@ describe("CurrencyCookie", () => {
       });
 
       const spy = jest.spyOn(document, "cookie", "set");
-      currencyCookie.set(Currency.USD);
+      currencyCookie.set(dto.Currency.USD);
 
       const expectedCookieString = `${currencyCookie.cookieName}=usd; path=/; expires=Tue, 14 Jan 2025 11:18:33 GMT; SameSite=Lax; domain=undefined; Secure`;
       expect(spy).toHaveBeenCalledWith(expectedCookieString);
@@ -105,23 +105,23 @@ describe("CurrencyCookie", () => {
 
     it("should throw error for invalid currency", () => {
       expect(() => {
-        currencyCookie.set("INVALID" as Currency);
+        currencyCookie.set("INVALID" as dto.Currency);
       }).toThrow("Invalid currency value:");
     });
 
     it("should be able to overwrite existing currency", () => {
-      currencyCookie.set(Currency.USD);
-      currencyCookie.set(Currency.EUR);
-      expect(currencyCookie.get()).toBe(Currency.EUR);
+      currencyCookie.set(dto.Currency.USD);
+      currencyCookie.set(dto.Currency.EUR);
+      expect(currencyCookie.get()).toBe(dto.Currency.EUR);
     });
   });
 
   describe("remove", () => {
     it("should remove the currency cookie", () => {
-      currencyCookie.set(Currency.USD);
+      currencyCookie.set(dto.Currency.USD);
       currencyCookie.remove();
 
-      expect(currencyCookie.get()).toBe(Currency.EUR);
+      expect(currencyCookie.get()).toBe(dto.Currency.EUR);
       expect(document.cookie).not.toContain("currency=");
     });
 

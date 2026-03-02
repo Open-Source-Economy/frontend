@@ -9,24 +9,24 @@ import { HowCreditsWorkSection } from "./components/HowCreditsWorkSection";
 import { SubscriptionManagement } from "./components/SubscriptionManagement";
 import { plans as mockPlans, SAVINGS_PERCENTAGE } from "./components/plans-data";
 import { stripeHooks } from "src/api";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PricingPageProps {}
 
 // Helper: Check if a plan ID maps to a real product type
-const getRealProductType = (id: any): PlanProductType | undefined => {
-  if (Object.values(PlanProductType).includes(id as PlanProductType)) {
-    return id as PlanProductType;
+const getRealProductType = (id: any): dto.PlanProductType | undefined => {
+  if (Object.values(dto.PlanProductType).includes(id as dto.PlanProductType)) {
+    return id as dto.PlanProductType;
   }
   return undefined;
 };
 
 export function PricingPage(_props: PricingPageProps) {
-  const [billingCycle, setBillingCycle] = useState<PlanPriceType>(PlanPriceType.ANNUALLY);
+  const [billingCycle, setBillingCycle] = useState<dto.PlanPriceType>(dto.PlanPriceType.ANNUALLY);
 
   // TODO: Fetch current user plan state properly
-  const [currentPlanTier, setCurrentPlanTier] = useState<PlanProductType | null>(null);
-  const [currentPlanBilling, setCurrentPlanBilling] = useState<PlanPriceType>(PlanPriceType.MONTHLY);
+  const [currentPlanTier, setCurrentPlanTier] = useState<dto.PlanProductType | null>(null);
+  const [currentPlanBilling, setCurrentPlanBilling] = useState<dto.PlanPriceType>(dto.PlanPriceType.MONTHLY);
 
   // Real Data Hooks
   const { data: realPlansData } = stripeHooks.usePlansQuery({}, {});
@@ -40,7 +40,7 @@ export function PricingPage(_props: PricingPageProps) {
     }
   }, [userPlan]);
 
-  const handlePlanClick = (planId: PlanProductType) => {
+  const handlePlanClick = (planId: dto.PlanProductType) => {
     console.log("Plan selected:", planId);
     // TODO: Implement checkout redirection logic
   };
@@ -60,11 +60,11 @@ export function PricingPage(_props: PricingPageProps) {
 
         return {
           ...plan,
-          monthlyPrice: realPrices["usd"]?.[PlanPriceType.MONTHLY]?.unitAmount
-            ? realPrices["usd"][PlanPriceType.MONTHLY].unitAmount / 100
+          monthlyPrice: realPrices["usd"]?.[dto.PlanPriceType.MONTHLY]?.unitAmount
+            ? realPrices["usd"][dto.PlanPriceType.MONTHLY].unitAmount / 100
             : plan.monthlyPrice,
-          annualPrice: realPrices["usd"]?.[PlanPriceType.ANNUALLY]?.unitAmount
-            ? realPrices["usd"][PlanPriceType.ANNUALLY].unitAmount / 100
+          annualPrice: realPrices["usd"]?.[dto.PlanPriceType.ANNUALLY]?.unitAmount
+            ? realPrices["usd"][dto.PlanPriceType.ANNUALLY].unitAmount / 100
             : plan.annualPrice,
         };
       }

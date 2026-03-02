@@ -1,13 +1,13 @@
 import React from "react";
-import { Issue, ManagedIssueState } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Button, ExternalLink } from "src/views/v1/components/index";
 import { Link } from "@tanstack/react-router";
 import { Audience } from "src/views/index";
 
 interface ActionProps {
-  issue: Issue;
+  issue: dto.Issue;
   audience: Audience;
-  state?: ManagedIssueState;
+  state?: dto.ManagedIssueState;
   successfullyFunded: boolean;
 }
 
@@ -36,7 +36,7 @@ export function Action(props: ActionProps) {
 
   if (!props.state) {
     return actOnIssueButton;
-  } else if (props.state === ManagedIssueState.OPEN) {
+  } else if (props.state === dto.ManagedIssueState.OPEN) {
     return (
       <>
         {actOnIssueButton}
@@ -57,7 +57,7 @@ export function Action(props: ActionProps) {
         )}
       </>
     );
-  } else if (props.state === ManagedIssueState.REJECTED || props.state === ManagedIssueState.SOLVED) {
+  } else if (props.state === dto.ManagedIssueState.REJECTED || props.state === dto.ManagedIssueState.SOLVED) {
     return (
       <div>
         <h3 className="px-md-5 italic underline">Closed</h3>

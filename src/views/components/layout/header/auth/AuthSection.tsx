@@ -5,13 +5,13 @@ import { AuthButtons } from "./AuthButtons";
 import { TokenDisplay } from "../../../user/TokenDisplay";
 import { MobileUserMenu } from "../user-menu/MobileUserMenu";
 
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { NavigationLink, UserMenuNavigation } from "src/types/navigation";
 import { isVisible } from "src/utils/featureVisibility";
 
 interface AuthSectionProps {
   isLoading: boolean;
-  authenticatedUser: AuthenticatedUser | null;
+  authenticatedUser: dto.AuthenticatedUser | null;
   login: NavigationLink;
   cta: NavigationLink;
   variant: "desktop" | "mobile";

@@ -1,7 +1,7 @@
 import Decimal from "decimal.js";
 import { useEffect, useState } from "react";
 import { Button } from "src/views/v1/components";
-import { FundIssueBody, FundIssueParams, FundIssueQuery, IssueId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { credit, Credit, CreditUnit } from "src/model";
 import { ApiError } from "src/utils/error/ApiError";
 import { useCreditCounter } from "src/views/v1/hooks";
@@ -12,7 +12,7 @@ import { fundingHooks } from "src/api";
 
 interface CreditFundingProps {
   onIssueFundingSuccess: () => void;
-  issueId: IssueId;
+  issueId: dto.IssueId;
 }
 
 export function CreditFunding(props: CreditFundingProps) {
@@ -39,16 +39,16 @@ export function CreditFunding(props: CreditFundingProps) {
     if (!counter || counter.amount.isZero()) {
       setError("Please enter a valid amount.");
     } else if (credit.lessThanOrEqualTo(counter, availableCredits)) {
-      const params: FundIssueParams = {
+      const params: dto.FundIssueParams = {
         owner: props.issueId.repositoryId.ownerId.login,
         repo: props.issueId.repositoryId.name,
         number: props.issueId.number,
       };
-      const body: FundIssueBody = {
+      const body: dto.FundIssueBody = {
         companyId: auth.authInfo?.company?.id,
         creditAmount: credit.toMinutes(counter),
       };
-      const query: FundIssueQuery = {};
+      const query: dto.FundIssueQuery = {};
       try {
         await fundIssueMutation.mutateAsync({ params, body, query });
         //   TODO: reload

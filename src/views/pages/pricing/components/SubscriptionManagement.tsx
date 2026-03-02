@@ -1,11 +1,11 @@
 import React from "react";
 import { SubscriptionCard } from "./SubscriptionCard";
 import { getActiveBenefits } from "./data/subscriptionBenefits";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionManagementProps {
-  currentPlanTier: PlanProductType | null;
-  currentPlanBilling: PlanPriceType | null;
+  currentPlanTier: dto.PlanProductType | null;
+  currentPlanBilling: dto.PlanPriceType | null;
 }
 
 export function SubscriptionManagement(props: SubscriptionManagementProps) {

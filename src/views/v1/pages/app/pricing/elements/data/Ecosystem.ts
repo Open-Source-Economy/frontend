@@ -1,4 +1,4 @@
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { PlanFeature } from "./data";
 
 const basic: PlanFeature = {
@@ -8,20 +8,20 @@ const basic: PlanFeature = {
   included: true,
 };
 
-export const ecosystems: Record<PlanProductType, PlanFeature> = {
-  [PlanProductType.INDIVIDUAL_PLAN]: {
+export const ecosystems: Record<dto.PlanProductType, PlanFeature> = {
+  [dto.PlanProductType.INDIVIDUAL_PLAN]: {
     ...basic,
     included: true,
   },
-  [PlanProductType.START_UP_PLAN]: {
+  [dto.PlanProductType.START_UP_PLAN]: {
     ...basic,
     included: true,
   },
-  [PlanProductType.SCALE_UP_PLAN]: {
+  [dto.PlanProductType.SCALE_UP_PLAN]: {
     ...basic,
     included: true,
   },
-  [PlanProductType.ENTERPRISE_PLAN]: {
+  [dto.PlanProductType.ENTERPRISE_PLAN]: {
     ...basic,
     included: true,
   },

@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
-import { UserRole } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { config, Env } from "src/utils";
 import { PageTransition } from "src/views/components/ui/page-transition";
 
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/admin")({
 
 function AdminLayout() {
   const auth = useAuth();
-  const allowed = auth.authInfo?.user.role === UserRole.SUPER_ADMIN;
+  const allowed = auth.authInfo?.user.role === dto.UserRole.SUPER_ADMIN;
 
   if (config.api.useMock || config.env !== Env.Production) {
     return <Outlet />;

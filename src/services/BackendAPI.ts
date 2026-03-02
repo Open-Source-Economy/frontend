@@ -1,5 +1,4 @@
 import * as dto from "@open-source-economy/api-types";
-import { FinancialIssue } from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
 import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
 import { ApiError } from "src/utils/error/ApiError";
@@ -23,9 +22,12 @@ export function getBackendAPI(): BackendAPI {
 export interface BackendAPI {
   /* Getters */
 
-  getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError>;
+  getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<dto.FinancialIssue | ApiError>;
 
-  getAllFinancialIssues(params: dto.GetIssuesParams, query: dto.GetIssueQuery): Promise<FinancialIssue[] | ApiError>;
+  getAllFinancialIssues(
+    params: dto.GetIssuesParams,
+    query: dto.GetIssueQuery
+  ): Promise<dto.FinancialIssue[] | ApiError>;
 
   getAvailableCredits(
     params: dto.GetAvailableCreditsParams,
@@ -132,7 +134,10 @@ class BackendAPIImpl implements BackendAPI {
     this.api = api;
   }
 
-  async getFinancialIssue(params: dto.GetIssueParams, query: dto.GetIssueQuery): Promise<FinancialIssue | ApiError> {
+  async getFinancialIssue(
+    params: dto.GetIssueParams,
+    query: dto.GetIssueQuery
+  ): Promise<dto.FinancialIssue | ApiError> {
     const response = await handleError<dto.GetIssueResponse>(
       () =>
         this.api.get(`${config.api.url}/projects/repos/${params.owner}/${params.repo}/issues/${params.number}`, {
@@ -148,7 +153,7 @@ class BackendAPIImpl implements BackendAPI {
   async getAllFinancialIssues(
     params: dto.GetIssuesParams,
     query: dto.GetIssueQuery
-  ): Promise<FinancialIssue[] | ApiError> {
+  ): Promise<dto.FinancialIssue[] | ApiError> {
     const response = await handleError<dto.GetIssuesResponse>(
       () => this.api.get(`${config.api.url}/projects/all-financial-issues`, { withCredentials: true }),
       "getAllFinancialIssues"

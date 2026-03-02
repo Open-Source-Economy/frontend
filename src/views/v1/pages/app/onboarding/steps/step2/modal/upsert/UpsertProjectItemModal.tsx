@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
 import { Dialog, DialogContent } from "src/views/components/ui/dialog";
-import { DeveloperProjectItemEntry, DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
 import { GenericInputRef } from "../../../../../../../components/form";
 import { ModalHeader } from "./components/ModalHeader";
@@ -14,8 +13,8 @@ import { onboardingHooks } from "src/api";
 interface UpsertProjectItemModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  entry: DeveloperProjectItemEntry | null;
-  onUpsert: (projectItem: DeveloperProjectItemEntry) => void;
+  entry: dto.DeveloperProjectItemEntry | null;
+  onUpsert: (projectItem: dto.DeveloperProjectItemEntry) => void;
 }
 
 export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
@@ -24,12 +23,12 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [projectItemData, setProjectItemData] = useState<[ProjectItemType, SourceIdentifier] | null>(null);
 
   // Contribution-related states
-  const [selectedRole, setSelectedRole] = useState<DeveloperRoleType | null>(
+  const [selectedRole, setSelectedRole] = useState<dto.DeveloperRoleType | null>(
     props.entry && props.entry.developerProjectItem.roles && props.entry.developerProjectItem.roles.length > 0
       ? props.entry.developerProjectItem.roles[0]
       : null
   );
-  const [selectedMergeRights, setSelectedMergeRights] = useState<MergeRightsType | null>(
+  const [selectedMergeRights, setSelectedMergeRights] = useState<dto.MergeRightsType | null>(
     props.entry &&
       props.entry.developerProjectItem.mergeRights &&
       props.entry.developerProjectItem.mergeRights.length > 0

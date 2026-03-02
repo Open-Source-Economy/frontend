@@ -3,10 +3,10 @@ import { Outlet } from "@tanstack/react-router";
 import { PageNotFound } from "../pages/PageNotFound";
 
 import { useRepositoryFromParams } from "../hooks";
-import { RepositoryId } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 type RepositoryContext = {
-  repositoryId: RepositoryId;
+  repositoryId: dto.RepositoryId;
 };
 
 const RepositoryContextReact = createContext<RepositoryContext | null>(null);

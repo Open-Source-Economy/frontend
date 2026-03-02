@@ -1,9 +1,8 @@
-import type { ProjectDeveloperProfile } from "@open-source-economy/api-types";
-import { VerificationStatus } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 // TODO: this needs to be cleaned up and optimized
 export namespace ProjectDeveloperProfileCompanion {
-  export function getStableIdentifier(developer: ProjectDeveloperProfile): string | null {
+  export function getStableIdentifier(developer: dto.ProjectDeveloperProfile): string | null {
     return (
       developer.profileEntry?.profile?.id ??
       developer.profileEntry?.owner?.id?.login ??
@@ -13,7 +12,7 @@ export namespace ProjectDeveloperProfileCompanion {
     );
   }
 
-  export function getDisplayName(developer: ProjectDeveloperProfile): string {
+  export function getDisplayName(developer: dto.ProjectDeveloperProfile): string {
     return (
       developer.profileEntry?.owner?.name ??
       developer.profileEntry?.user?.name ??
@@ -23,18 +22,19 @@ export namespace ProjectDeveloperProfileCompanion {
     );
   }
 
-  export function getAvatarUrl(developer: ProjectDeveloperProfile, _loginFallback?: string): string | undefined {
+  export function getAvatarUrl(developer: dto.ProjectDeveloperProfile, _loginFallback?: string): string | undefined {
     return developer.profileEntry?.owner?.displayAvatarUrl;
   }
 
-  export function getPrimaryProject(developer: ProjectDeveloperProfile) {
+  export function getPrimaryProject(developer: dto.ProjectDeveloperProfile) {
     return developer.project;
   }
 
-  export function isVerified(developer: ProjectDeveloperProfile): boolean {
+  export function isVerified(developer: dto.ProjectDeveloperProfile): boolean {
     return (
-      developer.profileEntry?.verificationRecords?.some((record) => record.status === VerificationStatus.APPROVED) ??
-      false
+      developer.profileEntry?.verificationRecords?.some(
+        (record) => record.status === dto.VerificationStatus.APPROVED
+      ) ?? false
     );
   }
 }

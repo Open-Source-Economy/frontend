@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { fundingService } from "src/services";
 import * as model from "@open-source-economy/api-types";
-import { GetIssueParams, GetIssueQuery } from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 
 export function useFinancialIssue(issueId: model.IssueId) {
@@ -10,12 +9,12 @@ export function useFinancialIssue(issueId: model.IssueId) {
 
   const getFinancialIssue = async () => {
     try {
-      const params: GetIssueParams = {
+      const params: model.GetIssueParams = {
         owner: issueId.repositoryId.ownerId.login,
         repo: issueId.repositoryId.name,
         number: issueId.number,
       };
-      const query: GetIssueQuery = {};
+      const query: model.GetIssueQuery = {};
       const financialIssue = await fundingService.getFinancialIssue(params, query);
       if (financialIssue instanceof ApiError) setError(financialIssue);
       else setFinancialIssue(financialIssue);

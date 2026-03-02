@@ -1,5 +1,5 @@
 import React from "react";
-import type { ProjectDeveloperProfile } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SectionHeader } from "../../../components/ui/section/section-header";
 import { Button } from "../../../components/ui/forms";
 import { MaintainerCard } from "./components/MaintainerCard";
@@ -8,7 +8,7 @@ import { ProjectDeveloperProfileCompanion } from "../../../../utils/companions/P
 const DEFAULT_MAINTAINER_DISPLAY_COUNT = 3;
 
 interface MaintainersSectionProps {
-  developers: ProjectDeveloperProfile[];
+  developers: dto.ProjectDeveloperProfile[];
   projectName: string;
   showAllMaintainers: boolean;
   onToggleShowAll: () => void;

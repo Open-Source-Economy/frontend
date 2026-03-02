@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { UserProfileSection } from "./UserProfileSection";
 import { UserMenuNavigation } from "src/types/navigation";
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface MobileUserMenuProps {
-  authenticatedUser: AuthenticatedUser;
+  authenticatedUser: dto.AuthenticatedUser;
   menuConfig: UserMenuNavigation;
   onItemClick?: () => void;
 }

@@ -1,12 +1,12 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { PreferredCurrency } from "../utils/PreferredCurrency";
 import { useAuth } from "../views/auth/AuthContext";
 
 interface CurrencyContextType {
-  preferredCurrency: Currency;
-  setPreferredCurrency: (currency: Currency) => void;
+  preferredCurrency: dto.Currency;
+  setPreferredCurrency: (currency: dto.Currency) => void;
   showCurrencyModal: boolean;
   setShowCurrencyModal: (show: boolean) => void;
 }
@@ -15,14 +15,14 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 
 export function CurrencyProvider(props: { children: React.ReactNode }) {
   const auth = useAuth();
-  const [preferredCurrency, setPreferredCurrency] = useState<Currency>(PreferredCurrency.get(auth));
+  const [preferredCurrency, setPreferredCurrency] = useState<dto.Currency>(PreferredCurrency.get(auth));
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
 
   useEffect(() => {
     setPreferredCurrency(PreferredCurrency.get(auth));
   }, [auth]);
 
-  const handleSetPreferredCurrency = (currency: Currency) => {
+  const handleSetPreferredCurrency = (currency: dto.Currency) => {
     setPreferredCurrency(currency);
     PreferredCurrency.set(auth, currency);
   };

@@ -1,26 +1,26 @@
 import React from "react";
-import { ProjectItemType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { ValidationError } from "src/views/components/ui/forms/validation-requirements";
 import { ExternalLink } from "lucide-react";
 import { Input } from "src/views/components/ui/forms";
 
 interface ProjectUrlInputProps {
-  projectType: ProjectItemType;
+  projectType: dto.ProjectItemType;
   value: string;
   onChange: (value: string) => void;
   error?: string | ValidationError;
 }
 
-const getUrlConfig = (projectType: ProjectItemType) => {
+const getUrlConfig = (projectType: dto.ProjectItemType) => {
   switch (projectType) {
-    case ProjectItemType.GITHUB_REPOSITORY:
+    case dto.ProjectItemType.GITHUB_REPOSITORY:
       return {
         label: "GitHub Repository URL",
         placeholder: "https://github.com/username/repository",
         hint: "e.g., https://github.com/facebook/react",
       };
-    case ProjectItemType.GITHUB_OWNER:
+    case dto.ProjectItemType.GITHUB_OWNER:
       return {
         label: "GitHub Organization URL",
         placeholder: "https://github.com/organization",

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step2State } from "../../OnboardingDataSteps";
 import { UpsertProjectItemModal } from "./modal/upsert/UpsertProjectItemModal";
@@ -17,9 +16,9 @@ function Step2(props: Step2Props) {
   const [showUpsertModal, setShowUpsertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const [projects, setProjects] = useState<DeveloperProjectItemEntry[]>(props.state.projects);
-  const [editingProject, setEditingProject] = useState<DeveloperProjectItemEntry | null>(null);
-  const [deletingProject, setDeletingProject] = useState<DeveloperProjectItemEntry | null>(null);
+  const [projects, setProjects] = useState<dto.DeveloperProjectItemEntry[]>(props.state.projects);
+  const [editingProject, setEditingProject] = useState<dto.DeveloperProjectItemEntry | null>(null);
+  const [deletingProject, setDeletingProject] = useState<dto.DeveloperProjectItemEntry | null>(null);
 
   const removeProjectItemMutation = onboardingHooks.useRemoveProjectItemMutation();
 
@@ -29,15 +28,15 @@ function Step2(props: Step2Props) {
   };
 
   // Function to handle editing an existing project
-  const handleEditProject = (entry: DeveloperProjectItemEntry) => {
+  const handleEditProject = (entry: dto.DeveloperProjectItemEntry) => {
     setEditingProject(entry);
     setShowUpsertModal(true);
   };
 
   // Callback from UpsertProjectItemModal after an item is added or updated
-  const handleUpsertComplete = (newOrUpdatedProject: DeveloperProjectItemEntry) => {
+  const handleUpsertComplete = (newOrUpdatedProject: dto.DeveloperProjectItemEntry) => {
     setShowUpsertModal(false);
-    let updatedProjects: DeveloperProjectItemEntry[];
+    let updatedProjects: dto.DeveloperProjectItemEntry[];
 
     if (editingProject) {
       updatedProjects = projects.map((entry) =>
@@ -50,7 +49,7 @@ function Step2(props: Step2Props) {
     props.updateState({ projects: updatedProjects });
   };
 
-  const handleShowDeleteModal = (project: DeveloperProjectItemEntry) => {
+  const handleShowDeleteModal = (project: dto.DeveloperProjectItemEntry) => {
     setDeletingProject(project);
     setShowDeleteModal(true);
   };

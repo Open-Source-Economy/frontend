@@ -1,15 +1,15 @@
 import React from "react";
 import { PlanOption } from "./types";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 import { isVisible } from "../../../../utils/featureVisibility";
 
 interface DevControlsProps {
-  currentPlanTier: PlanProductType | null;
-  currentPlanBilling: PlanPriceType;
+  currentPlanTier: dto.PlanProductType | null;
+  currentPlanBilling: dto.PlanPriceType;
   plans: PlanOption[];
-  onPlanTierChange: (tier: PlanProductType | null) => void;
-  onPlanBillingChange: (billing: PlanPriceType) => void;
+  onPlanTierChange: (tier: dto.PlanProductType | null) => void;
+  onPlanBillingChange: (billing: dto.PlanPriceType) => void;
 }
 
 export function DevControls(props: DevControlsProps) {
@@ -26,7 +26,7 @@ export function DevControls(props: DevControlsProps) {
               value={props.currentPlanTier || "none"}
               onChange={(e) => {
                 const val = e.target.value;
-                props.onPlanTierChange(val === "none" ? null : (val as PlanProductType));
+                props.onPlanTierChange(val === "none" ? null : (val as dto.PlanProductType));
               }}
               className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
             >
@@ -43,11 +43,11 @@ export function DevControls(props: DevControlsProps) {
               <label className="text-sm text-yellow-900">Current Billing:</label>
               <select
                 value={props.currentPlanBilling}
-                onChange={(e) => props.onPlanBillingChange(e.target.value as PlanPriceType)}
+                onChange={(e) => props.onPlanBillingChange(e.target.value as dto.PlanPriceType)}
                 className="px-2 py-1 border border-yellow-400 rounded bg-white text-sm"
               >
-                <option value={PlanPriceType.MONTHLY}>Monthly</option>
-                <option value={PlanPriceType.ANNUALLY}>Annual</option>
+                <option value={dto.PlanPriceType.MONTHLY}>Monthly</option>
+                <option value={dto.PlanPriceType.ANNUALLY}>Annual</option>
               </select>
             </div>
           )}

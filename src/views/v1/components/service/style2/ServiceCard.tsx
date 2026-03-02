@@ -1,11 +1,11 @@
 import React from "react";
 import check from "src/assets/v1/checkmark.png";
 import { Link } from "@tanstack/react-router";
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { displayedServices } from "./DisplayedService";
 
 interface ServiceProps {
-  serviceType: ServiceType;
+  serviceType: dto.ServiceType;
   to?: string;
 }
 

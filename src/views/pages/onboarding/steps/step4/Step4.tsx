@@ -4,7 +4,6 @@ import { OnboardingStepProps } from "../OnboardingStepProps";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { Currency, OpenToOtherOpportunityType, PreferenceType } from "@open-source-economy/api-types";
 import { Step4State } from "../../OnboardingDataSteps";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { BrandModalSection } from "src/views/components/ui/brand-modal";
@@ -19,7 +18,7 @@ import { onboardingStep4Schema } from "src/views/components/ui/forms/schemas";
 import { useState } from "react";
 
 export interface Step4AvailabilityRateProps extends OnboardingStepProps<Step4State> {
-  servicesPreference?: PreferenceType | null;
+  servicesPreference?: dto.PreferenceType | null;
 }
 
 export function Step4(props: Step4AvailabilityRateProps) {
@@ -36,9 +35,9 @@ export function Step4(props: Step4AvailabilityRateProps) {
     : null;
 
   // Check if user selected "Yes" to Service Provider
-  const isServiceProvider = props.servicesPreference === PreferenceType.YES;
+  const isServiceProvider = props.servicesPreference === dto.PreferenceType.YES;
   // Check if user is not interested in being a service provider at all
-  const skipStep5 = props.servicesPreference === PreferenceType.NOT_INTERESTED;
+  const skipStep5 = props.servicesPreference === dto.PreferenceType.NOT_INTERESTED;
 
   const form = useZodForm(onboardingStep4Schema, {
     defaultValues: {
@@ -70,9 +69,9 @@ export function Step4(props: Step4AvailabilityRateProps) {
   // Convert OpenToOtherOpportunityType to boolean | null for BiggerOpportunitiesRadioGroup
   const openToOtherValue = form.watch("openToOtherOpportunity");
   const biggerOpportunitiesValue = useMemo(() => {
-    if (openToOtherValue === OpenToOtherOpportunityType.YES) return true;
-    if (openToOtherValue === OpenToOtherOpportunityType.NO) return false;
-    if (openToOtherValue === OpenToOtherOpportunityType.MAYBE) return null;
+    if (openToOtherValue === dto.OpenToOtherOpportunityType.YES) return true;
+    if (openToOtherValue === dto.OpenToOtherOpportunityType.NO) return false;
+    if (openToOtherValue === dto.OpenToOtherOpportunityType.MAYBE) return null;
     return undefined;
   }, [openToOtherValue]);
 
@@ -82,8 +81,8 @@ export function Step4(props: Step4AvailabilityRateProps) {
       props.updateState({
         hourlyWeeklyCommitment: values.hourlyWeeklyCommitment ?? undefined,
         hourlyRate: values.hourlyRate ?? undefined,
-        currency: (values.currency as Currency) || null,
-        openToOtherOpportunity: (values.openToOtherOpportunity as OpenToOtherOpportunityType) || undefined,
+        currency: (values.currency as dto.Currency) || null,
+        openToOtherOpportunity: (values.openToOtherOpportunity as dto.OpenToOtherOpportunityType) || undefined,
         hourlyWeeklyCommitmentComment: values.hourlyWeeklyCommitmentComment || undefined,
         hourlyRateComment: values.hourlyRateComment || undefined,
         openToOtherOpportunityComment: values.openToOtherOpportunityComment || undefined,
@@ -102,7 +101,7 @@ export function Step4(props: Step4AvailabilityRateProps) {
         openToOtherOpportunity: values.openToOtherOpportunity as OpenToOtherOpportunityType,
         openToOtherOpportunityComment: values.openToOtherOpportunityComment || undefined,
         hourlyRate: isServiceProvider ? values.hourlyRate! : undefined,
-        currency: isServiceProvider ? (values.currency as Currency) : undefined,
+        currency: isServiceProvider ? (values.currency as dto.Currency) : undefined,
         hourlyRateComment: values.hourlyRateComment || undefined,
       };
       const query: dto.SetDeveloperServiceSettingsQuery = {};
@@ -149,10 +148,10 @@ export function Step4(props: Step4AvailabilityRateProps) {
 
   // Handle bigger opportunities change
   const handleBiggerOpportunitiesChange = (value: boolean | null) => {
-    let opType: OpenToOtherOpportunityType;
-    if (value === true) opType = OpenToOtherOpportunityType.YES;
-    else if (value === false) opType = OpenToOtherOpportunityType.NO;
-    else opType = OpenToOtherOpportunityType.MAYBE;
+    let opType: dto.OpenToOtherOpportunityType;
+    if (value === true) opType = dto.OpenToOtherOpportunityType.YES;
+    else if (value === false) opType = dto.OpenToOtherOpportunityType.NO;
+    else opType = dto.OpenToOtherOpportunityType.MAYBE;
     form.setValue("openToOtherOpportunity", opType, { shouldValidate: form.formState.isSubmitted });
   };
 
@@ -208,9 +207,9 @@ export function Step4(props: Step4AvailabilityRateProps) {
             >
               <div className="space-y-6">
                 <ServiceRateInput
-                  currency={(form.watch("currency") as Currency) || Currency.USD}
+                  currency={(form.watch("currency") as dto.Currency) || dto.Currency.USD}
                   rate={form.watch("hourlyRate") || 0}
-                  onCurrencyChange={(value: Currency) =>
+                  onCurrencyChange={(value: dto.Currency) =>
                     form.setValue("currency", value, { shouldValidate: form.formState.isSubmitted })
                   }
                   onRateChange={(value: number) =>

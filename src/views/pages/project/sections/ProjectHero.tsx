@@ -3,12 +3,12 @@ import { Github } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "../../../components/ui/forms/external-link";
-import type { ProjectItemDetails } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
 import { laurianeCalLink } from "../../../v1/data";
 
 interface ProjectHeroProps {
-  project: ProjectItemDetails;
+  project: dto.ProjectItemDetails;
 }
 
 export function ProjectHero(props: ProjectHeroProps) {

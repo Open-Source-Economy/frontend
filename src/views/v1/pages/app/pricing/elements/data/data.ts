@@ -1,4 +1,4 @@
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { communityRecognitions } from "./communityRecognition";
 import { supporterSpotlights } from "./SupporterSpotlight";
 import { openSourceImpacts } from "./OpenSourceImpact";
@@ -33,54 +33,54 @@ export type PlanDescription = {
 };
 
 // Factorized plans definition
-export const planDescriptions: Record<PlanProductType, PlanDescription> = {
-  [PlanProductType.INDIVIDUAL_PLAN]: {
+export const planDescriptions: Record<dto.PlanProductType, PlanDescription> = {
+  [dto.PlanProductType.INDIVIDUAL_PLAN]: {
     name: "Individual",
     description: "Start building with expert backing",
     current: true,
     features: [
-      serviceCredits[PlanProductType.INDIVIDUAL_PLAN],
-      communityRecognitions[PlanProductType.INDIVIDUAL_PLAN],
-      supporterSpotlights[PlanProductType.INDIVIDUAL_PLAN],
-      openSourceImpacts[PlanProductType.INDIVIDUAL_PLAN],
-      ecosystems[PlanProductType.INDIVIDUAL_PLAN],
+      serviceCredits[dto.PlanProductType.INDIVIDUAL_PLAN],
+      communityRecognitions[dto.PlanProductType.INDIVIDUAL_PLAN],
+      supporterSpotlights[dto.PlanProductType.INDIVIDUAL_PLAN],
+      openSourceImpacts[dto.PlanProductType.INDIVIDUAL_PLAN],
+      ecosystems[dto.PlanProductType.INDIVIDUAL_PLAN],
     ],
   },
 
-  [PlanProductType.START_UP_PLAN]: {
+  [dto.PlanProductType.START_UP_PLAN]: {
     name: "Start-up",
     description: "Scale confidently with expert support",
     features: [
-      serviceCredits[PlanProductType.START_UP_PLAN],
-      communityRecognitions[PlanProductType.START_UP_PLAN],
-      supporterSpotlights[PlanProductType.START_UP_PLAN],
-      openSourceImpacts[PlanProductType.START_UP_PLAN],
-      ecosystems[PlanProductType.START_UP_PLAN],
+      serviceCredits[dto.PlanProductType.START_UP_PLAN],
+      communityRecognitions[dto.PlanProductType.START_UP_PLAN],
+      supporterSpotlights[dto.PlanProductType.START_UP_PLAN],
+      openSourceImpacts[dto.PlanProductType.START_UP_PLAN],
+      ecosystems[dto.PlanProductType.START_UP_PLAN],
     ],
   },
 
-  [PlanProductType.SCALE_UP_PLAN]: {
+  [dto.PlanProductType.SCALE_UP_PLAN]: {
     name: "Scale-up",
     description: "Grow faster with enterprise support",
     featured: true,
     features: [
-      serviceCredits[PlanProductType.SCALE_UP_PLAN],
-      communityRecognitions[PlanProductType.SCALE_UP_PLAN],
-      supporterSpotlights[PlanProductType.SCALE_UP_PLAN],
-      openSourceImpacts[PlanProductType.SCALE_UP_PLAN],
-      ecosystems[PlanProductType.SCALE_UP_PLAN],
+      serviceCredits[dto.PlanProductType.SCALE_UP_PLAN],
+      communityRecognitions[dto.PlanProductType.SCALE_UP_PLAN],
+      supporterSpotlights[dto.PlanProductType.SCALE_UP_PLAN],
+      openSourceImpacts[dto.PlanProductType.SCALE_UP_PLAN],
+      ecosystems[dto.PlanProductType.SCALE_UP_PLAN],
     ],
   },
 
-  [PlanProductType.ENTERPRISE_PLAN]: {
+  [dto.PlanProductType.ENTERPRISE_PLAN]: {
     name: "Enterprise",
     description: "Power mission-critical success",
     features: [
-      serviceCredits[PlanProductType.ENTERPRISE_PLAN],
-      communityRecognitions[PlanProductType.ENTERPRISE_PLAN],
-      supporterSpotlights[PlanProductType.ENTERPRISE_PLAN],
-      openSourceImpacts[PlanProductType.ENTERPRISE_PLAN],
-      ecosystems[PlanProductType.ENTERPRISE_PLAN],
+      serviceCredits[dto.PlanProductType.ENTERPRISE_PLAN],
+      communityRecognitions[dto.PlanProductType.ENTERPRISE_PLAN],
+      supporterSpotlights[dto.PlanProductType.ENTERPRISE_PLAN],
+      openSourceImpacts[dto.PlanProductType.ENTERPRISE_PLAN],
+      ecosystems[dto.PlanProductType.ENTERPRISE_PLAN],
     ],
   },
 };

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { NumberUtils } from "../../../../../../utils/NumberUtils";
 
 interface ProgressProps {
-  preferredCurrency: Currency;
-  raisedAmount: Record<Currency, number>; // in cents, in the currency of the price
-  targetAmount: Record<Currency, number>; // in cents, in the currency of the price
+  preferredCurrency: dto.Currency;
+  raisedAmount: Record<dto.Currency, number>; // in cents, in the currency of the price
+  targetAmount: Record<dto.Currency, number>; // in cents, in the currency of the price
   numberOfBackers?: number;
   numberOfDaysLeft?: number;
 }

@@ -1,13 +1,13 @@
 import React from "react";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { AddProjectButton } from "./AddProjectButton";
 import { ProjectListTable } from "./ProjectListTable";
 
 interface ProjectsSectionProps {
-  projects: DeveloperProjectItemEntry[];
+  projects: dto.DeveloperProjectItemEntry[];
   onAddProject: () => void;
-  onEditProject: (project: DeveloperProjectItemEntry) => void;
-  onShowDeleteModal: (project: DeveloperProjectItemEntry) => void;
+  onEditProject: (project: dto.DeveloperProjectItemEntry) => void;
+  onShowDeleteModal: (project: dto.DeveloperProjectItemEntry) => void;
   isLoading: boolean;
 }
 

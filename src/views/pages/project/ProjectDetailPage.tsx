@@ -9,8 +9,7 @@ import { buttonVariants } from "../../components/ui/forms";
 import { ExternalLink } from "../../components/ui/forms/external-link";
 import { MaintainersSection } from "./sections/MaintainersSection";
 import { ProjectServiceOffering, ServiceCategoryCard, ServiceOffering } from "./components/ServiceCategoryCard";
-import type * as dto from "@open-source-economy/api-types";
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "../../components/ui/state/loading-state";
 import { ServerErrorAlert } from "../../components/ui/state/ServerErrorAlert";
 import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
@@ -24,12 +23,12 @@ import { FundDistributionVisualization } from "./sections/FundDistributionVisual
 import { isVisible } from "../../../utils/featureVisibility";
 import { FeaturedVendors } from "../home/sections/vendors/FeaturedVendors";
 
-type ServiceOfferingByCategory = Map<ServiceType, ServiceOffering[]>;
+type ServiceOfferingByCategory = Map<dto.ServiceType, ServiceOffering[]>;
 
 export function ProjectDetailPage() {
   const params = useParams({ strict: false }) as { ownerParam?: string; repoParam?: string };
   const [showAllMaintainers, setShowAllMaintainers] = useState(false);
-  const [expandedServiceCategories, setExpandedServiceCategories] = useState<Set<ServiceType>>(new Set());
+  const [expandedServiceCategories, setExpandedServiceCategories] = useState<Set<dto.ServiceType>>(new Set());
 
   const owner = params.ownerParam;
   const repo = params.repoParam;
@@ -66,7 +65,7 @@ export function ProjectDetailPage() {
     [projectDetails, projectName]
   );
 
-  const toggleServiceCategory = (categoryId: ServiceType) => {
+  const toggleServiceCategory = (categoryId: dto.ServiceType) => {
     setExpandedServiceCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {

@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
-import { ProjectCategory } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { FormField } from "src/views/components/ui/forms/form-field";
 import { ChipInput } from "src/views/components/ui/chip-input";
 import { ProjectCategoryCompanion } from "src/utils/companions";
 
 interface CategoryInputProps {
-  predefinedCategories: ProjectCategory[];
+  predefinedCategories: dto.ProjectCategory[];
   customCategories: string[];
-  onChange: (predefined: ProjectCategory[], custom: string[]) => void;
+  onChange: (predefined: dto.ProjectCategory[], custom: string[]) => void;
   label?: string;
   hint?: string;
 }
@@ -24,11 +24,13 @@ export function CategoryInput(props: CategoryInputProps) {
   }, [props.predefinedCategories, props.customCategories]);
 
   const handleChange = (allValues: string[]) => {
-    const predefined: ProjectCategory[] = [];
+    const predefined: dto.ProjectCategory[] = [];
     const custom: string[] = [];
 
     allValues.forEach((item) => {
-      const enumValue = Object.values(ProjectCategory).find((cat) => ProjectCategoryCompanion.toLabel(cat) === item);
+      const enumValue = Object.values(dto.ProjectCategory).find(
+        (cat) => ProjectCategoryCompanion.toLabel(cat) === item
+      );
       if (enumValue) {
         predefined.push(enumValue);
       } else {
@@ -40,7 +42,7 @@ export function CategoryInput(props: CategoryInputProps) {
   };
 
   const suggestions = useMemo(() => {
-    return Object.values(ProjectCategory)
+    return Object.values(dto.ProjectCategory)
       .filter((category) => !props.predefinedCategories.includes(category))
       .map((category) => ProjectCategoryCompanion.toLabel(category));
   }, [props.predefinedCategories]);

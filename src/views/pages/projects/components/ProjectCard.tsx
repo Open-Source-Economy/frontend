@@ -3,7 +3,7 @@ import { Card, CardContent } from "src/views/components/ui/card";
 import { Badge } from "src/views/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "src/views/components/ui/collapsible";
 import { Building2, ChevronDown, ExternalLink, GitFork, Star, Users } from "lucide-react";
-import { ProjectItemType, ProjectItemWithDetails } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import {
   ProjectItemWithDetailsCardView,
   ProjectItemWithDetailsCompanion,
@@ -13,7 +13,7 @@ import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate } from "@tanstack/react-router";
 
 interface ProjectCardProps {
-  item: ProjectItemWithDetails;
+  item: dto.ProjectItemWithDetails;
   category?: string;
   onViewProject?: (slug: string) => void;
   canExpandMaintainers?: boolean;
@@ -26,8 +26,8 @@ export function ProjectCard(props: ProjectCardProps) {
 
   // Create view model with all display information
   const view: ProjectItemWithDetailsCardView = ProjectItemWithDetailsCompanion.toCardView(props.item, 3);
-  const isOwnerProject = view.projectItemType === ProjectItemType.GITHUB_OWNER;
-  const isUrlProject = view.projectItemType === ProjectItemType.URL;
+  const isOwnerProject = view.projectItemType === dto.ProjectItemType.GITHUB_OWNER;
+  const isUrlProject = view.projectItemType === dto.ProjectItemType.URL;
 
   const resolveOwnerRepo = () => {
     if (props.item.repository) {

@@ -1,39 +1,39 @@
 import React from "react";
 import { PricingCardButton } from "./PricingCardButton";
 import { ButtonState } from "./utils";
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PricingCardHeaderProps {
   name: string;
   description: string;
   displayPrice: number;
   originalPrice: number | null;
-  billingCycle: PlanPriceType;
+  billingCycle: dto.PlanPriceType;
   buttonState: ButtonState;
   onButtonClick: () => void;
-  planId?: PlanProductType;
+  planId?: dto.PlanProductType;
 }
 
 export function PricingCardHeader(props: PricingCardHeaderProps) {
   // Get tier badge styling
   const getTierBadge = () => {
     switch (props.planId) {
-      case PlanProductType.START_UP_PLAN:
+      case dto.PlanProductType.START_UP_PLAN:
         return {
           label: "Bronze Tier",
           className: "bg-brand-tier-bronze/10 text-brand-tier-bronze border-brand-tier-bronze/30",
         };
-      case PlanProductType.SCALE_UP_PLAN:
+      case dto.PlanProductType.SCALE_UP_PLAN:
         return {
           label: "Silver Tier",
           className: "bg-brand-tier-silver/10 text-brand-tier-silver border-brand-tier-silver/30",
         };
-      case PlanProductType.ENTERPRISE_PLAN:
+      case dto.PlanProductType.ENTERPRISE_PLAN:
         return {
           label: "Gold Tier",
           className: "bg-brand-tier-gold/10 text-brand-tier-gold border-brand-tier-gold/30",
         };
-      case PlanProductType.INDIVIDUAL_PLAN:
+      case dto.PlanProductType.INDIVIDUAL_PLAN:
         return {
           label: "Essential",
           className: "bg-brand-neutral-200/50 text-brand-neutral-700 border-brand-neutral-300/50",
@@ -64,7 +64,7 @@ export function PricingCardHeader(props: PricingCardHeaderProps) {
           <span className="text-5xl text-brand-neutral-900">${props.displayPrice}</span>
         </div>
         <div className="text-sm text-brand-neutral-600 mt-2">
-          per month, billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}
+          per month, billed {props.billingCycle === dto.PlanPriceType.ANNUALLY ? "annually" : "monthly"}
         </div>
       </div>
 

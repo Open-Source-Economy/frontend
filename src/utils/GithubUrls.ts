@@ -12,16 +12,14 @@ export class GithubUrls {
 
     // Shorthand case: just "owner"
     if (allowShorthand && /^[A-Za-z0-9-_.]+$/.test(value) && !value.includes("/")) {
-      return { login: value } as dto.OwnerId;
+      return { login: value };
     }
 
-    // Full GitHub URL - matches owner URLs with optional trailing slash and query params/fragments
-    // Examples: github.com/owner, github.com/owner/, github.com/owner?tab=repositories
-    // But NOT: github.com/owner/repo (repository URLs)
-    const ownerRegex = /^https:\/\/github\.com\/([^/?#]+)(?:\/)?(?:[?#].*)?$/;
+    // Full GitHub URL
+    const ownerRegex = /^https:\/\/github\.com\/([^/]+)(?:\/)?$/;
     const match = value.match(ownerRegex);
     if (match && match[1]) {
-      return { login: match[1] } as dto.OwnerId;
+      return { login: match[1] };
     }
 
     return null;
@@ -36,50 +34,17 @@ export class GithubUrls {
   static extractRepositoryId(input: string, allowShorthand: boolean = false): dto.RepositoryId | null {
     const value = input.trim();
 
-    // Helper function to strip .git suffix from repository name
-    // Only strips if .git is at the end of the repo name (not followed by a path)
-    // Examples:
-    // - "repo.git" → "repo" (strips)
-    // - "repo.git/pulls" → "repo.git" (doesn't strip, .git is part of the name)
-    // - "repo.git?tab=readme" → "repo" (strips, followed by query param)
-    // - "repo.git#readme" → "repo" (strips, followed by fragment)
-    const stripGitSuffix = (repoName: string, fullUrl: string, matchIndex: number): string => {
-      if (!repoName.endsWith(".git")) {
-        return repoName;
-      }
-
-      // matchIndex is the index where the full regex match ends in the URL
-      // Check the character immediately after the match
-      // If it's '/', then .git is part of the repository name (e.g., repo.git/pulls)
-      // If it's '?', '#', or end of string, then .git is a suffix to strip
-      if (matchIndex < fullUrl.length && fullUrl[matchIndex] === "/") {
-        // .git is followed by a path, so it's part of the repository name
-        return repoName;
-      }
-
-      // .git is at the end or followed by ? or #, so strip it
-      return repoName.slice(0, -4);
-    };
-
     // Shorthand case: "owner/repo"
     if (allowShorthand && /^[^/]+\/[^/]+$/.test(value)) {
       const [owner, repo] = value.split("/");
-      // For shorthand, .git at the end is always a suffix to strip
-      const repoName = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
-      return { ownerId: { login: owner } as dto.OwnerId, name: repoName } as dto.RepositoryId;
+      return { ownerId: { login: owner }, name: repo };
     }
 
-    // Full GitHub URL - matches repository URLs with optional trailing paths, query params, or fragments
-    // Examples: github.com/owner/repo, github.com/owner/repo/, github.com/owner/repo/blob/main/README.md, github.com/owner/repo?tab=readme
-    // Also handles: github.com/owner/repo.git (strips .git suffix only if not followed by a path)
-    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/?#]+)/;
+    // Full GitHub URL
+    const repoRegex = /^https:\/\/github\.com\/([^/]+)\/([^/]+)(?:\/)?$/;
     const match = value.match(repoRegex);
     if (match && match[1] && match[2]) {
-      // match.index is the start of the match, match[0].length is the length of the full match
-      // The match ends at match.index + match[0].length
-      const matchEndIndex = (match.index || 0) + match[0].length;
-      const repoName = stripGitSuffix(match[2], value, matchEndIndex);
-      return { ownerId: { login: match[1] } as dto.OwnerId, name: repoName } as dto.RepositoryId;
+      return { ownerId: { login: match[1] }, name: match[2] };
     }
 
     return null;
@@ -117,10 +82,7 @@ export class GithubUrls {
       const [, owner, repo, n] = match;
       const number = parseInt(n, 10);
       if (!owner || !repo || isNaN(number)) return null;
-      return {
-        repositoryId: { ownerId: { login: owner } as dto.OwnerId, name: repo } as dto.RepositoryId,
-        number,
-      } as dto.IssueId;
+      return { repositoryId: { ownerId: { login: owner }, name: repo }, number };
     }
     return null;
   }

@@ -3,7 +3,7 @@ import { Github, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { FormDivider } from "../components/auth/FormDivider";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
-import { Provider } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/utils/error/ApiError";
@@ -92,7 +92,7 @@ export function IdentificationStep() {
   const checkEmailAndNavigate = async (emailToCheck: string, isPredefined: boolean) => {
     try {
       const result = await checkEmailMutation.mutateAsync({ params: {}, query: { email: emailToCheck } });
-      const nextPath = result.provider === Provider.Github ? "/auth/github" : "/auth/password";
+      const nextPath = result.provider === dto.Provider.Github ? "/auth/github" : "/auth/password";
 
       navigate({
         to: nextPath as string,

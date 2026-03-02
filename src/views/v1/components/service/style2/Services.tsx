@@ -2,18 +2,18 @@ import React from "react";
 import { ServiceCard } from "./ServiceCard";
 import rightLinear from "src/assets/v1/right-linear-bg.webp";
 import leftlinear from "src/assets/v1/left-linear-bg.webp";
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ServicesProps {
-  buttonPaths?: { [key in ServiceType]?: string };
+  buttonPaths?: { [key in dto.ServiceType]?: string };
 }
 
 export function Services(props: ServicesProps) {
   const services = [
-    ServiceType.DEVELOPMENT,
-    ServiceType.SUPPORT,
-    ServiceType.SECURITY_AND_COMPLIANCE,
-    ServiceType.ADVISORY,
+    dto.ServiceType.DEVELOPMENT,
+    dto.ServiceType.SUPPORT,
+    dto.ServiceType.SECURITY_AND_COMPLIANCE,
+    dto.ServiceType.ADVISORY,
   ];
 
   return (

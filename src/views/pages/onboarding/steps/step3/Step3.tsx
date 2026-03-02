@@ -4,7 +4,6 @@ import { Step3State } from "../../OnboardingDataSteps";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { PreferenceType } from "@open-source-economy/api-types";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { ParticipationCard } from "./design-system/ParticipationCard";
@@ -53,15 +52,15 @@ export function Step3(props: Step3Props) {
   };
 
   // Handle selection for three-state model
-  const handleSelect = (option: ParticipationModelOption, state: PreferenceType) => {
+  const handleSelect = (option: ParticipationModelOption, state: dto.PreferenceType) => {
     const field = getPreferenceField(option);
     form.setValue(field, state, { shouldValidate: form.formState.isSubmitted });
   };
 
-  const getSelectionState = (option: ParticipationModelOption): PreferenceType | null | undefined => {
+  const getSelectionState = (option: ParticipationModelOption): dto.PreferenceType | null | undefined => {
     const field = getPreferenceField(option);
     const value = form.watch(field);
-    return (value as PreferenceType) || undefined;
+    return (value as dto.PreferenceType) || undefined;
   };
 
   // Sync RHF -> parent state

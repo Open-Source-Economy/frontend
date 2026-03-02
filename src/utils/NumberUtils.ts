@@ -1,8 +1,8 @@
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../views";
 
 export const NumberUtils = {
-  toLocaleStringPrice: (num: number, currency: Currency): string => {
+  toLocaleStringPrice: (num: number, currency: dto.Currency): string => {
     const displayedCurrency = displayedCurrencies[currency];
     return `${(num / 100).toLocaleString("en-US", {
       style: "currency",
@@ -23,10 +23,5 @@ export const NumberUtils = {
       return `${Math.round(count / 1000)}k`;
     }
     return count.toString();
-  },
-
-  pluralize: (count: number, singularLabel: string, pluralLabel?: string): string => {
-    const label = count === 1 ? singularLabel : (pluralLabel ?? `${singularLabel}s`);
-    return `${count} ${label}`;
   },
 };

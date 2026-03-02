@@ -1,10 +1,10 @@
 import React from "react";
 import background from "../../../../assets/v1/hero-bg.webp";
-import { Project } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { capitalize } from "lodash";
 
 interface RepositoryTitleProps {
-  project: Project;
+  project: dto.Project;
   subtitle?: string;
   displayProjectDescription?: boolean;
 }

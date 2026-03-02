@@ -7,7 +7,7 @@ import { Header } from "src/views/v1/layout";
 import FileUpload from "./FileUpload";
 import IsUpgraded from "./IsUpgraded";
 import { SelectFilter } from "./SelectFilter";
-import { Priority, ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { DropdownOption, getSubServiceOptions } from "./DropdownOption";
 
 export function Support() {
@@ -25,10 +25,10 @@ export function Support() {
   const [isGithubDiscussionUrlValid, setIsGithubDiscussionUrlValid] = useState(true);
 
   const categoryOptions = [
-    { value: ServiceType.SUPPORT, label: "Support" },
-    { value: ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
-    // { value: ServiceType.OPERATION, label: "Operations" },
-    { value: ServiceType.ADVISORY, label: "Consultancy" },
+    { value: dto.ServiceType.SUPPORT, label: "Support" },
+    { value: dto.ServiceType.DEVELOPMENT, label: "Development", badge: "Only On Start-Up Plan" },
+    // { value: dto.ServiceType.OPERATION, label: "Operations" },
+    { value: dto.ServiceType.ADVISORY, label: "Consultancy" },
     // TODO: make the compiler complain if an option is mission
   ];
 
@@ -39,10 +39,10 @@ export function Support() {
   ];
 
   const severityOptions = [
-    { value: Priority.LOW, label: "Low" },
-    { value: Priority.MEDIUM, label: "Medium" },
-    { value: Priority.HIGH, label: "High" },
-    { value: Priority.CRITICAL, label: "Critical" },
+    { value: dto.Priority.LOW, label: "Low" },
+    { value: dto.Priority.MEDIUM, label: "Medium" },
+    { value: dto.Priority.HIGH, label: "High" },
+    { value: dto.Priority.CRITICAL, label: "Critical" },
   ];
 
   // Update subcategory options when category changes

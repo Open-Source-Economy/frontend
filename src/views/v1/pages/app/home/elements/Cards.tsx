@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Button, ExternalLink } from "src/views/v1/components";
-import { Project } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import type { Audience } from "../../../../../Audience";
 
 const CARD_BASE_CLASSES =
@@ -10,7 +10,7 @@ const LOADING_ELEMENT_CLASSES = "bg-gray-700/50 rounded-full";
 const CARD_CONTENT_CLASSES = "flex flex-col items-center justify-between";
 
 export interface CardsProps {
-  project?: Project;
+  project?: dto.Project;
   audience?: Audience;
   action?: string;
   to?: string;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ManagedIssueState } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Credit, credit } from "src/model";
 import { Audience, textColorVariants } from "src/views/index";
 
@@ -7,7 +7,7 @@ interface CollectProps {
   audience: Audience;
   creditsCollected: Credit;
   creditsRequested?: Credit;
-  state?: ManagedIssueState;
+  state?: dto.ManagedIssueState;
   marginTop?: "mt-2.5" | "mt-3";
 }
 
@@ -23,21 +23,21 @@ export function Collect(props: CollectProps) {
     }, 200); // Small delay to ensure animation starts visibly
   }, [props.creditsCollected, props.creditsRequested]); // Re-run when props change
 
-  function renderCollectedCreditsText(credits: Credit, state?: ManagedIssueState) {
+  function renderCollectedCreditsText(credits: Credit, state?: dto.ManagedIssueState) {
     return (
       <>
         {credits.amount.isZero() ? (
           <>
-            {state === ManagedIssueState.REJECTED && "Amount refunded"}
-            {state === ManagedIssueState.SOLVED && "That was a volunteer work!"}
-            {state === ManagedIssueState.OPEN && <>Want this issue solved? Drop hours</>}
+            {state === dto.ManagedIssueState.REJECTED && "Amount refunded"}
+            {state === dto.ManagedIssueState.SOLVED && "That was a volunteer work!"}
+            {state === dto.ManagedIssueState.OPEN && <>Want this issue solved? Drop hours</>}
           </>
         ) : (
           <>
             <span className="michroma text-[#FF7E4B]">{credit.displayAmount(credits)} </span>
-            {state === ManagedIssueState.REJECTED && " refunded"}
-            {state === ManagedIssueState.SOLVED && " for open source!"}
-            {state === ManagedIssueState.OPEN && " collected"}
+            {state === dto.ManagedIssueState.REJECTED && " refunded"}
+            {state === dto.ManagedIssueState.SOLVED && " for open source!"}
+            {state === dto.ManagedIssueState.OPEN && " collected"}
           </>
         )}
       </>
@@ -48,7 +48,7 @@ export function Collect(props: CollectProps) {
     <>
       <div className="flex items-start sm:items-center gap-3">
         <p className="text-base md:text-base lg:text-[20px] michroma">
-          {props.state === ManagedIssueState.OPEN && props.creditsRequested ? (
+          {props.state === dto.ManagedIssueState.OPEN && props.creditsRequested ? (
             <>
               <span>{credit.displayAmount(props.creditsCollected)}</span>
               <span className="text-[#8693A4] michroma"> / </span>
@@ -63,7 +63,7 @@ export function Collect(props: CollectProps) {
         </p>
       </div>
 
-      {props.state === ManagedIssueState.OPEN && props.creditsRequested ? (
+      {props.state === dto.ManagedIssueState.OPEN && props.creditsRequested ? (
         <div className={`w-[100%] ${props.marginTop || "mt-3"} bg-[rgba(255,255,255,10%)] rounded-full h-2`}>
           <div
             className="bg-gradient-to-r from-[#FF7E4B] via-[#FF518C] to-[#66319B] h-2 rounded-full transition-all duration-1000 ease-out"

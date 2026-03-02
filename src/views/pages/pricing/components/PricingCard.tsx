@@ -7,34 +7,34 @@ import { PricingCardHeader } from "./PricingCardHeader";
 import { FeatureSection } from "./types";
 import { ButtonState } from "./utils";
 
-import { PlanPriceType, PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface PricingCardProps {
   name: string;
   description: string;
   monthlyPrice: number;
   annualPrice: number;
-  billingCycle: PlanPriceType;
+  billingCycle: dto.PlanPriceType;
   sections: FeatureSection[];
   highlighted?: boolean;
   previousPlanName?: string;
   onButtonClick: () => void;
   buttonState: ButtonState;
-  planId?: PlanProductType;
+  planId?: dto.PlanProductType;
 }
 
 export function PricingCard(props: PricingCardProps) {
-  const displayPrice = props.billingCycle === PlanPriceType.ANNUALLY ? props.annualPrice : props.monthlyPrice;
-  const originalPrice = props.billingCycle === PlanPriceType.ANNUALLY ? props.monthlyPrice : null;
+  const displayPrice = props.billingCycle === dto.PlanPriceType.ANNUALLY ? props.annualPrice : props.monthlyPrice;
+  const originalPrice = props.billingCycle === dto.PlanPriceType.ANNUALLY ? props.monthlyPrice : null;
 
   // Determine tier-specific border color
   const getTierBorderColor = () => {
     switch (props.planId) {
-      case PlanProductType.START_UP_PLAN:
+      case dto.PlanProductType.START_UP_PLAN:
         return "border-brand-tier-bronze/30 hover:border-brand-tier-bronze/60";
-      case PlanProductType.SCALE_UP_PLAN:
+      case dto.PlanProductType.SCALE_UP_PLAN:
         return "border-brand-tier-silver/30 hover:border-brand-tier-silver/60";
-      case PlanProductType.ENTERPRISE_PLAN:
+      case dto.PlanProductType.ENTERPRISE_PLAN:
         return "border-brand-tier-gold/30 hover:border-brand-tier-gold/60";
       default:
         return props.highlighted ? "border-brand-accent" : "border-brand-neutral-300 hover:border-brand-accent/50";

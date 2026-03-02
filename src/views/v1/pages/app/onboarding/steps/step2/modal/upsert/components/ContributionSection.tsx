@@ -1,5 +1,5 @@
 import React from "react";
-import { DeveloperRoleType, MergeRightsType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import {
   DeveloperRoleTypeSelectInput,
   GenericInputRef,
@@ -7,10 +7,10 @@ import {
 } from "../../../../../../../../components/form";
 
 interface ContributionSectionProps {
-  selectedRole: DeveloperRoleType | null;
-  selectedMergeRights: MergeRightsType | null;
-  onRoleChange: (role: DeveloperRoleType | null) => void;
-  onMergeRightsChange: (rights: MergeRightsType | null) => void;
+  selectedRole: dto.DeveloperRoleType | null;
+  selectedMergeRights: dto.MergeRightsType | null;
+  onRoleChange: (role: dto.DeveloperRoleType | null) => void;
+  onMergeRightsChange: (rights: dto.MergeRightsType | null) => void;
   roleSelectRef: React.RefObject<GenericInputRef>;
   mergeRightsSelectRef: React.RefObject<GenericInputRef>;
 }

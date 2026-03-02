@@ -1,13 +1,12 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
 import { SourceIdentifierCompanion } from "../../../../../../../data";
 import { BaseDeleteConfirmationModal } from "../../../step5/modals/delete/BaseDeleteConfirmationModal";
 
 interface DeleteProjectModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  project: DeveloperProjectItemEntry | null;
+  project: dto.DeveloperProjectItemEntry | null;
   onConfirmDelete: (developerProjectItemId: dto.DeveloperProjectItemId) => void;
   isDeleting: boolean;
 }

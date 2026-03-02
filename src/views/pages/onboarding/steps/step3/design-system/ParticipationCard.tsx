@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { PreferenceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ParticipationSelectionButtons } from "./ParticipationSelectionButtons";
 
 export interface ParticipationCardConfig {
@@ -16,8 +16,8 @@ export interface ParticipationCardConfig {
 
 interface ParticipationCardProps {
   config: ParticipationCardConfig;
-  selectedState: PreferenceType | null | undefined;
-  onSelect: (state: PreferenceType) => void;
+  selectedState: dto.PreferenceType | null | undefined;
+  onSelect: (state: dto.PreferenceType) => void;
   hasError?: boolean;
 }
 
@@ -39,7 +39,7 @@ export function ParticipationCard(props: ParticipationCardProps) {
   const { title, description, icon: Icon, features, colorScheme } = props.config;
   const { primary, primaryDark } = colorScheme;
 
-  const _isSelected = props.selectedState === PreferenceType.YES;
+  const _isSelected = props.selectedState === dto.PreferenceType.YES;
 
   // DRY: Helper functions for dynamic classes
   const getPrimaryClasses = (opacity?: string) => `text-${primary}${opacity ? `/${opacity}` : ""}`;

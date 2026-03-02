@@ -4,13 +4,13 @@ import { Feature } from "./types";
 import { MembershipTierBadge } from "./MembershipTierBadge";
 import { SectionSubtitle } from "./SectionSubtitle";
 
-import { PlanProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface RecognitionSectionProps {
   title: string;
   subtitle?: string;
   features: Feature[];
-  tier?: PlanProductType;
+  tier?: dto.PlanProductType;
 }
 
 export function RecognitionSection(props: RecognitionSectionProps) {

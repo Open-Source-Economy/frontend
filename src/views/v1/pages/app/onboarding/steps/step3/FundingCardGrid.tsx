@@ -1,11 +1,11 @@
 import React from "react";
 import { FundingCard } from "./FundingCard";
 import { ServiceModelSteps } from "./ServiceModelSteps";
-import { IncomeStreamType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface FundingCardGridProps {
-  incomeStreams: IncomeStreamType[];
-  onToggleChange: (option: IncomeStreamType, enabled: boolean) => Promise<void>;
+  incomeStreams: dto.IncomeStreamType[];
+  onToggleChange: (option: dto.IncomeStreamType, enabled: boolean) => Promise<void>;
   showServiceModel: boolean;
   onServiceLearnMore: () => void;
   onCloseServiceModel: () => void;
@@ -20,8 +20,8 @@ export function FundingCardGrid(props: FundingCardGridProps) {
       <FundingCard
         title="Offer Services"
         description="Define your open source offerings, your terms, your rates, and your availability."
-        isEnabled={incomeStreams.includes(IncomeStreamType.SERVICES)}
-        onChange={(enabled) => onToggleChange(IncomeStreamType.SERVICES, enabled)}
+        isEnabled={incomeStreams.includes(dto.IncomeStreamType.SERVICES)}
+        onChange={(enabled) => onToggleChange(dto.IncomeStreamType.SERVICES, enabled)}
         isRecommended={true}
         hasLearnMore={true}
         onLearnMore={onServiceLearnMore}
@@ -36,15 +36,15 @@ export function FundingCardGrid(props: FundingCardGridProps) {
         <FundingCard
           title="Dependency Payouts"
           description="Earn when your project is used by other funded projects—even transitively."
-          isEnabled={incomeStreams.includes(IncomeStreamType.ROYALTIES)}
-          onChange={(enabled) => onToggleChange(IncomeStreamType.ROYALTIES, enabled)}
+          isEnabled={incomeStreams.includes(dto.IncomeStreamType.ROYALTIES)}
+          onChange={(enabled) => onToggleChange(dto.IncomeStreamType.ROYALTIES, enabled)}
         />
 
         <FundingCard
           title="Donations"
           description="Let companies fund you or your project—with or without public recognition."
-          isEnabled={incomeStreams.includes(IncomeStreamType.DONATIONS)}
-          onChange={(enabled) => onToggleChange(IncomeStreamType.DONATIONS, enabled)}
+          isEnabled={incomeStreams.includes(dto.IncomeStreamType.DONATIONS)}
+          onChange={(enabled) => onToggleChange(dto.IncomeStreamType.DONATIONS, enabled)}
         />
       </div>
     </div>

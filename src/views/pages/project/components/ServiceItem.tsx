@@ -1,6 +1,6 @@
 import React from "react";
 import { Clock, type LucideIcon } from "lucide-react";
-import { ResponseTimeType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ResponseTimeTypeCompanion } from "src/utils/companions/ResponseTimeType.companion";
 import { ServiceOffering } from "./ServiceCategoryCard";
 
@@ -16,7 +16,7 @@ export function ServiceItem(props: ServiceItemProps) {
 
   const fastestResponse = ResponseTimeTypeCompanion.fastestResponseTime(offerings);
 
-  const showResponseTime = fastestResponse !== undefined && fastestResponse !== ResponseTimeType.None;
+  const showResponseTime = fastestResponse !== undefined && fastestResponse !== dto.ResponseTimeType.None;
   const responseLabel = showResponseTime && fastestResponse ? ResponseTimeTypeCompanion.label(fastestResponse) : null;
 
   return (

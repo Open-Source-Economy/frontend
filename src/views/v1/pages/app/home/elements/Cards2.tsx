@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Button, ExternalLink } from "src/views/v1/components";
-import { Owner, Repository } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Audience } from "../../../../../Audience";
 
 export interface Cards2Props {
-  owner: Owner;
-  repository: Repository;
+  owner: dto.Owner;
+  repository: dto.Repository;
   audience: Audience;
   action?: string;
   to?: string;

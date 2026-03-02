@@ -1,11 +1,11 @@
 import React from "react";
 import { CreditCard, ExternalLink, ReceiptText } from "lucide-react";
 import { Button } from "../../../components/ui/forms/button";
-import { PlanProductType as _PlanProductType, PlanPriceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ManageSubscriptionSectionProps {
   planName: string;
-  billingCycle: PlanPriceType;
+  billingCycle: dto.PlanPriceType;
   onManageBilling: () => void;
   isLoading?: boolean;
 }
@@ -30,7 +30,7 @@ export function ManageSubscriptionSection(props: ManageSubscriptionSectionProps)
               </div>
               <p className="text-brand-neutral-600">
                 You are currently on the <span className="font-bold text-brand-neutral-800">{props.planName}</span> plan
-                (billed {props.billingCycle === PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
+                (billed {props.billingCycle === dto.PlanPriceType.ANNUALLY ? "annually" : "monthly"}).
               </p>
             </div>
           </div>

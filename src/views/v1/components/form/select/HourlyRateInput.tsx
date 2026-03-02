@@ -1,5 +1,5 @@
 import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
-import { Currency } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { displayedCurrencies } from "../../../data";
 import { BaseProps, BaseRef } from "../Base";
 // import { CurrencySelectInput } from "./enum";
@@ -9,9 +9,9 @@ import { GenericInputRef } from "../input";
 export interface HourlyRateInputRef extends BaseRef {}
 
 interface HourlyRateInputProps extends BaseProps {
-  currency: Currency;
+  currency: dto.Currency;
   hourlyRate: number | null;
-  onCurrencyChange?: (currency: Currency | null) => void;
+  onCurrencyChange?: (currency: dto.Currency | null) => void;
   onHourlyRateChange: (value: number) => void;
 }
 
@@ -22,7 +22,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
   const integerInputRef = React.useRef<GenericInputRef>(null);
   const currencyInputRef = React.useRef<GenericInputRef>(null);
 
-  const [_currency, setCurrency] = useState<Currency>(props.currency);
+  const [_currency, setCurrency] = useState<dto.Currency>(props.currency);
   const [hourlyRate, setHourlyRate] = useState<number | null>(props.hourlyRate);
   const [error, _setError] = useState<string | null>(null);
   const [_isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -47,7 +47,7 @@ export const HourlyRateInput = forwardRef(function HourlyRateInput(
     props.onHourlyRateChange(numericValue);
   };
 
-  const _handleCurrencySelect = (selectedCurrency: Currency | null) => {
+  const _handleCurrencySelect = (selectedCurrency: dto.Currency | null) => {
     if (props.onCurrencyChange && selectedCurrency) {
       props.onCurrencyChange(selectedCurrency);
       setCurrency(selectedCurrency);

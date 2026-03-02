@@ -28,7 +28,7 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
-import { ContactReason } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { CONTACT_REASON_LABELS } from "src/utils/companions/ContactReasonCompanion";
 import { contactEmail } from "src/views/v1/data";
 import { useContactForm } from "./hooks/useContactForm";
@@ -50,8 +50,8 @@ import { FormProvider } from "react-hook-form";
 
 const CONTACT_REASONS = [
   {
-    id: ContactReason.MAINTAINER,
-    label: CONTACT_REASON_LABELS[ContactReason.MAINTAINER],
+    id: dto.ContactReason.MAINTAINER,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.MAINTAINER],
     icon: Code2,
     description: "Join our network of expert maintainers",
     placeholder: "Tell us about your open source projects and expertise...",
@@ -59,8 +59,8 @@ const CONTACT_REASONS = [
       "Are you an open source maintainer interested in earning sustainable income for your work? Join our platform to connect with enterprises that depend on your projects. You'll maintain full control of your code while receiving fair compensation for priority support, bug fixes, and feature development.",
   },
   {
-    id: ContactReason.REQUEST_PROJECT,
-    label: CONTACT_REASON_LABELS[ContactReason.REQUEST_PROJECT],
+    id: dto.ContactReason.REQUEST_PROJECT,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.REQUEST_PROJECT],
     icon: FolderPlus,
     description: "Add a new project to our network",
     placeholder: "Tell us which project you'd like to see supported...",
@@ -68,8 +68,8 @@ const CONTACT_REASONS = [
       "Want to see a specific open source project added to our platform? Submit a request with the project details, and we'll evaluate it for inclusion based on community demand, ecosystem impact, and maintainer availability.",
   },
   {
-    id: ContactReason.ENTERPRISE,
-    label: CONTACT_REASON_LABELS[ContactReason.ENTERPRISE],
+    id: dto.ContactReason.ENTERPRISE,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.ENTERPRISE],
     icon: Building2,
     description: "Learn about enterprise solutions",
     placeholder: "Describe your organization's open source needs...",
@@ -77,8 +77,8 @@ const CONTACT_REASONS = [
       "Explore how our enterprise solutions can help your organization get direct access to expert maintainers, prioritize critical bug fixes, and ensure long-term support for your open source dependencies. We offer custom SLAs, dedicated support, and transparent pricing.",
   },
   {
-    id: ContactReason.PARTNERSHIP,
-    label: CONTACT_REASON_LABELS[ContactReason.PARTNERSHIP],
+    id: dto.ContactReason.PARTNERSHIP,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.PARTNERSHIP],
     icon: Handshake,
     description: "Explore collaboration opportunities",
     placeholder: "Share your partnership proposal...",
@@ -86,8 +86,8 @@ const CONTACT_REASONS = [
       "Interested in partnering with us? We're open to collaborations that strengthen the open source ecosystem, including foundation partnerships, corporate sponsorships, technology integrations, and community initiatives.",
   },
   {
-    id: ContactReason.VOLUNTEER,
-    label: CONTACT_REASON_LABELS[ContactReason.VOLUNTEER],
+    id: dto.ContactReason.VOLUNTEER,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.VOLUNTEER],
     icon: Users,
     description: "Contribute as a volunteer",
     placeholder: "Tell us how you'd like to contribute to our mission...",
@@ -95,8 +95,8 @@ const CONTACT_REASONS = [
       "Want to support our mission as a volunteer? We welcome community contributions in many forms: code contributions to our platform, marketing and outreach, giving talks or writing content, organizing events, or helping with operations. Share your skills and interests, and we'll find the right way for you to get involved.",
   },
   {
-    id: ContactReason.PRESS,
-    label: CONTACT_REASON_LABELS[ContactReason.PRESS],
+    id: dto.ContactReason.PRESS,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.PRESS],
     icon: Newspaper,
     description: "Media inquiries and press requests",
     placeholder: "Let us know about your publication and story angle...",
@@ -104,8 +104,8 @@ const CONTACT_REASONS = [
       "Media professionals can reach out for press releases, interviews, background information, or story ideas. We're happy to discuss our nonprofit mission, impact on the open source ecosystem, and unique funding model.",
   },
   {
-    id: ContactReason.SUPPORT,
-    label: CONTACT_REASON_LABELS[ContactReason.SUPPORT],
+    id: dto.ContactReason.SUPPORT,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.SUPPORT],
     icon: Wrench,
     description: "Report a platform issue",
     placeholder: "Describe the issue you're experiencing...",
@@ -113,8 +113,8 @@ const CONTACT_REASONS = [
       "Experiencing technical difficulties with our platform? Let us know what issue you're facing, and our support team will help troubleshoot. Please include details about what you were trying to do and any error messages you received.",
   },
   {
-    id: ContactReason.GENERAL,
-    label: CONTACT_REASON_LABELS[ContactReason.GENERAL],
+    id: dto.ContactReason.GENERAL,
+    label: CONTACT_REASON_LABELS[dto.ContactReason.GENERAL],
     icon: HelpCircle,
     description: "Questions about our platform",
     placeholder: "How can we help you?",
@@ -129,7 +129,7 @@ export function ContactPage() {
   // Get initial contact reason from URL parameter
   const getInitialContactReason = (): string => {
     const reasonParam = searchParams.reason;
-    if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
+    if (reasonParam && Object.values(dto.ContactReason).includes(reasonParam as dto.ContactReason)) {
       return reasonParam;
     }
     return "";
@@ -150,7 +150,7 @@ export function ContactPage() {
   // Update contact reason when URL parameter changes
   useEffect(() => {
     const reasonParam = searchParams.reason;
-    if (reasonParam && Object.values(ContactReason).includes(reasonParam as ContactReason)) {
+    if (reasonParam && Object.values(dto.ContactReason).includes(reasonParam as dto.ContactReason)) {
       setContactReason(reasonParam);
     }
   }, [searchParams.reason, setContactReason]);
@@ -356,7 +356,7 @@ export function ContactPage() {
 
                               {/* Conditional Field: Projects */}
                               {showProjects &&
-                                (contactReason === ContactReason.MAINTAINER ? (
+                                (contactReason === dto.ContactReason.MAINTAINER ? (
                                   <MaintainerProjectList
                                     projects={projects}
                                     onAdd={addProject}

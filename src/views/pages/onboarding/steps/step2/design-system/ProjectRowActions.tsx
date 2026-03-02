@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { Edit, Trash2 } from "lucide-react";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface ProjectRowActionsProps {
-  project: DeveloperProjectItemEntry;
-  onEdit: (project: DeveloperProjectItemEntry) => void;
-  onDelete: (project: DeveloperProjectItemEntry) => void;
+  project: dto.DeveloperProjectItemEntry;
+  onEdit: (project: dto.DeveloperProjectItemEntry) => void;
+  onDelete: (project: dto.DeveloperProjectItemEntry) => void;
 }
 
 export function ProjectRowActions(props: ProjectRowActionsProps) {

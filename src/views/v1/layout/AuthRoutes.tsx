@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "../pages/authenticate/AuthContext";
-import { UserRole } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { config, Env } from "src/utils";
 import { PageNotFound } from "../pages/PageNotFound";
 import { PageLoader } from "src/views/v1/components/common/PageLoader";
@@ -38,7 +38,7 @@ export function NonProdRoutes() {
 export function SuperAdminRoutes() {
   const auth = useAuth();
 
-  const allowed = auth.authInfo?.user?.role === UserRole.SUPER_ADMIN;
+  const allowed = auth.authInfo?.user?.role === dto.UserRole.SUPER_ADMIN;
 
   if (config.api.useMock) {
     return <Outlet />;

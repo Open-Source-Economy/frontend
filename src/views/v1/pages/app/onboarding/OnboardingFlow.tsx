@@ -14,7 +14,6 @@ import {
   transformFullDeveloperProfileToOnboardingState,
 } from "./OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
-import { Currency } from "@open-source-economy/api-types";
 import { Step3 } from "./steps/step3";
 import { Step4 } from "./steps/step4";
 import { Step5 } from "./steps/step5";
@@ -24,7 +23,7 @@ import ErrorDisplay from "./components/ErrorDisplay";
 import { StepHeader } from "./landing/components";
 import { onboardingHooks } from "src/api";
 
-const createInitialState = (preferredCurrency: Currency): OnboardingState => ({
+const createInitialState = (preferredCurrency: dto.Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,
   step1: {
     name: "",
@@ -57,7 +56,7 @@ export default function OnboardingFlow() {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const preferredCurrency: Currency = PreferredCurrency.get(auth);
+  const preferredCurrency: dto.Currency = PreferredCurrency.get(auth);
 
   // Use a single state object to hold all onboarding data
   const [state, setState] = useState<OnboardingState>(createInitialState(preferredCurrency));

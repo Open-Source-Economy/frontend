@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { CampaignProductType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { type ProjectId, isOwnerId } from "src/utils/local-types";
 
 interface DonationSelectorProps {
   projectId: ProjectId;
-  productType: CampaignProductType;
-  setProductType: (productType: CampaignProductType) => void;
+  productType: dto.CampaignProductType;
+  setProductType: (productType: dto.CampaignProductType) => void;
 }
 
 export function DonationSelector(props: DonationSelectorProps) {
@@ -15,15 +15,15 @@ export function DonationSelector(props: DonationSelectorProps) {
       <div className="flex flex-wrap !gap-4 xl:!gap-2 2xl:!gap-4">
         {/* Donation Option */}
         <button
-          onClick={() => props.setProductType(CampaignProductType.DONATION)}
+          onClick={() => props.setProductType(dto.CampaignProductType.DONATION)}
           className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1`}
         >
           <div
             className={`w-5 h-5  rounded-full border flex items-center justify-center ${
-              props.productType === CampaignProductType.DONATION ? "!border-primary-user" : "border-white"
+              props.productType === dto.CampaignProductType.DONATION ? "!border-primary-user" : "border-white"
             }`}
           >
-            {props.productType === CampaignProductType.DONATION && (
+            {props.productType === dto.CampaignProductType.DONATION && (
               <div className="w-3 h-3 rounded-full bg-primary-user" />
             )}
           </div>
@@ -32,13 +32,13 @@ export function DonationSelector(props: DonationSelectorProps) {
 
         {/* Receive Option */}
         <button
-          onClick={() => props.setProductType(CampaignProductType.CREDIT)}
+          onClick={() => props.setProductType(dto.CampaignProductType.CREDIT)}
           className={`flex gap-2 items-center text-nowrap text-base 1600:text-lg 3xl:text-xl font-medium flex-1 `}
         >
           <div
-            className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === CampaignProductType.CREDIT ? "!border-primary-user" : "border-white"}`}
+            className={`w-5 h-5 rounded-full border flex items-center justify-center ${props.productType === dto.CampaignProductType.CREDIT ? "!border-primary-user" : "border-white"}`}
           >
-            {props.productType === CampaignProductType.CREDIT && (
+            {props.productType === dto.CampaignProductType.CREDIT && (
               <div className="w-3 h-3 rounded-full bg-primary-user" />
             )}
           </div>
@@ -54,7 +54,7 @@ export function DonationSelector(props: DonationSelectorProps) {
       </div>
 
       {/* Info Banner */}
-      {props.productType === CampaignProductType.CREDIT && (
+      {props.productType === dto.CampaignProductType.CREDIT && (
         <div className="bg-[#3E2946] text-white py-2.5 !px-3 3xl:py-3 rounded-xl gap-2 xl:text-nowrap flex-wrap xl:!flex-nowrap 3xl:rounded-[15px] flex justify-start text-sm 1600:text-base 3xl:text-lg w-full items-center">
           Get bug fixes, features, support,
           <Link

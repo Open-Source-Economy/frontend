@@ -1,7 +1,7 @@
 import React from "react";
 import comingSoon from "src/assets/v1/coming-soon.webp";
 import { ListIcon } from "src/utils/Icons";
-import { ServiceType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { displayedServices } from "src/views/v1/components/service/style1/DisplayedService";
 import { Audience } from "../../../../Audience";
 import { Button } from "../../elements";
@@ -9,7 +9,7 @@ import { Link } from "@tanstack/react-router";
 import { ServiceButton } from "../ServiceButton";
 
 interface ServiceCardProps {
-  serviceType: ServiceType;
+  serviceType: dto.ServiceType;
   comingSoon?: boolean;
   button?: ServiceButton;
 }

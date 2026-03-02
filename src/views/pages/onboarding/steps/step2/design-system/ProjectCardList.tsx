@@ -1,11 +1,11 @@
 import React from "react";
-import { DeveloperProjectItemEntry } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectCard } from "./ProjectCard";
 
 interface ProjectCardListProps {
-  projects: DeveloperProjectItemEntry[];
-  onEdit: (project: DeveloperProjectItemEntry) => void;
-  onDelete: (project: DeveloperProjectItemEntry) => void;
+  projects: dto.DeveloperProjectItemEntry[];
+  onEdit: (project: dto.DeveloperProjectItemEntry) => void;
+  onDelete: (project: dto.DeveloperProjectItemEntry) => void;
 }
 
 export function ProjectCardList(props: ProjectCardListProps) {

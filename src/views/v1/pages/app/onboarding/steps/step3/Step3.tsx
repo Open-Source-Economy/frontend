@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { OnboardingStepProps } from "../OnboardingStepProps";
 import { Step3State } from "../../OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
-import { PreferenceType } from "@open-source-economy/api-types";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import ErrorDisplay from "../../components/ErrorDisplay";
 import { ButtonGroup } from "../../landing/components";
@@ -50,7 +49,7 @@ export function Step3(props: Step3Props) {
 
   const handleToggleChange = async (option: IncomeStreamPreferences, enabled: boolean) => {
     const newPreferences = { ...preferences };
-    const preferenceValue = enabled ? PreferenceType.YES : null;
+    const preferenceValue = enabled ? dto.PreferenceType.YES : null;
 
     switch (option) {
       case "royalties":
@@ -74,7 +73,7 @@ export function Step3(props: Step3Props) {
   };
 
   const onNext = () => {
-    if (preferences.servicesPreference !== PreferenceType.YES) {
+    if (preferences.servicesPreference !== dto.PreferenceType.YES) {
       navigate({ to: "/developer-onboarding-completed" as string });
     } else {
       props.onNext();
@@ -83,8 +82,8 @@ export function Step3(props: Step3Props) {
 
   // Convert preferences to array format for FundingCardGrid compatibility
   const incomeStreamsForGrid: IncomeStreamPreferences[] = [];
-  if (preferences.royaltiesPreference === PreferenceType.YES) incomeStreamsForGrid.push("royalties");
-  if (preferences.servicesPreference === PreferenceType.YES) incomeStreamsForGrid.push("services");
+  if (preferences.royaltiesPreference === dto.PreferenceType.YES) incomeStreamsForGrid.push("royalties");
+  if (preferences.servicesPreference === dto.PreferenceType.YES) incomeStreamsForGrid.push("services");
 
   const isLoading = setDeveloperPreferencesMutation.isPending;
   const apiError = setDeveloperPreferencesMutation.error;

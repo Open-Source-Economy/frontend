@@ -2,10 +2,10 @@ import React from "react";
 import { UserMenuNavigation } from "src/types/navigation";
 import { Dialog, DialogContent } from "../../../ui/dialog";
 import { MobileUserMenu } from "./MobileUserMenu";
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 
 interface MobileUserMenuDropdownProps {
-  authenticatedUser: AuthenticatedUser;
+  authenticatedUser: dto.AuthenticatedUser;
   isOpen: boolean;
   onClose: () => void;
   menuConfig: UserMenuNavigation;

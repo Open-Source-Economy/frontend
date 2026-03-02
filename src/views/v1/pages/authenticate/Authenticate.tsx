@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../../../auth/AuthContext";
 import logo from "src/assets/v1/logo.png";
 import github from "src/assets/v1/github.png";
-import { LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Button, EmailInput, PasswordInput } from "src/views/v1/components";
 import { TermsAgreement } from "src/views/v1/pages/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/utils/error/ApiError";
@@ -120,20 +120,20 @@ export function Authenticate(props: AuthenticateProps) {
 
     if (props.type === AuthenticateType.SignIn) {
       console.log("Logging in...");
-      const body: LoginBody = {
+      const body: dto.LoginBody = {
         email: formData.email,
         password: formData.password,
       };
-      const query: LoginQuery = {};
+      const query: dto.LoginQuery = {};
       auth.login(body, query, successCallback);
     } else {
       console.log("Registering...");
-      const body: RegisterBody = {
+      const body: dto.RegisterBody = {
         name: name,
         email: formData.email,
         password: formData.password,
       };
-      const query: RegisterQuery = {
+      const query: dto.RegisterQuery = {
         companyToken: companyToken ?? undefined,
         repositoryToken: repositoryToken ?? undefined,
       };

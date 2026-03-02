@@ -1,10 +1,10 @@
 import React from "react";
 import { UserAvatar } from "src/views/components/user/UserAvatar";
-import { AuthenticatedUser } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { AuthenticatedUserCompanion } from "src/utils/companions";
 
 export interface UserProfileSectionProps {
-  user: AuthenticatedUser;
+  user: dto.AuthenticatedUser;
   variant?: "header" | "inline";
 }
 

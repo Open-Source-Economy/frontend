@@ -1,13 +1,13 @@
 import React, { forwardRef, Ref, useImperativeHandle, useState } from "react";
-import { OpenToOtherOpportunityType } from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { BaseRef } from "../../../../../components/form/Base";
 
 export interface OpportunitySelectorRef extends BaseRef {}
 
 interface OpportunitySelectorProps {
   id: string;
-  value: OpenToOtherOpportunityType | null;
-  onChange: (value: OpenToOtherOpportunityType) => void;
+  value: dto.OpenToOtherOpportunityType | null;
+  onChange: (value: dto.OpenToOtherOpportunityType) => void;
   required?: boolean;
 }
 
@@ -17,7 +17,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(
 ) {
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const runValidation = (currentValue: OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
+  const runValidation = (currentValue: dto.OpenToOtherOpportunityType | null, showInputError: boolean): boolean => {
     const errorMessage: string | undefined = undefined;
     if (props.required && currentValue === null && showInputError) {
       setError(`Please select an option`);
@@ -35,7 +35,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(
     [props.value, props.required]
   );
 
-  const handleButtonClick = (option: OpenToOtherOpportunityType) => {
+  const handleButtonClick = (option: dto.OpenToOtherOpportunityType) => {
     props.onChange(option);
     // Clear error immediately on change if it was showing and input is now valid
     if (error && runValidation(option, false)) {
@@ -43,7 +43,7 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(
     }
   };
 
-  const RadioOption = ({ option, label: optionLabel }: { option: OpenToOtherOpportunityType; label: string }) => {
+  const RadioOption = ({ option, label: optionLabel }: { option: dto.OpenToOtherOpportunityType; label: string }) => {
     const isSelected = props.value === option;
 
     return (
@@ -71,9 +71,9 @@ export const OpportunitySelector = forwardRef(function OpportunitySelector(
   return (
     <>
       <div className="flex items-center gap-8" role="radiogroup" aria-labelledby={`${props.id}-label`}>
-        <RadioOption option={OpenToOtherOpportunityType.YES} label="Yes" />
-        <RadioOption option={OpenToOtherOpportunityType.MAYBE} label="Maybe" />
-        <RadioOption option={OpenToOtherOpportunityType.NO} label="No" />
+        <RadioOption option={dto.OpenToOtherOpportunityType.YES} label="Yes" />
+        <RadioOption option={dto.OpenToOtherOpportunityType.MAYBE} label="Maybe" />
+        <RadioOption option={dto.OpenToOtherOpportunityType.NO} label="No" />
       </div>
 
       {error && <div className="text-red-400 text-sm mt-1">{error}</div>}
