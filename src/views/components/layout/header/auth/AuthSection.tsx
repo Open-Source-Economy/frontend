@@ -7,6 +7,7 @@ import { MobileUserMenu } from "../user-menu/MobileUserMenu";
 
 import { AuthenticatedUser } from "@open-source-economy/api-types";
 import { NavigationLink, UserMenuNavigation } from "src/types/navigation";
+import { isVisible } from "src/utils/featureVisibility";
 
 interface AuthSectionProps {
   isLoading: boolean;
@@ -24,7 +25,7 @@ export function AuthSection(props: AuthSectionProps) {
     return <div className="animate-pulse bg-gray-200 h-10 w-10 rounded-full" />;
   }
 
-  if (props.authenticatedUser) {
+  if (props.authenticatedUser && isVisible("authenticatedUserMenu")) {
     if (props.variant === "mobile") {
       return <MobileUserMenu authenticatedUser={props.authenticatedUser} menuConfig={props.menuConfig} />;
     }

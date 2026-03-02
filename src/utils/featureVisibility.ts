@@ -32,37 +32,11 @@ export const envGroups = {
  * Specify an array of environments where each feature should be visible
  */
 export const features = {
-  /** Enterprise service request buttons (NDA, SLA, Ecosystem Growth) */
-  enterpriseServiceButtons: envGroups.localOnly,
+  /** Newsletter subscription demo toggle in footer */
+  newsletterDemoToggle: envGroups.nonProduction,
 
-  /** FAQ page in header navigation */
-  faqPage: envGroups.localAndDev,
-
-  /** Fund distribution summary section */
-  fundDistributionSummary: envGroups.localAndDev,
-
-  /** Privacy policy references */
-  privacyPolicy: envGroups.localAndDev,
-
-  /** Featured vendors section */
-  featuredVendors: envGroups.nonProduction,
-
-  /** Supporters section */
-  becomeASponsor: envGroups.localAndDev,
-
-  epicmaxSponsor: envGroups.nonProduction,
-
-  /** Mission link on sponsorship page */
-  sponsorshipMissionLink: envGroups.localAndDev,
-
-  /** Sponsorship button in header navigation */
-  sponsorshipButton: envGroups.localAndDev,
-
-  /** Project verification notice in onboarding Step 2 */
-  projectVerificationNotice: envGroups.localOnly,
-
-  /** Dev Controls on Pricing Page */
-  devControls: envGroups.localAndDev,
+  /** Authenticated user menu (avatar, tokens, dropdown) */
+  authenticatedUserMenu: envGroups.localAndDev,
 
   // Add more features here as needed
   // Custom combinations:
