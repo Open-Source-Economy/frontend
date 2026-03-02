@@ -29,7 +29,7 @@ import {
   Wrench,
 } from "lucide-react";
 import * as dto from "@open-source-economy/api-types";
-import { CONTACT_REASON_LABELS } from "src/utils/companions/ContactReasonCompanion";
+import { CONTACT_REASON_LABELS } from "src/utils/companions";
 import { contactEmail } from "src/views/v1/data";
 import { useContactForm } from "./hooks/useContactForm";
 import {

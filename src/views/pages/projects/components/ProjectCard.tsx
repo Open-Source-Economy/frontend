@@ -7,8 +7,8 @@ import * as dto from "@open-source-economy/api-types";
 import {
   ProjectItemWithDetailsCardView,
   ProjectItemWithDetailsCompanion,
-} from "src/utils/companions/ProjectItemWithDetails.companion";
-import { DeveloperRoleTypeCompanion } from "src/utils/companions/DeveloperRoleType.companion";
+  DeveloperRoleTypeCompanion,
+} from "src/utils/companions";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate } from "@tanstack/react-router";
 

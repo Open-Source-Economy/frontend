@@ -12,7 +12,7 @@ import { ProjectServiceOffering, ServiceCategoryCard, ServiceOffering } from "./
 import * as dto from "@open-source-economy/api-types";
 import { LoadingState } from "../../components/ui/state/loading-state";
 import { ServerErrorAlert } from "../../components/ui/state/ServerErrorAlert";
-import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
+import { ProjectItemDetailsCompanion } from "src/utils/companions";
 import { useProjectDetails } from "./hooks/useProjectDetails";
 import { TrustIndicatorGroup, type TrustIndicatorItem } from "./components/TrustIndicators";
 import { getProjectDisclaimer } from "./data/projectDisclaimers";

@@ -18,3 +18,6 @@ export * from "./FullDeveloperProfile.companion";
 export * from "./Owner.companion";
 export * from "./AuthenticatedUser.companion";
 export * from "./FinancialIssue.companion";
+export * from "./ProjectItemDetails.companion";
+export * from "./ProjectDeveloperProfile.companion";
+export * from "./ContactReasonCompanion";

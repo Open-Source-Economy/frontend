@@ -1,6 +1,6 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { CurrencyCompanion, CurrencyDisplay } from "src/utils/companions/Currency.companion";
+import { CurrencyCompanion, CurrencyDisplay } from "src/utils/companions";
 import { useAuth } from "src/views/auth/AuthContext";
 import { PreferredCurrency } from "src/utils/PreferredCurrency";
 import { SelectField, SelectOption } from "./select-field";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Code2, GitFork, Package, Star, Users } from "lucide-react";
-import { ProjectStats } from "src/utils/companions/ProjectItemWithDetails.companion";
+import { ProjectStats } from "src/utils/companions";
 
 interface PlatformStatsProps {
   projectStats: ProjectStats;

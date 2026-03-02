@@ -4,7 +4,7 @@ import { Badge } from "../../../components/ui/badge";
 import { Button } from "../../../components/ui/forms";
 import { ExternalLink } from "../../../components/ui/forms/external-link";
 import * as dto from "@open-source-economy/api-types";
-import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
+import { ProjectItemDetailsCompanion } from "src/utils/companions";
 import { laurianeCalLink } from "../../../v1/data";
 
 interface ProjectHeroProps {
