@@ -58,20 +58,21 @@ const overlays = {
 // -----------------------------
 // Variant pieces
 // -----------------------------
-function StatusBadge({ code }: { code?: number }) {
-  if (!code) return null;
+function StatusBadge(props: { code?: number }) {
+  if (!props.code) return null;
   return (
     <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-brand-error/15 border border-brand-error/30 text-xs font-medium text-brand-error/60">
-      Error {code}
+      Error {props.code}
     </span>
   );
 }
 
-function DismissBtn({ onClick, size = "md" }: { onClick: () => void; size?: "sm" | "md" }) {
+function DismissBtn(props: { onClick: () => void; size?: "sm" | "md" }) {
+  const size = props.size ?? "md";
   const dims = size === "sm" ? "w-6 h-6 rounded-md" : "w-8 h-8 rounded-lg";
   return (
     <button
-      onClick={onClick}
+      onClick={props.onClick}
       className={`${dims} flex items-center justify-center text-brand-error/60 hover:text-brand-error hover:bg-brand-error/10 transition-all duration-200 group`}
       aria-label="Dismiss error"
     >

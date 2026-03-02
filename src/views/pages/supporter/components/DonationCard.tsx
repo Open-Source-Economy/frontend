@@ -19,7 +19,7 @@ import { ApiError } from "src/utils/error/ApiError";
 
 import { displayedCurrencies } from "src/views/v1/data";
 import { NumberUtils } from "src/utils/NumberUtils";
-import { openSourceEconomyProjectId } from "src/services/data/projects";
+import { openSourceEconomyProjectId } from "src/model";
 import { GithubUrls } from "src/utils/GithubUrls";
 import { useCurrency } from "src/context/CurrencyContext";
 import { projectHooks, stripeHooks } from "src/api";

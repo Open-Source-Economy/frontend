@@ -73,11 +73,16 @@ function LoadingBlock() {
   );
 }
 
-function ErrorBlock({ error, onRetry }: { error: ApiError; onRetry: () => void }) {
+function ErrorBlock(props: { error: ApiError; onRetry: () => void }) {
   return (
     <div className="py-16">
       <div className="max-w-2xl mx-auto">
-        <ServerErrorAlert error={error} title={projectsShowcaseContent.error.title} showRetry onRetry={onRetry} />
+        <ServerErrorAlert
+          error={props.error}
+          title={projectsShowcaseContent.error.title}
+          showRetry
+          onRetry={props.onRetry}
+        />
       </div>
     </div>
   );

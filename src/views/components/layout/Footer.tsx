@@ -39,24 +39,14 @@ export const footerContent = {
 // -----------------------------
 // Small components
 // -----------------------------
-function FooterAnchor({
-  href,
-  external,
-  children,
-  className,
-}: {
-  href: string;
-  external?: boolean;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return external ? (
-    <ExternalLink href={href} underline={false} className={className}>
-      {children}
+function FooterAnchor(props: { href: string; external?: boolean; children: React.ReactNode; className?: string }) {
+  return props.external ? (
+    <ExternalLink href={props.href} underline={false} className={props.className}>
+      {props.children}
     </ExternalLink>
   ) : (
-    <Link to={href as string} className={className}>
-      {children}
+    <Link to={props.href as string} className={props.className}>
+      {props.children}
     </Link>
   );
 }
