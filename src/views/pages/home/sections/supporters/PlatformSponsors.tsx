@@ -113,16 +113,7 @@ export function PlatformSponsors(props: PlatformSponsorsProps) {
   ];
 
   // Individual supporters
-  const individualSupporters: IndividualSupporter[] = [
-    // { name: "Sarah Chen", initials: "SC", monthlyAmount: 50 },
-    // { name: "Michael Rodriguez", initials: "MR", monthlyAmount: 25 },
-    // { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 100 },
-    // { name: "Emma Wilson", initials: "EW", monthlyAmount: 15 },
-    // { name: "David Kim", initials: "DK", monthlyAmount: 30 },
-    // { name: "Anonymous", initials: "A", isAnonymous: true, monthlyAmount: 75 },
-    // { name: "Lisa Anderson", initials: "LA", monthlyAmount: 20 },
-    // { name: "James Brown", initials: "JB", monthlyAmount: 40 },
-  ];
+  const individualSupporters: IndividualSupporter[] = [];
 
   return (
     <section id="platform-sponsors" className={`py-16 lg:py-24 ${className}`}>

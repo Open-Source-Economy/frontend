@@ -294,9 +294,6 @@ export function Step5(props: Step5Props) {
         </Alert>
       )}
 
-      {/*/!* Stats *!/*/}
-      {/*{hasServices && <ServiceStats services={props.state.developerServices} servicesByType={servicesByType} />}*/}
-
       {/* Services List */}
       {!hasServices ? (
         <EmptyServicesState

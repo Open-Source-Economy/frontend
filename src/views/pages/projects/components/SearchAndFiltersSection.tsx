@@ -39,10 +39,6 @@ export function SearchAndFiltersSection(props: SearchAndFiltersSectionProps) {
           {/* Filters Section with Better Visual Organization */}
           <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 bg-[rgba(26,41,66,0)]">
             <div className="flex items-center justify-between mb-4">
-              {/*<div className="flex items-center gap-2">*/}
-              {/*  <div className="w-1 h-5 bg-brand-accent rounded-full"></div>*/}
-              {/*  <span className="text-sm text-muted-foreground">Refine your search</span>*/}
-              {/*</div>*/}
               {(props.selectedCategory || props.selectedLanguage) && (
                 <button
                   onClick={handleClearAll}
@@ -55,24 +51,6 @@ export function SearchAndFiltersSection(props: SearchAndFiltersSectionProps) {
                 </button>
               )}
             </div>
-
-            {/* Combined Filters Grid */}
-            {/*<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">*/}
-            {/*  <div className="space-y-3">*/}
-            {/*    <div className="flex items-center gap-2">*/}
-            {/*      <label className="text-xs text-muted-foreground uppercase tracking-wider">Category</label>*/}
-            {/*      {props.selectedCategory && <span className="text-xs text-brand-accent">({props.selectedCategory})</span>}*/}
-            {/*    </div>*/}
-            {/*    <CategoryFilter selectedCategory={props.selectedCategory} onSelectCategory={props.onCategoryChange} />*/}
-            {/*  </div>*/}
-            {/*  <div className="space-y-3">*/}
-            {/*    <div className="flex items-center gap-2">*/}
-            {/*      <label className="text-xs text-muted-foreground uppercase tracking-wider">Language</label>*/}
-            {/*      {props.selectedLanguage && <span className="text-xs text-brand-accent">({props.selectedLanguage})</span>}*/}
-            {/*    </div>*/}
-            {/*    <LanguageFilter languages={props.availableLanguages} selectedLanguage={props.selectedLanguage} onSelectLanguage={props.onLanguageChange} />*/}
-            {/*  </div>*/}
-            {/*</div>*/}
 
             <div className="flex-1">
               <LanguageFilter
@@ -118,17 +96,6 @@ export function SearchAndFiltersSection(props: SearchAndFiltersSectionProps) {
                 </>
               ) : (
                 <></>
-                // <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-brand-warning/10 border border-brand-warning/20">
-                //   <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-warning/20">
-                //     <span className="text-brand-warning text-sm">0</span>
-                //   </div>
-                //   <div className="text-sm">
-                //     <span className="text-brand-warning">No projects found</span>
-                //     {(props.searchQuery || props.selectedCategory || props.selectedLanguage) && (
-                //       <span className="text-muted-foreground ml-2">Try adjusting your filters</span>
-                //     )}
-                //   </div>
-                // </div>
               )}
             </div>
           )}

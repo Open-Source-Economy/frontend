@@ -79,16 +79,6 @@ export function ProjectDetailPage() {
 
   return (
     <PageWrapper>
-      {/*/!* Back Button *!/*/}
-      {/*<div className="container mx-auto px-4 py-6 max-w-6xl">*/}
-      {/*  <Button asChild variant="ghost" className="text-brand-neutral-700 hover:text-brand-accent">*/}
-      {/*    <Link to="/projects">*/}
-      {/*      <ArrowLeft className="mr-2 h-4 w-4" />*/}
-      {/*      Back to Projects*/}
-      {/*    </Link>*/}
-      {/*  </Button>*/}
-      {/*</div>*/}
-
       {/* Hero */}
       {projectDetails && <ProjectHero project={projectDetails} />}
 

@@ -166,7 +166,6 @@ export function ProjectSelector(props: ProjectSelectorProps) {
                 }`}
               >
                 {allProjectsSelected && <Check className="w-3 h-3 text-white" />}
-                {/*{!allProjectsSelected && safeSelectedIds.length > 0 && <Minus className="w-3 h-3 text-brand-accent" />}*/}
               </div>
               <span className="text-sm text-brand-neutral-800">All Projects</span>
               <span className="ml-auto text-xs text-brand-neutral-600">

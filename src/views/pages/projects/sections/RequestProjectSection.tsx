@@ -120,16 +120,6 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
                 {v.primaryCta}
               </Link>
             </Button>
-            {/*<Button*/}
-            {/*  asChild*/}
-            {/*  variant="outline"*/}
-            {/*  className="border-brand-accent/40 hover:bg-brand-accent/10 hover:border-brand-accent/60 text-brand-neutral-900 transition-all"*/}
-            {/*>*/}
-            {/*  <Link to="/contact">*/}
-            {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
-            {/*    {v.secondaryCta}*/}
-            {/*  </Link>*/}
-            {/*</Button>*/}
           </div>
         </div>
       </div>
@@ -155,12 +145,6 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
               {v.primaryCta}
             </Link>
           </Button>
-          {/*<Button asChild variant="outline" className="border-border hover:bg-card">*/}
-          {/*  <Link to="/contact">*/}
-          {/*    <MessageCircle className="w-4 h-4 mr-2" />*/}
-          {/*    {v.secondaryCta}*/}
-          {/*  </Link>*/}
-          {/*</Button>*/}
         </div>
       </div>
     </div>

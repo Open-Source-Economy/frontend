@@ -91,14 +91,7 @@ export function ServiceCard(props: ServiceCardProps) {
                     <span>Add projects</span>
                   </button>
                 </>
-              ) : (
-                <>
-                  {/*<span className="text-brand-neutral-400">•</span>*/}
-                  {/*<span className="text-sm text-brand-neutral-600">*/}
-                  {/*  {projectCount} project{projectCount !== 1 ? "s" : ""}*/}
-                  {/*</span>*/}
-                </>
-              )}
+              ) : null}
             </div>
           </div>
 

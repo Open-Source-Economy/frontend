@@ -140,9 +140,8 @@ export function FundDistributionVisualization(props: FundDistributionVisualizati
         </div>
         <div className="pl-16 pt-4 border-t border-brand-neutral-300/50">
           <p className="text-brand-neutral-600 text-sm">
-            <strong className="text-brand-neutral-800">Non-Profit Partnership Advantage:</strong>
-            {/* <strong className="text-brand-accent"> */} 100% of your investment{/*</strong>*/} goes directly to open
-            source maintainers and ecosystem sustainability.
+            <strong className="text-brand-neutral-800">Non-Profit Partnership Advantage:</strong> 100% of your
+            investment goes directly to open source maintainers and ecosystem sustainability.
           </p>
         </div>
       </div>

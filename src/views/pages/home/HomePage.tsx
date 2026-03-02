@@ -27,14 +27,10 @@ export function HomePage(_props: HomeProps) {
           description="Get the services you need (support, advisory, bug fixes, and more) directly from core maintainers, under a single enterprise contract. Empower your team while sustaining the open source projects you rely on."
           actions={[
             { text: "Schedule Demo", variant: "default" as const, icon: true, href: laurianeCalLink, external: true },
-            // { text: "Schedule Demo", variant: "outline" as const },
           ]}
           trustIndicators={[
             { icon: Leaf, text: "Ethical and Transparent" },
             { icon: FileText, text: "NDAs & SLAs Available" },
-            // { icon: CheckCircle, text: "SLAs" },
-            // { icon: Globe2, text: "Global Maintainer Network" },
-            // { icon: Headphones, text: "Dedicated Support Channels" }
           ]}
           layout={"photo"}
         />
@@ -68,14 +64,7 @@ export function HomePage(_props: HomeProps) {
       </div>
 
       {/* Featured Projects - Portfolio Showcase with Deep Navy */}
-      <ProjectsShowcaseCompact
-        // onNavigateToProjects={() => setCurrentPage('projects')}
-        // onViewProject={(slug) => {
-        //   setCurrentProjectSlug(slug);
-        //   setCurrentPage('project-detail');
-        // }}
-        className="bg-gradient-to-br from-brand-neutral-100 via-brand-secondary-dark to-brand-card-blue"
-      />
+      <ProjectsShowcaseCompact className="bg-gradient-to-br from-brand-neutral-100 via-brand-secondary-dark to-brand-card-blue" />
 
       {isVisible("featuredVendors") && (
         <FeaturedVendors
@@ -90,16 +79,6 @@ export function HomePage(_props: HomeProps) {
         <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-brand-highlight/8 rounded-full blur-3xl opacity-40" />
         <UniqueSellingPoints />
       </div>
-
-      {/* Transform CTA - Primary Conversion with Warm Brand Glow */}
-      {/*<div className="relative overflow-hidden bg-gradient-to-br from-brand-secondary-dark via-brand-neutral-100 to-brand-card-blue">*/}
-      {/*  <div className="absolute top-0 left-0 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl opacity-50" />*/}
-      {/*  <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-highlight/20 rounded-full blur-3xl opacity-50" />*/}
-      {/*  <TransformCTASection*/}
-      {/*  // onGetStarted={() => setCurrentPage('role-selection')}*/}
-      {/*  // onScheduleDemo={() => setCurrentPage('contact')}*/}
-      {/*  />*/}
-      {/*</div>*/}
     </PageWrapper>
   );
 }

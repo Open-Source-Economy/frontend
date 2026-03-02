@@ -90,15 +90,7 @@ export function WizardNavigation(props: WizardNavigationProps) {
         {/* Help Text */}
         <div className="mt-6">
           <p className="text-xs sm:text-sm text-brand-neutral-600 text-center">
-            Need help? {/*<Link */}
-            {/*  to="/faq" */}
-            {/*  target="_blank" */}
-            {/*  rel="noopener noreferrer" */}
-            {/*  className="text-brand-accent hover:text-brand-accent-dark font-medium"*/}
-            {/*>*/}
-            {/*  View FAQ*/}
-            {/*</Link>{" "}*/}
-            {/*or{" "}*/}
+            Need help?{" "}
             <Link
               to="/contact"
               search={{ reason: undefined }}

@@ -201,41 +201,6 @@ export function SponsorshipPage() {
                   </div>
                 </div>
               </section>
-
-              {/*/!* Monthly Funding Goals Section *!/*/}
-              {/*<div className="py-16 border-b border-brand-neutral-300">*/}
-              {/*  <MonthlyFundingGoals currentMonthlyDonations={currentMonthlyDonations} tiers={fundingTiers} />*/}
-              {/*</div>*/}
-
-              {/*/!* Impact Stats Section *!/*/}
-              {/*<section className="relative py-16">*/}
-              {/*  <div className="max-w-4xl">*/}
-              {/*    <div className="mb-12">*/}
-              {/*      <h2 className="text-brand-neutral-900 mb-4">Platform Impact</h2>*/}
-              {/*      <p className="text-brand-neutral-600 text-lg">*/}
-              {/*        Through enterprise contracts, we're creating sustainable funding for open source*/}
-              {/*      </p>*/}
-              {/*    </div>*/}
-
-              {/*    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">*/}
-              {/*      {impactStats.map((stat, idx) => {*/}
-              {/*        const IconComponent = stat.icon;*/}
-              {/*        return (*/}
-              {/*          <Card key={idx} className="border-2 border-brand-neutral-300 bg-gradient-to-br from-brand-card-blue-light to-brand-card-blue text-center">*/}
-              {/*            <CardContent className="p-6">*/}
-              {/*              <IconComponent className="h-8 w-8 text-brand-accent mx-auto mb-3" />*/}
-              {/*              <div className="text-4xl text-brand-neutral-950 mb-2">{stat.value}</div>*/}
-              {/*              <div className="text-brand-neutral-900 mb-2">{stat.label}</div>*/}
-              {/*              <p className="text-brand-neutral-600 text-sm">*/}
-              {/*                {stat.description}*/}
-              {/*              </p>*/}
-              {/*            </CardContent>*/}
-              {/*          </Card>*/}
-              {/*        );*/}
-              {/*      })}*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</section>*/}
             </div>
 
             {/* RIGHT COLUMN - Sticky Donation Card */}

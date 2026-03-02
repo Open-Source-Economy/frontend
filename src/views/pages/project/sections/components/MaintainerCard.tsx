@@ -33,15 +33,6 @@ export function MaintainerCard(props: MaintainerCardProps) {
       {/* Decorative gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/[0.02] via-transparent to-brand-highlight/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-      {/*/!* Subtle grid pattern *!/*/}
-      {/*<div*/}
-      {/*  className="absolute inset-0 opacity-[0.015] pointer-events-none"*/}
-      {/*  style={{*/}
-      {/*    backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",*/}
-      {/*    backgroundSize: "16px 16px",*/}
-      {/*  }}*/}
-      {/*/>*/}
-
       {/* Availability Badge - Top Right */}
       <div className="absolute top-5 right-5 z-10">
         <StatusBadge settings={props.developer.settings} />
@@ -109,18 +100,6 @@ export function MaintainerCard(props: MaintainerCardProps) {
               </div>
             </div>
           )}
-
-          {/*/!* Expertise Tags *!/*/}
-          {/*<div className="mb-3 mt-auto">*/}
-          {/*  <div className="flex flex-wrap gap-1.5">*/}
-          {/*    <span className="text-brand-neutral-600 text-xs w-full mb-0.5">Expertise</span>*/}
-          {/*    {(expertise.length > 0 ? expertise : ["Open Source"]).map(skill => (*/}
-          {/*      <Badge key={skill} variant="outline" className="text-xs bg-brand-neutral-100/50">*/}
-          {/*        {skill}*/}
-          {/*      </Badge>*/}
-          {/*    ))}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
 
           {/* Social Links */}
           <div className="flex gap-1.5">

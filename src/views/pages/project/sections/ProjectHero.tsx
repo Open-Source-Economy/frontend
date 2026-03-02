@@ -28,17 +28,6 @@ export function ProjectHero(props: ProjectHeroProps) {
     <div className="bg-gradient-to-br from-brand-secondary via-brand-card-blue to-brand-secondary-dark border-b border-brand-neutral-300">
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-          {/*/!* Logo *!/*/}
-          {/*{project.owner?.avatarUrl && (*/}
-          {/*  <div className="flex-shrink-0">*/}
-          {/*    <img*/}
-          {/*      src={project.owner.avatarUrl}*/}
-          {/*      alt={displayName ?? project.owner?.id?.login ?? "Project avatar"}*/}
-          {/*      className="h-24 w-24 rounded-xl border border-brand-neutral-200 bg-white object-cover shadow-lg"*/}
-          {/*    />*/}
-          {/*  </div>*/}
-          {/*)}*/}
-
           {/* Content */}
           <div className="flex-1">
             {/* Category Badges */}
@@ -60,10 +49,6 @@ export function ProjectHero(props: ProjectHeroProps) {
                 <Button size="lg">Schedule Consultation</Button>
               </ExternalLink>
 
-              {/*<Button size="lg" variant="outline" asChild>*/}
-              {/*  <Link to="#donation">Support This Project</Link>*/}
-              {/*</Button>*/}
-
               {githubUrl && (
                 <ExternalLink
                   href={githubUrl}
@@ -74,42 +59,7 @@ export function ProjectHero(props: ProjectHeroProps) {
                   <span>View on GitHub</span>
                 </ExternalLink>
               )}
-              {/*{githubUrl && (*/}
-              {/*  <ExternalLink*/}
-              {/*    href={githubUrl}*/}
-              {/*    underline={false}*/}
-              {/*    className="flex items-center gap-2 text-brand-neutral-500 hover:text-brand-neutral-700 transition-colors text-sm"*/}
-              {/*  >*/}
-              {/*    <ExternalLinkIcon className="h-3.5 w-3.5" />*/}
-              {/*    <span>Documentation</span>*/}
-              {/*  </ExternalLink>*/}
-              {/*)}*/}
             </div>
-
-            {/*/!* Quick Stats *!/*/}
-            {/*<div className="flex flex-wrap gap-6">*/}
-            {/*  {formattedStats?.totalStars !== undefined && (*/}
-            {/*    <div className="flex items-center gap-2 text-brand-neutral-700">*/}
-            {/*      <Star className="h-4 w-4 text-brand-warning" />*/}
-            {/*      <span>{formattedStats.totalStars}</span>*/}
-            {/*    </div>*/}
-            {/*  )}*/}
-
-            {/*  /!* Future stats placeholders if needed*/}
-            {/*  <div className="flex items-center gap-2 text-brand-neutral-700">*/}
-            {/*    <Download className="h-4 w-4 text-brand-success" />*/}
-            {/*    <span>{formattedForks}</span>*/}
-            {/*  </div>*/}
-            {/*  <div className="flex items-center gap-2 text-brand-neutral-700">*/}
-            {/*    <Calendar className="h-4 w-4 text-brand-accent" />*/}
-            {/*    <span>{versionLabel}</span>*/}
-            {/*  </div>*/}
-            {/*  <div className="flex items-center gap-2 text-brand-neutral-700">*/}
-            {/*    <Scale className="h-4 w-4 text-brand-highlight" />*/}
-            {/*    <span>{licenseLabel}</span>*/}
-            {/*  </div>*/}
-            {/*  *!/*/}
-            {/*</div>*/}
           </div>
         </div>
       </div>

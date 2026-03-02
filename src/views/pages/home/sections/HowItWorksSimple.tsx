@@ -66,9 +66,6 @@ export const howItWorksContent = {
       icon: Rocket,
       title: "Empowerment",
       description:
-        //   "Boost productivity and reduce downtime by giving your teams direct access to the maintainers who build and maintain your open source tools.",
-        // "Engage with open source maintainers for high-priority fixes, custom development, and strategic advisory—strengthening the performance and reliability of your systems.",
-        // "Boost productivity and reduce downtime by giving your teams direct access to the maintainers who build and maintain your open source tools, for high-priority fixes, custom development, and strategic advisory",
         "Empower your teams with direct access to the maintainers who built your open source stack—reducing downtime, accelerating delivery, and gaining expert insight on demand.",
     },
     {
@@ -161,13 +158,6 @@ export function HowItWorksSimple(props: HowItWorksSimpleProps) {
             ))}
           </div>
         </div>
-
-        {/*/!* Feature badges *!/*/}
-        {/*<div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">*/}
-        {/*  {howItWorksContent.features.map((feature, index) => (*/}
-        {/*    <FeatureBadge key={index} label={feature} />*/}
-        {/*  ))}*/}
-        {/*</div>*/}
 
         {/* Access Models Section */}
         <div className="mb-16">

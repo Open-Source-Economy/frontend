@@ -7,33 +7,6 @@ import { Button } from "src/views/components/ui/forms/button";
 interface NotFoundPageProps {}
 
 export function NotFoundPage(_props: NotFoundPageProps) {
-  // const quickLinks = [
-  //   {
-  //     icon: Home,
-  //     label: "Home",
-  //     description: "Return to homepage",
-  //     href: "home",
-  //   },
-  //   {
-  //     icon: Briefcase,
-  //     label: "Projects",
-  //     description: "Explore open source projects",
-  //     href: "projects",
-  //   },
-  //   {
-  //     icon: BookOpen,
-  //     label: "Blog",
-  //     description: "Read our latest articles",
-  //     href: "blog",
-  //   },
-  //   {
-  //     icon: MessageSquare,
-  //     label: "Contact",
-  //     description: "Get in touch with us",
-  //     href: "contact",
-  //   },
-  // ];
-
   return (
     <PageWrapper>
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-brand-secondary via-brand-neutral-100 to-brand-secondary-dark">
@@ -64,60 +37,12 @@ export function NotFoundPage(_props: NotFoundPageProps) {
 
               {/* Primary Actions */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                {/*<Button*/}
-                {/*  // onClick={onNavigateHome}*/}
-                {/*  className="gap-2"*/}
-                {/*>*/}
-                {/*  <Home className="w-4 h-4" />*/}
-                {/*  Back to Home*/}
-                {/*</Button>*/}
                 <Button variant="outline" onClick={() => window.history.back()} className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
                   Go Back
                 </Button>
               </div>
             </div>
-
-            {/*/!* Quick Links Grid *!/*/}
-            {/*<div className="bg-brand-card-blue border border-brand-neutral-300 rounded-xl p-8 sm:p-12">*/}
-            {/*  <div className="text-center mb-8">*/}
-            {/*    <h3 className="text-brand-neutral-900 mb-2">Explore Our Platform</h3>*/}
-            {/*    <p className="text-brand-neutral-600">Here are some helpful links to get you back on track</p>*/}
-            {/*  </div>*/}
-
-            {/*  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">*/}
-            {/*    {quickLinks.map(link => (*/}
-            {/*      <button*/}
-            {/*        key={link.href}*/}
-            {/*        // onClick={() => onNavItemClick(link.href)}*/}
-            {/*        className="group bg-brand-card-blue-light border border-brand-neutral-300 rounded-xl p-6 text-left transition-all duration-200 hover:border-brand-accent hover:bg-brand-card-blue-dark hover:shadow-lg"*/}
-            {/*      >*/}
-            {/*        <div className="flex flex-col items-start gap-3">*/}
-            {/*          <div className="w-12 h-12 rounded-lg bg-brand-accent/10 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors">*/}
-            {/*            <link.icon className="w-6 h-6 text-brand-accent" />*/}
-            {/*          </div>*/}
-            {/*          <div>*/}
-            {/*            <div className="text-brand-neutral-900 mb-1">{link.label}</div>*/}
-            {/*            <p className="text-brand-neutral-600">{link.description}</p>*/}
-            {/*          </div>*/}
-            {/*        </div>*/}
-            {/*      </button>*/}
-            {/*    ))}*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-
-            {/* Help Text */}
-            {/*<div className="mt-12 text-center">*/}
-            {/*  <p className="text-brand-neutral-600">*/}
-            {/*    Still can't find what you're looking for?{" "}*/}
-            {/*    <button*/}
-            {/*      // onClick={() => onNavItemClick('contact')}*/}
-            {/*      className="text-brand-accent hover:text-brand-accent-dark underline decoration-transparent hover:decoration-brand-accent-dark transition-all duration-200"*/}
-            {/*    >*/}
-            {/*      Contact our support team*/}
-            {/*    </button>*/}
-            {/*  </p>*/}
-            {/*</div>*/}
           </div>
         </div>
       </div>

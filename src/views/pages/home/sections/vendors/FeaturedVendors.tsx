@@ -34,42 +34,6 @@ export function FeaturedVendors(props: FeaturedVendorsProps) {
           },
         ]
       : []),
-    // {
-    //   name: "React Native Builders",
-    //   domain: "reactnativebuilders.example.com",
-    //   tagline: "Mobile-first development",
-    //   description: "Specialized React Native team building cross-platform mobile solutions for Fortune 500 companies.",
-    //   metrics: [
-    //     { icon: "award", label: "Years Experience", value: "6" },
-    //     { icon: "projects", label: "Apps Shipped", value: "45+" },
-    //     { icon: "star", label: "GitHub Stars", value: "8.2k" },
-    //   ],
-    //   href: "https://reactnativebuilders.example.com",
-    // },
-    // {
-    //   name: "Next.js Architects",
-    //   domain: "nextjsarchitects.example.com",
-    //   tagline: "Full-stack Next.js experts",
-    //   description: "Building scalable, performant web applications with Next.js and modern React patterns.",
-    //   metrics: [
-    //     { icon: "award", label: "Years Experience", value: "5" },
-    //     { icon: "projects", label: "Projects", value: "38+" },
-    //     { icon: "star", label: "GitHub Stars", value: "15.8k" },
-    //   ],
-    //   href: "https://nextjsarchitects.example.com",
-    // },
-    // {
-    //   name: "TypeScript Guild",
-    //   domain: "typescriptguild.example.com",
-    //   tagline: "Type-safe development leaders",
-    //   description: "Expert TypeScript consultants helping teams migrate to type-safe codebases and build robust systems.",
-    //   metrics: [
-    //     { icon: "award", label: "Years Experience", value: "7" },
-    //     { icon: "projects", label: "Migrations", value: "52+" },
-    //     { icon: "star", label: "GitHub Stars", value: "9.4k" },
-    //   ],
-    //   href: "https://typescriptguild.example.com",
-    // },
   ];
 
   return (

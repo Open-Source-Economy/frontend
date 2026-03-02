@@ -194,17 +194,6 @@ export function ProjectsShowcaseCompact(props: ProjectsShowcaseCompactProps) {
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
-                  {/*<Button*/}
-                  {/*  size="lg"*/}
-                  {/*  variant="outline"*/}
-                  {/*  className="border-brand-accent/30 text-brand-accent hover:bg-brand-accent/10"*/}
-                  {/*  onClick={() => {*/}
-                  {/*    // In a real app, this would navigate to a custom search or request page*/}
-                  {/*    console.log("Request custom project");*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  {projectsShowcaseContent.cta.requestCustom}*/}
-                  {/*</Button>*/}
                 </div>
               </div>
             </div>

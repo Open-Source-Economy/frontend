@@ -189,7 +189,6 @@ export function ProjectCard(props: ProjectCardProps) {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1">
                             <p className="text-xs text-foreground truncate">{developer.developerOwner.id.login}</p>
-                            {/*<BadgeCheck className="w-3 h-3 text-brand-primary flex-shrink-0" />*/}
                           </div>
                           <p className="text-xs text-muted-foreground truncate">
                             {developer.developerProjectItem.roles.length > 0
@@ -233,7 +232,6 @@ export function ProjectCard(props: ProjectCardProps) {
                 size="sm"
                 className="w-full border-brand-accent/30 hover:bg-brand-accent/10 hover:border-brand-accent text-brand-accent"
               >
-                {/*<MessageCircle className="w-3.5 h-3.5 mr-2" />*/}
                 Learn More
               </Button>
             </div>
