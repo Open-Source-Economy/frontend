@@ -3,9 +3,9 @@ import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { AlertCircle, CheckCircle, Code, Eye, GitFork, Loader2, RefreshCw, Star } from "lucide-react";
-import { RepositoryWithSyncState } from "./types";
-import { MaintainerList } from "../../organizations/components/MaintainerList";
-import { BulkSyncStatusBadge } from "../../organizations/components/BulkSyncStatusBadge";
+import { RepositoryWithSyncState } from "src/views/pages/admin/repositories/components/types";
+import { MaintainerList } from "src/views/pages/admin/organizations/components/MaintainerList";
+import { BulkSyncStatusBadge } from "src/views/pages/admin/organizations/components/BulkSyncStatusBadge";
 
 interface RepositoryCardProps {
   repository: RepositoryWithSyncState;

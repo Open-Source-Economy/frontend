@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoTooltip } from "../ui/info-tooltip";
+import { InfoTooltip } from "src/views/pages/pricing/ui/info-tooltip";
 
 interface SectionSubtitleProps {
   text: string;

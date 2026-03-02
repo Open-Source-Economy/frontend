@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CheckCircle2, ChevronLeft, Lock } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { EmailDisplay } from "../components/auth/EmailDisplay";
-import { TermsCheckbox } from "../components/auth/TermsCheckbox";
+import { EmailDisplay } from "src/views/pages/authenticate/components/auth/EmailDisplay";
+import { TermsCheckbox } from "src/views/pages/authenticate/components/auth/TermsCheckbox";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 
@@ -10,7 +10,7 @@ import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { authHooks } from "src/api";
-import { AuthPageWrapper } from "../AuthPageWrapper";
+import { AuthPageWrapper } from "src/views/pages/authenticate/AuthPageWrapper";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
 import {
   registrationFormSchema,

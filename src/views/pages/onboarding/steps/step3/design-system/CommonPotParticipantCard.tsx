@@ -1,5 +1,5 @@
 import { ArrowRight, CheckCircle2, Handshake, Heart, Zap } from "lucide-react";
-import { ParticipationFeatureItem } from "./ParticipationFeatureItem";
+import { ParticipationFeatureItem } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationFeatureItem";
 
 interface CommonPotParticipantCardProps {
   isSelected: boolean;

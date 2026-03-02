@@ -5,9 +5,9 @@ import { Badge } from "src/views/components/ui/badge";
 import { Input } from "src/views/components/ui/forms/inputs/input";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { AlertCircle, Building2, CheckCircle, GitBranch, Loader2, RefreshCw, User, UserPlus } from "lucide-react";
-import { OrganizationWithSyncState } from "./types";
-import { MaintainerList } from "./MaintainerList";
-import { BulkSyncStatusBadge } from "./BulkSyncStatusBadge";
+import { OrganizationWithSyncState } from "src/views/pages/admin/organizations/components/types";
+import { MaintainerList } from "src/views/pages/admin/organizations/components/MaintainerList";
+import { BulkSyncStatusBadge } from "src/views/pages/admin/organizations/components/BulkSyncStatusBadge";
 
 interface OrganizationCardProps {
   organization: OrganizationWithSyncState;

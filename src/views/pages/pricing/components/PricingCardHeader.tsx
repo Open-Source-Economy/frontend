@@ -1,6 +1,6 @@
 import React from "react";
-import { PricingCardButton } from "./PricingCardButton";
-import { ButtonState } from "./utils";
+import { PricingCardButton } from "src/views/pages/pricing/components/PricingCardButton";
+import { ButtonState } from "src/views/pages/pricing/components/utils";
 import * as dto from "@open-source-economy/api-types";
 
 interface PricingCardHeaderProps {

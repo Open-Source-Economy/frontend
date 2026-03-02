@@ -1,5 +1,5 @@
 import React from "react";
-import { BenefitItem } from "./benefit-item";
+import { BenefitItem } from "src/views/pages/pricing/ui/benefit-item";
 
 interface BenefitsSectionProps {
   title: string;

@@ -12,7 +12,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { Button } from "../../components/ui/forms";
+import { Button } from "src/views/components/ui/forms";
 
 interface HeroBisProps {
   projectName: string;

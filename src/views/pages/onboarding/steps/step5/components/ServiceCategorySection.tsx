@@ -1,9 +1,9 @@
 import * as dto from "@open-source-economy/api-types";
 import { ServiceTypeCompanion } from "src/utils/companions";
 import { SourceIdentifier } from "src/utils/local-types";
-import { GroupedDeveloperServiceEntry } from "../utils";
-import { ServiceCard } from "./ServiceCard";
-import { Rate } from "../types";
+import { GroupedDeveloperServiceEntry } from "src/views/pages/onboarding/steps/step5/utils";
+import { ServiceCard } from "src/views/pages/onboarding/steps/step5/components/ServiceCard";
+import { Rate } from "src/views/pages/onboarding/steps/step5/types";
 
 interface ServiceCategorySectionProps {
   groupedEntry: GroupedDeveloperServiceEntry;

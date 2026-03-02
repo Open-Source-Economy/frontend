@@ -1,5 +1,5 @@
 import React from "react";
-import { ExpertMaintainers } from "./ExpertMaintainers";
+import { ExpertMaintainers } from "src/views/pages/home/sections/hero/expert/elements/ExpertMaintainers";
 import { DecorativeOrb } from "src/views/components/ui/decorative/decorative-orb";
 
 interface HeroRightContentProps {}

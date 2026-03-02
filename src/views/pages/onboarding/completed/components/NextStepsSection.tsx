@@ -1,5 +1,5 @@
 import { Clock, Send, Sparkles } from "lucide-react";
-import { NextStepsCard } from "../NextStepsCard";
+import { NextStepsCard } from "src/views/pages/onboarding/completed/NextStepsCard";
 
 /**
  * NextStepsSection - "What's Next?" section for onboarding success page

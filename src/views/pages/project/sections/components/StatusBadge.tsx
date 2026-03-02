@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Clock, HandHeart, type LucideIcon, Star } from "lucide-react";
-import { Badge } from "../../../../components/ui/badge";
+import { Badge } from "src/views/components/ui/badge";
 import * as dto from "@open-source-economy/api-types";
 
 export interface ConsultingDetails {

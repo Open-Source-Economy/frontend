@@ -7,11 +7,11 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ApiError } from "src/utils/error/ApiError";
 import { Building2, GitBranch, Users } from "lucide-react";
 import { ProjectItemWithDetailsCompanion } from "src/utils/companions";
-import { OrganizationWithSyncState } from "./components/types";
-import { OrganizationCard } from "./components/OrganizationCard";
-import { BulkSyncControls } from "./components/BulkSyncControls";
-import { StatisticCard } from "./components/StatisticCard";
-import { calculateEstimatedWaitTime } from "./components/utils";
+import { OrganizationWithSyncState } from "src/views/pages/admin/organizations/components/types";
+import { OrganizationCard } from "src/views/pages/admin/organizations/components/OrganizationCard";
+import { BulkSyncControls } from "src/views/pages/admin/organizations/components/BulkSyncControls";
+import { StatisticCard } from "src/views/pages/admin/organizations/components/StatisticCard";
+import { calculateEstimatedWaitTime } from "src/views/pages/admin/organizations/components/utils";
 
 export function OrganizationSyncPage() {
   const [organizations, setOrganizations] = useState<OrganizationWithSyncState[]>([]);

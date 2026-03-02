@@ -1,6 +1,6 @@
 import React from "react";
 import { CreditCard, ExternalLink, ReceiptText } from "lucide-react";
-import { Button } from "../../../components/ui/forms/button";
+import { Button } from "src/views/components/ui/forms/button";
 import * as dto from "@open-source-economy/api-types";
 
 interface ManageSubscriptionSectionProps {

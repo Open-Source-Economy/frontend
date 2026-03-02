@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthPageWrapper } from "../AuthPageWrapper";
+import { AuthPageWrapper } from "src/views/pages/authenticate/AuthPageWrapper";
 import { Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";

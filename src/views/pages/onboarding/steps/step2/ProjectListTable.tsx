@@ -1,7 +1,7 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { DeveloperRoleTypeCompanion, MergeRightsTypeCompanion, SourceIdentifierCompanion } from "src/utils/companions";
-import { GitHubIcon } from "../../../../styles/icons/GitHubIcon";
+import { GitHubIcon } from "src/views/styles/icons/GitHubIcon";
 
 interface ProjectListTableProps {
   projects: dto.DeveloperProjectItemEntry[];

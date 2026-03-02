@@ -1,7 +1,7 @@
 import React from "react";
-import { PricingCard } from "./PricingCard";
-import { PlanOption } from "./types";
-import { getPlanButtonState } from "./utils";
+import { PricingCard } from "src/views/pages/pricing/components/PricingCard";
+import { PlanOption } from "src/views/pages/pricing/components/types";
+import { getPlanButtonState } from "src/views/pages/pricing/components/utils";
 import * as dto from "@open-source-economy/api-types";
 
 interface PricingCardsGridProps {

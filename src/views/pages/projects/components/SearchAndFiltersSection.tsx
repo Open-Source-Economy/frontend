@@ -1,6 +1,6 @@
 import React from "react";
-import { ProjectSearchBar } from "./ProjectSearchBar";
-import { LanguageFilter } from "./LanguageFilter";
+import { ProjectSearchBar } from "src/views/pages/projects/components/ProjectSearchBar";
+import { LanguageFilter } from "src/views/pages/projects/components/LanguageFilter";
 import * as dto from "@open-source-economy/api-types";
 
 interface SearchAndFiltersSectionProps {

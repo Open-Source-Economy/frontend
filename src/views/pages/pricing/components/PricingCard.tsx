@@ -1,11 +1,11 @@
 import React from "react";
-import { CoreBenefitSection } from "./CoreBenefitSection";
-import { OpenSourceImpactSection } from "./OpenSourceImpactSection";
-import { RecognitionSection } from "./RecognitionSection";
-import { PlanAccessSection } from "./PlanAccessSection";
-import { PricingCardHeader } from "./PricingCardHeader";
-import { FeatureSection } from "./types";
-import { ButtonState } from "./utils";
+import { CoreBenefitSection } from "src/views/pages/pricing/components/CoreBenefitSection";
+import { OpenSourceImpactSection } from "src/views/pages/pricing/components/OpenSourceImpactSection";
+import { RecognitionSection } from "src/views/pages/pricing/components/RecognitionSection";
+import { PlanAccessSection } from "src/views/pages/pricing/components/PlanAccessSection";
+import { PricingCardHeader } from "src/views/pages/pricing/components/PricingCardHeader";
+import { FeatureSection } from "src/views/pages/pricing/components/types";
+import { ButtonState } from "src/views/pages/pricing/components/utils";
 
 import * as dto from "@open-source-economy/api-types";
 

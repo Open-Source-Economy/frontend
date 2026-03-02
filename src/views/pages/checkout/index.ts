@@ -1,1 +1,1 @@
-export { CheckoutSuccessPage } from "./CheckoutSuccessPage";
+export { CheckoutSuccessPage } from "src/views/pages/checkout/CheckoutSuccessPage";

@@ -2,7 +2,7 @@ import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { contactFormSchema, type ContactFormData } from "src/views/components/ui/forms/schemas";
 import { communicationHooks } from "src/api";
 import { useState } from "react";
-import { scrollToFirstError } from "../helpers/validationHelpers";
+import { scrollToFirstError } from "src/views/pages/contact/helpers/validationHelpers";
 
 export const useContactForm = (initialContactReason: string) => {
   const form = useZodForm(contactFormSchema, {

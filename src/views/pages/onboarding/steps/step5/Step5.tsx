@@ -3,17 +3,17 @@ import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
-import { OnboardingStepProps } from "../OnboardingStepProps";
-import { Step5State } from "../../OnboardingDataSteps";
-import { DeleteServiceModal } from "./modals/DeleteServiceModal";
-import { ServiceModal } from "./modals/ServiceModal";
-import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "./utils";
-import { AddServiceModal } from "./modals/add/AddServiceModal";
+import { OnboardingStepProps } from "src/views/pages/onboarding/steps/OnboardingStepProps";
+import { Step5State } from "src/views/pages/onboarding/OnboardingDataSteps";
+import { DeleteServiceModal } from "src/views/pages/onboarding/steps/step5/modals/DeleteServiceModal";
+import { ServiceModal } from "src/views/pages/onboarding/steps/step5/modals/ServiceModal";
+import { groupDeveloperServicesByCategory, GroupedDeveloperServiceEntry } from "src/views/pages/onboarding/steps/step5/utils";
+import { AddServiceModal } from "src/views/pages/onboarding/steps/step5/modals/add/AddServiceModal";
 import { Button } from "src/views/components/ui/forms/button";
 import { AlertCircle, Plus } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
-import { EmptyServicesState } from "./components/EmptyServicesState";
-import { ServiceCategorySection } from "./components/ServiceCategorySection";
+import { EmptyServicesState } from "src/views/pages/onboarding/steps/step5/components/EmptyServicesState";
+import { ServiceCategorySection } from "src/views/pages/onboarding/steps/step5/components/ServiceCategorySection";
 
 export interface Step5Props extends OnboardingStepProps<Step5State> {
   servicesPreference?: dto.PreferenceType | null;

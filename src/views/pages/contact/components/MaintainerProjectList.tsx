@@ -1,9 +1,9 @@
 import React from "react";
-import { Label } from "../../../components/ui/forms/label";
-import { Input } from "../../../components/ui/forms/inputs/input";
-import { FieldError } from "../../../components/ui/forms/field-error";
+import { Label } from "src/views/components/ui/forms/label";
+import { Input } from "src/views/components/ui/forms/inputs/input";
+import { FieldError } from "src/views/components/ui/forms/field-error";
 import { Plus, X } from "lucide-react";
-import { ProjectEntry } from "../helpers/formHelpers";
+import { ProjectEntry } from "src/views/pages/contact/helpers/formHelpers";
 
 interface MaintainerProjectListProps {
   projects: ProjectEntry[];

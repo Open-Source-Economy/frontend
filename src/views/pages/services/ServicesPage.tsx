@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { Header } from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
-import { Button } from "../../components/ui/forms/button";
-import { ServiceColumn } from "../../components/patterns/ServiceColumn";
-import { ServicesHeroSection } from "../../components/services/sections/ServicesHeroSection";
-import { EnterpriseAddonsSection } from "../../components/services/sections/EnterpriseAddonsSection";
-import { SectionHeader } from "../../components/ui/section/section-header";
+import { Header } from "src/views/components/layout/Header";
+import { Footer } from "src/views/components/layout/Footer";
+import { Button } from "src/views/components/ui/forms/button";
+import { ServiceColumn } from "src/views/components/patterns/ServiceColumn";
+import { ServicesHeroSection } from "src/views/components/services/sections/ServicesHeroSection";
+import { EnterpriseAddonsSection } from "src/views/components/services/sections/EnterpriseAddonsSection";
+import { SectionHeader } from "src/views/components/ui/section/section-header";
 
 import {
   AlertTriangle,

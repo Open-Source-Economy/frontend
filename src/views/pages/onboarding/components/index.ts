@@ -1,5 +1,5 @@
-export { WizardStepIndicator } from "./WizardStepIndicator";
-export { WizardNavigation } from "./WizardNavigation";
-export { StepSidebar } from "./StepSidebar";
-export { ExpandableCommentSection } from "./ExpandableCommentSection";
-export { NextStepsCard } from "../completed/NextStepsCard";
+export { WizardStepIndicator } from "src/views/pages/onboarding/components/WizardStepIndicator";
+export { WizardNavigation } from "src/views/pages/onboarding/components/WizardNavigation";
+export { StepSidebar } from "src/views/pages/onboarding/components/StepSidebar";
+export { ExpandableCommentSection } from "src/views/pages/onboarding/components/ExpandableCommentSection";
+export { NextStepsCard } from "src/views/pages/onboarding/completed/NextStepsCard";

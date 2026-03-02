@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { AuthStepHeader } from "./components/auth/AuthStepHeader";
-import { PageWrapper } from "../PageWrapper";
+import { AuthStepHeader } from "src/views/pages/authenticate/components/auth/AuthStepHeader";
+import { PageWrapper } from "src/views/pages/PageWrapper";
 
 export interface AuthPageWrapperProps {
   children: ReactNode;

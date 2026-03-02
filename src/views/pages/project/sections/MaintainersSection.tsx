@@ -1,9 +1,9 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { SectionHeader } from "../../../components/ui/section/section-header";
-import { Button } from "../../../components/ui/forms";
-import { MaintainerCard } from "./components/MaintainerCard";
-import { ProjectDeveloperProfileCompanion } from "../../../../utils/companions/ProjectDeveloperProfile.companion";
+import { SectionHeader } from "src/views/components/ui/section/section-header";
+import { Button } from "src/views/components/ui/forms";
+import { MaintainerCard } from "src/views/pages/project/sections/components/MaintainerCard";
+import { ProjectDeveloperProfileCompanion } from "src/utils/companions/ProjectDeveloperProfile.companion";
 
 const DEFAULT_MAINTAINER_DISPLAY_COUNT = 3;
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { SubscriptionCard } from "./SubscriptionCard";
-import { getActiveBenefits } from "./data/subscriptionBenefits";
+import { SubscriptionCard } from "src/views/pages/pricing/components/SubscriptionCard";
+import { getActiveBenefits } from "src/views/pages/pricing/components/data/subscriptionBenefits";
 import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionManagementProps {

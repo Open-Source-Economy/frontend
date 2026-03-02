@@ -1,17 +1,17 @@
 import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { OnboardingStepProps } from "../OnboardingStepProps";
+import { OnboardingStepProps } from "src/views/pages/onboarding/steps/OnboardingStepProps";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import { Step4State } from "../../OnboardingDataSteps";
+import { Step4State } from "src/views/pages/onboarding/OnboardingDataSteps";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { BrandModalSection } from "src/views/components/ui/brand-modal";
 import { Clock, DollarSign, TrendingUp } from "lucide-react";
 import { ServiceRateInput, WeeklyAvailabilityInput } from "src/views/components/ui/forms";
-import { BiggerOpportunitiesRadioGroup } from "./design-system/BiggerOpportunitiesRadioGroup";
-import { ExpandableCommentSection } from "../../components/ExpandableCommentSection";
-import { PricingInfoBanner } from "./design-system/PricingInfoBanner";
+import { BiggerOpportunitiesRadioGroup } from "src/views/pages/onboarding/steps/step4/design-system/BiggerOpportunitiesRadioGroup";
+import { ExpandableCommentSection } from "src/views/pages/onboarding/components/ExpandableCommentSection";
+import { PricingInfoBanner } from "src/views/pages/onboarding/steps/step4/design-system/PricingInfoBanner";
 
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { onboardingStep4Schema } from "src/views/components/ui/forms/schemas";

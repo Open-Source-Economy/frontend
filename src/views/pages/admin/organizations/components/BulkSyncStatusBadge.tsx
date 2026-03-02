@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckCircle, Loader2, RefreshCw } from "lucide-react";
-import { BulkSyncStatus } from "./types";
-import { formatWaitTime } from "./utils";
+import { BulkSyncStatus } from "src/views/pages/admin/organizations/components/types";
+import { formatWaitTime } from "src/views/pages/admin/organizations/components/utils";
 
 interface BulkSyncStatusBadgeProps {
   isCompleted: boolean;

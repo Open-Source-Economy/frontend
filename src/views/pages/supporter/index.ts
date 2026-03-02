@@ -1,1 +1,1 @@
-export { SponsorshipPage } from "./SponsorshipPage";
+export { SponsorshipPage } from "src/views/pages/supporter/SponsorshipPage";

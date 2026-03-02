@@ -1,14 +1,14 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
 import { ExternalLink, Github, Globe } from "lucide-react";
-import { ProjectRowActions } from "./ProjectRowActions";
+import { ProjectRowActions } from "src/views/pages/onboarding/steps/step2/design-system/ProjectRowActions";
 import {
   getAccessValue,
   getProjectDisplayName,
   getProjectDisplayUrl,
   getRoleLabel,
   isGitHubProject,
-} from "../adapters";
+} from "src/views/pages/onboarding/steps/step2/adapters";
 import { MergeRightsTypeCompanion, ProjectCategoryCompanion } from "src/utils/companions";
 import { Chip } from "src/views/components/ui/chip";
 

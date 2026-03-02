@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Award, Heart, Users } from "lucide-react";
-import { Button } from "../../../../components/ui/forms";
-import { SponsorCard } from "./components/SponsorCard";
-import { SponsorTierName, type IndividualSupporter, type Sponsor, type SponsorTier } from "./components/types";
-import { isVisible } from "../../../../../utils/featureVisibility";
-import { IndividualSupporterAvatar } from "./components/IndividualSupporterAvatar";
+import { Button } from "src/views/components/ui/forms";
+import { SponsorCard } from "src/views/pages/home/sections/supporters/components/SponsorCard";
+import { SponsorTierName, type IndividualSupporter, type Sponsor, type SponsorTier } from "src/views/pages/home/sections/supporters/components/types";
+import { isVisible } from "src/utils/featureVisibility";
+import { IndividualSupporterAvatar } from "src/views/pages/home/sections/supporters/components/IndividualSupporterAvatar";
 
 const SPONSOR_TIER_ACCENT_COLORS: Record<SponsorTierName, string> = {
   [SponsorTierName.Platinum]: "var(--brand-tier-platinum)",

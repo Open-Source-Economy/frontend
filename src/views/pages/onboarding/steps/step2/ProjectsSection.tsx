@@ -1,7 +1,7 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { AddProjectButton } from "./AddProjectButton";
-import { ProjectListTable } from "./ProjectListTable";
+import { AddProjectButton } from "src/views/pages/onboarding/steps/step2/AddProjectButton";
+import { ProjectListTable } from "src/views/pages/onboarding/steps/step2/ProjectListTable";
 
 interface ProjectsSectionProps {
   projects: dto.DeveloperProjectItemEntry[];

@@ -7,10 +7,10 @@ import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert
 import { ApiError } from "src/utils/error/ApiError";
 import { Code, GitBranch, Users } from "lucide-react";
 import { ProjectItemWithDetailsCompanion } from "src/utils/companions";
-import { RepositoryWithSyncState } from "./components/types";
-import { RepositoryCard } from "./components/RepositoryCard";
-import { BulkSyncControls } from "../organizations/components/BulkSyncControls";
-import { StatisticCard } from "../organizations/components/StatisticCard";
+import { RepositoryWithSyncState } from "src/views/pages/admin/repositories/components/types";
+import { RepositoryCard } from "src/views/pages/admin/repositories/components/RepositoryCard";
+import { BulkSyncControls } from "src/views/pages/admin/organizations/components/BulkSyncControls";
+import { StatisticCard } from "src/views/pages/admin/organizations/components/StatisticCard";
 
 export function RepositorySyncPage() {
   const [repositories, setRepositories] = useState<RepositoryWithSyncState[]>([]);

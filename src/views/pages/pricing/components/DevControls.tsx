@@ -1,8 +1,8 @@
 import React from "react";
-import { PlanOption } from "./types";
+import { PlanOption } from "src/views/pages/pricing/components/types";
 import * as dto from "@open-source-economy/api-types";
 
-import { isVisible } from "../../../../utils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 
 interface DevControlsProps {
   currentPlanTier: dto.PlanProductType | null;

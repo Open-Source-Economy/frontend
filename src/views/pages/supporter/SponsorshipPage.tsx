@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { DonationCard } from "./components/DonationCard";
+import { DonationCard } from "src/views/pages/supporter/components/DonationCard";
 import { ArrowRight, Briefcase, Code, Globe, Heart, Package, Target, TrendingUp, Users } from "lucide-react";
-import { PageWrapper } from "../PageWrapper";
+import { PageWrapper } from "src/views/pages/PageWrapper";
 
 import { isVisible } from "src/utils/featureVisibility";
 

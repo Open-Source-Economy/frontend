@@ -1,6 +1,6 @@
 import React from "react";
 import { faqData } from "src/views/pages/faq/data/faqData";
-import { iconMap } from "../utils/iconMap";
+import { iconMap } from "src/views/pages/faq/utils/iconMap";
 import { cn } from "src/views/components/utils";
 
 interface FAQCategoryFilterProps {

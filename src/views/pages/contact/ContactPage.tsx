@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link, getRouteApi } from "@tanstack/react-router";
 
 const routeApi = getRouteApi("/contact");
-import { PageWrapper } from "../PageWrapper";
+import { PageWrapper } from "src/views/pages/PageWrapper";
 import { externalLinks } from "src/externalLinks";
-import { Button } from "../../components/ui/forms/button";
-import { Alert, AlertDescription, AlertTitle } from "../../components/ui/state/alert";
-import { ContactReasonCard } from "./components/contact-reason-card";
-import { FieldError } from "../../components/ui/forms/field-error";
-import { ExternalLink as ExternalLinkComponent } from "../../components/ui/forms/external-link";
+import { Button } from "src/views/components/ui/forms/button";
+import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
+import { ContactReasonCard } from "src/views/pages/contact/components/contact-reason-card";
+import { FieldError } from "src/views/components/ui/forms/field-error";
+import { ExternalLink as ExternalLinkComponent } from "src/views/components/ui/forms/external-link";
 import {
   AlertCircle,
   ArrowRight,
@@ -31,7 +31,7 @@ import {
 import * as dto from "@open-source-economy/api-types";
 import { CONTACT_REASON_LABELS } from "src/utils/companions";
 import { contactEmail } from "src/views/v1/data";
-import { useContactForm } from "./hooks/useContactForm";
+import { useContactForm } from "src/views/pages/contact/hooks/useContactForm";
 import {
   isCompanyRequired,
   isGitHubRequired,
@@ -39,13 +39,13 @@ import {
   shouldShowGitHubProfile,
   shouldShowMeetingRequest,
   shouldShowProjects,
-} from "./helpers/contactReasonHelpers";
-import { getPlaceholder } from "./helpers/formHelpers";
-import { MaintainerProjectList } from "./components/MaintainerProjectList";
-import { RequestProjectList } from "./components/RequestProjectList";
-import { MeetingRequestSection } from "./components/MeetingRequestSection";
-import { RhfFormInput, RhfFormTextarea } from "../../components/ui/forms/rhf";
-import { type ContactFormData } from "../../components/ui/forms/schemas";
+} from "src/views/pages/contact/helpers/contactReasonHelpers";
+import { getPlaceholder } from "src/views/pages/contact/helpers/formHelpers";
+import { MaintainerProjectList } from "src/views/pages/contact/components/MaintainerProjectList";
+import { RequestProjectList } from "src/views/pages/contact/components/RequestProjectList";
+import { MeetingRequestSection } from "src/views/pages/contact/components/MeetingRequestSection";
+import { RhfFormInput, RhfFormTextarea } from "src/views/components/ui/forms/rhf";
+import { type ContactFormData } from "src/views/components/ui/forms/schemas";
 import { FormProvider } from "react-hook-form";
 
 const CONTACT_REASONS = [

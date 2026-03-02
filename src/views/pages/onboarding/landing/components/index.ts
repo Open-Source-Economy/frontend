@@ -1,5 +1,5 @@
-export { HeroSection } from "./HeroSection";
-export { MissionSection } from "./MissionSection";
-export { PartnershipSection } from "./PartnershipSection";
-export { WhyJoinSection } from "./WhyJoinSection";
-export { CTASection } from "./CTASection";
+export { HeroSection } from "src/views/pages/onboarding/landing/components/HeroSection";
+export { MissionSection } from "src/views/pages/onboarding/landing/components/MissionSection";
+export { PartnershipSection } from "src/views/pages/onboarding/landing/components/PartnershipSection";
+export { WhyJoinSection } from "src/views/pages/onboarding/landing/components/WhyJoinSection";
+export { CTASection } from "src/views/pages/onboarding/landing/components/CTASection";

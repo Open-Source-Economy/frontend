@@ -1,5 +1,5 @@
 import { Coins, DollarSign, GitBranch, Heart, LucideIcon, Sparkles, Users, Zap } from "lucide-react";
-import { ParticipationCardConfig } from "./ParticipationCard";
+import { ParticipationCardConfig } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationCard";
 
 /**
  * Enum for participation model options

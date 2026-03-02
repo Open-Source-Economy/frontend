@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { PlanOption } from "./types";
+import { PlanOption } from "src/views/pages/pricing/components/types";
 
 export type ButtonState = "current" | "upgrade" | "downgrade" | "select";
 

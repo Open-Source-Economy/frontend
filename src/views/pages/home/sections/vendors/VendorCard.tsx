@@ -1,7 +1,7 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
-import { Badge } from "../../../../components/ui/badge";
-import { Button } from "../../../../components/ui/forms";
+import { Badge } from "src/views/components/ui/badge";
+import { Button } from "src/views/components/ui/forms";
 
 export interface VendorMetric {
   icon: React.ReactNode;

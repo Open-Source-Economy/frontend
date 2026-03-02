@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
-import { PageWrapper } from "../PageWrapper";
-import { Button } from "../../components/ui/forms/button";
-import { Badge } from "../../components/ui/badge";
-import { useFAQFilter } from "./hooks/useFAQFilter";
-import { FAQCategoryFilter, FAQCategorySection, FAQEmptyState, FAQSearchBar } from "./components";
+import { PageWrapper } from "src/views/pages/PageWrapper";
+import { Button } from "src/views/components/ui/forms/button";
+import { Badge } from "src/views/components/ui/badge";
+import { useFAQFilter } from "src/views/pages/faq/hooks/useFAQFilter";
+import { FAQCategoryFilter, FAQCategorySection, FAQEmptyState, FAQSearchBar } from "src/views/pages/faq/components";
 
 export function FAQPage() {
   const { searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, filteredData } = useFAQFilter();

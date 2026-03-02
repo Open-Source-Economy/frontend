@@ -22,7 +22,7 @@ import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Textarea } from "src/views/components/ui/forms/textarea";
 import { Button } from "src/views/components/ui/forms/button";
 import { Badge } from "src/views/components/ui/badge";
-import { OrganizationSyncButton } from "./components/OrganizationSyncButton";
+import { OrganizationSyncButton } from "src/views/pages/admin/components/OrganizationSyncButton";
 
 const routeApi = getRouteApi("/admin/maintainer/$githubUsername");
 

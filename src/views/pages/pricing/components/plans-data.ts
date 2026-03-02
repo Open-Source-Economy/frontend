@@ -1,5 +1,5 @@
 import { Zap, TrendingUp, Building2, Users } from "lucide-react";
-import { PlanOption } from "./types";
+import { PlanOption } from "src/views/pages/pricing/components/types";
 import * as dto from "@open-source-economy/api-types";
 
 export const SAVINGS_PERCENTAGE = 17;

@@ -1,7 +1,7 @@
 import { Award, Crown } from "lucide-react";
 
-import { colorWithAlpha } from "./colorUtils";
-import { SponsorTierName, type Sponsor } from "./types";
+import { colorWithAlpha } from "src/views/pages/home/sections/supporters/components/colorUtils";
+import { SponsorTierName, type Sponsor } from "src/views/pages/home/sections/supporters/components/types";
 
 interface SponsorBadgeProps {
   sponsor: Sponsor;

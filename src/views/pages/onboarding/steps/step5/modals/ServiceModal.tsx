@@ -8,14 +8,14 @@ import { Switch } from "src/views/components/ui/switch";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import { CurrencyCompanion, ResponseTimeTypeCompanion, ServiceTypeCompanion } from "src/utils/companions";
-import { ProjectSelector } from "../components/ProjectSelector";
+import { ProjectSelector } from "src/views/pages/onboarding/steps/step5/components/ProjectSelector";
 import { SelectField } from "src/views/components/ui/forms/select/select-field";
-import { InputWithAddon } from "../components/InputWithAddon";
+import { InputWithAddon } from "src/views/pages/onboarding/steps/step5/components/InputWithAddon";
 import { HelpText } from "src/views/components/ui/help-text";
-import { ExpandableCommentSection } from "../../../components";
-import { ServiceRateDialogContent } from "../components/ServiceRateDialog";
+import { ExpandableCommentSection } from "src/views/pages/onboarding/components";
+import { ServiceRateDialogContent } from "src/views/pages/onboarding/steps/step5/components/ServiceRateDialog";
 
-import { Rate } from "../types";
+import { Rate } from "src/views/pages/onboarding/steps/step5/types";
 
 interface ServiceModalProps {
   isOpen: boolean;

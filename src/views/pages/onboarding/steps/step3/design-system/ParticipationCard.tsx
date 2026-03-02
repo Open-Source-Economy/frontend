@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import * as dto from "@open-source-economy/api-types";
-import { ParticipationSelectionButtons } from "./ParticipationSelectionButtons";
+import { ParticipationSelectionButtons } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationSelectionButtons";
 
 export interface ParticipationCardConfig {
   title: string;

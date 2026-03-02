@@ -1,9 +1,9 @@
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "src/views/pages/pricing/ui/button";
 import { CreditCard, FileText, Edit3, ExternalLink } from "lucide-react";
-import { BenefitsSection } from "../ui/benefits-section";
-import { ActionLink } from "../ui/action-link";
-import { getTierColor, getTierBorderColor, getTierIconColor, getPlanName, getBillingDisplay } from "./utils/tierUtils";
+import { BenefitsSection } from "src/views/pages/pricing/ui/benefits-section";
+import { ActionLink } from "src/views/pages/pricing/ui/action-link";
+import { getTierColor, getTierBorderColor, getTierIconColor, getPlanName, getBillingDisplay } from "src/views/pages/pricing/components/utils/tierUtils";
 import * as dto from "@open-source-economy/api-types";
 
 interface SubscriptionCardProps {

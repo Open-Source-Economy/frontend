@@ -1,6 +1,6 @@
 import React from "react";
 import { LucideIcon } from "lucide-react";
-import { cn } from "../../../components/utils";
+import { cn } from "src/views/components/utils";
 
 interface ContactReasonCardProps {
   id: string;

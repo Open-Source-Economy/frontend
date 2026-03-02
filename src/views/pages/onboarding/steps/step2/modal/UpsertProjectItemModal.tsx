@@ -14,12 +14,12 @@ import { SourceIdentifier } from "src/utils/local-types";
 import { BulkProjectUrlParser } from "src/utils/BulkProjectUrlParser";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { isVisible } from "src/utils/featureVisibility";
-import { BulkProjectsPreview } from "./BulkProjectsPreview";
-import { CategoryInput } from "./components/CategoryInput";
-import { ProjectUrlInput } from "./components/ProjectUrlInput";
-import { ModeToggle } from "./components/ModeToggle";
-import { RoleAndMergeRightsFields } from "./components/RoleAndMergeRightsFields";
-import { getUrlConfig } from "./utils/urlHelpers";
+import { BulkProjectsPreview } from "src/views/pages/onboarding/steps/step2/modal/BulkProjectsPreview";
+import { CategoryInput } from "src/views/pages/onboarding/steps/step2/modal/components/CategoryInput";
+import { ProjectUrlInput } from "src/views/pages/onboarding/steps/step2/modal/components/ProjectUrlInput";
+import { ModeToggle } from "src/views/pages/onboarding/steps/step2/modal/components/ModeToggle";
+import { RoleAndMergeRightsFields } from "src/views/pages/onboarding/steps/step2/modal/components/RoleAndMergeRightsFields";
+import { getUrlConfig } from "src/views/pages/onboarding/steps/step2/modal/utils/urlHelpers";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import {
   upsertProjectItemSchema,

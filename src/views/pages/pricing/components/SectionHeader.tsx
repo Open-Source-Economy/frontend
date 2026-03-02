@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionSubtitle } from "./SectionSubtitle";
+import { SectionSubtitle } from "src/views/pages/pricing/components/SectionSubtitle";
 
 interface SectionHeaderProps {
   title: string;

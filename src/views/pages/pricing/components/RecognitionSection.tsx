@@ -1,8 +1,8 @@
 import React from "react";
-import { FeatureList } from "./FeatureList";
-import { Feature } from "./types";
-import { MembershipTierBadge } from "./MembershipTierBadge";
-import { SectionSubtitle } from "./SectionSubtitle";
+import { FeatureList } from "src/views/pages/pricing/components/FeatureList";
+import { Feature } from "src/views/pages/pricing/components/types";
+import { MembershipTierBadge } from "src/views/pages/pricing/components/MembershipTierBadge";
+import { SectionSubtitle } from "src/views/pages/pricing/components/SectionSubtitle";
 
 import * as dto from "@open-source-economy/api-types";
 

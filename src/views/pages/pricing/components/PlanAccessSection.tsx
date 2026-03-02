@@ -1,8 +1,8 @@
 import React from "react";
-import { FeatureList } from "./FeatureList";
-import { FeatureItem } from "./FeatureItem";
-import { Feature } from "./types";
-import { SectionHeader } from "./SectionHeader";
+import { FeatureList } from "src/views/pages/pricing/components/FeatureList";
+import { FeatureItem } from "src/views/pages/pricing/components/FeatureItem";
+import { Feature } from "src/views/pages/pricing/components/types";
+import { SectionHeader } from "src/views/pages/pricing/components/SectionHeader";
 
 interface PlanAccessSectionProps {
   features: Feature[];

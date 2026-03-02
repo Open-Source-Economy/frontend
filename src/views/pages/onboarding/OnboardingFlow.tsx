@@ -6,8 +6,8 @@ const routeApi = getRouteApi("/_authenticated/developer-onboarding");
 import { useAuth } from "src/views/auth/AuthContext";
 import { onboardingHooks } from "src/api";
 
-import Step1 from "./steps/step1/Step1";
-import Step2 from "./steps/step2/Step2";
+import Step1 from "src/views/pages/onboarding/steps/step1/Step1";
+import Step2 from "src/views/pages/onboarding/steps/step2/Step2";
 
 import { ApiError } from "src/utils/error/ApiError";
 import { LoadingState } from "src/views/components/ui/state/loading-state";
@@ -15,17 +15,17 @@ import {
   OnboardingDataSteps,
   OnboardingState,
   transformFullDeveloperProfileToOnboardingState,
-} from "./OnboardingDataSteps";
+} from "src/views/pages/onboarding/OnboardingDataSteps";
 import * as dto from "@open-source-economy/api-types";
-import { Step3 } from "./steps/step3";
-import { Step4 } from "./steps/step4";
-import { Step5 } from "./steps/step5";
-import { PreferredCurrency } from "../../../utils/PreferredCurrency";
-import { WizardStepIndicator } from "./components/WizardStepIndicator";
-import { WizardNavigation } from "./components/WizardNavigation";
-import { StepSidebar } from "./components/StepSidebar";
+import { Step3 } from "src/views/pages/onboarding/steps/step3";
+import { Step4 } from "src/views/pages/onboarding/steps/step4";
+import { Step5 } from "src/views/pages/onboarding/steps/step5";
+import { PreferredCurrency } from "src/utils/PreferredCurrency";
+import { WizardStepIndicator } from "src/views/pages/onboarding/components/WizardStepIndicator";
+import { WizardNavigation } from "src/views/pages/onboarding/components/WizardNavigation";
+import { StepSidebar } from "src/views/pages/onboarding/components/StepSidebar";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { PageWrapper } from "../PageWrapper";
+import { PageWrapper } from "src/views/pages/PageWrapper";
 
 const createInitialState = (preferredCurrency: dto.Currency): OnboardingState => ({
   currentStep: OnboardingDataSteps.Step1,

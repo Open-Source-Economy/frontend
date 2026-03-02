@@ -16,7 +16,7 @@ import {
   Target,
   Zap,
 } from "lucide-react";
-import { Button } from "../../../components/ui/forms";
+import { Button } from "src/views/components/ui/forms";
 import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import { laurianeCalLink } from "src/views/v1/data";
 import { envGroups, isFeatureVisible } from "src/utils/featureVisibility";

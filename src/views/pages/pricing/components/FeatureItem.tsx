@@ -1,6 +1,6 @@
 import React from "react";
 import { Check, X } from "lucide-react";
-import { InfoTooltip } from "../ui/info-tooltip";
+import { InfoTooltip } from "src/views/pages/pricing/ui/info-tooltip";
 
 interface FeatureItemProps {
   text: string | React.ReactNode;

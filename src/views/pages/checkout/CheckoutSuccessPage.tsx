@@ -1,5 +1,5 @@
 import React from "react";
-import { PageWrapper } from "../PageWrapper";
+import { PageWrapper } from "src/views/pages/PageWrapper";
 import { CheckCircle2 } from "lucide-react";
 
 export function CheckoutSuccessPage() {

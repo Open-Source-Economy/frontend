@@ -1,1 +1,1 @@
-export * from "./DevelopedOnboardingComplete";
+export * from "src/views/pages/onboarding/completed/DevelopedOnboardingComplete";

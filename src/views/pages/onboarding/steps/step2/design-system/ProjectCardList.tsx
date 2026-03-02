@@ -1,6 +1,6 @@
 import React from "react";
 import * as dto from "@open-source-economy/api-types";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectCard } from "src/views/pages/onboarding/steps/step2/design-system/ProjectCard";
 
 interface ProjectCardListProps {
   projects: dto.DeveloperProjectItemEntry[];

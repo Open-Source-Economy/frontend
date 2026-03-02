@@ -1,7 +1,7 @@
 import React from "react";
-import { VendorCard, VendorCardProps } from "../vendors/VendorCard";
+import { VendorCard, VendorCardProps } from "src/views/pages/home/sections/vendors/VendorCard";
 import { Award, Download, GitBranch, Sparkles, Star } from "lucide-react";
-import { isVisible } from "../../../../../utils/featureVisibility";
+import { isVisible } from "src/utils/featureVisibility";
 
 interface FeaturedVendorsProps {
   className?: string;

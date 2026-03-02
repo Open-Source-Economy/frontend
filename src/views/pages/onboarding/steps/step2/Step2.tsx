@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { onboardingHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
-import { OnboardingStepProps } from "../OnboardingStepProps";
-import { Step2State } from "../../OnboardingDataSteps";
-import { UpsertProjectItemModal } from "./modal/UpsertProjectItemModal";
+import { OnboardingStepProps } from "src/views/pages/onboarding/steps/OnboardingStepProps";
+import { Step2State } from "src/views/pages/onboarding/OnboardingDataSteps";
+import { UpsertProjectItemModal } from "src/views/pages/onboarding/steps/step2/modal/UpsertProjectItemModal";
 import { ApiError } from "src/utils/error/ApiError";
-import { ProjectsTable } from "./design-system/ProjectsTable";
-import { ProjectCardList } from "./design-system/ProjectCardList";
-import { EmptyProjectsState } from "./design-system/EmptyProjectsState";
-import { DeleteProjectModal } from "./modal/DeleteProjectModal";
+import { ProjectsTable } from "src/views/pages/onboarding/steps/step2/design-system/ProjectsTable";
+import { ProjectCardList } from "src/views/pages/onboarding/steps/step2/design-system/ProjectCardList";
+import { EmptyProjectsState } from "src/views/pages/onboarding/steps/step2/design-system/EmptyProjectsState";
+import { DeleteProjectModal } from "src/views/pages/onboarding/steps/step2/modal/DeleteProjectModal";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
 import { InfoMessage } from "src/views/components/ui/info-message";
 import { AlertCircle, Lightbulb, Plus } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
 import { Alert, AlertDescription, AlertTitle } from "src/views/components/ui/state/alert";
-import { sortProjectsByBackendOrder } from "./adapters";
+import { sortProjectsByBackendOrder } from "src/views/pages/onboarding/steps/step2/adapters";
 
 type Step2Props = OnboardingStepProps<Step2State>;
 

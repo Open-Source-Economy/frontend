@@ -1,7 +1,7 @@
 import { projectHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
-import type { ProjectServiceOffering } from "../components/ServiceCategoryCard";
+import type { ProjectServiceOffering } from "src/views/pages/project/components/ServiceCategoryCard";
 
 export interface UseProjectDetailsResult {
   developers: dto.ProjectDeveloperProfile[];

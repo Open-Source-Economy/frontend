@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { Github } from "lucide-react";
-import { Badge } from "../../../components/ui/badge";
-import { Button } from "../../../components/ui/forms";
-import { ExternalLink } from "../../../components/ui/forms/external-link";
+import { Badge } from "src/views/components/ui/badge";
+import { Button } from "src/views/components/ui/forms";
+import { ExternalLink } from "src/views/components/ui/forms/external-link";
 import * as dto from "@open-source-economy/api-types";
 import { ProjectItemDetailsCompanion } from "src/utils/companions";
-import { laurianeCalLink } from "../../../v1/data";
+import { laurianeCalLink } from "src/views/v1/data";
 
 interface ProjectHeroProps {
   project: dto.ProjectItemDetails;

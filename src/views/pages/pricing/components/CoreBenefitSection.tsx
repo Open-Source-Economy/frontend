@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import { SectionHeader } from "./SectionHeader";
+import { SectionHeader } from "src/views/pages/pricing/components/SectionHeader";
 
 interface CoreBenefitSectionProps {
   title: string;

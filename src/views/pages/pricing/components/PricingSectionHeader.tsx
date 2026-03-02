@@ -1,5 +1,5 @@
 import React from "react";
-import { BillingToggle } from "./BillingToggle";
+import { BillingToggle } from "src/views/pages/pricing/components/BillingToggle";
 import * as dto from "@open-source-economy/api-types";
 
 interface PricingSectionHeaderProps {

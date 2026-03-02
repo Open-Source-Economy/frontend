@@ -1,4 +1,4 @@
-import { OnboardingDataSteps } from "../OnboardingDataSteps";
+import { OnboardingDataSteps } from "src/views/pages/onboarding/OnboardingDataSteps";
 
 export interface OnboardingStepProps<T> {
   currentStep: OnboardingDataSteps;

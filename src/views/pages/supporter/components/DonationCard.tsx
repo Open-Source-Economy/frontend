@@ -1,27 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "@tanstack/react-router";
-import { Button } from "../../../components/ui/forms/button";
-import { Card, CardContent } from "../../../components/ui/card";
+import { Button } from "src/views/components/ui/forms/button";
+import { Card, CardContent } from "src/views/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/forms/select/select";
-import { ToggleGroup, ToggleGroupItem } from "../../../components/ui/toggle-group";
-import { CheckboxField } from "../../../components/ui/forms/checkbox-field";
-import { type InputRef, ValidatedInputWithRef } from "../../../components/ui/forms/inputs/validated-input";
-import { validateGitHubOwnerUrl, validatePositiveInteger } from "../../../components/ui/forms/validators";
+} from "src/views/components/ui/forms/select/select";
+import { ToggleGroup, ToggleGroupItem } from "src/views/components/ui/toggle-group";
+import { CheckboxField } from "src/views/components/ui/forms/checkbox-field";
+import { type InputRef, ValidatedInputWithRef } from "src/views/components/ui/forms/inputs/validated-input";
+import { validateGitHubOwnerUrl, validatePositiveInteger } from "src/views/components/ui/forms/validators";
 import { AlertCircle, Github, Heart, Shield, TrendingUp } from "lucide-react";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 
 import { displayedCurrencies } from "src/views/v1/data";
 import { NumberUtils } from "src/utils/NumberUtils";
-import { openSourceEconomyProjectId } from "../../../../services/data/projects";
+import { openSourceEconomyProjectId } from "src/services/data/projects";
 import { GithubUrls } from "src/utils/GithubUrls";
-import { useCurrency } from "../../../../context/CurrencyContext";
+import { useCurrency } from "src/context/CurrencyContext";
 import { projectHooks, stripeHooks } from "src/api";
 
 interface DonationCardProps {

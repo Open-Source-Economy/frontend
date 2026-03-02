@@ -1,7 +1,7 @@
 import React from "react";
-import { Label } from "../../../components/ui/forms/label";
-import { Textarea } from "../../../components/ui/forms/textarea";
-import { Checkbox } from "../../../components/ui/forms/checkbox";
+import { Label } from "src/views/components/ui/forms/label";
+import { Textarea } from "src/views/components/ui/forms/textarea";
+import { Checkbox } from "src/views/components/ui/forms/checkbox";
 import { Video } from "lucide-react";
 
 interface MeetingRequestSectionProps {

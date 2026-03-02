@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "src/views/components/ui/forms/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import * as dto from "@open-source-economy/api-types";
-import { ProjectCard } from "../components/ProjectCard";
+import { ProjectCard } from "src/views/pages/projects/components/ProjectCard";
 
 interface ProjectCategorySectionProps {
   category: string;

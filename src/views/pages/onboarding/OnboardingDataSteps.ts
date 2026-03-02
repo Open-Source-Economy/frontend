@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { Rate } from "./steps/step5/types";
+import { Rate } from "src/views/pages/onboarding/steps/step5/types";
 
 export enum OnboardingDataSteps {
   Step1 = 1,

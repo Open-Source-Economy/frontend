@@ -1,7 +1,7 @@
 import React from "react";
 import { Zap, TrendingUp, Users } from "lucide-react";
-import { CreditBenefitCard } from "./CreditBenefitCard";
-import { FundDistribution } from "./FundDistribution";
+import { CreditBenefitCard } from "src/views/pages/pricing/components/CreditBenefitCard";
+import { FundDistribution } from "src/views/pages/pricing/components/FundDistribution";
 
 export function HowCreditsWorkSection() {
   return (

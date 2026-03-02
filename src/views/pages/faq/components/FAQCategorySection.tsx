@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/views/components/ui/accordion";
 import type { FAQCategory } from "src/views/pages/faq/data/faqData";
-import { iconMap } from "../utils/iconMap";
+import { iconMap } from "src/views/pages/faq/utils/iconMap";
 
 interface FAQCategorySectionProps {
   category: FAQCategory;

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Github, Mail } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { FormDivider } from "../components/auth/FormDivider";
+import { FormDivider } from "src/views/pages/authenticate/components/auth/FormDivider";
 import { useNavigate, getRouteApi } from "@tanstack/react-router";
 import * as dto from "@open-source-economy/api-types";
 
 import { useAuth } from "src/views/auth/AuthContext";
 import { ApiError } from "src/utils/error/ApiError";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { AuthPageWrapper } from "../AuthPageWrapper";
+import { AuthPageWrapper } from "src/views/pages/authenticate/AuthPageWrapper";
 import { authHooks } from "src/api";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
 import { identificationFormSchema, type IdentificationFormData } from "src/views/components/ui/forms/schemas";

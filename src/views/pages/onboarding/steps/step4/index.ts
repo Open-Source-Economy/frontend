@@ -1,1 +1,1 @@
-export { Step4 } from "./Step4";
+export { Step4 } from "src/views/pages/onboarding/steps/step4/Step4";

@@ -1,8 +1,8 @@
 import React from "react";
 import { Check as _Check, X as _X } from "lucide-react";
-import { InfoTooltip as _InfoTooltip } from "../ui/info-tooltip";
-import { Feature } from "./types";
-import { FeatureItem } from "./FeatureItem";
+import { InfoTooltip as _InfoTooltip } from "src/views/pages/pricing/ui/info-tooltip";
+import { Feature } from "src/views/pages/pricing/components/types";
+import { FeatureItem } from "src/views/pages/pricing/components/FeatureItem";
 
 interface FeatureListProps {
   features: Feature[];

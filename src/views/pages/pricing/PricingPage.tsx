@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Header } from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
-import { DevControls } from "./components/DevControls";
-import { PricingCardsGrid } from "./components/PricingCardsGrid";
-import { PricingSectionHeader } from "./components/PricingSectionHeader";
-import { CustomPlanCTA } from "./components/CustomPlanCTA";
-import { HowCreditsWorkSection } from "./components/HowCreditsWorkSection";
-import { SubscriptionManagement } from "./components/SubscriptionManagement";
-import { plans as mockPlans, SAVINGS_PERCENTAGE } from "./components/plans-data";
+import { Header } from "src/views/components/layout/Header";
+import { Footer } from "src/views/components/layout/Footer";
+import { DevControls } from "src/views/pages/pricing/components/DevControls";
+import { PricingCardsGrid } from "src/views/pages/pricing/components/PricingCardsGrid";
+import { PricingSectionHeader } from "src/views/pages/pricing/components/PricingSectionHeader";
+import { CustomPlanCTA } from "src/views/pages/pricing/components/CustomPlanCTA";
+import { HowCreditsWorkSection } from "src/views/pages/pricing/components/HowCreditsWorkSection";
+import { SubscriptionManagement } from "src/views/pages/pricing/components/SubscriptionManagement";
+import { plans as mockPlans, SAVINGS_PERCENTAGE } from "src/views/pages/pricing/components/plans-data";
 import { stripeHooks } from "src/api";
 import * as dto from "@open-source-economy/api-types";
 

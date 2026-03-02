@@ -1,10 +1,10 @@
 import { Award, Crown, Heart, Star } from "lucide-react";
 
-import { colorWithAlpha } from "./colorUtils";
-import { Sponsor } from "./types";
-import { SponsorBadge } from "./SponsorBadge";
-import { SponsorTagline } from "./SponsorTagline";
-import { SponsorCTA } from "./SponsorCTA";
+import { colorWithAlpha } from "src/views/pages/home/sections/supporters/components/colorUtils";
+import { Sponsor } from "src/views/pages/home/sections/supporters/components/types";
+import { SponsorBadge } from "src/views/pages/home/sections/supporters/components/SponsorBadge";
+import { SponsorTagline } from "src/views/pages/home/sections/supporters/components/SponsorTagline";
+import { SponsorCTA } from "src/views/pages/home/sections/supporters/components/SponsorCTA";
 
 const tierIcons = {
   crown: Crown,

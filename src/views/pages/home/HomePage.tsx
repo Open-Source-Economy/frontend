@@ -8,10 +8,10 @@ import { WinWinWinPartnership } from "src/views/pages/home/sections/WinWinWinPar
 import { ProjectsShowcaseCompact } from "src/views/pages/home/sections/ProjectsShowcaseCompact";
 import { UniqueSellingPoints } from "src/views/pages/home/sections/UniqueSellingPoints";
 import { laurianeCalLink } from "src/views/v1/data";
-import { FundDistributionMinimal } from "./sections/FundDistributionMinimal";
-import { FeaturedVendors } from "./sections/vendors/FeaturedVendors";
+import { FundDistributionMinimal } from "src/views/pages/home/sections/FundDistributionMinimal";
+import { FeaturedVendors } from "src/views/pages/home/sections/vendors/FeaturedVendors";
 import { isVisible } from "src/utils/featureVisibility";
-import { PlatformSponsors } from "./sections/supporters/PlatformSponsors";
+import { PlatformSponsors } from "src/views/pages/home/sections/supporters/PlatformSponsors";
 
 interface HomeProps {}
 

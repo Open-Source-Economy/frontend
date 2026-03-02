@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import { PricingStructureDialog } from "./PricingStructureDialog";
+import { PricingStructureDialog } from "src/views/pages/onboarding/steps/step4/design-system/PricingStructureDialog";
 
 export function PricingInfoBanner() {
   return (

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { OnboardingStepProps } from "../OnboardingStepProps";
-import { Step3State } from "../../OnboardingDataSteps";
+import { OnboardingStepProps } from "src/views/pages/onboarding/steps/OnboardingStepProps";
+import { Step3State } from "src/views/pages/onboarding/OnboardingDataSteps";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import * as dto from "@open-source-economy/api-types";
 import { FieldError } from "src/views/components/ui/forms/field-error";
 import { ServerErrorAlert } from "src/views/components/ui/state/ServerErrorAlert";
-import { ParticipationCard } from "./design-system/ParticipationCard";
-import { participationCardConfigs, ParticipationModelOption } from "./design-system/participationCardConfigs";
-import { ServiceProviderCard } from "./design-system/ServiceProviderCard";
+import { ParticipationCard } from "src/views/pages/onboarding/steps/step3/design-system/ParticipationCard";
+import { participationCardConfigs, ParticipationModelOption } from "src/views/pages/onboarding/steps/step3/design-system/participationCardConfigs";
+import { ServiceProviderCard } from "src/views/pages/onboarding/steps/step3/design-system/ServiceProviderCard";
 import { useZodForm } from "src/views/components/ui/forms/rhf";
 import { onboardingStep3Schema } from "src/views/components/ui/forms/schemas";
 

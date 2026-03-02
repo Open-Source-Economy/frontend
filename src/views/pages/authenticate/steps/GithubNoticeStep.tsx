@@ -1,11 +1,11 @@
 import React from "react";
 import { Github } from "lucide-react";
 import { Button } from "src/views/components/ui/forms/button";
-import { EmailDisplay } from "../components/auth/EmailDisplay";
+import { EmailDisplay } from "src/views/pages/authenticate/components/auth/EmailDisplay";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
 import { useAuth } from "src/views/auth/AuthContext";
-import { AuthPageWrapper } from "../AuthPageWrapper";
+import { AuthPageWrapper } from "src/views/pages/authenticate/AuthPageWrapper";
 
 export function GithubNoticeStep() {
   const navigate = useNavigate();

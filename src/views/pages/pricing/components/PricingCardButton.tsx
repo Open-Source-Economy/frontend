@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../ui/button";
-import { ButtonState } from "./utils";
+import { Button } from "src/views/pages/pricing/ui/button";
+import { ButtonState } from "src/views/pages/pricing/components/utils";
 
 interface PricingCardButtonProps {
   state: ButtonState;

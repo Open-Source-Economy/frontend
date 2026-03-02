@@ -3,7 +3,7 @@ import { AlertCircle, Clock, Edit, Github, Globe, Trash2, X } from "lucide-react
 import { Button } from "src/views/components/ui/forms/button";
 import { CurrencyCompanion, ResponseTimeTypeCompanion, SourceIdentifierCompanion } from "src/utils/companions";
 import { SourceIdentifier } from "src/utils/local-types";
-import { Rate } from "../types";
+import { Rate } from "src/views/pages/onboarding/steps/step5/types";
 
 interface ServiceCardProps {
   developerServiceEntry: dto.DeveloperServiceEntry;

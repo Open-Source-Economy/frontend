@@ -1,6 +1,6 @@
 import React from "react";
 import { Leaf } from "lucide-react";
-import { FundDistributionCard } from "./FundDistributionCard";
+import { FundDistributionCard } from "src/views/pages/pricing/components/FundDistributionCard";
 
 export function FundDistribution() {
   return (

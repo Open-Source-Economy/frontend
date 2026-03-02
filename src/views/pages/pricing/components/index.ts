@@ -1,27 +1,27 @@
 // Main components
-export { PricingCard } from "./PricingCard";
-export { PricingCardsGrid } from "./PricingCardsGrid";
-export { PricingSectionHeader } from "./PricingSectionHeader";
-export { CustomPlanCTA } from "./CustomPlanCTA";
-export { HowCreditsWorkSection } from "./HowCreditsWorkSection";
-export { DevControls } from "./DevControls";
+export { PricingCard } from "src/views/pages/pricing/components/PricingCard";
+export { PricingCardsGrid } from "src/views/pages/pricing/components/PricingCardsGrid";
+export { PricingSectionHeader } from "src/views/pages/pricing/components/PricingSectionHeader";
+export { CustomPlanCTA } from "src/views/pages/pricing/components/CustomPlanCTA";
+export { HowCreditsWorkSection } from "src/views/pages/pricing/components/HowCreditsWorkSection";
+export { DevControls } from "src/views/pages/pricing/components/DevControls";
 
 // Sub-components
-export { BillingToggle } from "./BillingToggle";
-export { PricingCardButton } from "./PricingCardButton";
-export { PricingCardHeader } from "./PricingCardHeader";
-export { FeatureList } from "./FeatureList";
-export { CoreBenefitSection } from "./CoreBenefitSection";
-export { RecognitionSection } from "./RecognitionSection";
-export { OpenSourceImpactSection } from "./OpenSourceImpactSection";
-export { CreditBenefitCard } from "./CreditBenefitCard";
-export { FundDistribution } from "./FundDistribution";
-export { FundDistributionCard } from "./FundDistributionCard";
+export { BillingToggle } from "src/views/pages/pricing/components/BillingToggle";
+export { PricingCardButton } from "src/views/pages/pricing/components/PricingCardButton";
+export { PricingCardHeader } from "src/views/pages/pricing/components/PricingCardHeader";
+export { FeatureList } from "src/views/pages/pricing/components/FeatureList";
+export { CoreBenefitSection } from "src/views/pages/pricing/components/CoreBenefitSection";
+export { RecognitionSection } from "src/views/pages/pricing/components/RecognitionSection";
+export { OpenSourceImpactSection } from "src/views/pages/pricing/components/OpenSourceImpactSection";
+export { CreditBenefitCard } from "src/views/pages/pricing/components/CreditBenefitCard";
+export { FundDistribution } from "src/views/pages/pricing/components/FundDistribution";
+export { FundDistributionCard } from "src/views/pages/pricing/components/FundDistributionCard";
 
 // Data and utilities
-export { plans, SAVINGS_PERCENTAGE } from "./plans-data";
-export { getPlanButtonState } from "./utils";
-export type { ButtonState } from "./utils";
+export { plans, SAVINGS_PERCENTAGE } from "src/views/pages/pricing/components/plans-data";
+export { getPlanButtonState } from "src/views/pages/pricing/components/utils";
+export type { ButtonState } from "src/views/pages/pricing/components/utils";
 
 // Types
-export type { Feature, FeatureSection, PlanOption } from "./types";
+export type { Feature, FeatureSection, PlanOption } from "src/views/pages/pricing/components/types";

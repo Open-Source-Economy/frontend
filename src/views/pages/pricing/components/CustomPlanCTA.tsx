@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "src/views/pages/pricing/ui/button";
 
 export function CustomPlanCTA() {
   return (
