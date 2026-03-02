@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { AuthContext, AuthContextState } from "./AuthContext";
+import { AuthContext, AuthContextState } from "src/views/auth/AuthContext";
 import { authBackendAPI } from "src/services";
 import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";

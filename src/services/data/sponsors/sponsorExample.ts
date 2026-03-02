@@ -1,8 +1,8 @@
-import swissBorg from "../../../assets/v1/sponsor/swiss-borg.webp";
-import adidas from "../../../assets/v1/sponsor/adidas.webp";
-import softwareMill from "../../../assets/v1/sponsor/software-mill.webp";
+import swissBorg from "src/assets/v1/sponsor/swiss-borg.webp";
+import adidas from "src/assets/v1/sponsor/adidas.webp";
+import softwareMill from "src/assets/v1/sponsor/software-mill.webp";
 import { CardSize } from "src/utils/local-types";
-import { SponsorDescription } from "../../../model";
+import { SponsorDescription } from "src/model";
 
 // example data
 const _sponsorData: SponsorDescription[] = [

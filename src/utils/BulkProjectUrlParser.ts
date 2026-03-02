@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
-import { SourceIdentifierCompanion } from "./companions/SourceIdentifier.companion";
-import { ProjectItemTypeCompanion } from "./companions/ProjectItemType.companion";
+import { SourceIdentifierCompanion } from "src/utils/companions/SourceIdentifier.companion";
+import { ProjectItemTypeCompanion } from "src/utils/companions/ProjectItemType.companion";
 
 /**
  * Result of parsing a single URL from bulk input

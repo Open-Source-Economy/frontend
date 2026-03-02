@@ -1,4 +1,4 @@
-import { GithubUrls } from "../GithubUrls";
+import { GithubUrls } from "src/utils/GithubUrls";
 
 describe("GithubUrls", () => {
   describe("extractRepositoryId", () => {

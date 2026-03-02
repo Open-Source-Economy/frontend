@@ -1,8 +1,8 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import { PreferredCurrency } from "../utils/PreferredCurrency";
-import { useAuth } from "../views/auth/AuthContext";
+import { PreferredCurrency } from "src/utils/PreferredCurrency";
+import { useAuth } from "src/views/auth/AuthContext";
 
 interface CurrencyContextType {
   preferredCurrency: dto.Currency;

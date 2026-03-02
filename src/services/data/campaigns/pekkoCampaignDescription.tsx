@@ -1,5 +1,5 @@
 import { CampaignDescription } from "src/model";
-import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../utils/Icons";
+import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "src/utils/Icons";
 import React from "react";
 
 export const pekkoCampaignDescription: CampaignDescription = {

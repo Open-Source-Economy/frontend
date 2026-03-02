@@ -4,7 +4,7 @@
  */
 
 import * as dto from "@open-source-economy/api-types";
-import { SourceIdentifierCompanion } from "./SourceIdentifier.companion";
+import { SourceIdentifierCompanion } from "src/utils/companions/SourceIdentifier.companion";
 
 export namespace FullDeveloperProfileCompanion {
   /**

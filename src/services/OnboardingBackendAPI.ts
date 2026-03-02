@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { handleError } from "./apiClient";
+import { handleError } from "src/services/apiClient";
 import { config } from "src/utils";
 import { AxiosInstance } from "axios";
 

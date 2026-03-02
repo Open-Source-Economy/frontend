@@ -1,7 +1,7 @@
-import swissBorg from "../../../../assets/v1/sponsor/swiss-borg.webp";
+import swissBorg from "src/assets/v1/sponsor/swiss-borg.webp";
 import { CardSize } from "src/utils/local-types";
-import { ExternalLink } from "../../../../views/v1/components";
-import { SponsorDescription } from "../../../../model";
+import { ExternalLink } from "src/views/v1/components";
+import { SponsorDescription } from "src/model";
 
 export const swissborg: SponsorDescription = {
   imgUrl: swissBorg,

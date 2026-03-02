@@ -1,14 +1,14 @@
 import * as dto from "@open-source-economy/api-types";
 import { BackendAPIMock } from "src/__mocks__";
-import { api, handleError, projectPath } from "./index"; // Import the 'api' instance
+import { api, handleError, projectPath } from "src/services/index"; // Import the 'api' instance
 import { ApiError } from "src/utils/error/ApiError";
 import { config } from "src/utils";
 import { StatusCodes } from "http-status-codes";
-import { getMaintainers } from "./data";
-import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { getSponsors } from "./data/sponsors";
-import { SponsorDescription } from "../model";
-import { getProjectAccordion } from "./data/accordions/getAccordions";
+import { getMaintainers } from "src/services/data";
+import { pekkoGetProjectServicesResponse } from "src/services/data/getProjectServiceResponses";
+import { getSponsors } from "src/services/data/sponsors";
+import { SponsorDescription } from "src/model";
+import { getProjectAccordion } from "src/services/data/accordions/getAccordions";
 import { AxiosInstance } from "axios"; // Import AxiosInstance type
 
 export function getBackendAPI(): BackendAPI {

@@ -4,12 +4,12 @@
  * The apiClient module is a leaf (no imports from other service files),
  * so it evaluates first and is always available to other modules.
  */
-export * from "./apiClient";
-export * from "./AuthBackendAPI";
-export * from "./OnboardingBackendAPI";
-export * from "./AdminBackendAPI";
-export * from "./project.service";
-export * from "./funding.service";
-export * from "./stripe.service";
-export * from "./communication.service";
-export * from "./getAPI";
+export * from "src/services/apiClient";
+export * from "src/services/AuthBackendAPI";
+export * from "src/services/OnboardingBackendAPI";
+export * from "src/services/AdminBackendAPI";
+export * from "src/services/project.service";
+export * from "src/services/funding.service";
+export * from "src/services/stripe.service";
+export * from "src/services/communication.service";
+export * from "src/services/getAPI";

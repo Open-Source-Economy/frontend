@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { FundRecipient, ManageFundRecipient } from "../ManageFundRecipient";
+import { FundRecipient, ManageFundRecipient } from "src/utils/ManageFundRecipient";
 
 describe("ManageFundRecipient", () => {
   describe("Constructor", () => {

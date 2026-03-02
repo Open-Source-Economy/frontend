@@ -1,9 +1,9 @@
 import { CampaignDescription } from "src/model";
 import { type ProjectId, isRepositoryId, isOwnerId } from "src/utils/local-types";
-import { pekkoCampaignDescription } from "./pekkoCampaignDescription";
-import { openSourceEconomyCampaignDescription } from "./openSourceEconomyCampaignDescription";
-import { flockCampaignDescription } from "./flockCampaignDescription";
-import { defaultCampaignDescription } from "./defaultCampaignDescription";
+import { pekkoCampaignDescription } from "src/services/data/campaigns/pekkoCampaignDescription";
+import { openSourceEconomyCampaignDescription } from "src/services/data/campaigns/openSourceEconomyCampaignDescription";
+import { flockCampaignDescription } from "src/services/data/campaigns/flockCampaignDescription";
+import { defaultCampaignDescription } from "src/services/data/campaigns/defaultCampaignDescription";
 
 export function getCampaignDescription(projectId: ProjectId): CampaignDescription {
   if (isRepositoryId(projectId)) {

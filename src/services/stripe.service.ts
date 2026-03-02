@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { api, handleError } from "./apiClient";
+import { api, handleError } from "src/services/apiClient";
 import { config } from "src/utils";
 
 export interface CreatePortalSessionBody {

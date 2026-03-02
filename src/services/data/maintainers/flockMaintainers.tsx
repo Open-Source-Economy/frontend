@@ -1,4 +1,4 @@
-import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
+import thankfulCat from "src/assets/v1/cats/thankful-cat.svg";
 import { Maintainer } from "src/utils/local-types";
 
 const matthewCarroll: Maintainer = {

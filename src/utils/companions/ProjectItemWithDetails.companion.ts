@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
-import { NumberUtils } from "../NumberUtils";
-import { ProjectItemDetailsCompanion } from "./ProjectItemDetails.companion";
+import { NumberUtils } from "src/utils/NumberUtils";
+import { ProjectItemDetailsCompanion } from "src/utils/companions/ProjectItemDetails.companion";
 
 export interface ProjectStats {
   totalProjects: number;

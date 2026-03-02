@@ -1,6 +1,6 @@
 import React from "react";
 import { CampaignDescription } from "src/model";
-import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "../../../utils/Icons";
+import { AimIcon, OurMissionIcon, PromiseIcon, WinIcon } from "src/utils/Icons";
 
 export const slickCampaignDescription: CampaignDescription = {
   summary: {

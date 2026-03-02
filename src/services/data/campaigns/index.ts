@@ -1,1 +1,1 @@
-export * from "./getCampaignDescription";
+export * from "src/services/data/campaigns/getCampaignDescription";

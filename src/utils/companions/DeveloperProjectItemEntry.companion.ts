@@ -4,9 +4,9 @@
  */
 
 import * as dto from "@open-source-economy/api-types";
-import { SourceIdentifierCompanion } from "./SourceIdentifier.companion";
-import { DeveloperRoleTypeCompanion } from "./DeveloperRoleType.companion";
-import { MergeRightsTypeCompanion } from "./MergeRightsType.companion";
+import { SourceIdentifierCompanion } from "src/utils/companions/SourceIdentifier.companion";
+import { DeveloperRoleTypeCompanion } from "src/utils/companions/DeveloperRoleType.companion";
+import { MergeRightsTypeCompanion } from "src/utils/companions/MergeRightsType.companion";
 
 export namespace DeveloperProjectItemEntryCompanion {
   /**

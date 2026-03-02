@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { SourceIdentifierCompanion } from "../companions/SourceIdentifier.companion";
+import { SourceIdentifierCompanion } from "src/utils/companions/SourceIdentifier.companion";
 
 describe("SourceIdentifierCompanion", () => {
   describe("fromUrlOrShorthand", () => {

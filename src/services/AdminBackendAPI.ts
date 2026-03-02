@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import * as dto from "@open-source-economy/api-types";
-import { handleError, projectPath } from "./apiClient";
+import { handleError, projectPath } from "src/services/apiClient";
 import { config } from "src/utils";
 
 // TODO: re-add when available in api-types

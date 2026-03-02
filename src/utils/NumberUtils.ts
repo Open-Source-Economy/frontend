@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { displayedCurrencies } from "../views";
+import { displayedCurrencies } from "src/views";
 
 export const NumberUtils = {
   toLocaleStringPrice: (num: number, currency: dto.Currency): string => {

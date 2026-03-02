@@ -1,4 +1,4 @@
-import { config, Env } from "./index";
+import { config, Env } from "src/utils/index";
 
 /**
  * Feature visibility configuration

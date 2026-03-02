@@ -1,1 +1,1 @@
-export * from "./swissborg";
+export * from "src/services/data/sponsors/companies/swissborg";

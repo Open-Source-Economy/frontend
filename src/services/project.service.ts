@@ -9,15 +9,15 @@ import {
   GetSponsorsParams,
   GetSponsorsQuery,
 } from "src/utils/local-types";
-import { api, handleError, projectPath } from "./apiClient";
+import { api, handleError, projectPath } from "src/services/apiClient";
 import { ApiError } from "src/utils/error/ApiError";
 import { config } from "src/utils";
 import { StatusCodes } from "http-status-codes";
-import { getMaintainers } from "./data";
-import { pekkoGetProjectServicesResponse } from "./data/getProjectServiceResponses";
-import { getSponsors } from "./data/sponsors";
-import { SponsorDescription } from "../model";
-import { getProjectAccordion } from "./data/accordions/getAccordions";
+import { getMaintainers } from "src/services/data";
+import { pekkoGetProjectServicesResponse } from "src/services/data/getProjectServiceResponses";
+import { getSponsors } from "src/services/data/sponsors";
+import { SponsorDescription } from "src/model";
+import { getProjectAccordion } from "src/services/data/accordions/getAccordions";
 
 export interface ProjectService {
   getOwner(params: dto.GetOwnerParams, query: dto.GetOwnerQuery): Promise<dto.GetOwnerResponse>;

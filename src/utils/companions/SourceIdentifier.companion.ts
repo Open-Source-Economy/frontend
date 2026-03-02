@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifier } from "src/utils/local-types";
-import { GithubUrls } from "../index";
+import { GithubUrls } from "src/utils/index";
 
 // TODO: improve type safety
 

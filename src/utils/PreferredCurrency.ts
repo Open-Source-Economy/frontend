@@ -1,7 +1,7 @@
 import * as dto from "@open-source-economy/api-types";
 import type { AuthContextState } from "src/types/auth";
-import { stripeService } from "../services";
-import { currencyCookie } from "../cookies";
+import { stripeService } from "src/services";
+import { currencyCookie } from "src/cookies";
 
 export const PreferredCurrency = {
   get(auth: AuthContextState): dto.Currency {

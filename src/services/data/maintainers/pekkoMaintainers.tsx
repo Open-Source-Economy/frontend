@@ -1,7 +1,7 @@
-import happyCat from "../../../assets/v1/cats/happy-cat.svg";
-import thankfulCat from "../../../assets/v1/cats/thankful-cat.svg";
-import helloCat from "../../../assets/v1/cats/hello-cat.svg";
-import normalCat from "../../../assets/v1/cats/normal-cat.svg";
+import happyCat from "src/assets/v1/cats/happy-cat.svg";
+import thankfulCat from "src/assets/v1/cats/thankful-cat.svg";
+import helloCat from "src/assets/v1/cats/hello-cat.svg";
+import normalCat from "src/assets/v1/cats/normal-cat.svg";
 import { Maintainer } from "src/utils/local-types";
 
 const raboof: Maintainer = {

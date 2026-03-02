@@ -8,20 +8,20 @@
  * which keeps the dependency graph acyclic.
  */
 import { config } from "src/utils";
-import { type ProjectService, projectServiceImpl } from "./project.service";
-import { type FundingService, fundingServiceImpl } from "./funding.service";
-import { type StripeService, stripeServiceImpl } from "./stripe.service";
-import { type CommunicationService, communicationServiceImpl } from "./communication.service";
-import { type AuthBackendAPI, AuthBackendAPIImpl } from "./AuthBackendAPI";
-import { type OnboardingBackendAPI, OnboardingBackendAPIImpl } from "./OnboardingBackendAPI";
-import { type AdminBackendAPI, AdminBackendAPIImpl } from "./AdminBackendAPI";
+import { type ProjectService, projectServiceImpl } from "src/services/project.service";
+import { type FundingService, fundingServiceImpl } from "src/services/funding.service";
+import { type StripeService, stripeServiceImpl } from "src/services/stripe.service";
+import { type CommunicationService, communicationServiceImpl } from "src/services/communication.service";
+import { type AuthBackendAPI, AuthBackendAPIImpl } from "src/services/AuthBackendAPI";
+import { type OnboardingBackendAPI, OnboardingBackendAPIImpl } from "src/services/OnboardingBackendAPI";
+import { type AdminBackendAPI, AdminBackendAPIImpl } from "src/services/AdminBackendAPI";
 import { projectServiceMock } from "src/__mocks__/project.service.mock";
 import { fundingServiceMock } from "src/__mocks__/funding.service.mock";
 import { stripeServiceMock } from "src/__mocks__/stripe.service.mock";
 import { communicationServiceMock } from "src/__mocks__/communication.service.mock";
 import { AuthBackendAPIMock } from "src/__mocks__/AuthBackendAPI.mock";
 import { OnboardingBackendAPIMock } from "src/__mocks__/OnboardingBackendAPI.mock";
-import { api } from "./apiClient";
+import { api } from "src/services/apiClient";
 
 // --- Feature service singletons ---
 

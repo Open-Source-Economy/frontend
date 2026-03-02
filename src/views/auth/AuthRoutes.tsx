@@ -3,7 +3,7 @@ import { Navigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useAuth } from "src/views/auth";
 import * as dto from "@open-source-economy/api-types";
 import { config, Env } from "src/utils";
-import { PageNotFound } from "../v1/pages/PageNotFound";
+import { PageNotFound } from "src/views/v1/pages/PageNotFound";
 import { PageTransition } from "src/views/components/ui/page-transition";
 
 export function AuthRoutes(props: { authPage: string }) {
