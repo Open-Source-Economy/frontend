@@ -14,16 +14,7 @@ import { CheckboxField } from "../../../components/ui/forms/checkbox-field";
 import { type InputRef, ValidatedInputWithRef } from "../../../components/ui/forms/inputs/validated-input";
 import { validateGitHubOwnerUrl, validatePositiveInteger } from "../../../components/ui/forms/validators";
 import { AlertCircle, Github, Heart, Shield, TrendingUp } from "lucide-react";
-import {
-  CampaignPriceType,
-  CampaignProductType,
-  CheckoutBody,
-  CheckoutMode,
-  CheckoutParams,
-  CheckoutQuery,
-  Currency,
-  Price,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ApiError } from "src/utils/error/ApiError";
 
 import { displayedCurrencies } from "src/views/v1/data";
@@ -56,14 +47,14 @@ export function DonationCard(props: DonationCardProps) {
     : null;
 
   // Donation form state
-  const [priceType, setPriceType] = useState<CampaignPriceType>(CampaignPriceType.MONTHLY);
-  const campaignProductType = CampaignProductType.DONATION;
+  const [priceType, setPriceType] = useState<dto.CampaignPriceType>(dto.CampaignPriceType.MONTHLY);
+  const campaignProductType = dto.CampaignProductType.DONATION;
   const [selectedPriceIndex, setSelectedPriceIndex] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<number | null>(null);
   const [listPublicly, setListPublicly] = useState<boolean>(false);
   const [githubProfile, setGithubProfile] = useState<string>("");
   const githubProfileInputRef = useRef<InputRef>(null);
-  const [selectedPrice, setSelectedPrice] = useState<Price | null>(null);
+  const [selectedPrice, setSelectedPrice] = useState<dto.Price | null>(null);
 
   // Create validator function that always has access to current listPublicly state
   const githubProfileValidator = React.useCallback(
@@ -175,9 +166,9 @@ export function DonationCard(props: DonationCardProps) {
         }
       }
 
-      const params: CheckoutParams = {};
-      const body: CheckoutBody = {
-        mode: priceType === CampaignPriceType.MONTHLY ? CheckoutMode.SUBSCRIPTION : CheckoutMode.PAYMENT,
+      const params: dto.CheckoutParams = {};
+      const body: dto.CheckoutBody = {
+        mode: priceType === dto.CampaignPriceType.MONTHLY ? dto.CheckoutMode.SUBSCRIPTION : dto.CheckoutMode.PAYMENT,
         priceItems: [
           {
             priceId: selectedPrice.price.stripeId,
@@ -189,7 +180,7 @@ export function DonationCard(props: DonationCardProps) {
         cancelUrl: paymentCancelUrl,
         metadata: metadata,
       };
-      const query: CheckoutQuery = {};
+      const query: dto.CheckoutQuery = {};
 
       const response = await checkoutMutation.mutateAsync({ params, body, query });
       // Redirect to Stripe Checkout
@@ -229,22 +220,22 @@ export function DonationCard(props: DonationCardProps) {
               <ToggleGroup
                 type="single"
                 value={priceType}
-                onValueChange={(value) => value && setPriceType(value as CampaignPriceType)}
+                onValueChange={(value) => value && setPriceType(value as dto.CampaignPriceType)}
                 className="inline-flex p-1.5 bg-brand-card-blue border border-brand-neutral-300 rounded-lg"
               >
                 <ToggleGroupItem
-                  value={CampaignPriceType.MONTHLY}
+                  value={dto.CampaignPriceType.MONTHLY}
                   className="relative px-5 py-2 data-[state=on]:bg-brand-accent data-[state=on]:text-brand-secondary cursor-pointer"
                 >
                   Monthly
-                  {priceType === CampaignPriceType.MONTHLY && (
+                  {priceType === dto.CampaignPriceType.MONTHLY && (
                     <span className="absolute -top-2 -right-2 bg-brand-success text-brand-secondary px-1.5 py-0.5 rounded-md text-xs">
                       Best
                     </span>
                   )}
                 </ToggleGroupItem>
                 <ToggleGroupItem
-                  value={CampaignPriceType.ONE_TIME}
+                  value={dto.CampaignPriceType.ONE_TIME}
                   className="px-5 py-2 data-[state=on]:bg-brand-accent data-[state=on]:text-brand-secondary cursor-pointer"
                 >
                   One-time
@@ -261,10 +252,13 @@ export function DonationCard(props: DonationCardProps) {
           <div>
             <div className="flex items-center justify-between mb-2.5">
               <label className="text-sm text-brand-neutral-700">
-                Select Amount {priceType === CampaignPriceType.MONTHLY && "(per month)"}
+                Select Amount {priceType === dto.CampaignPriceType.MONTHLY && "(per month)"}
               </label>
               <div className="inline-flex items-center opacity-50">
-                <Select value={preferredCurrency} onValueChange={(value) => setPreferredCurrency(value as Currency)}>
+                <Select
+                  value={preferredCurrency}
+                  onValueChange={(value) => setPreferredCurrency(value as dto.Currency)}
+                >
                   <SelectTrigger className="h-7 w-28 text-xs border-brand-neutral-300/30 bg-transparent cursor-pointer">
                     <SelectValue />
                   </SelectTrigger>
@@ -286,7 +280,7 @@ export function DonationCard(props: DonationCardProps) {
               campaign.prices[priceType][preferredCurrency][campaignProductType] && (
                 <div className="grid grid-cols-3 gap-2.5">
                   {campaign.prices[priceType][preferredCurrency][campaignProductType].map(
-                    (price: Price, index: number) => (
+                    (price: dto.Price, index: number) => (
                       <button
                         key={index}
                         onClick={() => {
@@ -395,11 +389,11 @@ export function DonationCard(props: DonationCardProps) {
           >
             {(() => {
               const formattedPrice = selectedPrice
-                ? `${NumberUtils.toLocaleStringPrice(selectedPrice.totalAmount, preferredCurrency)}${priceType === CampaignPriceType.MONTHLY ? "/mo" : ""}`
+                ? `${NumberUtils.toLocaleStringPrice(selectedPrice.totalAmount, preferredCurrency)}${priceType === dto.CampaignPriceType.MONTHLY ? "/mo" : ""}`
                 : "";
 
               return selectedPrice
-                ? campaignProductType === CampaignProductType.DONATION
+                ? campaignProductType === dto.CampaignProductType.DONATION
                   ? `Donate ${formattedPrice}`
                   : `Support with ${formattedPrice}`
                 : "Select an amount to donate";

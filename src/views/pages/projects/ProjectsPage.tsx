@@ -4,12 +4,7 @@ import { SearchAndFiltersSection } from "src/views/pages/projects/components/Sea
 import { ProjectCategorySection } from "src/views/pages/projects/sections/ProjectCategorySection";
 import { RequestProjectSection } from "src/views/pages/projects/sections/RequestProjectSection";
 import { PageWrapper } from "src/views/pages/PageWrapper";
-import {
-  ProjectCategory,
-  ProjectItemSortField,
-  ProjectItemWithDetails,
-  SortOrder,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { ProjectItemWithDetailsCompanion } from "src/utils/companions";
 import { NumberUtils } from "src/utils/NumberUtils";
 import { ApiError } from "src/utils/error/ApiError";
@@ -56,34 +51,34 @@ export const projectsPageContent = {
 // ------------------------------------
 // Helpers & mappings (logic only)
 // ------------------------------------
-const CATEGORY_KEYWORDS: Record<ProjectCategory, string[]> = {
-  [ProjectCategory.ProgrammingLanguage]: ["rust", "python", "go"],
-  [ProjectCategory.Runtime]: ["deno"],
-  [ProjectCategory.Frontend]: ["react", "vue", "angular", "svelte"],
-  [ProjectCategory.Backend]: [],
-  [ProjectCategory.Mobile]: [],
-  [ProjectCategory.Desktop]: [],
-  [ProjectCategory.Database]: ["postgresql", "redis", "mongodb", "elasticsearch"],
-  [ProjectCategory.MachineLearning]: ["tensorflow", "pytorch", "scikit-learn"],
-  [ProjectCategory.DataProcessing]: [],
-  [ProjectCategory.Hardware]: [],
-  [ProjectCategory.Infrastructure]: ["kubernetes", "docker", "terraform", "ansible"],
-  [ProjectCategory.MonitoringObservability]: [],
-  [ProjectCategory.ApiNetworking]: [],
-  [ProjectCategory.BuildTools]: [],
-  [ProjectCategory.Testing]: [],
-  [ProjectCategory.Documentation]: [],
-  [ProjectCategory.Security]: ["openssl", "oauth2-proxy"],
-  [ProjectCategory.Library]: [],
+const CATEGORY_KEYWORDS: Record<dto.ProjectCategory, string[]> = {
+  [dto.ProjectCategory.ProgrammingLanguage]: ["rust", "python", "go"],
+  [dto.ProjectCategory.Runtime]: ["deno"],
+  [dto.ProjectCategory.Frontend]: ["react", "vue", "angular", "svelte"],
+  [dto.ProjectCategory.Backend]: [],
+  [dto.ProjectCategory.Mobile]: [],
+  [dto.ProjectCategory.Desktop]: [],
+  [dto.ProjectCategory.Database]: ["postgresql", "redis", "mongodb", "elasticsearch"],
+  [dto.ProjectCategory.MachineLearning]: ["tensorflow", "pytorch", "scikit-learn"],
+  [dto.ProjectCategory.DataProcessing]: [],
+  [dto.ProjectCategory.Hardware]: [],
+  [dto.ProjectCategory.Infrastructure]: ["kubernetes", "docker", "terraform", "ansible"],
+  [dto.ProjectCategory.MonitoringObservability]: [],
+  [dto.ProjectCategory.ApiNetworking]: [],
+  [dto.ProjectCategory.BuildTools]: [],
+  [dto.ProjectCategory.Testing]: [],
+  [dto.ProjectCategory.Documentation]: [],
+  [dto.ProjectCategory.Security]: ["openssl", "oauth2-proxy"],
+  [dto.ProjectCategory.Library]: [],
 };
 
-function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | null {
+function getProjectCategory(item: dto.ProjectItemWithDetails): dto.ProjectCategory | null {
   const repoName = item.repository?.id.name.toLowerCase() || "";
   const projectId = item.projectItem.id;
 
-  if (projectId === "linux-foundation") return ProjectCategory.Infrastructure; // URL-type special case
+  if (projectId === "linux-foundation") return dto.ProjectCategory.Infrastructure; // URL-type special case
 
-  for (const [cat, list] of Object.entries(CATEGORY_KEYWORDS) as [ProjectCategory, string[]][]) {
+  for (const [cat, list] of Object.entries(CATEGORY_KEYWORDS) as [dto.ProjectCategory, string[]][]) {
     if (list.includes(repoName)) return cat;
   }
   return null; // No category assigned
@@ -94,7 +89,7 @@ function getProjectCategory(item: ProjectItemWithDetails): ProjectCategory | nul
 // ------------------------------------
 export function ProjectsPage(_: {}) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<dto.ProjectCategory | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   const {
@@ -106,12 +101,12 @@ export function ProjectsPage(_: {}) {
     {},
     {
       repositories: {
-        sortBy: ProjectItemSortField.STARGAZERS,
-        sortOrder: SortOrder.DESC,
+        sortBy: dto.ProjectItemSortField.STARGAZERS,
+        sortOrder: dto.SortOrder.DESC,
       },
       owners: {
-        sortBy: ProjectItemSortField.FOLLOWERS,
-        sortOrder: SortOrder.DESC,
+        sortBy: dto.ProjectItemSortField.FOLLOWERS,
+        sortOrder: dto.SortOrder.DESC,
       },
       urls: {
         limit: 0,
@@ -160,7 +155,7 @@ export function ProjectsPage(_: {}) {
 
   // Filter + group
   const filteredProjects = useMemo(() => {
-    if (!projectItems) return {} as Record<string, ProjectItemWithDetails[]>;
+    if (!projectItems) return {} as Record<string, dto.ProjectItemWithDetails[]>;
 
     let projects = projectItems;
 
@@ -180,11 +175,11 @@ export function ProjectsPage(_: {}) {
       (acc, item) => {
         const category = getProjectCategory(item);
         const categoryKey = category ?? "Uncategorized";
-        if (!acc[categoryKey]) acc[categoryKey] = [] as ProjectItemWithDetails[];
+        if (!acc[categoryKey]) acc[categoryKey] = [] as dto.ProjectItemWithDetails[];
         acc[categoryKey].push(item);
         return acc;
       },
-      {} as Record<string, ProjectItemWithDetails[]>
+      {} as Record<string, dto.ProjectItemWithDetails[]>
     );
   }, [projectItems, searchQuery, selectedCategory, selectedLanguage]);
 

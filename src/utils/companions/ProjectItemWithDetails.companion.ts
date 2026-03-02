@@ -1,11 +1,4 @@
-import {
-  DeveloperProfile,
-  DeveloperProjectItem,
-  Owner,
-  ProjectItemId,
-  ProjectItemType,
-  ProjectItemWithDetails,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { NumberUtils } from "../NumberUtils";
 import { ProjectItemDetailsCompanion } from "./ProjectItemDetails.companion";
 
@@ -17,8 +10,8 @@ export interface ProjectStats {
 }
 
 export interface ProjectItemWithDetailsCardView {
-  projectId: ProjectItemId;
-  projectItemType?: ProjectItemType;
+  projectId: dto.ProjectItemId;
+  projectItemType?: dto.ProjectItemType;
   displayName: string | null;
   projectDescription: string | null;
   githubUrl: string | null;
@@ -29,9 +22,9 @@ export interface ProjectItemWithDetailsCardView {
   category: string | null;
   maintainersCount: number;
   visibleDevelopers: Array<{
-    developerProfile: DeveloperProfile;
-    developerProjectItem: DeveloperProjectItem;
-    developerOwner: Owner;
+    developerProfile: dto.DeveloperProfile;
+    developerProjectItem: dto.DeveloperProjectItem;
+    developerOwner: dto.Owner;
   }>;
   remainingMaintainersCount: number;
 }
@@ -42,10 +35,10 @@ export namespace ProjectItemWithDetailsCompanion {
    * This centralizes all the display logic and calculations.
    */
   export function toCardView(
-    item: ProjectItemWithDetails,
+    item: dto.ProjectItemWithDetails,
     visibleDevelopersCount: number = 3
   ): ProjectItemWithDetailsCardView {
-    const isOwnerProject = item.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER;
+    const isOwnerProject = item.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER;
 
     return {
       projectId: item.projectItem.id,
@@ -64,7 +57,10 @@ export namespace ProjectItemWithDetailsCompanion {
     };
   }
 
-  export function searchProjectItems(projectItems: ProjectItemWithDetails[], query: string): ProjectItemWithDetails[] {
+  export function searchProjectItems(
+    projectItems: dto.ProjectItemWithDetails[],
+    query: string
+  ): dto.ProjectItemWithDetails[] {
     const lowerQuery = query.toLowerCase();
     return projectItems.filter((item) => {
       const repoName = item.repository?.id.name.toLowerCase() || "";
@@ -76,7 +72,7 @@ export namespace ProjectItemWithDetailsCompanion {
     });
   }
 
-  export function getProjectItemsStats(projectItems: ProjectItemWithDetails[]): ProjectStats {
+  export function getProjectItemsStats(projectItems: dto.ProjectItemWithDetails[]): ProjectStats {
     const totalStars = projectItems.reduce((sum, item) => {
       return sum + (item.repository?.stargazersCount || 0);
     }, 0);

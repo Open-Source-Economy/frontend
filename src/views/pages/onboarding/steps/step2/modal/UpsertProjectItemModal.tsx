@@ -1,12 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import * as dto from "@open-source-economy/api-types";
-import {
-  DeveloperProjectItemEntry,
-  DeveloperRoleType,
-  MergeRightsType,
-  ProjectCategory,
-  ProjectItemType,
-} from "@open-source-economy/api-types";
 import { onboardingHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 import { BrandModal, BrandModalAlert, BrandModalSection } from "src/views/components/ui/brand-modal";
@@ -36,23 +29,23 @@ import {
 interface UpsertProjectItemModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  entry: DeveloperProjectItemEntry | null;
-  onUpsert: (projectItem: DeveloperProjectItemEntry) => void;
-  existingProjects?: DeveloperProjectItemEntry[]; // Existing projects to check for conflicts
+  entry: dto.DeveloperProjectItemEntry | null;
+  onUpsert: (projectItem: dto.DeveloperProjectItemEntry) => void;
+  existingProjects?: dto.DeveloperProjectItemEntry[]; // Existing projects to check for conflicts
 }
 
 const projectTypeOptions = [
-  { value: ProjectItemType.GITHUB_REPOSITORY, label: "GitHub Repository" },
-  { value: ProjectItemType.GITHUB_OWNER, label: "GitHub Organization" },
-  { value: ProjectItemType.URL, label: "Other URL" },
+  { value: dto.ProjectItemType.GITHUB_REPOSITORY, label: "GitHub Repository" },
+  { value: dto.ProjectItemType.GITHUB_OWNER, label: "GitHub Organization" },
+  { value: dto.ProjectItemType.URL, label: "Other URL" },
 ];
 
 const createProjectItemData = (
   sourceIdentifier: SourceIdentifier,
-  projectType: ProjectItemType,
-  role: DeveloperRoleType | null,
-  mergeRights: MergeRightsType | null,
-  predefinedCategories: ProjectCategory[],
+  projectType: dto.ProjectItemType,
+  role: dto.DeveloperRoleType | null,
+  mergeRights: dto.MergeRightsType | null,
+  predefinedCategories: dto.ProjectCategory[],
   customCategories: string[]
 ): dto.ProjectItemData => {
   return {
@@ -75,7 +68,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const [bulkErrors, setBulkErrors] = useState<string | undefined>();
 
   // Category states (not in RHF since they're optional arrays with custom UI)
-  const [predefinedCategories, setPredefinedCategories] = useState<ProjectCategory[]>(
+  const [predefinedCategories, setPredefinedCategories] = useState<dto.ProjectCategory[]>(
     props.entry?.developerProjectItem.predefinedCategories || []
   );
   const [customCategories, setCustomCategories] = useState<string[]>(
@@ -91,7 +84,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     },
   });
 
-  const selectedProjectType = form.watch("projectType") as ProjectItemType | "";
+  const selectedProjectType = form.watch("projectType") as dto.ProjectItemType | "";
   const url = form.watch("url");
 
   const mutationError = upsertProjectItem.error || removeProjectItem.error;
@@ -109,7 +102,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     }
     return BulkProjectUrlParser.validateBulkUrls(
       bulkUrls,
-      selectedProjectType as ProjectItemType,
+      selectedProjectType as dto.ProjectItemType,
       props.existingProjects || [],
       props.entry,
       false
@@ -153,17 +146,17 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const validateUrlForType = (): string | undefined => {
     const urlValue = form.getValues("url");
-    const projectType = form.getValues("projectType") as ProjectItemType;
+    const projectType = form.getValues("projectType") as dto.ProjectItemType;
 
     if (!urlValue?.trim()) return "Project URL is required";
 
-    if (projectType === ProjectItemType.GITHUB_REPOSITORY) {
+    if (projectType === dto.ProjectItemType.GITHUB_REPOSITORY) {
       const repo = GithubUrls.extractRepositoryId(urlValue, true);
       if (!repo) return "Enter a valid GitHub repository (owner/repo or https://github.com/owner/repo).";
-    } else if (projectType === ProjectItemType.GITHUB_OWNER) {
+    } else if (projectType === dto.ProjectItemType.GITHUB_OWNER) {
       const owner = GithubUrls.extractOwnerId(urlValue, true);
       if (!owner) return "Enter a valid GitHub organization/user (owner or https://github.com/owner).";
-    } else if (projectType === ProjectItemType.URL) {
+    } else if (projectType === dto.ProjectItemType.URL) {
       try {
         new URL(urlValue);
       } catch {
@@ -204,7 +197,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   const validateBulkForm = (): {
     valid: boolean;
-    projects: Array<{ sourceIdentifier: SourceIdentifier; projectType: ProjectItemType }>;
+    projects: Array<{ sourceIdentifier: SourceIdentifier; projectType: dto.ProjectItemType }>;
   } => {
     let hasErrors = false;
 
@@ -261,7 +254,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       return;
     }
 
-    const projectType = form.getValues("projectType") as ProjectItemType;
+    const projectType = form.getValues("projectType") as dto.ProjectItemType;
     const urlValue = form.getValues("url");
     const sourceIdentifier = SourceIdentifierCompanion.fromUrlOrShorthand(urlValue);
 
@@ -281,8 +274,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         await removeProjectItem.mutateAsync({ params: deleteParams, query: deleteQuery });
       }
 
-      const roleValue = form.getValues("role") as DeveloperRoleType;
-      const mergeRightsValue = form.getValues("mergeRights") as MergeRightsType;
+      const roleValue = form.getValues("role") as dto.DeveloperRoleType;
+      const mergeRightsValue = form.getValues("mergeRights") as dto.MergeRightsType;
 
       const params: dto.UpsertDeveloperProjectItemParams = {};
       const body: dto.UpsertDeveloperProjectItemBody = {
@@ -323,8 +316,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
       return;
     }
 
-    const roleValue = form.getValues("role") as DeveloperRoleType;
-    const mergeRightsValue = form.getValues("mergeRights") as MergeRightsType;
+    const roleValue = form.getValues("role") as dto.DeveloperRoleType;
+    const mergeRightsValue = form.getValues("mergeRights") as dto.MergeRightsType;
 
     const projectItems: dto.ProjectItemData[] = projects.map((projectData) =>
       createProjectItemData(
@@ -364,7 +357,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   };
 
   const formErrors = form.formState.errors;
-  const urlConfig = getUrlConfig(selectedProjectType as ProjectItemType | null);
+  const urlConfig = getUrlConfig(selectedProjectType as dto.ProjectItemType | null);
   const mode = props.entry ? "edit" : "add";
 
   return (
@@ -411,8 +404,8 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
         >
           <RoleAndMergeRightsFields
             isBulkMode={isBulkMode}
-            selectedRole={(form.watch("role") as DeveloperRoleType) || null}
-            selectedMergeRights={(form.watch("mergeRights") as MergeRightsType) || null}
+            selectedRole={(form.watch("role") as dto.DeveloperRoleType) || null}
+            selectedMergeRights={(form.watch("mergeRights") as dto.MergeRightsType) || null}
             onRoleChange={(role) => {
               form.setValue("role", role || "", { shouldValidate: form.formState.isSubmitted });
             }}
@@ -459,7 +452,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                 {selectedProjectType && (
                   <div className="md:col-span-2">
                     <ProjectUrlInput
-                      projectType={selectedProjectType as ProjectItemType}
+                      projectType={selectedProjectType as dto.ProjectItemType}
                       value={url}
                       onChange={(value) => {
                         form.setValue("url", value, { shouldValidate: form.formState.isSubmitted });
@@ -526,7 +519,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                   {bulkValidationResult && (
                     <BulkProjectsPreview
                       validationResult={bulkValidationResult}
-                      selectedProjectType={selectedProjectType as ProjectItemType}
+                      selectedProjectType={selectedProjectType as dto.ProjectItemType}
                     />
                   )}
 

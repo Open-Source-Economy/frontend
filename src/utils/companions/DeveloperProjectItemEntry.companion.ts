@@ -3,12 +3,7 @@
  * Centralizes all display and formatting logic for project entries
  */
 
-import {
-  DeveloperProjectItemEntry,
-  DeveloperRoleType,
-  MergeRightsType,
-  ProjectItemType,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { SourceIdentifierCompanion } from "./SourceIdentifier.companion";
 import { DeveloperRoleTypeCompanion } from "./DeveloperRoleType.companion";
 import { MergeRightsTypeCompanion } from "./MergeRightsType.companion";
@@ -17,31 +12,31 @@ export namespace DeveloperProjectItemEntryCompanion {
   /**
    * Get display name from source identifier
    */
-  export function displayName(entry: DeveloperProjectItemEntry): string {
+  export function displayName(entry: dto.DeveloperProjectItemEntry): string {
     return SourceIdentifierCompanion.displayName(entry.projectItem.sourceIdentifier);
   }
 
   /**
    * Get display URL
    */
-  export function displayUrl(entry: DeveloperProjectItemEntry): string {
+  export function displayUrl(entry: dto.DeveloperProjectItemEntry): string {
     const projectItem = entry.projectItem;
     // sourceIdentifier is now always a string
     const sourceIdentifier = projectItem.sourceIdentifier;
 
-    if (projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY) {
+    if (projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY) {
       // sourceIdentifier for repos is typically "owner/name" or a full URL
       if (sourceIdentifier.startsWith("http")) {
         return sourceIdentifier;
       }
       return `https://github.com/${sourceIdentifier}`;
-    } else if (projectItem.projectItemType === ProjectItemType.GITHUB_OWNER) {
+    } else if (projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER) {
       // sourceIdentifier for owners is the login string
       if (sourceIdentifier.startsWith("http")) {
         return sourceIdentifier;
       }
       return `https://github.com/${sourceIdentifier}`;
-    } else if (projectItem.projectItemType === ProjectItemType.URL) {
+    } else if (projectItem.projectItemType === dto.ProjectItemType.URL) {
       return sourceIdentifier;
     }
 
@@ -51,17 +46,17 @@ export namespace DeveloperProjectItemEntryCompanion {
   /**
    * Check if project is GitHub-based
    */
-  export function isGitHub(entry: DeveloperProjectItemEntry): boolean {
+  export function isGitHub(entry: dto.DeveloperProjectItemEntry): boolean {
     return (
-      entry.projectItem.projectItemType === ProjectItemType.GITHUB_REPOSITORY ||
-      entry.projectItem.projectItemType === ProjectItemType.GITHUB_OWNER
+      entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_REPOSITORY ||
+      entry.projectItem.projectItemType === dto.ProjectItemType.GITHUB_OWNER
     );
   }
 
   /**
    * Get formatted role label
    */
-  export function roleLabel(entry: DeveloperProjectItemEntry): string {
+  export function roleLabel(entry: dto.DeveloperProjectItemEntry): string {
     const role = entry.developerProjectItem.roles?.[0];
     if (!role) return "Contributor";
     return DeveloperRoleTypeCompanion.label(role);
@@ -70,7 +65,7 @@ export namespace DeveloperProjectItemEntryCompanion {
   /**
    * Get formatted merge rights label
    */
-  export function mergeRightsLabel(entry: DeveloperProjectItemEntry): string {
+  export function mergeRightsLabel(entry: dto.DeveloperProjectItemEntry): string {
     const mergeRights = entry.developerProjectItem.mergeRights?.[0];
     if (!mergeRights) return "No access";
     return MergeRightsTypeCompanion.label(mergeRights);
@@ -80,18 +75,18 @@ export namespace DeveloperProjectItemEntryCompanion {
    * Get role value for design system
    */
   export function roleValue(
-    entry: DeveloperProjectItemEntry
+    entry: dto.DeveloperProjectItemEntry
   ): "maintainer" | "core_contributor" | "contributor" | "other" {
     const role = entry.developerProjectItem.roles?.[0];
 
     switch (role) {
-      case DeveloperRoleType.MAINTAINER:
+      case dto.DeveloperRoleType.MAINTAINER:
         return "maintainer";
-      case DeveloperRoleType.ACTIVE_CONTRIBUTOR:
-      case DeveloperRoleType.COMMITTER:
-      case DeveloperRoleType.CORE_TEAM_MEMBER:
+      case dto.DeveloperRoleType.ACTIVE_CONTRIBUTOR:
+      case dto.DeveloperRoleType.COMMITTER:
+      case dto.DeveloperRoleType.CORE_TEAM_MEMBER:
         return "core_contributor";
-      case DeveloperRoleType.OCCASIONAL_CONTRIBUTOR:
+      case dto.DeveloperRoleType.OCCASIONAL_CONTRIBUTOR:
         return "contributor";
       default:
         return "other";
@@ -101,8 +96,8 @@ export namespace DeveloperProjectItemEntryCompanion {
   /**
    * Get merge rights (first one if multiple)
    */
-  export function mergeRights(entry: DeveloperProjectItemEntry): MergeRightsType {
-    return entry.developerProjectItem.mergeRights?.[0] || MergeRightsType.NONE;
+  export function mergeRights(entry: dto.DeveloperProjectItemEntry): dto.MergeRightsType {
+    return entry.developerProjectItem.mergeRights?.[0] || dto.MergeRightsType.NONE;
   }
 
   /**

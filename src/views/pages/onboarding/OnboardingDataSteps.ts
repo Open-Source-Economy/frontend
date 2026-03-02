@@ -1,12 +1,4 @@
-import {
-  Currency,
-  DeveloperProfileId,
-  DeveloperProjectItemEntry,
-  DeveloperServiceEntry,
-  FullDeveloperProfile,
-  OpenToOtherOpportunityType,
-  PreferenceType,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import { Rate } from "./steps/step5/types";
 
 export enum OnboardingDataSteps {
@@ -18,29 +10,29 @@ export enum OnboardingDataSteps {
 }
 
 export interface Step1State {
-  developerProfileId?: DeveloperProfileId;
+  developerProfileId?: dto.DeveloperProfileId;
   name?: string;
   contactEmail?: string;
   agreedToTerms?: boolean;
 }
 
 export interface Step2State {
-  projects: DeveloperProjectItemEntry[];
+  projects: dto.DeveloperProjectItemEntry[];
 }
 
 export interface Step3State {
   // coming from DeveloperSettings
-  royaltiesPreference?: PreferenceType | null;
-  servicesPreference?: PreferenceType | null;
-  communitySupporterPreference?: PreferenceType | null;
+  royaltiesPreference?: dto.PreferenceType | null;
+  servicesPreference?: dto.PreferenceType | null;
+  communitySupporterPreference?: dto.PreferenceType | null;
 }
 
 export interface Step4State {
   // coming from DeveloperSettings
   hourlyWeeklyCommitment?: number;
-  openToOtherOpportunity?: OpenToOtherOpportunityType;
+  openToOtherOpportunity?: dto.OpenToOtherOpportunityType;
   hourlyRate?: number;
-  currency: Currency | null;
+  currency: dto.Currency | null;
   hourlyWeeklyCommitmentComment?: string;
   openToOtherOpportunityComment?: string;
   hourlyRateComment?: string;
@@ -49,8 +41,8 @@ export interface Step4State {
 // Step 5 now uses the new entry types
 export interface Step5State {
   defaultRate: Rate;
-  developerServices: DeveloperServiceEntry[];
-  developerProjectItems: DeveloperProjectItemEntry[];
+  developerServices: dto.DeveloperServiceEntry[];
+  developerProjectItems: dto.DeveloperProjectItemEntry[];
 }
 
 export interface OnboardingState {
@@ -64,8 +56,8 @@ export interface OnboardingState {
 
 export function transformFullDeveloperProfileToOnboardingState(
   currentStep: OnboardingDataSteps,
-  profile: FullDeveloperProfile,
-  fallBackCurrency: Currency
+  profile: dto.FullDeveloperProfile,
+  fallBackCurrency: dto.Currency
 ): OnboardingState {
   const step1: Step1State = {
     developerProfileId: profile.profileEntry?.profile?.id || undefined,

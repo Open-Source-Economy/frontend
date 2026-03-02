@@ -1,28 +1,23 @@
-import type {
-  Currency,
-  SetPreferredCurrencyBody,
-  SetPreferredCurrencyParams,
-  SetPreferredCurrencyQuery,
-} from "@open-source-economy/api-types";
+import * as dto from "@open-source-economy/api-types";
 import type { AuthContextState } from "src/types/auth";
 import { stripeService } from "../services";
 import { currencyCookie } from "../cookies";
 
 export const PreferredCurrency = {
-  get(auth: AuthContextState): Currency {
+  get(auth: AuthContextState): dto.Currency {
     if (auth.authInfo?.user.preferredCurrency) {
       return auth.authInfo.user.preferredCurrency;
     }
     return currencyCookie.get();
   },
 
-  set(auth: AuthContextState, currency: Currency): void {
+  set(auth: AuthContextState, currency: dto.Currency): void {
     if (auth.authInfo) {
-      const params: SetPreferredCurrencyParams = {
+      const params: dto.SetPreferredCurrencyParams = {
         currency: currency,
       };
-      const body: SetPreferredCurrencyBody = {};
-      const query: SetPreferredCurrencyQuery = {};
+      const body: dto.SetPreferredCurrencyBody = {};
+      const query: dto.SetPreferredCurrencyQuery = {};
 
       stripeService.setUserPreferredCurrency(params, body, query).then(() => {
         window.location.reload();
