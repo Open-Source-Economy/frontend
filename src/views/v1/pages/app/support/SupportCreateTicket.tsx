@@ -25,13 +25,13 @@ const SupportCreateTicket = () => {
     {}
   );
   const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
-  const [_selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [_selectedSeverity, setSelectedSeverity] = useState("");
+  const [_selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+  const [_selectedSeverity, setSelectedSeverity] = useState<string | null>(null);
   const audience = Audience.DEVELOPER;
   console.log(issueId);
   console.log(audience);
   const { counter, handleInputChange, increment, decrement } = useCreditCounter();
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [_enoughFund, setEnoughFund] = useState<boolean>(true);
   const auth = useAuth();
 
@@ -76,7 +76,7 @@ const SupportCreateTicket = () => {
     }
 
     // Reset subcategory when main category changes
-    setSelectedSubCategory("");
+    setSelectedSubCategory(null);
   }, [selectedCategory]);
 
   const handleCategoryChange = (value: string) => {

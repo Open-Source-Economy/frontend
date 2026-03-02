@@ -31,9 +31,17 @@ export function BiggerOpportunitiesRadioGroup(props: BiggerOpportunitiesRadioGro
     <FormField label="Are you open to bigger opportunities if we encounter some?" required error={validationError}>
       <RadioGroup value={getRadioValue()} onValueChange={handleValueChange}>
         <div className="flex gap-4">
-          <RadioOption value={dto.OpenToOtherOpportunityType.YES} id="bigger-opportunities-yes" label="Yes, I'm interested" />
+          <RadioOption
+            value={dto.OpenToOtherOpportunityType.YES}
+            id="bigger-opportunities-yes"
+            label="Yes, I'm interested"
+          />
           <RadioOption value={dto.OpenToOtherOpportunityType.MAYBE} id="bigger-opportunities-maybe" label="Maybe" />
-          <RadioOption value={dto.OpenToOtherOpportunityType.NO} id="bigger-opportunities-no" label="No, prefer smaller projects" />
+          <RadioOption
+            value={dto.OpenToOtherOpportunityType.NO}
+            id="bigger-opportunities-no"
+            label="No, prefer smaller projects"
+          />
         </div>
       </RadioGroup>
     </FormField>

@@ -21,7 +21,7 @@ export function SelectFilter(props: SelectFilterProps) {
   const disabled = props.disabled ?? false;
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = React.useState<string | null>(null);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -40,7 +40,7 @@ export function SelectFilter(props: SelectFilterProps) {
   React.useEffect(() => {
     // Skip initial render
     if (props.labelValues.length > 0) {
-      setSelectedValue("");
+      setSelectedValue(null);
     }
   }, [JSON.stringify(props.labelValues.map((item) => item.value))]);
 

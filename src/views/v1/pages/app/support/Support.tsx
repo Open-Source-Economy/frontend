@@ -14,10 +14,10 @@ export function Support() {
   const [subject, setSubject] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [githubDiscussionUrl, setGithubDiscussionUrl] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
-  const [selectedSeverity, setSelectedSeverity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [selectedSeverity, setSelectedSeverity] = useState<string | null>(null);
   const [isPublic, setIsPublic] = useState(false);
   const [subCategoryOptions, setSubCategoryOptions] = useState<DropdownOption[]>([]);
   const [isSubjectValid, setIsSubjectValid] = useState(true);
@@ -55,7 +55,7 @@ export function Support() {
     }
 
     // Reset subcategory when main category changes
-    setSelectedSubCategory("");
+    setSelectedSubCategory(null);
   }, [selectedCategory]);
 
   const handleInputChange =

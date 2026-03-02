@@ -22,7 +22,7 @@ export function IdentificationStep() {
   const checkEmailMutation = authHooks.useCheckEmailMutation();
 
   const [isEmailPredefined, setIsEmailPredefined] = useState(false);
-  const [githubLogin, setGithubLogin] = useState("");
+  const [githubLogin, setGithubLogin] = useState<string | null>(null);
   const [isGithubAccountPredefined, setIsGithubAccountPredefined] = useState(false);
 
   const form = useZodForm(identificationFormSchema, {

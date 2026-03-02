@@ -40,7 +40,7 @@ export function Authenticate(props: AuthenticateProps) {
   const companyToken: string | null = searchParams.company_token ?? null;
 
   const [name, setName] = useState<string | null>(null);
-  const [_githubLogin, setGithubLogin] = useState("");
+  const [_githubLogin, setGithubLogin] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<FormData>({
     email: "",
