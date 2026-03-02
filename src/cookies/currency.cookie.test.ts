@@ -46,18 +46,6 @@ describe("dto.CurrencyCookie", () => {
       expect(currencyCookie.get()).toBe(dto.Currency.USD);
     });
 
-    // TODO: Fix this test
-    // it('should return default currency when cookie value is invalid', () => {
-    //   documentCookies[currencyCookie.cookieName] = 'INVALID_CURRENCY';
-    //   expect(currencyCookie.get()).toBe(dto.Currency.EUR);
-    // });
-
-    // TODO: Fix this test
-    // it('should handle empty cookie string', () => {
-    //   document.cookie = '';
-    //   expect(currencyCookie.get()).toBe(dto.Currency.EUR);
-    // });
-
     it("should handle empty cookie", () => {
       documentCookies = {};
       expect(currencyCookie.get()).toBe(dto.Currency.EUR);
@@ -82,7 +70,7 @@ describe("dto.CurrencyCookie", () => {
 
     it("should add Secure flag when on HTTPS", () => {
       const originalLocation = window.location;
-      // @ts-ignore
+      // @ts-expect-error: deleting window.location to mock HTTPS protocol
       delete window.location;
       Object.defineProperty(window, "location", {
         value: { protocol: "https:" },

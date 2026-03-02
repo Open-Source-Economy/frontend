@@ -46,15 +46,15 @@ export class ManageFundRecipient {
 
   private manuallySetAmountExpect(expectId: string): Decimal {
     return Object.entries(this.split)
-      .filter(([id, [amount, manuallySet]]) => manuallySet && id !== expectId)
-      .map(([id, [amount, manuallySet]]) => amount)
+      .filter(([id, [_amount, manuallySet]]) => manuallySet && id !== expectId)
+      .map(([_id, [amount, _manuallySet]]) => amount)
       .reduce((acc, amount) => acc.plus(amount), new Decimal(0)); // sum all
   }
 
   private recipientIdsNotManuallySet(): string[] {
     return Object.entries(this.split)
-      .filter(([id, [amount, manuallySet]]) => !manuallySet)
-      .map(([id, [amount, manuallySet]]) => id);
+      .filter(([_id, [_amount, manuallySet]]) => !manuallySet)
+      .map(([id, [_amount, _manuallySet]]) => id);
   }
 
   // Split the amount equally among all recipients that have not been manually set

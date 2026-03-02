@@ -17,7 +17,7 @@ const envVarsSchema = Joi.object({
   VITE_OSE_API_USE_MOCK: Joi.boolean().default(false).description("Boolean flag to determine whether to use mock API"),
 }).unknown();
 
-// @ts-ignore
+// @ts-expect-error: import.meta.env is not typed in the config context
 const viteEnv = import.meta.env;
 const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: "key" } }).validate(viteEnv);
 
