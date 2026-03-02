@@ -24,7 +24,7 @@ export function FAQPage() {
                 Find answers to common questions about Open Source Economy, our services, pricing, and how we support
                 the open source ecosystem.
               </p>
-              <FAQSearchBar value={searchQuery} onChange={setSearchQuery} />
+              <FAQSearchBar value={searchQuery ?? ""} onChange={setSearchQuery} />
             </div>
           </div>
         </section>

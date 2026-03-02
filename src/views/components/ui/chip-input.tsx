@@ -25,7 +25,7 @@ export function ChipInput(props: ChipInputProps) {
   const countLabel = props.countLabel ?? "item";
   const disabled = props.disabled ?? false;
 
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState<string | null>(null);
   const [showDropdown, setShowDropdown] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,7 +43,8 @@ export function ChipInput(props: ChipInputProps) {
   }, [showDropdown]);
 
   const filteredSuggestions = suggestions.filter(
-    (suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && !props.values.includes(suggestion)
+    (suggestion) =>
+      suggestion.toLowerCase().includes((searchTerm ?? "").toLowerCase()) && !props.values.includes(suggestion)
   );
 
   const handleAdd = (value: string) => {
@@ -66,9 +67,9 @@ export function ChipInput(props: ChipInputProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchTerm.trim()) {
+    if (e.key === "Enter" && (searchTerm ?? "").trim()) {
       e.preventDefault();
-      handleAdd(searchTerm);
+      handleAdd(searchTerm ?? "");
     }
   };
 
@@ -90,7 +91,7 @@ export function ChipInput(props: ChipInputProps) {
       <div className="relative" ref={dropdownRef}>
         <Input
           type="text"
-          value={searchTerm}
+          value={searchTerm ?? ""}
           onChange={(e) => {
             setSearchTerm(e.target.value);
             setShowDropdown(true);
@@ -108,7 +109,7 @@ export function ChipInput(props: ChipInputProps) {
               {allowCustom && isCustomValue && (
                 <button
                   type="button"
-                  onClick={() => handleAdd(searchTerm)}
+                  onClick={() => handleAdd(searchTerm ?? "")}
                   className="w-full px-4 py-3 text-left hover:bg-brand-secondary-dark transition-colors border-b border-brand-neutral-300/20"
                 >
                   <div className="flex items-center gap-2">

@@ -88,7 +88,7 @@ function getProjectCategory(item: dto.ProjectItemWithDetails): dto.ProjectCatego
 // Component
 // ------------------------------------
 export function ProjectsPage(_: {}) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<dto.ProjectCategory | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
@@ -239,7 +239,7 @@ export function ProjectsPage(_: {}) {
       {!isLoading && !apiError && (
         <>
           <SearchAndFiltersSection
-            searchQuery={searchQuery}
+            searchQuery={searchQuery ?? ""}
             onSearchChange={setSearchQuery}
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
@@ -270,7 +270,7 @@ export function ProjectsPage(_: {}) {
               ) : (
                 <div className="max-w-4xl mx-auto">
                   <RequestProjectSection
-                    searchQuery={searchQuery}
+                    searchQuery={searchQuery ?? ""}
                     selectedCategory={selectedCategory}
                     selectedLanguage={selectedLanguage}
                   />

@@ -639,7 +639,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
   const maxProjects = props.maxProjects;
   const className = props.className ?? "";
   const onNavigation = props.onNavigation;
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
   const [selectedStatus, _setSelectedStatus] = React.useState<string>("all");
   const [selectedMaintainerType, setSelectedMaintainerType] = React.useState<string>("all");
@@ -652,11 +652,12 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
     let filtered = projects;
 
     if (searchTerm) {
+      const term = searchTerm.toLowerCase();
       filtered = filtered.filter(
         (project) =>
-          project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          project.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+          project.name.toLowerCase().includes(term) ||
+          project.description.toLowerCase().includes(term) ||
+          project.tags.some((tag) => tag.toLowerCase().includes(term))
       );
     }
 
@@ -1310,7 +1311,7 @@ export function ProjectsShowcase(props: ProjectsShowcaseProps) {
                   <div className="flex-1 min-w-0">
                     <SearchInput
                       placeholder="Search projects, technologies, or maintainers..."
-                      value={searchTerm}
+                      value={searchTerm ?? ""}
                       onChange={setSearchTerm}
                       size="lg"
                     />

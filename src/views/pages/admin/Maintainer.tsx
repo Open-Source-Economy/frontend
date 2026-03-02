@@ -34,12 +34,12 @@ export function Maintainer() {
   // Profile verification editing
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileStatus, setProfileStatus] = useState<dto.VerificationStatus>(dto.VerificationStatus.PENDING_REVIEW);
-  const [profileNotes, setProfileNotes] = useState("");
+  const [profileNotes, setProfileNotes] = useState<string | null>(null);
 
   // Project verification editing
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
   const [projectStatus, setProjectStatus] = useState<dto.VerificationStatus>(dto.VerificationStatus.PENDING_REVIEW);
-  const [projectNotes, setProjectNotes] = useState("");
+  const [projectNotes, setProjectNotes] = useState<string | null>(null);
 
   const createVerification = adminHooks.useCreateVerificationRecordMutation();
 
@@ -66,7 +66,7 @@ export function Maintainer() {
           profileData.profileEntry.profile.id
         );
         setProfileStatus(currentStatus);
-        setProfileNotes(currentNotes || "");
+        setProfileNotes(currentNotes || null);
       }
     }
   }, [profileData]);
@@ -88,7 +88,7 @@ export function Maintainer() {
           entityType: dto.VerificationEntityType.DEVELOPER_PROFILE,
           entityId: profile.profileEntry!.profile.id,
           status: profileStatus,
-          notes: profileNotes.trim() || undefined,
+          notes: (profileNotes ?? "").trim() || undefined,
         },
         query: {},
       });
@@ -122,7 +122,7 @@ export function Maintainer() {
           entityType: dto.VerificationEntityType.DEVELOPER_PROJECT_ITEM,
           entityId: projectEntry.developerProjectItem.id,
           status: projectStatus,
-          notes: projectNotes.trim() || undefined,
+          notes: (projectNotes ?? "").trim() || undefined,
         },
         query: {},
       });
@@ -162,7 +162,7 @@ export function Maintainer() {
       projectEntry.developerProjectItem.id
     );
     setProjectStatus(currentStatus);
-    setProjectNotes(currentNotes || "");
+    setProjectNotes(currentNotes || null);
   };
 
   if (isLoading) {
@@ -348,7 +348,7 @@ export function Maintainer() {
                   <div>
                     <label className="block text-sm font-medium text-brand-neutral-300 mb-2">Admin Notes</label>
                     <Textarea
-                      value={profileNotes}
+                      value={profileNotes ?? ""}
                       onChange={(e) => setProfileNotes(e.target.value)}
                       placeholder="Add notes, questions, or feedback for the developer..."
                       rows={3}
@@ -559,7 +559,7 @@ export function Maintainer() {
                             <div>
                               <label className="block text-sm font-medium text-brand-neutral-300 mb-2">Notes</label>
                               <Textarea
-                                value={projectNotes}
+                                value={projectNotes ?? ""}
                                 onChange={(e) => setProjectNotes(e.target.value)}
                                 placeholder="Add notes or questions about this project..."
                                 rows={2}

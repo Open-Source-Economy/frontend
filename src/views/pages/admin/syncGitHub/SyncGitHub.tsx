@@ -4,8 +4,8 @@ import { adminHooks } from "src/api";
 import { ApiError } from "src/utils/error/ApiError";
 
 export function SyncGitHub() {
-  const [ownerInput, setOwnerInput] = useState("");
-  const [repoInput, setRepoInput] = useState("");
+  const [ownerInput, setOwnerInput] = useState<string | null>(null);
+  const [repoInput, setRepoInput] = useState<string | null>(null);
   const [syncType, setSyncType] = useState<"owner" | "repository" | "project">("owner");
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ export function SyncGitHub() {
   const loading = syncOwnerMutation.isPending || syncRepositoryMutation.isPending || syncProjectMutation.isPending;
 
   const handleSync = async () => {
-    if (!ownerInput.trim()) {
+    if (!(ownerInput ?? "").trim()) {
       setError("Please enter an owner name");
       return;
     }
@@ -30,15 +30,15 @@ export function SyncGitHub() {
 
       switch (syncType) {
         case "owner":
-          response = await syncOwnerMutation.mutateAsync({ params: { owner: ownerInput }, query: {} });
+          response = await syncOwnerMutation.mutateAsync({ params: { owner: ownerInput ?? "" }, query: {} });
           break;
         case "repository":
-          if (!repoInput.trim()) {
+          if (!(repoInput ?? "").trim()) {
             setError("Please enter a repository name");
             return;
           }
           response = await syncRepositoryMutation.mutateAsync({
-            params: { owner: ownerInput, repo: repoInput },
+            params: { owner: ownerInput ?? "", repo: repoInput ?? "" },
             body: {},
             query: {},
           });
@@ -46,7 +46,7 @@ export function SyncGitHub() {
         case "project":
           response = await syncProjectMutation.mutateAsync({
             params: {
-              owner: ownerInput,
+              owner: ownerInput ?? "",
             },
             query: {},
           });
@@ -107,7 +107,7 @@ export function SyncGitHub() {
             <label className="block text-gray-700 font-semibold mb-2">Owner (GitHub username or organization)</label>
             <input
               type="text"
-              value={ownerInput}
+              value={ownerInput ?? ""}
               onChange={(e) => setOwnerInput(e.target.value)}
               placeholder="e.g., Open-Source-Economy"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
@@ -122,7 +122,7 @@ export function SyncGitHub() {
               </label>
               <input
                 type="text"
-                value={repoInput}
+                value={repoInput ?? ""}
                 onChange={(e) => setRepoInput(e.target.value)}
                 placeholder="e.g., web2-backend"
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"

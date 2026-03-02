@@ -22,7 +22,7 @@ import { SelectField } from "src/views/components/ui/forms/select/select-field";
 import { Badge } from "src/views/components/ui/badge";
 
 export function Maintainers() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<dto.VerificationStatus | "all">("all");
   const [expandedProfiles, setExpandedProfiles] = useState<Set<string>>(new Set());
   const [useLocalSearch, setUseLocalSearch] = useState(true);
@@ -32,7 +32,7 @@ export function Maintainers() {
     ? {}
     : {
         verificationStatus: statusFilter === "all" ? undefined : statusFilter,
-        searchTerm: searchTerm.trim() || undefined,
+        searchTerm: (searchTerm ?? "").trim() || undefined,
       };
 
   const {
@@ -68,8 +68,10 @@ export function Maintainers() {
     }
 
     // Apply search filter
-    if (searchTerm.trim()) {
-      filtered = filtered.filter((profile) => FullDeveloperProfileCompanion.matchesSearchTerm(profile, searchTerm));
+    if ((searchTerm ?? "").trim()) {
+      filtered = filtered.filter((profile) =>
+        FullDeveloperProfileCompanion.matchesSearchTerm(profile, searchTerm ?? "")
+      );
     }
 
     return filtered;
@@ -267,7 +269,7 @@ export function Maintainers() {
                   <Input
                     type="text"
                     placeholder="Search by name, email, or project..."
-                    value={searchTerm}
+                    value={searchTerm ?? ""}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 bg-[#14233A] border-brand-neutral-700 text-white"
                   />

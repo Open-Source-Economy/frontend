@@ -16,7 +16,7 @@ export function RepositorySyncPage() {
   const [repositories, setRepositories] = useState<RepositoryWithSyncState[]>([]);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isBulkSyncing, setIsBulkSyncing] = useState(false);
   const [bulkSyncProgress, setBulkSyncProgress] = useState<{ current: number; total: number } | null>(null);
@@ -177,7 +177,7 @@ export function RepositorySyncPage() {
 
   const filteredRepositories = repositories.filter((repo) => {
     if (!searchTerm) return true;
-    const searchLower = searchTerm.toLowerCase();
+    const searchLower = (searchTerm ?? "").toLowerCase();
     const name = repo.repository?.id.name?.toLowerCase() || "";
     const fullName = repo.repository?.fullName?.toLowerCase() || "";
     const description = repo.repository?.description?.toLowerCase() || "";
@@ -226,7 +226,7 @@ export function RepositorySyncPage() {
 
           {/* Search and Bulk Actions */}
           <BulkSyncControls
-            searchTerm={searchTerm}
+            searchTerm={searchTerm ?? ""}
             onSearchChange={setSearchTerm}
             msPerRepo={msPerRepo}
             onMsPerRepoChange={setMsPerRepo}

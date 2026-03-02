@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { faqData } from "src/views/pages/faq/data/faqData";
 
 export function useFAQFilter() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredData = useMemo(() => {

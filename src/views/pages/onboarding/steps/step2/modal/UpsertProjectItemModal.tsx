@@ -64,7 +64,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
   const removeProjectItem = onboardingHooks.useRemoveProjectItemMutation();
 
   const [isBulkMode, setIsBulkMode] = useState(false);
-  const [bulkUrls, setBulkUrls] = useState("");
+  const [bulkUrls, setBulkUrls] = useState<string | null>(null);
   const [bulkErrors, setBulkErrors] = useState<string | undefined>();
 
   // Category states (not in RHF since they're optional arrays with custom UI)
@@ -97,11 +97,11 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
 
   // Memoize validation result to avoid recalculating on every render
   const bulkValidationResult = useMemo(() => {
-    if (!isBulkMode || !bulkUrls.trim() || !selectedProjectType) {
+    if (!isBulkMode || !(bulkUrls ?? "").trim() || !selectedProjectType) {
       return null;
     }
     return BulkProjectUrlParser.validateBulkUrls(
-      bulkUrls,
+      bulkUrls ?? "",
       selectedProjectType as dto.ProjectItemType,
       props.existingProjects || [],
       props.entry,
@@ -136,7 +136,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
     // Reset bulk mode when modal opens/closes
     if (props.show) {
       setIsBulkMode(false);
-      setBulkUrls("");
+      setBulkUrls(null);
       setBulkErrors(undefined);
     }
     form.clearErrors();
@@ -503,7 +503,7 @@ export function UpsertProjectItemModal(props: UpsertProjectItemModalProps) {
                     hint={urlConfig.bulkHint}
                   >
                     <Textarea
-                      value={bulkUrls}
+                      value={bulkUrls ?? ""}
                       onChange={(e) => {
                         setBulkUrls(e.target.value);
                         setBulkErrors(undefined);

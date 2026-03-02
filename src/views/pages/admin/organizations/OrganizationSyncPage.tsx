@@ -17,7 +17,7 @@ export function OrganizationSyncPage() {
   const [organizations, setOrganizations] = useState<OrganizationWithSyncState[]>([]);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isBulkSyncing, setIsBulkSyncing] = useState(false);
   const [bulkSyncProgress, setBulkSyncProgress] = useState<{ current: number; total: number } | null>(null);
@@ -216,7 +216,7 @@ export function OrganizationSyncPage() {
 
   const filteredOrganizations = organizations.filter((org) => {
     if (!searchTerm) return true;
-    const searchLower = searchTerm.toLowerCase();
+    const searchLower = (searchTerm ?? "").toLowerCase();
     const login = (org.owner?.id?.login ?? "").toLowerCase();
     const name = org.owner?.name?.toLowerCase() || "";
     return login.includes(searchLower) || name.includes(searchLower);
@@ -258,7 +258,7 @@ export function OrganizationSyncPage() {
 
           {/* Search and Bulk Actions */}
           <BulkSyncControls
-            searchTerm={searchTerm}
+            searchTerm={searchTerm ?? ""}
             onSearchChange={setSearchTerm}
             msPerRepo={msPerRepo}
             onMsPerRepoChange={setMsPerRepo}

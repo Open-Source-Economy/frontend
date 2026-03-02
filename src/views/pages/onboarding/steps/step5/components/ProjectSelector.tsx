@@ -10,7 +10,7 @@ interface ProjectSelectorProps {
 }
 
 export function ProjectSelector(props: ProjectSelectorProps) {
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = React.useState<string | null>(null);
   const [showDropdown, setShowDropdown] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const safeProjects = props.projects || [];
@@ -32,9 +32,9 @@ export function ProjectSelector(props: ProjectSelectorProps) {
 
   // Filter projects based on search query
   const filteredProjects = React.useMemo(() => {
-    if (!searchQuery.trim()) return safeProjects;
+    if (!(searchQuery ?? "").trim()) return safeProjects;
 
-    const query = searchQuery.toLowerCase();
+    const query = (searchQuery ?? "").toLowerCase();
     return safeProjects.filter((projectEntry) => {
       const projectName = SourceIdentifierCompanion.displayName(
         projectEntry.projectItem.sourceIdentifier
@@ -91,7 +91,7 @@ export function ProjectSelector(props: ProjectSelectorProps) {
   const filteredSelectedCount = filteredProjects.filter((p) =>
     safeSelectedIds.some((id) => id === p.developerProjectItem.id)
   ).length;
-  const isFiltering = searchQuery.trim().length > 0;
+  const isFiltering = (searchQuery ?? "").trim().length > 0;
 
   return (
     <div className="space-y-3">
@@ -128,7 +128,7 @@ export function ProjectSelector(props: ProjectSelectorProps) {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-neutral-500 pointer-events-none" />
         <input
           type="text"
-          value={searchQuery}
+          value={searchQuery ?? ""}
           onChange={(e) => {
             setSearchQuery(e.target.value);
             setShowDropdown(true);
