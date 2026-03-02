@@ -93,5 +93,5 @@ export class AuthBackendAPIMock implements AuthBackendAPI {
 const repositoryInfo: dto.RepositoryInfo = {
   role: dto.RepositoryUserRole.ADMIN,
   rate: "1000",
-  currency: "USD",
+  currency: dto.Currency.USD,
 };

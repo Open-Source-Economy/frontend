@@ -1,4 +1,5 @@
 import React from "react";
+import * as dto from "@open-source-economy/api-types";
 import { Link } from "@tanstack/react-router";
 import { Button } from "src/views/components/ui/forms/button";
 import { Plus } from "lucide-react";
@@ -114,7 +115,7 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
               asChild
               className="bg-brand-accent hover:bg-brand-accent-dark text-white shadow-lg shadow-brand-accent/25 hover:shadow-xl hover:shadow-brand-accent/30 transition-all"
             >
-              <Link to={"/contact" as string} search={{ reason: "request-project" }}>
+              <Link to={"/contact" as string} search={{ reason: dto.ContactReason.REQUEST_PROJECT }}>
                 <Plus className="w-4 h-4 mr-2" />
                 {v.primaryCta}
               </Link>
@@ -149,7 +150,7 @@ export function RequestProjectSection(props: RequestProjectSectionProps) {
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button asChild className="bg-brand-accent hover:bg-brand-accent-dark text-white">
-            <Link to={"/contact" as string} search={{ reason: "request-project" }}>
+            <Link to={"/contact" as string} search={{ reason: dto.ContactReason.REQUEST_PROJECT }}>
               <Plus className="w-4 h-4 mr-2" />
               {v.primaryCta}
             </Link>
