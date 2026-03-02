@@ -140,7 +140,6 @@ export function RepositorySyncPage() {
       setBulkSyncCompleted((prev) => new Set(prev).add(projectItemId));
 
       if (i < selectedRepos.length - 1) {
-        console.log(`Waiting ${msPerRepo}ms before next sync...`);
         await new Promise((resolve) => setTimeout(resolve, msPerRepo));
       }
     }

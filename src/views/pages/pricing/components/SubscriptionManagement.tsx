@@ -17,15 +17,15 @@ export function SubscriptionManagement(props: SubscriptionManagementProps) {
   const benefits = getActiveBenefits(props.currentPlanTier);
 
   const handleDownloadInvoices = () => {
-    console.log("Download invoices");
+    // TODO: Implement invoice download
   };
 
   const handleUpdatePayment = () => {
-    console.log("Update payment method");
+    // TODO: Implement payment method update
   };
 
   const handleManageSubscription = () => {
-    console.log("Open customer portal");
+    // TODO: Implement customer portal redirect
   };
 
   return (

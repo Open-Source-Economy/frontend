@@ -40,8 +40,7 @@ export function PricingPage(_props: PricingPageProps) {
     }
   }, [userPlan]);
 
-  const handlePlanClick = (planId: dto.PlanProductType) => {
-    console.log("Plan selected:", planId);
+  const handlePlanClick = (_planId: dto.PlanProductType) => {
     // TODO: Implement checkout redirection logic
   };
 

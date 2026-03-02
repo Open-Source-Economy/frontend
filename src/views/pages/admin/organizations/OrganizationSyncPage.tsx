@@ -179,7 +179,6 @@ export function OrganizationSyncPage() {
       setBulkSyncCompleted((prev) => new Set(prev).add(projectItemId));
 
       if (i < selectedOrgs.length - 1) {
-        console.log(`Waiting ${waitTime}ms (${org.owner!.publicRepos} repos) before next sync...`);
         await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }

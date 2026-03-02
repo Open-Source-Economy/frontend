@@ -170,8 +170,7 @@ export function Step5(props: Step5Props) {
   };
 
   const handleAddCustomService = () => {
-    // Open custom service creation modal or inline form
-    console.log("Add custom service");
+    // TODO: Open custom service creation modal or inline form
   };
 
   const handleUpdateService = (updatedDevService: dto.DeveloperService) => {
