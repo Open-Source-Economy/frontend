@@ -1,0 +1,219 @@
+# service_providers.yml — Open source project funding and services configuration
+#
+# Place this file at the root of your open-source repository to declare
+# who maintains the project, who supports it, what paid services are
+# available, and how revenue is distributed.
+#
+# This file is platform-agnostic. It can be consumed by any funding
+# platform (Open Source Economy, Open Collective, Tidelift, etc.).
+#
+# For full documentation, see the README.md in this directory.
+
+version: 1
+
+# ---------------------------------------------------------------
+# Service providers
+# ---------------------------------------------------------------
+# People or companies who offer paid professional services to enterprises.
+# Two types: "individual" (a freelancer) or "company" (with multiple members).
+
+service_providers:
+  # ── Individual (freelancer) ─────────────────────────────────────
+  - type: "individual"
+    github: "alice"
+    currency: "eur" # usd | eur | gbp | chf
+    hourly_rate: 150 # Default hourly rate (1-1000)
+    weekly_commitment: 10 # Hours per week available (1-80)
+
+    #    # Optional: how they participate in the project's economy
+    #    participation:
+    #      service_provider: "yes" # Offers paid services (yes | maybe_later | not_interested)
+    #      funded_maintainer: "yes" # Accepts shared revenue from the common pot
+    #      community_supporter: "maybe_later" # Accepts community sponsorships / donations
+
+    # Optional: personal company / sole proprietorship
+    company:
+      name: "Alice Consulting"
+      tax_id: "CHE-123.456.789"
+      country: "CH"
+
+    # Optional: how to reach this service provider
+    contact:
+      email: "alice@example.com"
+      website: "https://alice.dev" # Optional
+      calendar: "https://cal.com/alice" # Optional: book a meeting
+      discord: "alice#1234" # Optional
+      slack: "https://my-project.slack.com" # Optional
+
+    # Optional: professional commitments
+    compliance:
+      nda: true
+      dpa: false
+      security_clearance: false
+      professional_insurance: false
+
+    # Optional: give back more than the project minimum
+    giveback:
+      - type: "project_fund"
+        percent: 20 # Above the 15% minimum
+      - type: "dependencies_fund"
+        percent: 15 # Above the 10% minimum
+      # Total: 35% — Alice keeps 65%
+
+    services:
+      - type: "support"
+        sub_services:
+          - name: "Bug Fixes"
+            hourly_rate: 150 # Optional: override the default rate
+            response_time: "1_business_day"
+          - name: "New Features"
+          - name: "Code Maintenance"
+
+      - type: "advisory"
+        sub_services:
+          - name: "Architecture Design"
+          - name: "Security & Performance"
+
+  # ── Company with multiple maintainers ─────────────────────────
+  - type: "company"
+    company:
+      name: "Acme Open Source GmbH"
+      tax_id: "DE123456789"
+      country: "DE"
+      address: "Hauptstrasse 1, 10115 Berlin" # Optional
+    currency: "eur"
+    hourly_rate: 200 # Default rate for the company
+
+    contact:
+      email: "support@acme-oss.de"
+      website: "https://acme-oss.de"
+      calendar: "https://cal.com/acme-oss"
+
+    compliance:
+      nda: true
+      dpa: true
+      professional_insurance: true
+
+    # Members who deliver services under this company
+    members:
+      - github: "bob"
+        weekly_commitment: 20
+      - github: "carol"
+        weekly_commitment: 10
+        hourly_rate: 180 # Optional: override the company default
+
+    services:
+      - type: "development"
+        sub_services:
+          - name: "Technical Assistance"
+            response_time: "4_hours"
+          - name: "Deployment Guidance"
+          - name: "Customer Support"
+
+      - type: "security_and_compliance"
+        sub_services:
+          - name: "Incident Response"
+            hourly_rate: 300
+            response_time: "4_hours"
+          - name: "Proactive Monitoring"
+
+      - type: "custom"
+        sub_services:
+          - name: "Migration to v2"
+            hourly_rate: 175
+            comment: "Help migrating from v1 to v2 API"
+
+# ---------------------------------------------------------------
+# Minimum giveback
+# ---------------------------------------------------------------
+# The minimum percentage of revenue that every service provider must
+# redistribute when earning on this project. This is the project's
+# baseline contribution — decided collectively by the community.
+#
+# The remainder goes to the service provider who performed the work.
+# Service providers can choose to give more, but never less.
+#
+# All entries are optional. If omitted, 100% goes to the service provider.
+# The sum of all min_percent values must not exceed 100.
+
+minimum_giveback:
+  - type: "project_fund" # This project's common pot
+    min_percent: 15
+  - type: "dependencies_fund" # Upstream dependencies' common pot
+    min_percent: 10
+  - type: "external" # An external entity (foundation, fiscal host, etc.)
+    url: "https://opencollective.com/my-project"
+    min_percent: 5
+  # Total: 30% redistributed, service provider keeps at least 70%
+
+# ---------------------------------------------------------------
+# Reference: allowed values
+# ---------------------------------------------------------------
+#
+# currency:
+#   usd, eur, gbp, chf
+#
+# participation (all optional, values: yes | maybe_later | not_interested):
+#   service_provider:    offers paid professional services
+#   funded_maintainer:   accepts shared revenue from the common pot
+#   community_supporter: accepts community sponsorships / donations
+#
+# type (service categories):
+#   support, development, advisory, security_and_compliance, custom
+#
+# sub_services name (per category):
+#
+#   support:
+#     - "Bug Fixes"
+#     - "New Features"
+#     - "Code Maintenance"
+#
+#   development:
+#     - "Technical Assistance"
+#     - "Deployment Guidance"
+#     - "Customer Support"
+#
+#   security_and_compliance:
+#     - "Incident Response"
+#     - "Proactive Monitoring"
+#     - "24/7 Supervision"
+#
+#   advisory:
+#     - "Architecture Design"
+#     - "Technology Assessment"
+#     - "Security & Performance"
+#
+#   custom:
+#     - Any name you choose
+#
+# response_time:
+#   none, 4_hours, 12_hours, 1_business_day, 2_business_day,
+#   3_business_day, 4_business_day, 5_business_day, 7_business_day
+#
+# hourly_rate: 1-1000
+# weekly_commitment: 1-80
+#
+# contact (all optional):
+#   email:      contact email address
+#   website:    personal or company website
+#   calendar:   booking link (e.g. Cal.com, Calendly)
+#   discord:    Discord username or invite link
+#   slack:      Slack workspace link
+#   linkedin:   LinkedIn profile URL
+#   twitter:    Twitter/X handle or URL
+#
+# compliance (all booleans, all optional, default false):
+#   nda:                    Willing to sign an NDA
+#   dpa:                    Willing to sign a Data Processing Agreement
+#   security_clearance:     Has or can obtain security clearance
+#   professional_insurance: Carries professional liability insurance
+#
+# minimum_giveback / giveback:
+#   The project sets minimum_giveback (floors).
+#   Service providers can override with giveback (must meet or exceed).
+#
+#   recipient types:
+#     project_fund:       This project's common pot / treasury
+#     dependencies_fund:  Shared fund for upstream dependencies
+#     external:           An external entity (requires url field)
+#                         e.g. Open Collective, a foundation, a fiscal host
