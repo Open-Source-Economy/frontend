@@ -2,13 +2,6 @@ import * as dto from "@open-source-economy/api-types";
 import { api, handleError } from "src/services/apiClient";
 import { config } from "src/utils";
 
-export interface CreatePortalSessionBody {
-  returnUrl: string;
-}
-export interface CreatePortalSessionResponse {
-  url: string;
-}
-
 export interface StripeService {
   getPlans(params: dto.GetPlansParams, query: dto.GetPlansQuery): Promise<dto.GetPlansResponse>;
 
@@ -22,7 +15,11 @@ export interface StripeService {
     query: dto.SetPreferredCurrencyQuery
   ): Promise<dto.SetPreferredCurrencyResponse>;
 
-  createPortalSession(body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse>;
+  createPortalSession(
+    params: dto.CreatePortalSessionParams,
+    body: dto.CreatePortalSessionBody,
+    query: dto.CreatePortalSessionQuery
+  ): Promise<dto.CreatePortalSessionResponse>;
 }
 
 export const stripeServiceImpl: StripeService = {
@@ -54,7 +51,7 @@ export const stripeServiceImpl: StripeService = {
     );
   },
 
-  async createPortalSession(body) {
+  async createPortalSession(_params, body, _query) {
     return handleError(
       () => api.post(`${config.api.url}/stripe/portal`, body, { withCredentials: true }),
       "createPortalSession"

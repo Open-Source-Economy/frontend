@@ -33,7 +33,10 @@ export function PricingPage(_props: PricingPageProps) {
 
   useEffect(() => {
     if (userPlan) {
-      setCurrentPlanTier(null);
+      setCurrentPlanTier(userPlan.productType ?? null);
+      if (userPlan.priceType) {
+        setCurrentPlanBilling(userPlan.priceType);
+      }
     }
   }, [userPlan]);
 

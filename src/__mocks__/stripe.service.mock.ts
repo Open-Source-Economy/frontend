@@ -1,5 +1,5 @@
 import * as dto from "@open-source-economy/api-types";
-import { CreatePortalSessionBody, CreatePortalSessionResponse, StripeService } from "src/services/stripe.service";
+import { StripeService } from "src/services/stripe.service";
 
 export const stripeServiceMock: StripeService = {
   async getPlans(_params, _query) {
@@ -76,7 +76,7 @@ export const stripeServiceMock: StripeService = {
     return {};
   },
 
-  async createPortalSession(_body: CreatePortalSessionBody): Promise<CreatePortalSessionResponse> {
-    return Promise.resolve({ url: "https://billing.stripe.com/p/session/test_123" });
+  async createPortalSession(_params, _body, _query) {
+    return { url: "https://billing.stripe.com/p/session/test_123" };
   },
 };

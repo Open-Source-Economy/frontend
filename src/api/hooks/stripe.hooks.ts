@@ -1,6 +1,6 @@
 import * as dto from "@open-source-economy/api-types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { stripeService, CreatePortalSessionBody, CreatePortalSessionResponse } from "src/services";
+import { stripeService } from "src/services";
 
 const STRIPE_QUERY_KEY = ["stripe"] as const;
 
@@ -34,8 +34,12 @@ export const stripeHooks = {
   },
 
   useCreatePortalSessionMutation() {
-    return useMutation<CreatePortalSessionResponse, Error, { body: CreatePortalSessionBody }>({
-      mutationFn: ({ body }) => stripeService.createPortalSession(body),
+    return useMutation<
+      dto.CreatePortalSessionResponse,
+      Error,
+      { params: dto.CreatePortalSessionParams; body: dto.CreatePortalSessionBody; query: dto.CreatePortalSessionQuery }
+    >({
+      mutationFn: ({ params, body, query }) => stripeService.createPortalSession(params, body, query),
     });
   },
 
