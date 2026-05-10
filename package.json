@@ -115,8 +115,11 @@
     "lint:check": "eslint .",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
-    "ci": "npm run fmt && npm run lint && npm run build",
-    "ci:check": "npm run fmt:check && npm run lint:check && npm run build"
+    "test": "jest",
+    "ci": "npm run fmt && npm run lint && npm run build && npm test",
+    "ci:check": "npm run fmt:check && npm run lint:check && npm run build && npm test",
+    "ci:quick": "npm run fmt && npm run lint && npm run build",
+    "ci:quick:check": "npm run fmt:check && npm run lint:check && npm run build"
   },
   "browserslist": {
     "production": [
