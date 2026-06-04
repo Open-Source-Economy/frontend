@@ -1,3 +1,73 @@
+# service_providers.yml
+# Who maintains this project, who you can hire, and how revenue is shared.
+# Platform-agnostic: any funding platform (or a human) can read this.
+# Full field reference lives in the README — this file stays short on purpose.
+
+version: 2
+
+# ---------------------------------------------------------------
+# Redistribution — set by the project, collectively.
+# The FLOOR every provider must meet when they earn on this project.
+# Whatever is left after these percentages is what the provider keeps
+# (it can never go below zero — the sum here must not exceed 100).
+# ---------------------------------------------------------------
+redistribution:
+  project_fund: 15        # this project's common pot
+  dependencies_fund: 10   # shared pot for upstream dependencies
+  external:               # optional — an outside entity (fiscal host, foundation)
+    - url: https://opencollective.com/my-project
+      percent: 5
+  # Floor: 30% redistributed, provider keeps at least 70%.
+
+# ---------------------------------------------------------------
+# Providers — people or companies you can hire.
+# Required: type, name, one canonical link (github OR website), contact.
+# Everything else is optional.
+# ---------------------------------------------------------------
+providers:
+
+  # ── An individual maintainer — minimal entry ──
+  - type: individual
+    name: Alice
+    github: alice                  # her canonical link
+    contact: alice@example.com     # email or URL — one is enough
+    services: [support, advisory]
+
+  # ── An individual who gives more than the floor ──
+  - type: individual
+    name: Dan
+    github: dan
+    contact: https://cal.com/dan
+    services: [support]
+    redistribution:                # optional override — must be ≥ the floor
+      project_fund: 20
+      dependencies_fund: 15
+
+  # ── A company — no GitHub org required ──
+  - type: company
+    name: Acme Open Source GmbH
+    website: https://acme-oss.de    # the company's canonical link
+    github: acme-oss                # optional, if they have one
+    contact: https://cal.com/acme-oss
+    services: [development, security_and_compliance]
+    response_time: 4_hours          # general SLA for this provider
+    compliance: [nda, dpa]          # only true flags listed; absence = false
+    members:                        # optional — only meaningful for companies
+      - { name: Bob, github: bob }
+      - { name: Carol, github: carol }
+
+# ---------------------------------------------------------------
+# Reference (allowed values)
+# ---------------------------------------------------------------
+# type:          individual | company
+# services:      support | development | advisory
+#                security_and_compliance | custom
+# response_time: 4_hours | 12_hours | 1_business_day | 2_business_day
+#                | ... | 7_business_day
+# compliance:    nda | dpa | security_clearance | professional_insurance
+# redistribution recipients: project_fund | dependencies_fund | external (needs url)
+
+
 # service_providers.yml — Open source project funding and services configuration
 #
 # Place this file at the root of your open-source repository to declare
