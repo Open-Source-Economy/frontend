@@ -17,6 +17,7 @@ import { Route as ProjectItemsDetailsRouteImport } from "./routes/project-items-
 import { Route as PrivacyRouteImport } from "./routes/privacy"
 import { Route as PricingRouteImport } from "./routes/pricing"
 import { Route as LogoutRouteImport } from "./routes/logout"
+import { Route as ImprintRouteImport } from "./routes/imprint"
 import { Route as FaqRouteImport } from "./routes/faq"
 import { Route as DeveloperRouteImport } from "./routes/developer"
 import { Route as ContactRouteImport } from "./routes/contact"
@@ -85,6 +86,11 @@ const PricingRoute = PricingRouteImport.update({
 const LogoutRoute = LogoutRouteImport.update({
   id: "/logout",
   path: "/logout",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImprintRoute = ImprintRouteImport.update({
+  id: "/imprint",
+  path: "/imprint",
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -246,6 +252,7 @@ export interface FileRoutesByFullPath {
   "/contact": typeof ContactRoute
   "/developer": typeof DeveloperRoute
   "/faq": typeof FaqRoute
+  "/imprint": typeof ImprintRoute
   "/logout": typeof LogoutRoute
   "/pricing": typeof PricingRoute
   "/privacy": typeof PrivacyRoute
@@ -283,6 +290,7 @@ export interface FileRoutesByTo {
   "/contact": typeof ContactRoute
   "/developer": typeof DeveloperRoute
   "/faq": typeof FaqRoute
+  "/imprint": typeof ImprintRoute
   "/logout": typeof LogoutRoute
   "/pricing": typeof PricingRoute
   "/privacy": typeof PrivacyRoute
@@ -323,6 +331,7 @@ export interface FileRoutesById {
   "/contact": typeof ContactRoute
   "/developer": typeof DeveloperRoute
   "/faq": typeof FaqRoute
+  "/imprint": typeof ImprintRoute
   "/logout": typeof LogoutRoute
   "/pricing": typeof PricingRoute
   "/privacy": typeof PrivacyRoute
@@ -363,6 +372,7 @@ export interface FileRouteTypes {
     | "/contact"
     | "/developer"
     | "/faq"
+    | "/imprint"
     | "/logout"
     | "/pricing"
     | "/privacy"
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | "/contact"
     | "/developer"
     | "/faq"
+    | "/imprint"
     | "/logout"
     | "/pricing"
     | "/privacy"
@@ -439,6 +450,7 @@ export interface FileRouteTypes {
     | "/contact"
     | "/developer"
     | "/faq"
+    | "/imprint"
     | "/logout"
     | "/pricing"
     | "/privacy"
@@ -479,6 +491,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DeveloperRoute: typeof DeveloperRoute
   FaqRoute: typeof FaqRoute
+  ImprintRoute: typeof ImprintRoute
   LogoutRoute: typeof LogoutRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -553,6 +566,13 @@ declare module "@tanstack/react-router" {
       path: "/logout"
       fullPath: "/logout"
       preLoaderRoute: typeof LogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/imprint": {
+      id: "/imprint"
+      path: "/imprint"
+      fullPath: "/imprint"
+      preLoaderRoute: typeof ImprintRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/faq": {
@@ -818,6 +838,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DeveloperRoute: DeveloperRoute,
   FaqRoute: FaqRoute,
+  ImprintRoute: ImprintRoute,
   LogoutRoute: LogoutRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
