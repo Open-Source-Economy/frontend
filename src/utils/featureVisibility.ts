@@ -32,9 +32,6 @@ export const envGroups = {
  * Specify an array of environments where each feature should be visible
  */
 export const features = {
-  /** Newsletter subscription demo toggle in footer */
-  newsletterDemoToggle: envGroups.nonProduction,
-
   /** Authenticated user menu (avatar, tokens, dropdown) */
   authenticatedUserMenu: envGroups.localAndDev,
 
