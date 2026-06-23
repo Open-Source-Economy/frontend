@@ -8,9 +8,7 @@ import { communicationHooks } from "src/api";
 import { useZodForm, Form, RhfFormInput } from "src/views/components/ui/forms/rhf";
 import { newsletterFormSchema, type NewsletterFormData } from "src/views/components/ui/forms/schemas";
 
-interface NewsletterSectionProps {}
-
-export function NewsletterSection(_props: NewsletterSectionProps) {
+export function NewsletterSection() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const form = useZodForm(newsletterFormSchema, {
@@ -67,14 +65,7 @@ export function NewsletterSection(_props: NewsletterSectionProps) {
         {/* Error State */}
         {error && (
           <div className="mb-4">
-            <ServerErrorAlert
-              variant="compact"
-              message={
-                error.message || "Subscription failed. Please try again later or contact support@opensourceeconomy.org"
-              }
-              showDismiss
-              onDismiss={handleErrorDismiss}
-            />
+            <ServerErrorAlert variant="compact" error={error} showDismiss onDismiss={handleErrorDismiss} />
           </div>
         )}
 
