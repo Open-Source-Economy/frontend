@@ -40,6 +40,7 @@ export const navigationLinks = {
     icon: <BookOpen className="w-4 h-4" />,
   } as NavigationLink,
   contact: { title: "Contact", href: "/contact", icon: <Mail className="w-4 h-4" /> } as NavigationLink,
+  imprint: { title: "Imprint", href: "/imprint", icon: <FileText className="w-4 h-4" /> } as NavigationLink,
   support: { title: "Support", href: "/sponsorship", icon: <LifeBuoy className="w-4 h-4" /> } as NavigationLink,
   login: { title: "Log In", href: "/auth/identify", icon: <LogIn className="w-4 h-4" /> } as NavigationLink,
 
@@ -137,6 +138,7 @@ export const footerNavigation = {
       title: "Company",
       links: [
         navigationLinks.contact,
+        navigationLinks.imprint,
         // navigationLinks.about,
         // navigationLinks.privacy,
       ],
